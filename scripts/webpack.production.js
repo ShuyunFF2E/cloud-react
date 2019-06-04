@@ -10,10 +10,10 @@ module.exports = () => ({
 	devtool: 'none',
 	module: {
 		rules: [
-			{
-				test: /\.(css|less)$/,
-				use: [MiniCssExtractPlugin.loader, 'css', 'less']
-			}
+			// {
+			// 	test: /\.(le|c)ss$/,
+			// 	use: [MiniCssExtractPlugin.loader, 'css', 'less']
+			// }
 		]
 	},
 	entry: {

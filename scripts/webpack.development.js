@@ -22,7 +22,7 @@ module.exports = () => ({
 	devServer,
 	devtool: 'cheap-module-eval-source-map',
 	entry: {
-		'component': './demos/app.js'
+		'app': './demos/index.js'
 	},
 	output: {
 		publicPath,
@@ -30,12 +30,7 @@ module.exports = () => ({
 	},
 	bail: true,
 	module: {
-		rules: [
-			{
-				test: /\.(css|less)$/,
-				use: ['style', 'css', 'less']
-			}
-		]
+		// rules: []
 	},
 	plugins: [
 		new webpack.HotModuleReplacementPlugin()

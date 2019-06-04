@@ -20,6 +20,7 @@ module.exports = ({ mode } = { mode: 'development' }) => {
 				extensions: ['.js']
 			},
 			resolveLoader: {
+				modules: ['node_modules', path.join(__dirname, './scripts/loaders')],
 				moduleExtensions: ['-loader']
 			},
 			module: {
@@ -28,23 +29,6 @@ module.exports = ({ mode } = { mode: 'development' }) => {
 						test: /\.js$/,
 						exclude: /node_modules/,
 						use: ['babel', 'eslint']
-					},
-					{
-						test: /\.tpl\.html$/,
-						exclude: /node_modules/,
-						use: [
-							{
-								loader: 'html',
-								options: {
-									minimize: true
-								}
-							}
-						]
-					},
-					{
-						test: /\.url\.html$/,
-						exclude: /node_modules/,
-						loader: 'file'
 					},
 					{
 						test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
@@ -61,6 +45,25 @@ module.exports = ({ mode } = { mode: 'development' }) => {
 							limit: 10000,
 							name: '[name]-[hash:7].[ext]'
 						}
+					},
+					{
+						test: /\.(le|c)ss$/,
+						use: [
+							'style',
+							{
+								loader: 'css',
+								options: {
+									modules: true,
+									camelCase: true,
+									localIdentName: '[local]_[hash:base64:5]'
+								}
+							},
+							'less'
+						]
+					},
+					{
+						test: /\.js$/,
+						use: 'dynamic-example-loader'
 					}
 				]
 			},
