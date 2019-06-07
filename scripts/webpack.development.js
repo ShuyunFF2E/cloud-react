@@ -30,7 +30,10 @@ module.exports = () => ({
 	},
 	bail: true,
 	module: {
-		// rules: []
+		rules: [{
+			test: /\.md$/,
+			use: 'frontmatter-markdown'
+		}]
 	},
 	plugins: [
 		new webpack.HotModuleReplacementPlugin()

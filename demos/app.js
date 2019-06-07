@@ -1,51 +1,81 @@
+/* eslint-disable */
 import React from 'react';
-import { Switch, Route, NavLink } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
+
+/* <% dynamicDocs begin %> */
+/**
+ * import  abc './abc.md'
+ * import ...
+ *
+ * const docs = [
+ * 	{ path: '/abc', label: 'abc', result: abc },
+ * 	...
+ * ]
+ *
+ */
+/* <% dynamicDocs end %> */
+
+import Menu from './components/menu';
+import Markdown from './components/markdown';
 import classes from './app.less';
 
-/* <% dynamicExample begin %> */
+const menuConf = {};
+const routeViews = [];
 
-/* eslint-disable */
+/**
+ * docs 这个变量是生成的
+ * 注意那段的注释
+ */
+docs.forEach(({ path, result }, key) => {
+	const { html, attributes: { title, subtitle, order, category = '' } } = result;
+	const routePath = `/${category}${path}`.replace(/\/+/g, '/').toLocaleLowerCase();
 
-// import Demo from './demo'
+	if (!menuConf[category]) {
+		menuConf[category] = {
+			title: category,
+			subMenu: []
+		};
+	}
 
-// const menus = [
-// 	{ path: '/demo', label: 'Demo', component: Demo }
-// ]
+	menuConf[category].subMenu.push({
+		title,
+		order,
+		subtitle,
+		path: routePath
+	})
 
-/* <% dynamicExample end %> */
-const menuView = [];
-const routeView = [];
-
-menus.forEach(({ label, path, component }, key) => {
-	routeView.push(<Route path={path} component={component} key={key} />);
-	menuView.push(
-		<NavLink
-			to={path}
+	routeViews.push(
+		<Route
 			key={key}
-			className={classes.menuItem}
-			activeClassName={classes.activeLink}
-		>{label}</NavLink>
+			path={routePath}
+			component={() => <Markdown title={title} html={html} />} />
 	);
 });
 
-function Menu({ children, ...props }) {
-	return (
-		<div className={classes.menu}>
-			{children}
-		</div>
-	);
-}
 
 function App() {
+	const infinity = Math.pow(2, 32);
+	const menuDataSource = [];
+
+	Object.keys(menuConf).map(key => {
+		if (!key) {
+			menuDataSource.push(...menuConf[key].subMenu);
+		} else {
+			menuDataSource.push(menuConf[key]);
+		}
+	});
+
+	menuDataSource.sort(({ order: pOrder = infinity }, { order: nOrder = infinity }) => {
+		return pOrder - nOrder;
+	});
+
 	return (
 		<section className={classes.app}>
-			<Menu>
-				{menuView}
-			</Menu>
+			<Menu dataSource={menuDataSource} />
 
 			<div className={classes.content}>
 				<Switch>
-					{routeView}
+					{routeViews}
 				</Switch>
 			</div>
 		</section>

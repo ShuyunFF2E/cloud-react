@@ -14,7 +14,9 @@ module.exports = ({ mode } = { mode: 'development' }) => {
 			mode,
 			resolve: {
 				alias: {
-					'@utils': resolve('./src/utils/')
+					'@utils': resolve('./src/utils/'),
+					'@components': resolve('./src/components'),
+					'@docs': resolve('./docs')
 				},
 				modules: [resolve(__dirname, './src'), 'node_modules'],
 				extensions: ['.js']
@@ -63,7 +65,13 @@ module.exports = ({ mode } = { mode: 'development' }) => {
 					},
 					{
 						test: /\.js$/,
-						use: 'dynamic-example-loader'
+						loader: 'dynamic-docs-loader',
+						options: {
+							target: [
+								{ path: resolve('./docs'), importPath: '@docs' },
+								{ path: resolve('./src/components'), importPath: '@components' },
+							]
+						}
 					}
 				]
 			},
