@@ -1,6 +1,6 @@
 /* eslint-disable */
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 /* <% dynamicDocs begin %> */
 /**
@@ -58,16 +58,13 @@ function App() {
 	const menuDataSource = [];
 
 	Object.keys(menuConf).map(key => {
-		if (!key) {
-			menuDataSource.push(...menuConf[key].subMenu);
-		} else {
-			menuDataSource.push(menuConf[key]);
-		}
+		!key
+			? menuDataSource.push(...menuConf[key].subMenu)
+			: menuDataSource.push(menuConf[key]);
 	});
+	menuDataSource.sort(({ order: p = infinity }, { order: n = infinity }) => p - n);
 
-	menuDataSource.sort(({ order: pOrder = infinity }, { order: nOrder = infinity }) => {
-		return pOrder - nOrder;
-	});
+	const [first] = menuDataSource;
 
 	return (
 		<section className={classes.app}>
@@ -76,6 +73,7 @@ function App() {
 			<div className={classes.content}>
 				<Switch>
 					{routeViews}
+					<Redirect to={first.path ? first.path : first.subMenu[0].path} />
 				</Switch>
 			</div>
 		</section>

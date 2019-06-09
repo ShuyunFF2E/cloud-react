@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import mixClass from 'classnames';
 import classes from './index.less';
 
@@ -40,6 +40,10 @@ export default function Menu({ dataSource }) {
 
 	const [activeKey, setActiveKey] = useState(getHash());
 	const onChangeActiveKey = ({ target }) => setActiveKey(getHash(target.href));
+
+	useEffect(() => {
+		setActiveKey(getHash());
+	}, []);
 
 	return (
 		<div className={classes.menu}>
