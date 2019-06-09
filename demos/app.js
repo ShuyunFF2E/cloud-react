@@ -48,7 +48,7 @@ docs.forEach(({ path, result }, key) => {
 		<Route
 			key={key}
 			path={routePath}
-			component={() => <Markdown title={title} html={html} />} />
+			component={() => <Markdown title={title} subtitle={subtitle} html={html} />} />
 	);
 });
 

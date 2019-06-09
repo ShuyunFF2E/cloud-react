@@ -1,6 +1,6 @@
 ---
 category: Components
-title: Button
+title: ButtonTest
 subtitle: 按钮
 ---
 
