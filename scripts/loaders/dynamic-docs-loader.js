@@ -2,11 +2,16 @@ const fs = require('fs');
 const path = require('path');
 const getOptions = require('loader-utils').getOptions;
 
+const resolve = (...a) => path.resolve(...a).replace(/^[^@]+@/, '@');
+
 const regexpGen = /\/\* <% dynamicDocs begin %> \*\/[\w\W]*\/\* <% dynamicDocs end %> \*\//;
 const markdownFileGen = /\w+\.md$/;
 
 function combinationName(name) {
 	return name.replace(/-(\w)/g, (s, $1) => $1.toUpperCase());
+}
+function  transformName(name) {
+	return name.replace(/^(\w)/, (s, $1) => $1.toUpperCase());
 }
 
 function fsExistsSync(path) {
@@ -18,31 +23,51 @@ function fsExistsSync(path) {
 	return true;
 }
 
-function scanningTargetPath({ path: context, importPath, filename = 'index.md' }) {
-	const introduce = [];
+function scanningTargetPath({ path: context, importPath, filename = 'index.md', demoDirectory = 'demos' }) {
+	const introduces = [];
 	const values = [];
 
 	fs.readdirSync(context).forEach((file) => {
 		const fullPath = path.join(context, file);
 		const stat = fs.statSync(fullPath);
+		let [introduce, value] = [];
 
 		if (stat.isFile() && markdownFileGen.test(file)) {
 			const [name] = file.split(/\.md$/i)
       		const moduleName = combinationName(name);
 
-      		introduce.push({ name: moduleName, dir: `${importPath}/${file}` });
-			values.push({ path: `/${name}`, label: moduleName, result: moduleName });
+			value = { path: `/${name}`, label: moduleName, result: moduleName };
+      		introduce = { name: moduleName, dir: resolve(importPath, file) };
 
-		} else if (stat.isDirectory() && fsExistsSync(`${fullPath}/${filename}`)) {
+		} else if (stat.isDirectory() && fsExistsSync(resolve(fullPath, filename))) {
       		const moduleName = combinationName(file);
 
-      		introduce.push({ name: moduleName, dir: `${importPath}/${file}/${filename}` });
-			values.push({ path: `/${file}`, label: moduleName, result: moduleName });
+			value = { path: `/${file}`, label: moduleName, result: moduleName };
+      		introduce = { name: moduleName, dir: resolve(importPath, file, filename) };
+		}
+
+		// loader demos
+		const demoFullDirectory = resolve(fullPath, demoDirectory);
+
+		if (stat.isDirectory() && fsExistsSync(demoFullDirectory)) {
+			value.demos = [];
+			fs.readdirSync(demoFullDirectory).forEach((demoFile) => {
+				const [name] = demoFile.split('.');
+      			const moduleName = transformName(combinationName(`${file}-${name}`));
+
+				introduces.push({ name: moduleName, dir: resolve(importPath, file, demoDirectory, demoFile) });
+				value.demos.push(moduleName);
+			});
+		}
+
+		if (value && introduce) {
+			values.push(value);
+			introduces.push(introduce);
 		}
 	});
 
 	return {
-		introduce,
+		introduces,
 		values
 	};
 }
@@ -54,7 +79,7 @@ function generateImportCodes(imports = []) {
 }
 
 function generateDocsCodes(menus = []) {
-	const res = menus.map(({ path, label, result }) => `{ path: '${path}', label: '${label}', result: ${result} }`);
+	const res = menus.map(({ path, label, result, demos }) => `{ path: '${path}', label: '${label}', result: ${result}, demos: [${demos}] }`);
 
 	return `
 		const docs = [
@@ -87,9 +112,9 @@ module.exports = function(source) {
 	let index = 0;
 
 	while (index < target.length) {
-		const { introduce, values } = scanningTargetPath(target[index]);
+		const { introduces, values } = scanningTargetPath(target[index]);
 
-		imports.push(...introduce);
+		imports.push(...introduces);
 		result.push(...values);
 
 		index++;

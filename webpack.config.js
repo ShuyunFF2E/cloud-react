@@ -16,7 +16,8 @@ module.exports = ({ mode } = { mode: 'development' }) => {
 				alias: {
 					'@utils': resolve('./src/utils/'),
 					'@components': resolve('./src/components'),
-					'@docs': resolve('./docs')
+					'@docs': resolve('./docs'),
+					'ccms-components-react': resolve('./src/components')
 				},
 				modules: [resolve(__dirname, './src'), 'node_modules'],
 				extensions: ['.js']
@@ -71,7 +72,17 @@ module.exports = ({ mode } = { mode: 'development' }) => {
 								{ path: resolve('./docs'), importPath: '@docs' },
 								{ path: resolve('./src/components'), importPath: '@components' },
 							]
-						}
+						},
+						include: resolve('demos')
+					},
+					{
+						test: /\.md$/,
+						use: 'frontmatter-markdown'
+					},
+					{
+						test: /\.markdown$/,
+						loader: ['babel', 'markdown-react'],
+						include: path.resolve(__dirname, 'src', 'components')
 					}
 				]
 			},

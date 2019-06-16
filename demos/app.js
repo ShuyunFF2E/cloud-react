@@ -26,7 +26,7 @@ const routeViews = [];
  * docs 这个变量是生成的
  * 注意那段的注释
  */
-docs.forEach(({ path, result }, key) => {
+docs.forEach(({ path, result, demos = [] }, key) => {
 	const { html, attributes: { title, subtitle, order, category = '' } } = result;
 	const routePath = `/${category}${path}`.replace(/\/+/g, '/').toLocaleLowerCase();
 
@@ -48,7 +48,7 @@ docs.forEach(({ path, result }, key) => {
 		<Route
 			key={key}
 			path={routePath}
-			component={() => <Markdown title={title} subtitle={subtitle} html={html} />} />
+			component={() => <Markdown title={title} subtitle={subtitle} html={html} demos={demos} />} />
 	);
 });
 
