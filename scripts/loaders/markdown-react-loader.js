@@ -29,10 +29,13 @@ module.exports = function(source) {
 		other = `
 			${constructor}.title = '${data.title}';
 			${constructor}.desc = '${data.desc}';
+			${constructor}.code = \`${code}\`;
 		`;
 	}
 
 	return `
+		/* eslint-disable */
+
 		${
 			code
 				.replace(/&lt;/g, '<')
