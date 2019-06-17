@@ -3,7 +3,7 @@ order: 1
 title: 非组件说明文档
 ---
 
-目录，文件格式 `file.md`
+1. 目录，文件格式 `filename.md`
 
 ````javascript
 |- docs
@@ -11,12 +11,12 @@ title: 非组件说明文档
 	|- contribution.md
 ````
 
-文件内容格式
+2. 文件内容格式
 
 ````javascript
 ---
 order: <number>
-title: Button
+title: 其他文档
 ---
 
 ### 其他

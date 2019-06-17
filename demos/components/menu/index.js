@@ -4,7 +4,7 @@ import mixClass from 'classnames';
 import classes from './index.less';
 
 const getHash = (href = window.location.href) => {
-	return href.split('#').pop();
+	return decodeURIComponent(href.split('#').pop());
 }
 
 function MenuCategory({ title, children }) {
