@@ -8,19 +8,12 @@ const getHash = (href = window.location.href) => {
 }
 
 function MenuCategory({ title, children }) {
-	const [open, setOpen] = useState(true);
-	const onToggleOpen = () => setOpen(!open);
-
 	return (
 		<dl className={classes.menuCategory}>
-			<dt className={!open ? classes.open : ''} onClick={onToggleOpen}>
-				{title}
-			</dt>
-			<dd className={!open ? classes.hidden : ''}>
-				{children}
-			</dd>
+			<dt>{title}</dt>
+			<dd>{children}</dd>
 		</dl>
-	)
+	);
 }
 
 function MenuItem({ path, title, subtitle, activeKey, ...props }) {

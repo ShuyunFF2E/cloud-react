@@ -1,43 +1,59 @@
+@border-color: #e4eefd;
+
 .code-box {
 	position: relative;
 	width: 100%;
-    margin: 0 0 16px;
-    border: 1px solid #ebedf0;
-	border-radius: 2px;
+	margin: 0 0 30px;
+    border: 1px solid @border-color;
+	border-radius: 3px;
+	transition: .3s;
+	overflow: hidden;
+
+	&:hover {
+		box-shadow: 0 0 5px #ddd;
+	}
 
 	&-demo {
-		padding: 20px 24px 30px;
+		padding: 20px;
 		color: rgba(0,0,0,0.65);
-		border-bottom: 1px solid #ebedf0;
+		border-bottom: 1px solid @border-color;
 	}
 
 	&-title {
-		margin: 0 !important;
 		position: relative;
-		left: 15px;
-		top: -13px;
-		background: #fff;
-		display: inline-block;
-		padding: 0 5px;
+    	padding: 10px 20px;
+		margin: 0 !important;
+		background: #f9f9f9;
+		border-bottom: 1px solid #f5f5f5;
+		color: #333 !important;
+    	font-weight: 500 !important;
 	}
 
 	&-desc {
-		padding: 5px 20px 12px;
+		margin-left: 5px;
+		font-size: 12px;
+		font-weight: 400;
+		color: #888;
 	}
 
 	&-actions {
-		@border: 1px dashed #ebedf0;
-
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		padding: 10px 0;
-		border-top: @border;
-		border-bottom: @border;
+		transition: .3s;
+		color: #b3d1ff;
+		letter-spacing: 2px;
+		background-color: #f9fafc;
+		cursor: pointer;
 
-		span {
-			cursor: pointer;
+		&.expand {
+			color: #409eff;
 		}
+	}
+
+	&:hover &-actions {
+		color: #409eff;
 	}
 
 	> *:last-child {
@@ -50,6 +66,8 @@
 }
 
 .code-block {
+	border-top: 1px solid @border-color;
+	margin-bottom: 0 !important;
 	background: #fbfbfb !important;
 }
 

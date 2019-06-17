@@ -1,38 +1,28 @@
 .menu {
 	margin-top: 20px;
-	width: 280px;
-	border-right: 1px solid #eee;
+	width: 240px;
 	overflow: auto;
 
 	.menu-category {
 		margin: 0 0 1px 0;
 
+		&:first-child {
+			dt {
+				margin-top: 0;
+			}
+		}
+
 		dt {
-			display: flex;
-			align-items: center;
-			justify-content: space-between;
-			padding-right: 20px;
-			text-indent: 40px;
+			margin: 10px 0 0;
+			padding: 0;
+			font-size: 16px;
+			color: #333;
+			line-height: 40px;
 			height: 40px;
-			font-size: 500;
-			color: rgba(0,0,0,0.85);
+			position: relative;
+			transition: .15s ease-out;
+			font-weight: 700;
 			user-select: none;
-			cursor: pointer;
-
-			&::after {
-				@size: 5px;
-				content: "";
-				width: @size;
-				height: @size;
-				border-left: 2px solid currentColor;
-				border-bottom: 2px solid currentColor;
-				transform: rotate(-45deg);
-				opacity: .6;
-			}
-
-			&.open::after {
-				transform: rotate(135deg);
-			}
 		}
 
 		dd {
@@ -45,19 +35,19 @@
 			overflow: hidden;
 			opacity: 0;
 		}
-
-		.item {
-			padding-left: 24px;
-		}
 	}
 
 	.item {
 		display: block;
-		padding: 12px 0;
-		text-indent: 40px;
+		height: 30px;
+		color: #444;
+		line-height: 30px;
+		font-size: 14px;
+		overflow: hidden;
 		text-decoration: none;
-		color: #314659;
-		border-right: 3px solid transparent;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		font-weight: 400;
 		transition: .3s;
 
 		> * {
@@ -69,9 +59,7 @@
 		}
 
 		&.active {
-			border-right-color: #1890ff;
 			color: #1890ff;
-			background-color: #e6f7ff;
 		}
 
 		.subtitle {

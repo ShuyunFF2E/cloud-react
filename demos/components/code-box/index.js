@@ -50,15 +50,25 @@ export default class CodeBox extends React.Component {
 
 		return (
 			<section className={classes.codeBox}>
+				<h4 className={classes.codeBoxTitle}>
+					{title}
+					<span className={classes.codeBoxDesc}>
+						{desc}
+					</span>
+				</h4>
 				<div className={classes.codeBoxDemo}>
 					{children}
 				</div>
-				<h4 className={classes.codeBoxTitle}>{title}</h4>
-				<div className={classes.codeBoxDesc}>{desc}</div>
-				<div className={classes.codeBoxActions}>
-					<span onClick={this.onToggle} role="presentation">
-						{/* &lt;/&gt; */}
-						代码
+				<div
+					className={classnames({
+						[classes.codeBoxActions]: true,
+						[classes.expand]: expand
+					})}
+					onClick={this.onToggle}
+					role="presentation"
+				>
+					<span>
+						显示代码
 					</span>
 				</div>
 
