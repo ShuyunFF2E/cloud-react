@@ -63,6 +63,7 @@ export default class CodeBox extends React.Component {
 				</div>
 
 				<pre ref={this.codeBlock} className={classnames({
+					[classes.codeBlock]: true,
 					[classes.hidden]: !expand
 				})}>
 					<code dangerouslySetInnerHTML={{ __html: code }} />
