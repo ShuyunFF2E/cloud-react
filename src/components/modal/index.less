@@ -1,0 +1,62 @@
+/**
+ * index.less
+ * wangbo
+ * 2019-06-18
+ */
+.modal_mask {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: black;
+	opacity: 0.6;
+	z-index: 1000;
+}
+
+.modal_container {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background: white;
+	min-width: 500px;
+	border-radius: 4px;
+	z-index: 1001;
+}
+
+.modal_title {
+	padding: 10px;
+	color: black;
+	text-align: left;
+	font-size: 20px;
+	border-bottom: 1px solid #e8e8e8;
+}
+
+.modal_body {
+	padding: 30px;
+	font-size: 14px;
+	border-bottom: 1px solid #e8e8e8;
+}
+
+.modal_footer {
+	text-align: right;
+	padding: 10px;
+}
+
+.modal_footer .btn {
+	height: 32px;
+	text-align: center;
+}
+
+.modal_footer .modal-cancel-btn {
+	background: white;
+	margin-right: 30px;
+	border-color: #d9d9d9;
+	border-radius: 4px;
+}
+
+.modal_footer .modal-confirm-btn {
+	background: #1890ff;
+	color: white;
+}
