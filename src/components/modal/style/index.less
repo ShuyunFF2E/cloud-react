@@ -1,0 +1,97 @@
+/**
+ * index.less
+ * wangbo
+ * 2019-06-18
+ */
+.modal-mask {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: #666;
+	opacity: 0.6;
+	z-index: 1000;
+}
+
+.modal-container {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background: #F8F8F8;
+	min-width: 500px;
+	border-radius: 2px;
+	z-index: 1001;
+
+	.modal-header {
+		border-radius: 2px;
+		padding: 10px 14px 10px 17px;
+		text-align: left;
+		font-size: 14px;
+		background: #EDEDED;
+		border-bottom: 1px solid #E9E9E9;
+		.modal-title {
+			color: #666666;
+		}
+		.modal-close {
+			display: block;
+			width: 16px;
+			height: 19px;
+			position: absolute;
+			top: 10px;
+			right: 20px;
+			border: none;
+			background: none;
+			padding: 0;
+			outline: none;
+			text-align: center;
+			color: #CECECE;
+			cursor: pointer;
+		}
+	}
+
+	.modal-body {
+		padding: 30px;
+		font-size: 14px;
+		border-bottom: 1px solid #e8e8e8;
+	}
+
+	.modal-footer {
+		height: 52px;
+		background: #F5F5F5;
+		text-align: right;
+		line-height: 52px;
+		.btn {
+			width: 100px;
+			height: 30px;
+			font-size: 14px;
+			border-radius: 2px;
+			cursor: pointer;
+			outline: none;
+			text-align: center;
+		}
+
+		.modal-cancel-btn {
+			background: #FAFAFA;
+			border-color: #E3E3E3;
+			margin-right: 20px;
+			margin-left: 15px;
+			color: #666;
+			&:hover {
+				background: #f0f0f0;
+			}
+		}
+
+		.modal-confirm-btn {
+			background: #00AAF1;
+			color: white;
+			&:hover {
+				background: #43c0f4;
+			}
+		}
+	}
+	.hide-content {
+		display: none;
+	}
+}
