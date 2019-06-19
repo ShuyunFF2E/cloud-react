@@ -51,18 +51,24 @@ module.exports = ({ mode } = { mode: 'development' }) => {
 					},
 					{
 						test: /\.(le|c)ss$/,
+						use: ['style', 'css', 'less'],
+						include: resolve('src')
+					},
+					{
+						test: /\.(le|c)ss$/,
 						use: [
 							'style',
 							{
 								loader: 'css',
 								options: {
-									// modules: true,
-									// camelCase: true,
-									// localIdentName: '[local]_[hash:base64:5]'
+									modules: true,
+									camelCase: true,
+									localIdentName: '[local]_[hash:base64:5]'
 								}
 							},
 							'less'
-						]
+						],
+						include: resolve('demos')
 					},
 					{
 						test: /\.js$/,
