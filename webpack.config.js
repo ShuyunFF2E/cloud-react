@@ -56,9 +56,9 @@ module.exports = ({ mode } = { mode: 'development' }) => {
 							{
 								loader: 'css',
 								options: {
-									modules: true,
-									camelCase: true,
-									localIdentName: '[local]_[hash:base64:5]'
+									// modules: true,
+									// camelCase: true,
+									// localIdentName: '[local]_[hash:base64:5]'
 								}
 							},
 							'less'
