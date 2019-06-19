@@ -1,0 +1,174 @@
+@import '../theme.less';
+
+.editor {
+	width: 500px;
+
+	&-keywords {
+
+		&-type {
+			margin-right: 1em;
+
+			&.active {
+				color: @text-active;
+			}
+		}
+
+		&-wrapper {
+			padding-right: 45px;
+			position: relative;
+		}
+
+		&-list {
+			list-style: none;
+			margin: 5px 0 0;
+			max-height: 30px;
+			overflow: hidden;
+			padding: 0;
+
+			&.expanded {
+				max-height: none;
+			}
+		}
+
+		&-item {
+			background: @keyword-bg;
+			color: @text-gray;
+			cursor: pointer;
+			display: inline-block;
+			font-size: 12px;
+			line-height: 2;
+			margin: 5px 5px 0 0;
+			padding: 0 10px;
+			vertical-align: top;
+
+			&.disabled {
+				background:@bg-gray;
+				border: 1px solid @keyword-border;
+				color: @keyword-text;
+				line-height: 1.9;
+				cursor: default;
+			}
+		}
+
+		&-toggle {
+			border: 7px solid @bg-transparent;
+			border-top-color: @color-999;
+			cursor: pointer;
+			position: absolute;
+			right: 10px;
+			top: 14px;
+			transform-origin: 50% 25%;
+			transition: transform 0.2s ease-in-out;
+
+			.expanded + & {
+				transform: rotate(180deg);
+			}
+		}
+	}
+
+	&-content {
+		position: relative;
+		margin-top: 10px;
+		background: @bg-white;
+
+		&.empty:after {
+			color: @text-empty;
+			content: '请输入短信内容…';
+			pointer-events: none;
+			position: absolute;
+			left: 14px;
+			top: 16px;
+		}
+
+		&-main {
+			border: 1px solid @border-gray;
+			color: @color-666;
+			font-size: 14px;
+			height: 128px;
+			line-height: 1.4;
+			overflow: auto;
+			padding: 15px;
+			position: relative;
+			z-index: 1;
+			word-wrap: break-word;
+			word-break: break-all;
+
+			&:focus {
+				outline: none;
+			}
+		}
+
+		.url-tips {
+
+			position: absolute;
+			bottom: 1px;
+			left: 1px;
+			right: 1px;
+			background: @edior-tips-bg;
+			border-top: 1px solid @edior-tips-border;
+			color: @color-999;
+			font-size: 12px;
+			line-height: 1;
+			padding: 12px 10px;
+			z-index: 2;
+
+			&-close {
+				cursor: pointer;
+				float: right;
+				height: 18px;
+				position: absolute;
+				right: 8px;
+				top: 9px;
+				width: 18px;
+
+				&:before,
+				&:after {
+					background: @color-999;
+					content: ' ';
+					height: 2px;
+					position: absolute;
+					left: 4px;
+					top: 8px;
+					transform: rotate(45deg);
+					width: 12px;
+				}
+
+				&:after {
+					transform: rotate(-45deg);
+				}
+			}
+		}
+	}
+
+	.keyword-insert {
+		-webkit-appearance: none;
+		background-color: @bg-white;
+		border: 0;
+		box-sizing: border-box;
+		color: @keyword-active;
+		font-size: inherit;
+		height: auto;
+		line-height: 1;
+		margin: 0 3px;
+		overflow: visible;
+		padding: 0;
+
+		&-no &, &.default {
+			background: none;
+			padding-left: 0;
+		}
+
+		&::selection {
+			background: @bg-transparent;
+		}
+
+		&:focus {
+			color: green;
+		}
+
+		&::-moz-selection {
+			background: @bg-transparent;
+		}
+	}
+
+}
