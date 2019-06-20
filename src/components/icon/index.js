@@ -5,18 +5,17 @@ import './index.less';
 class Icon extends Component {
 	render () {
 		const { type, style } = this.props;
-		const className = `iconfont icon-${type}`;
+		const className = `shuyunicon icon-${type}`;
 		return <i className={className} style={style}></i>;
 	}
 }
 
 Icon.propTypes = {
-	type: PropTypes.string,
+	type: PropTypes.string.isRequired,
 	style: PropTypes.object
 };
 
 Icon.defaultProps = {
-	type: '',
 	style: {}
 };
 
