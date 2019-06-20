@@ -11,7 +11,6 @@ const devServer = {
 	hot: true,
 	contentBase: srcDir,
 	compress: true,
-	open: true,
 	overlay: {
 		warnings: false,
 		errors: true
