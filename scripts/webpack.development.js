@@ -9,10 +9,8 @@ const devServer = {
 	clientLogLevel: 'warning',
 	disableHostCheck: true,
 	hot: true,
-	host: '172.19.10.79',
 	contentBase: srcDir,
 	compress: true,
-	// open: true,
 	overlay: {
 		warnings: false,
 		errors: true
