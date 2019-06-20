@@ -83,7 +83,14 @@ module.exports = ({ mode } = { mode: 'development' }) => {
 					},
 					{
 						test: /\.md$/,
-						use: 'frontmatter-markdown'
+						loader: 'markdown',
+						options: {
+							pattern: /#{1,6}\s+API/,
+							insert: {
+								before: true,
+								value: '### 代码演示\n<div id="code-demo"></div>'
+							}
+						}
 					},
 					{
 						test: /\.markdown$/,
