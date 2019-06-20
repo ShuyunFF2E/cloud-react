@@ -69,6 +69,7 @@
 	"dependencies": {
 		"classnames": "^2.2.6",
 		"highlight.js": "^9.15.8",
+		"jeasy": "0.0.12",
 		"prop-types": "^15.7.2",
 		"react": "^16.8.6",
 		"react-dom": "^16.8.6",
