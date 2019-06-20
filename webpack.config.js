@@ -51,6 +51,11 @@ module.exports = ({ mode } = { mode: 'development' }) => {
 					},
 					{
 						test: /\.(le|c)ss$/,
+						use: ['style', 'css', 'less'],
+						include: resolve('src')
+					},
+					{
+						test: /\.(le|c)ss$/,
 						use: [
 							'style',
 							{
@@ -62,7 +67,8 @@ module.exports = ({ mode } = { mode: 'development' }) => {
 								}
 							},
 							'less'
-						]
+						],
+						include: resolve('demos')
 					},
 					{
 						test: /\.js$/,
