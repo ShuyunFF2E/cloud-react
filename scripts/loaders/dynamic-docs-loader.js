@@ -73,9 +73,11 @@ function scanningTargetPath({ path: context, importPath, filename = 'index.md', 
 }
 
 function generateImportCodes(imports = []) {
-	const res = imports.map(({ name, dir }) => `import ${name} from '${dir}';`);
-
-  return res.join('\n');
+	const res = imports.map(({ name, dir }) => {
+		const crossEnvPath = dir.split(path.sep).join('/');
+		return `import ${name} from '${crossEnvPath}';` 
+	});
+	return res.join('\n');
 }
 
 function generateDocsCodes(menus = []) {
