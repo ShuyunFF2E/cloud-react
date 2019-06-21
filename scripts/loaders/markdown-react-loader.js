@@ -27,6 +27,7 @@ module.exports = function(source) {
 
 	if (constructor) {
 		staticDefine = `
+			${constructor}.order = '${attributes.order || 0}';
 			${constructor}.title = '${attributes.title}';
 			${constructor}.desc = '${attributes.desc}';
 			${constructor}.code = \`${code.replace(/\t/g, '    ')}\`;

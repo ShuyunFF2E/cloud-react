@@ -30,18 +30,20 @@ export default class MarkdownOutput extends React.Component {
 		const { demos } = this.props;
 		this.markdownBody.parentNode.scrollTop = 0;
 
-		demos.filter(v => v).forEach(Demo => {
-			const wrap = document.createElement('div');
+		demos
+			.sort((p, n) => p.order - n.order)
+			.filter(v => v).forEach(Demo => {
+				const wrap = document.createElement('div');
 
-			ReactDOM.render(
-				<CodeBox title={Demo.title} desc={Demo.desc} code={Demo.code}>
-					<Demo />
-				</CodeBox>,
-				wrap
-			);
+				ReactDOM.render(
+					<CodeBox title={Demo.title} desc={Demo.desc} code={Demo.code}>
+						<Demo />
+					</CodeBox>,
+					wrap
+				);
 
-			this.codeWrap.appendChild(wrap);
-		});
+				this.codeWrap.appendChild(wrap);
+			});
 	}
 
 	get markdownBody() {
