@@ -56,9 +56,11 @@ export default class MarkdownOutput extends React.Component {
 		const { title, html, subtitle, className, ...props } = this.props;
 
 		return (
-			<section ref={this.markdownRef} className={classes.markdownBody} {...props}>
+			<section ref={this.markdownRef} {...props}>
 				<h1 className={classes.title}>{title} {subtitle}</h1>
-				<div dangerouslySetInnerHTML={{ __html: html }} />
+				<div
+					className={classes.markdownBody}
+					dangerouslySetInnerHTML={{ __html: html }} />
 			</section>
 		);
 	}
