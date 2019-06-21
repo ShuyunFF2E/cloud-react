@@ -1,4 +1,5 @@
 ---
+order: 4
 title: 按钮组合
 desc: 通过 Button.Group 容器组件来包装 Button，可以统一设置 size, type
 ---
