@@ -1,0 +1,85 @@
+
+@selector: tabs;
+@subSelector: tabs_item;
+
+@font-size: 12px;
+@font-color: #145681;
+@font-color-active: #3a3a3a;
+
+@tab-width: 100%;
+@tab-height: 30px;
+@tab-border-width: 1px;
+@tab-border-color: #33b5e5;
+
+@tab-card-border-color: #d9d9d9;
+@tab-card-bg: #f4f4f4;
+@tab-card-active-bg: #fcfcfc;
+
+@tabpanel-height: 28px;
+@tabpanel-gap: 10px;
+@tabpanel-padding: 20px;
+
+@disabled-color: #ccc;
+@hover-color: #0083ba;
+@hover-bg-color: #fcfcfc;
+
+
+
+.@{selector} {
+
+    width: @tab-width;
+    height: @tab-height;
+    box-sizing: border-box;
+    position: relative;
+    &::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        border-bottom: @tab-border-width solid @tab-border-color;
+    }
+    .@{selector}-header {}
+
+    .@{subSelector} {
+        position: relative;
+        display: inline-block;
+        line-height: @tabpanel-height;
+        font-size: @font-size;
+        margin-right: @tabpanel-gap;
+        color: @font-color;
+        text-align: center;
+        cursor: pointer;
+        padding: 0 @tabpanel-padding;
+        &.disabled {
+            color: @disabled-color !important;
+            cursor: not-allowed !important;
+            user-select: none;
+            pointer-events: none;
+        }
+        &:hover {
+            color: @hover-color;
+            background: @hover-bg-color;
+        }
+    }
+
+    .@{subSelector}-card {
+        .tabs_item;
+        border: @tab-border-width solid @tab-card-border-color;
+        border-bottom-color: @tab-border-color;
+        background-color: @tab-card-bg;
+        &.active {
+            background: @tab-card-active-bg;
+            border-color: @tab-border-color @tab-border-color #fcfcfc;
+            color: @font-color-active;
+        }
+    }
+    .@{subSelector}-tile {
+        .tabs_item;
+        &.active {
+            border-bottom: 2px solid #0083ba;
+            color: @font-color-active;
+        }
+       
+    }
+}
+
