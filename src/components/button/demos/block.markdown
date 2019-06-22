@@ -1,4 +1,5 @@
 ---
+order: 5
 title: block 按钮
 desc: block 属性将使按钮适合其父宽度。
 ---

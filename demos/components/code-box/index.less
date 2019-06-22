@@ -63,12 +63,17 @@
 	.hidden {
 		display: none;
 	}
-}
 
-.code-block {
-	border-top: 1px solid @border-color;
-	margin-bottom: 0 !important;
-	background: #fbfbfb !important;
+	.code-block {
+		margin-top: 0;
+		margin-bottom: 0;
+		padding: 15px;
+		padding-bottom: 25px;
+		color: #405d79;
+		background: #fbfbfb;
+		border-top: 1px solid @border-color;
+		overflow-y: auto;
+	}
 }
 
 :global {
@@ -89,7 +94,7 @@
 	  .hljs-keyword,
 	  .hljs-selector-tag,
 	  .hljs-subst {
-		color: #d14;
+		color:#118ddd;
 		font-weight: bold;
 	  }
 
@@ -103,7 +108,7 @@
 
 	  .hljs-string,
 	  .hljs-doctag {
-		color: #24af01;
+		color: #03a6ab;
 	  }
 
 	  .hljs-title,
@@ -119,7 +124,7 @@
 
 	  .hljs-type,
 	  .hljs-class .hljs-title {
-		color: #458;
+		color: #049ac1;
 		font-weight: bold;
 	  }
 

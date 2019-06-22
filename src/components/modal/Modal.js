@@ -16,7 +16,13 @@ import './index.less';
 import Icon from '../icon';
 
 const containers = {};
-
+const modalClose = {
+	float: 'right',
+	position: 'relative',
+	top: '-18px',
+	color: '#CECECE',
+	cursor: 'pointer'
+};
 class Notification extends React.Component {
 
 	// 默认值
@@ -87,7 +93,7 @@ class Notification extends React.Component {
 						<div className={header ? 'define-header' : 'hide-content'}>
 							{header}
 						</div>
-						<Icon type='x' onClick={() => this.handleClose(id)} className="modal-close">×</Icon>
+						<Icon type='x' onClick={() => this.handleClose(id)} style={modalClose}></Icon>
 					</div>
 
 					{/* 主体区域 */}
@@ -116,7 +122,7 @@ class Notification extends React.Component {
 }
 
 // 基础弹框
-function Modal({visible, title, header, body, footer, hasFooter, locals, onOk, onCancel, onClose}) {
+function Modal({visible, title, header, body, footer, hasFooter, onOk, onCancel, onClose}) {
 	// 创建一个关联id
 	const id = `modal${  new Date().getTime().toString()}`;
 	containers[id]= document.createElement('div');
@@ -128,7 +134,6 @@ function Modal({visible, title, header, body, footer, hasFooter, locals, onOk, o
 					  header={header}
 					  footer={footer}
 					  hasFooter={hasFooter}
-					  locals={locals}
 					  onOk={onOk}
 					  onCancel={onCancel}
 					  onClose={onClose}>
@@ -158,7 +163,7 @@ function Confirm({visible, body, onOk, onCancel, onClose}) {
 					  onOk={onOk}
 					  onCancel={onCancel}
 					  onClose={onClose}>
-			<div><Icon type='gantanhao' style={confirmStyle}></Icon>{body}</div>
+			<div><Icon type='shixinwenhao' style={confirmStyle}></Icon>{body}</div>
 		</Notification>,
 		containers[id]
 	);

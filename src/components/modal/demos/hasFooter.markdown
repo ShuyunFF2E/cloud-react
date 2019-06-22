@@ -1,4 +1,5 @@
 ---
+order: 4
 title: 底部区域自定义
 desc: 使用hasFooter控制底部按钮区域显示/隐藏
 ---

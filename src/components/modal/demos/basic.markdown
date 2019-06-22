@@ -1,4 +1,5 @@
 ---
+order: 1
 title: 基本用法
 desc: 使用modal打开基本对话框
 ---

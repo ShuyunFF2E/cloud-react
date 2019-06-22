@@ -1,4 +1,5 @@
 ---
+order: 5
 title: 确认对话框
 desc: 使用confirm快捷弹出确认对话框
 ---

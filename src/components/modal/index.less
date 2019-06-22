@@ -3,63 +3,67 @@
  * wangbo
  * 2019-06-18
  */
-.modal-mask {
+
+@mask-background-font: #666;
+@container-background: #F8F8F8;
+
+@header-background: #EDEDED;
+@header-border: 1px solid #E9E9E9;
+
+@body-border: 1px solid #E8E8E8 ;
+
+@footer-background: #F5F5F5;
+@footer-cancel-btn-background: #FAFAFA;
+@footer-cancel-btn-border: #E3E3E3;
+@footer-cancel-btn-hover: #F0F0F0;
+@footer-confirm-btn-background: #00AAF1;
+@footer-confirm-btn-font: white;
+@footer-confirm-btn-hover: #43C0F4;
+
+@selector: modal;
+
+.@{selector}-mask {
 	position: fixed;
 	top: 0;
 	left: 0;
 	right: 0;
 	bottom: 0;
-	background: #666;
+	background: @mask-background-font;
 	opacity: 0.6;
 	z-index: 1000;
 }
 
-.modal-container {
+.@{selector}-container {
 	position: fixed;
 	top: 50%;
 	left: 50%;
-	transform: translate(-50%, -50%);
-	background: #F8F8F8;
 	min-width: 500px;
+	transform: translate(-50%, -50%);
+	background: @container-background;
 	border-radius: 2px;
 	z-index: 1001;
 
-	.modal-header {
+	.@{selector}-header {
 		border-radius: 2px;
 		padding: 10px 14px 10px 17px;
 		text-align: left;
 		font-size: 14px;
-		background: #EDEDED;
-		border-bottom: 1px solid #E9E9E9;
-		.modal-title {
-			color: #666666;
-		}
-		.modal-close {
-			display: block;
-			width: 16px;
-			height: 19px;
-			position: absolute;
-			top: 10px;
-			right: 20px;
-			border: none;
-			background: none;
-			padding: 0;
-			outline: none;
-			text-align: center;
-			color: #CECECE;
-			cursor: pointer;
+		background: @header-background;
+		border-bottom: @header-border;
+		.@{selector}-title {
+			color: @mask-background-font;
 		}
 	}
 
-	.modal-body {
+	.@{selector}-body {
 		padding: 30px;
 		font-size: 14px;
-		border-bottom: 1px solid #e8e8e8;
+		border-bottom: @body-border;
 	}
 
-	.modal-footer {
+	.@{selector}-footer {
 		height: 52px;
-		background: #F5F5F5;
+		background: @footer-background;
 		text-align: right;
 		line-height: 52px;
 		.btn {
@@ -72,22 +76,22 @@
 			text-align: center;
 		}
 
-		.modal-cancel-btn {
-			background: #FAFAFA;
-			border-color: #E3E3E3;
+		.@{selector}-cancel-btn {
+			background: @footer-cancel-btn-background;
+			border-color: @footer-cancel-btn-border;
 			margin-right: 20px;
 			margin-left: 15px;
-			color: #666;
+			color: @mask-background-font;
 			&:hover {
-				background: #f0f0f0;
+				background: @footer-cancel-btn-hover;
 			}
 		}
 
-		.modal-confirm-btn {
-			background: #00AAF1;
-			color: white;
+		.@{selector}-confirm-btn {
+			background: @footer-confirm-btn-background;
+			color: @footer-confirm-btn-font;
 			&:hover {
-				background: #43c0f4;
+				background: @footer-confirm-btn-hover;
 			}
 		}
 	}
