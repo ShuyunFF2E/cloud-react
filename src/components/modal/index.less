@@ -37,7 +37,10 @@
 	position: fixed;
 	top: 50%;
 	left: 50%;
+	max-width: 1100px;
+	max-height: 600px;
 	min-width: 500px;
+	min-height: 180px;
 	transform: translate(-50%, -50%);
 	background: @container-background;
 	border-radius: 2px;
@@ -56,9 +59,17 @@
 	}
 
 	.@{selector}-body {
-		padding: 30px;
+		max-height: calc(100vh - 350px);
+		min-height: 87px;
+		padding: 20px 0 20px 20px;
 		font-size: 14px;
 		border-bottom: @body-border;
+		.@{selector}-content {
+			max-height: inherit;
+			min-height: 87px;
+			padding-right: 20px;
+			overflow: auto;
+		}
 	}
 
 	.@{selector}-footer {
