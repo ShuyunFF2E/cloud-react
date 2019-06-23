@@ -5,11 +5,13 @@ import PropTypes from 'prop-types';
 import hljs from 'highlight.js/lib/highlight';
 import javascript from 'highlight.js/lib/languages/javascript';
 
+import codeIcon from './assets/code.svg';
+
 import classes from './index.less';
 
 hljs.registerLanguage('javascript', javascript);
 
-export default class CodeBox extends React.Component {
+class CodeBox extends React.Component {
 	static propTypes = {
 		title: PropTypes.string,
 		desc: PropTypes.string,
@@ -52,13 +54,9 @@ export default class CodeBox extends React.Component {
 			<section className={classes.codeBox}>
 				<h4 className={classes.codeBoxTitle}>
 					{title}
-					<span className={classes.codeBoxDesc}>
-						{desc}
-					</span>
+					<span className={classes.codeBoxDesc}>{desc}</span>
 				</h4>
-				<div className={classes.codeBoxDemo}>
-					{children}
-				</div>
+				<div className={classes.codeBoxDemo}>{children}</div>
 				<div
 					className={classnames({
 						[classes.codeBoxActions]: true,
@@ -67,8 +65,11 @@ export default class CodeBox extends React.Component {
 					onClick={this.onToggle}
 					role="presentation"
 				>
-					<span>
-						显示代码
+					<span className={classes.icon}>
+						<img src={codeIcon} alt="代码" />
+						<span className={classes.iconDesc}>
+							{expand ? '隐藏代码' : '显示代码'}
+						</span>
 					</span>
 				</div>
 
@@ -82,3 +83,5 @@ export default class CodeBox extends React.Component {
 		);
 	}
 }
+
+export default CodeBox;
