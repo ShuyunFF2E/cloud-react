@@ -1,49 +1,85 @@
 const frontmatter = require('front-matter');
-const md = require('markdown-it')({
-	html: true
-});
+const less = require('less');
+
+const JS = 'js';
+const JSX = 'jsx';
+const JAVASCRIPT = 'javascript';
+const CSS = 'css';
+const LESS = 'less';
 
 const EXPORT_DEFAULT_REG = 'export\\s+default\\s+';
 const CONSTRUCTOR_REG = '(class|function)';
-const tempalte = `
+const CODE_BLOCK_REG = /`{3,4}(less|css|javascript|jsx|js)((?:[^`]{3,4})+)`{3,4}/gi;
+
+const DEFAULT_TEMPLATE = `
 	import React from 'react';
 
 	export default function Noop() {
 		return null;
 	}
-`
+`;
+
+function formatHtmlTag(code) {
+	return code.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
 
 module.exports = function(source) {
 	const { attributes = {}, body } = frontmatter(source);
 
-	let code = tempalte;
+	const callback = this.async();
+	const codeMap = {
+		[LESS]: null,
+		[JAVASCRIPT]: DEFAULT_TEMPLATE
+	};
+
+	[...body.match(CODE_BLOCK_REG)].forEach(v => v.replace(CODE_BLOCK_REG, (_, language, code) => {
+		switch (language.toLocaleLowerCase()) {
+			case CSS:
+			case LESS:
+				codeMap[LESS] = code;
+				break;
+			case JS:
+			case JSX:
+			case JAVASCRIPT:
+				codeMap[JAVASCRIPT] = code;
+				break;
+		}
+	}));
+
+	let constructor = '';
 	let staticDefine = '';
 
-	md.render(body).replace(/<code.*>([^<]+)<\/code>/g, (_, $1) => (code = $1));
-
-	const [matchCode = ''] = code.match(new RegExp(`${EXPORT_DEFAULT_REG}((${CONSTRUCTOR_REG}\\s+)?[A-Z][a-zA-Z]*)`, 'g')) || [];
-
-	const constructor = matchCode.replace(new RegExp(`${EXPORT_DEFAULT_REG}(${CONSTRUCTOR_REG}\\s+)`), '');
+	codeMap[JAVASCRIPT].replace(new RegExp(`${EXPORT_DEFAULT_REG}((${CONSTRUCTOR_REG}\\s+)?[A-Z][a-zA-Z]*)`), (_, $1) => {
+		[, constructor] = $1.split(/\s+/);
+	});
 
 	if (constructor) {
 		staticDefine = `
 			${constructor}.order = '${attributes.order || 0}';
 			${constructor}.title = '${attributes.title}';
 			${constructor}.desc = '${attributes.desc}';
-			${constructor}.code = \`${code.replace(/\t/g, '    ')}\`;
+			${constructor}.code = \`${formatHtmlTag(codeMap[JAVASCRIPT]).replace(/\t/g, '    ')}\`;
 		`;
 	}
 
-	return `
-		/* eslint-disable */
+	if (codeMap[LESS]) {
+		less.render(codeMap[LESS], (_, output) => {
+			callback(null, `
+				/* eslint-disable */
+				${codeMap[JAVASCRIPT]}
 
-		${
-			code
-				.replace(/&lt;/g, '<')
-				.replace(/&gt;/g, '>')
-				.replace(/&quot;/g, '"')
-		}
+				${staticDefine}
+				${constructor}.css = \`${
+					output.css.replace(/\{[^}]+\}/g, block => block.replace(/[\s\n\t]+/g, ''))
+				}\`;
+			`);
+		})
+	} else {
+		callback(null, `
+			/* eslint-disable */
+			${codeMap[JAVASCRIPT]}
 
-		${staticDefine}
-	`;
+			${staticDefine}
+		`);
+	}
 }
