@@ -52,7 +52,7 @@ module.exports = ({ mode } = { mode: 'development' }) => {
 					{
 						test: /\.(le|c)ss$/,
 						use: ['style', 'css', 'less'],
-						include: resolve('src')
+						include: [resolve('src'), resolve('node_modules')]
 					},
 					{
 						test: /\.(le|c)ss$/,
