@@ -8,7 +8,7 @@ import React, { Component } from 'react';
 import jeasy from 'jeasy';
 import Icon from 'ccms-components-react/icon';
 
-const iconList = ['up', 'down', 'info', 'wenhao', 'gantanhao', 'left', 'flag', 'delete', 'search', 'duihao', 'right', 'shixinwenhao', 'clear', 'edit', 'qiehuan', 'x'];
+const iconList = ['up', 'down', 'refresh', 'info', 'wenhao', 'gantanhao', 'left', 'flag', 'delete', 'search', 'duihao', 'right', 'shixinwenhao', 'clear', 'edit', 'last', 'first', 'qiehuan', 'x', 'previous', 'next'];
 export default class IconDemo extends Component {
 
 	render() {
