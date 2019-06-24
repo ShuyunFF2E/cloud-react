@@ -1,0 +1,71 @@
+@success-bg: #ddf1d6;
+@success-color: #3a773a;
+
+@error-bg: #fae0e1;
+@error-color: #853432;
+
+@small-font-size: 12px;
+
+
+
+.message {
+	width: 450px;
+	position: fixed;
+	z-index: 1400;
+	top: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+	.notice {
+		width: 450px;
+		animation: gradient .2s linear;
+		.message-content {
+			display: inline-flex;
+			max-height: 120px;
+			line-height: 18px;
+			overflow: hidden;
+			font-size: @small-font-size;
+			padding: 8px 14px 7px 20px;
+			margin-top: 1px;
+			p {
+				width: 364px;
+				margin: 0 0 0 6px;
+			}
+		}
+
+	}
+}
+
+.success-msg {
+	background: @success-bg;
+	.msg-text {
+		color: @success-color;
+	}
+
+}
+
+.error-msg {
+	background: @error-bg;
+	.msg-text {
+		color: @error-color;
+	}
+}
+@keyframes gradient {
+	0% {
+		transform: translateY(-100%);
+	}
+	100% {
+		transform: translateY(0);
+	}
+}
+
+@keyframes disappear {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+
+
