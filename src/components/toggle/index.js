@@ -5,7 +5,7 @@ import './index.less';
 
 class Toggle extends Component {
 
-	handleClick = () => {
+	handleClick = (event) => {
 
 		const { checked, disabled, onChange } = this.props;
 
@@ -14,7 +14,7 @@ class Toggle extends Component {
 		}
 
 		if (onChange) {
-			onChange(!checked);
+			onChange(!checked, event);
 		}
 	}
 
@@ -37,14 +37,20 @@ class Toggle extends Component {
 }
 
 Toggle.propTypes = {
-	size: PropTypes.oneOf(['normal', 'small']),
+	size: PropTypes.oneOf(['default', 'small']),
 	checked: PropTypes.bool,
+	checkedText: PropTypes.string,
+	unCheckedText: PropTypes.string,
+	disabled: PropTypes.bool,
 	onChange: PropTypes.func
 };
 
 Toggle.defaultProps = {
-	size: 'normal',
+	size: 'default',
 	checked: false,
+	checkedText: '',
+	unCheckedText: '',
+	disabled: false,
 	onChange: () => {}
 };
 
