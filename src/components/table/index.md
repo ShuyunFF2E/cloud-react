@@ -11,7 +11,7 @@ subtitle: 表格
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | gridManagerName | 唯一标识符 | string | '' |
-| ajax_data | 数据或请求地址 | 1、url string 2、response data 3、function | undefined |
+| ajaxData | 数据或请求地址 | 1、url string 2、response data 3、function | undefined |
 | columnData | 列配置 | array | [] |
 | supportAjaxPage | 是否使用分页 | boolean | false |
 | dataKey | 指定返回数据列表的key键值 | string | 'data' |

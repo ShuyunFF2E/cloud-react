@@ -74,7 +74,7 @@ export default class TableDemo extends Component {
 		return (
 			<Table
 				gridManagerName={gridManagerName}
-				ajax_data={response}
+				ajaxData={response}
 				columnData={columnData}
 				height={'100%'}
 			/>
