@@ -1,5 +1,5 @@
 {
-  "name": "ccms-components-react",
+  "name": "cloud-react",
   "version": "1.0.0",
   "description": "数据赢家 react 组件",
   "main": "index.js",
@@ -8,9 +8,13 @@
     "lint": "eslint src",
     "webpack": "webpack",
     "webpack-dev-server": "webpack-dev-server",
-    "start": "npm run webpack-dev-server -- --env.mode development --env.domain develop",
-    "build": "npm run webpack -- --env.mode production --env.domain develop",
-    "debug": "node --inspect --inspect-brk ./node_modules/webpack/bin/webpack.js --env.mode production"
+    "start": "npm run webpack-dev-server -- --env.mode development --env.type development --env.domain develop",
+    "build": "npm run webpack -- --env.mode development --env.type production --env.domain develop",
+    "site": "npm run webpack -- --env.mode development --env.type site --env.domain production",
+    "debug": "node --inspect --inspect-brk ./node_modules/webpack/bin/webpack.js --env.mode production",
+	"preversion": "npm run lint",
+	"version": "npm run build && npm publish dist",
+	"postversion": "git push && git push --tags"
   },
   "repository": {
     "type": "git",

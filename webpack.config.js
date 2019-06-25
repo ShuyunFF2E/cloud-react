@@ -8,7 +8,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const modeConfig = env => require(`./scripts/webpack.${env}`)(env);
 const resolve = dir => path.resolve(__dirname, dir);
 
-module.exports = ({ mode } = { mode: 'development' }) => {
+module.exports = ({ mode, type } = { mode: 'development' }) => {
 	return webpackMerge(
 		{
 			mode,
@@ -112,6 +112,6 @@ module.exports = ({ mode } = { mode: 'development' }) => {
 				new webpack.ProgressPlugin()
 			]
 		},
-		modeConfig(mode)
+		modeConfig(type)
 	);
 };
