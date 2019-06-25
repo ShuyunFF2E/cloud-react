@@ -28,12 +28,29 @@ import Button from 'ccms-components-react';
 export default class BasicDemo extends React.Component {
 	render() {
 		return (
-			<Button>普通按钮<Button/>
+			<Button className="btn">普通按钮<Button/>
 		)
 	}
 }
 
 ```
+
+```less
+.btn {
+	a {
+		color: red;
+	}
+}
+```
+
+OR
+
+```css
+.btn a {
+	color: red;
+}
+```
+
 ````
 
 输出：该文件的内容会自动被解析和动态引入到 `组件API文档` 的代码演示容器中 `<div id="code-demo">你在这</div>`

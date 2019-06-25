@@ -1,20 +1,20 @@
 ---
+order: 1
 title: 基础用法
-desc: 看着写吧....
+desc: checked 使用
 ---
 
 ````javascript
 import React from 'react';
 import Toggle from 'ccms-components-react/toggle';
 
-export default class DiabledDemo extends React.Component {
+export default class ToggleDemo extends React.Component {
+
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			checked: false,
-			disabled: true,
-			size: 'normal'
+			checked: true
 		}
 	}
 
@@ -22,45 +22,36 @@ export default class DiabledDemo extends React.Component {
 		this.setState({ checked });
 	}
 
-	handleSize = (size) => {
-		this.setState({ size })
-	}
-
 	render() {
-		const { size, checked } = this.state;
+		const { checked } = this.state;
 
 		return (
 			<div>
-				<Toggle
-					size={size}
-					checked={checked}
-					onChange={this.handleChange} />
+				<div>
+					不添加checked状态：<Toggle />
+				</div>
 
-				<Toggle
-					size={size}
-					checked={checked}
-					checkedText="开"
-					unCheckedText="关"
-					onChange={this.handleChange} />
+				<div className="item">
+					设置checked为true：<Toggle checked={checked} onChange={this.handleChange} />
+				</div>
 
 				<div>
-					<button
-						type="button"
-						onClick={this.handleSize.bind(this, 'normal')}
-					>
-						normal
-					</button>
-
-					<button
-						type="button"
-						onClick={this.handleSize.bind(this, 'small')}
-					>
-						small
-					</button>
+					设置开关的文案显示：
+					<Toggle
+						checked={checked}
+						checkedText="这里是开"
+						unCheckedText="这里是关"
+						onChange={this.handleChange} />
 				</div>
 			</div>
 		);
 	}
 }
 
+````
+
+````less
+.item {
+	margin: 0 10px;
+}
 ````

@@ -42,18 +42,44 @@
 		align-items: center;
 		padding: 10px 0;
 		transition: .3s;
-		color: #b3d1ff;
 		letter-spacing: 2px;
 		background-color: #f9fafc;
+		color: #52a6fa;
 		cursor: pointer;
 
-		&.expand {
-			color: #409eff;
+		&.expand .icon {
+			opacity: 1;
+		}
+	}
+
+	.icon {
+		margin: 0 12px;
+		display: flex;
+		align-items: center;
+		opacity: .4;
+		transition: .2s;
+		cursor: pointer;
+		user-select: none;
+
+		img {
+			margin-right: 4px;
+			vertical-align: top;
+			width: 16px;
+			height: auto;
+			cursor: pointer;
+		}
+
+		&-desc {
+			white-space: nowrap;
+			overflow: hidden;
+			font-weight: 300;
 		}
 	}
 
 	&:hover &-actions {
-		color: #409eff;
+		.icon {
+			opacity: 1;
+		}
 	}
 
 	> *:last-child {
@@ -69,6 +95,7 @@
 		margin-bottom: 0;
 		padding: 15px;
 		padding-bottom: 25px;
+		line-height: 1.42;
 		color: #405d79;
 		background: #fbfbfb;
 		border-top: 1px solid @border-color;

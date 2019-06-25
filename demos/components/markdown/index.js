@@ -67,7 +67,7 @@ export default class MarkdownOutput extends React.Component {
 				const wrap = document.createElement('div');
 
 				ReactDOM.render(
-					<CodeBox title={Demo.title} desc={Demo.desc} code={Demo.code}>
+					<CodeBox title={Demo.title} desc={Demo.desc} code={Demo.code} css={Demo.css}>
 						<Demo />
 					</CodeBox>,
 					wrap
