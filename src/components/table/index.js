@@ -1,9 +1,8 @@
-/* eslint-disable */
 import React from 'react';
+import Icon from 'ccms-components-react/icon';
 import Table, { $gridManager } from 'gridmanager-react';
 import 'gridmanager-react/css/gm-react.css';
 import './index.less';
-import Icon from 'ccms-components-react/icon';
 
 const ajaxPageTemplate = `
 <div class="footer-toolbar" grid-manager-toolbar="{{vm.gridManagerName}}">
@@ -63,7 +62,7 @@ const voidMsgStyle = {
 };
 const emptyTemplate = (
 	<div style={voidStyle}>
-		<Icon type={'gantanhao'} style={voidIconStyle}/>
+		<Icon type='gantanhao' style={voidIconStyle}/>
 		<span style={voidMsgStyle}>暂无数据</span>
 	</div>
 );

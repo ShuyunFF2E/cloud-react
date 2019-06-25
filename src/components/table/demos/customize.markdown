@@ -98,8 +98,8 @@ export default class TableDemo extends Component {
 		return (
 			<Table
 				gridManagerName={gridManagerName}
-				ajax_data='https://www.lovejavascript.com/blogManager/getBlogList'
-				ajax_type='POST'
+				ajaxData='https://www.lovejavascript.com/blogManager/getBlogList'
+				ajaxType='POST'
 				columnData={columnData}
 				supportAjaxPage={true}
 			/>

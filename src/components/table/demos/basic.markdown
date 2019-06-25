@@ -33,7 +33,7 @@ export default class TableDemo extends Component {
 		return (
 			<Table
 				gridManagerName={gridManagerName}
-				ajax_data={resouse}
+				ajaxData={resouse}
 				columnData={columnData}
 			/>
 		);
