@@ -1,0 +1,137 @@
+/**
+ * index.less
+ * wangbo
+ * 2019-06-18
+ */
+
+@selector: modal;
+@background-font: #666;
+
+@container-background: #F8F8F8;
+@header-background: #EDEDED;
+
+@body-font: #3D3D3D;
+
+@footer-background: #F5F5F5;
+@footer-border: 1px solid #E8E8E8;
+@footer-cancel-btn-background: #FAFAFA;
+@footer-cancel-btn-border: #E3E3E3;
+@footer-cancel-btn-hover: #F0F0F0;
+@footer-confirm-btn-background: #00AAF1;
+@footer-confirm-btn-color: #FFF;
+@footer-confirm-btn-hover: #43C0F4;
+
+.@{selector}-mask {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: @background-font;
+	opacity: 0.6;
+	z-index: 1000;
+}
+
+.@{selector}-container {
+	min-height: 160px;
+	max-height: 800px;
+	min-width: 400px;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background: @container-background;
+	border-radius: 2px;
+	z-index: 1001;
+	white-space: normal;
+
+	.@{selector}-header {
+		border-radius: 2px;
+		padding: 10px 14px 10px 17px;
+		text-align: left;
+		font-size: 14px;
+		background: @header-background;
+
+		.@{selector}-title {
+			color: @background-font;
+		}
+	}
+
+	.@{selector}-body {
+		max-height: calc(100vh - 300px);
+		min-height: 80px;
+		font-size: 14px;
+		color: @body-font;
+		padding: 20px 0 20px 20px;
+
+		.@{selector}-body-content {
+			padding-right: 20px;
+			min-height: 67px;
+			max-height: calc(100vh - 385px);
+			overflow: auto;
+			white-space: normal;
+			word-break: break-word;
+		}
+	}
+
+	.@{selector}-footer {
+		height: 30px;
+		padding: 11px 20px;
+		background: @footer-background;
+		text-align: right;
+		line-height: 30px;
+		border-top: @footer-border;
+		border-radius: 0 0 2px 2px;
+
+		.btn {
+			width: 100px;
+			height: 30px;
+			font-size: 14px;
+			border-radius: 2px;
+			cursor: pointer;
+			outline: none;
+			line-height: 28px;
+			text-align: center;
+		}
+
+		.@{selector}-cancel-btn {
+			background: @footer-cancel-btn-background;
+			border-color: @footer-cancel-btn-border;
+			margin-left: 15px;
+			color: @background-font;
+
+			&:hover {
+				background: @footer-cancel-btn-hover;
+			}
+		}
+
+		.@{selector}-confirm-btn {
+			background: @footer-confirm-btn-background;
+			color: @footer-confirm-btn-color;
+
+			&:hover {
+				background: @footer-confirm-btn-hover;
+			}
+		}
+	}
+
+	.hide-content {
+		display: none;
+	}
+
+	.info-area {
+		max-width: 400px;
+		.info-style {
+			max-width: 350px;
+			display: inline-block;
+			vertical-align: top;
+			color: @background-font;
+			line-height: 24px;
+		}
+	}
+	.more-info-style {
+		max-width: 350px;
+		padding-top: 10px;
+		padding-left: 44px;
+	}
+}
