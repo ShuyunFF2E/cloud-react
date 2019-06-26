@@ -1,70 +1,83 @@
-@success-bg: #ddf1d6;
-@success-color: #3a773a;
+@success-bg: #D8F2D4;
+@success-color: #3A773A;
+@success-border: #C3DABF;
+@success-x-color: #6DA89C;
+@success-x-hover-color: #448074;
+@success-icon-color: #42AA31;
 
-@error-bg: #fae0e1;
+@error-bg: #FFDFE0;
 @error-color: #853432;
+@error-border: #FBCDCE;
+@error-x-color: #853432;
+@error-x-hover-color: #7B2624;
+@error-icon-color: #FF5243;
 
-@small-font-size: 12px;
+@selector: message;
 
+.mixin-type-msg(@bg, @bgBorderColor, @msgTextColor, @closeColor, @closeHoverColor, @tagColor) {
+	background: @bg;
+	border: 1px solid @bgBorderColor;
+	.msg-text {
+		color: @msgTextColor;
+	}
+	.close-icon {
+		color: @closeColor;
+		&:hover {
+			color: @closeHoverColor;
+		}
+	}
+	.tag-icon {
+		color: @tagColor;
+	}
+}
 
-
-.message {
-	width: 450px;
+.@{selector} {
 	position: fixed;
+	max-height: 100%;
+	overflow-y: auto;
 	z-index: 1400;
 	top: 0;
-	left: 0;
-	right: 0;
-	margin: auto;
+	left: 50%;
+	transform: translateX(-50%);
 	.notice {
+		display: inline-flex;
 		width: 450px;
-		animation: gradient .2s linear;
-		.message-content {
-			display: inline-flex;
-			max-height: 120px;
-			line-height: 18px;
-			overflow: hidden;
-			font-size: @small-font-size;
-			padding: 8px 14px 7px 20px;
-			margin-top: 1px;
-			p {
-				width: 364px;
-				margin: 0 0 0 6px;
-			}
+		line-height: 18px;
+		border-radius: 2px;
+		overflow: hidden;
+		font-size: 12px;
+		padding: 8px 14px 7px 20px;
+		margin-top: 1px;
+		box-sizing: border-box;
+		transform: translateY(-35%);
+		opacity: 0;
+		transition: .3s;
+		p {
+			margin: 0 19px 0 6px;
 		}
-
 	}
-}
-
-.success-msg {
-	background: @success-bg;
-	.msg-text {
-		color: @success-color;
-	}
-
-}
-
-.error-msg {
-	background: @error-bg;
-	.msg-text {
-		color: @error-color;
-	}
-}
-@keyframes gradient {
-	0% {
-		transform: translateY(-100%);
-	}
-	100% {
+	.fade-in {
+		opacity: 1;
 		transform: translateY(0);
 	}
-}
-
-@keyframes disappear {
-	0% {
-		opacity: 1;
-	}
-	100% {
+	.fade-out {
 		opacity: 0;
+		transform: scale(.95);
+	}
+	.close-icon {
+		position: absolute;
+		right: 10px;
+		font-size: 12px;
+		cursor: pointer;
+		opacity: .6;
+		margin-left: 20px
+	}
+	.success-msg {
+		.mixin-type-msg(@success-bg, @success-border, @success-color, @success-x-color, @success-x-hover-color, @success-icon-color)
+	}
+
+	.error-msg {
+		.mixin-type-msg(@error-bg, @error-border, @error-color, @error-x-color, @error-x-hover-color, @error-icon-color)
 	}
 }
 
