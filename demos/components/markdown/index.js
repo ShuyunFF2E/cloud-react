@@ -55,6 +55,7 @@ export default class MarkdownOutput extends React.Component {
 	constructor(props) {
 		super(props);
 		this.markdownRef = React.createRef();
+		this.wrapers = [];
 	}
 
 	componentDidMount() {
@@ -73,8 +74,14 @@ export default class MarkdownOutput extends React.Component {
 					wrap
 				);
 
+				this.wrapers.push(wrap);
+
 				this.codeWrap.appendChild(wrap);
 			});
+	}
+
+	componentWillUnmount() {
+		this.wrapers.forEach(ReactDOM.unmountComponentAtNode);
 	}
 
 	get markdownBody() {
