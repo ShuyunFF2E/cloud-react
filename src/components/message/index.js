@@ -1,56 +1,98 @@
-import React  from 'react';
+import React, { Component }  from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import './index.less';
 import Icon from '../icon';
 
-const AUTO_CLOSE_DELAY = 3;
+const DEFAULTOPTS = { duration: 3000 };
 
 const MESSAGE_TYPE = {
 	'success': {
-		color: '#389d25',
-		icon: 'duihao'
+		icon: 'check-circle-solid'
 	},
 	'error': {
-		color: '#ff5243',
-		icon: 'gantanhao'
+		icon: 'warning-circle-solid'
 	}
 };
 
-class MessageEntity extends React.Component {
+let wraper = null;
+
+function removeWraper() {
+	if (!wraper.children.length) {
+		ReactDOM.unmountComponentAtNode(wraper);
+		document.body.removeChild(wraper);
+		wraper = null;
+	}
+}
+
+function entity(props) {
+	if (!wraper) {
+		wraper = document.createElement('div');
+	}
+	wraper.classList.add('message');
+
+	const container = document.createElement('div');
+
+	ReactDOM.render(<MessageEntity {...props} container={container}/>, container);
+
+	wraper.appendChild(container);
+	document.body.appendChild(wraper)
+}
+
+class MessageEntity extends Component {
+
+	constructor(props) {
+		super(props);
+		this.noticeRef = React.createRef();
+		this.closed = false;
+	}
 
 	componentDidMount() {
 		this.startTimer();
+		setTimeout(() => {
+			this.noticeRef.current.classList.add('fade-in');
+		}, 100);
 	}
 
+	componentWillUnmount() {
+		this.onHandleClose();
+	}
 
+	/**
+	 * 关闭提示信息
+	 */
 	onHandleClose = () => {
+		if (this.closed) {
+			return;
+		}
+		this.closed = true;
+
 		this.stopTimer();
+
 		const { container } = this.props;
-		container.style.animation = 'disappear 0.8s';
+		const { current: currentNotice } = this.noticeRef;
 
-		setTimeout(() => {
+		currentNotice.classList.add('fade-out');
+
+		// 监听动画完成
+		currentNotice.addEventListener('webkitTransitionEnd', () => {
 			ReactDOM.unmountComponentAtNode(container);
-			const messageBox = document.getElementById('message');
-			messageBox.removeChild(container);
-		}, 400)
+			wraper.removeChild(container);
+			removeWraper();
 
+		}, { once: true, capture: true });
 	};
 
-	componentWillUnment() {
-		this.stopTimer();
-	}
 
 	/**
 	 * 自动关闭提示信息
 	 */
 	startTimer() {
-		const {duration} = this.props;
-
+		const { duration } = this.props;
 		if (duration > 0) {
-			this.timeOut = setTimeout(() => {
+			this.timer = setTimeout(() => {
 				this.onHandleClose();
-			}, duration * 1000)
+			}, duration)
 		}
 	}
 
@@ -58,62 +100,44 @@ class MessageEntity extends React.Component {
 	 * 清除定时器
 	 */
 	stopTimer() {
-		clearTimeout(this.timeOut);
+		clearTimeout(this.timer);
 	}
 
 	render() {
-		const {type, message} = this.props;
-
-		const iconCloseStyle= {fontSize: 12, cursor: 'pointer', opacity: .6, marginLeft: '20px'};
-		const iconTypeStyle = {color: `${MESSAGE_TYPE[type].color}`, fontSize: "16px"};
+		const { type, msg } = this.props;
 
 		return (
-			<div className="message-content">
-				<Icon type={`${MESSAGE_TYPE[type].icon}`} style={iconTypeStyle}></Icon>
-				<p className="msg-text">{message}</p>
-				<Icon type="x" style={iconCloseStyle} onClick={this.onHandleClose}></Icon>
+			<div className={`${type}-msg notice`} ref={this.noticeRef}>
+				<Icon type={`${MESSAGE_TYPE[type].icon}`} className="tag-icon"></Icon>
+				<p className="msg-text">{msg}</p>
+				<Icon type="close" onClick={this.onHandleClose} className="close-icon"></Icon>
 			</div>
 		)
 	}
 }
 
-
-const Message = {
-	entity(props) {
-		const {type} = props;
-		const messageBox = document.getElementsByClassName('message');
-
-		if (!messageBox.length) {
-			this.container = document.createElement('div');
-			this.container.className = 'message';
-			this.container.id = 'message';
-			document.body.appendChild(this.container);
-		}
-		const messageNotice = document.createElement('div');
-		messageNotice.className = `${type}-msg notice`;
-
-		this.container.appendChild(messageNotice);
-
-		ReactDOM.render(<MessageEntity container={messageNotice} {...props}/>, messageNotice);
-
+const message = {
+	error(msg, options) {
+		const opts = Object.assign({}, DEFAULTOPTS, options);
+		entity({
+			type: 'error',
+			msg,
+			duration: opts.duration
+		})
 	},
-	error(message, duration) {
-		this.entity({type: 'error', message, duration})
-	},
-	success(message, duration) {
-		this.entity({type: 'success', message, duration})
+	success(msg, options) {
+		const opts = Object.assign({}, DEFAULTOPTS, options);
+		entity({
+			type: 'success',
+			msg,
+			duration: opts.duration
+		})
 	}
 };
 
 MessageEntity.propTypes = {
-	type: PropTypes.string.isRequired,
-	message: PropTypes.string.isRequired,
-	duration: PropTypes.number
+	msg: PropTypes.string.isRequired,
+	duration: PropTypes.number.isRequired
 };
 
-MessageEntity.defaultProps = {
-	duration: AUTO_CLOSE_DELAY
-};
-
-export default Message;
-
+export default message;
