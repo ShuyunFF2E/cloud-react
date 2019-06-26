@@ -8,10 +8,18 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const modeConfig = env => require(`./scripts/webpack.${env}`)(env);
 const resolve = dir => path.resolve(__dirname, dir);
 
-module.exports = ({ mode, type } = { mode: 'development' }) => {
+let env = null;
+let type = null;
+module.exports = ({ mode } = { mode: 'development' }) => {
+	if (!env) {
+		env = mode === 'site' ? 'development' : mode;
+	}
+	if (!type) {
+		type = mode;
+	}
 	return webpackMerge(
 		{
-			mode,
+			mode: env,
 			resolve: {
 				alias: {
 					'@utils': resolve('./src/utils/'),
@@ -101,7 +109,7 @@ module.exports = ({ mode, type } = { mode: 'development' }) => {
 			},
 			plugins: [
 				new webpack.DefinePlugin({
-					'process.env.NODE_ENV': JSON.stringify(mode)
+					'process.env.NODE_ENV': JSON.stringify(env)
 				}),
 				new HtmlWebpackPlugin({
 					filename: 'index.html',

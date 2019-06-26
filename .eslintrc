@@ -6,7 +6,7 @@
 		"webpack": {
 			"config": "./webpack.config.js"
 		}
-	},
+	}
   },
   "rules": {
     "react/jsx-filename-extension": [

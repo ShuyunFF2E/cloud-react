@@ -1,7 +1,7 @@
 import React from 'react';
-import Icon from 'ccms-components-react/icon';
 import Table, { $gridManager } from 'gridmanager-react';
 import 'gridmanager-react/css/gm-react.css';
+import Icon from '../icon';
 import './index.less';
 
 const ajaxPageTemplate = `
