@@ -28,7 +28,7 @@ export default class IconDemo extends Component {
 						return (
 							<li key={index} style={liStyle} onClick={onClickHandler}>
 								<div style={iconAreaStyle}>
-									<Icon type={type} style={iconStyle}></Icon>
+									<Icon type={type} style={iconStyle} className='test-class-name'></Icon>
 								</div>
 								<div style={textAreaStyle}>
 									{type}

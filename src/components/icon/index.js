@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import './index.less';
 
 class Icon extends Component {
 	render () {
-		const { type, style, ...restProps } = this.props;
-		const className = `shuyunicon icon-${type}`;
-		return <i className={className} style={style} {...restProps} />;
+		const { type, style, className, ...restProps } = this.props;
+		return <i className={classNames(className, `shuyunicon icon-${type}`)} style={style} {...restProps} />;
 	}
 }
 Icon.propTypes = {
