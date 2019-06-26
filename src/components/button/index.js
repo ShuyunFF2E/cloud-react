@@ -70,8 +70,8 @@ class Button extends React.PureComponent {
 					...{
 						...others,
 						href: href || undefined,
-						target: href ? target : undefined,
-						htmlType: href ? undefined : htmlType
+						type: href ? undefined : htmlType,
+						target: href ? target : undefined
 					}
 				}
 			>
