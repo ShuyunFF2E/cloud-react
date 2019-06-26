@@ -1,107 +1,94 @@
 import React, { PureComponent, Children } from 'react';
 import PropTypes from 'prop-types';
-import clz from 'classnames';
+import cls from 'classnames';
 import IconRaw from '../icon';
 
 import './index.less';
 
-const types = { TILE: 'tile', CARD: 'card'};
-const closeIconStyle = {
-    fontSize: 12,
-    position: 'absolute',
-    // top: -2,
-    right: 4
-};
 const Icon = React.memo(IconRaw);
 
 export default class Tabs extends PureComponent {
 
     static propTypes = {
-        defaultActiveKey: PropTypes.string.isRequired,
+        defaultActiveKey: PropTypes.string,
         activeKey: PropTypes.string,
-        accentColor: PropTypes.string,
+        activeClassName: PropTypes.string,
         type: PropTypes.string,
         onChange: PropTypes.func,
         onClose: PropTypes.func
     }
 
     static defaultProps = {
+        defaultActiveKey: '',
         activeKey: '',
-        accentColor: '#0083ba',
-        type: types.CARD,
+        activeClassName: 'active',
+        type: 'card',
         onChange: () => {},
         onClose: () => {}
     }
 
-    static types = types;
+    constructor(props) {
+        super(props);
+        const { defaultActiveKey, activeKey, children } = props;
 
-    static shouldChange(prevProps, nextProps) {
+        const childList = Array.isArray(children) ? children : [children];
+        const activedKey = activeKey || defaultActiveKey || childList[0].key;
+
+        this.state = {
+            activedKey,
+            prevProps: props
+        };
+    }
+
+    static getDerivedStateFromProps(nextProps, state) {
+        const { prevProps } = state;
         const prevChildCount = React.Children.count(prevProps.children);
         const nextChildCount = React.Children.count(nextProps.children);
     
         // 1. 通过props指定activeKey时，更新state
         // 2. tabpanel的数量发生变化时, 更新state
-        if (prevProps.activeKey !== nextProps.activeKey) {
-            return true;
-        } if (prevChildCount !== nextChildCount) {
-            return true;
+        if ((prevProps.activeKey !== nextProps.activeKey) ||
+            (prevProps.activeKey === nextProps.activeKey && prevChildCount !== nextChildCount)) {
+            return { activedKey: nextProps.activeKey, prevProps: nextProps };
         }
-        return false;
-    }
-
-    constructor(props) {
-        super(props);
-        const { defaultActiveKey } = props;
-        // 默认页面
-        this.state = {
-            activedKey: defaultActiveKey
-        };
-    }
-
-    componentWillReceiveProps(nextProps) {
-        // 外部强制指定props.activeKey时，需要同步内部state
-        const prevProps = this.props;
-
-        const shouldChange = Tabs.shouldChange(prevProps, nextProps);
-        if (shouldChange) {
-            this.setState({ activedKey: nextProps.activeKey });
-        }
+        return null;
     }
 
     handleChange = key => () => {
         const { activedKey } = this.state;
-        if (key === activedKey) { return;}  // change event, not click event
+        if (key === activedKey) { return; }  // change event, not click event
 
-         // async
-        this.setState({ activedKey: key }, () => {
-            const { onChange } = this.props;
-            onChange(key);
+        this.setState({ 
+            activedKey: key
+        }, () => {
+            this.props.onChange(key);
         });
     }
 
     handleClose = key => () => {
-        const { onClose } = this.props;
-        onClose(key);
+        this.props.onClose(key);
     }
 
-    renderHeader(child, isActived) {
-        const { type, accentColor } = this.props;
+    renderTabHeader(child, isActived) {
+        const { type, activeClassName } = this.props;
         const { disabled, closable, tab } = child.props;
         const { key } = child;
 
         // class & style
-        const className = clz(`tabs_item-${type}`, { 'active': !disabled && isActived, 'disabled': disabled });
-        const tileAccentStyle = (type === Tabs.types.TILE && isActived) ? { borderBottomColor: accentColor } : {};
+        const className = cls(`tabs-item-${type}`, { [activeClassName]: !disabled && isActived, disabled });
 
         // render
-        /* eslint-disable */
-        return <span className={className} onClick={this.handleChange(key)} style={tileAccentStyle} key={key}>
-            {
-                isActived && closable && 
-                <span onClick={this.handleClose(key)}><Icon type="x" style={closeIconStyle}/></span>
-            }
-            {tab}
-        </span>;
+        return (
+            <span className={className} onClick={this.handleChange(key)} key={key}>
+                {tab}
+                {
+                    isActived && closable && 
+                    <span className="closable-wrapper">
+                        <Icon type="close" className="closable" onClick={this.handleClose(key)}/>
+                    </span>
+                }
+            </span>
+        );
     }
 
     render() {
@@ -111,34 +98,39 @@ export default class Tabs extends PureComponent {
         const headers = [];
         let panel;
         
-        Children.map(children, child => {
+        Children.forEach(children, child => {
             const isActived = child.key === activedKey;
-            headers.push(this.renderHeader(child, isActived));
-            if (isActived) panel = child;
+            headers.push(this.renderTabHeader(child, isActived));
+            if (isActived) { panel = child; }
         });
 
-        return <div className="tabs">
-            <section className="tabs-headers">{headers}</section>
-            {panel}
-        </div>
+        return (
+            <div className="tabs">
+                <section className="tabs-header">{headers}</section>
+                {panel}
+            </div>
+        );
     }
 }
 
-const TabPanel = React.memo(props => {
-    return <div className="tabpanel-container">
-        {props.children}
-    </div>
+const Panel = React.memo(props => {
+    return (
+        <div className="tabpanel-container">
+            {props.children}
+        </div>
+    );
 });
 
-TabPanel.propTypes = {
-    tab: PropTypes.node.isRequired,
-    disabled: PropTypes.bool,
-    closable: PropTypes.bool,
-};
+Panel.propTypes = {
+    tab: PropTypes.node.isRequired, // eslint-disable-line
+    key: PropTypes.string.isRequired, // eslint-disable-line
+    closable: PropTypes.bool, // eslint-disable-line
+    disabled: PropTypes.boo // eslint-disable-line
+}
 
-TabPanel.defaultProps = {
+Panel.defaultProps = {
     disabled: false,
     closable: false
 }
 
-Tabs.TabPanel = TabPanel;
+Tabs.Panel = Panel;
