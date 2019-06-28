@@ -8,7 +8,6 @@ desc: 设置onOk、onCancel、onClose实现自定义回调函数
 import React from 'react';
 import Modal from '../index';
 import Button from 'ccms-components-react/button';
-const blank = '\u00A0';
 
 export default class ModalDemo extends React.Component {
 	 constructor(props) {
@@ -33,6 +32,13 @@ export default class ModalDemo extends React.Component {
 	 	});
 	 };
 	 
+	 handleCancel = () => {
+		this.setState({
+			visible: false,
+			content: 'it is cancel callback'
+		});
+	 };
+	 
 	 handleClose = () => {
 	 	this.setState({
 	 		visible: false,
@@ -49,9 +55,11 @@ export default class ModalDemo extends React.Component {
 				 <Modal
 				 	visible={this.state.visible}
 					onOk={this.handleOk}
+					onCancel={this.handleCancel}
 					onClose={this.handleClose}>
 					this is callback demo
 				 </Modal>
+				 <br/>
 				 <span>{this.state.content}</span>
 			 </div>
 		 );

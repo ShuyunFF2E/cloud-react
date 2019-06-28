@@ -1,5 +1,5 @@
 ---
-order: 6
+order: 7
 title: 组件内外数据传输
 desc: 使用modal实现复杂逻辑交互
 ---
@@ -36,7 +36,7 @@ export default class ModalDemo extends React.Component {
 		});
 	 };
 	  
-	 handleClose = () => {
+	 handleCancel = () => {
 		this.setState({
 			visible: false
 		});
@@ -49,7 +49,8 @@ export default class ModalDemo extends React.Component {
 				 <Modal 
 				 	visible={this.state.visible}
 				 	onOk={this.handleOk}
-				 	onClose={this.handleClose}>
+				 	onClose={this.handleCancel}
+				 	onCancel={this.handleCancel}>
 				 	this is a complex demo,you can click it
 				 	<br/>
 				 	<br/>

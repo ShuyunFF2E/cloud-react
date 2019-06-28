@@ -57,6 +57,7 @@ export default class ModalDemo extends React.Component {
 				 	visible={this.state.visible}
 				 	hasFooter={this.state.hasFooter}
 				 	onOk={this.handleOk}
+				 	onCancel={this.handleClose}
 					onClose={this.handleClose}>
 				 	this is a has or no Footer demo
 				 </Modal>

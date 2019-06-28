@@ -1,5 +1,5 @@
 ---
-order: 5
+order: 6
 title: 确认对话框
 desc: 使用confirm快捷弹出确认对话框
 ---
@@ -8,30 +8,67 @@ desc: 使用confirm快捷弹出确认对话框
 import React from 'react';
 import Modal from '../index';
 import Button from 'ccms-components-react/button';
+const blank = '\u00A0';
+
 export default class ModalDemo extends React.Component {
 	 constructor(props) {
 		 super(props);
+		 this.state = {
+		 	content: ''
+		 };
 	 }
- 
- 
-	 // 打开确认弹出框
+	 
+	 handleOk = () =>  {
+	 	this.setState({
+	 		content: 'it is ok'
+	 	});
+	 };
+	 
 	 openConfirmModal = () => {
 	 	Modal.confirm({
-			message: 'Do you want to delete it ?',
+			title: 'Do you want to delete it ?',
 			body: 'something you can write here',
-			onOk() {
-				alert('it is ok');
+			onOk: () => {
+				this.handleOk();
 			},
-			onClose() {
-				alert('it is close')
+			onCancel: () => {
+				this.setState({
+					content: 'it is cancel'
+				});
 			}
 		});
 	 };
-	
+	 
+	 // 打开确认弹出框
+	 openAsyncConfirmModal = () => {
+	 	Modal.confirm({
+			title: 'Do you want to delete it ?',
+			body: 'this is a async confirm demo',
+			onOk: () => {
+				let promise = new Promise((resolve, reject) => {
+						setTimeout(Math.random() > 0.5 ? resolve : reject, 2000);
+					}).catch(() => {
+						console.log('error');
+					});
+				return promise;
+			},
+			onCancel: () => {
+				this.setState({
+					content: 'it is cancel'
+				});
+			}
+		});
+	 };
+	 
 	 render() {
 		 return (
 			 <div>
 				 <Button type='primary' onClick={this.openConfirmModal}>确认对话框</Button>
+				 {blank}
+				 <Button type='normal' onClick={this.openAsyncConfirmModal}>异步确认对话框</Button>
+				 <br/>
+				 <br/>
+				 {this.state.content}
 			 </div>
 		 );
 	 }

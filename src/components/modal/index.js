@@ -11,7 +11,7 @@ import Prompt from './prompt';
 
 class Modal extends Component{
 	render() {
-		const { visible, title, children, header, footer, hasFooter, onOk, onClose } = this.props;
+		const { visible, title, children, header, footer, hasFooter, onOk, onClose, onCancel, okText, cancelText, showMask, clickMaskCanClose, showConfirmLoading } = this.props;
 		return(
 			<Notification
 				type='modal'
@@ -20,7 +20,13 @@ class Modal extends Component{
 				header={header}
 				footer={footer}
 				hasFooter={hasFooter}
+				showMask={showMask}
+				okText={okText}
+				cancelText={cancelText}
+				clickMaskCanClose={clickMaskCanClose}
+				showConfirmLoading={showConfirmLoading}
 				onOk={onOk}
+				onCancel={onCancel}
 				onClose={onClose}>
 				{children}
 			</Notification>
@@ -31,9 +37,9 @@ class Modal extends Component{
 // confirm方法
 Modal.confirm = (props) => {
 	const config = {
+		...props,
 		type: 'confirm',
-		icon: 'shixinwenhao',
-		...props
+		icon: 'question-circle-solid'
 	};
 	return Prompt(config);
 };
@@ -41,9 +47,9 @@ Modal.confirm = (props) => {
 // info方法
 Modal.info = (props) => {
 	const config = {
+		...props,
 		type: 'info',
-		icon: 'info',
-		...props
+		icon: 'info-circle'
 	};
 	return Prompt(config);
 };
@@ -51,9 +57,9 @@ Modal.info = (props) => {
 // success方法
 Modal.success = (props) => {
 	const config = {
+		...props,
 		type: 'success',
-		icon: 'duihao',
-		...props
+		icon: 'check-circle-solid'
 	};
 	return Prompt(config);
 };
@@ -61,9 +67,9 @@ Modal.success = (props) => {
 // error方法
 Modal.error = (props) => {
 	const config = {
+		...props,
 		type: 'error',
-		icon: 'clear',
-		...props
+		icon: 'close-circle-solid'
 	};
 	return Prompt(config);
 };
@@ -71,9 +77,9 @@ Modal.error = (props) => {
 // warning方法
 Modal.warning = (props) => {
 	const config = {
+		...props,
 		type: 'warning',
-		icon: 'gantanhao',
-		...props
+		icon: 'warning-circle-solid'
 	};
 	return Prompt(config);
 };

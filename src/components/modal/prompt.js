@@ -6,55 +6,118 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 import './index.less';
 import Icon from '../icon';
 import Notification from './modal';
 
 const containers = {};
-function entity({ type, icon, message, body, onOk, onClose }) {
-	// 创建一个关联id
-	const id = `prompt${new Date().getTime()}`;
-	containers[id]= document.createElement('div');
 
-	let visible = true;
+class Prompt extends React.Component{
+	static defaultProps = {
+		type: '',
+		icon: '',
+		title: '',
+		body: '',
+		onOk: () => {},
+		onCancel: () => {},
+	};
+
+	static propTypes = {
+		type: PropTypes.string,
+		icon: PropTypes.string,
+		title: PropTypes.node,
+		body: PropTypes.node,
+		onOk: PropTypes.func,
+		onCancel: PropTypes.func,
+	};
+
+	constructor(props) {
+		super(props);
+		this.state = {
+			showConfirmLoading: false
+		};
+	}
 
 	// 删除节点
-	const handleDeleteDOM = () => {
+	handleClose = () => {
+		const { id } = this.props;
 		const unmountContainer = containers[id];
 		if (unmountContainer) {
+			// 删除react组件节点
 			ReactDOM.unmountComponentAtNode(unmountContainer);
+			// 删除dom节点
+			document.body.removeChild(unmountContainer);
 		}
-		visible = false;
 	};
 
 	// 取消
-	const handelClose = () => {
-		handleDeleteDOM();
-		onClose();
-	};
-	// 确定
-	const handelOk = () => {
-		handleDeleteDOM();
-		onOk();
+	handleCancel = () => {
+		const { onCancel } = this.props;
+		this.handleClose();
+		onCancel();
 	};
 
-	ReactDOM.render(
-		<Notification
-			visible={visible}
-			type={type}
-			onClose={handelClose}
-			onOk={handelOk}>
-			<div>
-				<header className='info-area'>
-					<Icon type={icon} className={`icon-style ${type}-style` }></Icon>
-					<span className='message-info'>{message}</span>
-				</header>
-				<section className='more-info'>{body}</section>
-			</div>
-		</Notification>,
-		containers[id]
-	);
-	document.body.appendChild(containers[id]);
+	// 确定
+	handleOk = () => {
+		const { onOk } = this.props;
+		const callback = onOk();
+		// 判断是否是promise
+		if (callback instanceof Promise) {
+			this.setState({
+				showConfirmLoading: true
+			});
+			callback.then(() => {
+				this.setState({
+					showConfirmLoading: false
+				});
+				this.handleClose();
+			}).catch(err => {
+				console.log(err);
+			});
+		} else {
+			this.handleClose();
+		}
+	};
+
+	render() {
+		const { type, icon, title, body } = this.props;
+		return (
+			<Notification
+				visible
+				type={type}
+				showConfirmLoading={this.state.showConfirmLoading}
+				onCancel={this.handleCancel}
+				onOk={this.handleOk}>
+				<div>
+					<header className='info-area'>
+						<Icon type={icon} className={`icon-style ${type}-style` }></Icon>
+						<span className='message-info'>{title}</span>
+					</header>
+					<section className='more-info'>{body}</section>
+				</div>
+			</Notification>
+		);
+	}
 }
 
-export default entity;
+function prompt({ type, icon, title, body, onOk, onCancel }) {
+	// 创建一个关联id
+	const id = `prompt${new Date().getTime()}`;
+	containers[id]= document.createElement('div');
+	document.body.appendChild(containers[id]);
+
+	ReactDOM.render(
+		<Prompt
+			id={id}
+			type={type}
+			icon={icon}
+			title={title}
+			body={body}
+			onOk={onOk}
+			onCancel={onCancel}/>,
+		containers[id]
+	);
+}
+
+export default prompt;

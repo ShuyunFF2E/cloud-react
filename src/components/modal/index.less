@@ -5,7 +5,7 @@
  */
 
 @selector: modal;
-@background-font: #666;
+@modal-color: #666;
 
 @container-background: #F8F8F8;
 @header-background: #EDEDED;
@@ -23,6 +23,8 @@
 @error-icon-color: #f5222d;
 @warning-icon-color: #FAAD14;
 
+@confirm-loading-border: 1px solid #DDD;
+@confirm-loading-border-top: 1px solid #FFF;
 
 .@{selector} {
 	&-mask {
@@ -31,13 +33,13 @@
 		left: 0;
 		right: 0;
 		bottom: 0;
-		background: @background-font;
+		background: @modal-color;
 		opacity: 0.6;
 		z-index: 1000;
 	}
+
 	&-container {
 		min-height: 160px;
-		max-height: 800px;
 		min-width: 400px;
 		position: fixed;
 		top: 50%;
@@ -47,7 +49,19 @@
 		border-radius: @body-border-radius;
 		z-index: 1001;
 		white-space: normal;
+		animation: modal-fade-in 0.5s;
+
+		@-webkit-keyframes modal-fade-in {
+			0% {
+				opacity: 0;
+				top: 48%;
+			}
+			100% {
+				opacity: 1;
+			}
+		}
 	};
+
 	&-header {
 		border-radius: 2px;
 		padding: 10px 14px 10px 17px;
@@ -56,8 +70,9 @@
 		background: @header-background;
 
 		.@{selector}-title {
-			color: @background-font;
+			color: @modal-color;
 		}
+
 		.close-icon {
 			float: right;
 			position: relative;
@@ -67,20 +82,12 @@
 	}
 
 	&-body {
-		max-height: calc(100vh - 300px);
+		max-height: calc(100vh - 200px);
 		min-height: 80px;
 		font-size: 14px;
 		color: @body-font-color;
-		padding: 20px 0 20px 20px;
-
-		.@{selector}-body-content {
-			padding-right: 20px;
-			min-height: 67px;
-			max-height: calc(100vh - 385px);
-			overflow: auto;
-			white-space: normal;
-			word-break: break-word;
-		}
+		padding: 20px;
+		overflow: auto;
 	}
 
 	&-footer {
@@ -94,40 +101,66 @@
 		.@{selector}-confirm-btn {
 			margin-right: 15px;
 		}
+
+		.@{selector}-confirm-loading {
+			display: inline-block;
+			width: 10px;
+			height: 10px;
+			border-radius: 50%;
+			animation: load 1.5s infinite linear;
+			margin-right: 10px;
+			border: @confirm-loading-border;
+			border-top: @confirm-loading-border-top;
+			@keyframes load {
+				from {
+					transform: rotate(0deg);
+				}
+				to {
+					transform: rotate(360deg);
+				}
+			}
+		}
 	}
 }
 
 .info-area {
 	max-width: 400px;
+
 	.message-info {
 		max-width: 350px;
 		display: inline-block;
 		vertical-align: top;
-		color: @background-font;
+		color: @modal-color;
 		line-height: 24px;
 	}
+
 	.icon-style {
 		font-size: 24px;
-		color: #FAAD14;
 		vertical-align: text-bottom;
 		padding: 10px;
 	}
+
 	.confirm-style {
 		color: @confirm-icon-color;
 	}
+
 	.info-style {
 		color: @info-icon-color;
 	}
+
 	.success-style {
 		color: @success-icon-color;
 	}
+
 	.error-style {
 		color: @error-icon-color;
 	}
+
 	.warning-style {
 		color: @warning-icon-color;
 	}
 }
+
 .more-info {
 	max-width: 350px;
 	padding-top: 10px;
