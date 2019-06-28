@@ -15,10 +15,13 @@ class Notification extends Component {
 	static defaultProps = {
 		visible: false,
 		title: 'title',
-		header: '',
 		children: '',
 		footer: '',
 		hasFooter: true,
+		showMask: true,
+		okText: '确定',
+		closeText: '取消',
+		clickMaskCanClose: false,
 		onOk: () => {},
 		onClose: () => {}
 	};
@@ -26,29 +29,34 @@ class Notification extends Component {
 	static propTypes = {
 		visible: PropTypes.bool,
 		title: PropTypes.string,
-		header: PropTypes.node,
 		children: PropTypes.node,
 		footer: PropTypes.node,
+		okText: PropTypes.string,
+		closeText: PropTypes.string,
 		hasFooter: PropTypes.bool,
 		onOk: PropTypes.func,
 		onClose: PropTypes.func,
+		showMask: PropTypes.bool,
+		clickMaskCanClose: PropTypes.bool
 	};
 
 	render() {
-		const { visible, id, type, children, header, title, footer, hasFooter, onOk, onClose } = this.props;
-		if (!visible) {
+		const { visible, id, type, children, title, footer, hasFooter, showMask, okText, closeText, clickMaskCanClose, showConfirmLoading, onOk, onClose } = this.props;
+		if (!visible && !showConfirmLoading) {
 			return null;
 		}
 		return (
 			<div>
 				{/* 遮罩层 */}
-				<ModalMask/>
+				<ModalMask
+					showMask={showMask}
+					onClose={onClose}
+					clickMaskCanClose={clickMaskCanClose}/>
 				{/* 弹出框 */}
 				<div className='modal-container'>
 					<ModalHeader
 						id={id}
 						type={type}
-						header={header}
 						onClose={onClose}
 						title={title}/>
 
@@ -59,6 +67,9 @@ class Notification extends Component {
 					<ModalFooter
 						id={id}
 						type={type}
+						okText={okText}
+						closeText={closeText}
+						showConfirmLoading={showConfirmLoading}
 						footer={footer}
 						hasFooter={hasFooter}
 						onClose={onClose}
@@ -69,24 +80,19 @@ class Notification extends Component {
 	}
 }
 
-function ModalMask() {
+function ModalMask({ showMask, onClose, clickMaskCanClose }) {
+	if (!showMask) {
+		return null;
+	}
 	return (
-		<div className='modal-mask'></div>
+		<div className='modal-mask' onClick={clickMaskCanClose && showMask ? onClose : () => {}}></div>
 	);
 }
 
-function ModalHeader({ type, title, header, onClose }) {
+function ModalHeader({ type, title, onClose }) {
 	if (type !== 'modal') {
 		return null;
 	}
-	if (type === 'modal' && header) {
-		return (
-			<header className='modal-header'>
-				{header}
-			</header>
-		);
-	}
-
 	return (
 		<header className='modal-header'>
 			<span className='modal-title'>{title}</span>
@@ -103,7 +109,7 @@ function ModalBody({ children }) {
 	);
 }
 
-function ModalFooter({ type, footer, hasFooter, onClose, onOk }) {
+function ModalFooter({ type, footer, okText, closeText, hasFooter, showConfirmLoading, onClose, onOk }) {
 	if (!hasFooter) {
 		return null;
 	}
@@ -117,16 +123,26 @@ function ModalFooter({ type, footer, hasFooter, onClose, onOk }) {
 	if (type !== 'modal' && type !== 'confirm') {
 		return (
 			<footer className='modal-footer'>
-				<Button type='primary' onClick={onOk}>知道了</Button>
+				<Button type='primary' onClick={onClose}>知道了</Button>
 			</footer>
 		);
 	}
 	return (
 		<footer className='modal-footer'>
-			<Button type='primary' className='modal-confirm-btn' onClick={onOk}>确认</Button>
-			<Button type='normal' onClick={onClose}>取消</Button>
+			<Button type='primary' className='modal-confirm-btn' disabled={showConfirmLoading} onClick={onOk}>
+				<ConfirmLoading showConfirmLoading={showConfirmLoading}/>
+				{okText}
+			</Button>
+			<Button type='normal' onClick={onClose}>{closeText}</Button>
 		</footer>
 	);
+}
+
+function ConfirmLoading({ showConfirmLoading }) {
+	if (!showConfirmLoading) {
+		return null;
+	}
+	return (<span className='modal-confirm-loading'></span>);
 }
 
 export default Notification;

@@ -11,7 +11,7 @@ import Icon from '../icon';
 import Notification from './modal';
 
 const containers = {};
-function entity({ type, icon, message, body, onOk, onClose }) {
+function prompt({ type, icon, title, body, onOk, onClose }) {
 	// 创建一个关联id
 	const id = `prompt${new Date().getTime()}`;
 	containers[id]= document.createElement('div');
@@ -22,7 +22,10 @@ function entity({ type, icon, message, body, onOk, onClose }) {
 	const handleDeleteDOM = () => {
 		const unmountContainer = containers[id];
 		if (unmountContainer) {
+			// 删除react组件节点
 			ReactDOM.unmountComponentAtNode(unmountContainer);
+			// 删除dom节点
+			document.body.removeChild(unmountContainer);
 		}
 		visible = false;
 	};
@@ -47,7 +50,7 @@ function entity({ type, icon, message, body, onOk, onClose }) {
 			<div>
 				<header className='info-area'>
 					<Icon type={icon} className={`icon-style ${type}-style` }></Icon>
-					<span className='message-info'>{message}</span>
+					<span className='message-info'>{title}</span>
 				</header>
 				<section className='more-info'>{body}</section>
 			</div>
@@ -57,4 +60,4 @@ function entity({ type, icon, message, body, onOk, onClose }) {
 	document.body.appendChild(containers[id]);
 }
 
-export default entity;
+export default prompt;

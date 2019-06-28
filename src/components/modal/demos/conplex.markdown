@@ -1,5 +1,5 @@
 ---
-order: 6
+order: 7
 title: 组件内外数据传输
 desc: 使用modal实现复杂逻辑交互
 ---

@@ -16,21 +16,23 @@ subtitle: 弹出框
 | visible | 是否显示modal弹出框 | boolean | false |
 | title | 弹出框的标题 | string | title |
 | hasFooter | 是否显示底部区域 | boolean | true |
-| header | modal头部内容区域 | string或ReactNode | - |
 | footer | modal底部内容区域| string或ReactNode | - |
 | onClose | 点击取消按钮时触发的回调 | function | - |
 | onOk | 点击确定按钮时触发的回调 | function | - |
+| okText | 确定按钮自定义文本 | string | 确定 |
+| closeText | 取消按钮自定义文本 | string | 取消 |
+| showMask | 是否显示遮罩层 | boolean | true |
+| clickMaskCanClose | 点击遮罩层是否关闭, showMask必须为true | boolean | false |
+| showConfirmLoading | 点击确定是否显示loading，用于异步关闭 | boolean | false |
 
-#### info
-| 属性 | 说明 | 类型 | 默认值 |
+
+#### method
+ - 默认属性：title(提示信息标题), body(提示信息内容), onOk(确定按钮回调函数，仅confirm支持), onClose(取消按钮回调函数)
+ 
+| 方法名 | 说明 | 用法 | 示例 |
 | --- | --- | --- | --- |
-| message | 自定义提示信息 | string或ReactNode | - |
-| body | 自定义提示内容 | string或ReactNode | - |
-| onClose | 点击取消按钮时触发的回调 | function | - |
-| onOk | 点击确定按钮时触发的回调 | function | - |
-
-### 如何使用
-通过不同方法，传入对象相关属性
-- modal弹出框：`<Modal visible={this.state.visible}>some content</Modal>`
-- confirm确认框：`Modal.confirm({message: a message})`
-- info提示框：`Modal.info({message: a info message})`
+| confirm | 确认对话框 | Modal.confirm() | Modal.confirm({title: 'a confirm message', body: 'it is body'}) |
+| success | 成功提示框 | Modal.info() | Modal.info({title: 'a info message', onClose: () => {}}) |
+| error | 错误提示框 | Modal.error() | Modal.error({title: 'a error message'}) |
+| info | 信息提示框 | Modal.info() | Modal.info({title: 'a info message'}) |
+| warning | 警告提示框 | Modal.warning() | Modal.warning({title: 'a warning message'}) |

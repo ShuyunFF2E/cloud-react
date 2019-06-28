@@ -18,33 +18,33 @@ export default class ModalDemo extends React.Component {
 	 // 默认弹出框
 	 openInfoModal = () => {
 		Modal.info({
-			message: 'this is a info message!',
+			title: 'this is a info message!',
 			body: 'something you can write here',
-			onOk() {}
+			onClose() {}
 		});
 	 };
 	 
 	 openSuccessModal = () => {
 		Modal.success({
-			message: 'this is a success message!',
+			title: 'this is a success message!',
 			body: 'something you can write here',
-			onOk() {}
+			onClose() {}
 		});
 	 };
 	 
 	 openWarningModal = () => {
 		Modal.warning({
-			message: 'this is a warning message!',
+			title: 'this is a warning message!',
 			body: 'something you can write here',
-			onOk() {}
+			onClose() {}
 		});
 	 };
 	 
 	 openErrorModal = () => {
 		Modal.error({
-			message: 'this is a error message!',
+			title: 'this is a error message!',
 			body: 'something you can write here',
-			onOk() {}
+			onClose() {}
 		});
 	 };
 	 

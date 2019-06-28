@@ -1,47 +1,108 @@
 ---
 order: 3
 title: 自定义模版
-desc: 设置header、body、footer实现自定义模版
+desc: 设置title、body、footer、okText、closeText实现自定义模版
 ---
 
 ```javascript
 import React from 'react';
 import Modal from '../index';
 import Button from 'ccms-components-react/button';
-import Icon from 'ccms-components-react/icon';
+const blank = '\u00A0';
 
 export default class ModalDemo extends React.Component {
 	 constructor(props) {
 		 super(props);
 		 this.state = {
-		 	visible: false
+		 	visibleTitle: false,
+		 	visibleBody: false,
+		 	visibleFooterText: false,
+		 	visibleFooter: false,
 		 };
 	 }
  
  
-	 // 打开自定义模版弹出框
-	 openDefineTpsModal = () => {
+	 // 打开自定义title弹出框
+	 openDefineTitleModal = () => {
 	 	this.setState({
-	 		visible: true
+	 		visibleTitle: true,
+	 		title: '自定义title'
 	 	});
+	 };
+	 
+	  // 打开自定义底部区域按钮文字弹出框
+	 openDefineBtnTextModal = () => {
+		 this.setState({
+			visibleFooterText: true,
+			okText: '好的',
+			closeText: '不了'
+		 });
+	 };
+	 
+	 // 打开自定义body区域弹出框
+	 openDefineBodyModal = () => {
+	 	this.setState({
+			visibleBody: true
+	 	});
+	 }
+	 // 打开自定义底部区域弹出框
+	 openDefineFooterModal = () => {
+	 	 this.setState({
+			visibleFooter: true,
+			footer: <Footer/>
+		 });
 	 };
 	 
 	 closeModal = () => {
 		this.setState({
-			visible: false
+			visibleTitle: false,
+			visibleBody: false,
+			visibleFooterText: false,
+			visibleFooter: false
 		});
 	 };
 	 
 	 render() {
 		 return (
 			 <div>
-				 <Button type='primary' onClick={this.openDefineTpsModal}>自定义模版</Button>
+				 <Button type='normal' onClick={this.openDefineTitleModal}>自定义title</Button>
+				 {blank}
+				 <Button type='normal' onClick={this.openDefineBodyModal}>自定义body</Button>
+				 {blank}
+				 <Button type='normal' onClick={this.openDefineBtnTextModal}>自定义底部按钮文本</Button>
+				 {blank}
+				 <Button type='normal' onClick={this.openDefineFooterModal}>自定义底部区域</Button>
 				
 				 <Modal 
-				 	visible={this.state.visible}
-				 	header={<Header closeModal={this.closeModal}/>}
-				 	footer={<Footer/>}>
-				 	<Body/>
+				 	visible={this.state.visibleTitle}
+				 	title={this.state.title}
+				 	onOk={this.closeModal}
+				 	onClose={this.closeModal}>
+				 	something you can write
+				 </Modal>
+				 
+				 <Modal 
+					visible={this.state.visibleBody}
+					onOk={this.closeModal}
+					onClose={this.closeModal}>
+					<Body/>
+				 </Modal>
+				 
+				 <Modal 
+					visible={this.state.visibleFooter}
+					footer={this.state.footer}
+					onOk={this.closeModal}
+					onClose={this.closeModal}>
+					我会自定义底部区域
+				 </Modal>
+                 				 
+				 <Modal 
+					visible={this.state.visibleFooterText}
+					okText={this.state.okText}
+					closeText={this.state.closeText}
+					onOk={this.closeModal}
+					onClose={this.closeModal}>
+					我会自定义底部区域按钮文字
 				 </Modal>
 			 </div>
 		 );
@@ -52,27 +113,17 @@ class Body extends React.Component{
 	 render() {
 		 return (
 			 <div>
-				 自定义body组件
+				 我是自定义body组件
 			 </div>
 		 );
 	 }
 }
-class Header extends React.Component{
-	 render() {
-	 	const { closeModal } = this.props;
-		 return (
-			 <div>
-				 自定义header组件
-				 <Icon type='x' className='close-icon' onClick={closeModal}></Icon>
-			 </div>
-		 );
-	 }
-}
+
 class Footer extends React.Component{
 	 render() {
 		 return (
 			 <div>
-				 自定义footer组件
+				 我是自定义Footer组件
 			 </div>
 		 );
 	 }

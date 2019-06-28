@@ -1,14 +1,13 @@
 ---
 order: 2
 title: 自定义回调函数
-desc: 设置onOk、onCancel、onClose实现自定义回调函数
+desc: 设置onOk、onClose实现自定义回调函数
 ---
 
 ```javascript
 import React from 'react';
 import Modal from '../index';
 import Button from 'ccms-components-react/button';
-const blank = '\u00A0';
 
 export default class ModalDemo extends React.Component {
 	 constructor(props) {
@@ -52,6 +51,7 @@ export default class ModalDemo extends React.Component {
 					onClose={this.handleClose}>
 					this is callback demo
 				 </Modal>
+				 <br/>
 				 <span>{this.state.content}</span>
 			 </div>
 		 );
