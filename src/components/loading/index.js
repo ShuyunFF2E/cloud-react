@@ -1,72 +1,85 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import './index.less';
+import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
+import classNames from "classnames";
+import "./index.less";
 
-class Loading extends React.PureComponent {
+const sizeMap = {
+	small: 13,
+	large: 23,
+	default: 18
+};
 
-	constructor(props) {
-		super(props);
-		this.state = {
-			show: props.delay === 0
-		};
-	}
-
-	componentDidMount() {
-		const { delay } = this.props;
-		if(delay > 0) {
-			this.delayLoading();
-		}
-	}
-
-	componentWillUnmount() {
-		this.clearDelayLoading();
-	}
-
-	delayLoading  = () => {
-		const { delay } = this.props;
-		this.timer = setTimeout(() => {
-			this.setState({
-				show: true
-			});
-		}, delay)
-	}
-
-	clearDelayLoading = () => {
-		clearTimeout(this.timer);
-	}
-
-	render() {
-		const { type, size, tip } = this.props;
-		const { show } = this.state;
-		const loadingType = classNames('loading', {
-			'loading-layer': type === 'layer'
-		});
-
-		return show && (
-			<div className={loadingType}>
-				<div className="loading-animation">
-					<svg className="circular" viewBox="25 25 50 50">
-						<circle className="path" cx="50" cy="50" r={size === 'small' ? 15 : 20} fill="none"/>
-					</svg>
-				</div>
-				{tip && <div className="loading-text">{tip}</div> }
+function SvgLoading(props) {
+	const { size, tip, layer } = props;
+	const loadingType = classNames("loading-container", {
+		"loading-layer": layer
+	});
+	const loadingAnimation = classNames("loading-animation", {
+		"loading-tip-animation": tip
+	});
+	return (
+		<div className={loadingType}>
+			<div className={loadingAnimation}>
+				<svg className="circular" viewBox="25 25 50 50">
+					<circle className="path" cx="50" cy="50" r={sizeMap[size]}/>
+				</svg>
 			</div>
-		);
-	}
+			{tip && <div className="loading-text">{tip}</div>}
+		</div>
+	);
 }
 
+function Loading(props) {
+	const { loading, delay, layer, size, tip, children } = props;
+	const [delayShow, setDelayShow] = useState(delay <= 0);
+
+	useEffect(() => {
+		let timer;
+		if (delay > 0) {
+			if (loading) {
+				timer = setTimeout(() => {
+					setDelayShow(true);
+				}, delay);
+			} else {
+				setDelayShow(false);
+			}
+		}
+
+		return () => {
+			if (timer) { clearTimeout(timer); }
+		}
+	}, [delay, loading]);
+
+	return (
+		children ?
+			<div className="loading">
+				{children}
+				{loading && delayShow && <SvgLoading size={size} tip={tip} layer={layer}/>}
+			</div>
+			:
+			(
+				loading && delayShow &&
+				<div className="loading">
+					<SvgLoading size={size} tip={tip} layer={layer}/>
+				</div>
+			)
+	);
+}
+
+
 Loading.propTypes = {
-	type: PropTypes.oneOf(['default', 'layer']),
-	size: PropTypes.oneOf(['default', 'small']),
+	loading: PropTypes.bool,
+	layer: PropTypes.bool,
+	size: PropTypes.oneOf(["default", "small", "large"]),
 	tip: PropTypes.string,
-	delay: PropTypes.number,
+	delay: PropTypes.number
 };
 
 Loading.defaultProps = {
-	type: 'default',
-	size: 'default',
-	tip: '',
+	loading: true,
+	layer: false,
+	size: "default",
+	tip: "",
 	delay: 0
 };
 

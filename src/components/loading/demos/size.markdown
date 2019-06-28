@@ -1,7 +1,7 @@
 ---
 order: 2
-title: 各种大小 size
-desc: 小的用于文本加载，大的用于页面级加载。
+title: 各种大小 
+desc: size,默认default，可设置为small、large
 ---
 
 ````javascript
@@ -19,6 +19,9 @@ export default class LoadingDemo extends React.Component {
 				<div>
 					<Loading />
 				</div>
+				<div>
+                	<Loading  size="large"/>
+                </div>
 			</section>
 		);
 	}

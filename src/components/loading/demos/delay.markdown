@@ -1,5 +1,5 @@
 ---
-order: 5
+order: 6
 title: 延迟加载
 desc: 延迟显示加载效果的时间（防止闪烁），number (毫秒)
 ---
@@ -7,35 +7,41 @@ desc: 延迟显示加载效果的时间（防止闪烁），number (毫秒)
 ````javascript
 import React from 'react';
 import Loading from 'ccms-components-react/loading';
-import Button from 'ccms-components-react/button';
+import Toggle from 'ccms-components-react/toggle';
 
 export default class LoadingDemo extends React.Component {
 	
 	constructor(props) {
-    		super(props);
-    		this.state = {
-    			loading: false
-    		}
+		super(props);
+		this.state = {
+			loading: false
     	}
+	}
 	
-	delayLoading = () => {
-		const {loading} = this.state;
-		this.setState({
-			loading: !loading
-		})
+	handleChange = (loading) => {
+		this.setState({ loading });
 	}
 
 	render() {
-		const {loading} = this.state;
 		return (
 			<div>
-				<Button size="small" type="primary" onClick={this.delayLoading}>{loading ? '关闭延迟加载Loading' : '打开延迟加载Loading(1.5s)'}</Button>
-				{loading && <Loading delay={1500}/>}
+				Loading state(延迟1.5s): <Toggle checked={this.state.loading} onChange={this.handleChange} />
+				
+				<Loading layer delay={1500}  loading={this.state.loading}> 
+				  <h2>延迟加载 loading 效果。当 loading 状态在 delay 时间内结束，则不显示 loading 状态。</h2>
+				  <div>延迟加载</div>
+				  <div>延迟加载</div>
+				  <div>延迟加载</div>
+				</Loading>
 			</div>
 			
 		);
 	}
 }
+
+````
+
+````less
 
 ````
 
