@@ -1,3 +1,6 @@
+@color: #00A9F0;
+@backgroundColor: rgba(244, 244, 244, .6);
+
 @keyframes rotate {
 	100% {
 		transform: rotate(360deg);
@@ -19,15 +22,24 @@
 }
 
 .loading {
+	position: relative;
+	min-height: 70px;
 	height: 100%;
 	width: 100%;
-	overflow: hidden;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	position: relative;
+	&-container {
+		height: 100%;
+		width: 100%;
+		overflow: hidden;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		position: absolute;
+		top: 0;
+	}
+	&-layer{
+		background: @backgroundColor;
+	}
 	&-animation {
-		position: relative;
 		width: 40px;
 		&:before {
 			content: '';
@@ -39,22 +51,23 @@
 			.path {
 				stroke-width: 3px;
 				stroke-miterlimit: 10;
-				stroke: #00AAF1;
+				stroke: @color;
 				stroke-dasharray: 1, 200;
 				stroke-dashoffset: 0;
 				animation: dash 1.2s linear infinite;
 				stroke-linecap: round;
+				fill: none
 			}
 		}
 	}
-	&-layer{
-		background: rgba(224, 224, 224, 0.8);
+	&-tip-animation{
+		margin-top: -20px;
 	}
 	&-text {
-		color: #00AAF1;
+		color: @color;
 		line-height: 30px;
 		position: absolute;
-		top: calc(50% + 13px);
+		top: calc(50% + 5px);
 	}
 }
 
