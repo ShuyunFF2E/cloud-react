@@ -12,9 +12,9 @@
     "build": "npm run webpack -- --env.mode development --env.domain develop",
     "site": "npm run webpack -- --env.mode site --env.domain production",
     "debug": "node --inspect --inspect-brk ./node_modules/webpack/bin/webpack.js --env.mode production",
-	"preversion": "npm run lint",
-	"version": "npm run build && npm publish dist",
-	"postversion": "git push && git push --tags"
+    "preversion": "npm run lint",
+    "version": "npm run build && npm publish dist",
+    "postversion": "git push && git push --tags"
   },
   "repository": {
     "type": "git",

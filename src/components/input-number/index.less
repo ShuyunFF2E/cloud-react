@@ -1,0 +1,130 @@
+@border-color: #ccc;
+@bg-color: #f5f5f5;
+@btn-disabled-bgcolor: #eaeaea;
+@btn-color: #575757;
+@addon-color: #555555;
+
+@large-height: 40px;
+@large-fontSize: 16px;
+@large-border-radius: 0;
+
+@default-height: 32px;
+@default-fontSize: 14px;
+@default-border-radius: 0;
+
+@small-height: 24px;
+@small-fontSize: 12px;
+@small-border-radius: 0;
+
+@selector: input-number;
+
+.size-mixin(@size-height, @size-fontSize, @radius: 0) {
+	height: @size-height;
+	font-size: @size-fontSize;
+
+	.@{selector}-addon {
+		min-width: @size-height;
+	}
+	.@{selector}-prefix {
+		border-radius: @radius 0 0 @radius;
+	}
+	input[type=text] {
+		height: @size-height;
+		&:first-child {
+			border-radius: @radius 0 0 @radius;
+		}
+	}
+	.btn-up-down() {
+		line-height: @size-height / 2;
+		height: @size-height / 2;
+	}
+	.@{selector}-up {
+		border-top-right-radius: @radius;
+		.btn-up-down()
+
+	}
+	.@{selector}-down {
+		border-bottom-right-radius: @radius;
+		.btn-up-down()
+	}
+}
+.@{selector} {
+	position: relative;
+	display: table;
+	border-collapse: separate;
+	box-sizing: border-box;
+	* {
+		box-sizing: border-box;
+	}
+
+	&.large {
+		.size-mixin(@large-height, @large-fontSize, @large-border-radius);
+	}
+	&.default {
+		.size-mixin(@default-height, @default-fontSize, @default-border-radius);
+	}
+	&.small {
+		.size-mixin(@small-height, @small-fontSize, @small-border-radius);
+	}
+
+	&-cell {
+		display: table-cell;
+	}
+	&-addon {
+		color: @addon-color;
+		text-align: center;
+		background-color: @bg-color;
+		border: 1px solid @border-color;
+		white-space: nowrap;
+		vertical-align: middle;
+	}
+	&-prefix {
+		border-right: 0;
+	}
+	&-postfix {
+		border-left: 0;
+	}
+	&-text {
+		position: relative;
+		outline: none;
+		padding: 0 6px;
+		color: #555555;
+		background-color: #fff;
+		background-image: none;
+		border: 1px solid @border-color;
+
+		&[disabled]{
+			background-color: @btn-disabled-bgcolor;
+			opacity: .65;
+			cursor: not-allowed;
+		}
+	}
+
+	&-btn-vertical {
+		position: relative;
+		white-space: nowrap;
+		vertical-align: middle;
+		width: 20px;
+	}
+	&-up,
+	&-down {
+		display: block;
+		outline: none;
+		cursor: pointer;
+		padding: 0;
+		width: 100%;
+		max-width: 100%;
+		position: relative;
+		border: 1px solid @border-color;
+		border-left: none;
+		transition: background-color 1s linear;
+		color: @btn-color;
+		background-color: @bg-color;
+
+		&[disabled]{
+			background-color: @btn-disabled-bgcolor;
+			opacity: .65;
+			cursor: not-allowed;
+		}
+	}
+}
