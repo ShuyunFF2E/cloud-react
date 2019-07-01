@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Icon from '../icon';
@@ -20,31 +19,6 @@ export default class InputNumber extends Component {
 		this.init();
 	}
 
-	init() {
-		const { min, max, value, defaultValue } = this.props;
-		let tempValue = '';
-		if (value !== undefined && !Number.isNaN(value)) {
-			if (value <= max && value >= min) {
-				tempValue = value;
-			}
-		} else if (!Number.isNaN(defaultValue)) {
-			if (defaultValue <= max && defaultValue >= min) {
-				tempValue = defaultValue;
-			}
-		}
-		this.getPrecision();
-		this.handleValue(tempValue);
-	}
-
-	getPrecision() {
-		const { step } = this.props;
-		if (!Number.isInteger(step)) {
-			this.setState({
-				precision: step.toString().split('.')[1].length
-			});
-		}
-	}
-
 	getMax(value) {
 		const { max } = this.props;
 		return {
@@ -61,6 +35,15 @@ export default class InputNumber extends Component {
 		};
 	}
 
+	getPrecision() {
+		const { step } = this.props;
+		if (!Number.isInteger(step)) {
+			this.setState({
+				precision: step.toString().split('.')[1].length
+			});
+		}
+	}
+
 	setBtnStatus(upBtnStatus, downBtnStatus) {
 		this.setState({
 			upBtnStatus,
@@ -68,45 +51,14 @@ export default class InputNumber extends Component {
 		});
 	}
 
-	triggerOnChange(value) {
-		this.props.onChange(value);
-	}
-
-	handleOnChange = e => {
-		const targetValue = e.target.value.trim();
-		this.handleValue(targetValue);
-	}
-
-	handleBlur = e => {
-		const  { max, min } = this.props;
-		const inpValue = e.target.value.trim();
-
-		let targetValue = inpValue.length ? Number.parseFloat(inpValue) : inpValue;
-
-		if (targetValue !== '' && !Number.isNaN(targetValue)) {
-			if (!this.getMax(targetValue).lessEqualMax) {
-				targetValue = max;
-			}
-			if (!this.getMin(targetValue).lessEqualMin) {
-				targetValue = min;
-			}
-		} else {
-			targetValue = '';
-		}
-		this.handleValue(targetValue);
-	}
-
-	handleWheel = e => {
-		const { disabled } = this.props;
-		if (!disabled && e.target === document.activeElement) {
-			const delta = e.wheelDelta || -e.deltaY || -e.detail;
-			if (delta > 0) {
-				this.handlePlus();
-			}
-
-			if (delta < 0) {
-				this.handleMinus();
-			}
+	handleValue = currentValue => {
+		const { value } = this.state;
+		this.setBtnStatus(this.getMax(currentValue).greaterEqualMax, this.getMin(currentValue).greaterEqualMin);
+		if (currentValue !== value) {
+			this.setState({
+				value: currentValue
+			});
+			this.triggerOnChange(currentValue);
 		}
 	}
 
@@ -139,15 +91,62 @@ export default class InputNumber extends Component {
 		this.handlePlusMinus(false);
 	}
 
-	handleValue = currentValue => {
-		const { value } = this.state;
-		this.setBtnStatus(this.getMax(currentValue).greaterEqualMax, this.getMin(currentValue).greaterEqualMin);
-		if (currentValue !== value) {
-			this.setState({
-				value: currentValue
-			});
-			this.triggerOnChange(currentValue);
+	handleWheel = e => {
+		const { disabled } = this.props;
+		if (!disabled && e.target === document.activeElement) {
+			const delta = e.wheelDelta || -e.deltaY || -e.detail;
+			if (delta > 0) {
+				this.handlePlus();
+			}
+
+			if (delta < 0) {
+				this.handleMinus();
+			}
 		}
+	}
+
+	handleOnChange = e => {
+		const targetValue = e.target.value.trim();
+		this.handleValue(targetValue);
+	}
+
+	handleBlur = e => {
+		const  { max, min } = this.props;
+		const inpValue = e.target.value.trim();
+
+		let targetValue = inpValue.length ? Number.parseFloat(inpValue) : inpValue;
+
+		if (targetValue !== '' && !Number.isNaN(targetValue)) {
+			if (!this.getMax(targetValue).lessEqualMax) {
+				targetValue = max;
+			}
+			if (!this.getMin(targetValue).lessEqualMin) {
+				targetValue = min;
+			}
+		} else {
+			targetValue = '';
+		}
+		this.handleValue(targetValue);
+	}
+
+	init() {
+		const { min, max, value, defaultValue } = this.props;
+		let tempValue = '';
+		if (value !== undefined && !Number.isNaN(value)) {
+			if (value <= max && value >= min) {
+				tempValue = value;
+			}
+		} else if (!Number.isNaN(defaultValue)) {
+			if (defaultValue <= max && defaultValue >= min) {
+				tempValue = defaultValue;
+			}
+		}
+		this.getPrecision();
+		this.handleValue(tempValue);
+	}
+
+	triggerOnChange(value) {
+		this.props.onChange(value);
 	}
 
 	render() {
@@ -214,6 +213,9 @@ InputNumber.propTypes = {
 };
 
 InputNumber.defaultProps = {
+	style: undefined,
+	value: undefined,
+	defaultValue: '',
 	className: '',
 	min: -Infinity,
 	max: Infinity,
@@ -221,6 +223,8 @@ InputNumber.defaultProps = {
 	placeholder: '请输入...',
 	precision: 0,
 	step: 1,
+	prefix: null,
+	postfix: null,
 	disabled: false,
 	onChange: () => {
 	}
