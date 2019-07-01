@@ -1,0 +1,171 @@
+
+@selector: checkbox;
+@cardSelector: @{selector}-card;
+
+@checkbox-size: 14px;
+@border-radius-size: 3px;
+@card-min-size: 40px;
+
+@checked-color: #00AAF1;
+@normal-color: #CCC;
+@disabled-color: #DDD;
+@radio-disabled-bg-color: #EEE;
+@default-bg-color: #FFF;
+
+.common-input {
+	position: absolute;
+	opacity: 0;
+}
+
+.common-position {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
+.common-disabled {
+	color: @disabled-color;
+	cursor: not-allowed;
+}
+
+.pseudo-mixin(@width, @height, @border) {
+	content: '';
+	position: absolute;
+	right: 0;
+	bottom: 0;
+
+	width: @width;
+	height: @height;
+	border: @border;
+}
+
+.@{selector} {
+
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	cursor: pointer;
+
+	&-inner {
+
+		position: relative;
+
+		width: @checkbox-size;
+		height: @checkbox-size;
+
+		border: 1px solid currentColor;
+		border-radius: @border-radius-size;
+		box-sizing: border-box;
+
+		color: @normal-color;
+		display: inline-block;
+	}
+
+	&-input {
+
+		&:extend(.common-input);
+
+		&:indeterminate + .@{selector}-inner {
+			border: 1px solid @normal-color;
+			color: @checked-color;
+
+			&::after:extend(.common-position) {
+				content: '';
+				margin: 24%;
+				background-color: currentColor;
+			}
+		}
+
+		&:checked + .@{selector}-inner {
+
+			color: @checked-color;
+
+			&::after {
+
+				.pseudo-mixin(70%, 28%, 2px solid currentColor);
+
+				top: 50%;
+				left: 50%;
+
+				border-top: none;
+				border-right: none;
+
+				transform: translate(-50%, -80%) rotate(-45deg);
+				background-color: transparent;
+			}
+		}
+
+		&:hover + .@{selector}-inner {
+			color: @checked-color;
+		}
+
+		&:disabled + .@{selector}-inner, &:disabled ~ .@{selector}-container {
+			.common-disabled
+		}
+	}
+
+	&-container {
+		margin: 0 8px 0 5px;
+	}
+}
+
+.@{cardSelector} {
+
+	position: relative;
+	display: inline-flex;
+	min-height: @card-min-size;
+	min-width: @card-min-size;
+
+	box-sizing: border-box;
+	padding: 5px;
+
+	&-inner:extend(.common-position) {
+		color: @normal-color;
+		border: 1px solid currentColor;
+	}
+
+	&-input {
+		&:extend(.common-input);
+
+		&:checked + .@{cardSelector}-inner {
+			color: @checked-color;
+
+			&::after {
+				.pseudo-mixin(10px, 5px, 2px solid @default-bg-color);
+
+				border-top: none;
+				border-right: none;
+
+				transform: translate(-14%, -80%) rotate(-45deg);
+				background-color: transparent;
+			}
+
+			&::before {
+				.pseudo-mixin(0, 0, 12px solid currentColor);
+
+				border-top-color: transparent;
+				border-left-color: transparent;
+			}
+		}
+
+		&:hover + .@{cardSelector}-inner {
+			color: @checked-color;
+		}
+
+		&:disabled + .@{cardSelector}-inner {
+			.common-disabled;
+		}
+
+		&:disabled ~ * {
+			.common-disabled;
+		}
+	}
+
+}
+
+.@{selector}-group {
+	display: inline-flex;
+}
+
