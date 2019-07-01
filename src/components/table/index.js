@@ -23,10 +23,10 @@ const ajaxPageTemplate = `
 	<div class="ajax-page">
 		<ul class="pagination" pagination-before>
 			<li class="first-page">
-				<i class="shuyunicon icon-first"></i>
+				<i class="shuyunicon icon-first-solid"></i>
 			</li>
 			<li class="previous-page">
-				<i class="shuyunicon icon-previous"></i>
+				<i class="shuyunicon icon-left-solid"></i>
 			</li>
 		</ul>
 
@@ -35,10 +35,10 @@ const ajaxPageTemplate = `
 		</div>
 		<ul class="pagination" pagination-after>
 			<li class="next-page">
-				<i class="shuyunicon icon-next"></i>
+				<i class="shuyunicon icon-right-solid"></i>
 			</li>
 			<li class="last-page">
-				<i class="shuyunicon icon-last"></i>
+				<i class="shuyunicon icon-last-solid"></i>
 			</li>
 		</ul>
 	</div>
@@ -62,7 +62,7 @@ const voidMsgStyle = {
 };
 const emptyTemplate = (
 	<div style={voidStyle}>
-		<Icon type='gantanhao' style={voidIconStyle}/>
+		<Icon type='warning-circle-solid' style={voidIconStyle}/>
 		<span style={voidMsgStyle}>暂无数据</span>
 	</div>
 );
