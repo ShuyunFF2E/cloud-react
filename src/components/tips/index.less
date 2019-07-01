@@ -1,0 +1,38 @@
+@normal-bg: #ecf8fc;
+@normal-border: 1px solid #d2eeff;
+
+@major-bg: #fcf8e2;
+@major-border: 1px solid #faecca;
+
+@warning-bg: #fcf2f0;
+@warning-border: 1px solid #ffdfe0;
+
+@small-font-size: 12px;
+@border-radius: 2px;
+@text-color: #666;
+
+@selector: tips;
+
+.@{selector}-container {
+	display: block;
+	padding: 5px 11px;
+	line-height: 18px;
+	border-radius: @border-radius;
+	&.normal {
+		background: @normal-bg;
+		border: @normal-border;
+	}
+	&.major {
+		background: @major-bg;
+		border: @major-border;
+	}
+	&.warning {
+		background: @warning-bg;
+		border: @warning-border;
+	}
+	>p {
+		margin: 0;
+		color: @text-color;
+		font-size: @small-font-size;
+	}
+}
