@@ -8,7 +8,7 @@ import React, { Component } from 'react';
 import jeasy from 'jeasy';
 import Icon from 'ccms-components-react/icon';
 
-const iconList = ['checkmark', 'shop', 'up', 'close', 'down', 'refresh', 'info', 'wenhao', 'gantanhao', 'left', 'flag', 'delete', 'search', 'duihao', 'right', 'shixinwenhao', 'clear', 'edit', 'last', 'first', 'qiehuan', 'x', 'previous', 'next'];
+const iconList = ['up', 'down', 'left', 'right', 'up-solid', 'down-solid', 'left-solid', 'right-solid', 'close', 'close-circle-solid', 'check-circle-solid', 'shop', 'refresh', 'info-circle', 'question-circle', 'question-circle-solid', 'warning-circle-solid', 'flag-solid', 'delete', 'search', 'edit', 'last-solid', 'first-solid', 'swap'];
 export default class IconDemo extends Component {
 
 	render() {
@@ -17,7 +17,7 @@ export default class IconDemo extends Component {
     	};
 
 		const ulStyle = {listStyleType: 'none', margin: '0', paddding: '0'};
-		const liStyle = {display: 'inline-block', width: '100px', textAlign: 'center', padding: '5px', margin: '0 0 5px 0'};
+		const liStyle = {display: 'inline-block', width: '200px', textAlign: 'center', padding: '5px', margin: '0 0 5px 0'};
 		const iconAreaStyle = {height: '80px', lineHeight: '80px'};
 		const textAreaStyle = {height: '20px', lineHeight: '20px', cursor: 'pointer'};
 		const iconStyle = {fontSize: '36px'};
