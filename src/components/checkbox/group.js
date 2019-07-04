@@ -1,6 +1,8 @@
-import React, { useEffect, useState, Children, cloneElement } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+
+export const GroupContext = React.createContext(null);
 
 function Group(props) {
 
@@ -19,16 +21,18 @@ function Group(props) {
 		setCheckList(new Set(checkedList));
 	};
 
+	const provider = {
+		disabled,
+		checkedList,
+		onChange: onChangeAction
+	};
+
 	return (
-		<span className={classnames('checkbox-group', className)} {...other}>
-			{
-				Children.map(children, child => cloneElement(child, {
-					disabled,
-					checked: checkedList.has(child.props.value),
-					onChange: onChangeAction
-				}))
-			}
-		</span>
+		<GroupContext.Provider value={provider}>
+			<span className={classnames('checkbox-group', className)} {...other}>
+				{ children }
+			</span>
+		</GroupContext.Provider>
 	)
 }
 

@@ -19,7 +19,7 @@ export default function CheckboxDemo() {
 	
 	return [
 		<Checkbox key={1} value={1} onChange={onChange} checked={checked}>A</Checkbox>,
-		<Checkbox key={2} value={2} indeterminate={true} onChange={onChange} checked={checked}>B</Checkbox>
+		<Checkbox key={2} value={2} indeterminate={true} checked={checked}>B</Checkbox>
 	]
 }
 ````

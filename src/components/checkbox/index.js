@@ -1,14 +1,22 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import Group from './group';
 import CommonCheckbox from './checkbox';
 
-function Checkbox(props) {
-	return <CommonCheckbox classSelector='checkbox' {...props} />
+function Checkbox({ indeterminate, ...props }) {
+
+	const ref = useRef(null);
+
+	useEffect(() => {
+		ref.current.indeterminate = indeterminate;
+	});
+
+	return <CommonCheckbox ref={ref} classSelector='checkbox' {...props} />
 }
 
 function Card(props) {
+
 	const { style, width, height, ...other } = props;
 	const getPx = px => Number.isNaN(Number(px)) ? px : `${px}px`;
 	const styles = { ...style, width: getPx(width), height: getPx(height) };

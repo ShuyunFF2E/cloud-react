@@ -12,11 +12,14 @@ import Checkbox from 'ccms-components-react/checkbox';
 export default function CheckboxDemo() {
 	
 	const style = { margin: '10px 5px 10px 0' };
+	const onChange = value => {
+		console.log(value);
+	}
 	
 	return (
 		<>
-			<Checkbox.Group style={style}>
-        		<Checkbox value={'a'}>A</Checkbox>
+			<Checkbox.Group style={style} onChange={onChange}>
+        		<span><Checkbox value={'a'}>A</Checkbox></span>
         		<Checkbox value={'b'}>B</Checkbox>
         		<Checkbox value={'c'}>C</Checkbox>
         	</Checkbox.Group>

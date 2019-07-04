@@ -1,12 +1,12 @@
-import React, { useRef, useEffect } from 'react';
+import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 import './index.less';
+import { GroupContext } from './group';
 
-function CommonCheckbox(props) {
+function CommonCheckbox(props, ref) {
 
-	const checkboxRef = useRef(null);
 	const {
 		value,
 		style,
@@ -16,44 +16,55 @@ function CommonCheckbox(props) {
 		onChange,
 		className,
 		classSelector,
-		indeterminate,
 		...other
 	} = props;
 
-	useEffect(() => {
-		checkboxRef.current.indeterminate = indeterminate;
-	});
+	const render = ctx => {
 
-	return (
-		<label className={classnames(classSelector, className)} style={style}>
-			<input
-				{...other}
-				value={value}
-				type='checkbox'
-				checked={checked}
-				ref={checkboxRef}
-				onChange={onChange}
-				disabled={disabled}
-				className={`${classSelector}-input`}
-			/>
-			<span className={`${classSelector}-inner`} />
-			<span className={`${classSelector}-container`}>{ children }</span>
-		</label>
-	)
+		const groupProps = ctx === null
+			? { checked, onChange, disabled }
+			: {
+				disabled: ctx.disabled,
+				checked: ctx.checkedList.has(value),
+				onChange(evt) {
+					onChange(evt);
+					ctx.onChange(evt);
+				}
+			};
+
+		return (
+			<label className={classnames(classSelector, className)} style={style}>
+				<input
+					{...other}
+					value={value}
+					type='checkbox'
+					ref={ref}
+					{...groupProps}
+					className={`${classSelector}-input`}
+				/>
+				<span className={`${classSelector}-inner`} />
+				<span className={`${classSelector}-container`}>{ children }</span>
+			</label>
+		)
+	};
+
+	return <GroupContext.Consumer>{ render }</GroupContext.Consumer>
 }
 
-CommonCheckbox.propTypes = {
+
+const Checkbox = forwardRef(CommonCheckbox);
+
+Checkbox.propTypes = {
 	value: PropTypes.node.isRequired,
 	checked: PropTypes.bool,
 	disabled: PropTypes.bool,
 	onChange: PropTypes.func
 };
 
-CommonCheckbox.defaultProps = {
+Checkbox.defaultProps = {
 	checked: false,
 	disabled: false,
 	onChange: () => {}
 };
 
-
-export default CommonCheckbox;
+export default Checkbox;
