@@ -1,0 +1,168 @@
+@selectorWrap: tooltipWrap;
+@selector: tooltip;
+@border-radius: 2px;
+@tooltip-arrow-width: 3px;
+@tooltip-arrow-offset: @tooltip-arrow-width + 1;
+@tooltip-arrow-color: #666666;
+@tooltip-arrow-errorColor: #ff867c;
+
+@dark_bgColor: #666666;
+@dark_color: #f8f8f8;
+
+@light_bgColor: #ffffff;
+@light_color: #666666;
+@light_border: 1px solid #666666;
+
+@error_bgColor: #ff867c;
+@error_color: #f8f8f8;
+@error_border: #f8f8f8;
+
+.@{selectorWrap}{
+	display: inline-block;
+}
+
+.@{selector} {
+	position: absolute;
+	box-sizing: border-box;
+	font-size: 12px;
+	border-radius: @border-radius;
+	opacity: 1;
+	padding: 4px 8px;
+	margin: 0;
+	min-height: 26px;
+	max-width: 250px;
+	line-height: 1.5;
+	box-shadow: none;
+	z-index: 9999;
+
+	&:after {
+		content: "";
+		position: absolute;
+		border: solid transparent;
+	}
+
+	&.top-left:after {
+		bottom: 0;
+		left: @tooltip-arrow-offset;
+		margin-bottom: -@tooltip-arrow-width;
+		border-width: @tooltip-arrow-width @tooltip-arrow-width 0;
+		border-top-color: @tooltip-arrow-color;
+	}
+
+	&.top-center:after {
+		bottom: 0;
+		left: 50%;
+		margin-left: -@tooltip-arrow-width;
+		margin-bottom: -@tooltip-arrow-width;
+		border-width: @tooltip-arrow-width @tooltip-arrow-width 0;
+		border-top-color: @tooltip-arrow-color;
+	}
+
+	&.top-right:after {
+		bottom: 0;
+		right: @tooltip-arrow-offset;
+		margin-bottom: -@tooltip-arrow-width;
+		border-width: @tooltip-arrow-width @tooltip-arrow-width 0;
+		border-top-color: @tooltip-arrow-color;
+	}
+
+	&.right-top:after {
+		top: 0;
+		left: -@tooltip-arrow-width;
+		margin-top: @tooltip-arrow-offset;
+		border-width: @tooltip-arrow-width @tooltip-arrow-width @tooltip-arrow-width 0 ;
+		border-right-color: @tooltip-arrow-color;
+	}
+
+	&.right-center:after {
+		top: 50%;
+		left: -@tooltip-arrow-width;
+		margin-top: -@tooltip-arrow-width;
+		border-width: @tooltip-arrow-width @tooltip-arrow-width @tooltip-arrow-width 0;
+		border-right-color: @tooltip-arrow-color;
+	}
+
+	&.right-bottom:after {
+		bottom: @tooltip-arrow-offset;
+		left: -@tooltip-arrow-width;
+		margin-top: -@tooltip-arrow-width;
+		border-width: @tooltip-arrow-width @tooltip-arrow-width @tooltip-arrow-width 0;
+		border-right-color: @tooltip-arrow-color;
+	}
+
+	&.left-top:after {
+		top: 0;
+		right: -@tooltip-arrow-width;
+		margin-top: @tooltip-arrow-offset;
+		border-width: @tooltip-arrow-width 0 @tooltip-arrow-width @tooltip-arrow-width;
+		border-left-color: @tooltip-arrow-color;
+	}
+
+	&.left-center:after {
+		top: 50%;
+		right: -@tooltip-arrow-width;
+		margin-top: -@tooltip-arrow-width;
+		border-width: @tooltip-arrow-width 0 @tooltip-arrow-width @tooltip-arrow-width;
+		border-left-color: @tooltip-arrow-color;
+	}
+
+	&.left-bottom:after {
+		bottom: @tooltip-arrow-offset;
+		right: -@tooltip-arrow-width;
+		margin-top: -@tooltip-arrow-width;
+		border-width: @tooltip-arrow-width 0 @tooltip-arrow-width @tooltip-arrow-width;
+		border-left-color: @tooltip-arrow-color;
+	}
+
+	&.bottom-left:after {
+		top: 0;
+		left: @tooltip-arrow-offset;
+		margin-top: -@tooltip-arrow-width;
+		border-width: 0 @tooltip-arrow-width @tooltip-arrow-width;
+		border-bottom-color: @tooltip-arrow-color;
+	}
+
+	&.bottom-center:after {
+		top: -@tooltip-arrow-width;
+		left: 50%;
+		margin-left: -@tooltip-arrow-width;
+		border-width: 0 @tooltip-arrow-width @tooltip-arrow-width;
+		border-bottom-color: @tooltip-arrow-color;
+	}
+
+	&.bottom-right:after {
+		top: 0;
+		right: @tooltip-arrow-offset;
+		margin-top: -@tooltip-arrow-width;
+		border-width: 0 @tooltip-arrow-width @tooltip-arrow-width;
+		border-bottom-color: @tooltip-arrow-color;
+	}
+
+	&.is-dark {
+		background-color: @dark_bgColor;
+		color: @dark_color;
+	}
+
+	&.is-light {
+		background-color: @light_bgColor;
+		color: @light_color;
+		border: @light_border;
+	}
+
+	&.is-error {
+		background-color: @error_bgColor;
+		color: @error_color;
+		&.top-center:after {
+			border-top-color: @tooltip-arrow-errorColor !important;
+		}
+		&.right-center:after {
+			border-right-color: @tooltip-arrow-errorColor !important;
+		}
+		&.bottom-center:after {
+			border-bottom-color: @tooltip-arrow-errorColor !important;
+		}
+		&.left-center:after {
+			border-left-color: @tooltip-arrow-errorColor !important;
+		}
+	}
+}
