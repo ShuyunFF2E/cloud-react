@@ -10,6 +10,3 @@ script:
   - npm run lint
   - npm run build
   - npm run site
-
-notifications:
-   webhooks: https://oapi.dingtalk.com/robot/send?access_token=a5ef5fde906269e569209f4b5b00637e7e822a10867cc908a889cd63160731a0
