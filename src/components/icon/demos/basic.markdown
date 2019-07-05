@@ -7,13 +7,16 @@ desc: 将type值复制进行使用
 import React, { Component } from 'react';
 import jeasy from 'jeasy';
 import Icon from 'ccms-components-react/icon';
+import message from 'ccms-components-react/message';
 
 const iconList = ['up', 'down', 'left', 'right', 'up-solid', 'down-solid', 'left-solid', 'right-solid', 'close', 'close-circle-solid', 'check-circle-solid', 'shop', 'refresh', 'info-circle', 'question-circle', 'question-circle-solid', 'warning-circle-solid', 'flag-solid', 'delete', 'search', 'edit', 'last-solid', 'first-solid', 'swap'];
 export default class IconDemo extends Component {
 
 	render() {
 		const onClickHandler = event => {
-            jeasy.copyText(event.currentTarget.innerText);
+			const text = event.currentTarget.innerText;
+            jeasy.copyText(text);
+            message.success(text + ' 已复制');
     	};
 
 		const ulStyle = {listStyleType: 'none', margin: '0', paddding: '0'};
