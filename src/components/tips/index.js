@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './index.less';
 
-class Tips extends React.Component {
+class Tips extends Component {
 
 	render() {
-		const {msg, type, style} = this.props;
+		const { msg, type, style } = this.props;
 
 		return (
 			<div className={`${type} tips-container`} style={style}>
-				<p dangerouslySetInnerHTML={{__html: msg}}></p>
+				<p dangerouslySetInnerHTML={{ __html: msg }}></p>
 			</div>
 		)
 	}
@@ -22,7 +22,11 @@ Tips.defaultProps = {
 
 Tips.propTypes = {
 	msg: PropTypes.string.isRequired,
-	type: PropTypes.string,
+	type: PropTypes.oneOf([
+		"normal",
+		"warning",
+		"major"
+	]),
 	style: PropTypes.object
 };
 
