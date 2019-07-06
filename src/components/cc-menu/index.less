@@ -1,0 +1,252 @@
+
+@shopSelector: shop-selector;
+@shopPaneSelector: shop-selector-pane;
+@ccMenuSelector: cc-menu;
+
+// ==========================  shop-selector ==================
+
+@shop-selector-bg-color: #e9ebee;
+@shop-logo-bg-color: #d4dce0;
+@shop-logo-color: #fff;
+@shop-plat-color: #666;
+@shop-name-color: #999;
+
+
+.@{shopSelector} {
+    width: 180px;
+    background: @shop-selector-bg-color;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    z-index: 1;
+
+    ul, li {
+        &:extend(.reset);
+    }
+
+    .shop-logo-wrapper {
+        margin: 15px auto 0;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: @shop-logo-bg-color;
+        text-align: center;
+        .shop-logo {
+            font-size: 30px;
+            color: @shop-logo-color;
+            line-height: 40px;
+        }
+        .shop-img-logo {
+            display: block;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+    }
+    .shop-title-wrapper {
+        margin-top: 6px;
+        height: 14px;
+        line-height: 14px;
+        font-size: 12px;
+        text-align: center;
+        .shop-plat {
+            color: @shop-plat-color;
+        }
+        .shop-name {
+            color: @shop-name-color;
+        }
+    }
+}
+
+// ==================== shop-selector-pane ===============
+
+@selector-pane-bg-color: #f9f9f9;
+@selector-pane-border-color: #e7eaec;
+@selector-pane-shadow-color: rgba(0,0,0,.09);
+
+@shop-search-border-color: #d9d9d9;
+@shop-search-icon-color: #dbdbdb;
+@shop-item-plat-color: #999;
+@shop-item-title-color: #666;
+@checked-flag-color: #23b74a;
+@checked-item-color: #f0f0f0;
+
+.@{shopPaneSelector} {
+    box-sizing: border-box;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 344px;
+    height: 100%;
+    padding-top: 20px;
+    background: @selector-pane-bg-color;
+    border: 1px solid @selector-pane-border-color;
+    box-shadow: 4px 4px 4px -3px @selector-pane-shadow-color;
+    transition: transform 0.5s ease;
+    z-index: 0;
+    overflow: auto;
+
+    &.collapse {
+        transform: translateX(-165px);
+    }
+    &.expand {
+        transform: translateX(180px;)
+    }
+
+    .shop-search {
+        margin-left: 25px;
+        width: 294px;
+        height: 30px;
+        position: relative;
+        input {
+            box-sizing: border-box;
+            font-size: 12px;
+            width: 100%;
+            height: 100%;
+            border: 1px solid @shop-search-border-color;
+            padding-left: 8px;
+            padding-right: 55px;
+        }
+        .search-icon {
+            position: absolute;
+            color: @shop-search-icon-color;
+            font-size: 18px;
+            position: absolute;
+            right: 9px;
+            top: calc(50% - 9px);
+            cursor: pointer;
+        }
+    }
+
+    .shop-plat {
+        margin-top: 20px;
+        font-size: 12px;
+        transform: scale(.85);
+        height: 14px;
+        line-height: 14px;
+        color: @shop-item-plat-color;
+    }
+    .shop-item {
+        height: 30px;
+        line-height: 30px;
+        font-size: 12px;
+        padding-left: 25px;
+        color: @shop-item-title-color;
+        cursor: pointer;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        .shop-title {
+            display: inline-block;
+            max-width: 277px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        .checked-flag {
+            display: inline-block;
+            width: 40px;
+            text-align: left;
+            color: @checked-flag-color;
+            font-size: 12px;
+        }
+        &.checked {
+            background: @checked-item-color;
+        }
+    }
+}
+
+
+
+// ============cc-menu =====
+
+@cc-menu-bg-color: #dee3e7;
+@cc-menu-toggle-hover-bg: #d4dbe1;
+@cc-menu-toggle-hover-color: #a7b3ba;
+@cc-menu-toggle-icon-color: #bdc6cc;
+
+@collapsed-bar-bg: #e9ebee;
+@collapsed-icon-bg: #d9dfe3;
+@collapsed-icon-color: #bdc6cc;
+
+
+@collapsed-icon-hover-bg: #d4dce0;
+@collapsed-icon-hover-color: #a7b3ba;
+
+@collapsed-logo-bg: #c3ced4;
+@collapsed-logo-color: #fff;
+@collapsed-logo-hover-color: #bac7cd;
+
+.@{ccMenuSelector} {
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    position: relative;
+    &.collapsed {
+        transform: translateX(-150px);
+    }
+
+    .cc-menu-toggle {
+        width: 180px;
+        height: 20px;
+        line-height: 16px;
+        z-index: 1;
+        cursor: pointer;
+        background-color: @cc-menu-bg-color;
+        text-align: center;
+        &:hover {
+            background-color: @cc-menu-toggle-hover-bg;
+            .toggle-icon {
+                color: @cc-menu-toggle-hover-color;
+            }
+        }
+        .toggle-icon {
+            color: @cc-menu-toggle-icon-color;
+            font-size: 12px;
+        }
+    }
+
+
+    // 侧边收缩栏
+    .menu-collapsed-bar {
+        background: @collapsed-bar-bg;
+        height: 100%;
+        width: 30px;
+        margin-left: -30px;
+        z-index: 3;
+        .collapsed-icon-wrapper {
+            width: 30px;
+            height: 20px;
+            line-height: 16px;
+            text-align: center;
+            cursor: pointer;
+            background: @collapsed-icon-bg;
+            &:hover {
+                background: @collapsed-icon-hover-bg;
+                color: @collapsed-icon-hover-color;
+            }
+            .collapsed-icon {
+                color: @collapsed-icon-color;
+                font-size: 12px;
+            }
+        }
+
+        .collapsed-logo-wrapper {
+            height: 40px;
+            line-height: 40px;
+            background: @collapsed-logo-bg;
+            opacity: .8;
+            position: relative;
+            cursor: pointer;
+            text-align: center;
+            .collapsed-logo {
+                color: @collapsed-logo-color;
+                font-size: 16px;
+            }
+            &:hover {
+                background: @collapsed-logo-hover-color;
+            }
+        }
+
+    }
+}

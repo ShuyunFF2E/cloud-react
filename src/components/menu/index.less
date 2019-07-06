@@ -1,0 +1,100 @@
+@menuSelector: menu;
+
+@menu-item-color: #3a3a3a;
+@menu-item-hover-color: #dee1e5;
+@menu-item-active-color: #fdfdfd;
+@menu-item-disable-color: #ccc;
+@menu-item-link-color: #333;
+
+@menu-bg-color: #e9ebee;
+@menu-indicator-color: #cbcbcb;
+
+.menu-item-basic {
+    height: 40px;
+    font-size: 12px;
+    line-height: 40px;
+    color: @menu-item-color;
+    cursor: pointer;
+    z-index: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    &:hover {
+        background: @menu-item-hover-color;
+    }
+    &.active {
+        background: @menu-item-active-color;
+    }
+    &.disabled {
+        color: @menu-item-disable-color;
+        cursor: not-allowed;
+
+    }
+}
+
+.reset {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+// ========== menu ===========
+.@{menuSelector}-container {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    height: 100%;
+    width: 180px;
+
+    ul, li {
+        &:extend(.reset);
+    }
+
+    .@{menuSelector} {
+        flex: 1;
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        background-color: @menu-bg-color;
+        overflow: auto;
+    
+        a {
+            display: block;
+            text-decoration: none;
+            color: @menu-item-link-color;
+        }
+    
+        .menu-group {
+            .menu-group-title:extend(.menu-item-basic all) {
+                position: relative;
+    
+                .menu-indicator {
+                    position: absolute;
+                    color: @menu-indicator-color;
+                    font-size: 12px;
+                    right: 15px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                }
+    
+            }
+            .menu-group-sub {
+                &.collapse {
+                    height: 0;
+                    overflow: hidden;
+                }
+                &.expand {
+                    height: auto;
+                }
+                .menu-item {
+                    color: @menu-item-link-color;
+                }
+            }
+        }
+    
+        .menu-item {
+            &:extend(.menu-item-basic all);
+        }
+    }
+}
