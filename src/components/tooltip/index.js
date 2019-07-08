@@ -5,73 +5,51 @@
  */
 
 import React, { Component } from 'react';
-import ReactDOM from "react-dom";
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import jeasy from 'jeasy';
 import './index.less';
-import Toolview from "./view";
+import ToolView from './toolView';
 
 const container = {};
 let targetEle = null;
 
 /**
- * 元素插入到兄弟节点
- * @param newElement: 新元素
- * @param targetElement: 目标元素
- */
-
-function insertAfter(newElement, targetElement) {
-	const parent = targetElement.parentNode;
-	if (parent.lastChild === targetElement) {
-		// 如果最后的节点是目标元素，则直接添加。因为默认是最后
-		parent.appendChild(newElement);
-	} else {
-		// 如果不是，则插入在目标元素的下一个兄弟节点 的前面。也就是目标元素的后面
-		parent.insertBefore(newElement, targetElement.nextSibling);
-	}
-}
-
-/**
- * 渲染到 body or 兄弟节点
- * @param isBody: 是否渲染到body
+ * 渲染到节点
  * @param wrapper: 容器
- * @param props: 属性
- * @param targetElement: 目标元素
+ * @param component: 组件
  */
-function renderComponentWithPosition(isBody, wrapper, props, targetElement) {
-	if (isBody) {
-		document.body.appendChild(wrapper);
-		ReactDOM.render(props, wrapper);
-	} else {
-		insertAfter(wrapper, targetElement);
-		targetElement.appendChild(wrapper);
-		ReactDOM.render(props, wrapper);
-	}
+function renderComponentWithPosition(wrapper, component) {
+	document.body.appendChild(wrapper);
+	ReactDOM.render(component, wrapper);
 }
 
 /**
  * 销毁DOM跟ReactDom
- * @param isBody: 是否渲染到body
- * @param wrapper: 容器
- * @param targetElement: 目标元素
+ * @param id: 容器的ID
  */
-function destroyDOM(isBody, wrapper, targetElement) {
-	if (isBody) {
-		ReactDOM.unmountComponentAtNode(wrapper);
-		document.body.removeChild(wrapper);
-	} else {
-		ReactDOM.unmountComponentAtNode(wrapper);
-		targetElement.removeChild(wrapper);
-	}
+function destroyDOM(id) {
+	const wrapper = container[id];
+	ReactDOM.unmountComponentAtNode(wrapper);
+	document.body.removeChild(wrapper);
+	delete container[id];
 }
 
-
+/**
+ * 生成容器元素
+ * @param id: 容器的ID
+ * @param event: 当前触发的元素
+ */
+function createWrapper(id, event) {
+	targetEle = event.target.parentNode;
+	container[id] = document.createElement('div');
+	targetEle.id = id;
+}
 
 class ToolTip extends Component{
 
 	 constructor(props) {
 	 	super(props);
-	 	// TODO markdown会触发mouseEnter两次,等这个问题解决了移入可删除这个变量
 	 	this.isShow = false;
 	 }
 
@@ -108,66 +86,57 @@ class ToolTip extends Component{
 
 	 // 鼠标点击
 	 handleClick = (event) => {
-		 const { mouseEnterDelay, mouseLeaveDelay, appendToBody } = this.props;
+		 const { mouseEnterDelay, mouseLeaveDelay } = this.props;
 		 if (!this.isShow) {
-			 this.isShow = true;
-			 targetEle = event.target.parentNode;
 			 const id = new Date().getTime().toString();
-			 container[id] = document.createElement('div');
-			 targetEle.id = id;
+			 this.isShow = true;
+		     createWrapper(id, event);
 			 const viewProps = {
 				 ...this.props,
 				 targetEle: event.target
 			 };
 			 setTimeout(() => {
-				 const component = <Toolview  { ...viewProps }/>;
-				 renderComponentWithPosition(appendToBody, container[id], component, targetEle);
+				 const component = <ToolView  { ...viewProps }/>;
+				 renderComponentWithPosition(container[id], component);
 			 }, mouseEnterDelay);
 		 } else {
 			 this.isShow = false;
 			 const { id } = targetEle;
 			 setTimeout(() => {
-				 destroyDOM(appendToBody, container[id], targetEle);
+				 destroyDOM(id);
 			 }, mouseLeaveDelay);
 		 }
 	 };
 
 	 // 鼠标移入
 	 handleMouseEnter = (event) => {
-
-		 const { mouseEnterDelay, appendToBody } = this.props;
-		 targetEle = event.target.parentNode;
+		 const { mouseEnterDelay } = this.props;
 		 const id = new Date().getTime().toString();
-		 container[id] = document.createElement('div');
-		 targetEle.id = id;
+		 createWrapper(id, event);
+		 this.isShow = true;
 		 const viewProps = {
 			 ...this.props,
 			 targetEle: event.target
 		 };
-		 this.isShow = true;
 		 setTimeout(() => {
-			 const component = <Toolview  { ...viewProps }/>;
-			 renderComponentWithPosition(appendToBody, container[id], component, targetEle);
+			 const component = <ToolView  { ...viewProps }/>;
+			 renderComponentWithPosition(container[id], component);
 		 }, mouseEnterDelay);
 	 };
 
 	 // 鼠标移出
 	 handleMouseLeave = () => {
 		 const { content } = this.props;
-		 if (!jeasy.trim(content)) {
+		 if (!jeasy.trim(content) || !this.isShow) {
 			 return
 		 }
-		 const { mouseLeaveDelay, appendToBody } = this.props;
+		 const { mouseLeaveDelay } = this.props;
 		 const { id } = targetEle;
 		 this.isShow = false;
 		 setTimeout(() => {
-			 if (!container[id].hasChildNodes()) {
-				 return
-			 }
-			 destroyDOM(appendToBody, container[id], targetEle);
+			 destroyDOM(id);
 		 }, mouseLeaveDelay);
 	 };
-
 
 	render() {
 		const { children } = this.props;
@@ -177,7 +146,6 @@ class ToolTip extends Component{
 			onMouseEnter: this.onMouseEnter,
 			onMouseLeave: this.onMouseLeave
 		};
-
 		return React.cloneElement(children, props);
 	}
  }
@@ -190,8 +158,7 @@ ToolTip.propTypes = {
 	mouseLeaveDelay: PropTypes.number,
 	trigger: PropTypes.string,
 	placement: PropTypes.oneOf(['auto', 'top', 'top-left', 'top-right', 'bottom', 'bottom-left', 'bottom-right', 'left', 'left-top', 'left-bottom', 'right', 'right-top', 'right-bottom']),
-	theme: PropTypes.string,
-	appendToBody: PropTypes.bool
+	theme: PropTypes.oneOf(['dark', 'light', 'error'])
 };
 
 ToolTip.defaultProps = {
@@ -200,6 +167,5 @@ ToolTip.defaultProps = {
 	mouseLeaveDelay: 1,
 	trigger: 'hover',
 	placement: 'auto',
-	theme: 'dark',
-	appendToBody: true
+	theme: 'dark'
 };

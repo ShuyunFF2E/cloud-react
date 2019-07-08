@@ -14,9 +14,8 @@ title: Tooltip
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | content | 内容 | string |  |
-| theme | 主题 | string | dark |
+| theme | 主题, 可选 `dark` `light` `error` | string | dark |
 | trigger | 触发方式 | string | hover |
 | mouseEnterDelay | 鼠标移入后延时多少才显示 Tooltip，单位：毫秒 | number | 1 |
 | mouseLeaveDelay | 鼠标移出后延时多少才隐藏 Tooltip，单位：毫秒 | number | 1 |
 | placement | 气泡框位置，可选 `auto` `top` `left` `right` `bottom` `top-left` `top-right` `bottom-left` `bottom-right` `left-top` `left-bottom` `right-top` `right-bottom` | string | auto |
-| appendToBody | tooltip追加到关联元素的后面作为兄弟元素, 为 true 时则添加为 body 的子元素 | boolean | false |
