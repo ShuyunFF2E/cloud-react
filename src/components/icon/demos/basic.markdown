@@ -9,7 +9,7 @@ import jeasy from 'jeasy';
 import Icon from 'ccms-components-react/icon';
 import message from 'ccms-components-react/message';
 
-const iconList = ['doubleLeft', 'doubleRight', 'up', 'down', 'left', 'right', 'up-solid', 'down-solid', 'left-solid', 'right-solid', 'close', 'close-circle-solid', 'check-circle-solid', 'shop', 'refresh', 'info-circle', 'question-circle', 'question-circle-solid', 'warning-circle-solid', 'flag-solid', 'delete', 'search', 'edit', 'last-solid', 'first-solid', 'swap'];
+const iconList = ['doubleLeft', 'doubleRight', 'up', 'down', 'left', 'right', 'up-solid', 'down-solid', 'left-solid', 'right-solid', 'close', 'close-circle-solid', 'check-circle-solid', 'shop', 'refresh', 'info-circle', 'question-circle', 'question-circle-solid', 'warning-circle-solid', 'flag-solid', 'delete', 'search', 'edit', 'last-solid', 'first-solid', 'swap', 'finish'];
 export default class IconDemo extends Component {
 
 	render() {
