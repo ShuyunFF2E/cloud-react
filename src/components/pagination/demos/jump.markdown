@@ -1,7 +1,7 @@
 ---
-order: 1
-title: 分页基础用法
-desc: 基础分页。
+order: 4
+title: 跳转
+desc: 快速跳转到某一页
 ---
 
 ````javascript
@@ -14,17 +14,10 @@ export default class PaginationDemo extends React.Component {
 	render() {
 		return (
 			<>
-				<h3>版本1</h3>
 				<Pagination
 					current={1}
-					total={50}
-					version="past"
-					showPageSizeOptions={true}
-					/>
-				<h3>版本2</h3>
-				<Pagination
-					current={1}
-					total={50}
+					total={500}
+					showQuickJumper={true}
 				/>
 			</>
 		);

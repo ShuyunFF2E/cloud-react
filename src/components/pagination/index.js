@@ -34,7 +34,7 @@ class Pagination extends React.Component {
 		onShowSizeChange: noop,
 		showTotal: true,
 		showRefresh: true,
-		showPageSizeOptions: true,
+		showPageSizeOptions: false,
 		showQuickJumper: false
 	};
 

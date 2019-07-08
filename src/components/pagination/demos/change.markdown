@@ -1,7 +1,7 @@
 ---
-order: 1
-title: 分页基础用法
-desc: 基础分页。
+order: 3
+title: 改变
+desc: 改变每页显示条目数
 ---
 
 ````javascript
@@ -14,17 +14,17 @@ export default class PaginationDemo extends React.Component {
 	render() {
 		return (
 			<>
-				<h3>版本1</h3>
 				<Pagination
 					current={1}
-					total={50}
-					version="past"
+					total={500}
 					showPageSizeOptions={true}
-					/>
-				<h3>版本2</h3>
+					style={{marginBottom: '20'}}
+				/>
 				<Pagination
 					current={1}
-					total={50}
+					total={500}
+					showPageSizeOptions={true}
+					pageSizeOptions={[100,200,300]}
 				/>
 			</>
 		);

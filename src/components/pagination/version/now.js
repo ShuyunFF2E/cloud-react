@@ -8,12 +8,19 @@ export default class NewVision extends Component {
 	constructor(props) {
 		super(props);
 		this.inputPages = React.createRef()
-		const { total, pageSize } = props;
-		const totalPage = Math.ceil(total / pageSize);
-		this.state = {
-			current: this.props.current,
-			totalPage,
-			pagesLength: 9
+		const { total, pageSize, current, showPageSizeOptions, pageSizeOptions } = props;
+		if (showPageSizeOptions) {
+			this.state = {
+				current,
+				pagesLength: 9,
+				totalPage: Math.ceil(total / pageSizeOptions[0])
+			}
+		} else {
+			this.state = {
+				current,
+				pagesLength: 9,
+				totalPage: Math.ceil(total / pageSize)
+			}
 		}
 	}
 
@@ -62,7 +69,9 @@ export default class NewVision extends Component {
 		this.setState({
 			current
 		})
-		this.inputPages.current.value = current;
+		if (this.props.showQuickJumper) {
+			this.inputPages.current.value = current;
+		}
 		this.props.onChange(current)
 		this.props.onShowSizeChange(this.state.pageSize)
 	}

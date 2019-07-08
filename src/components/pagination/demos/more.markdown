@@ -1,7 +1,7 @@
 ---
-order: 1
+order: 2
 title: 分页基础用法
-desc: 基础分页。
+desc: 更多分页
 ---
 
 ````javascript
@@ -14,17 +14,9 @@ export default class PaginationDemo extends React.Component {
 	render() {
 		return (
 			<>
-				<h3>版本1</h3>
 				<Pagination
-					current={1}
-					total={50}
-					version="past"
-					showPageSizeOptions={true}
-					/>
-				<h3>版本2</h3>
-				<Pagination
-					current={1}
-					total={50}
+					current={5}
+					total={500}
 				/>
 			</>
 		);

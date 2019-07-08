@@ -51,7 +51,9 @@ export default class PastVersion extends Component {
 		this.setState({
 			current
 		})
-		this.inputPages.current.value = current;
+		if (this.props.showQuickJumper) {
+			this.inputPages.current.value = current;
+		}
 		this.props.onChange(current)
 		this.props.onShowSizeChange(this.state.pageSize)
 
