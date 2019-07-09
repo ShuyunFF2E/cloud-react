@@ -1,0 +1,224 @@
+@selector: pagination;
+
+@_pagination-bg: #f6f6f6;
+@_pagination-color: #666;
+@_pagination-input-border: #d1d1d1;
+@_pagination-disabled-color: #d3d3d3;
+@_pagination-icon-color: #929292;
+
+@pagination-item-color: rgba(0,0,0,0.65);
+@pagination-item-border-color: #ddd;
+@pagination-item-hover-color: rgba(0,170,241,1);
+@pagination-item-disabled-color: #b5b5b5;
+@pagination-item-ellips-color: rgba(0,0,0,0.25);
+@pagination-item-active-bg: rgba(229,247,255,1);
+
+._@{selector} {
+	background: @_pagination-bg !important;
+	background-image: none !important;
+    width: 100%;
+    height: 40px;
+	position: relative;
+	font-size: 12px;
+    padding: 5px 0;
+	color: @_pagination-color;
+	box-sizing: border-box !important;
+	> * {
+		box-sizing: border-box !important;
+	}
+	ul{
+		margin: 0;
+    	padding: 0;
+	}
+	.change-size {
+		position: absolute;
+		top: 5px;
+		right: 0;
+		display: inline-block;
+		padding: 2.5px 10px;
+		box-sizing: border-box !important;
+		vertical-align: middle;
+		select{
+			width: auto;
+			height: 25px;
+			padding: 0 2px;
+			color: @_pagination-color;
+			display: block;
+		}
+	}
+	.totals-count {
+		margin-left: 2px;
+		display: inline-block;
+		height: 30px;
+		padding: 6px 7px;
+		vertical-align: middle;
+	}
+	.refresh-action {
+		color: @_pagination-color;
+		padding: 6px;
+		display: inline-block;
+		height: 30px;
+		vertical-align: middle;
+		cursor: pointer;
+		text-align: center;
+		opacity: 0.7;
+		i {
+			vertical-align: -1px;
+		}
+		.refresh-label {
+			margin-left: 3px;
+		}
+	}
+
+	.toolbar-info {
+		display: inline-block;
+		padding: 6px 5px;
+		vertical-align: middle;
+	}
+
+	.ajax-page {
+		bottom: 6px;
+		right: 60px !important;
+		height: 28px !important;
+		display: flex;
+		position: absolute;
+		box-sizing: border-box !important;
+		.iconfont {
+			font-family: 'iconfont' !important;
+			font-size: 16px !important;
+			&:hover {
+				color: inherit;
+			}
+		}
+		.goto-page {
+			padding: 1.5px 10px;
+			display: inline-block;
+			vertical-align: middle;
+			.gp-input{
+				width: 50px;
+				height: 25px;
+				border: 1px solid @_pagination-input-border;
+				padding: 0 5px;
+				margin: 0 5px;
+				text-align: center;
+			}
+		}
+		.page-group {
+			height: 28px !important;
+			display: block;
+			box-sizing: border-box !important;
+			> li {
+				line-height: 18px;
+				border: none !important;
+				background: @_pagination-bg !important;
+				padding: 5px 10px;
+				list-style-type: none;
+				display: block;
+				float: left;
+				position: relative;
+    			text-align: center;
+				> .shuyunicon {
+					font-size: 16px;
+					cursor: pointer;
+					color: @_pagination-icon-color !important;
+				}
+				&.disabled > .shuyunicon {
+					color: @_pagination-disabled-color !important;
+					cursor: not-allowed;
+				}
+			}
+		}
+	}
+}
+
+.@{selector}{
+	display: flex;
+	align-items: center;
+	ul{
+		list-style-type: none;
+		display: flex;
+		padding-inline-start: 0;
+		li{
+			width: 26px;
+			margin-right: 5px;
+			height: 26px;
+			border: 1px solid @pagination-item-border-color;
+			text-align: center;
+			color: @pagination-item-color;
+			line-height: 26px;
+			border-radius: 3px;
+			cursor: pointer;
+			&:hover{
+				border-color: @pagination-item-hover-color;
+				color: @pagination-item-hover-color;
+			}
+			.pg-icon{
+				font-size: 12px;
+			}
+		}
+		.nomore{
+			color: @pagination-item-disabled-color;
+			cursor: not-allowed;
+			&:hover{
+				border-color: @pagination-item-border-color;
+				color:@pagination-item-disabled-color;
+			}
+		}
+		.ellips{
+			border: none;
+			position: relative;
+			text-align: center;
+			line-height: 26px;
+			span.dot{
+				display: block;
+				&:after{
+					content: "\2022\2022\2022";
+					display: block;
+					letter-spacing: 2px;
+					color: @pagination-item-ellips-color;
+					font-size: 12px;
+					margin-top: 1px;
+				}
+			}
+			.moreIcon{
+				font-size: 12px;
+				display: none;
+			}
+			&:hover{
+				span.dot{
+					display: none;
+				}
+				.moreIcon{
+					display: block;
+				}
+			}
+		}
+		.active{
+			background:@pagination-item-active-bg;
+			border:1px solid @pagination-item-hover-color;
+		}
+	}
+	.quickJumper{
+		display: flex;
+		align-items: center;
+		height: 26px;
+		margin-left: 8px;
+		>input{
+			position: relative;
+			display: inline-block;
+			width: 100%;
+			height: 22px;
+			padding: 2px 8px;
+			font-size: 14px;
+			text-align: center;
+			line-height: 22px;
+			background-image: none;
+			border: 1px solid @pagination-item-disabled-color;
+			border-radius: 3px;
+			-webkit-transition: all .2s;
+			transition: all .2s;
+			width: 38px;
+			margin: 0 8px;
+		}
+	}
+}
