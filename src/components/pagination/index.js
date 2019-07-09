@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import NowVersion from './version/now';
-import PastVersion from './version/past';
+import FPagination from './version/pagination';
+import SPagination from './version/_pagination';
 
 const noop = () => {};
 
@@ -40,7 +40,7 @@ class Pagination extends React.Component {
 
 	render() {
 		return (
-			this.props.version === 'now' ? <NowVersion {...this.props} /> : <PastVersion {...this.props} />
+			this.props.version === 'now' ? <FPagination {...this.props} /> : <SPagination {...this.props} />
 		);
 	}
 }

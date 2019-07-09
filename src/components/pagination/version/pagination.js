@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import Icon from 'ccms-components-react/icon';
 
-import './index.less';
+import '../index.less';
 
-export default class NewVision extends Component {
+export default class FPaginations extends Component {
 	constructor(props) {
 		super(props);
 		const { total, pageSize, current, showPageSizeOptions, pageSizeOptions } = props;
@@ -184,7 +184,7 @@ export default class NewVision extends Component {
 
 	render() {
 		return (
-			<div className="now">
+			<div className="pagination">
 				<ul>
 					<li onClick={this.prevPage} role="presentation" className={this.state.current === 1 ? 'nomore' : ''}><Icon type="left" className="pg-icon"></Icon></li>
 					{this.getPages()}

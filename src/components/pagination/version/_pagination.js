@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import Icon from 'ccms-components-react/icon';
-import './index.less';
+import '../index.less';
 
 
-export default class PastVersion extends Component {
+export default class SPagination extends Component {
 	constructor(props) {
 		super(props);
 		const { current, total, pageSize, pageSizeOptions, showPageSizeOptions } = props;
@@ -124,12 +124,12 @@ export default class PastVersion extends Component {
 
 	render() {
 		return (
-			<div className="past">
+			<div className="_pagination">
 				{this.props.showTotal ? this.showTotal() : null}
 				{this.props.showRefresh ? this.showRefresh() : null}
 				{this.props.showPageSizeOptions ? this.showPageSizeOptions() : null}
 				<div className="ajax-page">
-					<ul className="pagination">
+					<ul className="page-group">
 						<li className={this.state.current === 1 ? 'disabled': '' }>
 							<Icon className="shuyunicon" type="first-solid" onClick={() => this.firstPage()}></Icon>
 						</li>
@@ -140,7 +140,7 @@ export default class PastVersion extends Component {
 					<div className="goto-page">
 						<input type="text" className="gp-input" value={this.state.inputNum} onChange={this.onChange} onKeyPress={this.handlePage}/>/共<span>{this.state.totalPage}</span>页
 					</div>
-					<ul className="pagination">
+					<ul className="page-group">
 						<li className={this.state.current === this.state.totalPage ? 'disabled' : ''}>
 							<Icon className="shuyunicon" type="right-solid" onClick={() => this.nextPage()}></Icon>
 						</li>
