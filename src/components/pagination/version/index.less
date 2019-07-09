@@ -1,0 +1,229 @@
+@table-header-color: #f1f1f1;
+@table-border: 1px solid #eee;
+@sort-action-color: #ccc;
+@sort-action-color-hover: #0083ba;
+@footer-toolbar-bg: #f6f6f6;
+@th-text-color: #666;
+@th-sort-color: #0083ba;
+@refresh-action-color: #666;
+@pagination-bg: #f6f6f6;
+@pagination-color: #929292;
+@pagination-disabled-color: #d1d1d1;
+@loading-bg: #fff;
+@loading-stroke-width: 3;
+@loading-stroke-color: #00aaf1;
+
+.past {
+	background: @footer-toolbar-bg !important;
+	background-image: none !important;
+    width: 100%;
+    height: 40px;
+	position: relative;
+	font-size: 12px;
+    padding: 5px 0;
+	color: @refresh-action-color;
+	box-sizing: border-box !important;
+	> * {
+		box-sizing: border-box !important;
+	}
+	ul{
+		margin: 0;
+    	padding: 0;
+	}
+	.change-size {
+		position: absolute;
+		top: 5px;
+		right: 0;
+		display: inline-block;
+		padding: 2.5px 10px;
+		box-sizing: border-box !important;
+		vertical-align: middle;
+		select{
+			width: auto;
+			height: 25px;
+			padding: 0 2px;
+			color: @refresh-action-color;
+			display: block;
+		}
+	}
+	.totals-count {
+		margin-left: 2px;
+		display: inline-block;
+		height: 30px;
+		padding: 6px 7px;
+		vertical-align: middle;
+	}
+	/* 无总页模式不显示总条数 */
+	&[no-totals-mode="true"] {
+		.totals-count {
+			display: none;
+		}
+	}
+	.refresh-action {
+		color: @refresh-action-color;
+		padding: 6px;
+		display: inline-block;
+		height: 30px;
+		vertical-align: middle;
+		cursor: pointer;
+		text-align: center;
+		opacity: 0.7;
+		i {
+			vertical-align: -1px;
+		}
+		.refresh-label {
+			margin-left: 3px;
+		}
+	}
+
+	.toolbar-info {
+		display: inline-block;
+		padding: 6px 5px;
+		vertical-align: middle;
+	}
+
+	.ajax-page {
+		bottom: 6px;
+		right: 60px !important;
+		height: 28px !important;
+		display: flex;
+		position: absolute;
+		box-sizing: border-box !important;
+		.iconfont {
+			font-family: 'iconfont' !important;
+			font-size: 16px !important;
+			&:hover {
+				color: inherit;
+			}
+		}
+		.goto-page {
+			padding: 1.5px 10px;
+			display: inline-block;
+			vertical-align: middle;
+			.gp-input{
+				width: 50px;
+				height: 25px;
+				border: 1px solid @pagination-disabled-color;
+				padding: 0 5px;
+				margin: 0 5px;
+				text-align: center;
+			}
+		}
+		.pagination {
+			height: 28px !important;
+			display: block;
+			box-sizing: border-box !important;
+			> li {
+				line-height: 18px;
+				border: none !important;
+				background: @pagination-bg !important;
+				padding: 5px 10px;
+				list-style-type: none;
+				display: block;
+				float: left;
+				position: relative;
+    			text-align: center;
+				> .shuyunicon {
+					font-size: 16px;
+					cursor: pointer;
+					color: @pagination-color !important;
+				}
+				&.disabled > .shuyunicon {
+					color: @pagination-disabled-color !important;
+					cursor: not-allowed;
+				}
+			}
+		}
+	}
+}
+
+.now{
+	display: flex;
+	align-items: center;
+	ul{
+		list-style-type: none;
+		display: flex;
+		padding-inline-start: 0;
+		li{
+			width: 26px;
+			margin-right: 5px;
+			height: 26px;
+			border: 1px solid #ddd;
+			text-align: center;
+			line-height: 26px;
+			border-radius: 3px;
+			cursor: pointer;
+			&:hover{
+				border-color:rgba(0,170,241,1);
+				color: rgba(0,170,241,1);
+			}
+			.pg-icon{
+				font-size: 12px;
+			}
+		}
+		.nomore{
+			color: #b5b5b5;
+			cursor: not-allowed;
+			&:hover{
+				border-color: #ddd;
+				color:#b5b5b5;
+			}
+		}
+		.ellips{
+			border: none;
+			color: #474747;
+			position: relative;
+			text-align: center;
+			line-height: 26px;
+			span.dot{
+				display: block;
+				&:after{
+					content: "\2022\2022\2022";
+					display: block;
+					letter-spacing: 2px;
+					color: @sort-action-color;
+					font-size: 12px;
+					margin-top: 1px;
+				}
+			}
+			.moreIcon{
+				font-size: 12px;
+				display: none;
+			}
+			&:hover{
+				span.dot{
+					display: none;
+				}
+				.moreIcon{
+					display: block;
+				}
+			}
+		}
+		.active{
+			background:rgba(229,247,255,1);
+			border:1px solid rgba(0,170,241,1);
+		}
+	}
+	.quickJumper{
+		display: flex;
+		align-items: center;
+		height: 26px;
+		margin-left: 8px;
+		>input{
+			position: relative;
+			display: inline-block;
+			width: 100%;
+			height: 22px;
+			padding: 2px 8px;
+			font-size: 14px;
+			line-height: 22px;
+			background-image: none;
+			border: 1px solid @pagination-disabled-color;
+			border-radius: 3px;
+			-webkit-transition: all .2s;
+			transition: all .2s;
+			width: 38px;
+			margin: 0 8px;
+		}
+	}
+}
