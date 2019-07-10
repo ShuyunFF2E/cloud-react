@@ -1,0 +1,143 @@
+@selector: checkbox;
+
+@normal-color: #00AAF1;
+@checked-color: #0083BA;
+@normal-border-color: #CCCCCC;
+@checkbox-bg-color: #FFFFFF;
+@disabled-bg-color: #EEEEEE;
+
+@checkbox-size: 14px;
+
+.position {
+	position: absolute;
+	top: 0; left: 0; right: 0; bottom: 0;
+}
+
+.checked-inner-after {
+	position: absolute;
+	top: 6%; left: 30%;
+	width: 28%;
+	height: 64%;
+	content: '';
+	display: block;
+	transform: rotate(45deg);
+	border-left: 0; border-top: 0; border-right: 2px solid; border-bottom: 2px solid;
+	animation: transformAnimate .3s;
+}
+
+.indeterminate-inner-after {
+	position: absolute;
+	left: 50%; top: 50%;
+	width: 60%;
+	height: 60%;
+	content: '';
+	display: block;
+	transform: rotate(0) translate(-50%, -50%);
+	animation: transformAnimate .3s;
+}
+
+@keyframes transformAnimate {
+	from {
+		opacity: 0;
+	}
+
+	50% {
+		opacity: .6;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
+.@{selector}-group {
+	display: inline-flex;
+
+	&.vertical {
+		flex-direction: column;
+	}
+
+	&.horizontal {
+		flex-direction: row;
+	}
+}
+
+.@{selector} {
+	display: inline-flex;
+
+	&:not(.@{selector}-disabled):hover {
+		cursor: pointer;
+
+		.@{selector}-wrapper .@{selector}-inner {
+			border-color: @normal-color;
+		}
+	}
+
+	&-wrapper {
+		position: relative;
+		width: @checkbox-size;
+		height: @checkbox-size;
+		margin-right: 8px;
+		align-self: center;
+	}
+
+	&-input {
+		opacity: 0;
+	}
+
+	&-inner:extend(.position) {
+		background: @checkbox-bg-color;
+		border-radius: 3px;
+		border: 1px solid @normal-border-color;
+	}
+
+	&.@{selector}-checked {
+		.@{selector}-inner {
+			border: 1px solid @checked-color;
+
+			&::after:extend(.checked-inner-after) {
+				border-color: @checked-color;
+			}
+		}
+
+		&.@{selector}-disabled .@{selector}-inner::after:extend(.checked-inner-after) {
+			border-color: @normal-border-color;
+		}
+
+		&:not(.@{selector}-disabled):hover .@{selector}-wrapper .@{selector}-inner::after {
+			border-color: @normal-color;
+		}
+	}
+
+	&.@{selector}-indeterminate {
+		.@{selector}-inner {
+			border-color: @checked-color;
+
+			&::after:extend(.indeterminate-inner-after) {
+				background: @checked-color;
+			}
+		}
+
+		&.@{selector}-disabled .@{selector}-inner {
+			border-color: @normal-border-color;
+			&::after:extend(.indeterminate-inner-after) {
+				background: @normal-border-color;
+			}
+		}
+
+		&:not(.@{selector}-disabled):hover .@{selector}-wrapper .@{selector}-inner::after {
+			background: @normal-color;
+		}
+	}
+
+	&.@{selector}-disabled {
+		&:hover {
+			cursor: not-allowed;
+		}
+
+		.@{selector}-inner{
+			border-color: @normal-border-color;
+			background: @disabled-bg-color;
+		}
+	}
+}
