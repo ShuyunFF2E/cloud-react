@@ -1,0 +1,168 @@
+/**
+ * index.less
+ * wangbo
+ * 2019-06-18
+ */
+
+@selector: modal;
+@modal-color: #666;
+
+@container-background: #F8F8F8;
+@header-background: #EDEDED;
+@close-icon-color: #CECECE;
+
+@body-font-color: #3D3D3D;
+@body-border-radius: 2px;
+
+@footer-background: #F5F5F5;
+@footer-border: 1px solid #E8E8E8;
+
+@confirm-icon-color: #FAAD14;
+@info-icon-color: #1890ff;
+@success-icon-color: #52c41a;
+@error-icon-color: #f5222d;
+@warning-icon-color: #FAAD14;
+
+@confirm-loading-border: 1px solid #DDD;
+@confirm-loading-border-top: 1px solid #FFF;
+
+.@{selector} {
+	&-mask {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: @modal-color;
+		opacity: 0.6;
+		z-index: 1000;
+	}
+
+	&-container {
+		min-height: 160px;
+		min-width: 400px;
+		position: fixed;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		background: @container-background;
+		border-radius: @body-border-radius;
+		z-index: 1001;
+		white-space: normal;
+		animation: modal-fade-in 0.5s;
+
+		@-webkit-keyframes modal-fade-in {
+			0% {
+				opacity: 0;
+				top: 48%;
+			}
+			100% {
+				opacity: 1;
+			}
+		}
+	};
+
+	&-header {
+		border-radius: 2px;
+		padding: 10px 14px 10px 17px;
+		text-align: left;
+		font-size: 14px;
+		background: @header-background;
+
+		.@{selector}-title {
+			color: @modal-color;
+		}
+
+		.close-icon {
+			float: right;
+			position: relative;
+			color: @close-icon-color;
+			cursor: pointer;
+		}
+	}
+
+	&-body {
+		max-height: calc(100vh - 200px);
+		min-height: 80px;
+		font-size: 14px;
+		color: @body-font-color;
+		padding: 20px;
+		overflow: auto;
+	}
+
+	&-footer {
+		height: 32px;
+		padding: 10px 20px;
+		background: @footer-background;
+		text-align: right;
+		border-top: @footer-border;
+		border-radius: 0 0 2px 2px;
+
+		.@{selector}-confirm-btn {
+			margin-right: 15px;
+		}
+
+		.@{selector}-confirm-loading {
+			display: inline-block;
+			width: 10px;
+			height: 10px;
+			border-radius: 50%;
+			animation: load 1.5s infinite linear;
+			margin-right: 10px;
+			border: @confirm-loading-border;
+			border-top: @confirm-loading-border-top;
+			@keyframes load {
+				from {
+					transform: rotate(0deg);
+				}
+				to {
+					transform: rotate(360deg);
+				}
+			}
+		}
+	}
+}
+
+.info-area {
+	max-width: 400px;
+
+	.message-info {
+		max-width: 350px;
+		display: inline-block;
+		vertical-align: top;
+		color: @modal-color;
+		line-height: 24px;
+	}
+
+	.icon-style {
+		font-size: 24px;
+		vertical-align: text-bottom;
+		padding: 10px;
+	}
+
+	.confirm-style {
+		color: @confirm-icon-color;
+	}
+
+	.info-style {
+		color: @info-icon-color;
+	}
+
+	.success-style {
+		color: @success-icon-color;
+	}
+
+	.error-style {
+		color: @error-icon-color;
+	}
+
+	.warning-style {
+		color: @warning-icon-color;
+	}
+}
+
+.more-info {
+	max-width: 350px;
+	padding-top: 10px;
+	padding-left: 44px;
+}
