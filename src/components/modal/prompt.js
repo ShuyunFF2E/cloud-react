@@ -42,12 +42,11 @@ class Prompt extends React.Component{
 	// 删除节点
 	handleClose = () => {
 		const { id } = this.props;
-		const unmountContainer = containers[id];
-		if (unmountContainer) {
+		if (containers[id]) {
 			// 删除react组件节点
-			ReactDOM.unmountComponentAtNode(unmountContainer);
+			ReactDOM.unmountComponentAtNode(containers[id]);
 			// 删除dom节点
-			document.body.removeChild(unmountContainer);
+			document.body.removeChild(containers[id]);
 		}
 	};
 
