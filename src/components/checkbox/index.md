@@ -21,8 +21,7 @@ subtitle: 多选按钮
 #### Checkbox.Group
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| checkedValue | 选中项 | string[] | -- |
+| value | 选中项 | string[] | -- |
 | disabled | 整组禁用 | boolean | -- |
-| horizontal | 定义 checkbox 横向布局 | boolean | false |
-| vertical | 定义 checkbox 竖向布局 | boolean | false |
+| layout | 定义 checkbox 横向布局(h: 横向布局; v: 竖向布局) | string | '' |
 | onChange | 变化时回调函数 | Function(e:Event) | -- |

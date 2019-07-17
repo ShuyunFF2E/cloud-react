@@ -12,7 +12,7 @@ import Checkbox from 'ccms-components-react/checkbox';
 export default function RadioDemo() {
 	
 	const groupValue = [1, 2, 3];
-	const [checkedValue, setCheckedValue] = useState([1, 2]);
+	const [value, setCheckedValue] = useState([1, 2]);
 	const [checked, setCheckedAll] = useState(false);
 	const [indeterminate, setIndeterminate] = useState(true);
 
@@ -24,7 +24,7 @@ export default function RadioDemo() {
 	};
 	
 	const handleCheckAll = (checked, val) => {
-		console.log('handleCheckAll', val, checked);
+		console.log('handleCheckAll', checked, val);
 		checked ? setCheckedValue(groupValue) : setCheckedValue([]);
 		setIndeterminate(false);
 		setCheckedAll(checked);
@@ -34,7 +34,7 @@ export default function RadioDemo() {
 		<div>
 			<Checkbox checked={checked} indeterminate={indeterminate} onChange={handleCheckAll}>check all</Checkbox>
 			<br/>
-			<Checkbox.Group checkedValue={checkedValue} disabled={false} onChange={handleChange} vertical>
+			<Checkbox.Group value={value} disabled={false} onChange={handleChange} layout={'v'}>
 				<Checkbox value={1}>item 1</Checkbox>
 				<Checkbox value={2}>item 2</Checkbox>
 				<Checkbox value={3}>item 3</Checkbox>
