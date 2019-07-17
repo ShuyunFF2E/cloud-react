@@ -1,4 +1,4 @@
-import React, { Children, cloneElement } from "react";
+import React, { Children, cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -9,7 +9,9 @@ const classSelector = 'checkbox';
 
 function Group(props) {
 
-	const { children, checkedValue, onChange, disabled, horizontal, vertical } = props;
+	const { children, value, onChange, disabled, layout } = props;
+
+	const checkedValue = value ? [...value] : value;
 
 	const group = Children.map(children, child => cloneElement(child, {
 
@@ -35,22 +37,29 @@ function Group(props) {
 		}
 	}));
 
+	const classes = classNames(`${classSelector}-group`, {
+		vertical: layout === 'v',
+		horizontal: layout === 'h'
+	});
+
 	return (
-		<span className={classNames(`${classSelector}-group`, { horizontal, vertical })}>
+		<span className={classes}>
 			{ group }
 		</span>
 	)
 }
 
 Group.propTypes = {
-	checkedValue: PropTypes.array,
+	value: PropTypes.array,
 	disabled: PropTypes.bool,
+	layout: PropTypes.string,
 	onChange: PropTypes.func
 };
 
 Group.defaultProps = {
-	checkedValue: undefined,
+	value: undefined,
 	disabled: undefined,
+	layout: '',
 	onChange: noop
 };
 
@@ -87,12 +96,8 @@ class Checkbox extends React.Component {
 	}
 
 	onChangeAction() {
-		const { onChange, disabled, value } = this.props;
+		const { onChange, value } = this.props;
 		const checked = !this.isChecked();
-
-		if (disabled) {
-			return;
-		}
 
 		this.setState({ checked });
 
@@ -104,18 +109,14 @@ class Checkbox extends React.Component {
 		return checked === undefined ? this.state.checked : checked;
 	}
 
-	isIndeterminate() {
-		const checked = this.isChecked();
-		return checked ? false : this.props.indeterminate;
-	}
-
 	render() {
-		const { disabled, className = '', value = '', style, children } = this.props;
+		const { disabled, indeterminate, className = '', value = '', style, children } = this.props;
+		const checked = this.isChecked();
 
 		const classes = classNames(classSelector, className, {
 			[`${classSelector}-disabled`]: disabled,
-			[`${classSelector}-indeterminate`]: this.isIndeterminate(),
-			[`${classSelector}-checked`]: this.isChecked()
+			[`${classSelector}-indeterminate`]: checked ? false : indeterminate,
+			[`${classSelector}-checked`]: checked
 		});
 
 		return (
@@ -123,6 +124,7 @@ class Checkbox extends React.Component {
 				<span className={ `${classSelector}-wrapper` }>
 					<input type="checkbox"
 						   value={value}
+						   disabled={disabled}
 						   className={`${classSelector}-input`}
 						   onChange={() => { this.onChangeAction() }}
 					/>

@@ -30,7 +30,7 @@ export default function RadioDemo() {
 	
 	return (
 		<div>
-			 <Checkbox value={2} disabled={disabled} checked={checked} onChange={handleChange}>受控的 Checkbox</Checkbox>
+			<Checkbox value={2} disabled={disabled} checked={checked} onChange={handleChange}>受控的 Checkbox</Checkbox>
             <br/>
             <Button style={style} size={'small'} type="primary" onClick={onCheckedClick}>{ checked ? 'UnChecked' : 'Checked' }</Button>
             <Button style={style} size={'small'} type="primary" onClick={onDisabledClick}>{ disabled ? 'Enable' : 'Disabled' }</Button>
