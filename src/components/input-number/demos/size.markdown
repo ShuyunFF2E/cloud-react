@@ -17,11 +17,11 @@ export default class InputNumberDemo extends React.Component {
 		return (
 			<>
 				<div>
-				   <InputNumber size="large" />
+				   <InputNumber size="large" defaultValue={3} />
 				   {blank}
-				   <InputNumber size="default" />
+				   <InputNumber size="default" defaultValue={3}  />
 				   {blank}
-				   <InputNumber size="small" />
+				   <InputNumber size="small" defaultValue={3}  />
 				   {blank}
 				</div>
 			</>
