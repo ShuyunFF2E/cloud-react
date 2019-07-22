@@ -24,7 +24,7 @@ export default class InputNumberDemo extends React.Component {
 		return (
 			<>
 				<div>
-				   <InputNumber disabled={this.state.disabled} /><br />
+				   <InputNumber disabled={this.state.disabled} /><br /><br />
 				   <Button type="primary" onClick={this.toggle}>Toggle disabled</Button>
 				</div>
 			</>

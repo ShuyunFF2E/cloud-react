@@ -22,6 +22,4 @@ subtitle: 数字输入框
 | step | 每次改变步数 | number | `1` |
 | className | 拓展组件样式的class | string | - |
 | style | 拓展组件样式的style | object | - |
-| prefix | 前缀 | string | - |
-| postfix | 后缀 | string | - |
-| onChange | 输入改变触发 | Function(value: number) | - |
+| onChange | 输入改变触发 | Function(value: number &#124; string) | - |

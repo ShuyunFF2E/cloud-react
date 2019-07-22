@@ -1,199 +1,170 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import cls from 'classnames';
 import Icon from '../icon';
 import './index.less';
 
 const selector = 'input-number';
-export default class InputNumber extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			value: '',
-			precision: props.precision,
-			upBtnStatus: false,
-			downBtnStatus: false
-		};
-	}
 
-	componentDidMount() {
-		this.init();
-	}
-
-	getMax(value) {
-		const { max } = this.props;
-		return {
-			lessEqualMax: value === '' ? false : value <= max,
-			greaterEqualMax: value === '' ? false : value >= max
-		};
-	}
-
-	getMin(value) {
-		const { min } = this.props;
-		return {
-			lessEqualMin: value === '' ? false : value >= min,
-			greaterEqualMin: value === '' ? false : value <= min
-		};
-	}
-
-	getPrecision() {
-		const { step } = this.props;
-		if (!Number.isInteger(step)) {
-			this.setState({
-				precision: step.toString().split('.')[1].length
-			});
-		}
-	}
-
-	setBtnStatus(upBtnStatus, downBtnStatus) {
-		this.setState({
-			upBtnStatus,
-			downBtnStatus
-		});
-	}
-
-	handleValue = currentValue => {
-		const { value } = this.state;
-		this.setBtnStatus(this.getMax(currentValue).greaterEqualMax, this.getMin(currentValue).greaterEqualMin);
-		if (currentValue !== value) {
-			this.setState({
-				value: currentValue
-			});
-			this.triggerOnChange(currentValue);
-		}
-	}
-
-	handlePlusMinus = isPlus => {
-		const { value, precision } = this.state;
-		const { step, max, min } = this.props;
-		let tempValue = '';
-		if (value !== '') {
-			tempValue = (Number.parseFloat(value) + (isPlus ? step : -1 * step)).toFixed(precision);
-			if (isPlus) {
-				tempValue = this.getMax(tempValue).lessEqualMax ? tempValue : max;
-			} else {
-				tempValue = this.getMin(tempValue).lessEqualMin ? tempValue : min;
-			}
-		} else if (min !== Infinity && min !== -Infinity) {
-			tempValue = min;
-		} else if (max !== Infinity && max !== -Infinity) {
-			tempValue = max;
-		} else {
-			tempValue = Number(0).toFixed(precision);
-		}
-		this.handleValue(tempValue);
-	}
-
-	handlePlus = () => {
-		this.handlePlusMinus(true);
-	}
-
-	handleMinus = () => {
-		this.handlePlusMinus(false);
-	}
-
-	handleWheel = e => {
-		const { disabled } = this.props;
-		if (!disabled && e.target === document.activeElement) {
-			const delta = e.wheelDelta || -e.deltaY || -e.detail;
-			if (delta > 0) {
-				this.handlePlus();
-			}
-
-			if (delta < 0) {
-				this.handleMinus();
-			}
-		}
-	}
-
-	handleOnChange = e => {
-		const targetValue = e.target.value.trim();
-		this.handleValue(targetValue);
-	}
-
-	handleBlur = e => {
-		const  { max, min } = this.props;
-		const inpValue = e.target.value.trim();
-
-		let targetValue = inpValue.length ? Number.parseFloat(inpValue) : inpValue;
-
-		if (targetValue !== '' && !Number.isNaN(targetValue)) {
-			if (!this.getMax(targetValue).lessEqualMax) {
-				targetValue = max;
-			}
-			if (!this.getMin(targetValue).lessEqualMin) {
-				targetValue = min;
-			}
-		} else {
-			targetValue = '';
-		}
-		this.handleValue(targetValue);
-	}
-
-	init() {
-		const { min, max, value, defaultValue } = this.props;
-		let tempValue = '';
-		if (value !== undefined && !Number.isNaN(value)) {
-			if (value <= max && value >= min) {
-				tempValue = value;
-			}
-		} else if (!Number.isNaN(defaultValue)) {
-			if (defaultValue <= max && defaultValue >= min) {
-				tempValue = defaultValue;
-			}
-		}
-		this.getPrecision();
-		this.handleValue(tempValue);
-	}
-
-	triggerOnChange(value) {
-		this.props.onChange(value);
-	}
-
-	render() {
-		const { disabled, placeholder, prefix, postfix, className, style, size, step, min, max, defaultValue, ...otherProps } = this.props;
-		const { value, upBtnStatus, downBtnStatus } = this.state;
-		const inputValue = typeof value !== 'undefined' ? value : '';
-		return (
-			<div className={`${selector} ${size} ${className}`}
-				 step={step}
-				 min={min}
-				 max={max}
-				 style={style}>
-				{ prefix &&
-					<span className={`${selector}-addon ${selector}-prefix ${selector}-cell`}>{prefix}</span>
-				}
-				<input type="text"
-					   className={`${selector}-cell ${selector}-text`}
-					   {...otherProps}
-					   placeholder={placeholder}
-					   onChange={this.handleOnChange}
-					   onBlur={this.handleBlur}
-					   value={inputValue}
-					   onWheel={this.handleWheel}
-					   disabled={disabled}/>
-				{ postfix &&
-					<span className={`${selector}-addon  ${selector}-postfix ${selector}-cell`}>{postfix}</span>
-				}
-				{!disabled &&
-					<span className={`${selector}-btn-vertical ${selector}-cell`}>
-						<button className={`${selector}-up`}
-								onClick={this.handlePlus}
-								disabled={upBtnStatus}
-								type="button">
-						  <Icon type="up" style={{ fontSize: '8px', verticalAlign: 'middle' }}/>
-						</button>
-						<button className={`${selector}-down`}
-								type="button"
-								disabled={downBtnStatus}
-								onClick={this.handleMinus}>
-						  <Icon type="down" style={{ fontSize: '8px', verticalAlign: 'middle' }}/>
-						</button>
-					</span>
-				}
-			</div>
-		);
-	}
+function isInvalid(value) {
+	return Number.isNaN(value) || value === undefined || value === null || value.toString().trim() === '';
 }
+
+function getCurrentValue(value, min, max, precision) {
+	if (isInvalid(value)) {
+		return '';
+	}
+	const val = Number(value).toFixed(Math.abs(parseInt(precision, 10)));
+	if (val > max) {
+		return max;
+	} if (val <= max && val >= min) {
+		return val;
+	}
+	return min;
+};
+
+function getMax(value, max) {
+	return {
+		lessEqualMax: isInvalid(value) ? false : Number(value) <= max,
+		lessMax: isInvalid(value) ? false : Number(value) < max,
+		greaterEqualMax: isInvalid(value) ? false : Number(value) >= max
+	};
+}
+
+function getMin(value, min) {
+	return {
+		lessEqualMin: isInvalid(value) ? false : Number(value) <= min,
+		greaterMin: isInvalid(value) ? false : Number(value) > min,
+		greaterEqualMin: isInvalid(value) ? false : Number(value) >= min
+	};
+}
+
+
+function InputNumber(props) {
+	const { className, style, placeholder, size, min, max, step, precision, value, defaultValue, disabled, onChange, ...other } = props;
+
+	const [currentValue, setCurrentValue] = useState('');
+	const [upButtonEnabled, setUpButtonEnabled] = useState(true);
+	const [downButtonEnabled, setDownButtonEnabled] = useState(true);
+	const [currentPrecision, setCurrentPrecision] = useState(0);
+
+	let isControlled = value !== undefined;
+
+	function setBtnStatus(isUpEnabled, isDownEnabled) {
+		setUpButtonEnabled(isUpEnabled);
+		setDownButtonEnabled(isDownEnabled);
+	}
+	useEffect(() => {
+		let _pr = '';
+		if( precision === undefined || precision === null) {
+			_pr = Number.isInteger(step) ? 0 : step.toString().split('.')[1].length
+		}
+		else {
+			_pr = parseInt(precision, 10);
+		}
+
+		// const _pr = precision === undefined || precision === null ?
+		// 	Number.isInteger(step) ? 0 : step.toString().split('.')[1].length : parseInt(precision, 10);
+		setCurrentPrecision(_pr);
+	}, [precision, step]);
+
+	useEffect(() => {
+		isControlled = value !== undefined;
+		const val = getCurrentValue(value === undefined ? defaultValue : value, min, max, currentPrecision);
+		setCurrentValue(val);
+		setBtnStatus(getMax(val, max).lessMax, getMin(val, min).greaterMin);
+	}, [value, min, max, currentPrecision]);
+
+	useEffect(() => {
+		setBtnStatus(getMax(currentValue, max).lessMax, getMin(currentValue, min).greaterMin);
+	}, [currentValue, min, max]);
+
+
+
+	function handleOnChange(evt) {
+		const targetValue = evt.target.value.trim();
+		setCurrentValue(targetValue);
+		onChange(targetValue);
+	}
+
+	function handleBlur(evt) {
+		const targetValue = evt.target.value.trim().replace(/[^\-?\d.]/g, '');
+		let val = isInvalid(targetValue) ? '' : Number(targetValue).toFixed(currentPrecision);
+		val = getCurrentValue(val, min, max, currentPrecision);
+		setCurrentValue(val);
+	}
+
+	function handlePlusMinus(isPlus) {
+		let val = currentValue;
+		if (isControlled) {
+			if (!isInvalid(currentValue)) {
+				val = (Number(currentValue) + Number(isPlus ? step : -1 * step)).toFixed(currentPrecision);
+			}
+		} else {
+			if (!isInvalid(currentValue)) {
+				const tempValue = (Number(currentValue) + Number(isPlus ? step : -1 * step)).toFixed(currentPrecision);
+				if (isPlus) {
+					if (getMax(currentValue, max).lessEqualMax) {
+						val = tempValue;
+					}
+				} else if (getMin(currentValue, min).greaterEqualMin) {
+					val = tempValue;
+				}
+			} else {
+				val = ''
+			}
+			setCurrentValue(val);
+		}
+		if (!isInvalid(val)) {
+			val = Number(val);
+		}
+		onChange(val);
+	}
+
+	function handlePlus() {
+		if(upButtonEnabled) {
+			handlePlusMinus(true);
+		}
+	}
+
+	function handleMinus() {
+		if(downButtonEnabled) {
+			handlePlusMinus(false);
+		}
+	}
+
+	const compClass = cls(`${selector} ${size} ${className}`, {
+		[`${selector}-disabled`]: disabled
+	});
+	const upBtnClass = cls(`${selector}-handler ${selector}-handler-up`, {
+		[`${selector}-handler-disabled`]: !upButtonEnabled
+	});
+	const downBtnClass = cls(`${selector}-handler ${selector}-handler-down`, {
+		[`${selector}-handler-disabled`]: !downButtonEnabled
+	});
+
+	return (
+		<div className={compClass} style={style}>
+			<div className={`${selector}-handler-wrap`}>
+                <span className={upBtnClass} onClick={handlePlus}>
+                    <Icon type="up" className={`${selector}-handler-up-icon`}/>
+                </span>
+				<span className={downBtnClass} onClick={handleMinus}>
+                    <Icon type="down" className={`${selector}-handler-down-icon`}/>
+                </span>
+			</div>
+			<section>
+				<input className={`${selector}-input`} min={min} max={max} step={step}
+					   onChange={handleOnChange}
+					   onBlur={handleBlur}
+					   disabled={disabled}
+					   value={currentValue}
+					   placeholder={placeholder}  {...other} />
+			</section>
+		</div>
+	);
+}
+
 
 InputNumber.propTypes = {
 	className: PropTypes.string,
@@ -204,28 +175,31 @@ InputNumber.propTypes = {
 	max: PropTypes.number,
 	step: PropTypes.number,
 	precision: PropTypes.number,
-	value: PropTypes.number,
-	defaultValue: PropTypes.number,
-	prefix: PropTypes.string,
-	postfix: PropTypes.string,
+	value: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.number
+	]),
+	defaultValue: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.number
+	]),
 	disabled: PropTypes.bool,
 	onChange: PropTypes.func
 };
 
 InputNumber.defaultProps = {
 	style: undefined,
+	defaultValue: undefined,
+	precision: undefined,
 	value: undefined,
-	defaultValue: '',
 	className: '',
 	min: -Infinity,
 	max: Infinity,
 	size: 'default',
 	placeholder: '请输入...',
-	precision: 0,
 	step: 1,
-	prefix: null,
-	postfix: null,
 	disabled: false,
 	onChange: () => {
 	}
 };
+export default InputNumber;
