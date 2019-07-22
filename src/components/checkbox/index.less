@@ -8,14 +8,10 @@
 
 @checkbox-size: 14px;
 
-.position {
-	position: absolute;
-	top: 0; left: 0; right: 0; bottom: 0;
-}
-
 .checked-inner-after {
 	position: absolute;
-	top: 6%; left: 30%;
+	top: 4%;
+	left: 30%;
 	width: 28%;
 	height: 64%;
 	content: '';
@@ -86,11 +82,18 @@
 
 	&-input {
 		opacity: 0;
+		margin: 0;
+		vertical-align: top;
 	}
 
-	&-inner:extend(.position) {
+	&-inner {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
 		background: @checkbox-bg-color;
-		border-radius: 3px;
+		border-radius: 2px;
 		border: 1px solid @normal-border-color;
 	}
 
