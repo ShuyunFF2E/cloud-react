@@ -26,19 +26,16 @@ function getCurrentValue(value, min, max, precision) {
 function getMax(value, max) {
 	return {
 		lessEqualMax: isInvalid(value) ? false : Number(value) <= max,
-		lessMax: isInvalid(value) ? false : Number(value) < max,
-		greaterEqualMax: isInvalid(value) ? false : Number(value) >= max
+		lessMax: isInvalid(value) ? false : Number(value) < max
 	};
 }
 
 function getMin(value, min) {
 	return {
-		lessEqualMin: isInvalid(value) ? false : Number(value) <= min,
 		greaterMin: isInvalid(value) ? false : Number(value) > min,
 		greaterEqualMin: isInvalid(value) ? false : Number(value) >= min
 	};
 }
-
 
 function InputNumber(props) {
 	const { className, style, placeholder, size, min, max, step, precision, value, defaultValue, disabled, onChange, ...other } = props;
@@ -54,18 +51,16 @@ function InputNumber(props) {
 		setUpButtonEnabled(isUpEnabled);
 		setDownButtonEnabled(isDownEnabled);
 	}
+
 	useEffect(() => {
-		let _pr = '';
+		let pr = '';
 		if( precision === undefined || precision === null) {
-			_pr = Number.isInteger(step) ? 0 : step.toString().split('.')[1].length
+			pr = Number.isInteger(step) ? 0 : step.toString().split('.')[1].length
 		}
 		else {
-			_pr = parseInt(precision, 10);
+			pr = parseInt(precision, 10);
 		}
-
-		// const _pr = precision === undefined || precision === null ?
-		// 	Number.isInteger(step) ? 0 : step.toString().split('.')[1].length : parseInt(precision, 10);
-		setCurrentPrecision(_pr);
+		setCurrentPrecision(pr);
 	}, [precision, step]);
 
 	useEffect(() => {
@@ -78,8 +73,6 @@ function InputNumber(props) {
 	useEffect(() => {
 		setBtnStatus(getMax(currentValue, max).lessMax, getMin(currentValue, min).greaterMin);
 	}, [currentValue, min, max]);
-
-
 
 	function handleOnChange(evt) {
 		const targetValue = evt.target.value.trim();
@@ -154,12 +147,16 @@ function InputNumber(props) {
                 </span>
 			</div>
 			<section>
-				<input className={`${selector}-input`} min={min} max={max} step={step}
+				<input className={`${selector}-input`}
+					   min={min}
+					   max={max}
+					   step={step}
 					   onChange={handleOnChange}
 					   onBlur={handleBlur}
 					   disabled={disabled}
 					   value={currentValue}
-					   placeholder={placeholder}  {...other} />
+					   placeholder={placeholder}
+					   {...other} />
 			</section>
 		</div>
 	);
