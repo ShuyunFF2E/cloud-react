@@ -23,7 +23,6 @@
 	font-size: @fontSize;
 
 	input {
-		height: @height - 2;
 		padding: @inputPadding;
 	}
 }
@@ -45,19 +44,19 @@
 
 	&:hover {
 		border-color: @border-hover-color;
-		border-right-width: 1px !important;
 
 		.@{selector}-handler-wrap {
 			opacity: 1;
 		}
 	}
 
-	&:focus {
+	&-focused {
 		border-color: @border-hover-color;
-		border-right-width: 1px !important;
 		outline: 0;
 		box-shadow: 0 0 0 2px rgba(24, 144, 255, .2);
 	}
+
+
 
 	&-disabled {
 		color: rgba(0, 0, 0, .25);
@@ -67,7 +66,6 @@
 
 		&:hover {
 			border-color: #e6d8d8;
-			border-right-width: 1px !important;
 			cursor: not-allowed;
 
 			.@{selector}-handler-wrap {
@@ -108,7 +106,7 @@
 		border-left: 1px solid @border-color;
 		border-radius: 0 @border-radius @border-radius 0;
 		opacity: 0;
-		transition: opacity .24s linear .1s;
+		transition: opacity .24s linear .1s, border-left .24s linear .1s;
 	}
 
 	&-handler {
@@ -128,15 +126,6 @@
 		}
 	}
 
-	&-handler-disabled {
-		color: rgba(0, 0, 0, .2);
-
-		&:hover {
-			color: rgba(0, 0, 0, .2) !important;
-			cursor: not-allowed !important;
-		}
-	}
-
 	&-handler-down {
 		top: 0;
 		border-top: 1px solid @border-color;
@@ -150,21 +139,31 @@
 		}
 	}
 
+	&-handler-disabled {
+		&,
+		&:hover {
+			color: rgba(0, 0, 0, .2);
+			cursor: not-allowed;
+		}
+	}
+
 	&-handler-down-icon, &-handler-up-icon {
 		font-size: 8px;
 		vertical-align: text-bottom;
 	}
 
+	&-handler-input {
+		height: 100%;
+	}
+
 	&-input {
 		width: 100%;
-		height: 30px;
-		padding: 0 11px;
+		height: 100%;
+		vertical-align: top;
 		text-align: left;
 		background-color: transparent;
 		border: 0;
-		border-radius: @border-radius;
 		outline: 0;
-		transition: all .3s linear;
 	}
 
 }
