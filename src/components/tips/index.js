@@ -9,7 +9,7 @@ class Tips extends Component {
 
 		return (
 			<div className={`${type} tips-container`} style={style}>
-				<p dangerouslySetInnerHTML={{ __html: msg }}></p>
+				<p>{msg}</p>
 			</div>
 		)
 	}
@@ -21,7 +21,7 @@ Tips.defaultProps = {
 };
 
 Tips.propTypes = {
-	msg: PropTypes.string.isRequired,
+	msg: PropTypes.oneOfType([PropTypes.string, PropTypes.element]).isRequired,
 	type: PropTypes.oneOf([
 		"normal",
 		"warning",
