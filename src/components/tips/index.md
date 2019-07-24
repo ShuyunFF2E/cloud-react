@@ -10,6 +10,6 @@ subtitle: 提示信息
 ### API
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| msg | 提示内容 | string| ReactNode | - |
+| msg | 提示内容 | ReactNode、string | - |
 | type | 指定提示的样式, 有三种选择normal、warning、major | string | normal
 | style | 样式 | CSSProperties | - |
