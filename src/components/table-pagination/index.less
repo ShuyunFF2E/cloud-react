@@ -1,0 +1,121 @@
+@selector: table-pagination;
+
+@table-pagination-bg: #f6f6f6;
+@table-pagination-color: #666;
+@table-pagination-input-border: #d1d1d1;
+@table-pagination-disabled-color: #d3d3d3;
+@table-pagination-icon-color: #929292;
+
+
+.@{selector} {
+	background: @table-pagination-bg;
+	background-image: none;
+    width: 100%;
+    height: 40px;
+	position: relative;
+	display: flex;
+	font-size: 12px;
+    padding: 5px 0;
+	color: @table-pagination-color;
+	box-sizing: border-box;
+	> * {
+		box-sizing: border-box;
+	}
+	.change-size {
+		display: inline-block;
+		padding: 2.5px 10px;
+		vertical-align: middle;
+		select{
+			width: auto;
+			height: 25px;
+			padding: 0 2px;
+			color: @table-pagination-color;
+			display: block;
+		}
+	}
+	.totals-count {
+		margin-left: 2px;
+		display: inline-block;
+		height: 30px;
+		padding: 6px 7px;
+		vertical-align: middle;
+	}
+	.refresh-action {
+		color: @table-pagination-color;
+		padding: 6px;
+		display: inline-block;
+		height: 30px;
+		vertical-align: middle;
+		cursor: pointer;
+		text-align: center;
+		opacity: 0.7;
+		.icon-refresh {
+			vertical-align: -1px;
+			width: 16px;
+			display: inline-block;
+			height: 16px;
+		}
+		.refresh-label {
+			margin-left: 3px;
+		}
+	}
+
+	.toolbar-info {
+		display: inline-block;
+		padding: 6px 5px;
+		vertical-align: middle;
+	}
+
+	.ajax-page {
+		display: flex;
+		box-sizing: border-box;
+		flex-direction: row-reverse;
+		flex:1;
+		.iconfont {
+			font-family: 'iconfont';
+			font-size: 16px;
+			&:hover {
+				color: inherit;
+			}
+		}
+		.goto-page {
+			padding: 1.5px 10px;
+			display: inline-block;
+			vertical-align: middle;
+			.gp-input{
+				width: 50px;
+				height: 25px;
+				border: 1px solid @table-pagination-input-border;
+				padding: 0 5px;
+				margin: 0 5px;
+				text-align: center;
+				outline:none;
+			}
+		}
+		.page-group {
+			height: 28px;
+			display: block;
+			box-sizing: border-box;
+			> div {
+				line-height: 18px;
+				border: none;
+				background: @table-pagination-bg;
+				padding: 5px 10px;
+				list-style-type: none;
+				display: block;
+				float: left;
+				position: relative;
+    			text-align: center;
+				> .shuyunicon {
+					font-size: 16px;
+					cursor: pointer;
+					color: @table-pagination-icon-color;
+				}
+				&.disabled > .shuyunicon {
+					color: @table-pagination-disabled-color;
+					cursor: not-allowed;
+				}
+			}
+		}
+	}
+}

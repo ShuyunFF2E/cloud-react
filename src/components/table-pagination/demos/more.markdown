@@ -1,12 +1,12 @@
 ---
 order: 2
-title: 分页基础用法
-desc: 更多分页
+title: 基础用法
+desc: 显示数据总数
 ---
 
 ````javascript
 import React from 'react';
-import Pagination from 'ccms-components-react/pagination';
+import TablePagination from 'ccms-components-react/table-pagination';
 
 
 export default class PaginationDemo extends React.Component {
@@ -14,7 +14,8 @@ export default class PaginationDemo extends React.Component {
 	render() {
 		return (
 			<>
-				<Pagination
+				<TablePagination
+					showTotal={true}
 					total={500}
 				/>
 			</>

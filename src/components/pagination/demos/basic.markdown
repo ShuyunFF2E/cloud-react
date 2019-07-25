@@ -11,20 +11,15 @@ import Pagination from 'ccms-components-react/pagination';
 
 export default class PaginationDemo extends React.Component {
 
+	onChange = (current, pageSize)=> {
+		console.log('current',current,pageSize)
+	}
+
 	render() {
 		return (
 			<>
-				<h3>版本1</h3>
 				<Pagination
-					current={1}
-					total={50}
-					version="past"
-					showQuickJumper={true}
-					showPageSizeOptions={true}
-					/>
-				<h3>版本2</h3>
-				<Pagination
-					current={1}
+					onChange={this.onChange}
 					total={50}
 				/>
 			</>

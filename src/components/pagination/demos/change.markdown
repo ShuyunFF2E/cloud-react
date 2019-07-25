@@ -15,13 +15,11 @@ export default class PaginationDemo extends React.Component {
 		return (
 			<>
 				<Pagination
-					current={1}
 					total={500}
 					showPageSizeOptions={true}
 					style={{marginBottom: '20'}}
 				/>
 				<Pagination
-					current={1}
 					total={500}
 					showPageSizeOptions={true}
 					pageSizeOptions={[100,200,300]}

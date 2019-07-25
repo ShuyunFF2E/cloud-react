@@ -1,7 +1,7 @@
 ---
 category: Components
-title: Pagination
-subtitle: 分页
+title: Table-pagination
+subtitle: table组件分页
 ---
 当数据量过多时，采用分页的形式分隔数据，每次只加载显示一部分数据。
 
@@ -18,10 +18,10 @@ subtitle: 分页
 | defaultCurrent | 默认当前页数 | number | 1 |
 | defaultPageSize | 默认每页条数 | number | 10 |
 | showTotal | 显示总数 | boolean | false |
-| showQuickJumper | 是否可以快速跳转至某页 | boolean | false |
-| pageSizeOptions | 指定每页可以显示多少条 | number[] | [10, 20, 30, 40] |
+| showRefresh | 显示刷新 | boolean | false |
 | showPageSizeOptions | 显示下拉选择每页显示多少条 | boolean | false |
+| pageSizeOptions | 指定每页可以显示多少条 | number[] | [10, 20, 30, 40] |
 | total | 数据总数 | number | 0 |
 | onChange | 页码改变的回调，参数是改变后的页码及每页条数 | Function(current) | noop |
-| onShowSizeChange | pageSize 变化的回调 | Function(current, size) | noop |
+| onShowSizeChange | pageSize 变化的回调 | Function(current, pageSize) | noop |
 
