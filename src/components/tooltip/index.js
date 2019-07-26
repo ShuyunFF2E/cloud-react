@@ -7,7 +7,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import jeasy from 'jeasy';
 import './index.less';
 import ToolView from './toolView';
 
@@ -54,18 +53,18 @@ class ToolTip extends Component{
 	 }
 
 	 // 不影响其他组件的事件
-	 onMouseEnter = (event) => {
+	 onMouseEnter = event => {
 		 const { children, trigger, content } = this.props;
 		 if (children.props.onMouseEnter) {
 			 children.props.onMouseEnter();
 		 }
-		 if (trigger !== 'hover' || !jeasy.trim(content) || this.isShow) {
+		 if (trigger !== 'hover' || !content || this.isShow) {
 			 return;
 		 }
 		 this.handleMouseEnter(event);
 	 };
 
-	 onMouseLeave = (event)  => {
+	 onMouseLeave = event  => {
 		 const { children } = this.props;
 		 if (children.props.onMouseLeave) {
 			 children.props.onMouseLeave();
@@ -73,19 +72,19 @@ class ToolTip extends Component{
 		 this.handleMouseLeave(event);
 	 };
 
-	 onMouseClick = (event) => {
+	 onMouseClick = event => {
 		 const { children, trigger, content } = this.props;
 		 if (children.props.onClick) {
 			 children.props.onClick();
 		 }
-		 if (trigger !== 'click' || !jeasy.trim(content)) {
+		 if (trigger !== 'click' || !content) {
 			 return
 		 }
 		 this.handleClick(event);
 	 };
 
 	 // 鼠标点击
-	 handleClick = (event) => {
+	 handleClick = event => {
 		 const { mouseEnterDelay, mouseLeaveDelay } = this.props;
 		 if (!this.isShow) {
 			 const id = new Date().getTime().toString();
@@ -109,7 +108,7 @@ class ToolTip extends Component{
 	 };
 
 	 // 鼠标移入
-	 handleMouseEnter = (event) => {
+	 handleMouseEnter = event => {
 		 const { mouseEnterDelay } = this.props;
 		 const id = new Date().getTime().toString();
 		 createWrapper(id, event);
@@ -127,7 +126,7 @@ class ToolTip extends Component{
 	 // 鼠标移出
 	 handleMouseLeave = () => {
 		 const { content } = this.props;
-		 if (!jeasy.trim(content) || !this.isShow) {
+		 if (!content || !this.isShow) {
 			 return
 		 }
 		 const { mouseLeaveDelay } = this.props;
@@ -150,8 +149,6 @@ class ToolTip extends Component{
 	}
  }
 
-export default ToolTip;
-
 ToolTip.propTypes = {
 	content: PropTypes.node,
 	mouseEnterDelay: PropTypes.number,
@@ -169,3 +166,5 @@ ToolTip.defaultProps = {
 	placement: 'auto',
 	theme: 'dark'
 };
+
+export default ToolTip;
