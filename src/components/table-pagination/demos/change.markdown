@@ -23,7 +23,7 @@ export default class PaginationDemo extends React.Component {
 		})
 	}
 
-	onShowSizeChange = (current, pageSize)=> {
+	onChange = (current, pageSize)=> {
 		console.log('current: %s, pageSize: %d', current, pageSize)
 		this.setState({
 			current,
@@ -44,7 +44,7 @@ export default class PaginationDemo extends React.Component {
 					pageSize={this.state.pageSize}
 					pageSizeOptions={[5,10,15,20]}
 					onChange = {this.onChange}
-					onShowSizeChange = {this.onShowSizeChange}
+					checkedTotal={1}
 				/>
 			</>
 		);

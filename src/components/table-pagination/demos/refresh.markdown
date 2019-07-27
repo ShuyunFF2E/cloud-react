@@ -11,6 +11,19 @@ import TablePagination from 'ccms-components-react/table-pagination';
 
 export default class PaginationDemo extends React.Component {
 
+	state = {
+		current: 1,
+		pageSize: 10
+	}
+
+	onChange = (current, pageSize) => {
+		console.log('current: %d,pageSize: %s', current, pageSize)
+		this.setState({
+			current,
+			pageSize
+		})
+	}
+
 	render() {
 		return (
 			<>
@@ -19,6 +32,9 @@ export default class PaginationDemo extends React.Component {
 					showTotal={true}
 					showRefresh={true}
 					style={{marginBottom: '20'}}
+					current={this.state.current}
+					pageSize={this.state.pageSize}
+					onChange={this.onChange}
 				/>
 			</>
 		);

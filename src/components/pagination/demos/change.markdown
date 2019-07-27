@@ -11,6 +11,19 @@ import Pagination from 'ccms-components-react/pagination';
 
 export default class PaginationDemo extends React.Component {
 
+	state = {
+		current: 1,
+		pageSize: 7
+	}
+
+	onChange = (current, pageSize) => {
+		console.log('current: %d,pageSize: %s', current, pageSize)
+		this.setState({
+			current,
+			pageSize
+		})
+	}
+
 	render() {
 		return (
 			<>
@@ -18,6 +31,9 @@ export default class PaginationDemo extends React.Component {
 					total={500}
 					showPageSizeOptions={true}
 					style={{marginBottom: '20'}}
+					onChange={this.onChange}
+					current={this.state.current}
+					pageSize={this.state.pageSize}
 				/>
 				<Pagination
 					total={500}
