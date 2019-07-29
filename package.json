@@ -1,6 +1,6 @@
 {
   "name": "cloud-react",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "description": "数据赢家 react 组件",
   "main": "index.js",
   "scripts": {
@@ -40,7 +40,7 @@
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.0-beta.4",
     "clean-webpack-plugin": "^1.0.1",
-    "compression-webpack-plugin": "^2.0.0",
+    "copy-webpack-plugin": "^4.6.0",
     "css-loader": "^2.1.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.0",
