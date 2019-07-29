@@ -27,21 +27,20 @@ export default class MenuBasicDemo extends Component {
    render() {
        return (
         <HashRouter>
-            <Menu 
+            <Menu
                 type="link"
-                selectedKeys={['/google', '/bing']}
-                onSubMenuToggle={this.handleSubMenuToggle} 
+                selectedKeys={['/components/button']}
+                onSubMenuToggle={this.handleSubMenuToggle}
                 onItemClick={this.handleMenuItemClick}>
-
-                <MenuItem key="/baidu">百度</MenuItem>
-                <MenuItem key="/google">谷歌</MenuItem>
-                <MenuItem key="/sougou">搜狗</MenuItem>
-                <MenuItem key="/bing">必应</MenuItem>
-                <MenuItem key="/sm">神马搜索</MenuItem>
+                <MenuItem key="/components/button">Button 按纽</MenuItem>
+                <MenuItem key="/components/checkbox">Checkbox 复选</MenuItem>
+                <MenuItem key="/components/icon">Icon 图标</MenuItem>
+                <MenuItem key="/components/input">Input 输入框</MenuItem>
+                <MenuItem key="/components/loading">Loading 加载</MenuItem>
             </Menu>
         </HashRouter>
        );
-      
+
    }
 }
 

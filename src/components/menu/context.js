@@ -8,7 +8,7 @@ const MenuContext = React.createContext({
 
 export const types = {
     LINK: 'link',      // link类型
-    COMMON: 'common'  // 预设样式
+    COMMON: 'common'  // 预设类型
 };
 
 export default MenuContext;

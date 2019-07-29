@@ -1,20 +1,44 @@
 
-@shopSelector: shop-selector;
-@shopPaneSelector: shop-selector-pane;
+@shopSelector: menu-shop-selector;
+@shopPaneSelector: menu-shop-selector-pane;
 @ccMenuSelector: cc-menu;
 
-// ==========================  shop-selector ==================
-
-@shop-selector-bg-color: #e9ebee;
+// ==========================  menu-shop-selector ==================
+@menu-shop-selector-bg-color: #e9ebee;
 @shop-logo-bg-color: #d4dce0;
 @shop-logo-color: #fff;
 @shop-plat-color: #666;
 @shop-name-color: #999;
 
+// ==================== menu-shop-selector-pane ===============
+@selector-pane-bg-color: #f9f9f9;
+@selector-pane-border-color: #e7eaec;
+@selector-pane-shadow-color: rgba(0,0,0,.09);
+@shop-search-border-color: #d9d9d9;
+@shop-search-icon-color: #dbdbdb;
+@shop-item-plat-color: #999;
+@shop-item-title-color: #666;
+@checked-flag-color: #23b74a;
+@checked-item-color: #f0f0f0;
+
+// ============cc-menu =====
+@cc-menu-bg-color: #dee3e7;
+@cc-menu-toggle-hover-bg: #d4dbe1;
+@cc-menu-toggle-hover-color: #a7b3ba;
+@cc-menu-toggle-icon-color: #bdc6cc;
+
+@collapsed-bar-bg: #e9ebee;
+@collapsed-icon-bg: #d9dfe3;
+@collapsed-icon-color: #bdc6cc;
+@collapsed-icon-hover-bg: #d4dce0;
+@collapsed-icon-hover-color: #a7b3ba;
+@collapsed-logo-bg: #c3ced4;
+@collapsed-logo-color: #fff;
+@collapsed-logo-hover-color: #bac7cd;
 
 .@{shopSelector} {
     width: 180px;
-    background: @shop-selector-bg-color;
+    background: @menu-shop-selector-bg-color;
     overflow: hidden;
     position: relative;
     cursor: pointer;
@@ -52,32 +76,23 @@
         .shop-plat {
             color: @shop-plat-color;
         }
+		.shop-split{
+			margin-left: 4px;
+			margin-right: 4px;
+		}
         .shop-name {
             color: @shop-name-color;
         }
     }
 }
 
-// ==================== shop-selector-pane ===============
-
-@selector-pane-bg-color: #f9f9f9;
-@selector-pane-border-color: #e7eaec;
-@selector-pane-shadow-color: rgba(0,0,0,.09);
-
-@shop-search-border-color: #d9d9d9;
-@shop-search-icon-color: #dbdbdb;
-@shop-item-plat-color: #999;
-@shop-item-title-color: #666;
-@checked-flag-color: #23b74a;
-@checked-item-color: #f0f0f0;
-
 .@{shopPaneSelector} {
+	width: 344px;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
     box-sizing: border-box;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 344px;
-    height: 100%;
     padding-top: 20px;
     background: @selector-pane-bg-color;
     border: 1px solid @selector-pane-border-color;
@@ -90,7 +105,7 @@
         transform: translateX(-165px);
     }
     &.expand {
-        transform: translateX(180px;)
+        transform: translateX(180px);
     }
 
     .shop-search {
@@ -111,7 +126,6 @@
             position: absolute;
             color: @shop-search-icon-color;
             font-size: 18px;
-            position: absolute;
             right: 9px;
             top: calc(50% - 9px);
             cursor: pointer;
@@ -155,27 +169,6 @@
         }
     }
 }
-
-
-
-// ============cc-menu =====
-
-@cc-menu-bg-color: #dee3e7;
-@cc-menu-toggle-hover-bg: #d4dbe1;
-@cc-menu-toggle-hover-color: #a7b3ba;
-@cc-menu-toggle-icon-color: #bdc6cc;
-
-@collapsed-bar-bg: #e9ebee;
-@collapsed-icon-bg: #d9dfe3;
-@collapsed-icon-color: #bdc6cc;
-
-
-@collapsed-icon-hover-bg: #d4dce0;
-@collapsed-icon-hover-color: #a7b3ba;
-
-@collapsed-logo-bg: #c3ced4;
-@collapsed-logo-color: #fff;
-@collapsed-logo-hover-color: #bac7cd;
 
 .@{ccMenuSelector} {
     height: 100%;

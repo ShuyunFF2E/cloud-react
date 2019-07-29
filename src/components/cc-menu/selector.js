@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
+import jeasy from 'jeasy';
+import Input from '../input';
 
-import IconRaw from '../icon';
-
-const Icon = React.memo(IconRaw);
+import Icon from '../icon';
 
 const noop = () =>  {};
-export default class CcMenu extends Component {
+export default class Selector extends Component {
 
     static propTypes = {
         source: PropTypes.arrayOf(PropTypes.shape({
@@ -28,7 +28,7 @@ export default class CcMenu extends Component {
         searchPlaceholder: PropTypes.string,
         onShopSearch: PropTypes.func,
         onShopChange: PropTypes.func
-    }
+    };
 
     static defaultProps = {
         source: [],
@@ -38,8 +38,8 @@ export default class CcMenu extends Component {
         isExpand: false,
         onShopSearch: noop,
         onShopChange: noop
-    }
-    
+    };
+
     constructor(props) {
         super(props);
         const { checkedShop, checkedPlat, isExpand } = props;
@@ -49,14 +49,14 @@ export default class CcMenu extends Component {
             checkedShop,
             prevProps: props
         };
-        this.inputRef = React.createRef();
     }
 
     static getDerivedStateFromProps(nextProps, state) {
         const { prevProps } = state;
-        if (nextProps.checkedPlat !== prevProps.checkedPlat ||
-            nextProps.checkedShop !== prevProps.checkedShop ||
-            nextProps.isExpand !== prevProps.isExpand) {
+        if (!jeasy.equal(nextProps.checkedPlat, prevProps.checkedPlat) ||
+            !jeasy.equal(nextProps.checkedShop, prevProps.checkedShop) ||
+            nextProps.isExpand !== prevProps.isExpand
+        ) {
             return {
                 isExpand: nextProps.isExpand,
                 checkedPlat: nextProps.checkedPlat,
@@ -82,13 +82,13 @@ export default class CcMenu extends Component {
         this.setState({
             isExpand: !isExpand
         });
-    }
+    };
 
     collapseSelector = () => {
         this.setState({
             isExpand: false
         });
-    }
+    };
 
     changeShop = (shop, plat) => () => {
         this.setState({
@@ -100,27 +100,24 @@ export default class CcMenu extends Component {
         if (shop.key === this.state.checkedShop.key) return; // no change
 
         this.props.onShopChange(shop, plat);
-    }
+    };
 
-    searchShop = e => {
-        if (e.keyCode !== 13) return; // 只响应enter键 
-
-        const keyword = this.inputRef.current.value;
-        this.props.onShopSearch(keyword);
-    }
+    handleSearch = e => {
+        this.props.onShopSearch(e.target.value);
+    };
 
     preventClick = e => {
         // document上绑定了原生事件监听器，这里阻止原生事件冒泡到document上
         e.nativeEvent.stopImmediatePropagation();
-    }
+    };
 
     renderMenuSelector() {
         const { isExpand } = this.state;
-        const selectorCls = cls('shop-selector-pane', { expand: isExpand, collapse: !isExpand });
+        const selectorCls = cls('menu-shop-selector-pane', { expand: isExpand, collapse: !isExpand });
 
         const searchSection = (
             <div className="shop-search">
-                <input type="text" placeholder={this.props.searchPlaceholder} ref={this.inputRef} onKeyDown={this.searchShop}/>
+                <Input placeholder={this.props.searchPlaceholder} onEnter={this.handleSearch}/>
                 <Icon type="search" className="search-icon"/>
             </div>
         );
@@ -139,8 +136,8 @@ export default class CcMenu extends Component {
             // render plat
             <ul key={plat.key}>
                 <li className="shop-plat">
-                    { plat.title }
-                </li>   
+                    {plat.title}
+                </li>
 
                 {
                     // render shops in plat
@@ -162,31 +159,30 @@ export default class CcMenu extends Component {
     renderMenuShop() {
         const { checkedPlat, checkedShop } = this.state;
 
-        const logo = checkedShop.icon ? 
-            <img src={checkedShop.icon} alt={checkedShop.title} className="shop-img-logo"/> : 
+        const logo = checkedShop.icon ?
+            <img src={checkedShop.icon} alt={checkedShop.title} className="shop-img-logo"/> :
             <Icon type="shop" className="shop-logo"/>;
 
         return (
-            <div className="shop-selector" onClick={this.toggleSelector}>
+            <div className="menu-shop-selector" onClick={this.toggleSelector}>
                 <section className="shop-logo-wrapper">
                     { logo  }
                 </section>
                 <p className="shop-title-wrapper">
                     <span className="shop-plat">{checkedPlat.title}</span>
-                    {"  |  "}
+	                <span className="shop-split">|</span>
                     <span className="shop-name">{checkedShop.title}</span>
                 </p>
             </div>
         );
     }
 
-
     render() {
         return (
             <>
                 {this.renderMenuShop()}
                 {this.renderMenuSelector()}
-            </> 
+            </>
         );
     }
 }

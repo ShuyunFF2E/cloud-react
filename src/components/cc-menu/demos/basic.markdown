@@ -10,24 +10,24 @@ import CcMenu from 'ccms-components-react/cc-menu';
 import { HashRouter } from 'react-router-dom';
 
 const menuSource = [{
-    title: '会员',
-    key: '/member',
+    title: '基础组件',
+    key: '/components2',
     children: [{
-        title: <span style={{color: 'red'}}>等级</span>,
-        key: '/member/preview'
+        title: <span style={{color: 'red'}}>Button 按钮</span>,
+        key: '/components/button'
     }, {
         title: '积分',
-        key: '/member/pointChange'
+        key: '/components/modal'
     }]
 }, {
-    title: '管理',
-    key: '/loyalty',
+    title: '业务组件',
+    key: '/components',
     children: [{
-        title: '积分发放',
-        key: '/loyalty/pointDeliver'
+        title: 'CcMenu 侧边栏',
+        key: '/components/cc-menu'
     }, {
-        title: '等级计算',
-        key: '/loyalty/gradeCompute'
+        title: '地址选择器',
+        key: '/components/area-selector'
     }]
 }];
 
@@ -95,7 +95,7 @@ export default class MenuBasicDemo extends Component {
                 </div>
             </HashRouter>
        );
-      
+
    }
 }
 

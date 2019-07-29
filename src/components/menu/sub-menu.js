@@ -2,15 +2,12 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
 
-import IconRaw from '../icon';
-
-const Icon = React.memo(IconRaw);
+import Icon from '../icon';
 
 export default class SubMenu extends PureComponent {
 
     static propTypes = {
         title: PropTypes.node,
-        // key: PropTypes.string.isRequired,
         internalKey: PropTypes.string,
         path: PropTypes.array,
         indent: PropTypes.number,
@@ -65,11 +62,11 @@ export default class SubMenu extends PureComponent {
         const style = { textIndent: (depth + 1) * indent };
 
         return (
-            <div 
-                className="menu-group-title" 
-                style={style} 
+            <div
+                className="menu-group-title"
+                style={style}
                 onClick={this.handleToggle}>
-                <span>{title}</span>
+                {title}
                 <Icon type={iconType} className="menu-indicator"></Icon>
             </div>
         );
