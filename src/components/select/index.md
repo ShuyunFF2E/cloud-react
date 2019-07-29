@@ -15,8 +15,8 @@ subtitle: 下拉选择
 | defaultOpen | 默认下拉菜单展开状态 | boolean | false |
 | open | 下拉菜单展开状态，当使用此属性时组件本身open行为失效 | boolean | - |
 | placeholder | 选择框默认文案 | string | - |
-| width | 下拉宽度 | string\number | auto |
 | seachable | 使下拉框带搜索 | boolean | false |
+| emptyRender | 数据为空时下拉框显示内容 | string\node | '暂时没有数据' |
 | defaultValue | 默认选中的项 | string\number | - |
 | value | 选中的项 | string\number | - |
 | labelInValue | 是否把每个选项的label包装到value中 | boolean | false |
