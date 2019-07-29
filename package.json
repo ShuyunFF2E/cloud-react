@@ -9,7 +9,7 @@
     "webpack": "webpack",
     "webpack-dev-server": "webpack-dev-server",
     "start": "npm run webpack-dev-server -- --env.mode development --env.domain develop",
-    "build": "npm run webpack -- --env.mode development --env.domain develop",
+    "build": "npm run webpack -- --env.mode production --env.domain production",
     "site": "npm run webpack -- --env.mode site --env.domain production",
     "debug": "node --inspect --inspect-brk ./node_modules/webpack/bin/webpack.js --env.mode production",
     "preversion": "npm run lint",
