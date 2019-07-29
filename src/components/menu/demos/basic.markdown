@@ -13,7 +13,7 @@ const { MenuItem, SubMenu } = Menu;
 export default class MenuBasicDemo extends Component {
 
     state = { key: null, path: null, expanded: null };
-    
+
     handleSubMenuToggle = (key, path, expanded) => {
         console.log('激活项目key:', key);
         console.log('激活项目定位路径:', path);
@@ -29,7 +29,7 @@ export default class MenuBasicDemo extends Component {
     handleMenuItemClick = (key, path) => {
         console.log('激活项目key:', key);
         console.log('激活项目定位路径:', path);
-        
+
         this.setState({
             key,
             path,
@@ -39,10 +39,10 @@ export default class MenuBasicDemo extends Component {
 
     renderMenu() {
         return (
-            <Menu 
-                onSubMenuToggle={this.handleSubMenuToggle} 
-                onItemClick={this.handleMenuItemClick} 
-                openKeys={['2', '3']} 
+            <Menu
+                onSubMenuToggle={this.handleSubMenuToggle}
+                onItemClick={this.handleMenuItemClick}
+                openKeys={['2', '3']}
                 selectedKeys={['21']}>
 
                 <MenuItem key="1">菜单1</MenuItem>
@@ -63,16 +63,16 @@ export default class MenuBasicDemo extends Component {
            <div className="menu-basic">
             {this.renderMenu()}
             <div className="menu-basic-content">
-                <div>内容区域</div>
+                <header>内容区域</header>
                 <ul>
-                    <li>激活项目key: {key}</li>
-                    <li>激活项目传播路径: {path}</li>
-                    <li>子菜单是否展开: {expanded ? '展开' : '关闭'}</li>
+                    <li><span className="content-label">激活项目key:</span>{key}</li>
+                    <li><span className="content-label">激活项目传播路径: </span>{path}</li>
+                    <li><span className="content-label">子菜单是否展开: </span>{expanded ? '展开' : '关闭'}</li>
                 </ul>
             </div>
            </div>
        );
-      
+
    }
 }
 
@@ -84,8 +84,25 @@ export default class MenuBasicDemo extends Component {
     display: flex;
 
     .menu-basic-content {
-        padding: 10px;
         flex: 1;
+        background-color: #fefefe;
+        >header {
+            height: 36px;
+            line-height: 36px;
+            background-color: rgba(139, 200, 255, 0.1);
+            text-align: center;
+        }
+        >ul, li {
+            padding: 10px;
+            list-style-type: none;
+            margin: 0;
+        }
+        .content-label{
+            display: inline-block;
+            width: 150px;
+            text-align: right;
+            margin-right: 10px;
+        }
     }
 }
 

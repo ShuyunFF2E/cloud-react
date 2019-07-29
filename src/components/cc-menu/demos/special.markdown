@@ -58,11 +58,11 @@ export default class MenuBasicDemo extends Component {
    render() {
 
        return (
-            
+
            <HashRouter>
                 <div className="cc-menu-wrapper">
                         <CcMenu
-                            header={
+                            topPlaceholder={
                                 <div className="menu-header-extra">
                                     <Icon type="swap"/>
                                     切换旧版
@@ -77,7 +77,7 @@ export default class MenuBasicDemo extends Component {
                 </div>
            </HashRouter>
        );
-      
+
    }
 }
 

@@ -11,7 +11,7 @@ import './index.less';
 const noop = () => {};
 
 export default class Menu extends PureComponent {
- 
+
     static propTypes = {
         header: PropTypes.node,
         source: PropTypes.arrayOf(PropTypes.shape({
@@ -26,7 +26,7 @@ export default class Menu extends PureComponent {
         style: PropTypes.object,
         onSubMenuToggle: PropTypes.func,
         onItemClick: PropTypes.func
-    }
+    };
 
     static defaultProps = {
         header: null,
@@ -38,7 +38,7 @@ export default class Menu extends PureComponent {
         style: {},
         onSubMenuToggle: noop,
         onItemClick: noop
-    }
+    };
 
     constructor(props) {
         super(props);
@@ -66,7 +66,7 @@ export default class Menu extends PureComponent {
         this.setState({
             selectedKeys: [key]
         });
-    }
+    };
 
     renderNodeBySource(source, path=[]) {
         const { onSubMenuToggle, onItemClick, type, indent } = this.props;
@@ -74,31 +74,35 @@ export default class Menu extends PureComponent {
         return source.map(item => {
             const { title, key, children } = item;
 
-            const hasSubMenu = Array.isArray(children) && children.length > 0;
+            const hasSubMenu = Array.isArray(children) && children.length;
             const newPath = [key, ...path]; // 传播路径
 
-            return hasSubMenu ? (
-                <SubMenu
-                    title={title} 
-                    key={key}
-                    internalKey={key}
-                    path={newPath}
-                    indent={indent}
-                    opened={openKeys.includes(key)}
-                    onMenuToggle={onSubMenuToggle}>
-                    {this.renderNodeBySource(children, newPath)}
-                </SubMenu>
-            ) : (
-                <MenuItem 
-                    key={key} 
-                    internalKey={key}
-                    type={type}
-                    path={newPath}
-                    indent={indent}
-                    selected={selectedKeys.includes(key)}
-                    onClick={onItemClick}>
-                    {title}
-                </MenuItem>
+	        if (hasSubMenu) {
+	        	return (
+			        <SubMenu
+				        title={title}
+				        key={key}
+				        internalKey={key}
+				        path={newPath}
+				        indent={indent}
+				        opened={openKeys.includes(key)}
+				        onMenuToggle={onSubMenuToggle}>
+				        {this.renderNodeBySource(children, newPath)}
+			        </SubMenu>
+		        );
+	        }
+
+            return (
+	            <MenuItem
+		            key={key}
+		            internalKey={key}
+		            type={type}
+		            path={newPath}
+		            indent={indent}
+		            selected={selectedKeys.includes(key)}
+		            onClick={onItemClick}>
+		            {title}
+	            </MenuItem>
             );
         });
     }
@@ -110,13 +114,13 @@ export default class Menu extends PureComponent {
             const { key, type: { name } } = child;
             const opened = openKeys.includes(key);
             const selected = selectedKeys.includes(key);
-           
+
             const newPath = [key, ...path];
-            const hasSubMenu = name === 'SubMenu'
+            const hasSubMenu = name === SubMenu.name;
 
             // 额外的属性
             const extraProps = hasSubMenu ? { opened, onMenuToggle: onSubMenuToggle } : { type, selected, onClick: onItemClick };
-            
+
             return React.cloneElement(child, {
                 ...child.props,
                 ...extraProps,
@@ -128,9 +132,8 @@ export default class Menu extends PureComponent {
         });
     }
 
-    
-    render() {
 
+    render() {
         const { source, header, children, style } = this.props;
 
         let content;
@@ -138,18 +141,17 @@ export default class Menu extends PureComponent {
         // 优先使用自定义children组合进行渲染; 未传入自定义组合时，使用source进行渲染
         if (children) {
             content = this.renderNodeByChildren(children);
-        } else if (source.length > 0) {
+        } else if (source.length) {
             content = this.renderNodeBySource(source);
         }
 
-            
         const value = { ...this.state, changeSelectedKeys: this.changeSelectedKeys };
         return (
             <MenuContext.Provider value={value}>
                 <section className="menu-container" style={style}>
-                    { header }
+                    {header}
                     <ul className="menu">
-                        { content }
+                        {content}
                     </ul>
                 </section>
             </MenuContext.Provider>
