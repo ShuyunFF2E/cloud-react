@@ -8,50 +8,50 @@ import '../index.less';
 const selector = 'select';
 
 export default function Selected(props) {
-  const [selectStr, steSelectStr] = useState('');
-  const { dataSource, disabled, placeholder, onClick, ...otherProps } = props;
+	const [selectStr, steSelectStr] = useState('');
+	const { dataSource, disabled, placeholder, onClick, ...otherProps } = props;
 
-  const classNames = classnames(`${selector}-wrapper`, { disabled, empty: !dataSource.length });
+	const classNames = classnames(`${selector}-wrapper`, { disabled, empty: !dataSource.length });
 
-  useEffect(() => {
-    if (!dataSource) return;
+	useEffect(() => {
+		if (!dataSource) return;
 
-    const labels = dataSource.map(item => item.label).join(',');
-    steSelectStr(labels);
-  }, [dataSource]);
+		const labels = dataSource.map(item => item.label).join(',');
+		steSelectStr(labels);
+	}, [dataSource]);
 
-  const onWrapperClick = () => {
-    if (disabled) return;
+	const onWrapperClick = () => {
+		if (disabled) return;
 
-    onClick();
-  }
+		onClick();
+	}
 
-  return useMemo(() => (
-    <div
-      className={classNames}
-      onClick={onWrapperClick}
-      { ...otherProps }>
-      <span className={`${selector}-selected`}>
-        { selectStr || placeholder }
-      </span>
-      <Icon type="down-solid" className={`${selector}-select-icon`} />
-    </div>
-  ), [selectStr, disabled]);
+	return useMemo(() => (
+		<div 
+			className={classNames}
+			onClick={onWrapperClick}
+			{ ...otherProps }>
+			<span className={`${selector}-selected`}>
+				{ selectStr || placeholder }
+			</span>
+			<Icon type="down-solid" className={`${selector}-select-icon`} />
+		</div>
+	), [selectStr, disabled]);
 }
 
 Selected.propTypes = {
-  disabled: PropTypes.bool,
-  dataSource: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.array
-  ]),
-  placeholder: PropTypes.string,
-  onClick: PropTypes.func
+	disabled: PropTypes.bool,
+	dataSource: PropTypes.oneOfType([
+		PropTypes.object,
+		PropTypes.array
+	]),
+	placeholder: PropTypes.string,
+	onClick: PropTypes.func
 }
 
 Selected.defaultProps = {
-  disabled: false,
-  dataSource: [],
-  placeholder: '',
-  onClick: () => {}
+	disabled: false,
+	dataSource: [],
+	placeholder: '',
+	onClick: () => {}
 } 

@@ -7,33 +7,33 @@ import '../index.less';
 const selector = 'select';
 
 export default function Option(props) {
-  const { onChange, disabled, isSelected, className, ...otherProps } = props;
+	const { onChange, disabled, isSelected, className, ...otherProps } = props;
 
-  const onOptionClick = () => {
-    if (disabled) return;
+	const onOptionClick = () => {
+		if (disabled) return;
 
-    onChange(props);
-  }
-  const classNames = classnames(`${selector}-option`, { disabled, selected: isSelected }, className);
+		onChange(props);
+	}
+	const classNames = classnames(`${selector}-option`, { disabled, selected: isSelected }, className);
 
-  return useMemo(() => (
-    <div {...otherProps} onClick={onOptionClick} className={classNames} />
-  ), [isSelected]);
+	return useMemo(() => (
+		<div {...otherProps} onClick={onOptionClick} className={classNames} />
+	), [isSelected]);
 }
 
 Option.propTypes = {
-  disabled: PropTypes.bool,
-  value: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number
-  ]),
-  className: PropTypes.string,
-  onChange: PropTypes.func
+	disabled: PropTypes.bool,
+	value: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.number
+	]),
+	className: PropTypes.string,
+	onChange: PropTypes.func
 }
 
 Option.defaultProps = {
-  disabled: false,
-  value: '',
-  className: '',
-  onChange: () => {}
+	disabled: false,
+	value: '',
+	className: '',
+	onChange: () => {}
 }
