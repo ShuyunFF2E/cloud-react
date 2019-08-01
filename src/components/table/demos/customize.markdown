@@ -1,5 +1,5 @@
 ---
-order: 3
+order: 4
 title: 自定义模板
 desc: columnData.template使用介绍
 ---
