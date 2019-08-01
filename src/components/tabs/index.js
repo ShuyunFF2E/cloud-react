@@ -14,6 +14,7 @@ export default class Tabs extends PureComponent {
         activeKey: PropTypes.string,
         activeClassName: PropTypes.string,
         type: PropTypes.string,
+        className: PropTypes.string,
         onChange: PropTypes.func,
         onClose: PropTypes.func
     }
@@ -23,6 +24,7 @@ export default class Tabs extends PureComponent {
         activeKey: '',
         activeClassName: 'active',
         type: 'card',
+        className: '',
         onChange: () => {},
         onClose: () => {}
     }
@@ -92,7 +94,7 @@ export default class Tabs extends PureComponent {
     }
 
     render() {
-        const { children } = this.props;
+        const { children, className } = this.props;
         const { activedKey } = this.state;
 
         const headers = [];
@@ -104,8 +106,9 @@ export default class Tabs extends PureComponent {
             if (isActived) { panel = child; }
         });
 
+        const finalClassName = cls('tabs', className);
         return (
-            <div className="tabs">
+            <div className={finalClassName}>
                 <section className="tabs-header">{headers}</section>
                 {panel}
             </div>
@@ -114,8 +117,9 @@ export default class Tabs extends PureComponent {
 }
 
 const Panel = React.memo(props => {
+    const finalClassName = cls('tabpanel-container', props.className);
     return (
-        <div className="tabpanel-container">
+        <div className={finalClassName}>
             {props.children}
         </div>
     );
@@ -124,12 +128,14 @@ const Panel = React.memo(props => {
 Panel.propTypes = {
     tab: PropTypes.node.isRequired, // eslint-disable-line
     closable: PropTypes.bool, // eslint-disable-line
-    disabled: PropTypes.bool // eslint-disable-line
+    disabled: PropTypes.bool, // eslint-disable-line
+    className: PropTypes.string
 };
 
 Panel.defaultProps = {
     disabled: false,
-    closable: false
+    closable: false,
+    className: ''
 };
 
 Tabs.Panel = Panel;
