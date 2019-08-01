@@ -1,5 +1,5 @@
 ---
-order: 2
+order: 3
 title: 分页
 desc: supportAjaxPage使用介绍
 ---

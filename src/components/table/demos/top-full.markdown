@@ -1,5 +1,5 @@
 ---
-order: 4
+order: 5
 title: 顶部通栏
 desc: topFullColumn使用介绍
 ---
