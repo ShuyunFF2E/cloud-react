@@ -9,7 +9,7 @@ import jeasy from 'jeasy';
 import Icon from 'ccms-components-react/icon';
 import message from 'ccms-components-react/message';
 
-const iconList = ['doubleLeft', 'doubleRight', 'up', 'down', 'left', 'right', 'up-solid', 'down-solid', 'left-solid', 'right-solid', 'close', 'close-circle-solid', 'check-circle-solid', 'shop', 'refresh', 'info-circle', 'question-circle', 'question-circle-solid', 'warning-circle-solid', 'flag-solid', 'delete', 'search', 'edit', 'last-solid', 'first-solid', 'swap', 'finish'];
+const iconList = ['doubleLeft', 'doubleRight', 'up', 'down', 'left', 'right', 'up-solid', 'down-solid', 'left-solid', 'right-solid', 'close', 'close-circle-solid', 'check-circle-solid', 'shop', 'refresh', 'info-circle', 'question-circle', 'question-circle-solid', 'warning-circle-solid', 'flag-solid', 'delete', 'search', 'edit', 'last-solid', 'first-solid', 'swap', 'finish', 'folder-solid', 'openFolder-solid'];
 export default class IconDemo extends Component {
 
 	render() {
@@ -19,21 +19,17 @@ export default class IconDemo extends Component {
             message.success(text + ' 已复制');
     	};
 
-		const ulStyle = {listStyleType: 'none', margin: '0', paddding: '0'};
-		const liStyle = {display: 'inline-block', width: '200px', textAlign: 'center', padding: '5px', margin: '0 0 5px 0'};
-		const iconAreaStyle = {height: '80px', lineHeight: '80px'};
-		const textAreaStyle = {height: '20px', lineHeight: '20px', cursor: 'pointer'};
 		const iconStyle = {fontSize: '36px'};
 		return (
-			<ul style={ulStyle}>
+			<ul className="icon-list">
 				{
 					iconList.map((type, index) => {
 						return (
-							<li key={index} style={liStyle} onClick={onClickHandler}>
-								<div style={iconAreaStyle}>
-									<Icon type={type} style={iconStyle} className='test-class-name'></Icon>
+							<li key={index} className="icon-li" onClick={onClickHandler}>
+								<div className="icon-area">
+									<Icon type={type} style={iconStyle}></Icon>
 								</div>
-								<div style={textAreaStyle}>
+								<div className="text-area">
 									{type}
 								</div>
 							</li>
@@ -45,4 +41,32 @@ export default class IconDemo extends Component {
 	}
 }
 
+````
+
+````less
+.icon-list {
+	list-style-type: none;
+	margin: 0;
+	paddding: 0;
+	.icon-li {
+		display: inline-block;
+		width: 200px;
+		text-align: center;
+		padding: 5px;
+		margin: 0 0 5px 0;
+		cursor: pointer;
+		&:hover{
+			color: #00AAF1;
+		}
+		.icon-area{
+			height: 80px;
+			line-height: 80px;
+		}
+		.text-area{
+			height: 20px;
+			line-height: 20px;
+			cursor: pointer;
+		}
+	}
+}
 ````
