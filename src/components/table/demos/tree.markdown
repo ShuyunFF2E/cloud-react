@@ -1,7 +1,7 @@
 ---
 order: 7
-title: 树型数据
-desc: supportTreeData=true
+title: 树表格
+desc: 使用树结构数据
 ---
 
 ````javascript
@@ -99,7 +99,7 @@ export default class TableDemo extends Component {
 	        insertTo: 'name',
 
 			// 初始将所有数据展开, 默认为false
-            openState: true,
+            openState: false,
 
             // 子节点关键字，默认为'children'
             treeKey: 'children'
