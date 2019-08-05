@@ -1,0 +1,293 @@
+@selector: datepicker;
+@range: rangepicker;
+@time: timepicker;
+
+@placeholder: #C9C9C9;
+@border: 1px solid #D9D9D9;
+@color: #3D3D3D;
+@bgcolor: #FFFFFF;
+
+@disabled-color: rgba(0, 0, 0, 0.25);
+@disabled-bgcolor: #f5f5f5;
+
+@width: 230px;
+@height: 30px;
+
+@panel-width: 246px;
+@panel-border-radius: 0px;
+@panel-header-color: #3D3D3D;
+@panel-header-border-color: #D9D9D9;
+@panel-header-bgcolor: #F4F4F4;
+
+@grid-day-border-color :#00AAF1;
+@grid-day-check-bgcolor: #E5F7FF;
+
+@range-split-color: #979797;
+
+.@{selector} {
+	position: relative;
+	display: inline-block;
+
+	&, * {
+		box-sizing: border-box;
+	}
+
+
+	&-inp {
+		text-align: left;
+		width: @width;
+		height: @height;
+		line-height: @height;
+		border: @border;
+		background-color: @bgcolor;
+		font-size: 14px;
+		cursor: pointer;
+		color: @color;
+		display: inline-block;
+		padding-left: 8px;
+
+		&::-webkit-input-placeholder {
+			color: @placeholder;
+		}
+
+		&[disabled] {
+			cursor: not-allowed;
+			color: @disabled-color;
+			background-color: @disabled-bgcolor;
+		}
+
+	}
+
+	&-popover {
+		width: @panel-width;
+		border-radius: @panel-border-radius;
+		animation: fadeIn 0.2s 0s ease both;
+		z-index: 10000;
+		background-color: @bgcolor;
+		position: absolute;
+
+		.header {
+			height: 40px;
+			line-height: 40px;
+			text-align: center;
+			font-size: 12px;
+			letter-spacing: 1.5px;
+			background-color: @panel-header-bgcolor;
+			color: @panel-header-color;
+			border: 1px solid @panel-header-border-color;
+			border-bottom: none;
+
+
+			.arrow-left, .arrow-right {
+				cursor: pointer;
+				position: absolute;
+				color: #B5B5B5;
+			}
+
+			.arrow-left {
+				left: 5px;
+			}
+
+			.arrow-right {
+				right: 5px;
+			}
+
+			select {
+				width: 80px;
+				height: 30px;
+
+				&:last-of-type {
+					margin-left: 5px;
+				}
+			}
+		}
+	}
+
+	.title {
+		margin-left: 100px;
+	}
+
+	.not-in-month {
+		color: #ccc;
+	}
+
+	.grid {
+		border: 1px solid #D9D9D9;
+	}
+
+	.grid-table {
+		margin: auto;
+		border-collapse: collapse;
+		width: 100%;
+
+		tbody {
+			font-size: 14px;
+			color: #565656;
+			background: #fff;
+		}
+
+		tr {
+			border-bottom: #F5F5F5 1px solid;
+		}
+
+		th {
+			height: 28px;
+			color: #3D3D3D;
+			font-size: 12px;
+			text-align: center;
+		}
+
+
+		td {
+			width: 37px;
+			height: 37px;
+			vertical-align: middle;
+			text-align: center;
+			padding-bottom: 0;
+			padding-top: 0;
+			cursor: pointer;
+
+			span {
+				display: inline-block;
+				width: 26px;
+				height: 26px;
+			}
+		}
+	}
+
+	.check span {
+		background-color: @grid-day-check-bgcolor !important;
+		border: 1px solid @grid-day-border-color;
+	}
+
+	.week span {
+		&:hover {
+			border: 1px solid @grid-day-border-color;
+		}
+	}
+
+	.today span {
+		color: @grid-day-border-color;
+		background-color: transparent;
+	}
+
+	.inner-timepicker {
+		display: flex;
+		justify-content: flex-start;
+		padding-left: 15px;
+		margin: 18px 0;
+
+		input {
+			width: 43px;
+			height: 25px;
+			border: @border;
+			text-align: center;
+		}
+
+		.colon {
+			margin: 0 5px;
+		}
+	}
+
+	&-btns {
+		margin-bottom: 13px;
+		display: flex;
+		justify-content: space-between;
+		padding: 0 15px;
+
+		button {
+			width: 64px;
+			height: 24px;
+			line-height: 100%;
+			text-align: center;
+			cursor: pointer;
+			border: 1px solid #E3E3E3;
+			background-color: #FAFAFA;
+			border-radius: 2px;
+			font-size: 12px;
+		}
+
+		&-ok {
+			border: 1px solid #00AAF1 !important;
+			background-color: #00AAF1 !important;
+			color: #FFFFFF;
+		}
+	}
+
+	.fadeOut {
+		animation: fadeOut 1s 0s ease both;
+	}
+
+	.hide {
+		display: none;
+	}
+}
+
+.@{range} {
+	display: inline-block;
+	width: 600px;
+
+	&-separator {
+		width: 8px;
+		height: 2px;
+		display: inline-block;
+		border: none;
+		background-color: @range-split-color;
+		vertical-align: middle;
+		margin: 0 8px;
+	}
+}
+
+.@{time} {
+	height: 30px;
+	width: 86px;
+	border: 1px solid #ddd;
+	box-sizing: border-box;
+	text-align: center;
+
+	&-disabled {
+		cursor: not-allowed;
+		background-color: @disabled-bgcolor;
+	}
+
+	label {
+		margin: 0 3px;
+	}
+
+	input {
+		width: 20px;
+		height: 28px;
+		line-height: 28px;
+		box-sizing: border-box;
+		border: none;
+		text-align: center;
+
+		&:disabled {
+			cursor: not-allowed;
+			background-color: @disabled-bgcolor;
+		}
+
+		&:hover, &:focus {
+			outline: none;
+		}
+	}
+}
+
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 100;
+	}
+}
+
+@keyframes fadeOut {
+	0% {
+		opacity: 100;
+	}
+	100% {
+		opacity: 0;
+	}
+}
