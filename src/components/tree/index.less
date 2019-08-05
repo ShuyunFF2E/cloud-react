@@ -1,0 +1,144 @@
+/**
+ * index.less
+ * wangbo
+ * 2019-06-28
+ */
+
+@selector: tree;
+
+@selector-search-icon: #DBDBDB;
+@selector-searched-fontColor: #00AAF1;
+@selector-menu-background: #FFF;
+@selector-menu-border: 1px solid #E8E8E8;
+@selector-menu-hover: #E9E9E9;
+
+@selector-node-area-hover: #EEE;
+@selector-node-icon-color: #999;
+@selector-node-active-background: #E7F3FC;
+
+.@{selector} {
+	position: relative;
+
+	ul {
+		margin: 0;
+		padding-left: 38px;
+	}
+
+	li {
+		list-style: none;
+		cursor: pointer;
+	}
+
+	// 搜索组件
+	.@{selector}-search {
+		padding-bottom: 10px;
+
+		&-input {
+			width: 100%;
+			line-height: 30px;
+			padding: 0 8px;
+		}
+
+		&-icon {
+			color: @selector-search-icon;
+			font-size: 20px;
+			cursor: pointer;
+		}
+	}
+
+	// 列表组件
+	.@{selector}-list {
+		&-node-area {
+			position: relative;
+
+			.shuyunicon {
+				display: inline-block;
+				height: 26px;
+				color: @selector-node-icon-color;
+				vertical-align: top;
+				line-height: 26px;
+			}
+
+			.icon-down-solid, .icon-right-solid {
+				padding-right: 4px;
+			}
+
+			.node-item {
+				display: inline-block;
+				width: 96%;
+				height: 26px;
+				border-radius: 2px;
+				line-height: 26px;
+				cursor: pointer;
+				&:hover {
+					background: @selector-node-area-hover;
+				}
+				.radio {
+					display: inline-block;
+					width: inherit;
+				}
+				.checkbox {
+					width: inherit;
+					padding-left: 4px;
+				}
+			}
+
+			.node-input {
+				height: 26px;
+			}
+
+			.node-name {
+				display: inline-block;
+				padding-left: 2px;
+				width: inherit;
+			}
+
+			.hot-text {
+				color: @selector-searched-fontColor;
+			}
+
+			.is-add {
+				padding-left: 38px;
+			}
+
+			.is-rename {
+				display: inline-block;
+			}
+
+			.is-active {
+				background: @selector-node-active-background;
+			}
+		}
+
+		.hide-node {
+			display: none;
+		}
+	}
+
+	// 菜单组件
+	.@{selector}-menu {
+		width: 86px;
+		position: fixed;
+		text-align: center;
+		z-index: 100;
+		padding: 3px 0;
+		border: @selector-menu-border;
+		background-color: @selector-menu-background;
+		&-node-name {
+			font-size: 12px;
+			cursor: default;
+		}
+		> li {
+			line-height: 22px;
+
+			&:hover {
+				background: @selector-menu-hover;
+			}
+
+			&.disabled {
+				cursor: not-allowed;
+				opacity: 0.6;
+			}
+		}
+	}
+}
