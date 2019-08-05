@@ -78,7 +78,8 @@
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-router-dom": "^5.0.0"
+    "react-router-dom": "^5.0.0",
+    "shallowequal": "^1.1.0"
   },
   "bugs": {
     "url": "https://github.com/ShuyunFF2E/ccms-components-react/issues"
