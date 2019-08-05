@@ -1,0 +1,100 @@
+@selector: pagination;
+
+@pagination-item-color: rgba(0,0,0,0.65);
+@pagination-item-border-color: #ddd;
+@pagination-item-hover-color: rgba(0,170,241,1);
+@pagination-item-disabled-color: #b5b5b5;
+@pagination-item-ellips-color: rgba(0,0,0,0.25);
+@pagination-item-active-bg: rgba(229,247,255,1);
+
+.@{selector}{
+	display: flex;
+	align-items: center;
+	ul{
+		list-style-type: none;
+		display: flex;
+		padding-inline-start: 0;
+		li{
+			width: 26px;
+			margin-right: 5px;
+			height: 26px;
+			border: 1px solid @pagination-item-border-color;
+			text-align: center;
+			color: @pagination-item-color;
+			line-height: 26px;
+			border-radius: 3px;
+			cursor: pointer;
+			&:hover{
+				border-color: @pagination-item-hover-color;
+				color: @pagination-item-hover-color;
+			}
+			.pg-icon{
+				font-size: 12px;
+			}
+		}
+		.nomore{
+			color: @pagination-item-disabled-color;
+			cursor: not-allowed;
+			&:hover{
+				border-color: @pagination-item-border-color;
+				color:@pagination-item-disabled-color;
+			}
+		}
+		.ellips{
+			border: none;
+			position: relative;
+			text-align: center;
+			line-height: 26px;
+			.dot{
+				display: block;
+				&:after{
+					content: "\2022\2022\2022";
+					display: block;
+					letter-spacing: 2px;
+					color: @pagination-item-ellips-color;
+					font-size: 12px;
+					margin-top: 1px;
+				}
+			}
+			.moreIcon{
+				font-size: 12px;
+				display: none;
+			}
+			&:hover{
+				span.dot{
+					display: none;
+				}
+				.moreIcon{
+					display: block;
+				}
+			}
+		}
+		.active{
+			background:@pagination-item-active-bg;
+			border:1px solid @pagination-item-hover-color;
+		}
+	}
+	.quickJumper{
+		display: flex;
+		align-items: center;
+		height: 26px;
+		margin-left: 8px;
+		>input{
+			position: relative;
+			display: inline-block;
+			outline: none;
+			height: 22px;
+			padding: 2px 8px;
+			font-size: 14px;
+			text-align: center;
+			line-height: 22px;
+			background-image: none;
+			border: 1px solid @pagination-item-disabled-color;
+			border-radius: 3px;
+			-webkit-transition: all .2s;
+			transition: all .2s;
+			width: 38px;
+			margin: 0 8px;
+		}
+	}
+}

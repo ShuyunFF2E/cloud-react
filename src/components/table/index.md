@@ -16,7 +16,6 @@ subtitle: 表格
 | supportAjaxPage | 是否使用分页 | boolean | false |
 | dataKey | 指定返回数据列表的key键值 | string | 'data' |
 | totalsKey | 指定返回数据总条数的key键值 | string | 'totals' |
-| totalsKey | 指定返回数据总条数的key键值 | string | 'totals' |
 | supportAutoOrder | 是否支持自动序号 | boolean | true |
 | supportDrag | 用于配置是否支持拖拽功能 | boolean | true |
 | supportAdjust | 用于配置是否支持宽度调整功能 | boolean | true |
