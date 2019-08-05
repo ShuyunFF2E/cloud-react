@@ -14,9 +14,7 @@ const ajaxPageTemplate = `
         <span class="refresh-label">刷新</span>
     </span>
 	<div class="change-size">
-		<select name="pSizeArea">
-			{{ vm.pageSizeOptionTpl }}
-		</select>
+		{{ vm.pageSizeOptionTpl }}
 	</div>
 
 	<div class="toolbar-info checked-info"></div>

@@ -30,20 +30,15 @@ function TitleComponents(props) {
     );
 }
 
-// 组件: 删除
-function DeleteComponents(props) {
-    const {index, row} = props;
-    const deleteAction = event => {
-        if(window.confirm('确认要删除[' + event.target.title + ']吗?')){
-            console.log('----删除操作开始----');
-            GridManager.refreshGrid(option.gridManagerName);
-            console.log('数据没变是正常的, 因为这只是个示例,并不会真实删除数据.');
-            console.log('----删除操作完成----');
-        }
+// 组件: 编辑
+function EditComponents(props) {
+    const { index, row } = props;
+    const editAction = event => {
+        Table.updateRowData(gridManagerName, 'id', {...row, title: row.title + '(编辑于' + new Date().toLocaleDateString() +')'});
     };
 
     return (
-        <span style={{color: '#1890ff', cursor: 'pointer'}} onClick={deleteAction} data-index={index} title={row.title}>删除</span>
+        <span style={{color: '#1890ff', cursor: 'pointer'}} onClick={editAction} data-index={index} title={row.title}>编辑</span>
     );
 }
 
@@ -55,7 +50,7 @@ const columnData = [
         text: '缩略图',
         template: (pic, row) => {
             return (
-                <img style={{width: '90px', margin: '0 auto'}} src={'https://www.lovejavascript.com' + pic} title={row.name}/>
+                <img style={{width: '90px', height: '58.5px', margin: '0 auto'}} src={'https://www.lovejavascript.com' + pic} title={row.name}/>
             );
         }
 	},{
@@ -90,7 +85,7 @@ const columnData = [
          disableCustomize: true,
          text: <ActionComponents text={'操作'}/>,
          // 快捷方式，将自动向组件的props增加row、index属性
-         template: <DeleteComponents/>
+         template: <EditComponents/>
      }
 ];
 export default class TableDemo extends Component {
