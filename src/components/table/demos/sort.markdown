@@ -1,7 +1,7 @@
 ---
 order: 6
 title: 排序
-desc: 排序使用方式介绍, 交互方式为显示移入thead区域
+desc: 排序使用方式介绍, 交互方式为显示移入th区域
 ---
 
 ````javascript
