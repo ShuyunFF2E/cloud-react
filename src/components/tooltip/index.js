@@ -13,7 +13,20 @@ import ToolView from './toolView';
 
 const container = {};
 let targetEle = null;
+let manualClear = null;
+const MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
 
+const mutationObserver = new MutationObserver(mutations => {
+	mutations.forEach(mutation => {
+  		if (mutation.type === 'childList' && mutation.removedNodes.length > 0 && mutation.removedNodes[0].innerHTML.indexOf(targetEle.id) > -1) {
+   			const ele = container[targetEle.id];
+     		if (ele) {
+    			delete container[targetEle.id];
+    			document.body.removeChild(ele);
+   			}
+  		}
+ 	});
+});
 /**
  * 渲染到节点
  * @param wrapper: 容器
@@ -22,6 +35,13 @@ let targetEle = null;
 function renderComponentWithPosition(wrapper, component) {
 	document.body.appendChild(wrapper);
 	ReactDOM.render(component, wrapper);
+	if (component.props.clear) {
+		manualClear = component.props.clear;
+		mutationObserver.observe(document.documentElement, {
+		 	childList: true,
+		 	subtree: true,
+		});
+	}
 }
 
 /**
@@ -29,6 +49,9 @@ function renderComponentWithPosition(wrapper, component) {
  * @param id: 容器的ID
  */
 function destroyDOM(id) {
+	if (manualClear) {
+		mutationObserver.disconnect();
+	}
 	const wrapper = container[id];
 	ReactDOM.unmountComponentAtNode(wrapper);
 	document.body.removeChild(wrapper);
@@ -157,6 +180,7 @@ ToolTip.propTypes = {
 	mouseEnterDelay: PropTypes.number,
 	mouseLeaveDelay: PropTypes.number,
 	trigger: PropTypes.string,
+	clear: PropTypes.bool,
 	placement: PropTypes.oneOf(['auto', 'top', 'top-left', 'top-right', 'bottom', 'bottom-left', 'bottom-right', 'left', 'left-top', 'left-bottom', 'right', 'right-top', 'right-bottom']),
 	theme: PropTypes.oneOf(['dark', 'light', 'error'])
 };
@@ -166,6 +190,7 @@ ToolTip.defaultProps = {
 	mouseEnterDelay: 1,
 	mouseLeaveDelay: 1,
 	trigger: 'hover',
+	clear: false,
 	placement: 'auto',
 	theme: 'dark'
 };
