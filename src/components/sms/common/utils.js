@@ -217,3 +217,36 @@ export function parseHTML(text) {
 	return parsed;
 
 }
+
+/**
+ * @description 根据变量和换行符获取短信预览内容
+ * @param {*} { preview, signature, gatewayType, unsubscribeText, customSignature }
+ * @returns
+ */
+export function getContent({ preview, signature = '', gatewayType, unsubscribeText = '', customSignature = '' }) {
+
+	const content = preview.split(NEW_LINE) || [];
+	const len = content.length;
+
+	switch (gatewayType) {
+		case 0:
+			content[len - 1] = content[len - 1] + unsubscribeText + customSignature;
+			break;
+		case 1:
+		case 5:
+			content[len - 1] = content[len - 1] + unsubscribeText + customSignature + signature;
+			break;
+		case 2:
+			content[0] = customSignature + content[0];
+			content[len - 1] = content[len - 1] + unsubscribeText;
+			break;
+		case 3:
+		case 4:
+			content[0] = signature + customSignature + content[0];
+			content[len - 1] = content[len - 1] + unsubscribeText;
+			break;
+		default:
+	}
+	return content;
+}
+

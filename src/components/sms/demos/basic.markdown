@@ -96,8 +96,7 @@ export default class SmsDemo extends React.Component {
 		this.state = {
 			gateway: this.gateways[0],
 			keywords: this.keywords,
-			// content: '如果地区{选择器}要使用{{xxxx}}þ_enter_þþ_enter_þ后端数据, 请配置 ual 参数 œœ_[taobao]shortlink_œœ œœ_[taobao]XMTB_œœ 13456789876',
-			content: '',
+			content: '如果地区{选择器}要使用{{xxxx}}þ_enter_þþ_enter_þ后端数据, 请配置 ual 参数 œœ_[taobao]shortlink_œœ œœ_[taobao]XMTB_œœ 13456789876',
 			useUnsubscribe: true,
 			unsubscribeText: '回T退定',
 			customSignature: '我是自定义的签名',
@@ -119,12 +118,6 @@ export default class SmsDemo extends React.Component {
 			gateway: gateway
 		});
 
-	}
-
-	handleContentChange = (text) => {
-		this.setState({
-			text: text
-		});
 	}
 
 	handleCustomSignatureChange = () => {
@@ -162,6 +155,16 @@ export default class SmsDemo extends React.Component {
 		});
 	}
 
+	handleContentChange = (text) => {
+		this.setState({
+			content: text
+		});
+	}
+
+	getSmsData = () => {
+		console.log(this.smsRef.current.getOuterData());
+	}
+
 	render() {
 
 		const { keywords, content, gateway, useUnsubscribe, unsubscribeText, customSignature, disabled, text, isTrimSpace, outerText } = this.state;
@@ -169,7 +172,16 @@ export default class SmsDemo extends React.Component {
 		return (
 			<div className="wrapper">
 
-				<Sms ref={this.smsRef} content={content} keywords={keywords} isTrimSpace={isTrimSpace} onContentChange={this.handleContentChange}>
+				<Sms ref={this.smsRef}
+					 disabled={disabled}
+					 content={content}
+					 keywords={keywords}
+					 isTrimSpace={isTrimSpace}
+					 gateway={gateway}
+					 useUnsubscribe={useUnsubscribe}
+					 unsubscribeText={unsubscribeText}
+					 customSignature={customSignature}
+					 onContentChange={this.handleContentChange}>
 
 					<div className="item">
 						<label>发送通道：</label>
@@ -182,7 +194,7 @@ export default class SmsDemo extends React.Component {
 						</select>
 					</div>
 
-					<Sms.Editor disabled={disabled} />
+					<Sms.Editor />
 
 					<div className="item">
 						<label>自定义签名：</label>
@@ -197,7 +209,7 @@ export default class SmsDemo extends React.Component {
 
 					<div className="item">
 						<label>编辑器结果：</label>
-						<span className="text">{text}</span>
+						<Button size="small" type="primary" onClick={this.getSmsData}>getSmsData</Button>
 					</div>
 
 					<div className="item">
@@ -211,8 +223,9 @@ export default class SmsDemo extends React.Component {
 						<Button size="small" type="primary" onClick={this.handleInsertKeyword}>插入变量</Button>
 					</div>
 
-
-					<Sms.Preview classes="sms-preview" gateway={gateway} useUnsubscribe={useUnsubscribe} unsubscribeText={unsubscribeText} customSignature={customSignature} />
+					<div className="sms-preview">
+						<Sms.Preview />
+					</div>
 				</Sms>
 			</div>
 		);

@@ -1,7 +1,9 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
-
 import classNames from 'classnames';
+
+import SmsContext from '../SmsContext';
+
 import './index.less';
 
 function initKeywords(data) {
@@ -21,8 +23,10 @@ function initKeywords(data) {
 
 // 变量过多展示下拉显示更多箭头
 const Toggle = (props) => {
+    
+    const { keywords } = useContext(SmsContext);
 
-	const { keywords, contentWidth, handleClick } = props;
+	const { contentWidth, handleClick } = props;
 
 	const HASH_WIDTH = 7;
 	const PADDING = 20;
@@ -41,8 +45,9 @@ const Toggle = (props) => {
 // 当前平台下的关键字
 const Keywords = (props) => {
 
-	const [isShowAll, setIsShowAll] = useState(false);
-	const { currentType, keywords, contentWidth, onInsertKeyword } = props;
+    const [isShowAll, setIsShowAll] = useState(false);
+    const { keywords } = useContext(SmsContext);
+    const { currentType, contentWidth, onInsertKeyword } = props;
 
 	const data = keywords.filter(item => item.type === currentType);
 
@@ -66,7 +71,7 @@ const Keywords = (props) => {
 					)
 				}
 			</ul>
-			<Toggle contentWidth={contentWidth} keywords={data} handleClick={handleClick}/>
+			<Toggle contentWidth={contentWidth} handleClick={handleClick} />
 		</div>
 	);
 }
@@ -88,7 +93,7 @@ const KeywordTypeSelector = (props) => {
 					keywordTypes.map(item =>
 						<span key={item} className={classNames('editor-keywords-type', {
 							'active': item === currentType
-						})} onClick={handleClick.bind(null, item)} onKeyUp={() => {}}>
+						})} onClick={handleClick.bind(null, item)}>
 						{ item }
 						</span>
 					)
@@ -97,24 +102,8 @@ const KeywordTypeSelector = (props) => {
 	);
 }
 
-export default class Keyword extends Component {
+class Keyword extends Component {
 
-	constructor(props) {
-
-		super(props);
-
-		const { keywords } = this.props;
-
-		const keywordTypes = initKeywords(keywords);
-		const currentType = keywordTypes[0];
-
-		this.state = {
-			currentType,
-			keywordTypes,
-			keywords
-		};
-
-	}
 
 	handleChangeType = type => {
 		this.setState({
@@ -123,27 +112,38 @@ export default class Keyword extends Component {
 	}
 
 	render() {
+        const { keywords } = this.context;
 
-		const { currentType, keywordTypes, keywords } = this.state;
-		const { onInsertKeyword, contentWidth } = this.props;
+        const _keywordTypes = initKeywords(keywords);
+        const _currentType = _keywordTypes[0];
+        
+        this.state = {
+            keywordTypes: _keywordTypes,
+            currentType: _currentType
+        };
+
+        const { onInsertKeyword, contentWidth } = this.props;
+        const { currentType, keywordTypes } = this.state;
 
 		return (
 			<div className="editor-keywords">
 				<KeywordTypeSelector currentType={currentType} keywordTypes={keywordTypes} onChangeType={this.handleChangeType} />
-				<Keywords currentType={currentType} keywords={keywords} onInsertKeyword={onInsertKeyword} contentWidth={contentWidth} />
+				<Keywords currentType={currentType} onInsertKeyword={onInsertKeyword} contentWidth={contentWidth} />
 			</div>
 		);
 	}
 }
 
+Keyword.contextType = SmsContext;
+
+export default Keyword;
+
 Keyword.propTypes = {
-	keywords: PropTypes.array,
 	contentWidth: PropTypes.number,
 	onInsertKeyword: PropTypes.func
 };
 
 Keyword.defaultProps = {
-	keywords: [],
 	contentWidth: 200,
 	onInsertKeyword: () => {}
 };

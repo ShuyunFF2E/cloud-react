@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { createRef, Component } from 'react';
+import classNames from 'classnames';
 
 import { BRACKET_REG, REG_URL, REG_URL_HASH } from '../common/constant';
 import { createInput, isFirefox, focusNode } from '../common/utils';
 import controlFirefoxCursor from '../common/firefoxHelper';
 
 import Keyword from './keyword';
-import UrlTip from './urlTip';
-import InvalidTip from './invalidTip';
+import Tips from './tip';
+import SmsContext from '../SmsContext';
 
 import './index.less';
 
-export default class Editor extends Component {
+class Editor extends Component {
 
 	constructor(props) {
 
@@ -24,10 +24,9 @@ export default class Editor extends Component {
 			document.designMode = 'off';
 		}
 
-		this.smsInput = React.createRef();
+		this.smsInput = createRef();
 
 		this.state = {
-			smsContent: { __html: this.props.smsContent },
 			hasUrl: false,
 			hasInvalidString: false,
 			invalidStringClosed: false,
@@ -92,7 +91,11 @@ export default class Editor extends Component {
 		}
 	}
 
-    onChange = event => {
+	/**
+	 * @description [处理编辑器内容发生改变的事件]
+	 * @memberof Editor
+	 */
+	onChange = event => {
 
 		this.clearMozBr();
 
@@ -150,7 +153,7 @@ export default class Editor extends Component {
 			selection.addRange(range);
 		} else {
 
-			const { editorText, onContentChanged } = this.props;
+			const { editorText, onContentChanged } = this.context;
 
 			onContentChanged(htmlContent);
 			this.checkEmpty();
@@ -168,13 +171,13 @@ export default class Editor extends Component {
 		this.setState({
 			invalidStringClosed: !invalidStringClosed
 		});
-	}
+	};
 
 	handleKeyDown = event => {
 		if(isFirefox()) {
 			controlFirefoxCursor(event);
 		}
-	}
+	};
 
 	/**
 	 * 重新定位光标
@@ -252,7 +255,7 @@ export default class Editor extends Component {
 
 		this.clearMozBr();
 
-		this.props.onContentChanged(this.smsInput.current.innerHTML);
+		this.context.onContentChanged(this.smsInput.current.innerHTML);
 
 		this.checkEmpty();
 
@@ -297,52 +300,47 @@ export default class Editor extends Component {
 
 	render() {
 
-		const { disabled, keywords, styles } = this.props;
+        const { hasInvalidString, invalidStringClosed, hasUrl, contentWidth } = this.state;
 
-		const { hasInvalidString, invalidStringClosed, smsContent, hasUrl, contentWidth } = this.state;
+        const classes = classNames('editor-content', {
+            'empty': this.context.smsContent.length === 0
+        });
 
 		return (
-			<div className="editor" style={styles}>
+			<div className="editor">
 
-				<Keyword keywords={keywords} contentWidth={contentWidth} onInsertKeyword={this.handleInsertKeyword} />
+				<Keyword contentWidth={contentWidth} onInsertKeyword={this.handleInsertKeyword} />
 
-				<div className="editor-content">
+				<div className={classes}>
 
-					<div className="editor-content-main"
-						ref={this.smsInput}
-						contentEditable={!disabled}
-						dangerouslySetInnerHTML={smsContent}
-						onKeyDown={this.handleKeyDown}
-						onKeyUp={this.onChange}
-						onMouseUp={this.onChange}
-						onPaste={this.handlePaste}>
-					</div>
+					<SmsContext.Consumer>
+                        {
+                            ({ disabled, smsContent }) => (
+                                <div className="editor-content-main"
+                                    ref={this.smsInput}
+                                    contentEditable={!disabled}
+                                    dangerouslySetInnerHTML={{ __html: smsContent }}
+                                    onKeyDown={this.handleKeyDown}
+                                    onKeyUp={this.onChange}
+                                    onMouseUp={this.onChange}
+                                    onPaste={this.handlePaste}>
+                                </div>
+                            )
+                        }
+                    </SmsContext.Consumer>
 
-					<UrlTip hasUrl={hasUrl} />
-
-					<InvalidTip
-						hasInvalidString={hasInvalidString}
+                    <Tips
+                        hasUrl={hasUrl}
+                        hasInvalidString={hasInvalidString}
 						invalidStringClosed={invalidStringClosed}
 						onHandleCloseInvalidString={this.handleCloseInvalidString} />
+
 				</div>
 			</div>
 		);
 	}
 }
 
+Editor.contextType = SmsContext;
 
-Editor.propTypes = {
-	keywords: PropTypes.array,
-	disabled: PropTypes.bool,
-	editorText: PropTypes.string,
-	smsContent: PropTypes.string,
-	onContentChanged: PropTypes.func
-};
-
-Editor.defaultProps = {
-	keywords: [],
-	disabled: false,
-	editorText: '',
-	smsContent: '',
-	onContentChanged: () => {}
-};
+export default Editor;
