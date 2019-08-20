@@ -1,26 +1,32 @@
 const path = require('path');
+const fs = require('fs');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+
+// 生成入口文件
+const filePath = path.resolve(__dirname, '../src/components');
+const files = fs.readdirSync(filePath);
+const ignores = ['.DS_Store', 'index.js'];
+const entry = {
+	'index': './src/components/index.js'
+};
+files.forEach(name => {
+	if (ignores.includes(name)) {
+		return;
+	}
+	entry[name] = `./src/components/${name}/index.js`;
+});
 
 const buildOutputDir = path.join(__dirname, '../dist');
 
 module.exports = () => ({
 	devtool: 'none',
-	module: {
-		rules: [
-			// {
-			// 	test: /\.(le|c)ss$/,
-			// 	use: [MiniCssExtractPlugin.loader, 'css', 'less']
-			// }
-		]
-	},
-	entry: {
-		'component': './src/components/index.js'
-	},
+	entry,
 	output: {
-		filename: 'index.js',
+		filename: '[name].js',
 		path: buildOutputDir
 	},
 	externals: {
@@ -29,7 +35,26 @@ module.exports = () => ({
 	},
 	optimization: {
 		minimizer: [
-			new OptimizeCSSAssetsPlugin()
+			// 压缩js
+			new UglifyJsPlugin({
+				uglifyOptions: {
+					cache: true,
+					parallel: true,
+					sourceMap: true,
+					warnings: false
+				}
+			}),
+
+			// 压缩css
+			new OptimizeCSSAssetsPlugin({
+				assetNameRegExp: /\.css$/g,
+				cssProcessor: require('cssnano'),
+				cssProcessorOptions: {
+					discardComments: {removeAll: true},
+					minifyGradients: true
+				},
+				canPrint: true
+			})
 		]
 	},
 	plugins: [
