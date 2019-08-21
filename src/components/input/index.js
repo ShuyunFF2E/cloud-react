@@ -126,7 +126,7 @@ class Input extends React.PureComponent {
 	renderClearIcon() {
 		const { value } = this.state;
 
-		const type = 'clear';
+		const type = 'close-circle-solid';
 		const classNames = classnames('input-clear', {
 			'show': value
 		});
