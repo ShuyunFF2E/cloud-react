@@ -27,7 +27,8 @@ module.exports = () => ({
 	entry,
 	output: {
 		filename: '[name].js',
-		path: buildOutputDir
+		path: buildOutputDir,
+		libraryTarget: 'umd'
 	},
 	externals: {
 		'react': 'react',
