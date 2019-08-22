@@ -5,7 +5,7 @@ desc: Tooltip 组件提供了十二个不同的位置
 
 ````javascript
 import React from 'react';
-import ToolTip from 'ccms-components-react/tooltip';
+import ToolTip from 'ccms-components-react/toolTip';
 import Button from 'ccms-components-react/button';
 
 export default class ToolTipDemo extends React.Component{
