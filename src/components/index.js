@@ -41,5 +41,5 @@ export { default as Tips } from './tips';
 
 export { default as Toggle } from './toggle';
 
-export { default as ToolTip } from './tool-Tip';
+export { default as ToolTip } from './toolTip';
 
