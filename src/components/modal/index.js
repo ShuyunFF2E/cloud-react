@@ -14,7 +14,7 @@ class Modal extends Component{
 		const { visible, title, children, header, footer, hasFooter, onOk, onClose, onCancel, okText, cancelText, showMask, clickMaskCanClose, showConfirmLoading } = this.props;
 		return(
 			<Notification
-				type='modal'
+				type="modal"
 				visible={visible}
 				title={title}
 				header={header}

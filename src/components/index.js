@@ -2,7 +2,7 @@
 
 // 检验当前运行环境
 if( typeof window === 'undefined' ) {
-	console.warn('cloud-react@0.0.1 仅支持在浏览器环境进行使用!');
+	console.warn('cloud-react@0.0.3 仅支持在浏览器环境进行使用!');
 }
 
 export { default as Button } from './button';

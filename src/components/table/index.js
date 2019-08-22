@@ -60,7 +60,7 @@ const voidMsgStyle = {
 };
 const emptyTemplate = (
 	<div style={voidStyle}>
-		<Icon type='warning-circle-solid' style={voidIconStyle}/>
+		<Icon type="warning-circle-solid" style={voidIconStyle}/>
 		<span style={voidMsgStyle}>暂无数据</span>
 	</div>
 );

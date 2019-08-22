@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-import Icon from "ccms-components-react/icon";
-import "./index.less";
+import Icon from 'ccms-components-react/icon';
+import './index.less';
 
 const noop = () => {};
 
@@ -107,12 +107,12 @@ class TablePagination extends Component {
 			<div className="action-group">
 				<div className="icon-group">
 					<Icon
-						className={current === 1 ? "disabled" : ""}
+						className={current === 1 ? 'disabled' : ''}
 						type="first-solid"
 						onClick={this.firstPage}
 					/>
 					<Icon
-						className={current === 1 ? "disabled" : ""}
+						className={current === 1 ? 'disabled' : ''}
 						type="left-solid"
 						onClick={this.prevPage}
 					/>
@@ -129,12 +129,12 @@ class TablePagination extends Component {
 					</div>
 				<div className="icon-group">
 					<Icon
-						className={current === this.totalPage ? "disabled" : ""}
+						className={current === this.totalPage ? 'disabled' : ''}
 						type="right-solid"
 						onClick={this.nextPage}
 					/>
 					<Icon
-						className={current === this.totalPage ? "disabled" : ""}
+						className={current === this.totalPage ? 'disabled' : ''}
 						type="last-solid"
 						onClick={this.lastPage}
 					/>

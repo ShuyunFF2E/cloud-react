@@ -39,7 +39,7 @@ export default class MenuItem extends PureComponent {
         const depth = path.length;
         const style = { textIndent: (depth + 1) * indent };
 
-        const className = cls("menu-item", { 'active': selected });
+        const className = cls('menu-item', { 'active': selected });
 
         if (type === types.LINK) {
             return (
