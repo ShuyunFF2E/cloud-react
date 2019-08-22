@@ -5,7 +5,7 @@ desc: Tooltip 组件提供了两种不同的显示方式：hover click。默认h
 
 ````javascript
 import React from 'react';
-import ToolTip from 'ccms-components-react/toolTip';
+import ToolTip from 'ccms-components-react/tool-tip';
 import Button from 'ccms-components-react/button';
 
 export default class ToolTipDemo extends React.Component{

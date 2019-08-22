@@ -5,7 +5,7 @@ desc: 最简单的用法。
 
 ````javascript
 import React from 'react';
-import ToolTip from 'ccms-components-react/toolTip';
+import ToolTip from 'ccms-components-react/tool-tip';
 
 export default class ToolTipDemo extends React.Component{
   	constructor(props) {
