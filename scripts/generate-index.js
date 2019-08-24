@@ -6,7 +6,7 @@ const path = require('path');
 const fs = require('fs');
 const filePath = path.resolve(__dirname, '../src/components');
 const indexFile = path.resolve(__dirname, '../src/components/index.js');
-const { name, version} = require('../package.json');
+const { name } = require('../package.json');
 
 // 忽略列表
 const ignores = ['.DS_Store', 'index.js'];
@@ -28,7 +28,7 @@ const description = '/* components/index.js文件 是通过 /script/generate-ind
 const condition = `
 // 检验当前运行环境
 if( typeof window === 'undefined' ) {
-	console.warn('${name}@${version} 仅支持在浏览器环境进行使用!');
+	console.warn('${name} 仅支持在浏览器环境进行使用!');
 }
 `;
 let fileCode = '';

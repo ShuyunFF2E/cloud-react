@@ -34,6 +34,9 @@ module.exports = () => ({
 		'react': 'react',
 		'react-dom': 'react-dom'
 	},
+	performance: {
+		hints: false
+	},
 	optimization: {
 		minimizer: [
 			// 压缩js
