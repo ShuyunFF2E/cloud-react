@@ -5,7 +5,7 @@ desc: 最简单的用法。
 
 ````javascript
 import React from 'react';
-import ToolTip from 'ccms-components-react/tooltip';
+import Tooltip from 'ccms-components-react/tooltip';
 
 export default class ToolTipDemo extends React.Component{
   	constructor(props) {
@@ -19,9 +19,9 @@ export default class ToolTipDemo extends React.Component{
   		const {content} = this.state;
 		return (
 			<div>
-				<ToolTip content={content} placement="top">
+				<Tooltip content={content} placement="top">
 					<span>Tooltip will show on mouse enter.</span>
-				</ToolTip>
+				</Tooltip>
 			</div>
 		);
 	}

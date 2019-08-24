@@ -5,7 +5,7 @@ desc: Tooltip 组件提供了三个不同的主题：dark light error。默认da
 
 ````javascript
 import React from 'react';
-import ToolTip from 'ccms-components-react/tooltip';
+import Tooltip from 'ccms-components-react/tooltip';
 import Button from 'ccms-components-react/button';
 
 export default class ToolTipDemo extends React.Component{
@@ -23,17 +23,17 @@ export default class ToolTipDemo extends React.Component{
   		const blank = '\u00A0';
 		return (
 			<div>
-				<ToolTip content={darkContent}>
+				<Tooltip content={darkContent}>
             		<Button type="normal">dark 主题</Button>
-				</ToolTip>
+				</Tooltip>
 				{blank}
-				<ToolTip content={lightContent} theme="light">
+				<Tooltip content={lightContent} theme="light">
 					<Button type="normal">light 主题</Button>
-				</ToolTip>
+				</Tooltip>
 				{blank}
-                <ToolTip content={errorContent} theme="error">
+                <Tooltip content={errorContent} theme="error">
 					<Button type="normal">error 主题</Button>
-				</ToolTip>
+				</Tooltip>
 			</div>
 		);
 	}

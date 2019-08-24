@@ -5,7 +5,7 @@ desc: Tooltip 组件提供了十二个不同的位置
 
 ````javascript
 import React from 'react';
-import ToolTip from 'ccms-components-react/tooltip';
+import Tooltip from 'ccms-components-react/tooltip';
 import Button from 'ccms-components-react/button';
 
 export default class ToolTipDemo extends React.Component{
@@ -26,56 +26,56 @@ export default class ToolTipDemo extends React.Component{
 		return (
 			<div style={wrap}>
 				<div>
-					<ToolTip content={content} placement="top-left">
+					<Tooltip content={content} placement="top-left">
 						<Button type="normal">上左</Button>
-					</ToolTip>
+					</Tooltip>
 					{blank}
-					<ToolTip content={content} placement="top">
+					<Tooltip content={content} placement="top">
 						<Button type="normal">上中</Button>
-					</ToolTip>
+					</Tooltip>
 					{blank}
-					<ToolTip content={content} placement="top-right">
+					<Tooltip content={content} placement="top-right">
 						<Button type="normal">上右</Button>
-					</ToolTip>
+					</Tooltip>
 				</div>
 				<div style={rightWrap}>
-					<ToolTip content={content} placement="right-top">
+					<Tooltip content={content} placement="right-top">
 						<Button type="normal">右上</Button>
-					</ToolTip>
+					</Tooltip>
 					{blank}
-					<ToolTip content={content} placement="right">
+					<Tooltip content={content} placement="right">
 						<Button type="normal">右中</Button>
-					</ToolTip>
+					</Tooltip>
 					{blank}
-					<ToolTip content={content} placement="right-bottom">
+					<Tooltip content={content} placement="right-bottom">
 						<Button type="normal">右下</Button>
-					</ToolTip>
+					</Tooltip>
 				</div>
 				<div style={leftWrap}>
-					<ToolTip content={content} placement="left-top">
+					<Tooltip content={content} placement="left-top">
 						<Button type="normal">左上</Button>
-					</ToolTip>
+					</Tooltip>
 					{blank}
-					<ToolTip content={content} placement="left">
+					<Tooltip content={content} placement="left">
 						<Button type="normal">左中</Button>
-					</ToolTip>
+					</Tooltip>
 					{blank}
-					<ToolTip content={content} placement="left-bottom">
+					<Tooltip content={content} placement="left-bottom">
 						<Button type="normal">左下</Button>
-					</ToolTip>
-				</div>	
+					</Tooltip>
+				</div>
 				<div style={bottomWrap}>
-					<ToolTip content={content} placement="bottom-left">
+					<Tooltip content={content} placement="bottom-left">
 						<Button type="normal">下左</Button>
-					</ToolTip>
+					</Tooltip>
 					{blank}
-					<ToolTip content={content} placement="bottom">
+					<Tooltip content={content} placement="bottom">
 						<Button type="normal">下中</Button>
-					</ToolTip>
+					</Tooltip>
 					{blank}
-					<ToolTip content={content} placement="bottom-right">
+					<Tooltip content={content} placement="bottom-right">
 						<Button type="normal">下右</Button>
-					</ToolTip>	
+					</Tooltip>
 				</div>
 			</div>
 		);

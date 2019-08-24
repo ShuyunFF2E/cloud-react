@@ -68,7 +68,7 @@ function createWrapper(id, event) {
 	targetEle.id = id;
 }
 
-class ToolTip extends Component{
+class Tooltip extends Component{
 
 	 constructor(props) {
 	 	super(props);
@@ -172,7 +172,7 @@ class ToolTip extends Component{
 	}
  }
 
-ToolTip.propTypes = {
+Tooltip.propTypes = {
 	content: PropTypes.node,
 	mouseEnterDelay: PropTypes.number,
 	mouseLeaveDelay: PropTypes.number,
@@ -182,7 +182,7 @@ ToolTip.propTypes = {
 	theme: PropTypes.oneOf(['dark', 'light', 'error'])
 };
 
-ToolTip.defaultProps = {
+Tooltip.defaultProps = {
 	content: '',
 	mouseEnterDelay: 1,
 	mouseLeaveDelay: 1,
@@ -192,4 +192,4 @@ ToolTip.defaultProps = {
 	theme: 'dark'
 };
 
-export default ToolTip;
+export default Tooltip;
