@@ -89,11 +89,11 @@ class Prompt extends React.Component{
 				onCancel={this.handleCancel}
 				onOk={this.handleOk}>
 				<div>
-					<header className='info-area'>
+					<header className="info-area">
 						<Icon type={icon} className={`icon-style ${type}-style` }></Icon>
-						<span className='message-info'>{title}</span>
+						<span className="message-info">{title}</span>
 					</header>
-					<section className='more-info'>{body}</section>
+					<section className="more-info">{body}</section>
 				</div>
 			</Notification>
 		);

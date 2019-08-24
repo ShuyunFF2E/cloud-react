@@ -23,9 +23,9 @@ Tips.defaultProps = {
 Tips.propTypes = {
 	msg: PropTypes.oneOfType([PropTypes.string, PropTypes.element]).isRequired,
 	type: PropTypes.oneOf([
-		"normal",
-		"warning",
-		"major"
+		'normal',
+		'warning',
+		'major'
 	]),
 	style: PropTypes.object
 };

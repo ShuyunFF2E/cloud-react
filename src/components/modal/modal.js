@@ -57,7 +57,7 @@ class Notification extends Component {
 					onClose={onClose}
 					clickMaskCanClose={clickMaskCanClose}/>
 				{/* 弹出框 */}
-				<div className='modal-container'>
+				<div className="modal-container">
 					<ModalHeader
 						id={id}
 						type={type}
@@ -89,7 +89,7 @@ function ModalMask({ showMask, onClose, clickMaskCanClose }) {
 		return null;
 	}
 	return (
-		<div className='modal-mask' onClick={clickMaskCanClose && showMask ? onClose : () => {}}></div>
+		<div className="modal-mask" onClick={clickMaskCanClose && showMask ? onClose : () => {}}></div>
 	);
 }
 
@@ -98,16 +98,16 @@ function ModalHeader({ type, title, onClose }) {
 		return null;
 	}
 	return (
-		<header className='modal-header'>
-			<span className='modal-title'>{title}</span>
-			<Icon type='close' className='close-icon' onClick={onClose}></Icon>
+		<header className="modal-header">
+			<span className="modal-title">{title}</span>
+			<Icon type="close" className="close-icon" onClick={onClose}></Icon>
 		</header>
 	);
 }
 
 function ModalBody({ children }) {
 	return (
-		<section className='modal-body'>
+		<section className="modal-body">
 			{children}
 		</section>
 	);
@@ -119,25 +119,25 @@ function ModalFooter({ type, footer, okText, cancelText, hasFooter, showConfirmL
 	}
 	if (footer) {
 		return (
-			<footer className='modal-footer'>
+			<footer className="modal-footer">
 				{footer}
 			</footer>
 		);
 	}
 	if (type !== 'modal' && type !== 'confirm') {
 		return (
-			<footer className='modal-footer'>
-				<Button type='primary' onClick={onCancel}>知道了</Button>
+			<footer className="modal-footer">
+				<Button type="primary" onClick={onCancel}>知道了</Button>
 			</footer>
 		);
 	}
 	return (
-		<footer className='modal-footer'>
-			<Button type='primary' className='modal-confirm-btn' disabled={showConfirmLoading} onClick={onOk}>
+		<footer className="modal-footer">
+			<Button type="primary" className="modal-confirm-btn" disabled={showConfirmLoading} onClick={onOk}>
 				<ConfirmLoading showConfirmLoading={showConfirmLoading}/>
 				{okText}
 			</Button>
-			<Button type='normal' disabled={showConfirmLoading} onClick={onCancel}>{cancelText}</Button>
+			<Button type="normal" disabled={showConfirmLoading} onClick={onCancel}>{cancelText}</Button>
 		</footer>
 	);
 }
@@ -146,7 +146,7 @@ function ConfirmLoading({ showConfirmLoading }) {
 	if (!showConfirmLoading) {
 		return null;
 	}
-	return (<span className='modal-confirm-loading'></span>);
+	return (<span className="modal-confirm-loading"></span>);
 }
 
 export default Notification;

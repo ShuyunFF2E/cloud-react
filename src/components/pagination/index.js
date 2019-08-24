@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-import Icon from "ccms-components-react/icon";
+import Icon from 'ccms-components-react/icon';
 
-import "./index.less";
+import './index.less';
 
 const noop = () => {};
 
@@ -76,7 +76,7 @@ class Pagination extends Component {
 				<li
 					role="presentation"
 					onClick={() => this.goPage(i)}
-					className={current === i ? "active" : ""}
+					className={current === i ? 'active' : ''}
 					key={i}
 				>
 					{i}
@@ -94,7 +94,7 @@ class Pagination extends Component {
 				<li
 					role="presentation"
 					key={i}
-					className={current === i ? "active" : ""}
+					className={current === i ? 'active' : ''}
 					onClick={() => this.goPage(i)}
 				>
 					{i}
@@ -116,7 +116,7 @@ class Pagination extends Component {
 			<li
 				role="presentation"
 				key={this.totalPage}
-				className={current === this.totalPage ? "active" : ""}
+				className={current === this.totalPage ? 'active' : ''}
 				onClick={() => this.goPage(this.totalPage)}
 			>
 				{this.totalPage}
@@ -132,7 +132,7 @@ class Pagination extends Component {
 			<li
 				role="presentation"
 				key="1"
-				className={current === 1 ? " active" : ""}
+				className={current === 1 ? ' active' : ''}
 				onClick={() => this.goPage(1)}
 			>
 				1
@@ -154,7 +154,7 @@ class Pagination extends Component {
 				<li
 					role="presentation"
 					key={this.totalPage - i}
-					className={current === this.totalPage - i ? " active" : ""}
+					className={current === this.totalPage - i ? ' active' : ''}
 					onClick={() => this.goPage(this.totalPage - i)}
 				>
 					{this.totalPage - i}
@@ -166,7 +166,7 @@ class Pagination extends Component {
 			<li
 				role="presentation"
 				key={this.totalPage}
-				className={current === this.totalPage ? " active" : ""}
+				className={current === this.totalPage ? ' active' : ''}
 				onClick={() => this.goPage(this.totalPage)}
 			>
 				{this.totalPage}
@@ -182,7 +182,7 @@ class Pagination extends Component {
 			<li
 				role="presentation"
 				key="1"
-				className={current === 1 ? " active" : ""}
+				className={current === 1 ? ' active' : ''}
 				onClick={() => this.goPage(1)}
 			>
 				1
@@ -204,7 +204,7 @@ class Pagination extends Component {
 				<li
 					role="presentation"
 					key={current - i}
-					className={current === current - i ? " active" : ""}
+					className={current === current - i ? ' active' : ''}
 					onClick={() => this.goPage(current - i)}
 				>
 					{current - i}
@@ -217,7 +217,7 @@ class Pagination extends Component {
 				<li
 					role="presentation"
 					key={current + j}
-					className={current === current + j ? " active" : ""}
+					className={current === current + j ? ' active' : ''}
 					onClick={() => this.goPage(current + j)}
 				>
 					{current + j}
@@ -239,7 +239,7 @@ class Pagination extends Component {
 			<li
 				role="presentation"
 				key={this.totalPage}
-				className={current === this.totalPage ? "active" : ""}
+				className={current === this.totalPage ? 'active' : ''}
 				onClick={() => this.goPage(this.totalPage)}
 			>
 				{this.totalPage}
@@ -395,7 +395,7 @@ class Pagination extends Component {
 					<li
 						onClick={this.prevPage}
 						role="presentation"
-						className={this.props.current === 1 ? "nomore" : ""}
+						className={this.props.current === 1 ? 'nomore' : ''}
 					>
 						<Icon type="left" className="pg-icon"></Icon>
 					</li>
@@ -405,8 +405,8 @@ class Pagination extends Component {
 						role="presentation"
 						className={
 							this.props.current === this.totalPage
-								? "nomore"
-								: ""
+								? 'nomore'
+								: ''
 						}
 					>
 						<Icon type="right" className="pg-icon"></Icon>

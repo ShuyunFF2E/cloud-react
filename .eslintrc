@@ -29,6 +29,9 @@
 	"template-curly-spacing": ["error", "never"],
 	"object-curly-spacing": ["error", "always", { "objectsInObjects": true,  "arraysInObjects": true}],
 	"jsx-a11y/label-has-for": 0,
+	"quotes": ["error", "single"],
+	// jsx 中属性全部使用双引
+	"jsx-quotes": ["error", "prefer-double"],
 	"jsx-a11y/label-has-associated-control": "off"
   },
   "globals": {

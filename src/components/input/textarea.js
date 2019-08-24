@@ -25,8 +25,8 @@ const TWIN_STYLE = [
 ];
 const ADDON_STYLE = {
 	position: 'fixed',
-	left: `-9999px`,
-	top: `-9999px`,
+	left: '-9999px',
+	top: '-9999px',
 	opacity: 0,
 	height: 0,
 	zIndex: -1
