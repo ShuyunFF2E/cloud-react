@@ -4,6 +4,7 @@ import cls from 'classnames';
 import Grid from './grid';
 import utils from './util';
 import Header from './header';
+import Input from '../input';
 
 const selector = 'datepicker';
 
@@ -20,17 +21,13 @@ export default class DatePicker extends Component {
 		defaultValue: PropTypes.instanceOf(Date),
 		// eslint-disable-next-line react/no-unused-prop-types
 		value: PropTypes.instanceOf(Date),
-		// maxDate: PropTypes.instanceOf(Date),
-		// minDate: PropTypes.instanceOf(Date),
-		// excludeDates: PropTypes.arrayOf(PropTypes.instanceOf(Date)),
-		// size: PropTypes.string,
+		maxDate: PropTypes.instanceOf(Date),
+		minDate: PropTypes.instanceOf(Date),
 		showToday: PropTypes.bool,
 		// 是否显示时间，当为true时，最终交互以确定按钮结束
 		showTimePicker: PropTypes.bool,
 		onChange: PropTypes.func,
 		onOK: PropTypes.func,
-		// onOpenChange: PropTypes.func,
-		// onPanelChange: PropTypes.func,
 	}
 
 	static defaultProps = {
@@ -44,20 +41,17 @@ export default class DatePicker extends Component {
 		showTimePicker: false,
 		defaultValue: null,
 		value: undefined,
-		// size: 'default',
-		// excludeDates: [],
-		// minDate: null,
-		// maxDate: null,
+		minDate: undefined,
+		maxDate: undefined,
 		onChange: () => { },
-		onOK: () => { },
-		// onOpenChange: () => { },
-		// onPanelChange: () => { },
+		onOK: () => { }
 	}
 
 	constructor(props) {
 		super(props);
 		this.state = {
 			visible: props.open,
+			popoverStyle: {},
 			props: null
 		}
 		this.dp = React.createRef();
@@ -118,10 +112,14 @@ export default class DatePicker extends Component {
 		}
 	}
 
-	onInpClick = () => {
+	onInpClick = evt => {
 		if (!this.props.open && !this.state.visible) {
+			const { offsetLeft, offsetTop, offsetHeight } = evt.nativeEvent.target;
 			this.setState({
-				visible: true
+				visible: true,
+				popoverStyle: {
+					transform: `translate3d(${offsetLeft}px, ${offsetTop + offsetHeight + 1}px, 0px)`
+				}
 			})
 		}
 	}
@@ -231,9 +229,16 @@ export default class DatePicker extends Component {
 		evt.nativeEvent.stopImmediatePropagation();
 	}
 
+	transformObj = (date) => {
+		if(date) {
+			return utils.time.displayNow(date);
+		}
+		return null;
+	}
+
 	render() {
-		const { format, className, placeholder, disabled, style, showTimePicker, showToday } = this.props;
-		const { displayDate, value, visible, day, days, month, year, hour, minute, second } = this.state;
+		const { format, className, placeholder, disabled, style, showTimePicker, showToday, minDate, maxDate } = this.props;
+		const { displayDate, value, visible, day, days, month, year, hour, minute, second, popoverStyle } = this.state;
 		const currentOutValue = displayDate !== null ? utils.time.convert(utils.time.displayNow(value), format) : '';
 		const currentDisplayDate = displayDate !== null ? utils.time.displayNow(displayDate) : null;
 		const panelClasses = cls({
@@ -245,11 +250,19 @@ export default class DatePicker extends Component {
 		console.log(panelClasses);
 		return (
 			<div ref={this.dp} className={classes} onClick={this.onCompClick} style={style}>
-				<input value={currentOutValue} readOnly placeholder={placeholder} className={`${selector}-inp`} disabled={disabled} onClick={this.onInpClick} />
-				<div className={panelClasses}>
+				<Input value={currentOutValue}
+					   readOnly
+					   placeholder={placeholder}
+					   className={`${selector}-inp`}
+					   disabled={disabled}
+					   onClick={this.onInpClick}
+				/>
+				<div className={panelClasses} style={popoverStyle}>
 					<Header
 						month={month}
 						year={year}
+						minDateObject={this.transformObj(minDate)}
+						maxDateObject={this.transformObj(maxDate)}
 						onChange={this.onHeaderChange}
 					/>
 					<Grid
@@ -261,6 +274,8 @@ export default class DatePicker extends Component {
 						hour={hour}
 						minute={minute}
 						second={second}
+						minDate={minDate}
+						maxDate={maxDate}
 						showTimePicker={showTimePicker}
 						showToday={showToday}
 						onOK={this.onOK}

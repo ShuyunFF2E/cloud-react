@@ -15,6 +15,8 @@ export default class Grid extends Component {
         minute: PropTypes.string,
         second: PropTypes.string,
         currentDate: PropTypes.object,
+        maxDate: PropTypes.instanceOf(Date),
+		minDate: PropTypes.instanceOf(Date),
         showTimePicker: PropTypes.bool,
         showToday: PropTypes.bool,
         onPickDate: PropTypes.func,
@@ -31,6 +33,8 @@ export default class Grid extends Component {
         minute: '',
         second: '',
         currentDate: null,
+        minDate: undefined,
+		maxDate: undefined,
         showToday: false,
         showTimePicker: false,
         onPickDate: ()=>{},
@@ -85,7 +89,7 @@ export default class Grid extends Component {
     }
 
     render() {
-        const { days, showToday, showTimePicker } = this.props;
+        const { days, showToday, showTimePicker, minDate, maxDate } = this.props;
         const { year, month, day, hour, minute, second } = this.state;
         const len = Math.ceil(days.length / 7);
 
@@ -103,6 +107,8 @@ export default class Grid extends Component {
                                 year={year}
                                 month={month}
                                 day={day}
+                                minDate={minDate}
+                                maxDate={maxDate}
                                 onPickDate={this.onPickDate}
                                 days={days.slice(i * 7, (i + 1) * 7)}
                                 head={i === 0}

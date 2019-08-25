@@ -15,7 +15,6 @@ export default class DatePickerDemo extends React.Component {
 		return (
 			<div>
 			   <DatePicker format="MM/dd/yyyy" />
-			   			   <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
 			</div>
 		);
 	}

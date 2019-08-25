@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
 import utils from './util';
+import enumObj from './util/enum';
 
 export default class TimePicker extends Component {
     static propTypes = {
@@ -61,7 +62,7 @@ export default class TimePicker extends Component {
 
     onChange = params => evt => {
         let value = evt.target.value.trim().replace(/[^\d]/g, '');
-        if (params === 'hour') {
+        if (params === enumObj.hour) {
             if (value !== '' && parseInt(value, 10) >= 24) {
                 value = value.substr(0, 1);
             }
@@ -110,9 +111,9 @@ export default class TimePicker extends Component {
         });
 
         return (<div className={classes} onBlur={this.onBlur} style={style}>
-            <input value={hour} disabled={disabled} maxLength="2" onChange={this.onChange('hour')} /><label className="colon">:</label>
-            <input value={minute} disabled={disabled} maxLength="2" onChange={this.onChange('minute')} /><label className="colon">:</label>
-            <input value={second} disabled={disabled} maxLength="2" onChange={this.onChange('second')} />
+            <input value={hour} disabled={disabled} maxLength="2" onChange={this.onChange(enumObj.hour)} /><label className="colon">:</label>
+            <input value={minute} disabled={disabled} maxLength="2" onChange={this.onChange(enumObj.minute)} /><label className="colon">:</label>
+            <input value={second} disabled={disabled} maxLength="2" onChange={this.onChange(enumObj.second)} />
         </div>);
     }
 }

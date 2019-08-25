@@ -8,7 +8,8 @@ export default class Day extends Component {
         day: PropTypes.number.isRequired,
         date: PropTypes.string,
         check: PropTypes.bool,
-        enable: PropTypes.bool,
+        inMonth: PropTypes.bool,
+        disabled: PropTypes.bool,
         today: PropTypes.bool,
         onPickDate: PropTypes.func,
     }
@@ -17,12 +18,16 @@ export default class Day extends Component {
         date: null,
         check: false,
         today: false,
-        enable: true,
+        inMonth: true,
+        disabled: false,
         onPickDate: () => {}
     }
 
     onDayClick = () => {
-        const { date, onPickDate } = this.props;
+        const { date, onPickDate, disabled } = this.props;
+        if (disabled) {
+            return ;
+        }
         const arr = date.split('-');
         onPickDate({
             year: parseInt(arr[0], 10),
@@ -32,12 +37,13 @@ export default class Day extends Component {
     }
 
     render() {
-        const { today, enable, day } = this.props;
+        const { today, check, inMonth, day, disabled } = this.props;
         const classes = cls({
-            'check': this.props.check,
+            'check': check,
             'today': today,
-            'in-month': enable,
-            'not-in-month': !enable
+            'in-month': inMonth,
+            'not-in-month': !inMonth,
+            'day-disabled': disabled
         });
 
 		// eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
