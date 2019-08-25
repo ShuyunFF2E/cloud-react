@@ -89,13 +89,13 @@ function convert(date, fmt) {
 	const { year, month, day, hour, minute, second } = date;
 	const currentDate = new Date(`${year}/${month}/${day} ${hour}:${minute}:${second}`);
 	const o = {
-		"M+": month,
-		"d+": day,
-		"h+": hour,
-		"m+": minute,
-		"s+": second,
-		"q+": Math.floor((currentDate.getMonth() + 3) / 3),
-		"S": currentDate.getMilliseconds()
+		'M+': month,
+		'd+': day,
+		'h+': hour,
+		'm+': minute,
+		's+': second,
+		'q+': Math.floor((currentDate.getMonth() + 3) / 3),
+		'S': currentDate.getMilliseconds()
 	};
 	let _fmt = fmt;
 	if (/(y+)/.test(_fmt)) {
@@ -106,13 +106,6 @@ function convert(date, fmt) {
 			_fmt = _fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? (o[k]) : ((`00${o[k]}`).substr((o[k].toString()).length)));
 		}
 	});
-
-	// for (let k in o) {
-	// 		if (new RegExp("(" + k + ")").test(_fmt)) {
-	// 			_fmt = _fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? (o[k]) : ((`00${o[k]}`).substr((o[k].toString()).length)));
-	// 		}
-	//
-	// }
 	return _fmt;
 };
 

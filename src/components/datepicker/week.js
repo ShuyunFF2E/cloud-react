@@ -10,6 +10,8 @@ export default class Week extends Component {
         days: PropTypes.array,
         day: PropTypes.number,
         currentDate: PropTypes.object,
+        maxDate: PropTypes.instanceOf(Date),
+		minDate: PropTypes.instanceOf(Date),
         head: PropTypes.bool,
         tail: PropTypes.bool,
         onPickDate: PropTypes.func,
@@ -21,6 +23,8 @@ export default class Week extends Component {
         days: [],
         day: utils.time.displayNow.day,
         currentDate: null,
+        minDate: undefined,
+		maxDate: undefined,
         head: true,
         tail: true,
         onPickDate: () => { }
@@ -28,6 +32,12 @@ export default class Week extends Component {
 
     onPickDate = (params) => {
         this.props.onPickDate(params);
+    }
+
+    getDisabled = (currentDate) => {
+        const { minDate, maxDate } = this.props;
+        const currentTimeStamp = new Date(currentDate).getTime();
+        return minDate && currentTimeStamp < new Date(minDate).getTime() || maxDate && currentTimeStamp > new Date(maxDate).getTime();
     }
 
     render() {
@@ -38,24 +48,25 @@ export default class Week extends Component {
         return (
             <tr className="week">
                 {days.map((e, i) => {
-                    const isEnable = !((head && i < idx) || (tail && i > idx - 1));
+                    const inMonth = !((head && i < idx) || (tail && idx > -1 &&  i > idx - 1));
                     let date = null;
-                    if (isEnable) {
+                    if (inMonth) {
                         date = `${year}-${month}-${e}`;
                     }
-                    else if (!isEnable && i < idx) {
+                    else if (!inMonth && i < idx) {
                         date = `${year}-${month - 1}-${e}`;
                     }
-                    else if (!isEnable && i > idx - 1) {
+                    else if (!inMonth && i > idx - 1) {
                         date = `${year}-${month + 1}-${e}`;
                     }
-                    const isToday = isEnable && (`${year}-${month}-${e}` === today);
-					const isCheck = currentDate !== null ? isEnable && (`${year}-${month}-${e}` === `${currentDate.year}-${currentDate.month}-${currentDate.day}`) : false;
+                    const isToday = inMonth && (`${year}-${month}-${e}` === today);
+					const isCheck = currentDate !== null && inMonth && (`${year}-${month}-${e}` === `${currentDate.year}-${currentDate.month}-${currentDate.day}`);
                     return <Day key={e}
                         day={e}
                         date={date}
                         onPickDate={this.onPickDate}
-                        enable={isEnable}
+                        inMonth={inMonth}
+                        disabled={this.getDisabled(date)}
                         check={isCheck}
                         today={isToday} />
                 })}

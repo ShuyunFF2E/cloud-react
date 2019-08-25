@@ -23,10 +23,9 @@ export default class RangePicker extends Component {
 		open: PropTypes.bool,
 		showToday: PropTypes.bool,
 		showTimePicker: PropTypes.bool,
-		// maxDate: PropTypes.instanceOf(Date),
-		// minDate: PropTypes.instanceOf(Date),
+		maxDate: PropTypes.instanceOf(Date),
+		minDate: PropTypes.instanceOf(Date),
 		onChange: PropTypes.func,
-		// eslint-disable-next-line react/no-unused-prop-types
 		onOK: PropTypes.func
 	}
 
@@ -40,8 +39,8 @@ export default class RangePicker extends Component {
 		open: false,
 		showToday: false,
 		showTimePicker: false,
-		// minDate: null,
-		// maxDate: null,
+		minDate: undefined,
+		maxDate: undefined,
 		onChange: () => {},
 		onOK: () => {}
 	}
@@ -113,19 +112,20 @@ export default class RangePicker extends Component {
 	}
 
 	render() {
-		const { className, placeholder, disabled, open, format, showToday, showTimePicker, minDate, maxDate } = this.props;
+		const { className, placeholder, minDate, maxDate, disabled, open, format, showToday, showTimePicker } = this.props;
 		const { value } = this.state;
-		const startPlaceholder = placeholder.length > 0 ? placeholder[0] : enumObj.startText;
+		const startPlaceholder = placeholder.length ? placeholder[0] : enumObj.startText;
 		const endPlaceholder = placeholder.length > 1 ? placeholder[1] : enumObj.endText;
 		return <div className={`${selector} ${className}`}>
 			<DatePicker disabled={disabled}
 						placeholder={startPlaceholder}
 						open={open}
 						format={format}
+						minDate={minDate}
+						maxDate={maxDate}
 						showToday={showToday}
 						value={value[0]}
 						showTimePicker={showTimePicker}
-						minDate={minDate}
 						onOK={(date, callback) => {
 							this.onOK(enumObj.start, date);
 							callback();
@@ -140,10 +140,11 @@ export default class RangePicker extends Component {
 						value={value[1]}
 						placeholder={endPlaceholder}
 						open={open}
+						minDate={minDate}
+						maxDate={maxDate}
 						format={format}
 						showToday={showToday}
 						showTimePicker={showTimePicker}
-						maxDate={maxDate}
 						onOK={(date, callback) => {
 							this.onOK(enumObj.end, date);
 							callback();
