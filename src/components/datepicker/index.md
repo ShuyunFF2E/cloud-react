@@ -25,6 +25,8 @@ subtitle: 日期选择框
 | open | 控制弹层是否展开 | boolean | `false` |
 | placeholder | 输入框默认提示 | string | `请选择日期` |
 | style | 拓展组件样式的style | object | - |
+| minDate | 最小值 | Date | - |
+| maxDate | 最大值 | Date | - |
 | showToday | 是否展示“今天”按钮 | boolean | `false` |
 | showTimePicker | 是否展示时间选择器 | boolean | `false` |
 | onChange | 选择日期改变 | Function(value: date) | - |
@@ -41,12 +43,14 @@ subtitle: 日期选择框
 | open | 控制弹层是否展开 | boolean | `false` |
 | placeholder | 输入框默认提示 | [string,string] | `[请选择开始时间, 请选择结束时间]` |
 | style | 拓展组件样式的style | object | - |
+| minDate | 最小值 | Date | - |
+| maxDate | 最大值 | Date | - |
 | showToday | 是否展示“今天”按钮 | boolean | `false` |
 | showTimePicker | 是否展示时间选择器 | boolean | `false` |
 | onChange | 选择日期改变 | Function(value: date) | - |
 | onOK | 点击确定按钮 | Function(value: date) | - |
 
-### DatePicker
+### TimePicker
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | className | 拓展组件样式的class | string | - |

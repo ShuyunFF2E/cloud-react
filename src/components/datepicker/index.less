@@ -8,7 +8,7 @@
 @bgcolor: #FFFFFF;
 
 @disabled-color: rgba(0, 0, 0, 0.25);
-@disabled-bgcolor: #f5f5f5;
+@disabled-bgcolor: #eee;
 
 @width: 230px;
 @height: 30px;
@@ -21,6 +21,7 @@
 
 @grid-day-border-color :#00AAF1;
 @grid-day-check-bgcolor: #E5F7FF;
+@grid-day-other-color: #CCC;
 
 @range-split-color: #979797;
 
@@ -32,18 +33,10 @@
 		box-sizing: border-box;
 	}
 
-
 	&-inp {
 		text-align: left;
 		width: @width;
-		height: @height;
-		line-height: @height;
-		border: @border;
-		background-color: @bgcolor;
-		font-size: 14px;
 		cursor: pointer;
-		color: @color;
-		display: inline-block;
 		padding-left: 8px;
 
 		&::-webkit-input-placeholder {
@@ -52,8 +45,6 @@
 
 		&[disabled] {
 			cursor: not-allowed;
-			color: @disabled-color;
-			background-color: @disabled-bgcolor;
 		}
 
 	}
@@ -62,9 +53,10 @@
 		width: @panel-width;
 		border-radius: @panel-border-radius;
 		animation: fadeIn 0.2s 0s ease both;
-		z-index: 10000;
+		z-index: 1001;
 		background-color: @bgcolor;
 		position: absolute;
+		will-change: transform;
 
 		.header {
 			height: 40px;
@@ -92,9 +84,16 @@
 				right: 5px;
 			}
 
+			.arrow-disabled {
+				cursor: not-allowed;
+			}
+
 			select {
 				width: 80px;
 				height: 30px;
+				display: inline-block;
+				vertical-align: top;
+				margin: 5px auto;
 
 				&:last-of-type {
 					margin-left: 5px;
@@ -105,10 +104,6 @@
 
 	.title {
 		margin-left: 100px;
-	}
-
-	.not-in-month {
-		color: #ccc;
 	}
 
 	.grid {
@@ -145,14 +140,19 @@
 			text-align: center;
 			padding-bottom: 0;
 			padding-top: 0;
-			cursor: pointer;
 
 			span {
 				display: inline-block;
 				width: 26px;
 				height: 26px;
+				line-height: 26px;
+				cursor: pointer;
 			}
 		}
+	}
+
+	.not-in-month {
+		color: #ccc;
 	}
 
 	.check span {
@@ -169,6 +169,22 @@
 	.today span {
 		color: @grid-day-border-color;
 		background-color: transparent;
+	}
+
+	.day-disabled span {
+		cursor: not-allowed;
+		color: @grid-day-other-color;
+		&:hover {
+			border: none;
+		}
+	}
+	.day-disabled span {
+		&, &:hover {
+			cursor: not-allowed;
+			background-color: transparent;
+			color: @grid-day-other-color;
+			border: none;
+		}
 	}
 
 	.inner-timepicker {
@@ -227,13 +243,16 @@
 	display: inline-block;
 	width: 600px;
 
+	> * {
+		vertical-align: middle;
+	}
+
 	&-separator {
 		width: 8px;
 		height: 2px;
 		display: inline-block;
 		border: none;
 		background-color: @range-split-color;
-		vertical-align: middle;
 		margin: 0 8px;
 	}
 }
@@ -248,6 +267,10 @@
 	&-disabled {
 		cursor: not-allowed;
 		background-color: @disabled-bgcolor;
+
+		.colon {
+			color: @disabled-color;
+		}
 	}
 
 	label {
@@ -264,6 +287,7 @@
 
 		&:disabled {
 			cursor: not-allowed;
+			color: @disabled-color;
 			background-color: @disabled-bgcolor;
 		}
 

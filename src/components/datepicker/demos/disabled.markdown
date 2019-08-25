@@ -15,7 +15,8 @@ export default class DatePickerDemo extends React.Component {
 		return (
 			<div>
 			   <DatePicker disabled={true} />
-			   <br /><br />
+			   <br />
+			   <br />
 			   <DatePicker.RangePicker disabled={true} />
 			   <br />
 			   <br />

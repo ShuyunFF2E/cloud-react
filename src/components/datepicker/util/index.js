@@ -106,13 +106,6 @@ function convert(date, fmt) {
 			_fmt = _fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? (o[k]) : ((`00${o[k]}`).substr((o[k].toString()).length)));
 		}
 	});
-
-	// for (let k in o) {
-	// 		if (new RegExp("(" + k + ")").test(_fmt)) {
-	// 			_fmt = _fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? (o[k]) : ((`00${o[k]}`).substr((o[k].toString()).length)));
-	// 		}
-	//
-	// }
 	return _fmt;
 };
 
