@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import shallowequal from 'shallowequal';
-import utils from "./util";
+import utils from './util';
 
 export default class InnerTimePicker extends React.Component {
     static propTypes = {
