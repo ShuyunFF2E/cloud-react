@@ -4,13 +4,26 @@ import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
 import SingleSelect from './views/single-select';
+import MultiSelect from './views/multi-select';
 import Selected from './views/selected';
 import Option from './views/option';
-import formatOptionSource from './format';
+import { formatOptionSource } from './utils';
 
 import './index.less';
 
 const selector = 'select';
+
+const getSelected = (data, children) => {
+	const options = Array.isArray(data) ? data : [data];
+	if (options && options.length) {
+		const selected = Children.map(children, child => {
+			const { children: label, value } = child.props;
+			return options.includes(value) ? { label, value } : null;
+		});
+		return selected;
+	}
+	return [];
+}
 
 class Select extends Component {
 	
@@ -19,17 +32,36 @@ class Select extends Component {
 	constructor(props) {
 		super(props);
 
-		const { open, defaultOpen, value, defaultValue } = props;
+		const { open, defaultOpen, value, defaultValue, children } = props;
+		const values = value !== null ? value : defaultValue;
+		const selected = getSelected(values, children);
 		this.state = {
 			open: open || defaultOpen,
-			value: value !== null ? value : defaultValue
+			value: values,
+			prevValue: values,
+			selected,
+			prevProps: props
 		};
 		this.node = React.createRef();
+		this.selectedNode = React.createRef();
+	}
+
+	static getDerivedStateFromProps(props, prevState) {
+		const { prevProps } = prevState;
+		if (props.value !== prevProps.value) {
+			const { value, children } = props;
+			const selected = getSelected(value, children);
+			return {
+				value,
+				prevValue: value,
+				selected,
+				prevProps: props
+			}
+		}
+		return null;
 	}
 
 	componentDidMount() {
-		this.setDefaultSelected();
-
 		document.addEventListener('click', this.handleClick);
 	}
 
@@ -49,12 +81,12 @@ class Select extends Component {
 
 	componentDidUpdate() {
 		const { visible } = this;
-		if (visible) this.getSelectContainer();
-		if (this.selectContainer) {
+		if (visible) this.getOptionsContainer();
+		if (this.optionsContainer) {
 			if (visible) {
-				ReactDOM.render(this.optionsNode, this.selectContainer);
+				ReactDOM.render(this.optionsNode, this.optionsContainer);
 			} else {
-				ReactDOM.unmountComponentAtNode(this.selectContainer)
+				ReactDOM.unmountComponentAtNode(this.optionsContainer)
 			}
 		}
 	}
@@ -62,10 +94,10 @@ class Select extends Component {
 	componentWillUnmount() {
 		document.removeEventListener('click', this.handleClick);
 
-		if (this.selectContainer) {
-			ReactDOM.unmountComponentAtNode(this.selectContainer);
-			document.body.removeChild(this.selectContainer);
-			this.selectContainer = null;
+		if (this.optionsContainer) {
+			ReactDOM.unmountComponentAtNode(this.optionsContainer);
+			document.body.removeChild(this.optionsContainer);
+			this.optionsContainer = null;
 		}
 	}
 
@@ -76,9 +108,33 @@ class Select extends Component {
 		return visible;
 	}
 
+	get zIndex() {
+		return this.props.zIndex;
+	}
+
 	get optionsNode() {
-		const { searchable, children, onSearch, emptyRender } = this.props;
+		const { multiple, searchable, hasSelectAll, hasConfirmButton, okBtnText, cancelBtnText, children,
+				onSearch, emptyRender } = this.props;
 		const { value } = this.state;
+
+
+		if (multiple) {
+			return (
+				<MultiSelect
+					value={value}
+					dataSource={children}
+					emptyRender={emptyRender}
+					searchable={searchable}
+					hasSelectAll={hasSelectAll}
+					hasConfirmButton={hasConfirmButton}
+					onOk={this.handleOk}
+					onCancel={this.handleCancel}
+					okBtnText={okBtnText}
+					cancelBtnText={cancelBtnText}
+					onChange={this.onMultiSelectValueChange}
+					onSearch={onSearch} />
+			)
+		}
 
 		return (
 			<SingleSelect
@@ -86,44 +142,59 @@ class Select extends Component {
 				dataSource={children}
 				emptyRender={emptyRender}
 				searchable={searchable}
-				onChange={this.onOptionChange}
+				onChange={this.onSimpleOptionChange}
 				onSearch={onSearch} />
 		)
 	}
 
-	setDefaultSelected() {
-		const { value } = this.state;
-		const { children } = this.props;
-		if (value) {
-			Children.forEach(children, child => {
-				if (child.props.value === value ) {
-					const selected = formatOptionSource(child.props);
-					this.setState({ selected });
-				};
-			})
-		}
+	get selectedContainer() {
+		return this.selectedNode.current.ref.current;
 	}
 
-	getSelectContainer() {
-		if (!this.selectContainer) {
-			this.selectContainer = document.createElement('div');
-			document.body.appendChild(this.selectContainer);
+	get popupContainer() {
+		return this.props.getPopupContainer(this.selectedContainer);
+	}
+
+	setDefaultSelected(data) {
+		const { children } = this.props;
+		const selected = getSelected(data, children);
+		this.setState({ selected });
+	}
+
+	getOptionsNodePosition() {
+		const selectedNodePosition = this.selectedContainer.getBoundingClientRect();
+		const { height, width } = selectedNodePosition;
+		if (this.popupContainer === document.body) {
+			const nodePosition = this.node.current.getBoundingClientRect();
+			const { left, top } = nodePosition;
+			return [ left, top + height, width ];
 		}
-		const nodePosition = this.node.current.getBoundingClientRect();
-		const { selectContainer } = this;
-		selectContainer.style.position = 'absolute';
-		selectContainer.style.top = `${nodePosition.top + nodePosition.height}px`;
-		selectContainer.style.left = `${nodePosition.left}px`;
-		selectContainer.style.minWidth = `${nodePosition.width}px`;
-		return selectContainer;
+		const { offsetLeft, offsetTop } = this.selectedContainer;
+		return [ offsetLeft, offsetTop + height, width ];
+	}
+
+	getOptionsContainer() {
+		if (!this.optionsContainer) {
+			this.optionsContainer = document.createElement('div');
+			this.popupContainer.appendChild(this.optionsContainer);
+		}
+		const { optionsContainer, zIndex } = this;
+		const [ left, top, width ] = this.getOptionsNodePosition();
+		optionsContainer.style.position = 'absolute';
+		optionsContainer.style.zIndex = zIndex;
+		optionsContainer.style.top = `${top}px`;
+		optionsContainer.style.left = `${left}px`;
+		optionsContainer.style.minWidth = `${width}px`;
+		return optionsContainer;
 	}
 
 	handleClick = e => {
-		const { open } = this.state;
-		const isClickSelect = this.node.current.contains(e.target) || (this.selectContainer && this.selectContainer.contains(e.target));
+		const { open, prevValue } = this.state;
+		const isClickSelect = this.node.current.contains(e.target) || (this.optionsContainer && this.optionsContainer.contains(e.target));
 		if (!isClickSelect && open) {
-			const { onSelectClose, open: propOpen } = this.props;
+			const { onSelectClose, open: propOpen, hasConfirmButton } = this.props;
 			onSelectClose();
+			if (hasConfirmButton) this.onMultiOptionChange(prevValue);
 			if (propOpen === null) this.setState({ open: false });
 		};
 	}
@@ -153,13 +224,50 @@ class Select extends Component {
 		this.handleSelect();
 	}
 
-	onOptionChange = data => {
+	onSimpleOptionChange = data => {
 		const { labelInValue, onChange } = this.props;
 		const option = formatOptionSource(data);
 		const selectValue = option[0].value;
-		const optionValue = labelInValue ? option[0] : selectValue;
+		const checkedValue = labelInValue ? option[0] : selectValue;
 		this.onClickOption(option, selectValue);
-		onChange(optionValue);
+		onChange(checkedValue);
+	}
+
+	onMultiOptionChange = data => {
+		const { labelInValue, children } = this.props;
+		const options = Children.map(children, child => {
+			const { children: label, value } = child.props;
+			return data.includes(value) ? { label, value } : null;
+		});
+		const values = options.map(v => v.value);
+		this.setState({
+			selected: options,
+			value: values
+		});
+		return labelInValue ? options : values;
+	}
+
+	onMultiSelectValueChange = data => {
+		const { onMultiOptionChange, props: { hasConfirmButton, onChange } } = this;
+		const checkedValue = onMultiOptionChange(data);
+		if (!hasConfirmButton) onChange(checkedValue);
+	}
+
+	handleOk = () => {
+		const { handleSelect, props: { labelInValue, onOk }, state: { selected, value } } = this;
+		const result = labelInValue ? selected : value;
+		this.setState({
+			prevValue: value
+		});
+		onOk(result);
+		handleSelect();
+	};
+
+	handleCancel = () => {
+		const { onMultiOptionChange, handleSelect, props: { onCancel }, state: { prevValue } } = this;
+		onMultiOptionChange(prevValue);
+		onCancel();
+		handleSelect();
 	}
 
 	render() {
@@ -171,16 +279,19 @@ class Select extends Component {
 			<div className={`${classNames}`} style={style} ref={this.node}>
 				{/* 已选显示区域 */}
 				<Selected
-				onClick={this.onClickSelected}
-				placeholder={placeholder}
-				dataSource={selected}
-				disabled={disabled} />
+					ref={this.selectedNode}
+					onClick={this.onClickSelected}
+					open={open}
+					placeholder={placeholder}
+					dataSource={selected}
+					disabled={disabled} />
 			</div>
 		);
 	}
 }
 
 Select.propTypes = {
+	multiple: PropTypes.bool,
 	defaultOpen: PropTypes.bool,
 	open: PropTypes.bool,
 	disabled: PropTypes.bool,
@@ -196,22 +307,33 @@ Select.propTypes = {
 	]),
 	defaultValue: PropTypes.oneOfType([
 		PropTypes.string,
-		PropTypes.number
+		PropTypes.number,
+		PropTypes.array
 	]),
 	value: PropTypes.oneOfType([
 		PropTypes.string,
-		PropTypes.number
+		PropTypes.number,
+		PropTypes.array
 	]),
 	labelInValue: PropTypes.bool,
+	hasSelectAll: PropTypes.bool,
+	hasConfirmButton: PropTypes.bool,
+	okBtnText: PropTypes.string,
+	cancelBtnText: PropTypes.string,
 	className: PropTypes.string,
+	zIndex: PropTypes.number,
 	children: PropTypes.node.isRequired,
+	getPopupContainer: PropTypes.func,
 	onChange: PropTypes.func,
 	onSearch: PropTypes.func,
 	onSelectOpen: PropTypes.func,
-	onSelectClose: PropTypes.func
+	onSelectClose: PropTypes.func,
+	onOk: PropTypes.func,
+	onCancel: PropTypes.func
 };
 
 Select.defaultProps = {
+	multiple: false,
 	defaultOpen: false,
 	open: null,
 	disabled: false,
@@ -222,11 +344,19 @@ Select.defaultProps = {
 	defaultValue: '',
 	value: null,
 	labelInValue: false,
+	hasSelectAll: false,
+	hasConfirmButton: false,
+	okBtnText: '确认',
+	cancelBtnText: '取消',
 	className: '',
+	zIndex: 1050,
+	getPopupContainer: triggerNode => triggerNode.parentElement,
 	onChange: () => {},
 	onSearch: () => {},
 	onSelectOpen: () => {},
-	onSelectClose: () => {}
+	onSelectClose: () => {},
+	onOk: () => {},
+	onCancel: () => {}
 };
 
 export default Select;
