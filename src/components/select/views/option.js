@@ -1,13 +1,14 @@
 import React, { useMemo } from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
+import Checkbox from '../../checkbox';
 
 import '../index.less';
 
 const selector = 'select';
 
 export default function Option(props) {
-	const { onChange, disabled, isSelected, className, ...otherProps } = props;
+	const { disabled, isSelected, multiple, className, onChange, ...otherProps } = props;
 
 	const onOptionClick = () => {
 		if (disabled) return;
@@ -15,6 +16,20 @@ export default function Option(props) {
 		onChange(props);
 	}
 	const classNames = classnames(`${selector}-option`, { disabled, selected: isSelected }, className);
+
+	if (multiple) {
+		const { value, children } = otherProps;
+		return (
+			<Checkbox
+				checked={isSelected}
+				disabled={disabled}
+				value={value}
+				className={classNames}
+				onChange={onChange}>
+				{ children }
+			</Checkbox>
+		);
+	}
 
 	return useMemo(() => (
 		<div {...otherProps} onClick={onOptionClick} className={classNames} />

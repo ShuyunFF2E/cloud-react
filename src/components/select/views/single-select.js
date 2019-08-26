@@ -1,24 +1,12 @@
 import React, { Children, cloneElement, useMemo, useState, useEffect } from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
-import Icon from '../../icon';
+import { OptionsEmpty, OptionsSearch } from './common';
+import { filterOptions } from '../utils';
 
 import '../index.less';
 
 const selector = 'select';
-
-const OptionsEmpty = ({ emptyRender, ...props }) => {
-	return <div className={`${selector}-empty-options`} {...props}> { emptyRender } </div>
-}
-
-const filterOptions = (options, filter) => {
-	const result = [];
-	Children.forEach(options, child => {
-		const { value, children } = child.props;
-		if (value.indexOf(filter) > -1 || children.indexOf(filter) > -1) result.push(child);
-	})
-	return result;
-}
 
 export default function SingleSelect(props) {
 	const { dataSource, searchable, value, emptyRender, onChange, onSearch, className, ...otherProps } = props;
@@ -49,16 +37,10 @@ export default function SingleSelect(props) {
 	<div className={classNames} {...otherProps}>
 		{
 			searchable &&
-			<div className={`${selector}-search`}>
-			<input
-				value={searchValue}
-				onChange={onOptionsSearch}
-				className={`${selector}-search-input`} />
-			<Icon
-				type="close-circle-solid"
-				className={`${selector}-search-icon`}
-				onClick={clearSearch} />
-			</div>
+			<OptionsSearch
+				searchValue={searchValue}
+				onOptionsSearch={onOptionsSearch}
+				clearSearch={clearSearch} />
 		}
 		{ views }
 		{

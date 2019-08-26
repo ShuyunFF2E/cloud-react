@@ -9,6 +9,7 @@
 @default-padding: 5px;
 @default-margin: 5px;
 @default-border-radius: 2px;
+@large-padding: 10px;
 
 @dropdown-icon-size: @font-size;
 
@@ -27,7 +28,7 @@
 @option-hover-background: #f6f6f6;
 @option-disabled-background: #f6f6f6;
 @search-border: 1px solid #ededed;
-@search-clear-icon: #dbdbdb;
+@sign-color: #dbdbdb;
 
 @selector: select;
 
@@ -37,9 +38,15 @@
 	white-space: nowrap;
 }
 
+.column-layout {
+	display: flex;
+	flex-direction: column;
+}
+
 .@{selector} {
 	min-width: @min-width;
 	max-width: @max-width;
+	position: relative;
 
 	& * {
 		box-sizing: @box-sizing;
@@ -115,6 +122,15 @@
 			font-size: @dropdown-icon-size;
 			color: @dropdown-icon-color;
 			margin-right: 10px;
+			transition: transform 0.3s;
+
+			&.open {
+				transform: rotate(180deg);
+			}
+
+			&.close {
+				transform: rotate(0deg);
+			}
 		}
 	}
 }
@@ -125,8 +141,6 @@
 		border: @select-hover-border;
 
 		.@{selector}-select-icon {
-			transition: 0.3s;
-			transform: rotate(180deg);
 			color: @select-hover-color;
 		}
 	}
@@ -168,10 +182,15 @@
 		}
 
 		.@{selector}-search-icon {
-			color: @search-clear-icon;
+			color: @sign-color;
 			position: absolute;
 			right: @default-padding * 2;
 			top: @default-padding * 2;
+			display: none;
+
+			&.show {
+				display: block;
+			}
 		}
 	}
 
@@ -201,5 +220,41 @@
 		margin: @default-margin;
 		text-align: center;
 		color: @select-empty-color;
+		cursor: default;
+	}
+
+	.@{selector}-multiple-options {
+		.column-layout;
+
+		.@{selector}-option-list {
+			.column-layout;
+
+			.@{selector}-option {
+				padding: @default-padding @large-padding;
+				
+				&.selected {
+					background: @background-color;
+				}
+
+				&:hover {
+					background: @option-hover-background;
+				}
+			}
+		}
+
+		.@{selector}-operate-btn {
+			display: flex;
+			justify-content: flex-end;
+			padding: @large-padding;
+			border-top: 1px solid @sign-color;
+
+			.btn {
+				width: @min-width;
+	
+				&:not(:last-child) {
+					margin-right: 10px;
+				}
+			}
+		}
 	}
 }
