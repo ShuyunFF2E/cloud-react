@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
-import { Link } from 'react-router-dom';
 
 import MenuContext, { types } from './context';
 
@@ -42,10 +41,11 @@ export default class MenuItem extends PureComponent {
         const className = cls("menu-item", { 'active': selected });
 
         if (type === types.LINK) {
+            const targetLink = internalKey.startsWith('#') ? internalKey : `#${internalKey}`;
             return (
-                <Link to={internalKey} replace>
+                <a href={targetLink}>
                     <li className={className} style={style} onClick={this.handleClick} role="menuitem">{children}</li>
-                </Link>
+                </a>
             );
         }
 
