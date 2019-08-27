@@ -15,6 +15,7 @@ subtitle: 选项卡
 | --- | --- | --- | --- |
 | defaultActiveKey | 初始化选中面板的key | string |  -  |
 | activeKey | 当前激活 tab 面板的 key | string |  '' |
+| mode | 当前tabpanel的渲染模式 | `rest`、`remain` | `reset`
 | onChange | 切换面板时触发事件 | Function |  (key)=>{}  |
 | onClose | 关闭面板时触发事件 | Function |  (key)=>{}  |
 | activeClassName | 可自定义选项卡被选中时的样式 | string |  'active'  |
@@ -26,6 +27,8 @@ subtitle: 选项卡
 | key | 必传，当前panel的唯一标志，对应 activeKey,  | string |  -  |
 | disabled | 禁用标志 | boolean |  false  |
 | closable | 显示关闭按钮 | boolean |  false  |
+| className | 设置类样式 | string | '' |
+| style | 设置行内样式 | string | {} |
 
 
 
