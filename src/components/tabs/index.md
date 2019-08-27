@@ -15,7 +15,7 @@ subtitle: 选项卡
 | --- | --- | --- | --- |
 | defaultActiveKey | 初始化选中面板的key | string |  -  |
 | activeKey | 当前激活 tab 面板的 key | string |  '' |
-| mode | 当前tabpanel的渲染模式 | `rest`、`remain` | `reset`
+| mode | 当前tabpanel的渲染模式 | `reset`、`remain` | `reset`
 | onChange | 切换面板时触发事件 | Function |  (key)=>{}  |
 | onClose | 关闭面板时触发事件 | Function |  (key)=>{}  |
 | activeClassName | 可自定义选项卡被选中时的样式 | string |  'active'  |
