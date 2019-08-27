@@ -25,8 +25,8 @@ const TWIN_STYLE = [
 ];
 const ADDON_STYLE = {
 	position: 'fixed',
-	left: `-9999px`,
-	top: `-9999px`,
+	left: '-9999px',
+	top: '-9999px',
 	opacity: 0,
 	height: 0,
 	zIndex: -1
@@ -43,7 +43,13 @@ function calcAutoHeight(textareaNode, value, minRows, maxRows) {
 	const _maxRows = maxRows <= minRows ? minRows : maxRows;
 
 	const style = window.getComputedStyle(textareaNode);
-	const twinStyle = Object.fromEntries(TWIN_STYLE.map(key => [key, style[key]]))
+	const twinStyle = {};
+
+	TWIN_STYLE.forEach(key => {
+		twinStyle[key] = style[key];
+	});
+
+	console.log(twinStyle);
 
 	hiddenTextarea.value = value;
 	Object.assign(hiddenTextarea.style, twinStyle, ADDON_STYLE);

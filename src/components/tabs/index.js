@@ -14,6 +14,7 @@ export default class Tabs extends PureComponent {
         activeKey: PropTypes.string,
         activeClassName: PropTypes.string,
         type: PropTypes.string,
+        className: PropTypes.string,
         onChange: PropTypes.func,
         onClose: PropTypes.func
     }
@@ -23,6 +24,7 @@ export default class Tabs extends PureComponent {
         activeKey: '',
         activeClassName: 'active',
         type: 'card',
+        className: '',
         onChange: () => {},
         onClose: () => {}
     }
@@ -44,7 +46,7 @@ export default class Tabs extends PureComponent {
         const { prevProps } = state;
         const prevChildCount = React.Children.count(prevProps.children);
         const nextChildCount = React.Children.count(nextProps.children);
-    
+
         // 1. 通过props指定activeKey时，更新state
         // 2. tabpanel的数量发生变化时, 更新state
         if ((prevProps.activeKey !== nextProps.activeKey) ||
@@ -58,7 +60,7 @@ export default class Tabs extends PureComponent {
         const { activedKey } = this.state;
         if (key === activedKey) { return; }  // change event, not click event
 
-        this.setState({ 
+        this.setState({
             activedKey: key
         }, () => {
             this.props.onChange(key);
@@ -82,7 +84,7 @@ export default class Tabs extends PureComponent {
             <span className={className} onClick={this.handleChange(key)} key={key}>
                 {tab}
                 {
-                    isActived && closable && 
+                    isActived && closable &&
                     <span className="closable-wrapper">
                         <Icon type="close" className="closable" onClick={this.handleClose(key)}/>
                     </span>
@@ -92,20 +94,21 @@ export default class Tabs extends PureComponent {
     }
 
     render() {
-        const { children } = this.props;
+        const { children, className } = this.props;
         const { activedKey } = this.state;
-        
+
         const headers = [];
         let panel;
-        
+
         Children.forEach(children, child => {
             const isActived = child.key === activedKey;
             headers.push(this.renderTabHeader(child, isActived));
             if (isActived) { panel = child; }
         });
 
+        const finalClassName = cls('tabs', className);
         return (
-            <div className="tabs">
+            <div className={finalClassName}>
                 <section className="tabs-header">{headers}</section>
                 {panel}
             </div>
@@ -114,8 +117,9 @@ export default class Tabs extends PureComponent {
 }
 
 const Panel = React.memo(props => {
+    const finalClassName = cls('tabpanel-container', props.className);
     return (
-        <div className="tabpanel-container">
+        <div className={finalClassName}>
             {props.children}
         </div>
     );
@@ -123,14 +127,15 @@ const Panel = React.memo(props => {
 
 Panel.propTypes = {
     tab: PropTypes.node.isRequired, // eslint-disable-line
-    key: PropTypes.string.isRequired, // eslint-disable-line
     closable: PropTypes.bool, // eslint-disable-line
-    disabled: PropTypes.boo // eslint-disable-line
-}
+    disabled: PropTypes.bool, // eslint-disable-line
+    className: PropTypes.string
+};
 
 Panel.defaultProps = {
     disabled: false,
-    closable: false
-}
+    closable: false,
+    className: ''
+};
 
 Tabs.Panel = Panel;

@@ -18,9 +18,6 @@ const columnData = [
 	},{
 		key: 'info',
 		text: '使用说明'
-	},{
-		key: 'url',
-		text: 'url'
 	}
 ];
 // 模拟一个返回promise的请求。settings为当前实例配置对像, params为当前请求参数

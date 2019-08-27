@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const srcDir = path.join(__dirname, '..');
 
@@ -32,6 +33,10 @@ module.exports = () => ({
 		rules: []
 	},
 	plugins: [
-		new webpack.HotModuleReplacementPlugin()
+		new webpack.HotModuleReplacementPlugin(),
+		new HtmlWebpackPlugin({
+			filename: 'index.html',
+			template: 'demos/index.html'
+		})
 	]
 });

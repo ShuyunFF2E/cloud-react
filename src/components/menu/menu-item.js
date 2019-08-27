@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
-
 import MenuContext, { types } from './context';
 
 export default class MenuItem extends PureComponent {
@@ -37,7 +36,6 @@ export default class MenuItem extends PureComponent {
 
         const depth = path.length;
         const style = { textIndent: (depth + 1) * indent };
-
         const className = cls("menu-item", { 'active': selected });
 
         if (type === types.LINK) {
@@ -46,6 +44,7 @@ export default class MenuItem extends PureComponent {
                 <a href={targetLink}>
                     <li className={className} style={style} onClick={this.handleClick} role="menuitem">{children}</li>
                 </a>
+
             );
         }
 

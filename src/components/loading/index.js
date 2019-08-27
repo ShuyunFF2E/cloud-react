@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
-import classNames from "classnames";
-import "./index.less";
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import './index.less';
 
 const sizeMap = {
 	small: 13,
@@ -11,11 +11,11 @@ const sizeMap = {
 
 function SvgLoading(props) {
 	const { size, tip, layer } = props;
-	const loadingType = classNames("loading-container", {
-		"loading-layer": layer
+	const loadingType = classNames('loading-container', {
+		'loading-layer': layer
 	});
-	const loadingAnimation = classNames("loading-animation", {
-		"loading-tip-animation": tip
+	const loadingAnimation = classNames('loading-animation', {
+		'loading-tip-animation': tip
 	});
 	return (
 		<div className={loadingType}>
@@ -70,7 +70,7 @@ function Loading(props) {
 Loading.propTypes = {
 	loading: PropTypes.bool,
 	layer: PropTypes.bool,
-	size: PropTypes.oneOf(["default", "small", "large"]),
+	size: PropTypes.oneOf(['default', 'small', 'large']),
 	tip: PropTypes.string,
 	delay: PropTypes.number
 };
@@ -78,8 +78,8 @@ Loading.propTypes = {
 Loading.defaultProps = {
 	loading: true,
 	layer: false,
-	size: "default",
-	tip: "",
+	size: 'default',
+	tip: '',
 	delay: 0
 };
 

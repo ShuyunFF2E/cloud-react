@@ -1,7 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 // const WebpackBundleAnalyzer = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
@@ -110,10 +109,6 @@ module.exports = ({ mode } = { mode: 'development' }) => {
 			plugins: [
 				new webpack.DefinePlugin({
 					'process.env.NODE_ENV': JSON.stringify(env)
-				}),
-				new HtmlWebpackPlugin({
-					filename: 'index.html',
-					template: 'demos/index.html'
 				}),
 				// 分析打包大小问题
 				// new WebpackBundleAnalyzer(),

@@ -1,0 +1,205 @@
+@font-size: 12px;
+@height: 30px;
+@max-height: 220px;
+@min-width: 64px;
+@max-width: 280px;
+@text-icon-gap: 20px;
+@search-input-height: 25px;
+
+@default-padding: 5px;
+@default-margin: 5px;
+@default-border-radius: 2px;
+
+@dropdown-icon-size: @font-size;
+
+@box-sizing: border-box;
+
+@font-color: #3d3d3d;
+@background-color: #fff;
+@select-empty-color: #c9c9c9;
+@select-normal-border: 1px solid #d9d9d9;
+@select-hover-color: #aacbe1;
+@select-hover-border: 1px solid @select-hover-color;
+@select-disabled-border: 1px solid #d9d9d9;
+@select-disabled-color: #c9c9c9;
+@select-disabled-background: #eee;
+@dropdown-icon-color: #c2c2c2;
+@option-hover-background: #f6f6f6;
+@option-disabled-background: #f6f6f6;
+@search-border: 1px solid #ededed;
+@search-clear-icon: #dbdbdb;
+
+@selector: select;
+
+.overflow-ellipsis {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.@{selector} {
+	min-width: @min-width;
+	max-width: @max-width;
+
+	& * {
+		box-sizing: @box-sizing;
+	}
+
+	&:hover {
+		.@{selector}-selected {
+			border: @select-hover-border;
+
+			.@{selector}-select-icon {
+				color: @select-hover-color;
+			}
+		}
+	}
+
+	.@{selector}-wrapper {
+		height: @height;
+		border: @select-normal-border;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		cursor: pointer;
+
+		&:hover {
+			border: @select-hover-border;
+
+			.@{selector}-select-icon {
+				color: @select-hover-color;
+			}
+		}
+
+		&.disabled {
+			border: @select-disabled-border;
+			background: @select-disabled-background;
+			cursor: not-allowed;
+
+			&:hover {
+				border-color: @select-disabled-border;
+			}
+
+			.@{selector}-selected {
+				color: @select-disabled-color;
+				background: @select-disabled-background;
+				cursor: not-allowed;
+			}
+
+			.@{selector}-select-icon {
+				color: @dropdown-icon-color;
+			}
+		}
+
+		&.empty {
+			.@{selector}-selected {
+				color: @select-empty-color;
+			}
+		}
+
+		.@{selector}-selected {
+			flex: 1 0;
+			height: 100%;
+			padding: @default-padding;
+			padding-right: @text-icon-gap;
+			font-size: @font-size;
+			color: @font-color;
+			border: none;
+			.overflow-ellipsis;
+			cursor: pointer;
+		}
+
+		.@{selector}-select-icon {
+			width: @dropdown-icon-size;
+			height: @dropdown-icon-size;
+			font-size: @dropdown-icon-size;
+			color: @dropdown-icon-color;
+			margin-right: 10px;
+		}
+	}
+}
+
+.@{selector}-open {
+
+	.@{selector}-wrapper {
+		border: @select-hover-border;
+
+		.@{selector}-select-icon {
+			transition: 0.3s;
+			transform: rotate(180deg);
+			color: @select-hover-color;
+		}
+	}
+}
+
+.@{selector}-select-options {
+	box-sizing: @box-sizing;
+	padding: 0;
+	margin: 0;
+	max-height: @max-height;
+	max-width: @max-width;
+	min-width: @min-width;
+	width: 100%;
+	overflow: auto;
+	border: @select-normal-border;
+	background: @background-color;
+	cursor: pointer;
+
+	& * {
+		box-sizing: @box-sizing;
+		font-size: @font-size;
+		color: @font-color;
+	}
+
+	.@{selector}-search {
+		width: 100%;
+		padding: @default-padding;
+		position: relative;
+
+		.@{selector}-search-input {
+			width: 100%;
+			padding: @default-padding;
+			padding-right: @text-icon-gap;
+			height: @search-input-height;
+			border: @search-border;
+			border-radius: @default-border-radius;
+			outline: none;
+			.overflow-ellipsis;
+		}
+
+		.@{selector}-search-icon {
+			color: @search-clear-icon;
+			position: absolute;
+			right: @default-padding * 2;
+			top: @default-padding * 2;
+		}
+	}
+
+	.@{selector}-option {
+		height: @height;
+		line-height: @height - @default-padding * 2;
+		padding: @default-padding;
+		.overflow-ellipsis;
+
+		&:hover {
+			background: @option-hover-background;
+		}
+
+		&.disabled {
+			color: @select-disabled-color;
+			cursor: not-allowed;
+		}
+
+		&.selected {
+			background: @option-disabled-background;
+		}
+	}
+
+	.@{selector}-empty-options {
+		height: @height;
+		line-height: @height;
+		margin: @default-margin;
+		text-align: center;
+		color: @select-empty-color;
+	}
+}
