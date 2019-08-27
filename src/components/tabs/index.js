@@ -16,7 +16,8 @@ export default class Tabs extends PureComponent {
         type: PropTypes.string,
         className: PropTypes.string,
         onChange: PropTypes.func,
-        onClose: PropTypes.func
+        onClose: PropTypes.func,
+        mode: PropTypes.oneOf(['reset', 'remain'])
     }
 
     static defaultProps = {
@@ -25,6 +26,7 @@ export default class Tabs extends PureComponent {
         activeClassName: 'active',
         type: 'card',
         className: '',
+        mode: 'reset',
         onChange: () => {},
         onClose: () => {}
     }
@@ -94,16 +96,24 @@ export default class Tabs extends PureComponent {
     }
 
     render() {
-        const { children, className } = this.props;
+        const { children, className, mode } = this.props;
         const { activedKey } = this.state;
 
         const headers = [];
-        let panel;
+        let panel = [];
 
         Children.forEach(children, child => {
             const isActived = child.key === activedKey;
             headers.push(this.renderTabHeader(child, isActived));
-            if (isActived) { panel = child; }
+
+            // 处理panel
+            if (mode === 'remain') {
+                const style = { ...child.props.style, display: isActived ? 'block' : 'none' };
+                const target = React.cloneElement(child, { style });
+                panel.push(target);
+            } else if (isActived) { 
+                panel = child; 
+            }
         });
 
         const finalClassName = cls('tabs', className);
@@ -119,7 +129,7 @@ export default class Tabs extends PureComponent {
 const Panel = React.memo(props => {
     const finalClassName = cls('tabpanel-container', props.className);
     return (
-        <div className={finalClassName}>
+        <div className={finalClassName} style={props.style}>
             {props.children}
         </div>
     );
@@ -129,13 +139,15 @@ Panel.propTypes = {
     tab: PropTypes.node.isRequired, // eslint-disable-line
     closable: PropTypes.bool, // eslint-disable-line
     disabled: PropTypes.bool, // eslint-disable-line
-    className: PropTypes.string
+    className: PropTypes.string,
+    style: PropTypes.object
 };
 
 Panel.defaultProps = {
     disabled: false,
     closable: false,
-    className: ''
+    className: '',
+    style: {}
 };
 
 Tabs.Panel = Panel;
