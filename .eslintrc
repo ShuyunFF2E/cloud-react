@@ -32,6 +32,7 @@
 	"quotes": ["error", "single"],
 	// jsx 中属性全部使用双引
 	"jsx-quotes": ["error", "prefer-double"],
+	"space-infix-ops": ["error"],
 	"jsx-a11y/label-has-associated-control": "off"
   },
   "globals": {

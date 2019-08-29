@@ -102,7 +102,7 @@ function setComputeToolTipPosition(place, tooltipEle) {
 			if (/^(top|bottom)$/.test(main)) {
 				_tooltipEle.style.left = `${targetEleOffset.left - tooltipEleOffset.width / 2 + targetEleOffset.width / 2}px`;
 			} else {
-				_tooltipEle.style.top = `${targetEleOffset.top - targetEleOffset.height / 2 - tooltipEleOffset.height /2  + targetEleOffset.height}px`;
+				_tooltipEle.style.top = `${targetEleOffset.top - targetEleOffset.height / 2 - tooltipEleOffset.height / 2  + targetEleOffset.height}px`;
 			}
 			break;
 		// no default

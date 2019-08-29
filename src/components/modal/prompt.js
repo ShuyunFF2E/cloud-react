@@ -103,7 +103,7 @@ class Prompt extends React.Component{
 function prompt({ type, icon, title, body, onOk, onCancel }) {
 	// 创建一个关联id
 	const id = `prompt${new Date().getTime()}`;
-	containers[id]= document.createElement('div');
+	containers[id] = document.createElement('div');
 	document.body.appendChild(containers[id]);
 
 	ReactDOM.render(

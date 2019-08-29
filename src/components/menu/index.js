@@ -68,7 +68,7 @@ export default class Menu extends PureComponent {
         });
     };
 
-    renderNodeBySource(source, path=[]) {
+    renderNodeBySource(source, path = []) {
         const { onSubMenuToggle, onItemClick, type, indent } = this.props;
         const { openKeys, selectedKeys } = this.state;
         return source.map(item => {
@@ -107,7 +107,7 @@ export default class Menu extends PureComponent {
         });
     }
 
-    renderNodeByChildren(children, path=[]) {
+    renderNodeByChildren(children, path = []) {
         const { onSubMenuToggle, onItemClick, indent, type } = this.props;
         const { openKeys, selectedKeys } = this.state;
         return React.Children.map(children, child => {
