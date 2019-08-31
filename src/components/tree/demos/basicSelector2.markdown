@@ -199,7 +199,6 @@ export default class TreeDemo extends React.Component {
 				onSelectedNode={this.selectedNode}>
 			</Tree>
 		);
-	}
-	
+	}	
 }
 ```

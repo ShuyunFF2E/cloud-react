@@ -5,7 +5,7 @@
  * 2019-07-08
  */
 
-import React from "react";
+import React from 'react';
 
 const noop = () => {};
 const TreeContext = React.createContext({
@@ -18,7 +18,7 @@ const TreeContext = React.createContext({
 	// 显示输入框
 	showInput: noop,
 	// 点击保存按钮
-	onClickSave: noop,
+	onSaveClick: noop,
 	// 点击取消按钮
 	onClickCancel: noop,
 	// onAddAction: noop,

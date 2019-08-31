@@ -1,19 +1,28 @@
 /**
- * index.js
+ * list.js
  * wangbo
  * 2019-06-28
  */
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import jEasy from 'jeasy';
+import PropTypes
+	from 'prop-types';
+import jEasy
+	from 'jeasy';
 import './index.less';
-import Search from './search';
-import TreeList from './list';
-import TreeContext from './context';
-import Message from "../message";
-import Modal from "../modal";
-import Store from './store';
-import Menu from "./menu";
+import Search
+	from './search';
+import TreeList
+	from './list';
+import TreeContext
+	from './context';
+import Message
+	from '../message';
+import Modal
+	from '../modal';
+import Store
+	from './store';
+import Menu
+	from './menu';
 
 const noop = () => {};
 
@@ -24,6 +33,7 @@ class Tree extends Component{
 		searchMaxLength: '',
 		nodeNameMaxLength: '',
 		maxLevel: 0,
+		supportRadio: false,
 		supportCheckbox: false,
 		supportMenu: false,
 		supportSearch: false,
@@ -40,6 +50,7 @@ class Tree extends Component{
 		nodeNameMaxLength: PropTypes.number,
 		maxLevel: PropTypes.number,
 		supportCheckbox: PropTypes.bool,
+		supportRadio: PropTypes.bool,
 		supportMenu: PropTypes.bool,
 		supportSearch: PropTypes.bool,
 		isAddFront: PropTypes.bool,
@@ -65,12 +76,12 @@ class Tree extends Component{
 
 	componentDidMount() {
 		document.addEventListener('click', this.hideMenu);
-		document.addEventListener('scroll', this.hideMenu);
+		document.addEventListener('scroll', this.hideMenu, true);
 	};
 
 	componentWillUnmount() {
 		document.removeEventListener('click', this.hideMenu);
-		document.removeEventListener('scroll', this.hideMenu);
+		document.removeEventListener('scroll', this.hideMenu, true);
 	}
 
 	/**
@@ -78,28 +89,22 @@ class Tree extends Component{
 	 * @returns {*}
 	 */
 	onSearchAction = searchText => {
-		// 如果存在选中的节点，则需要在props.treeData中搜索保留选中的节点，如果不存在则需要在所有数据中进行搜索
 		// 将搜索文字放到state中，供node节点中高亮使用
 		this.setState({
 			searchText
 		});
 
 		// 保留原始数据供每次搜索使用
-		const tmp = jEasy.clone(this.props.treeData);
+		const tmp = jEasy.clone(Store.initData(this.props.treeData, this.props.maxLevel));
 
-		// 获取搜索结果数据
-		const backData = Store.searchNode(this.state.treeData, searchText);
+		// 搜索结果数据
+		const backTree = Store.searchNode(tmp, searchText);
 
-		if (!backData.length) {
-			// 搜索结果为空
-			Message.error('未找到搜索结果');
-		}
-
+		// 是多选并且存在已多选的节点列表才进行合并数据
 		this.setState({
-			treeData: searchText ? [...backData] : [...tmp]
-		})
+			treeData: [...backTree]
+		});
 	};
-
 
 	/**
 	 * 选中节点
@@ -107,19 +112,49 @@ class Tree extends Component{
 	 */
 	onSelectedAction = (node) => {
 		const data = this.state.treeData;
-		const { onSelectedNode, supportCheckbox } = this.props;
+		const { supportCheckbox, onSelectedNode } = this.props;
 		// 更新节点选中状态
 		Store.updateActiveNode(data, node);
 		// 单选节点列表
 		const radioSelectedList = Store.selectedForRadio(data, node);
 		// 多选节点列表
 		const checkboxSelectedList = this.getSelectedMoreList(data, node);
-		const selectedList = supportCheckbox ? checkboxSelectedList : radioSelectedList;
-		onSelectedNode(node, selectedList);
 
+		const selectedResult = supportCheckbox ? checkboxSelectedList : radioSelectedList;
+
+		// 传递到外部
+		onSelectedNode(node, selectedResult);
+
+		// 更新树列表数据
 		this.setState({
 			treeData: [...data]
 		});
+	};
+
+	/**
+	 * 多选选中节点列表
+	 * @param data
+	 * @param node
+	 * @returns {Array}
+	 */
+	getSelectedMoreList = (data, node) => {
+		const selectedList = [];
+		Store.updateActiveNode(data, node);
+		// 更新checked状态
+		const tmp = Store.selectedForCheckbox(data, node);
+		const filterSelected = (selectedData) => {
+			selectedData.forEach(item => {
+				if (item.checked) {
+					selectedList.push(item);
+				}
+				if (item.children && item.children.length) {
+					return filterSelected(item.children);
+				}
+				return selectedList;
+			});
+		};
+		filterSelected(tmp);
+		return selectedList;
 	};
 
 	/**
@@ -181,32 +216,6 @@ class Tree extends Component{
 	};
 
 	/**
-	 * 多选选中节点列表
-	 * @param data
-	 * @param node
-	 * @returns {Array}
-	 */
-	getSelectedMoreList = (data, node) => {
-		const selectedList = [];
-		Store.updateActiveNode(data, node);
-		// 更新checked状态
-		const tmp = Store.selectedForCheckbox(data, node);
-		const filterSelected = (selectedData) => {
-			selectedData.forEach(item => {
-				if (item.checked) {
-					selectedList.push(item);
-				}
-				if (item.children && item.children.length) {
-					return filterSelected(item.children);
-				}
-				return selectedList;
-			});
-		};
-		filterSelected(tmp);
-		return selectedList;
-	};
-
-	/**
 	 * 显示菜单
 	 * @param node
 	 * @param menuStyle
@@ -254,7 +263,7 @@ class Tree extends Component{
 				<div className="tree">
 					<Search
 						onSearchAction={this.onSearchAction}
-						supportSearch={supportSearch}
+						supportSearch={supportSearch && !supportCheckbox}
 						searchPlaceholder={searchPlaceholder}
 						searchMaxLength={searchMaxLength}/>
 

@@ -1,13 +1,13 @@
 /**
  * 搜索
- * index.js
+ * list.js
  * wangbo
  * 2019-07-02
  */
 
 import React, { Component } from 'react';
-import Input from "../../input";
-import Icon from "../../icon";
+import Input from '../input';
+import Icon from '../icon';
 
 class Search extends Component{
 	constructor(props) {
@@ -30,13 +30,10 @@ class Search extends Component{
 
 	render() {
 		const { supportSearch, searchPlaceholder, searchMaxLength } = this.props;
-		if (!supportSearch) {
-			return null;
-		}
 		return(
-			<div className='tree-search'>
+			supportSearch && <div className="tree-search">
 				<Input suffix={<Icon type="search" onMouseDown={this.handleSearch}/>}
-					   className='tree-search-input'
+					   className="tree-search-input"
 					   ref={(value) => {this.searchValue = value}}
 					   onKeyDown={this.handleSearch}
 					   maxLength={searchMaxLength}

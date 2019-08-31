@@ -1,14 +1,14 @@
 /**
  * 右键菜单
- * index.js
+ * list.js
  * wangbo
  * 2019-07-02
  */
 
 import React, { Component } from 'react';
-import ToolTip from '../../tooltip';
-import '../index.less';
-import TreeContext from '../context';
+import ToolTip from '../tooltip';
+import './index.less';
+import TreeContext from './context';
 
 class TreeMenu extends Component {
 	static contextType = TreeContext;
@@ -45,12 +45,9 @@ class TreeMenu extends Component {
 
 	render() {
 		const { visible, name, disableRemove, disableAdd, disableRename, menuStyle } = this.props;
-		if (!this.context.supportMenu) {
-			return null;
-		}
-		return visible && (
+		return visible && this.context.supportMenu && (
 			<ul className="tree-menu" style={menuStyle}>
-				<ToolTip content={name} placement="top">
+				<ToolTip content={name} placement="top" clear>
 					<span className="tree-menu-node-name">当前节点</span>
 				</ToolTip>
 				<li role="presentation" className={disableAdd ? 'disabled' : ''} onClick={this.addNode}>新增</li>

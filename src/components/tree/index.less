@@ -15,10 +15,14 @@
 @selector-node-area-hover: #EEE;
 @selector-node-icon-color: #999;
 @selector-node-active-background: #E7F3FC;
+@selector-node-active-color: #08C;
 
 .@{selector} {
 	position: relative;
-
+	> .tree-list {
+		min-width: 300px;
+		overflow: auto;
+	}
 	ul {
 		margin: 0;
 		padding-left: 38px;
@@ -32,14 +36,15 @@
 	// 搜索组件
 	.@{selector}-search {
 		padding-bottom: 10px;
-
-		&-input {
+		.input-group {
 			width: 100%;
+		}
+		&-input {
 			line-height: 30px;
 			padding: 0 8px;
 		}
 
-		&-icon {
+		.icon-search {
 			color: @selector-search-icon;
 			font-size: 20px;
 			cursor: pointer;
@@ -59,13 +64,9 @@
 				line-height: 26px;
 			}
 
-			.icon-down-solid, .icon-right-solid {
-				padding-right: 4px;
-			}
-
 			.node-item {
-				display: inline-block;
-				width: 96%;
+				display: inline-flex;
+				width: 94%;
 				height: 26px;
 				border-radius: 2px;
 				line-height: 26px;
@@ -73,12 +74,15 @@
 				&:hover {
 					background: @selector-node-area-hover;
 				}
-				.radio {
-					display: inline-block;
-					width: inherit;
+				.radio, .checkbox {
+					display: inline-flex;
+					width: 94%;
+					z-index: 10;
+					.icon-check-circle-solid {
+						padding-right: 4px;
+					}
 				}
-				.checkbox {
-					width: inherit;
+				.icon-down-solid, .icon-right-solid, .checkbox {
 					padding-left: 4px;
 				}
 			}
@@ -106,6 +110,7 @@
 			}
 
 			.is-active {
+				color: @selector-node-active-color;
 				background: @selector-node-active-background;
 			}
 		}
