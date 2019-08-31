@@ -1,18 +1,18 @@
 /**
  * 树节点
- * index.js
+ * list.js
  * wangbo
  * 2019-07-02
  */
 
 import React, { Component, Fragment } from 'react';
-import Icon from '../../icon';
-import Message from '../../message';
-import Checkbox from '../../checkbox';
-// import Radio from '../../radio';
-import TreeContext from "../context";
-import Input from "../../input";
-import '../index.less';
+import Icon from '../icon';
+import Message from '../message';
+import Checkbox from '../checkbox';
+import Radio from '../radio';
+import TreeContext from './context';
+import Input from '../input';
+import './index.less';
 
 class Node extends Component {
 	static contextType = TreeContext;
@@ -23,8 +23,7 @@ class Node extends Component {
 			showChildrenItem: true,
 			inputValue: '',
 			isShowInput: false,
-			isAdd: false,
-			isRadioValue: null,
+			isAdd: false
 		};
 	}
 
@@ -50,18 +49,10 @@ class Node extends Component {
 
 	// 显示Input输入框
 	showInput = name => {
-		if (!name) {
-			this.setState({
-				inputValue: '',
-				isShowInput: true,
-				isAdd: true
-			});
-			return;
-		}
 		this.setState({
-			inputValue: name,
+			inputValue: name || '',
 			isShowInput: true,
-			isAdd: false
+			isAdd: !name
 		});
 	};
 
@@ -71,7 +62,7 @@ class Node extends Component {
 	};
 
 	// 保存节点信息
-	onClickSave = (pId) => {
+	onSaveClick = (pId) => {
 		// 输入内容不能为空
 		if (!this.state.inputValue) {
 			return Message.error('名称不能为空！');
@@ -94,18 +85,8 @@ class Node extends Component {
 		});
 	};
 
-	// 单选状态切换
-	handleChangeRadio = (value) => {
-		const { data } = this.props;
-		data.checked = true;
-		this.setState({
-			isRadioValue: value
-		});
-		this.context.onSelectedAction(data);
-	};
-
-	// 复选状态切换
-	handleChangeCheck = (checked) => {
+	// 选中节点
+	handleSelect = (checked) => {
 		const { data } = this.props;
 		if (this.context.supportCheckbox) {
 			data.checked = checked;
@@ -115,28 +96,26 @@ class Node extends Component {
 
 	render() {
 		const { data, children } = this.props;
-		const { showInput, onClickSave, onClickCancel } = this;
+		const { showInput, onSaveClick, onClickCancel } = this;
 		// 将三个方法传递出去可以供外部调用
 		const options = {
 			showInput,
-			onClickSave,
+			onSaveClick,
 			onClickCancel
 		};
 
 		return (
 			<Fragment>
-				<div className='tree-list-node-area'>
-					{/* 折叠展开icon */}
-					<ToggleFold
-						hasChildren={data.children.length > 0}
-						showChildrenItem={this.state.showChildrenItem}
-						toggle={this.toggle}/>
-
+				<div className="tree-list-node-area">
 					<div className={`node-item ${this.state.isShowInput && !this.state.isAdd ? 'hide-node' : null} ${data.isActive ? 'is-active' : null}`}
 						 onContextMenu={(e) => this.onHandleContextMenu(e, data, options)}>
-
+						{/* 折叠展开icon */}
+						<ToggleFold
+							hasChildren={data.children.length > 0}
+							showChildrenItem={this.state.showChildrenItem}
+							toggle={this.toggle}/>
 						{/* 节点前面的icon */}
-						<NodeIcon hasChildren={!!children}/>
+						<NodeIcon hasChildren={data.children.length > 0} showChildrenItem={this.state.showChildrenItem}/>
 
 						{/* checkbox选择，新增或编辑时不显示 */}
 						<ShowSelection
@@ -145,11 +124,10 @@ class Node extends Component {
 							searchText={this.context.searchText}
 							indeterminate={data.indeterminate}
 							checked={data.checked}
-							isRadioValue={this.state.isRadioValue}
+							isRadioSelected={data.isActive}
 							supportRadio={this.context.supportRadio}
 							supportCheckbox={this.context.supportCheckbox}
-							onHandleChangeRadio={this.handleChangeRadio}
-							onHandleChangeCheck={this.handleChangeCheck}/>
+							onHandleSelect={this.handleSelect}/>
 					</div>
 
 					<ShowInput
@@ -158,7 +136,7 @@ class Node extends Component {
 						inputValue={this.state.inputValue}
 						maxLength={this.context.nodeNameMaxLength}
 						handleInputChange={this.handleInputChange}
-						saveItem={() => this.onClickSave(data.id)}
+						saveItem={() => this.onSaveClick(data.id)}
 						cancelSave={this.onClickCancel}/>
 					<ul className={!this.state.showChildrenItem ? 'hide-node' : null}>
 						{children}
@@ -179,10 +157,7 @@ class Node extends Component {
  * @constructor
  */
 function ToggleFold({ hasChildren, showChildrenItem, toggle }) {
-	if (!hasChildren) {
-		return null;
-	}
-	return (
+	return (hasChildren &&
 		<Icon type={!showChildrenItem ? 'right-solid' : 'down-solid'} onClick={toggle}/>
 	)
 }
@@ -203,9 +178,9 @@ function ShowInput({ isShow, isAdd,  maxLength, inputValue, handleInputChange, s
 	}
 	return (
 		<div className={!isAdd ? 'is-rename' : 'is-add'}>
-			<Input className='node-input' value={inputValue} onChange={handleInputChange} autoFocus maxLength={maxLength} placeholder={`最多可输入${maxLength}个字符`}/>
-			<Icon type='finish' className='save-icon' onClick={saveItem}/>
-			<Icon type='close' className='cancel-icon' onClick={cancelSave}/>
+			<Input className="node-input" value={inputValue} onChange={handleInputChange} autoFocus maxLength={maxLength} placeholder={`最多可输入${maxLength}个字符`}/>
+			<Icon type="finish" className="save-icon" onClick={saveItem}/>
+			<Icon type="close" className="cancel-icon" onClick={cancelSave}/>
 		</div>
 	);
 }
@@ -219,50 +194,52 @@ function ShowInput({ isShow, isAdd,  maxLength, inputValue, handleInputChange, s
  * @param supportCheckbox
  * @param id
  * @param name
- * @param onHandleChangeCheck
+ * @param isRadioSelected
+ * @param onHandleSelect
  * @returns {null|*}
  * @constructor
  */
-function ShowSelection({ searchText, indeterminate, checked, supportRadio, supportCheckbox, id, name, onHandleChangeCheck }) {
+function ShowSelection({ searchText, indeterminate, checked, supportRadio, supportCheckbox, id, name, isRadioSelected, onHandleSelect }) {
 	// 处理搜索关键字高亮
-	const re = new RegExp(searchText,"g");
+	const re = new RegExp(searchText,'g');
 	const tmp = name.replace(re, `<span class="hot-text">${searchText}</span>`);
 
+	// 多选类型展示
 	if (supportCheckbox) {
 		return (
-			<Checkbox indeterminate={indeterminate} checked={checked} value={id} onChange={onHandleChangeCheck}>
+			<Checkbox indeterminate={indeterminate} checked={checked} value={id} onChange={onHandleSelect}>
 				<span dangerouslySetInnerHTML={{ __html: tmp }}/>
 			</Checkbox>
 		);
 	}
 
+	// 单选类型展示
 	if (supportRadio) {
 		return (
-			<label htmlFor={id} className='radio'>
-				<input type="radio" name='radio' id={id}/>
+			<Radio value={id} className={isRadioSelected ? 'is-active' : ''} checked={isRadioSelected} onChange={onHandleSelect}>
 				<span dangerouslySetInnerHTML={{ __html: tmp }}/>
-			</label>
+			</Radio>
 		);
 	}
+
 	return (
-		<span className='node-name' dangerouslySetInnerHTML={{ __html: tmp }} onClick={onHandleChangeCheck}/>
+		<span className="node-name" dangerouslySetInnerHTML={{ __html: tmp }} onClick={onHandleSelect}/>
 	);
 }
 
 /**
  * 节点Icon
  * @param hasChildren
- * @returns {*}
+ * @param showChildrenItem
  * @return {null}
  */
-function NodeIcon({ hasChildren }) {
-	if (hasChildren) {
-		return (
-			<Icon type='info-circle'></Icon>
-		);
+function NodeIcon({ hasChildren, showChildrenItem }) {
+	// 存在子节点,并且要显示子节点
+	if (hasChildren && showChildrenItem) {
+		return (<Icon type="openFolder-solid"></Icon>);
 	}
 	return (
-		<Icon type='shop'></Icon>
+		<Icon type="folder-solid"></Icon>
 	);
 }
 export default Node;

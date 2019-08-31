@@ -1,18 +1,18 @@
 /**
  * 树列表
- * index.js
+ * list.js
  * wangbo
  * 2019-07-02
  */
 
 import React, { Component } from 'react';
-import Node from '../node';
+import Node from './node';
 
 class List extends Component{
 	render() {
 		const { data } = this.props;
 		return(
-			<div className='tree-list'>
+			<div className="tree-list">
 				{
 					data.length > 0 && data.map(node => {
 						return (

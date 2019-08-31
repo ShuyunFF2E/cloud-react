@@ -23,13 +23,12 @@ class Store {
 			const { children } = node;
 			const tmp = node;
 			tmp.level = level;
-			tmp.checked = false;
-			tmp.isActive = false;
-			tmp.indeterminate = false;
-			// 超过最大层级的节点将s不允许新增节点
+			if (!children) {
+				tmp.children = [];
+			}
+			// 超过最大层级的节点将不允许新增节点
 			if (maxLevel && node.level >= maxLevel) {
-				// eslint-disable-next-line no-param-reassign
-				node.disableAdd = true;
+				tmp.disableAdd = true;
 			}
 
 			if (!children || !children.length) {
@@ -56,6 +55,7 @@ class Store {
 	 */
 	static selectedForRadio(data, node) {
 		const selectedList = [];
+
 		function getSelected(nodeList) {
 			nodeList.some(item => {
 				if (node.id === item.id) {
@@ -79,7 +79,7 @@ class Store {
 	 * @returns {*}
 	 */
 	static selectedForCheckbox(data, node) {
-		const { checked, children, pId } = node;
+		const { checked, children, pId, parentId } = node;
 
 		// 变更自身节点选中状态
 		if (node.children && node.children.length) {
@@ -106,10 +106,10 @@ class Store {
 		};
 
 		// 变更父项选中状态
-		const changeParent = parentId => {
+		const changeParent = pNodeId => {
 			let childrenCheckedNumber = 0;
 
-			const parentNode = this.findNodeById(data, parentId);
+			const parentNode = this.findNodeById(data, pNodeId);
 			// 无父节点
 			if (!parentNode) {
 				return;
@@ -140,13 +140,13 @@ class Store {
 				parentNode.indeterminate = true;
 			}
 
-			if (parentNode.pId) {
-				changeParent(parentNode.pId);
+			if (parentNode.pId || parentNode.parentId) {
+				changeParent(parentNode.pId || parentNode.parentId);
 			}
 		};
 
 		changeChildren(children || []);
-		changeParent(pId);
+		changeParent(pId || parentId);
 		return data;
 	}
 
@@ -235,7 +235,7 @@ class Store {
 	 * @returns {*}
 	 */
 	static removeChildNode(data, node) {
-		const parentNode = this.findNodeById(data, node.pId);
+		const parentNode = this.findNodeById(data, node.pId || node.parentId);
 
 		// 存在子节点则不可删除
 		if (!parentNode || node.children.length) {
@@ -279,9 +279,8 @@ class Store {
 					return item;
 				}
 				if (item.children && item.children.length) {
-					const { children } = item;
-					// eslint-disable-next-line no-param-reassign
-					item.children = search(children);
+					const tmp = item;
+					tmp.children = search(tmp.children);
 					return item.children.length > 0;
 				}
 				return !item.children.length && item.name.indexOf(String(searchText)) !== -1;
@@ -291,5 +290,4 @@ class Store {
 		return cloneData;
 	}
 }
-
 export default Store;

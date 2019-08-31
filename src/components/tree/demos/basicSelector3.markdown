@@ -49,10 +49,9 @@ export default class TreeDemo extends React.Component {
 		}));
 	};
 	
-	selectedNode = (node, selectedList) => {
+	selectedNode = (node) => {
 		console.info('已选择一个节点，节点信息是：');
 		console.log(node);
-		console.log(selectedList);
 	};
 	
 	render() {
@@ -226,7 +225,7 @@ export default class TreeDemo extends React.Component {
 					searchPlaceholder={this.state.searchPlaceholder}
 					searchMaxLength={this.state.searchMaxLength}
 					nodeNameMaxLength={this.state.nodeNameMaxLength}
-					maxLevel={this.state.maxLevel}
+					maxLevel={this.state.maxLevel}				
 					supportMenu={this.state.supportMenu}
 					supportSearch={this.state.supportSearch}
 					isAddFront={this.state.isAddFront}
@@ -238,12 +237,5 @@ export default class TreeDemo extends React.Component {
 			</div>
 		);
 	}
-	
-}
-```
-```less
-.tree {
-	max-height: 300px;
-	overflow: auto;
 }
 ```

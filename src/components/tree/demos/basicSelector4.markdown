@@ -20,13 +20,6 @@ export default class TreeDemo extends React.Component {
 		}
 	}
 	
-	selectedNode = (node, selectedList) => {
-		// console.info('已选择一个节点，节点信息是：');
-		// console.log(node);
-		// console.info('目前已选择节点列表，列表信息是：');
-		// console.log(selectedList);
-	};
-	
 	addNode = (pId, name) => {
 		console.info('向后端发送一条请求，新增一个节点，参数为' + 'pId:' + pId + ',' + 'name:' + name);
 		return new Promise(((resolve, reject) => {
@@ -51,6 +44,12 @@ export default class TreeDemo extends React.Component {
 			// reject('删除失败');
 		}));
 	};
+
+	selectedNode = (node) => {
+		console.info('已选择一个节点，节点信息是：');
+		console.log(node);
+	};
+
 	
 	render() {
 		const treeData = [{
@@ -160,7 +159,8 @@ export default class TreeDemo extends React.Component {
 							]
 						}
 					]
-				},{
+				},
+                {
 					id: 13,
 					name: '禁止重命名节点',
 					pId: 1,
@@ -229,6 +229,5 @@ export default class TreeDemo extends React.Component {
 			</Tree>
 		);
 	}
-	
 }
 ```
