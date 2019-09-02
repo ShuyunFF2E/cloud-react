@@ -55,7 +55,7 @@ const voidIconStyle = {
 const voidMsgStyle = {
 	display: 'inline-block',
 	fontSize: '14px',
-	color: '#666',
+	color: '#999',
 	verticalAlign: 'middle'
 };
 const emptyTemplate = (
