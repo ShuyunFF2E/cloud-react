@@ -74,7 +74,7 @@
   },
   "dependencies": {
     "classnames": "^2.2.6",
-    "gridmanager-react": "^0.2.10",
+    "gridmanager-react": "^0.2.11",
     "highlight.js": "^9.15.8",
     "jeasy": "0.0.12",
     "prop-types": "^15.7.2",
