@@ -60,7 +60,7 @@ Group.propTypes = {
 Group.defaultProps = {
 	value: undefined,
 	disabled: undefined,
-	layout: '',
+	layout: 'h',
 	onChange: noop
 };
 
