@@ -28,3 +28,6 @@ dist/
 
 # site
 cloud-react-site
+
+# auto generdate index file
+src/components/index.js
