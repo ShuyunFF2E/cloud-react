@@ -116,6 +116,13 @@ export default class Textarea extends React.PureComponent {
 		onKeyDown: noop
 	};
 
+	static getDerivedStateFromProps({ value }) {
+		if (value !== undefined) {
+			return { value };
+		}
+		return null;
+	}
+
 	constructor(props) {
 		super(props);
 		const { value, defaultValue } = this.props;

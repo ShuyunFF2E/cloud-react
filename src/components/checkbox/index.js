@@ -11,7 +11,7 @@ function Group(props) {
 
 	const { children, value, onChange, disabled, layout } = props;
 
-	const checkedValue = value ? [...value] : value;
+	let checkedValue = value ? [...value] : value;
 
 	const group = Children.map(children, child => cloneElement(child, {
 
@@ -20,17 +20,18 @@ function Group(props) {
 		checked: checkedValue === undefined ? undefined : checkedValue.indexOf(child.props.value) > -1,
 
 		onChange(checked, val) {
-			if (checkedValue !== undefined) {
+			if (checkedValue === undefined) {
+				checkedValue = [];
+			}
 
-				const index = checkedValue.indexOf(val);
+			const index = checkedValue.indexOf(val);
 
-				if (index > -1 && !checked) {
-					checkedValue.splice(index, 1);
-				}
+			if (index > -1 && !checked) {
+				checkedValue.splice(index, 1);
+			}
 
-				if (index === -1 && checked) {
-					checkedValue.push(val);
-				}
+			if (index === -1 && checked) {
+				checkedValue.push(val);
 			}
 
 			onChange(checkedValue);
@@ -59,7 +60,7 @@ Group.propTypes = {
 Group.defaultProps = {
 	value: undefined,
 	disabled: undefined,
-	layout: '',
+	layout: 'h',
 	onChange: noop
 };
 
