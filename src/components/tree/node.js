@@ -114,6 +114,7 @@ class Node extends Component {
 							hasChildren={data.children.length > 0}
 							showChildrenItem={this.state.showChildrenItem}
 							toggle={this.toggle}/>
+
 						{/* 节点前面的icon */}
 						<NodeIcon hasChildren={data.children.length > 0} showChildrenItem={this.state.showChildrenItem}/>
 
@@ -173,10 +174,7 @@ function ToggleFold({ hasChildren, showChildrenItem, toggle }) {
  * @constructor
  */
 function ShowInput({ isShow, isAdd,  maxLength, inputValue, handleInputChange, saveItem, cancelSave }) {
-	if (!isShow && !isAdd) {
-		return null;
-	}
-	return (
+	return (isShow || isAdd) && (
 		<div className={!isAdd ? 'is-rename' : 'is-add'}>
 			<Input className="node-input" value={inputValue} onChange={handleInputChange} autoFocus maxLength={maxLength} placeholder={`最多可输入${maxLength}个字符`}/>
 			<Icon type="finish" className="save-icon" onClick={saveItem}/>
@@ -235,11 +233,6 @@ function ShowSelection({ searchText, indeterminate, checked, supportRadio, suppo
  */
 function NodeIcon({ hasChildren, showChildrenItem }) {
 	// 存在子节点,并且要显示子节点
-	if (hasChildren && showChildrenItem) {
-		return (<Icon type="openFolder-solid"></Icon>);
-	}
-	return (
-		<Icon type="folder-solid"></Icon>
-	);
+	return hasChildren && showChildrenItem ? <Icon type="openFolder-solid"></Icon> : <Icon type="folder-solid"></Icon>;
 }
 export default Node;

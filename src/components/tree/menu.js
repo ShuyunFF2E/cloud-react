@@ -13,7 +13,10 @@ import TreeContext from './context';
 class TreeMenu extends Component {
 	static contextType = TreeContext;
 
-	// 新增节点
+	/**
+	 * 新增节点
+	 * @param e
+	 */
 	addNode = e => {
 		const { disableAdd, options } = this.props;
 		if (disableAdd) {
@@ -23,7 +26,10 @@ class TreeMenu extends Component {
 		options.showInput();
 	};
 
-	// 删除节点
+	/**
+	 * 删除节点
+	 * @param e
+	 */
 	deleteNode = e => {
 		const { disableRemove } = this.props;
 		if (disableRemove) {
@@ -33,7 +39,10 @@ class TreeMenu extends Component {
 		this.props.deleteNode();
 	};
 
-	// 重命名节点
+	/**
+	 * 重命名节点
+	 * @param e
+	 */
 	renameNode = e => {
 		const { disableRename, options, name } = this.props;
 		if (disableRename) {

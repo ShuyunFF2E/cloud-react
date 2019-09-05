@@ -12,9 +12,9 @@ class List extends Component{
 	render() {
 		const { data } = this.props;
 		return(
-			<div className="tree-list">
+			!data.length ? null : <div className="tree-list">
 				{
-					data.length > 0 && data.map(node => {
+					data.map(node => {
 						return (
 							<li key={node.id}>
 								<Node data={node}>

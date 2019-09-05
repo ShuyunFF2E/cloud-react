@@ -10,11 +10,6 @@ import Input from '../input';
 import Icon from '../icon';
 
 class Search extends Component{
-	constructor(props) {
-		super(props);
-		this.searchValue = '';
-	}
-
 	/**
 	 * 输入搜索信息
 	 * @param e
@@ -23,7 +18,7 @@ class Search extends Component{
 		// 回车或鼠标点击则触发搜索
 		if (e.keyCode === 13 || e.button === 0) {
 			const { onSearchAction } = this.props;
-			const searchText = this.searchValue.state.value;
+			const searchText = this.searchInputRef.state.value;
 			onSearchAction(searchText);
 		}
 	};
@@ -34,7 +29,7 @@ class Search extends Component{
 			supportSearch && <div className="tree-search">
 				<Input suffix={<Icon type="search" onMouseDown={this.handleSearch}/>}
 					   className="tree-search-input"
-					   ref={(value) => {this.searchValue = value}}
+					   ref={(value) => {this.searchInputRef = value}}
 					   onKeyDown={this.handleSearch}
 					   maxLength={searchMaxLength}
 					   placeholder={searchPlaceholder} />

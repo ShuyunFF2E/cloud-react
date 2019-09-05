@@ -10,20 +10,20 @@ subtitle: 树
 ### API
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| treeData | 树结构数据 | object | - |
-| searchPlaceholder | 搜索框默认placeholder信息 | string | - |
-| searchMaxLength | 搜索框搜索关键字最大支持长度 | number | - |
-| nodeNameMaxLength | 节点名称最大支持长度 | number | - |
-| maxLevel | 树结构最大支持层级，超过该层级则不可新增 | number | - |
-| supportRadio | 是否支持单选，不可与多选共用 | boolean | false |
-| supportCheckbox | 是否支持多选，不可与单选共用 | boolean | false |
-| supportMenu | 是否支持右键菜单 | boolean | true |
-| supportSearch | 是否支持搜索 | boolean | true |
-| isAddFront | 新增节点时是否在当前节点的第一个子节点位置新增，false则新增到最后面 | boolean | true |
-| onAddNode | 新增节点事件，需要返回Promise | function | - |
-| onRenameNode | 重命名节点事件，需要返回Promise | function | - |
-| onRemoveNode | 删除节点事件，需要返回Promise | function | - |
-| onSelectedNode | 选中节点事件 | function | - |
+| treeData | 树结构数据 | Array | - |
+| searchPlaceholder | 搜索框默认placeholder信息 | String | - |
+| searchMaxLength | 搜索框搜索关键字最大支持长度 | Number | - |
+| nodeNameMaxLength | 节点名称最大支持长度 | Number | - |
+| maxLevel | 树结构最大支持层级，超过该层级则不可新增 | Number | - |
+| supportRadio | 是否支持单选，不可与多选共用 | Boolean | false |
+| supportCheckbox | 是否支持多选，不可与单选共用 | Boolean | false |
+| supportMenu | 是否支持右键菜单 | Boolean | true |
+| supportSearch | 是否支持搜索 | Boolean | true |
+| isAddFront | 新增节点时是否在当前节点的第一个子节点位置新增，false则新增到最后面 | Boolean | true |
+| onAddNode | 新增节点事件，需要返回Promise | Function | - |
+| onRenameNode | 重命名节点事件，需要返回Promise | Function | - |
+| onRemoveNode | 删除节点事件，需要返回Promise | Function | - |
+| onSelectedNode | 选中节点事件 | Function | - |
 
 ### 数据属性
 - disableAdd: 布尔类型，设置为true则表示不可新增；

@@ -107,27 +107,28 @@ class Store {
 
 		// 变更父项选中状态
 		const changeParent = pNodeId => {
-			let childrenCheckedNumber = 0;
-
 			const parentNode = this.findNodeById(data, pNodeId);
 			// 无父节点
 			if (!parentNode) {
 				return;
 			}
+			let childrenCheckedNumber = 0;
+			let childrenIndeterminateNumber = 0;
 
-			// 子项全部进行选中
 			parentNode.children.forEach(item => {
+				// 子项中有被选中的节点childrenCheckedNumber则加1
 				if (item.checked) {
 					childrenCheckedNumber += 1;
 				}
-				// 子项存在部分选中则父节点部分选中
+				// 子项存在部分选中节点则父节点部分选中
 				if (item.indeterminate) {
 					parentNode.indeterminate = true;
+					childrenIndeterminateNumber += 1;
 				}
 			});
 
-			// 子项全部未选中
-			if (childrenCheckedNumber === 0) {
+			if (childrenCheckedNumber === 0 && childrenIndeterminateNumber === 0) {
+				// 子项全部未选中
 				parentNode.checked = false;
 				parentNode.indeterminate = false;
 			} else if (childrenCheckedNumber === parentNode.children.length) {
