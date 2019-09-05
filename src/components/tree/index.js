@@ -4,25 +4,16 @@
  * 2019-06-28
  */
 import React, { Component } from 'react';
-import PropTypes
-	from 'prop-types';
-import jEasy
-	from 'jeasy';
+import PropTypes from 'prop-types';
+import jEasy from 'jeasy';
 import './index.less';
-import Search
-	from './search';
-import TreeList
-	from './list';
-import TreeContext
-	from './context';
-import Message
-	from '../message';
-import Modal
-	from '../modal';
-import Store
-	from './store';
-import Menu
-	from './menu';
+import Search from './search';
+import TreeList from './list';
+import TreeContext from './context';
+import Message from '../message';
+import Modal from '../modal';
+import Store from './store';
+import Menu from './menu';
 
 const noop = () => {};
 
@@ -45,6 +36,7 @@ class Tree extends Component{
 	};
 
 	static propsTypes = {
+		treeData: PropTypes.array,
 		searchPlaceholder: PropTypes.string,
 		searchMaxLength: PropTypes.number,
 		nodeNameMaxLength: PropTypes.number,
@@ -70,7 +62,7 @@ class Tree extends Component{
 			menuStyle: null,
 			menuOptions: null,
 			searchText: '',
-			treeData: Store.initData(this.props.treeData, this.props.maxLevel)
+			treeData: Store.initData(props.treeData, props.maxLevel)
 		};
 	}
 
@@ -110,7 +102,7 @@ class Tree extends Component{
 	 * 选中节点
 	 * @param node
 	 */
-	onSelectedAction = (node) => {
+	onSelectedAction = node => {
 		const data = this.state.treeData;
 		const { supportCheckbox, onSelectedNode } = this.props;
 		// 更新节点选中状态
@@ -178,6 +170,8 @@ class Tree extends Component{
 
 	/**
 	 * 重命名节点
+	 * @param id
+	 * @param newValue
 	 */
 	onRenameAction = (id, newValue) => {
 		const { onRenameNode } = this.props;
@@ -194,8 +188,9 @@ class Tree extends Component{
 
 	/**
 	 * 删除节点
+	 * @param node
 	 */
-	onRemoveAction = (node) => {
+	onRemoveAction = node => {
 		const { onRemoveNode } = this.props;
 		Modal.confirm({
 			title: `确定删除节点【${node.name}】吗?`,
@@ -255,7 +250,7 @@ class Tree extends Component{
 		} = this.props;
 
 		const { onAddAction, onRenameAction, onRemoveAction, onSelectedAction, showMenu } = this;
-		const { searchText, nodeData, menuStyle, menuOptions, visibleMenu } = this.state;
+		const { treeData, searchText, nodeData, menuStyle, menuOptions, visibleMenu } = this.state;
 		const { id, name, disableAdd, disableRename, disableRemove } = nodeData;
 
 		return (
@@ -280,7 +275,7 @@ class Tree extends Component{
 
 					<TreeList
 						nodeNameMaxLength={nodeNameMaxLength}
-						data={this.state.treeData}/>
+						data={treeData}/>
 				</div>
 			</TreeContext.Provider>
 		);

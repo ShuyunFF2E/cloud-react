@@ -21,9 +21,7 @@ const TreeContext = React.createContext({
 	onSaveClick: noop,
 	// 点击取消按钮
 	onClickCancel: noop,
-	// onAddAction: noop,
-	// onRemoveAction: noop,
-	// onRenameAction: noop,
+	// 点击选中
 	onSelectedAction: noop
 });
 
