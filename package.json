@@ -15,7 +15,8 @@
     "debug": "node --inspect --inspect-brk ./node_modules/webpack/bin/webpack.js --env.mode production",
     "preversion": "npm run lint",
     "version": "npm run build && npm publish dist",
-    "postversion": "git push && git push --tags"
+    "postversion": "git push && git push --tags",
+    "new:component": "cp -r tpls/new-component src/components/new-component"
   },
   "repository": {
     "type": "git",
