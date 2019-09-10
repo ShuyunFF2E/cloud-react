@@ -6,7 +6,7 @@ order: 1
 
 ````javascript
 import React, { Component } from 'react';
-import Menu from 'ccms-components-react/menu';
+import Menu from 'cloud-react/menu';
 
 const { MenuItem, SubMenu } = Menu;
 

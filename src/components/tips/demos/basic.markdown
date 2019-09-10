@@ -6,7 +6,7 @@ order: 1
 
 ````javascript
 import React from 'react';
-import Tips from 'ccms-components-react/tips';
+import Tips from 'cloud-react/tips';
 
 export default class TipsDemo extends React.Component {
 

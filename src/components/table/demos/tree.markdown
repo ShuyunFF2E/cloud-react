@@ -6,7 +6,7 @@ desc: 使用树结构数据
 
 ````javascript
 import React, { Component } from 'react';
-import Table from 'ccms-components-react/table';
+import Table from 'cloud-react/table';
 
 // 唯一标识符，该值不允许重复
 const gridManagerName = 'tree-table';

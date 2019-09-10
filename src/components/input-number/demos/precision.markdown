@@ -6,13 +6,13 @@ desc: 和原生的数字输入框一样，value 的精度由 step 的小数位�
 
 ````javascript
 import React from 'react';
-import Button from 'ccms-components-react/button';
-import InputNumber from 'ccms-components-react/input-number';
+import Button from 'cloud-react/button';
+import InputNumber from 'cloud-react/input-number';
 
 const blank = '\u00A0';
 
 export default class InputNumberDemo extends React.Component {
-	
+
 	render() {
 		return (
 			<>
@@ -20,7 +20,7 @@ export default class InputNumberDemo extends React.Component {
 				   <InputNumber
 				     defaultValue={3}
 				     step={0.1}
-				     min={1} 
+				     min={1}
 				     max={10}
                     />
 				</div>

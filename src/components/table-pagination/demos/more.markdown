@@ -6,7 +6,7 @@ desc: 显示数据总数
 
 ````javascript
 import React from 'react';
-import TablePagination from 'ccms-components-react/table-pagination';
+import TablePagination from 'cloud-react/table-pagination';
 
 
 export default class PaginationDemo extends React.Component {

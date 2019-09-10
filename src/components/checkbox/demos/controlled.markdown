@@ -6,28 +6,28 @@ desc: 受控的 Checkbox
 
 ````javascript
 import React, { useState } from 'react';
-import Checkbox from 'ccms-components-react/checkbox';
-import Button from 'ccms-components-react/button';
+import Checkbox from 'cloud-react/checkbox';
+import Button from 'cloud-react/button';
 
 
 export default function RadioDemo() {
-	
+
 	const style = { marginTop: '20px', marginRight: '10px' };
 	const [checked, setChecked] = useState(true);
 	const [disabled, setDisabled] = useState(false);
-	
+
 	const onCheckedClick = () => {
 		setChecked(!checked);
 	};
-	
+
 	const onDisabledClick = () => {
 		setDisabled(!disabled);
 	};
-	
+
 	const handleChange = checked => {
 		setChecked(checked);
 	};
-	
+
 	return (
 		<div>
 			<Checkbox value={2} disabled={disabled} checked={checked} onChange={handleChange}>受控的 Checkbox</Checkbox>
@@ -35,7 +35,7 @@ export default function RadioDemo() {
             <Button style={style} size={'small'} type="primary" onClick={onCheckedClick}>{ checked ? 'UnChecked' : 'Checked' }</Button>
             <Button style={style} size={'small'} type="primary" onClick={onDisabledClick}>{ disabled ? 'Enable' : 'Disabled' }</Button>
 		</div>
-                	
+
 	)
 }
 ````

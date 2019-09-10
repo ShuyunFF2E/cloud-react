@@ -6,20 +6,20 @@ desc: 控制内部Radio是否禁用
 
 ````javascript
 import React, { useState } from 'react';
-import Radio from 'ccms-components-react/radio';
-import Button from 'ccms-components-react/button';
+import Radio from 'cloud-react/radio';
+import Button from 'cloud-react/button';
 
 
 export default function RadioDemo() {
-	
+
 	const style = { marginTop: '20px' };
 	const [disabled, setDisabled] = useState(false);
-	
+
 	const onClick = () => {
 		setDisabled(!disabled);
 	};
-	
-	
+
+
 	return (
 		<div>
 			<Radio.Group defaultValue={1} horizontal disabled={disabled}>
@@ -29,7 +29,7 @@ export default function RadioDemo() {
             <br/>
             <Button style={style} size={'small'} type="primary" onClick={onClick}>toggle disabled</Button>
 		</div>
-                	
+
 	)
 }
 ````

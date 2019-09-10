@@ -6,18 +6,18 @@ desc: 延迟显示加载效果的时间（防止闪烁），number (毫秒)
 
 ````javascript
 import React from 'react';
-import Loading from 'ccms-components-react/loading';
-import Toggle from 'ccms-components-react/toggle';
+import Loading from 'cloud-react/loading';
+import Toggle from 'cloud-react/toggle';
 
 export default class LoadingDemo extends React.Component {
-	
+
 	constructor(props) {
 		super(props);
 		this.state = {
 			loading: false
     	}
 	}
-	
+
 	handleChange = (loading) => {
 		this.setState({ loading });
 	}
@@ -26,15 +26,15 @@ export default class LoadingDemo extends React.Component {
 		return (
 			<div>
 				Loading state(延迟1.5s): <Toggle checked={this.state.loading} onChange={this.handleChange} />
-				
-				<Loading layer delay={1500}  loading={this.state.loading}> 
+
+				<Loading layer delay={1500}  loading={this.state.loading}>
 				  <h2>延迟加载 loading 效果。当 loading 状态在 delay 时间内结束，则不显示 loading 状态。</h2>
 				  <div>延迟加载</div>
 				  <div>延迟加载</div>
 				  <div>延迟加载</div>
 				</Loading>
 			</div>
-			
+
 		);
 	}
 }

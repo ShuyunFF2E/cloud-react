@@ -6,15 +6,15 @@ desc: 默认样式
 
 ````javascript
 import React, { useState } from 'react';
-import Checkbox from 'ccms-components-react/checkbox';
+import Checkbox from 'cloud-react/checkbox';
 
 
 export default function CheckboxDemo() {
-	
+
 	const handleChange = (value, checked) => {
 		console.log('handleChange', value, checked);
 	};
-	
+
 	const [ checked, setChecked ] = useState(false);
 	const [ indeterminate, setIndeterminate ] = useState(true);
 
@@ -23,7 +23,7 @@ export default function CheckboxDemo() {
 		setChecked(!checked);
 		setIndeterminate(false);
 	};
-	
+
 	return <div>
 			<Checkbox>default</Checkbox>
             <br/>

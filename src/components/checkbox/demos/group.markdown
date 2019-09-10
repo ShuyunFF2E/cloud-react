@@ -6,11 +6,11 @@ desc: 组合
 
 ````javascript
 import React, { useState } from 'react';
-import Checkbox from 'ccms-components-react/checkbox';
+import Checkbox from 'cloud-react/checkbox';
 
 
 export default function RadioDemo() {
-	
+
 	const groupValue = [1, 2, 3];
 	const [value, setCheckedValue] = useState([1, 2]);
 	const [checked, setCheckedAll] = useState(false);
@@ -22,14 +22,14 @@ export default function RadioDemo() {
 		setIndeterminate(value.length > 0 && value.length < groupValue.length);
 		setCheckedAll(value.length === groupValue.length);
 	};
-	
+
 	const handleCheckAll = (checked, val) => {
 		console.log('handleCheckAll', checked, val);
 		checked ? setCheckedValue(groupValue) : setCheckedValue([]);
 		setIndeterminate(false);
 		setCheckedAll(checked);
 	};
-	
+
 	return (
 		<div>
 			<Checkbox checked={checked} indeterminate={indeterminate} onChange={handleCheckAll}>check all</Checkbox>

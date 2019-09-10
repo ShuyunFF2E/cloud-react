@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Icon from 'ccms-components-react/icon';
+import Icon from 'cloud-react/icon';
 import './index.less';
 
 const noop = () => {};

@@ -7,7 +7,7 @@ desc: 设置hasFooter控制底部区域显示/隐藏
 ```javascript
 import React from 'react';
 import Modal from '../index';
-import Button from 'ccms-components-react/button';
+import Button from 'cloud-react/button';
 const blank = '\u00A0';
 
 export default class ModalDemo extends React.Component {
@@ -18,7 +18,7 @@ export default class ModalDemo extends React.Component {
 		 	hasFooter: true
 		 };
 	 }
-	 
+
 	 // 打开带底部区域的弹出框
 	 openHasFooterModal = () => {
 		this.setState({
@@ -33,19 +33,19 @@ export default class ModalDemo extends React.Component {
 			hasFooter: false
 		});
 	 };
-	 
+
 	 handleOk = () => {
 	 	this.setState({
 			visible: false
 		});
 	 };
-	 
+
 	 handleClose = () => {
 	 	this.setState({
 			visible: false
 		});
 	 };
-	 
+
 	 render() {
 		 return (
 			 <div>
@@ -53,7 +53,7 @@ export default class ModalDemo extends React.Component {
 				 {blank}
 				 <Button type='normal' onClick={this.openHasFooterModal}>显示底部区域弹出框</Button>
 				 <br/>
-				 <Modal 
+				 <Modal
 				 	visible={this.state.visible}
 				 	hasFooter={this.state.hasFooter}
 				 	onOk={this.handleOk}

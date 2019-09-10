@@ -6,8 +6,8 @@ desc: disabled 为 true 的时候，toggle不可用
 
 ````javascript
 import React from 'react';
-import Toggle from 'ccms-components-react/toggle';
-import Button from 'ccms-components-react/button';
+import Toggle from 'cloud-react/toggle';
+import Button from 'cloud-react/button';
 
 export default class ToggleDisabledDemo extends React.Component {
 	constructor(props) {

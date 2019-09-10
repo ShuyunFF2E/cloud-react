@@ -6,7 +6,7 @@ desc: 自定义数据为空时的内容
 
 ````javascript
 import React, { useState } from 'react';
-import Select from 'ccms-components-react/select';
+import Select from 'cloud-react/select';
 
 const Option = Select.Option;
 
@@ -24,7 +24,7 @@ export default function SelectDemo() {
 
   return (
     <div style={{display: 'flex'}}>
-      <Select 
+      <Select
         placeholder="请选择..."
         defaultValue="apple"
         emptyRender={emptyRender}

@@ -6,8 +6,8 @@ order: 4
 
 ````javascript
 import React, { Component } from 'react';
-import Menu from 'ccms-components-react/menu';
-import Icon from 'ccms-components-react/icon';
+import Menu from 'cloud-react/menu';
+import Icon from 'cloud-react/icon';
 import { HashRouter } from 'react-router-dom';
 
 const { MenuItem, SubMenu } = Menu;
@@ -27,15 +27,15 @@ export default class MenuBasicDemo extends Component {
 
     render() {
         return (
-            <Menu 
+            <Menu
                 selectedKeys={['/c']}
-                header={ 
+                header={
                     <div className="menu-header-extra">
                         <Icon type="swap"/>
                         我是自定义头部
                     </div>
                 }
-                onSubMenuToggle={this.handleSubMenuToggle} 
+                onSubMenuToggle={this.handleSubMenuToggle}
                 onItemClick={this.handleMenuItemClick}>
 
                 <MenuItem key="/a">双鱼座</MenuItem>

@@ -6,8 +6,8 @@ desc: 可前置或后置元素，一般为标签或按钮
 
 ````javascript
 import React from 'react';
-import Input from 'ccms-components-react/input';
-import Icon from 'ccms-components-react/icon';
+import Input from 'cloud-react/input';
+import Icon from 'cloud-react/icon';
 
 export default function InputDemo() {
 	return (

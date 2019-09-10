@@ -6,8 +6,8 @@ desc: 不配置size即为默认的 default 大小，设置size = samll 为小号
 
 ````javascript
 import React from 'react';
-import Toggle from 'ccms-components-react/toggle';
-import Button from 'ccms-components-react/button';
+import Toggle from 'cloud-react/toggle';
+import Button from 'cloud-react/button';
 
 export default class ToggleSizeDemo extends React.Component {
 

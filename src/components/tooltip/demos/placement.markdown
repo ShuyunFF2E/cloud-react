@@ -5,8 +5,8 @@ desc: Tooltip 组件提供了十二个不同的位置
 
 ````javascript
 import React from 'react';
-import Tooltip from 'ccms-components-react/tooltip';
-import Button from 'ccms-components-react/button';
+import Tooltip from 'cloud-react/tooltip';
+import Button from 'cloud-react/button';
 
 export default class ToolTipDemo extends React.Component{
   	constructor(props) {

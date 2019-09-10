@@ -6,23 +6,23 @@ desc: 一个简单的 loading 状态。
 
 ````javascript
 import React from 'react';
-import Loading from 'ccms-components-react/loading';
-import Toggle from 'ccms-components-react/toggle';
+import Loading from 'cloud-react/loading';
+import Toggle from 'cloud-react/toggle';
 
 
 export default class LoadingDemo extends React.Component {
-	
+
 	constructor(props) {
 		super(props);
 		this.state = {
 			loading: true
     	}
 	}
-	
+
 	handleChange = (loading) => {
 		this.setState({ loading });
 	}
-          
+
 	render() {
 		return (
 			<>

@@ -5,8 +5,8 @@ desc: ''
 
 ````javascript
 import React, { Component } from 'react';
-import message from 'ccms-components-react/message';
-import Button from 'ccms-components-react/button';
+import message from 'cloud-react/message';
+import Button from 'cloud-react/button';
 
 const blank = '\u00A0';
 

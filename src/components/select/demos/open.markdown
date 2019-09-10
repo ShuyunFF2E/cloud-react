@@ -6,8 +6,8 @@ desc: 组件不再控制可选项展示，由外部提供参数控制
 
 ````javascript
 import React, { useState } from 'react';
-import Select from 'ccms-components-react/select';
-import Button from 'ccms-components-react/button';
+import Select from 'cloud-react/select';
+import Button from 'cloud-react/button';
 
 const Option = Select.Option;
 
@@ -33,7 +33,7 @@ export default function SelectDemo() {
 
   return (
     <div style={{display: 'flex'}}>
-      <Select 
+      <Select
         placeholder="请选择..."
         defaultValue="apple"
         style={{ margin: '0 10px 10px 0', width: 200 }}

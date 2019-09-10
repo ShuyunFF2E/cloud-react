@@ -7,7 +7,7 @@ desc: 使用confirm快捷弹出确认对话框
 ```javascript
 import React from 'react';
 import Modal from '../index';
-import Button from 'ccms-components-react/button';
+import Button from 'cloud-react/button';
 const blank = '\u00A0';
 
 export default class ModalDemo extends React.Component {
@@ -17,13 +17,13 @@ export default class ModalDemo extends React.Component {
 		 	content: ''
 		 };
 	 }
-	 
+
 	 handleOk = () =>  {
 	 	this.setState({
 	 		content: 'it is ok'
 	 	});
 	 };
-	 
+
 	 openConfirmModal = () => {
 	 	Modal.confirm({
 			title: 'Do you want to delete it ?',
@@ -38,7 +38,7 @@ export default class ModalDemo extends React.Component {
 			}
 		});
 	 };
-	 
+
 	 // 打开确认弹出框
 	 openAsyncConfirmModal = () => {
 	 	Modal.confirm({
@@ -59,7 +59,7 @@ export default class ModalDemo extends React.Component {
 			}
 		});
 	 };
-	 
+
 	 render() {
 		 return (
 			 <div>

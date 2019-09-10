@@ -6,7 +6,7 @@ desc: 按钮四种类型：主按钮、次按钮、虚线按钮、连接按钮
 
 ````javascript
 import React from 'react';
-import Button from 'ccms-components-react/button';
+import Button from 'cloud-react/button';
 
 const blank = '\u00A0';
 

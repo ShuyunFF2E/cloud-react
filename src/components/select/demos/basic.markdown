@@ -6,7 +6,7 @@ desc: 基础用法
 
 ````javascript
 import React from 'react';
-import Select from 'ccms-components-react/select';
+import Select from 'cloud-react/select';
 
 const Option = Select.Option;
 

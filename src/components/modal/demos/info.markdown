@@ -7,14 +7,14 @@ desc: 弹出一个信息提示框
 ```javascript
 import React from 'react';
 import Modal from '../index';
-import Button from 'ccms-components-react/button';
+import Button from 'cloud-react/button';
 const blank = '\u00A0';
 
 export default class ModalDemo extends React.Component {
 	 constructor(props) {
 		 super(props);
 	 }
-	 
+
 	 // 默认弹出框
 	 openInfoModal = () => {
 		Modal.info({
@@ -23,7 +23,7 @@ export default class ModalDemo extends React.Component {
 			onCancel: () => {}
 		});
 	 };
-	 
+
 	 openSuccessModal = () => {
 		Modal.success({
 			title: 'this is a success message!',
@@ -31,7 +31,7 @@ export default class ModalDemo extends React.Component {
 			onCancel: () => {}
 		});
 	 };
-	 
+
 	 openWarningModal = () => {
 		Modal.warning({
 			title: 'this is a warning message!',
@@ -39,7 +39,7 @@ export default class ModalDemo extends React.Component {
 			onCancel: () => {}
 		});
 	 };
-	 
+
 	 openErrorModal = () => {
 		Modal.error({
 			title: 'this is a error message!',
@@ -47,7 +47,7 @@ export default class ModalDemo extends React.Component {
 			onCancel: () => {}
 		});
 	 };
-	 
+
 	 render() {
 		 return (
 			 <div>

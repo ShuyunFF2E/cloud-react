@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
+const package = require('./package.json');
 
 // const WebpackBundleAnalyzer = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
@@ -24,7 +25,7 @@ module.exports = ({ mode } = { mode: 'development' }) => {
 					'@utils': resolve('./src/utils/'),
 					'@components': resolve('./src/components'),
 					'@docs': resolve('./docs'),
-					'ccms-components-react': resolve('./src/components')
+					[package.name]: resolve('./src/components'),
 				},
 				modules: [resolve(__dirname, './src'), 'node_modules'],
 				extensions: ['.js']

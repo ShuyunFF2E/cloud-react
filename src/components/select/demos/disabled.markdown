@@ -6,8 +6,8 @@ desc: 下拉禁用
 
 ````javascript
 import React, { useState } from 'react';
-import Select from 'ccms-components-react/select';
-import Button from 'ccms-components-react/button';
+import Select from 'cloud-react/select';
+import Button from 'cloud-react/button';
 
 const Option = Select.Option;
 
@@ -29,7 +29,7 @@ export default function SelectDemo() {
 
   return (
     <div>
-      <Select 
+      <Select
         placeholder="请选择..."
         defaultValue="apple"
         style={{ marginBottom: '10px' }}

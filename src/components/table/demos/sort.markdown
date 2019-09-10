@@ -6,7 +6,7 @@ desc: 排序使用方式介绍, 交互方式为显示移入th区域
 
 ````javascript
 import React, { Component } from 'react';
-import Table from 'ccms-components-react/table';
+import Table from 'cloud-react/table';
 
 // 唯一标识符，该值不允许重复
 const gridManagerName = 'sort-table';

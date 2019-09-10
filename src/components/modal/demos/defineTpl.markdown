@@ -7,7 +7,7 @@ desc: 设置title、body、footer、okText、cancelText实现自定义模版
 ```javascript
 import React from 'react';
 import Modal from '../index';
-import Button from 'ccms-components-react/button';
+import Button from 'cloud-react/button';
 const blank = '\u00A0';
 
 export default class ModalDemo extends React.Component {
@@ -20,8 +20,8 @@ export default class ModalDemo extends React.Component {
 		 	visibleFooter: false,
 		 };
 	 }
- 
- 
+
+
 	 // 打开自定义title弹出框
 	 openDefineTitleModal = () => {
 	 	this.setState({
@@ -29,7 +29,7 @@ export default class ModalDemo extends React.Component {
 	 		title: '自定义title'
 	 	});
 	 };
-	 
+
 	  // 打开自定义底部区域按钮文字弹出框
 	 openDefineBtnTextModal = () => {
 		 this.setState({
@@ -38,14 +38,14 @@ export default class ModalDemo extends React.Component {
 			cancelText: '不了'
 		 });
 	 };
-	 
+
 	 // 打开自定义body区域弹出框
 	 openDefineBodyModal = () => {
 	 	this.setState({
 			visibleBody: true
 	 	});
 	 };
-	 
+
 	 // 打开自定义底部区域弹出框
 	 openDefineFooterModal = () => {
 	 	 this.setState({
@@ -53,7 +53,7 @@ export default class ModalDemo extends React.Component {
 			footer: <Footer/>
 		 });
 	 };
-	 
+
 	 closeModal = () => {
 		this.setState({
 			visibleTitle: false,
@@ -62,7 +62,7 @@ export default class ModalDemo extends React.Component {
 			visibleFooter: false
 		});
 	 };
-	 
+
 	 render() {
 		 return (
 			 <div>
@@ -73,8 +73,8 @@ export default class ModalDemo extends React.Component {
 				 <Button type='normal' onClick={this.openDefineBtnTextModal}>自定义底部按钮文本</Button>
 				 {blank}
 				 <Button type='normal' onClick={this.openDefineFooterModal}>自定义底部区域</Button>
-				
-				 <Modal 
+
+				 <Modal
 				 	visible={this.state.visibleTitle}
 				 	title={this.state.title}
 				 	onOk={this.closeModal}
@@ -82,16 +82,16 @@ export default class ModalDemo extends React.Component {
 				 	onClose={this.closeModal}>
 				 	something you can write
 				 </Modal>
-				 
-				 <Modal 
+
+				 <Modal
 					visible={this.state.visibleBody}
 					onOk={this.closeModal}
 					onCancel={this.closeModal}
 					onClose={this.closeModal}>
 					<Body/>
 				 </Modal>
-				 
-				 <Modal 
+
+				 <Modal
 					visible={this.state.visibleFooter}
 					footer={this.state.footer}
 					onOk={this.closeModal}
@@ -99,8 +99,8 @@ export default class ModalDemo extends React.Component {
 					onClose={this.closeModal}>
 					我会自定义底部区域
 				 </Modal>
-                 				 
-				 <Modal 
+
+				 <Modal
 					visible={this.state.visibleFooterText}
 					okText={this.state.okText}
 					cancelText={this.state.cancelText}
@@ -113,7 +113,7 @@ export default class ModalDemo extends React.Component {
 		 );
 	 }
  }
- 
+
 class Body extends React.Component{
 	 render() {
 		 return (

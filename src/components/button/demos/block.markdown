@@ -6,7 +6,7 @@ desc: block 属性将使按钮适合其父宽度。
 
 ````javascript
 import React from 'react';
-import Button from 'ccms-components-react/button';
+import Button from 'cloud-react/button';
 
 const blank = '\u00A0';
 

@@ -6,7 +6,7 @@ desc: 默认配置
 
 ````javascript
 import React, { Component } from 'react';
-import Table from 'ccms-components-react/table';
+import Table from 'cloud-react/table';
 
 // 唯一标识符，该值不允许重复
 const gridManagerName = 'base-table';

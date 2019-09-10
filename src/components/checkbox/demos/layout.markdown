@@ -6,11 +6,11 @@ desc: Checkbox 布局
 
 ````javascript
 import React from 'react';
-import Checkbox from 'ccms-components-react/checkbox';
+import Checkbox from 'cloud-react/checkbox';
 
 
 export default function RadioDemo() {
-	
+
 	return (
 		<div>
 			<h3>纵向布局</h3>
@@ -28,7 +28,7 @@ export default function RadioDemo() {
 				<Checkbox value={4}>item 4</Checkbox>
 			</Checkbox.Group>
 		</div>
-                	
+
 	)
 }
 ````

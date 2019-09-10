@@ -6,7 +6,7 @@ desc: 三种尺寸：large、default、small
 
 ````javascript
 import React from 'react';
-import Input from 'ccms-components-react/input';
+import Input from 'cloud-react/input';
 
 const blank = '\u00A0';
 

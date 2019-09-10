@@ -1,12 +1,12 @@
 ---
 order: 2
-title: 各种大小 
+title: 各种大小
 desc: size,默认default，可设置为small、large
 ---
 
 ````javascript
 import React from 'react';
-import Loading from 'ccms-components-react/loading';
+import Loading from 'cloud-react/loading';
 
 export default class LoadingDemo extends React.Component {
 

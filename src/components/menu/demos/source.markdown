@@ -6,7 +6,7 @@ order: 2
 
 ````javascript
 import React, { Component } from 'react';
-import Menu from 'ccms-components-react/menu';
+import Menu from 'cloud-react/menu';
 import { HashRouter } from 'react-router-dom';
 
 const { MenuItem, SubMenu } = Menu;
@@ -49,10 +49,10 @@ export default class MenuBasicDemo extends Component {
    render() {
        return (
         <Menu
-            onSubMenuToggle={this.handleSubMenuToggle} 
-            onItemClick={this.handleMenuItemClick} 
+            onSubMenuToggle={this.handleSubMenuToggle}
+            onItemClick={this.handleMenuItemClick}
             source={menuSource}
-            openKeys={['/shanghai']} 
+            openKeys={['/shanghai']}
             selectedKeys={['/shanghai/pudong']}>
         </Menu>
        );

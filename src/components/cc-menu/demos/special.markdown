@@ -6,8 +6,8 @@ order: 6
 
 ````javascript
 import React, { Component } from 'react';
-import CcMenu from 'ccms-components-react/cc-menu';
-import Icon from 'ccms-components-react/icon';
+import CcMenu from 'cloud-react/cc-menu';
+import Icon from 'cloud-react/icon';
 import { HashRouter } from 'react-router-dom';
 
 const menuSource = [{

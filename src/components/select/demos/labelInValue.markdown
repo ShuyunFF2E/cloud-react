@@ -6,7 +6,7 @@ desc: 默认情况下onChange只能拿到value，添加labelInValue属性后onCh
 
 ````javascript
 import React from 'react';
-import Select from 'ccms-components-react/select';
+import Select from 'cloud-react/select';
 
 const Option = Select.Option;
 

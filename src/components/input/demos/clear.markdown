@@ -6,8 +6,8 @@ desc: 输入内容后可点击输入框后面的按钮一键清除内容
 
 ````javascript
 import React from 'react';
-import Input from 'ccms-components-react/input';
-import Icon from 'ccms-components-react/icon';
+import Input from 'cloud-react/input';
+import Icon from 'cloud-react/icon';
 
 export default function InputDemo() {
 	return (

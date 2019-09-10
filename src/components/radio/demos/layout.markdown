@@ -6,13 +6,13 @@ desc: 布局（horizontal|vertical）
 
 ````javascript
 import React from 'react';
-import Radio from 'ccms-components-react/radio';
+import Radio from 'cloud-react/radio';
 
 
 export default function RadioDemo() {
-	
+
 	const style = { marginBottom: '10px' };
-	
+
 	return (
 		<>
 				<h2>horizontal</h2>

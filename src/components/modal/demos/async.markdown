@@ -7,7 +7,7 @@ desc: 点击确定按钮后异步关闭对话框，如提交请求场景
 ```javascript
 import React from 'react';
 import Modal from '../index';
-import Button from 'ccms-components-react/button';
+import Button from 'cloud-react/button';
 export default class ModalDemo extends React.Component {
 	 constructor(props) {
 		 super(props);
@@ -16,20 +16,20 @@ export default class ModalDemo extends React.Component {
 		 	showConfirmLoading: false
 		 };
 	 }
- 
+
 	 // 打开弹出框
 	 openBasicModal = () => {
 	 	this.setState({
 	 		visible: true
 	 	});
 	 };
-	 
+
 	 // 确认按钮回调函数
 	 handleOk = () => {
 		this.setState({
 			showConfirmLoading: true
 		});
-		
+
 		// 两秒之后关闭
 		setTimeout(() => {
 			this.setState({
@@ -38,20 +38,20 @@ export default class ModalDemo extends React.Component {
 			})
 		}, 2000)
 	 };
-	 
+
 	 // 取消回调函数
 	 handleCancel = () => {
 		this.setState({
 			visible: false
 		});
 	 };
-	 
-	 
+
+
 	 render() {
 		 return (
 			 <div>
 				 <Button type='primary' onClick={this.openBasicModal}>异步关闭弹出框</Button>
-				 <Modal 
+				 <Modal
 				 	title='basic title'
 				 	visible={this.state.visible}
 				 	clickMaskCanClose={this.state.clickMaskCanClose}

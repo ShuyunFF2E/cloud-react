@@ -6,13 +6,13 @@ desc: 三种大小的数字输入框，当 size 分别为 large 和 small 时，
 
 ````javascript
 import React from 'react';
-import Button from 'ccms-components-react/button';
-import InputNumber from 'ccms-components-react/input-number';
+import Button from 'cloud-react/button';
+import InputNumber from 'cloud-react/input-number';
 
 const blank = '\u00A0';
 
 export default class InputNumberDemo extends React.Component {
-	
+
 	render() {
 		return (
 			<>

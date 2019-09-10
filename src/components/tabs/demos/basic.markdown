@@ -5,7 +5,7 @@ desc: Tabs组件的基础用法
 
 ````javascript
 import React, { Component } from 'react';
-import Tabs from 'ccms-components-react/tabs';
+import Tabs from 'cloud-react/tabs';
 
 export default class BasicTabsDemo extends Component {
 
