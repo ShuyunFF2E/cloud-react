@@ -17,7 +17,8 @@ export default class Tabs extends PureComponent {
         className: PropTypes.string,
         onChange: PropTypes.func,
         onClose: PropTypes.func,
-        mode: PropTypes.oneOf(['reset', 'remain'])
+        mode: PropTypes.oneOf(['reset', 'remain']),
+        style: PropTypes.object
     }
 
     static defaultProps = {
@@ -27,6 +28,7 @@ export default class Tabs extends PureComponent {
         type: 'card',
         className: '',
         mode: 'reset',
+        style: {},
         onChange: () => {},
         onClose: () => {}
     }
@@ -108,7 +110,8 @@ export default class Tabs extends PureComponent {
 
             // 处理panel
             if (mode === 'remain') {
-                const style = { ...child.props.style, display: isActived ? 'block' : 'none' };
+                // const style = { ...child.props.style, display: isActived ? 'block' : 'none' };
+                const style = isActived ? child.props.style : { ...child.props.style, display: 'none' };
                 const target = React.cloneElement(child, { style });
                 panel.push(target);
             } else if (isActived) { 
@@ -118,7 +121,7 @@ export default class Tabs extends PureComponent {
 
         const finalClassName = cls('tabs', className);
         return (
-            <div className={finalClassName}>
+            <div className={finalClassName} style={this.props.style}>
                 <section className="tabs-header">{headers}</section>
                 {panel}
             </div>
