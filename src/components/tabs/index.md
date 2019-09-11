@@ -18,6 +18,8 @@ subtitle: 选项卡
 | mode | 当前tabpanel的渲染模式 | `reset`、`remain` | `reset`
 | onChange | 切换面板时触发事件 | Function |  (key)=>{}  |
 | onClose | 关闭面板时触发事件 | Function |  (key)=>{}  |
+| className | 设置类样式 | string | '' |
+| style | 设置行内样式 | string | {} |
 | activeClassName | 可自定义选项卡被选中时的样式 | string |  'active'  |
 
 ### Tabs.Panel
