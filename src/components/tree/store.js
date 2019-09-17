@@ -194,7 +194,7 @@ class Store {
 	 */
 	static updateNodeById(data, id, updatePart) {
 		const node = this.findNodeById(data, id);
-		return Object.assign(node, updatePart);
+		return node && Object.assign(node, updatePart);
 	}
 
 	/**
