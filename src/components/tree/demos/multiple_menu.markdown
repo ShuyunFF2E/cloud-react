@@ -1,12 +1,12 @@
 ---
-order: 1
-title: 基础用法1
-desc:  支持右键菜单、支持搜索功能、支持多选节点
+order: 3
+title: 多选、支持右键菜单
+desc:  支持右键菜单、支持多选节点
 ---
 
 ```javascript
 import React from 'react';
-import Tree from 'ccms-components-react/tree';
+import Tree from 'cloud-react/tree';
 
 export default class TreeDemo extends React.Component {
 
@@ -15,7 +15,6 @@ export default class TreeDemo extends React.Component {
 
 		this.state = {
 			supportMenu: true,
-			supportSearch: true,
 			supportCheckbox: true
 		}
 	}
@@ -117,7 +116,6 @@ export default class TreeDemo extends React.Component {
 		return (
 			<Tree 
 				treeData={treeData}
-				supportSearch={this.state.supportSearch}
 				supportMenu={this.state.supportMenu}
 				supportCheckbox={this.state.supportCheckbox}
 				onAddNode={this.addNode}

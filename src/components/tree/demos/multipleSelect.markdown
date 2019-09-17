@@ -1,12 +1,12 @@
 ---
-order: 3
-title: 基础用法3
-desc: 支持搜索节点、右键菜单、单选节点、最大层级为4、节点名称最大长度20、可搜索关键字长度最大为20个字符、新增节点加到当前节点的子节点末尾
+order: 2
+title: 多选、无右键菜单、无搜索
+desc:  无右键菜单、无搜索功能、支持多选节点
 ---
 
 ```javascript
 import React from 'react';
-import Tree from 'ccms-components-react/tree';
+import Tree from 'cloud-react/tree';
 
 export default class TreeDemo extends React.Component {
 
@@ -14,44 +14,17 @@ export default class TreeDemo extends React.Component {
 		super(props);
 
 		this.state = {
-			searchPlaceholder: '这是最基础的树组件',
-			searchMaxLength: 20,
-			nodeNameMaxLength: 20,
-			maxLevel: 4,
-			supportMenu: true,
-			supportSearch: true,
-			isAddFront: false
+			supportMenu: false,
+			supportSearch: false,
+			supportCheckbox: true
 		}
 	}
 	
-	addNode = (pId, name) => {
-		console.info('向后端发送一条请求，新增一个节点，参数为' + 'pId:' + pId + ',' + 'name:' + name);
-		return new Promise(((resolve, reject) => {
-			resolve({data: Math.floor(Math.random() * 10000)})
-			// reject('新增失败');
-		}));
-		
-	};
-	
-	renameNode = (id, name) => {
-		console.info('向后端发送一条请求，重命名一个节点，参数为' + 'id:' + id + ',' + 'name:' + name);
-		return new Promise(((resolve, reject) => {
-			resolve({data: '重命名成功'})
-			// reject('重命名失败');
-		}));
-    };
-	
-	removeNode = (id) => {
-		console.info('向后端发送一条请求，删除一个节点，参数为' + 'id:' + id);
-		return new Promise(((resolve, reject) => {
-			resolve({data: '删除成功'})
-			// reject('删除失败');
-		}));
-	};
-	
-	selectedNode = (node) => {
+	selectedNode = (node, selectedList) => {
 		console.info('已选择一个节点，节点信息是：');
 		console.log(node);
+		console.info('目前已选择节点列表，列表信息是：');
+		console.log(selectedList);
 	};
 	
 	render() {
@@ -70,19 +43,19 @@ export default class TreeDemo extends React.Component {
 					children: [
 						{
 							id: 111,
-							name: '删除一个',
+							name: '禁止删除节点1',
 							pId: 11,
 							children: []
 						},
 						{
 							id: 112,
-							name: '删除两个',
+							name: '禁止删除节点2',
 							pId: 11,
 							children: []
 						},
 						{
 							id: 113,
-							name: '删除三个',
+							name: '禁止删除节点3',
 							pId: 11,
 							children: [{
 								id: 1131,
@@ -219,23 +192,12 @@ export default class TreeDemo extends React.Component {
 			]
 		}];
 		return (
-			<div className="tree">
-				<Tree
-					treeData={treeData}
-					searchPlaceholder={this.state.searchPlaceholder}
-					searchMaxLength={this.state.searchMaxLength}
-					nodeNameMaxLength={this.state.nodeNameMaxLength}
-					maxLevel={this.state.maxLevel}				
-					supportMenu={this.state.supportMenu}
-					supportSearch={this.state.supportSearch}
-					isAddFront={this.state.isAddFront}
-					onAddNode={this.addNode}
-					onRenameNode={this.renameNode}
-					onRemoveNode={this.removeNode}
-					onSelectedNode={this.selectedNode}>
-				</Tree>
-			</div>
+			<Tree 
+				treeData={treeData}
+				supportCheckbox={this.state.supportCheckbox}
+				onSelectedNode={this.selectedNode}>
+			</Tree>
 		);
-	}
+	}	
 }
 ```

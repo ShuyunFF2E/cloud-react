@@ -1,12 +1,12 @@
 ---
-order: 4
-title: 基础用法4
-desc: 右键菜单、支持搜索功能、支持单选节点
+order: 1
+title: 基础用法
+desc: 支持搜索节点、右键菜单、最大层级为4、节点名称最大长度20、可搜索关键字长度最大为20个字符、新增节点加到当前节点的子节点末尾
 ---
 
 ```javascript
 import React from 'react';
-import Tree from 'ccms-components-react/tree';
+import Tree from 'cloud-react/tree';
 
 export default class TreeDemo extends React.Component {
 
@@ -14,9 +14,13 @@ export default class TreeDemo extends React.Component {
 		super(props);
 
 		this.state = {
+			searchPlaceholder: '这是最基础的树组件',
+			searchMaxLength: 20,
+			nodeNameMaxLength: 20,
+			maxLevel: 4,
 			supportMenu: true,
 			supportSearch: true,
-			supportRadio: true
+			isAddFront: false
 		}
 	}
 	
@@ -44,12 +48,11 @@ export default class TreeDemo extends React.Component {
 			// reject('删除失败');
 		}));
 	};
-
+	
 	selectedNode = (node) => {
 		console.info('已选择一个节点，节点信息是：');
 		console.log(node);
 	};
-
 	
 	render() {
 		const treeData = [{
@@ -67,19 +70,19 @@ export default class TreeDemo extends React.Component {
 					children: [
 						{
 							id: 111,
-							name: '禁止删除节点1',
+							name: '删除一个',
 							pId: 11,
 							children: []
 						},
 						{
 							id: 112,
-							name: '禁止删除节点2',
+							name: '删除两个',
 							pId: 11,
 							children: []
 						},
 						{
 							id: 113,
-							name: '禁止删除节点3',
+							name: '删除三个',
 							pId: 11,
 							children: [{
 								id: 1131,
@@ -159,8 +162,7 @@ export default class TreeDemo extends React.Component {
 							]
 						}
 					]
-				},
-                {
+				},{
 					id: 13,
 					name: '禁止重命名节点',
 					pId: 1,
@@ -217,16 +219,22 @@ export default class TreeDemo extends React.Component {
 			]
 		}];
 		return (
-			<Tree 
-				treeData={treeData}
-				supportSearch={this.state.supportSearch}
-				supportMenu={this.state.supportMenu}
-				supportRadio={this.state.supportRadio}
-				onAddNode={this.addNode}
-				onRenameNode={this.renameNode}
-				onRemoveNode={this.removeNode}
-				onSelectedNode={this.selectedNode}>
-			</Tree>
+			<div className="tree">
+				<Tree
+					treeData={treeData}
+					searchPlaceholder={this.state.searchPlaceholder}
+					searchMaxLength={this.state.searchMaxLength}
+					nodeNameMaxLength={this.state.nodeNameMaxLength}
+					maxLevel={this.state.maxLevel}				
+					supportMenu={this.state.supportMenu}
+					supportSearch={this.state.supportSearch}
+					isAddFront={this.state.isAddFront}
+					onAddNode={this.addNode}
+					onRenameNode={this.renameNode}
+					onRemoveNode={this.removeNode}
+					onSelectedNode={this.selectedNode}>
+				</Tree>
+			</div>
 		);
 	}
 }

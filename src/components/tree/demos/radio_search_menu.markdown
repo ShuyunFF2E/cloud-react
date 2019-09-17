@@ -1,13 +1,12 @@
 ---
-order: 2
-title: 基础用法2
-desc:  无右键菜单、无搜索功能、支持多选节点
+order: 4
+title: 单选、可搜索、支持右键菜单
+desc: 支持右键菜单、支持搜索功能、支持单选节点
 ---
 
 ```javascript
 import React from 'react';
-import Tree from 'ccms-components-react/tree';
-import Icon from 'ccms-components-react/icon';
+import Tree from 'cloud-react/tree';
 
 export default class TreeDemo extends React.Component {
 
@@ -15,18 +14,42 @@ export default class TreeDemo extends React.Component {
 		super(props);
 
 		this.state = {
-			supportMenu: false,
-			supportSearch: false,
-			supportCheckbox: true
+			supportMenu: true,
+			supportSearch: true,
+			supportRadio: true
 		}
 	}
 	
-	selectedNode = (node, selectedList) => {
+	addNode = (pId, name) => {
+		console.info('向后端发送一条请求，新增一个节点，参数为' + 'pId:' + pId + ',' + 'name:' + name);
+		return new Promise(((resolve, reject) => {
+			resolve({data: Math.floor(Math.random() * 10000)})
+			// reject('新增失败');
+		}));
+		
+	};
+	
+	renameNode = (id, name) => {
+		console.info('向后端发送一条请求，重命名一个节点，参数为' + 'id:' + id + ',' + 'name:' + name);
+		return new Promise(((resolve, reject) => {
+			resolve({data: '重命名成功'})
+			// reject('重命名失败');
+		}));
+    };
+	
+	removeNode = (id) => {
+		console.info('向后端发送一条请求，删除一个节点，参数为' + 'id:' + id);
+		return new Promise(((resolve, reject) => {
+			resolve({data: '删除成功'})
+			// reject('删除失败');
+		}));
+	};
+
+	selectedNode = (node) => {
 		console.info('已选择一个节点，节点信息是：');
 		console.log(node);
-		console.info('目前已选择节点列表，列表信息是：');
-		console.log(selectedList);
 	};
+
 	
 	render() {
 		const treeData = [{
@@ -136,7 +159,8 @@ export default class TreeDemo extends React.Component {
 							]
 						}
 					]
-				},{
+				},
+                {
 					id: 13,
 					name: '禁止重命名节点',
 					pId: 1,
@@ -195,10 +219,15 @@ export default class TreeDemo extends React.Component {
 		return (
 			<Tree 
 				treeData={treeData}
-				supportCheckbox={this.state.supportCheckbox}
+				supportSearch={this.state.supportSearch}
+				supportMenu={this.state.supportMenu}
+				supportRadio={this.state.supportRadio}
+				onAddNode={this.addNode}
+				onRenameNode={this.renameNode}
+				onRemoveNode={this.removeNode}
 				onSelectedNode={this.selectedNode}>
 			</Tree>
 		);
-	}	
+	}
 }
 ```
