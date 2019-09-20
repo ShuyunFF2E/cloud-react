@@ -1,0 +1,140 @@
+@selector: cloud-upload;
+
+@box-sizing: border-box;
+@size-big: 14px;
+@bg-color: #fafafa;
+@border-color: #d9d9d9;
+@border-hover-color: #1890ff;
+
+@color-666: #666;
+
+.@{selector} {
+	box-sizing: @box-sizing;
+    color: rgba(0,0,0,0.65);
+    font-size: @size-big;
+    line-height: 1.5;
+    list-style: none;
+	outline: 0;
+
+	input[type='file'] {
+		cursor: pointer;
+	}
+
+	&-picture-wrapper {
+		display: flex;
+	}
+
+	&&-select {
+		display: inline-block;
+	}
+
+	&&-disabled {
+		cursor: not-allowed;
+	}
+
+	&&-select-picture {
+		display: table;
+		width: 104px;
+		height: 104px;
+		margin-right: 8px;
+		margin-bottom: 8px;
+		text-align: center;
+		vertical-align: top;
+		background-color: @bg-color;
+		border: 1px dashed @border-color;
+		border-radius: 4px;
+		cursor: pointer;
+        transition: @border-color .3s ease;
+        
+        &:hover {
+            border-color: @border-hover-color;    
+        }
+
+		> .@{selector} {
+			display: table-cell;
+			width: 100%;
+			height: 100%;
+			padding: 8px;
+			text-align: center;
+			vertical-align: middle;
+		}
+
+    }
+    
+    &-text {
+        margin-top: 8px;
+        color: @color-666;
+	}
+	
+	&-list {
+		box-sizing: @box-sizing;
+		margin: 0;
+		padding: 0;
+		color: rgba(0, 0, 0, 0.65);
+		font-size: @size-big;
+		line-height: 1.5;
+		zoom: 1;
+		display: flex;
+		flex-direction: column;
+
+		&&-picture {
+			flex-direction: row;
+		}
+
+		&-text {
+			height: 22px;
+			margin-top: 8px;
+			padding: 0 5px;
+			font-size: @size-big;
+			display: flex;
+			justify-content: space-between;
+
+			&:hover {
+				background: #e6f7ff;
+				> i {
+					display: block;
+				}
+			}
+
+			> i {
+				display: none;
+				cursor: pointer;
+			}
+		}
+
+		&-pic {
+			box-sizing: @box-sizing;
+			position: relative;
+			width: 104px;
+			height: 104px;
+			padding: 8px;
+			border: 1px solid @border-color;
+			border-radius: 4px;
+			margin: 0 8px 8px 0;
+
+			&:hover {
+				opacity: 0.6;
+
+				i {
+					opacity: 1;
+				}
+			}
+
+			>img {
+				width: 86px;
+				height: 86px;
+			}
+
+			> i {
+				position: absolute;
+				top: 5px;
+				right: 8px;
+				z-index: 10;
+				opacity: 0;
+				transition: all .3s;
+				color: rgba(255,255,255, 0.9);
+				cursor: pointer;
+			}
+		}
+	}
+}
