@@ -1,0 +1,96 @@
+@selector: tag;
+
+@color: #0083ba;
+@success-color:#75CF48;
+@warning-color:#FCBB27;
+@defaut-color:#999999;
+@danger-color:#FF524F;
+
+
+.@{selector} {
+    height: 24px;
+		font-size: 12px;
+		box-sizing: border-box;
+		background-color: #FDFDFD;
+		border:1px solid rgba(227,227,227,1);
+		border-radius: 2px;
+		color: rgba(119,119,119,1);
+		padding: 3px 13px;
+		margin-right: 8px;
+		cursor: pointer;
+		display: inline-block;
+		&.hover{
+			background-color: #E7F3FF;
+			border: 1px solid #EFF7FF;
+			color: rgba(119,119,119,0.6);
+		}
+		&.selected{
+			color: #0183BA;
+			background-color: #E7F3FF;
+			border: 1px solid #EFF7FF;
+		}
+		a{
+			text-decoration: none;
+			background-color: transparent;
+			outline: none;
+			cursor: pointer;
+			color:rgba(119,119,119,1);
+			-webkit-transition: color .3s ease;
+    	transition: color .3s ease;
+		}
+		a:hover{
+			color: rgba(119,119,119,0.6);
+		}
+}
+.tag-checkable{
+	color: #777777;
+	font-size: 12px;
+	background-color: #FDFDFD;
+	border: 1px solid #E3E3E3;
+	&.tag-checked{
+		color: #0183BA;
+		background-color: #EFF7FF;
+		border: 1px solid #E7F3FF;
+	}
+	&:hover{
+		background-color: #EFF7FF;
+		border: 1px solid #E7F3FF;
+		color: #777777;
+	}
+}
+.tag-disabled{
+	color: #FFFFFF!important;
+	background-color: #DDDDDD!important;
+}
+
+.tag-hidden{
+	display: none;
+}
+.tag-closable{
+	color: #0183BA;
+	background: #EFF7FF;
+	border:1px solid #CCDCEB;
+	i{
+		margin-left: 2px;
+		font-size: 11px;
+	}
+}
+.tag-closable:hover{
+	color: #00AAF1
+}
+.tag-success{
+	color: #FFFFFF;
+	background-color: @success-color;
+}
+.tag-warning{
+	color: #FFFFFF;
+	background-color :@warning-color
+}
+.tag-defaut{
+	color: #FFFFFF;
+	background-color: @defaut-color
+}
+.tag-danger{
+	color: #FFFFFF;
+	background-color: @danger-color
+}
