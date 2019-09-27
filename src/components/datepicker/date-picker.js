@@ -25,7 +25,7 @@ function DatePicker(props) {
 	let fmt = getFormat(showTimePicker, mode);
 
 	const [visible, setVisible] = useState(open);
-	const [currentValueDate, setCurrentValueDate] = useState(isVaild(value)? value: defaultValue);
+	const [currentValueDate, setCurrentValueDate] = useState(isVaild(value) ? value : defaultValue);
 	const [currentValue, setCurrentValue] = useState(() => {
 		if (!currentValueDate) {
 			return '';
@@ -44,7 +44,7 @@ function DatePicker(props) {
 	function onPopChange(obj) {
 		if (obj) {
 			const dpArr = [`${obj.year}/${formatZero(obj.month)}/${formatZero(obj.day)}`];
-			const str = showTimePicker ? dpArr.push(` ${formatZero(obj.hour)}:${formatZero(obj.minute)}:${formatZero(obj.second)}`) && dpArr.toString(): dpArr.toString();
+			const str = showTimePicker ? dpArr.push(` ${formatZero(obj.hour)}:${formatZero(obj.minute)}:${formatZero(obj.second)}`) && dpArr.toString() : dpArr.toString();
 			const outputDate = new Date(str);
 			const output = util.time.convert(util.time.displayNow(outputDate), fmt);
 			setCurrentValue(output);

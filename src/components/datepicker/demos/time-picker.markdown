@@ -6,7 +6,7 @@ desc: 基本用法，时间选择器。
 
 ````javascript
 import React from 'react';
-import DatePicker from 'ccms-components-react/datepicker';
+import DatePicker from 'cloud-react/datepicker';
 
 
 export default class DatePickerDemo extends React.Component {

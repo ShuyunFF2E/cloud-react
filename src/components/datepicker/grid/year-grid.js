@@ -51,9 +51,9 @@ function YearGrid(props) {
             <tbody>
                 {
                     Array.from({ length: len }).map((o,index) =>{
-                        const index1 = minRegion + index*3;
-                        const index2 = minRegion + index*3 + 1;
-                        const index3 = minRegion + index*3 + 2;
+                        const index1 = minRegion + index * 3;
+                        const index2 = minRegion + index * 3 + 1;
+                        const index3 = minRegion + index * 3 + 2;
 						return (<tr key={index.toString()}>
 								<td className={getClassName(tempYear, index1, min, max)}><span onClick={() => onUpdate(index1)}>{index1}年</span></td>
 								<td className={getClassName(tempYear, index2, min, max)}><span onClick={() => onUpdate(index2)}>{index2}年</span></td>

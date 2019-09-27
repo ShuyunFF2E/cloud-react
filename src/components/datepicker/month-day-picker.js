@@ -6,7 +6,7 @@ import enumObj from './util/enum';
 
 function MonthDayPicker(props) {
 	const { value, defaultValue, open, disabled, className, placeholder, showToday, id, position, onChange, ...otherProps } = props;
-	const [currentValue, setCurrentValue] = useState(isVaild(value)? value: defaultValue);
+	const [currentValue, setCurrentValue] = useState(isVaild(value) ? value : defaultValue);
 	const [visible, setVisible] = useState(open);
 	const inpRef = React.createRef();
 

@@ -22,7 +22,7 @@ function RangePicker(props) {
 		}
 		switch (_value.length) {
 			case 0:
-				return isStr ? ['', ''] :[null, null];
+				return isStr ? ['', ''] : [null, null];
 			case 1:
 				return isStr ? [util.time.convert(util.time.displayNow(_value[0]), fmt), ''] : [_value[0], null];
 			case 2:

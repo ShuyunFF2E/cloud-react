@@ -107,10 +107,10 @@ function convert(date, fmt) {
 		}
 	});
 	return _fmt;
-};
+}
 
 function range(from, to) {
-	let _to =null;
+	let _to = null;
 	let _from = null;
 	if (to === undefined) {
 		_to = from;

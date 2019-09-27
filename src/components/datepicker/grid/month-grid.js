@@ -109,9 +109,9 @@ function MonthGrid(props) {
             <tbody>
                 {
                     Array.from({ length: 4 }).map((o,index) =>{
-                        const index1 = index*3;
-                        const index2 = index*3 + 1;
-                        const index3 = index*3 + 2;
+                        const index1 = index * 3;
+                        const index2 = index * 3 + 1;
+                        const index3 = index * 3 + 2;
 						return (<tr key={index.toString()}>
 								<td className={getClassName(tempMonth, index1 + 1, month)}><span onClick={() => onUpdate(index1)}>{monthArr[index1]}月</span></td>
 								<td className={getClassName(tempMonth, index2 + 1, month)}><span onClick={() => onUpdate(index2)}>{monthArr[index2]}月</span></td>

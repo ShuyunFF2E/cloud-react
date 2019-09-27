@@ -6,7 +6,7 @@ desc: 根据当前组件所在位置自动调整。
 
 ````javascript
 import React from 'react';
-import DatePicker from 'ccms-components-react/datepicker';
+import DatePicker from 'cloud-react/datepicker';
 
 
 export default class DatePickerDemo extends React.Component {

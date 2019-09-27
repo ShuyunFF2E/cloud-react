@@ -42,15 +42,15 @@ function InnerTimePicker(props) {
 		<label>{label}</label>
 		<input value={tempHour} maxLength="2" placeholder="小时" onChange={e => onInpChange(enumObj.hour, e)} />
 		{
-			mode === enumObj.DATE_HOUR ? null:
+			mode === enumObj.DATE_HOUR ? null :
 				<section>
-					<label className="colon">:</label><input value={tempMinute} maxLength="2" placeholder="分钟" onChange={e => onInpChange(enumObj.minute,e)} />
+					<label className="colon">:</label><input value={tempMinute} maxLength="2" placeholder="分钟" onChange={e => onInpChange(enumObj.minute, e)} />
 				</section>
 		}
 		{
-			mode === enumObj.DATE_HOUR_MINUTE || mode === enumObj.DATE_HOUR ? null:
+			mode === enumObj.DATE_HOUR_MINUTE || mode === enumObj.DATE_HOUR ? null :
 				<section>
-					<label className="colon">:</label><input value={tempSecond} maxLength="2" placeholder="秒" onChange={e => onInpChange(enumObj.second,e)} />
+					<label className="colon">:</label><input value={tempSecond} maxLength="2" placeholder="秒" onChange={e => onInpChange(enumObj.second, e)} />
 				</section>
 		}
 	</div>);

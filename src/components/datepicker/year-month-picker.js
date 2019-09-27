@@ -7,7 +7,7 @@ import enumObj from './util/enum';
 function YearMonthPicker(props) {
 	const { value, defaultValue, open, disabled, className, min, max, id, placeholder, showThisMonth, position, onChange, ...otherProps } = props;
 	const inpRef = React.createRef();
-	const [currentValue, setCurrentValue] = useState(isVaild(value)? value: defaultValue);
+	const [currentValue, setCurrentValue] = useState(isVaild(value) ? value : defaultValue);
 	const [visible, setVisible] = useState(open);
 
 	function onPopChange(output) {
