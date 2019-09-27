@@ -18,7 +18,7 @@ function MonthDayHeader(props) {
 			<span className="arrow-left" onClick={() => onArrowChange(enumObj.left)}>
 				<Icon type="left" style={{ fontSize: '16px', verticalAlign: 'middle' }} />
 			</span>
-			<label>{monthArr[month-1] }月</label>
+			<label>{monthArr[month - 1] }月</label>
 			<span className="arrow-right" onClick={() => onArrowChange(enumObj.right)}>
 				<Icon type="right" style={{ fontSize: '16px', verticalAlign: 'middle' }} />
 			</span></section>);

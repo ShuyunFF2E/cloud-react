@@ -6,7 +6,7 @@ desc: 选择框的不可用状态。
 
 ````javascript
 import React from 'react';
-import DatePicker from 'ccms-components-react/datepicker';
+import DatePicker from 'cloud-react/datepicker';
 
 
 export default class DatePickerDemo extends React.Component {

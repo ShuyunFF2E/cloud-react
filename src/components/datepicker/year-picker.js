@@ -8,7 +8,7 @@ function YearPicker(props) {
 	const { value, defaultValue, open, disabled, min, max, id, placeholder, position, className, showThisYear, onChange, ...otherProps } = props;
 	const inpRef = React.createRef();
 
-	const [currentValue, setCurrentValue] = useState(isVaild(value)? value: defaultValue);
+	const [currentValue, setCurrentValue] = useState(isVaild(value) ? value : defaultValue);
 	const [visible, setVisible] = useState(open);
 
 	function onPopChange(output) {

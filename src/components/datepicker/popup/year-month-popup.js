@@ -21,8 +21,8 @@ function Popup(props) {
         if (checkValue) {
             return parseInt(checkValue.split('/')[0], 10);
         }
-		const maxYear = parseInt(max ? max.split('/')[0]: defaultMaxYear, 10);
-		const minYear = parseInt(min ? min.split('/')[0]: defaultMinYear, 10);
+		const maxYear = parseInt(max ? max.split('/')[0] : defaultMaxYear, 10);
+		const minYear = parseInt(min ? min.split('/')[0] : defaultMinYear, 10);
 		if (currentYear > maxYear) {
 			return maxYear;
 		}
@@ -44,8 +44,8 @@ function Popup(props) {
     // const [tempMonth, setTempMonth] = useState(getInitTempMonth());
 
     function getInitRegion() {
-        const maxYear = parseInt(max ? max.split('/')[0]: defaultMaxYear, 10);
-        const minYear = parseInt(min ? min.split('/')[0]: defaultMinYear, 10);
+        const maxYear = parseInt(max ? max.split('/')[0] : defaultMaxYear, 10);
+        const minYear = parseInt(min ? min.split('/')[0] : defaultMinYear, 10);
         if (currentYear + 7 <= maxYear || currentYear - 7 >= minYear) {
             return [currentYear - 7, currentYear + 7];
         } if (currentYear + 7 > maxYear) {
