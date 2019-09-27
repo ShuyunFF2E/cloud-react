@@ -12,8 +12,7 @@ import Upload from 'cloud-react/upload';
 
 export default class UploadDemo extends React.Component {
 
-    handleError = info => {
-        console.log(info.file.error.status);
+    handleError = ({ error, file, fileList }) => {
         // error对象包含：status-请求错误状态码，method-请求方式post，url-请求的地址 
         Message.error(info.file.name + '文件上传失败！');
     }

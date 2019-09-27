@@ -20,6 +20,8 @@ title: Upload
 | disabled | 禁用上传 | boolean | false |
 | fileList | 已上传的文件列表 |  Array<File> | [] |
 | action | 文件上传的地址 | string | | 
+| headers | 发送http请求的头信息,比如content-type、cookie、accept-xxx等 | object | {} | 
+| withCredentials | 跨域请求是否允许发送cookie认证信息 | boolean | false | 
 | multiple | 是否上传多个文件 | boolean | false |
 | onProgress | 上传过程中 | func | |
 | onSuccess | 上传成功后 | func | | 
@@ -41,11 +43,9 @@ title: Upload
 ```js
 {
     // 当前正在上传中的文件信息
-    file: {
-        // 当前文件已经上传的进度
-        percent: 21.34,
-        ...
-    }
+    file: {},
+    // 当前文件已经上传的进度
+    percent: 21.34,
 }
 ```
 
@@ -54,13 +54,11 @@ title: Upload
 ```js
 {
     // 当前上传完成的文件信息
-    file: {
-        // 调用api成功后端返回的值
-        response: {...},
-        ...
-    },
+    file: {},
     // 已上传的文件列表，用户需要手动去更新
-    fileList: []
+    fileList: [],
+    // 调用api成功后端返回的值
+    response: {...},
 }
 ```
 
@@ -69,22 +67,20 @@ title: Upload
 ```js
 {
     // 当前上传失败的文件信息
-    file: {
-        // 请求失败的错误信息
-        error: {
-            // 请求的错误信息
-            message: '上传失败',
-            // 请求错误状态码
-            status: 404,
-            // 请求方法
-            method: 'post',
-            // 请求的api地址
-            url: 'upload'
-        },
-        ...
-    },
+    file: {},
     // 已上传的文件列表
-    fileList: []
+    fileList: [],
+    // 请求失败的错误信息
+    error: {
+        // 请求的错误信息
+        message: '上传失败',
+        // 请求错误状态码
+        status: 404,
+        // 请求方法
+        method: 'post',
+        // 请求的api地址
+        url: 'upload'
+    }
 }
 ```
 

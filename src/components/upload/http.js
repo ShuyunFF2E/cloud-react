@@ -30,7 +30,7 @@ export default function http(option) {
 
     const xhr = new XMLHttpRequest();
 
-    const { onProgress, filename, file, action, withCredentials, headers = {} } = option;
+    const { onProgress, file, action, withCredentials, headers = {} } = option;
 
     // 上传进度显示
     if (onProgress && xhr.upload) {
@@ -48,11 +48,11 @@ export default function http(option) {
     }
 
     const formData = new FormData();
-    formData.append(filename, file);
+    formData.append(file.name, file);
 
     // 为 xhr 添加事件监听
-    xhr.onerror = function error(event) {
-        option.onError(event);
+    xhr.onerror = function error(e) {
+        option.onError(e);
     };
 
     xhr.onload = function onload() {

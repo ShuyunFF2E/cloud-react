@@ -10,16 +10,12 @@ const Text = props => {
 
 	const { list, onRemove } = props;
 
-	const handleRemove = id => {
-		onRemove(id);
-	}
-
 	return (
 		list.map(item => {
 			return (
 				<div key={item.id} className={`${prefix}-text`}>
 					<span>{item.name}</span>
-					<Icon type="close" style={ { fontSize: '14px' }} onClick={ () => { handleRemove(item) }}/>
+					<Icon type="close" style={ { fontSize: '14px' }} onClick={ () => { onRemove(item) }}/>
 				</div>
 			)
 		})
@@ -30,16 +26,12 @@ const Picture = props => {
 
 	const { list, onRemove } = props;
 
-	const handleRemove = id => {
-		onRemove(id);
-	}
-
 	return (
 		list.map(item => {
 			return (
 				<div key={item.id} className={`${prefix}-pic`}>
 					<img src={item.url} alt={item.name} />
-					<Icon type="delete" style={ { fontSize: '14px' }} onClick={ () => { handleRemove(item) }}/>
+					<Icon type="delete" style={ { fontSize: '14px' }} onClick={ () => { onRemove(item) }}/>
 				</div>
 			)
 		})
@@ -77,7 +69,7 @@ UploadList.propTypes = {
 
 UploadList.defaultProps = {
 	fileList: [],
-	type: '',
+	type: TYPE.DEFAULT,
 	onRemove: () => {}
 };
 

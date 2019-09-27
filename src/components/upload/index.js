@@ -34,6 +34,8 @@ class Upload extends Component {
 
     requests = {};
 
+    defaultFileList = [];
+
     constructor(props) {
 
 		super(props);
@@ -41,13 +43,14 @@ class Upload extends Component {
 		this.ref = createRef();
 
 		this.state = {
-			fileList: props.fileList || []
-		}
+			fileList: props.fileList || this.defaultFileList
+        }
+
 	}
 
 	static getDerivedStateFromProps(props, state) {
 		
-		if (props.fileList && (props.fileList !== state.fileList)) {
+		if (props.fileList && (props.fileList.length !== state.fileList.length)) {
 			return {
 				fileList: props.fileList
 			}
@@ -82,12 +85,13 @@ class Upload extends Component {
 
     handleUplaod = () => {
 
-		const fileList = this.getFileList();
+        const fileList = this.getFileList();
 
-		Array.from(fileList).map(file => {
-            // eslint-disable-next-line
-            file.id = getUuid();
-            return file;
+		[...Array.from(fileList)].map(file => {
+            // file 为是一个特殊上传 File 对象，此处无法使用结构的方式来处理 
+            const item = file;
+            item.id = getUuid();
+            return item;
         })
         .forEach(file => {
             this.upload(file, fileList);
@@ -101,19 +105,20 @@ class Upload extends Component {
 		if (onRemove) {
 			onRemove({
 				file,
-				fileList: this.state.fileList
+				fileList: [...this.state.fileList]
 			});
 		}
 	};
 
 	handleProgress = (event, file) => {
 		
-		const item = file;
-		item.percent = event.percent;
-
-		const { onProgress } = this.props;
+        const { onProgress } = this.props;
+        
 		if (onProgress) {
-			onProgress({ file: item });
+			onProgress({
+                file,
+                percent: event.percent,
+            });
 		}
 	};
 
@@ -128,26 +133,29 @@ class Upload extends Component {
 			console.warn(e);
 		}
 
-		const item = file;
-		item.response = response;
-
 		const { onSuccess } = this.props;
 
 		if(onSuccess) {
-			onSuccess({ file: item, fileList: this.state.fileList });
+
+            onSuccess({
+                file,
+                fileList: [...this.state.fileList],
+                response
+            });
 		}
 	};
 
 	handleError = (error, file) => {
-		
-		const item = file;
-		item.error = error;
-
-		const { onError } = this.props;
+        
+        const { onError } = this.props;
 
 		if (onError) {
-			onError({ file: item, fileList: this.state.filelist });
-		}
+			onError({
+                file,
+                fileList: [...this.state.fileList],
+                error
+            });
+        }
 	};
 
     /**
@@ -158,6 +166,7 @@ class Upload extends Component {
         const { size } = this.props;
 
         const isSizeInvalidate = file.size / 1024 / 1024 > size;
+        
         if (isSizeInvalidate) {
             Message.error(`文件过大，最大支持 ${size} M 的文件上传！`);
             return false;
