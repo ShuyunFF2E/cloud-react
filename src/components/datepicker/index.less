@@ -25,7 +25,27 @@
 
 @range-split-color: #979797;
 
-.@{selector} {
+.@{selector}-inp {
+	text-align: left;
+	width: @width;
+	cursor: pointer;
+	padding-left: 8px;
+	height: @height;
+	box-sizing: border-box;
+	border: @border;
+
+	&::-webkit-input-placeholder {
+		color: @placeholder;
+	}
+
+	&[disabled] {
+		cursor: not-allowed;
+		background-color: @disabled-bgcolor;
+	}
+}
+
+
+.@{selector}-popup {
 	position: relative;
 	display: inline-block;
 
@@ -33,71 +53,53 @@
 		box-sizing: border-box;
 	}
 
-	&-inp {
-		text-align: left;
-		width: @width;
-		cursor: pointer;
-		padding-left: 8px;
+	width: @panel-width;
+	border-radius: @panel-border-radius;
+	animation: fadeIn 0.2s 0s ease both;
+	z-index: 1001;
+	background-color: @bgcolor;
+	position: absolute;
+	will-change: transform;
 
-		&::-webkit-input-placeholder {
-			color: @placeholder;
+	.header {
+		height: 40px;
+		line-height: 40px;
+		text-align: center;
+		font-size: 12px;
+		letter-spacing: 1.5px;
+		background-color: @panel-header-bgcolor;
+		color: @panel-header-color;
+		border: 1px solid @panel-header-border-color;
+		border-bottom: none;
+		position: relative;
+
+		.arrow-left, .arrow-right {
+			cursor: pointer;
+			position: absolute;
+			color: #B5B5B5;
 		}
 
-		&[disabled] {
+		.arrow-left {
+			left: 5px;
+		}
+
+		.arrow-right {
+			right: 5px;
+		}
+
+		.arrow-disabled {
 			cursor: not-allowed;
 		}
 
-	}
+		select {
+			width: 80px;
+			height: 30px;
+			display: inline-block;
+			vertical-align: top;
+			margin: 5px auto;
 
-	&-popover {
-		width: @panel-width;
-		border-radius: @panel-border-radius;
-		animation: fadeIn 0.2s 0s ease both;
-		z-index: 1001;
-		background-color: @bgcolor;
-		position: absolute;
-		will-change: transform;
-
-		.header {
-			height: 40px;
-			line-height: 40px;
-			text-align: center;
-			font-size: 12px;
-			letter-spacing: 1.5px;
-			background-color: @panel-header-bgcolor;
-			color: @panel-header-color;
-			border: 1px solid @panel-header-border-color;
-			border-bottom: none;
-
-
-			.arrow-left, .arrow-right {
-				cursor: pointer;
-				position: absolute;
-				color: #B5B5B5;
-			}
-
-			.arrow-left {
-				left: 5px;
-			}
-
-			.arrow-right {
-				right: 5px;
-			}
-
-			.arrow-disabled {
-				cursor: not-allowed;
-			}
-
-			select {
-				width: 80px;
-				height: 30px;
-				display: inline-block;
-				vertical-align: top;
-				margin: 5px auto;
-
-				&:last-of-type {
-					margin-left: 5px;
-				}
+			&:last-of-type {
+				margin-left: 5px;
 			}
 		}
 	}
@@ -121,10 +123,6 @@
 			background: #fff;
 		}
 
-		tr {
-			border-bottom: #F5F5F5 1px solid;
-		}
-
 		th {
 			height: 28px;
 			color: #3D3D3D;
@@ -146,27 +144,46 @@
 				width: 26px;
 				height: 26px;
 				line-height: 26px;
+				border: 1px solid transparent;
 				cursor: pointer;
+
+				&:hover {
+					border: 1px solid @grid-day-border-color;
+				}
 			}
 		}
 	}
 
-	.not-in-month {
+	.year-grid-table {
+		td {
+			width: 79px !important;
+
+			span {
+				width: 79px !important;
+				height: 28px !important;
+				line-height: 28px !important;
+			}
+		}
+	}
+
+	.not-included {
 		color: #ccc;
+	}
+
+	.disabled {
+		&, *, *:hover {
+			cursor: not-allowed !important;
+			color: #ccc !important;
+			border-color: transparent !important;
+		}
 	}
 
 	.check span {
 		background-color: @grid-day-check-bgcolor !important;
-		border: 1px solid @grid-day-border-color;
+		border-color: @grid-day-border-color !important;
 	}
 
-	.week span {
-		&:hover {
-			border: 1px solid @grid-day-border-color;
-		}
-	}
-
-	.today span {
+	.now span {
 		color: @grid-day-border-color;
 		background-color: transparent;
 	}
@@ -187,11 +204,15 @@
 		}
 	}
 
-	.inner-timepicker {
+	.inner-@{time} {
 		display: flex;
 		justify-content: flex-start;
 		padding-left: 15px;
 		margin: 18px 0;
+
+		label {
+			line-height: 25px;
+		}
 
 		input {
 			width: 43px;
@@ -221,6 +242,10 @@
 			background-color: #FAFAFA;
 			border-radius: 2px;
 			font-size: 12px;
+
+			&[disabled] {
+				cursor: not-allowed;
+			}
 		}
 
 		&-ok {
@@ -241,19 +266,39 @@
 
 .@{range} {
 	display: inline-block;
-	width: 600px;
+	width: 490px;
+	border: 1px solid #ddd;
+	box-sizing: border-box;
 
 	> * {
 		vertical-align: middle;
 	}
-
+	input {
+		border: none;
+		text-align: center;
+		&:hover, &:focus {
+			outline: none;
+		}
+	}
+	&-disabled {
+		background-color: @disabled-bgcolor;
+	}
 	&-separator {
-		width: 8px;
+		width: 10px;
 		height: 2px;
 		display: inline-block;
 		border: none;
 		background-color: @range-split-color;
 		margin: 0 8px;
+	}
+	&-popup:extend(.datepicker-popup all) {
+		width: 500px;
+
+		&-container {
+			display: flex;
+			flex-direction: row;
+			width: 500px;
+		}
 	}
 }
 
@@ -263,6 +308,7 @@
 	border: 1px solid #ddd;
 	box-sizing: border-box;
 	text-align: center;
+	display: inline-block;
 
 	&-disabled {
 		cursor: not-allowed;

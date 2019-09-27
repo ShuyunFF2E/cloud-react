@@ -1,119 +1,122 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
 import utils from './util';
 import enumObj from './util/enum';
+import { timeSelector } from './util/view-common';
 
-export default class TimePicker extends Component {
-    static propTypes = {
-		className: PropTypes.string,
-		style: PropTypes.object,
-        value: PropTypes.string,
-        defaultValue: PropTypes.string,
-        disabled: PropTypes.bool,
-        onChange: PropTypes.func,
-        onBlur: PropTypes.func
-    }
+function TimePicker(props) {
+	const { value, defaultValue, className, style, disabled, onChange, onBlur } = props;
+	const controlled = typeof value !== 'undefined';
 
-    static defaultProps = {
-		className: '',
-		style: {},
-        value: undefined,
-        defaultValue: '00:00:00',
-        disabled: false,
-        onChange: () => { },
-        onBlur: () => { }
-    }
-
-    constructor(props) {
-        super(props);
-        const controlled = typeof props.value !== 'undefined';
-        let value = null;
-        if(controlled) {
-			value = props.value.split(':');
+	function getInitValue() {
+		let initValue = null;
+		if(controlled) {
+			initValue = value ? value.split(':') : ['00', '00', '00'];
 		}
-        else if (props.defaultValue !== undefined) {
-			value = props.defaultValue.split(':')
+		else if (defaultValue !== undefined) {
+			initValue = defaultValue.split(':')
 		}
-        else {
-			value = ['', '', ''];
+		else {
+			initValue = ['00', '00', '00'];
 		}
-        this.state = {
-            hour: value[0],
-            minute: value[1],
-            second: value[2],
-            props
-        }
-    }
+		return initValue;
+	}
 
-    static getDerivedStateFromProps(nextProps, prevState) {
-        const { value } = nextProps;
-        if (nextProps.value !== prevState.props.value) {
-            const arr = value.split(':');
-            return {
-                hour: utils.time.formatTime(arr[0]),
-                minute: utils.time.formatTime(arr[1]),
-                second: utils.time.formatTime(arr[2]),
-                props: nextProps
-            }
-        }
-        return null;
-    }
+	const [hour, setHour] = useState(getInitValue()[0]);
+	const [minute, setMinute] = useState(getInitValue()[1]);
+	const [second, setSecond] = useState(getInitValue()[2]);
 
-    onChange = params => evt => {
-        let value = evt.target.value.trim().replace(/[^\d]/g, '');
-        if (params === enumObj.hour) {
-            if (value !== '' && parseInt(value, 10) >= 24) {
-                value = value.substr(0, 1);
-            }
-        } else if (value !== '' && parseInt(value, 10) >= 60) {
-            value = value.substr(0, 1);
-        }
-        const { hour, minute, second } = this.state;
-        if (this.props.controlled) {
-            this.props.onChange({
-                hour,
-                minute,
-                second
-            })
-            return;
-        }
-        this.setState({
-            [params]: value
-        }, () => {
-            this.props.onChange({
-                hour,
-                minute,
-                second
-            })
-        });
-    }
+	useEffect(() => {
+		if (value) {
+			const arr = value.split(':');
+			setHour(utils.time.formatTime(arr[0]));
+			setMinute(utils.time.formatTime(arr[1]));
+			setSecond(utils.time.formatTime(arr[2]));
+		} else {
+			setHour('00');
+			setMinute('00');
+			setSecond('00');
+		}
+
+	}, [value]);
+
+	function onInpChange(params, evt) {
+		let inpValue = evt.target.value.trim().replace(/[^\d]/g, '');
+		if (params === enumObj.hour) {
+			if (inpValue !== '' && parseInt(inpValue, 10) >= 24) {
+				inpValue = inpValue.substr(0, 1);
+			}
+		} else if (inpValue !== '' && parseInt(inpValue, 10) >= 60) {
+			inpValue = inpValue.substr(0, 1);
+		}
+
+		if (controlled) {
+			onChange({
+				hour: params === enumObj.hour ? inpValue : hour,
+				minute: params === enumObj.minute ? inpValue : minute,
+				second: params === enumObj.second ? inpValue : second
+			});
+			return;
+		}
+
+		switch (params) {
+			case enumObj.hour:
+				setHour(inpValue);
+				break;
+			case enumObj.minute:
+				setMinute(inpValue);
+				break;
+			case enumObj.second:
+				setSecond(inpValue);
+				break;
+			default:
+				break;
+		}
+		onChange({
+			hour: params === enumObj.hour ? inpValue : hour,
+			minute: params === enumObj.minute ? inpValue : minute,
+			second: params === enumObj.second ? inpValue : second
+		});
+	}
 
 
-    onBlur = () => {
-        const { hour, minute, second } = this.state;
-        this.setState({
-            hour: utils.time.formatTime(hour, '00'),
-            minute: utils.time.formatTime(minute, '00'),
-            second: utils.time.formatTime(second, '00'),
-        }, () => {
-            this.props.onBlur();
-        })
-    }
+	function onInpBlur() {
+		setHour(utils.time.formatTime(hour,'00'));
+		setMinute(utils.time.formatTime(minute, '00'));
+		setSecond(utils.time.formatTime(second, '00'));
+		onBlur();
+	}
 
-    render() {
-        const { hour, minute, second } = this.state;
-        const { disabled, className, style } = this.props;
-        const classes = cls({
-            'timepicker': true,
-            'timepicker-disabled': disabled,
-			[className]: true,
-        });
+	const classes = cls({
+		[timeSelector]: true,
+		[`${timeSelector}-disabled`]: disabled,
+		[className]: true,
+	});
 
-        return (<div className={classes} onBlur={this.onBlur} style={style}>
-            <input value={hour} disabled={disabled} maxLength="2" onChange={this.onChange(enumObj.hour)} /><label className="colon">:</label>
-            <input value={minute} disabled={disabled} maxLength="2" onChange={this.onChange(enumObj.minute)} /><label className="colon">:</label>
-            <input value={second} disabled={disabled} maxLength="2" onChange={this.onChange(enumObj.second)} />
-        </div>);
-    }
+	return (<div className={classes} onBlur={onInpBlur} style={style}>
+		<input value={hour} disabled={disabled} maxLength="2" onChange={e => onInpChange(enumObj.hour,e)} /><label className="colon">:</label>
+		<input value={minute} disabled={disabled} maxLength="2" onChange={e => onInpChange(enumObj.minute,e)} /><label className="colon">:</label>
+		<input value={second} disabled={disabled} maxLength="2" onChange={e => onInpChange(enumObj.second,e)} />
+	</div>);
+
 }
+TimePicker.propTypes = {
+	className: PropTypes.string,
+	style: PropTypes.object,
+	value: PropTypes.string,
+	defaultValue: PropTypes.string,
+	disabled: PropTypes.bool,
+	onChange: PropTypes.func,
+	onBlur: PropTypes.func
+}
+TimePicker.defaultProps = {
+	className: '',
+	style: {},
+	value: undefined,
+	defaultValue: '00:00:00',
+	disabled: false,
+	onChange: () => { },
+	onBlur: () => { }
+}
+export default TimePicker

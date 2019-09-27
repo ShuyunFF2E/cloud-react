@@ -1,0 +1,155 @@
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import Week from './week';
+import utils from '../util';
+import InnerTimePicker from '../inner-time-picker';
+import { selector } from  '../util/view-common';
+
+function Grid(props) {
+	const { days, year, month, day, hour, minute, second, showNow, showToday, mode, minDate, maxDate, range,
+		onPickDate, showOK, showTimePicker, style, onTimePickChange, onOK } = props;
+
+	const [tempDay, setTempDay] = useState(day);
+	const [isClickDay, setIsClickDay] = useState(false);
+
+	const [tempHour, setTempHour] = useState(hour);
+	const [tempMinute, setTempMinute] = useState(minute);
+	const [tempSecond, setTempSecond] = useState(second);
+
+	useEffect(() => {
+		setTempDay(day);
+	}, [day]);
+
+	useEffect(() => {
+		setTempHour(hour);
+		setTempMinute(minute);
+		setTempSecond(second);
+	}, [hour, minute, second]);
+
+	function onPickDay(paramsObj) {
+		setIsClickDay(true);
+		onPickDate(paramsObj);
+	}
+
+	function getTodayDisabled() {
+		const nowTimestamp = new Date().getTime();
+		if (minDate && minDate.getTime() > nowTimestamp) {
+			return true;
+		}
+		if (maxDate && maxDate.getTime() < nowTimestamp) {
+			return true;
+		}
+		return false;
+	}
+
+	function onToadyClick() {
+		onOK(utils.time.displayNow());
+	}
+
+	function onSave() {
+		if (tempDay) {
+			const _hour = hour || '00';
+			const _minute = minute || '00';
+			const _second = second || '00';
+			onOK(utils.time.displayNow(new Date(`${year}/${month}/${tempDay} ${_hour}:${_minute}:${_second}`)));
+		}
+	}
+
+	const btnStyle = range || !showToday && !showNow ? { justifyContent: 'flex-end' } : {};
+	const len = Math.ceil(days.length / 7);
+	return (
+		<div className="grid" style={style}>
+			<table className="grid-table">
+				<thead>
+				<tr>
+					{utils.time.miniWeek.map((e, i) => <th key={i.toString()}>{e}</th>)}
+				</tr>
+				</thead>
+				<tbody>
+				{utils.range(len).map((e, i) =>
+					<Week key={i.toString()}
+						  currentDateObj={{
+							  year,
+							  month,
+							  day: tempDay
+						  }}
+						  year={year}
+						  month={month}
+						  day={tempDay}
+						  isClickDay={isClickDay}
+						  minDate={minDate}
+						  maxDate={maxDate}
+						  onPickDate={onPickDay}
+						  days={days.slice(i * 7, (i + 1) * 7)}
+						  head={i === 0}
+						  tail={i === len - 1} />
+				)}
+				</tbody>
+			</table>
+			{
+				showTimePicker && <InnerTimePicker onChange={onTimePickChange}
+												   mode={mode}
+												   hour={tempHour}
+												   minute={tempMinute}
+												   second={tempSecond} />
+			}
+			<div className={`${selector}-popup-btns`} style={btnStyle}>
+				{
+					showToday && !showTimePicker && <button type="button" disabled={getTodayDisabled()} onClick={onToadyClick}>今天</button>
+				}
+				{
+					showNow && showTimePicker && <button type="button" onClick={onToadyClick}>此刻</button>
+				}
+				{
+					showOK && <button type="button" className={`${selector}-popup-btns-ok`} onClick={onSave}>确定</button>
+				}
+			</div>
+		</div>
+	)
+}
+
+Grid.propTypes = {
+	range: PropTypes.bool,
+	style: PropTypes.object,
+	year: PropTypes.number,
+	month: PropTypes.number,
+	days: PropTypes.array,
+	day: PropTypes.number,
+	hour: PropTypes.string,
+	minute: PropTypes.string,
+	second: PropTypes.string,
+	mode: PropTypes.string,
+	maxDate: PropTypes.instanceOf(Date),
+	minDate: PropTypes.instanceOf(Date),
+	showTimePicker: PropTypes.bool,
+	showNow: PropTypes.bool,
+	showToday: PropTypes.bool,
+	showOK: PropTypes.bool,
+	onPickDate: PropTypes.func,
+	onTimePickChange: PropTypes.func,
+	onOK: PropTypes.func,
+}
+
+Grid.defaultProps = {
+	range: false,
+	style: {},
+	mode: undefined,
+	year: utils.time.displayNow.year,
+	month: utils.time.displayNow.month,
+	days: [],
+	day: utils.time.displayNow.day,
+	hour: '',
+	minute: '',
+	second: '',
+	minDate: undefined,
+	maxDate: undefined,
+	showToday: false,
+	showNow: false,
+	showTimePicker: false,
+	showOK: true,
+	onPickDate: ()=>{},
+	onTimePickChange: ()=>{},
+	onOK: ()=>{}
+}
+
+export default Grid;

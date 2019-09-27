@@ -1,4 +1,4 @@
-import { week, monthArr, miniWeek, miniMonthArr } from './config';
+import { monthArr, miniWeek } from './config';
 
 function current() {
 	return new Date();
@@ -17,8 +17,8 @@ function getWeekDisplayRange(year, month) {
 	return [new Date(yy, mm - 1, 1).getDay(), new Date(yy, mm, 0).getDay()];
 }
 
-function displayNow(node) {
-	const now = node || current();
+function displayNow(date) {
+	const now = date || current();
 	const newHour = `0${now.getHours()}`;
 	const newMinute = `0${now.getMinutes()}`;
 	const newSecond = `0${now.getSeconds()}`;
@@ -134,6 +134,13 @@ function formatTime(param, d = '') {
 	return `0${param}`;
 }
 
+function transformObj(date) {
+	if(date) {
+		return displayNow(date);
+	}
+	return null;
+}
+
 const utils = {
 	time: {
 		current,
@@ -144,12 +151,11 @@ const utils = {
 		getMonthData,
 		refreshDays,
 		convert,
-		week,
 		monthArr,
 		miniWeek,
-		miniMonthArr,
 		formatTime
 	},
+	transformObj,
 	range
 }
 
