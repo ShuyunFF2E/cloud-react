@@ -10,11 +10,11 @@ const positionConfig = { top: 'top', left: 'left', bottom: 'bottom', right: 'rig
 const arrowHeight = 3;
 
 /**
- * 根据传入的元素获取位置信息
+ * 根据传入的元素获取相对body位置信息
  * @param element: 当前元素
  * @returns {'width': number, 'height': number,...}
  */
-function offsetEle(element) {
+function offsetBody(element) {
 	const { width, height, bottom, top, left, right } = element.getBoundingClientRect();
 	return {
 		width,
@@ -24,6 +24,22 @@ function offsetEle(element) {
 		left,
 		right
 	};
+}
+
+/**
+ * 根据传入的元素获取相对绝对定位的元素位置信息
+ * @param element: 当前元素
+ * @returns {'width': number, 'height': number,...}
+ */
+function offsetContainer(element) {
+	return {
+		left: element.offsetLeft,
+		top: element.offsetTop,
+		width: element.offsetWidth,
+		height: element.offsetHeight,
+		right: element.offsetWidth + element.offsetLeft,
+		bottom: element.offsetHeight + element.offsetTop
+	}
 }
 
 /**
@@ -112,10 +128,10 @@ function setComputeToolTipPosition(place, tooltipEle) {
 export default class ToolView extends Component{
 
 	componentDidMount() {
-		const { placement, targetEle } = this.props;
+		const { placement, targetEle, container } = this.props;
 		const tooltipEle = this.tipRef;
-		targetEleOffset = offsetEle(targetEle);
-		tooltipEleOffset = offsetEle(tooltipEle);
+		targetEleOffset = container() === document.body ? offsetBody(targetEle) : offsetContainer(targetEle);
+		tooltipEleOffset = offsetBody(tooltipEle);
 		// 先根据传入的 placement 返回一个位置对象 {main: position, vice: position}
 		const toolTipPos = getPlacementObj(placement);
 		setComputeToolTipPosition(toolTipPos, tooltipEle);
