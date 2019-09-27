@@ -1,7 +1,7 @@
 ---
-order: 1
-title: 基本
-desc: 最简单的用法，在浮层中选择日期。
+order: 6
+title: 区间选择器
+desc: 基本用法，区间选择器。
 ---
 
 ````javascript
@@ -14,7 +14,7 @@ export default class DatePickerDemo extends React.Component {
 	render() {
 		return (
 			<div>
-			   <DatePicker defaultValue={new Date()} />
+			  	<DatePicker.RangePicker id="r1"  minDate={new Date('2019/09/03')} maxDate={new Date('2019/10/23')} />
 			</div>
 		);
 	}

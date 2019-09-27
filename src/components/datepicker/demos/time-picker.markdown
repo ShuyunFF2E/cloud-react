@@ -1,7 +1,7 @@
 ---
-order: 2
-title: 日期格式
-desc: 使用 `format` 属性，可以自定义日期显示格式。
+order: 5
+title: 时间选择器
+desc: 基本用法，时间选择器。
 ---
 
 ````javascript
@@ -11,10 +11,12 @@ import DatePicker from 'ccms-components-react/datepicker';
 
 export default class DatePickerDemo extends React.Component {
 	
+	onChange = value => console.log(value);
+	
 	render() {
 		return (
 			<div>
-			   <DatePicker format="MM/dd/yyyy" />
+			   <DatePicker.TimePicker onChange={this.onChange} />
 			</div>
 		);
 	}

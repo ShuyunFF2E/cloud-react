@@ -1,24 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
-import Icon from '../icon';
-import { monthArr } from './util/config';
-import enumObj from './util/enum';
+import Icon from '../../icon';
+import { monthArr } from '../util/config';
+import enumObj from '../util/enum';
 
 export default class Header extends React.Component {
 	static propTypes = {
 		year: PropTypes.number,
 		month: PropTypes.number,
-		minDateObject: PropTypes.object,
-		maxDateObject: PropTypes.object,
+		min: PropTypes.object,
+        max: PropTypes.object,
+		style: PropTypes.object,
 		onChange: PropTypes.func
 	}
 
 	static defaultProps = {
 		year: new Date().getFullYear(),
 		month: new Date().getMonth() + 1,
-		minDateObject: null,
-		maxDateObject: null,
+		min: null,
+		max: null,
+		style: {},
 		onChange: () => { }
 	}
 
@@ -56,7 +58,7 @@ export default class Header extends React.Component {
 	}
 
 	getDisabled = (currentMonth, currentYear = this.props.year) => {
-		const { minDateObject, maxDateObject } = this.props;
+		const { min, max } = this.props;
 		let _year = currentYear;
 		let _currentMonth = currentMonth;
 		if (_currentMonth === 13) {
@@ -66,30 +68,33 @@ export default class Header extends React.Component {
 			_currentMonth = 12;
 			_year -= 1;
 		}
-		if (maxDateObject && minDateObject) {
-			const { year: maxYear, month: maxMonth } = maxDateObject;
-			const { year: minYear, month: minMonth } = minDateObject;
+		if (max && min) {
+			const { year: maxYear, month: maxMonth } = max;
+			const { year: minYear, month: minMonth } = min;
 			return (_year * 12 + _currentMonth) > (maxYear * 12 + maxMonth) || (_year * 12 + _currentMonth) < (minYear * 12 + minMonth);
-		} if (maxDateObject && !minDateObject) {
-			const { year: maxYear, month: maxMonth } = maxDateObject;
+		}
+		if (max && !min) {
+			const { year: maxYear, month: maxMonth } = max;
 			return (_year * 12 + _currentMonth) > (maxYear * 12 + maxMonth);
-		} if (!maxDateObject && minDateObject) {
-			const { year: minYear, month: minMonth } = minDateObject;
+		}
+		if (!max && min) {
+			const { year: minYear, month: minMonth } = min;
 			return (_year * 12 + _currentMonth) < (minYear * 12 + minMonth);
 		}
 		return false;
 	}
 
 	getDisabledYear = (currentYear) => {
-		const { minDateObject, maxDateObject } = this.props;
-		if (minDateObject && maxDateObject) {
-			return currentYear < minDateObject.year || currentYear > maxDateObject.year;
-		} if (maxDateObject && !minDateObject) {
-			return currentYear > maxDateObject.year;
-		} if (!maxDateObject && minDateObject) {
-			return currentYear < minDateObject.year;
+		const { min, max } = this.props;
+		let result = false;
+		if (min && max) {
+			result = currentYear < min.year || currentYear > max.year;
+		} else if (max && !min) {
+			result = currentYear > max.year;
+		} else if (!max && min) {
+			result = currentYear < min.year;
 		}
-		return false;
+		return result;
 	}
 
 	renderMonth() {
@@ -116,10 +121,10 @@ export default class Header extends React.Component {
 				years
 			}
 		</select>);
-	}
+    }
 
 	render() {
-		const { month } = this.props;
+		const { month, style } = this.props;
 		const arrowLeftClass = cls('arrow-left', {
 			'arrow-disabled': this.getDisabled(month - 1)
 		});
@@ -127,10 +132,10 @@ export default class Header extends React.Component {
 			'arrow-disabled': this.getDisabled(month + 1)
 		});
 		return (
-			<div className="header">
-                <span className={arrowLeftClass} onClick={this.onChange(enumObj.left)}>
-                    <Icon type="left" style={{ fontSize: '16px', verticalAlign: 'middle' }} />
-                </span>
+			<div className="header" style={style}>
+				<span className={arrowLeftClass} onClick={this.onChange(enumObj.left)}>
+					<Icon type="left" style={{ fontSize: '16px', verticalAlign: 'middle' }} />
+				</span>
 				{
 					this.renderMonth()
 				}
@@ -138,8 +143,8 @@ export default class Header extends React.Component {
 					this.renderYear()
 				}
 				<span className={arrowRightClass} onClick={this.onChange(enumObj.right)}>
-                    <Icon type="right" style={{ fontSize: '16px', verticalAlign: 'middle' }} />
-                </span>
+					<Icon type="right" style={{ fontSize: '16px', verticalAlign: 'middle' }} />
+				</span>
 			</div>
 		)
 	}
