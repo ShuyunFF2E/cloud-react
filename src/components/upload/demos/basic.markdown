@@ -21,20 +21,13 @@ export default class UploadDemo extends React.Component {
         // Message.success(info.file.name + '文件上传进度为:' + info.file.percent + '%');
     }
 
-    handleSuccess = info => {
+    handleSuccess = ({ file, fileList, response }) => {
         
-        Message.success(info.file.name + '文件上传成功！');
+        Message.success(file.name + '文件上传成功！');
 
-        let fileList = [...info.fileList];
-        fileList.push(info.file);
+        file.url = response.url;
 
-        fileList = fileList.map(file => {
-            if (file.response) {
-                file.url = file.response.url;
-            }
-            return file;
-        });
-
+        fileList.unshift(file);
         this.setState({ fileList });
     };
 
@@ -42,6 +35,7 @@ export default class UploadDemo extends React.Component {
 
         const props = {
             size: 2,
+            multiple: true,
             labelText: '点击上传',
             // 此接口调用的 ant-design 的上传的mock服务接口
             action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
