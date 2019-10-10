@@ -7,6 +7,8 @@ desc: 使用树结构数据
 ````javascript
 import React, { Component } from 'react';
 import Table from 'cloud-react/table';
+import Button from 'cloud-react/button';
+import Message from 'cloud-react/message';
 
 // 唯一标识符，该值不允许重复
 const gridManagerName = 'tree-table';
@@ -93,6 +95,16 @@ const resouse = {
 };
 
 export default class TableDemo extends Component {
+	treeState = false;
+	updateTreeState() {
+		this.treeState = !this.treeState;
+		Table.updateTreeState(gridManagerName, this.treeState);
+	}
+
+	getCheckedData() {
+		console.log(Table.getCheckedData(gridManagerName));
+		Message.success('操作成功，请在控制面板查看');
+	}
 	render() {
 		const treeConfig = {
 	        // 树展开操作按键所属容器，此处配置columnData的key值。未配置时，将默认选择columnData的第一项
@@ -105,15 +117,30 @@ export default class TableDemo extends Component {
             treeKey: 'children'
         };
 		return (
-			<Table
-				gridManagerName={gridManagerName}
-				supportTreeData={true}
-                treeConfig={treeConfig}
-				ajaxData={resouse}
-				columnData={columnData}
-			/>
+			<>
+				<Table
+					gridManagerName={gridManagerName}
+					supportTreeData={true}
+	                treeConfig={treeConfig}
+					ajaxData={resouse}
+					columnData={columnData}
+				/>
+				<div className="table-action">
+					<Button onClick={() => {this.updateTreeState()}}>改变折叠状态</Button>
+					<Button onClick={() => {this.getCheckedData()}}>获取选中数据</Button>
+				</div>
+			</>
 		);
 	}
 }
 
+````
+
+````less
+.table-action{
+	padding-top: 10px;
+	>button{
+		margin-right: 10px
+	}
+}
 ````

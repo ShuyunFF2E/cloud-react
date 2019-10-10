@@ -43,3 +43,5 @@ export { default as Toggle } from './toggle';
 
 export { default as Tooltip } from './tooltip';
 
+export { default as Tree } from './tree';
+
