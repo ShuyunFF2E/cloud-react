@@ -9,12 +9,13 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import './index.less';
 import ToolView from './toolView';
+import { CONFIG_PLACE, CONFIG_THEME }  from './config';
 
 const containers = {};
 let targetEle = null;
 let manualClear = null;
 const MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
-const STYLECON = 'position:absolute;top:0;left:0;width:100%'
+const DEFAULT_STYLE = 'position:absolute;top:0;left:0;width:100%';
 
 const mutationObserver = new MutationObserver(mutations => {
 	mutations.forEach(mutation => {
@@ -33,14 +34,19 @@ const mutationObserver = new MutationObserver(mutations => {
  * @param component: 组件
  */
 function renderComponentWithPosition(wrapper, component) {
-	component.props.container().appendChild(wrapper);
-	ReactDOM.render(component, wrapper);
-	if (component.props.clear) {
-		manualClear = component.props.clear;
-		mutationObserver.observe(document.documentElement, {
-		 	childList: true,
-		 	subtree: true,
-		});
+	const container = component.props.container();
+	if (container && container instanceof window.HTMLElement) {
+		container.appendChild(wrapper);
+		ReactDOM.render(component, wrapper);
+		if (component.props.clear) {
+			manualClear = component.props.clear;
+			mutationObserver.observe(document.documentElement, {
+				childList: true,
+				subtree: true,
+			});
+		}
+	} else {
+		console.error('渲染节点不对');
 	}
 }
 
@@ -52,10 +58,15 @@ function destroyDOM(id, container) {
 	if (manualClear) {
 		mutationObserver.disconnect();
 	}
-	const wrapper = containers[id];
-	ReactDOM.unmountComponentAtNode(wrapper);
-	container().removeChild(wrapper);
-	delete containers[id];
+	const containerDom = container()
+	if (containerDom && containerDom instanceof window.HTMLElement) {
+		const wrapper = containers[id];
+		ReactDOM.unmountComponentAtNode(wrapper);
+		containerDom.removeChild(wrapper);
+		delete containers[id];
+	} else {
+	 	console.error('销毁节点不对');
+	}
 }
 
 /**
@@ -67,23 +78,25 @@ function createWrapper(id, event) {
 	targetEle = event.parentNode || event.target.parentNode;
 	targetEle.classList.add(id);
 	const div = document.createElement('div');
-	div.style.cssText = STYLECON;
+	div.style.cssText = DEFAULT_STYLE;
 	containers[id] = div;
 }
 
 /**
  * 获取销毁div的className
- * @param lists: 触发元素的classList
+ * @param classNames: 触发元素的classList
  * @returns {string}: 元素的类名
  */
-function getClassName(lists) {
-	let className = '';
-	lists.forEach(list => {
-		if (list.indexOf('tooltip-') > -1) {
-			className = list;
-		}
-	})
-	return className;
+function getClassName(classNames) {
+	let tagClassName = '';
+	const findClassName = className => {
+		return className.indexOf('tooltip-') > -1
+	}
+	// 转成一般数组
+	const classNamesArr = [...classNames];
+	tagClassName = classNamesArr.find(findClassName);
+
+	return tagClassName;
 }
 
 class Tooltip extends Component{
@@ -94,21 +107,23 @@ class Tooltip extends Component{
 	 }
 
 	componentDidMount() {
-	 	if (this.props.visible) {
+	 	if (typeof this.props.visible === 'boolean' && this.props.visible) {
 			// eslint-disable-next-line react/no-find-dom-node
 			this.handleMouseEnter(ReactDOM.findDOMNode(this.triggerDom));
 		}
 	}
 
-	 // 判断是否需要重新渲染DOM
-	 shouldComponentUpdate(nextProps) {
-	 	return nextProps.visible !== this.props.visible
-	 }
-
 	 // 显示、关闭tooltip
 	 componentDidUpdate() {
-	 	const { visible } = this.props;
-	 	if (visible) {
+		const { visible } = this.props;
+		if (this.isShow) {
+			const id = getClassName(this.triggerDom.parentNode.classList);
+			this.handleMouseLeave(id);
+		}
+		if (!this.props.content) {
+			return;
+		}
+	 	if (typeof visible === 'boolean' && visible) {
 			this.handleMouseEnter(this.triggerDom);
 		} else {
 	 		const id = getClassName(this.triggerDom.parentNode.classList);
@@ -193,8 +208,7 @@ class Tooltip extends Component{
 
 	 // 鼠标移出
 	 handleMouseLeave = deletId => {
-		 const { content } = this.props;
-		 if (!content || !this.isShow) {
+		 if (!this.isShow) {
 			 return
 		 }
 		 const { mouseLeaveDelay, container } = this.props;
@@ -226,8 +240,11 @@ Tooltip.propTypes = {
 	trigger: PropTypes.string,
 	visible: PropTypes.bool,
 	clear: PropTypes.bool,
-	placement: PropTypes.oneOf(['auto', 'top', 'top-left', 'top-right', 'bottom', 'bottom-left', 'bottom-right', 'left', 'left-top', 'left-bottom', 'right', 'right-top', 'right-bottom']),
-	theme: PropTypes.oneOf(['dark', 'light', 'error']),
+	placement: PropTypes.oneOf([CONFIG_PLACE.auto, CONFIG_PLACE.top, `${CONFIG_PLACE.top}-${CONFIG_PLACE.left}`, `${CONFIG_PLACE.top}-${CONFIG_PLACE.right}`,
+								CONFIG_PLACE.bottom, `${CONFIG_PLACE.bottom}-${CONFIG_PLACE.left}`, `${CONFIG_PLACE.bottom}-${CONFIG_PLACE.right}`,
+								CONFIG_PLACE.left, `${CONFIG_PLACE.left}-${CONFIG_PLACE.top}`, `${CONFIG_PLACE.left}-${CONFIG_PLACE.bottom}`,
+								CONFIG_PLACE.right, `${CONFIG_PLACE.right}-${CONFIG_PLACE.top}`, `${CONFIG_PLACE.right}-${CONFIG_PLACE.bottom}`]),
+	theme: PropTypes.oneOf([CONFIG_THEME.dark, CONFIG_THEME.light, CONFIG_THEME.error]),
 	container: PropTypes.func
 };
 
@@ -236,10 +253,10 @@ Tooltip.defaultProps = {
 	mouseEnterDelay: 1,
 	mouseLeaveDelay: 1,
 	trigger: 'hover',
-	visible: null,
+	visible: undefined,
 	clear: false,
-	placement: 'auto',
-	theme: 'dark',
+	placement: CONFIG_PLACE.auto,
+	theme: CONFIG_THEME.dark,
 	container: () => document.body
 };
 

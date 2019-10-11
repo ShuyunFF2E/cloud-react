@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
 import './index.less';
+import { CONFIG_PLACE } from './config';
 
 let targetEleOffset = '';
 let tooltipEleOffset = '';
-const positionConfig = { top: 'top', left: 'left', bottom: 'bottom', right: 'right' };
 
 // 箭头高度常量 如果修改样式高度此处也要修改
-const arrowHeight = 3;
+const arrowHeight = 3 + 4;
 
 /**
  * 根据传入的元素获取相对body位置信息
@@ -80,45 +80,45 @@ function getPlacementObj(position) {
  * @param place: 位置对象
  * @param tooltipEle: 元素
  */
-function setComputeToolTipPosition(place, tooltipEle) {
+function setComputeToolTipPosition(place, tooltipEle, scrollTop) {
 	const _tooltipEle = tooltipEle;
 	const { main, vice } = place;
 	_tooltipEle.classList.add(`${main}-${vice}`);
 	// 主定位计算
 	switch (main) {
-		case positionConfig.top:
-			_tooltipEle.style.top = `${targetEleOffset.top - arrowHeight - tooltipEleOffset.height}px`;
+		case CONFIG_PLACE.top:
+			_tooltipEle.style.top = `${targetEleOffset.top - arrowHeight - tooltipEleOffset.height + scrollTop}px`;
 			break;
-		case positionConfig.bottom:
-			_tooltipEle.style.top  = `${targetEleOffset.bottom + arrowHeight}px`;
+		case CONFIG_PLACE.bottom:
+			_tooltipEle.style.top  = `${targetEleOffset.bottom + arrowHeight + scrollTop}px`;
 			break;
-		case positionConfig.right:
+		case CONFIG_PLACE.right:
 			_tooltipEle.style.left  = `${targetEleOffset.right + arrowHeight}px`;
 			break;
-		case positionConfig.left:
+		case CONFIG_PLACE.left:
 			_tooltipEle.style.left  = `${targetEleOffset.left - arrowHeight - tooltipEleOffset.width}px`;
 			break;
 		// no default
 	}
 	// 副定位计算
 	switch (vice) {
-		case positionConfig.top:
-			_tooltipEle.style.top  = `${targetEleOffset.top}px`;
+		case CONFIG_PLACE.top:
+			_tooltipEle.style.top  = `${targetEleOffset.top + scrollTop}px`;
 			break;
-		case positionConfig.bottom:
-			_tooltipEle.style.top  = `${targetEleOffset.bottom - tooltipEleOffset.height}px`;
+		case CONFIG_PLACE.bottom:
+			_tooltipEle.style.top  = `${targetEleOffset.bottom - tooltipEleOffset.height + scrollTop}px`;
 			break;
-		case positionConfig.right:
+		case CONFIG_PLACE.right:
 			_tooltipEle.style.left = `${targetEleOffset.right - tooltipEleOffset.width}px`;
 			break;
-		case positionConfig.left:
+		case CONFIG_PLACE.left:
 			_tooltipEle.style.left = `${targetEleOffset.left}px`;
 			break;
 		case 'center':
 			if (/^(top|bottom)$/.test(main)) {
 				_tooltipEle.style.left = `${targetEleOffset.left - tooltipEleOffset.width / 2 + targetEleOffset.width / 2}px`;
 			} else {
-				_tooltipEle.style.top = `${targetEleOffset.top - targetEleOffset.height / 2 - tooltipEleOffset.height / 2  + targetEleOffset.height}px`;
+				_tooltipEle.style.top = `${targetEleOffset.top - targetEleOffset.height / 2 - tooltipEleOffset.height / 2  + targetEleOffset.height + scrollTop}px`;
 			}
 			break;
 		// no default
@@ -131,16 +131,18 @@ export default class ToolView extends Component{
 		const { placement, targetEle, container } = this.props;
 		const tooltipEle = this.tipRef;
 		targetEleOffset = container() === document.body ? offsetBody(targetEle) : offsetContainer(targetEle);
+		const scrollTop = container() === document.body ? document.documentElement.scrollTop : 0;
 		tooltipEleOffset = offsetBody(tooltipEle);
 		// 先根据传入的 placement 返回一个位置对象 {main: position, vice: position}
 		const toolTipPos = getPlacementObj(placement);
-		setComputeToolTipPosition(toolTipPos, tooltipEle);
+		setComputeToolTipPosition(toolTipPos, tooltipEle, scrollTop);
 	}
 
 	render() {
 		const { content, theme } = this.props;
 		return (
 			<div ref={el => {this.tipRef = el}} className={classNames('tooltip', `is-${theme}`)}>
+				<span className="light"></span>
 				{ content }
 			</div>
 		)
