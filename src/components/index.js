@@ -11,11 +11,11 @@ export { default as CcMenu } from './cc-menu';
 
 export { default as Checkbox } from './checkbox';
 
+export { default as Datepicker } from './datepicker';
+
 export { default as Field } from './field';
 
 export { default as Form } from './form';
-
-export { default as Datepicker } from './datepicker';
 
 export { default as Icon } from './icon';
 
@@ -37,6 +37,8 @@ export { default as Radio } from './radio';
 
 export { default as Select } from './select';
 
+export { default as Step } from './step';
+
 export { default as Table } from './table';
 
 export { default as TablePagination } from './table-pagination';
@@ -48,4 +50,8 @@ export { default as Tips } from './tips';
 export { default as Toggle } from './toggle';
 
 export { default as Tooltip } from './tooltip';
+
+export { default as Tree } from './tree';
+
+export { default as Upload } from './upload';
 
