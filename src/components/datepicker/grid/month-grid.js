@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import util from '../util/index';
 import { selector } from  '../util/view-common';
 
-const monthArr = ['一','二','三','四','五','六','七','八','九','十','十一','十二'];
-
 const currentMonth = new Date().getMonth() + 1;
+
+const { monthArr } = util;
 
 function MonthGrid(props) {
 	// 月日选择器是传入month
@@ -25,7 +26,9 @@ function MonthGrid(props) {
 	}, [month]);
 
 	useEffect(() => {
-		setTempMonth(parseInt(checkValue.split('/')[1],10));
+		if (checkValue) {
+			setTempMonth(parseInt(checkValue.split('/')[1],10));
+		}
 	}, [checkValue]);
 
 	function getMonthDisabled() {
@@ -113,9 +116,9 @@ function MonthGrid(props) {
                         const index2 = index * 3 + 1;
                         const index3 = index * 3 + 2;
 						return (<tr key={index.toString()}>
-								<td className={getClassName(tempMonth, index1 + 1, month)}><span onClick={() => onUpdate(index1)}>{monthArr[index1]}月</span></td>
-								<td className={getClassName(tempMonth, index2 + 1, month)}><span onClick={() => onUpdate(index2)}>{monthArr[index2]}月</span></td>
-								<td className={getClassName(tempMonth, index3 + 1, month)}><span onClick={() => onUpdate(index3)}>{monthArr[index3]}月</span></td>
+								<td className={getClassName(tempMonth, index1 + 1, month)}><span onClick={() => onUpdate(index1)}>{monthArr[index1]}</span></td>
+								<td className={getClassName(tempMonth, index2 + 1, month)}><span onClick={() => onUpdate(index2)}>{monthArr[index2]}</span></td>
+								<td className={getClassName(tempMonth, index3 + 1, month)}><span onClick={() => onUpdate(index3)}>{monthArr[index3]}</span></td>
 						</tr>);
                     })
                 }
@@ -125,7 +128,7 @@ function MonthGrid(props) {
 			{
 				showThisMonth && <button type="button" disabled={getMonthDisabled()} onClick={() => onSave(currentMonth)}>当月</button>
 			}
-            <button type="button" className={`${selector}-popup-btns-ok`} onClick={() => onSave()} style={{ marginLeft:'10px' }}>确认</button>
+            <button type="button" className={`${selector}-popup-btns-ok`} disabled={!tempMonth} onClick={() => onSave()} style={{ marginLeft:'10px' }}>确认</button>
         </div>
 	</div>);
 }

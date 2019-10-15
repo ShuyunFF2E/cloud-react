@@ -91,6 +91,15 @@
 			cursor: not-allowed;
 		}
 
+		.header-label {
+			user-select: none;
+			cursor: pointer;
+
+			&:hover {
+				font-weight: bold;
+			}
+		}
+
 		select {
 			width: 80px;
 			height: 30px;
@@ -200,7 +209,7 @@
 			cursor: not-allowed;
 			background-color: transparent;
 			color: @grid-day-other-color;
-			border: none;
+			border: none !important;
 		}
 	}
 
@@ -252,6 +261,11 @@
 			border: 1px solid #00AAF1 !important;
 			background-color: #00AAF1 !important;
 			color: #FFFFFF;
+
+			&[disabled] {
+				border-color: #E3E3E3 !important;
+				background-color: #E3E3E3 !important;
+			}
 		}
 	}
 

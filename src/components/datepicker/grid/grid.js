@@ -6,7 +6,7 @@ import InnerTimePicker from '../inner-time-picker';
 import { selector } from  '../util/view-common';
 
 function Grid(props) {
-	const { days, year, month, day, hour, minute, second, showNow, showToday, mode, minDate, maxDate, range,
+	const { days, year, month, day, hour, minute, second, showNow, showToday, mode, minDate, maxDate, rangeConfig,
 		onPickDate, showOK, showTimePicker, style, onTimePickChange, onOK } = props;
 
 	const [tempDay, setTempDay] = useState(day);
@@ -36,10 +36,7 @@ function Grid(props) {
 		if (minDate && minDate.getTime() > nowTimestamp) {
 			return true;
 		}
-		if (maxDate && maxDate.getTime() < nowTimestamp) {
-			return true;
-		}
-		return false;
+		return !!(maxDate && maxDate.getTime() < nowTimestamp);
 	}
 
 	function onToadyClick() {
@@ -55,35 +52,36 @@ function Grid(props) {
 		}
 	}
 
-	const btnStyle = range || !showToday && !showNow ? { justifyContent: 'flex-end' } : {};
+	const btnStyle = rangeConfig || !showToday && !showNow ? { justifyContent: 'flex-end' } : {};
 	const len = Math.ceil(days.length / 7);
 	return (
 		<div className="grid" style={style}>
 			<table className="grid-table">
 				<thead>
-				<tr>
-					{utils.time.miniWeek.map((e, i) => <th key={i.toString()}>{e}</th>)}
-				</tr>
+					<tr>
+						{utils.miniWeek.map((e, i) => <th key={i.toString()}>{e}</th>)}
+					</tr>
 				</thead>
 				<tbody>
-				{utils.range(len).map((e, i) =>
-					<Week key={i.toString()}
-						  currentDateObj={{
-							  year,
-							  month,
-							  day: tempDay
-						  }}
-						  year={year}
-						  month={month}
-						  day={tempDay}
-						  isClickDay={isClickDay}
-						  minDate={minDate}
-						  maxDate={maxDate}
-						  onPickDate={onPickDay}
-						  days={days.slice(i * 7, (i + 1) * 7)}
-						  head={i === 0}
-						  tail={i === len - 1} />
-				)}
+					{utils.range(len).map((e, i) =>
+						<Week key={i.toString()}
+							  currentDateObj={{
+								  year,
+								  month,
+								  day: tempDay
+							  }}
+							  rangeConfig={rangeConfig}
+							  year={year}
+							  month={month}
+							  day={tempDay}
+							  isClickDay={isClickDay}
+							  minDate={minDate}
+							  maxDate={maxDate}
+							  onPickDate={onPickDay}
+							  days={days.slice(i * 7, (i + 1) * 7)}
+							  head={i === 0}
+							  tail={i === len - 1} />
+					)}
 				</tbody>
 			</table>
 			{
@@ -101,7 +99,7 @@ function Grid(props) {
 					showNow && showTimePicker && <button type="button" onClick={onToadyClick}>此刻</button>
 				}
 				{
-					showOK && <button type="button" className={`${selector}-popup-btns-ok`} onClick={onSave}>确定</button>
+					showOK && <button type="button" disabled={!tempDay} className={`${selector}-popup-btns-ok`} onClick={onSave}>确定</button>
 				}
 			</div>
 		</div>
@@ -109,7 +107,7 @@ function Grid(props) {
 }
 
 Grid.propTypes = {
-	range: PropTypes.bool,
+	rangeConfig: PropTypes.object,
 	style: PropTypes.object,
 	year: PropTypes.number,
 	month: PropTypes.number,
@@ -131,7 +129,7 @@ Grid.propTypes = {
 }
 
 Grid.defaultProps = {
-	range: false,
+	rangeConfig: undefined,
 	style: {},
 	mode: undefined,
 	year: utils.time.displayNow.year,

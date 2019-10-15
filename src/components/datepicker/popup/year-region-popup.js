@@ -25,9 +25,9 @@ function Popup(props) {
     const [region, setRegion] = useState(getInitRegion());
 
     function onHeaderChange(params) {
-        if (params === enumObj.left) {
+        if (params === enumObj.LEFT) {
             setRegion([region[0] - 15, region[0] - 1]);
-        } else if (params === enumObj.right) {
+        } else if (params === enumObj.RIGHT) {
             setRegion([region[1] + 1, region[1] + 15]);
         }
     }

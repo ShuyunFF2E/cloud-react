@@ -16,7 +16,7 @@ export default class DatePickerDemo extends React.Component {
 	render() {
 		return (
 			<div>
-			   <DatePicker showToday={true} id="a" onChange={this.onInpChange} placeholder="年月日" />
+			   <DatePicker showToday={true} id="a" maxDate={new Date('2019/11/5')} onChange={this.onInpChange} placeholder="年月日" />
 			   <br /><br />
 			   <DatePicker showNow={true} id="b"  mode="DATE_HOUR" onChange={this.onInpChange}  showTimePicker={true}  placeholder="年月日 时" />
 			   <br /><br />

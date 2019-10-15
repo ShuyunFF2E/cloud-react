@@ -15,7 +15,7 @@ const currentYear = new Date().getFullYear();
 function Popup(props) {
     const { left, top, min, max, checkValue, className, showThisMonth, onChange } = props;
 
-    const [tempMode, setTempMode] = useState(enumObj.yearMonthModel);
+    const [tempMode, setTempMode] = useState(enumObj.YEAR_MONTH_MODEL);
 
     function getInitTempYear() {
         if (checkValue) {
@@ -57,21 +57,21 @@ function Popup(props) {
     const [region, setRegion] = useState(getInitRegion());
 
     function onHeaderChange(params) {
-        if (tempMode === enumObj.yearModel) {
-            if (params === enumObj.left) {
+        if (tempMode === enumObj.YEAR_MODEL) {
+            if (params === enumObj.LEFT) {
                 setRegion([region[0] - 15, region[0] - 1]);
-            } else if (params === enumObj.right) {
+            } else if (params === enumObj.RIGHT) {
                 setRegion([region[1] + 1, region[1] + 15]);
             }
-        } else if (tempMode === enumObj.yearMonthModel) {
-            setTempMode(enumObj.yearModel);
+        } else if (tempMode === enumObj.YEAR_MONTH_MODEL) {
+            setTempMode(enumObj.YEAR_MODEL);
         }
     }
 
     function onYearGridChange(value) {
-        if (tempMode === enumObj.yearModel) {
+        if (tempMode === enumObj.YEAR_MODEL) {
             setTempYear(value);
-            setTempMode(enumObj.yearMonthModel);
+            setTempMode(enumObj.YEAR_MONTH_MODEL);
         }
     }
 
@@ -86,7 +86,7 @@ function Popup(props) {
     }
 
     function renderCompByMode(_mode) {
-        if (_mode === enumObj.yearModel) {
+        if (_mode === enumObj.YEAR_MODEL) {
         	const _min = parseInt(min.split('/')[0], 10);
         	const _max = parseInt(max.split('/')[0], 10);
         	const _checkYear = checkValue ? parseInt(checkValue.split('/')[0], 10) : null;
@@ -105,7 +105,7 @@ function Popup(props) {
 					onChange={(value) => onYearGridChange(value)} />
 			</section>);
         }
-        if (_mode === enumObj.yearMonthModel) {
+        if (_mode === enumObj.YEAR_MONTH_MODEL) {
             return (<section>
                 <YearMonthHeader
 					year={tempYear}

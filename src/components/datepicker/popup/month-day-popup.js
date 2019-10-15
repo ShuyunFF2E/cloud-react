@@ -17,7 +17,7 @@ const currentMonth = new Date().getMonth() + 1;
 function Popup(props) {
     const { left, top, checkValue, className, showToday, onChange } = props;
 
-    const [tempMode, setTempMode] = useState(enumObj.monthDayModel);
+    const [tempMode, setTempMode] = useState(enumObj.MONTH_DAY_MODEL);
 
     function getInitTempMonth() {
         if (checkValue) {
@@ -37,20 +37,39 @@ function Popup(props) {
 
     const [tempDay, setTempDay] = useState(getInitTempDay());
 
-    function onHeaderChange() {
-        if (tempMode === enumObj.monthDayModel) {
-            setTempMode(enumObj.monthModel);
-        }
+    function onHeaderChange(params) {
+    	let m = tempMonth;
+    	if (params === enumObj.LEFT) {
+    		if (tempMonth > 1) {
+    			m = tempMonth - 1;
+				setTempMonth(m);
+			}
+		} else if (tempMonth < 12) {
+    		m = tempMonth + 1;
+			setTempMonth(m);
+		}
+		setTempDay('');
     }
+
+    function onChooseMonth() {
+		if (tempMode === enumObj.MONTH_DAY_MODEL) {
+			setTempMode(enumObj.MONTH_MODEL);
+		}
+	}
 
     function onMonthGridChange(m) {
         setTempMonth(m);
-        setTempMode(enumObj.monthDayModel);
+        setTempMode(enumObj.MONTH_DAY_MODEL);
     }
 
-    function onDayGridChange(value) {
+    function onDayGridChange(value, m) {
         setTempDay(value);
-        onChange(`${formatZero(tempMonth)}/${formatZero(value)}`);
+        if (m) {
+			setTempMonth(m);
+			onChange(`${formatZero(m)}/${formatZero(value)}`);
+		} else {
+			onChange(`${formatZero(tempMonth)}/${formatZero(value)}`);
+		}
     }
 
     function popClick(evt) {
@@ -59,7 +78,7 @@ function Popup(props) {
     }
 
     function renderCompByMode(mode) {
-        if (mode === enumObj.monthModel) {
+        if (mode === enumObj.MONTH_MODEL) {
             return (<section>
                     <MonthDayHeader />
                     <MonthGrid
@@ -68,10 +87,11 @@ function Popup(props) {
 					/>
                 </section>);
         }
-        if (mode === enumObj.monthDayModel) {
+        if (mode === enumObj.MONTH_DAY_MODEL) {
             return (<section>
                 <MonthDayHeader
 					month={tempMonth}
+					onChooseMonth={onChooseMonth}
 					onChange={onHeaderChange} />
                 <DayGrid
 					month={tempMonth}

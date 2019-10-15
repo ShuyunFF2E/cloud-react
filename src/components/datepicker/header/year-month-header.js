@@ -15,11 +15,11 @@ function YearMonthHeader(props) {
 
 	return (
 		<div className="header">
-			<span className="arrow-left" onClick={() => onArrowChange(enumObj.left)}>
+			<span className="arrow-left" onClick={() => onArrowChange(enumObj.LEFT)}>
 				<Icon type="left" style={{ fontSize: '16px', verticalAlign: 'middle' }} />
 			</span>
 			<label>{year}年</label>
-			<span className="arrow-right" onClick={() => onArrowChange(enumObj.right)}>
+			<span className="arrow-right" onClick={() => onArrowChange(enumObj.RIGHT)}>
 				<Icon type="right" style={{ fontSize: '16px', verticalAlign: 'middle' }} />
 			</span>
 		</div>

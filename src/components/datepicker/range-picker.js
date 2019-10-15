@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Popup from './popup/range-popup';
 
-import { createWrapper, renderDOM, destroyDOM, getWinHeight, datepickerUI, rangeSelector, selector } from  './util/view-common';
+import { createWrapper, renderDOM, destroyDOM, destroyAllDOM, getWinHeight, datepickerUI, rangeSelector, selector } from  './util/view-common';
 import util from './util';
 import enumObj from './util/enum';
 
@@ -66,7 +66,7 @@ function RangePicker(props) {
 	}
 
 	function changeVisible(evt, isVisible) {
-		if(isVisible) {
+		if(isVisible && id) {
 			createWrapper(id);
 			const { HEIGHT_DEFAULT } = datepickerUI;
 			const { left, bottom, top } = inpRef.current.getBoundingClientRect();
@@ -109,7 +109,8 @@ function RangePicker(props) {
 	function onInpClick(evt) {
 		evt.stopPropagation();
 		evt.nativeEvent.stopImmediatePropagation();
-		if (!visible) {
+		if (!visible || !document.getElementById(id)) {
+			destroyAllDOM();
 			setVisible(true);
 			changeVisible(evt, true);
 		}

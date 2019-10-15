@@ -43,7 +43,7 @@ function TimePicker(props) {
 
 	function onInpChange(params, evt) {
 		let inpValue = evt.target.value.trim().replace(/[^\d]/g, '');
-		if (params === enumObj.hour) {
+		if (params === enumObj.HOUR) {
 			if (inpValue !== '' && parseInt(inpValue, 10) >= 24) {
 				inpValue = inpValue.substr(0, 1);
 			}
@@ -53,30 +53,30 @@ function TimePicker(props) {
 
 		if (controlled) {
 			onChange({
-				hour: params === enumObj.hour ? inpValue : hour,
-				minute: params === enumObj.minute ? inpValue : minute,
-				second: params === enumObj.second ? inpValue : second
+				hour: params === enumObj.HOUR ? inpValue : hour,
+				minute: params === enumObj.MINUTE ? inpValue : minute,
+				second: params === enumObj.SECOND ? inpValue : second
 			});
 			return;
 		}
 
 		switch (params) {
-			case enumObj.hour:
+			case enumObj.HOUR:
 				setHour(inpValue);
 				break;
-			case enumObj.minute:
+			case enumObj.MINUTE:
 				setMinute(inpValue);
 				break;
-			case enumObj.second:
+			case enumObj.SECOND:
 				setSecond(inpValue);
 				break;
 			default:
 				break;
 		}
 		onChange({
-			hour: params === enumObj.hour ? inpValue : hour,
-			minute: params === enumObj.minute ? inpValue : minute,
-			second: params === enumObj.second ? inpValue : second
+			hour: params === enumObj.HOUR ? inpValue : hour,
+			minute: params === enumObj.MINUTE ? inpValue : minute,
+			second: params === enumObj.SECOND ? inpValue : second
 		});
 	}
 
@@ -95,9 +95,9 @@ function TimePicker(props) {
 	});
 
 	return (<div className={classes} onBlur={onInpBlur} style={style}>
-		<input value={hour} disabled={disabled} maxLength="2" onChange={e => onInpChange(enumObj.hour,e)} /><label className="colon">:</label>
-		<input value={minute} disabled={disabled} maxLength="2" onChange={e => onInpChange(enumObj.minute,e)} /><label className="colon">:</label>
-		<input value={second} disabled={disabled} maxLength="2" onChange={e => onInpChange(enumObj.second,e)} />
+		<input value={hour} disabled={disabled} maxLength="2" onChange={e => onInpChange(enumObj.HOUR, e)} /><label className="colon">:</label>
+		<input value={minute} disabled={disabled} maxLength="2" onChange={e => onInpChange(enumObj.MINUTE, e)} /><label className="colon">:</label>
+		<input value={second} disabled={disabled} maxLength="2" onChange={e => onInpChange(enumObj.SECOND, e)} />
 	</div>);
 
 }

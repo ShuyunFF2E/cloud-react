@@ -18,39 +18,39 @@ function InnerTimePicker(props) {
 
 	function onInpChange(params, evt) {
 		let value = evt.target.value.trim().replace(/[^\d]/g, '');
-		if (params === enumObj.hour) {
+		if (params === enumObj.HOUR) {
 			if (value !== '' && parseInt(value, 10) >= 24) {
 				value = value.substr(0, 1);
 			}
 			setTempHour(value);
 		} else if (value !== '' && parseInt(value, 10) >= 60) {
 			value = value.substr(0, 1);
-			if (params === enumObj.minute) {
+			if (params === enumObj.MINUTE) {
 				setTempMinute(value);
 			} else {
 				setTempSecond(value);
 			}
 		}
 		onChange({
-			hour: params === enumObj.hour ? value : tempHour,
-			minute: params === enumObj.minute ? value : tempMinute,
-			second: params === enumObj.second ? value : tempSecond
+			hour: params === enumObj.HOUR ? value : tempHour,
+			minute: params === enumObj.MINUTE ? value : tempMinute,
+			second: params === enumObj.SECOND ? value : tempSecond
 		});
 	}
 
 	return (<div className={`inner-${timeSelector}`}>
 		<label>{label}</label>
-		<input value={tempHour} maxLength="2" placeholder="小时" onChange={e => onInpChange(enumObj.hour, e)} />
+		<input value={tempHour} maxLength="2" placeholder="小时" onChange={e => onInpChange(enumObj.HOUR, e)} />
 		{
 			mode === enumObj.DATE_HOUR ? null :
 				<section>
-					<label className="colon">:</label><input value={tempMinute} maxLength="2" placeholder="分钟" onChange={e => onInpChange(enumObj.minute, e)} />
+					<label className="colon">:</label><input value={tempMinute} maxLength="2" placeholder="分钟" onChange={e => onInpChange(enumObj.MINUTE, e)} />
 				</section>
 		}
 		{
 			mode === enumObj.DATE_HOUR_MINUTE || mode === enumObj.DATE_HOUR ? null :
 				<section>
-					<label className="colon">:</label><input value={tempSecond} maxLength="2" placeholder="秒" onChange={e => onInpChange(enumObj.second, e)} />
+					<label className="colon">:</label><input value={tempSecond} maxLength="2" placeholder="秒" onChange={e => onInpChange(enumObj.SECOND, e)} />
 				</section>
 		}
 	</div>);

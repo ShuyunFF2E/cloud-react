@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import Popup from './popup/date-popup';
 import util from './util';
 import enumObj from './util/enum';
-
-import { createWrapper, renderDOM, destroyDOM, isVaild, formatZero, getWinHeight, datepickerUI, selector } from  './util/view-common';
+import { createWrapper, renderDOM, destroyDOM, destroyAllDOM, isVaild, formatZero, getWinHeight, datepickerUI, selector } from  './util/view-common';
 
 function getFormat(_showTimePicker, _mode) {
 	if (_showTimePicker) {
@@ -56,7 +55,7 @@ function DatePicker(props) {
 	}
 
 	function changeVisible(evt, isVisible) {
-		if(isVisible) {
+		if(isVisible && id) {
 			createWrapper(id);
 			const checkDate = currentValueDate;
 			const { HEIGHT_DEFAULT, HEIGHT_TIME } = datepickerUI;
@@ -104,7 +103,8 @@ function DatePicker(props) {
 	function onInpClick(evt) {
 		evt.stopPropagation();
 		evt.nativeEvent.stopImmediatePropagation();
-        if (!visible) {
+        if (!visible || !document.getElementById(id)) {
+			destroyAllDOM();
 			setVisible(true);
             changeVisible(evt, true);
         }
