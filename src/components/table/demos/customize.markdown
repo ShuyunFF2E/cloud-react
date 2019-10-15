@@ -26,7 +26,7 @@ function ActionComponents(props) {
 // 组件: 标题
 function TitleComponents(props) {
     return (
-        <a href={'https://www.lovejavascript.com/#!zone/blog/content.html?id=' + props.row.id} target={'_black'}>{props.title}</a>
+        <a href={'https://www.lovejavascript.com/#!zone/blog/content.html?id=' + props.row.id} target={'_black'}>{props.row.title}</a>
     );
 }
 
@@ -52,7 +52,7 @@ const getColumnData = (num, testFN) => {
            text: '缩略图',
            template: (pic, row) => {
                return (
-                   <img style={{width: '90px', height: '58.5px', margin: '0 auto'}} src={'https://www.lovejavascript.com' + pic} title={row.name}/>
+                   <img style={{width: '88px', height: '58px', margin: '0 auto'}} src={'https://www.lovejavascript.com' + pic} title={row.name}/>
                );
            }
         },{

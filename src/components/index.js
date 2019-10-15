@@ -11,6 +11,10 @@ export { default as CcMenu } from './cc-menu';
 
 export { default as Checkbox } from './checkbox';
 
+export { default as Field } from './field';
+
+export { default as Form } from './form';
+
 export { default as Datepicker } from './datepicker';
 
 export { default as Icon } from './icon';
@@ -44,6 +48,4 @@ export { default as Tips } from './tips';
 export { default as Toggle } from './toggle';
 
 export { default as Tooltip } from './tooltip';
-
-export { default as Tree } from './tree';
 

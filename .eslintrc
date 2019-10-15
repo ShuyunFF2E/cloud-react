@@ -42,6 +42,7 @@
     "FormData": true,
     "FileReader": true,
     "Blob": true,
+    "XMLHttpRequest": true,
     "navigator": true
   },
   "parser": "babel-eslint"
