@@ -26,9 +26,9 @@ function DayGrid(props) {
         setTempDay(value);
     }
 
-    function onSave(value) {
+    function onSave(value, m) {
         if (value) {
-            onChange(value);
+            onChange(value, m);
         } else {
             onChange(formatZero(tempDay));
         }
@@ -41,7 +41,7 @@ function DayGrid(props) {
 		<table className="grid-table">
             <thead>
                 <tr>
-                    {utils.time.miniWeek.map((e, i) => <th key={i.toString()}>{e}</th>)}
+                    {utils.miniWeek.map((e, i) => <th key={i.toString()}>{e}</th>)}
                 </tr>
             </thead>
             <tbody>
@@ -64,9 +64,9 @@ function DayGrid(props) {
         </table>
         <div className={`${selector}-popup-btns`} style={{ justifyContent: 'flex-end' }}>
 			{
-				showToday && <button type="button" onClick={() => onSave(formatZero(defaultDay))} >今天</button>
+				showToday && <button type="button" onClick={() => onSave(formatZero(defaultDay), defaultMonth)} >今天</button>
 			}
-            <button type="button" className={`${selector}-popup-btns-ok`} onClick={() => onSave()} style={{ marginLeft:'10px' }}>确认</button>
+            <button type="button" disabled={!tempDay} className={`${selector}-popup-btns-ok`} onClick={() => onSave()} style={{ marginLeft:'10px' }}>确认</button>
         </div>
 	</div>);
 }

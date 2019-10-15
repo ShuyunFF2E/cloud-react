@@ -67,7 +67,7 @@ function YearGrid(props) {
 			{
 				showThisYear &&  <button type="button" disabled={getDisabledNow()} onClick={() => onSave(nowYear)}>今年</button>
 			}
-            <button type="button" className={`${selector}-popup-btns-ok`} onClick={() => onSave()} style={{ marginLeft: '10px' }}>确认</button>
+            <button type="button" className={`${selector}-popup-btns-ok`} disabled={!tempYear} onClick={() => onSave()} style={{ marginLeft: '10px' }}>确认</button>
         </div>
 	</div>);
 }

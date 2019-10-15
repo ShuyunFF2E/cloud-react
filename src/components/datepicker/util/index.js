@@ -151,10 +151,10 @@ const utils = {
 		getMonthData,
 		refreshDays,
 		convert,
-		monthArr,
-		miniWeek,
 		formatTime
 	},
+	monthArr,
+	miniWeek,
 	transformObj,
 	range
 }

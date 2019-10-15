@@ -2,8 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
 import Icon from '../../icon';
-import { monthArr } from '../util/config';
+import util from '../util/index';
 import enumObj from '../util/enum';
+
+const { monthArr } = util;
 
 export default class Header extends React.Component {
 	static propTypes = {
@@ -28,7 +30,7 @@ export default class Header extends React.Component {
 		const { year, month } = this.props;
 		let _month = month;
 		let _year = year;
-		if (params === enumObj.left) {
+		if (params === enumObj.LEFT) {
 			if (month > 1) {
 				_month = month - 1;
 			} else {
@@ -38,7 +40,7 @@ export default class Header extends React.Component {
 			if (this.getDisabled(_month, _year)) {
 				return;
 			}
-		} else if (params === enumObj.right) {
+		} else if (params === enumObj.RIGHT) {
 			if (month === 12) {
 				_month = 1;
 				_year = year + 1;
@@ -48,13 +50,17 @@ export default class Header extends React.Component {
 			if (this.getDisabled(_month, _year)) {
 				return;
 			}
-		} else if (params === enumObj.month) {
+		} else if (params === enumObj.MONTH) {
 			_month = evt.target.value;
-		} else if (params === enumObj.year) {
+		} else if (params === enumObj.YEAR) {
 			_year = evt.target.value;
 		}
 
-		this.props.onChange(parseInt(_year, 10), parseInt(_month, 10));
+		// 第3个参数为old 年月
+		this.props.onChange(parseInt(_year, 10), parseInt(_month, 10), {
+			year,
+			month
+		});
 	}
 
 	getDisabled = (currentMonth, currentYear = this.props.year) => {
@@ -99,7 +105,7 @@ export default class Header extends React.Component {
 
 	renderMonth() {
 		const { month } = this.props;
-		return (<select onChange={this.onChange(enumObj.month)} value={month}>
+		return (<select onChange={this.onChange(enumObj.MONTH)} value={month}>
 			{
 				monthArr.map((str, index) => {
 					const disabled = this.getDisabled(index + 1);
@@ -116,7 +122,7 @@ export default class Header extends React.Component {
 			years.push(<option key={i.toString()} disabled={this.getDisabledYear(i)} value={i}>{i}</option>);
 			i += 1;
 		}
-		return (<select onChange={this.onChange(enumObj.year)} value={currentYear}>
+		return (<select onChange={this.onChange(enumObj.YEAR)} value={currentYear}>
 			{
 				years
 			}
@@ -133,7 +139,7 @@ export default class Header extends React.Component {
 		});
 		return (
 			<div className="header" style={style}>
-				<span className={arrowLeftClass} onClick={this.onChange(enumObj.left)}>
+				<span className={arrowLeftClass} onClick={this.onChange(enumObj.LEFT)}>
 					<Icon type="left" style={{ fontSize: '16px', verticalAlign: 'middle' }} />
 				</span>
 				{
@@ -142,7 +148,7 @@ export default class Header extends React.Component {
 				{
 					this.renderYear()
 				}
-				<span className={arrowRightClass} onClick={this.onChange(enumObj.right)}>
+				<span className={arrowRightClass} onClick={this.onChange(enumObj.RIGHT)}>
 					<Icon type="right" style={{ fontSize: '16px', verticalAlign: 'middle' }} />
 				</span>
 			</div>

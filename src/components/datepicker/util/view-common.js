@@ -2,8 +2,14 @@ import ReactDOM from 'react-dom';
 
 const container = {};
 
+export const selector = 'datepicker';
+export const timeSelector = 'timepicker';
+export const rangeSelector = 'rangepicker';
+
 export function createWrapper(id) {
 	container[id] = document.createElement('div');
+	container[id].id = id;
+	container[id].className = 'datepicker-container';
 	container[id].style.position = 'absolute';
 	container[id].style.left = 0;
 	container[id].style.top = 0;
@@ -28,13 +34,18 @@ export function destroyDOM(id, callback) {
 	}
 }
 
+export function destroyAllDOM() {
+	const dpArr = document.getElementsByClassName(`${selector}-container`);
+	const len = dpArr.length;
+	for(let i = 0;i < len;) {
+		destroyDOM(dpArr[i].id);
+		i += 1;
+	}
+}
+
 export function isVaild(value) {
 	return value !== undefined && value !== null;
 }
-
-export const selector = 'datepicker';
-export const timeSelector = 'timepicker';
-export const rangeSelector = 'rangepicker';
 
 export const datepickerUI = {
 	// 年月日视图

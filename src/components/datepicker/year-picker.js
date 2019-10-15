@@ -1,7 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Popup from './popup/year-region-popup';
-import { createWrapper, renderDOM, destroyDOM, isVaild, datepickerUI, selector, getWinHeight } from './util/view-common';
+import {
+	createWrapper,
+	renderDOM,
+	destroyDOM,
+	destroyAllDOM,
+	isVaild,
+	datepickerUI,
+	selector,
+	getWinHeight
+} from './util/view-common';
 import enumObj from './util/enum';
 
 function YearPicker(props) {
@@ -19,7 +28,7 @@ function YearPicker(props) {
 	}
 
 	function changeVisible(evt, isVisible) {
-		if(isVisible) {
+		if(isVisible && id) {
 			createWrapper(id);
 			const checkValue = currentValue ? parseInt(currentValue, 10) : undefined;
 			const { HEIGHT_YEAR } = datepickerUI;
@@ -71,10 +80,11 @@ function YearPicker(props) {
 		evt.stopPropagation();
 		// 阻止与原生事件的冒泡
 		evt.nativeEvent.stopImmediatePropagation();
-        if(!visible) {
+		if (!visible || !document.getElementById(id)) {
+			destroyAllDOM();
 			setVisible(true);
-            changeVisible(evt, true);
-        }
+			changeVisible(evt, true);
+		}
 	}
 
     return (<input

@@ -3,17 +3,20 @@ import PropTypes from 'prop-types';
 import cls from 'classnames';
 import utils from '../util';
 
+function isEqualDate(obj, year, month, day) {
+	return obj && obj.year === year && obj.month === month && obj.day === day;
+}
 
-function Week(props) {
+function RangeWeek(props) {
 	// rangeConfig出现在区间选择器时（仅用于年月日模式）
-	const { head, tail, year, month, day, days, minDate, maxDate, isClickDay, currentDateObj, rangeConfig, onPickDate } = props;
+	const { head, tail, days, year, month, minDate, maxDate, checkGridArr, rangeConfig, onPickDate } = props;
 
 	function onDayClick(_year, _month, _day) {
-		onPickDate({
-			year: _year,
-			month: _month,
-			day: _day
-		});
+		onPickDate(
+			 _year,
+			 _month,
+			 _day
+		);
 	}
 
 	function getDisabled(date) {
@@ -25,6 +28,8 @@ function Week(props) {
 		return defaultRange || minDate && currentTimeStamp < new Date(minDate).getTime() || maxDate && currentTimeStamp > new Date(maxDate).getTime();
 	}
 
+
+
 	const idx = days.indexOf(1);
 	const today = utils.time.today();
 	return (
@@ -35,18 +40,12 @@ function Week(props) {
 				if (inMonth) {
 					date = `${year}/${month}/${o}`;
 				} else if (!inMonth && i < idx) {
-					date = `${year}/${month - 1}/${o}`;
+					date = month > 1 ? `${year}/${month - 1}/${o}` : `${year - 1}/12/${o}`;
 				} else if (!inMonth && i > idx - 1) {
-					date = `${year}/${month + 1}/${o}`;
+					date = month < 12 ? `${year}/${month + 1}/${o}` : `${year + 1}/01/${o}`;
 				}
 				const isToday = inMonth && (`${year}-${month}-${o}` === today);
-				let isCheck = false;
-				// 是否已经点击过了，此时数据尚未写入Input中，只是临时保存
-				if (isClickDay) {
-					isCheck = o === day && inMonth;
-				} else if (currentDateObj !== null && inMonth) {
-					isCheck = `${year}-${month}-${o}` === `${currentDateObj.year}-${currentDateObj.month}-${currentDateObj.day}`;
-				}
+				const isCheck = inMonth && (isEqualDate(checkGridArr[0], year, month, o) || isEqualDate(checkGridArr[1], year, month, o));
 
 				const isDisabled = getDisabled(date);
 				const classes = cls({
@@ -84,14 +83,12 @@ function Week(props) {
 }
 
 
-Week.propTypes = {
+RangeWeek.propTypes = {
 	rangeConfig: PropTypes.object,
+	checkGridArr: PropTypes.array,
 	year: PropTypes.number,
 	month: PropTypes.number,
 	days: PropTypes.array,
-	day: PropTypes.number,
-	isClickDay: PropTypes.bool,
-	currentDateObj: PropTypes.object,
 	maxDate: PropTypes.instanceOf(Date),
 	minDate: PropTypes.instanceOf(Date),
 	head: PropTypes.bool,
@@ -99,14 +96,12 @@ Week.propTypes = {
 	onPickDate: PropTypes.func,
 }
 
-Week.defaultProps = {
-	rangeConfig: undefined,
-	year: utils.time.displayNow.year,
-	month: utils.time.displayNow.month,
+RangeWeek.defaultProps = {
+	year: null,
+	month: null,
+	rangeConfig: null,
+	checkGridArr: [null, null],
 	days: [],
-	isClickDay: false,
-	day: utils.time.displayNow.day,
-	currentDateObj: null,
 	minDate: undefined,
 	maxDate: undefined,
 	head: true,
@@ -114,4 +109,4 @@ Week.defaultProps = {
 	onPickDate: () => { }
 }
 
-export default Week;
+export default RangeWeek;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Popup from './popup/month-day-popup';
-import { createWrapper, renderDOM, destroyDOM, isVaild, datepickerUI, selector, getWinHeight } from './util/view-common';
+import { createWrapper, renderDOM, destroyDOM, destroyAllDOM, isVaild, datepickerUI, selector, getWinHeight } from './util/view-common';
 import enumObj from './util/enum';
 
 function MonthDayPicker(props) {
@@ -18,7 +18,7 @@ function MonthDayPicker(props) {
 	}
 
 	function changeVisible(evt, isVisible) {
-		if(isVisible) {
+		if(isVisible && id) {
 			createWrapper(id);
 			const checkValue = currentValue;
 			const { HEIGHT_MONTH_DAY } = datepickerUI;
@@ -65,10 +65,11 @@ function MonthDayPicker(props) {
 	function onInpClick(evt) {
 		evt.stopPropagation();
 		evt.nativeEvent.stopImmediatePropagation();
-        if(!visible) {
+		if (!visible || !document.getElementById(id)) {
+			destroyAllDOM();
 			setVisible(true);
-            changeVisible(evt, true);
-        }
+			changeVisible(evt, true);
+		}
 	}
 
     return (<input {...otherProps}
