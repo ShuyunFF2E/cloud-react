@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import Input from 'cloud-react/input';
 import Popup from './popup/year-region-popup';
 import {
 	createWrapper,
@@ -14,7 +15,7 @@ import {
 import enumObj from './util/enum';
 
 function YearPicker(props) {
-	const { value, defaultValue, open, disabled, min, max, id, placeholder, position, className, showThisYear, onChange, ...otherProps } = props;
+	const { value, defaultValue, open, disabled, min, max, hasClear, id, placeholder, position, className, showThisYear, onChange, ...otherProps } = props;
 	const inpRef = React.createRef();
 
 	const [currentValue, setCurrentValue] = useState(isVaild(value) ? value : defaultValue);
@@ -32,7 +33,7 @@ function YearPicker(props) {
 			createWrapper(id);
 			const checkValue = currentValue ? parseInt(currentValue, 10) : undefined;
 			const { HEIGHT_YEAR } = datepickerUI;
-			const { left, bottom, top } = inpRef.current.getBoundingClientRect();
+			const { left, bottom, top } = inpRef.current.inputRef.current.getBoundingClientRect();
 			let _top = 0;
 			switch (position) {
 				case enumObj.AUTO:
@@ -87,22 +88,30 @@ function YearPicker(props) {
 		}
 	}
 
-    return (<input
-		{...otherProps}
-		ref={inpRef}
-        value={currentValue}
-		placeholder={placeholder}
-		readOnly
-		className={`${selector}-inp`}
-		disabled={disabled}
-		onClick={onInpClick}
- 	/>);
+	function onInpChange(evt) {
+		if (!evt.target.value.trim().length) {
+			setCurrentValue('');
+			onChange('');
+		}
+	}
+
+	return (<Input {...otherProps}
+				  ref={inpRef}
+				  value={currentValue}
+				  placeholder={placeholder}
+				  readOnly
+				  hasClear={hasClear}
+				  className={`${selector}-inp`}
+				  disabled={disabled}
+				  onChange={evt => onInpChange(evt)}
+				  onClick={onInpClick} />);
 }
 
 YearPicker.propTypes =  {
 	id: PropTypes.string,
 	className: PropTypes.string,
 	disabled: PropTypes.bool,
+	hasClear: PropTypes.bool,
 	placeholder: PropTypes.string,
 	position: PropTypes.oneOf([
 		enumObj.AUTO,
@@ -136,6 +145,7 @@ YearPicker.defaultProps = {
 	className: '',
 	position: enumObj.AUTO,
 	placeholder: '',
+	hasClear: true,
 	disabled: false,
 	open: false,
 	showThisYear: true,

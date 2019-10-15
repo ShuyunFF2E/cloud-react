@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import Input from 'cloud-react/input';
 import Popup from './popup/date-popup';
 import util from './util';
 import enumObj from './util/enum';
@@ -18,7 +19,7 @@ function getFormat(_showTimePicker, _mode) {
 }
 
 function DatePicker(props) {
-	const { value, defaultValue, open, disabled, minDate, maxDate, position, className, id,
+	const { value, defaultValue, open, disabled, minDate, maxDate, position, className, id, hasClear,
 		showToday, showNow, showTimePicker, mode, onChange, placeholder, ...otherProps } = props;
 	const inpRef = React.createRef();
 	let fmt = getFormat(showTimePicker, mode);
@@ -59,7 +60,7 @@ function DatePicker(props) {
 			createWrapper(id);
 			const checkDate = currentValueDate;
 			const { HEIGHT_DEFAULT, HEIGHT_TIME } = datepickerUI;
-			const { left, bottom, top } = inpRef.current.getBoundingClientRect();
+			const { left, bottom, top } = inpRef.current.inputRef.current.getBoundingClientRect();
 			let _top = 0;
 			switch (position) {
 				case enumObj.AUTO:
@@ -110,13 +111,22 @@ function DatePicker(props) {
         }
 	}
 
-    return (<input {...otherProps}
+	function onInpChange(evt) {
+		if (!evt.target.value.trim().length) {
+			setCurrentValue('');
+			onChange('');
+		}
+	}
+
+    return (<Input {...otherProps}
 		ref={inpRef}
         value={currentValue}
 		placeholder={placeholder}
 		readOnly
+		hasClear={hasClear}
 		className={`${selector}-inp`}
 		disabled={disabled}
+		onChange={evt => onInpChange(evt)}
 		onClick={onInpClick}
  	/>);
 }
@@ -136,6 +146,7 @@ DatePicker.propTypes =  {
 		enumObj.DATE_HOUR_MINUTE
 	]),
 	open: PropTypes.bool,
+	hasClear: PropTypes.bool,
 	defaultValue: PropTypes.instanceOf(Date),
 	value: PropTypes.instanceOf(Date),
 	maxDate: PropTypes.instanceOf(Date),
@@ -155,6 +166,7 @@ DatePicker.defaultProps = {
 	disabled: false,
 	placeholder: '请选择日期',
 	position: enumObj.AUTO,
+	hasClear: true,
 	open: false,
 	showNow: false,
 	showToday: false,

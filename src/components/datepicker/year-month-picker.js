@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import Input from 'cloud-react/input';
 import Popup from './popup/year-month-popup';
 import {
 	createWrapper,
 	renderDOM,
 	destroyDOM,
-	destroyAllDOM, isVaild,
+	destroyAllDOM,
+	isVaild,
 	selector,
 	datepickerUI,
 	getWinHeight
@@ -13,7 +15,7 @@ import {
 import enumObj from './util/enum';
 
 function YearMonthPicker(props) {
-	const { value, defaultValue, open, disabled, className, min, max, id, placeholder, showThisMonth, position, onChange, ...otherProps } = props;
+	const { value, defaultValue, open, disabled, className, min, max, id, hasClear, placeholder, showThisMonth, position, onChange, ...otherProps } = props;
 	const inpRef = React.createRef();
 	const [currentValue, setCurrentValue] = useState(isVaild(value) ? value : defaultValue);
 	const [visible, setVisible] = useState(open);
@@ -30,7 +32,7 @@ function YearMonthPicker(props) {
 			createWrapper(id);
 			const checkValue = currentValue;
 			const { HEIGHT_MONTH } = datepickerUI;
-			const { left, bottom, top } = inpRef.current.getBoundingClientRect();
+			const { left, bottom, top } = inpRef.current.inputRef.current.getBoundingClientRect();
 			let _top = 0;
 			switch (position) {
 				case enumObj.AUTO:
@@ -82,15 +84,25 @@ function YearMonthPicker(props) {
 			setVisible(true);
 			changeVisible(evt, true);
 		}
-	};
+	}
 
-    return (<input
+	function onInpChange(evt) {
+		if (!evt.target.value.trim().length) {
+			setCurrentValue('');
+			onChange('');
+		}
+	}
+
+
+	return (<Input
 		ref={inpRef}
 		{...otherProps}
         value={currentValue}
 		placeholder={placeholder}
 		readOnly
+		hasClear={hasClear}
 		className={`${selector}-inp`}
+		onChange={evt => onInpChange(evt)}
 		disabled={disabled}
 		onClick={onInpClick}
  	/>);
@@ -103,6 +115,7 @@ YearMonthPicker.propTypes = {
 		enumObj.UP,
 		enumObj.DOWN
 	]),
+	hasClear: PropTypes.bool,
 	className: PropTypes.string,
 	disabled: PropTypes.bool,
 	placeholder: PropTypes.string,
@@ -112,13 +125,14 @@ YearMonthPicker.propTypes = {
     min: PropTypes.string,
 	max: PropTypes.string,
 	showThisMonth: PropTypes.bool,
-	onChange: PropTypes.func,
+	onChange: PropTypes.func
 }
 
 YearMonthPicker.defaultProps = {
 	id: Math.random().toString().replace('.',''),
 	className: '',
 	position: enumObj.AUTO,
+	hasClear: true,
 	placeholder: '',
 	disabled: false,
 	open: false,
