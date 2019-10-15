@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import Input from 'cloud-react/input';
 import Popup from './popup/range-popup';
 
 import { createWrapper, renderDOM, destroyDOM, destroyAllDOM, getWinHeight, datepickerUI, rangeSelector, selector } from  './util/view-common';
@@ -9,7 +10,7 @@ import enumObj from './util/enum';
 const minDefaultDate = new Date('1900/01/01 00:00:00');
 const maxDefaultDate = new Date('2099/12/31 23:59:59');
 function RangePicker(props) {
-	const { value, defaultValue, open, disabled, id, style, minDate, maxDate, placeholder, className, position, onChange, ...otherProps } = props;
+	const { value, defaultValue, open, disabled, id, style, hasClear, minDate, maxDate, placeholder, className, position, onChange, ...otherProps } = props;
 
 	const fmt = 'yyyy/MM/dd';
 	const inpRef = React.createRef();
@@ -69,7 +70,7 @@ function RangePicker(props) {
 		if(isVisible && id) {
 			createWrapper(id);
 			const { HEIGHT_DEFAULT } = datepickerUI;
-			const { left, bottom, top } = inpRef.current.getBoundingClientRect();
+			const { left, bottom, top } = inpRef.current.inputRef.current.getBoundingClientRect();
 			let _top = 0;
 			switch (position) {
 				case enumObj.AUTO:
@@ -115,9 +116,18 @@ function RangePicker(props) {
 			changeVisible(evt, true);
 		}
 	}
+
+	function onInpChange(evt) {
+		if (!evt.target.value.trim().length) {
+			setCurrentValue(['', '']);
+			setCurrentValueDate([null, null]);
+			onChange(['', ''], [null, null]);
+		}
+	}
+
 	const disabledClass = disabled ? `${rangeSelector}-disabled` : '';
 	return (<div className={`${rangeSelector} ${className} ${disabledClass}`} {...otherProps}>
-		<input
+		<Input
 			ref={inpRef}
 			style={style}
 			value={currentValue[0]}
@@ -128,13 +138,15 @@ function RangePicker(props) {
 			onClick={onInpClick}
 		/>
 		<span className={`${rangeSelector}-separator`} />
-		<input
+		<Input
 			value={currentValue[1]}
 			placeholder={placeholder[0]}
 			readOnly
+			hasClear={hasClear}
 			style={style}
 			disabled={disabled}
 			className={`${selector}-inp`}
+			onChange={evt => onInpChange(evt)}
 			onClick={onInpClick}
 		/>
 	</div>);
@@ -145,6 +157,7 @@ RangePicker.propTypes = {
 	className: PropTypes.string,
 	style: PropTypes.object,
 	disabled: PropTypes.bool,
+	hasClear: PropTypes.bool,
 	placeholder: PropTypes.arrayOf(PropTypes.string),
 	defaultValue: PropTypes.arrayOf(PropTypes.instanceOf(Date)),
 	value: PropTypes.arrayOf(PropTypes.instanceOf(Date)),
@@ -164,6 +177,7 @@ RangePicker.defaultProps = {
 	className: '',
 	style: {},
 	position: enumObj.AUTO,
+	hasClear: true,
 	disabled: false,
 	placeholder: ['请选择开始时间', '请选择结束时间'],
 	defaultValue: [null, null],

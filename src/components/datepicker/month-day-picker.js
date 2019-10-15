@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import Input from 'cloud-react/input';
 import Popup from './popup/month-day-popup';
 import { createWrapper, renderDOM, destroyDOM, destroyAllDOM, isVaild, datepickerUI, selector, getWinHeight } from './util/view-common';
 import enumObj from './util/enum';
 
 function MonthDayPicker(props) {
-	const { value, defaultValue, open, disabled, className, placeholder, showToday, id, position, onChange, ...otherProps } = props;
+	const { value, defaultValue, open, disabled, className, hasClear, placeholder, showToday, id, position, onChange, ...otherProps } = props;
 	const [currentValue, setCurrentValue] = useState(isVaild(value) ? value : defaultValue);
 	const [visible, setVisible] = useState(open);
 	const inpRef = React.createRef();
@@ -22,7 +23,7 @@ function MonthDayPicker(props) {
 			createWrapper(id);
 			const checkValue = currentValue;
 			const { HEIGHT_MONTH_DAY } = datepickerUI;
-			const { left, bottom, top } = inpRef.current.getBoundingClientRect();
+			const { left, bottom, top } = inpRef.current.inputRef.current.getBoundingClientRect();
 			let _top = 0;
 			switch (position) {
 				case enumObj.AUTO:
@@ -72,12 +73,21 @@ function MonthDayPicker(props) {
 		}
 	}
 
-    return (<input {...otherProps}
+	function onInpChange(evt) {
+		if (!evt.target.value.trim().length) {
+			setCurrentValue('');
+			onChange('');
+		}
+	}
+
+    return (<Input {...otherProps}
 		ref={inpRef}
         value={currentValue}
 		placeholder={placeholder}
 		readOnly
+		hasClear={hasClear}
 		className={`${selector}-inp`}
+		onChange={evt => onInpChange(evt)}
 		disabled={disabled}
 		onClick={onInpClick}
  	/>);
@@ -91,6 +101,7 @@ MonthDayPicker.propTypes = {
 		enumObj.DOWN
 	]),
 	className: PropTypes.string,
+	hasClear: PropTypes.bool,
 	disabled: PropTypes.bool,
 	placeholder: PropTypes.string,
 	open: PropTypes.bool,
@@ -105,6 +116,7 @@ MonthDayPicker.defaultProps = {
 	className: '',
 	position: enumObj.AUTO,
 	placeholder: '',
+	hasClear: true,
 	disabled: false,
 	open: false,
 	showToday: true,
