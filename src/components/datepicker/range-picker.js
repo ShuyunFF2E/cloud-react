@@ -3,7 +3,16 @@ import PropTypes from 'prop-types';
 import Input from 'cloud-react/input';
 import Popup from './popup/range-popup';
 
-import { createWrapper, renderDOM, destroyDOM, destroyAllDOM, getWinHeight, datepickerUI, rangeSelector, selector } from  './util/view-common';
+import {
+	createWrapper,
+	renderDOM,
+	destroyDOM,
+	destroyAllDOM,
+	datepickerUI,
+	rangeSelector,
+	selector,
+	getPositionByComp
+} from './util/view-common';
 import util from './util';
 import enumObj from './util/enum';
 
@@ -70,27 +79,14 @@ function RangePicker(props) {
 		if(isVisible && id) {
 			createWrapper(id);
 			const { HEIGHT_DEFAULT } = datepickerUI;
-			const { left, bottom, top } = inpRef.current.inputRef.current.getBoundingClientRect();
-			let _top = 0;
-			switch (position) {
-				case enumObj.AUTO:
-					_top = getWinHeight() - bottom > HEIGHT_DEFAULT ? bottom : top - HEIGHT_DEFAULT;
-					break;
-				case enumObj.UP:
-					_top = top - HEIGHT_DEFAULT;
-					break;
-				case enumObj.DOWN:
-				default:
-					_top = bottom;
-					break;
-			}
+			const { left, top } = getPositionByComp(inpRef.current.inputRef.current.getBoundingClientRect(), position, HEIGHT_DEFAULT);
 			renderDOM(id, <Popup min={minTempDate}
 								  max={maxTempDate}
 								  className={className}
 								  checkDateArr={currentValueDate}
 								  onChange={onPopChange}
 								  left={left}
-								  top={_top} />);
+								  top={top} />);
 		} else {
 			setVisible(false);
 			destroyDOM(id);

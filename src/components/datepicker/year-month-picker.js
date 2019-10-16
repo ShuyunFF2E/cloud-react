@@ -10,7 +10,7 @@ import {
 	isVaild,
 	selector,
 	datepickerUI,
-	getWinHeight
+	getPositionByComp
 } from './util/view-common';
 import enumObj from './util/enum';
 
@@ -32,23 +32,9 @@ function YearMonthPicker(props) {
 			createWrapper(id);
 			const checkValue = currentValue;
 			const { HEIGHT_MONTH } = datepickerUI;
-			const { left, bottom, top } = inpRef.current.inputRef.current.getBoundingClientRect();
-			let _top = 0;
-			switch (position) {
-				case enumObj.AUTO:
-					_top = getWinHeight() - bottom > HEIGHT_MONTH ? bottom : top - HEIGHT_MONTH;
-					break;
-				case enumObj.UP:
-					_top = top - HEIGHT_MONTH;
-					break;
-				case enumObj.DOWN:
-				default:
-					_top = bottom;
-					break;
-			}
-
+			const { left, top } = getPositionByComp(inpRef.current.inputRef.current.getBoundingClientRect(), position, HEIGHT_MONTH);
 			renderDOM(id, <Popup left={left}
-								  top={_top}
+								  top={top}
 								  className={className}
 								  checkValue={checkValue}
 								  showThisMonth={showThisMonth}

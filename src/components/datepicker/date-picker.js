@@ -4,7 +4,7 @@ import Input from 'cloud-react/input';
 import Popup from './popup/date-popup';
 import util from './util';
 import enumObj from './util/enum';
-import { createWrapper, renderDOM, destroyDOM, destroyAllDOM, isVaild, formatZero, getWinHeight, datepickerUI, selector } from  './util/view-common';
+import { createWrapper, renderDOM, destroyDOM, destroyAllDOM, isVaild, formatZero, getPositionByComp, datepickerUI, selector } from  './util/view-common';
 
 function getFormat(_showTimePicker, _mode) {
 	if (_showTimePicker) {
@@ -60,22 +60,9 @@ function DatePicker(props) {
 			createWrapper(id);
 			const checkDate = currentValueDate;
 			const { HEIGHT_DEFAULT, HEIGHT_TIME } = datepickerUI;
-			const { left, bottom, top } = inpRef.current.inputRef.current.getBoundingClientRect();
-			let _top = 0;
-			switch (position) {
-				case enumObj.AUTO:
-					_top = getWinHeight() - bottom > (showTimePicker ? HEIGHT_TIME : HEIGHT_DEFAULT) ? bottom : top - (showTimePicker ? HEIGHT_TIME : HEIGHT_DEFAULT);
-					break;
-				case enumObj.UP:
-					_top = top - (showTimePicker ? HEIGHT_TIME : HEIGHT_DEFAULT);
-					break;
-				case enumObj.DOWN:
-				default:
-					_top = bottom;
-					break;
-			}
+			const { left, top } = getPositionByComp(inpRef.current.inputRef.current.getBoundingClientRect(), position, showTimePicker ? HEIGHT_TIME : HEIGHT_DEFAULT);
 			renderDOM(id, <Popup left={left}
-								 top={_top}
+								 top={top}
 								 mode={mode}
 								 className={className}
 								 checkDateObj={util.transformObj(checkDate)}
