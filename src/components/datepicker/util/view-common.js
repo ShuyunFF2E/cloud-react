@@ -1,4 +1,5 @@
 import ReactDOM from 'react-dom';
+import enumObj from './enum';
 
 const container = {};
 
@@ -66,4 +67,33 @@ export function formatZero(value) {
 
 export function getWinHeight() {
 	return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+}
+
+export function getScrollTop() {
+	return Math.max(document.body.scrollTop, document.documentElement.scrollTop);
+}
+
+export function getAvailHeight() {
+	return document.body.clientHeight;
+}
+
+export function getPositionByComp({ left, bottom, top }, position, HEIGHT) {
+	let _top = 0;
+	switch (position) {
+		case enumObj.AUTO:
+			_top = getAvailHeight() - bottom > HEIGHT ? (bottom +  getScrollTop()) : (top + getScrollTop() - HEIGHT);
+			break;
+		case enumObj.UP:
+			_top = top + getScrollTop() - HEIGHT;
+			break;
+		case enumObj.DOWN:
+		default:
+			_top = bottom + getScrollTop();
+			break;
+	}
+
+	return {
+		left,
+		top: _top
+	}
 }

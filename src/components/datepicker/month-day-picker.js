@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Input from 'cloud-react/input';
 import Popup from './popup/month-day-popup';
-import { createWrapper, renderDOM, destroyDOM, destroyAllDOM, isVaild, datepickerUI, selector, getWinHeight } from './util/view-common';
+import { createWrapper, renderDOM, destroyDOM, destroyAllDOM, isVaild, datepickerUI, selector, getPositionByComp } from './util/view-common';
 import enumObj from './util/enum';
 
 function MonthDayPicker(props) {
@@ -23,22 +23,9 @@ function MonthDayPicker(props) {
 			createWrapper(id);
 			const checkValue = currentValue;
 			const { HEIGHT_MONTH_DAY } = datepickerUI;
-			const { left, bottom, top } = inpRef.current.inputRef.current.getBoundingClientRect();
-			let _top = 0;
-			switch (position) {
-				case enumObj.AUTO:
-					_top = getWinHeight() - bottom > HEIGHT_MONTH_DAY ? bottom : top - HEIGHT_MONTH_DAY;
-					break;
-				case enumObj.UP:
-					_top = top - HEIGHT_MONTH_DAY;
-					break;
-				case enumObj.DOWN:
-				default:
-					_top = bottom;
-					break;
-			}
+			const { left, top } = getPositionByComp(inpRef.current.inputRef.current.getBoundingClientRect(), position, HEIGHT_MONTH_DAY);
 			renderDOM(id, <Popup left={left}
-								  top={_top}
+								  top={top}
 								  className={className}
 								  checkValue={checkValue}
 								  showToday={showToday}
