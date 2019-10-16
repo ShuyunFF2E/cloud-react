@@ -11,6 +11,7 @@ subtitle: 下拉选择
 ### Select
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
+| allowClear | 是否支持一键清除 | boolean | false |
 | multiple | 是否为多选 | boolean | false |
 | disabled | 下拉禁用状态 | boolean | false |
 | defaultOpen | 默认下拉菜单展开状态 | boolean | false |
@@ -40,4 +41,4 @@ subtitle: 下拉选择
 | --- | --- | --- | --- |
 | disabled | 下拉禁用状态 | boolean | false |
 | value | 默认使用此属性进行基本操作，选中option的值 | string\number | - |
-| className | 该项opton的类名 | string | - |
+| className | 该项option的类名 | string | - |

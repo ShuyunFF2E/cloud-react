@@ -1,5 +1,5 @@
 ---
-order: 5
+order: 6
 title: 获取选项的文本
 desc: 默认情况下onChange只能拿到value，添加labelInValue属性后onChange等函数中拿到的value会变成由label、value组成的对象
 ---

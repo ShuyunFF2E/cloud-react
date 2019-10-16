@@ -94,10 +94,11 @@ class Select extends Component {
 	componentWillUnmount() {
 		document.removeEventListener('click', this.handleClick);
 
-		if (this.optionsContainer) {
-			ReactDOM.unmountComponentAtNode(this.optionsContainer);
-			document.body.removeChild(this.optionsContainer);
-			this.optionsContainer = null;
+		const { optionsContainer } = this;
+		if (optionsContainer) {
+			const parentEle = optionsContainer.parentElement;
+			ReactDOM.unmountComponentAtNode(optionsContainer);
+			if (parentEle) parentEle.removeChild(optionsContainer);
 		}
 	}
 
@@ -113,8 +114,8 @@ class Select extends Component {
 	}
 
 	get optionsNode() {
-		const { multiple, searchable, hasSelectAll, hasConfirmButton, okBtnText, cancelBtnText, children,
-				onSearch, emptyRender } = this.props;
+		const { multiple, searchable, hasSelectAll, hasConfirmButton, okBtnText, cancelBtnText,
+				children, onSearch, emptyRender } = this.props;
 		const { value } = this.state;
 
 
@@ -253,6 +254,18 @@ class Select extends Component {
 		if (!hasConfirmButton) onChange(checkedValue);
 	}
 
+	onClearSelected = e => {
+		e.preventDefault();
+		e.stopPropagation();
+		const { multiple } = this.props;
+		const value = multiple ? [] : '';
+		this.setState({
+			selected: [],
+			value,
+			prevValue: value
+		});
+	}
+
 	handleOk = () => {
 		const { handleSelect, props: { labelInValue, onOk }, state: { selected, value } } = this;
 		const result = labelInValue ? selected : value;
@@ -271,7 +284,7 @@ class Select extends Component {
 	}
 
 	render() {
-		const { placeholder, disabled, style, className } = this.props;
+		const { placeholder, disabled, allowClear, style, className } = this.props;
 		const { selected, open } = this.state;
 		const classNames = classnames(`${selector}`, { [`${selector}-open`]: open }, className);
 
@@ -281,7 +294,9 @@ class Select extends Component {
 				<Selected
 					ref={this.selectedNode}
 					onClick={this.onClickSelected}
+					onClear={this.onClearSelected}
 					open={open}
+					allowClear={allowClear}
 					placeholder={placeholder}
 					dataSource={selected}
 					disabled={disabled} />
@@ -292,6 +307,7 @@ class Select extends Component {
 
 Select.propTypes = {
 	multiple: PropTypes.bool,
+	allowClear: PropTypes.bool,
 	defaultOpen: PropTypes.bool,
 	open: PropTypes.bool,
 	disabled: PropTypes.bool,
@@ -334,6 +350,7 @@ Select.propTypes = {
 
 Select.defaultProps = {
 	multiple: false,
+	allowClear: false,
 	defaultOpen: false,
 	open: null,
 	disabled: false,
