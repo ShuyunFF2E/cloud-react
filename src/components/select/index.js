@@ -94,10 +94,11 @@ class Select extends Component {
 	componentWillUnmount() {
 		document.removeEventListener('click', this.handleClick);
 
-		if (this.optionsContainer) {
-			ReactDOM.unmountComponentAtNode(this.optionsContainer);
-			document.body.removeChild(this.optionsContainer);
-			this.optionsContainer = null;
+		const { optionsContainer } = this;
+		if (optionsContainer) {
+			const parentEle = optionsContainer.parentElement;
+			ReactDOM.unmountComponentAtNode(optionsContainer);
+			if (parentEle) parentEle.removeChild(optionsContainer);
 		}
 	}
 

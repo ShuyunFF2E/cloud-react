@@ -17,8 +17,12 @@ export const filterOptions = (options, filter) => {
 	const result = [];
 	Children.forEach(options, child => {
 		const { value: childValue, children } = child.props;
-		const value = typeof childValue === 'number' ? String(childValue) : childValue;
-		if (value.indexOf(filter) > -1 || children.indexOf(filter) > -1) result.push(child);
+		if (childValue === null || childValue === undefined) {
+			result.push(child);
+		} else {
+			const value = typeof childValue === 'number' ? String(childValue) : childValue;
+			if (value.indexOf(filter) > -1 || children.indexOf(filter) > -1) result.push(child);
+		}
 	})
 	return result;
 }
