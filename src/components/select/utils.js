@@ -1,5 +1,4 @@
 import jeasy from 'jeasy';
-import { Children } from 'react';
 
 // 将组件children转换成带label|value的对象数组
 export const formatOptionSource = (data) => {
@@ -14,11 +13,14 @@ export const formatOptionSource = (data) => {
 }
 
 export const filterOptions = (options, filter) => {
-	const result = [];
-	Children.forEach(options, child => {
+	return options.reduce((acc, child) => {
 		const { value: childValue, children } = child.props;
 		const value = typeof childValue === 'number' ? String(childValue) : childValue;
-		if (value.indexOf(filter) > -1 || children.indexOf(filter) > -1) result.push(child);
-	})
-	return result;
+		if (value === null || value === undefined) {
+			if (!filter) acc.push(child);
+		} else if (value.indexOf(filter) > -1 || children.indexOf(filter) > -1) {
+			acc.push(child);
+		}
+		return acc;
+	}, []);
 }
