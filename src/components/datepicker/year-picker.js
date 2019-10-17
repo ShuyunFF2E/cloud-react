@@ -15,9 +15,10 @@ import {
 import enumObj from './util/enum';
 
 function YearPicker(props) {
-	const { value, defaultValue, open, disabled, min, max, hasClear, id, placeholder, position, className, showThisYear, onChange, ...otherProps } = props;
+	const { value, defaultValue, open, disabled, min, max, hasClear, placeholder, position, className, showThisYear, onChange, ...otherProps } = props;
 	const inpRef = React.createRef();
-
+	// eslint-disable-next-line no-unused-vars
+	const [id, setId] = useState(Math.random().toString().replace('.', ''));
 	const [currentValue, setCurrentValue] = useState(isVaild(value) ? value : defaultValue);
 	const [visible, setVisible] = useState(open);
 
@@ -95,7 +96,6 @@ function YearPicker(props) {
 }
 
 YearPicker.propTypes =  {
-	id: PropTypes.string,
 	className: PropTypes.string,
 	disabled: PropTypes.bool,
 	hasClear: PropTypes.bool,
@@ -128,7 +128,6 @@ YearPicker.propTypes =  {
 }
 
 YearPicker.defaultProps = {
-	id: Math.random().toString().replace('.',''),
 	className: '',
 	position: enumObj.AUTO,
 	placeholder: '',

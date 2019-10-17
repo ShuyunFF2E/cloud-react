@@ -14,7 +14,7 @@ export default class DatePickerDemo extends React.Component {
 	render() {
 		return (
 			<div>
-			   <DatePicker.MonthDayPicker id="m1" onChange={this.onChange} showToday placeholder="请选择月日" />
+			   <DatePicker.MonthDayPicker onChange={this.onChange} showToday placeholder="请选择月日" />
 			   <br />
 			</div>
 		);

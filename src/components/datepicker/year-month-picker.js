@@ -15,11 +15,12 @@ import {
 import enumObj from './util/enum';
 
 function YearMonthPicker(props) {
-	const { value, defaultValue, open, disabled, className, min, max, id, hasClear, placeholder, showThisMonth, position, onChange, ...otherProps } = props;
+	const { value, defaultValue, open, disabled, className, min, max, hasClear, placeholder, showThisMonth, position, onChange, ...otherProps } = props;
 	const inpRef = React.createRef();
 	const [currentValue, setCurrentValue] = useState(isVaild(value) ? value : defaultValue);
 	const [visible, setVisible] = useState(open);
-
+	// eslint-disable-next-line no-unused-vars
+	const [id, setId] = useState(Math.random().toString().replace('.', ''));
 	function onPopChange(output) {
 		setCurrentValue(output);
 		// eslint-disable-next-line no-use-before-define
@@ -95,7 +96,6 @@ function YearMonthPicker(props) {
 }
 
 YearMonthPicker.propTypes = {
-	id: PropTypes.string,
 	position: PropTypes.oneOf([
 		enumObj.AUTO,
 		enumObj.UP,
@@ -115,7 +115,6 @@ YearMonthPicker.propTypes = {
 }
 
 YearMonthPicker.defaultProps = {
-	id: Math.random().toString().replace('.',''),
 	className: '',
 	position: enumObj.AUTO,
 	hasClear: true,

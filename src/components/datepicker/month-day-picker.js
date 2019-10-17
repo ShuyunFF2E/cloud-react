@@ -6,9 +6,11 @@ import { createWrapper, renderDOM, destroyDOM, destroyAllDOM, isVaild, datepicke
 import enumObj from './util/enum';
 
 function MonthDayPicker(props) {
-	const { value, defaultValue, open, disabled, className, hasClear, placeholder, showToday, id, position, onChange, ...otherProps } = props;
+	const { value, defaultValue, open, disabled, className, hasClear, placeholder, showToday, position, onChange, ...otherProps } = props;
 	const [currentValue, setCurrentValue] = useState(isVaild(value) ? value : defaultValue);
 	const [visible, setVisible] = useState(open);
+	// eslint-disable-next-line no-unused-vars
+	const [id, setId] = useState(Math.random().toString().replace('.', ''));
 	const inpRef = React.createRef();
 
 	function onPopChange(output) {
@@ -81,7 +83,6 @@ function MonthDayPicker(props) {
 }
 
 MonthDayPicker.propTypes = {
-	id: PropTypes.string,
 	position: PropTypes.oneOf([
 		enumObj.AUTO,
 		enumObj.UP,
@@ -99,7 +100,6 @@ MonthDayPicker.propTypes = {
 }
 
 MonthDayPicker.defaultProps = {
-	id: Math.random().toString().replace('.',''),
 	className: '',
 	position: enumObj.AUTO,
 	placeholder: '',

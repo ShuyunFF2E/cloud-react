@@ -16,7 +16,7 @@ export default class DatePickerDemo extends React.Component {
 	render() {
 		return (
 			<div>
-			   <DatePicker.YearPicker id="y1" placeholder="请选择年份" min={2014} max={2034} onChange={this.onInpChange} showThisYear={true} />
+			   <DatePicker.YearPicker placeholder="请选择年份" min={2014} max={2034} onChange={this.onInpChange} showThisYear={true} />
 			   <br />
 			</div>
 		);

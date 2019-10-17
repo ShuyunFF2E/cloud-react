@@ -19,11 +19,12 @@ import enumObj from './util/enum';
 const minDefaultDate = new Date('1900/01/01 00:00:00');
 const maxDefaultDate = new Date('2099/12/31 23:59:59');
 function RangePicker(props) {
-	const { value, defaultValue, open, disabled, id, style, hasClear, minDate, maxDate, placeholder, className, position, onChange, ...otherProps } = props;
+	const { value, defaultValue, open, disabled, style, hasClear, minDate, maxDate, placeholder, className, position, onChange, ...otherProps } = props;
 
 	const fmt = 'yyyy/MM/dd';
 	const inpRef = React.createRef();
-
+	// eslint-disable-next-line no-unused-vars
+	const [id, setId] = useState(Math.random().toString().replace('.', ''));
 	const [controlled, setControlled] = useState(typeof value !== 'undefined');
 	function getInitValue(isStr) {
 		let _value = defaultValue;
@@ -149,7 +150,6 @@ function RangePicker(props) {
 }
 
 RangePicker.propTypes = {
-	id: PropTypes.string,
 	className: PropTypes.string,
 	style: PropTypes.object,
 	disabled: PropTypes.bool,
@@ -169,7 +169,6 @@ RangePicker.propTypes = {
 }
 
 RangePicker.defaultProps = {
-	id: new Date().getTime().toString(),
 	className: '',
 	style: {},
 	position: enumObj.AUTO,
