@@ -19,7 +19,6 @@ subtitle: 日期选择框
 ### DatePicker
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| id | 组件唯一标识，一个页面引用多个同种类型组件时需要设置 | string | - |
 | className | 日历弹层class | string | - |
 | disabled | 组件失效状态 | boolean | `false` |
 | defaultValue | 初始值 | Date | - |
@@ -38,7 +37,6 @@ subtitle: 日期选择框
 ### TimePicker
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| id | 组件唯一标识，一个页面引用多个同种类型组件时需要设置 | string | - |
 | className | 日历弹层class | string | - |
 | disabled | 组件失效状态 | boolean | `false` |
 | defaultValue | 初始值 | number | - |
@@ -49,7 +47,6 @@ subtitle: 日期选择框
 ### RangePicker
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| id | 组件唯一标识，一个页面引用多个同种类型组件时需要设置 | string | - |
 | className | 拓展组件样式的class | string | - |
 | disabled | 组件失效状态 | boolean | `false` |
 | defaultValue | 初始值 | [date,date] | - |
@@ -66,7 +63,6 @@ subtitle: 日期选择框
 ### YearPicker
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| id | 组件唯一标识，一个页面引用多个同种类型组件时需要设置 | string | - |
 | className | 日历弹层class | string | - |
 | disabled | 组件失效状态 | boolean | `false` |
 | defaultValue | 初始值 | number/string | - |
@@ -83,7 +79,6 @@ subtitle: 日期选择框
 ### YearMonthPicker
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| id | 组件唯一标识，一个页面引用多个同种类型组件时需要设置 | string | - |
 | className | 日历弹层class | string | - |
 | disabled | 组件失效状态 | boolean | `false` |
 | defaultValue | 初始值 | number/string | - |
@@ -100,7 +95,6 @@ subtitle: 日期选择框
 ### MonthDayPicker
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| id | 组件唯一标识，一个页面引用多个同种类型组件时需要设置 | string | - |
 | className | 日历弹层class | string | - |
 | disabled | 组件失效状态 | boolean | `false` |
 | defaultValue | 初始值 | number/string | - |

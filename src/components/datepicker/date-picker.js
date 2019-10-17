@@ -19,9 +19,12 @@ function getFormat(_showTimePicker, _mode) {
 }
 
 function DatePicker(props) {
-	const { value, defaultValue, open, disabled, minDate, maxDate, position, className, id, hasClear,
+	const { value, defaultValue, open, disabled, minDate, maxDate, position, className, hasClear,
 		showToday, showNow, showTimePicker, mode, onChange, placeholder, ...otherProps } = props;
 	const inpRef = React.createRef();
+	// eslint-disable-next-line no-unused-vars
+	const [id, setId] = useState(Math.random().toString().replace('.', ''));
+
 	let fmt = getFormat(showTimePicker, mode);
 
 	const [visible, setVisible] = useState(open);
@@ -101,6 +104,7 @@ function DatePicker(props) {
 	function onInpChange(evt) {
 		if (!evt.target.value.trim().length) {
 			setCurrentValue('');
+			setCurrentValueDate(null);
 			onChange('');
 		}
 	}
@@ -119,7 +123,6 @@ function DatePicker(props) {
 }
 
 DatePicker.propTypes =  {
-	id: PropTypes.string,
 	className: PropTypes.string,
 	disabled: PropTypes.bool,
 	placeholder: PropTypes.string,
@@ -147,7 +150,6 @@ DatePicker.propTypes =  {
 }
 
 DatePicker.defaultProps = {
-	id: Math.random().toString().replace('.',''),
 	className: '',
 	mode: undefined,
 	disabled: false,
