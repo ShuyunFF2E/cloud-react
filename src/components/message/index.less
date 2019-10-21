@@ -52,7 +52,7 @@
 		transform: translateY(-35%);
 		opacity: 0;
 		transition: .3s;
-		p {
+		div {
 			margin: 0 19px 0 6px;
 		}
 	}
@@ -79,6 +79,10 @@
 	.error-msg {
 		.mixin-type-msg(@error-bg, @error-border, @error-color, @error-x-color, @error-x-hover-color, @error-icon-color)
 	}
+}
+
+.@{selector}-pos {
+	position: absolute;
 }
 
 

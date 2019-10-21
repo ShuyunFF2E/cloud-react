@@ -11,13 +11,14 @@ subtitle: 全局提示
 ### API
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- | --- |
-| msg | 提示内容 | string | - |
+| msg | 提示内容 | node | - |
 | options | 可选参数 | object | 参照options部分 |
 
 ### options
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- | --- |
 | options.duration | 自动关闭的延时，单位毫秒。设为 0 时不自动关闭 | number | 3000 |
+| option.contextContainer | 指定 message 挂载的 HTML 节点, 默认在body上 | HTMLElement | document.body |
 
 ### message.method()
 - message.success(msg, options)

@@ -35,6 +35,8 @@ export { default as Radio } from './radio';
 
 export { default as Select } from './select';
 
+export { default as Step } from './step';
+
 export { default as Table } from './table';
 
 export { default as TablePagination } from './table-pagination';
@@ -50,3 +52,4 @@ export { default as Tooltip } from './tooltip';
 export { default as Tree } from './tree';
 
 export { default as Upload } from './upload';
+
