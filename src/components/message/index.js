@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import './index.less';
 import Icon from '../icon';
 
-const DEFAULTOPTS = { duration: 3000 };
+const DEFAULTOPTS = { duration: 3000, contextContainer: document.body };
 
 const MESSAGE_TYPE = {
 	'success': {
@@ -15,29 +15,57 @@ const MESSAGE_TYPE = {
 	}
 };
 
-let wraper = null;
 
-function removeWraper() {
-	if (!wraper.children.length) {
+const wraperMap = new Map();
+let wraper;
+
+function removeWraper(contextContainer) {
+
+	if (!wraperMap.get(contextContainer).children.length) {
 		ReactDOM.unmountComponentAtNode(wraper);
-		document.body.removeChild(wraper);
+		contextContainer.removeChild(wraper);
 		wraper = null;
 	}
 }
 
-function entity(props) {
+function entity(config) {
+	const { type, msg, options } = config;
+
+	const opts = Object.assign({}, DEFAULTOPTS, options);
+	const props = {
+		type,
+		msg,
+		duration: opts.duration,
+		contextContainer: opts.contextContainer
+	};
+
+	const { contextContainer } = props;
+	wraper = wraperMap.get(contextContainer);
+
 	if (!wraper) {
 		wraper = document.createElement('div');
+		wraperMap.set(contextContainer, wraper);
 	}
-	wraper.classList.add('message');
+
+	// 提示信息位置
+	if (contextContainer.tagName === 'BODY') {
+		wraper.className = 'message';
+	} else {
+		wraper.className = 'message message-pos';
+		if (window.getComputedStyle(contextContainer).position === 'static') {
+			contextContainer.style.position = 'relative';
+		}
+	}
 
 	const container = document.createElement('div');
 
-	ReactDOM.render(<MessageEntity {...props} container={container}/>, container);
-
 	wraper.appendChild(container);
-	document.body.appendChild(wraper)
+
+	contextContainer.appendChild(wraper);
+
+	ReactDOM.render(<MessageEntity {...props} container={container}/>, container);
 }
+
 
 class MessageEntity extends Component {
 
@@ -69,8 +97,9 @@ class MessageEntity extends Component {
 
 		this.stopTimer();
 
-		const { container } = this.props;
+		const { container, contextContainer } = this.props;
 		const { current: currentNotice } = this.noticeRef;
+		wraper = wraperMap.get(contextContainer);
 
 		currentNotice.classList.add('fade-out');
 
@@ -78,7 +107,7 @@ class MessageEntity extends Component {
 		currentNotice.addEventListener('webkitTransitionEnd', () => {
 			ReactDOM.unmountComponentAtNode(container);
 			wraper.removeChild(container);
-			removeWraper();
+			removeWraper(contextContainer);
 
 		}, { once: true, capture: true });
 	};
@@ -109,7 +138,7 @@ class MessageEntity extends Component {
 		return (
 			<div className={`${type}-msg notice`} ref={this.noticeRef}>
 				<Icon type={`${MESSAGE_TYPE[type].icon}`} className="tag-icon"></Icon>
-				<p className="msg-text">{msg}</p>
+				<div className="msg-text">{msg}</div>
 				<Icon type="close" onClick={this.onHandleClose} className="close-icon"></Icon>
 			</div>
 		)
@@ -118,25 +147,23 @@ class MessageEntity extends Component {
 
 const message = {
 	error(msg, options) {
-		const opts = Object.assign({}, DEFAULTOPTS, options);
 		entity({
 			type: 'error',
 			msg,
-			duration: opts.duration
+			options
 		})
 	},
 	success(msg, options) {
-		const opts = Object.assign({}, DEFAULTOPTS, options);
 		entity({
 			type: 'success',
 			msg,
-			duration: opts.duration
+			options
 		})
 	}
 };
 
 MessageEntity.propTypes = {
-	msg: PropTypes.string.isRequired,
+	msg: PropTypes.node.isRequired,
 	duration: PropTypes.number.isRequired
 };
 
