@@ -1,0 +1,95 @@
+@selector: tag;
+
+@default-backgroud-color:#FDFDFD;
+@default-border:#e3e3e3;
+@default-color:#777777;
+@default-hover-color: rgba(119,119,119, 0.6);
+@close-color:#0183BA;
+@disabled-color:#DDDDDD;
+@white-color: #FFFFFF;
+
+.bordered {
+	background: #EFF7FF;
+	border: 1px solid #E7F3FF;
+}
+
+.disabled {
+	color: @white-color;
+	background-color: @disabled-color;
+	border: none;
+}
+
+.status-style(@backgourdColor){
+	color: @white-color;
+	background-color: @backgourdColor;
+	border:none;
+}
+
+.@{selector} {
+	display: inline-block;
+	position: relative;
+	height: auto;
+	line-height: 20px;
+	font-size: 12px;
+	box-sizing: border-box;
+	color: @default-color;
+	padding: 0 8px;
+	margin-right: 8px;
+	cursor: pointer;
+	background: @default-backgroud-color;
+	border: 1px solid @default-border;
+	border-radius: 2px;
+
+	&:hover{
+		.bordered;
+		color: @default-hover-color;
+	}
+
+	a {
+		text-decoration: none;
+		background: transparent;
+		outline: none;
+		cursor: pointer;
+		color: @default-color;
+		transition: color .3s ease;
+	}
+
+	&.checked{
+		color: @close-color;
+		.bordered;
+	}
+
+	&.closable{
+		color: @close-color;
+		background: #EFF7FF;
+		border:1px solid #CCDCEB;
+		padding-right: 24px;
+		&:hover {
+			color: #00AAF1;
+		}
+		.tag-close-icon{
+			position: absolute;
+			right: 2px;
+			font-size: 10px;
+		}
+	}
+
+	&.success{
+		.status-style(#75CF48);
+	}
+	&.warning{
+		.status-style(#FCBB27);
+	}
+	&.default{
+		.status-style(#999);
+	}
+	&.danger{
+		.status-style(#FF524F);
+	}
+	&.disabled{
+		.disabled;
+		&:hover {
+			.disabled;
+		}
+	}
+}
