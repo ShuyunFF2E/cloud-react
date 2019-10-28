@@ -3,16 +3,16 @@ import PropTypes from 'prop-types';
 import { selector } from  '../util/view-common';
 
 const nowYear = new Date().getFullYear();
-
+const disClass = 'grid-disabled';
 function getClassName(checkValue, current, min, max) {
     if (current < min || current > max) {
-        return ' disabled ';
+        return ` ${disClass} `;
     }
     if (checkValue === current) {
-    	return 'check';
+    	return 'grid-check';
 	}
     if (current === nowYear) {
-    	return 'now'
+    	return 'grid-now';
 	}
     return '';
 }
@@ -20,8 +20,6 @@ function getClassName(checkValue, current, min, max) {
 function YearGrid(props) {
 	const { minRegion, maxRegion, checkValue, min, max, showThisYear, onChange } = props;
     const len = Math.ceil((maxRegion - minRegion) / 3);
-
-
     const [tempYear, setTempYear] = useState(checkValue);
 
     useEffect(() => {
@@ -29,7 +27,10 @@ function YearGrid(props) {
 	}, [checkValue]);
 
 
-    function onUpdate(year) {
+    function onUpdate(year, cls) {
+    	if (cls.indexOf(disClass) > -1) {
+    		return;
+		}
         setTempYear(year);
     }
 
@@ -54,10 +55,13 @@ function YearGrid(props) {
                         const index1 = minRegion + index * 3;
                         const index2 = minRegion + index * 3 + 1;
                         const index3 = minRegion + index * 3 + 2;
+                        const cls1 = getClassName(tempYear, index1, min, max);
+                        const cls2 = getClassName(tempYear, index2, min, max);
+                        const cls3 = getClassName(tempYear, index3, min, max);
 						return (<tr key={index.toString()}>
-								<td className={getClassName(tempYear, index1, min, max)}><span onClick={() => onUpdate(index1)}>{index1}年</span></td>
-								<td className={getClassName(tempYear, index2, min, max)}><span onClick={() => onUpdate(index2)}>{index2}年</span></td>
-								<td className={getClassName(tempYear, index3, min, max)}><span onClick={() => onUpdate(index3)}>{index3}年</span></td>
+								<td className={cls1}><span onClick={() => onUpdate(index1, cls1)}>{index1}年</span></td>
+								<td className={cls2}><span onClick={() => onUpdate(index2, cls2)}>{index2}年</span></td>
+								<td className={cls3}><span onClick={() => onUpdate(index3, cls3)}>{index3}年</span></td>
 						</tr>);
                     })
                 }

@@ -10,8 +10,6 @@ import { selector } from '../util/view-common';
 const defaultMaxYear = 2100;
 const defaultMinYear = 1900;
 const currentYear = new Date().getFullYear();
-// const currentMonth = new Date().getMonth() + 1;
-
 function Popup(props) {
     const { left, top, min, max, checkValue, className, showThisMonth, onChange } = props;
 
@@ -32,16 +30,7 @@ function Popup(props) {
         return currentYear;
     }
 
-    // function getInitTempMonth() {
-    //     if (checkValue) {
-    //         return parseInt(checkValue.split('/')[1], 10);
-    //     }
-    //     return '';
-    // }
-
     const [tempYear, setTempYear] = useState(getInitTempYear());
-
-    // const [tempMonth, setTempMonth] = useState(getInitTempMonth());
 
     function getInitRegion() {
         const maxYear = parseInt(max ? max.split('/')[0] : defaultMaxYear, 10);
@@ -95,28 +84,32 @@ function Popup(props) {
 					min={_min}
 					max={_max}
 					region={region}
-					onChange={onHeaderChange} />
+					onChange={onHeaderChange}
+				/>
 				<YearGrid
 					min={_min}
 					max={_max}
 					minRegion={region[0]}
 					maxRegion={region[1]}
 					checkValue={_checkYear}
-					onChange={(value) => onYearGridChange(value)} />
+					onChange={(value) => onYearGridChange(value)}
+				/>
 			</section>);
         }
         if (_mode === enumObj.YEAR_MONTH_MODEL) {
             return (<section>
                 <YearMonthHeader
 					year={tempYear}
-					onChange={onHeaderChange} />
+					onChange={onHeaderChange}
+				/>
                 <MonthGrid
 					checkValue={checkValue}
 					max={max}
 					min={min}
 					currentYear={tempYear}
 					showThisMonth={showThisMonth}
-					onChange={(m, y) => onMonthGridChange(m, y)} />
+					onChange={(m, y) => onMonthGridChange(m, y)}
+				/>
             </section>);
         }
         return null;

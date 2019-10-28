@@ -23,7 +23,7 @@ subtitle: 日期选择框
 | disabled | 组件失效状态 | boolean | `false` |
 | defaultValue | 初始值 | Date | - |
 | value | 当前值 | Date | - |
-| hasClear | 可以点击清除图标删除内容 | boolean | `true` |
+| hasClear | 可以点击清除图标删除内容 | boolean | `false` |
 | open | 控制弹层首次是否展开 | boolean | `false` |
 | placeholder | 输入框默认提示 | string | `请选择日期` |
 | position | 弹层位置 AUTO/UP/DOWN | string | `AUTO` |
@@ -51,7 +51,7 @@ subtitle: 日期选择框
 | disabled | 组件失效状态 | boolean | `false` |
 | defaultValue | 初始值 | [date,date] | - |
 | value | 当前值 | [date,date] | - |
-| hasClear | 可以点击清除图标删除内容 | boolean | `true` |
+| hasClear | 可以点击清除图标删除内容 | boolean | `false` |
 | open | 控制弹层是否展开 | boolean | `false` |
 | placeholder | 输入框默认提示 | [string,string] | `[请选择开始时间, 请选择结束时间]` |
 | position | 弹层位置 AUTO/UP/DOWN | string | `AUTO` |
@@ -67,7 +67,7 @@ subtitle: 日期选择框
 | disabled | 组件失效状态 | boolean | `false` |
 | defaultValue | 初始值 | number/string | - |
 | value | 当前值 | number/string | - |
-| hasClear | 可以点击清除图标删除内容 | boolean | `true` |
+| hasClear | 可以点击清除图标删除内容 | boolean | `false` |
 | open | 控制弹层首次是否展开 | boolean | `false` |
 | placeholder | 输入框默认提示 | string | `请选择日期` |
 | position | 弹层位置 AUTO/UP/DOWN | string | `AUTO` |
@@ -83,7 +83,7 @@ subtitle: 日期选择框
 | disabled | 组件失效状态 | boolean | `false` |
 | defaultValue | 初始值 | number/string | - |
 | value | 当前值 | number/string | - |
-| hasClear | 可以点击清除图标删除内容 | boolean | `true` |
+| hasClear | 可以点击清除图标删除内容 | boolean | `false` |
 | open | 控制弹层首次是否展开 | boolean | `false` |
 | placeholder | 输入框默认提示 | string | `请选择日期` |
 | position | 弹层位置 AUTO/UP/DOWN | string | `AUTO` |
@@ -99,7 +99,7 @@ subtitle: 日期选择框
 | disabled | 组件失效状态 | boolean | `false` |
 | defaultValue | 初始值 | number/string | - |
 | value | 当前值 | number/string | - |
-| hasClear | 可以点击清除图标删除内容 | boolean | `true` |
+| hasClear | 可以点击清除图标删除内容 | boolean | `false` |
 | open | 控制弹层首次是否展开 | boolean | `false` |
 | placeholder | 输入框默认提示 | string | `请选择日期` |
 | position | 弹层位置 AUTO/UP/DOWN | string | `AUTO` |

@@ -9,6 +9,7 @@ import {
 	destroyAllDOM,
 	isVaild,
 	selector,
+	calendarIcon,
 	datepickerUI,
 	getPositionByComp
 } from './util/view-common';
@@ -19,39 +20,44 @@ function YearMonthPicker(props) {
 	const inpRef = React.createRef();
 	const [currentValue, setCurrentValue] = useState(isVaild(value) ? value : defaultValue);
 	const [visible, setVisible] = useState(open);
-	// eslint-disable-next-line no-unused-vars
-	const [id, setId] = useState(Math.random().toString().replace('.', ''));
+	const [id,] = useState(Math.random().toString().replace('.', ''));
+	const [suffix, setSuffix] = useState(calendarIcon);
 	function onPopChange(output) {
 		setCurrentValue(output);
 		// eslint-disable-next-line no-use-before-define
 		changeVisible(null, false);
+		if (hasClear) {
+			setSuffix(null);
+		}
 		onChange(output);
 	}
 
 	function changeVisible(evt, isVisible) {
-		if(isVisible && id) {
+		if (isVisible && id) {
 			createWrapper(id);
 			const checkValue = currentValue;
 			const { HEIGHT_MONTH } = datepickerUI;
 			const { left, top } = getPositionByComp(inpRef.current.inputRef.current.getBoundingClientRect(), position, HEIGHT_MONTH);
-			renderDOM(id, <Popup left={left}
-								  top={top}
-								  className={className}
-								  checkValue={checkValue}
-								  showThisMonth={showThisMonth}
-								  max={max}
-								  min={min}
-								  onChange={onPopChange} />);
-		} else {
-			setVisible(false);
-			destroyDOM(id);
+			renderDOM(id, <Popup
+				left={left}
+				top={top}
+				className={className}
+				checkValue={checkValue}
+				showThisMonth={showThisMonth}
+				max={max}
+				min={min}
+				onChange={onPopChange}
+			/>);
+			return;
 		}
+		setVisible(false);
+		destroyDOM(id);
 	}
 
 
 	useEffect(() => {
 		document.addEventListener('click', changeVisible, false);
-		if(open) {
+		if (open) {
 			changeVisible(null, visible);
 		}
 		return () => {
@@ -64,9 +70,13 @@ function YearMonthPicker(props) {
 	}, [open]);
 
 	function onInpClick(evt) {
+		// 阻止合成事件的冒泡
 		evt.stopPropagation();
+		// 阻止与原生事件的冒泡
 		evt.nativeEvent.stopImmediatePropagation();
+		// 如果不可见则显示面板
 		if (!visible || !document.getElementById(id)) {
+			// 先释放其他面板
 			destroyAllDOM();
 			setVisible(true);
 			changeVisible(evt, true);
@@ -76,6 +86,7 @@ function YearMonthPicker(props) {
 	function onInpChange(evt) {
 		if (!evt.target.value.trim().length) {
 			setCurrentValue('');
+			setSuffix(calendarIcon);
 			onChange('');
 		}
 	}
@@ -83,6 +94,7 @@ function YearMonthPicker(props) {
 
 	return (<Input
 		ref={inpRef}
+		suffix={suffix}
 		{...otherProps}
         value={currentValue}
 		placeholder={placeholder}
@@ -117,7 +129,7 @@ YearMonthPicker.propTypes = {
 YearMonthPicker.defaultProps = {
 	className: '',
 	position: enumObj.AUTO,
-	hasClear: true,
+	hasClear: false,
 	placeholder: '',
 	disabled: false,
 	open: false,

@@ -22,9 +22,15 @@ function Grid(props) {
 
 	useEffect(() => {
 		setTempHour(hour);
+	}, [hour]);
+
+	useEffect(() => {
 		setTempMinute(minute);
+	}, [minute]);
+
+	useEffect(() => {
 		setTempSecond(second);
-	}, [hour, minute, second]);
+	}, [second]);
 
 	function onPickDay(paramsObj) {
 		setIsClickDay(true);
@@ -40,7 +46,7 @@ function Grid(props) {
 	}
 
 	function onToadyClick() {
-		onOK(utils.time.displayNow());
+		onOK(utils.displayNow());
 	}
 
 	function onSave() {
@@ -48,7 +54,7 @@ function Grid(props) {
 			const _hour = hour || '00';
 			const _minute = minute || '00';
 			const _second = second || '00';
-			onOK(utils.time.displayNow(new Date(`${year}/${month}/${tempDay} ${_hour}:${_minute}:${_second}`)));
+			onOK(utils.displayNow(new Date(`${year}/${month}/${tempDay} ${_hour}:${_minute}:${_second}`)));
 		}
 	}
 
@@ -64,32 +70,36 @@ function Grid(props) {
 				</thead>
 				<tbody>
 					{utils.range(len).map((e, i) =>
-						<Week key={i.toString()}
-							  currentDateObj={{
-								  year,
-								  month,
-								  day: tempDay
-							  }}
-							  rangeConfig={rangeConfig}
-							  year={year}
-							  month={month}
-							  day={tempDay}
-							  isClickDay={isClickDay}
-							  minDate={minDate}
-							  maxDate={maxDate}
-							  onPickDate={onPickDay}
-							  days={days.slice(i * 7, (i + 1) * 7)}
-							  head={i === 0}
-							  tail={i === len - 1} />
+						<Week
+							key={i.toString()}
+							currentDateObj={{
+							  year,
+							  month,
+							  day: tempDay
+							}}
+							rangeConfig={rangeConfig}
+							year={year}
+							month={month}
+							day={tempDay}
+							isClickDay={isClickDay}
+							minDate={minDate}
+							maxDate={maxDate}
+							onPickDate={onPickDay}
+							days={days.slice(i * 7, (i + 1) * 7)}
+							head={i === 0}
+							tail={i === len - 1}
+						/>
 					)}
 				</tbody>
 			</table>
 			{
-				showTimePicker && <InnerTimePicker onChange={onTimePickChange}
-												   mode={mode}
-												   hour={tempHour}
-												   minute={tempMinute}
-												   second={tempSecond} />
+				showTimePicker && <InnerTimePicker
+					onChange={onTimePickChange}
+					mode={mode}
+					hour={tempHour}
+					minute={tempMinute}
+					second={tempSecond}
+				/>
 			}
 			<div className={`${selector}-popup-btns`} style={btnStyle}>
 				{
@@ -132,10 +142,10 @@ Grid.defaultProps = {
 	rangeConfig: undefined,
 	style: {},
 	mode: undefined,
-	year: utils.time.displayNow.year,
-	month: utils.time.displayNow.month,
+	year: utils.displayNow.year,
+	month: utils.displayNow.month,
 	days: [],
-	day: utils.time.displayNow.day,
+	day: utils.displayNow.day,
 	hour: '',
 	minute: '',
 	second: '',

@@ -4,7 +4,8 @@ import Input from 'cloud-react/input';
 import Popup from './popup/date-popup';
 import util from './util';
 import enumObj from './util/enum';
-import { createWrapper, renderDOM, destroyDOM, destroyAllDOM, isVaild, formatZero, getPositionByComp, datepickerUI, selector } from  './util/view-common';
+import { createWrapper, renderDOM, destroyDOM, destroyAllDOM, isVaild, formatZero, getPositionByComp, calendarIcon, datepickerUI, selector } from  './util/view-common';
+
 
 function getFormat(_showTimePicker, _mode) {
 	if (_showTimePicker) {
@@ -22,19 +23,18 @@ function DatePicker(props) {
 	const { value, defaultValue, open, disabled, minDate, maxDate, position, className, hasClear,
 		showToday, showNow, showTimePicker, mode, onChange, placeholder, ...otherProps } = props;
 	const inpRef = React.createRef();
-	// eslint-disable-next-line no-unused-vars
-	const [id, setId] = useState(Math.random().toString().replace('.', ''));
-
+	// 每个组件实例id，对应面板DOM节点
+	const [id,] = useState(Math.random().toString().replace('.', ''));
 	let fmt = getFormat(showTimePicker, mode);
-
 	const [visible, setVisible] = useState(open);
 	const [currentValueDate, setCurrentValueDate] = useState(isVaild(value) ? value : defaultValue);
 	const [currentValue, setCurrentValue] = useState(() => {
 		if (!currentValueDate) {
 			return '';
 		}
-		return util.time.convert(util.time.displayNow(currentValueDate), fmt);
+		return util.convert(util.displayNow(currentValueDate), fmt);
 	});
+	const [suffix, setSuffix] = useState(calendarIcon);
 
 	useEffect(() => {
 		setVisible(open);
@@ -49,38 +49,46 @@ function DatePicker(props) {
 			const dpArr = [`${obj.year}/${formatZero(obj.month)}/${formatZero(obj.day)}`];
 			const str = showTimePicker ? dpArr.push(` ${formatZero(obj.hour)}:${formatZero(obj.minute)}:${formatZero(obj.second)}`) && dpArr.toString() : dpArr.toString();
 			const outputDate = new Date(str);
-			const output = util.time.convert(util.time.displayNow(outputDate), fmt);
+			const output = util.convert(util.displayNow(outputDate), fmt);
 			setCurrentValue(output);
 			setCurrentValueDate(outputDate);
 			// eslint-disable-next-line no-use-before-define
 			changeVisible(null, false);
+			// 有clear Icon时，日历Icon不显示
+			if (hasClear) {
+				setSuffix(null);
+			}
 			onChange(output);
 		}
 	}
-
+	// 响应事件，渲染或者 卸载DOM
 	function changeVisible(evt, isVisible) {
 		if(isVisible && id) {
 			createWrapper(id);
 			const checkDate = currentValueDate;
 			const { HEIGHT_DEFAULT, HEIGHT_TIME } = datepickerUI;
+			// 获取面板的定位
 			const { left, top } = getPositionByComp(inpRef.current.inputRef.current.getBoundingClientRect(), position, showTimePicker ? HEIGHT_TIME : HEIGHT_DEFAULT);
-			renderDOM(id, <Popup left={left}
-								 top={top}
-								 mode={mode}
-								 className={className}
-								 checkDateObj={util.transformObj(checkDate)}
-								 showToday={showToday}
-								 showNow={showNow}
-								 showTimePicker={showTimePicker}
-								 max={maxDate}
-								 min={minDate}
-								 onChange={onPopChange} />);
-		} else {
-			setVisible(false);
-			destroyDOM(id);
+			// 渲染DOM
+			renderDOM(id, <Popup
+				left={left}
+				top={top}
+				mode={mode}
+				className={className}
+				checkDateObj={util.transformObj(checkDate)}
+				showToday={showToday}
+				showNow={showNow}
+				showTimePicker={showTimePicker}
+				max={maxDate}
+				min={minDate}
+				onChange={onPopChange}
+			/>);
+			return;
 		}
+		setVisible(false);
+		destroyDOM(id);
 	}
-
+	// 组件渲染时，仅注册一次相关事件
 	useEffect(() => {
 		document.addEventListener('click', changeVisible, false);
 		if(open) {
@@ -92,8 +100,11 @@ function DatePicker(props) {
     }, []);
 
 	function onInpClick(evt) {
+		// 阻止合成事件的冒泡
 		evt.stopPropagation();
+		// 阻止与原生事件的冒泡
 		evt.nativeEvent.stopImmediatePropagation();
+		// 如果不可见则显示面板
         if (!visible || !document.getElementById(id)) {
 			destroyAllDOM();
 			setVisible(true);
@@ -105,12 +116,15 @@ function DatePicker(props) {
 		if (!evt.target.value.trim().length) {
 			setCurrentValue('');
 			setCurrentValueDate(null);
+			// 清空后，显示出日历Icon
+			setSuffix(calendarIcon);
 			onChange('');
 		}
 	}
 
     return (<Input {...otherProps}
 		ref={inpRef}
+		suffix={suffix}
         value={currentValue}
 		placeholder={placeholder}
 		readOnly
@@ -155,7 +169,7 @@ DatePicker.defaultProps = {
 	disabled: false,
 	placeholder: '请选择日期',
 	position: enumObj.AUTO,
-	hasClear: true,
+	hasClear: false,
 	open: false,
 	showNow: false,
 	showToday: false,

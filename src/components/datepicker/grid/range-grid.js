@@ -14,7 +14,6 @@ function RangeGrid(props) {
 	const endGridLen = Math.ceil(endGrid.days.length / 7);
 
 	const [OKDisabled, setOKDisabled] = useState(true);
-
 	const [checkGridArr, setCheckGridArr] = useState(rangValue);
 
 	useEffect(() => {
@@ -53,7 +52,7 @@ function RangeGrid(props) {
 
 	return (
 		<div className={`${rangeSelector}-popup-container`}>
-			<div className="grid" style={{ borderRight: 'none' }}>
+			<div className="grid" style={{ marginRight: '8px' }}>
 				<table className="grid-table">
 					<thead>
 						<tr>
@@ -62,16 +61,18 @@ function RangeGrid(props) {
 					</thead>
 					<tbody>
 					{utils.range(startGridLen).map((e, i) =>
-						<RangeWeek key={i.toString()}
-								   year={startGrid.year}
-								   month={startGrid.month}
-								   checkGridArr={checkGridArr}
-								   minDate={startGrid.minDate}
-								   maxDate={startGrid.maxDate}
-								   onPickDate={onPickDay}
-								   days={startGrid.days.slice(i * 7, (i + 1) * 7)}
-								   head={i === 0}
-								   tail={i === startGridLen - 1} />
+						<RangeWeek
+							key={i.toString()}
+							year={startGrid.year}
+							month={startGrid.month}
+							checkGridArr={checkGridArr}
+							minDate={startGrid.minDate}
+							maxDate={startGrid.maxDate}
+							onPickDate={onPickDay}
+							days={startGrid.days.slice(i * 7, (i + 1) * 7)}
+							head={i === 0}
+							tail={i === startGridLen - 1}
+						/>
 					)}
 					</tbody>
 				</table>
@@ -85,17 +86,19 @@ function RangeGrid(props) {
 					</thead>
 					<tbody>
 					{utils.range(endGridLen).map((e, i) =>
-						<RangeWeek key={i.toString()}
-								   year={endGrid.year}
-								   month={endGrid.month}
-								   checkGridArr={checkGridArr}
-								   rangeConfig={endGrid.config}
-								   minDate={endGrid.minDate}
-								   maxDate={endGrid.maxDate}
-								   onPickDate={onPickDay}
-								   days={endGrid.days.slice(i * 7, (i + 1) * 7)}
-								   head={i === 0}
-								   tail={i === endGridLen - 1} />
+						<RangeWeek
+							key={i.toString()}
+							year={endGrid.year}
+							month={endGrid.month}
+							checkGridArr={checkGridArr}
+							rangeConfig={endGrid.config}
+							minDate={endGrid.minDate}
+							maxDate={endGrid.maxDate}
+							onPickDate={onPickDay}
+							days={endGrid.days.slice(i * 7, (i + 1) * 7)}
+							head={i === 0}
+							tail={i === endGridLen - 1}
+						/>
 					)}
 					</tbody>
 				</table>

@@ -8,7 +8,7 @@ import { selector } from '../util/view-common';
 const currentYear = new Date().getFullYear();
 function Popup(props) {
     const { left, top, min, max, className, checkValue, showThisYear, onChange } = props;
-
+	// 初始化年份区间，15年
 	function getInitRegion() {
 		const maxYear = parseInt(max, 10);
 		const minYear = parseInt(min, 10);

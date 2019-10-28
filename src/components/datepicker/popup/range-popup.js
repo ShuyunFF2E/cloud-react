@@ -39,12 +39,12 @@ function getDateObjArr(checkDateArr, min, max) {
 
 	const arr = [];
 	if (checkDateArr[0]) {
-		arr.push(util.time.displayNow(checkDateArr[0]));
+		arr.push(util.displayNow(checkDateArr[0]));
 	} else {
 		arr.push(getDateObj(0));
 	}
 	if (checkDateArr[1]) {
-		arr.push(util.time.displayNow(checkDateArr[1]));
+		arr.push(util.displayNow(checkDateArr[1]));
 	} else {
 		arr.push(getDateObj(1));
 	}
@@ -100,14 +100,14 @@ function Popup(props) {
 			const endMonth = arrObj[1].month === 12 ? 1 : arrObj[1].month + 1;
 			return [
 				{
-					days: util.time.refreshDays(arrObj[0].year, arrObj[0].month),
+					days: util.refreshDays(arrObj[0].year, arrObj[0].month),
 					year: arrObj[0].year,
 					month: arrObj[0].month,
 					minDate: min,
 					maxDate: initStartMax(max, endMinDate)
 				},
 				{
-					days: util.time.refreshDays(endYear, endMonth),
+					days: util.refreshDays(endYear, endMonth),
 					year: endYear,
 					month: endMonth,
 					// 记录End日期框范围（至少大于Start日期框一个月）
@@ -124,14 +124,14 @@ function Popup(props) {
 
 		return [
 			{
-				days: util.time.refreshDays(arrObj[0].year, arrObj[0].month),
+				days: util.refreshDays(arrObj[0].year, arrObj[0].month),
 				year: arrObj[0].year,
 				month: arrObj[0].month,
 				minDate: min,
 				maxDate: initStartMax(max, endMinDate)
 			},
 			{
-				days: util.time.refreshDays(arrObj[1].year, arrObj[1].month),
+				days: util.refreshDays(arrObj[1].year, arrObj[1].month),
 				year: arrObj[1].year,
 				month: arrObj[1].month,
 				// 记录End日期框范围（至少大于Start日期框一个月）
@@ -205,7 +205,7 @@ function Popup(props) {
 		evt.stopPropagation();
 		evt.nativeEvent.stopImmediatePropagation();
 	}
-
+	// Header年月发生变化时，需要动态计算上/下一个的月份详情
 	function onHeaderChange(y, m, old, type) {
 		const range = [...tempRange];
 		if (type === enumObj.START) {
@@ -216,7 +216,7 @@ function Popup(props) {
 
 			const _min = initEnd(min, d0);
 
-			range[0].days = util.time.refreshDays(y, m);
+			range[0].days = util.refreshDays(y, m);
 			range[0].year = y;
 			range[0].month = m;
 			range[1].minDate = _min;
@@ -229,7 +229,7 @@ function Popup(props) {
 			d1.month = m;
 			setTempArrObj([tempArrObj[0], d1]);
 
-			range[1].days = util.time.refreshDays(y, m);
+			range[1].days = util.refreshDays(y, m);
 			range[1].year = y;
 			range[1].month = m;
 
@@ -256,16 +256,23 @@ function Popup(props) {
 					onChange={(y, m, old) => onHeaderChange(y, m, old, enumObj.START)}
 					min={util.transformObj(tempRange[0].minDate)}
 					max={util.transformObj(tempRange[0].maxDate)}
-					style={{ width:250, borderRight:'none' }}/>
+					style={{ width:250, marginRight: '8px' }}
+				/>
 				<Header
 					month={tempRange[1].month}
 					year={tempRange[1].year}
 					onChange={(y, m, old) => onHeaderChange(y, m, old, enumObj.END)}
 					min={util.transformObj(tempRange[1].minDate)}
 					max={util.transformObj(tempRange[1].maxDate)}
-					style={{ width:250, borderLeft:'none' }}/>
+					style={{ width:250 }}
+				/>
 			</div>
-			<RangeGrid range={tempRange} rangValue={tempRangeValue} onChange={onGridChange} onOK={onOK} />
+			<RangeGrid
+				range={tempRange}
+				rangValue={tempRangeValue}
+				onChange={onGridChange}
+				onOK={onOK}
+			/>
 		</div>
 	);
 }

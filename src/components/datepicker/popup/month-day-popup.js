@@ -7,12 +7,7 @@ import DayGrid from '../grid/day-grid';
 import enumObj from '../util/enum';
 import { formatZero, selector } from '../util/view-common';
 
-// const defaultMaxMonth = 12;
-// const defaultMinMonth = 1;
-
 const currentMonth = new Date().getMonth() + 1;
-// const currentDay = new Date().getDate();
-
 
 function Popup(props) {
     const { left, top, checkValue, className, showToday, onChange } = props;

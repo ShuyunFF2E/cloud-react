@@ -26,7 +26,7 @@ function Week(props) {
 	}
 
 	const idx = days.indexOf(1);
-	const today = utils.time.today();
+	const today = utils.today();
 	return (
 		<tr>
 			{days.map((o, i) => {
@@ -50,8 +50,8 @@ function Week(props) {
 
 				const isDisabled = getDisabled(date);
 				const classes = cls({
-					'check': isCheck,
-					'now': isToday,
+					'grid-check': isCheck,
+					'grid-now': isToday,
 					'not-included': !inMonth,
 					'day-disabled': isDisabled
 				});
@@ -101,11 +101,11 @@ Week.propTypes = {
 
 Week.defaultProps = {
 	rangeConfig: undefined,
-	year: utils.time.displayNow.year,
-	month: utils.time.displayNow.month,
+	year: utils.displayNow.year,
+	month: utils.displayNow.month,
 	days: [],
 	isClickDay: false,
-	day: utils.time.displayNow.day,
+	day: utils.displayNow.day,
 	currentDateObj: null,
 	minDate: undefined,
 	maxDate: undefined,

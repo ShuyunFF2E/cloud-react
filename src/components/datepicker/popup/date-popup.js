@@ -57,7 +57,7 @@ function Popup(props) {
 		setTempMinute(paramsObj.minute);
 		setTempSecond(paramsObj.second);
     }
-    const days = tempYear && tempMonth ? util.time.refreshDays(tempYear, tempMonth) : util.time.refreshDays(defaultYear, defaultMonth);
+    const days = tempYear && tempMonth ? util.refreshDays(tempYear, tempMonth) : util.refreshDays(defaultYear, defaultMonth);
 
 	return (
         <div className={`${selector}-popup ${className}`} style={{ left, top }} onClick={popClick}>

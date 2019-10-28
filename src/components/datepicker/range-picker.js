@@ -9,6 +9,7 @@ import {
 	destroyDOM,
 	destroyAllDOM,
 	datepickerUI,
+	calendarIcon,
 	rangeSelector,
 	selector,
 	getPositionByComp
@@ -18,13 +19,14 @@ import enumObj from './util/enum';
 
 const minDefaultDate = new Date('1900/01/01 00:00:00');
 const maxDefaultDate = new Date('2099/12/31 23:59:59');
+const fmt = 'yyyy/MM/dd';
+
 function RangePicker(props) {
 	const { value, defaultValue, open, disabled, style, hasClear, minDate, maxDate, placeholder, className, position, onChange, ...otherProps } = props;
 
-	const fmt = 'yyyy/MM/dd';
 	const inpRef = React.createRef();
-	// eslint-disable-next-line no-unused-vars
-	const [id, setId] = useState(Math.random().toString().replace('.', ''));
+	const [id,] = useState(Math.random().toString().replace('.', ''));
+	const [suffix, setSuffix] = useState(calendarIcon);
 	const [controlled, setControlled] = useState(typeof value !== 'undefined');
 	function getInitValue(isStr) {
 		let _value = defaultValue;
@@ -35,11 +37,11 @@ function RangePicker(props) {
 			case 0:
 				return isStr ? ['', ''] : [null, null];
 			case 1:
-				return isStr ? [util.time.convert(util.time.displayNow(_value[0]), fmt), ''] : [_value[0], null];
+				return isStr ? [util.convert(util.displayNow(_value[0]), fmt), ''] : [_value[0], null];
 			case 2:
 			default:
-				return isStr ? [_value[0] ? util.time.convert(util.time.displayNow(_value[0]), fmt) : '',
-					_value[1] ? util.time.convert(util.time.displayNow(_value[1]), fmt) : ''] : [_value[0], _value[1]];
+				return isStr ? [_value[0] ? util.convert(util.displayNow(_value[0]), fmt) : '',
+					_value[1] ? util.convert(util.displayNow(_value[1]), fmt) : ''] : [_value[0], _value[1]];
 		}
 	}
 
@@ -65,14 +67,18 @@ function RangePicker(props) {
 
 	function onPopChange(arr) {
 		let newArr = arr;
+		// 增加代码健壮性，如果日期顺序不对，则进行reverse后正确显示
 		if (arr[1] < arr[0]) {
 			newArr = arr.reverse();
 		}
 		setCurrentValueDate(newArr);
-		const output = [util.time.convert(util.time.displayNow(newArr[0]), fmt), util.time.convert(util.time.displayNow(newArr[1]), fmt)];
+		const output = [util.convert(util.displayNow(newArr[0]), fmt), util.convert(util.displayNow(newArr[1]), fmt)];
 		setCurrentValue(output);
 		// eslint-disable-next-line no-use-before-define
 		changeVisible(null, false);
+		if (hasClear) {
+			setSuffix(null);
+		}
 		onChange(output, newArr);
 	}
 
@@ -80,23 +86,27 @@ function RangePicker(props) {
 		if(isVisible && id) {
 			createWrapper(id);
 			const { HEIGHT_DEFAULT } = datepickerUI;
+			// 获取面板的定位
 			const { left, top } = getPositionByComp(inpRef.current.inputRef.current.getBoundingClientRect(), position, HEIGHT_DEFAULT);
-			renderDOM(id, <Popup min={minTempDate}
-								  max={maxTempDate}
-								  className={className}
-								  checkDateArr={currentValueDate}
-								  onChange={onPopChange}
-								  left={left}
-								  top={top} />);
-		} else {
-			setVisible(false);
-			destroyDOM(id);
+			// 渲染DOM
+			renderDOM(id, <Popup
+				min={minTempDate}
+				max={maxTempDate}
+				className={className}
+				checkDateArr={currentValueDate}
+				onChange={onPopChange}
+				left={left}
+				top={top}
+			/>);
+			return;
 		}
+		setVisible(false);
+		destroyDOM(id);
 	}
-
+	// 组件渲染时，仅注册一次相关事件
 	useEffect(() => {
 		document.addEventListener('click', changeVisible, false);
-		if(open) {
+		if (open) {
 			changeVisible(null, visible);
 		}
 		return () => {
@@ -105,8 +115,11 @@ function RangePicker(props) {
 	}, []);
 
 	function onInpClick(evt) {
+		// 阻止合成事件的冒泡
 		evt.stopPropagation();
+		// 阻止与原生事件的冒泡
 		evt.nativeEvent.stopImmediatePropagation();
+		// 如果不可见则显示面板
 		if (!visible || !document.getElementById(id)) {
 			destroyAllDOM();
 			setVisible(true);
@@ -118,6 +131,7 @@ function RangePicker(props) {
 		if (!evt.target.value.trim().length) {
 			setCurrentValue(['', '']);
 			setCurrentValueDate([null, null]);
+			setSuffix(calendarIcon);
 			onChange(['', ''], [null, null]);
 		}
 	}
@@ -139,6 +153,7 @@ function RangePicker(props) {
 			value={currentValue[1]}
 			placeholder={placeholder[0]}
 			readOnly
+			suffix={suffix}
 			hasClear={hasClear}
 			style={style}
 			disabled={disabled}
@@ -172,7 +187,7 @@ RangePicker.defaultProps = {
 	className: '',
 	style: {},
 	position: enumObj.AUTO,
-	hasClear: true,
+	hasClear: false,
 	disabled: false,
 	placeholder: ['请选择开始时间', '请选择结束时间'],
 	defaultValue: [null, null],

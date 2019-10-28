@@ -12,11 +12,7 @@ function RangeWeek(props) {
 	const { head, tail, days, year, month, minDate, maxDate, checkGridArr, rangeConfig, onPickDate } = props;
 
 	function onDayClick(_year, _month, _day) {
-		onPickDate(
-			 _year,
-			 _month,
-			 _day
-		);
+		onPickDate(_year, _month, _day);
 	}
 
 	function getDisabled(date) {
@@ -28,10 +24,8 @@ function RangeWeek(props) {
 		return defaultRange || minDate && currentTimeStamp < new Date(minDate).getTime() || maxDate && currentTimeStamp > new Date(maxDate).getTime();
 	}
 
-
-
 	const idx = days.indexOf(1);
-	const today = utils.time.today();
+	const today = utils.today();
 	return (
 		<tr>
 			{days.map((o, i) => {
@@ -49,8 +43,8 @@ function RangeWeek(props) {
 
 				const isDisabled = getDisabled(date);
 				const classes = cls({
-					'check': isCheck,
-					'now': isToday,
+					'grid-check': isCheck,
+					'grid-now': isToday,
 					'not-included': !inMonth,
 					'day-disabled': isDisabled
 				});

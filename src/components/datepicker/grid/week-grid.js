@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
 import utils from '../util';
-// import { formatZero } from  '../util/view-common';
 
 function WeekGird(props) {
     const { head, tail, days, month, day, isClickDay, currentDateObj, onPickDate } = props;
@@ -30,8 +29,8 @@ function WeekGird(props) {
 				}
 
                 const classes = cls({
-                    'check': isCheck,
-                    'now': isToday,
+                    'grid-check': isCheck,
+                    'grid-now': isToday,
                     'not-included': !inMonth
                 });
                 return (<td className={classes} key={i.toString()}>
@@ -60,9 +59,9 @@ WeekGird.propTypes = {
 
 WeekGird.defaultProps = {
 	isClickDay: false,
-    month: utils.time.displayNow.month,
+    month: utils.displayNow.month,
     days: [],
-    day: utils.time.displayNow.day,
+    day: utils.displayNow.day,
     head: true,
     tail: true,
     onPickDate: () => { }

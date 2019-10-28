@@ -18,8 +18,11 @@ function DayGrid(props) {
 
     useEffect(() => {
         setTempMonth(month);
-        setTempDay(day);
-	}, [month, day]);
+	}, [month]);
+
+	useEffect(() => {
+		setTempDay(day);
+	}, [day]);
 
     function onPickDate(value) {
 		setIsClickDay(true);
@@ -34,7 +37,7 @@ function DayGrid(props) {
         }
     }
 
-    const days = utils.time.refreshDays(defaultYear,  tempMonth || defaultMonth );
+    const days = utils.refreshDays(defaultYear,  tempMonth || defaultMonth );
     const len = Math.ceil(days.length / 7);
 	return (
         <div className="grid">

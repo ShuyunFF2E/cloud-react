@@ -1,4 +1,6 @@
+import React from 'react';
 import ReactDOM from 'react-dom';
+import Icon from 'cloud-react/icon';
 import enumObj from './enum';
 
 const container = {};
@@ -7,6 +9,8 @@ export const selector = 'datepicker';
 export const timeSelector = 'timepicker';
 export const rangeSelector = 'rangepicker';
 
+export const calendarIcon = <Icon type="calendar" className={`${selector}-inp-icon`}></Icon>;
+// 根据实例id创建日历面板弹层
 export function createWrapper(id) {
 	container[id] = document.createElement('div');
 	container[id].id = id;
@@ -16,13 +20,13 @@ export function createWrapper(id) {
 	container[id].style.top = 0;
 	container[id].style.width = '100%';
 }
-
+// 渲染DOM
 export function renderDOM(id, component) {
 	const wrapper = container[id];
 	document.body.appendChild(wrapper);
 	ReactDOM.render(component, wrapper);
 }
-
+// 释放DOM
 export function destroyDOM(id, callback) {
 	const wrapper = container[id];
 	if (wrapper) {
@@ -76,7 +80,7 @@ export function getScrollTop() {
 export function getAvailHeight() {
 	return document.body.clientHeight;
 }
-
+// 根据位置计算坐标
 export function getPositionByComp({ left, bottom, top }, position, HEIGHT) {
 	let _top = 0;
 	switch (position) {

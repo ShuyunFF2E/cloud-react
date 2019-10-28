@@ -1,4 +1,5 @@
-import { monthArr, miniWeek } from './config';
+const monthArr = ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'];
+const miniWeek = ['日', '一', '二', '三', '四', '五', '六'];
 
 function current() {
 	return new Date();
@@ -16,7 +17,7 @@ function getWeekDisplayRange(year, month) {
 
 	return [new Date(yy, mm - 1, 1).getDay(), new Date(yy, mm, 0).getDay()];
 }
-
+// 获取当前年月日时分秒对象
 function displayNow(date) {
 	const now = date || current();
 	const newHour = `0${now.getHours()}`;
@@ -36,7 +37,7 @@ function today() {
 	const now = current();
 	return `${now.getFullYear()}-${(now.getMonth() + 1)}-${now.getDate()}`;
 }
-
+// 根据年月获取对应面板的日期详情
 function getMonthData(year, month) {
 	let _year = year;
 	const dRange = getWeekDisplayRange(year, month);
@@ -84,7 +85,7 @@ function refreshDays(year, month) {
 	const { prev, current, next } = getMonthData(year, month);
 	return prev.concat(current).concat(next);
 }
-
+// 格式转换format
 function convert(date, fmt) {
 	const { year, month, day, hour, minute, second } = date;
 	const currentDate = new Date(`${year}/${month}/${day} ${hour}:${minute}:${second}`);
@@ -128,31 +129,25 @@ function formatTime(param, d = '') {
 	if (param === '') {
 		return  d;
 	}
-	if(param.length === 2) {
+	if (param.length === 2) {
 		return param;
 	}
 	return `0${param}`;
 }
 
 function transformObj(date) {
-	if(date) {
+	if (date) {
 		return displayNow(date);
 	}
 	return null;
 }
 
 const utils = {
-	time: {
-		current,
-		getMonthSize,
-		getWeekDisplayRange,
-		displayNow,
-		today,
-		getMonthData,
-		refreshDays,
-		convert,
-		formatTime
-	},
+	convert,
+	formatTime,
+	refreshDays,
+	displayNow,
+	today,
 	monthArr,
 	miniWeek,
 	transformObj,

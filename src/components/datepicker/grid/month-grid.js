@@ -60,10 +60,10 @@ function MonthGrid(props) {
 		function simpleCheck() {
 			if (_tempMonth) {
 				if (parseInt(_tempMonth, 10) === current) {
-					return 'check'
+					return 'grid-check'
 				}
 				if (current === _month) {
-					return 'now';
+					return 'grid-now';
 				}
 				return '';
 			}
@@ -78,18 +78,18 @@ function MonthGrid(props) {
 		const maxYear = parseInt(max.split('/')[0], 10);
 		const minYear = parseInt(min.split('/')[0], 10);
 		if (currentYear > maxYear || currentYear < minYear) {
-			return ' disabled ';
+			return ' grid-disabled ';
 		}
 		if (currentYear === maxYear) {
 			const maxYearMonth = parseInt(max.split('/')[1], 10);
 			if (current > maxYearMonth) {
-				return ' disabled ';
+				return ' grid-disabled ';
 			}
 		}
 		if (currentYear === minYear) {
 			const minYearMonth = parseInt(min.split('/')[1], 10);
 			if (current < minYearMonth) {
-				return ' disabled ';
+				return ' grid-disabled ';
 			}
 		}
 		return simpleCheck();

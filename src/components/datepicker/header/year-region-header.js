@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import cls from 'classnames';
 import Icon from '../../icon';
 import enumObj from '../util/enum';
-import utils from '../util';
 
-const defaultYear = utils.time.current().getFullYear();
+const defaultYear = new Date().getFullYear();
 
 function YearRegionHeader(props) {
 	const { min, max, region } = props;

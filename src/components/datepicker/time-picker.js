@@ -2,25 +2,21 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
 import utils from './util';
-import enumObj from './util/enum';
 import { timeSelector } from './util/view-common';
 
 function TimePicker(props) {
 	const { value, defaultValue, className, style, disabled, onChange, onBlur } = props;
 	const controlled = typeof value !== 'undefined';
+	const inpMinuteRef = React.createRef();
+	const inpSecondRef = React.createRef();
 
 	function getInitValue() {
-		let initValue = null;
-		if(controlled) {
-			initValue = value ? value.split(':') : ['00', '00', '00'];
+		if (controlled) {
+			return value ? value.split(':') : ['00', '00', '00'];
+		} if (defaultValue !== undefined) {
+			return defaultValue.split(':')
 		}
-		else if (defaultValue !== undefined) {
-			initValue = defaultValue.split(':')
-		}
-		else {
-			initValue = ['00', '00', '00'];
-		}
-		return initValue;
+		return ['00', '00', '00'];
 	}
 
 	const [hour, setHour] = useState(getInitValue()[0]);
@@ -30,61 +26,76 @@ function TimePicker(props) {
 	useEffect(() => {
 		if (value) {
 			const arr = value.split(':');
-			setHour(utils.time.formatTime(arr[0]));
-			setMinute(utils.time.formatTime(arr[1]));
-			setSecond(utils.time.formatTime(arr[2]));
-		} else {
-			setHour('00');
-			setMinute('00');
-			setSecond('00');
-		}
-
-	}, [value]);
-
-	function onInpChange(params, evt) {
-		let inpValue = evt.target.value.trim().replace(/[^\d]/g, '');
-		if (params === enumObj.HOUR) {
-			if (inpValue !== '' && parseInt(inpValue, 10) >= 24) {
-				inpValue = inpValue.substr(0, 1);
-			}
-		} else if (inpValue !== '' && parseInt(inpValue, 10) >= 60) {
-			inpValue = inpValue.substr(0, 1);
-		}
-
-		if (controlled) {
-			onChange({
-				hour: params === enumObj.HOUR ? inpValue : hour,
-				minute: params === enumObj.MINUTE ? inpValue : minute,
-				second: params === enumObj.SECOND ? inpValue : second
-			});
+			setHour(utils.formatTime(arr[0]));
+			setMinute(utils.formatTime(arr[1]));
+			setSecond(utils.formatTime(arr[2]));
 			return;
 		}
+		setHour('00');
+		setMinute('00');
+		setSecond('00');
+	}, [value]);
 
-		switch (params) {
-			case enumObj.HOUR:
-				setHour(inpValue);
-				break;
-			case enumObj.MINUTE:
-				setMinute(inpValue);
-				break;
-			case enumObj.SECOND:
-				setSecond(inpValue);
-				break;
-			default:
-				break;
+	function onHourChange(evt) {
+		let inpValue = evt.target.value.trim().replace(/[^\d]/g, '');
+		if (inpValue !== '' && parseInt(inpValue, 10) >= 24) {
+			inpValue = inpValue.substr(0, 1);
+		} else if (inpValue !== '' && parseInt(inpValue, 10) < 24 && inpValue.toString().length === 2) {
+			// 当输入2位并且有效范围内时，跳转到分钟输入框
+			inpMinuteRef.current.focus();
+			inpMinuteRef.current.select();
+		}
+		// 受控时，状态依赖外部。非受控时，内部直接set
+		if (!controlled) {
+			setHour(inpValue);
 		}
 		onChange({
-			hour: params === enumObj.HOUR ? inpValue : hour,
-			minute: params === enumObj.MINUTE ? inpValue : minute,
-			second: params === enumObj.SECOND ? inpValue : second
+			hour: inpValue,
+			minute,
+			second
 		});
 	}
 
+	function onMinuteChange(evt) {
+		let inpValue = evt.target.value.trim().replace(/[^\d]/g, '');
+		if (inpValue !== '' && parseInt(inpValue, 10) >= 60) {
+			inpValue = inpValue.substr(0, 1);
+		} else if (inpValue !== '' && parseInt(inpValue, 10) < 60 && inpValue.toString().length === 2) {
+			// 当输入2位并且有效范围内时，跳转到秒输入框
+			inpSecondRef.current.focus();
+			inpSecondRef.current.select();
+		}
+		// 受控时，状态依赖外部。非受控时，内部直接set
+		if (!controlled) {
+			setMinute(inpValue);
+		}
+		onChange({
+			hour,
+			minute: inpValue,
+			second
+		});
+	}
+
+	function onSecondChange(evt) {
+		let inpValue = evt.target.value.trim().replace(/[^\d]/g, '');
+		if (inpValue !== '' && parseInt(inpValue, 10) >= 60) {
+			inpValue = inpValue.substr(0, 1);
+		}
+		// 受控时，状态依赖外部。非受控时，内部直接set
+		if (!controlled) {
+			setSecond(inpValue);
+		}
+		onChange({
+			hour,
+			minute,
+			second: inpValue
+		});
+	}
 
 	function onInpBlur() {
-		setHour(utils.time.formatTime(hour,'00'));
-		setMinute(utils.time.formatTime(minute, '00'));
-		setSecond(utils.time.formatTime(second, '00'));
+		setHour(utils.formatTime(hour,'00'));
+		setMinute(utils.formatTime(minute, '00'));
+		setSecond(utils.formatTime(second, '00'));
 		onBlur();
 	}
 
@@ -95,9 +106,9 @@ function TimePicker(props) {
 	});
 
 	return (<div className={classes} onBlur={onInpBlur} style={style}>
-		<input value={hour} disabled={disabled} maxLength="2" onChange={e => onInpChange(enumObj.HOUR, e)} /><label className="colon">:</label>
-		<input value={minute} disabled={disabled} maxLength="2" onChange={e => onInpChange(enumObj.MINUTE, e)} /><label className="colon">:</label>
-		<input value={second} disabled={disabled} maxLength="2" onChange={e => onInpChange(enumObj.SECOND, e)} />
+		<input value={hour} disabled={disabled} maxLength="2" onChange={onHourChange} /><label className="colon">:</label>
+		<input ref={inpMinuteRef} value={minute} disabled={disabled} maxLength="2" onChange={onMinuteChange} /><label className="colon">:</label>
+		<input ref={inpSecondRef} value={second} disabled={disabled} maxLength="2" onChange={onSecondChange} />
 	</div>);
 
 }
