@@ -45,6 +45,8 @@ export { default as TablePagination } from './table-pagination';
 
 export { default as Tabs } from './tabs';
 
+export { default as Tag } from './tag';
+
 export { default as Tips } from './tips';
 
 export { default as Toggle } from './toggle';
