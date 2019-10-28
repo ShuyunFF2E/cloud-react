@@ -1,5 +1,5 @@
 ---
-order: 8
+order: 9
 title: 带确认取消的多选
 desc: 带确认取消的多选
 ---
@@ -45,7 +45,7 @@ export default function SelectDemo() {
 	const values2 = [2, 3];
 
 	return (
-		<div>
+		<div style={{height: 170}}>
 			<Select
 				placeholder="请选择..."
 				defaultValue={values2}

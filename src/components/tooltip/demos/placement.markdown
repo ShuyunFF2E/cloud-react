@@ -19,8 +19,8 @@ export default class ToolTipDemo extends React.Component{
 	render() {
   		const {content} = this.state;
   		const blank = '\u00A0';
-  		const leftWrap = {float: 'left', width: '60px'};
-  		const rightWrap = {float: 'right', width: '60px'};
+  		const leftWrap = {float: 'left', width: '60px', wordBreak: 'break-word'};
+  		const rightWrap = {float: 'right', width: '60px', wordBreak: 'break-word'};
   		const bottomWrap = {clear: 'both'};
   		const wrap = {width: '400px', margin: '20px auto', textAlign: 'center'}
 		return (

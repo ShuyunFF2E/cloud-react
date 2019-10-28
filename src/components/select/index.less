@@ -1,5 +1,6 @@
 @font-size: 12px;
 @height: 30px;
+@line-height: 16px;
 @max-height: 220px;
 @min-width: 64px;
 @max-width: 280px;
@@ -64,6 +65,7 @@
 
 	.@{selector}-wrapper {
 		height: @height;
+		line-height: @line-height;
 		border: @select-normal-border;
 		display: flex;
 		align-items: center;
@@ -106,7 +108,6 @@
 
 		.@{selector}-selected {
 			flex: 1 0;
-			height: 100%;
 			padding: @default-padding;
 			padding-right: @text-icon-gap;
 			font-size: @font-size;
@@ -117,8 +118,6 @@
 		}
 
 		.@{selector}-select-icon {
-			width: @dropdown-icon-size;
-			height: @dropdown-icon-size;
 			font-size: @dropdown-icon-size;
 			color: @dropdown-icon-color;
 			margin-right: 10px;
@@ -130,6 +129,18 @@
 
 			&.close {
 				transform: rotate(0deg);
+			}
+
+			&.hidden {
+				display: none;
+			}
+		}
+
+		.@{selector}-clear-icon {
+			display: none;
+
+			&.show {
+				display: block;
 			}
 		}
 	}

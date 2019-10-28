@@ -1,5 +1,5 @@
 ---
-order: 7
+order: 8
 title: 是否多选
 desc: 下拉多选
 ---
@@ -62,6 +62,7 @@ export default function SelectDemo() {
 			<Select
 				placeholder="请选择..."
 				labelInValue={true}
+				allowClear
 				defaultValue={values2}
 				onSelectOpen={handleOpen}
 				onSelectClose={handleClose}

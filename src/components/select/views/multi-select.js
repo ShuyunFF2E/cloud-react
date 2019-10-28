@@ -35,22 +35,17 @@ export default function MultiSelect(props) {
     const [ indeterminate, setIndeterminate ] = useState(false);
     const [ checkAll, setCheckAll ] = useState(false);
     const classNames = classnames(`${selector}-select-options`, className);
-
-    const changeValues = data => {
-        setValues(data);
-        onChange(data);
-    }
     
     const onOptionChange = (checked, val) => {
         if (checked) {
             const result = [...values, val];
-            if (!values.includes(val)) changeValues(result);
+            if (!values.includes(val)) onChange(result);
         } else {
             const index = values.findIndex(v => v === val);
             if (index > -1) {
                 const result = [...values];
                 result.splice(index, 1);
-                changeValues(result);
+                onChange(result);
             }
         }
     }
@@ -63,7 +58,7 @@ export default function MultiSelect(props) {
             }
             return disabled && values.includes(childValue) ? childValue : null;
         });
-        changeValues(result);
+        onChange(result);
     }
 
 	const views = useMemo(() => Children.map(options, child => cloneElement(child, {
@@ -85,6 +80,10 @@ export default function MultiSelect(props) {
 		const result = filterOptions(dataSource, searchValue);
 		setOptions(result);
     }, [searchValue]);
+
+    useEffect(() => {
+        setValues(value);
+    }, [value]);
 
     useEffect(() => {
         const valueLength = values.length;
