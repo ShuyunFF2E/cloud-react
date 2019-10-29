@@ -72,7 +72,7 @@ export default class ModalDemo extends React.Component {
 				<span>{content}</span>
 				<br/>
 				<br/>
-				<Button type='primary' onClick={defineEvent}>触发外部传入的事件</Button>
+				<Button type='primary' onClick={defineEvent}>click me（from outside）</Button>
 			 </div>
 		 );
 	 }

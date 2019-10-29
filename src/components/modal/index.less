@@ -35,7 +35,7 @@
 		bottom: 0;
 		background: @modal-color;
 		opacity: 0.6;
-		z-index: 1000;
+		z-index: 9999;
 	}
 
 	&-container {
@@ -44,10 +44,10 @@
 		position: fixed;
 		top: 50%;
 		left: 50%;
-		transform: translate(-50%, -50%);
+		transform: translate(-50%, -52%);
 		background: @container-background;
 		border-radius: @body-border-radius;
-		z-index: 1001;
+		z-index: 9999;
 		white-space: normal;
 		animation: modal-fade-in 0.5s;
 
@@ -126,17 +126,9 @@
 .info-area {
 	max-width: 400px;
 
-	.message-info {
-		max-width: 350px;
-		display: inline-block;
-		vertical-align: top;
-		color: @modal-color;
-		line-height: 24px;
-	}
-
 	.icon-style {
 		font-size: 24px;
-		vertical-align: text-bottom;
+		vertical-align: text-top;
 		padding: 10px;
 	}
 
@@ -159,10 +151,13 @@
 	.warning-style {
 		color: @warning-icon-color;
 	}
-}
 
-.more-info {
-	max-width: 350px;
-	padding-top: 10px;
-	padding-left: 44px;
+	.more-info {
+		color: @modal-color;
+		max-width: 350px;
+		font-size: 14px;
+		display: inline-block;
+		vertical-align: text-top;
+		line-height: 26px;
+	}
 }

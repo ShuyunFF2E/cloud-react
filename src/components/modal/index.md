@@ -15,6 +15,7 @@ subtitle: 弹出框
 | --- | --- | --- | --- |
 | visible | 是否显示modal弹出框 | boolean | false |
 | title | 弹出框的标题 | string | title |
+| style | 设置弹出框内容区域样式 | object | - |
 | hasFooter | 是否显示底部区域 | boolean | true |
 | footer | modal底部内容区域| string或ReactNode | - |
 | onClose | 点击右上角关闭按钮时触发的回调 | function | - |
@@ -23,7 +24,7 @@ subtitle: 弹出框
 | okText | 确定按钮自定义文本 | string | 确定 |
 | cancelText | 取消按钮自定义文本 | string | 取消 |
 | showMask | 是否显示遮罩层 | boolean | true |
-| clickMaskCanClose | 点击遮罩层是否关闭, showMask必须为true | boolean | false |
+| clickMaskCanClose | 点击遮罩层是否关闭, showMask必须为true | boolean | true |
 | showConfirmLoading | 点击确定是否显示loading，用于异步关闭 | boolean | false |
 
 
@@ -33,8 +34,8 @@ subtitle: 弹出框
 
 | 方法名 | 说明 | 用法 | 示例 |
 | --- | --- | --- | --- |
-| confirm | 确认对话框 | Modal.confirm() | Modal.confirm({title: 'a confirm message', body: 'it is body'}) |
-| success | 成功提示框 | Modal.info() | Modal.info({title: 'a info message', onClose: () => {}}) |
-| error | 错误提示框 | Modal.error() | Modal.error({title: 'a error message'}) |
-| info | 信息提示框 | Modal.info() | Modal.info({title: 'a info message'}) |
-| warning | 警告提示框 | Modal.warning() | Modal.warning({title: 'a warning message'}) |
+| confirm | 确认对话框 | Modal.confirm() | Modal.confirm({body: 'it is body'}) |
+| success | 成功提示框 | Modal.info() | Modal.info({body: 'a info message', onClose: () => {}}) |
+| error | 错误提示框 | Modal.error() | Modal.error({body: 'a error message'}) |
+| info | 信息提示框 | Modal.info() | Modal.info({body: 'a info message'}) |
+| warning | 警告提示框 | Modal.warning() | Modal.warning({body: 'a warning message'}) |

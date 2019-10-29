@@ -17,7 +17,6 @@ class Prompt extends React.Component{
 	static defaultProps = {
 		type: '',
 		icon: '',
-		title: '',
 		body: '',
 		onOk: () => {},
 		onCancel: () => {},
@@ -26,7 +25,6 @@ class Prompt extends React.Component{
 	static propTypes = {
 		type: PropTypes.string,
 		icon: PropTypes.string,
-		title: PropTypes.node,
 		body: PropTypes.node,
 		onOk: PropTypes.func,
 		onCancel: PropTypes.func,
@@ -80,7 +78,7 @@ class Prompt extends React.Component{
 	};
 
 	render() {
-		const { type, icon, title, body } = this.props;
+		const { type, icon, body } = this.props;
 		return (
 			<Notification
 				visible
@@ -91,16 +89,15 @@ class Prompt extends React.Component{
 				<div>
 					<header className="info-area">
 						<Icon type={icon} className={`icon-style ${type}-style` }></Icon>
-						<span className="message-info">{title}</span>
+						<section className="more-info">{body}</section>
 					</header>
-					<section className="more-info">{body}</section>
 				</div>
 			</Notification>
 		);
 	}
 }
 
-function prompt({ type, icon, title, body, onOk, onCancel }) {
+function prompt({ type, icon, body, onOk, onCancel }) {
 	// 创建一个关联id
 	const id = `prompt${new Date().getTime()}`;
 	containers[id] = document.createElement('div');
@@ -111,7 +108,6 @@ function prompt({ type, icon, title, body, onOk, onCancel }) {
 			id={id}
 			type={type}
 			icon={icon}
-			title={title}
 			body={body}
 			onOk={onOk}
 			onCancel={onCancel}/>,
