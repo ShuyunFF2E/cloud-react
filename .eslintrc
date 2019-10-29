@@ -33,6 +33,7 @@
 	// jsx 中属性全部使用双引
 	"jsx-quotes": ["error", "prefer-double"],
 	"space-infix-ops": ["error"],
+	"react/sort-comp": "off",
 	"jsx-a11y/label-has-associated-control": "off"
   },
   "globals": {
