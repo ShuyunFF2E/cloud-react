@@ -11,12 +11,13 @@ import Prompt from './prompt';
 
 class Modal extends Component{
 	render() {
-		const { visible, title, children, header, footer, hasFooter, onOk, onClose, onCancel, okText, cancelText, showMask, clickMaskCanClose, showConfirmLoading } = this.props;
+		const { visible, style, title, children, header, footer, hasFooter, onOk, onClose, onCancel, okText, cancelText, showMask, clickMaskCanClose, showConfirmLoading } = this.props;
 		return(
 			<Notification
 				type="modal"
 				visible={visible}
 				title={title}
+				style={style}
 				header={header}
 				footer={footer}
 				hasFooter={hasFooter}

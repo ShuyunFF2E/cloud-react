@@ -14,6 +14,7 @@ class Notification extends Component {
 
 	static defaultProps = {
 		visible: false,
+		style: {},
 		title: 'title',
 		children: '',
 		footer: '',
@@ -21,7 +22,7 @@ class Notification extends Component {
 		showMask: true,
 		okText: '确定',
 		cancelText: '取消',
-		clickMaskCanClose: false,
+		clickMaskCanClose: true,
 		showConfirmLoading: false,
 		onOk: () => {},
 		onCancel: () => {},
@@ -30,6 +31,7 @@ class Notification extends Component {
 
 	static propTypes = {
 		visible: PropTypes.bool,
+		style: PropTypes.object,
 		title: PropTypes.string,
 		children: PropTypes.node,
 		footer: PropTypes.node,
@@ -45,7 +47,7 @@ class Notification extends Component {
 	};
 
 	render() {
-		const { visible, id, type, children, title, footer, hasFooter, showMask, okText, cancelText, clickMaskCanClose, showConfirmLoading, onOk, onClose, onCancel } = this.props;
+		const { visible, style, id, type, children, title, footer, hasFooter, showMask, okText, cancelText, clickMaskCanClose, showConfirmLoading, onOk, onClose, onCancel } = this.props;
 		if (!visible && !showConfirmLoading) {
 			return null;
 		}
@@ -57,14 +59,14 @@ class Notification extends Component {
 					onClose={onClose}
 					clickMaskCanClose={clickMaskCanClose}/>
 				{/* 弹出框 */}
+
 				<div className="modal-container">
 					<ModalHeader
 						id={id}
 						type={type}
 						onClose={onClose}
 						title={title}/>
-
-					<ModalBody>
+					<ModalBody style={style}>
 						{children}
 					</ModalBody>
 
@@ -105,9 +107,9 @@ function ModalHeader({ type, title, onClose }) {
 	);
 }
 
-function ModalBody({ children }) {
+function ModalBody({ style, children }) {
 	return (
-		<section className="modal-body">
+		<section className="modal-body" style={style}>
 			{children}
 		</section>
 	);

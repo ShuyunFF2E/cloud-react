@@ -18,7 +18,6 @@ export default class ModalDemo extends React.Component {
 	 // 默认弹出框
 	 openInfoModal = () => {
 		Modal.info({
-			title: 'this is a info message!',
 			body: 'something you can write here',
 			onCancel: () => {}
 		});
@@ -34,7 +33,6 @@ export default class ModalDemo extends React.Component {
 
 	 openWarningModal = () => {
 		Modal.warning({
-			title: 'this is a warning message!',
 			body: 'something you can write here',
 			onCancel: () => {}
 		});
@@ -42,7 +40,6 @@ export default class ModalDemo extends React.Component {
 
 	 openErrorModal = () => {
 		Modal.error({
-			title: 'this is a error message!',
 			body: 'something you can write here',
 			onCancel: () => {}
 		});

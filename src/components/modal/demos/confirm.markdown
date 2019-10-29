@@ -26,7 +26,6 @@ export default class ModalDemo extends React.Component {
 
 	 openConfirmModal = () => {
 	 	Modal.confirm({
-			title: 'Do you want to delete it ?',
 			body: 'something you can write here',
 			onOk: () => {
 				this.handleOk();
@@ -42,15 +41,13 @@ export default class ModalDemo extends React.Component {
 	 // 打开确认弹出框
 	 openAsyncConfirmModal = () => {
 	 	Modal.confirm({
-			title: 'Do you want to delete it ?',
-			body: 'this is a async confirm demo',
+			body: 'this is a async demo，do you want to test it ？ if you want, please click the button',
 			onOk: () => {
-				let promise = new Promise((resolve, reject) => {
+				return new Promise((resolve, reject) => {
 						setTimeout(Math.random() > 0.5 ? resolve : reject, 2000);
 					}).catch(() => {
 						console.log('error');
 					});
-				return promise;
 			},
 			onCancel: () => {
 				this.setState({
