@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
-import Icon from '../../icon';
-import util from '../util/index';
+import Icon from 'cloud-react/icon';
+import util from '../util';
 import enumObj from '../util/enum';
 
 const { monthArr } = util;

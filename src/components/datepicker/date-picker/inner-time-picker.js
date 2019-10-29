@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import enumObj from './util/enum';
-import { timeSelector } from  './util/view-common';
+import enumObj from '../util/enum';
+import { timeSelector } from '../util/view-common';
 
 function InnerTimePicker(props) {
 	const { hour, minute, second, mode, label, onChange } = props;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { selector } from  '../util/view-common';
+import { selector } from '../util/view-common';
 
 const nowYear = new Date().getFullYear();
 const disClass = 'grid-disabled';

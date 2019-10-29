@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
-import Icon from '../../icon';
+import Icon from 'cloud-react/icon';
 import enumObj from '../util/enum';
 
 const monthArr = ['一','二','三','四','五','六','七','八','九','十','十一','十二'];
 
-function MonthDayHeader(props) {
+function Header(props) {
 	const { month, onChooseMonth, onChange } = props;
 
 	function onArrowChange(params) {
@@ -40,16 +40,16 @@ function MonthDayHeader(props) {
 	);
 }
 
-MonthDayHeader.propTypes = {
+Header.propTypes = {
 	month: PropTypes.number,
 	onChooseMonth: PropTypes.func,
 	onChange: PropTypes.func
 }
 
-MonthDayHeader.defaultProps = {
+Header.defaultProps = {
 	month: undefined,
 	onChooseMonth: () => { },
 	onChange: () => { }
 }
 
-export default MonthDayHeader;
+export default Header;

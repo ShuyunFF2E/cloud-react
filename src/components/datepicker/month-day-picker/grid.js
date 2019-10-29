@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import utils from '../util';
-import WeekGrid from './week-grid';
-import { selector, formatZero } from  '../util/view-common';
+import WeekGrid from './week';
+import { selector, formatZero } from '../util/view-common';
 
 
 const defaultYear = new Date().getFullYear();
 const defaultMonth = new Date().getMonth() + 1;
 const defaultDay = new Date().getDate();
 
-function DayGrid(props) {
+function Grid(props) {
     const { month, day, checkValue, showToday, onChange } = props;
 
     const [tempMonth, setTempMonth] = useState(month);
@@ -74,7 +74,7 @@ function DayGrid(props) {
 	</div>);
 }
 
-DayGrid.propTypes = {
+Grid.propTypes = {
     month: PropTypes.oneOfType([
 		PropTypes.number,
 		PropTypes.string
@@ -88,7 +88,7 @@ DayGrid.propTypes = {
 	onChange: PropTypes.func
 }
 
-DayGrid.defaultProps = {
+Grid.defaultProps = {
 	showToday: false,
 	month: undefined,
 	day: undefined,
@@ -96,4 +96,4 @@ DayGrid.defaultProps = {
 	onChange: () => { }
 }
 
-export default DayGrid;
+export default Grid;

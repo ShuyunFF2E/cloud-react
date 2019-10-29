@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import RangeWeek from './range-week';
+import Week from './week';
 import utils from '../util';
 import { selector, rangeSelector } from '../util/view-common';
 
-
-function RangeGrid(props) {
+function Grid(props) {
 	const { range, rangValue, onChange, onOK } = props;
 	const startGrid = range[0];
 	const endGrid = range[1];
@@ -61,7 +60,7 @@ function RangeGrid(props) {
 					</thead>
 					<tbody>
 					{utils.range(startGridLen).map((e, i) =>
-						<RangeWeek
+						<Week
 							key={i.toString()}
 							year={startGrid.year}
 							month={startGrid.month}
@@ -86,7 +85,7 @@ function RangeGrid(props) {
 					</thead>
 					<tbody>
 					{utils.range(endGridLen).map((e, i) =>
-						<RangeWeek
+						<Week
 							key={i.toString()}
 							year={endGrid.year}
 							month={endGrid.month}
@@ -110,18 +109,18 @@ function RangeGrid(props) {
 	)
 }
 
-RangeGrid.propTypes = {
+Grid.propTypes = {
 	range: PropTypes.array,
 	rangValue: PropTypes.array,
 	onChange: PropTypes.func,
 	onOK: PropTypes.func
 }
 
-RangeGrid.defaultProps = {
+Grid.defaultProps = {
 	range: [null, null],
 	rangValue: [null, null],
 	onChange: ()=>{},
 	onOK: ()=>{}
 }
 
-export default RangeGrid;
+export default Grid;

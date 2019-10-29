@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-import MonthDayHeader from '../header/month-day-header';
-import MonthGrid from '../grid/month-grid';
-import DayGrid from '../grid/day-grid';
+import Header from './header';
+import MonthGrid from '../common/month-grid';
+import Grid from './grid';
 import enumObj from '../util/enum';
 import { formatZero, selector } from '../util/view-common';
 
@@ -75,7 +75,7 @@ function Popup(props) {
     function renderCompByMode(mode) {
         if (mode === enumObj.MONTH_MODEL) {
             return (<section>
-                    <MonthDayHeader />
+                    <Header />
                     <MonthGrid
 						month={tempMonth}
 						onChange={(m,y) => onMonthGridChange(m,y)}
@@ -84,11 +84,11 @@ function Popup(props) {
         }
         if (mode === enumObj.MONTH_DAY_MODEL) {
             return (<section>
-                <MonthDayHeader
+                <Header
 					month={tempMonth}
 					onChooseMonth={onChooseMonth}
 					onChange={onHeaderChange} />
-                <DayGrid
+                <Grid
 					month={tempMonth}
 					day={tempDay}
 					showToday={showToday}

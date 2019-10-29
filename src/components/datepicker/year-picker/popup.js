@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import YearRegionHeader from '../header/year-region-header';
-import YearGrid from '../grid/year-grid';
+import YearRegionHeader from '../common/year-region-header';
+import YearGrid from '../common/year-grid';
 import enumObj from '../util/enum';
 import { selector } from '../util/view-common';
 

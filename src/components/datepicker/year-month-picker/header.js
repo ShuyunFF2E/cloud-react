@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Icon from '../../icon';
+import Icon from 'cloud-react/icon';
 import enumObj from '../util/enum';
 
 const defaultYear = new Date().getFullYear();
 
-function YearMonthHeader(props) {
+function Header(props) {
 	const { year, onChange } = props;
 
 	function onArrowChange(params) {
@@ -25,14 +25,14 @@ function YearMonthHeader(props) {
 	);
 }
 
-YearMonthHeader.propTypes = {
+Header.propTypes = {
 	year: PropTypes.number,
 	onChange: PropTypes.func
 }
 
-YearMonthHeader.defaultProps = {
+Header.defaultProps = {
 	year: defaultYear,
 	onChange: () => { }
 }
 
-export default YearMonthHeader;
+export default Header;

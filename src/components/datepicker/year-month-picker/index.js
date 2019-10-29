@@ -1,30 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Input from 'cloud-react/input';
-import Popup from './popup/month-day-popup';
+import Popup from './popup';
 import {
 	createWrapper,
 	renderDOM,
 	destroyDOM,
 	destroyAllDOM,
 	isVaild,
-	datepickerUI,
 	selector,
-	getPositionByComp,
-	calendarIcon
-} from './util/view-common';
-import enumObj from './util/enum';
+	calendarIcon,
+	datepickerUI,
+	getPositionByComp
+} from '../util/view-common';
+import enumObj from '../util/enum';
 
-function MonthDayPicker(props) {
-	const { value, defaultValue, open, disabled, className, hasClear, placeholder, showToday, position, onChange, ...otherProps } = props;
+function YearMonthPicker(props) {
+	const { value, defaultValue, open, disabled, className, min, max, hasClear, placeholder, showThisMonth, position, onChange, ...otherProps } = props;
+	const inpRef = React.createRef();
 	const [currentValue, setCurrentValue] = useState(isVaild(value) ? value : defaultValue);
 	const [visible, setVisible] = useState(open);
-	// 每个组件实例id，对应面板DOM节点
 	const [id,] = useState(Math.random().toString().replace('.', ''));
-	// 日历Icon位置，因为可能会有clear Icon出现。所以交替显示
 	const [suffix, setSuffix] = useState(calendarIcon);
-	const inpRef = React.createRef();
-
 	function onPopChange(output) {
 		setCurrentValue(output);
 		// eslint-disable-next-line no-use-before-define
@@ -39,16 +36,16 @@ function MonthDayPicker(props) {
 		if (isVisible && id) {
 			createWrapper(id);
 			const checkValue = currentValue;
-			const { HEIGHT_MONTH_DAY } = datepickerUI;
-			// 获取面板的定位
-			const { left, top } = getPositionByComp(inpRef.current.inputRef.current.getBoundingClientRect(), position, HEIGHT_MONTH_DAY);
-			// 渲染DOM
+			const { HEIGHT_MONTH } = datepickerUI;
+			const { left, top } = getPositionByComp(inpRef.current.inputRef.current.getBoundingClientRect(), position, HEIGHT_MONTH);
 			renderDOM(id, <Popup
 				left={left}
 				top={top}
 				className={className}
 				checkValue={checkValue}
-				showToday={showToday}
+				showThisMonth={showThisMonth}
+				max={max}
+				min={min}
 				onChange={onPopChange}
 			/>);
 			return;
@@ -57,7 +54,7 @@ function MonthDayPicker(props) {
 		destroyDOM(id);
 	}
 
-	// 组件渲染时，仅注册一次相关事件
+
 	useEffect(() => {
 		document.addEventListener('click', changeVisible, false);
 		if (open) {
@@ -73,10 +70,13 @@ function MonthDayPicker(props) {
 	}, [open]);
 
 	function onInpClick(evt) {
+		// 阻止合成事件的冒泡
 		evt.stopPropagation();
+		// 阻止与原生事件的冒泡
 		evt.nativeEvent.stopImmediatePropagation();
 		// 如果不可见则显示面板
 		if (!visible || !document.getElementById(id)) {
+			// 先释放其他面板
 			destroyAllDOM();
 			setVisible(true);
 			changeVisible(evt, true);
@@ -86,16 +86,16 @@ function MonthDayPicker(props) {
 	function onInpChange(evt) {
 		if (!evt.target.value.trim().length) {
 			setCurrentValue('');
-			// 清空后，显示出日历Icon
 			setSuffix(calendarIcon);
 			onChange('');
 		}
 	}
 
-    return (<Input
-		{...otherProps}
+
+	return (<Input
 		ref={inpRef}
 		suffix={suffix}
+		{...otherProps}
         value={currentValue}
 		placeholder={placeholder}
 		readOnly
@@ -107,34 +107,38 @@ function MonthDayPicker(props) {
  	/>);
 }
 
-MonthDayPicker.propTypes = {
+YearMonthPicker.propTypes = {
 	position: PropTypes.oneOf([
 		enumObj.AUTO,
 		enumObj.UP,
 		enumObj.DOWN
 	]),
-	className: PropTypes.string,
 	hasClear: PropTypes.bool,
+	className: PropTypes.string,
 	disabled: PropTypes.bool,
 	placeholder: PropTypes.string,
 	open: PropTypes.bool,
 	defaultValue: PropTypes.string,
 	value: PropTypes.string,
-	showToday: PropTypes.bool,
-	onChange: PropTypes.func,
+    min: PropTypes.string,
+	max: PropTypes.string,
+	showThisMonth: PropTypes.bool,
+	onChange: PropTypes.func
 }
 
-MonthDayPicker.defaultProps = {
+YearMonthPicker.defaultProps = {
 	className: '',
 	position: enumObj.AUTO,
-	placeholder: '',
 	hasClear: false,
+	placeholder: '',
 	disabled: false,
 	open: false,
-	showToday: true,
+	showThisMonth: true,
 	defaultValue: '',
 	value: undefined,
+	min: '1900/01',
+	max: '2100/12',
 	onChange: () => { }
 }
 
-export default MonthDayPicker;
+export default YearMonthPicker;

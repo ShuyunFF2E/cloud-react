@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
-import Icon from '../../icon';
+import Icon from 'cloud-react/icon';
 import enumObj from '../util/enum';
 
 const defaultYear = new Date().getFullYear();

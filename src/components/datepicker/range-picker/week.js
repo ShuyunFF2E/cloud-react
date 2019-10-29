@@ -7,7 +7,7 @@ function isEqualDate(obj, year, month, day) {
 	return obj && obj.year === year && obj.month === month && obj.day === day;
 }
 
-function RangeWeek(props) {
+function Week(props) {
 	// rangeConfig出现在区间选择器时（仅用于年月日模式）
 	const { head, tail, days, year, month, minDate, maxDate, checkGridArr, rangeConfig, onPickDate } = props;
 
@@ -77,7 +77,7 @@ function RangeWeek(props) {
 }
 
 
-RangeWeek.propTypes = {
+Week.propTypes = {
 	rangeConfig: PropTypes.object,
 	checkGridArr: PropTypes.array,
 	year: PropTypes.number,
@@ -90,7 +90,7 @@ RangeWeek.propTypes = {
 	onPickDate: PropTypes.func,
 }
 
-RangeWeek.defaultProps = {
+Week.defaultProps = {
 	year: null,
 	month: null,
 	rangeConfig: null,
@@ -103,4 +103,4 @@ RangeWeek.defaultProps = {
 	onPickDate: () => { }
 }
 
-export default RangeWeek;
+export default Week;

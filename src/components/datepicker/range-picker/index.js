@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Input from 'cloud-react/input';
-import Popup from './popup/range-popup';
-
+import Popup from './popup';
 import {
 	createWrapper,
 	renderDOM,
@@ -13,9 +12,9 @@ import {
 	rangeSelector,
 	selector,
 	getPositionByComp
-} from './util/view-common';
-import util from './util';
-import enumObj from './util/enum';
+} from '../util/view-common';
+import util from '../util';
+import enumObj from '../util/enum';
 
 const minDefaultDate = new Date('1900/01/01 00:00:00');
 const maxDefaultDate = new Date('2099/12/31 23:59:59');

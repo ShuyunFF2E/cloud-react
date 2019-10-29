@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Input from 'cloud-react/input';
-import Popup from './popup/year-region-popup';
+import Popup from './popup';
 import {
 	createWrapper,
 	renderDOM,
@@ -9,19 +9,21 @@ import {
 	destroyAllDOM,
 	isVaild,
 	datepickerUI,
-	calendarIcon,
 	selector,
-	getPositionByComp
-} from './util/view-common';
-import enumObj from './util/enum';
+	getPositionByComp,
+	calendarIcon
+} from '../util/view-common';
+import enumObj from '../util/enum';
 
-function YearPicker(props) {
-	const { value, defaultValue, open, disabled, min, max, hasClear, placeholder, position, className, showThisYear, onChange, ...otherProps } = props;
-	const inpRef = React.createRef();
-	const [id,] = useState(Math.random().toString().replace('.', ''));
+function MonthDayPicker(props) {
+	const { value, defaultValue, open, disabled, className, hasClear, placeholder, showToday, position, onChange, ...otherProps } = props;
 	const [currentValue, setCurrentValue] = useState(isVaild(value) ? value : defaultValue);
 	const [visible, setVisible] = useState(open);
+	// 每个组件实例id，对应面板DOM节点
+	const [id,] = useState(Math.random().toString().replace('.', ''));
+	// 日历Icon位置，因为可能会有clear Icon出现。所以交替显示
 	const [suffix, setSuffix] = useState(calendarIcon);
+	const inpRef = React.createRef();
 
 	function onPopChange(output) {
 		setCurrentValue(output);
@@ -36,17 +38,17 @@ function YearPicker(props) {
 	function changeVisible(evt, isVisible) {
 		if (isVisible && id) {
 			createWrapper(id);
-			const checkValue = currentValue ? parseInt(currentValue, 10) : undefined;
-			const { HEIGHT_YEAR } = datepickerUI;
-			const { left, top } = getPositionByComp(inpRef.current.inputRef.current.getBoundingClientRect(), position, HEIGHT_YEAR);
+			const checkValue = currentValue;
+			const { HEIGHT_MONTH_DAY } = datepickerUI;
+			// 获取面板的定位
+			const { left, top } = getPositionByComp(inpRef.current.inputRef.current.getBoundingClientRect(), position, HEIGHT_MONTH_DAY);
+			// 渲染DOM
 			renderDOM(id, <Popup
 				left={left}
 				top={top}
-				checkValue={checkValue}
 				className={className}
-				showThisYear={showThisYear}
-				max={max}
-				min={min}
+				checkValue={checkValue}
+				showToday={showToday}
 				onChange={onPopChange}
 			/>);
 			return;
@@ -55,6 +57,7 @@ function YearPicker(props) {
 		destroyDOM(id);
 	}
 
+	// 组件渲染时，仅注册一次相关事件
 	useEffect(() => {
 		document.addEventListener('click', changeVisible, false);
 		if (open) {
@@ -70,13 +73,10 @@ function YearPicker(props) {
 	}, [open]);
 
 	function onInpClick(evt) {
-		// 阻止合成事件的冒泡
 		evt.stopPropagation();
-		// 阻止与原生事件的冒泡
 		evt.nativeEvent.stopImmediatePropagation();
 		// 如果不可见则显示面板
 		if (!visible || !document.getElementById(id)) {
-			// 先释放其他面板
 			destroyAllDOM();
 			setVisible(true);
 			changeVisible(evt, true);
@@ -86,71 +86,55 @@ function YearPicker(props) {
 	function onInpChange(evt) {
 		if (!evt.target.value.trim().length) {
 			setCurrentValue('');
-			onChange('');
+			// 清空后，显示出日历Icon
 			setSuffix(calendarIcon);
+			onChange('');
 		}
 	}
 
-	return (<Input
+    return (<Input
 		{...otherProps}
 		ref={inpRef}
 		suffix={suffix}
-		value={currentValue}
+        value={currentValue}
 		placeholder={placeholder}
 		readOnly
 		hasClear={hasClear}
 		className={`${selector}-inp`}
-		disabled={disabled}
 		onChange={evt => onInpChange(evt)}
+		disabled={disabled}
 		onClick={onInpClick}
-	/>);
+ 	/>);
 }
 
-YearPicker.propTypes =  {
-	className: PropTypes.string,
-	disabled: PropTypes.bool,
-	hasClear: PropTypes.bool,
-	placeholder: PropTypes.string,
+MonthDayPicker.propTypes = {
 	position: PropTypes.oneOf([
 		enumObj.AUTO,
 		enumObj.UP,
 		enumObj.DOWN
 	]),
-	// 控制初次渲染时，弹层是否默认打开
+	className: PropTypes.string,
+	hasClear: PropTypes.bool,
+	disabled: PropTypes.bool,
+	placeholder: PropTypes.string,
 	open: PropTypes.bool,
-	defaultValue: PropTypes.oneOfType([
-        PropTypes.number,
-        PropTypes.string
-    ]),
-	value: PropTypes.oneOfType([
-        PropTypes.number,
-        PropTypes.string
-    ]),
-    min: PropTypes.oneOfType([
-        PropTypes.number,
-        PropTypes.string
-    ]),
-	max: PropTypes.oneOfType([
-        PropTypes.number,
-        PropTypes.string
-    ]),
-	showThisYear: PropTypes.bool,
+	defaultValue: PropTypes.string,
+	value: PropTypes.string,
+	showToday: PropTypes.bool,
 	onChange: PropTypes.func,
 }
 
-YearPicker.defaultProps = {
+MonthDayPicker.defaultProps = {
 	className: '',
 	position: enumObj.AUTO,
 	placeholder: '',
 	hasClear: false,
 	disabled: false,
 	open: false,
-	showThisYear: true,
+	showToday: true,
 	defaultValue: '',
 	value: undefined,
-	min: 1900,
-	max: 2100,
 	onChange: () => { }
 }
 
-export default YearPicker;
+export default MonthDayPicker;

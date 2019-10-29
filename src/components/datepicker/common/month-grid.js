@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import util from '../util/index';
-import { selector } from  '../util/view-common';
+import util from '../util';
+import { selector } from '../util/view-common';
 
 const currentMonth = new Date().getMonth() + 1;
 

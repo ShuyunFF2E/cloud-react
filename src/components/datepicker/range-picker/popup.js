@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import Header from '../header/header';
-import RangeGrid from '../grid/range-grid';
+import Header from '../common/header';
+import Grid from './grid';
 import util from '../util';
 import enumObj from '../util/enum';
-import { rangeSelector } from  '../util/view-common';
+import { rangeSelector } from '../util/view-common';
 
 const defaultYear = new Date().getFullYear();
 const defaultMonth = new Date().getMonth() + 1;
@@ -267,7 +267,7 @@ function Popup(props) {
 					style={{ width:250 }}
 				/>
 			</div>
-			<RangeGrid
+			<Grid
 				range={tempRange}
 				rangValue={tempRangeValue}
 				onChange={onGridChange}

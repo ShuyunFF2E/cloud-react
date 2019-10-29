@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Input from 'cloud-react/input';
-import Popup from './popup/date-popup';
-import util from './util';
-import enumObj from './util/enum';
-import { createWrapper, renderDOM, destroyDOM, destroyAllDOM, isVaild, formatZero, getPositionByComp, calendarIcon, datepickerUI, selector } from  './util/view-common';
+import Popup from './popup';
+import util from '../util';
+import enumObj from '../util/enum';
+import { createWrapper, renderDOM, destroyDOM, destroyAllDOM, isVaild, formatZero, getPositionByComp, calendarIcon, datepickerUI, selector } from '../util/view-common';
 
 
 function getFormat(_showTimePicker, _mode) {

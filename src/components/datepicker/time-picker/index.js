@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
-import utils from './util';
-import { timeSelector } from './util/view-common';
+import utils from '../util';
+import { timeSelector } from '../util/view-common';
 
 function TimePicker(props) {
 	const { value, defaultValue, className, style, disabled, onChange, onBlur } = props;

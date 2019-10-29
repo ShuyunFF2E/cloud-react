@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import Header from '../header/header';
-import Grid from '../grid/grid';
+import Header from '../common/header';
+import Grid from './grid';
 import util from '../util';
-import { selector } from  '../util/view-common';
+import { selector } from '../util/view-common';
 
 const defaultYear = new Date().getFullYear();
 const defaultMonth = new Date().getMonth() + 1;

@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Week from './week';
 import utils from '../util';
-import InnerTimePicker from '../inner-time-picker';
-import { selector } from  '../util/view-common';
+import InnerTimePicker from './inner-time-picker';
+import { selector } from '../util/view-common';
 
 function Grid(props) {
 	const { days, year, month, day, hour, minute, second, showNow, showToday, mode, minDate, maxDate, rangeConfig,

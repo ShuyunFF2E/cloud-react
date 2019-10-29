@@ -1,27 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Input from 'cloud-react/input';
-import Popup from './popup/year-month-popup';
+import Popup from './popup';
 import {
 	createWrapper,
 	renderDOM,
 	destroyDOM,
 	destroyAllDOM,
 	isVaild,
-	selector,
-	calendarIcon,
 	datepickerUI,
+	calendarIcon,
+	selector,
 	getPositionByComp
-} from './util/view-common';
-import enumObj from './util/enum';
+} from '../util/view-common';
+import enumObj from '../util/enum';
 
-function YearMonthPicker(props) {
-	const { value, defaultValue, open, disabled, className, min, max, hasClear, placeholder, showThisMonth, position, onChange, ...otherProps } = props;
+function YearPicker(props) {
+	const { value, defaultValue, open, disabled, min, max, hasClear, placeholder, position, className, showThisYear, onChange, ...otherProps } = props;
 	const inpRef = React.createRef();
+	const [id,] = useState(Math.random().toString().replace('.', ''));
 	const [currentValue, setCurrentValue] = useState(isVaild(value) ? value : defaultValue);
 	const [visible, setVisible] = useState(open);
-	const [id,] = useState(Math.random().toString().replace('.', ''));
 	const [suffix, setSuffix] = useState(calendarIcon);
+
 	function onPopChange(output) {
 		setCurrentValue(output);
 		// eslint-disable-next-line no-use-before-define
@@ -35,15 +36,15 @@ function YearMonthPicker(props) {
 	function changeVisible(evt, isVisible) {
 		if (isVisible && id) {
 			createWrapper(id);
-			const checkValue = currentValue;
-			const { HEIGHT_MONTH } = datepickerUI;
-			const { left, top } = getPositionByComp(inpRef.current.inputRef.current.getBoundingClientRect(), position, HEIGHT_MONTH);
+			const checkValue = currentValue ? parseInt(currentValue, 10) : undefined;
+			const { HEIGHT_YEAR } = datepickerUI;
+			const { left, top } = getPositionByComp(inpRef.current.inputRef.current.getBoundingClientRect(), position, HEIGHT_YEAR);
 			renderDOM(id, <Popup
 				left={left}
 				top={top}
-				className={className}
 				checkValue={checkValue}
-				showThisMonth={showThisMonth}
+				className={className}
+				showThisYear={showThisYear}
 				max={max}
 				min={min}
 				onChange={onPopChange}
@@ -53,7 +54,6 @@ function YearMonthPicker(props) {
 		setVisible(false);
 		destroyDOM(id);
 	}
-
 
 	useEffect(() => {
 		document.addEventListener('click', changeVisible, false);
@@ -86,59 +86,71 @@ function YearMonthPicker(props) {
 	function onInpChange(evt) {
 		if (!evt.target.value.trim().length) {
 			setCurrentValue('');
-			setSuffix(calendarIcon);
 			onChange('');
+			setSuffix(calendarIcon);
 		}
 	}
 
-
 	return (<Input
+		{...otherProps}
 		ref={inpRef}
 		suffix={suffix}
-		{...otherProps}
-        value={currentValue}
+		value={currentValue}
 		placeholder={placeholder}
 		readOnly
 		hasClear={hasClear}
 		className={`${selector}-inp`}
-		onChange={evt => onInpChange(evt)}
 		disabled={disabled}
+		onChange={evt => onInpChange(evt)}
 		onClick={onInpClick}
- 	/>);
+	/>);
 }
 
-YearMonthPicker.propTypes = {
+YearPicker.propTypes =  {
+	className: PropTypes.string,
+	disabled: PropTypes.bool,
+	hasClear: PropTypes.bool,
+	placeholder: PropTypes.string,
 	position: PropTypes.oneOf([
 		enumObj.AUTO,
 		enumObj.UP,
 		enumObj.DOWN
 	]),
-	hasClear: PropTypes.bool,
-	className: PropTypes.string,
-	disabled: PropTypes.bool,
-	placeholder: PropTypes.string,
+	// 控制初次渲染时，弹层是否默认打开
 	open: PropTypes.bool,
-	defaultValue: PropTypes.string,
-	value: PropTypes.string,
-    min: PropTypes.string,
-	max: PropTypes.string,
-	showThisMonth: PropTypes.bool,
-	onChange: PropTypes.func
+	defaultValue: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.string
+    ]),
+	value: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.string
+    ]),
+    min: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.string
+    ]),
+	max: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.string
+    ]),
+	showThisYear: PropTypes.bool,
+	onChange: PropTypes.func,
 }
 
-YearMonthPicker.defaultProps = {
+YearPicker.defaultProps = {
 	className: '',
 	position: enumObj.AUTO,
-	hasClear: false,
 	placeholder: '',
+	hasClear: false,
 	disabled: false,
 	open: false,
-	showThisMonth: true,
+	showThisYear: true,
 	defaultValue: '',
 	value: undefined,
-	min: '1900/01',
-	max: '2100/12',
+	min: 1900,
+	max: 2100,
 	onChange: () => { }
 }
 
-export default YearMonthPicker;
+export default YearPicker;
