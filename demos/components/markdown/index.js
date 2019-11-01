@@ -60,7 +60,7 @@ export default class MarkdownOutput extends React.Component {
 
 	componentDidMount() {
 		const { demos } = this.props;
-		this.markdownBody.parentNode.scrollTop = 0;
+		document.documentElement.scrollTop = 0;
 
 		demos
 			.sort((p, n) => p.order - n.order)
