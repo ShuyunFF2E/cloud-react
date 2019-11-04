@@ -2,14 +2,9 @@ import React from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
-import hljs from 'highlight.js/lib/highlight';
-import javascript from 'highlight.js/lib/languages/javascript';
-
 import codeIcon from './assets/code.svg';
 
 import classes from './index.less';
-
-hljs.registerLanguage('javascript', javascript);
 
 const CSS_SELECTOR = /[^{}]+\{[^}]*\}/gi;
 const STYLE_TYPE = 'text/css';
@@ -55,7 +50,9 @@ class CodeBox extends React.Component {
 	componentDidMount() {
 		const { current } = this.codeBlock;
 
-		hljs.highlightBlock(current);
+		window.requestAnimationFrame(() => {
+			window.Prism.highlightElement(current.children[0]);
+		})
 	}
 
 	componentWillUnmount() {
@@ -100,7 +97,7 @@ class CodeBox extends React.Component {
 					[classes.codeBlock]: true,
 					[classes.hidden]: !expand
 				})}>
-					<code dangerouslySetInnerHTML={{ __html: code }} />
+					<code dangerouslySetInnerHTML={{ __html: code }} className="language-jsx" />
 				</pre>
 			</section>
 		);

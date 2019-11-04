@@ -62,6 +62,12 @@ export default class MarkdownOutput extends React.Component {
 		const { demos } = this.props;
 		document.documentElement.scrollTop = 0;
 
+		// 跟具体组件代码无关的代码高亮
+		[...document.querySelectorAll('pre > code')].forEach(ele => {
+			window.requestAnimationFrame(() => window.Prism.highlightElement(ele))
+		})
+
+		// 动态添加 demo
 		demos
 			.sort((p, n) => p.order - n.order)
 			.filter(v => v).forEach(Demo => {

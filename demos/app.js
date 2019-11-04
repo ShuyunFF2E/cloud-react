@@ -2,6 +2,9 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
+import './assets/lib/prism';
+import './assets/lib/prism.less';
+
 /* <% dynamicDocs begin %> */
 /**
  * import  abc './abc.md'
