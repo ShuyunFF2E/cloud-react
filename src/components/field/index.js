@@ -78,9 +78,12 @@ export default class Field {
 	}
 
 	setValue = (name, value) => {
-		if (name in this.fieldsMeta) {
-			this.fieldsMeta[name] = value;
-			this.__render__();
+		const fieldMeta = this.fieldsMeta[name];
+
+		if (typeof fieldMeta === 'object') {
+			fieldMeta[fieldMeta.valueName] = value;
+
+			this.validate([name]);
 		} else {
 			this.fieldsMeta[name] = { value };
 		}
