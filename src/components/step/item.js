@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import { prefixCls } from '@utils/config';
+
 import Icon from '../icon';
 
 import { WAIT, FINISH, PROCESS } from './constants';
@@ -31,20 +33,20 @@ export default class StepItem extends React.Component {
 		const iconNumber = index + 1;
 
 		return (
-			<div className={classnames('step-item', status, className)}>
+			<div className={classnames(`${prefixCls}-step-item`, status, className)}>
 
-				<div className={classnames('step-icon', status)} onClick={onClick}>
+				<div className={classnames(`${prefixCls}-step-icon`, status)} onClick={onClick}>
 					{status === FINISH ? <Icon type="finish" /> : <span>{iconNumber}</span>}
 				</div>
 
-				<div className="step-body">
+				<div className={classnames(`${prefixCls}-step-body`)}>
 					{/* title */}
-					<div className="step-title">{title}</div>
+					<div className={classnames(`${prefixCls}-step-title`)}>{title}</div>
 
 					{/* content */}
 					{
 						content &&
-						<div className="step-content">{content}</div>
+						<div className={classnames(`${prefixCls}-step-content`)}>{content}</div>
 					}
 				</div>
 

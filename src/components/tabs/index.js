@@ -1,6 +1,8 @@
 import React, { PureComponent, Children } from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
+import { prefixCls } from '@utils/config';
+
 import IconRaw from '../icon';
 
 import './index.less';
@@ -81,7 +83,7 @@ export default class Tabs extends PureComponent {
         const { key } = child;
 
         // class & style
-        const className = cls(`tabs-item-${type}`, { [activeClassName]: !disabled && isActived, disabled });
+        const className = cls(`${prefixCls}-tabs-item-${type}`, { [activeClassName]: !disabled && isActived, disabled });
 
         // render
         return (
@@ -114,15 +116,15 @@ export default class Tabs extends PureComponent {
                 const style = isActived ? child.props.style : { ...child.props.style, display: 'none' };
                 const target = React.cloneElement(child, { style });
                 panel.push(target);
-            } else if (isActived) { 
-                panel = child; 
+            } else if (isActived) {
+                panel = child;
             }
         });
 
-        const finalClassName = cls('tabs', className);
+        const finalClassName = cls(`${prefixCls}-tabs`, className);
         return (
             <div className={finalClassName} style={this.props.style}>
-                <section className="tabs-header">{headers}</section>
+                <section className={cls(`${prefixCls}-tabs-header`)}>{headers}</section>
                 {panel}
             </div>
         );
@@ -130,7 +132,7 @@ export default class Tabs extends PureComponent {
 }
 
 const Panel = React.memo(props => {
-    const finalClassName = cls('tabpanel-container', props.className);
+    const finalClassName = cls(`${prefixCls}-tabpanel-container`, props.className);
     return (
         <div className={finalClassName} style={props.style}>
             {props.children}

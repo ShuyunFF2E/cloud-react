@@ -1,6 +1,9 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import jeasy from 'jeasy';
+import classnames from 'classnames';
+
+import { prefixCls } from '@utils/config';
 
 import MenuContext, { types } from './context';
 
@@ -148,9 +151,9 @@ export default class Menu extends PureComponent {
         const value = { ...this.state, changeSelectedKeys: this.changeSelectedKeys };
         return (
             <MenuContext.Provider value={value}>
-                <section className="menu-container" style={style}>
+                <section className={classnames(`${prefixCls}-menu-container`)} style={style}>
                     {header}
-                    <ul className="menu">
+                    <ul className="list">
                         {content}
                     </ul>
                 </section>

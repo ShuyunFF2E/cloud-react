@@ -1,3 +1,7 @@
+@import '../style/index';
+
+@message-prefix-cls: ~'@{prefix}-message';
+
 @success-bg: #D8F2D4;
 @success-color: #3A773A;
 @success-border: #C3DABF;
@@ -12,9 +16,7 @@
 @error-x-hover-color: #7B2624;
 @error-icon-color: #FF5243;
 
-@selector: message;
-
-.mixin-type-msg(@bg, @bgBorderColor, @msgTextColor, @closeColor, @closeHoverColor, @tagColor) {
+.cloud-message-type(@bg, @bgBorderColor, @msgTextColor, @closeColor, @closeHoverColor, @tagColor) {
 	background: @bg;
 	border: 1px solid @bgBorderColor;
 	.msg-text {
@@ -31,7 +33,7 @@
 	}
 }
 
-.@{selector} {
+.@{message-prefix-cls} {
 	position: fixed;
 	max-height: 100%;
 	overflow-y: auto;
@@ -72,17 +74,15 @@
 		opacity: .6;
 		margin-left: 20px
 	}
-	.success-msg {
-		.mixin-type-msg(@success-bg, @success-border, @success-color, @success-x-color, @success-x-hover-color, @success-icon-color)
+	&-success {
+		.cloud-message-type(@success-bg, @success-border, @success-color, @success-x-color, @success-x-hover-color, @success-icon-color)
 	}
 
-	.error-msg {
-		.mixin-type-msg(@error-bg, @error-border, @error-color, @error-x-color, @error-x-hover-color, @error-icon-color)
+	&-error {
+		.cloud-message-type(@error-bg, @error-border, @error-color, @error-x-color, @error-x-hover-color, @error-icon-color)
+	}
+
+	&-pos {
+		position: absolute;
 	}
 }
-
-.@{selector}-pos {
-	position: absolute;
-}
-
-

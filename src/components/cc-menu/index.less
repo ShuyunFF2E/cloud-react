@@ -1,7 +1,8 @@
+@import '../style/index';
 
-@shopSelector: menu-shop-selector;
-@shopPaneSelector: menu-shop-selector-pane;
-@ccMenuSelector: cc-menu;
+@menu-prefix-cls: ~'@{prefix}-menu';
+@shopSelector: ~'@{prefix}-menu-shop';
+@shopPaneSelector: ~'@{prefix}-menu-shop-pane';
 
 // ==========================  menu-shop-selector ==================
 @menu-shop-selector-bg-color: #e9ebee;
@@ -48,39 +49,40 @@
         &:extend(.reset);
     }
 
-    .shop-logo-wrapper {
+    .logo-wrapper {
         margin: 15px auto 0;
         width: 40px;
         height: 40px;
         border-radius: 50%;
         background-color: @shop-logo-bg-color;
         text-align: center;
-        .shop-logo {
+        .default-logo {
             font-size: 30px;
             color: @shop-logo-color;
             line-height: 40px;
         }
-        .shop-img-logo {
+        .img-logo {
             display: block;
             width: 40px;
             height: 40px;
             border-radius: 50%;
         }
     }
-    .shop-title-wrapper {
-        margin-top: 6px;
+    .title-wrapper {
+		margin-top: 6px;
+		margin-bottom: 12px;
         height: 14px;
         line-height: 14px;
         font-size: 12px;
         text-align: center;
-        .shop-plat {
+        .plat {
             color: @shop-plat-color;
         }
-		.shop-split{
+		.split{
 			margin-left: 4px;
 			margin-right: 4px;
 		}
-        .shop-name {
+        .name {
             color: @shop-name-color;
         }
     }
@@ -170,7 +172,7 @@
     }
 }
 
-.@{ccMenuSelector} {
+.@{menu-prefix-cls} {
     height: 100%;
     display: flex;
     justify-content: flex-start;
@@ -179,7 +181,7 @@
         transform: translateX(-150px);
     }
 
-    .cc-menu-toggle {
+    &-toggle {
         width: 180px;
         height: 20px;
         line-height: 16px;

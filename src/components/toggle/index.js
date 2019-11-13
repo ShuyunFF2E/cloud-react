@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
+import { prefixCls } from '@utils/config';
 import './index.less';
 
 class Toggle extends Component {
@@ -22,15 +23,15 @@ class Toggle extends Component {
 
 		const { checked, checkedText, unCheckedText, size, disabled } = this.props;
 
-		const wrapper = classNames('toggle', {
-			'toggle-small': size === 'small',
-			'toggle-checked': checked,
-			'toggle-disabled': disabled
+		const wrapper = classNames(`${prefixCls}-toggle`, {
+			[`${prefixCls}-toggle-small`]: size === 'small',
+			[`${prefixCls}-toggle-checked`]: checked,
+			[`${prefixCls}-toggle-disabled`]: disabled
 		});
 
 		return (
 			<button type="button" className={wrapper} onClick={this.handleClick}>
-				<span className="toggle-inner">{ checked ? checkedText : unCheckedText }</span>
+				<span className={`${checked}-toggle-inner`}>{ checked ? checkedText : unCheckedText }</span>
 			</button>
 		);
 	}

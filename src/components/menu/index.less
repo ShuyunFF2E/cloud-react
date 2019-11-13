@@ -1,4 +1,7 @@
-@menuSelector: menu;
+@import '../style/index';
+
+@menuSelector: ~'@{prefix}-menu-container';
+@menu-item-prefix-cls: ~'@{prefix}-menu-item';
 
 @menu-item-color: #3a3a3a;
 @menu-item-hover-color: #dee1e5;
@@ -9,7 +12,7 @@
 @menu-bg-color: #e9ebee;
 @menu-indicator-color: #cbcbcb;
 
-.menu-item-basic {
+.@{menu-item-prefix-cls} {
     height: 40px;
     font-size: 12px;
     line-height: 40px;
@@ -32,7 +35,7 @@
 }
 
 // ========== menu ===========
-.@{menuSelector}-container {
+.@{menuSelector} {
     display: flex;
     flex-flow: column nowrap;
     justify-content: flex-start;
@@ -40,13 +43,7 @@
     height: 100%;
     width: 180px;
 
-    ul, li {
-		padding: 0;
-		margin: 0;
-		list-style: none;
-    }
-
-    .@{menuSelector} {
+    .list{
         flex: 1;
         position: relative;
         z-index: 1;
@@ -60,36 +57,34 @@
             color: @menu-item-link-color;
         }
 
-        .menu-group {
-            .menu-group-title:extend(.menu-item-basic all) {
-                position: relative;
+		.group-title:extend(.cloud-menu-item all) {
+			position: relative;
 
-                .menu-indicator {
-                    position: absolute;
-                    color: @menu-indicator-color;
-                    font-size: 12px;
-                    right: 15px;
-                    top: 50%;
-                    transform: translateY(-50%);
-                }
+			.indicator {
+				position: absolute;
+				color: @menu-indicator-color;
+				font-size: 12px;
+				right: 15px;
+				top: 50%;
+				transform: translateY(-50%);
+			}
 
-            }
-            .menu-group-sub {
-                &.collapse {
-                    height: 0;
-                    overflow: hidden;
-                }
-                &.expand {
-                    height: auto;
-                }
-                .menu-item {
-                    color: @menu-item-link-color;
-                }
-            }
-        }
+		}
+		.group-sub {
+			&.collapse {
+				height: 0;
+				overflow: hidden;
+			}
+			&.expand {
+				height: auto;
+			}
+			.menu-item {
+				color: @menu-item-link-color;
+			}
+		}
 
-        .menu-item {
-            &:extend(.menu-item-basic all);
+        .item {
+            &:extend(.cloud-menu-item all);
         }
     }
 }

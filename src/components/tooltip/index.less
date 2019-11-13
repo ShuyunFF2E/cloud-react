@@ -1,17 +1,19 @@
-@selectorWrap: tooltipWrap;
-@selector: tooltip;
+@import '../style/index';
+
+@tooltip-prefix-cls: ~'@{prefix}-tooltip';
+
 @border-radius: 2px;
 @tooltip-arrow-width: 3px;
 @light-arrow-width: 2px;
 @tooltip-arrow-offset: @tooltip-arrow-width + 1;
-@tooltip-arrow-color: #666666;
+@tooltip-arrow-color: #666;
 @tooltip-arrow-errorColor: #ff867c;
 @tooltip-arrow-lightColor: #DDDEE1;
 
-@dark_bgColor: #666666;
+@dark_bgColor: #666;
 @dark_color: #f8f8f8;
 
-@light_bgColor: #ffffff;
+@light_bgColor: #fff;
 @light_color: #3D3D3D;
 @light_border: 1px solid #DDDEE1;
 
@@ -19,11 +21,7 @@
 @error_color: #f8f8f8;
 @error_border: #f8f8f8;
 
-.@{selectorWrap}{
-	display: inline-block;
-}
-
-.@{selector} {
+.@{tooltip-prefix-cls} {
 	position: absolute;
 	box-sizing: border-box;
 	font-size: 12px;
@@ -42,7 +40,7 @@
 		position: absolute;
 		border: solid transparent;
 	}
-	
+
 	.light:after {
 		content: '';
 		position: absolute;
@@ -192,7 +190,7 @@
 		background-color: @dark_bgColor;
 		color: @dark_color;
 	}
-	
+
 
 	&.is-light {
 		background-color: @light_bgColor;

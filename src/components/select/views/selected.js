@@ -1,10 +1,12 @@
 import React from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
+
 import Icon from '../../icon';
+import { selector } from './common';
+
 import '../index.less';
 
-const selector = 'select';
 const getLables = dataSource => dataSource.map(item => item.label).join(',')
 
 export default class Selected extends React.Component {
@@ -60,7 +62,7 @@ export default class Selected extends React.Component {
 				state: { selectStr, clear }, onMouseEnter, onMouseLeave } = this;
 
 		const classNames = classnames(`${selector}-wrapper`, { disabled, empty: !dataSource.length });
-		const iconClasses = classnames(`${selector}-select-icon`, { 
+		const iconClasses = classnames(`${selector}-select-icon`, {
 			open,
 			close: !open,
 			hidden: clear && selectStr

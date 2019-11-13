@@ -1,8 +1,9 @@
 import React from 'react';
 import classnames from 'classnames';
+import { prefixCls } from '@utils/config';
 import Icon from '../../icon';
 
-const selector = 'select';
+export const selector = `${prefixCls}-select`;
 
 export const OptionsEmpty = ({ emptyRender, ...props }) => {
     return <div className={`${selector}-empty-options`} {...props}> { emptyRender } </div>;

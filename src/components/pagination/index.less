@@ -1,4 +1,6 @@
-@selector: pagination;
+@import '../style/index';
+
+@pagination-prefix-cls: ~'@{prefix}-pagination';
 
 @pagination-item-color: rgba(0,0,0,0.65);
 @pagination-item-border-color: #ddd;
@@ -7,11 +9,12 @@
 @pagination-item-ellips-color: rgba(0,0,0,0.25);
 @pagination-item-active-bg: rgba(229,247,255,1);
 
-.@{selector}{
+.@{pagination-prefix-cls}{
+
 	display: flex;
 	align-items: center;
+
 	ul{
-		list-style-type: none;
 		display: flex;
 		padding-inline-start: 0;
 		li{

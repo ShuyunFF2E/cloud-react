@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import Input from 'cloud-react/input';
+import Input from '../../input';
 import Popup from './popup';
 import {
 	createWrapper,
@@ -21,12 +21,14 @@ const maxDefaultDate = new Date('2099/12/31 23:59:59');
 const fmt = 'yyyy/MM/dd';
 
 function RangePicker(props) {
+
 	const { value, defaultValue, open, disabled, style, hasClear, minDate, maxDate, placeholder, className, position, onChange, ...otherProps } = props;
 
 	const inpRef = React.createRef();
 	const [id,] = useState(Math.random().toString().replace('.', ''));
 	const [suffix, setSuffix] = useState(calendarIcon);
 	const [controlled, setControlled] = useState(typeof value !== 'undefined');
+
 	function getInitValue(isStr) {
 		let _value = defaultValue;
 		if (controlled) {

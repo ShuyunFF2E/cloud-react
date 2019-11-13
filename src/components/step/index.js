@@ -1,6 +1,7 @@
 import React, { Children, cloneElement, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import { prefixCls } from '@utils/config';
 import StepItem from './item';
 
 import { HORIZONTAL, VERTICAL, INLINE, CIRCLE, DOT, PROCESS, WAIT, FINISH } from './constants';
@@ -46,7 +47,7 @@ export default class Step extends PureComponent {
     render() {
 
 		const { direction, type, children, className, onClick: rootClick, ...stepProps } = this.props;
-		const classNames = classnames('step', direction, type, className);
+		const classNames = classnames(`${prefixCls}-step`, direction, type, className);
 		const elements = Children.map(children, (Child, index) => {
 			const { status, content, onClick, ...props } = Child.props;
 

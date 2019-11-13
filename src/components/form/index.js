@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+
+import { prefixCls } from '@utils/config';
+
 import FormItem from './form-item';
 import FormContext from './context';
 import { LAYOUT_TYPES, LABEL_ALIGN } from './constants';
@@ -38,7 +41,7 @@ export default class Form extends Component {
 
 	render() {
 		const { children, colon, field, layout, labelCol, wrapperCol, labelAlign, ...others } = this.props;
-		const classNames = classnames('form');
+		const classNames = classnames(`${prefixCls}-form`);
 
 		return (
 			<FormContext.Provider value={{ colon, field, layout, labelAlign, labelCol, wrapperCol }}>

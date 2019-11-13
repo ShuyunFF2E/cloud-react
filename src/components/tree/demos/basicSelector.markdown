@@ -23,16 +23,16 @@ export default class TreeDemo extends React.Component {
 			isAddFront: false
 		}
 	}
-	
+
 	addNode = (pId, name) => {
 		console.info('向后端发送一条请求，新增一个节点，参数为' + 'pId:' + pId + ',' + 'name:' + name);
 		return new Promise(((resolve, reject) => {
 			resolve({data: Math.floor(Math.random() * 10000)})
 			// reject('新增失败');
 		}));
-		
+
 	};
-	
+
 	renameNode = (id, name) => {
 		console.info('向后端发送一条请求，重命名一个节点，参数为' + 'id:' + id + ',' + 'name:' + name);
 		return new Promise(((resolve, reject) => {
@@ -40,7 +40,7 @@ export default class TreeDemo extends React.Component {
 			// reject('重命名失败');
 		}));
     };
-	
+
 	removeNode = (id) => {
 		console.info('向后端发送一条请求，删除一个节点，参数为' + 'id:' + id);
 		return new Promise(((resolve, reject) => {
@@ -48,12 +48,12 @@ export default class TreeDemo extends React.Component {
 			// reject('删除失败');
 		}));
 	};
-	
+
 	selectedNode = (node) => {
 		console.info('已选择一个节点，节点信息是：');
 		console.log(node);
 	};
-	
+
 	render() {
 		const treeData = [{
 			id: 1,
@@ -141,7 +141,7 @@ export default class TreeDemo extends React.Component {
 									children: []
 								}
 							]
-						}, 
+						},
 						{
 							id: 122,
 							name: '禁止新增节点2',
@@ -166,7 +166,7 @@ export default class TreeDemo extends React.Component {
 					id: 13,
 					name: '禁止重命名节点',
 					pId: 1,
-					disableRename: true, 
+					disableRename: true,
 					children: [
 						{
 							id: 131,
@@ -192,7 +192,7 @@ export default class TreeDemo extends React.Component {
 									children: []
 								}
 							]
-						}, 
+						},
 						{
 							id: 132,
 							name: '禁止重命名节点2',
@@ -219,22 +219,20 @@ export default class TreeDemo extends React.Component {
 			]
 		}];
 		return (
-			<div className="tree">
-				<Tree
-					treeData={treeData}
-					searchPlaceholder={this.state.searchPlaceholder}
-					searchMaxLength={this.state.searchMaxLength}
-					nodeNameMaxLength={this.state.nodeNameMaxLength}
-					maxLevel={this.state.maxLevel}				
-					supportMenu={this.state.supportMenu}
-					supportSearch={this.state.supportSearch}
-					isAddFront={this.state.isAddFront}
-					onAddNode={this.addNode}
-					onRenameNode={this.renameNode}
-					onRemoveNode={this.removeNode}
-					onSelectedNode={this.selectedNode}>
-				</Tree>
-			</div>
+			<Tree
+				treeData={treeData}
+				searchPlaceholder={this.state.searchPlaceholder}
+				searchMaxLength={this.state.searchMaxLength}
+				nodeNameMaxLength={this.state.nodeNameMaxLength}
+				maxLevel={this.state.maxLevel}
+				supportMenu={this.state.supportMenu}
+				supportSearch={this.state.supportSearch}
+				isAddFront={this.state.isAddFront}
+				onAddNode={this.addNode}
+				onRenameNode={this.renameNode}
+				onRemoveNode={this.removeNode}
+				onSelectedNode={this.selectedNode}>
+			</Tree>
 		);
 	}
 }

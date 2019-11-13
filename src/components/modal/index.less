@@ -1,10 +1,7 @@
-/**
- * index.less
- * wangbo
- * 2019-06-18
- */
+@import '../style/index';
 
-@selector: modal;
+@modal-prefix-cls: ~'@{prefix}-modal';
+
 @modal-color: #666;
 
 @container-background: #F8F8F8;
@@ -26,7 +23,7 @@
 @confirm-loading-border: 1px solid #DDD;
 @confirm-loading-border-top: 1px solid #FFF;
 
-.@{selector} {
+.@{modal-prefix-cls} {
 	&-mask {
 		position: fixed;
 		top: 0;
@@ -69,7 +66,7 @@
 		font-size: 14px;
 		background: @header-background;
 
-		.@{selector}-title {
+		.@{modal-prefix-cls}-title {
 			color: @modal-color;
 		}
 
@@ -98,11 +95,11 @@
 		border-top: @footer-border;
 		border-radius: 0 0 2px 2px;
 
-		.@{selector}-confirm-btn {
+		.@{modal-prefix-cls}-confirm-btn {
 			margin-right: 15px;
 		}
 
-		.@{selector}-confirm-loading {
+		.@{modal-prefix-cls}-confirm-loading {
 			display: inline-block;
 			width: 10px;
 			height: 10px;

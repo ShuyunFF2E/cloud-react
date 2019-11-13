@@ -1,3 +1,7 @@
+@import '../style/index';
+
+@loading-prefix-cls: ~'@{prefix}-loading';
+
 @color: #00A9F0;
 @backgroundColor: rgba(244, 244, 244, .6);
 
@@ -21,7 +25,7 @@
 	}
 }
 
-.loading {
+.@{loading-prefix-cls} {
 	position: relative;
 	min-height: 70px;
 	height: 100%;

@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import cls from 'classnames';
+import classnames from 'classnames';
+
+import { prefixCls } from '@utils/config';
 
 import Icon from '../icon';
 import Menu from '../menu';
@@ -150,11 +152,14 @@ export default class CcMenu extends PureComponent {
     };
 
     renderHeader() {
-        const { checkedPlat, checkedShop, shopSource, selectorExpanded } = this.state;
-        const { onShopChange, searchPlaceholder, topPlaceholder } = this.props;
+
+		const { checkedPlat, checkedShop, shopSource, selectorExpanded } = this.state;
+		const { onShopChange, searchPlaceholder, topPlaceholder } = this.props;
+		const classes = classnames(`${prefixCls}-menu-toggle`);
+
         return (
             <>
-                <div className="cc-menu-toggle" onClick={this.toggleSidebar}>
+                <div className={classes} onClick={this.toggleSidebar}>
                     <Icon type="left-solid" className="toggle-icon"></Icon>
                 </div>
                 {
@@ -199,7 +204,7 @@ export default class CcMenu extends PureComponent {
         const { openKeys, selectedKeys, menuCollapsed } = this.state;
         const { onMenuItemClick, onSubMenuToggle } = this.props;
 
-        const className = cls('cc-menu', { 'collapsed': menuCollapsed });
+        const className = classnames(`${prefixCls}-menu`, { 'collapsed': menuCollapsed });
 
         return (
             <div className={className}>

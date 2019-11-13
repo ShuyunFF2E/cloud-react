@@ -1,19 +1,10 @@
-/**
- * 搜索
- * list.js
- * wangbo
- * 2019-07-02
- */
-
 import React, { Component } from 'react';
+import classNames from 'classnames';
 import Input from '../input';
 import Icon from '../icon';
 
 class Search extends Component{
-	/**
-	 * 输入搜索信息
-	 * @param e
-	 */
+
 	handleSearch = e => {
 		// 回车或鼠标点击则触发搜索
 		if (e.keyCode === 13 || e.button === 0) {
@@ -24,11 +15,13 @@ class Search extends Component{
 	};
 
 	render() {
-		const { supportSearch, searchPlaceholder, searchMaxLength } = this.props;
+
+		const { supportSearch, searchPlaceholder, searchMaxLength, prefixCls } = this.props;
+
 		return(
-			supportSearch && <div className="tree-search">
+			supportSearch && <div className={classNames(`${prefixCls}-search`)}>
 				<Input suffix={<Icon type="search" onMouseDown={this.handleSearch}/>}
-					   className="tree-search-input"
+					   className={classNames(`${prefixCls}-search-input`)}
 					   ref={(value) => {this.searchInputRef = value}}
 					   onKeyDown={this.handleSearch}
 					   maxLength={searchMaxLength}

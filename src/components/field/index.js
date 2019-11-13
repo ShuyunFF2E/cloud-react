@@ -232,11 +232,12 @@ export default class Field {
 				}
 			});
 
+			this.__render__();
+
 			if (_callback && typeof _callback === 'function') {
 				_callback(errors, values);
 			}
 
-			this.__render__();
 		});
 	}
 

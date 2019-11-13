@@ -1,8 +1,6 @@
-/**
- * index.less
- * wangbo
- * 2019-06-28
- */
+@import '../style/index';
+
+@tree-prefix-cls: ~'@{prefix}-tree';
 
 @selector: tree;
 
@@ -17,7 +15,7 @@
 @selector-node-active-background: #E7F3FC;
 @selector-node-active-color: #08C;
 
-.@{selector} {
+.@{tree-prefix-cls} {
 	position: relative;
 	> .tree-list {
 		min-width: 300px;
@@ -34,7 +32,7 @@
 	}
 
 	// 搜索组件
-	.@{selector}-search {
+	&-search {
 		padding-bottom: 10px;
 		.input-group {
 			width: 100%;
@@ -52,7 +50,7 @@
 	}
 
 	// 列表组件
-	.@{selector}-list {
+	&-list {
 		&-node-area {
 			position: relative;
 
@@ -121,7 +119,7 @@
 	}
 
 	// 菜单组件
-	.@{selector}-menu {
+	&-menu {
 		width: 86px;
 		position: fixed;
 		text-align: center;

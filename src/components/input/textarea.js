@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import omit from '@utils/omit';
+import { prefixCls } from '@utils/config';
 
 const ENTER_KEY_CODE = 13;
 const nothing = undefined;
@@ -178,7 +179,7 @@ export default class Textarea extends React.PureComponent {
 		const { value, autoSizeStyle } = this.state;
 		const { className, style, ...others } = this.props;
 
-		const classNames = classnames('input-textarea', className);
+		const classNames = classnames(`${prefixCls}-input-textarea`, className);
 		const styles = { ...style, ...autoSizeStyle };
 		const props = omit(others, [
 			'defaultValue',

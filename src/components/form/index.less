@@ -1,13 +1,14 @@
-@selector: form;
+@import '../style/index';
+
+@form-prefix-cls: ~'@{prefix}-form';
 
 @form-color: #333;
 @label-color: #666;
 @explain-color: #666;
 @required-flag-color: #f5222d;
 
-.@{selector} {
+.@{form-prefix-cls} {
 	line-height: 1.3;
-	// color: @form-color;
 
 	/* .form-item */
 	&-item {
@@ -110,9 +111,9 @@
 		// 表单校验样式
 		&.has-error {
 			.select-wrapper,
-			.input-number,
-			.input-textarea,
-			.input {
+			.@{prefix}-input-number,
+			.@{prefix}-input-textarea,
+			.@{prefix}-input {
 				border-color: #f5222d;
 			}
 		}

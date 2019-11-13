@@ -1,4 +1,6 @@
-@selector: tag;
+@import '../style/index';
+
+@tag-prefix-cls: ~'@{prefix}-tag';
 
 @default-backgroud-color:#FDFDFD;
 @default-border:#e3e3e3;
@@ -8,12 +10,12 @@
 @disabled-color:#DDDDDD;
 @white-color: #FFFFFF;
 
-.bordered {
+.bordered() {
 	background: #EFF7FF;
 	border: 1px solid #E7F3FF;
 }
 
-.disabled {
+.disabled() {
 	color: @white-color;
 	background-color: @disabled-color;
 	border: none;
@@ -25,7 +27,7 @@
 	border:none;
 }
 
-.@{selector} {
+.@{tag-prefix-cls} {
 	display: inline-block;
 	position: relative;
 	height: auto;
@@ -41,7 +43,7 @@
 	border-radius: 2px;
 
 	&:hover{
-		.bordered;
+		.bordered();
 		color: @default-hover-color;
 	}
 
@@ -56,7 +58,7 @@
 
 	&.checked{
 		color: @close-color;
-		.bordered;
+		.bordered();
 	}
 
 	&.closable{
@@ -87,9 +89,9 @@
 		.status-style(#FF524F);
 	}
 	&.disabled{
-		.disabled;
+		.disabled();
 		&:hover {
-			.disabled;
+			.disabled();
 		}
 	}
 }

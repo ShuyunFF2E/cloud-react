@@ -30,7 +30,7 @@ export default class PaginationDemo extends React.Component {
 				<Pagination
 					total={500}
 					showPageSizeOptions={true}
-					style={{marginBottom: '20'}}
+					style={{marginBottom: '20px'}}
 					onChange={this.onChange}
 					current={this.state.current}
 					pageSize={this.state.pageSize}
