@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { prefixCls } from '@utils/config';
 
-import Icon from 'cloud-react/icon';
+import Icon from '../icon';
 import './index.less';
 
 const noop = () => {};
@@ -214,9 +216,12 @@ class TablePagination extends Component {
 	};
 
 	render() {
-		const { showTotal, showRefresh, showPageSizeOptions } = this.props
+
+		const { showTotal, showRefresh, showPageSizeOptions } = this.props;
+		const classes = classNames(`${prefixCls}-table-pagination`);
+
 		return (
-			<div className="table-pagination">
+			<div className={classes}>
 				<div className="left-tools">
 					{showRefresh ? this.renderRefresh() : null}
 					{this.renderCheckedTotal()}

@@ -9,7 +9,7 @@ const indexFile = path.resolve(__dirname, '../src/components/index.js');
 const { name } = require('../package.json');
 
 // 忽略列表
-const ignores = ['.DS_Store', 'index.js'];
+const ignores = ['.DS_Store', 'index.js', 'style'];
 
 // 获取组件列表
 const files = fs.readdirSync(filePath);

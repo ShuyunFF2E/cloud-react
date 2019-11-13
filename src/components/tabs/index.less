@@ -1,5 +1,6 @@
+@import '../style/index';
 
-@selector: tabs;
+@selector: ~'@{prefix}-tabs';
 @subSelector: ~'@{selector}-item';
 
 @font-size: 12px;
@@ -19,7 +20,7 @@
 
 @closable-color: #cecece;
 
-.tabs-item-basic {
+.@{subSelector}-basic {
     position: relative;
     display: inline-block;
     line-height: 28px;
@@ -64,7 +65,7 @@
         }
     }
 
-    &-item-card:extend(.tabs-item-basic all) {
+    &-item-card:extend(.cloud-tabs-item-basic all) {
         border: 1px solid @tab-card-border-color;
         border-bottom-color: @tab-accent-border-color;
         background-color: @tab-card-bg;
@@ -75,7 +76,7 @@
             color: @font-color-active;
         }
     }
-    .@{subSelector}-tile:extend(.tabs-item-basic all) {
+    .@{subSelector}-tile:extend(.cloud-tabs-item-basic all) {
         &.active {
             border-bottom: 2px solid @tile-accent-color;
             color: @font-color-active;

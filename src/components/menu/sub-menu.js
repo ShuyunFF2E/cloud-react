@@ -63,21 +63,21 @@ export default class SubMenu extends PureComponent {
 
         return (
             <div
-                className="menu-group-title"
+                className="group-title"
                 style={style}
                 onClick={this.handleToggle}>
                 {title}
-                <Icon type={iconType} className="menu-indicator"></Icon>
+                <Icon type={iconType} className="indicator"></Icon>
             </div>
         );
     }
 
     render() {
         const { opened } = this.state;
-        const subGroupClass = cls('menu-group-sub', { 'collapse': !opened, 'expand': opened });
+        const subGroupClass = cls('group-sub', { 'collapse': !opened, 'expand': opened });
 
         return (
-            <li className="menu-group">
+            <li>
                 {this.renderSubTitle()}
                 <ul className={subGroupClass}>
                     { this.props.children }

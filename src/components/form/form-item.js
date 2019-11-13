@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import { prefixCls } from '@utils/config';
+
 import FormContext from './context';
 import { LAYOUT_TYPES } from './constants';
 
@@ -101,7 +103,7 @@ export default class Form extends Component {
 		const labelAttrs = {
 			htmlFor,
 			required,
-			className: classnames('form-item-label', {
+			className: classnames(`${prefixCls}-form-item-label`, {
 				'has-colon': colon,
 				[`col-${labelColSpan}`]: (
 					labelColSpan !== undefined &&
@@ -124,7 +126,7 @@ export default class Form extends Component {
 		} = wrapperCol;
 
 		const wrapperAttrs = {
-			className: classnames('form-item-wrapper', {
+			className: classnames(`${prefixCls}-form-item-wrapper`, {
 				[`col-${span}`]: (
 					span !== undefined &&
 					layout !== LAYOUT_TYPES.VERTICAL
@@ -151,7 +153,7 @@ export default class Form extends Component {
 		const state = field && field.getState && field.getState(dataField);
 
 		return (
-			<div className={classnames('form-item', layout, labelAlign, {
+			<div className={classnames(`${prefixCls}-form-item`, layout, labelAlign, {
 				'has-error': state === 'error',
 				'has-success': state === 'success'
 			})}>
@@ -164,6 +166,6 @@ export default class Form extends Component {
 
 function Explain({ children, className }) {
 	return children && (
-		<div className={classnames('form-item-explain', className)}>{children}</div>
+		<div className={classnames(`${prefixCls}-form-item-explain`, className)}>{children}</div>
 	);
 }

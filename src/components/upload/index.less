@@ -1,4 +1,6 @@
-@selector: cloud-upload;
+@import '../style/index';
+
+@upload-prefix-cls: ~'@{prefix}-upload';
 
 @box-sizing: border-box;
 @size-big: 14px;
@@ -8,7 +10,7 @@
 
 @color-666: #666;
 
-.@{selector} {
+.@{upload-prefix-cls} {
 	box-sizing: @box-sizing;
     color: rgba(0,0,0,0.65);
     font-size: @size-big;
@@ -45,12 +47,12 @@
 		border-radius: 4px;
 		cursor: pointer;
         transition: @border-color .3s ease;
-        
+
         &:hover {
-            border-color: @border-hover-color;    
+            border-color: @border-hover-color;
         }
 
-		> .@{selector} {
+		> .@{upload-prefix-cls} {
 			display: table-cell;
 			width: 100%;
 			height: 100%;
@@ -60,12 +62,12 @@
 		}
 
     }
-    
+
     &-text {
         margin-top: 8px;
         color: @color-666;
 	}
-	
+
 	&-list {
 		box-sizing: @box-sizing;
 		margin: 0;

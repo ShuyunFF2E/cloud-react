@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
-import './index.less';
+import { prefixCls } from '@utils/config';
 import { CONFIG_PLACE } from './config';
+import './index.less';
 
 let targetEleOffset = '';
 let tooltipEleOffset = '';
 
 // 箭头高度常量 如果修改样式高度此处也要修改
-const arrowHeight = 3 + 4;
+const arrowHeight = 7;
 
 /**
  * 根据传入的元素获取相对body位置信息
@@ -141,7 +142,7 @@ export default class ToolView extends Component{
 	render() {
 		const { content, theme } = this.props;
 		return (
-			<div ref={el => {this.tipRef = el}} className={classNames('tooltip', `is-${theme}`)}>
+			<div ref={el => {this.tipRef = el}} className={classNames(`${prefixCls}-tooltip`, `is-${theme}`)}>
 				<span className="light"></span>
 				{ content }
 			</div>

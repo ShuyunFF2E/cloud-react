@@ -1,9 +1,3 @@
-/**
- * index.js
- * wangbo
- * 2019-06-20
- */
-
 import React, { Component } from 'react';
 import './index.less';
 import Notification from './modal';

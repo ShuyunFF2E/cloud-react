@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import omit from '@utils/omit';
+import { prefixCls } from '@utils/config';
+
 import Icon from '../icon';
 import Textarea from './textarea';
 
@@ -127,7 +129,7 @@ class Input extends React.PureComponent {
 		const { value } = this.state;
 
 		const type = 'close-circle-solid';
-		const classNames = classnames('input-clear', {
+		const classNames = classnames(`${prefixCls}-input-clear`, {
 			'show': value
 		});
 
@@ -155,7 +157,7 @@ class Input extends React.PureComponent {
 		const { value } = this.state;
 		const { size, className, hasClear, addonAfter, addonBefore, prefix, suffix, ...others } = this.props;
 
-		const classNames = classnames('input', {
+		const classNames = classnames(`${prefixCls}-input`, {
 			[size]: true
 		}, className);
 
@@ -226,12 +228,12 @@ function InputWrapper({ prefix, suffix, addonBefore, addonAfter, className, chil
 
 	if (both && !addon) {
 		return (
-			<InputWrapper className="input-affix">
-				<Addon className="input-prefix">
+			<InputWrapper className={classnames(`${prefixCls}-input-affix`)}>
+				<Addon className={classnames(`${prefixCls}-input-prefix`)}>
 					{prefix}
 				</Addon>
 				{children}
-				<Addon className="input-suffix">
+				<Addon className={classnames(`${prefixCls}-input-suffix`)}>
 					{suffix}
 				</Addon>
 			</InputWrapper>
@@ -240,13 +242,13 @@ function InputWrapper({ prefix, suffix, addonBefore, addonAfter, className, chil
 
 	if (!both && addon) {
 		return (
-			<div className="input-wrapper">
+			<div className={classnames(`${prefixCls}-input-wrapper`)}>
 				<InputWrapper>
-					<Addon className="input-addon">
+					<Addon className={classnames(`${prefixCls}-input-addon`)}>
 						{addonBefore}
 					</Addon>
 					{children}
-					<Addon className="input-addon">
+					<Addon className={classnames(`${prefixCls}-input-addon`)}>
 						{addonAfter}
 					</Addon>
 				</InputWrapper>
@@ -255,7 +257,7 @@ function InputWrapper({ prefix, suffix, addonBefore, addonAfter, className, chil
 	}
 
 	return (
-		<div className={classnames('input-group', className)}>
+		<div className={classnames(`${prefixCls}-input-group`, className)}>
 			{children}
 		</div>
 	);

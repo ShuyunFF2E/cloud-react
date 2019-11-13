@@ -7,11 +7,11 @@ import SingleSelect from './views/single-select';
 import MultiSelect from './views/multi-select';
 import Selected from './views/selected';
 import Option from './views/option';
+import { selector } from './views/common';
+
 import { formatOptionSource } from './utils';
 
 import './index.less';
-
-const selector = 'select';
 
 const getSelected = (data, children) => {
 	const options = Array.isArray(data) ? data : [data];
@@ -26,7 +26,7 @@ const getSelected = (data, children) => {
 }
 
 class Select extends Component {
-	
+
 	static Option = Option;
 
 	constructor(props) {
@@ -216,10 +216,10 @@ class Select extends Component {
 		if (disabled) {
 			return;
 		}
-	
+
 		this.handleSelect();
 	}
-	
+
 	onClickOption = (selected, value) => {
 		this.setState({ selected, value });
 		this.handleSelect();

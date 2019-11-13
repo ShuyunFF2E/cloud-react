@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
+import { prefixCls } from '@utils/config';
+
 import Icon from '../icon';
 import { isInvalid, getCurrentValue, getMax, getMin, getValueByBlank } from './util';
 import './index.less';
 
-const selector = 'input-number';
+const selector = `${prefixCls}-input-number`;
 
 function InputNumber(props) {
 	const { className, style, placeholder, size, min, max, step, precision, value, defaultValue, disabled, onChange, onBlur, onFocus, ...other } = props;

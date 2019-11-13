@@ -1,6 +1,9 @@
 import React, { Component }  from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
+
+import { prefixCls } from '@utils/config';
+
 import './index.less';
 import Icon from '../icon';
 
@@ -29,6 +32,7 @@ function removeWraper(contextContainer) {
 }
 
 function entity(config) {
+
 	const { type, msg, options } = config;
 
 	const opts = Object.assign({}, DEFAULTOPTS, options);
@@ -49,9 +53,9 @@ function entity(config) {
 
 	// 提示信息位置
 	if (contextContainer.tagName === 'BODY') {
-		wraper.className = 'message';
+		wraper.className = `${prefixCls}-message`;
 	} else {
-		wraper.className = 'message message-pos';
+		wraper.className = `${prefixCls}-message ${prefixCls}-message-pos`;
 		if (window.getComputedStyle(contextContainer).position === 'static') {
 			contextContainer.style.position = 'relative';
 		}
@@ -136,7 +140,7 @@ class MessageEntity extends Component {
 		const { type, msg } = this.props;
 
 		return (
-			<div className={`${type}-msg notice`} ref={this.noticeRef}>
+			<div className={`${prefixCls}-message-${type} notice`} ref={this.noticeRef}>
 				<Icon type={`${MESSAGE_TYPE[type].icon}`} className="tag-icon"></Icon>
 				<div className="msg-text">{msg}</div>
 				<Icon type="close" onClick={this.onHandleClose} className="close-icon"></Icon>

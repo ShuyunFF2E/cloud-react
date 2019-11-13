@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import cls from 'classnames';
+import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import jeasy from 'jeasy';
-import Input from '../input';
 
+import { prefixCls } from '@utils/config';
+
+import Input from '../input';
 import Icon from '../icon';
 
 const noop = () =>  {};
@@ -112,8 +114,9 @@ export default class Selector extends Component {
     };
 
     renderMenuSelector() {
-        const { isExpand } = this.state;
-        const selectorCls = cls('menu-shop-selector-pane', { expand: isExpand, collapse: !isExpand });
+
+		const { isExpand } = this.state;
+        const selectorCls = classnames(`${prefixCls}-menu-shop-pane`, { expand: isExpand, collapse: !isExpand });
 
         const searchSection = (
             <div className="shop-search">
@@ -138,12 +141,11 @@ export default class Selector extends Component {
                 <li className="shop-plat">
                     {plat.title}
                 </li>
-
                 {
                     // render shops in plat
                     plat.children.map(shop => {
                         const checked = this.state.checkedShop.key === shop.key;
-                        const className = cls('shop-item', { checked });
+                        const className = classnames('shop-item', { checked });
                         return (
                             <li className={className} onClick={this.changeShop(shop, plat)} key={shop.key} role="presentation">
                                 <span className="shop-title">{shop.title}</span>
@@ -157,21 +159,22 @@ export default class Selector extends Component {
     }
 
     renderMenuShop() {
+
         const { checkedPlat, checkedShop } = this.state;
 
         const logo = checkedShop.icon ?
-            <img src={checkedShop.icon} alt={checkedShop.title} className="shop-img-logo"/> :
-            <Icon type="shop" className="shop-logo"/>;
+            <img src={checkedShop.icon} alt={checkedShop.title} className="img-logo"/> :
+            <Icon type="shop" className="default-logo"/>;
 
         return (
-            <div className="menu-shop-selector" onClick={this.toggleSelector}>
-                <section className="shop-logo-wrapper">
+            <div className={classnames(`${prefixCls}-menu-shop`)} onClick={this.toggleSelector}>
+                <section className="logo-wrapper">
                     { logo  }
                 </section>
-                <p className="shop-title-wrapper">
-                    <span className="shop-plat">{checkedPlat.title}</span>
-	                <span className="shop-split">|</span>
-                    <span className="shop-name">{checkedShop.title}</span>
+                <p className="title-wrapper">
+                    <span className="plat">{checkedPlat.title}</span>
+	                <span className="split">|</span>
+                    <span className="name">{checkedShop.title}</span>
                 </p>
             </div>
         );

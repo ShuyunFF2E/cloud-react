@@ -1,6 +1,8 @@
-@selector: datepicker;
-@range: rangepicker;
-@time: timepicker;
+@import '../style/index';
+
+@selector: ~'@{prefix}-datepicker';
+@range: ~'@{prefix}-rangepicker';
+@time: ~'@{prefix}-timepicker';
 
 @placeholder: #C9C9C9;
 @border: 1px solid #D9D9D9;
@@ -310,7 +312,7 @@
 		background-color: @range-split-color;
 		margin: 0 8px;
 	}
-	&-popup:extend(.datepicker-popup all) {
+	&-popup:extend(.cloud-datepicker-popup all) {
 		width: 500px;
 
 		&-container {

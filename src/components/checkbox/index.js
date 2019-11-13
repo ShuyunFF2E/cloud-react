@@ -1,11 +1,12 @@
 import React, { Children, cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { prefixCls } from '@utils/config';
 
 import './index.less';
 
 const noop = () => {};
-const classSelector = 'checkbox';
+const classSelector = `${prefixCls}-checkbox`;
 
 function Group(props) {
 

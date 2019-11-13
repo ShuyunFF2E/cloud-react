@@ -1,15 +1,9 @@
-/**
- * index.js
- * runnan
- * 2019-6-28
- */
-
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import './index.less';
 import ToolView from './toolView';
 import { CONFIG_PLACE, CONFIG_THEME }  from './config';
+import './index.less';
 
 const containers = {};
 let targetEle = null;
@@ -28,6 +22,7 @@ const mutationObserver = new MutationObserver(mutations => {
   		}
  	});
 });
+
 /**
  * 渲染到节点
  * @param wrapper: 容器

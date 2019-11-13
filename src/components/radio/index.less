@@ -1,5 +1,6 @@
+@import '../style/index';
 
-@selector: radio;
+@raido-prefix-cls: ~'@{prefix}-radio';
 
 @normal-color: #666;
 @checked-color: #00AAF1;
@@ -9,7 +10,7 @@
 
 @radio-size: 14px;
 
-.position {
+.@{raido-prefix-cls}-position {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -17,19 +18,7 @@
 	bottom: 0;
 }
 
-.@{selector}-group {
-	display: inline-flex;
-
-	&.vertical {
-		flex-direction: column;
-	}
-
-	&.horizontal {
-		flex-direction: row;
-	}
-}
-
-.@{selector} {
+.@{raido-prefix-cls} {
 
 	display: inline-flex;
 	align-items: center;
@@ -37,6 +26,16 @@
 
 	cursor: pointer;
 	color: @normal-color;
+
+	&-group {
+		display: inline-flex;
+		&.vertical {
+			flex-direction: column;
+		}
+		&.horizontal {
+			flex-direction: row;
+		}
+	}
 
 	&-wrapper {
 		position: relative;
@@ -54,15 +53,16 @@
 		opacity: 0;
 		cursor: pointer;
 
-		&:checked + .@{selector}-inner {
+		&:checked + .@{raido-prefix-cls}-inner {
 			color: @checked-color;
 
-			&::after:extend(.position) {
+			&::after:extend(.cloud-radio-position) {
 				content: '';
 				background-color: currentColor;
-
-				margin: 18%;
-
+				width: 10px;
+				height: 10px;
+				margin-left: 1px;
+				margin-top: 1px;
 				border: none;
 				box-shadow: 0 0 5px currentColor;
 				animation: fadeIn 300ms ease-out both;
@@ -70,16 +70,16 @@
 			}
 		}
 
-		&:disabled, &:disabled + .@{selector}-inner {
+		&:disabled, &:disabled + .@{raido-prefix-cls}-inner {
 			.disabled;
 		}
 
-		&[disabled]:not(:checked) + .@{selector}-inner {
+		&[disabled]:not(:checked) + .@{raido-prefix-cls}-inner {
 			background-color: @radio-disabled-bg-color;
 		}
 	}
 
-	&-inner:extend(.position) {
+	&-inner:extend(.cloud-radio-position) {
 		z-index: -1;
 
 		border-radius: 50%;

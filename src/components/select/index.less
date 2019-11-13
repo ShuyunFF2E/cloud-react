@@ -1,3 +1,7 @@
+@import '../style/index';
+
+@select-prefix-cls: ~'@{prefix}-select';
+
 @font-size: 12px;
 @height: 30px;
 @line-height: 16px;
@@ -31,20 +35,12 @@
 @search-border: 1px solid #ededed;
 @sign-color: #dbdbdb;
 
-@selector: select;
-
-.overflow-ellipsis {
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-}
-
 .column-layout {
 	display: flex;
 	flex-direction: column;
 }
 
-.@{selector} {
+.@{select-prefix-cls} {
 	min-width: @min-width;
 	max-width: @max-width;
 	position: relative;
@@ -54,16 +50,16 @@
 	}
 
 	&:hover {
-		.@{selector}-selected {
+		.@{select-prefix-cls}-selected {
 			border: @select-hover-border;
 
-			.@{selector}-select-icon {
+			.@{select-prefix-cls}-select-icon {
 				color: @select-hover-color;
 			}
 		}
 	}
 
-	.@{selector}-wrapper {
+	.@{select-prefix-cls}-wrapper {
 		height: @height;
 		line-height: @line-height;
 		border: @select-normal-border;
@@ -75,7 +71,7 @@
 		&:hover {
 			border: @select-hover-border;
 
-			.@{selector}-select-icon {
+			.@{select-prefix-cls}-select-icon {
 				color: @select-hover-color;
 			}
 		}
@@ -89,35 +85,35 @@
 				border-color: @select-disabled-border;
 			}
 
-			.@{selector}-selected {
+			.@{select-prefix-cls}-selected {
 				color: @select-disabled-color;
 				background: @select-disabled-background;
 				cursor: not-allowed;
 			}
 
-			.@{selector}-select-icon {
+			.@{select-prefix-cls}-select-icon {
 				color: @dropdown-icon-color;
 			}
 		}
 
 		&.empty {
-			.@{selector}-selected {
+			.@{select-prefix-cls}-selected {
 				color: @select-empty-color;
 			}
 		}
 
-		.@{selector}-selected {
+		.@{select-prefix-cls}-selected {
 			flex: 1 0;
 			padding: @default-padding;
 			padding-right: @text-icon-gap;
 			font-size: @font-size;
 			color: @font-color;
 			border: none;
-			.overflow-ellipsis;
+			.text-overflow-ellipsis();
 			cursor: pointer;
 		}
 
-		.@{selector}-select-icon {
+		.@{select-prefix-cls}-select-icon {
 			font-size: @dropdown-icon-size;
 			color: @dropdown-icon-color;
 			margin-right: 10px;
@@ -136,7 +132,7 @@
 			}
 		}
 
-		.@{selector}-clear-icon {
+		.@{select-prefix-cls}-clear-icon {
 			display: none;
 
 			&.show {
@@ -146,18 +142,18 @@
 	}
 }
 
-.@{selector}-open {
+.@{select-prefix-cls}-open {
 
-	.@{selector}-wrapper {
+	.@{select-prefix-cls}-wrapper {
 		border: @select-hover-border;
 
-		.@{selector}-select-icon {
+		.@{select-prefix-cls}-select-icon {
 			color: @select-hover-color;
 		}
 	}
 }
 
-.@{selector}-select-options {
+.@{select-prefix-cls}-select-options {
 	box-sizing: @box-sizing;
 	padding: 0;
 	margin: 0;
@@ -176,12 +172,12 @@
 		color: @font-color;
 	}
 
-	.@{selector}-search {
+	.@{select-prefix-cls}-search {
 		width: 100%;
 		padding: @default-padding;
 		position: relative;
 
-		.@{selector}-search-input {
+		.@{select-prefix-cls}-search-input {
 			width: 100%;
 			padding: @default-padding;
 			padding-right: @text-icon-gap;
@@ -189,10 +185,10 @@
 			border: @search-border;
 			border-radius: @default-border-radius;
 			outline: none;
-			.overflow-ellipsis;
+			.text-overflow-ellipsis();
 		}
 
-		.@{selector}-search-icon {
+		.@{select-prefix-cls}-search-icon {
 			color: @sign-color;
 			position: absolute;
 			right: @default-padding * 2;
@@ -205,11 +201,11 @@
 		}
 	}
 
-	.@{selector}-option {
+	.@{select-prefix-cls}-option {
 		height: @height;
 		line-height: @height - @default-padding * 2;
 		padding: @default-padding;
-		.overflow-ellipsis;
+		.text-overflow-ellipsis();
 
 		&:hover {
 			background: @option-hover-background;
@@ -225,7 +221,7 @@
 		}
 	}
 
-	.@{selector}-empty-options {
+	.@{select-prefix-cls}-empty-options {
 		height: @height;
 		line-height: @height;
 		margin: @default-margin;
@@ -234,15 +230,15 @@
 		cursor: default;
 	}
 
-	.@{selector}-multiple-options {
+	.@{select-prefix-cls}-multiple-options {
 		.column-layout;
 
-		.@{selector}-option-list {
+		.@{select-prefix-cls}-option-list {
 			.column-layout;
 
-			.@{selector}-option {
+			.@{select-prefix-cls}-option {
 				padding: @default-padding @large-padding;
-				
+
 				&.selected {
 					background: @background-color;
 				}
@@ -253,7 +249,7 @@
 			}
 		}
 
-		.@{selector}-operate-btn {
+		.@{select-prefix-cls}-operate-btn {
 			display: flex;
 			justify-content: flex-end;
 			padding: @large-padding;
@@ -261,7 +257,7 @@
 
 			.btn {
 				width: @min-width;
-	
+
 				&:not(:last-child) {
 					margin-right: 10px;
 				}

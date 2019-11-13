@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { prefixCls } from '@utils/config';
 
-import Icon from 'cloud-react/icon';
+import Icon from '../icon';
 
 import './index.less';
 
@@ -29,14 +31,10 @@ class Pagination extends Component {
 	};
 
 	constructor(props) {
+
 		super(props);
 
-		const {
-			pageSize,
-			current,
-			showPageSizeOptions,
-			pageSizeOptions
-		} = props;
+		const { pageSize, current, showPageSizeOptions, pageSizeOptions } = props;
 
 		this.state = {
 			current,
@@ -389,8 +387,11 @@ class Pagination extends Component {
 	};
 
 	render() {
+
+		const classes = classNames(`${prefixCls}-pagination`);
+
 		return (
-			<div className="pagination">
+			<div className={classes} style={this.props.style}>
 				<ul>
 					<li
 						onClick={this.prevPage}

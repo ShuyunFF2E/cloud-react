@@ -1,11 +1,12 @@
 import React, { Children, cloneElement, useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import { prefixCls } from '@utils/config';
 
 import './index.less';
 
 const noop = () => {};
-const classSelector = 'radio';
+const classSelector = `${prefixCls}-radio`;
 
 function Group(props) {
 

@@ -1,20 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Icon from 'cloud-react/icon';
+import { prefixCls } from '@utils/config';
+
+import Icon from '../../icon';
 import enumObj from './enum';
 
 const container = {};
 
-export const selector = 'datepicker';
-export const timeSelector = 'timepicker';
-export const rangeSelector = 'rangepicker';
+export const selector = `${prefixCls}-datepicker`;
+export const timeSelector = `${prefixCls}-timepicker`;
+export const rangeSelector = `${prefixCls}-rangepicker`;
 
 export const calendarIcon = <Icon type="calendar" className={`${selector}-inp-icon`}></Icon>;
 // 根据实例id创建日历面板弹层
 export function createWrapper(id) {
 	container[id] = document.createElement('div');
 	container[id].id = id;
-	container[id].className = 'datepicker-container';
+	container[id].className = `${selector}-container`;
 	container[id].style.position = 'absolute';
 	container[id].style.left = 0;
 	container[id].style.top = 0;

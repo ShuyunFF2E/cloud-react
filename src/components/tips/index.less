@@ -1,3 +1,7 @@
+@import '../style/index';
+
+@tips-prefix-cls: ~'@{prefix}-tips';
+
 @normal-bg: #ecf8fc;
 @normal-border-color: #d2eeff;
 
@@ -9,14 +13,12 @@
 
 @text-color: #666;
 
-@selector: tips;
-
 .type-mixin(@bg, @borderColor) {
 	background: @bg;
 	border: 1px solid @borderColor;
 }
 
-.@{selector}-container {
+.@{tips-prefix-cls}-container {
 	display: block;
 	padding: 5px 11px;
 	line-height: 18px;

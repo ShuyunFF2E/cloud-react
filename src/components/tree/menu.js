@@ -1,22 +1,14 @@
-/**
- * 右键菜单
- * list.js
- * wangbo
- * 2019-07-02
- */
-
 import React, { Component } from 'react';
+import classNames from 'classnames';
 import ToolTip from '../tooltip';
-import './index.less';
 import TreeContext from './context';
 
+import './index.less';
+
 class TreeMenu extends Component {
+
 	static contextType = TreeContext;
 
-	/**
-	 * 新增节点
-	 * @param e
-	 */
 	addNode = e => {
 		const { disableAdd, options } = this.props;
 		if (disableAdd) {
@@ -26,10 +18,6 @@ class TreeMenu extends Component {
 		options.showInput();
 	};
 
-	/**
-	 * 删除节点
-	 * @param e
-	 */
 	deleteNode = e => {
 		const { disableRemove } = this.props;
 		if (disableRemove) {
@@ -39,10 +27,6 @@ class TreeMenu extends Component {
 		this.props.deleteNode();
 	};
 
-	/**
-	 * 重命名节点
-	 * @param e
-	 */
 	renameNode = e => {
 		const { disableRename, options, name } = this.props;
 		if (disableRename) {
@@ -53,11 +37,11 @@ class TreeMenu extends Component {
 	};
 
 	render() {
-		const { visible, name, disableRemove, disableAdd, disableRename, menuStyle } = this.props;
+		const { visible, name, disableRemove, disableAdd, disableRename, menuStyle, prefixCls } = this.props;
 		return visible && this.context.supportMenu && (
 			<ul className="tree-menu" style={menuStyle}>
 				<ToolTip content={name} placement="top" clear>
-					<span className="tree-menu-node-name">当前节点</span>
+					<span className={classNames(`${prefixCls}-node-name`)}>当前节点</span>
 				</ToolTip>
 				<li role="presentation" className={disableAdd ? 'disabled' : ''} onClick={this.addNode}>新增</li>
 				<li role="presentation" className={disableRemove ? 'disabled' : ''} onClick={this.deleteNode}>删除</li>

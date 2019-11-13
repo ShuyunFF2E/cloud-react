@@ -2,11 +2,16 @@ import React, { Children, cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
+import { prefixCls } from '@utils/config';
+
 import './index.less';
 
 function ButtonGroup({ block, children, ...props }) {
+
+	const classes = classnames(`${prefixCls}-button-group`);
+
 	return (
-		<div className="button-group">
+		<div className={classes}>
 			{
 				Children.map(children, child => (
 					cloneElement(child, {
@@ -56,7 +61,7 @@ class Button extends React.PureComponent {
 		} = this.props;
 
 		const ElementName = href ? 'a' : 'button';
-		const classNames = classnames('button', {
+		const classNames = classnames(`${prefixCls}-button`, {
 			[type]: true,
 			[size]: true,
 			'block': block

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { prefixCls } from '@utils/config';
+
 import './index.less';
 
 class Tips extends Component {
@@ -8,7 +10,7 @@ class Tips extends Component {
 		const { msg, type, style } = this.props;
 
 		return (
-			<div className={`${type} tips-container`} style={style}>
+			<div className={`${type} ${prefixCls}-tips-container`} style={style}>
 				<p>{msg}</p>
 			</div>
 		)

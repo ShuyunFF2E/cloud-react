@@ -1,19 +1,18 @@
-/**
- * list.js
- * wangbo
- * 2019-06-28
- */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import jEasy from 'jeasy';
-import './index.less';
+import classNames from 'classnames';
+import { prefixCls } from '@utils/config';
+import TreeContext from './context';
 import Search from './search';
 import TreeList from './list';
-import TreeContext from './context';
 import Message from '../message';
 import Modal from '../modal';
 import Store from './store';
 import Menu from './menu';
+
+import './index.less';
+
 
 const noop = () => {};
 
@@ -238,6 +237,9 @@ class Tree extends Component{
 	};
 
 	render() {
+
+		const selector = `${prefixCls}-tree`;
+
 		const {
 			searchPlaceholder,
 			searchMaxLength,
@@ -255,8 +257,9 @@ class Tree extends Component{
 
 		return (
 			<TreeContext.Provider value={{ searchText, supportRadio, supportCheckbox, supportMenu, isAddFront, nodeNameMaxLength, showMenu, onAddAction, onRenameAction, onRemoveAction, onSelectedAction }}>
-				<div className="tree">
+				<div className={classNames(selector)}>
 					<Search
+						prefixCls={selector}
 						onSearchAction={this.onSearchAction}
 						supportSearch={supportSearch && !supportCheckbox}
 						searchPlaceholder={searchPlaceholder}
@@ -266,6 +269,7 @@ class Tree extends Component{
 						id={id}
 						name={name}
 						menuStyle={menuStyle}
+						prefixCls={selector}
 						disableAdd={disableAdd}
 						disableRename={disableRename}
 						disableRemove={disableRemove}
@@ -274,6 +278,7 @@ class Tree extends Component{
 						visible={visibleMenu}/>
 
 					<TreeList
+						prefixCls={selector}
 						nodeNameMaxLength={nodeNameMaxLength}
 						data={treeData}/>
 				</div>

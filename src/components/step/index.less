@@ -1,4 +1,6 @@
-@selector: step;
+@import '../style/index';
+
+@step-prefix-cls: ~'@{prefix}-step';
 
 @finish-color: #00AAF1;
 @finish-border-color: @finish-color;
@@ -39,17 +41,17 @@
 	}
 }
 
-.@{selector} {
+.@{step-prefix-cls} {
 
 	display: flex;
 	width: 100%;
 
 	// 子选择器
-	@item-selector: @{selector}-item;
-	@icon-selector: @{selector}-icon;
-	@body-selector: @{selector}-body;
-	@title-selector: @{selector}-title;
-	@content-selector: @{selector}-content;
+	@item-selector: @{step-prefix-cls}-item;
+	@icon-selector: @{step-prefix-cls}-icon;
+	@body-selector: @{step-prefix-cls}-body;
+	@title-selector: @{step-prefix-cls}-title;
+	@content-selector: @{step-prefix-cls}-content;
 
 	// 圆形和点状类型的公共样式
 	&.circle,

@@ -1,15 +1,10 @@
-/**
- * prompt.js
- * wangbo
- * 2019-06-26
- */
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import './index.less';
 import Icon from '../icon';
 import Notification from './modal';
+
+import './index.less';
 
 const containers = {};
 

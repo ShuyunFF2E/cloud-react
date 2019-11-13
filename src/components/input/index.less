@@ -1,3 +1,7 @@
+@import '../style/index';
+
+@input-prefix-cls: ~'@{prefix}-input';
+
 @border-radius: 0px;
 @default-width: 250px;
 
@@ -25,10 +29,9 @@
 
 @both-space-size: 8px;
 
-@selector: input;
 @transition: .3s;
 
-.@{selector} {
+.@{input-prefix-cls} {
 	&,
 	&-textarea,
 	&-group {
@@ -54,7 +57,7 @@
 		display: inline-block;
 		vertical-align: top;
 
-		> .@{selector}-group {
+		> .@{input-prefix-cls}-group {
 			display: table;
 			width: 100%;
 

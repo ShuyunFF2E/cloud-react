@@ -3,12 +3,10 @@ import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import Checkbox from '../../checkbox';
 import Button from '../../button';
-import { OptionsEmpty, OptionsSearch } from './common';
+import { OptionsEmpty, OptionsSearch, selector } from './common';
 import { filterOptions } from '../utils';
 
 import '../index.less';
-
-const selector = 'select';
 
 const ConfirmBtn = ({ onOk, onCancel, okBtnText, cancelBtnText }) => {
     return (
@@ -35,7 +33,7 @@ export default function MultiSelect(props) {
     const [ indeterminate, setIndeterminate ] = useState(false);
     const [ checkAll, setCheckAll ] = useState(false);
     const classNames = classnames(`${selector}-select-options`, className);
-    
+
     const onOptionChange = (checked, val) => {
         if (checked) {
             const result = [...values, val];

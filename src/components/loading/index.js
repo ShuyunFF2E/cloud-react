@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { prefixCls } from '@utils/config';
+
 import './index.less';
 
 const sizeMap = {
@@ -9,13 +11,15 @@ const sizeMap = {
 	default: 18
 };
 
+const selector = `${prefixCls}-loading`;
+
 function SvgLoading(props) {
 	const { size, tip, layer } = props;
-	const loadingType = classNames('loading-container', {
-		'loading-layer': layer
+	const loadingType = classNames(`${selector}-container`, {
+		[`${selector}-layer`]: layer
 	});
-	const loadingAnimation = classNames('loading-animation', {
-		'loading-tip-animation': tip
+	const loadingAnimation = classNames(`${selector}-animation`, {
+		[`${selector}-tip-animation`]: tip
 	});
 	return (
 		<div className={loadingType}>
@@ -24,14 +28,16 @@ function SvgLoading(props) {
 					<circle className="path" cx="50" cy="50" r={sizeMap[size]}/>
 				</svg>
 			</div>
-			{tip && <div className="loading-text">{tip}</div>}
+			{tip && <div className={classNames(`${selector}-text`)}>{tip}</div>}
 		</div>
 	);
 }
 
 function Loading(props) {
+
 	const { loading, delay, layer, size, tip, children } = props;
 	const [delayShow, setDelayShow] = useState(delay <= 0);
+	const classes = classNames(selector);
 
 	useEffect(() => {
 		let timer;
@@ -52,14 +58,14 @@ function Loading(props) {
 
 	return (
 		children ?
-			<div className="loading">
+			<div className={classes}>
 				{children}
 				{loading && delayShow && <SvgLoading size={size} tip={tip} layer={layer}/>}
 			</div>
 			:
 			(
 				loading && delayShow &&
-				<div className="loading">
+				<div className={classes}>
 					<SvgLoading size={size} tip={tip} layer={layer}/>
 				</div>
 			)

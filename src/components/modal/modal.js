@@ -1,14 +1,13 @@
-/**
- * modal.js
- * wangbo
- * 2019-06-21
- */
-
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import './index.less';
+import classNames from 'classnames';
+
+import { prefixCls } from '@utils/config'
+
 import Icon from '../icon';
 import Button from '../button';
+
+import './index.less';
 
 class Notification extends Component {
 
@@ -60,7 +59,7 @@ class Notification extends Component {
 					clickMaskCanClose={clickMaskCanClose}/>
 				{/* 弹出框 */}
 
-				<div className="modal-container">
+				<div className={classNames(`${prefixCls}-modal-container`)}>
 					<ModalHeader
 						id={id}
 						type={type}
@@ -91,7 +90,7 @@ function ModalMask({ showMask, onClose, clickMaskCanClose }) {
 		return null;
 	}
 	return (
-		<div className="modal-mask" onClick={clickMaskCanClose && showMask ? onClose : () => {}}></div>
+		<div className={classNames(`${prefixCls}-modal-mask`)} onClick={clickMaskCanClose && showMask ? onClose : () => {}}></div>
 	);
 }
 
@@ -100,8 +99,8 @@ function ModalHeader({ type, title, onClose }) {
 		return null;
 	}
 	return (
-		<header className="modal-header">
-			<span className="modal-title">{title}</span>
+		<header className={classNames(`${prefixCls}-modal-header`)}>
+			<span className={classNames(`${prefixCls}-modal-title`)}>{title}</span>
 			<Icon type="close" className="close-icon" onClick={onClose}></Icon>
 		</header>
 	);
@@ -109,33 +108,37 @@ function ModalHeader({ type, title, onClose }) {
 
 function ModalBody({ style, children }) {
 	return (
-		<section className="modal-body" style={style}>
+		<section className={classNames(`${prefixCls}-modal-body`)} style={style}>
 			{children}
 		</section>
 	);
 }
 
 function ModalFooter({ type, footer, okText, cancelText, hasFooter, showConfirmLoading, onCancel, onOk }) {
+
+	const footerClass = classNames(`${prefixCls}-modal-footer`);
+	const confirmClass = classNames(`${prefixCls}-modal-confirm-btn`);
+
 	if (!hasFooter) {
 		return null;
 	}
 	if (footer) {
 		return (
-			<footer className="modal-footer">
+			<footer className={footerClass}>
 				{footer}
 			</footer>
 		);
 	}
 	if (type !== 'modal' && type !== 'confirm') {
 		return (
-			<footer className="modal-footer">
+			<footer className={footerClass}>
 				<Button type="primary" onClick={onCancel}>知道了</Button>
 			</footer>
 		);
 	}
 	return (
-		<footer className="modal-footer">
-			<Button type="primary" className="modal-confirm-btn" disabled={showConfirmLoading} onClick={onOk}>
+		<footer className={footerClass}>
+			<Button type="primary" className={confirmClass} disabled={showConfirmLoading} onClick={onOk}>
 				<ConfirmLoading showConfirmLoading={showConfirmLoading}/>
 				{okText}
 			</Button>
@@ -148,7 +151,7 @@ function ConfirmLoading({ showConfirmLoading }) {
 	if (!showConfirmLoading) {
 		return null;
 	}
-	return (<span className="modal-confirm-loading"></span>);
+	return (<span className={classNames(`${prefixCls}-modal-confirm-loading`)}></span>);
 }
 
 export default Notification;

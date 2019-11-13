@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
+import { prefixCls } from '@utils/config';
 
-import Icon from 'cloud-react/icon';
+import Icon from '../icon';
 import './index.less';
 
-const prefix = 'tag';
+const prefix = `${prefixCls}-tag`;
 const typeEnum = {
 	NONE: '',
 	SUCCESS: 'success',

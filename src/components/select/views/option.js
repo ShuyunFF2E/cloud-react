@@ -2,10 +2,9 @@ import React, { useMemo } from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import Checkbox from '../../checkbox';
+import { selector } from './common';
 
 import '../index.less';
-
-const selector = 'select';
 
 export default function Option(props) {
 	const { disabled, isSelected, multiple, className, onChange, ...otherProps } = props;

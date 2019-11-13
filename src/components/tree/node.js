@@ -1,11 +1,5 @@
-/**
- * 树节点
- * list.js
- * wangbo
- * 2019-07-02
- */
-
 import React, { Component, Fragment } from 'react';
+import classNames from 'classnames';
 import Icon from '../icon';
 import Message from '../message';
 import Checkbox from '../checkbox';
@@ -15,6 +9,7 @@ import Input from '../input';
 import './index.less';
 
 class Node extends Component {
+
 	static contextType = TreeContext;
 
 	constructor(props) {
@@ -95,7 +90,7 @@ class Node extends Component {
 	};
 
 	render() {
-		const { data, children } = this.props;
+		const { data, children, prefixCls } = this.props;
 		const { showInput, onSaveClick, onClickCancel } = this;
 		// 将三个方法传递出去可以供外部调用
 		const options = {
@@ -106,7 +101,7 @@ class Node extends Component {
 
 		return (
 			<Fragment>
-				<div className="tree-list-node-area">
+				<div className={classNames(`${prefixCls}-list-node-area`)}>
 					<div className={`node-item ${this.state.isShowInput && !this.state.isAdd ? 'hide-node' : null} ${data.isActive ? 'is-active' : null}`}
 						 onContextMenu={(e) => this.onHandleContextMenu(e, data, options)}>
 						{/* 折叠展开icon */}
@@ -233,6 +228,6 @@ function ShowSelection({ searchText, indeterminate, checked, supportRadio, suppo
  */
 function NodeIcon({ hasChildren, showChildrenItem }) {
 	// 存在子节点,并且要显示子节点
-	return hasChildren && showChildrenItem ? <Icon type="openFolder-solid"></Icon> : <Icon type="folder-solid"></Icon>;
+	return hasChildren && showChildrenItem ? <Icon type="folder-solid-open"></Icon> : <Icon type="folder-solid"></Icon>;
 }
 export default Node;
