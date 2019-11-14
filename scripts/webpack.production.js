@@ -9,7 +9,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 // 生成入口文件
 const filePath = path.resolve(__dirname, '../src/components');
 const files = fs.readdirSync(filePath);
-const ignores = ['.DS_Store', 'index.js'];
+const ignores = ['.DS_Store', 'index.js', 'style'];
 const entry = {
 	'index': './src/components/index.js'
 };
