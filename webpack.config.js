@@ -1,7 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
-const package = require('./package.json');
+const { name } = require('./package.json');
 
 // const WebpackBundleAnalyzer = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
@@ -25,7 +25,7 @@ module.exports = ({ mode } = { mode: 'development' }) => {
 					'@utils': resolve('./src/utils/'),
 					'@components': resolve('./src/components'),
 					'@docs': resolve('./docs'),
-					[package.name]: resolve('./src/components'),
+					[name]: resolve('./src/components'),
 				},
 				modules: [resolve(__dirname, './src'), 'node_modules'],
 				extensions: ['.js']
@@ -56,11 +56,6 @@ module.exports = ({ mode } = { mode: 'development' }) => {
 							limit: 10000,
 							name: '[name]-[hash:7].[ext]'
 						}
-					},
-					{
-						test: /\.(le|c)ss$/,
-						use: ['style', 'css', 'less'],
-						include: [resolve('src'), resolve('node_modules')]
 					},
 					{
 						test: /\.(le|c)ss$/,
