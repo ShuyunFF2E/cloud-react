@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const srcDir = path.join(__dirname, '..');
+const resolve = dir => path.resolve(__dirname, '..', dir);
 
 const publicPath = '/';
 
@@ -30,7 +31,13 @@ module.exports = () => ({
 	},
 	bail: true,
 	module: {
-		rules: []
+		rules: [
+			{
+				test: /\.(le|c)ss$/,
+				use: ['style', 'css', 'less'],
+				include: [resolve('src'), resolve('node_modules')]
+			}
+		]
 	},
 	plugins: [
 		new webpack.HotModuleReplacementPlugin(),

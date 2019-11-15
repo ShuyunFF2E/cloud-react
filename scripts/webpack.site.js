@@ -1,11 +1,11 @@
 const path = require('path');
-const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 const buildOutputDir = path.join(__dirname, '../cloud-react-site');
+const resolve = dir => path.resolve(__dirname, '..',  dir);
 
 const publicPath = '/';
 
@@ -19,6 +19,15 @@ module.exports = () => ({
 		publicPath,
 		filename: '[name].js'
 	},
+	module: {
+		rules: [
+			{
+				test: /\.(le|c)ss$/,
+				use: [MiniCssExtractPlugin.loader, 'css', 'less'],
+				include: [resolve('src'), resolve('node_modules')]
+			}
+		]
+	},
 	optimization: {
 		minimizer: [
 			new OptimizeCSSAssetsPlugin()
@@ -27,8 +36,8 @@ module.exports = () => ({
 	plugins: [
 		new CleanWebpackPlugin([buildOutputDir]),
 		new MiniCssExtractPlugin({
-			filename: '[name]-[hash:20].css',
-			chunkFilename: '[name].[hash:20].css'
+			filename: '[name].css',
+			chunkFilename: '[name].css'
 		}),
 
 		new HtmlWebpackPlugin({

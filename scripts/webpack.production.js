@@ -1,34 +1,33 @@
 const path = require('path');
-const fs = require('fs');
+const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-
-// 生成入口文件
-const filePath = path.resolve(__dirname, '../src/components');
-const files = fs.readdirSync(filePath);
-const ignores = ['.DS_Store', 'index.js', 'style'];
-const entry = {
-	'index': './src/components/index.js'
-};
-files.forEach(name => {
-	if (ignores.includes(name)) {
-		return;
-	}
-	entry[name] = `./src/components/${name}/index.js`;
-});
+const pkg = require('../package.json');
 
 const buildOutputDir = path.join(__dirname, '../dist');
+const resolve = dir => path.resolve(__dirname, '..',  dir);
 
 module.exports = () => ({
 	devtool: 'none',
-	entry,
+	entry: {
+		[pkg.name]: './src/components/index.js'
+	},
 	output: {
 		filename: '[name].js',
 		path: buildOutputDir,
 		libraryTarget: 'umd'
+	},
+	module: {
+		rules: [
+			{
+				test: /\.(le|c)ss$/,
+				use: [MiniCssExtractPlugin.loader, 'css', 'less'],
+				include: [resolve('src'), resolve('node_modules')]
+			}
+		]
 	},
 	externals: {
 		'react': 'react',
@@ -48,28 +47,27 @@ module.exports = () => ({
 					warnings: false
 				}
 			}),
-
 			// 压缩css
-			new OptimizeCSSAssetsPlugin({
-				assetNameRegExp: /\.css$/g,
-				cssProcessor: require('cssnano'),
-				cssProcessorOptions: {
-					discardComments: {removeAll: true},
-					minifyGradients: true
-				},
-				canPrint: true
-			})
+            new OptimizeCSSAssetsPlugin()
 		]
 	},
 	plugins: [
-		new CleanWebpackPlugin([buildOutputDir]),
+		new CleanWebpackPlugin([buildOutputDir], {
+			root: process.cwd()
+		}),
+		new webpack.BannerPlugin(`
+${pkg.name} v${pkg.version}
+Copyright 2019-present, Shuyun, Inc.
+All rights reserved.
+		`),
 		new MiniCssExtractPlugin({
-			filename: '[name]-[hash:20].css',
-			chunkFilename: '[name].[hash:20].css'
+			filename: '[name].css',
+			chunkFilename: '[name].css'
 		}),
 		new CopyWebpackPlugin([
-			{from: path.join(__dirname, '../package.json'), to: '', toType: 'file'},
-			{from: path.join(__dirname, '../README.md'), to: '', toType: 'file'}
+			{ from: path.join(__dirname, '../package.json'), to: '', toType: 'file' },
+			{ from: path.join(__dirname, '../README.md'), to: '', toType: 'file' },
+			{ from: path.join(__dirname,'../index.js'), to: '', toType: 'file' }
 		])
 	]
 });
