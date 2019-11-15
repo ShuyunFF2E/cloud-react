@@ -1,3 +1,3 @@
 /* eslint-disable */
-require('cloud-react.js');
-require('cloud-react.css');
+require('./cloud-react.js');
+require('./cloud-react.css');
