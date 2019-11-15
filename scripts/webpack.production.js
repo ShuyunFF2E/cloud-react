@@ -66,8 +66,7 @@ All rights reserved.
 		}),
 		new CopyWebpackPlugin([
 			{ from: path.join(__dirname, '../package.json'), to: '', toType: 'file' },
-			{ from: path.join(__dirname, '../README.md'), to: '', toType: 'file' },
-			{ from: path.join(__dirname,'../index.js'), to: '', toType: 'file' }
+			{ from: path.join(__dirname, '../README.md'), to: '', toType: 'file' }
 		])
 	]
 });
