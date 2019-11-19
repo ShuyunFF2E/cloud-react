@@ -20,6 +20,7 @@ subtitle: 表单
 | wrapperCol | 需要为输入控件设置布局样式时，使用该属性，用法同 `labelCol` | string | - |
 | onSubmit | form内有`htmlType="submit"`的元素的时候会触发 | Function(evt:Event) | - |
 | colon | 配合`label`属性使用，表示是否显示`label`后面的冒号 | boolean | `true` |
+| className | Form 的 className 属性 | string | - |
 
 如果Form和Form.Item相同的属性，Form.Item的优先级更高，如果Form上设置了就不用每一个Form.Item上都进行设置，更加方便
 
@@ -33,3 +34,4 @@ subtitle: 表单
 | required | 是否必填，如不设置，则会根据校验规则自动生成 | boolean | `false` |
 | labelCol | `label` 标签布局，设置 `span` `offset` 值，如 `{span: 3, offset: 12}` | string | - |
 | wrapperCol | 需要为输入控件设置布局样式时，使用该属性，用法同 `labelCol` | string | - |
+| className | Form.Item 的 className 属性 | string | - |

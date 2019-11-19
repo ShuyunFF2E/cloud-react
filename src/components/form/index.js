@@ -14,6 +14,7 @@ export default class Form extends Component {
 	static propTypes = {
 		field: PropTypes.object,
 		colon: PropTypes.bool,
+		className: PropTypes.string,
 		layout: PropTypes.oneOf(Object.values(LAYOUT_TYPES)),
 		labelAlign: PropTypes.oneOf(Object.values(LABEL_ALIGN)),
 		labelCol: PropTypes.shape({
@@ -31,6 +32,7 @@ export default class Form extends Component {
 		layout: LAYOUT_TYPES.VERTICAL,
 		labelAlign: LABEL_ALIGN.RIGHT,
 		colon: true,
+		className: '',
 		field: {},
 		labelCol: {},
 		wrapperCol: {},
@@ -40,8 +42,8 @@ export default class Form extends Component {
 	static Item = FormItem;
 
 	render() {
-		const { children, colon, field, layout, labelCol, wrapperCol, labelAlign, ...others } = this.props;
-		const classNames = classnames(`${prefixCls}-form`);
+		const { children, colon, field, layout, labelCol, wrapperCol, labelAlign, className, ...others } = this.props;
+		const classNames = classnames(`${prefixCls}-form`, className);
 
 		return (
 			<FormContext.Provider value={{ colon, field, layout, labelAlign, labelCol, wrapperCol }}>
