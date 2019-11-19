@@ -66,7 +66,7 @@ const emptyTemplate = (
 );
 
 const defaultOption = {
-	skinClassName: 'ccms-skin', // 页样式名称
+	skinClassName: 'cloud-react-skin', // 页样式名称
 	emptyTemplate,
 	ajaxPageTemplate
 };

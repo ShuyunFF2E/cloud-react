@@ -1,6 +1,6 @@
 {
   "name": "cloud-react",
-  "version": "0.0.16-0",
+  "version": "0.0.17-0",
   "description": "数据赢家 react 组件",
   "main": "cloud-react.js",
   "scripts": {
@@ -75,7 +75,7 @@
   },
   "dependencies": {
     "classnames": "^2.2.6",
-    "gridmanager-react": "^0.2.18",
+    "gridmanager-react": "0.2.19",
     "jeasy": "0.0.12",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
