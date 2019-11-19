@@ -18,6 +18,7 @@ export default class Form extends Component {
 		label: PropTypes.node,
 		htmlFor: PropTypes.string,
 		required: PropTypes.bool,
+		className: PropTypes.string,
 		labelCol: PropTypes.shape({
 			span: PropTypes.number,
 			offset: PropTypes.number
@@ -32,6 +33,7 @@ export default class Form extends Component {
 	static defaultProps = {
 		help: null,
 		label: '',
+		className: '',
 		htmlFor: undefined,
 		required: undefined,
 		labelCol: undefined,
@@ -148,12 +150,12 @@ export default class Form extends Component {
 
 	render() {
 		const { layout, labelAlign } = this.context;
-		const { field, dataField } = this;
+		const { field, dataField, props: { className } } = this;
 
 		const state = field && field.getState && field.getState(dataField);
 
 		return (
-			<div className={classnames(`${prefixCls}-form-item`, layout, labelAlign, {
+			<div className={classnames(`${prefixCls}-form-item`, layout, labelAlign, className, {
 				'has-error': state === 'error',
 				'has-success': state === 'success'
 			})}>
