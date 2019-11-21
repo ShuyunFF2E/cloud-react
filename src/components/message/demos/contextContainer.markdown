@@ -18,14 +18,14 @@ export default class MessageDemo extends Component {
 		 	hasFooter: false
 		 };
 	 }
-	 
+
     onOpenModal = () => {
     	this.setState({
     		visible: true,
     		showMask: true
     	})
     };
-    
+
 	handleClose = () => {
 	 	this.setState({
     		visible: false,
@@ -33,16 +33,17 @@ export default class MessageDemo extends Component {
     	})
 	};
 	onShowSuccess = () => {
-		message.success('更改成功', { duration: 0, contextContainer: document.getElementsByClassName('modal-body')[0]});
+		message.success('更改成功', { duration: 0, contextContainer: document.getElementsByClassName('cloud-modal-body')[0]});
 	};
 
     render() {
         return (
             <div className="app-contain">
                 <Button type="normal" onClick={this.onOpenModal}>show modal message</Button>
-                
+
 	            <Modal
-				    title='Message'
+					title='Message'
+					style={{width: '500px', height: '100px'}}
 				    visible={this.state.visible}
 				    showMask={this.state.showMask}
 				    hasFooter={this.state.hasFooter}
