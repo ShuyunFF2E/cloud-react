@@ -6,7 +6,7 @@ desc: 最基本的一个输入框
 
 ````javascript
 import React from 'react';
-import Input from 'cloud-react/input';
+import { Input } from 'cloud-react';
 
 export default function InputDemo() {
 	return <Input placeholder="basic usage" />;

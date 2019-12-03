@@ -6,8 +6,7 @@ desc: 基础分页。
 
 ````javascript
 import React from 'react';
-import Pagination from 'cloud-react/pagination';
-
+import { Pagination } from 'cloud-react';
 
 export default class PaginationDemo extends React.Component {
 	state = {

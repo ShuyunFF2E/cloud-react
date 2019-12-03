@@ -6,8 +6,7 @@ desc: 使用 fileList 设置已上传的文件列表。
 
 ```javascript
 import React from 'react';
-import Message from 'cloud-react/message';
-import Upload from 'cloud-react/upload';
+import { Message, Upload } from 'cloud-react';
 
 export default class UploadDemo extends React.Component {
 
@@ -32,12 +31,12 @@ export default class UploadDemo extends React.Component {
     };
 
     handleRemove = (info) => {
-        
+
         const id = info.file.id;
 
         // 这里可能需要调用后端接口，删除已经上传的文件
         let restFileList = info.fileList.filter(file => id !== file.id);
-        
+
         this.setState({
             fileList: restFileList
         });

@@ -5,7 +5,7 @@ desc: 最简单的用法。
 
 ````javascript
 import React from 'react';
-import Tooltip from 'cloud-react/tooltip';
+import { Tooltip } from 'cloud-react';
 
 export default class ToolTipDemo extends React.Component{
   	constructor(props) {

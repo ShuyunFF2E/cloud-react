@@ -6,7 +6,7 @@ desc: 按钮三种尺寸：large、default、small
 
 ````javascript
 import React from 'react';
-import Button from 'cloud-react/button';
+import { Button } from 'cloud-react';
 
 const blank = '\u00A0';
 

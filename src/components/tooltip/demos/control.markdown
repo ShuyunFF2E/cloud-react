@@ -5,14 +5,13 @@ desc: 手动触发tooltip。
 
 ````javascript
 import React from 'react';
-import Button from 'cloud-react/button';
-import Tooltip from 'cloud-react/tooltip';
+import { Button, Tooltip } from 'cloud-react';
 
 export default class ToolTipDemo extends React.Component{
   	constructor(props) {
 		super(props);
 		this.state = {
-			content: '这是一个toolTip', 
+			content: '这是一个toolTip',
             show: true
 		}
 	}

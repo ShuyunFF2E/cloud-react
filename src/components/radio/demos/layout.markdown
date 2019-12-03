@@ -6,8 +6,7 @@ desc: 布局（horizontal|vertical）
 
 ````javascript
 import React from 'react';
-import Radio from 'cloud-react/radio';
-
+import { Radio } from 'cloud-react';
 
 export default function RadioDemo() {
 

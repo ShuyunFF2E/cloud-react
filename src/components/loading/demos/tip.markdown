@@ -6,7 +6,7 @@ desc: ''
 
 ````javascript
 import React from 'react';
-import Loading from 'cloud-react/loading';
+import { Loading } from 'cloud-react';
 
 export default class LoadingDemo extends React.Component {
 

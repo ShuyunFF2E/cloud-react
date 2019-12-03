@@ -5,9 +5,7 @@ desc: '指定 message 挂载的 HTML 节点'
 
 ````javascript
 import React, { Component } from 'react';
-import message from 'cloud-react/message';
-import Button from 'cloud-react/button';
-import Modal from 'cloud-react/modal';
+import { Button, Message, Modal } from 'cloud-react';
 
 export default class MessageDemo extends Component {
 
@@ -33,7 +31,7 @@ export default class MessageDemo extends Component {
     	})
 	};
 	onShowSuccess = () => {
-		message.success('更改成功', { duration: 0, contextContainer: document.getElementsByClassName('cloud-modal-body')[0]});
+		Message.success('更改成功', { duration: 0, contextContainer: document.getElementsByClassName('cloud-modal-body')[0]});
 	};
 
     render() {

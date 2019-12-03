@@ -6,7 +6,7 @@ desc: checked 使用
 
 ````javascript
 import React from 'react';
-import Toggle from 'cloud-react/toggle';
+import { Toggle } from 'cloud-react';
 
 export default class ToggleDemo extends React.Component {
 

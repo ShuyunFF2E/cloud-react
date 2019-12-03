@@ -6,7 +6,7 @@ desc: 支持搜索节点、右键菜单、最大层级为4、节点名称最大�
 
 ```javascript
 import React from 'react';
-import Tree from 'cloud-react/tree';
+import { Tree } from 'cloud-react';
 
 export default class TreeDemo extends React.Component {
 

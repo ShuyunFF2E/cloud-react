@@ -6,9 +6,7 @@ desc: 受控的 Checkbox
 
 ````javascript
 import React, { useState } from 'react';
-import Checkbox from 'cloud-react/checkbox';
-import Button from 'cloud-react/button';
-
+import { Button, Checkbox } from 'cloud-react';
 
 export default function RadioDemo() {
 

@@ -6,7 +6,7 @@ desc: 用带颜色的标签来区分不同的状态展现
 
 ````javascript
 import React from 'react';
-import Tag from 'cloud-react/tag';
+import { Tag } from 'cloud-react';
 
 
 export default class TagDemo extends React.Component {

@@ -6,7 +6,7 @@ desc: 自定义数据为空时的内容
 
 ```javascript
 import React, { useState } from 'react';
-import Select from 'cloud-react/select';
+import { Select } from 'cloud-react';
 
 const Option = Select.Option;
 

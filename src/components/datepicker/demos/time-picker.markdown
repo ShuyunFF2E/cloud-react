@@ -6,17 +6,16 @@ desc: 基本用法，时间选择器。
 
 ````javascript
 import React from 'react';
-import DatePicker from 'cloud-react/datepicker';
-
+import { Datepicker } from 'cloud-react';
 
 export default class DatePickerDemo extends React.Component {
-	
+
 	onChange = value => console.log(value);
-	
+
 	render() {
 		return (
 			<div>
-			   <DatePicker.TimePicker onChange={this.onChange} />
+			   <Datepicker.TimePicker onChange={this.onChange} />
 			</div>
 		);
 	}

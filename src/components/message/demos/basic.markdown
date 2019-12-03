@@ -5,18 +5,17 @@ desc: ''
 
 ````javascript
 import React, { Component } from 'react';
-import message from 'cloud-react/message';
-import Button from 'cloud-react/button';
+import { Button, Message } from 'cloud-react';
 
 const blank = '\u00A0';
 
 export default class MessageDemo extends Component {
 
     onSuccessClick() {
-        message.success('更改成功内容很多的要全部显示不需要隐藏，内容很多很多内容很多很多内容很多很多内容很多很多内容很多很多内容很多很多内容很多很多内容很多很多内容很多很多内容很多很多内容很多很多内容很多很多', { duration: 0 });
+        Message.success('更改成功内容很多的要全部显示不需要隐藏，内容很多很多内容很多很多内容很多很多内容很多很多内容很多很多内容很多很多内容很多很多内容很多很多内容很多很多内容很多很多内容很多很多内容很多很多', { duration: 0 });
     }
     onErrorClick() {
-        message.error('更新失败');
+        Message.error('更新失败');
     }
 
     render() {

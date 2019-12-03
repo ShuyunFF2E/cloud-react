@@ -6,7 +6,7 @@ desc: 带确认取消的多选
 
 ```javascript
 import React from 'react';
-import Select from 'cloud-react/select';
+import { Select } from 'cloud-react';
 
 const Option = Select.Option;
 

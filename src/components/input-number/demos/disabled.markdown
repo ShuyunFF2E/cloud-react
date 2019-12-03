@@ -6,8 +6,7 @@ desc: 添加 disabled 属性即可让按钮处于不可用状态，同时按钮�
 
 ````javascript
 import React from 'react';
-import Button from 'cloud-react/button';
-import InputNumber from 'cloud-react/input-number';
+import { Button, InputNumber } from 'cloud-react';
 
 const blank = '\u00A0';
 

@@ -6,7 +6,7 @@ desc:  无右键菜单、无搜索功能、支持多选节点
 
 ```javascript
 import React from 'react';
-import Tree from 'cloud-react/tree';
+import { Tree } from 'cloud-react';
 
 export default class TreeDemo extends React.Component {
 
@@ -19,14 +19,14 @@ export default class TreeDemo extends React.Component {
 			supportCheckbox: true
 		}
 	}
-	
+
 	selectedNode = (node, selectedList) => {
 		console.info('已选择一个节点，节点信息是：');
 		console.log(node);
 		console.info('目前已选择节点列表，列表信息是：');
 		console.log(selectedList);
 	};
-	
+
 	render() {
 		const treeData = [{
 			id: 1,
@@ -114,7 +114,7 @@ export default class TreeDemo extends React.Component {
 									children: []
 								}
 							]
-						}, 
+						},
 						{
 							id: 122,
 							name: '禁止新增节点2',
@@ -139,7 +139,7 @@ export default class TreeDemo extends React.Component {
 					id: 13,
 					name: '禁止重命名节点',
 					pId: 1,
-					disableRename: true, 
+					disableRename: true,
 					children: [
 						{
 							id: 131,
@@ -165,7 +165,7 @@ export default class TreeDemo extends React.Component {
 									children: []
 								}
 							]
-						}, 
+						},
 						{
 							id: 132,
 							name: '禁止重命名节点2',
@@ -192,12 +192,12 @@ export default class TreeDemo extends React.Component {
 			]
 		}];
 		return (
-			<Tree 
+			<Tree
 				treeData={treeData}
 				supportCheckbox={this.state.supportCheckbox}
 				onSelectedNode={this.selectedNode}>
 			</Tree>
 		);
-	}	
+	}
 }
 ```

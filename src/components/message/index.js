@@ -149,7 +149,7 @@ class MessageEntity extends Component {
 	}
 }
 
-const message = {
+const Message = {
 	error(msg, options) {
 		entity({
 			type: 'error',
@@ -171,4 +171,4 @@ MessageEntity.propTypes = {
 	duration: PropTypes.number.isRequired
 };
 
-export default message;
+export default Message;

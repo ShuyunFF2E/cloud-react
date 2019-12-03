@@ -6,7 +6,7 @@ desc: 添加 disabled 属性即可让输入框处于不可用状态，同时输�
 
 ````javascript
 import React from 'react';
-import Input from 'cloud-react/input';
+import { Input } from 'cloud-react';
 
 const blank = '\u00A0';
 

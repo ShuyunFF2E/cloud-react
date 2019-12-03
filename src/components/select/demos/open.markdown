@@ -6,8 +6,7 @@ desc: 组件不再控制可选项展示，由外部提供参数控制
 
 ```javascript
 import React, { useState } from 'react';
-import Select from 'cloud-react/select';
-import Button from 'cloud-react/button';
+import { Button, Select } from 'cloud-react';
 
 const Option = Select.Option;
 
