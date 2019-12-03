@@ -6,8 +6,7 @@ desc: 包含上传进度 onProgress 和上传成功 onSuccess。
 
 ```javascript
 import React from 'react';
-import Message from 'cloud-react/message';
-import Upload from 'cloud-react/upload';
+import { Message, Upload } from 'cloud-react';
 
 export default class UploadDemo extends React.Component {
 
@@ -22,7 +21,7 @@ export default class UploadDemo extends React.Component {
     }
 
     handleSuccess = ({ file, fileList, response }) => {
-        
+
         Message.success(file.name + '文件上传成功！');
 
         file.url = response.url;

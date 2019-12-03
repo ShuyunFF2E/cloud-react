@@ -6,7 +6,7 @@ desc:  支持右键菜单、支持多选节点
 
 ```javascript
 import React from 'react';
-import Tree from 'cloud-react/tree';
+import { Tree } from 'cloud-react';
 
 export default class TreeDemo extends React.Component {
 
@@ -18,23 +18,23 @@ export default class TreeDemo extends React.Component {
 			supportCheckbox: true
 		}
 	}
-	
+
 	selectedNode = (node, selectedList) => {
 		console.info('已选择一个节点，节点信息是：');
 		console.log(node);
 		console.info('目前已选择节点列表，列表信息是：');
 		console.log(selectedList);
 	};
-	
+
 	addNode = (pId, name) => {
 		console.info('向后端发送一条请求，新增一个节点，参数为' + 'pId:' + pId + ',' + 'name:' + name);
 		return new Promise(((resolve, reject) => {
 			resolve({data: Math.floor(Math.random() * 10000)})
 			// reject('新增失败');
 		}));
-		
+
 	};
-	
+
 	renameNode = (id, name) => {
 		console.info('向后端发送一条请求，重命名一个节点，参数为' + 'id:' + id + ',' + 'name:' + name);
 		return new Promise(((resolve, reject) => {
@@ -42,7 +42,7 @@ export default class TreeDemo extends React.Component {
 			// reject('重命名失败');
 		}));
     };
-	
+
 	removeNode = (id) => {
 		console.info('向后端发送一条请求，删除一个节点，参数为' + 'id:' + id);
 		return new Promise(((resolve, reject) => {
@@ -50,7 +50,7 @@ export default class TreeDemo extends React.Component {
 			// reject('删除失败');
 		}));
 	};
-	
+
 	render() {
         const treeData = [{
             id: 1,
@@ -114,7 +114,7 @@ export default class TreeDemo extends React.Component {
             ]
         }];
 		return (
-			<Tree 
+			<Tree
 				treeData={treeData}
 				supportMenu={this.state.supportMenu}
 				supportCheckbox={this.state.supportCheckbox}

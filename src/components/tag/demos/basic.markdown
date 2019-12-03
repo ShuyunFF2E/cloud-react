@@ -6,8 +6,7 @@ desc: 普通标签与link标签，可删除的标签
 
 ````javascript
 import React from 'react';
-import Tag from 'cloud-react/tag';
-
+import { Tag } from 'cloud-react';
 
 export default class TagDemo extends React.Component {
 

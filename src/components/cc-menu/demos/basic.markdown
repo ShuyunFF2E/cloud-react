@@ -6,7 +6,7 @@ order: 5
 
 ````javascript
 import React, { Component } from 'react';
-import CcMenu from 'cloud-react/cc-menu';
+import { CcMenu } from 'cloud-react';
 import { HashRouter } from 'react-router-dom';
 
 const menuSource = [{

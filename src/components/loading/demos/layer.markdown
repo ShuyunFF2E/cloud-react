@@ -6,7 +6,7 @@ desc: 默认无背景，layer = true 时，有背景。
 
 ````javascript
 import React from 'react';
-import Loading from 'cloud-react/loading';
+import { Loading } from 'cloud-react';
 
 export default class LoadingDemo extends React.Component {
 

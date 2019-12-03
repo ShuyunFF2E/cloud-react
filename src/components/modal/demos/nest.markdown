@@ -6,8 +6,8 @@ desc: 弹出一个提示框，在其内部再弹出一个提示框
 
 ```javascript
 import React from 'react';
-import Modal from '../index';
-import Button from 'cloud-react/button';
+import { Button, Modal } from 'cloud-react';
+
 const blank = '\u00A0';
 
 export default class ModalDemo extends React.Component {
@@ -24,7 +24,7 @@ export default class ModalDemo extends React.Component {
 	 	    visible: true
 	 	})
 	 };
-	 
+
 	  // 确认按钮回调函数
 	 handleOk = () => {
 		this.setState({
@@ -46,7 +46,7 @@ export default class ModalDemo extends React.Component {
 	 };
 
 	 openErrorModal = () => {
-		
+
 	 };
 
 	 render() {
@@ -73,7 +73,7 @@ class ConfirmModal extends React.Component {
 			onCancel: () => {}
 		});
 	};
-	
+
 	render () {
 		return (
 			<Button type='normal' onClick={this.openInfoModal}>信息提示弹出框</Button>

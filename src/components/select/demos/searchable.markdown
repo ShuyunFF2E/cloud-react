@@ -6,7 +6,7 @@ desc: 可对选项进行搜索
 
 ```javascript
 import React from 'react';
-import Select from 'cloud-react/select';
+import { Select } from 'cloud-react';
 
 const Option = Select.Option;
 

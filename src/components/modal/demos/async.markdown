@@ -6,8 +6,8 @@ desc: 点击确定按钮后异步关闭对话框，如提交请求场景
 
 ```javascript
 import React from 'react';
-import Modal from '../index';
-import Button from 'cloud-react/button';
+import { Button, Modal } from 'cloud-react';
+
 export default class ModalDemo extends React.Component {
 	 constructor(props) {
 		 super(props);

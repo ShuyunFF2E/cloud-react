@@ -6,8 +6,7 @@ desc: 使用style属性自定义modal组件样式
 
 ```javascript
 import React from 'react';
-import Modal from '../index';
-import Button from 'cloud-react/button';
+import { Button, Modal } from 'cloud-react';
 
 export default class ModalDemo extends React.Component {
 	 constructor(props) {

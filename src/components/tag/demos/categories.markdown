@@ -6,7 +6,7 @@ desc: 对物件进行类型选择, onClick使用
 
 ````javascript
 import React from 'react';
-import Tag from 'cloud-react/tag';
+import { Tag } from 'cloud-react';
 
 export default class TagDemo extends React.Component {
 

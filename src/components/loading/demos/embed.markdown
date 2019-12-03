@@ -6,8 +6,7 @@ desc: 可以直接把内容内嵌到 Loading 中，将现有容器变为加载�
 
 ````javascript
 import React from 'react';
-import Loading from 'cloud-react/loading';
-import Toggle from 'cloud-react/toggle';
+import { Loading, Toggle } from 'cloud-react';
 
 export default class LoadingDemo extends React.Component {
 

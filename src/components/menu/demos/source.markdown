@@ -6,8 +6,9 @@ order: 2
 
 ````javascript
 import React, { Component } from 'react';
-import Menu from 'cloud-react/menu';
 import { HashRouter } from 'react-router-dom';
+import { Menu } from 'cloud-react';
+
 
 const { MenuItem, SubMenu } = Menu;
 

@@ -6,7 +6,7 @@ desc: 如果发现下拉菜单被挡住，可以尝试修改定位父元素
 
 ```javascript
 import React from 'react';
-import Select from 'cloud-react/select';
+import { Select } from 'cloud-react';
 
 const Option = Select.Option;
 

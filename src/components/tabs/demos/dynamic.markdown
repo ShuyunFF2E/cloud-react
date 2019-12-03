@@ -5,8 +5,7 @@ desc: 动态添加/删除Tabs
 
 ````javascript
 import React, { Component } from 'react';
-import Tabs from 'cloud-react/tabs';
-import Button from 'cloud-react/button'
+import { Button, Tabs } from 'cloud-react';
 
 export default class DynamicTabsDemo extends Component {
 

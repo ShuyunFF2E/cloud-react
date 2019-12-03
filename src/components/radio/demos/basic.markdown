@@ -6,7 +6,7 @@ desc: 单选按钮
 
 ````javascript
 import React from 'react';
-import Radio from 'cloud-react/radio';
+import { Radio } from 'cloud-react';
 
 
 export default function RadioDemo() {

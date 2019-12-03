@@ -6,7 +6,7 @@ desc: topFullColumn使用介绍
 
 ````javascript
 import React, { Component } from 'react';
-import Table from 'cloud-react/table';
+import { Table } from 'cloud-react';
 
 // 唯一标识符，该值不允许重复
 const gridManagerName = 'top-full-table';

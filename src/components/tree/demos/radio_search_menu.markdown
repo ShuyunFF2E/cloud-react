@@ -6,7 +6,7 @@ desc: 支持右键菜单、支持搜索功能、支持单选节点
 
 ```javascript
 import React from 'react';
-import Tree from 'cloud-react/tree';
+import { Tree } from 'cloud-react';
 
 export default class TreeDemo extends React.Component {
 
@@ -19,16 +19,16 @@ export default class TreeDemo extends React.Component {
 			supportRadio: true
 		}
 	}
-	
+
 	addNode = (pId, name) => {
 		console.info('向后端发送一条请求，新增一个节点，参数为' + 'pId:' + pId + ',' + 'name:' + name);
 		return new Promise(((resolve, reject) => {
 			resolve({data: Math.floor(Math.random() * 10000)})
 			// reject('新增失败');
 		}));
-		
+
 	};
-	
+
 	renameNode = (id, name) => {
 		console.info('向后端发送一条请求，重命名一个节点，参数为' + 'id:' + id + ',' + 'name:' + name);
 		return new Promise(((resolve, reject) => {
@@ -36,7 +36,7 @@ export default class TreeDemo extends React.Component {
 			// reject('重命名失败');
 		}));
     };
-	
+
 	removeNode = (id) => {
 		console.info('向后端发送一条请求，删除一个节点，参数为' + 'id:' + id);
 		return new Promise(((resolve, reject) => {
@@ -50,7 +50,7 @@ export default class TreeDemo extends React.Component {
 		console.log(node);
 	};
 
-	
+
 	render() {
 		const treeData = [{
 			id: 1,
@@ -138,7 +138,7 @@ export default class TreeDemo extends React.Component {
 									children: []
 								}
 							]
-						}, 
+						},
 						{
 							id: 122,
 							name: '禁止新增节点2',
@@ -164,7 +164,7 @@ export default class TreeDemo extends React.Component {
 					id: 13,
 					name: '禁止重命名节点',
 					pId: 1,
-					disableRename: true, 
+					disableRename: true,
 					children: [
 						{
 							id: 131,
@@ -190,7 +190,7 @@ export default class TreeDemo extends React.Component {
 									children: []
 								}
 							]
-						}, 
+						},
 						{
 							id: 132,
 							name: '禁止重命名节点2',
@@ -217,7 +217,7 @@ export default class TreeDemo extends React.Component {
 			]
 		}];
 		return (
-			<Tree 
+			<Tree
 				treeData={treeData}
 				supportSearch={this.state.supportSearch}
 				supportMenu={this.state.supportMenu}

@@ -6,7 +6,7 @@ desc: 通过 Button.Group 容器组件来包装 Button，可以统一设置 size
 
 ````javascript
 import React from 'react';
-import Button from 'cloud-react/button';
+import { Button } from 'cloud-react';
 
 const blank = '\u00A0';
 

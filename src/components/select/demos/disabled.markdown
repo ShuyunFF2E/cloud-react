@@ -6,8 +6,7 @@ desc: 下拉禁用
 
 ```javascript
 import React, { useState } from 'react';
-import Select from 'cloud-react/select';
-import Button from 'cloud-react/button';
+import { Select, Button } from 'cloud-react';
 
 const Option = Select.Option;
 

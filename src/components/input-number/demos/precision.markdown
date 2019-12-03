@@ -6,8 +6,7 @@ desc: 和原生的数字输入框一样，value 的精度由 step 的小数位�
 
 ````javascript
 import React from 'react';
-import Button from 'cloud-react/button';
-import InputNumber from 'cloud-react/input-number';
+import { Button, InputNumber } from 'cloud-react';
 
 const blank = '\u00A0';
 

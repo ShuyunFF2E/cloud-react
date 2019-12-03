@@ -6,8 +6,7 @@ desc: 快速跳转到某一页
 
 ````javascript
 import React from 'react';
-import Pagination from 'cloud-react/pagination';
-
+import { Pagination } from 'cloud-react';
 
 export default class PaginationDemo extends React.Component {
 

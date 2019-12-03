@@ -6,8 +6,7 @@ desc: 延迟显示加载效果的时间（防止闪烁），number (毫秒)
 
 ````javascript
 import React from 'react';
-import Loading from 'cloud-react/loading';
-import Toggle from 'cloud-react/toggle';
+import { Loading, Toggle } from 'cloud-react';
 
 export default class LoadingDemo extends React.Component {
 

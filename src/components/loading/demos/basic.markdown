@@ -6,9 +6,7 @@ desc: 一个简单的 loading 状态。
 
 ````javascript
 import React from 'react';
-import Loading from 'cloud-react/loading';
-import Toggle from 'cloud-react/toggle';
-
+import { Loading, Toggle } from 'cloud-react';
 
 export default class LoadingDemo extends React.Component {
 

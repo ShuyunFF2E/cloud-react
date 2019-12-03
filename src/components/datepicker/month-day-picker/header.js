@@ -25,7 +25,7 @@ function Header(props) {
 			<span className={leftCls} onClick={() => onArrowChange(enumObj.LEFT)}>
 				<Icon type="left" style={{ fontSize: '16px', verticalAlign: 'middle' }} />
 			</span>
-			<label className="header-label" onClick={onChooseMonth}>{monthArr[month - 1] }月</label>
+			<label className="header-label" role="presentation" onClick={onChooseMonth}>{monthArr[month - 1] }月</label>
 			<span className={rightCls} onClick={() => onArrowChange(enumObj.RIGHT)}>
 				<Icon type="right" style={{ fontSize: '16px', verticalAlign: 'middle' }} />
 			</span></section>);

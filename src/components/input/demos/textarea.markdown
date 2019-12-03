@@ -6,8 +6,7 @@ desc: 设置最小、最大行数或者直接由文本自适应， 固定行数
 
 ````javascript
 import React from 'react';
-import Input from 'cloud-react/input';
-import Icon from 'cloud-react/icon';
+import { Input, Icon } from 'cloud-react';
 
 export default function InputDemo() {
 	return (

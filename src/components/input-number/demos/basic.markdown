@@ -6,8 +6,7 @@ desc: 数字输入框
 
 ````javascript
 import React from 'react';
-import Button from 'cloud-react/button';
-import InputNumber from 'cloud-react/input-number';
+import { Button, InputNumber } from 'cloud-react';
 
 const blank = '\u00A0';
 

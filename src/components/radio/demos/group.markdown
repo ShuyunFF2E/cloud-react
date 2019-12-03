@@ -6,8 +6,7 @@ desc: 组合
 
 ````javascript
 import React, { useState } from 'react';
-import Radio from 'cloud-react/radio';
-
+import { Radio } from 'cloud-react';
 
 export default function RadioDemo() {
 

@@ -6,8 +6,7 @@ desc: 组合
 
 ````javascript
 import React, { useState } from 'react';
-import Checkbox from 'cloud-react/checkbox';
-
+import { Checkbox } from 'cloud-react';
 
 export default function RadioDemo() {
 

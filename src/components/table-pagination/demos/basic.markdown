@@ -6,7 +6,7 @@ desc: 基础分页。
 
 ````javascript
 import React from 'react';
-import TablePagination from 'cloud-react/table-pagination';
+import { TablePagination } from 'cloud-react';
 
 
 export default class PaginationDemo extends React.Component {

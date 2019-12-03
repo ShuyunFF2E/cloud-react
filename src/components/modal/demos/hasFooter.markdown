@@ -6,8 +6,8 @@ desc: 设置hasFooter控制底部区域显示/隐藏
 
 ```javascript
 import React from 'react';
-import Modal from '../index';
-import Button from 'cloud-react/button';
+import { Button, Modal } from 'cloud-react';
+
 const blank = '\u00A0';
 
 export default class ModalDemo extends React.Component {

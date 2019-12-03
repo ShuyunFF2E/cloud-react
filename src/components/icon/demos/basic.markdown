@@ -6,8 +6,7 @@ desc: 将type值复制进行使用
 ````javascript
 import React, { Component } from 'react';
 import jeasy from 'jeasy';
-import Icon from 'cloud-react/icon';
-import message from 'cloud-react/message';
+import { Icon, Mesaage } from 'cloud-react';
 
 const iconList = ['view', 'hide', 'calendar', 'plus', 'upload', 'export', 'mail', 'people', 'people-solid', 'rmb', 'search-file', 'top-solid', 'bottom-solid', 'move-up-solid', 'move-down-solid', 'double-left', 'double-right', 'up', 'down', 'left', 'right', 'up-solid', 'down-solid', 'left-solid', 'right-solid', 'close', 'close-circle-solid', 'check-circle-solid', 'shop', 'refresh', 'info-circle', 'question-circle', 'question-circle-solid', 'warning-circle-solid', 'flag-solid', 'delete', 'search', 'edit', 'last-solid', 'first-solid', 'swap', 'finish', 'folder-solid', 'folder-solid-open'];
 export default class IconDemo extends Component {

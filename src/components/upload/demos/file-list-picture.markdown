@@ -6,7 +6,7 @@ desc: 使用 fileList 设置已上传的图片列表进行控制。
 
 ```javascript
 import React from 'react';
-import Upload from 'cloud-react/upload';
+import { Upload } from 'cloud-react';
 
 export default class UploadDemo extends React.Component {
 

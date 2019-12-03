@@ -6,9 +6,7 @@ desc: 控制内部Radio是否禁用
 
 ````javascript
 import React, { useState } from 'react';
-import Radio from 'cloud-react/radio';
-import Button from 'cloud-react/button';
-
+import { Button, Radio } from 'cloud-react';
 
 export default function RadioDemo() {
 
