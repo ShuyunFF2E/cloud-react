@@ -1,4 +1,4 @@
-@table-header-color: #f1f1f1;
+@table-header-color: #f2f2f2;
 @table-border: 1px solid #eee;
 @sort-action-color: #ccc;
 @sort-action-color-hover: #0083ba;
@@ -15,16 +15,14 @@
 
 .table-wrap.cloud-react-skin,
 .table-wrap.cloud-react-skin.icon-follow-text {
+	// 表头底色
 	.table-header{
 		background-color: @table-header-color;
 		background-image: none;
 	}
-	.config-area {
-		.config-action {
-			display: none;
-		}
-	}
-	.table-div table[grid-manager] th {
+
+	// th区域
+	[grid-manager] th {
 		padding: 0 !important;
 		.th-wrap {
 			padding: 6px !important;
@@ -41,10 +39,26 @@
 			visibility: visible;
 			color:@sort-action-color-hover !important;
 		}
+
+		.th-text {
+			color: @th-text-color;
+			font-weight: 400;
+			i {
+				font-size: 16px !important;
+				color: @th-sort-color;
+			}
+		}
+	}
+	// 配置区域
+	.gm-config-area {
+		.config-action {
+			display: none;
+		}
 	}
 
-	.table-div table[grid-manager] tbody {
-		tr:not([top-full-column-interval=true], [top-full-column=true]) > td {
+	// tbody区域
+	[grid-manager] tbody {
+		tr:not([top-full-column-interval=true]):not([top-full-column=true]) > td {
 			height: 42px;
 			min-height: 42px;
 			padding: 6px;
@@ -58,29 +72,20 @@
 			td{
 				border-left: 0;
 				border-right: 0;
+				.full-column-td {
+					border-top: 0;
+				}
 			}
-		}
-		tr[top-full-column=true] td .full-column-td {
-			border-top: 0;
 		}
 		tr[top-full-column-interval=true] td > div {
 			height: 6px;
 		}
 	}
-	.table-div table[grid-manager] th {
-		.th-text {
-			color: @th-text-color;
-			font-weight: 400;
-			i {
-				font-size: 16px !important;
-				color: @th-sort-color;
-			}
-		}
-	}
 
-	.footer-toolbar {
-		background: @footer-toolbar-bg !important;
-		background-image: none !important;
+	// 分页区域
+	.gm-toolbar {
+		background: @footer-toolbar-bg;
+		background-image: none;
 		.change-size {
 			position: absolute;
 			top: 7px;
@@ -110,30 +115,23 @@
 			}
 		}
 
-		.ajax-page {
+		.pagination {
 			bottom: 6px;
-			right: 60px !important;
-			.iconfont {
-				font-family: 'iconfont' !important;
-				font-size: 16px !important;
-				&:hover {
-					color: inherit;
-				}
-			}
+			right: 60px;
 			.goto-page {
 				padding: 1.5px 10px;
 			}
-			.pagination {
+			> ul {
 				> li {
 					border: none !important;
 					background: @pagination-bg !important;
 					padding: 6px 10px;
 					> i {
 						font-size: 16px;
-						color: @pagination-color !important;
+						color: @pagination-color;
 					}
 					&.disabled > i {
-						color: @pagination-disabled-color !important;
+						color: @pagination-disabled-color;
 					}
 				}
 			}

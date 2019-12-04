@@ -14,7 +14,8 @@ const gridManagerName = 'base-table';
 const columnData = [
 	{
 		key: 'name',
-		text: '名称'
+		text: '名称',
+		align: 'left'
 	},{
 		key: 'info',
 		text: '使用说明'

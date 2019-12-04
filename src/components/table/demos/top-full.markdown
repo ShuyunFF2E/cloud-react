@@ -45,6 +45,7 @@ export default class TableDemo extends Component {
 				gridManagerName={gridManagerName}
 				ajaxData='https://www.lovejavascript.com/blogManager/getBlogList'
 				ajaxType='POST'
+				disableBorder={true}
 				columnData={columnData}
 				supportAjaxPage={true}
 				topFullColumn={topFullColumn}
