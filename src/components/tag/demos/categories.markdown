@@ -1,14 +1,14 @@
 ---
 order: 2
-title: 基本使用 - 分类 可选择
-desc: 对物件进行类型选择, onClick使用
+title: 可选择标签
+desc:  onClick使用
 ---
 
 ````javascript
-import React from 'react';
+import React, { Component } from 'react';
 import { Tag } from 'cloud-react';
 
-export default class TagDemo extends React.Component {
+export default class TagDemo extends Component {
 
 	constructor(props) {
 		super(props);

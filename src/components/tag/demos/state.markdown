@@ -1,19 +1,15 @@
 ---
-order: 3
+order: 4
 title: 状态标签
 desc: 用带颜色的标签来区分不同的状态展现
 ---
 
 ````javascript
-import React from 'react';
+import React, { Component } from 'react';
 import { Tag } from 'cloud-react';
 
 
-export default class TagDemo extends React.Component {
-
-	closeTag(){
-		console.log('close Tag trigger');
-	}
+export default class TagDemo extends Component {
 
 	render() {
 		return (
