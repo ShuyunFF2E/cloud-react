@@ -20,6 +20,7 @@ subtitle: 输入框
 | minLength | 原生属性，最小输入长度 | number | - |
 | maxLength | 原生属性，最大输入长度 | number | - |
 | onChange | 输入框内容变化时的回调 | function(event) | - |
+| hasCounter | 计数器，展示当前字数和最大长度，因此需要`maxLength`配合使用 | boolean | `false` |
 | hasClear | 可以点击清除图标删除内容 | boolean | `false` |
 | onEnter | 按下键盘回车按键的回调 | function(event) | - |
 

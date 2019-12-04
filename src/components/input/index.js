@@ -25,6 +25,7 @@ class Input extends React.PureComponent {
 		suffix: PropTypes.any,
 		addonAfter: PropTypes.any,
 		addonBefore: PropTypes.any,
+		hasCounter: PropTypes.bool,
 		hasClear: PropTypes.bool,
 		onChange: PropTypes.func,
 		onKeyDown: PropTypes.func,
@@ -41,6 +42,7 @@ class Input extends React.PureComponent {
 		suffix: nothing,
 		addonAfter: nothing,
 		addonBefore: nothing,
+		hasCounter: false,
 		hasClear: false,
 		onChange: noop,
 		onKeyDown: noop,
@@ -67,11 +69,12 @@ class Input extends React.PureComponent {
 
 	get isPure() {
 		const {
-			hasClear, hasLimtHint,
+			hasCounter, hasClear, hasLimtHint,
 			prefix, suffix, addonBefore, addonAfter
 		} = this.props;
 
 		return (
+			!hasCounter &&
 			!hasClear &&
 			!hasLimtHint &&
 			!prefix &&
@@ -126,6 +129,7 @@ class Input extends React.PureComponent {
 	}
 
 	renderClearIcon() {
+
 		const { value } = this.state;
 
 		const type = 'close-circle-solid';
@@ -141,21 +145,58 @@ class Input extends React.PureComponent {
 		);
 	}
 
+	renderCounter() {
+
+		const { hasCounter, maxLength } = this.props;
+		const { value } = this.state;
+
+		return (hasCounter && maxLength) ? <span className={classnames(`${prefixCls}-input-counter`)}>{ value.length }/{ maxLength }</span> : null;
+
+	}
+
 	renderSuffix() {
+
 		const { hasClear, suffix } = this.props;
 
-		return hasClear ? (
-			<>
-				{this.renderClearIcon()}
-				{suffix}
-			</>
-		) : suffix;
+		return hasClear ?
+			(
+				<>
+					{this.renderClearIcon()}
+					{this.renderCounter()}
+					{suffix}
+				</>
+			) : (
+				<>
+					{this.renderCounter()}
+					{suffix}
+				</>
+			);
+	}
+
+
+	getPaddingRight() {
+
+		const { hasClear, hasCounter } = this.props;
+
+		if (hasClear && !hasCounter) {
+			return 28;
+		}
+
+		if (!hasClear && hasCounter) {
+			return 40;
+		}
+
+		if (hasClear && hasCounter) {
+			return 56;
+		}
+
+		return 8;
 	}
 
 	render() {
 		const { isPure } = this;
 		const { value } = this.state;
-		const { size, className, hasClear, addonAfter, addonBefore, prefix, suffix, ...others } = this.props;
+		const { size, className, hasClear, hasCounter, addonAfter, addonBefore, prefix, suffix, ...others } = this.props;
 
 		const classNames = classnames(`${prefixCls}-input`, {
 			[size]: true
@@ -163,6 +204,7 @@ class Input extends React.PureComponent {
 
 		const props = omit(others, [
 			'defaultValue',
+			'hasCounter',
 			'hasClear',
 			'prefix',
 			'suffix',
@@ -171,10 +213,15 @@ class Input extends React.PureComponent {
 			'onEnter'
 		]);
 
+		const style = {
+			paddingRight: `${this.getPaddingRight()}px`
+		};
+
 		const Element = (
 			<input
 				{...props}
 				ref={this.inputRef}
+				style={style}
 				value={value}
 				className={classNames}
 				onChange={this.onChange}
