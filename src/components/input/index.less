@@ -74,6 +74,12 @@
 			width: 100%;
 		}
 	}
+	&-counter {
+		font-size: 12px;
+		color: #c9c9c9;
+		display: inline-block;
+    	height: 19px;
+	}
 
 	&-affix & {
 		@has-addon-both-padding: 28px;
@@ -81,9 +87,6 @@
 		/* has prefix || suffix */
 		&:not(:first-child) {
 			padding-left: @has-addon-both-padding;
-		}
-		&:not(:last-child) {
-			padding-right: @has-addon-both-padding;
 		}
 	}
 
