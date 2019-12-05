@@ -6,7 +6,7 @@ desc: 将type值复制进行使用
 ````javascript
 import React, { Component } from 'react';
 import jeasy from 'jeasy';
-import { Icon, Mesaage } from 'cloud-react';
+import { Icon, Message } from 'cloud-react';
 
 const iconList = ['config', 'view', 'hide', 'calendar', 'plus', 'upload', 'export', 'mail', 'people', 'people-solid', 'rmb', 'search-file', 'top-solid', 'bottom-solid', 'move-up-solid', 'move-down-solid', 'double-left', 'double-right', 'up', 'down', 'left', 'right', 'up-solid', 'down-solid', 'left-solid', 'right-solid', 'close', 'close-circle-solid', 'check-circle-solid', 'shop', 'refresh', 'info-circle', 'question-circle', 'question-circle-solid', 'warning-circle-solid', 'flag-solid', 'delete', 'search', 'edit', 'last-solid', 'first-solid', 'swap', 'finish', 'folder-solid', 'folder-solid-open'];
 export default class IconDemo extends Component {
@@ -15,7 +15,7 @@ export default class IconDemo extends Component {
 		const onClickHandler = event => {
 			const text = event.currentTarget.innerText;
             jeasy.copyText(text);
-            message.success(text + ' 已复制');
+            Message.success(text + ' 已复制');
     	};
 
 		const iconStyle = {fontSize: '36px'};

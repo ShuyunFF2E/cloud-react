@@ -14,52 +14,120 @@ const response = {
     "data":[
         {
             name: 'rookie125',
-            pic: 'https://avatars3.githubusercontent.com/u/11306273?s=60&v=4'
+            pic: 'https://avatars3.githubusercontent.com/u/11306273?s=60&v=4',
+            components: [
+                'Form', 'Button', 'Input'
+            ],
+            other: [
+                '文档化搭建'
+            ]
         },
         {
             name: 'silence717',
             pic: 'https://avatars0.githubusercontent.com/u/8267830?s=60&v=4',
-            info: '前端码农'
+	        components: [
+	            'Upload', 'Toggle'
+	        ],
+            other: [
+                '前端架构', '样式整改'
+            ]
         },
         {
             name: 'baukh789',
             pic: 'https://avatars3.githubusercontent.com/u/11342827?s=60&v=4',
-            info: '静看人世风雨 、凝聚人生魅力。'
+	        components: [
+	            'Icon', 'Table'
+	        ],
+            other: [
+                '服务器搭建', 'CI'
+            ]
+        },
+        {
+            name: 'lazyperson',
+            pic: 'https://avatars3.githubusercontent.com/u/18607584?s=460&v=4',
+	        components: [
+	            'DatePicker', 'InputNumber'
+	        ]
         },
         {
             name: 'xtfan21',
-            pic: 'https://avatars3.githubusercontent.com/u/23092282?s=60&v=4'
+            pic: 'https://avatars3.githubusercontent.com/u/23092282?s=60&v=4',
+	        components: [
+	            'Tree', 'Modal'
+	        ]
         },
         {
             name: 'BoWang816',
             pic: 'https://avatars0.githubusercontent.com/u/26587649?s=60&v=4',
-            info: 'Hello，Google一下，好好学习'
+	        components: [
+	            'Message', 'Tips'
+	        ]
         },
-		{
-			name: 'wwELi',
-			pic: 'https://avatars1.githubusercontent.com/u/22408704?s=60&v=4'
-		},
+        {
+            name: 'heriky',
+            pic: 'https://avatars1.githubusercontent.com/u/12195736?s=460&v=4',
+            components: [
+                'Tabs'
+            ]
+        },
         {
             name: 'runrunlolz',
-            pic: 'https://avatars0.githubusercontent.com/u/20176682?s=60&v=4'
+            pic: 'https://avatars0.githubusercontent.com/u/20176682?s=60&v=4',
+	        components: [
+	            'Tooltip'
+	        ]
+        },
+        {
+            name: 'greria',
+            pic: 'https://avatars3.githubusercontent.com/u/16697576?s=400&v=4',
+            components: [
+                'Select'
+            ]
         },
 		{
 			name: 'liyuan-meng',
-			pic: 'https://avatars1.githubusercontent.com/u/34151318?s=60&v=4'
+			pic: 'https://avatars1.githubusercontent.com/u/34151318?s=60&v=4',
+	        components: [
+	            'Checkbox'
+	        ]
+		},
+		{
+			name: 'wwELi',
+			pic: 'https://avatars1.githubusercontent.com/u/22408704?s=60&v=4',
+			components: [
+				'Radio'
+			]
 		},
 		{
 			name: 'DongWJ',
-			pic: 'https://avatars0.githubusercontent.com/u/24518633?s=60&v=4'
-		}
+			pic: 'https://avatars0.githubusercontent.com/u/24518633?s=60&v=4',
+            components: [
+                'Loading'
+            ]
+		},
+		{
+			name: 'liyuan-meng',
+			pic: 'https://avatars1.githubusercontent.com/u/34151318?s=60&v=4',
+	        components: [
+	            'Checkbox'
+	        ]
+		},
+        {
+            name: 'jsonliu6',
+            pic: 'https://avatars1.githubusercontent.com/u/15153054?s=460&v=4',
+            components: [
+                'Tag'
+            ]
+        }
     ],
-    "totals": 9
+    "totals": 14
 };
 const columnData = [
 	{
 		key: 'name',
-		remind: 'github pic and account',
+		remind: '参与人，可点击进入参与人的github',
 		width: '200px',
-		text: 'github',
+		text: '参与人',
 		template: (name, rowData) => {
 		    return (
 		        <a className="demo-github" href={'https://github.com/' + name} target="_black">
@@ -69,19 +137,19 @@ const columnData = [
 		    );
 		}
 	},{
-		key: 'age',
-		remind: 'the age',
-		width: '200px',
-		text: 'age',
-		template: age => {
-			return age || '未知';
+		key: 'components',
+		remind: '参与开发的组件',
+		text: '参与组件',
+		template: components => {
+			return components ? components.join(', ') : '--';
 		}
 	},{
-		key: 'info',
-		remind: 'the info',
-		text: 'info',
-        template: info => {
-            return info || '这个人很懒，什么也没有留下';
+		key: 'other',
+		remind: '参与人对组件库的其它贡献',
+		text: '其它贡献',
+		align: 'center',
+        template: other => {
+			return other ? other.join(', ') : '--';
         }
     }
 ];

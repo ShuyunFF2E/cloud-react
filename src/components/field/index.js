@@ -14,7 +14,7 @@ export default class Field {
 	}
 
 	init = (name, opts = {}) => {
-		const { trigger = 'onChange', valueName = 'value', initValue, rules = [] } = opts;
+		const { trigger = 'onChange', valueName = 'value', initValue, rules = [], onChange = () => {} } = opts;
 
 		if (!this.fieldsMeta[name]) {
 			this.fieldsMeta[name] = {
@@ -22,7 +22,8 @@ export default class Field {
 				rules,
 				valueName,
 				trigger,
-				initValue
+				initValue,
+				onChange
 			};
 		}
 
@@ -248,6 +249,8 @@ export default class Field {
 				? evt.target[fieldMeta.valueName]
 				: evt
 		);
+
+		fieldMeta.onChange(evt);
 		this.validate([name]);
 	}
 
