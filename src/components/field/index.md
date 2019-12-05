@@ -40,7 +40,7 @@ function Form() {
 
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| init | 初始化每个组件，详细参数如下） | Function(name: string, option: object) | - |
+| init | 初始化每个组件，详细参数如下，`init`方法会接管组件的`value`和`onChange`字段，请不要再手动赋值，如需使用`onChange`事件可以配置`options.onChange` | Function(name: string, option: object) | - |
 | getState | 判断校验状态，分别有`error` `success` `validating` | Function(name: string) | - |
 | getValue | 获取单个输入控件的值 | Function(name: string) | |
 | getValues | 获取一组输入控件的值，如不传入参数，则获取全部组件的值 | Function([names: string]) | - |
@@ -64,6 +64,7 @@ function Form() {
 | options.initValue | 组件初始值，对控件件的`defaultValue` | any | - |
 | options.valueName | 组件值的属性名称，如`Radio`的是`checked`，`Input`是`value` | string | `value` |
 | options.trigger | 触发取数据的方法，对应控件的handle方法，如`onChange`、`onSelect` | string | `onChange` |
+| options.onChange | 在组件触发`onChange`时调用 | Function(evt: event) | - |
 | options.rules | 校验规则 | array | - |
 
 ### options.rules
