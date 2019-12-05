@@ -1,5 +1,5 @@
 ---
-order: 6
+order: 7
 title: 禁用输入框
 desc: 添加 disabled 属性即可让输入框处于不可用状态，同时输入框样式也会改变。
 ---
