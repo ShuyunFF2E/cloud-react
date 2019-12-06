@@ -23,7 +23,7 @@ export default class Field {
 				valueName,
 				trigger,
 				initValue,
-				onChange
+				change: onChange
 			};
 		}
 
@@ -250,7 +250,7 @@ export default class Field {
 				: evt
 		);
 
-		fieldMeta.onChange(evt);
+		fieldMeta.change(evt);
 		this.validate([name]);
 	}
 
