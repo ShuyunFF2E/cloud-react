@@ -1,8 +1,6 @@
 @import '../style/index';
 
-@tree-prefix-cls: ~'@{prefix}-tree';
-
-@selector: tree;
+@selector: ~'@{prefix}-tree';
 
 @selector-search-icon: #DBDBDB;
 @selector-searched-fontColor: #00AAF1;
@@ -14,18 +12,14 @@
 @selector-node-icon-color: #999;
 @selector-node-active-background: #E7F3FC;
 @selector-node-active-color: #08C;
+@display: inline-block;
 
-.@{tree-prefix-cls} {
+.@{selector} {
 	position: relative;
-	> .tree-list {
-		min-width: 300px;
-		overflow: auto;
-	}
 	ul {
 		margin: 0;
 		padding-left: 38px;
 	}
-
 	li {
 		list-style: none;
 		cursor: pointer;
@@ -34,10 +28,9 @@
 	// 搜索组件
 	&-search {
 		padding-bottom: 10px;
-		.input-group {
+
+		.@{prefix}-input-group {
 			width: 100%;
-		}
-		&-input {
 			line-height: 30px;
 			padding: 0 8px;
 		}
@@ -46,16 +39,18 @@
 			color: @selector-search-icon;
 			font-size: 20px;
 			cursor: pointer;
+			padding-right: 8px;
 		}
 	}
 
 	// 列表组件
 	&-list {
+		min-width: 300px;
+		overflow: auto;
 		&-node-area {
 			position: relative;
-
 			.shuyunicon {
-				display: inline-block;
+				display: @display;
 				height: 26px;
 				color: @selector-node-icon-color;
 				vertical-align: top;
@@ -90,7 +85,7 @@
 			}
 
 			.node-name {
-				display: inline-block;
+				display: @display;
 				padding-left: 2px;
 				width: inherit;
 			}
@@ -104,7 +99,7 @@
 			}
 
 			.is-rename {
-				display: inline-block;
+				display: @display;
 			}
 
 			.is-active {
@@ -124,13 +119,9 @@
 		position: fixed;
 		text-align: center;
 		z-index: 100;
-		padding: 3px 0;
+		padding: 3px 0 !important;
 		border: @selector-menu-border;
 		background-color: @selector-menu-background;
-		&-node-name {
-			font-size: 12px;
-			cursor: default;
-		}
 		> li {
 			line-height: 22px;
 

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
-import ToolTip from '../tooltip';
 import TreeContext from './context';
 
 import './index.less';
@@ -37,12 +36,9 @@ class TreeMenu extends Component {
 	};
 
 	render() {
-		const { visible, name, disableRemove, disableAdd, disableRename, menuStyle, prefixCls } = this.props;
+		const { visible, disableRemove, disableAdd, disableRename, menuStyle, prefixCls } = this.props;
 		return visible && this.context.supportMenu && (
-			<ul className="tree-menu" style={menuStyle}>
-				<ToolTip content={name} placement="top" clear>
-					<span className={classNames(`${prefixCls}-node-name`)}>当前节点</span>
-				</ToolTip>
+			<ul className={classNames(`${prefixCls}-menu`)} style={menuStyle}>
 				<li role="presentation" className={disableAdd ? 'disabled' : ''} onClick={this.addNode}>新增</li>
 				<li role="presentation" className={disableRemove ? 'disabled' : ''} onClick={this.deleteNode}>删除</li>
 				<li role="presentation" className={disableRename ? 'disabled' : ''} onClick={this.renameNode}>重命名</li>
