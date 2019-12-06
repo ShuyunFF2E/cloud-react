@@ -26,8 +26,8 @@ class Node extends Component {
 	onHandleContextMenu = (e, node, options) => {
 		e.preventDefault();
 		const menuStyle = {
-			left: `${e.pageX}px`,
-			top: `${e.pageY}px`
+			left: `${e.clientX}px`,
+			top: `${e.clientY}px`
 		};
 
 		// 将节点信息、点击位置、点击函数传递出去
@@ -196,11 +196,14 @@ function ShowSelection({ searchText, indeterminate, checked, supportRadio, suppo
 	// 处理搜索关键字高亮
 	const re = new RegExp(searchText,'g');
 	const tmp = name.replace(re, `<span class="hot-text">${searchText}</span>`);
-
+	const labelWidth = {
+		width: '100%',
+		zIndex: 0
+	};
 	// 多选类型展示
 	if (supportCheckbox) {
 		return (
-			<Checkbox indeterminate={indeterminate} checked={checked} value={id} onChange={onHandleSelect}>
+			<Checkbox indeterminate={indeterminate} checked={checked} value={id} onChange={onHandleSelect} style={labelWidth}>
 				<span dangerouslySetInnerHTML={{ __html: tmp }}/>
 			</Checkbox>
 		);
@@ -209,7 +212,7 @@ function ShowSelection({ searchText, indeterminate, checked, supportRadio, suppo
 	// 单选类型展示
 	if (supportRadio) {
 		return (
-			<Radio value={id} className={isRadioSelected ? 'is-active' : ''} checked={isRadioSelected} onChange={onHandleSelect}>
+			<Radio value={id} className={isRadioSelected ? 'is-active' : ''} checked={isRadioSelected} onChange={onHandleSelect} style={labelWidth}>
 				<span dangerouslySetInnerHTML={{ __html: tmp }}/>
 			</Radio>
 		);
