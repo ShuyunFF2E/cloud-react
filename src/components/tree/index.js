@@ -192,7 +192,7 @@ class Tree extends Component{
 	onRemoveAction = node => {
 		const { onRemoveNode } = this.props;
 		Modal.confirm({
-			title: `确定删除节点【${node.name}】吗?`,
+			body: `确定删除节点【${node.name}】吗?`,
 			onOk: () => {
 				onRemoveNode(node.id).then(() => {
 					// 删除DOM节点
