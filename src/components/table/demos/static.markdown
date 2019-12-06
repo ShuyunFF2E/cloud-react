@@ -16,7 +16,7 @@ const response = {
             name: 'rookie125',
             pic: 'https://avatars3.githubusercontent.com/u/11306273?s=60&v=4',
             components: [
-                'Form', 'Button', 'Input'
+                'Form', 'Button', 'Input', 'Field', 'Step'
             ],
             other: [
                 '文档化搭建'

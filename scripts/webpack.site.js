@@ -42,7 +42,8 @@ module.exports = () => ({
 
 		new HtmlWebpackPlugin({
 			filename: 'index.html',
-			template: 'demos/index.html'
+			template: 'demos/index.html',
+			favicon: 'demos/favicon.ico'
 		})
 	]
 });
