@@ -6,6 +6,8 @@
 @font-size: 12px;
 @font-color: #145681;
 @font-color-active: #3a3a3a;
+@font-color-line: #3a3a3a;
+@font-color-line-active: #33b5e5;
 
 @tab-accent-border-color: #33b5e5;
 @tab-card-border-color: #d9d9d9;
@@ -19,6 +21,18 @@
 @tile-accent-color: #0083ba;
 
 @closable-color: #cecece;
+
+.@{selector}-header-basic {
+    position: relative;
+    height: 30px;
+    margin-bottom: 10px;
+    &::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+    }
+}
 
 .@{subSelector}-basic {
     position: relative;
@@ -52,17 +66,14 @@
 .@{selector} {
     width: 100%;
     box-sizing: border-box;
-    &-header {
-        position: relative;
-        height: 30px;
-        margin-bottom: 10px;
+    &-header-card:extend(.cloud-tabs-header-basic all) {
         &::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            width: 100%;
             border-bottom: 1px solid @tab-accent-border-color
         }
+    }
+
+    &-header-line {
+        &:extend(.cloud-tabs-header-basic all);
     }
 
     &-item-card:extend(.cloud-tabs-item-basic all) {
@@ -76,6 +87,30 @@
             color: @font-color-active;
         }
     }
+
+    &-item-line:extend(.cloud-tabs-item-basic all) {
+        color: @font-color-line;
+        
+        &:hover {
+            background: none;
+        }
+
+        &.active {
+            color: @font-color-line-active;
+        }
+    }
+
+    &-item-bar {
+        transition: left .3s;
+        position: absolute;
+        bottom: 1px;
+        left: 0;
+        height: 2px;
+        z-index: 1;
+        box-sizing: border-box;
+        background: @tab-accent-border-color;
+    }
+
     .@{subSelector}-tile:extend(.cloud-tabs-item-basic all) {
         &.active {
             border-bottom: 2px solid @tile-accent-color;

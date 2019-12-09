@@ -46,6 +46,9 @@ export default class Tabs extends PureComponent {
             activedKey,
             prevProps: props
         };
+
+        this.activeBarRef = React.createRef();
+        this.tabsRef = React.createRef();
     }
 
     static getDerivedStateFromProps(nextProps, state) {
@@ -60,6 +63,27 @@ export default class Tabs extends PureComponent {
             return { activedKey: nextProps.activeKey, prevProps: nextProps };
         }
         return null;
+    }
+
+    componentDidMount() {
+        if (this.hasLineBar) this.countLineBarStyle();
+    }
+
+    componentDidUpdate() {
+        if (this.hasLineBar) this.countLineBarStyle();
+    }
+
+    countLineBarStyle = () => {
+        const activeEle = this.tabsRef.current.getElementsByClassName(this.props.activeClassName)[0];
+        const { offsetWidth, offsetLeft } = activeEle;
+        Object.assign(this.activeBarRef.current.style, {
+            width: `${offsetWidth}px`,
+            left: `${offsetLeft}px`
+        })
+    }
+
+    get hasLineBar() {
+        return this.props.type === 'line';
     }
 
     handleChange = key => () => {
@@ -100,7 +124,7 @@ export default class Tabs extends PureComponent {
     }
 
     render() {
-        const { children, className, mode } = this.props;
+        const { children, className, mode, type } = this.props;
         const { activedKey } = this.state;
 
         const headers = [];
@@ -124,7 +148,13 @@ export default class Tabs extends PureComponent {
         const finalClassName = cls(`${prefixCls}-tabs`, className);
         return (
             <div className={finalClassName} style={this.props.style}>
-                <section className={cls(`${prefixCls}-tabs-header`)}>{headers}</section>
+                <section className={cls(`${prefixCls}-tabs-header-${type}`)} ref={this.tabsRef}>
+                    {headers}
+                    {
+                        this.hasLineBar &&
+                        <div className={`${prefixCls}-tabs-item-bar`} ref={this.activeBarRef} />
+                    }
+                </section>
                 {panel}
             </div>
         );
