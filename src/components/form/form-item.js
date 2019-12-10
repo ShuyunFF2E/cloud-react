@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Children, cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { prefixCls } from '@utils/config';
@@ -8,6 +8,7 @@ import { LAYOUT_TYPES } from './constants';
 
 const MAX_COL = 24;
 const DATA_FIELD = 'data-field';
+const noop = () => {};
 
 export default class Form extends Component {
 
@@ -69,17 +70,6 @@ export default class Form extends Component {
 		return null;
 	}
 
-	get dataField() {
-		const { field, props: { children } } = this;
-		const [child] = React.Children.toArray(children).filter(v => v.props && v.props[DATA_FIELD]);
-
-		if (field && field.fieldsMeta && child) {
-			return child.props[DATA_FIELD];
-		}
-
-		return null;
-	}
-
 	get required() {
 		const { fieldsMeta, dataField, props: { required } } = this;
 
@@ -119,13 +109,10 @@ export default class Form extends Component {
 	}
 
 	renderWrapper() {
-		const { labelColSpan, field } = this;
+		const { labelColSpan } = this;
 		const { wrapperCol: formWrapperCol, layout } = this.context;
 		const { children, help, wrapperCol = formWrapperCol } = this.props;
-		const {
-			span = labelColSpan !== undefined ? MAX_COL - labelColSpan : undefined,
-			offset
-		} = wrapperCol;
+		const { span = labelColSpan !== undefined ? MAX_COL - labelColSpan : undefined, offset } = wrapperCol;
 
 		const wrapperAttrs = {
 			className: classnames(`${prefixCls}-form-item-wrapper`, {
@@ -137,28 +124,61 @@ export default class Form extends Component {
 			})
 		};
 
-		const error = field && field.getError && field.getError(this.dataField);
-
 		return (
 			<div {...wrapperAttrs}>
-				{children}
-				{error && <Explain className="error">{error}</Explain>}
+				{this.renderChildren(children)}
 				{<Explain>{help}</Explain>}
 			</div>
 		);
 	}
 
+	renderChildren(children) {
+
+		if (['object', 'string', 'array'].indexOf(typeof children) === -1) {
+			return children;
+		}
+
+		return Children.map(children, (child, key) => {
+			const { props } = child;
+
+			if (!props) return child;
+
+			if (props && props[DATA_FIELD]) {
+				const { getState = noop, getError = noop } = this.field || {};
+
+				const state = getState.call(this.field, props[DATA_FIELD]);
+				const error = getError.call(this.field, props[DATA_FIELD]);
+
+				return (
+					<div
+						key={key.toString()}
+						className={classnames('contents', {
+							'has-error': state === 'error',
+							'has-success': state === 'success'
+						})}
+					>
+						{cloneElement(child, child.props)}
+						{error ? <Explain className="error">{error}</Explain> : null}
+					</div>
+				);
+			}
+
+			let items = props.children;
+
+			if (props.children && Children.count(props.children) && !props[DATA_FIELD]) {
+				items = this.renderChildren(props.children);
+			}
+
+			return cloneElement(child, { key, ...child.props, children: items });
+		});
+	}
+
 	render() {
 		const { layout, labelAlign } = this.context;
-		const { field, dataField, props: { className } } = this;
-
-		const state = field && field.getState && field.getState(dataField);
+		const { props: { className } } = this;
 
 		return (
-			<div className={classnames(`${prefixCls}-form-item`, layout, labelAlign, className, {
-				'has-error': state === 'error',
-				'has-success': state === 'success'
-			})}>
+			<div className={classnames(`${prefixCls}-form-item`, layout, labelAlign, className)}>
 				{this.renderLabel()}
 				{this.renderWrapper()}
 			</div>
