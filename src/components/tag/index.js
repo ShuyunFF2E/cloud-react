@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import cls from 'classnames';
+import classnames from 'classnames';
 import { prefixCls } from '@utils/config';
 
 import Icon from '../icon';
@@ -12,8 +12,8 @@ const typeEnum = {
 	SUCCESS: 'success',
 	WARNING: 'warning',
 	DEFAULT: 'default',
-	DANGER: 'danger',
-}
+	DANGER: 'danger'
+};
 
 export default class Tag extends Component {
 
@@ -33,13 +33,13 @@ export default class Tag extends Component {
 		disabled: false,
 		onClick: () => {},
 		onClose: () => {}
-	}
+	};
 
 	get classes() {
 
 		const { checked, closable, type, disabled } = this.props;
 
-		return cls(`${prefix}`, {
+		return classnames(`${prefix}`, {
 			'closable': closable,
 			'checked': checked,
 			'disabled': disabled,
@@ -47,14 +47,15 @@ export default class Tag extends Component {
 		});
 	}
 
-	hondleRemove = () => {
+	handleRemove = event => {
 
 		const { onClose } = this.props;
 
 		if (onClose) {
 			onClose();
+			event.stopPropagation();
 		}
-	}
+	};
 
 	handleClick = () => {
 
@@ -65,7 +66,7 @@ export default class Tag extends Component {
 		if (onClick) {
 			onClick();
 		}
-	}
+	};
 
 	render() {
 
@@ -74,7 +75,7 @@ export default class Tag extends Component {
 		return (
 			<span className={this.classes} onClick={this.handleClick}>
 				{ this.props.children }
-				{closable ? <Icon type="close" onClick={this.hondleRemove} className="tag-close-icon"/> : null}
+				{closable ? <Icon type="close" onClick={this.handleRemove} className="tag-close-icon"/> : null}
 			</span>
 		);
 	}
