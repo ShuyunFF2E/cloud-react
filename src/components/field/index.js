@@ -13,11 +13,14 @@ export default class Field {
 		this.onChange = opts.onChange || noop;
 	}
 
+	__fieldsMeta__ = {};
+
 	init = (name, opts = {}) => {
 		const { trigger = 'onChange', valueName = 'value', initValue, rules = [], onChange = () => {} } = opts;
 
 		if (!this.fieldsMeta[name]) {
 			this.fieldsMeta[name] = {
+				...this.__fieldsMeta__[name] || {},
 				state: '',
 				rules,
 				valueName,
@@ -83,10 +86,14 @@ export default class Field {
 
 		if (typeof fieldMeta === 'object') {
 			fieldMeta[fieldMeta.valueName] = value;
-
 			this.validate([name]);
+			return;
+		}
+
+		if (name in this.__fieldsMeta__) {
+			this.__fieldsMeta__[name].value = value;
 		} else {
-			this.fieldsMeta[name] = { value };
+			this.__fieldsMeta__[name] = { value };
 		}
 	}
 
