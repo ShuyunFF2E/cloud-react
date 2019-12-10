@@ -143,7 +143,6 @@ export default class ToolView extends Component{
 		const { content, theme } = this.props;
 		return (
 			<div ref={el => {this.tipRef = el}} className={classNames(`${prefixCls}-tooltip`, `is-${theme}`)}>
-				<span className="light"></span>
 				{ content }
 			</div>
 		)
