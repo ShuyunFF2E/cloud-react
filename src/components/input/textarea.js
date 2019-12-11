@@ -50,8 +50,6 @@ function calcAutoHeight(textareaNode, value, minRows, maxRows) {
 		twinStyle[key] = style[key];
 	});
 
-	console.log(twinStyle);
-
 	hiddenTextarea.value = value;
 	Object.assign(hiddenTextarea.style, twinStyle, ADDON_STYLE);
 
