@@ -16,10 +16,12 @@
 
 .@{selector} {
 	position: relative;
+
 	ul {
 		margin: 0;
 		padding-left: 38px;
 	}
+
 	li {
 		list-style: none;
 		cursor: pointer;
@@ -32,23 +34,23 @@
 		.@{prefix}-input-group {
 			width: 100%;
 			line-height: 30px;
-			padding: 0 8px;
 		}
 
 		.icon-search {
 			color: @selector-search-icon;
 			font-size: 20px;
 			cursor: pointer;
-			padding-right: 8px;
 		}
 	}
 
 	// 列表组件
 	&-list {
-		min-width: 300px;
+		min-width: 220px;
 		overflow: auto;
+
 		&-node-area {
 			position: relative;
+
 			.shuyunicon {
 				display: @display;
 				height: 26px;
@@ -64,17 +66,21 @@
 				border-radius: 2px;
 				line-height: 26px;
 				cursor: pointer;
+
 				&:hover {
 					background: @selector-node-area-hover;
 				}
+
 				.radio, .checkbox {
 					display: inline-flex;
 					width: 94%;
 					z-index: 10;
+
 					.icon-check-circle-solid {
 						padding-right: 4px;
 					}
 				}
+
 				.icon-down-solid, .icon-right-solid, .checkbox {
 					padding-left: 4px;
 				}
@@ -122,6 +128,7 @@
 		padding: 3px 0 !important;
 		border: @selector-menu-border;
 		background-color: @selector-menu-background;
+
 		> li {
 			line-height: 22px;
 
