@@ -13,7 +13,7 @@ title: Tooltip
 ### API
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| content | 内容 | string |  |
+| content | 内容（可以为任意一段html内容） | string |  |
 | theme | 主题, 可选 `dark` `light` `error` | string | dark |
 | trigger | 触发方式 | string | hover |
 | visible | 用于手动控制浮层显隐 | boolean | - |
