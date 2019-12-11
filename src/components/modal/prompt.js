@@ -6,15 +6,18 @@ import Notification from './modal';
 
 import './index.less';
 
-const containers = {};
+const containers = new Map();
+
+const ENTER_KEY_CODE = 13;
 
 class Prompt extends React.Component{
+
 	static defaultProps = {
 		type: '',
 		icon: '',
 		body: '',
 		onOk: () => {},
-		onCancel: () => {},
+		onCancel: () => {}
 	};
 
 	static propTypes = {
@@ -22,7 +25,7 @@ class Prompt extends React.Component{
 		icon: PropTypes.string,
 		body: PropTypes.node,
 		onOk: PropTypes.func,
-		onCancel: PropTypes.func,
+		onCancel: PropTypes.func
 	};
 
 	constructor(props) {
@@ -32,14 +35,44 @@ class Prompt extends React.Component{
 		};
 	}
 
+	componentDidMount() {
+		// 在 confirm 类型的时候，需要按回车触发确定事件
+		if (this.props.type === 'confirm') {
+			// 点击完以后，按钮还是处于聚焦状态，因此不断触发自己的click事件，导致弹框不断弹出
+			[...document.querySelectorAll('button')].forEach(item => {
+				item.addEventListener('keydown', event => {
+					event.preventDefault();
+				}, true);
+			});
+			document.body.addEventListener('keydown', this.handleKeydown);
+		}
+	}
+
+	componentWillUnmount() {
+		if (this.props.type === 'confirm') {
+			document.body.removeEventListener('keydown', this.handleKeydown);
+		}
+	}
+
+	handleKeydown = event => {
+		if (event.keyCode === ENTER_KEY_CODE) {
+			this.handleOk();
+		}
+	}
+
 	// 删除节点
 	handleClose = () => {
+
 		const { id } = this.props;
-		if (containers[id]) {
+		const ele = containers.get(id);
+
+		if (ele) {
 			// 删除react组件节点
-			ReactDOM.unmountComponentAtNode(containers[id]);
+			ReactDOM.unmountComponentAtNode(ele);
 			// 删除dom节点
-			document.body.removeChild(containers[id]);
+			document.body.removeChild(ele);
+			// 从 container 中移除当前销毁的 modal
+			containers.delete(id);
 		}
 	};
 
@@ -95,8 +128,10 @@ class Prompt extends React.Component{
 function prompt({ type, icon, body, onOk, onCancel }) {
 	// 创建一个关联id
 	const id = `prompt${new Date().getTime()}`;
-	containers[id] = document.createElement('div');
-	document.body.appendChild(containers[id]);
+	const ele = document.createElement('div');
+
+	containers.set(id, ele);
+	document.body.appendChild(ele);
 
 	ReactDOM.render(
 		<Prompt
@@ -106,7 +141,7 @@ function prompt({ type, icon, body, onOk, onCancel }) {
 			body={body}
 			onOk={onOk}
 			onCancel={onCancel}/>,
-		containers[id]
+		ele
 	);
 }
 
