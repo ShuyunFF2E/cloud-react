@@ -142,8 +142,10 @@ export default class ToolView extends Component{
 	render() {
 		const { content, theme } = this.props;
 		return (
-			<div ref={el => {this.tipRef = el}} className={classNames(`${prefixCls}-tooltip`, `is-${theme}`)}>
-				{ content }
+			<div
+				ref={el => {this.tipRef = el}}
+				className={classNames(`${prefixCls}-tooltip`, `is-${theme}`)}
+				dangerouslySetInnerHTML={{ __html: content }}>
 			</div>
 		)
 	}
