@@ -8,10 +8,11 @@ import React from 'react';
 import { Button, Tooltip } from 'cloud-react';
 
 export default class ToolTipDemo extends React.Component{
-  	constructor(props) {
+
+	constructor(props) {
 		super(props);
 		this.state = {
-			content: '这是一个toolTip',
+			content: '失败原因：</br>1.缺少微信/淘宝/线下平台账号</br> 2.其他',
             show: true
 		}
 	}

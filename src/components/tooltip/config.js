@@ -6,9 +6,9 @@ export const CONFIG_PLACE = {
     bottom: 'bottom',
     center: 'center',
     auto: 'auto'
-}; 
+};
 export const CONFIG_THEME = {
     dark: 'dark',
     error: 'error',
     light: 'light'
-}
+};
