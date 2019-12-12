@@ -18,7 +18,7 @@ export default class ToolTipDemo extends React.Component{
 	}
 
     onChangeStatus = (e) => {
-        	this.setState({ show: !this.state.show });
+        this.setState({ show: !this.state.show });
     }
 
 	render() {
