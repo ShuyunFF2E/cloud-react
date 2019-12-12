@@ -200,7 +200,6 @@ class Tree extends Component{
 					this.setState({
 						treeData: [...data]
 					});
-					Message.success('删除成功');
 				}).catch(() => {
 					Message.error('删除失败');
 				});
