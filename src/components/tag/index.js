@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { prefixCls } from '@utils/config';
+import omit from '@utils/omit';
 
 import Icon from '../icon';
 import './index.less';
@@ -70,10 +71,18 @@ export default class Tag extends Component {
 
 	render() {
 
-		const { closable } = this.props;
+		const { closable, ...others } = this.props;
+
+		const props = omit(others, [
+			'type',
+			'checked',
+			'disabled',
+			'onClick',
+			'onClose'
+		]);
 
 		return (
-			<span className={this.classes} onClick={this.handleClick}>
+			<span className={this.classes} onClick={this.handleClick} {...props}>
 				{ this.props.children }
 				{closable ? <Icon type="close" onClick={this.handleRemove} className="tag-close-icon"/> : null}
 			</span>
