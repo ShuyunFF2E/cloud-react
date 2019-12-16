@@ -6,7 +6,7 @@ import './index.less';
 class Icon extends Component {
 	render () {
 		const { type, style, className, ...restProps } = this.props;
-		return <i className={classNames(className, `shuyunicon icon-${type}`)} style={style} {...restProps} />;
+		return <i className={classNames(className, `cloud-icon cloud-icon-${type}`)} style={style} {...restProps} />;
 	}
 }
 Icon.propTypes = {
