@@ -2,7 +2,8 @@
 
 @raido-prefix-cls: ~'@{prefix}-radio';
 
-@normal-color: #666;
+@normal-color: @color-gray5;
+@normal-text-color: #666;
 @checked-color: #00AAF1;
 @disabled-color: #DDD;
 @radio-bg-color: #FFF;
@@ -85,6 +86,10 @@
 		border-radius: 50%;
 		border: 1px solid currentColor;
 		background-color: @radio-bg-color;
+	}
+
+	&-text {
+		color: @normal-text-color;
 	}
 
 	.disabled {
