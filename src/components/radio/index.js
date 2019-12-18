@@ -90,7 +90,7 @@ class Radio extends React.Component {
 					/>
 					<span className={`${classSelector}-inner`}/>
 				</span>
-				<span className={classnames({ disabled })}>{ children }</span>
+				<span className={classnames(`${classSelector}-text`, { disabled })}>{ children }</span>
 			</label>
 		)
 	}
