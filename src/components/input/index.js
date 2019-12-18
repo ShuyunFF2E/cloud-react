@@ -196,7 +196,7 @@ class Input extends React.PureComponent {
 	render() {
 		const { isPure } = this;
 		const { value } = this.state;
-		const { size, className, hasClear, hasCounter, addonAfter, addonBefore, prefix, suffix, ...others } = this.props;
+		const { size, className, style, hasClear, hasCounter, addonAfter, addonBefore, prefix, suffix, ...others } = this.props;
 
 		const classNames = classnames(`${prefixCls}-input`, {
 			[size]: true
@@ -213,15 +213,16 @@ class Input extends React.PureComponent {
 			'onEnter'
 		]);
 
-		const style = {
-			paddingRight: `${this.getPaddingRight()}px`
+		const inputStyle = {
+			paddingRight: `${this.getPaddingRight()}px`,
+			...style
 		};
 
 		const Element = (
 			<input
 				{...props}
 				ref={this.inputRef}
-				style={style}
+				style={inputStyle}
 				value={value}
 				className={classNames}
 				onChange={this.onChange}

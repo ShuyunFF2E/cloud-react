@@ -5,7 +5,7 @@ subtitle: 输入框
 ---
 
 ### 何时使用
-按钮的作用是对用户的触发作出反应并执行相应的操作命令。
+需要用户进行输入时。
 
 ### API
 
@@ -37,6 +37,7 @@ subtitle: 输入框
 | minRows | 最小行数，设置了`autoSize`属性生效 | number | `1` |
 | maxRows | 最大行数，设置了`autoSize`属性生效 | number | `Infinity` |
 | rows | 固定行数 | number | - |
+| className | 输入框的 className 属性 | string | - |
 | onEnter | 按下键盘回车按键的回调 | function(event) | - |
 
 `Input.Textarea` 其他属性保持跟原生一致
