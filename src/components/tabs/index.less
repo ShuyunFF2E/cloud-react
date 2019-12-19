@@ -13,6 +13,8 @@
 @tab-card-border-color: #d9d9d9;
 @tab-card-bg: #f4f4f4;
 @tab-card-active-bg: #fcfcfc;
+@tab-icon-bg: #eee;
+@tab-icon-color: #999;
 
 @disabled-color: #ccc;
 @hover-color: #0083ba;
@@ -24,13 +26,41 @@
 
 .@{selector}-header-basic {
     position: relative;
+    display: flex;
+    overflow: hidden;
+    white-space: nowrap;
     height: 30px;
     margin-bottom: 10px;
     &::before {
         content: '';
         position: absolute;
+        left: 0;
         bottom: 0;
         width: 100%;
+    }
+    &.@{selector}-header-more {
+        padding: 0 30px;
+    }
+}
+
+.@{selector}-more-icon-basic {
+    position: absolute;
+    line-height: 28px;
+    width: 20px;
+    text-align: center;
+    color: @tab-icon-color;
+    cursor: pointer;
+
+    &.before {
+        left: 0;
+    }
+
+    &.after {
+        right: 0;
+    }
+
+    .icon {
+        font-size: @font-size;
     }
 }
 
@@ -74,6 +104,26 @@
 
     &-header-line {
         &:extend(.cloud-tabs-header-basic all);
+    }
+
+    &-more-icon-card {
+        &:extend(.cloud-tabs-more-icon-basic all);
+        background: @tab-icon-bg;
+    }
+
+    &-more-icon-line {
+        &:extend(.cloud-tabs-more-icon-basic all);
+    }
+
+    &-items {
+        width: 100%;
+        overflow: hidden;
+
+        &-scroll {
+            position: relative;
+            left: 0;
+            transition: left .3s;
+        }
     }
 
     &-item-card:extend(.cloud-tabs-item-basic all) {

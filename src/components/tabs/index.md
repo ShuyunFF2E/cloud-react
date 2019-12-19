@@ -19,6 +19,7 @@ subtitle: 选项卡
 | onChange | 切换面板时触发事件 | Function |  (key)=>{}  |
 | onClose | 关闭面板时触发事件 | Function |  (key)=>{}  |
 | type | 页签的基本样式，可选 `line` `card` | string | card |
+| step | 当超过当前行的宽度出现滚动，点击箭头时一次可以滑动的距离 | number | tab列表宽度 / 3 |
 | className | 设置类样式 | string | '' |
 | style | 设置行内样式 | string | {} |
 | activeClassName | 可自定义选项卡被选中时的样式 | string |  'active'  |

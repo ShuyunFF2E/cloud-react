@@ -8,6 +8,7 @@ import IconRaw from '../icon';
 import './index.less';
 
 const Icon = React.memo(IconRaw);
+const CONTAINER_PADDING = 30;
 
 export default class Tabs extends PureComponent {
 
@@ -20,7 +21,8 @@ export default class Tabs extends PureComponent {
         onChange: PropTypes.func,
         onClose: PropTypes.func,
         mode: PropTypes.oneOf(['reset', 'remain']),
-        style: PropTypes.object
+        style: PropTypes.object,
+        step: PropTypes.number
     }
 
     static defaultProps = {
@@ -31,6 +33,7 @@ export default class Tabs extends PureComponent {
         className: '',
         mode: 'reset',
         style: {},
+        step: 0,
         onChange: () => {},
         onClose: () => {}
     }
@@ -41,9 +44,13 @@ export default class Tabs extends PureComponent {
 
         const childList = Array.isArray(children) ? children : [children];
         const activedKey = activeKey || defaultActiveKey || childList[0].key;
+        const childCount = React.Children.count(children);
 
         this.state = {
             activedKey,
+            hasMore: false,
+            prevChildCount: childCount,
+            childCount,
             prevProps: props
         };
 
@@ -60,30 +67,129 @@ export default class Tabs extends PureComponent {
         // 2. tabpanel的数量发生变化时, 更新state
         if ((prevProps.activeKey !== nextProps.activeKey) ||
             (prevProps.activeKey === nextProps.activeKey && prevChildCount !== nextChildCount)) {
-            return { activedKey: nextProps.activeKey, prevProps: nextProps };
+            return {
+                activedKey: nextProps.activeKey,
+                prevProps: nextProps,
+                prevChildCount,
+                childCount: nextChildCount
+            };
+        }
+        if (prevChildCount !== nextChildCount) {
+            return { prevChildCount, childCount: nextChildCount };
         }
         return null;
     }
 
     componentDidMount() {
+        this.initTabsItems();
         if (this.hasLineBar) this.countLineBarStyle();
     }
 
     componentDidUpdate() {
-        if (this.hasLineBar) this.countLineBarStyle();
+        const { state: { prevChildCount, childCount }, hasLineBar, itemsMaxLeft } = this;
+        if (prevChildCount !== childCount) {
+            this.countMore();
+            this.tabsRef.current.style.left = itemsMaxLeft;
+            this.childCount = childCount;
+        };
+        if (hasLineBar) this.countLineBarStyle();       
     }
 
-    countLineBarStyle = () => {
-        const activeEle = this.tabsRef.current.getElementsByClassName(this.props.activeClassName)[0];
-        const { offsetWidth, offsetLeft } = activeEle;
-        Object.assign(this.activeBarRef.current.style, {
-            width: `${offsetWidth}px`,
-            left: `${offsetLeft}px`
-        })
+    set childCount(count) {
+        this.setState({
+            prevChildCount: count
+        });
     }
 
     get hasLineBar() {
         return this.props.type === 'line';
+    }
+
+    get activeEle() {
+        return this.tabsRef.current.getElementsByClassName(this.props.activeClassName)[0];
+    }
+
+    get tabsOffsetLeft() {
+        return this.tabsRef.current.offsetLeft;
+    }
+
+    get tabsOffsetWidth() {
+        return this.tabsRef.current.offsetWidth;
+    }
+
+    get tabsScrollWidth() {
+        return this.tabsRef.current.scrollWidth;
+    }
+
+    get tabsPrevDisabled() {
+        return this.tabsOffsetLeft >= 0;
+    }
+
+    get tabsNextDisabled() {
+        const { tabsOffsetLeft, tabsOffsetWidth, tabsScrollWidth } = this;
+        return -tabsOffsetLeft + CONTAINER_PADDING + tabsOffsetWidth >= tabsScrollWidth;
+    }
+
+    get step() {
+        return this.props.step || this.tabsOffsetWidth / 3;
+    }
+
+    get itemsMaxLeft() {
+        const { tabsOffsetWidth, tabsScrollWidth } = this;
+        return `-${tabsScrollWidth - tabsOffsetWidth}px`;
+    }
+
+    get itemsNextLeft() {
+        const { tabsOffsetLeft, tabsOffsetWidth, tabsScrollWidth } = this;
+        return -tabsOffsetLeft + tabsOffsetWidth > tabsScrollWidth - this.step
+                ? this.itemsMaxLeft
+                : `${tabsOffsetLeft - this.step}px`;
+    }
+
+    get itemsPrevLeft() {
+        const { tabsOffsetLeft } = this;
+        return tabsOffsetLeft + this.step > 0
+                ? 0
+                : `${tabsOffsetLeft + this.step}px`;
+    }
+
+    initTabsItems = () => {
+        const { tabsScrollWidth, tabsOffsetWidth } = this;
+        const hasMore = tabsScrollWidth > tabsOffsetWidth;
+        if (hasMore && this.activeEle) {
+            const { offsetWidth, offsetLeft } = this.activeEle;
+            const { tabsOffsetLeft, itemsMaxLeft } = this;
+            if (offsetLeft + offsetWidth >= tabsOffsetWidth - CONTAINER_PADDING * 2 + -tabsOffsetLeft) {
+                const max = parseFloat(itemsMaxLeft) - CONTAINER_PADDING * 2;
+                const left = offsetLeft > -max ? max : -offsetLeft;
+                this.tabsRef.current.style.left = `${left}px`;
+            }
+        }
+        this.setState({ hasMore });
+    }
+
+    countTabsItemsStyle = isNext => {
+        if (isNext) {
+            this.tabsRef.current.style.left = this.itemsNextLeft;
+        } else {
+            this.tabsRef.current.style.left = this.itemsPrevLeft;
+        }
+        if (this.hasLineBar) this.countLineBarStyle();
+    }
+
+    countMore = () => {
+        const { tabsScrollWidth, tabsOffsetWidth } = this;
+        this.setState({
+            hasMore: tabsScrollWidth > tabsOffsetWidth
+        });
+    }
+
+    countLineBarStyle = () => {
+        const { offsetWidth, offsetLeft } = this.activeEle;
+        Object.assign(this.activeBarRef.current.style, {
+            width: `${offsetWidth}px`,
+            left: `${offsetLeft}px`
+        })
     }
 
     handleChange = key => () => {
@@ -99,6 +205,14 @@ export default class Tabs extends PureComponent {
 
     handleClose = key => () => {
         this.props.onClose(key);
+    }
+
+    handleTabsPrev = () => {
+        if (!this.tabsPrevDisabled) this.countTabsItemsStyle(false);
+    }
+
+    handleTabsNext = () => {
+        if (!this.tabsNextDisabled) this.countTabsItemsStyle(true);
     }
 
     renderTabHeader(child, isActived) {
@@ -123,9 +237,25 @@ export default class Tabs extends PureComponent {
         );
     }
 
+    renderMoreIcon = () => {
+        if (!this.state.hasMore) return null;
+        const { type } = this.props;
+
+        return (
+            <>
+                <span className={`${prefixCls}-tabs-more-icon-${type} before`} onClick={this.handleTabsPrev}>
+                    <Icon type="left" className="icon" />
+                </span>
+                <span className={`${prefixCls}-tabs-more-icon-${type} after`} onClick={this.handleTabsNext}>
+                    <Icon type="right" className="icon" />
+                </span>
+            </>
+        )
+    }
+
     render() {
         const { children, className, mode, type } = this.props;
-        const { activedKey } = this.state;
+        const { activedKey, hasMore } = this.state;
 
         const headers = [];
         let panel = [];
@@ -146,14 +276,22 @@ export default class Tabs extends PureComponent {
         });
 
         const finalClassName = cls(`${prefixCls}-tabs`, className);
+        const headerClassName = cls(`${prefixCls}-tabs-header-${type}`, {
+            [`${prefixCls}-tabs-header-more`]: hasMore
+        })
         return (
             <div className={finalClassName} style={this.props.style}>
-                <section className={cls(`${prefixCls}-tabs-header-${type}`)} ref={this.tabsRef}>
-                    {headers}
-                    {
-                        this.hasLineBar &&
-                        <div className={`${prefixCls}-tabs-item-bar`} ref={this.activeBarRef} />
-                    }
+                <section className={headerClassName}>
+                    { this.renderMoreIcon() }
+                    <div className={`${prefixCls}-tabs-items`}>
+                        <div className={`${prefixCls}-tabs-items-scroll`} ref={this.tabsRef}>
+                            { headers }
+                            {
+                                this.hasLineBar &&
+                                <div className={`${prefixCls}-tabs-item-bar`} ref={this.activeBarRef} />
+                            }
+                        </div>
+                    </div>
                 </section>
                 {panel}
             </div>
