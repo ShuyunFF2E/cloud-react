@@ -13,19 +13,41 @@ export default class ToolTipDemo extends React.Component{
 		super(props);
 		this.state = {
 			content: '这是一个toolTip',
+			isBlue: true,
+			tagArr : [{id: 1,name: 'aa'}, {id: 2,name: 'bb'}, {id: 3,name: 'cc'}]
 		}
 	}
 
+	addItem = () => {
+        this.setState({
+            tagArr: [...this.state.tagArr, {id: this.state.tagArr.length + 1, name:'ee'}]
+        });
+	}
+	changeColor = () => {
+        this.setState({
+            isBlue: !this.state.isBlue
+        });
+	}
+
 	render() {
-  		const {content} = this.state;
+  		const {content, tagArr, isBlue} = this.state;
 		return (
 			<div>
-				<Tooltip content={content} placement="top">
-					<Tag>Tooltip will show on mouse enter.</Tag>
+				<div onClick={this.addItem}>add</div>
+				<Tooltip content={'Icon'}>
+                   <Icon type={'config'} style={{color: isBlue ? 'blue' : 'red'}} onClick={this.changeColor}/>
 				</Tooltip>
-
-				<Tooltip content={'就是就是就'} placement="top">
-					<Icon type="flag-solid"></Icon>
+                    {
+                        tagArr.map(item => {
+                            return (
+                                <Tooltip content={item.name} key={item.id}>
+                                    <Tag>{item.name}</Tag>
+                                </Tooltip>
+                                )
+                        })
+                    }
+                <Tooltip content={'string'}>
+                   string
 				</Tooltip>
 			</div>
 		);

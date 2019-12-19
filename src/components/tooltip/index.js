@@ -83,13 +83,12 @@ function createWrapper(id, event) {
  * @returns {string}: 元素的类名
  */
 function getClassName(classNames) {
-	let tagClassName = '';
 	const findClassName = className => {
 		return className.indexOf('tooltip-') > -1
 	}
 	// 转成一般数组
 	const classNamesArr = [...classNames];
-	tagClassName = classNamesArr.find(findClassName);
+	const tagClassName = classNamesArr.find(findClassName);
 
 	return tagClassName;
 }
@@ -97,29 +96,18 @@ function getClassName(classNames) {
 class Tooltip extends Component{
 
 	constructor(props) {
-
 		super(props);
 		this.isShow = false;
-
-		this.state = {
-			children: this.getChildren()
-		};
 	}
 
 	getChildren() {
-
 		const { children } = this.props;
-		let __children = children;
-
-		if (typeof children === 'string') {
-			__children = createElement('span', null, [children]);
-		}
-
+		const __children = createElement('span', null, [children]);
 		return __children;
 	}
 
 	componentDidMount() {
-	 	if (typeof this.props.visible === 'boolean' && this.props.visible) {
+		if (this.props.visible && typeof this.props.visible === 'boolean' ) {
 			// eslint-disable-next-line react/no-find-dom-node
 			this.handleMouseEnter(ReactDOM.findDOMNode(this.triggerDom));
 		}
@@ -128,7 +116,9 @@ class Tooltip extends Component{
 	 // 显示、关闭tooltip
 	componentDidUpdate() {
 		const { visible } = this.props;
-		if (this.isShow) {
+		targetEle = typeof visible === 'boolean' ? this.triggerDom.parentElement : targetEle;
+		const element = this.triggerDom;
+		if (this.isShow && element instanceof window.HTMLElement) {
 			const id = getClassName(this.triggerDom.parentNode.classList);
 			this.handleMouseLeave(id);
 		}
@@ -137,58 +127,18 @@ class Tooltip extends Component{
 		}
 		if (typeof visible === 'boolean' && visible) {
 			this.handleMouseEnter(this.triggerDom);
-		} else {
+		} else if (element instanceof window.HTMLElement) {
 			const id = getClassName(this.triggerDom.parentNode.classList);
 			this.handleMouseLeave(id);
 		}
 	}
 
-	 // 不影响其他组件的事件
-	onMouseEnter = event => {
-
-		const { trigger, content, visible } = this.props;
-		const { children } = this.state;
-
-		if (children.props.onMouseEnter) {
-			children.props.onMouseEnter();
-		}
-		if (trigger !== 'hover' || !content || this.isShow || typeof visible === 'boolean') {
-			return;
-		}
-		this.handleMouseEnter(event);
-	};
-
-	onMouseLeave = () => {
-
-		const { visible } = this.props;
-		const { children } = this.state;
-
-		if (children.props.onMouseLeave) {
-			children.props.onMouseLeave();
-		}
-		if (typeof visible === 'boolean') {
-			return;
-		}
-		this.handleMouseLeave();
-	};
-
-	onMouseClick = event => {
-
-		const { trigger, content, visible } = this.props;
-		const { children } = this.state;
-
-		if (children.props.onClick) {
-			children.props.onClick();
-		}
+	 // 鼠标点击
+	handleClick = event => {
+		const { mouseEnterDelay, mouseLeaveDelay, container, trigger, content } = this.props;
 		if (trigger !== 'click' || !content || typeof visible === 'boolean') {
 			return
 		}
-		this.handleClick(event);
-	};
-
-	 // 鼠标点击
-	handleClick = event => {
-		const { mouseEnterDelay, mouseLeaveDelay, container } = this.props;
 		if (!this.isShow) {
 			const id = `tooltip-${new Date().getTime().toString()}`;
 			this.isShow = true;
@@ -213,27 +163,30 @@ class Tooltip extends Component{
 
 	 // 鼠标移入
 	 handleMouseEnter = event => {
-		 const { mouseEnterDelay, visible } = this.props;
+		 const { mouseEnterDelay, visible, content, trigger } = this.props;
+		 if (trigger !== 'hover' || !content || this.isShow || visible === false) {
+			 return;
+		 }
 		 const id = `tooltip-${new Date().getTime().toString()}`;
 		 createWrapper(id, event);
 		 this.isShow = true;
 		 const viewProps = {
 			 ...this.props,
-			 targetEle: typeof visible === 'boolean' ? event : event.target
+			 targetEle: typeof visible === 'boolean' ? event.children[0] : event.target
 		 };
 		 setTimeout(() => {
 			 const component = <ToolView  { ...viewProps }/>;
-			 renderComponentWithPosition(containers[id], component);
+			 renderComponentWithPosition(containers[id], component)
 		 }, mouseEnterDelay);
 	 };
 
 	 // 鼠标移出
-	 handleMouseLeave = deletId => {
-		 if (!this.isShow) {
+	 handleMouseLeave = () => {
+		 const { mouseLeaveDelay, container, visible } = this.props;
+		 if (!this.isShow || visible) {
 			 return
 		 }
-		 const { mouseLeaveDelay, container } = this.props;
-		 const id  = deletId || getClassName(targetEle.classList);
+		 const id  = getClassName(targetEle.classList);
 		 this.isShow = false;
 		 setTimeout(() => {
 			 destroyDOM(id, container);
@@ -242,18 +195,19 @@ class Tooltip extends Component{
 	 };
 
 	render() {
-
-		const { children } = this.state;
-
-		const props = {
-			...children.props,
-			onClick: this.onMouseClick,
-			onMouseEnter: this.onMouseEnter,
-			onMouseLeave: this.onMouseLeave,
-			ref: el => {this.triggerDom = el}
-		};
-
-		return React.cloneElement(children, props);
+		let { children } = this.props;
+		if (typeof children === 'string') {
+			children = this.getChildren(children);
+		}
+		return (
+			<div style={{ display: 'contents' }}
+				 onClick={this.handleClick}
+				 onMouseEnter={this.handleMouseEnter}
+				 onMouseLeave={this.handleMouseLeave}
+				 ref={el => {this.triggerDom = el}}>
+				{ children }
+			</div>
+		)
 	}
  }
 
