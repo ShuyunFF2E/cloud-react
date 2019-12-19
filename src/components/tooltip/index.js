@@ -98,6 +98,7 @@ class Tooltip extends Component{
 	constructor(props) {
 		super(props);
 		this.isShow = false;
+		this.currentEle = null;
 	}
 
 	getChildren() {
@@ -147,16 +148,17 @@ class Tooltip extends Component{
 				...this.props,
 				targetEle: event.target
 			};
+			this.currentEle = targetEle;
 			setTimeout(() => {
 				const component = <ToolView  {...viewProps} />;
 				renderComponentWithPosition(containers[id], component);
 			}, mouseEnterDelay);
 		} else {
 			this.isShow = false;
-			const id = getClassName(targetEle.classList);
+			const id = getClassName(this.currentEle.classList);
 			setTimeout(() => {
 				destroyDOM(id, container);
-				targetEle.classList.remove(id);
+				this.currentEle.classList.remove(id);
 			}, mouseLeaveDelay);
 		}
 	};
@@ -174,6 +176,7 @@ class Tooltip extends Component{
 			 ...this.props,
 			 targetEle: typeof visible === 'boolean' ? event.children[0] : event.target
 		 };
+		 this.currentEle = targetEle;
 		 setTimeout(() => {
 			 const component = <ToolView  { ...viewProps }/>;
 			 renderComponentWithPosition(containers[id], component)
@@ -186,11 +189,11 @@ class Tooltip extends Component{
 		 if (!this.isShow || visible) {
 			 return
 		 }
-		 const id  = getClassName(targetEle.classList);
+		 const id  = getClassName(this.currentEle.classList);
 		 this.isShow = false;
 		 setTimeout(() => {
 			 destroyDOM(id, container);
-			 targetEle.classList.remove(id);
+			 this.currentEle.classList.remove(id);
 		 }, mouseLeaveDelay);
 	 };
 
