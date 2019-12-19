@@ -6,7 +6,7 @@ desc: 通过静态数据渲染方式介绍
 
 ````javascript
 import React, { Component } from 'react';
-import { Table } from 'cloud-react';
+import { Table, Button, Message } from 'cloud-react';
 
 // 唯一标识符，该值不允许重复
 const gridManagerName = 'static-table';
@@ -20,7 +20,8 @@ const response = {
             ],
             other: [
                 '文档化搭建'
-            ]
+            ],
+            priority: 1
         },
         {
             name: 'silence717',
@@ -30,7 +31,8 @@ const response = {
 	        ],
             other: [
                 '前端架构', '样式整改'
-            ]
+            ],
+            priority: 2
         },
         {
             name: 'baukh789',
@@ -40,87 +42,91 @@ const response = {
 	        ],
             other: [
                 '服务器搭建', 'CI'
-            ]
+            ],
+            priority: 3
         },
         {
             name: 'lazyperson',
             pic: 'https://avatars3.githubusercontent.com/u/18607584?s=460&v=4',
 	        components: [
 	            'DatePicker', 'InputNumber'
-	        ]
+	        ],
+            priority: 4
         },
         {
             name: 'xtfan21',
             pic: 'https://avatars3.githubusercontent.com/u/23092282?s=60&v=4',
 	        components: [
 	            'Tree', 'Modal'
-	        ]
+	        ],
+	        priority: 5
         },
         {
             name: 'BoWang816',
             pic: 'https://avatars0.githubusercontent.com/u/26587649?s=60&v=4',
 	        components: [
 	            'Message', 'Tips'
-	        ]
+	        ],
+	        priority: 6
         },
         {
             name: 'heriky',
             pic: 'https://avatars1.githubusercontent.com/u/12195736?s=460&v=4',
             components: [
                 'Tabs'
-            ]
+            ],
+            priority: 7
         },
         {
             name: 'runrunlolz',
             pic: 'https://avatars0.githubusercontent.com/u/20176682?s=60&v=4',
 	        components: [
 	            'Tooltip'
-	        ]
+	        ],
+	        priority: 8
         },
         {
             name: 'greria',
             pic: 'https://avatars3.githubusercontent.com/u/16697576?s=400&v=4',
             components: [
                 'Select'
-            ]
+            ],
+            priority: 9
         },
 		{
 			name: 'liyuan-meng',
 			pic: 'https://avatars1.githubusercontent.com/u/34151318?s=60&v=4',
 	        components: [
 	            'Checkbox'
-	        ]
+	        ],
+	        priority: 10
 		},
 		{
 			name: 'wwELi',
 			pic: 'https://avatars1.githubusercontent.com/u/22408704?s=60&v=4',
 			components: [
 				'Radio'
-			]
+			],
+			priority: 11
 		},
 		{
 			name: 'DongWJ',
 			pic: 'https://avatars0.githubusercontent.com/u/24518633?s=60&v=4',
             components: [
                 'Loading'
-            ]
-		},
-		{
-			name: 'liyuan-meng',
-			pic: 'https://avatars1.githubusercontent.com/u/34151318?s=60&v=4',
-	        components: [
-	            'Checkbox'
-	        ]
+            ],
+            priority: 12
 		},
         {
             name: 'jsonliu6',
             pic: 'https://avatars1.githubusercontent.com/u/15153054?s=460&v=4',
             components: [
                 'Tag'
-            ]
+            ],
+            priority: 13
         }
     ],
-    "totals": 14
+    "totals": 13
 };
 const columnData = [
 	{
@@ -153,15 +159,38 @@ const columnData = [
         }
     }
 ];
+
+const moveRowConfig = {
+	key: 'priority',
+	handler: (list, tableData) => {
+		// console.log(list, tableData);
+	}
+};
 export default class TableDemo extends Component {
+	getCheckedData() {
+		console.log(Table.getCheckedData(gridManagerName));
+		Message.success('操作成功，请在控制面板查看');
+	}
+	getTableData() {
+		console.log(Table.getTableData(gridManagerName));
+		Message.success('操作成功, 请在控制面板查看');
+	}
 	render() {
 		return (
-			<Table
-				gridManagerName={gridManagerName}
-				ajaxData={response}
-				columnData={columnData}
-				height={'100%'}
-			/>
+			<>
+				<Table
+					gridManagerName={gridManagerName}
+					ajaxData={response}
+					columnData={columnData}
+					supportMoveRow={true}
+					moveRowConfig={moveRowConfig}
+					height={'100%'}
+				/>
+				<div className="table-action">
+					<Button onClick={() => {this.getCheckedData()}}>获取选中数据</Button>
+					<Button onClick={() => {this.getTableData()}}>获取完整数据</Button>
+				</div>
+			</>
 		);
 	}
 }

@@ -21,10 +21,10 @@ const ajaxPageTemplate = `
 	<div class="pagination">
 		<ul pagination-before>
 			<li class="first-page">
-				<i class="shuyunicon icon-first-solid"></i>
+				<i class="cloud-icon cloud-icon-first-solid"></i>
 			</li>
 			<li class="previous-page">
-				<i class="shuyunicon icon-left-solid"></i>
+				<i class="cloud-icon cloud-icon-left-solid"></i>
 			</li>
 		</ul>
 
@@ -33,10 +33,10 @@ const ajaxPageTemplate = `
 		</div>
 		<ul pagination-after>
 			<li class="next-page">
-				<i class="shuyunicon icon-right-solid"></i>
+				<i class="cloud-icon cloud-icon-right-solid"></i>
 			</li>
 			<li class="last-page">
-				<i class="shuyunicon icon-last-solid"></i>
+				<i class="cloud-icon cloud-icon-last-solid"></i>
 			</li>
 		</ul>
 	</div>
