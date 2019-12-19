@@ -139,6 +139,8 @@ export default class Form extends Component {
 		}
 
 		return Children.map(children, (child, key) => {
+			if (!child) return null;
+
 			const { props } = child;
 
 			if (!props) return child;
