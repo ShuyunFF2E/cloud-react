@@ -24,6 +24,13 @@
 @confirm-loading-border-top: 1px solid #FFF;
 
 .@{modal-prefix-cls} {
+	font-family: Tahoma, "Microsoft Yahei", sans-serif;
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: @modal-zindex;
 	&-mask {
 		position: fixed;
 		top: 0;
@@ -32,26 +39,25 @@
 		bottom: 0;
 		background: @modal-color;
 		opacity: 0.6;
-		z-index: 9999;
+
 	}
 
 	&-container {
 		min-height: 160px;
 		min-width: 400px;
-		position: fixed;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -52%);
+		max-width: 50%;
+		margin: 0 auto;
+		top: 20%;
+		position: relative;
 		background: @container-background;
 		border-radius: @body-border-radius;
-		z-index: 9999;
 		white-space: normal;
 		animation: modal-fade-in 0.5s;
 
 		@-webkit-keyframes modal-fade-in {
 			0% {
 				opacity: 0;
-				top: 48%;
+				top: 10%;
 			}
 			100% {
 				opacity: 1;
@@ -153,7 +159,7 @@
 		color: @modal-color;
 		max-width: 350px;
 		font-size: 14px;
-		display: inline-block;
+		display: inline;
 		vertical-align: text-top;
 		line-height: 26px;
 	}

@@ -13,7 +13,8 @@ class Notification extends Component {
 
 	static defaultProps = {
 		visible: false,
-		style: {},
+		modalStyle: {},
+		bodyStyle: {},
 		title: 'title',
 		children: '',
 		footer: '',
@@ -30,7 +31,8 @@ class Notification extends Component {
 
 	static propTypes = {
 		visible: PropTypes.bool,
-		style: PropTypes.object,
+		modalStyle: PropTypes.object,
+		bodyStyle: PropTypes.object,
 		title: PropTypes.string,
 		children: PropTypes.node,
 		footer: PropTypes.node,
@@ -46,26 +48,25 @@ class Notification extends Component {
 	};
 
 	render() {
-		const { visible, style, id, type, children, title, footer, hasFooter, showMask, okText, cancelText, clickMaskCanClose, showConfirmLoading, onOk, onClose, onCancel } = this.props;
+		const { visible, modalStyle, bodyStyle, id, type, children, title, footer, hasFooter, showMask, okText, cancelText, clickMaskCanClose, showConfirmLoading, onOk, onClose, onCancel } = this.props;
 		if (!visible && !showConfirmLoading) {
 			return null;
 		}
 		return (
-			<div>
+			<div className={`${prefixCls}-modal`}>
 				{/* 遮罩层 */}
 				<ModalMask
 					showMask={showMask}
 					onClose={onClose}
 					clickMaskCanClose={clickMaskCanClose}/>
 				{/* 弹出框 */}
-
-				<div className={classNames(`${prefixCls}-modal-container`)}>
+				<div className={classNames(`${prefixCls}-modal-container`)} style={modalStyle}>
 					<ModalHeader
 						id={id}
 						type={type}
 						onClose={onClose}
 						title={title}/>
-					<ModalBody style={style}>
+					<ModalBody style={bodyStyle}>
 						{children}
 					</ModalBody>
 
@@ -86,22 +87,16 @@ class Notification extends Component {
 }
 
 function ModalMask({ showMask, onClose, clickMaskCanClose }) {
-	if (!showMask) {
-		return null;
-	}
 	return (
-		<div className={classNames(`${prefixCls}-modal-mask`)} onClick={clickMaskCanClose && showMask ? onClose : () => {}}></div>
+		showMask && <div className={classNames(`${prefixCls}-modal-mask`)} onClick={clickMaskCanClose && showMask ? onClose : () => {}}/>
 	);
 }
 
 function ModalHeader({ type, title, onClose }) {
-	if (type !== 'modal') {
-		return null;
-	}
 	return (
-		<header className={classNames(`${prefixCls}-modal-header`)}>
+		type === 'modal' && <header className={classNames(`${prefixCls}-modal-header`)}>
 			<span className={classNames(`${prefixCls}-modal-title`)}>{title}</span>
-			<Icon type="close" className="close-icon" onClick={onClose}></Icon>
+			<Icon type="close" className="close-icon" onClick={onClose}/>
 		</header>
 	);
 }
@@ -119,17 +114,14 @@ function ModalFooter({ type, footer, okText, cancelText, hasFooter, showConfirmL
 	const footerClass = classNames(`${prefixCls}-modal-footer`);
 	const confirmClass = classNames(`${prefixCls}-modal-confirm-btn`);
 
-	if (!hasFooter) {
-		return null;
-	}
-	if (footer) {
+	if (hasFooter && footer) {
 		return (
 			<footer className={footerClass}>
 				{footer}
 			</footer>
 		);
 	}
-	if (type !== 'modal' && type !== 'confirm') {
+	if (hasFooter && type !== 'modal' && type !== 'confirm') {
 		return (
 			<footer className={footerClass}>
 				<Button type="primary" onClick={onCancel}>知道了</Button>
@@ -148,10 +140,7 @@ function ModalFooter({ type, footer, okText, cancelText, hasFooter, showConfirmL
 }
 
 function ConfirmLoading({ showConfirmLoading }) {
-	if (!showConfirmLoading) {
-		return null;
-	}
-	return (<span className={classNames(`${prefixCls}-modal-confirm-loading`)}></span>);
+	return (showConfirmLoading && <span className={classNames(`${prefixCls}-modal-confirm-loading`)}/>);
 }
 
 export default Notification;

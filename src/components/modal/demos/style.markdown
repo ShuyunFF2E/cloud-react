@@ -6,7 +6,7 @@ desc: 使用style属性自定义modal组件样式
 
 ```javascript
 import React from 'react';
-import { Button, Modal } from 'cloud-react';
+import { Button, Modal, Message } from 'cloud-react';
 
 export default class ModalDemo extends React.Component {
 	 constructor(props) {
@@ -31,23 +31,29 @@ export default class ModalDemo extends React.Component {
 	 };
 
 	 render() {
-	 	const defineStyle = {
-	 		width: '600px',
-	 		height: '500px',
-	 		fontSize: '20px',
-	 		color: 'green'
+	 	const modalStyle = {
+	 		width: '600px'
 	 	};
+        const bodyStyle = {
+	 		width: 'auto',
+            fontSize: '20px',
+	 		color: 'green',
+            height: '100px',
+            overflow: 'auto'
+	 	};
+
 		 return (
 			 <div>
 				 <Button type='primary' onClick={this.openBasicModal}>自定义样式弹出框</Button>
 				 <Modal
 				 	title='basic title'
-				 	style={defineStyle}
+				 	bodyStyle={bodyStyle}
+                    modalStyle={modalStyle}
 				 	visible={this.state.visible}
 				 	onOk={this.handleOk}
 				 	onCancel={this.handleOk}
 				 	onClose={this.handleOk}>
-				 	hello, this is a body content
+				 	this is a long content, this is a long content, this is a long content, this is a long content, this is a long content, this is a long content, this is a long content, this is a long content, this is a long content
 				 </Modal>
 			 </div>
 		 );
