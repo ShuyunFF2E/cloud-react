@@ -58,7 +58,7 @@ class Prompt extends React.Component{
 		if (event.keyCode === ENTER_KEY_CODE) {
 			this.handleOk();
 		}
-	}
+	};
 
 	// 删除节点
 	handleClose = () => {
@@ -107,16 +107,20 @@ class Prompt extends React.Component{
 
 	render() {
 		const { type, icon, body } = this.props;
+		const promptStyle = {
+			width: '200px'
+		};
 		return (
 			<Notification
 				visible
 				type={type}
+				modalStyle={promptStyle}
 				showConfirmLoading={this.state.showConfirmLoading}
 				onCancel={this.handleCancel}
 				onOk={this.handleOk}>
 				<div>
 					<header className="info-area">
-						<Icon type={icon} className={`icon-style ${type}-style` }></Icon>
+						<Icon type={icon} className={`icon-style ${type}-style` }/>
 						<section className="more-info">{body}</section>
 					</header>
 				</div>
