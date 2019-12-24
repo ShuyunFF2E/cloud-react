@@ -52,13 +52,12 @@ function entity(config) {
 	}
 
 	// 提示信息位置
-	if (contextContainer.tagName === 'BODY') {
+	wraper.className = `${prefixCls}-message`;
+
+	if (contextContainer.tagName !== 'BODY') {
 		wraper.className = `${prefixCls}-message`;
-	} else {
-		wraper.className = `${prefixCls}-message ${prefixCls}-message-pos`;
-		if (window.getComputedStyle(contextContainer).position === 'static') {
-			contextContainer.style.position = 'relative';
-		}
+		const { top } = contextContainer.getBoundingClientRect();
+		wraper.style.top = `${top}px`;
 	}
 
 	const container = document.createElement('div');
