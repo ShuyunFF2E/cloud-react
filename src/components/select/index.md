@@ -14,6 +14,9 @@ subtitle: 下拉选择
 | allowClear | 是否支持一键清除 | boolean | false |
 | multiple | 是否为多选 | boolean | false |
 | disabled | 下拉禁用状态 | boolean | false |
+| dataSource | 需要展示的数据，dataSource和children同时存在时以children为准 | array | [] |
+| labelkey | 指定使用的label键值，仅在使用dataSource生成组件时生效 | string | 'label' |
+| valueKey | 指定使用的value键值，仅在使用dataSource生成组件时生效 | string | 'value' |
 | defaultOpen | 默认下拉菜单展开状态 | boolean | false |
 | open | 下拉菜单展开状态，当使用此属性时组件本身open行为失效 | boolean | - |
 | placeholder | 选择框默认文案 | string | - |

@@ -81,6 +81,14 @@ export default function SelectDemo() {
 					</Option>
 				))}
 			</Select>
+
+			<Select
+				style={{ width: 200 }}
+				placeholder="xxxxx"
+				defaultValue={values}
+				onChange={handleChange}
+				dataSource={dataList}
+				multiple />
 		</div>
 	);
 }

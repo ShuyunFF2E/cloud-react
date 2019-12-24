@@ -25,6 +25,14 @@ const getSelected = (data, children) => {
 	return [];
 }
 
+const getOptions = (dataSource, labelKey, valueKey) => {
+	return dataSource.map(v => (
+		<Option value={v[valueKey]} disabled={v.disabled} key={Math.random()}>
+			{v[labelKey]}
+		</Option>
+	));
+}
+
 class Select extends Component {
 
 	static Option = Option;
@@ -32,9 +40,14 @@ class Select extends Component {
 	constructor(props) {
 		super(props);
 
-		const { open, defaultOpen, value, defaultValue, children } = props;
-		const values = value !== null ? value : defaultValue;
-		const selected = getSelected(values, children);
+		const { open, defaultOpen, value, defaultValue, multiple } = props;
+		let values;
+		if (multiple) {
+			values = value || defaultValue || [];
+		} else {
+			values = value !== null ? value : defaultValue;
+		}
+		const selected = getSelected(values, this.children);
 		this.state = {
 			open: open || defaultOpen,
 			value: values,
@@ -49,8 +62,10 @@ class Select extends Component {
 	static getDerivedStateFromProps(props, prevState) {
 		const { prevProps } = prevState;
 		if (props.value !== prevProps.value) {
-			const { value, children } = props;
-			const selected = getSelected(value, children);
+			const { value, children, dataSource, labelKey, valueKey } = props;
+			const childs = Array.isArray(children) ? children : [children];
+			const source = childs.length ? childs : getOptions(dataSource, labelKey, valueKey);
+			const selected = getSelected(value, source);
 			return {
 				value,
 				prevValue: value,
@@ -109,9 +124,20 @@ class Select extends Component {
 		return visible;
 	}
 
+	get zIndex() {
+		return this.props.zIndex;
+	}
+
+	get children() {
+		const { children, dataSource, labelKey, valueKey } = this.props;
+		const childs = Array.isArray(children) ? children : [children];
+		if (childs.length) return childs;
+		return getOptions(dataSource, labelKey, valueKey);
+	}
+
 	get optionsNode() {
 		const { multiple, searchable, hasSelectAll, hasConfirmButton, okBtnText, cancelBtnText,
-				children, onSearch, emptyRender } = this.props;
+				onSearch, emptyRender } = this.props;
 		const { value } = this.state;
 
 
@@ -119,7 +145,7 @@ class Select extends Component {
 			return (
 				<MultiSelect
 					value={value}
-					dataSource={children}
+					dataSource={this.children}
 					emptyRender={emptyRender}
 					searchable={searchable}
 					hasSelectAll={hasSelectAll}
@@ -136,7 +162,7 @@ class Select extends Component {
 		return (
 			<SingleSelect
 				value={value}
-				dataSource={children}
+				dataSource={this.children}
 				emptyRender={emptyRender}
 				searchable={searchable}
 				onChange={this.onSimpleOptionChange}
@@ -153,7 +179,7 @@ class Select extends Component {
 	}
 
 	setDefaultSelected(data) {
-		const { children } = this.props;
+		const { children } = this;
 		const selected = getSelected(data, children);
 		this.setState({ selected });
 	}
@@ -231,7 +257,8 @@ class Select extends Component {
 	}
 
 	onMultiOptionChange = data => {
-		const { labelInValue, children } = this.props;
+		const { children } = this;
+		const { labelInValue } = this.props;
 		const options = Children.map(children, child => {
 			const { children: label, value } = child.props;
 			return data.includes(value) ? { label, value } : null;
@@ -308,6 +335,9 @@ Select.propTypes = {
 	open: PropTypes.bool,
 	disabled: PropTypes.bool,
 	placeholder: PropTypes.string,
+	dataSource: PropTypes.array,
+	labelKey: PropTypes.string,
+	valueKey: PropTypes.string,
 	width: PropTypes.oneOfType([
 		PropTypes.string,
 		PropTypes.number
@@ -333,6 +363,7 @@ Select.propTypes = {
 	okBtnText: PropTypes.string,
 	cancelBtnText: PropTypes.string,
 	className: PropTypes.string,
+	zIndex: PropTypes.number,
 	children: PropTypes.node.isRequired,
 	getPopupContainer: PropTypes.func,
 	onChange: PropTypes.func,
@@ -350,6 +381,10 @@ Select.defaultProps = {
 	open: null,
 	disabled: false,
 	placeholder: '',
+	dataSource: [],
+	labelKey: 'label',
+	valueKey: 'value',
+	children: [],
 	width: 'auto',
 	searchable: false,
 	emptyRender: '暂时没有数据',
