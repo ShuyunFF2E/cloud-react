@@ -1,6 +1,6 @@
 ---
 title: 自定义Message上下文容器
-desc: '指定 message 挂载的 HTML 节点'
+desc: 指定 message 挂载的 HTML 节点
 ---
 
 ````javascript
@@ -41,7 +41,7 @@ export default class MessageDemo extends Component {
 
 	            <Modal
 					title='Message'
-					style={{width: '500px', height: '100px'}}
+					bodyStyle={{height: '100px'}}
 				    visible={this.state.visible}
 				    showMask={this.state.showMask}
 				    hasFooter={this.state.hasFooter}
