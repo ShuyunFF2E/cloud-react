@@ -32,8 +32,9 @@ export default function SelectDemo() {
 	const onClick = () => setOpen(!open);
 	const onSet = () => setValue('litchi');
 
-	const handleChange = value => {
+	const handleChange = (value, prevValue) => {
 		console.log('select --- ' + value);
+		console.log('prevSelect --- ' + prevValue);
 	};
 
 	return (
