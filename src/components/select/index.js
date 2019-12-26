@@ -2,6 +2,7 @@ import React, { Component, Children } from 'react';
 import ReactDOM from 'react-dom';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
+import jeasy from 'jeasy';
 
 import SingleSelect from './views/single-select';
 import MultiSelect from './views/multi-select';
@@ -40,7 +41,7 @@ class Select extends Component {
 	constructor(props) {
 		super(props);
 
-		const { open, defaultOpen, value, defaultValue, multiple } = props;
+		const { open, defaultOpen, value, defaultValue, multiple, labelInValue } = props;
 		let values;
 		if (multiple) {
 			values = value || defaultValue || [];
@@ -52,6 +53,7 @@ class Select extends Component {
 			open: open || defaultOpen,
 			value: values,
 			prevValue: values,
+			prevResult: labelInValue ? selected : values,
 			selected,
 			prevProps: props
 		};
@@ -61,14 +63,19 @@ class Select extends Component {
 
 	static getDerivedStateFromProps(props, prevState) {
 		const { prevProps } = prevState;
-		if (props.value !== prevProps.value) {
-			const { value, children, dataSource, labelKey, valueKey } = props;
-			const childs = Array.isArray(children) ? children : [children];
+		const { value, children, dataSource } = props;
+		const { value: prevValue, children: prevChildren, dataSource: prevData } = prevProps;
+		const childProps = Children.map(children.flat(Infinity), child => child.props);
+		const prevChildProps = Children.map(prevChildren.flat(Infinity), child => child.props);
+		if (value !== prevValue || !jeasy.equal(childProps, prevChildProps) || !jeasy.equal(dataSource, prevData)) {
+			const { labelKey, valueKey, labelInValue } = props;
+			const childs = Array.isArray(children) ? children.flat(Infinity) : Children.toArray(children);
 			const source = childs.length ? childs : getOptions(dataSource, labelKey, valueKey);
 			const selected = getSelected(value, source);
 			return {
 				value,
 				prevValue: value,
+				prevResult: labelInValue ? selected : value,
 				selected,
 				prevProps: props
 			}
@@ -130,7 +137,7 @@ class Select extends Component {
 
 	get children() {
 		const { children, dataSource, labelKey, valueKey } = this.props;
-		const childs = Array.isArray(children) ? children : [children];
+		const childs = Array.isArray(children) ? children.flat(Infinity) : Children.toArray(children);
 		if (childs.length) return childs;
 		return getOptions(dataSource, labelKey, valueKey);
 	}
@@ -242,18 +249,19 @@ class Select extends Component {
 		this.handleSelect();
 	}
 
-	onClickOption = (selected, value) => {
-		this.setState({ selected, value });
-		this.handleSelect();
-	}
-
 	onSimpleOptionChange = data => {
 		const { labelInValue, onChange } = this.props;
+		const { prevResult } = this.state;
 		const option = formatOptionSource(data);
 		const selectValue = option[0].value;
 		const checkedValue = labelInValue ? option[0] : selectValue;
-		this.onClickOption(option, selectValue);
-		onChange(checkedValue);
+		this.setState({
+			selected: option,
+			value: selectValue,
+			prevResult: checkedValue
+		});
+		this.handleSelect();
+		onChange(checkedValue, prevResult);
 	}
 
 	onMultiOptionChange = data => {
@@ -272,9 +280,14 @@ class Select extends Component {
 	}
 
 	onMultiSelectValueChange = data => {
-		const { onMultiOptionChange, props: { hasConfirmButton, onChange } } = this;
+		const { onMultiOptionChange, props: { hasConfirmButton, onChange }, state: { prevResult } } = this;
 		const checkedValue = onMultiOptionChange(data);
-		if (!hasConfirmButton) onChange(checkedValue);
+		if (!hasConfirmButton) {
+			this.setState({
+				prevResult: checkedValue
+			});
+			onChange(checkedValue, prevResult);
+		};
 	}
 
 	onClearSelected = e => {
@@ -285,17 +298,19 @@ class Select extends Component {
 		this.setState({
 			selected: [],
 			value,
-			prevValue: value
+			prevValue: value,
+			prevResult: value
 		});
 	}
 
 	handleOk = () => {
-		const { handleSelect, props: { labelInValue, onOk }, state: { selected, value } } = this;
+		const { handleSelect, props: { labelInValue, onOk }, state: { selected, value, prevResult } } = this;
 		const result = labelInValue ? selected : value;
 		this.setState({
-			prevValue: value
+			prevValue: value,
+			prevResult: result
 		});
-		onOk(result);
+		onOk(result, prevResult);
 		handleSelect();
 	};
 

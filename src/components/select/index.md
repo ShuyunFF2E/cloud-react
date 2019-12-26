@@ -32,8 +32,8 @@ subtitle: 下拉选择
 | className | 下拉菜单的 className 属性 | string | - |
 | zIndex | 下拉菜单的 zIndex | number | 1050 |
 | getPopupContainer | 下拉菜单渲染的父节点。如果发现下拉菜单被挡住，可以尝试修改定位父元素，如() => document.body | function(triggerNode) | triggerNode => triggerNode.parentElement |
-| onChange | 选中option变化时回调此函数 | function(value) | - |
-| onOk | 多选时确认操作回调函数| function(value: array) | - |
+| onChange | 选中option变化时回调此函数 | function(value, oldValue) | - |
+| onOk | 多选时确认操作回调函数| function(value: array, oldValue: array) | - |
 | onCancel | 多选时取消操作回调函数 | function | - |
 | onSearch | 搜索文本框变化时回调此函数 | function(value: string) | - |
 | onSelectOpen | 下拉选择框弹开的时候回调此函数 | function | - |
