@@ -35,17 +35,23 @@ export default class Selected extends React.Component {
 	}
 
 	onWrapperClick = () => {
-		const { disabled, onClick } = this.props;
-		if (disabled) return;
+		const { disabled, trigger, onClick } = this.props;
+		if (disabled || trigger !== 'click') return;
 
 		onClick();
 	}
 
 	onMouseEnter = () => {
-		if (this.props.allowClear) {
-			this.setState({
-				clear: true
-			});
+		const { disabled, open, trigger, allowClear, onClick } = this.props;
+		if (!disabled) {
+			if (trigger === 'hover' && !open) {
+				onClick();
+			}
+			if (allowClear) {
+				this.setState({
+					clear: true
+				});
+			}
 		}
 	}
 
@@ -58,10 +64,14 @@ export default class Selected extends React.Component {
 	}
 
 	render() {
-		const { props: { dataSource, disabled, placeholder, open, onClear },
+		const { props: { dataSource, disabled, placeholder, open, onClear, showArrow, showSelectStyle },
 				state: { selectStr, clear }, onMouseEnter, onMouseLeave } = this;
 
-		const classNames = classnames(`${selector}-wrapper`, { disabled, empty: !dataSource.length });
+		const classNames = classnames(`${selector}-wrapper`, {
+			disabled,
+			empty: !dataSource.length,
+			hidden: !showSelectStyle
+		});
 		const iconClasses = classnames(`${selector}-select-icon`, {
 			open,
 			close: !open,
@@ -82,7 +92,10 @@ export default class Selected extends React.Component {
 					{ selectStr || placeholder }
 				</span>
 				<Icon type="close-circle-solid" className={clearClasses} onClick={onClear} />
-				<Icon type="down-solid" className={iconClasses} />
+				{
+					showArrow &&
+					<Icon type="down-solid" className={iconClasses} />
+				}
 			</div>
 		);
 	}
@@ -97,6 +110,9 @@ Selected.propTypes = {
 		PropTypes.array
 	]),
 	placeholder: PropTypes.string,
+	showArrow: PropTypes.bool,
+	showSelectStyle: PropTypes.bool,
+	trigger: PropTypes.string,
 	onClick: PropTypes.func,
 	onClear: PropTypes.func
 }
@@ -107,6 +123,9 @@ Selected.defaultProps = {
 	open: false,
 	dataSource: [],
 	placeholder: '',
+	showArrow: true,
+	showSelectStyle: true,
+	trigger: 'click',
 	onClick: () => {},
 	onClear: () => {}
 }

@@ -322,7 +322,7 @@ class Select extends Component {
 	}
 
 	render() {
-		const { placeholder, disabled, allowClear, style, className } = this.props;
+		const { placeholder, disabled, allowClear, style, className, ...otherProps } = this.props;
 		const { selected, open } = this.state;
 		const classNames = classnames(`${selector}`, { [`${selector}-open`]: open }, className);
 
@@ -330,6 +330,7 @@ class Select extends Component {
 			<div className={`${classNames}`} style={style} ref={this.node}>
 				{/* 已选显示区域 */}
 				<Selected
+					{...otherProps}
 					ref={this.selectedNode}
 					onClick={this.onClickSelected}
 					onClear={this.onClearSelected}
