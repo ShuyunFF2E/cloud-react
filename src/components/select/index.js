@@ -109,10 +109,6 @@ class Select extends Component {
 		return visible;
 	}
 
-	get zIndex() {
-		return this.props.zIndex;
-	}
-
 	get optionsNode() {
 		const { multiple, searchable, hasSelectAll, hasConfirmButton, okBtnText, cancelBtnText,
 				children, onSearch, emptyRender } = this.props;
@@ -177,12 +173,12 @@ class Select extends Component {
 	getOptionsContainer() {
 		if (!this.optionsContainer) {
 			this.optionsContainer = document.createElement('div');
+			this.optionsContainer.classList.add(`${selector}-option-container`);
 			this.popupContainer.appendChild(this.optionsContainer);
 		}
-		const { optionsContainer, zIndex } = this;
+		const { optionsContainer } = this;
 		const [ left, top, width ] = this.getOptionsNodePosition();
 		optionsContainer.style.position = 'absolute';
-		optionsContainer.style.zIndex = zIndex;
 		optionsContainer.style.top = `${top}px`;
 		optionsContainer.style.left = `${left}px`;
 		optionsContainer.style.minWidth = `${width}px`;
@@ -337,7 +333,6 @@ Select.propTypes = {
 	okBtnText: PropTypes.string,
 	cancelBtnText: PropTypes.string,
 	className: PropTypes.string,
-	zIndex: PropTypes.number,
 	children: PropTypes.node.isRequired,
 	getPopupContainer: PropTypes.func,
 	onChange: PropTypes.func,
@@ -366,7 +361,6 @@ Select.defaultProps = {
 	okBtnText: '确认',
 	cancelBtnText: '取消',
 	className: '',
-	zIndex: 1050,
 	getPopupContainer: triggerNode => triggerNode.parentElement,
 	onChange: () => {},
 	onSearch: () => {},
