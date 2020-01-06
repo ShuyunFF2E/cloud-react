@@ -1,5 +1,5 @@
 ---
-order: 1
+order: 2
 title: Radio.Group
 desc: 控制内部Radio是否禁用
 ---
