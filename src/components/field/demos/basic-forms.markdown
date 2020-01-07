@@ -20,6 +20,10 @@ export default class FormHorizontalDemo extends React.Component {
 	onReset() {
 		this.field.reset();
 	}
+        
+    getValues() {
+        console.log(this.field.getValues());
+    }
 
 	render() {
 		const { init } = this.field;
@@ -118,7 +122,8 @@ export default class FormHorizontalDemo extends React.Component {
 
 				<Form.Item wrapperCol={{ offset: 6 }}>
 					<Button type="primary" style={{ marginRight: 10 }} onClick={this.onValidate.bind(this)}>提交</Button>
-					<Button onClick={this.onReset.bind(this)}>重置</Button>
+					<Button style={{ marginRight: 10 }} onClick={this.onReset.bind(this)}>重置</Button>
+					<Button onClick={this.getValues.bind(this)}>获取所有值</Button>
 				</Form.Item>
 			</Form>
 		)
