@@ -57,10 +57,7 @@ export default class Field {
 		return '';
 	}
 
-	getValues = (names = []) => {
-		if (names.length <= 0) {
-			return {};
-		}
+	getValues = (names = Object.keys(this.fieldsMeta)) => {
 
 		const result = {};
 
@@ -69,7 +66,7 @@ export default class Field {
 		});
 
 		return result;
-	}
+	};
 
 	getValue = name => {
 		if (!(name in this.fieldsMeta)) {
