@@ -18,8 +18,8 @@ function getWeekDisplayRange(year, month) {
 	return [new Date(yy, mm - 1, 1).getDay(), new Date(yy, mm, 0).getDay()];
 }
 // 获取当前年月日时分秒对象
-function displayNow(date) {
-	const now = date || current();
+function displayNow(date = current()) {
+	const now = new Date(date)
 	const newHour = `0${now.getHours()}`;
 	const newMinute = `0${now.getMinutes()}`;
 	const newSecond = `0${now.getSeconds()}`;
