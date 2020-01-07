@@ -23,14 +23,18 @@ function YearPicker(props) {
 	const [visible, setVisible] = useState(open);
 	const [suffix, setSuffix] = useState(calendarIcon);
 
-	function onPopChange(output) {
+	function onValueChange(output = '') {
 		setCurrentValue(output);
+		onChange(output);
+	}
+
+	function onPopChange(output) {
+		onValueChange(output)
 		// eslint-disable-next-line no-use-before-define
 		changeVisible(null, false);
 		if (hasClear) {
 			setSuffix(null);
 		}
-		onChange(output);
 	}
 
 	function changeVisible(evt, isVisible) {
@@ -68,6 +72,12 @@ function YearPicker(props) {
 	useEffect(() => {
 		setVisible(open);
 	}, [open]);
+
+	useEffect(() => {
+		if(value) {
+			onValueChange(value);
+		}
+	}, [value]);
 
 	function onInpClick(evt) {
 		// 阻止合成事件的冒泡
