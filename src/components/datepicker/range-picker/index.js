@@ -62,7 +62,7 @@ function RangePicker(props) {
 	}, [value]);
 
 	useEffect(() => {
-		setMinTempDate(minDate);
+		setMinTempDate(new Date(new Date(minDate).setHours(0, 0, 0, 0)));
 		setMaxTempDate(maxDate);
 	}, [minDate, maxDate]);
 
