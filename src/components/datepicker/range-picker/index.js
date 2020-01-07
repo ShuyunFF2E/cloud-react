@@ -172,7 +172,10 @@ RangePicker.propTypes = {
 	hasClear: PropTypes.bool,
 	placeholder: PropTypes.arrayOf(PropTypes.string),
 	defaultValue: PropTypes.arrayOf(PropTypes.instanceOf(Date)),
-	value: PropTypes.arrayOf(PropTypes.instanceOf(Date)),
+	value: PropTypes.oneOfType([
+		PropTypes.arrayOf(PropTypes.instanceOf(Date)),
+		PropTypes.arrayOf(PropTypes.string)
+	]),
 	open: PropTypes.bool,
 	position: PropTypes.oneOf([
 		enumObj.AUTO,
