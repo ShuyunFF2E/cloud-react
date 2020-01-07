@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import Input from '../../input';
 import Popup from './popup';
@@ -52,6 +52,19 @@ function RangePicker(props) {
 
 	const [minTempDate, setMinTempDate] = useState(minDate || minDefaultDate);
 	const [maxTempDate, setMaxTempDate] = useState(maxDate || maxDefaultDate);
+	const memoValue = useMemo(() => {}, [value])
+
+	function onValueChange (arr) {
+		let newArr = arr;
+		// 增加代码健壮性，如果日期顺序不对，则进行reverse后正确显示
+		if (arr[1] < arr[0]) {
+			newArr = arr.reverse();
+		}
+		setCurrentValueDate(newArr);
+		const output = [util.convert(util.displayNow(newArr[0]), fmt), util.convert(util.displayNow(newArr[1]), fmt)];
+		setCurrentValue(output);
+		onChange(output, arr);
+	}
 
 	useEffect(() => {
 		setVisible(open);
@@ -62,25 +75,25 @@ function RangePicker(props) {
 	}, [value]);
 
 	useEffect(() => {
+		setControlled(typeof value !== 'undefined');
+		if(value && value[0]) {
+			onValueChange(value)
+		}
+	}, [memoValue]);
+
+
+	useEffect(() => {
 		setMinTempDate(new Date(new Date(minDate).setHours(0, 0, 0, 0)));
 		setMaxTempDate(maxDate);
 	}, [minDate, maxDate]);
 
 	function onPopChange(arr) {
-		let newArr = arr;
-		// 增加代码健壮性，如果日期顺序不对，则进行reverse后正确显示
-		if (arr[1] < arr[0]) {
-			newArr = arr.reverse();
-		}
-		setCurrentValueDate(newArr);
-		const output = [util.convert(util.displayNow(newArr[0]), fmt), util.convert(util.displayNow(newArr[1]), fmt)];
-		setCurrentValue(output);
+		onValueChange(arr)
 		// eslint-disable-next-line no-use-before-define
 		changeVisible(null, false);
 		if (hasClear) {
 			setSuffix(null);
 		}
-		onChange(output, newArr);
 	}
 
 	function changeVisible(evt, isVisible) {

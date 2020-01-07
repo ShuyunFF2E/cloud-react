@@ -36,6 +36,16 @@ function DatePicker(props) {
 	});
 	const [suffix, setSuffix] = useState(calendarIcon);
 
+	function onValueChange(obj = {}) {
+		const dpArr = [`${obj.year}/${formatZero(obj.month)}/${formatZero(obj.day)}`];
+		const str = showTimePicker ? dpArr.push(` ${formatZero(obj.hour)}:${formatZero(obj.minute)}:${formatZero(obj.second)}`) && dpArr.toString() : dpArr.toString();
+		const outputDate = new Date(str);
+		const output = util.convert(util.displayNow(outputDate), fmt);
+		setCurrentValue(output);
+		setCurrentValueDate(outputDate);
+		onChange(output);
+	}
+
 	useEffect(() => {
 		setVisible(open);
 	}, [open]);
@@ -44,21 +54,21 @@ function DatePicker(props) {
 		fmt = getFormat(showTimePicker, mode);
 	}, [showTimePicker, mode]);
 
+	useEffect(() => {
+		if(value) {
+			onValueChange(util.displayNow(value));
+		}
+	}, [value]);
+
 	function onPopChange(obj) {
 		if (obj) {
-			const dpArr = [`${obj.year}/${formatZero(obj.month)}/${formatZero(obj.day)}`];
-			const str = showTimePicker ? dpArr.push(` ${formatZero(obj.hour)}:${formatZero(obj.minute)}:${formatZero(obj.second)}`) && dpArr.toString() : dpArr.toString();
-			const outputDate = new Date(str);
-			const output = util.convert(util.displayNow(outputDate), fmt);
-			setCurrentValue(output);
-			setCurrentValueDate(outputDate);
+			onValueChange(obj)
 			// eslint-disable-next-line no-use-before-define
 			changeVisible(null, false);
 			// 有clear Icon时，日历Icon不显示
 			if (hasClear) {
 				setSuffix(null);
 			}
-			onChange(output);
 		}
 	}
 	// 响应事件，渲染或者 卸载DOM
@@ -152,7 +162,10 @@ DatePicker.propTypes =  {
 	open: PropTypes.bool,
 	hasClear: PropTypes.bool,
 	defaultValue: PropTypes.instanceOf(Date),
-	value: PropTypes.instanceOf(Date),
+	value: PropTypes.oneOfType([
+		PropTypes.instanceOf(Date),
+		PropTypes.string
+	]),
 	maxDate: PropTypes.instanceOf(Date),
 	minDate: PropTypes.instanceOf(Date),
 	// 显示今天按钮，当showTimePicker为false时有效
