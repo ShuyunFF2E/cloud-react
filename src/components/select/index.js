@@ -2,6 +2,7 @@ import React, { Component, Children } from 'react';
 import ReactDOM from 'react-dom';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
+import jeasy from 'jeasy';
 
 import SingleSelect from './views/single-select';
 import MultiSelect from './views/multi-select';
@@ -25,6 +26,14 @@ const getSelected = (data, children) => {
 	return [];
 }
 
+const getOptions = (dataSource, labelKey, valueKey) => {
+	return dataSource.map(v => (
+		<Option value={v[valueKey]} disabled={v.disabled} key={Math.random()}>
+			{v[labelKey]}
+		</Option>
+	));
+}
+
 class Select extends Component {
 
 	static Option = Option;
@@ -32,13 +41,22 @@ class Select extends Component {
 	constructor(props) {
 		super(props);
 
-		const { open, defaultOpen, value, defaultValue, children } = props;
-		const values = value !== null ? value : defaultValue;
-		const selected = getSelected(values, children);
+		const { open, defaultOpen, value, defaultValue, multiple, labelInValue } = props;
+
+		let values;
+		if (multiple) {
+			values = value || defaultValue || [];
+		} else {
+			values = value !== null ? value : defaultValue;
+		}
+
+		const selected = getSelected(values, this.children);
+
 		this.state = {
 			open: open || defaultOpen,
 			value: values,
 			prevValue: values,
+			prevResult: labelInValue ? selected : values,
 			selected,
 			prevProps: props
 		};
@@ -47,17 +65,28 @@ class Select extends Component {
 	}
 
 	static getDerivedStateFromProps(props, prevState) {
+
 		const { prevProps } = prevState;
-		if (props.value !== prevProps.value) {
-			const { value, children } = props;
-			const selected = getSelected(value, children);
+		const { value, children, dataSource } = props;
+		const { value: prevValue, children: prevChildren, dataSource: prevData } = prevProps;
+		const childProps = Children.map(children.flat(Infinity), child => child.props);
+		const prevChildProps = Children.map(prevChildren.flat(Infinity), child => child.props);
+
+		if (value !== prevValue || !jeasy.equal(childProps, prevChildProps) || !jeasy.equal(dataSource, prevData)) {
+
+			const { labelKey, valueKey, labelInValue } = props;
+			const childs = Array.isArray(children) ? children.flat(Infinity) : Children.toArray(children);
+			const source = childs.length ? childs : getOptions(dataSource, labelKey, valueKey);
+			const selected = getSelected(value, source);
 			return {
 				value,
 				prevValue: value,
+				prevResult: labelInValue ? selected : value,
 				selected,
 				prevProps: props
 			}
 		}
+
 		return null;
 	}
 
@@ -66,10 +95,12 @@ class Select extends Component {
 	}
 
 	shouldComponentUpdate(nextProps, nextState) {
+
 		const { disabled, width, open: propOpen, searchable } = nextProps;
 		const { open, value, selected } = nextState;
 		const { disabled: prevDisabled, width: prevWidth, open: prevPropOpen, searchable: prevSearchable } = this.props;
 		const { open: prevOpen, value: prevValue, selected: prevSelected } = this.state;
+
 		return disabled !== prevDisabled ||
 			width !== prevWidth ||
 			propOpen !== prevPropOpen ||
@@ -80,7 +111,9 @@ class Select extends Component {
 	}
 
 	componentDidUpdate() {
+
 		const { visible } = this;
+
 		if (visible) this.getOptionsContainer();
 		if (this.optionsContainer) {
 			if (visible) {
@@ -92,9 +125,11 @@ class Select extends Component {
 	}
 
 	componentWillUnmount() {
+
 		document.removeEventListener('click', this.handleClick);
 
 		const { optionsContainer } = this;
+
 		if (optionsContainer) {
 			const parentEle = optionsContainer.parentElement;
 			ReactDOM.unmountComponentAtNode(optionsContainer);
@@ -103,9 +138,11 @@ class Select extends Component {
 	}
 
 	get visible() {
+
 		const { open: propOpen } = this.props;
 		const { open } = this.state;
 		const visible = propOpen !== null ? propOpen : open;
+
 		return visible;
 	}
 
@@ -113,9 +150,20 @@ class Select extends Component {
 		return this.props.zIndex;
 	}
 
+	get children() {
+
+		const { children, dataSource, labelKey, valueKey } = this.props;
+		const childs = Array.isArray(children) ? children.flat(Infinity) : Children.toArray(children);
+
+		if (childs.length) return childs;
+
+		return getOptions(dataSource, labelKey, valueKey);
+	}
+
 	get optionsNode() {
+
 		const { multiple, searchable, hasSelectAll, hasConfirmButton, okBtnText, cancelBtnText,
-				children, onSearch, emptyRender } = this.props;
+				onSearch, emptyRender } = this.props;
 		const { value } = this.state;
 
 
@@ -123,7 +171,7 @@ class Select extends Component {
 			return (
 				<MultiSelect
 					value={value}
-					dataSource={children}
+					dataSource={this.children}
 					emptyRender={emptyRender}
 					searchable={searchable}
 					hasSelectAll={hasSelectAll}
@@ -140,7 +188,7 @@ class Select extends Component {
 		return (
 			<SingleSelect
 				value={value}
-				dataSource={children}
+				dataSource={this.children}
 				emptyRender={emptyRender}
 				searchable={searchable}
 				onChange={this.onSimpleOptionChange}
@@ -157,41 +205,52 @@ class Select extends Component {
 	}
 
 	setDefaultSelected(data) {
-		const { children } = this.props;
+
+		const { children } = this;
 		const selected = getSelected(data, children);
+
 		this.setState({ selected });
 	}
 
 	getOptionsNodePosition() {
+
 		const selectedNodePosition = this.selectedContainer.getBoundingClientRect();
 		const { height, width } = selectedNodePosition;
+
 		if (this.popupContainer === document.body) {
 			const nodePosition = this.node.current.getBoundingClientRect();
 			const { left, top } = nodePosition;
 			return [ left, top + height, width ];
 		}
 		const { offsetLeft, offsetTop } = this.selectedContainer;
+
 		return [ offsetLeft, offsetTop + height, width ];
 	}
 
 	getOptionsContainer() {
+
 		if (!this.optionsContainer) {
 			this.optionsContainer = document.createElement('div');
+			this.optionsContainer.classList.add(`${selector}-option-container`);
 			this.popupContainer.appendChild(this.optionsContainer);
 		}
-		const { optionsContainer, zIndex } = this;
+
+		const { optionsContainer } = this;
 		const [ left, top, width ] = this.getOptionsNodePosition();
+
 		optionsContainer.style.position = 'absolute';
-		optionsContainer.style.zIndex = zIndex;
 		optionsContainer.style.top = `${top}px`;
 		optionsContainer.style.left = `${left}px`;
 		optionsContainer.style.minWidth = `${width}px`;
+
 		return optionsContainer;
 	}
 
 	handleClick = e => {
+
 		const { open, prevValue } = this.state;
 		const isClickSelect = this.node.current.contains(e.target) || (this.optionsContainer && this.optionsContainer.contains(e.target));
+
 		if (!isClickSelect && open) {
 			const { onSelectClose, open: propOpen, hasConfirmButton } = this.props;
 			onSelectClose();
@@ -201,13 +260,16 @@ class Select extends Component {
 	}
 
 	handleSelect = () => {
+
 		const { open } = this.state;
 		const { onSelectOpen, onSelectClose, open: propOpen } = this.props;
+
 		if (open) {
 			onSelectClose();
 		} else {
 			onSelectOpen();
 		}
+
 		if (propOpen === null) this.setState({ open: !open });
 	}
 
@@ -220,71 +282,97 @@ class Select extends Component {
 		this.handleSelect();
 	}
 
-	onClickOption = (selected, value) => {
-		this.setState({ selected, value });
-		this.handleSelect();
-	}
-
 	onSimpleOptionChange = data => {
+
 		const { labelInValue, onChange } = this.props;
+		const { prevResult } = this.state;
 		const option = formatOptionSource(data);
 		const selectValue = option[0].value;
 		const checkedValue = labelInValue ? option[0] : selectValue;
-		this.onClickOption(option, selectValue);
-		onChange(checkedValue);
+
+		this.setState({
+			selected: option,
+			value: selectValue,
+			prevResult: checkedValue
+		});
+
+		this.handleSelect();
+		onChange(checkedValue, prevResult);
 	}
 
 	onMultiOptionChange = data => {
-		const { labelInValue, children } = this.props;
+
+		const { children } = this;
+		const { labelInValue } = this.props;
 		const options = Children.map(children, child => {
 			const { children: label, value } = child.props;
 			return data.includes(value) ? { label, value } : null;
 		});
 		const values = options.map(v => v.value);
+
 		this.setState({
 			selected: options,
 			value: values
 		});
+
 		return labelInValue ? options : values;
 	}
 
 	onMultiSelectValueChange = data => {
-		const { onMultiOptionChange, props: { hasConfirmButton, onChange } } = this;
+
+		const { onMultiOptionChange, props: { hasConfirmButton, onChange }, state: { prevResult } } = this;
 		const checkedValue = onMultiOptionChange(data);
-		if (!hasConfirmButton) onChange(checkedValue);
+
+		if (!hasConfirmButton) {
+			this.setState({
+				prevResult: checkedValue
+			});
+			onChange(checkedValue, prevResult);
+		};
 	}
 
 	onClearSelected = e => {
+
 		e.preventDefault();
 		e.stopPropagation();
+
 		const { multiple } = this.props;
 		const value = multiple ? [] : '';
+
 		this.setState({
 			selected: [],
 			value,
-			prevValue: value
+			prevValue: value,
+			prevResult: value
 		});
 	}
 
 	handleOk = () => {
-		const { handleSelect, props: { labelInValue, onOk }, state: { selected, value } } = this;
+
+		const { handleSelect, props: { labelInValue, onOk }, state: { selected, value, prevResult } } = this;
 		const result = labelInValue ? selected : value;
+
 		this.setState({
-			prevValue: value
+			prevValue: value,
+			prevResult: result
 		});
-		onOk(result);
+
+		onOk(result, prevResult);
 		handleSelect();
 	};
 
 	handleCancel = () => {
+
 		const { onMultiOptionChange, handleSelect, props: { onCancel }, state: { prevValue } } = this;
+
 		onMultiOptionChange(prevValue);
 		onCancel();
 		handleSelect();
 	}
 
 	render() {
-		const { placeholder, disabled, allowClear, style, className } = this.props;
+
+		const { placeholder, disabled, allowClear, style, className, ...otherProps } = this.props;
 		const { selected, open } = this.state;
 		const classNames = classnames(`${selector}`, { [`${selector}-open`]: open }, className);
 
@@ -292,6 +380,7 @@ class Select extends Component {
 			<div className={`${classNames}`} style={style} ref={this.node}>
 				{/* 已选显示区域 */}
 				<Selected
+					{...otherProps}
 					ref={this.selectedNode}
 					onClick={this.onClickSelected}
 					onClear={this.onClearSelected}
@@ -312,6 +401,9 @@ Select.propTypes = {
 	open: PropTypes.bool,
 	disabled: PropTypes.bool,
 	placeholder: PropTypes.string,
+	dataSource: PropTypes.array,
+	labelKey: PropTypes.string,
+	valueKey: PropTypes.string,
 	width: PropTypes.oneOfType([
 		PropTypes.string,
 		PropTypes.number
@@ -338,7 +430,7 @@ Select.propTypes = {
 	cancelBtnText: PropTypes.string,
 	className: PropTypes.string,
 	zIndex: PropTypes.number,
-	children: PropTypes.node.isRequired,
+	children: PropTypes.node,
 	getPopupContainer: PropTypes.func,
 	onChange: PropTypes.func,
 	onSearch: PropTypes.func,
@@ -355,6 +447,10 @@ Select.defaultProps = {
 	open: null,
 	disabled: false,
 	placeholder: '',
+	dataSource: [],
+	labelKey: 'label',
+	valueKey: 'value',
+	zIndex: 1050,
 	width: 'auto',
 	searchable: false,
 	emptyRender: '暂时没有数据',
@@ -366,7 +462,7 @@ Select.defaultProps = {
 	okBtnText: '确认',
 	cancelBtnText: '取消',
 	className: '',
-	zIndex: 1050,
+	children: [],
 	getPopupContainer: triggerNode => triggerNode.parentElement,
 	onChange: () => {},
 	onSearch: () => {},

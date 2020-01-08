@@ -6,13 +6,14 @@ import { timeSelector } from '../util/view-common';
 
 function TimePicker(props) {
 	const { value, defaultValue, className, style, disabled, onChange, onBlur } = props;
-	const controlled = typeof value !== 'undefined';
+	const controlled = typeof value !== 'undefined'  && value;
 	const inpMinuteRef = React.createRef();
 	const inpSecondRef = React.createRef();
 
 	function getInitValue() {
 		if (controlled) {
-			return value ? value.split(':') : ['00', '00', '00'];
+			return typeof value === 'string' ?
+			value.split(':') : [value.hour,value.minute,value.second];
 		} if (defaultValue !== undefined) {
 			return defaultValue.split(':')
 		}
@@ -25,10 +26,15 @@ function TimePicker(props) {
 
 	useEffect(() => {
 		if (value) {
-			const arr = value.split(':');
-			setHour(utils.formatTime(arr[0]));
-			setMinute(utils.formatTime(arr[1]));
-			setSecond(utils.formatTime(arr[2]));
+			// issue #117
+			const arr = typeof value === 'string' ? 
+			value.split(':').map(e => {
+				return utils.formatTime(e)
+			}) :
+			[value.hour,value.minute,value.second];
+			setHour(arr[0]);
+			setMinute(arr[1]);
+			setSecond(arr[2]);
 			return;
 		}
 		setHour('00');
@@ -115,7 +121,10 @@ function TimePicker(props) {
 TimePicker.propTypes = {
 	className: PropTypes.string,
 	style: PropTypes.object,
-	value: PropTypes.string,
+	value: PropTypes.oneOfType([
+		PropTypes.object,
+		PropTypes.string
+	]),
 	defaultValue: PropTypes.string,
 	disabled: PropTypes.bool,
 	onChange: PropTypes.func,

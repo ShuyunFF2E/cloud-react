@@ -17,11 +17,11 @@ const dataList = [
 	},
 	{
 		label: '草莓',
-		value: undefined
+		value: 'cc'
 	},
 	{
 		label: '荔枝',
-		value: null
+		value: 'lizhi'
 	},
 	{
 		label: '特别特别长的选项特别特别长的选项特别特别长的选项特别特别长的选项特别特别长的选项',
@@ -42,7 +42,7 @@ export default function SelectDemo() {
 	const closeModal = () => setVisible(false);
 
 	return (
-		<div style={{height:200}}>
+		<div style={{height:230}}>
 			<Select
 				placeholder="请选择..."
 				defaultValue={4}
@@ -76,7 +76,7 @@ export default function SelectDemo() {
 				</Modal>
 			</div>
 
-			<Tabs defaultActiveKey="eat">
+			<Tabs defaultActiveKey="eat" style={{margin: '20px 0'}}>
 				<Tabs.Panel tab="选项1" key='1'>
 						<Select
 							placeholder="请选择..."
@@ -90,6 +90,11 @@ export default function SelectDemo() {
 				</Tabs.Panel>
 				<Tabs.Panel tab="吃饭" key="eat">吃饭啊啊啊啊啊</Tabs.Panel>
 			</Tabs>
+
+			<div>
+				使用dataSource快速生成Select：
+				<Select placeholder="xxxxx" defaultValue="xxxxxx" onChange={handleChange} dataSource={dataList} />
+			</div>
 		</div>
 	);
 }

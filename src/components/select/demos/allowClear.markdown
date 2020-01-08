@@ -30,8 +30,9 @@ const dataList = [
 ];
 
 export default function SelectDemo() {
-	const handleChange = value => {
+	const handleChange = (value, prevValue) => {
 		console.log('select --- ' + value);
+		console.log('prevSelect --- ' + prevValue);
 	};
 
 	return (

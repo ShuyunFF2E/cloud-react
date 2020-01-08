@@ -103,6 +103,19 @@
 			}
 		}
 
+		&.hidden {
+			background: transparent;
+			border: none;
+
+			&:hover {
+				border: none;
+			}
+
+			.@{select-prefix-cls}-selected {
+				background: transparent;
+			}
+		}
+
 		.@{select-prefix-cls}-selected {
 			flex: 1 0;
 			padding: @default-padding;
@@ -148,10 +161,18 @@
 	.@{select-prefix-cls}-wrapper {
 		border: @select-hover-border;
 
+		&.hidden {
+			border: none;
+		}
+
 		.@{select-prefix-cls}-select-icon {
 			color: @select-hover-color;
 		}
 	}
+}
+
+.@{select-prefix-cls}-option-container {
+	z-index: @z-index-dropdown;
 }
 
 .@{select-prefix-cls}-select-options {

@@ -26,8 +26,8 @@ const dataList = [
 ];
 
 export default function SelectDemo() {
-	const handleChange = value => {
-		console.log(value);
+	const handleChange = (value, prevValue) => {
+		console.log(value, prevValue);
 	};
 
 	const handleOpen = () => console.log('open');
@@ -47,6 +47,7 @@ export default function SelectDemo() {
 				style={{ margin: '0 10px 10px 0', width: 200 }}
 				multiple
 				searchable
+				allowClear
 			>
 				{dataList.map((item, index) => (
 					<Option
@@ -81,6 +82,16 @@ export default function SelectDemo() {
 					</Option>
 				))}
 			</Select>
+
+			<Select
+				style={{ width: 200 }}
+				placeholder="xxxxx"
+				defaultValue={values}
+				onChange={handleChange}
+				dataSource={dataList}
+				multiple
+				allowClear
+				labelInValue />
 		</div>
 	);
 }

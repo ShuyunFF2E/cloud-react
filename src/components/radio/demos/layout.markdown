@@ -1,5 +1,5 @@
 ---
-order: 1
+order: 4
 title: Radio.Group
 desc: 布局（horizontal|vertical）
 ---

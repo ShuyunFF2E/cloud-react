@@ -30,8 +30,9 @@ const dataList = [
 ];
 
 export default function SelectDemo() {
-	const onOk = value => {
-		console.log(value);
+	const onOk = (value, prevValue) => {
+		console.log('select --- ' + value);
+		console.log('prevSelect --- ' + prevValue);
 	};
 
 	const onCancel = () => {

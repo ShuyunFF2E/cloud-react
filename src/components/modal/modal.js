@@ -109,11 +109,16 @@ function ModalBody({ style, children }) {
 	);
 }
 
+/**
+ * @return {null}
+ */
 function ModalFooter({ type, footer, okText, cancelText, hasFooter, showConfirmLoading, onCancel, onOk }) {
 
 	const footerClass = classNames(`${prefixCls}-modal-footer`);
 	const confirmClass = classNames(`${prefixCls}-modal-confirm-btn`);
-
+	if (!hasFooter) {
+		return null;
+	}
 	if (hasFooter && footer) {
 		return (
 			<footer className={footerClass}>
