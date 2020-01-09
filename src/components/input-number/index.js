@@ -60,6 +60,7 @@ function InputNumber(props) {
 		val = getCurrentValue(val, min, max, currentPrecision);
 		setCurrentValue(val);
 		onBlur(val);
+		onChange(val);
 	}
 
 	function handleFocus() {
