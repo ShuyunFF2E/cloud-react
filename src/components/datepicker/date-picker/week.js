@@ -35,9 +35,9 @@ function Week(props) {
 				if (inMonth) {
 					date = `${year}/${month}/${o}`;
 				} else if (!inMonth && i < idx) {
-					date = `${year}/${month - 1}/${o}`;
+					date = month > 1 ? `${year}/${month - 1}/${o}` : `${year - 1}/12/${o}`;
 				} else if (!inMonth && i > idx - 1) {
-					date = `${year}/${month + 1}/${o}`;
+					date = month < 12 ? `${year}/${month + 1}/${o}` : `${year + 1}/01/${o}`;
 				}
 				const isToday = inMonth && (`${year}-${month}-${o}` === today);
 				let isCheck = false;

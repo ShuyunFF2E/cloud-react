@@ -77,6 +77,7 @@ function DatePicker(props) {
 	// 响应事件，渲染或者 卸载DOM
 	function changeVisible(evt, isVisible) {
 		if(isVisible && id) {
+			setVisible(true);
 			createWrapper(id);
 			const checkDate = currentValueDate;
 			const { HEIGHT_DEFAULT, HEIGHT_TIME } = datepickerUI;
@@ -97,8 +98,7 @@ function DatePicker(props) {
 				onChange={onPopChange}
 			/>);
 			return;
-		}
-		setVisible(false);
+		} 
 		destroyDOM(id);
 	}
 	// 组件渲染时，仅注册一次相关事件
@@ -108,7 +108,10 @@ function DatePicker(props) {
 			changeVisible(null, visible);
 		}
 		return () => {
-			document.removeEventListener('click', changeVisible, false);
+			// fix issue 121
+			setTimeout(() => {
+				document.removeEventListener('click', changeVisible, false);
+			},0)
 		}
     }, []);
 
@@ -120,7 +123,6 @@ function DatePicker(props) {
 		// 如果不可见则显示面板
         if (!visible || !document.getElementById(id)) {
 			destroyAllDOM();
-			setVisible(true);
             changeVisible(evt, true);
         }
 	}

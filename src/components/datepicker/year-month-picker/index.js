@@ -42,6 +42,7 @@ function YearMonthPicker(props) {
 
 	function changeVisible(evt, isVisible) {
 		if (isVisible && id) {
+			setVisible(true);
 			createWrapper(id);
 			const checkValue = currentValue;
 			const { HEIGHT_MONTH } = datepickerUI;
@@ -58,7 +59,6 @@ function YearMonthPicker(props) {
 			/>);
 			return;
 		}
-		setVisible(false);
 		destroyDOM(id);
 	}
 
@@ -69,7 +69,9 @@ function YearMonthPicker(props) {
 			changeVisible(null, visible);
 		}
 		return () => {
-			document.removeEventListener('click', changeVisible, false);
+			setTimeout(() => {
+				document.removeEventListener('click', changeVisible, false);
+			},0)
 		}
     }, []);
 
@@ -92,7 +94,6 @@ function YearMonthPicker(props) {
 		if (!visible || !document.getElementById(id)) {
 			// 先释放其他面板
 			destroyAllDOM();
-			setVisible(true);
 			changeVisible(evt, true);
 		}
 	}
