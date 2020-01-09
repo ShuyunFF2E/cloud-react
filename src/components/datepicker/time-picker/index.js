@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
 import utils from '../util';
@@ -23,6 +23,7 @@ function TimePicker(props) {
 	const [hour, setHour] = useState(getInitValue()[0]);
 	const [minute, setMinute] = useState(getInitValue()[1]);
 	const [second, setSecond] = useState(getInitValue()[2]);
+	const memoValue = useMemo(() => {}, [value])
 
 	useEffect(() => {
 		if (value) {
@@ -40,7 +41,7 @@ function TimePicker(props) {
 		setHour('00');
 		setMinute('00');
 		setSecond('00');
-	}, [value]);
+	}, [memoValue]);
 
 	function onHourChange(evt) {
 		let inpValue = evt.target.value.trim().replace(/[^\d]/g, '');
