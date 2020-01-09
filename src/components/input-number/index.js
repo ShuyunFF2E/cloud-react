@@ -4,7 +4,7 @@ import cls from 'classnames';
 import { prefixCls } from '@utils/config';
 
 import Icon from '../icon';
-import { isInvalid, getCurrentValue, getMax, getMin, getValueByBlank } from './util';
+import { isInvalid, getCurrentValue, getMax, getMin, getValueByBlank, fixDoubleOperation } from './util';
 import './index.less';
 
 const selector = `${prefixCls}-input-number`;
@@ -29,7 +29,8 @@ function InputNumber(props) {
 	useEffect(() => {
 		let pr = '';
 		if (precision === undefined || precision === null) {
-			pr = Number.isInteger(step) ? 0 : step.toString().split('.')[1].length
+			// pr = Number.isInteger(step) ? 0 : step.toString().split('.')[1].length
+			pr = -1
 		} else {
 			pr = parseInt(precision, 10);
 		}
@@ -56,7 +57,16 @@ function InputNumber(props) {
 	function handleBlur(evt) {
 		setFocused(false);
 		const targetValue = evt.target.value.trim().replace(/[^\-?\d.]/g, '');
-		let val = isInvalid(targetValue) ? '' : Number(targetValue).toFixed(currentPrecision);
+		let val 
+		// = isInvalid(targetValue) ? '' : (currentPrecision >= 0 ? Number(targetValue).toFixed(currentPrecision) : Number(targetValue));
+		/* eslint no-nested-ternary: "error" */
+		if(isInvalid(targetValue)) {
+			val = ''
+		} else if (currentPrecision >= 0) {
+			val = Number(targetValue).toFixed(currentPrecision)
+		} else {
+			val = Number(targetValue)
+		}
 		val = getCurrentValue(val, min, max, currentPrecision);
 		setCurrentValue(val);
 		onBlur(val);
@@ -72,13 +82,18 @@ function InputNumber(props) {
 		let val = currentValue;
 		if (isControlled) {
 			if (!isInvalid(currentValue)) {
-				val = (Number(currentValue) + Number(isPlus ? step : -1 * step)).toFixed(currentPrecision);
+				// const _val = (Number(currentValue) + Number(isPlus ? step : -1 * step))
+				const _val = fixDoubleOperation(Number(currentValue), Number(isPlus ? step : -1 * step))
+				val = currentPrecision >= 0 ? _val.toFixed(currentPrecision) : _val
 			} else {
 				val = getValueByBlank(min, max, step);
 			}
 		} else {
 			if (!isInvalid(currentValue)) {
-				const tempValue = (Number(currentValue) + Number(isPlus ? step : -1 * step)).toFixed(currentPrecision);
+				
+				// const _val = (Number(currentValue) + Number(isPlus ? step : -1 * step))
+				const _val = fixDoubleOperation(Number(currentValue), Number(isPlus ? step : -1 * step))
+				const tempValue = currentPrecision >= 0 ? _val.toFixed(currentPrecision) : _val;
 				if (isPlus) {
 					if (getMax(currentValue, max).lessEqualMax) {
 						val = tempValue;
