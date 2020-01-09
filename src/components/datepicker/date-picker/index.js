@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import Input from 'cloud-react/input';
 import Popup from './popup';
@@ -35,15 +35,18 @@ function DatePicker(props) {
 		return util.convert(util.displayNow(currentValueDate), fmt);
 	});
 	const [suffix, setSuffix] = useState(calendarIcon);
+	const memoValue = useMemo(() => {}, [value])
 
-	function onValueChange(obj = {}) {
+	function onValueChange(obj = {}, isPop = false) {
 		const dpArr = [`${obj.year}/${formatZero(obj.month)}/${formatZero(obj.day)}`];
 		const str = showTimePicker ? dpArr.push(` ${formatZero(obj.hour)}:${formatZero(obj.minute)}:${formatZero(obj.second)}`) && dpArr.toString() : dpArr.toString();
 		const outputDate = new Date(str);
 		const output = util.convert(util.displayNow(outputDate), fmt);
 		setCurrentValue(output);
 		setCurrentValueDate(outputDate);
-		onChange(output);
+		if(isPop) {
+			onChange(output);
+		}
 	}
 
 	useEffect(() => {
@@ -58,11 +61,11 @@ function DatePicker(props) {
 		if(value) {
 			onValueChange(util.displayNow(value));
 		}
-	}, [value]);
+	}, [memoValue]);
 
 	function onPopChange(obj) {
 		if (obj) {
-			onValueChange(obj)
+			onValueChange(obj, true)
 			// eslint-disable-next-line no-use-before-define
 			changeVisible(null, false);
 			// 有clear Icon时，日历Icon不显示

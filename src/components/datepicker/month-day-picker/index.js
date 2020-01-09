@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import Input from 'cloud-react/input';
 import Popup from './popup';
@@ -24,14 +24,17 @@ function MonthDayPicker(props) {
 	// 日历Icon位置，因为可能会有clear Icon出现。所以交替显示
 	const [suffix, setSuffix] = useState(calendarIcon);
 	const inpRef = React.createRef();
+	const memoValue = useMemo(() => {}, [value])
 
-	function onValueChange(output = '') {
+	function onValueChange(output = '', isPop = false) {
 		setCurrentValue(output);
-		onChange(output);
+		if(isPop) {
+			onChange(output);
+		}
 	}
 
 	function onPopChange(output) {
-		onValueChange(output)
+		onValueChange(output, true)
 		// eslint-disable-next-line no-use-before-define
 		changeVisible(null, false);
 		if (hasClear) {
@@ -80,7 +83,7 @@ function MonthDayPicker(props) {
 		if(value) {
 			onValueChange(value);
 		}
-	}, [value]);
+	}, [memoValue]);
 
 	function onInpClick(evt) {
 		evt.stopPropagation();
