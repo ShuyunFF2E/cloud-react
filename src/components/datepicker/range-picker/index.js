@@ -100,6 +100,7 @@ function RangePicker(props) {
 
 	function changeVisible(evt, isVisible) {
 		if(isVisible && id) {
+			setVisible(true);
 			createWrapper(id);
 			const { HEIGHT_DEFAULT } = datepickerUI;
 			// 获取面板的定位
@@ -116,7 +117,6 @@ function RangePicker(props) {
 			/>);
 			return;
 		}
-		setVisible(false);
 		destroyDOM(id);
 	}
 	// 组件渲染时，仅注册一次相关事件
@@ -126,7 +126,10 @@ function RangePicker(props) {
 			changeVisible(null, visible);
 		}
 		return () => {
-			document.removeEventListener('click', changeVisible, false);
+			setTimeout(() => {
+				document.removeEventListener('click', changeVisible, false);
+			},0)
+		
 		}
 	}, []);
 
@@ -138,7 +141,6 @@ function RangePicker(props) {
 		// 如果不可见则显示面板
 		if (!visible || !document.getElementById(id)) {
 			destroyAllDOM();
-			setVisible(true);
 			changeVisible(evt, true);
 		}
 	}

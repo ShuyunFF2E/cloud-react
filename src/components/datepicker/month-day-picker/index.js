@@ -44,6 +44,7 @@ function MonthDayPicker(props) {
 
 	function changeVisible(evt, isVisible) {
 		if (isVisible && id) {
+			setVisible(true);
 			createWrapper(id);
 			const checkValue = currentValue;
 			const { HEIGHT_MONTH_DAY } = datepickerUI;
@@ -60,7 +61,6 @@ function MonthDayPicker(props) {
 			/>);
 			return;
 		}
-		setVisible(false);
 		destroyDOM(id);
 	}
 
@@ -71,7 +71,9 @@ function MonthDayPicker(props) {
 			changeVisible(null, visible);
 		}
 		return () => {
-			document.removeEventListener('click', changeVisible, false);
+			setTimeout(() => {
+				document.removeEventListener('click', changeVisible, false);
+			},0)
 		}
     }, []);
 
@@ -91,7 +93,6 @@ function MonthDayPicker(props) {
 		// 如果不可见则显示面板
 		if (!visible || !document.getElementById(id)) {
 			destroyAllDOM();
-			setVisible(true);
 			changeVisible(evt, true);
 		}
 	}
