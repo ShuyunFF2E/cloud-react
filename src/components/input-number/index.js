@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
 import { prefixCls } from '@utils/config';
+import noop from '@utils/noop';
 
 import Icon from '../icon';
 import { isInvalid, getCurrentValue, getMax, getMin, getValueByBlank, fixDoubleOperation } from './util';
@@ -198,11 +199,8 @@ InputNumber.defaultProps = {
 	placeholder: '请输入...',
 	step: 1,
 	disabled: false,
-	onChange: () => {
-	},
-	onBlur: () => {
-	},
-	onFocus: () => {
-	}
+	onChange: noop,
+	onBlur: noop,
+	onFocus: noop
 };
 export default InputNumber;
