@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import Input from 'cloud-react/input';
 import Popup from './popup';
@@ -22,14 +22,17 @@ function YearPicker(props) {
 	const [currentValue, setCurrentValue] = useState(isVaild(value) ? value : defaultValue);
 	const [visible, setVisible] = useState(open);
 	const [suffix, setSuffix] = useState(calendarIcon);
+	const memoValue = useMemo(() => {}, [value])
 
-	function onValueChange(output = '') {
+	function onValueChange(output = '', isPop = false) {
 		setCurrentValue(output);
-		onChange(output);
+		if(isPop) {
+			onChange(output);
+		}
 	}
 
 	function onPopChange(output) {
-		onValueChange(output)
+		onValueChange(output, true)
 		// eslint-disable-next-line no-use-before-define
 		changeVisible(null, false);
 		if (hasClear) {
@@ -39,6 +42,7 @@ function YearPicker(props) {
 
 	function changeVisible(evt, isVisible) {
 		if (isVisible && id) {
+			setVisible(true);
 			createWrapper(id);
 			const checkValue = currentValue ? parseInt(currentValue, 10) : undefined;
 			const { HEIGHT_YEAR } = datepickerUI;
@@ -55,7 +59,6 @@ function YearPicker(props) {
 			/>);
 			return;
 		}
-		setVisible(false);
 		destroyDOM(id);
 	}
 
@@ -65,7 +68,10 @@ function YearPicker(props) {
 			changeVisible(null, visible);
 		}
 		return () => {
-			document.removeEventListener('click', changeVisible, false);
+			setTimeout(() => {
+				document.removeEventListener('click', changeVisible, false);
+			},0)
+	
 		}
     }, []);
 
@@ -77,7 +83,7 @@ function YearPicker(props) {
 		if(value) {
 			onValueChange(value);
 		}
-	}, [value]);
+	}, [memoValue]);
 
 	function onInpClick(evt) {
 		// 阻止合成事件的冒泡
@@ -88,7 +94,6 @@ function YearPicker(props) {
 		if (!visible || !document.getElementById(id)) {
 			// 先释放其他面板
 			destroyAllDOM();
-			setVisible(true);
 			changeVisible(evt, true);
 		}
 	}

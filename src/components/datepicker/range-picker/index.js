@@ -54,7 +54,7 @@ function RangePicker(props) {
 	const [maxTempDate, setMaxTempDate] = useState(maxDate || maxDefaultDate);
 	const memoValue = useMemo(() => {}, [value])
 
-	function onValueChange (arr) {
+	function onValueChange (arr = [], isPop = false) {
 		let newArr = arr;
 		// 增加代码健壮性，如果日期顺序不对，则进行reverse后正确显示
 		if (arr[1] < arr[0]) {
@@ -63,7 +63,9 @@ function RangePicker(props) {
 		setCurrentValueDate(newArr);
 		const output = [util.convert(util.displayNow(newArr[0]), fmt), util.convert(util.displayNow(newArr[1]), fmt)];
 		setCurrentValue(output);
-		onChange(output, arr);
+		if(isPop) {
+			onChange(output, arr);
+		}
 	}
 
 	useEffect(() => {
@@ -88,7 +90,7 @@ function RangePicker(props) {
 	}, [minDate, maxDate]);
 
 	function onPopChange(arr) {
-		onValueChange(arr)
+		onValueChange(arr, true)
 		// eslint-disable-next-line no-use-before-define
 		changeVisible(null, false);
 		if (hasClear) {
@@ -98,6 +100,7 @@ function RangePicker(props) {
 
 	function changeVisible(evt, isVisible) {
 		if(isVisible && id) {
+			setVisible(true);
 			createWrapper(id);
 			const { HEIGHT_DEFAULT } = datepickerUI;
 			// 获取面板的定位
@@ -114,7 +117,6 @@ function RangePicker(props) {
 			/>);
 			return;
 		}
-		setVisible(false);
 		destroyDOM(id);
 	}
 	// 组件渲染时，仅注册一次相关事件
@@ -124,7 +126,10 @@ function RangePicker(props) {
 			changeVisible(null, visible);
 		}
 		return () => {
-			document.removeEventListener('click', changeVisible, false);
+			setTimeout(() => {
+				document.removeEventListener('click', changeVisible, false);
+			},0)
+		
 		}
 	}, []);
 
@@ -136,7 +141,6 @@ function RangePicker(props) {
 		// 如果不可见则显示面板
 		if (!visible || !document.getElementById(id)) {
 			destroyAllDOM();
-			setVisible(true);
 			changeVisible(evt, true);
 		}
 	}
