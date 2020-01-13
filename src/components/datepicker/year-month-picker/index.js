@@ -22,7 +22,7 @@ function YearMonthPicker(props) {
 	const [visible, setVisible] = useState(open);
 	const [id,] = useState(Math.random().toString().replace('.', ''));
 	const [suffix, setSuffix] = useState(calendarIcon);
-	const memoValue = useMemo(() => {}, [value])
+	const memoValue = useMemo(() => { return value }, [value])
 
 	function onValueChange(output = '', isPop = false) {
 		setCurrentValue(output);
