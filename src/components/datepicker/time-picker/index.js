@@ -23,7 +23,7 @@ function TimePicker(props) {
 	const [hour, setHour] = useState(getInitValue()[0]);
 	const [minute, setMinute] = useState(getInitValue()[1]);
 	const [second, setSecond] = useState(getInitValue()[2]);
-	const memoValue = useMemo(() => {}, [value])
+	const memoValue = useMemo(() => { return value }, [value])
 
 	useEffect(() => {
 		if (value) {

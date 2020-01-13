@@ -24,7 +24,7 @@ function MonthDayPicker(props) {
 	// 日历Icon位置，因为可能会有clear Icon出现。所以交替显示
 	const [suffix, setSuffix] = useState(calendarIcon);
 	const inpRef = React.createRef();
-	const memoValue = useMemo(() => {}, [value])
+	const memoValue = useMemo(() => { return value }, [value])
 
 	function onValueChange(output = '', isPop = false) {
 		setCurrentValue(output);

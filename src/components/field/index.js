@@ -35,9 +35,9 @@ export default class Field {
 		Object.assign(fieldMeta, { value: 'value' in fieldMeta ? fieldMeta.value : initValue });
 
 		if (typeof fieldMeta[fieldMeta.trigger] === 'undefined') {
-			fieldMeta[fieldMeta.trigger] = evt => {
+			fieldMeta[fieldMeta.trigger] = (evt, ...others) => {
 				this.onChange(name, this.fieldsMeta[name].value);
-				this.__onChange__(name, evt);
+				this.__onChange__(name, evt, ...others);
 				this.__render__();
 			}
 		}
@@ -246,7 +246,7 @@ export default class Field {
 		});
 	}
 
-	__onChange__ = (name, evt) => {
+	__onChange__ = (name, evt, ...others) => {
 		const fieldMeta = this.fieldsMeta[name];
 		fieldMeta.value = (
 			typeof evt === 'object' && 'target' in evt
@@ -254,7 +254,7 @@ export default class Field {
 				: evt
 		);
 
-		fieldMeta.change(evt);
+		fieldMeta.change(evt, ...others);
 		this.validate([name]);
 	}
 

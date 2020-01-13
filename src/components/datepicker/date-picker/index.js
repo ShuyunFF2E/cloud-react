@@ -35,7 +35,7 @@ function DatePicker(props) {
 		return util.convert(util.displayNow(currentValueDate), fmt);
 	});
 	const [suffix, setSuffix] = useState(calendarIcon);
-	const memoValue = useMemo(() => {}, [value])
+	const memoValue = useMemo(() => { return value }, [value])
 
 	function onValueChange(obj = {}, isPop = false) {
 		const dpArr = [`${obj.year}/${formatZero(obj.month)}/${formatZero(obj.day)}`];
