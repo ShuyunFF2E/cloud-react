@@ -52,7 +52,7 @@ function RangePicker(props) {
 
 	const [minTempDate, setMinTempDate] = useState(minDate || minDefaultDate);
 	const [maxTempDate, setMaxTempDate] = useState(maxDate || maxDefaultDate);
-	const memoValue = useMemo(() => {}, [value])
+	const memoValue = useMemo(() => { return value }, [value])
 
 	function onValueChange (arr = [], isPop = false) {
 		let newArr = arr;
