@@ -118,7 +118,7 @@ export default class Header extends React.Component {
 	renderYear() {
 		const years = [];
 		const currentYear = this.props.year;
-		for (let i = currentYear - 10; i < currentYear + 10;) {
+		for (let i = currentYear - 50; i < currentYear + 10;) {
 			years.push(<option key={i.toString()} disabled={this.getDisabledYear(i)} value={i}>{i}</option>);
 			i += 1;
 		}
