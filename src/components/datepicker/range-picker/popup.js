@@ -57,7 +57,7 @@ function trans2DateArray(arr) {
 
 function Popup(props) {
 	// checkDateArr为数组，当前rangepicker组件里的值, min/max 都是Date
-	const { left, top, min, max, className, checkDateArr, onChange } = props;
+	const { left, top, min, max, className, checkDateArr, onChange, maxYear, minYear } = props;
 
 	// 需要设计3对min/max, 配置的min/max, 组件A的min/max, 组件B的min/max
 	const [tempArrObj, setTempArrObj] = useState(getDateObjArr(checkDateArr, min, max));
@@ -256,6 +256,8 @@ function Popup(props) {
 					onChange={(y, m, old) => onHeaderChange(y, m, old, enumObj.START)}
 					min={util.transformObj(tempRange[0].minDate)}
 					max={util.transformObj(tempRange[0].maxDate)}
+					maxYear={maxYear}
+					minYear={minYear}
 					style={{ width:250, marginRight: '8px' }}
 				/>
 				<Header
@@ -264,6 +266,8 @@ function Popup(props) {
 					onChange={(y, m, old) => onHeaderChange(y, m, old, enumObj.END)}
 					min={util.transformObj(tempRange[1].minDate)}
 					max={util.transformObj(tempRange[1].maxDate)}
+					maxYear={maxYear}
+					minYear={minYear}
 					style={{ width:250 }}
 				/>
 			</div>

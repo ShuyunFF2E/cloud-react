@@ -79,12 +79,6 @@ function YearMonthPicker(props) {
 		setVisible(open);
 	}, [open]);
 
-	useEffect(() => {
-		if(value) {
-			onValueChange(value);
-		}
-	}, [memoValue]);
-
 	function onInpClick(evt) {
 		// 阻止合成事件的冒泡
 		evt.stopPropagation();
@@ -98,13 +92,21 @@ function YearMonthPicker(props) {
 		}
 	}
 
-	function onInpChange(evt) {
-		if (!evt.target.value.trim().length) {
+	function onInpChange(evt = '') {
+		if (!evt || !evt.target.value.trim().length) {
 			setCurrentValue('');
 			setSuffix(calendarIcon);
 			onChange('');
 		}
 	}
+	
+	useEffect(() => {
+		if(value) {
+			onValueChange(value);
+		} else {
+			onInpChange()
+		}
+	}, [memoValue]);
 
 
 	return (<Input

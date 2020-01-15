@@ -81,11 +81,6 @@ function MonthDayPicker(props) {
 		setVisible(open);
 	}, [open]);
 	
-	useEffect(() => {
-		if(value) {
-			onValueChange(value);
-		}
-	}, [memoValue]);
 
 	function onInpClick(evt) {
 		evt.stopPropagation();
@@ -97,14 +92,21 @@ function MonthDayPicker(props) {
 		}
 	}
 
-	function onInpChange(evt) {
-		if (!evt.target.value.trim().length) {
+	function onInpChange(evt = '') {
+		if (!evt || !evt.target.value.trim().length) {
 			setCurrentValue('');
 			// 清空后，显示出日历Icon
 			setSuffix(calendarIcon);
 			onChange('');
 		}
 	}
+	useEffect(() => {
+		if(value) {
+			onValueChange(value);
+		} else {
+			onInpChange()
+		}
+	}, [memoValue]);
 
     return (<Input
 		{...otherProps}
