@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef, useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
 import Input from 'cloud-react/input';
 import Popup from './popup';
@@ -25,6 +25,7 @@ function MonthDayPicker(props) {
 	const [suffix, setSuffix] = useState(calendarIcon);
 	const inpRef = React.createRef();
 	const memoValue = useMemo(() => { return value }, [value])
+	const firstUpdate = useRef(true);
 
 	function onValueChange(output = '', isPop = false) {
 		setCurrentValue(output);
@@ -100,13 +101,16 @@ function MonthDayPicker(props) {
 			onChange('');
 		}
 	}
-	useEffect(() => {
-		if(value) {
+
+	useLayoutEffect(() => {
+    if (firstUpdate.current) {
+      firstUpdate.current = false;
+    } else if(value) {
 			onValueChange(value);
 		} else {
 			onInpChange()
 		}
-	}, [memoValue]);
+  }, [memoValue]);
 
     return (<Input
 		{...otherProps}

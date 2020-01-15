@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef, useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
 import Input from 'cloud-react/input';
 import Popup from './popup';
@@ -23,6 +23,7 @@ function YearPicker(props) {
 	const [visible, setVisible] = useState(open);
 	const [suffix, setSuffix] = useState(calendarIcon);
 	const memoValue = useMemo(() => { return value }, [value])
+	const firstUpdate = useRef(true);
 
 	function onValueChange(output = '', isPop = false) {
 		setCurrentValue(output);
@@ -99,14 +100,16 @@ function YearPicker(props) {
 			setSuffix(calendarIcon);
 		}
 	}
-	
-	useEffect(() => {
-		if(value) {
+
+	useLayoutEffect(() => {
+    if (firstUpdate.current) {
+      firstUpdate.current = false;
+    } else if(value) {
 			onValueChange(value);
 		} else {
 			onInpChange()
 		}
-	}, [memoValue]);
+  }, [memoValue]);
 
 	return (<Input
 		{...otherProps}
