@@ -21,7 +21,7 @@ function getFormat(_showTimePicker, _mode) {
 
 function DatePicker(props) {
 	const { value, defaultValue, open, disabled, minDate, maxDate, position, className, hasClear,
-		showToday, showNow, showTimePicker, mode, onChange, placeholder, ...otherProps } = props;
+		showToday, showNow, showTimePicker, mode, onChange, placeholder, maxYear, minYear, ...otherProps } = props;
 	const inpRef = React.createRef();
 	// 每个组件实例id，对应面板DOM节点
 	const [id,] = useState(Math.random().toString().replace('.', ''));
@@ -57,11 +57,6 @@ function DatePicker(props) {
 		fmt = getFormat(showTimePicker, mode);
 	}, [showTimePicker, mode]);
 
-	useEffect(() => {
-		if(value) {
-			onValueChange(util.displayNow(value));
-		}
-	}, [memoValue]);
 
 	function onPopChange(obj) {
 		if (obj) {
@@ -95,6 +90,8 @@ function DatePicker(props) {
 				showTimePicker={showTimePicker}
 				max={maxDate}
 				min={minDate}
+				maxYear={maxYear}
+				minYear={minYear}
 				onChange={onPopChange}
 			/>);
 			return;
@@ -127,8 +124,8 @@ function DatePicker(props) {
         }
 	}
 
-	function onInpChange(evt) {
-		if (!evt.target.value.trim().length) {
+	function onInpChange(evt = '') {
+		if (!evt || !evt.target.value.trim().length) {
 			setCurrentValue('');
 			setCurrentValueDate(null);
 			// 清空后，显示出日历Icon
@@ -136,8 +133,15 @@ function DatePicker(props) {
 			onChange('');
 		}
 	}
+	useEffect(() => {
+		if(value) {
+			onValueChange(util.displayNow(value));
+		} else {
+			onInpChange()
+		}
+	}, [memoValue]);
 
-    return (<Input {...otherProps}
+  return (<Input {...otherProps}
 		ref={inpRef}
 		suffix={suffix}
         value={currentValue}
@@ -148,7 +152,7 @@ function DatePicker(props) {
 		disabled={disabled}
 		onChange={evt => onInpChange(evt)}
 		onClick={onInpClick}
- 	/>);
+	 />);
 }
 
 DatePicker.propTypes =  {
@@ -173,6 +177,8 @@ DatePicker.propTypes =  {
 	]),
 	maxDate: PropTypes.instanceOf(Date),
 	minDate: PropTypes.instanceOf(Date),
+	maxYear: PropTypes.number,
+	minYear: PropTypes.number,
 	// 显示今天按钮，当showTimePicker为false时有效
 	showToday: PropTypes.bool,
 	// 显示此刻按钮，当showTimePicker为true时有效
@@ -196,6 +202,8 @@ DatePicker.defaultProps = {
 	value: undefined,
 	minDate: undefined,
 	maxDate: undefined,
+	minYear: 1980,
+	maxYear: 2030,
 	onChange: () => { }
 }
 

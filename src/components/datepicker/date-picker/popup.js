@@ -9,7 +9,7 @@ const defaultYear = new Date().getFullYear();
 const defaultMonth = new Date().getMonth() + 1;
 
 function Popup(props) {
-    const { left, top, min, max, mode, className, showToday, showNow, showTimePicker, checkDateObj, onChange } = props;
+    const { left, top, min, max, mode, className, showToday, showNow, showTimePicker, checkDateObj, onChange, maxYear, minYear } = props;
 
     const [tempYear, setTempYear] = useState(checkDateObj ? checkDateObj.year : defaultYear);
     const [tempMonth, setTempMonth] = useState(checkDateObj ? checkDateObj.month : defaultMonth);
@@ -65,7 +65,9 @@ function Popup(props) {
 				min={util.transformObj(min)} max
 				={util.transformObj(max)}
 				month={tempMonth}
-				year={tempYear}
+                year={tempYear}
+                maxYear={maxYear}
+				minYear={minYear}
 				onChange={onHeaderChange} />
             <Grid
 				mode={mode}
