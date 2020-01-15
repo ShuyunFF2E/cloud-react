@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef, useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
 import Input from '../../input';
 import Popup from './popup';
@@ -52,7 +52,8 @@ function RangePicker(props) {
 
 	const [minTempDate, setMinTempDate] = useState(minDate || minDefaultDate);
 	const [maxTempDate, setMaxTempDate] = useState(maxDate || maxDefaultDate);
-	const memoValue = useMemo(() => { return value }, [value])
+	const memoValue = useMemo(() => { return value.join('-') }, [value])
+	const firstUpdate = useRef(true);
 
 	function onValueChange (arr = [], isPop = false) {
 		let newArr = arr;
@@ -158,6 +159,18 @@ function RangePicker(props) {
 			onInpChange()
 		}
 	}, [memoValue[0], memoValue[1]]);
+
+	useLayoutEffect(() => {
+    if (firstUpdate.current) {
+      firstUpdate.current = false;
+    } else if(value[0]) {
+			setControlled(typeof value !== 'undefined');
+			onValueChange(value);
+		} else {
+			setControlled(typeof value !== 'undefined');
+			onInpChange()
+		}
+  }, [memoValue]);
 
 	const disabledClass = disabled ? `${rangeSelector}-disabled` : '';
 	return (<div className={`${rangeSelector} ${className} ${disabledClass}`} {...otherProps}>

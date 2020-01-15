@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef, useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
 import Input from 'cloud-react/input';
 import Popup from './popup';
@@ -36,6 +36,7 @@ function DatePicker(props) {
 	});
 	const [suffix, setSuffix] = useState(calendarIcon);
 	const memoValue = useMemo(() => { return value }, [value])
+	const firstUpdate = useRef(true);
 
 	function onValueChange(obj = {}, isPop = false) {
 		const dpArr = [`${obj.year}/${formatZero(obj.month)}/${formatZero(obj.day)}`];
@@ -130,7 +131,8 @@ function DatePicker(props) {
 			setCurrentValueDate(null);
 			// 清空后，显示出日历Icon
 			setSuffix(calendarIcon);
-			onChange('');
+			onChange('')
+		
 		}
 	}
 	useEffect(() => {
@@ -140,6 +142,16 @@ function DatePicker(props) {
 			onInpChange()
 		}
 	}, [memoValue]);
+
+  useLayoutEffect(() => {
+    if (firstUpdate.current) {
+      firstUpdate.current = false;
+    } else if(value) {
+			onValueChange(util.displayNow(value));
+		} else {
+			onInpChange()
+		}
+  }, [memoValue]);
 
   return (<Input {...otherProps}
 		ref={inpRef}
