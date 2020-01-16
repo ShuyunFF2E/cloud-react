@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef, useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
 import Input from 'cloud-react/input';
 import Popup from './popup';
@@ -23,6 +23,7 @@ function DatePicker(props) {
 	const { value, defaultValue, open, disabled, minDate, maxDate, position, className, hasClear,
 		showToday, showNow, showTimePicker, mode, onChange, placeholder, maxYear, minYear, ...otherProps } = props;
 	const inpRef = React.createRef();
+	const firstUpdate = useRef(true);
 	// 每个组件实例id，对应面板DOM节点
 	const [id,] = useState(Math.random().toString().replace('.', ''));
 	let fmt = getFormat(showTimePicker, mode);
@@ -36,6 +37,7 @@ function DatePicker(props) {
 	});
 	const [suffix, setSuffix] = useState(calendarIcon);
 	const memoValue = useMemo(() => { return value }, [value])
+	
 
 	function onValueChange(obj = {}, isPop = false) {
 		const dpArr = [`${obj.year}/${formatZero(obj.month)}/${formatZero(obj.day)}`];
@@ -133,8 +135,11 @@ function DatePicker(props) {
 			onChange('');
 		}
 	}
-	useEffect(() => {
-		if(value) {
+
+	useLayoutEffect(() => {
+    if (firstUpdate.current) {
+      firstUpdate.current = false;
+    } else if(value) {
 			onValueChange(util.displayNow(value));
 		} else {
 			onInpChange()
