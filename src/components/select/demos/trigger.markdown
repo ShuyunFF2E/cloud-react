@@ -50,7 +50,7 @@ export default function SelectDemo() {
 			<Select
 				onSearch={handleSearch}
 				onChange={handleChange}
-				style={{width: 80}}
+				style={{width: 80, textAlign: 'center'}}
 				defaultValue="apple"
 				trigger="hover"
 				showArrow={false}

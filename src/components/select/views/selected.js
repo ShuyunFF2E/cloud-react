@@ -7,16 +7,26 @@ import { selector } from './common';
 
 import '../index.less';
 
-const getLables = dataSource => dataSource.map(item => item.label).join(',')
+const getLables = (dataSource, multiple) => {
+	if (multiple) {
+		return dataSource.map(item => {
+			if (Array.isArray(item.label)) {
+				return item.label.find(v => typeof v === 'string');
+			}
+			return item.label;
+		}).join(',');
+	}
+	return dataSource.map(item => item.label);
+};
 
 export default class Selected extends React.Component {
 	constructor(props) {
 		super(props);
 		this.ref = React.createRef();
 
-		const labels = getLables(props.dataSource);
+		const labels = getLables(props.dataSource, props.multiple);
 		this.state = {
-			selectStr: labels || '',
+			selected: labels || '',
 			clear: false,
 			prevProps: this.props
 		};
@@ -25,9 +35,9 @@ export default class Selected extends React.Component {
 	static getDerivedStateFromProps(props, prevState) {
 		const { prevProps } = prevState;
 		if (props.dataSource !== prevProps.dataSource) {
-			const labels = getLables(props.dataSource);
+			const labels = getLables(props.dataSource, props.multiple);
 			return {
-				selectStr: labels || '',
+				selected: labels || '',
 				prevProps: props
 			};
 		}
@@ -65,7 +75,7 @@ export default class Selected extends React.Component {
 
 	render() {
 		const { props: { dataSource, disabled, placeholder, open, onClear, showArrow, showSelectStyle },
-				state: { selectStr, clear }, onMouseEnter, onMouseLeave } = this;
+				state: { selected, clear }, onMouseEnter, onMouseLeave } = this;
 
 		const classNames = classnames(`${selector}-wrapper`, {
 			disabled,
@@ -75,10 +85,10 @@ export default class Selected extends React.Component {
 		const iconClasses = classnames(`${selector}-select-icon`, {
 			open,
 			close: !open,
-			hidden: clear && selectStr
+			hidden: clear && selected.length
 		});
 		const clearClasses = classnames(`${selector}-select-icon ${selector}-clear-icon`, {
-			show: clear && selectStr
+			show: clear && selected.length
 		});
 
 		return (
@@ -89,7 +99,9 @@ export default class Selected extends React.Component {
 				onMouseEnter={onMouseEnter}
 				onMouseLeave={onMouseLeave}>
 				<span className={`${selector}-selected`}>
-					{ selectStr || placeholder }
+					{
+						selected.length ? selected : placeholder
+					}
 				</span>
 				<Icon type="close-circle-solid" className={clearClasses} onClick={onClear} />
 				{
@@ -102,6 +114,7 @@ export default class Selected extends React.Component {
 }
 
 Selected.propTypes = {
+	multiple: PropTypes.bool,
 	disabled: PropTypes.bool,
 	allowClear: PropTypes.bool,
 	open: PropTypes.bool,
@@ -118,6 +131,7 @@ Selected.propTypes = {
 }
 
 Selected.defaultProps = {
+	multiple: false,
 	disabled: false,
 	allowClear: false,
 	open: false,

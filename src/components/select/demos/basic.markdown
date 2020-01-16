@@ -6,7 +6,7 @@ desc: 基础用法
 
 ```javascript
 import React, { useState } from 'react';
-import { Select, Modal, Button, Tabs } from 'cloud-react';
+import { Select, Modal, Button, Tabs, Icon } from 'cloud-react';
 
 const Option = Select.Option;
 
@@ -42,7 +42,7 @@ export default function SelectDemo() {
 	const closeModal = () => setVisible(false);
 
 	return (
-		<div style={{height:230}}>
+		<div style={{height:300}}>
 			<Select
 				placeholder="请选择..."
 				defaultValue={4}
@@ -94,6 +94,25 @@ export default function SelectDemo() {
 			<div>
 				使用dataSource快速生成Select：
 				<Select placeholder="xxxxx" defaultValue="xxxxxx" onChange={handleChange} dataSource={dataList} />
+			</div>
+
+			<div style={{ margin: "20px 0" }}>
+				自定义带icon的option：
+				<Select
+					placeholder="请选择..."
+					onSelectOpen={handleOpen}
+					onSelectClose={handleClose}
+					onChange={handleChange}
+					value={[4]}
+					searchable
+					>
+					<Option value="">不限</Option>
+					{dataList.map((item, index) => (
+						<Option value={item.value} disabled={item.disabled} key={index}>
+							<Icon type="config" style={{ fontSize: 12, marginRight: 5 }} />{item.label}
+						</Option>
+					))}
+				</Select>
 			</div>
 		</div>
 	);
