@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef, useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
 import Input from '../../input';
 import Popup from './popup';
@@ -22,7 +22,7 @@ const fmt = 'yyyy/MM/dd';
 
 function RangePicker(props) {
 
-	const { value, defaultValue, open, disabled, style, hasClear, minDate, maxDate, placeholder, className, position, onChange, ...otherProps } = props;
+	const { value, defaultValue, open, disabled, style, hasClear, minDate, maxDate, placeholder, className, position, onChange, maxYear, minYear, ...otherProps } = props;
 
 	const inpRef = React.createRef();
 	const [id,] = useState(Math.random().toString().replace('.', ''));
@@ -52,7 +52,8 @@ function RangePicker(props) {
 
 	const [minTempDate, setMinTempDate] = useState(minDate || minDefaultDate);
 	const [maxTempDate, setMaxTempDate] = useState(maxDate || maxDefaultDate);
-	const memoValue = useMemo(() => { return value }, [value])
+	const memoValue = useMemo(() => { return value.join('-') }, [value])
+	const firstUpdate = useRef(true);
 
 	function onValueChange (arr = [], isPop = false) {
 		let newArr = arr;
@@ -72,16 +73,11 @@ function RangePicker(props) {
 		setVisible(open);
 	}, [open]);
 
-	useEffect(() => {
-		setControlled(typeof value !== 'undefined');
-	}, [value]);
+	// useEffect(() => {
+	// 	setControlled(typeof value !== 'undefined');
+	// }, [value]);
 
-	useEffect(() => {
-		setControlled(typeof value !== 'undefined');
-		if(value && value[0]) {
-			onValueChange(value)
-		}
-	}, [memoValue]);
+
 
 
 	useEffect(() => {
@@ -109,6 +105,8 @@ function RangePicker(props) {
 			renderDOM(id, <Popup
 				min={minTempDate}
 				max={maxTempDate}
+				maxYear={maxYear}
+				minYear={minYear}
 				className={className}
 				checkDateArr={currentValueDate}
 				onChange={onPopChange}
@@ -145,14 +143,26 @@ function RangePicker(props) {
 		}
 	}
 
-	function onInpChange(evt) {
-		if (!evt.target.value.trim().length) {
+	function onInpChange(evt = '') {
+		if (!evt || !evt.target.value.trim().length) {
 			setCurrentValue(['', '']);
 			setCurrentValueDate([null, null]);
 			setSuffix(calendarIcon);
 			onChange(['', ''], [null, null]);
 		}
 	}
+
+	useLayoutEffect(() => {
+    if (firstUpdate.current) {
+      firstUpdate.current = false;
+    } else if(value[0]) {
+			setControlled(typeof value !== 'undefined');
+			onValueChange(value);
+		} else {
+			setControlled(typeof value !== 'undefined');
+			onInpChange()
+		}
+  }, [memoValue]);
 
 	const disabledClass = disabled ? `${rangeSelector}-disabled` : '';
 	return (<div className={`${rangeSelector} ${className} ${disabledClass}`} {...otherProps}>
@@ -201,6 +211,8 @@ RangePicker.propTypes = {
 	]),
 	maxDate: PropTypes.instanceOf(Date),
 	minDate: PropTypes.instanceOf(Date),
+	maxYear: PropTypes.number,
+	minYear: PropTypes.number,
 	onChange: PropTypes.func
 }
 
@@ -212,10 +224,12 @@ RangePicker.defaultProps = {
 	disabled: false,
 	placeholder: ['请选择开始时间', '请选择结束时间'],
 	defaultValue: [null, null],
-	value: undefined,
+	value: [null, null],
 	open: false,
 	minDate: new Date('1900/01/01 00:00:00'),
 	maxDate: new Date('2099/12/31 23:59:59'),
+	minYear: 1980,
+	maxYear: 2030,
 	onChange: () => {}
 }
 

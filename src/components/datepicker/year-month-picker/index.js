@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef, useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
 import Input from 'cloud-react/input';
 import Popup from './popup';
@@ -18,6 +18,7 @@ import enumObj from '../util/enum';
 function YearMonthPicker(props) {
 	const { value, defaultValue, open, disabled, className, min, max, hasClear, placeholder, showThisMonth, position, onChange, ...otherProps } = props;
 	const inpRef = React.createRef();
+	const firstUpdate = useRef(true);
 	const [currentValue, setCurrentValue] = useState(isVaild(value) ? value : defaultValue);
 	const [visible, setVisible] = useState(open);
 	const [id,] = useState(Math.random().toString().replace('.', ''));
@@ -79,12 +80,6 @@ function YearMonthPicker(props) {
 		setVisible(open);
 	}, [open]);
 
-	useEffect(() => {
-		if(value) {
-			onValueChange(value);
-		}
-	}, [memoValue]);
-
 	function onInpClick(evt) {
 		// 阻止合成事件的冒泡
 		evt.stopPropagation();
@@ -98,13 +93,23 @@ function YearMonthPicker(props) {
 		}
 	}
 
-	function onInpChange(evt) {
-		if (!evt.target.value.trim().length) {
+	function onInpChange(evt = '') {
+		if (!evt || !evt.target.value.trim().length) {
 			setCurrentValue('');
 			setSuffix(calendarIcon);
 			onChange('');
 		}
 	}
+	
+	useLayoutEffect(() => {
+    if (firstUpdate.current) {
+      firstUpdate.current = false;
+    } else if(value) {
+			onValueChange(value);
+		} else {
+			onInpChange()
+		}
+	}, [memoValue]);
 
 
 	return (<Input

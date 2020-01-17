@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef, useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
 import Input from 'cloud-react/input';
 import Popup from './popup';
@@ -21,8 +21,9 @@ function getFormat(_showTimePicker, _mode) {
 
 function DatePicker(props) {
 	const { value, defaultValue, open, disabled, minDate, maxDate, position, className, hasClear,
-		showToday, showNow, showTimePicker, mode, onChange, placeholder, ...otherProps } = props;
+		showToday, showNow, showTimePicker, mode, onChange, placeholder, maxYear, minYear, ...otherProps } = props;
 	const inpRef = React.createRef();
+	const firstUpdate = useRef(true);
 	// 每个组件实例id，对应面板DOM节点
 	const [id,] = useState(Math.random().toString().replace('.', ''));
 	let fmt = getFormat(showTimePicker, mode);
@@ -36,6 +37,7 @@ function DatePicker(props) {
 	});
 	const [suffix, setSuffix] = useState(calendarIcon);
 	const memoValue = useMemo(() => { return value }, [value])
+	
 
 	function onValueChange(obj = {}, isPop = false) {
 		const dpArr = [`${obj.year}/${formatZero(obj.month)}/${formatZero(obj.day)}`];
@@ -57,11 +59,6 @@ function DatePicker(props) {
 		fmt = getFormat(showTimePicker, mode);
 	}, [showTimePicker, mode]);
 
-	useEffect(() => {
-		if(value) {
-			onValueChange(util.displayNow(value));
-		}
-	}, [memoValue]);
 
 	function onPopChange(obj) {
 		if (obj) {
@@ -95,6 +92,8 @@ function DatePicker(props) {
 				showTimePicker={showTimePicker}
 				max={maxDate}
 				min={minDate}
+				maxYear={maxYear}
+				minYear={minYear}
 				onChange={onPopChange}
 			/>);
 			return;
@@ -127,8 +126,8 @@ function DatePicker(props) {
         }
 	}
 
-	function onInpChange(evt) {
-		if (!evt.target.value.trim().length) {
+	function onInpChange(evt = '') {
+		if (!evt || !evt.target.value.trim().length) {
 			setCurrentValue('');
 			setCurrentValueDate(null);
 			// 清空后，显示出日历Icon
@@ -137,7 +136,17 @@ function DatePicker(props) {
 		}
 	}
 
-    return (<Input {...otherProps}
+	useLayoutEffect(() => {
+    if (firstUpdate.current) {
+      firstUpdate.current = false;
+    } else if(value) {
+			onValueChange(util.displayNow(value));
+		} else {
+			onInpChange()
+		}
+	}, [memoValue]);
+
+  return (<Input {...otherProps}
 		ref={inpRef}
 		suffix={suffix}
         value={currentValue}
@@ -148,7 +157,7 @@ function DatePicker(props) {
 		disabled={disabled}
 		onChange={evt => onInpChange(evt)}
 		onClick={onInpClick}
- 	/>);
+	 />);
 }
 
 DatePicker.propTypes =  {
@@ -173,6 +182,8 @@ DatePicker.propTypes =  {
 	]),
 	maxDate: PropTypes.instanceOf(Date),
 	minDate: PropTypes.instanceOf(Date),
+	maxYear: PropTypes.number,
+	minYear: PropTypes.number,
 	// 显示今天按钮，当showTimePicker为false时有效
 	showToday: PropTypes.bool,
 	// 显示此刻按钮，当showTimePicker为true时有效
@@ -196,6 +207,8 @@ DatePicker.defaultProps = {
 	value: undefined,
 	minDate: undefined,
 	maxDate: undefined,
+	minYear: 1980,
+	maxYear: 2030,
 	onChange: () => { }
 }
 

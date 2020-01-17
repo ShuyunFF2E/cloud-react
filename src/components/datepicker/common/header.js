@@ -12,7 +12,7 @@ export default class Header extends React.Component {
 		year: PropTypes.number,
 		month: PropTypes.number,
 		min: PropTypes.object,
-        max: PropTypes.object,
+    max: PropTypes.object,
 		style: PropTypes.object,
 		onChange: PropTypes.func
 	}
@@ -118,7 +118,8 @@ export default class Header extends React.Component {
 	renderYear() {
 		const years = [];
 		const currentYear = this.props.year;
-		for (let i = currentYear - 10; i < currentYear + 10;) {
+		const { maxYear, minYear } = this.props
+		for (let i = minYear; i <= maxYear;) {
 			years.push(<option key={i.toString()} disabled={this.getDisabledYear(i)} value={i}>{i}</option>);
 			i += 1;
 		}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef, useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
 import Input from 'cloud-react/input';
 import Popup from './popup';
@@ -24,6 +24,7 @@ function MonthDayPicker(props) {
 	// 日历Icon位置，因为可能会有clear Icon出现。所以交替显示
 	const [suffix, setSuffix] = useState(calendarIcon);
 	const inpRef = React.createRef();
+	const firstUpdate = useRef(true);
 	const memoValue = useMemo(() => { return value }, [value])
 
 	function onValueChange(output = '', isPop = false) {
@@ -81,11 +82,6 @@ function MonthDayPicker(props) {
 		setVisible(open);
 	}, [open]);
 	
-	useEffect(() => {
-		if(value) {
-			onValueChange(value);
-		}
-	}, [memoValue]);
 
 	function onInpClick(evt) {
 		evt.stopPropagation();
@@ -97,14 +93,24 @@ function MonthDayPicker(props) {
 		}
 	}
 
-	function onInpChange(evt) {
-		if (!evt.target.value.trim().length) {
+	function onInpChange(evt = '') {
+		if (!evt || !evt.target.value.trim().length) {
 			setCurrentValue('');
 			// 清空后，显示出日历Icon
 			setSuffix(calendarIcon);
 			onChange('');
 		}
 	}
+
+	useLayoutEffect(() => {
+    if (firstUpdate.current) {
+      firstUpdate.current = false;
+    } else if(value) {
+			onValueChange(value);
+		} else {
+			onInpChange()
+		}
+	}, [memoValue]);
 
     return (<Input
 		{...otherProps}
