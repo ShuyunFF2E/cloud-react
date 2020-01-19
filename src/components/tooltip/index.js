@@ -11,12 +11,29 @@ let manualClear = null;
 const MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
 const DEFAULT_STYLE = 'position:absolute;top:0;left:0;width:100%';
 
+/**
+ * 获取销毁div的className
+ * @param classNames: 触发元素的classList
+ * @returns {string}: 元素的类名
+ */
+function getClassName(classNames) {
+	const findClassName = className => {
+		return className.indexOf('tooltip-') > -1
+	}
+	// 转成一般数组
+	const classNamesArr = [...classNames];
+	const tagClassName = classNamesArr.find(findClassName);
+
+	return tagClassName;
+}
+
 const mutationObserver = new MutationObserver(mutations => {
 	mutations.forEach(mutation => {
-  		if (mutation.type === 'childList' && mutation.removedNodes.length > 0 && mutation.removedNodes[0].outerHTML.indexOf(targetEle.id) > -1) {
-   			const ele = containers[targetEle.id];
-     		if (ele) {
-    			delete containers[targetEle.id];
+		const targetClassName = getClassName(targetEle.classList);
+  		if (mutation.type === 'childList' && mutation.removedNodes.length > 0 && mutation.removedNodes[0].outerHTML && mutation.removedNodes[0].outerHTML.indexOf(targetClassName) > -1) {
+   			const ele = containers[targetClassName];
+			if (ele) {
+    			delete containers[targetClassName];
     			document.body.removeChild(ele);
    			}
   		}
@@ -77,21 +94,6 @@ function createWrapper(id, event) {
 	containers[id] = div;
 }
 
-/**
- * 获取销毁div的className
- * @param classNames: 触发元素的classList
- * @returns {string}: 元素的类名
- */
-function getClassName(classNames) {
-	const findClassName = className => {
-		return className.indexOf('tooltip-') > -1
-	}
-	// 转成一般数组
-	const classNamesArr = [...classNames];
-	const tagClassName = classNamesArr.find(findClassName);
-
-	return tagClassName;
-}
 
 class Tooltip extends Component{
 
