@@ -41,22 +41,16 @@ class Select extends Component {
 	constructor(props) {
 		super(props);
 
-		const { open, defaultOpen, value, defaultValue, multiple, labelInValue } = props;
+		const { open, defaultOpen, labelInValue } = props;
+		const { defaultSelectValue, children } = this;
 
-		let values;
-		if (multiple) {
-			values = value || defaultValue || [];
-		} else {
-			values = value !== null ? value : defaultValue;
-		}
-
-		const selected = getSelected(values, this.children);
+		const selected = getSelected(defaultSelectValue, children);
 
 		this.state = {
 			open: open || defaultOpen,
-			value: values,
-			prevValue: values,
-			prevResult: labelInValue ? selected : values,
+			value: defaultSelectValue,
+			prevValue: defaultSelectValue,
+			prevResult: labelInValue ? selected : defaultSelectValue,
 			selected,
 			prevProps: props
 		};
@@ -67,19 +61,17 @@ class Select extends Component {
 	static getDerivedStateFromProps(props, prevState) {
 
 		const { prevProps } = prevState;
-		const { value, children, dataSource } = props;
+		const { value, children, dataSource, multiple } = props;
 		const { value: prevValue, children: prevChildren, dataSource: prevData } = prevProps;
-		const childProps = Children.map(children.flat(Infinity), child => child.props);
-		const prevChildProps = Children.map(prevChildren.flat(Infinity), child => child.props);
 
-		if (value !== prevValue || !jeasy.equal(childProps, prevChildProps) || !jeasy.equal(dataSource, prevData)) {
-
+		if (value !== prevValue || Children.count(children) !== Children.count(prevChildren) || !jeasy.equal(dataSource, prevData)) {
 			const { labelKey, valueKey, labelInValue } = props;
 			const childs = Array.isArray(children) ? children.flat(Infinity) : Children.toArray(children);
 			const source = childs.length ? childs : getOptions(dataSource, labelKey, valueKey);
 			const selected = getSelected(value, source);
+			const defaultValue = multiple ? [] : ''
 			return {
-				value,
+				value: value !== null ? value : defaultValue,
 				prevValue: value,
 				prevResult: labelInValue ? selected : value,
 				selected,
@@ -135,6 +127,14 @@ class Select extends Component {
 			ReactDOM.unmountComponentAtNode(optionsContainer);
 			if (parentEle) parentEle.removeChild(optionsContainer);
 		}
+	}
+
+	get defaultSelectValue() {
+		const { value, defaultValue, multiple } = this.props;
+		if (multiple) {
+			return value || defaultValue || [];
+		}
+		return value !== null ? value : defaultValue;
 	}
 
 	get visible() {
@@ -242,6 +242,7 @@ class Select extends Component {
 		optionsContainer.style.top = `${top}px`;
 		optionsContainer.style.left = `${left}px`;
 		optionsContainer.style.minWidth = `${width}px`;
+		optionsContainer.style.width = `${width}px`;
 
 		return optionsContainer;
 	}
@@ -454,7 +455,7 @@ Select.defaultProps = {
 	width: 'auto',
 	searchable: false,
 	emptyRender: '暂时没有数据',
-	defaultValue: '',
+	defaultValue: null,
 	value: null,
 	labelInValue: false,
 	hasSelectAll: false,

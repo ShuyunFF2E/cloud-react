@@ -15,7 +15,7 @@ subtitle: 下拉选择
 | multiple | 是否为多选 | boolean | false |
 | disabled | 下拉禁用状态 | boolean | false |
 | dataSource | 需要展示的数据，dataSource和children同时存在时以children为准 | array | [] |
-| labelkey | 指定使用的label键值，仅在使用dataSource生成组件时生效 | string | 'label' |
+| labelKey | 指定使用的label键值，仅在使用dataSource生成组件时生效 | string | 'label' |
 | valueKey | 指定使用的value键值，仅在使用dataSource生成组件时生效 | string | 'value' |
 | defaultOpen | 默认下拉菜单展开状态 | boolean | false |
 | open | 下拉菜单展开状态，当使用此属性时组件本身open行为失效 | boolean | - |
@@ -29,8 +29,7 @@ subtitle: 下拉选择
 | hasConfirmButton | 多选时是否有确认按钮 | boolean | false |
 | okBtnText | 多选时确认操作按钮文案| string | '确认' |
 | cancelBtnText | 多选时取消操作按钮文案 | string | '取消' |
-| className | 下拉菜单的 className 属性 | string | - |
-| zIndex | 下拉菜单的 zIndex | number | 1050 |
+| className | 组件的 className 属性 | string | - |
 | trigger | 下拉触发方式，支持click和hover | string | 'click' |
 | showArrow | 下拉icon是否显示 | boolean | true |
 | showSelectStyle | 选择器样式是否显示 | boolean | true |

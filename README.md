@@ -1,13 +1,15 @@
 # ccms-components-react
 数云平台版 react 组件库
 
-[![Build Status](https://travis-ci.org/ShuyunFF2E/ccms-components-react.svg?branch=master&style=flat-square)](https://travis-ci.org/ShuyunFF2E/ccms-components-react)
+[![Build Status](https://travis-ci.org/ShuyunFF2E/cloud-react.svg?branch=master)](https://travis-ci.org/ShuyunFF2E/cloud-react)
+[![npm version](https://img.shields.io/npm/v/cloud-react.svg?style=flat-square)](https://www.npmjs.com/package/cloud-react)
+[![npm downloads](https://img.shields.io/npm/dt/cloud-react.svg?style=flat-square)](https://www.npmjs.com/package/cloud-react)
 
 ## 开发新组件
 1、基于`master`新建分支，分支命名为`feature/**`，其中`*`为当前组件的名称。  
 2、执行`npm run new:component` 脚本，会在src/components目录生成一个`new-component`目录，里面包含新组件的基础文件和模版。  
 3、将 *new-component* 文件夹名称修改为对应的组件名称，相应的里面`NewComponent`组件名称也需要做修改。  
-4、愉快的进行自己组件代码的编写。
+4、愉快的进行自己组件代码的编写。  
 
 ## 发布脚本
 ```javascript
