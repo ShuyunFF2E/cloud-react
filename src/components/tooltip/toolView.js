@@ -33,13 +33,14 @@ function offsetBody(element) {
  * @returns {'width': number, 'height': number,...}
  */
 function offsetContainer(element) {
+	const isRelative = window.getComputedStyle(element).position === 'relative';
 	return {
-		left: element.offsetLeft,
-		top: element.offsetTop,
+		left: isRelative ? 0 : element.offsetLeft,
+		top: isRelative ? 0 : element.offsetTop,
 		width: element.offsetWidth,
 		height: element.offsetHeight,
-		right: element.offsetWidth + element.offsetLeft,
-		bottom: element.offsetHeight + element.offsetTop
+		right: isRelative ? element.offsetWidth : element.offsetWidth + element.offsetLeft,
+		bottom: isRelative ? element.offsetHeight : element.offsetHeight + element.offsetTop
 	}
 }
 
