@@ -20,7 +20,7 @@ class Store {
 	 */
 	initData = (treeData, maxLevel, selectedValue) => {
 		// 单选则直接选中回显值，多选则默认第一个
-		this.activeNode = selectedValue && selectedValue[0] || '';
+		this.activeNode = selectedValue && selectedValue[0];
 		// 处理已选中的节点，treeData中存在selectedValue中的值则选中
 		const cloneData = jEasy.clone(treeData);
 		const format = (node, level) => {
@@ -38,8 +38,6 @@ class Store {
 			const activeNodeIndex = selectedValue && selectedValue.findIndex(x => x.id === node.id);
 			// 找到该值
 			if (activeNodeIndex !== -1) {
-				// 激活节点
-				tmp.isActive = true;
 				// 节点存在子元素，且子元素没有被选中
 				if (tmp.children.length && !tmp.children.find(x => x.checked)) {
 					// 选中节点

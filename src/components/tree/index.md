@@ -11,7 +11,9 @@ subtitle: 树
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | treeData | 树结构数据 | Array | - |
-| selectedValue | 被选中数据，需要回显的数据 | Array | - |
+| className | class名称方式设置treeList样式 | String | - |
+| style | 对象方式设置treeList样式 | Object | - |
+| selectedValue | 被选中数据，需要回显的数据，仅支持多选类型 | Array | - |
 | searchPlaceholder | 搜索框默认placeholder信息 | String | - |
 | searchMaxLength | 搜索框搜索关键字最大支持长度 | Number | - |
 | nodeNameMaxLength | 节点名称最大支持长度 | Number | - |
