@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import jEasy from 'jeasy';
-import classNames from 'classnames';
 import { prefixCls } from '@utils/config';
 import TreeContext from './context';
 import Search from './search';
@@ -17,6 +16,8 @@ const noop = () => {};
 class Tree extends Component{
 	// 默认值， 默认类型与值不匹配
 	static defaultProps = {
+		style: {},
+		className: '',
 		searchPlaceholder: '',
 		searchMaxLength: '',
 		nodeNameMaxLength: '',
@@ -40,6 +41,8 @@ class Tree extends Component{
 	};
 
 	static propsTypes = {
+		style: PropTypes.object,
+		className: PropTypes.string,
 		treeData: PropTypes.array,
 		searchPlaceholder: PropTypes.string,
 		searchMaxLength: PropTypes.number,
@@ -259,6 +262,8 @@ class Tree extends Component{
 		const selector = `${prefixCls}-tree`;
 
 		const {
+			style,
+			className,
 			searchPlaceholder,
 			searchMaxLength,
 			supportSearch,
@@ -281,7 +286,7 @@ class Tree extends Component{
 
 		return (
 			<TreeContext.Provider value={{ searchText, supportRadio, supportCheckbox, supportMenu, isAddFront, nodeNameMaxLength, showIcon, openIconType, closeIconType, iconColor, selectedValue, showMenu, onAddAction, onRenameAction, onRemoveAction, onSelectedAction }}>
-				<div className={classNames(selector)}>
+				<div className={`${selector} ${className}`} style={style}>
 					<Search
 						prefixCls={selector}
 						onSearchAction={this.onSearchAction}
