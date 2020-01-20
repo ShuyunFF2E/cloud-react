@@ -9,15 +9,19 @@ import Message from '../message';
 
 class Store {
 	// 当前节点
-	static activeNode = null;
+	activeNode = null;
 
 	/**
 	 * 初始化数据
 	 * @param treeData
 	 * @param maxLevel
+	 * @param selectedValue
 	 * @returns {*}
 	 */
-	static initData(treeData, maxLevel) {
+	initData = (treeData, maxLevel, selectedValue) => {
+		// 单选则直接选中回显值，多选则默认第一个
+		this.activeNode = selectedValue && selectedValue[0] || '';
+		// 处理已选中的节点，treeData中存在selectedValue中的值则选中
 		const cloneData = jEasy.clone(treeData);
 		const format = (node, level) => {
 			const { children } = node;
@@ -29,6 +33,20 @@ class Store {
 			// 超过最大层级的节点将不允许新增节点
 			if (maxLevel && node.level >= maxLevel) {
 				tmp.disableAdd = true;
+			}
+			// 找到treeData中对应的值进行checked
+			const activeNodeIndex = selectedValue && selectedValue.findIndex(x => x.id === node.id);
+			// 找到该值
+			if (activeNodeIndex !== -1) {
+				// 激活节点
+				tmp.isActive = true;
+				// 节点存在子元素，且子元素没有被选中
+				if (tmp.children.length && !tmp.children.find(x => x.checked)) {
+					// 选中节点
+					tmp.indeterminate = true;
+				} else {
+					tmp.checked = true;
+				}
 			}
 
 			if (!children || !children.length) {
@@ -45,7 +63,7 @@ class Store {
 			});
 		}
 		return cloneData;
-	}
+	};
 
 	/**
 	 * 单选选中
@@ -53,7 +71,7 @@ class Store {
 	 * @param node
 	 * @returns {Array}
 	 */
-	static selectedForRadio(data, node) {
+	selectedForRadio = (data, node) => {
 		const selectedList = [];
 
 		function getSelected(nodeList) {
@@ -70,7 +88,7 @@ class Store {
 
 		getSelected(data);
 		return selectedList;
-	}
+	};
 
 	/**
 	 * 多选选中
@@ -78,7 +96,7 @@ class Store {
 	 * @param node
 	 * @returns {*}
 	 */
-	static selectedForCheckbox(data, node) {
+	selectedForCheckbox(data, node) {
 		const { checked, children, pId, parentId } = node;
 
 		// 变更自身节点选中状态
@@ -149,7 +167,7 @@ class Store {
 		changeChildren(children || []);
 		changeParent(pId || parentId);
 		return data;
-	}
+	};
 
 	/**
 	 * 根据参数获取节点
@@ -158,7 +176,7 @@ class Store {
 	 * @param value
 	 * @returns {*}
 	 */
-	static findNodeByParam(data, param, value) {
+	findNodeByParam = (data, param, value) => {
 		let node = null;
 		const find = (array) => {
 			array.some(item => {
@@ -174,7 +192,7 @@ class Store {
 		};
 		find(data);
 		return node;
-	}
+	};
 
 	/**
 	 * 根据id获取节点
@@ -182,9 +200,9 @@ class Store {
 	 * @param id
 	 * @returns {*}
 	 */
-	static findNodeById(data, id) {
+	findNodeById(data, id) {
 		return this.findNodeByParam(data, 'id', id);
-	}
+	};
 
 	/**
 	 * 根据id更新节点数据
@@ -192,22 +210,22 @@ class Store {
 	 * @param id
 	 * @param updatePart
 	 */
-	static updateNodeById(data, id, updatePart) {
+	updateNodeById(data, id, updatePart) {
 		const node = this.findNodeById(data, id);
 		return node && Object.assign(node, updatePart);
-	}
+	};
 
 	/**
 	 * 更新激活节点
 	 * @param data
 	 * @param node
 	 */
-	static updateActiveNode(data, node) {
+	updateActiveNode(data, node) {
 		if (this.activeNode) {
 			this.updateNodeById(data, this.activeNode.id, { isActive: false });
 		}
 		this.activeNode = this.updateNodeById(data, node.id, { isActive: true });
-	}
+	};
 
 	/**
 	 * 新增节点
@@ -216,7 +234,7 @@ class Store {
 	 * @param newNode
 	 * @param isAddFront
 	 */
-	static addChildNode(data, pId, newNode, isAddFront) {
+	addChildNode(data, pId, newNode, isAddFront) {
 		const pNode = this.findNodeById(data, pId);
 		if (!pNode.children) {
 			pNode.children = [];
@@ -227,7 +245,7 @@ class Store {
 		}
 		pNode.children.push(newNode);
 		return data;
-	}
+	};
 
 	/**
 	 * 删除节点
@@ -235,7 +253,7 @@ class Store {
 	 * @param node
 	 * @returns {*}
 	 */
-	static removeChildNode(data, node) {
+	removeChildNode(data, node) {
 		const parentNode = this.findNodeById(data, node.pId || node.parentId);
 
 		// 存在子节点则不可删除
@@ -249,7 +267,7 @@ class Store {
 			}
 		});
 		return data;
-	}
+	};
 
 	/**
 	 * 重命名节点
@@ -258,18 +276,18 @@ class Store {
 	 * @param newValue
 	 * @returns {*}
 	 */
-	static renameChildNode(data, id, newValue) {
+	renameChildNode(data, id, newValue) {
 		const item = this.findNodeById(data, id);
 		item.name = newValue;
 		return data;
-	}
+	};
 
 	/**
 	 * 搜索节点
 	 * @param data
 	 * @param searchText
 	 */
-	static searchNode(data, searchText) {
+	searchNode(data, searchText) {
 		const cloneData = jEasy.clone(data);
 		// 搜索前删除掉已激活的节点
 		this.activeNode = null;
@@ -289,6 +307,8 @@ class Store {
 		};
 		search(cloneData);
 		return cloneData;
-	}
+	};
 }
-export default Store;
+
+const store = new Store();
+export default store;

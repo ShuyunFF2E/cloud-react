@@ -113,6 +113,7 @@ export default class TreeDemo extends React.Component {
 					name: '禁止新增节点',
 					pId: 1,
 					disableAdd: true,
+					disableSelected: true,
 					children: [
 						{
 							id: 121,
