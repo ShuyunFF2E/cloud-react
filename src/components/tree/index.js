@@ -285,7 +285,7 @@ class Tree extends Component{
 		const { id, name, disableAdd, disableRename, disableRemove } = nodeData;
 
 		return (
-			<TreeContext.Provider value={{ searchText, supportRadio, supportCheckbox, supportMenu, isAddFront, nodeNameMaxLength, showIcon, openIconType, closeIconType, iconColor, selectedValue, showMenu, onAddAction, onRenameAction, onRemoveAction, onSelectedAction }}>
+			<TreeContext.Provider value={{ treeData, searchText, supportRadio, supportCheckbox, supportMenu, isAddFront, nodeNameMaxLength, showIcon, openIconType, closeIconType, iconColor, selectedValue, showMenu, onAddAction, onRenameAction, onRemoveAction, onSelectedAction }}>
 				<div className={`${selector} ${className}`} style={style}>
 					<Search
 						prefixCls={selector}
@@ -310,7 +310,6 @@ class Tree extends Component{
 					<TreeList
 						prefixCls={selector}
 						nodeNameMaxLength={nodeNameMaxLength}
-						selectedValue={selectedValue}
 						data={treeData}/>
 				</div>
 			</TreeContext.Provider>

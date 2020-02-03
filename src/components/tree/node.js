@@ -88,6 +88,10 @@ class Node extends Component {
 		if (this.context.supportCheckbox) {
 			data.checked = checked;
 		}
+		if (this.context.supportRadio) {
+			// 将其他节点的isActive全部设置为false
+			// 但是找不到上一个节点
+		}
 		this.context.onSelectedAction(data);
 	};
 
@@ -112,13 +116,13 @@ class Node extends Component {
 
 						{/* checkbox选择，新增或编辑时不显示 */}
 						<ShowSelection
-							id={data.id}
+							id={(this.context.supportRadio && this.context.selectedValue.length === 1) ? this.context.selectedValue[0].id : data.id}
 							name={data.name}
 							disableSelected={data.disableSelected}
 							searchText={this.context.searchText}
 							indeterminate={data.indeterminate}
 							checked={data.checked}
-							isRadioSelected={data.isActive}
+							isRadioSelected={data.isActive || (this.context.selectedValue.length === 1 && this.context.selectedValue[0].id === data.id) }
 							supportRadio={this.context.supportRadio}
 							supportCheckbox={this.context.supportCheckbox}
 							onHandleSelect={this.handleSelect}/>

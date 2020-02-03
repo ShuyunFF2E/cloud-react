@@ -24,10 +24,10 @@ export default class TreeDemo extends React.Component {
 	}
 
 	selectedNode = (node, selectedList) => {
-		console.info('已选择一个节点，节点信息是：');
-		console.log(node);
-		console.info('目前已选择节点列表，列表信息是：');
-		console.log(selectedList);
+		// console.info('已选择一个节点，节点信息是：');
+		// console.log(node);
+		// console.info('目前已选择节点列表，列表信息是：');
+		// console.log(selectedList);
 	};
 
 	render() {
