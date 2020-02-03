@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-
 import { prefixCls } from '@utils/config'
-
 import Icon from '../icon';
 import Button from '../button';
-
 import './index.less';
 
 class Notification extends Component {
@@ -15,6 +12,7 @@ class Notification extends Component {
 		this.modalRef = React.createRef();
 
 		this.state = {
+			modalId: new Date().getTime(),
 			pageX: '',
 			pageY: '',
 			diffX: '',
@@ -86,7 +84,7 @@ class Notification extends Component {
 		// titleDom的坐标(视窗)
 		const X = titleDom.getBoundingClientRect().left;
 		// 由于Y轴出现滚动条，需要与鼠标保持一致，存储页面相对位置
-		const ele = document.getElementsByClassName(`${prefixCls}-modal-container`)[0];
+		const ele = document.getElementById(this.state.modalId);
 		// 设置可移动样式
 		ele.style.cursor = 'move';
 
@@ -114,7 +112,7 @@ class Notification extends Component {
 	// 松开鼠标，设置modal状态为不可移动
 	onMouseUp = () => {
 		const { moving } = this.state;
-		const ele = document.getElementsByClassName(`${prefixCls}-modal-container`)[0];
+		const ele = document.getElementById(this.state.modalId);
 		if (ele) {
 			ele.style.cursor = 'default';
 		}
@@ -134,7 +132,8 @@ class Notification extends Component {
 			const y = position.mouseY - diffY;
 			// 窗口大小，结构限制，需要做调整，减去侧边栏宽度
 			const { clientWidth, clientHeight } = document.documentElement;
-			const modal = document.getElementsByClassName(`${prefixCls}-modal-container`)[0];
+			const modal = document.getElementById(this.state.modalId);
+
 			if (modal) {
 				modal.style.margin = 0;
 
@@ -191,7 +190,7 @@ class Notification extends Component {
 					onReset={this.onReset}
 					clickMaskCanClose={clickMaskCanClose}/>
 				{/* 弹出框 */}
-				<div ref={c=> { this.modalRef = c; }} className={classNames(`${prefixCls}-modal-container`)} style={style}>
+				<div ref={c=> { this.modalRef = c; }} id={this.state.modalId} className={classNames(`${prefixCls}-modal-container`)} style={style}>
 					<ModalHeader
 						id={id}
 						type={type}
@@ -238,9 +237,12 @@ function ModalHeader({ type, title, onClose, onReset, onMouseDown, onMouseUp, on
 		onClose();
 		onReset();
 	};
+	const selected = e => {
+		e.stopPropagation();
+	};
 	return (
 		type === 'modal' && <header className={classNames(`${prefixCls}-modal-header`)} onMouseMoveCapture={e => onMouseMove(e)} onMouseDown={e => onMouseDown(e)} onMouseUp={e => onMouseUp(e)}>
-			<span className={classNames(`${prefixCls}-modal-title`)}>{title}</span>
+			<span className={classNames(`${prefixCls}-modal-title`)} onMouseDown={event => selected(event)}>{title}</span>
 			<Icon type="close" className="close-icon" onClick={close}/>
 		</header>
 	);

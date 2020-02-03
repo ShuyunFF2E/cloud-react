@@ -59,11 +59,47 @@ export default class ModalDemo extends React.Component {
 				 	onOk={this.handleOk}
 				 	onCancel={this.handleCancel}
 				 	onClose={this.handleClose}>
-				 	<ConfirmModal/>
+				 	<SecondModal/>
 				 </Modal>
 			 </div>
 		 );
 	 }
+}
+
+class SecondModal extends React.Component {
+	constructor(props) {
+        super(props);
+        this.state = {
+            visible: false
+        }
+    }
+	openInfoModal = () => {
+	    this.setState({
+	        visible: true
+        })
+    };
+
+    // 关闭回调函数
+	 handleClose = () => {
+		this.setState({
+			visible: false
+		});
+	 };
+
+	render () {
+		return (
+			<div>
+			    <Button type='normal' onClick={this.openInfoModal}>信息提示弹出框</Button>
+                <Modal
+                  hasFooter={false}
+                  title='basic title111'
+                  visible={this.state.visible}
+                  onClose={this.handleClose}>
+                  <ConfirmModal />
+               </Modal>
+            </div>
+		);
+	};
 }
 
 class ConfirmModal extends React.Component {
