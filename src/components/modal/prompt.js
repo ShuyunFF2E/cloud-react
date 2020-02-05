@@ -13,8 +13,8 @@ const ENTER_KEY_CODE = 13;
 class Prompt extends React.Component{
 
 	static defaultProps = {
-		type: '',
 		isShowIcon: true,
+		type: '',
 		icon: '',
 		body: '',
 		onOk: () => {},
@@ -22,8 +22,8 @@ class Prompt extends React.Component{
 	};
 
 	static propTypes = {
-		type: PropTypes.string,
 		isShowIcon: PropTypes.bool,
+		type: PropTypes.string,
 		icon: PropTypes.string,
 		body: PropTypes.node,
 		onOk: PropTypes.func,
@@ -108,7 +108,8 @@ class Prompt extends React.Component{
 	};
 
 	render() {
-		const { type, icon, body, isShowIcon } = this.props;
+		const { isShowIcon, type, icon, body, iconStyle } = this.props;
+
 		const promptStyle = {
 			width: '200px'
 		};
@@ -122,7 +123,7 @@ class Prompt extends React.Component{
 				onOk={this.handleOk}>
 				<div>
 					<header className="info-area">
-						{ isShowIcon && <Icon type={icon} className={`icon-style ${type}-style` }/> }
+						{ isShowIcon && <Icon type={icon} className={ `icon-style ${type}-style` } style={iconStyle}/>}
 						<section className="more-info">{body}</section>
 					</header>
 				</div>
@@ -131,7 +132,7 @@ class Prompt extends React.Component{
 	}
 }
 
-function prompt({ type, icon, body, onOk, onCancel, isShowIcon }) {
+function prompt({ isShowIcon, type, icon, body, onOk, onCancel, iconStyle }) {
 	// 创建一个关联id
 	const id = `prompt${new Date().getTime()}`;
 	const ele = document.createElement('div');
@@ -142,8 +143,9 @@ function prompt({ type, icon, body, onOk, onCancel, isShowIcon }) {
 	ReactDOM.render(
 		<Prompt
 			id={id}
-			type={type}
 			isShowIcon={isShowIcon}
+			iconStyle={iconStyle}
+			type={type}
 			icon={icon}
 			body={body}
 			onOk={onOk}
