@@ -30,7 +30,7 @@ subtitle: 弹出框
 
 
 #### method
- - 默认属性：title(提示信息标题), body(提示信息内容), onOk(确定按钮回调函数，仅confirm支持), onClose(取消按钮回调函数)
+ - 默认属性：title(提示信息标题), body(提示信息内容), onOk(确定按钮回调函数，仅confirm支持), onClose(取消按钮回调函数), isShowIcon(是否展示icon，默认为true展示)
  - confirm方法中的确定按钮回调函数支持返回promise，具体使用见示例demo。
 
 | 方法名 | 说明 | 用法 | 示例 |
