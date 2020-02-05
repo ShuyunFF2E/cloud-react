@@ -1,54 +1,69 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import jEasy from 'jeasy';
-import classNames from 'classnames';
 import { prefixCls } from '@utils/config';
 import TreeContext from './context';
 import Search from './search';
 import TreeList from './list';
 import Message from '../message';
 import Modal from '../modal';
-import Store from './store';
+import store from './store';
 import Menu from './menu';
-
 import './index.less';
-
 
 const noop = () => {};
 
 class Tree extends Component{
 	// 默认值， 默认类型与值不匹配
 	static defaultProps = {
+		style: {},
+		className: '',
 		searchPlaceholder: '',
 		searchMaxLength: '',
 		nodeNameMaxLength: '',
 		maxLevel: 0,
+		showIcon: true,
+		openIconType: 'folder-solid-open',
+		closeIconType: 'folder-solid',
+		iconColor: '#999',
 		supportRadio: false,
 		supportCheckbox: false,
 		supportMenu: false,
 		supportSearch: false,
+		supportImmediatelySearch: false,
 		isAddFront: true,
+		selectedValue: [],
 		onAddNode: noop,
 		onRenameNode: noop,
 		onRemoveNode: noop,
-		onSelectedNode: noop
+		onSelectedNode: noop,
+		onSearchResult: noop
 	};
 
 	static propsTypes = {
+		style: PropTypes.object,
+		className: PropTypes.string,
 		treeData: PropTypes.array,
 		searchPlaceholder: PropTypes.string,
 		searchMaxLength: PropTypes.number,
 		nodeNameMaxLength: PropTypes.number,
 		maxLevel: PropTypes.number,
+		showIcon: PropTypes.bool,
+		openIconType: PropTypes.string,
+		closeIconType: PropTypes.string,
+		iconColor: PropTypes.string,
 		supportCheckbox: PropTypes.bool,
 		supportRadio: PropTypes.bool,
 		supportMenu: PropTypes.bool,
 		supportSearch: PropTypes.bool,
+		supportImmediatelySearch: PropTypes.bool,
 		isAddFront: PropTypes.bool,
+		selectedValue: PropTypes.array,
 		onAddNode: PropTypes.func,
 		onRenameNode: PropTypes.func,
 		onRemoveNode: PropTypes.func,
 		onSelectedNode: PropTypes.func,
+		onSearchResult: PropTypes.func,
 	};
 
 	constructor(props) {
@@ -61,7 +76,7 @@ class Tree extends Component{
 			menuStyle: null,
 			menuOptions: null,
 			searchText: '',
-			treeData: Store.initData(props.treeData, props.maxLevel)
+			treeData: store.initData(props.treeData, props.maxLevel, props.selectedValue)
 		};
 	}
 
@@ -84,17 +99,23 @@ class Tree extends Component{
 		this.setState({
 			searchText
 		});
+		const { supportSearch, onSearchNode } = this.props;
 
 		// 保留原始数据供每次搜索使用
-		const tmp = jEasy.clone(Store.initData(this.props.treeData, this.props.maxLevel));
+		const tmp = jEasy.clone(store.initData(this.props.treeData, this.props.maxLevel));
 
 		// 搜索结果数据
-		const backTree = Store.searchNode(tmp, searchText);
+		const backTree = store.searchNode(tmp, searchText);
 
 		// 是多选并且存在已多选的节点列表才进行合并数据
 		this.setState({
 			treeData: [...backTree]
 		});
+
+		// 支持搜索则返回搜素结果
+		if (supportSearch) {
+			onSearchNode(searchText, backTree);
+		}
 	};
 
 	/**
@@ -104,10 +125,11 @@ class Tree extends Component{
 	onSelectedAction = node => {
 		const data = this.state.treeData;
 		const { supportCheckbox, onSelectedNode } = this.props;
+
 		// 更新节点选中状态
-		Store.updateActiveNode(data, node);
+		store.updateActiveNode(data, node);
 		// 单选节点列表
-		const radioSelectedList = Store.selectedForRadio(data, node);
+		const radioSelectedList = store.selectedForRadio(data, node);
 		// 多选节点列表
 		const checkboxSelectedList = this.getSelectedMoreList(data, node);
 
@@ -130,9 +152,9 @@ class Tree extends Component{
 	 */
 	getSelectedMoreList = (data, node) => {
 		const selectedList = [];
-		Store.updateActiveNode(data, node);
+		store.updateActiveNode(data, node);
 		// 更新checked状态
-		const tmp = Store.selectedForCheckbox(data, node);
+		const tmp = store.selectedForCheckbox(data, node);
 		const filterSelected = (selectedData) => {
 			selectedData.forEach(item => {
 				if (item.checked) {
@@ -156,7 +178,7 @@ class Tree extends Component{
 	onAddAction = (pId, value) => {
 		const { onAddNode, isAddFront } = this.props;
 		onAddNode(pId, value).then(res => {
-			const data = Store.addChildNode(this.state.treeData, pId, { id: res.data || res.id, name: value, children: [], pId }, isAddFront);
+			const data = store.addChildNode(this.state.treeData, pId, { id: res.data || res.id, name: value, children: [], pId }, isAddFront);
 			// 新增之后重新init判断层级，不然会出现无层级可继续添加问题
 			this.setState({
 				treeData: [...data]
@@ -175,7 +197,7 @@ class Tree extends Component{
 	onRenameAction = (id, newValue) => {
 		const { onRenameNode } = this.props;
 		onRenameNode(id, newValue).then(() => {
-			const data = Store.renameChildNode(this.state.treeData, id, newValue);
+			const data = store.renameChildNode(this.state.treeData, id, newValue);
 			this.setState({
 				treeData: [...data]
 			});
@@ -196,7 +218,7 @@ class Tree extends Component{
 			onOk: () => {
 				onRemoveNode(node.id).then(() => {
 					// 删除DOM节点
-					const data = Store.removeChildNode(this.state.treeData, node);
+					const data = store.removeChildNode(this.state.treeData, node);
 					this.setState({
 						treeData: [...data]
 					});
@@ -240,14 +262,22 @@ class Tree extends Component{
 		const selector = `${prefixCls}-tree`;
 
 		const {
+			style,
+			className,
 			searchPlaceholder,
 			searchMaxLength,
 			supportSearch,
+			supportImmediatelySearch,
 			nodeNameMaxLength,
 			supportRadio,
 			supportCheckbox,
 			supportMenu,
-			isAddFront
+			isAddFront,
+			showIcon,
+			openIconType,
+			closeIconType,
+			iconColor,
+			selectedValue
 		} = this.props;
 
 		const { onAddAction, onRenameAction, onRemoveAction, onSelectedAction, showMenu } = this;
@@ -255,11 +285,12 @@ class Tree extends Component{
 		const { id, name, disableAdd, disableRename, disableRemove } = nodeData;
 
 		return (
-			<TreeContext.Provider value={{ searchText, supportRadio, supportCheckbox, supportMenu, isAddFront, nodeNameMaxLength, showMenu, onAddAction, onRenameAction, onRemoveAction, onSelectedAction }}>
-				<div className={classNames(selector)}>
+			<TreeContext.Provider value={{ searchText, supportRadio, supportCheckbox, supportMenu, isAddFront, nodeNameMaxLength, showIcon, openIconType, closeIconType, iconColor, selectedValue, showMenu, onAddAction, onRenameAction, onRemoveAction, onSelectedAction }}>
+				<div className={`${selector} ${className}`} style={style}>
 					<Search
 						prefixCls={selector}
 						onSearchAction={this.onSearchAction}
+						supportImmediatelySearch={supportImmediatelySearch}
 						supportSearch={supportSearch && !supportCheckbox}
 						searchPlaceholder={searchPlaceholder}
 						searchMaxLength={searchMaxLength}/>
@@ -279,6 +310,7 @@ class Tree extends Component{
 					<TreeList
 						prefixCls={selector}
 						nodeNameMaxLength={nodeNameMaxLength}
+						selectedValue={selectedValue}
 						data={treeData}/>
 				</div>
 			</TreeContext.Provider>

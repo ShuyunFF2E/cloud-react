@@ -26,6 +26,7 @@ export default class ModalDemo extends React.Component {
 
 	 openConfirmModal = () => {
 	 	Modal.confirm({
+			isShowIcon: false,
 			body: 'something you can write here',
 			onOk: () => {
 				this.handleOk();

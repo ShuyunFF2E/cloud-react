@@ -47,7 +47,6 @@
 		min-width: 400px;
 		max-width: 50%;
 		margin: 0 auto;
-		top: 20%;
 		position: relative;
 		background: @container-background;
 		border-radius: @body-border-radius;
@@ -57,7 +56,7 @@
 		@-webkit-keyframes modal-fade-in {
 			0% {
 				opacity: 0;
-				top: 10%;
+				top: 0;
 			}
 			100% {
 				opacity: 1;
@@ -71,9 +70,9 @@
 		text-align: left;
 		font-size: 14px;
 		background: @header-background;
-
 		.@{modal-prefix-cls}-title {
 			color: @modal-color;
+			cursor: text;
 		}
 
 		.close-icon {

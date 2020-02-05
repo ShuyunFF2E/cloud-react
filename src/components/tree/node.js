@@ -81,8 +81,10 @@ class Node extends Component {
 	};
 
 	// 选中节点
-	handleSelect = (checked) => {
+	handleSelect = checked => {
 		const { data } = this.props;
+		// 清空已选值，外部后自动增加
+		this.context.selectedValue = [];
 		if (this.context.supportCheckbox) {
 			data.checked = checked;
 		}
@@ -93,12 +95,7 @@ class Node extends Component {
 		const { data, children, prefixCls } = this.props;
 		const { showInput, onSaveClick, onClickCancel } = this;
 		// 将三个方法传递出去可以供外部调用
-		const options = {
-			showInput,
-			onSaveClick,
-			onClickCancel
-		};
-
+		const options = { showInput, onSaveClick, onClickCancel };
 		return (
 			<Fragment>
 				<div className={classNames(`${prefixCls}-list-node-area`)}>
@@ -111,12 +108,13 @@ class Node extends Component {
 							toggle={this.toggle}/>
 
 						{/* 节点前面的icon */}
-						<NodeIcon hasChildren={data.children.length > 0} showChildrenItem={this.state.showChildrenItem}/>
+						<NodeIcon showIcon={this.context.showIcon} openIconType={this.context.openIconType} closeIconType={this.context.closeIconType} iconColor={this.context.iconColor} hasChildren={data.children.length > 0} showChildrenItem={this.state.showChildrenItem}/>
 
 						{/* checkbox选择，新增或编辑时不显示 */}
 						<ShowSelection
 							id={data.id}
 							name={data.name}
+							disableSelected={data.disableSelected}
 							searchText={this.context.searchText}
 							indeterminate={data.indeterminate}
 							checked={data.checked}
@@ -187,12 +185,13 @@ function ShowInput({ isShow, isAdd,  maxLength, inputValue, handleInputChange, s
  * @param supportCheckbox
  * @param id
  * @param name
+ * @param disableSelected
  * @param isRadioSelected
  * @param onHandleSelect
  * @returns {null|*}
  * @constructor
  */
-function ShowSelection({ searchText, indeterminate, checked, supportRadio, supportCheckbox, id, name, isRadioSelected, onHandleSelect }) {
+function ShowSelection({ searchText, indeterminate, checked, supportRadio, supportCheckbox, id, name, disableSelected, isRadioSelected, onHandleSelect }) {
 	// 处理搜索关键字高亮
 	const re = new RegExp(searchText,'g');
 	const tmp = name.replace(re, `<span class="hot-text">${searchText}</span>`);
@@ -200,10 +199,11 @@ function ShowSelection({ searchText, indeterminate, checked, supportRadio, suppo
 		width: '100%',
 		zIndex: 0
 	};
+
 	// 多选类型展示
 	if (supportCheckbox) {
 		return (
-			<Checkbox indeterminate={indeterminate} checked={checked} value={id} onChange={onHandleSelect} style={labelWidth}>
+			<Checkbox disabled={disableSelected} indeterminate={indeterminate} checked={checked} value={id} onChange={onHandleSelect} style={labelWidth}>
 				<span dangerouslySetInnerHTML={{ __html: tmp }}/>
 			</Checkbox>
 		);
@@ -212,7 +212,7 @@ function ShowSelection({ searchText, indeterminate, checked, supportRadio, suppo
 	// 单选类型展示
 	if (supportRadio) {
 		return (
-			<Radio value={id} className={isRadioSelected ? 'is-active' : ''} checked={isRadioSelected} onChange={onHandleSelect} style={labelWidth}>
+			<Radio value={id} disabled={disableSelected} className={isRadioSelected ? 'is-active' : ''} checked={isRadioSelected} onChange={onHandleSelect} style={labelWidth}>
 				<span dangerouslySetInnerHTML={{ __html: tmp }}/>
 			</Radio>
 		);
@@ -225,12 +225,22 @@ function ShowSelection({ searchText, indeterminate, checked, supportRadio, suppo
 
 /**
  * 节点Icon
+ * @param showIcon
+ * @param openIconType
+ * @param closeIconType
+ * @param iconColor
  * @param hasChildren
  * @param showChildrenItem
  * @return {null}
  */
-function NodeIcon({ hasChildren, showChildrenItem }) {
+function NodeIcon({ showIcon, openIconType, closeIconType, iconColor, hasChildren, showChildrenItem }) {
+	if (!showIcon) {
+		return null;
+	}
+	const style = {
+		color: iconColor
+	};
 	// 存在子节点,并且要显示子节点
-	return hasChildren && showChildrenItem ? <Icon type="folder-solid-open"></Icon> : <Icon type="folder-solid"></Icon>;
+	return hasChildren && showChildrenItem ? <Icon style={style} type={closeIconType}/> : <Icon style={style} type={openIconType}/>;
 }
 export default Node;

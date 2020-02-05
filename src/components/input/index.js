@@ -150,7 +150,7 @@ class Input extends React.PureComponent {
 		const { hasCounter, maxLength } = this.props;
 		const { value } = this.state;
 
-		return (hasCounter && maxLength) ? <span className={classnames(`${prefixCls}-input-counter`)}>{ value.length }/{ maxLength }</span> : null;
+		return (hasCounter && maxLength) ? <span className={classnames(`${prefixCls}-input-counter`)}><span>{ value.length }</span>/{ maxLength }</span> : null;
 
 	}
 

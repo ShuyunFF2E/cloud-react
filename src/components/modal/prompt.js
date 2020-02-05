@@ -14,6 +14,7 @@ class Prompt extends React.Component{
 
 	static defaultProps = {
 		type: '',
+		isShowIcon: true,
 		icon: '',
 		body: '',
 		onOk: () => {},
@@ -22,6 +23,7 @@ class Prompt extends React.Component{
 
 	static propTypes = {
 		type: PropTypes.string,
+		isShowIcon: PropTypes.bool,
 		icon: PropTypes.string,
 		body: PropTypes.node,
 		onOk: PropTypes.func,
@@ -106,7 +108,7 @@ class Prompt extends React.Component{
 	};
 
 	render() {
-		const { type, icon, body } = this.props;
+		const { type, icon, body, isShowIcon } = this.props;
 		const promptStyle = {
 			width: '200px'
 		};
@@ -120,7 +122,7 @@ class Prompt extends React.Component{
 				onOk={this.handleOk}>
 				<div>
 					<header className="info-area">
-						<Icon type={icon} className={`icon-style ${type}-style` }/>
+						{ isShowIcon && <Icon type={icon} className={`icon-style ${type}-style` }/> }
 						<section className="more-info">{body}</section>
 					</header>
 				</div>
@@ -129,7 +131,7 @@ class Prompt extends React.Component{
 	}
 }
 
-function prompt({ type, icon, body, onOk, onCancel }) {
+function prompt({ type, icon, body, onOk, onCancel, isShowIcon }) {
 	// 创建一个关联id
 	const id = `prompt${new Date().getTime()}`;
 	const ele = document.createElement('div');
@@ -141,6 +143,7 @@ function prompt({ type, icon, body, onOk, onCancel }) {
 		<Prompt
 			id={id}
 			type={type}
+			isShowIcon={isShowIcon}
 			icon={icon}
 			body={body}
 			onOk={onOk}

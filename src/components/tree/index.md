@@ -11,6 +11,9 @@ subtitle: 树
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | treeData | 树结构数据 | Array | - |
+| className | class名称方式设置treeList样式 | String | - |
+| style | 对象方式设置treeList样式 | Object | - |
+| selectedValue | 被选中数据，需要回显的数据，仅支持多选类型 | Array | - |
 | searchPlaceholder | 搜索框默认placeholder信息 | String | - |
 | searchMaxLength | 搜索框搜索关键字最大支持长度 | Number | - |
 | nodeNameMaxLength | 节点名称最大支持长度 | Number | - |
@@ -18,17 +21,24 @@ subtitle: 树
 | supportRadio | 是否支持单选，不可与多选共用 | Boolean | false |
 | supportCheckbox | 是否支持多选，不可与单选共用 | Boolean | false |
 | supportMenu | 是否支持右键菜单 | Boolean | true |
-| supportSearch | 是否支持搜索 | Boolean | true |
+| showIcon | 是否显示节点前面的icon | Boolean | true |
+| openIconType | 节点前面的展开icon类型，可在icon组件中查看相关类型 | String | folder-solid-open |
+| closeIconType | 节点前面的关闭icon类型，可在icon组件中查看相关类型 | String | folder-solid |
+| iconColor | 节点前面的icon颜色 | String | #999 |
+| supportImmediatelySearch | 是否支持实时搜索, supportSearch必须为true| Boolean | false |
+| supportSearch | 是否支持搜索 | Boolean | false |
 | isAddFront | 新增节点时是否在当前节点的第一个子节点位置新增，false则新增到最后面 | Boolean | true |
 | onAddNode | 新增节点事件，需要返回Promise | Function | - |
 | onRenameNode | 重命名节点事件，需要返回Promise | Function | - |
 | onRemoveNode | 删除节点事件，需要返回Promise | Function | - |
-| onSelectedNode | 选中节点事件 | Function | - |
+| onSelectedNode | 选中节点事件，返回选中的节点数据 | Function | - |
+| onSearchNode | 节点搜索事件，返回搜索后的搜索值与搜索结果，搜索结果为搜索后的树结构 | Function | - |
 
 ### 数据属性
 - disableAdd: 布尔类型，设置为true则表示不可新增；
 - disableRename: 布尔类型，设置为true则表示不可重命名；
 - disableRemove: 布尔类型，设置为true则表示不可删除；
+- disableSelected: 布尔类型，设置为true则表示不可选择，只是不可选择该节点，若有子节点，其子节点仍可以选择；
 - pId与parentId：父节点id，使用时可写成parentId也可写成pId
 
 ### 数据格式：treeData属性值
@@ -63,6 +73,7 @@ subtitle: 树
                     "name": "禁止重命名节点",
                     "pId": 12,
                     "disableRename": true,
+                    "disableSelected": true,
                     "children": [
                         {
                             "id": 1211,
