@@ -30,8 +30,6 @@ subtitle: 弹出框
 
 
 #### method
- - 默认属性：title(提示信息标题), body(提示信息内容), onOk(确定按钮回调函数，仅confirm支持), onClose(取消按钮回调函数), isShowIcon(是否展示icon，默认为true展示)
- - confirm方法中的确定按钮回调函数支持返回promise，具体使用见示例demo。
 
 | 方法名 | 说明 | 用法 | 示例 |
 | --- | --- | --- | --- |
@@ -40,3 +38,13 @@ subtitle: 弹出框
 | error | 错误提示框 | Modal.error() | Modal.error({body: 'a error message'}) |
 | info | 信息提示框 | Modal.info() | Modal.info({body: 'a info message'}) |
 | warning | 警告提示框 | Modal.warning() | Modal.warning({body: 'a warning message'}) |
+
+ - 默认属性与方法：
+    - isShowIcon(是否显示提示信息前面的icon， 布尔类型，默认为true)
+    - icon(提示信息前面icon, 即icon组件中的type名称，字符串类型)
+    - iconStyle(提示信息前面icon的样式，对象类型)
+    - body(提示信息内容, 支持jsx语法直接传入dom节点) 
+    - onOk(确定按钮回调函数，仅confirm支持) 
+    - onClose(取消按钮回调函数)
+    
+ - **confirm方法中的确定按钮回调函数支持返回promise，具体使用见示例demo**
