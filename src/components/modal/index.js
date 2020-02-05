@@ -35,7 +35,7 @@ Modal.confirm = (props) => {
 	const config = {
 		...props,
 		type: 'confirm',
-		icon: 'question-circle-solid'
+		icon: props.icon || 'question-circle-solid'
 	};
 	return Prompt(config);
 };
@@ -45,7 +45,7 @@ Modal.info = (props) => {
 	const config = {
 		...props,
 		type: 'info',
-		icon: 'info-circle'
+		icon: props.icon || 'info-circle'
 	};
 	return Prompt(config);
 };
@@ -55,7 +55,7 @@ Modal.success = (props) => {
 	const config = {
 		...props,
 		type: 'success',
-		icon: 'check-circle-solid'
+		icon: props.icon || 'check-circle-solid'
 	};
 	return Prompt(config);
 };
@@ -65,7 +65,7 @@ Modal.error = (props) => {
 	const config = {
 		...props,
 		type: 'error',
-		icon: 'close-circle-solid'
+		icon: props.icon || 'close-circle-solid'
 	};
 	return Prompt(config);
 };
@@ -75,7 +75,7 @@ Modal.warning = (props) => {
 	const config = {
 		...props,
 		type: 'warning',
-		icon: 'warning-circle-solid'
+		icon: props.icon || 'warning-circle-solid'
 	};
 	return Prompt(config);
 };
