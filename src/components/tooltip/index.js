@@ -86,8 +86,8 @@ function destroyDOM(id, container) {
  * @param id: 容器的ID
  * @param event: 当前触发的元素
  */
-function createWrapper(id, event) {
-	targetEle = event.parentNode || event.target.parentNode;
+function createWrapper(id, targetDom) {
+	targetEle = targetDom;
 	targetEle.classList.add(id);
 	const div = document.createElement('div');
 	div.style.cssText = DEFAULT_STYLE;
@@ -122,8 +122,8 @@ class Tooltip extends Component{
 		targetEle = typeof visible === 'boolean' ? this.triggerDom.parentElement : targetEle;
 		const element = this.triggerDom;
 		if (this.isShow && element instanceof window.HTMLElement) {
-			const id = getClassName(this.triggerDom.parentNode.classList);
-			this.handleMouseLeave(id);
+			this.handleMouseLeave();
+			return;
 		}
 		if (!this.props.content) {
 			return;
@@ -131,8 +131,7 @@ class Tooltip extends Component{
 		if (typeof visible === 'boolean' && visible) {
 			this.handleMouseEnter(this.triggerDom);
 		} else if (element instanceof window.HTMLElement) {
-			const id = getClassName(this.triggerDom.parentNode.classList);
-			this.handleMouseLeave(id);
+			this.handleMouseLeave();
 		}
 	}
 
@@ -145,7 +144,7 @@ class Tooltip extends Component{
 		if (!this.isShow) {
 			const id = `tooltip-${new Date().getTime().toString()}`;
 			this.isShow = true;
-			createWrapper(id, event);
+			createWrapper(id, targetEle);
 			const viewProps = {
 				...this.props,
 				targetEle: event.target
@@ -172,11 +171,13 @@ class Tooltip extends Component{
 			 return;
 		 }
 		 const id = `tooltip-${new Date().getTime().toString()}`;
-		 createWrapper(id, event);
+		 createWrapper(id, this.triggerDom);
 		 this.isShow = true;
+		 // eslint-disable-next-line react/no-find-dom-node
+		 const dom = ReactDOM.findDOMNode(this.triggerDom);
 		 const viewProps = {
 			 ...this.props,
-			 targetEle: typeof visible === 'boolean' ? event.children[0] : event.target
+			 targetEle: typeof visible === 'boolean' ? event.children[0] : dom.children[0]
 		 };
 		 this.currentEle = targetEle;
 		 setTimeout(() => {
@@ -191,11 +192,11 @@ class Tooltip extends Component{
 		 if (!this.isShow || visible) {
 			 return
 		 }
-		 const id  = getClassName(this.currentEle.classList);
-		 this.isShow = false;
-		 setTimeout(() => {
-			 destroyDOM(id, container);
-			 this.currentEle.classList.remove(id);
+		const id  = getClassName(this.currentEle.classList);
+		this.isShow = false;
+		setTimeout(() => {
+			destroyDOM(id, container);
+			this.currentEle.classList.remove(id);
 		 }, mouseLeaveDelay);
 	 };
 
