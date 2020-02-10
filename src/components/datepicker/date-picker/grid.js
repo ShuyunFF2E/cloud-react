@@ -15,7 +15,11 @@ function Grid(props) {
 	const [tempHour, setTempHour] = useState(hour);
 	const [tempMinute, setTempMinute] = useState(minute);
 	const [tempSecond, setTempSecond] = useState(second);
-
+	const nowTime = utils.displayNow()
+	const _hour = hour || nowTime.hour;
+	const _minute = minute || nowTime.minute;
+	const _second = second || nowTime.second;
+	
 	useEffect(() => {
 		setTempDay(day);
 	}, [day]);
@@ -51,9 +55,6 @@ function Grid(props) {
 
 	function onSave() {
 		if (tempDay) {
-			const _hour = hour || '00';
-			const _minute = minute || '00';
-			const _second = second || '00';
 			onOK(utils.displayNow(new Date(`${year}/${month}/${tempDay} ${_hour}:${_minute}:${_second}`)));
 		}
 	}
@@ -81,6 +82,7 @@ function Grid(props) {
 							year={year}
 							month={month}
 							day={tempDay}
+							time={`${_hour}:${_minute}:${_second}`}
 							isClickDay={isClickDay}
 							minDate={minDate}
 							maxDate={maxDate}

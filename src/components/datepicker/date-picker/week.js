@@ -6,7 +6,7 @@ import utils from '../util';
 
 function Week(props) {
 	// rangeConfig出现在区间选择器时（仅用于年月日模式）
-	const { head, tail, year, month, day, days, minDate, maxDate, isClickDay, currentDateObj, rangeConfig, onPickDate } = props;
+	const { head, tail, year, month, day, days, time, minDate, maxDate, isClickDay, currentDateObj, rangeConfig, onPickDate } = props;
 
 	function onDayClick(_year, _month, _day) {
 		onPickDate({
@@ -33,11 +33,11 @@ function Week(props) {
 				const inMonth = !((head && i < idx) || (tail && idx > -1 &&  i > idx - 1));
 				let date = null;
 				if (inMonth) {
-					date = `${year}/${month}/${o}`;
+					date = `${year}/${month}/${o} ${time}`;
 				} else if (!inMonth && i < idx) {
-					date = month > 1 ? `${year}/${month - 1}/${o}` : `${year - 1}/12/${o}`;
+					date = month > 1 ? `${year}/${month - 1}/${o} ${time}` : `${year - 1}/12/${o} ${time}`;
 				} else if (!inMonth && i > idx - 1) {
-					date = month < 12 ? `${year}/${month + 1}/${o}` : `${year + 1}/01/${o}`;
+					date = month < 12 ? `${year}/${month + 1}/${o} ${time}` : `${year + 1}/01/${o} ${time}`;
 				}
 				const isToday = inMonth && (`${year}-${month}-${o}` === today);
 				let isCheck = false;
@@ -90,6 +90,7 @@ Week.propTypes = {
 	month: PropTypes.number,
 	days: PropTypes.array,
 	day: PropTypes.number,
+	time: PropTypes.string,
 	isClickDay: PropTypes.bool,
 	currentDateObj: PropTypes.object,
 	maxDate: PropTypes.instanceOf(Date),
@@ -109,6 +110,7 @@ Week.defaultProps = {
 	currentDateObj: null,
 	minDate: undefined,
 	maxDate: undefined,
+	time: '00:00:00',
 	head: true,
 	tail: true,
 	onPickDate: () => { }
