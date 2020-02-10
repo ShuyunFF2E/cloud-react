@@ -111,20 +111,22 @@ function MonthDayPicker(props) {
 			onInpChange()
 		}
 	}, [memoValue]);
-
-    return (<Input
-		{...otherProps}
-		ref={inpRef}
-		suffix={suffix}
-        value={currentValue}
-		placeholder={placeholder}
-		readOnly
-		hasClear={hasClear}
-		className={`${selector}-inp`}
-		onChange={evt => onInpChange(evt)}
-		disabled={disabled}
-		onClick={onInpClick}
- 	/>);
+	return (
+    <div 
+			onClick={onInpClick}
+			className={`${selector}-container`}>
+			<Input {...otherProps}
+				ref={inpRef}
+				suffix={suffix}
+						value={currentValue}
+				placeholder={placeholder}
+				readOnly
+				hasClear={hasClear}
+				className={`${selector}-inp`}
+				onChange={evt => onInpChange(evt)}
+				disabled={disabled}
+ 		/>
+	</div>);
 }
 
 MonthDayPicker.propTypes = {

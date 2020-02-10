@@ -146,18 +146,23 @@ function DatePicker(props) {
 		}
 	}, [memoValue]);
 
-  return (<Input {...otherProps}
-		ref={inpRef}
-		suffix={suffix}
-        value={currentValue}
-		placeholder={placeholder}
-		readOnly
-		hasClear={hasClear}
-		className={`${selector}-inp`}
-		disabled={disabled}
-		onChange={evt => onInpChange(evt)}
-		onClick={onInpClick}
-	 />);
+  return (
+		<div 
+			onClick={onInpClick}
+			className={`${selector}-container`}>
+				<Input {...otherProps}
+				ref={inpRef}
+				suffix={suffix}
+						value={currentValue}
+				placeholder={placeholder}
+				readOnly
+				hasClear={hasClear}
+				className={`${selector}-inp`}
+				disabled={disabled}
+				onChange={evt => onInpChange(evt)}
+				onClick={onInpClick}
+			/>
+		</div>);
 }
 
 DatePicker.propTypes =  {
