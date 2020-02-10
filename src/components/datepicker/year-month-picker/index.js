@@ -111,20 +111,22 @@ function YearMonthPicker(props) {
 		}
 	}, [memoValue]);
 
-
-	return (<Input
-		ref={inpRef}
-		suffix={suffix}
-		{...otherProps}
-        value={currentValue}
-		placeholder={placeholder}
-		readOnly
-		hasClear={hasClear}
-		className={`${selector}-inp`}
-		onChange={evt => onInpChange(evt)}
-		disabled={disabled}
-		onClick={onInpClick}
- 	/>);
+	return (
+		<div 
+			onClick={onInpClick}
+			className={`${selector}-container`}>
+			<Input {...otherProps}
+				ref={inpRef}
+				suffix={suffix}
+						value={currentValue}
+				placeholder={placeholder}
+				readOnly
+				hasClear={hasClear}
+				className={`${selector}-inp`}
+				onChange={evt => onInpChange(evt)}
+				disabled={disabled}
+		/>
+	</div>);
 }
 
 YearMonthPicker.propTypes = {
