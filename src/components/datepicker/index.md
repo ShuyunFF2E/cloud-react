@@ -27,9 +27,9 @@ subtitle: 日期选择框
 | open | 控制弹层首次是否展开 | boolean | `false` |
 | placeholder | 输入框默认提示 | string | `请选择日期` |
 | position | 弹层位置 AUTO/UP/DOWN | string | `AUTO` |
-| minDate | 最小值 | Date | - |
-| maxDate | 最大值 | Date | - |
-| minYear | 最小年份 | Number | - |
+| minDate | 最小值 | Date | `可精确到时分秒` |
+| maxDate | 最大值 | Date | `可精确到时分秒` |
+| minYear | 最小年份 | Number |  |
 | maxYear | 最大年份 | Number | - |
 | showToday | 是否展示“今天”按钮 | boolean | `false` |
 | showNow | 是否展示“此刻”按钮 | boolean | `false` |
