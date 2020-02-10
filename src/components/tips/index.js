@@ -7,11 +7,12 @@ import './index.less';
 class Tips extends Component {
 
 	render() {
+
 		const { msg, type, style } = this.props;
 
 		return (
 			<div className={`${type} ${prefixCls}-tips-container`} style={style}>
-				<p>{msg}</p>
+				{msg}
 			</div>
 		)
 	}
