@@ -15,10 +15,11 @@ function Grid(props) {
 	const [tempHour, setTempHour] = useState(hour);
 	const [tempMinute, setTempMinute] = useState(minute);
 	const [tempSecond, setTempSecond] = useState(second);
-	const nowTime = utils.displayNow()
-	const _hour = hour || nowTime.hour;
-	const _minute = minute || nowTime.minute;
-	const _second = second || nowTime.second;
+	const openTime = utils.displayNow()
+	const _hour = hour || openTime.hour;
+	const _minute = minute || openTime.minute;
+	const _second = second || openTime.second;
+
 	
 	useEffect(() => {
 		setTempDay(day);
@@ -49,13 +50,22 @@ function Grid(props) {
 		return !!(maxDate && maxDate.getTime() < nowTimestamp);
 	}
 
+	function getOkButtonDisabled() {
+		const currentTime = new Date(`${year}/${month}/${tempDay} ${_hour}:${_minute}:${_second}`).getTime()
+		if (minDate && minDate.getTime() > currentTime) {
+			return true;
+		}
+		return !!(maxDate && maxDate.getTime() < currentTime);
+	}
+	
 	function onToadyClick() {
 		onOK(utils.displayNow());
 	}
 
 	function onSave() {
+		const nowTime = utils.displayNow()
 		if (tempDay) {
-			onOK(utils.displayNow(new Date(`${year}/${month}/${tempDay} ${_hour}:${_minute}:${_second}`)));
+			onOK(utils.displayNow(new Date(`${year}/${month}/${tempDay} ${hour || nowTime.hour}:${minute || nowTime.minute}:${second || nowTime.second}`)));
 		}
 	}
 
@@ -111,7 +121,7 @@ function Grid(props) {
 					showNow && showTimePicker && <button type="button" onClick={onToadyClick}>此刻</button>
 				}
 				{
-					showOK && <button type="button" disabled={!tempDay} className={`${selector}-popup-btns-ok`} onClick={onSave}>确定</button>
+					showOK && <button type="button" disabled={!tempDay || getOkButtonDisabled()}  className={`${selector}-popup-btns-ok`} onClick={onSave}>确定</button>
 				}
 			</div>
 		</div>
