@@ -7,7 +7,7 @@
 @normal-border-color: @color-gray5;
 @checkbox-bg-color: #fff;
 @disabled-bg-color: #eee;
-
+@normal-text-color: #666;
 @checkbox-size: 14px;
 
 .@{checkbox-prefix-cls}-checked-inner-after {
@@ -101,6 +101,10 @@
 		background: @checkbox-bg-color;
 		border-radius: 2px;
 		border: 1px solid @normal-border-color;
+	}
+
+	&-text {
+		color: @normal-text-color;
 	}
 
 	&.@{checkbox-prefix-cls}-checked {
