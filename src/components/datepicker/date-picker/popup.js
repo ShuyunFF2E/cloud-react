@@ -5,19 +5,18 @@ import Grid from './grid';
 import util from '../util';
 import { selector } from '../util/view-common';
 
-const defaultYear = new Date().getFullYear();
-const defaultMonth = new Date().getMonth() + 1;
+const defaultDateObj = util.displayNow(new Date())
 
 function Popup(props) {
     const { left, top, min, max, mode, className, showToday, showNow, showTimePicker, checkDateObj, onChange, maxYear, minYear } = props;
 
-    const [tempYear, setTempYear] = useState(checkDateObj ? checkDateObj.year : defaultYear);
-    const [tempMonth, setTempMonth] = useState(checkDateObj ? checkDateObj.month : defaultMonth);
+    const [tempYear, setTempYear] = useState(checkDateObj ? checkDateObj.year : defaultDateObj.year);
+    const [tempMonth, setTempMonth] = useState(checkDateObj ? checkDateObj.month : defaultDateObj.month);
     const [tempDay, setTempDay] = useState(checkDateObj ? checkDateObj.day : null);
 
-	const [tempHour, setTempHour] = useState(checkDateObj ? checkDateObj.hour : '');
-	const [tempMinute, setTempMinute] = useState(checkDateObj ? checkDateObj.minute : '');
-	const [tempSecond, setTempSecond] = useState(checkDateObj ? checkDateObj.second : '');
+	const [tempHour, setTempHour] = useState(checkDateObj ? checkDateObj.hour : defaultDateObj.hour);
+	const [tempMinute, setTempMinute] = useState(checkDateObj ? checkDateObj.minute : defaultDateObj.minute);
+	const [tempSecond, setTempSecond] = useState(checkDateObj ? checkDateObj.second : defaultDateObj.second);
 
 
     useEffect(() => {
@@ -57,7 +56,7 @@ function Popup(props) {
 		setTempMinute(paramsObj.minute);
 		setTempSecond(paramsObj.second);
     }
-    const days = tempYear && tempMonth ? util.refreshDays(tempYear, tempMonth) : util.refreshDays(defaultYear, defaultMonth);
+    const days = tempYear && tempMonth ? util.refreshDays(tempYear, tempMonth) : util.refreshDays(defaultDateObj.year, defaultDateObj.month);
 
 	return (
         <div className={`${selector}-popup ${className}`} style={{ left, top }} onClick={popClick}>
