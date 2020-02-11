@@ -12,11 +12,11 @@ export function isInvalid(value) {
  * @param {boolean} [precision=false] 精度，false为无限
  * @returns
  */
-export function getCurrentValue(value, min, max, precision = -1) {
+export function getCurrentValue(value, min, max, precision = 0) {
 	if (isInvalid(value)) {
 		return '';
 	}
-	const val = precision >= 0 ? Number(value).toFixed(Math.abs(parseInt(precision, 10))) : Number(value);
+	const val = Number(value).toFixed(Math.abs(parseInt(precision, 10)))
 	if (val > max) {
 		return max;
 	}
@@ -42,24 +42,24 @@ export function getMin(value, min) {
 	};
 }
 
-export function getValueByBlank(min, max, step) {
-	if (min === -Infinity && max === Infinity || min === Infinity && max === -Infinity || min <= 0 && max >= 0) {
-		return 0;
-	}
-	if (min === -Infinity && max === -Infinity) {
-		return 0 - step;
-	}
-	if (min === Infinity && max === Infinity) {
-		return 0 + step
-	}
-	if (min < 0 && max < 0) {
-		return max;
-	}
-	if (min > 0 && max > 0) {
-		return min;
-	}
-	return 0;
-}
+// export function getValueByBlank(min, max, step) {
+// 	if (min === -Infinity && max === Infinity || min === Infinity && max === -Infinity || min <= 0 && max >= 0) {
+// 		return 0;
+// 	}
+// 	if (min === -Infinity && max === -Infinity) {
+// 		return 0 - step;
+// 	}
+// 	if (min === Infinity && max === Infinity) {
+// 		return 0 + step
+// 	}
+// 	if (min < 0 && max < 0) {
+// 		return max;
+// 	}
+// 	if (min > 0 && max > 0) {
+// 		return min;
+// 	}
+// 	return 0;
+// }
 
 /**
  *
