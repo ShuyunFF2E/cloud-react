@@ -9,21 +9,21 @@ import './index.less';
 import { selector, getOpenKeys } from './const';
 
 const OptionsSearch = ({ searchValue, onOptionsSearch, clearSearch, placeholder }) => {
-  return (
-      <div className={`${selector}-search`}>
-          <Input
-              value={searchValue}
-			  onChange={onOptionsSearch}
-			  placeholder={placeholder}
-              className={`${selector}-search-input`} />
-          <Icon
-              type="close-circle-solid"
-              className={classnames(`${selector}-search-icon`, {
-                  show: searchValue
-              })}
-              onClick={clearSearch} />
-      </div>
-  )
+	return (
+		<div className={`${selector}-search`}>
+			<Input
+				value={searchValue}
+				onChange={onOptionsSearch}
+				placeholder={placeholder}
+				className={`${selector}-search-input`} />
+			<Icon
+				type="close-circle-solid"
+				className={classnames(`${selector}-search-icon`, {
+					show: searchValue
+				})}
+				onClick={clearSearch} />
+		</div>
+	)
 }
 
 const OptionsEmpty = ({ emptyRender, ...props }) => {
@@ -113,8 +113,16 @@ class SingleTree extends React.Component {
 		}
 	}
 
+	getLabel = (label, searchText) => {
+		if (!searchText) {
+			return label;
+		}
+		const regx = new RegExp(searchText, 'g');
+		return label.replace(regx, `<span class="search-text">${searchText}</span>`);
+	}
+
 	renderChildren(dataSource, parentNode = {}) {
-		const { openKeys, selected } = this.state;
+		const { openKeys, selected, searchValue } = this.state;
 		return dataSource.map(v => {
 			const classNames = classnames(`${selector}-option`, {
 				[`${selector}-option-show`]: v.children || openKeys.includes(parentNode.value),
@@ -126,10 +134,11 @@ class SingleTree extends React.Component {
 				open: isOpen,
 				close: !isOpen
 			});
+			const label = this.getLabel(v.label, searchValue);
 			return (
 				<div key={v.value} className={`${selector}-option-list`}>
 					<div className={classNames} onClick={this.onClickOption.bind(this, v)}>
-						{ v.label }
+						<span dangerouslySetInnerHTML={{ __html: label }}></span>
 						{
 							v.children && v.children.length ?
 							<Icon type="right" className={iconClassNames} /> : null

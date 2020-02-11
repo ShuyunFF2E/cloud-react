@@ -33,6 +33,7 @@
 @option-hover-background: #f6f6f6;
 @option-disabled-background: #f6f6f6;
 @search-border: 1px solid #ededed;
+@searched-fontColor: #00AAF1;
 @sign-color: #dbdbdb;
 
 .column-layout {
@@ -279,7 +280,11 @@
                 &.close {
                     transform: rotate(0deg);
                 }
-            }
+			}
+			
+			.search-text {
+				color: @searched-fontColor;
+			}
 
             &-show {
                 display: flex;
