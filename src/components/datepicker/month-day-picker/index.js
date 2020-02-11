@@ -81,9 +81,11 @@ function MonthDayPicker(props) {
 	useEffect(() => {
 		setVisible(open);
 	}, [open]);
-	
+
 
 	function onInpClick(evt) {
+		if (disabled) return;
+
 		evt.stopPropagation();
 		evt.nativeEvent.stopImmediatePropagation();
 		// 如果不可见则显示面板
@@ -112,7 +114,7 @@ function MonthDayPicker(props) {
 		}
 	}, [memoValue]);
 	return (
-    <div 
+    <div
 			onClick={onInpClick}
 			className={`${selector}-container`}>
 			<Input {...otherProps}
