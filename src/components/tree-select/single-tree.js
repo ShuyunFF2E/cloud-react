@@ -3,16 +3,18 @@ import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import jeasy from 'jeasy';
 import Icon from '../icon';
+import Input from '../input';
 
 import './index.less';
 import { selector, getOpenKeys } from './const';
 
-const OptionsSearch = ({ searchValue, onOptionsSearch, clearSearch }) => {
+const OptionsSearch = ({ searchValue, onOptionsSearch, clearSearch, placeholder }) => {
   return (
       <div className={`${selector}-search`}>
-          <input
+          <Input
               value={searchValue}
-              onChange={onOptionsSearch}
+			  onChange={onOptionsSearch}
+			  placeholder={placeholder}
               className={`${selector}-search-input`} />
           <Icon
               type="close-circle-solid"
@@ -144,7 +146,7 @@ class SingleTree extends React.Component {
 
 	render() {
 		const { props, state, clearSearch, onOptionsSearch } = this;
-		const { searchable, className, emptyRender } = props;
+		const { searchable, searchPlaceholder, className, emptyRender } = props;
 		const { dataSource, searchValue } = state;
 		const classNames = classnames(`${selector}-options`, className, `${selector}-single-options`);
 		return (
@@ -154,6 +156,7 @@ class SingleTree extends React.Component {
 					<OptionsSearch
 						searchValue={searchValue}
 						onOptionsSearch={onOptionsSearch}
+						placeholder={searchPlaceholder}
 						clearSearch={clearSearch} />
 				}
 				{ this.renderChildren(dataSource) }
@@ -168,6 +171,7 @@ class SingleTree extends React.Component {
 SingleTree.propTypes = {
 	dataSource: PropTypes.array,
 	searchable: PropTypes.bool,
+	searchPlaceholder: PropTypes.string,
 	value: PropTypes.oneOfType([
 		PropTypes.object,
 		PropTypes.array
@@ -180,6 +184,7 @@ SingleTree.propTypes = {
 SingleTree.defaultProps = {
 	dataSource: [],
 	searchable: false,
+	searchPlaceholder: '',
 	value: {},
 	className: '',
 	onChange: () => {},
