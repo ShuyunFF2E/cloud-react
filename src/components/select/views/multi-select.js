@@ -18,8 +18,8 @@ const ConfirmBtn = ({ onOk, onCancel, okBtnText, cancelBtnText }) => {
 }
 
 export default function MultiSelect(props) {
-    const { dataSource, searchable, hasSelectAll, hasConfirmButton, okBtnText, cancelBtnText,
-            value, emptyRender, onChange, onSearch, onOk, onCancel, className, ...otherProps } = props;
+    const { dataSource, searchable, hasSelectAll, hasConfirmButton, okBtnText, cancelBtnText, searchPlaceholder,
+            value, emptyRender, onChange, onSearch, onOk, onCancel, className } = props;
 	const [ options, setOptions ] = useState(dataSource);
     const [ searchValue, setSearchValue ] = useState('');
     const [ values, setValues ] = useState(value);
@@ -92,19 +92,23 @@ export default function MultiSelect(props) {
     }, [values]);
 
     return (
-        <div className={classNames} {...otherProps}>
+        <div className={classNames}>
             {
                 searchable &&
                 <OptionsSearch
                     searchValue={searchValue}
+                    placeholder={searchPlaceholder}
                     onOptionsSearch={onOptionsSearch}
                     clearSearch={clearSearch} />
+            }
+            {
+                !views.length && <OptionsEmpty emptyRender={emptyRender} />
             }
             {
                 <div className={`${selector}-multiple-options`}>
                     <div className={`${selector}-option-list`}>
                         {
-                            hasSelectAll &&
+                            hasSelectAll && !!views.length &&
                             <Checkbox
                                 checked={checkAll}
                                 indeterminate={indeterminate}
@@ -125,16 +129,14 @@ export default function MultiSelect(props) {
                     }
                 </div>
             }
-            {
-                !views.length && <OptionsEmpty emptyRender={emptyRender} />
-            }
         </div>
     )
 }
 
 MultiSelect.propTypes = {
 	dataSource: PropTypes.array,
-	searchable: PropTypes.bool,
+    searchable: PropTypes.bool,
+    searchPlaceholder: PropTypes.string,
     value: PropTypes.array,
     hasConfirmButton: PropTypes.bool,
 	okBtnText: PropTypes.string,
@@ -148,7 +150,8 @@ MultiSelect.propTypes = {
 
 MultiSelect.defaultProps = {
 	dataSource: [],
-	searchable: false,
+    searchable: false,
+    searchPlaceholder: '',
     value: [],
     hasConfirmButton: false,
 	okBtnText: '',

@@ -100,6 +100,7 @@ export default function SelectDemo() {
 				自定义带icon的option：
 				<Select
 					placeholder="请选择..."
+					searchPlaceholder="palx"
 					onSelectOpen={handleOpen}
 					onSelectClose={handleClose}
 					onChange={handleChange}
