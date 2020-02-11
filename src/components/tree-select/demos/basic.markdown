@@ -45,6 +45,7 @@ export default class TreeSelectDemo extends React.Component {
 					value: 'litchi'
 				}}
 				placeholder="选择一个选项"
+				searchPlaceholder="搜索一个选项"
 				dataSource={treeData}
 				onChange={this.handleChange} />
 		);
