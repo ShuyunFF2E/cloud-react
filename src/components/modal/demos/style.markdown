@@ -48,6 +48,7 @@ export default class ModalDemo extends React.Component {
 				 <Modal
 				 	title='basic title'
 				 	bodyStyle={bodyStyle}
+                   className="test"
                     modalStyle={modalStyle}
 				 	visible={this.state.visible}
 				 	onOk={this.handleOk}
