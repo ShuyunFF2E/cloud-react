@@ -133,7 +133,6 @@ class Notification extends Component {
 			// 窗口大小，结构限制，需要做调整，减去侧边栏宽度
 			const { clientWidth, clientHeight } = document.documentElement;
 			const modal = document.getElementById(this.state.modalId);
-
 			if (modal) {
 				modal.style.margin = 0;
 
@@ -164,7 +163,7 @@ class Notification extends Component {
 	};
 
 	render() {
-		const { visible, modalStyle, bodyStyle, id, type, children, title, footer, hasFooter, showMask, okText, cancelText, clickMaskCanClose, showConfirmLoading, onOk, onClose, onCancel } = this.props;
+		const { visible, modalStyle, bodyStyle, className, id, type, children, title, footer, hasFooter, showMask, okText, cancelText, clickMaskCanClose, showConfirmLoading, onOk, onClose, onCancel } = this.props;
 
 		if (!visible && !showConfirmLoading) {
 			return null;
@@ -190,7 +189,7 @@ class Notification extends Component {
 					onReset={this.onReset}
 					clickMaskCanClose={clickMaskCanClose}/>
 				{/* 弹出框 */}
-				<div ref={c=> { this.modalRef = c; }} id={this.state.modalId} className={classNames(`${prefixCls}-modal-container`)} style={style}>
+				<div ref={c=> { this.modalRef = c; }} id={this.state.modalId} className={classNames(`${prefixCls}-modal-container ${className}`)} style={style}>
 					<ModalHeader
 						id={id}
 						type={type}
