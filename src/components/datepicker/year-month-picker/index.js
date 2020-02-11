@@ -81,6 +81,8 @@ function YearMonthPicker(props) {
 	}, [open]);
 
 	function onInpClick(evt) {
+		if (disabled) return;
+
 		// 阻止合成事件的冒泡
 		evt.stopPropagation();
 		// 阻止与原生事件的冒泡
@@ -100,7 +102,7 @@ function YearMonthPicker(props) {
 			onChange('');
 		}
 	}
-	
+
 	useLayoutEffect(() => {
     if (firstUpdate.current) {
       firstUpdate.current = false;
@@ -112,7 +114,7 @@ function YearMonthPicker(props) {
 	}, [memoValue]);
 
 	return (
-		<div 
+		<div
 			onClick={onInpClick}
 			className={`${selector}-container`}>
 			<Input {...otherProps}

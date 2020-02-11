@@ -72,7 +72,7 @@ function YearPicker(props) {
 			setTimeout(() => {
 				document.removeEventListener('click', changeVisible, false);
 			},0)
-	
+
 		}
     }, []);
 
@@ -81,6 +81,8 @@ function YearPicker(props) {
 	}, [open]);
 
 	function onInpClick(evt) {
+		if (disabled) return;
+
 		// 阻止合成事件的冒泡
 		evt.stopPropagation();
 		// 阻止与原生事件的冒泡
@@ -100,7 +102,7 @@ function YearPicker(props) {
 			setSuffix(calendarIcon);
 		}
 	}
-	
+
 	useLayoutEffect(() => {
     if (firstUpdate.current) {
       firstUpdate.current = false;
@@ -112,7 +114,7 @@ function YearPicker(props) {
 	}, [memoValue]);
 
 	return (
-		<div 
+		<div
 				onClick={onInpClick}
 				className={`${selector}-container`}>
 				<Input {...otherProps}
