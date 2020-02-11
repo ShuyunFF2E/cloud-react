@@ -21,6 +21,7 @@ subtitle: 下拉选择
 | open | 下拉菜单展开状态，当使用此属性时组件本身open行为失效 | boolean | - |
 | placeholder | 选择框默认文案 | string | - |
 | searchable | 使下拉框带搜索 | boolean | false |
+| searchPlaceholder | 搜索框默认文案 | string | - |
 | emptyRender | 数据为空时下拉框显示内容 | string\node | '暂时没有数据' |
 | defaultValue | 默认选中的项 | string\number\array | - |
 | value | 选中的项 | string\number\array | - |

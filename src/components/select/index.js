@@ -161,38 +161,27 @@ class Select extends Component {
 	}
 
 	get optionsNode() {
-
-		const { multiple, searchable, hasSelectAll, hasConfirmButton, okBtnText, cancelBtnText,
-				onSearch, emptyRender } = this.props;
+		const { multiple } = this.props;
 		const { value } = this.state;
-
 
 		if (multiple) {
 			return (
 				<MultiSelect
+					{...this.props}
 					value={value}
 					dataSource={this.children}
-					emptyRender={emptyRender}
-					searchable={searchable}
-					hasSelectAll={hasSelectAll}
-					hasConfirmButton={hasConfirmButton}
 					onOk={this.handleOk}
 					onCancel={this.handleCancel}
-					okBtnText={okBtnText}
-					cancelBtnText={cancelBtnText}
-					onChange={this.onMultiSelectValueChange}
-					onSearch={onSearch} />
+					onChange={this.onMultiSelectValueChange} />
 			)
 		}
 
 		return (
 			<SingleSelect
+				{...this.props}
 				value={value}
 				dataSource={this.children}
-				emptyRender={emptyRender}
-				searchable={searchable}
-				onChange={this.onSimpleOptionChange}
-				onSearch={onSearch} />
+				onChange={this.onSimpleOptionChange} />
 		)
 	}
 
