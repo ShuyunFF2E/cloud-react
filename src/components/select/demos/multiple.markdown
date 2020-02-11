@@ -40,6 +40,7 @@ export default function SelectDemo() {
 		<div style={{ display: 'flex', height: 150 }}>
 			<Select
 				placeholder="请选择..."
+				searchPlaceholder="multiple"
 				defaultValue={values}
 				onSelectOpen={handleOpen}
 				onSelectClose={handleClose}
@@ -70,6 +71,8 @@ export default function SelectDemo() {
 				onChange={handleChange}
 				style={{ margin: '0 10px 10px 0', width: 200 }}
 				multiple
+				searchable
+				hasConfirmButton
 				hasSelectAll
 			>
 				{dataList.map((item, index) => (

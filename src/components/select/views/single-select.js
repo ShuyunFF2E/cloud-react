@@ -8,7 +8,7 @@ import { filterOptions } from '../utils';
 import '../index.less';
 
 export default function SingleSelect(props) {
-	const { dataSource, searchable, value, emptyRender, onChange, onSearch, className, ...otherProps } = props;
+	const { dataSource, searchable, value, emptyRender, onChange, onSearch, searchPlaceholder, className } = props;
 	const [ options, setOptions ] = useState(dataSource);
 	const [ searchValue, setSearchValue ] = useState('');
 	const classNames = classnames(`${selector}-select-options`, className);
@@ -33,11 +33,12 @@ export default function SingleSelect(props) {
 	}, [searchValue]);
 
   return (
-	<div className={classNames} {...otherProps}>
+	<div className={classNames}>
 		{
 			searchable &&
 			<OptionsSearch
 				searchValue={searchValue}
+				placeholder={searchPlaceholder}
 				onOptionsSearch={onOptionsSearch}
 				clearSearch={clearSearch} />
 		}
@@ -55,6 +56,7 @@ SingleSelect.propTypes = {
 		PropTypes.array
 	]),
 	searchable: PropTypes.bool,
+	searchPlaceholder: PropTypes.string,
 	value: PropTypes.oneOfType([
 		PropTypes.string,
 		PropTypes.number
@@ -67,6 +69,7 @@ SingleSelect.propTypes = {
 SingleSelect.defaultProps = {
 	dataSource: [],
 	searchable: false,
+	searchPlaceholder: '',
 	value: '',
 	className: '',
 	onChange: () => {},
