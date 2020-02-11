@@ -5,7 +5,7 @@ import { prefixCls } from '@utils/config';
 import noop from '@utils/noop';
 
 import Icon from '../icon';
-import { isInvalid, getCurrentValue, getMax, getMin, getValueByBlank, fixDoubleOperation } from './util';
+import { isInvalid, getCurrentValue, getMax, getMin,  fixDoubleOperation } from './util';
 import './index.less';
 
 const selector = `${prefixCls}-input-number`;
@@ -16,10 +16,11 @@ function InputNumber(props) {
 	const [currentValue, setCurrentValue] = useState('');
 	const [upButtonEnabled, setUpButtonEnabled] = useState(true);
 	const [downButtonEnabled, setDownButtonEnabled] = useState(true);
-	const [currentPrecision, setCurrentPrecision] = useState(0);
+	// const [currentPrecision, setCurrentPrecision] = useState(0);
 	const [focused, setFocused] = useState(false);
+	const [isFirst, setIsFrist] = useState(true);
 
-	let isControlled = value !== undefined;
+	// let isControlled = value !== undefined; // 受控判断
 
 	function setBtnStatus(isInvalided, isUpEnabled, isDownEnabled) {
 		// 非法输入最终会变成空字符串，空字符串默认可+-
@@ -27,23 +28,28 @@ function InputNumber(props) {
 		setDownButtonEnabled(isInvalided || isDownEnabled);
 	}
 
-	useEffect(() => {
-		let pr = '';
-		if (precision === undefined || precision === null) {
-			// pr = Number.isInteger(step) ? 0 : step.toString().split('.')[1].length
-			pr = -1
-		} else {
-			pr = parseInt(precision, 10);
-		}
-		setCurrentPrecision(pr);
-	}, [precision, step]);
+	// 不知道有何意义？
+	// useEffect(() => {
+		// let pr = '';
+		// if (precision === undefined || precision === null) {
+		// 	// pr = Number.isInteger(step) ? 0 : step.toString().split('.')[1].length
+		// 	pr = -1
+		// } else {
+		// 	pr = parseInt(precision, 10);
+		// }
+		// setCurrentPrecision(pr);
+	// }, [precision, step]);
+
+	function getValue() {
+		return isFirst ? getCurrentValue(defaultValue, min, max, precision) : value
+	}
 
 	useEffect(() => {
-		isControlled = value !== undefined;
-		const val = getCurrentValue(value === undefined ? defaultValue : value, min, max, currentPrecision);
-		setCurrentValue(val);
-		setBtnStatus(isInvalid(val), getMax(val, max).lessMax, getMin(val, min).greaterMin);
-	}, [value, min, max, currentPrecision]);
+		// isControlled = value !== undefined;
+		setCurrentValue(getValue());
+		setIsFrist(false)
+		setBtnStatus(isInvalid(value), getMax(value, max).lessMax, getMin(value, min).greaterMin);
+	}, [value, min, max, precision]);
 
 	useEffect(() => {
 		setBtnStatus(isInvalid(currentValue), getMax(currentValue, max).lessMax, getMin(currentValue, min).greaterMin);
@@ -58,17 +64,7 @@ function InputNumber(props) {
 	function handleBlur(evt) {
 		setFocused(false);
 		const targetValue = evt.target.value.trim().replace(/[^\-?\d.]/g, '');
-		let val 
-		// = isInvalid(targetValue) ? '' : (currentPrecision >= 0 ? Number(targetValue).toFixed(currentPrecision) : Number(targetValue));
-		/* eslint no-nested-ternary: "error" */
-		if(isInvalid(targetValue)) {
-			val = ''
-		} else if (currentPrecision >= 0) {
-			val = Number(targetValue).toFixed(currentPrecision)
-		} else {
-			val = Number(targetValue)
-		}
-		val = getCurrentValue(val, min, max, currentPrecision);
+		const val = getCurrentValue(targetValue, min, max, precision);
 		setCurrentValue(val);
 		onBlur(val);
 		onChange(val);
@@ -80,36 +76,36 @@ function InputNumber(props) {
 	}
 
 	function handlePlusMinus(isPlus) {
-		let val = currentValue;
-		if (isControlled) {
-			if (!isInvalid(currentValue)) {
-				// const _val = (Number(currentValue) + Number(isPlus ? step : -1 * step))
-				const _val = fixDoubleOperation(Number(currentValue), Number(isPlus ? step : -1 * step))
-				val = currentPrecision >= 0 ? _val.toFixed(currentPrecision) : _val
-			} else {
-				val = getValueByBlank(min, max, step);
-			}
-		} else {
-			if (!isInvalid(currentValue)) {
-				
-				// const _val = (Number(currentValue) + Number(isPlus ? step : -1 * step))
-				const _val = fixDoubleOperation(Number(currentValue), Number(isPlus ? step : -1 * step))
-				const tempValue = currentPrecision >= 0 ? _val.toFixed(currentPrecision) : _val;
-				if (isPlus) {
-					if (getMax(currentValue, max).lessEqualMax) {
-						val = tempValue;
-					}
-				} else if (getMin(currentValue, min).greaterEqualMin) {
-					val = tempValue;
-				}
-			} else {
-				val = getValueByBlank(min, max, step);
-			}
-			setCurrentValue(val);
-		}
-		if (!isInvalid(val)) {
-			val = Number(val);
-		}
+		// let val = currentValue;
+		// if (isControlled) {
+		// 	// if (!isInvalid(currentValue)) {  // 删除值 & 初始
+		// 		const _val = fixDoubleOperation(Number(currentValue), Number(isPlus ? step : -1 * step))
+		// 		val = getCurrentValue(_val, min, max, precision);
+		// 	// } else {
+		// 	// 	val = getValueByBlank(min, max, step);
+		// 	// }
+		// } else { 
+		// 	if (!isInvalid(currentValue)) { // 有value
+		// 		const _val = fixDoubleOperation(Number(currentValue), Number(isPlus ? step : -1 * step))
+		// 		const tempValue = getCurrentValue(_val, min, max, precision);
+		// 		if (isPlus) { // 加
+		// 			if (getMax(currentValue, max).lessEqualMax) {
+		// 				val = tempValue;
+		// 			}
+		// 		} else if (getMin(currentValue, min).greaterEqualMin) {
+		// 			val = tempValue;
+		// 		}
+		// 	} else {
+		// 		val = getValueByBlank(min, max, step);
+		// 	}
+		// 	setCurrentValue(val);
+		// }
+		// if (!isInvalid(val)) {
+		// 	val = Number(val);
+		// }
+		const _val = fixDoubleOperation(Number(currentValue), Number(isPlus ? step : -1 * step))
+		const val = getCurrentValue(_val, min, max, precision);
+		setCurrentValue(val);
 		onChange(val);
 	}
 
