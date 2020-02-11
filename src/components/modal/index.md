@@ -17,6 +17,7 @@ subtitle: 弹出框
 | title | 弹出框的标题 | string | title |
 | modalStyle | 设置弹出框样式 | object | - |
 | bodyStyle | 设置弹出框内容区域样式 | object | - |
+| className | 设置弹出框样式名称 | string | - |
 | hasFooter | 是否显示底部区域 | boolean | true |
 | footer | modal底部内容区域| string或ReactNode | - |
 | onClose | 点击右上角关闭按钮时触发的回调 | function | - |
