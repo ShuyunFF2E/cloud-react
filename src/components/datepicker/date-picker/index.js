@@ -37,7 +37,7 @@ function DatePicker(props) {
 	});
 	const [suffix, setSuffix] = useState(calendarIcon);
 	const memoValue = useMemo(() => { return value }, [value])
-	
+
 
 	function onValueChange(obj = {}, isPop = false) {
 		const dpArr = [`${obj.year}/${formatZero(obj.month)}/${formatZero(obj.day)}`];
@@ -97,7 +97,7 @@ function DatePicker(props) {
 				onChange={onPopChange}
 			/>);
 			return;
-		} 
+		}
 		destroyDOM(id);
 	}
 	// 组件渲染时，仅注册一次相关事件
@@ -115,6 +115,8 @@ function DatePicker(props) {
     }, []);
 
 	function onInpClick(evt) {
+		if (disabled) return;
+
 		// 阻止合成事件的冒泡
 		evt.stopPropagation();
 		// 阻止与原生事件的冒泡
@@ -147,7 +149,7 @@ function DatePicker(props) {
 	}, [memoValue]);
 
   return (
-		<div 
+		<div
 			onClick={onInpClick}
 			className={`${selector}-container`}>
 				<Input {...otherProps}

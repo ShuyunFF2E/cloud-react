@@ -17,6 +17,7 @@ export default class InputNumberDemo extends React.Component {
 			<>
 				<div>
 				   <InputNumber
+                     disabled
 				     defaultValue={3}
 				     min={-10}
 				     max={10}
