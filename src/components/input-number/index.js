@@ -5,7 +5,7 @@ import { prefixCls } from '@utils/config';
 import noop from '@utils/noop';
 
 import Icon from '../icon';
-import { isInvalid, getCurrentValue, getMax, getMin,  fixDoubleOperation } from './util';
+import { isInvalid, getCurrentValue, getMax, getMin, getValueByBlank, fixDoubleOperation } from './util';
 import './index.less';
 
 const selector = `${prefixCls}-input-number`;
@@ -20,7 +20,7 @@ function InputNumber(props) {
 	const [focused, setFocused] = useState(false);
 	const [isFirst, setIsFrist] = useState(true);
 
-	// let isControlled = value !== undefined; // 受控判断
+	let isControlled = value !== undefined; // 受控判断
 
 	function setBtnStatus(isInvalided, isUpEnabled, isDownEnabled) {
 		// 非法输入最终会变成空字符串，空字符串默认可+-
@@ -28,24 +28,37 @@ function InputNumber(props) {
 		setDownButtonEnabled(isInvalided || isDownEnabled);
 	}
 
-	// 不知道有何意义？
+	// 使用函数形式，防止首次渲染useEffect触发两次而跳过defaulteValue判断
 	// useEffect(() => {
-		// let pr = '';
-		// if (precision === undefined || precision === null) {
-		// 	// pr = Number.isInteger(step) ? 0 : step.toString().split('.')[1].length
-		// 	pr = -1
-		// } else {
-		// 	pr = parseInt(precision, 10);
-		// }
-		// setCurrentPrecision(pr);
+	// 	let pr = '';
+	// 	if (precision === undefined || precision === null) {
+	// 		pr = Number.isInteger(step) ? 0 : step.toString().split('.')[1].length
+	// 		// pr = -1
+	// 	} else {
+	// 		pr = parseInt(precision, 10);
+	// 	}
+	// 	setCurrentPrecision(pr);
 	// }, [precision, step]);
-
+	
+	function getCurrentPrecision(_value = 0) { // 精度判断
+		let _precision
+		if (precision === undefined || precision === null) {
+			const valuePrecision = Number.isInteger(_value) ? 0 : _value.toString().split('.')[1].length
+			const stepPrecision =  Number.isInteger(step) ? 0 : step.toString().split('.')[1].length
+			_precision = (valuePrecision >= stepPrecision) ? valuePrecision : stepPrecision
+		} else {
+			_precision = parseInt(precision, 10);
+		}
+			
+		return _precision
+	}
+	
 	function getValue() {
-		return isFirst ? getCurrentValue(defaultValue, min, max, precision) : value
+		return isFirst ? defaultValue.toFixed(getCurrentPrecision(defaultValue)) : value
 	}
 
 	useEffect(() => {
-		// isControlled = value !== undefined;
+		isControlled = value !== undefined;
 		setCurrentValue(getValue());
 		setIsFrist(false)
 		setBtnStatus(isInvalid(value), getMax(value, max).lessMax, getMin(value, min).greaterMin);
@@ -76,36 +89,35 @@ function InputNumber(props) {
 	}
 
 	function handlePlusMinus(isPlus) {
-		// let val = currentValue;
-		// if (isControlled) {
-		// 	// if (!isInvalid(currentValue)) {  // 删除值 & 初始
-		// 		const _val = fixDoubleOperation(Number(currentValue), Number(isPlus ? step : -1 * step))
-		// 		val = getCurrentValue(_val, min, max, precision);
-		// 	// } else {
-		// 	// 	val = getValueByBlank(min, max, step);
-		// 	// }
-		// } else { 
-		// 	if (!isInvalid(currentValue)) { // 有value
-		// 		const _val = fixDoubleOperation(Number(currentValue), Number(isPlus ? step : -1 * step))
-		// 		const tempValue = getCurrentValue(_val, min, max, precision);
-		// 		if (isPlus) { // 加
-		// 			if (getMax(currentValue, max).lessEqualMax) {
-		// 				val = tempValue;
-		// 			}
-		// 		} else if (getMin(currentValue, min).greaterEqualMin) {
-		// 			val = tempValue;
-		// 		}
-		// 	} else {
-		// 		val = getValueByBlank(min, max, step);
-		// 	}
-		// 	setCurrentValue(val);
-		// }
-		// if (!isInvalid(val)) {
-		// 	val = Number(val);
-		// }
-		const _val = fixDoubleOperation(Number(currentValue), Number(isPlus ? step : -1 * step))
-		const val = getCurrentValue(_val, min, max, precision);
-		setCurrentValue(val);
+		let val = currentValue;
+		if (isControlled) {
+			if (!isInvalid(currentValue)) {  // 删除值 & 初始
+				const _val = fixDoubleOperation(Number(currentValue), Number(isPlus ? step : -1 * step))
+				val = getCurrentValue(_val, min, max, getCurrentPrecision(_val));
+				// val = currentPrecision >= 0 ? _val.toFixed(currentPrecision) : _val
+			} else {
+				val = getValueByBlank(min, max, step);
+			}
+		} else { 
+			if (!isInvalid(currentValue)) { // 有value
+				const _val = fixDoubleOperation(Number(currentValue), Number(isPlus ? step : -1 * step))
+				const tempValue = getCurrentValue(_val, min, max, getCurrentPrecision(_val));
+				// const tempValue = currentPrecision >= 0 ? _val.toFixed(currentPrecision) : _val;
+				if (isPlus) { // 加
+					if (getMax(currentValue, max).lessEqualMax) {
+						val = tempValue;
+					}
+				} else if (getMin(currentValue, min).greaterEqualMin) {
+					val = tempValue;
+				}
+			} else {
+				val = getValueByBlank(min, max, step);
+			}
+			setCurrentValue(val);
+		}
+		if (!isInvalid(val)) {
+			val = Number(val);
+		}
 		onChange(val);
 	}
 
