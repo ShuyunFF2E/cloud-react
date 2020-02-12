@@ -52,9 +52,12 @@ function InputNumber(props) {
 			
 		return _precision
 	}
+	function getDefaultValue() { // 获取默认value
+		return defaultValue ? defaultValue.toFixed(getCurrentPrecision(defaultValue)) : ''
+	}
 	
 	function getValue() {
-		return isFirst ? defaultValue.toFixed(getCurrentPrecision(defaultValue)) : value
+		return isFirst ? getDefaultValue() : value
 	}
 
 	useEffect(() => {
