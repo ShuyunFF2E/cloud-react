@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import Button from 'cloud-react/button';
 import Week from './week';
 import utils from '../util';
 import InnerTimePicker from './inner-time-picker';
@@ -20,7 +21,6 @@ function Grid(props) {
 	const _minute = minute || openTime.minute;
 	const _second = second || openTime.second;
 
-	
 	useEffect(() => {
 		setTempDay(day);
 	}, [day]);
@@ -57,7 +57,7 @@ function Grid(props) {
 		}
 		return !!(maxDate && maxDate.getTime() < currentTime);
 	}
-	
+
 	function onToadyClick() {
 		onOK(utils.displayNow());
 	}
@@ -114,15 +114,9 @@ function Grid(props) {
 				/>
 			}
 			<div className={`${selector}-popup-btns`} style={btnStyle}>
-				{
-					showToday && !showTimePicker && <button type="button" disabled={getTodayDisabled()} onClick={onToadyClick}>今天</button>
-				}
-				{
-					showNow && showTimePicker && <button type="button" onClick={onToadyClick}>此刻</button>
-				}
-				{
-					showOK && <button type="button" disabled={!tempDay || getOkButtonDisabled()}  className={`${selector}-popup-btns-ok`} onClick={onSave}>确定</button>
-				}
+				{ showToday && !showTimePicker && <Button size="small" disabled={getTodayDisabled()} onClick={onToadyClick}>今天</Button> }
+				{ showNow && showTimePicker && <Button size="small" onClick={onToadyClick}>此刻</Button> }
+				{ showOK && <Button type="primary" size="small" disabled={!tempDay || getOkButtonDisabled()} onClick={onSave}>确定</Button> }
 			</div>
 		</div>
 	)

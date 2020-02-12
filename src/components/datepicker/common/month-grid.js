@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import Button from 'cloud-react/button';
 import util from '../util';
 import { selector } from '../util/view-common';
 
@@ -125,10 +126,8 @@ function MonthGrid(props) {
             </tbody>
         </table>
         <div className={`${selector}-popup-btns`} style={{ justifyContent: 'flex-end' }}>
-			{
-				showThisMonth && <button type="button" disabled={getMonthDisabled()} onClick={() => onSave(currentMonth)}>当月</button>
-			}
-            <button type="button" className={`${selector}-popup-btns-ok`} disabled={!tempMonth} onClick={() => onSave()} style={{ marginLeft:'10px' }}>确认</button>
+			{ showThisMonth && <Button size="small" disabled={getMonthDisabled()} onClick={() => onSave(currentMonth)}>当月</Button> }
+            <Button type="primary" size="small" disabled={!tempMonth} onClick={() => onSave()} style={{ marginLeft:'10px' }}>确认</Button>
         </div>
 	</div>);
 }
