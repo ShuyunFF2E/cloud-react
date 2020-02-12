@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import Button from 'cloud-react/button';
 import Week from './week';
 import utils from '../util';
 import { selector, rangeSelector } from '../util/view-common';
@@ -102,7 +103,7 @@ function Grid(props) {
 					</tbody>
 				</table>
 				<div className={`${selector}-popup-btns`} style={{ justifyContent: 'flex-end' }}>
-					<button type="button" className={`${selector}-popup-btns-ok`} disabled={OKDisabled} onClick={onBtnOK}>确定</button>
+					<Button type="primary" size="small" disabled={OKDisabled} onClick={onBtnOK}>确定</Button>
 				</div>
 			</div>
 		</div>

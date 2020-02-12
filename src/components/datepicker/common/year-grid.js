@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import Button from 'cloud-react/button';
 import { selector } from '../util/view-common';
 
 const nowYear = new Date().getFullYear();
@@ -68,10 +69,8 @@ function YearGrid(props) {
             </tbody>
         </table>
         <div className={`${selector}-popup-btns`} style={{ justifyContent: 'flex-end' }}>
-			{
-				showThisYear &&  <button type="button" disabled={getDisabledNow()} onClick={() => onSave(nowYear)}>今年</button>
-			}
-            <button type="button" className={`${selector}-popup-btns-ok`} disabled={!tempYear} onClick={() => onSave()} style={{ marginLeft: '10px' }}>确认</button>
+			{ showThisYear &&  <Button size="small" disabled={getDisabledNow()} onClick={() => onSave(nowYear)}>今年</Button> }
+			<Button type="primary" size="small" disabled={!tempYear} onClick={() => onSave()} style={{ marginLeft: '10px' }}>确认</Button>
         </div>
 	</div>);
 }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import Button from 'cloud-react/button';
 import utils from '../util';
 import WeekGrid from './week';
 import { selector, formatZero } from '../util/view-common';
@@ -66,10 +67,8 @@ function Grid(props) {
             </tbody>
         </table>
         <div className={`${selector}-popup-btns`} style={{ justifyContent: 'flex-end' }}>
-			{
-				showToday && <button type="button" onClick={() => onSave(formatZero(defaultDay), defaultMonth)} >今天</button>
-			}
-            <button type="button" disabled={!tempDay} className={`${selector}-popup-btns-ok`} onClick={() => onSave()} style={{ marginLeft:'10px' }}>确认</button>
+			{ showToday && <Button size="small" onClick={() => onSave(formatZero(defaultDay), defaultMonth)} >今天</Button> }
+            <Button type="primary" size="small" disabled={!tempDay} onClick={() => onSave()} style={{ marginLeft:'10px' }}>确认</Button>
         </div>
 	</div>);
 }

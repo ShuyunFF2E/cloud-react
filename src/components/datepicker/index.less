@@ -5,9 +5,7 @@
 @time: ~'@{prefix}-timepicker';
 
 @placeholder: #C9C9C9;
-@border: 1px solid #D9D9D9;
-@color: #3D3D3D;
-@bgcolor: #FFFFFF;
+@border: 1px solid @color-gray5;
 @icon: #C2C2C2;
 
 @disabled-color: rgba(0, 0, 0, 0.25);
@@ -17,12 +15,8 @@
 @height: 30px;
 
 @panel-width: 246px;
-@panel-border-radius: 0px;
-@panel-header-color: #3D3D3D;
-@panel-header-border-color: #D9D9D9;
 @panel-header-bgcolor: #F4F4F4;
 
-@grid-day-border-color :#00AAF1;
 @grid-day-check-bgcolor: #E5F7FF;
 @grid-day-other-color: #CCC;
 
@@ -66,22 +60,23 @@
 	}
 
 	width: @panel-width;
-	border-radius: @panel-border-radius;
 	animation: fadeIn 0.2s 0s ease both;
 	z-index: @z-index-picker;
-	background-color: @bgcolor;
+	background-color: @color-white;
 	position: absolute;
 	will-change: transform;
 
 	.header {
+		display: flex;
+		align-items: center;
+		justify-content: center;
 		height: 40px;
 		line-height: 40px;
-		text-align: center;
 		font-size: 12px;
 		letter-spacing: 1.5px;
 		background-color: @panel-header-bgcolor;
-		color: @panel-header-color;
-		border: 1px solid @panel-header-border-color;
+		color: @color-gray4;
+		border: 1px solid @color-gray5;
 		border-bottom: none;
 		position: relative;
 
@@ -130,7 +125,7 @@
 	}
 
 	.grid {
-		border: 1px solid #D9D9D9;
+		border: 1px solid @color-gray5;
 	}
 
 	.grid-table {
@@ -141,12 +136,12 @@
 		tbody {
 			font-size: 14px;
 			color: #565656;
-			background: #fff;
+			background: @color-white;
 		}
 
 		th {
 			height: 28px;
-			color: #3D3D3D;
+			color: @color-gray4;
 			font-size: 12px;
 			text-align: center;
 		}
@@ -154,22 +149,19 @@
 
 		td {
 			width: 37px;
-			height: 37px;
-			vertical-align: middle;
 			text-align: center;
-			padding-bottom: 0;
-			padding-top: 0;
+			padding-bottom: 5px;
 
 			span {
 				display: inline-block;
 				width: 26px;
 				height: 26px;
 				line-height: 26px;
-				border: 1px solid transparent;
 				cursor: pointer;
+				border: 1px solid transparent;
 
 				&:hover {
-					border: 1px solid @grid-day-border-color;
+					border: 1px solid @color-blue1;
 				}
 			}
 		}
@@ -201,11 +193,11 @@
 
 	.grid-check span {
 		background-color: @grid-day-check-bgcolor !important;
-		border-color: @grid-day-border-color !important;
+		border-color: @color-blue1 !important;
 	}
 
 	.grid-now span {
-		color: @grid-day-border-color;
+		color: @color-blue1;
 		background-color: transparent;
 	}
 
@@ -248,7 +240,7 @@
 	}
 
 	&-btns {
-		margin-bottom: 13px;
+		margin-bottom: 10px;
 		display: flex;
 		justify-content: space-between;
 		padding: 0 15px;
@@ -256,28 +248,6 @@
 		button {
 			width: 64px;
 			height: 24px;
-			line-height: 100%;
-			text-align: center;
-			cursor: pointer;
-			border: 1px solid #E3E3E3;
-			background-color: #FAFAFA;
-			border-radius: 2px;
-			font-size: 12px;
-
-			&[disabled] {
-				cursor: not-allowed;
-			}
-		}
-
-		&-ok {
-			border: 1px solid #00AAF1 !important;
-			background-color: #00AAF1 !important;
-			color: #FFFFFF;
-
-			&[disabled] {
-				border-color: #E3E3E3 !important;
-				background-color: #E3E3E3 !important;
-			}
 		}
 	}
 
