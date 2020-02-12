@@ -12,11 +12,11 @@ export function isInvalid(value) {
  * @param {boolean} [precision=false] 精度，false为无限
  * @returns
  */
-export function getCurrentValue(value, min, max, precision = 0) {
+export function getCurrentValue(value, min, max, precision = -1) {
 	if (isInvalid(value)) {
 		return '';
 	}
-	const val = Number(value).toFixed(Math.abs(parseInt(precision, 10)))
+	const val = precision >= 0 ? Number(value).toFixed(Math.abs(parseInt(precision, 10))) : Number(value);
 	if (val > max) {
 		return max;
 	}
@@ -42,24 +42,24 @@ export function getMin(value, min) {
 	};
 }
 
-// export function getValueByBlank(min, max, step) {
-// 	if (min === -Infinity && max === Infinity || min === Infinity && max === -Infinity || min <= 0 && max >= 0) {
-// 		return 0;
-// 	}
-// 	if (min === -Infinity && max === -Infinity) {
-// 		return 0 - step;
-// 	}
-// 	if (min === Infinity && max === Infinity) {
-// 		return 0 + step
-// 	}
-// 	if (min < 0 && max < 0) {
-// 		return max;
-// 	}
-// 	if (min > 0 && max > 0) {
-// 		return min;
-// 	}
-// 	return 0;
-// }
+export function getValueByBlank(min, max, step) {
+	if (min === -Infinity && max === Infinity || min === Infinity && max === -Infinity || min <= 0 && max >= 0) {
+		return 0;
+	}
+	if (min === -Infinity && max === -Infinity) {
+		return 0 - step;
+	}
+	if (min === Infinity && max === Infinity) {
+		return 0 + step
+	}
+	if (min < 0 && max < 0) {
+		return max;
+	}
+	if (min > 0 && max > 0) {
+		return min;
+	}
+	return 0;
+}
 
 /**
  *
@@ -74,8 +74,8 @@ export function fixDoubleOperation(n1, n2, type = 'add') {
 	const l1 = String(n1).indexOf('.') >= 0 ? String(n1).split('.')[1].length : 0
 	const l2 = String(n2).indexOf('.') >= 0 ? String(n2).split('.')[1].length : 0
 	const displacement = 10 ** Math.max(l1,l2)
-	const _n1 = n1 * displacement
-	const _n2 = n2 * displacement
+	const _n1 = Number((n1 * displacement).toFixed())
+	const _n2 = Number((n2 * displacement).toFixed())
 	switch (type) {
 		case 'add': {
 			return (_n1 + _n2) / displacement
