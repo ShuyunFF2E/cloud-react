@@ -61,8 +61,8 @@ function Popup(props) {
 	return (
         <div className={`${selector}-popup ${className}`} style={{ left, top }} onClick={popClick}>
             <Header
-				min={util.transformObj(min)} max
-				={util.transformObj(max)}
+				min={util.transformObj(min)}
+				max={util.transformObj(max)}
 				month={tempMonth}
                 year={tempYear}
                 maxYear={maxYear}
