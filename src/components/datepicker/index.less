@@ -5,7 +5,6 @@
 @time: ~'@{prefix}-timepicker';
 
 @placeholder: #C9C9C9;
-@border: 1px solid @color-gray5;
 @icon: #C2C2C2;
 
 @disabled-color: rgba(0, 0, 0, 0.25);
@@ -34,7 +33,7 @@
 	padding-left: 8px;
 	height: @height;
 	box-sizing: border-box;
-	border: @border;
+	border: 1px solid @color-gray5;
 
 	&::-webkit-input-placeholder {
 		color: @placeholder;
@@ -229,7 +228,6 @@
 		input {
 			width: 42px;
 			height: 25px;
-			border: @border;
 			text-align: center;
 		}
 

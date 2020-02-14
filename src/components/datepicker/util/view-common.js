@@ -103,3 +103,11 @@ export function getPositionByComp({ left, bottom, top }, position, HEIGHT) {
 		top: _top
 	}
 }
+
+export function formatNumber(data) {
+
+	const stringValue = data.trim().replace(/[^\d]/g, '');
+	const numberValue = parseInt(data.trim().replace(/[^\d]/g, ''), 10);
+
+	return { numberValue, stringValue, length: stringValue.length };
+}
