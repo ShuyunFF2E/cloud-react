@@ -18,9 +18,10 @@ export default function Group(props) {
 	}, [value]);
 
 	function renderChild(childs) {
+		// 子元素有可能为一个表达式，直接返回了false或者null
+		const _childs = Array.from(childs).filter(child => Boolean(child));
 
-		return Children.map(childs, child => {
-
+		return Children.map(_childs, child => {
 
 			if (child.type && child.type.prototype === Radio.prototype) {
 				return cloneElement(child, {
