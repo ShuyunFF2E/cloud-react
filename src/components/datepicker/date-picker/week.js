@@ -29,13 +29,13 @@ function Week(props) {
 		} 
 		// fix issue #169
 		if(minDate && currentTimeStamp.getTime() <= minDateStamp.getTime()) {
-			if(currentDateObj.day && currentDateObj.day >= minDateStamp.getDate() && currentTimeStamp.getDate() === minDateStamp.getDate()) {
+			if(currentTimeStamp.getDate() === minDateStamp.getDate()) {
 				return false
 			} 
 			return true
 		} 
 		if (maxDate && currentTimeStamp.getTime() >= maxDateStamp.getTime()) {
-			if(currentDateObj.day && currentDateObj.day <= maxDateStamp.getDate() && currentTimeStamp.getDate() === maxDateStamp.getDate()) {
+			if(currentTimeStamp.getDate() === maxDateStamp.getDate()) {
 				return false
 			} 
 			return true

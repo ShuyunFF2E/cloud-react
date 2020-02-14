@@ -17,7 +17,7 @@ function Popup(props) {
 	const [tempHour, setTempHour] = useState(checkDateObj ? checkDateObj.hour : '');
 	const [tempMinute, setTempMinute] = useState(checkDateObj ? checkDateObj.minute : '');
 	const [tempSecond, setTempSecond] = useState(checkDateObj ? checkDateObj.second : '');
-
+    
 
     useEffect(() => {
         if (checkDateObj) {
@@ -29,8 +29,8 @@ function Popup(props) {
 			setTempMinute(checkDateObj.minute);
 			setTempSecond(checkDateObj.second);
         }
-	}, [checkDateObj]);
-
+    }, [checkDateObj]);
+    
     function onHeaderChange(year, month) {
         setTempMonth(month);
         setTempYear(year);
