@@ -17,12 +17,30 @@ function Week(props) {
 	}
 
 	function getDisabled(date) {
-		const currentTimeStamp = new Date(date).getTime();
+		const currentTimeStamp = new Date(date)
+		const minDateStamp = new Date(minDate)
+		const maxDateStamp = new Date(maxDate)
 		let defaultRange = false;
 		if (rangeConfig) {
-			defaultRange = rangeConfig.min && currentTimeStamp < rangeConfig.min.getTime() || rangeConfig.max && currentTimeStamp > rangeConfig.max.getTime();
+			defaultRange = rangeConfig.min && currentTimeStamp.getTime() < rangeConfig.min.getTime() || rangeConfig.max && currentTimeStamp.getTime() > rangeConfig.max.getTime();
 		}
-		return defaultRange || minDate && currentTimeStamp < new Date(minDate).getTime() || maxDate && currentTimeStamp > new Date(maxDate).getTime();
+		if(defaultRange) {
+			return defaultRange
+		} 
+		// fix issue #169
+		if(minDate && currentTimeStamp.getTime() <= minDateStamp.getTime()) {
+			if(currentDateObj.day && currentDateObj.day >= minDateStamp.getDate() && currentTimeStamp.getDate() === minDateStamp.getDate()) {
+				return false
+			} 
+			return true
+		} 
+		if (maxDate && currentTimeStamp.getTime() >= maxDateStamp.getTime()) {
+			if(currentDateObj.day && currentDateObj.day <= maxDateStamp.getDate() && currentTimeStamp.getDate() === maxDateStamp.getDate()) {
+				return false
+			} 
+			return true
+		}
+		return false
 	}
 
 	const idx = days.indexOf(1);

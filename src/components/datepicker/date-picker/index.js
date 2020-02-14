@@ -52,6 +52,12 @@ function DatePicker(props) {
 	}
 
 	useEffect(() => {
+		if(defaultValue && hasClear) {
+			setSuffix(null);
+		}
+	}, []);
+
+	useEffect(() => {
 		setVisible(open);
 	}, [open]);
 
