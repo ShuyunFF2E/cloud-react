@@ -18,12 +18,10 @@ export default function Group(props) {
 	}, [value]);
 
 	function renderChild(childs) {
-		// 子元素有可能为一个表达式，直接返回了false或者null
-		const _childs = Array.from(childs).filter(child => Boolean(child));
 
-		return Children.map(_childs, child => {
-
-			if (child.type && child.type.prototype === Radio.prototype) {
+		return Children.map(childs, child => {
+			// 子元素有可能为一个表达式，直接返回了false或者null
+			if (child && child.type && child.type.prototype === Radio.prototype) {
 				return cloneElement(child, {
 					disabled,
 					checked: child.props.value === currentValue,
@@ -34,7 +32,7 @@ export default function Group(props) {
 				});
 			}
 
-			if (child.props && child.props.children) {
+			if (child && child.props && child.props.children) {
 				return cloneElement(child, {
 					...child.props,
 					children: renderChild(child.props.children)
