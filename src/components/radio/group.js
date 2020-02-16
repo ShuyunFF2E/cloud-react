@@ -42,7 +42,7 @@ export default function Group(props) {
 		});
 	}
 
-	const radios = useMemo(() => renderChild(children), [currentValue, disabled]);
+	const radios = useMemo(() => renderChild(children), [currentValue, disabled, children]);
 
 	return (
 		<span className={classnames(`${classSelector}-group`, { horizontal, vertical })}>
