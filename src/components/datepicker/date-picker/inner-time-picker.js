@@ -49,7 +49,9 @@ function InnerTimePicker(props) {
 		setTempHour(_value);
 
 		onChange({
-			hour: _value
+			hour: _value,
+			minute: tempMinute,
+			second: tempSecond
 		})
 	}
 
@@ -78,7 +80,9 @@ function InnerTimePicker(props) {
 		setTempMinute(_value);
 
 		onChange({
-			minute: _value
+			hour: tempHour,
+			minute: _value,
+			second: tempSecond
 		})
 	}
 
@@ -98,6 +102,8 @@ function InnerTimePicker(props) {
 		setTempSecond(_value);
 
 		onChange({
+			hour: tempHour,
+			minute: tempMinute,
 			second: _value
 		})
 	}
