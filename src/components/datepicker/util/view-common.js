@@ -56,15 +56,15 @@ export function isVaild(value) {
 
 export const datepickerUI = {
 	// 年月日视图
-	HEIGHT_DEFAULT: 292,
+	HEIGHT_DEFAULT: 262,
 	// 年月日时分秒视图
-	HEIGHT_TIME: 354,
+	HEIGHT_TIME: 313,
 	// 年视图
-	HEIGHT_YEAR: 264,
+	HEIGHT_YEAR: 244,
 	// 月视图
-	HEIGHT_MONTH: 227,
+	HEIGHT_MONTH: 211,
 	// 月日视图
-	HEIGHT_MONTH_DAY: 292
+	HEIGHT_MONTH_DAY: 262
 };
 
 export function formatZero(value) {
