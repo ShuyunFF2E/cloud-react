@@ -7,12 +7,9 @@
 
 @color: #3d3d3d;
 @placeholder-color: #c9c9c9;
-@border-color: #d9d9d9;
 
 @focus-border-color: #aacbe1;
 
-@disabled-color: #999;
-@disabled-border-color: #d9d9d9;
 @disabled-background: #eee;
 
 @large-font-size: 14px;
@@ -23,7 +20,6 @@
 @clear-icon-color: #dbdbdb;
 @clear-icon-hover-color: #808080;
 
-@addon-color: #666;
 @addon-background: #fafafa;
 @addon-font-size: 14px;
 
@@ -46,7 +42,7 @@
 
 	&,
 	&-textarea {
-		border: 1px solid @border-color;
+		border: 1px solid @color-gray5;
 		border-radius: @border-radius;
 		outline: none;
 		width: @default-width;
@@ -112,12 +108,12 @@
 	&-addon {
 		position: relative;
 		padding: 0 8px;
-		color: @addon-color;
+		color: @color-gray2;
 		font-size: @addon-font-size;
 		line-height: 1;
 		text-align: center;
 		background-color: @addon-background;
-		border: 1px solid @border-color;
+		border: 1px solid @color-gray5;
 		transition: @transition;
 
 		/* display: table-cell; width depends on content */
@@ -179,9 +175,9 @@
 
 	&-textarea:disabled,
 	&:disabled {
-		color: @disabled-color;
+		color: @color-gray3;
 		background: @disabled-background;
-		border-color: @disabled-border-color;
+		border-color: @color-gray5;
 	}
 
 	/* textarea */
