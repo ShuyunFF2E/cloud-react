@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import cls from 'classnames';
 import { prefixCls } from '@utils/config';
 import noop from '@utils/noop';
-
+// import Input from '../input';
 import Icon from '../icon';
 import { isInvalid, getCurrentValue, getMax, getMin, getValueByBlank, fixDoubleOperation } from './util';
 import './index.less';
@@ -39,7 +39,7 @@ function InputNumber(props) {
 	// 	}
 	// 	setCurrentPrecision(pr);
 	// }, [precision, step]);
-	
+
 	function getCurrentPrecision(_value = 0) { // 精度判断
 		let _precision
 		if (precision === undefined || precision === null) {
@@ -49,13 +49,13 @@ function InputNumber(props) {
 		} else {
 			_precision = parseInt(precision, 10);
 		}
-			
+
 		return _precision
 	}
 	function getDefaultValue() { // 获取默认value
 		return defaultValue ? defaultValue.toFixed(getCurrentPrecision(defaultValue)) : ''
 	}
-	
+
 	function getValue() {
 		return isFirst ? getDefaultValue() : value
 	}
@@ -101,7 +101,7 @@ function InputNumber(props) {
 			} else {
 				val = getValueByBlank(min, max, step);
 			}
-		} else { 
+		} else {
 			if (!isInvalid(currentValue)) { // 有value
 				const _val = fixDoubleOperation(Number(currentValue), Number(isPlus ? step : -1 * step))
 				const tempValue = getCurrentValue(_val, min, max, getCurrentPrecision(_val));
