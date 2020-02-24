@@ -58,12 +58,15 @@ const voidMsgStyle = {
 	color: '#999',
 	verticalAlign: 'middle'
 };
-const emptyTemplate = (
-	<div style={voidStyle}>
-		<Icon type="warning-circle-solid" style={voidIconStyle}/>
-		<span style={voidMsgStyle}>暂无数据</span>
-	</div>
-);
+const emptyTemplate = settings => {
+	const text = window.jTool.isEmptyObject(settings.query) ? '暂无数据' : '搜索为空';
+	return (
+		<div style={voidStyle}>
+			<Icon type="warning-circle-solid" style={voidIconStyle}/>
+			<span style={voidMsgStyle}>{text}</span>
+		</div>
+	);
+};
 
 const defaultOption = {
 	skinClassName: 'cloud-react-skin', // 页样式名称
