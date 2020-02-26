@@ -15,6 +15,7 @@
 @default-margin: 5px;
 @default-border-radius: 2px;
 @large-padding: 10px;
+@item-padding: 5px 8px;
 
 @dropdown-icon-size: @font-size;
 
@@ -118,7 +119,7 @@
 
 		.@{select-prefix-cls}-selected {
 			flex: 1 0;
-			padding: @default-padding;
+			padding: @item-padding;
 			font-size: @font-size;
 			color: @font-color;
 			border: none;
@@ -225,7 +226,7 @@
 	.@{select-prefix-cls}-option {
 		height: @height;
 		line-height: @height - @default-padding * 2;
-		padding: @default-padding;
+		padding: @item-padding;
 		.text-overflow-ellipsis();
 
 		&:hover {
