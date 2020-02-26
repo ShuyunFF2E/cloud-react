@@ -53,7 +53,8 @@ function InputNumber(props) {
 		return _precision
 	}
 	function getDefaultValue() { // 获取默认value
-		return defaultValue ? defaultValue.toFixed(getCurrentPrecision(defaultValue)) : ''
+		const number = parseFloat(defaultValue);
+		return number ? number.toFixed(getCurrentPrecision(number)) : ''
 	}
 
 	function getValue() {
