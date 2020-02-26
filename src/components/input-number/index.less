@@ -10,12 +10,12 @@
 @large-fontSize: 16px;
 
 @default-height: 30px;
-@default-fontSize: 14px;
+@default-fontSize: 12px;
 
 @small-height: 24px;
-@small-fontSize: 14px;
+@small-fontSize: 12px;
 
-.size-mixin(@height, @fontSize, @inputPadding: 0 11px) {
+.size-mixin(@height, @fontSize, @inputPadding: 0 8px) {
 	height: @height;
 	line-height: @height;
 	font-size: @fontSize;
@@ -149,7 +149,7 @@
 		height: 100%;
 	}
 
-	&-input {
+	.@{input-number-prefix-cls}-input {
 		width: 100%;
 		height: 100%;
 		vertical-align: top;
@@ -157,6 +157,10 @@
 		background-color: transparent;
 		border: 0;
 		outline: 0;
+
+		&:focus {
+			border: 0;
+		}
 
 		&::placeholder {
 			color: #c9c9c9;
