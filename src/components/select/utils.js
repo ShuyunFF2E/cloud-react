@@ -14,12 +14,9 @@ export const formatOptionSource = (data) => {
 
 export const filterOptions = (options, filter) => {
 	return options.reduce((acc, child) => {
-		const { value: childValue, children } = child.props;
-		const value = typeof childValue === 'number' ? String(childValue) : childValue;
+		const { children } = child.props;
 		const label = Array.isArray(children) ? children.find(v => typeof v === 'string') : children;
-		if (value === null || value === undefined) {
-			if (!filter) acc.push(child);
-		} else if (value.indexOf(filter) > -1 || label.indexOf(filter) > -1) {
+		if (label.indexOf(filter) > -1) {
 			acc.push(child);
 		}
 		return acc;
