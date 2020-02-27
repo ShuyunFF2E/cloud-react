@@ -1,4 +1,4 @@
-import React, { PureComponent, Children } from 'react';
+import React, { PureComponent, Children, isValidElement } from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
 import { prefixCls } from '@utils/config';
@@ -261,6 +261,7 @@ export default class Tabs extends PureComponent {
         let panel = [];
 
         Children.forEach(children, child => {
+            if (!isValidElement(child)) return;
             const isActived = child.key === activedKey;
             headers.push(this.renderTabHeader(child, isActived));
 
