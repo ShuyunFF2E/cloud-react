@@ -242,7 +242,7 @@ function ModalHeader({ type, title, onClose, onReset, onMouseDown, onMouseUp, on
 	return (
 		type === 'modal' && <header className={classNames(`${prefixCls}-modal-header`)} onMouseMoveCapture={e => onMouseMove(e)} onMouseDown={e => onMouseDown(e)} onMouseUp={e => onMouseUp(e)}>
 			<span className={classNames(`${prefixCls}-modal-title`)} onMouseDown={event => selected(event)}>{title}</span>
-			<Icon type="close" className="close-icon" onClick={close}/>
+			<Icon type="close" className="close-icon" onMouseDown={event => selected(event)} onClick={close}/>
 		</header>
 	);
 }
