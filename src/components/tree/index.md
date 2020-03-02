@@ -18,8 +18,7 @@ subtitle: 树
 | searchMaxLength | 搜索框搜索关键字最大支持长度 | Number | - |
 | nodeNameMaxLength | 节点名称最大支持长度 | Number | - |
 | maxLevel | 树结构最大支持层级，超过该层级则不可新增 | Number | - |
-| supportRadio | 是否支持单选，不可与多选共用 | Boolean | false |
-| supportCheckbox | 是否支持多选，不可与单选共用 | Boolean | false |
+| supportCheckbox | 是否支持多选，false为单选，true为多选 | Boolean | false |
 | supportMenu | 是否支持右键菜单 | Boolean | true |
 | showIcon | 是否显示节点前面的icon | Boolean | true |
 | openIconType | 节点前面的展开icon类型，可在icon组件中查看相关类型 | String | folder-solid-open |
