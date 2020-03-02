@@ -1,7 +1,7 @@
 ---
 order: 4
-title: 单选、可搜索、支持右键菜单
-desc: 支持右键菜单、支持搜索功能、支持单选节点
+title: 单选、支持右键菜单
+desc: 支持右键菜单、支持单选节点
 ---
 
 ```javascript
@@ -15,8 +15,6 @@ export default class TreeDemo extends React.Component {
 
 		this.state = {
 			supportMenu: true,
-			supportSearch: true,
-			supportRadio: true
 		}
 	}
 
@@ -222,7 +220,6 @@ export default class TreeDemo extends React.Component {
 				treeData={treeData}
 				supportSearch={this.state.supportSearch}
 				supportMenu={this.state.supportMenu}
-				supportRadio={this.state.supportRadio}
 				onAddNode={this.addNode}
 				onRenameNode={this.renameNode}
 				onRemoveNode={this.removeNode}

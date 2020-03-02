@@ -32,13 +32,13 @@ export default class TreeDemo extends React.Component {
             children: [
                 {
                     id: 11,
-                    name: '禁止新增节点',
+                    name: '这里将会是一个超级超级长的节点，这个节点名称也会超级超级长，毕竟是为了测试极端情况下的样式问题',
                     pId: 1,
                     disableAdd: true,
                     children: [
                         {
                             id: 111,
-                            name: '22323',
+                            name: '这里将会是一个超级超级长的节点，这个节点名称也会超级超级长，毕竟是为了测试极端情况下的样式问题',
                             pId: 11,
                             categoryType: 0
                         }
@@ -105,5 +105,7 @@ export default class TreeDemo extends React.Component {
 ```less
 .bg {
     background: #d7e7f3;
+    width: 200px;
+    overflow: auto;
 }
 ```
