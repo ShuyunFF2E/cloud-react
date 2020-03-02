@@ -26,7 +26,6 @@ class Tree extends Component{
 		openIconType: 'folder-solid-open',
 		closeIconType: 'folder-solid',
 		iconColor: '#999',
-		supportRadio: false,
 		supportCheckbox: false,
 		supportMenu: false,
 		supportSearch: false,
@@ -53,7 +52,6 @@ class Tree extends Component{
 		closeIconType: PropTypes.string,
 		iconColor: PropTypes.string,
 		supportCheckbox: PropTypes.bool,
-		supportRadio: PropTypes.bool,
 		supportMenu: PropTypes.bool,
 		supportSearch: PropTypes.bool,
 		supportImmediatelySearch: PropTypes.bool,
@@ -269,7 +267,6 @@ class Tree extends Component{
 			supportSearch,
 			supportImmediatelySearch,
 			nodeNameMaxLength,
-			supportRadio,
 			supportCheckbox,
 			supportMenu,
 			isAddFront,
@@ -285,7 +282,7 @@ class Tree extends Component{
 		const { id, name, disableAdd, disableRename, disableRemove } = nodeData;
 
 		return (
-			<TreeContext.Provider value={{ treeData, searchText, supportRadio, supportCheckbox, supportMenu, isAddFront, nodeNameMaxLength, showIcon, openIconType, closeIconType, iconColor, selectedValue, showMenu, onAddAction, onRenameAction, onRemoveAction, onSelectedAction }}>
+			<TreeContext.Provider value={{ treeData, searchText, supportCheckbox, supportMenu, isAddFront, nodeNameMaxLength, showIcon, openIconType, closeIconType, iconColor, selectedValue, showMenu, onAddAction, onRenameAction, onRemoveAction, onSelectedAction }}>
 				<div className={`${selector} ${className}`} style={style}>
 					<Search
 						prefixCls={selector}

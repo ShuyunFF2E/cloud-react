@@ -14,7 +14,6 @@ export default class TreeDemo extends React.Component {
 		super(props);
 
 		this.state = {
-			supportRadio: true,
 			selectedValue: [{
 				id: 12,
                 name: '禁止删除节点',
@@ -24,10 +23,10 @@ export default class TreeDemo extends React.Component {
 	}
 
 	selectedNode = (node, selectedList) => {
-		// console.info('已选择一个节点，节点信息是：');
-		// console.log(node);
-		// console.info('目前已选择节点列表，列表信息是：');
-		// console.log(selectedList);
+		console.info('已选择一个节点，节点信息是：');
+		console.log(node);
+		console.info('目前已选择节点列表，列表信息是：');
+		console.log(selectedList);
 	};
 
 	render() {
@@ -96,7 +95,6 @@ export default class TreeDemo extends React.Component {
 		return (
 			<Tree
 				treeData={treeData}
-				supportRadio={this.state.supportRadio}
 				selectedValue={this.state.selectedValue}
 				onSelectedNode={this.selectedNode}/>
 		);
