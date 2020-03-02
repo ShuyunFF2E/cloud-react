@@ -3,7 +3,6 @@ import classNames from 'classnames';
 import Icon from '../icon';
 import Message from '../message';
 import Checkbox from '../checkbox';
-import Radio from '../radio';
 import TreeContext from './context';
 import Input from '../input';
 import './index.less';
@@ -18,7 +17,8 @@ class Node extends Component {
 			showChildrenItem: true,
 			inputValue: '',
 			isShowInput: false,
-			isAdd: false
+			isAdd: false,
+			hasBackValue: true
 		};
 	}
 
@@ -83,8 +83,9 @@ class Node extends Component {
 	// 选中节点
 	handleSelect = checked => {
 		const { data } = this.props;
-		// 清空已选值，外部后自动增加
-		this.context.selectedValue = [];
+		this.setState({
+			hasBackValue: false
+		});
 		if (this.context.supportCheckbox) {
 			data.checked = checked;
 		}
@@ -118,8 +119,8 @@ class Node extends Component {
 							searchText={this.context.searchText}
 							indeterminate={data.indeterminate}
 							checked={data.checked}
-							isRadioSelected={data.isActive}
-							supportRadio={this.context.supportRadio}
+							hasBackValue={this.state.hasBackValue}
+							backValue={this.context.selectedValue}
 							supportCheckbox={this.context.supportCheckbox}
 							onHandleSelect={this.handleSelect}/>
 					</div>
@@ -179,25 +180,28 @@ function ShowInput({ isShow, isAdd,  maxLength, inputValue, handleInputChange, s
 /**
  * 显示复选框
  * @param searchText
+ * @param backValue
  * @param indeterminate
  * @param checked
- * @param supportRadio
  * @param supportCheckbox
  * @param id
  * @param name
  * @param disableSelected
- * @param isRadioSelected
  * @param onHandleSelect
  * @returns {null|*}
  * @constructor
  */
-function ShowSelection({ searchText, indeterminate, checked, supportRadio, supportCheckbox, id, name, disableSelected, isRadioSelected, onHandleSelect }) {
+function ShowSelection({ searchText, backValue, hasBackValue, indeterminate, checked, supportCheckbox, id, name, disableSelected, onHandleSelect }) {
 	// 处理搜索关键字高亮
 	const re = new RegExp(searchText,'g');
 	const tmp = name.replace(re, `<span class="hot-text">${searchText}</span>`);
 	const labelWidth = {
 		width: '100%',
 		zIndex: 0
+	};
+
+	const backStyle = {
+		color: '#08F'
 	};
 
 	// 多选类型展示
@@ -209,17 +213,8 @@ function ShowSelection({ searchText, indeterminate, checked, supportRadio, suppo
 		);
 	}
 
-	// 单选类型展示
-	if (supportRadio) {
-		return (
-			<Radio value={id} disabled={disableSelected} className={isRadioSelected ? 'is-active' : ''} checked={isRadioSelected} onChange={onHandleSelect} style={labelWidth}>
-				<span dangerouslySetInnerHTML={{ __html: tmp }}/>
-			</Radio>
-		);
-	}
-
 	return (
-		<span className="node-name" dangerouslySetInnerHTML={{ __html: tmp }} onClick={onHandleSelect}/>
+		<span style={backValue.length === 1 && hasBackValue && backValue[0].id === id ? backStyle : null } className="node-name" dangerouslySetInnerHTML={{ __html: tmp }} onClick={onHandleSelect}/>
 	);
 }
 

@@ -10,7 +10,6 @@ import React from 'react';
 const noop = () => {};
 const TreeContext = React.createContext({
 	supportCheckbox: false,
-	supportRadio: false,
 	supportMenu: true,
 	isAddFront: true,
 	nodeNameMaxLength: 10,
