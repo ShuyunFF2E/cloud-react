@@ -10,7 +10,7 @@ subtitle: 弹出框
 
 ### API
 
-#### modal
+### Modal
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | visible | 是否显示modal弹出框 | boolean | false |
@@ -30,22 +30,23 @@ subtitle: 弹出框
 | showConfirmLoading | 点击确定是否显示loading，用于异步关闭 | boolean | false |
 
 
-#### method
+### Modal.method()
+包括：
+- Modal.confirm()
+- Modal.success()
+- Modal.error()
+- Modal.info()
+- Modal.warning()
 
-| 方法名 | 说明 | 用法 | 示例 |
+以上均为一个函数，参数为 object，具体属性如下：
+
+| 方法名 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| confirm | 确认对话框 | Modal.confirm() | Modal.confirm({body: 'it is body'}) |
-| success | 成功提示框 | Modal.info() | Modal.info({body: 'a info message', onClose: () => {}}) |
-| error | 错误提示框 | Modal.error() | Modal.error({body: 'a error message'}) |
-| info | 信息提示框 | Modal.info() | Modal.info({body: 'a info message'}) |
-| warning | 警告提示框 | Modal.warning() | Modal.warning({body: 'a warning message'}) |
+| isShowIcon | 是否显示提示信息前面的icon | boolean | `true` |
+| icon | 提示信息前面icon, 即icon组件中的type名称 | string | `--` |
+| iconStyle | 提示信息前面icon的样式 | object | `--` |
+| body | 提示信息内容, 支持jsx语法直接传入dom节点 | any | `--` |
+| onOk | 确定按钮回调函数，仅`Modal.confirm()`函数支持 | function | `--` |
+| onClose | 取消按钮回调函数 | function | `--` |
 
- - 默认属性与方法：
-    - isShowIcon(是否显示提示信息前面的icon， 布尔类型，默认为true)
-    - icon(提示信息前面icon, 即icon组件中的type名称，字符串类型)
-    - iconStyle(提示信息前面icon的样式，对象类型)
-    - body(提示信息内容, 支持jsx语法直接传入dom节点) 
-    - onOk(确定按钮回调函数，仅confirm支持) 
-    - onClose(取消按钮回调函数)
-    
- - **confirm方法中的确定按钮回调函数支持返回promise，具体使用见示例demo**
+`Modal.confirm()`函数的`onOk`回调函数支持返回`false`阻止关闭弹框，或者返回一个`promise`延迟关闭，具体使用见示例：确认对话框Demo
