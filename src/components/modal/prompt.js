@@ -88,13 +88,13 @@ class Prompt extends React.Component{
 	// 确定
 	handleOk = () => {
 		const { onOk } = this.props;
-		const callback = onOk();
+		const result = onOk();
 		// 判断是否是promise
-		if (callback instanceof Promise) {
+		if (result instanceof Promise) {
 			this.setState({
 				showConfirmLoading: true
 			});
-			callback.then(() => {
+			result.then(() => {
 				this.setState({
 					showConfirmLoading: false
 				});
@@ -102,7 +102,7 @@ class Prompt extends React.Component{
 			}).catch(err => {
 				console.log(err);
 			});
-		} else {
+		} else if (result !== false) {
 			this.handleClose();
 		}
 	};
