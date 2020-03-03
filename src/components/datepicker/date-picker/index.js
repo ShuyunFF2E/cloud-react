@@ -21,7 +21,7 @@ function getFormat(_showTimePicker, _mode) {
 
 function DatePicker(props) {
 	const { value, defaultValue, open, disabled, minDate, maxDate, position, className, hasClear,
-		showToday, showNow, showTimePicker, mode, onChange, placeholder, maxYear, minYear, ...otherProps } = props;
+		showToday, showNow, showTimePicker, mode, onChange, placeholder, maxYear, minYear, format, ...otherProps } = props;
 	const inpRef = React.createRef();
 	const firstUpdate = useRef(true);
 	// 每个组件实例id，对应面板DOM节点
@@ -43,7 +43,7 @@ function DatePicker(props) {
 		const dpArr = [`${obj.year}/${formatZero(obj.month)}/${formatZero(obj.day)}`];
 		const str = dpArr.push(` ${formatZero(obj.hour)}:${formatZero(obj.minute)}:${formatZero(obj.second)}`) && dpArr.toString()
 		const outputDate = new Date(str);
-		const output = util.convert(util.displayNow(outputDate), fmt);
+		const output = util.convert(util.displayNow(outputDate), format);
 		setCurrentValue(output);
 		setCurrentValueDate(outputDate);
 		if(isPop) {
@@ -177,6 +177,7 @@ DatePicker.propTypes =  {
 	className: PropTypes.string,
 	disabled: PropTypes.bool,
 	placeholder: PropTypes.string,
+	format: PropTypes.string,
 	position: PropTypes.oneOf([
 		enumObj.AUTO,
 		enumObj.UP,
@@ -207,6 +208,7 @@ DatePicker.propTypes =  {
 
 DatePicker.defaultProps = {
 	className: '',
+	format: 'yyyy/MM/dd',
 	mode: undefined,
 	disabled: false,
 	placeholder: '请选择日期',
