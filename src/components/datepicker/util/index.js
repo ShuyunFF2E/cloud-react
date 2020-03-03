@@ -90,8 +90,8 @@ function convert(date, fmt) {
 	const { year, month, day, hour, minute, second } = date;
 	const currentDate = new Date(`${year}/${month}/${day} ${hour}:${minute}:${second}`);
 	const o = {
-		'M+': month,
-		'd+': day,
+		'm+|M+': month,
+		'd+|D+': day,
 		'h+': hour,
 		'm+': minute,
 		's+': second,
@@ -99,7 +99,7 @@ function convert(date, fmt) {
 		'S': currentDate.getMilliseconds()
 	};
 	let _fmt = fmt;
-	if (/(y+)/.test(_fmt)) {
+	if (/(y+|Y+)/.test(_fmt)) {
 		_fmt = _fmt.replace(RegExp.$1, (year.toString()).substr(4 - RegExp.$1.length));
 	}
 	Object.keys(o).forEach(k => {
