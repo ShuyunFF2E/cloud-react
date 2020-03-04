@@ -14,9 +14,10 @@ import {
 	calendarIcon
 } from '../util/view-common';
 import enumObj from '../util/enum';
+import utils from '../util'
 
 function MonthDayPicker(props) {
-	const { value, defaultValue, open, disabled, className, hasClear, placeholder, showToday, position, onChange, ...otherProps } = props;
+	const { value, defaultValue, open, disabled, className, hasClear, placeholder, showToday, position, onChange, format, ...otherProps } = props;
 	const [currentValue, setCurrentValue] = useState(isVaild(value) ? value : defaultValue);
 	const [visible, setVisible] = useState(open);
 	// 每个组件实例id，对应面板DOM节点
@@ -28,9 +29,14 @@ function MonthDayPicker(props) {
 	const memoValue = useMemo(() => { return value }, [value])
 
 	function onValueChange(output = '', isPop = false) {
-		setCurrentValue(output);
+		const dateArr = output.split('/')
+		const _output = utils.convert({
+			month: dateArr[0],
+			day: dateArr[1]
+		}, format)
+		setCurrentValue(_output);
 		if(isPop) {
-			onChange(output);
+			onChange(_output);
 		}
 	}
 
@@ -146,6 +152,7 @@ MonthDayPicker.propTypes = {
 	value: PropTypes.string,
 	showToday: PropTypes.bool,
 	onChange: PropTypes.func,
+	format: PropTypes.string
 }
 
 MonthDayPicker.defaultProps = {
@@ -158,6 +165,7 @@ MonthDayPicker.defaultProps = {
 	showToday: true,
 	defaultValue: '',
 	value: undefined,
+	format: 'MM-DD',
 	onChange: () => { }
 }
 
