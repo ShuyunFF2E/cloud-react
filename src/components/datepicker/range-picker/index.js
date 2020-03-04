@@ -22,7 +22,7 @@ const fmt = 'yyyy/MM/dd';
 
 function RangePicker(props) {
 
-	const { value, defaultValue, open, disabled, style, hasClear, minDate, maxDate, placeholder, className, position, onChange, maxYear, minYear, ...otherProps } = props;
+	const { value, defaultValue, open, disabled, style, hasClear, minDate, maxDate, placeholder, className, position, onChange, maxYear, minYear, format, ...otherProps } = props;
 
 	const inpRef = React.createRef();
 	const [id,] = useState(Math.random().toString().replace('.', ''));
@@ -62,7 +62,7 @@ function RangePicker(props) {
 			newArr = arr.reverse();
 		}
 		setCurrentValueDate(newArr);
-		const output = [util.convert(util.displayNow(newArr[0]), fmt), util.convert(util.displayNow(newArr[1]), fmt)];
+		const output = [util.convert(util.displayNow(newArr[0]), format), util.convert(util.displayNow(newArr[1]), format)];
 		setCurrentValue(output);
 		if(isPop) {
 			onChange(output, arr);
@@ -213,6 +213,7 @@ RangePicker.propTypes = {
 	minDate: PropTypes.instanceOf(Date),
 	maxYear: PropTypes.number,
 	minYear: PropTypes.number,
+	format: PropTypes.string,
 	onChange: PropTypes.func
 }
 
@@ -230,6 +231,7 @@ RangePicker.defaultProps = {
 	maxDate: new Date('2099/12/31 23:59:59'),
 	minYear: 1980,
 	maxYear: 2030,
+	format: 'YYYY/MM/DD',
 	onChange: () => {}
 }
 

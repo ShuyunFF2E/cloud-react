@@ -99,7 +99,7 @@ function convert(date, fmt) {
 		'S': currentDate.getMilliseconds()
 	};
 	let _fmt = fmt;
-	if (/(y+|Y+)/.test(_fmt)) {
+	if (year && /(y+|Y+)/.test(_fmt)) {
 		_fmt = _fmt.replace(RegExp.$1, (year.toString()).substr(4 - RegExp.$1.length));
 	}
 	Object.keys(o).forEach(k => {
