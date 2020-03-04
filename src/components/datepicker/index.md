@@ -34,6 +34,7 @@ subtitle: 日期选择框
 | showToday | 是否展示“今天”按钮 | boolean | `false` |
 | showNow | 是否展示“此刻”按钮 | boolean | `false` |
 | showTimePicker | 是否展示时间选择器 | boolean | `false` |
+| format | 格式化输出格式 | string | `默认 YYYY/MM/DD` |
 | onChange | 选择日期改变 | Function(value: string) | - |
 
 ### TimePicker
@@ -61,6 +62,7 @@ subtitle: 日期选择框
 | maxDate | 最大值 | Date | - |
 | minYear | 最小年份 | Number | - |
 | maxYear | 最大年份 | Number | - |
+| format | 格式化输出格式 | string | `默认 YYYY/MM/DD` |
 | onChange | 选择日期改变 | Function(value: [string,string], value2: [date,date]) | - |
 
 
@@ -94,6 +96,7 @@ subtitle: 日期选择框
 | min | 最小值 | number/string | - |
 | max | 最大值 | number/string | - |
 | showThisMonth | 是否展示“当月”按钮 | boolean | `false` |
+| format | 格式化输出格式 | string | `默认 YYYY/MM` |
 | onChange | 选择年月改变 | Function(value: string) | - |
 
 ### MonthDayPicker
@@ -110,4 +113,5 @@ subtitle: 日期选择框
 | min | 最小值 | number/string | - |
 | max | 最大值 | number/string | - |
 | showToday | 是否展示“今天”按钮 | boolean | `false` |
+| format | 格式化输出格式 | string | `默认 MM/DD` |
 | onChange | 选择月日改变 | Function(value: string) | - |

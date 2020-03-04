@@ -14,9 +14,10 @@ import {
 	getPositionByComp
 } from '../util/view-common';
 import enumObj from '../util/enum';
+import utils from '../util'
 
 function YearMonthPicker(props) {
-	const { value, defaultValue, open, disabled, className, min, max, hasClear, placeholder, showThisMonth, position, onChange, ...otherProps } = props;
+	const { value, defaultValue, open, disabled, className, min, max, hasClear, placeholder, showThisMonth, position, onChange, format, ...otherProps } = props;
 	const inpRef = React.createRef();
 	const firstUpdate = useRef(true);
 	const [currentValue, setCurrentValue] = useState(isVaild(value) ? value : defaultValue);
@@ -26,9 +27,14 @@ function YearMonthPicker(props) {
 	const memoValue = useMemo(() => { return value }, [value])
 
 	function onValueChange(output = '', isPop = false) {
-		setCurrentValue(output);
+		const dateArr = output.split('/')
+		const _output = utils.convert({
+			year: dateArr[0],
+			month: dateArr[1]
+		}, format)
+		setCurrentValue(_output);
 		if(isPop) {
-			onChange(output);
+			onChange(_output);
 		}
 	}
 
@@ -147,7 +153,8 @@ YearMonthPicker.propTypes = {
     min: PropTypes.string,
 	max: PropTypes.string,
 	showThisMonth: PropTypes.bool,
-	onChange: PropTypes.func
+	onChange: PropTypes.func,
+	format: PropTypes.string
 }
 
 YearMonthPicker.defaultProps = {
@@ -162,6 +169,7 @@ YearMonthPicker.defaultProps = {
 	value: undefined,
 	min: '1900/01',
 	max: '2100/12',
+	format: 'YYYY-MM',
 	onChange: () => { }
 }
 
