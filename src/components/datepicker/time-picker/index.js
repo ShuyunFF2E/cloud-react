@@ -10,7 +10,7 @@ function TimePicker(props) {
 	const inpMinuteRef = React.createRef();
 	const inpSecondRef = React.createRef();
 
-	function getInitValue() {
+	function getValue() {
 		if (controlled) {
 			return typeof value === 'string' ?
 			value.split(':') : [value.hour,value.minute,value.second];
@@ -20,27 +20,16 @@ function TimePicker(props) {
 		return ['00', '00', '00'];
 	}
 
-	const [hour, setHour] = useState(getInitValue()[0]);
-	const [minute, setMinute] = useState(getInitValue()[1]);
-	const [second, setSecond] = useState(getInitValue()[2]);
+	const [hour, setHour] = useState(getValue()[0]);
+	const [minute, setMinute] = useState(getValue()[1]);
+	const [second, setSecond] = useState(getValue()[2]);
 	const memoValue = useMemo(() => { return value }, [value])
 
 	useEffect(() => {
-		if (value) {
-			// issue #117
-			const arr = typeof value === 'string' ? 
-			value.split(':').map(e => {
-				return utils.formatTime(e)
-			}) :
-			[value.hour,value.minute,value.second];
-			setHour(arr[0]);
-			setMinute(arr[1]);
-			setSecond(arr[2]);
-			return;
-		}
-		setHour('00');
-		setMinute('00');
-		setSecond('00');
+		const arr = getValue()
+		setHour(arr[0]);
+		setMinute(arr[1]);
+		setSecond(arr[2]);
 	}, [memoValue]);
 
 	function onHourChange(evt) {

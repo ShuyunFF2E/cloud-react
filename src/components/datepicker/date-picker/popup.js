@@ -14,9 +14,9 @@ function Popup(props) {
     const [tempMonth, setTempMonth] = useState(checkDateObj ? checkDateObj.month : defaultDateObj.month);
     const [tempDay, setTempDay] = useState(checkDateObj ? checkDateObj.day : null);
 
-	const [tempHour, setTempHour] = useState(checkDateObj ? checkDateObj.hour : '');
-	const [tempMinute, setTempMinute] = useState(checkDateObj ? checkDateObj.minute : '');
-	const [tempSecond, setTempSecond] = useState(checkDateObj ? checkDateObj.second : '');
+	const [tempHour, setTempHour] = useState(checkDateObj ? checkDateObj.hour : '00');
+	const [tempMinute, setTempMinute] = useState(checkDateObj ? checkDateObj.minute : '00');
+	const [tempSecond, setTempSecond] = useState(checkDateObj ? checkDateObj.second : '00');
     
 
     useEffect(() => {
