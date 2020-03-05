@@ -84,7 +84,7 @@
 		.size-mixin(@small-height, @small-fontSize, 0 7px);
 
 		.@{input-number-prefix-cls}-handler-down-icon, .@{input-number-prefix-cls}-handler-up-icon {
-			transform: scale(.85);
+			transform: scale(.6);
 			display: block;
 		}
 	}
@@ -142,7 +142,11 @@
 	}
 
 	&-handler-down-icon, &-handler-up-icon {
-		font-size: 8px;
+		// font-size: 8px;
+
+		// PC上主流浏览器只能识别最小为12px的字体
+		font-size: 12px;
+		transform: scale(.7);
 	}
 
 	&-handler-input {
