@@ -17,9 +17,9 @@ function Grid(props) {
 	const [tempMinute, setTempMinute] = useState(minute);
 	const [tempSecond, setTempSecond] = useState(second);
 	const openTime = utils.displayNow()
-	const _hour = hour || openTime.hour;
-	const _minute = minute || openTime.minute;
-	const _second = second || openTime.second;
+	const _hour = !showTimePicker && openTime.hour || hour;
+	const _minute = !showTimePicker && openTime.minute || minute;
+	const _second = !showTimePicker && openTime.second || second;
 
 	useEffect(() => {
 		setTempDay(day);
@@ -36,6 +36,7 @@ function Grid(props) {
 	useEffect(() => {
 		setTempSecond(second);
 	}, [second]);
+
 
 	function onPickDay(paramsObj) {
 		setIsClickDay(true);
