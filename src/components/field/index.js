@@ -36,9 +36,10 @@ export default class Field {
 
 		if (typeof fieldMeta[fieldMeta.trigger] === 'undefined') {
 			fieldMeta[fieldMeta.trigger] = (evt, ...others) => {
-				this.onChange(name, this.fieldsMeta[name].value);
 				this.__onChange__(name, evt, ...others);
 				this.__render__();
+
+				this.onChange(name, this.fieldsMeta[name].value, this.getValues());
 			}
 		}
 
