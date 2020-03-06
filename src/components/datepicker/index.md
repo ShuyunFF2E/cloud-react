@@ -35,6 +35,7 @@ subtitle: 日期选择框
 | showNow | 是否展示“此刻”按钮 | boolean | `false` |
 | showTimePicker | 是否展示时间选择器 | boolean | `false` |
 | format | 格式化输出格式 | string | `默认 YYYY/MM/DD` |
+| defaultTime | 显示默认打开时间(如设置defaultValue会覆盖) | string | `00:00:00` |
 | onChange | 选择日期改变 | Function(value: string) | - |
 
 ### TimePicker
