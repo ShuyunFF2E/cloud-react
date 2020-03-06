@@ -9,7 +9,11 @@ import React, { useState } from 'react';
 import { Form, Input, Button, Checkbox, Radio, Select, Toggle, Field, InputNumber } from 'cloud-react';
 
 export default class FormHorizontalDemo extends React.Component {
-	field = new Field(this);
+	field = new Field(this, {
+		onChange: (field, value, values) => {
+			console.log(field, value, values)
+		}
+	});
 
 	onValidate() {
 		this.field.validate((errs, values) => {
@@ -20,7 +24,7 @@ export default class FormHorizontalDemo extends React.Component {
 	onReset() {
 		this.field.reset();
 	}
-        
+
     getValues() {
         console.log(this.field.getValues());
     }
