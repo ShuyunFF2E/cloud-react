@@ -34,6 +34,7 @@ subtitle: 日期选择框
 | showToday | 是否展示“今天”按钮 | boolean | `false` |
 | showNow | 是否展示“此刻”按钮 | boolean | `false` |
 | showTimePicker | 是否展示时间选择器 | boolean | `false` |
+| defaultTime | 显示默认打开时间(如设置defaultValue会覆盖) | string | `00:00:00` |
 | onChange | 选择日期改变 | Function(value: string) | - |
 
 ### TimePicker

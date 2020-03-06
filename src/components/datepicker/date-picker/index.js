@@ -20,7 +20,7 @@ function getFormat(_showTimePicker, _mode) {
 }
 
 function DatePicker(props) {
-	const { value, defaultValue, open, disabled, minDate, maxDate, position, className, hasClear,
+	const { value, defaultValue, defaultTime, open, disabled, minDate, maxDate, position, className, hasClear,
 		showToday, showNow, showTimePicker, mode, onChange, placeholder, maxYear, minYear, ...otherProps } = props;
 	const inpRef = React.createRef();
 	const firstUpdate = useRef(true);
@@ -95,6 +95,7 @@ function DatePicker(props) {
 				checkDateObj={util.transformObj(checkDate)}
 				showToday={showToday}
 				showNow={showNow}
+				defaultTime={defaultTime}
 				showTimePicker={showTimePicker}
 				max={maxDate}
 				min={minDate}
@@ -189,6 +190,7 @@ DatePicker.propTypes =  {
 	open: PropTypes.bool,
 	hasClear: PropTypes.bool,
 	defaultValue: PropTypes.instanceOf(Date),
+	defaultTime: PropTypes.string,
 	value: PropTypes.oneOfType([
 		PropTypes.instanceOf(Date),
 		PropTypes.string
@@ -217,6 +219,7 @@ DatePicker.defaultProps = {
 	showToday: false,
 	showTimePicker: false,
 	defaultValue: null,
+	defaultTime: '00:00:00',
 	value: undefined,
 	minDate: undefined,
 	maxDate: undefined,
