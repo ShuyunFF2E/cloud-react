@@ -70,7 +70,7 @@ function Grid(props) {
 		}
 	}
 
-	const btnStyle = rangeConfig || !showToday && !showNow ? { justifyContent: 'flex-end' } : {};
+	const btnStyle = rangeConfig || ((!showTimePicker && showToday) || (showTimePicker && showNow)) ? {} : { justifyContent: 'flex-end' };
 	const len = Math.ceil(days.length / 7);
 	return (
 		<div className="grid" style={style}>
