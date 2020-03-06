@@ -240,7 +240,7 @@
 		margin-bottom: 10px;
 		display: flex;
 		justify-content: space-between;
-		padding: 0 15px;
+		padding: 0 10px;
 
 		button {
 			width: 64px;
@@ -301,7 +301,9 @@
 	border: 1px solid #ddd;
 	box-sizing: border-box;
 	text-align: center;
-	display: inline-block;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 
 	&-disabled {
 		cursor: not-allowed;
@@ -318,7 +320,7 @@
 
 	input {
 		width: 20px;
-		height: 28px;
+		height: 16px;
 		line-height: 28px;
 		box-sizing: border-box;
 		border: none;
@@ -332,6 +334,10 @@
 
 		&:hover, &:focus {
 			outline: none;
+		}
+		&:focus {
+			color: #fff;
+			background-color: #00AAF1;
 		}
 	}
 }
