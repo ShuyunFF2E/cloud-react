@@ -8,15 +8,16 @@ import { selector } from '../util/view-common';
 const defaultDateObj = util.displayNow(new Date())
 
 function Popup(props) {
-    const { left, top, min, max, mode, className, showToday, showNow, showTimePicker, checkDateObj, onChange, maxYear, minYear } = props;
+    const { left, top, min, max, mode, className, showToday, showNow, showTimePicker, checkDateObj, onChange, maxYear, minYear, defaultTime } = props;
+    const _defaultTimes = defaultTime.split(':')
 
     const [tempYear, setTempYear] = useState(checkDateObj ? checkDateObj.year : defaultDateObj.year);
     const [tempMonth, setTempMonth] = useState(checkDateObj ? checkDateObj.month : defaultDateObj.month);
     const [tempDay, setTempDay] = useState(checkDateObj ? checkDateObj.day : null);
 
-	const [tempHour, setTempHour] = useState(checkDateObj ? checkDateObj.hour : '00');
-	const [tempMinute, setTempMinute] = useState(checkDateObj ? checkDateObj.minute : '00');
-	const [tempSecond, setTempSecond] = useState(checkDateObj ? checkDateObj.second : '00');
+	const [tempHour, setTempHour] = useState(checkDateObj ? checkDateObj.hour : _defaultTimes[0]);
+	const [tempMinute, setTempMinute] = useState(checkDateObj ? checkDateObj.minute : _defaultTimes[1]);
+	const [tempSecond, setTempSecond] = useState(checkDateObj ? checkDateObj.second : _defaultTimes[2]);
     
 
     useEffect(() => {
