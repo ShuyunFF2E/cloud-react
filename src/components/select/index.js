@@ -69,10 +69,11 @@ class Select extends Component {
 			const childs = Array.isArray(children) ? children.flat(Infinity) : Children.toArray(children);
 			const source = childs.length ? childs : getOptions(dataSource, labelKey, valueKey);
 			const selected = getSelected(value, source);
-			const defaultValue = multiple ? [] : ''
+			const defaultValue = multiple ? [] : '';
+			const currentValue = value !== null ? value : defaultValue;
 			return {
-				value: value !== null ? value : defaultValue,
-				prevValue: value,
+				value: currentValue,
+				prevValue: currentValue,
 				prevResult: labelInValue ? selected : value,
 				selected,
 				prevProps: props
