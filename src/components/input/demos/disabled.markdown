@@ -13,7 +13,7 @@ const blank = '\u00A0';
 export default function InputDemo() {
 	return (
 		<div className="input-demo-box">
-			<Input size="large" disabled placeholder="disabled input" />
+			<Input size="large" hasClear value="123" disabled placeholder="disabled input" />
 			{blank}
 			<Input disabled placeholder="disabled input" />
 			{blank}
