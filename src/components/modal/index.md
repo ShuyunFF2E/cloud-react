@@ -45,6 +45,7 @@ subtitle: 弹出框
 | isShowIcon | 是否显示提示信息前面的icon | boolean | `true` |
 | icon | 提示信息前面icon, 即icon组件中的type名称 | string | `--` |
 | iconStyle | 提示信息前面icon的样式 | object | `--` |
+| style | 提示框的样式 | object | `--` |
 | body | 提示信息内容, 支持jsx语法直接传入dom节点 | any | `--` |
 | onOk | 确定按钮回调函数，仅`Modal.confirm()`函数支持 | function | `--` |
 | onClose | 取消按钮回调函数 | function | `--` |
