@@ -14,6 +14,7 @@ class Prompt extends React.Component{
 
 	static defaultProps = {
 		isShowIcon: true,
+		style: {},
 		type: '',
 		icon: '',
 		body: '',
@@ -23,6 +24,7 @@ class Prompt extends React.Component{
 
 	static propTypes = {
 		isShowIcon: PropTypes.bool,
+		style: PropTypes.object,
 		type: PropTypes.string,
 		icon: PropTypes.string,
 		body: PropTypes.node,
@@ -108,23 +110,33 @@ class Prompt extends React.Component{
 	};
 
 	render() {
-		const { isShowIcon, type, icon, body, iconStyle } = this.props;
-
+		const { isShowIcon, type, icon, body, iconStyle, style } = this.props;
 		const promptStyle = {
-			width: '200px'
+			...style,
+			width: style.width || '400px',
+			height: style.height ? style.height : 'auto' || '171px',
+			minWidth: style.width || '200px',
+			minHeight: style.height || '171px',
 		};
+		const promptBodyStyle = {
+			width: 'calc(100% - 40px)',
+			height: 'calc(100% - 40px - 51px)',
+			minHeight: style.height && 'calc(100% - 40px - 51px)',
+		};
+
 		return (
 			<Notification
 				visible
 				type={type}
-				modalStyle={promptStyle}
+				modalStyle= {promptStyle}
+				bodyStyle={promptBodyStyle}
 				showConfirmLoading={this.state.showConfirmLoading}
 				onCancel={this.handleCancel}
 				onOk={this.handleOk}>
 				<div>
 					<header className="info-area">
 						{ isShowIcon && <Icon type={icon} className={ `icon-style ${type}-style` } style={iconStyle}/>}
-						<section className="more-info">{body}</section>
+						<section className="more-info" style={{ ...style }}>{body}</section>
 					</header>
 				</div>
 			</Notification>
@@ -132,7 +144,7 @@ class Prompt extends React.Component{
 	}
 }
 
-function prompt({ isShowIcon, type, icon, body, onOk, onCancel, iconStyle }) {
+function prompt({ isShowIcon, type, icon, body, onOk, onCancel, iconStyle, style }) {
 	// 创建一个关联id
 	const id = `prompt${new Date().getTime()}`;
 	const ele = document.createElement('div');
@@ -143,6 +155,7 @@ function prompt({ isShowIcon, type, icon, body, onOk, onCancel, iconStyle }) {
 	ReactDOM.render(
 		<Prompt
 			id={id}
+			style={style}
 			isShowIcon={isShowIcon}
 			iconStyle={iconStyle}
 			type={type}
