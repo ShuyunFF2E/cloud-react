@@ -126,6 +126,7 @@ export default class Field {
 	}
 
 	setError = (name, errors) => {
+
 		if (!name || !errors) {
 			return;
 		}
@@ -133,6 +134,7 @@ export default class Field {
 		const _errors = typeof errors === 'string' ? [errors] : errors;
 		const fieldMeta = this.fieldsMeta[name];
 
+		fieldMeta.state = 'error';
 		fieldMeta.errors = [...new Set([
 			...fieldMeta.errors || [],
 			..._errors
