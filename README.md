@@ -1,4 +1,4 @@
-# ccms-components-react
+# cloud-react
 数云平台版 react 组件库
 
 [![Build Status](https://travis-ci.org/ShuyunFF2E/cloud-react.svg?branch=master)](https://travis-ci.org/ShuyunFF2E/cloud-react)
