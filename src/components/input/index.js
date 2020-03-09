@@ -129,6 +129,7 @@ class Input extends React.PureComponent {
 	}
 
 	renderClearIcon() {
+		if (this.props.disabled) return null;
 
 		const { value } = this.state;
 
