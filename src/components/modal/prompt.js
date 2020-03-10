@@ -10,8 +10,7 @@ const containers = new Map();
 
 const ENTER_KEY_CODE = 13;
 
-class Prompt extends React.Component{
-
+class Prompt extends React.Component {
 	static defaultProps = {
 		isShowIcon: true,
 		style: {},
@@ -44,9 +43,13 @@ class Prompt extends React.Component{
 		if (this.props.type === 'confirm') {
 			// 点击完以后，按钮还是处于聚焦状态，因此不断触发自己的click事件，导致弹框不断弹出
 			[...document.querySelectorAll('button')].forEach(item => {
-				item.addEventListener('keydown', event => {
-					event.preventDefault();
-				}, true);
+				item.addEventListener(
+					'keydown',
+					event => {
+						event.preventDefault();
+					},
+					true
+				);
 			});
 			document.body.addEventListener('keydown', this.handleKeydown);
 		}
@@ -66,7 +69,6 @@ class Prompt extends React.Component{
 
 	// 删除节点
 	handleClose = () => {
-
 		const { id } = this.props;
 		const ele = containers.get(id);
 
@@ -96,14 +98,16 @@ class Prompt extends React.Component{
 			this.setState({
 				showConfirmLoading: true
 			});
-			result.then(() => {
-				this.setState({
-					showConfirmLoading: false
+			result
+				.then(() => {
+					this.setState({
+						showConfirmLoading: false
+					});
+					this.handleClose();
+				})
+				.catch(err => {
+					console.log(err);
 				});
-				this.handleClose();
-			}).catch(err => {
-				console.log(err);
-			});
 		} else if (result !== false) {
 			this.handleClose();
 		}
@@ -116,27 +120,29 @@ class Prompt extends React.Component{
 			width: style.width || '400px',
 			height: style.height ? style.height : 'auto' || '171px',
 			minWidth: style.width || '200px',
-			minHeight: style.height || '171px',
+			minHeight: style.height || '171px'
 		};
 		const promptBodyStyle = {
 			width: 'calc(100% - 40px)',
 			height: 'calc(100% - 40px - 51px)',
-			minHeight: style.height && 'calc(100% - 40px - 51px)',
+			minHeight: style.height && 'calc(100% - 40px - 51px)'
 		};
 
 		return (
 			<Notification
 				visible
 				type={type}
-				modalStyle= {promptStyle}
+				modalStyle={promptStyle}
 				bodyStyle={promptBodyStyle}
 				showConfirmLoading={this.state.showConfirmLoading}
 				onCancel={this.handleCancel}
 				onOk={this.handleOk}>
 				<div>
 					<header className="info-area">
-						{ isShowIcon && <Icon type={icon} className={ `icon-style ${type}-style` } style={iconStyle}/>}
-						<section className="more-info" style={{ ...style }}>{body}</section>
+						{isShowIcon && <Icon type={icon} className={`icon-style ${type}-style`} style={iconStyle} />}
+						<section className="more-info" style={{ ...style }}>
+							{body}
+						</section>
 					</header>
 				</div>
 			</Notification>
@@ -153,16 +159,7 @@ function prompt({ isShowIcon, type, icon, body, onOk, onCancel, iconStyle, style
 	document.body.appendChild(ele);
 
 	ReactDOM.render(
-		<Prompt
-			id={id}
-			style={style}
-			isShowIcon={isShowIcon}
-			iconStyle={iconStyle}
-			type={type}
-			icon={icon}
-			body={body}
-			onOk={onOk}
-			onCancel={onCancel}/>,
+		<Prompt id={id} style={style} isShowIcon={isShowIcon} iconStyle={iconStyle} type={type} icon={icon} body={body} onOk={onOk} onCancel={onCancel} />,
 		ele
 	);
 }
