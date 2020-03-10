@@ -14,7 +14,6 @@ const nothing = undefined;
 const ENTER_KEY_CODE = 13;
 
 class Input extends React.PureComponent {
-
 	static propTypes = {
 		size: PropTypes.oneOf(['large', 'default', 'small']),
 		style: PropTypes.object,
@@ -68,20 +67,9 @@ class Input extends React.PureComponent {
 	}
 
 	get isPure() {
-		const {
-			hasCounter, hasClear, hasLimtHint,
-			prefix, suffix, addonBefore, addonAfter
-		} = this.props;
+		const { hasCounter, hasClear, hasLimtHint, prefix, suffix, addonBefore, addonAfter } = this.props;
 
-		return (
-			!hasCounter &&
-			!hasClear &&
-			!hasLimtHint &&
-			!prefix &&
-			!suffix &&
-			!addonBefore &&
-			!addonAfter
-		);
+		return !hasCounter && !hasClear && !hasLimtHint && !prefix && !suffix && !addonBefore && !addonAfter;
 	}
 
 	get inputNode() {
@@ -95,15 +83,15 @@ class Input extends React.PureComponent {
 			onEnter(evt);
 		}
 		onKeyDown(evt);
-	}
+	};
 
 	onChange = evt => {
 		this.setValue(evt.target.value, evt);
-	}
+	};
 
 	onClearValue = evt => {
-		this.setValue('', evt, () => this.inputNode.focus())
-	}
+		this.setValue('', evt, () => this.inputNode.focus());
+	};
 
 	setValue(value, evt, callback = noop) {
 		// not using value on props
@@ -135,48 +123,41 @@ class Input extends React.PureComponent {
 
 		const type = 'close-circle-solid';
 		const classNames = classnames(`${prefixCls}-input-clear`, {
-			'show': value
+			show: value
 		});
 
-		return (
-			<Icon
-				type={type}
-				className={classNames}
-				onClick={this.onClearValue} />
-		);
+		return <Icon type={type} className={classNames} onClick={this.onClearValue} />;
 	}
 
 	renderCounter() {
-
 		const { hasCounter, maxLength } = this.props;
 		const { value } = this.state;
 
-		return (hasCounter && maxLength) ? <span className={classnames(`${prefixCls}-input-counter`)}><span>{ value.length }</span>/{ maxLength }</span> : null;
-
+		return hasCounter && maxLength ? (
+			<span className={classnames(`${prefixCls}-input-counter`)}>
+				<span>{value.length}</span>/{maxLength}
+			</span>
+		) : null;
 	}
 
 	renderSuffix() {
-
 		const { hasClear, suffix } = this.props;
 
-		return hasClear ?
-			(
-				<>
-					{this.renderClearIcon()}
-					{this.renderCounter()}
-					{suffix}
-				</>
-			) : (
-				<>
-					{this.renderCounter()}
-					{suffix}
-				</>
-			);
+		return hasClear ? (
+			<>
+				{this.renderClearIcon()}
+				{this.renderCounter()}
+				{suffix}
+			</>
+		) : (
+			<>
+				{this.renderCounter()}
+				{suffix}
+			</>
+		);
 	}
 
-
 	getPaddingRight() {
-
 		const { hasClear, hasCounter } = this.props;
 
 		if (hasClear && !hasCounter) {
@@ -199,20 +180,15 @@ class Input extends React.PureComponent {
 		const { value } = this.state;
 		const { size, className, style, hasClear, hasCounter, addonAfter, addonBefore, prefix, suffix, ...others } = this.props;
 
-		const classNames = classnames(`${prefixCls}-input`, {
-			[size]: true
-		}, className);
+		const classNames = classnames(
+			`${prefixCls}-input`,
+			{
+				[size]: true
+			},
+			className
+		);
 
-		const props = omit(others, [
-			'defaultValue',
-			'hasCounter',
-			'hasClear',
-			'prefix',
-			'suffix',
-			'addonAfter',
-			'addonBefore',
-			'onEnter'
-		]);
+		const props = omit(others, ['defaultValue', 'hasCounter', 'hasClear', 'prefix', 'suffix', 'addonAfter', 'addonBefore', 'onEnter']);
 
 		const inputStyle = {
 			paddingRight: `${this.getPaddingRight()}px`,
@@ -220,14 +196,7 @@ class Input extends React.PureComponent {
 		};
 
 		const Element = (
-			<input
-				{...props}
-				ref={this.inputRef}
-				style={inputStyle}
-				value={value}
-				className={classNames}
-				onChange={this.onChange}
-				onKeyDown={this.onKeyDown} />
+			<input {...props} ref={this.inputRef} style={inputStyle} value={value} className={classNames} onChange={this.onChange} onKeyDown={this.onKeyDown} />
 		);
 
 		// basic input
@@ -240,12 +209,7 @@ class Input extends React.PureComponent {
 
 		// has addon content
 		return (
-			<InputWrapper
-				prefix={prefix}
-				suffix={_suffix}
-				addonAfter={addonAfter}
-				addonBefore={addonBefore}
-			>
+			<InputWrapper prefix={prefix} suffix={_suffix} addonAfter={addonAfter} addonBefore={addonBefore}>
 				{Element}
 			</InputWrapper>
 		);
@@ -254,21 +218,14 @@ class Input extends React.PureComponent {
 
 // InputWrapper
 function InputWrapper({ prefix, suffix, addonBefore, addonAfter, className, children }) {
-
 	const both = prefix || suffix;
 	const addon = addonBefore || addonAfter;
 
 	// complex types
 	if (both && addon) {
 		return (
-			<InputWrapper
-				addonBefore={addonBefore}
-				addonAfter={addonAfter}
-			>
-				<InputWrapper
-					prefix={prefix}
-					suffix={suffix}
-				>
+			<InputWrapper addonBefore={addonBefore} addonAfter={addonAfter}>
+				<InputWrapper prefix={prefix} suffix={suffix}>
 					{children}
 				</InputWrapper>
 			</InputWrapper>
@@ -278,38 +235,26 @@ function InputWrapper({ prefix, suffix, addonBefore, addonAfter, className, chil
 	if (both && !addon) {
 		return (
 			<InputWrapper className={classnames(`${prefixCls}-input-affix`)}>
-				<Addon className={classnames(`${prefixCls}-input-prefix`)}>
-					{prefix}
-				</Addon>
+				<Addon className={classnames(`${prefixCls}-input-prefix`)}>{prefix}</Addon>
 				{children}
-				<Addon className={classnames(`${prefixCls}-input-suffix`)}>
-					{suffix}
-				</Addon>
+				<Addon className={classnames(`${prefixCls}-input-suffix`)}>{suffix}</Addon>
 			</InputWrapper>
-		)
+		);
 	}
 
 	if (!both && addon) {
 		return (
 			<div className={classnames(`${prefixCls}-input-wrapper`)}>
 				<InputWrapper>
-					<Addon className={classnames(`${prefixCls}-input-addon`)}>
-						{addonBefore}
-					</Addon>
+					<Addon className={classnames(`${prefixCls}-input-addon`)}>{addonBefore}</Addon>
 					{children}
-					<Addon className={classnames(`${prefixCls}-input-addon`)}>
-						{addonAfter}
-					</Addon>
+					<Addon className={classnames(`${prefixCls}-input-addon`)}>{addonAfter}</Addon>
 				</InputWrapper>
 			</div>
 		);
 	}
 
-	return (
-		<div className={classnames(`${prefixCls}-input-group`, className)}>
-			{children}
-		</div>
-	);
+	return <div className={classnames(`${prefixCls}-input-group`, className)}>{children}</div>;
 }
 
 InputWrapper.propTypes = {
@@ -332,11 +277,7 @@ InputWrapper.defaultProps = {
 
 // Addon
 function Addon({ className, children }) {
-	return !children ? null : (
-		<span className={className}>
-			{children}
-		</span>
-	);
+	return !children ? null : <span className={className}>{children}</span>;
 }
 
 Addon.propTypes = {

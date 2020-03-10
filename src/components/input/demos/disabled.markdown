@@ -4,7 +4,7 @@ title: 禁用输入框
 desc: 添加 disabled 属性即可让输入框处于不可用状态，同时输入框样式也会改变。
 ---
 
-````javascript
+```javascript
 import React from 'react';
 import { Input } from 'cloud-react';
 
@@ -21,6 +21,6 @@ export default function InputDemo() {
 			<br />
 			<Input.Textarea disabled placeholder="disabled textarea" rows={4} />
 		</div>
-	)
+	);
 }
-````
+```

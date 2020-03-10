@@ -1,7 +1,7 @@
 import jeasy from 'jeasy';
 
 // 将组件children转换成带label|value的对象数组
-export const formatOptionSource = (data) => {
+export const formatOptionSource = data => {
 	const result = [];
 	if (jeasy.type(data) === 'object') {
 		result.push({
@@ -10,7 +10,7 @@ export const formatOptionSource = (data) => {
 		});
 	}
 	return result;
-}
+};
 
 export const filterOptions = (options, filter) => {
 	return options.reduce((acc, child) => {
@@ -21,4 +21,4 @@ export const filterOptions = (options, filter) => {
 		}
 		return acc;
 	}, []);
-}
+};

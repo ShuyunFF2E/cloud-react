@@ -7,25 +7,21 @@ import { prefixCls } from '@utils/config';
 import './index.less';
 
 function ButtonGroup({ block, children, ...props }) {
-
 	const classes = classnames(`${prefixCls}-button-group`);
 
 	return (
 		<div className={classes}>
-			{
-				Children.map(children, child => (
-					cloneElement(child, {
-						...child.props,
-						...props
-					})
-				))
-			}
+			{Children.map(children, child =>
+				cloneElement(child, {
+					...child.props,
+					...props
+				})
+			)}
 		</div>
 	);
 }
 
 class Button extends React.PureComponent {
-
 	static propTypes = {
 		type: PropTypes.string,
 		size: PropTypes.string,
@@ -52,34 +48,40 @@ class Button extends React.PureComponent {
 	render() {
 		const {
 			// a link
-			href, target,
+			href,
+			target,
 			// custom attr
-			size, type, block,
+			size,
+			type,
+			block,
 			// html element
-			children, className, htmlType,
+			children,
+			className,
+			htmlType,
 			...others
 		} = this.props;
 
 		const ElementName = href ? 'a' : 'button';
-		const classNames = classnames(`${prefixCls}-button`, {
-			[type]: true,
-			[size]: true,
-			'block': block
-		}, className);
+		const classNames = classnames(
+			`${prefixCls}-button`,
+			{
+				[type]: true,
+				[size]: true,
+				block
+			},
+			className
+		);
 
 		return (
 			<ElementName
 				type="button"
 				className={classNames}
-				{
-					...{
-						...others,
-						href: href || undefined,
-						type: href ? undefined : htmlType,
-						target: href ? target : undefined
-					}
-				}
-			>
+				{...{
+					...others,
+					href: href || undefined,
+					type: href ? undefined : htmlType,
+					target: href ? target : undefined
+				}}>
 				{children}
 			</ElementName>
 		);
