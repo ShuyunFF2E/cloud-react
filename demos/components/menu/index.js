@@ -54,6 +54,8 @@ export default function Menu({ dataSource }) {
 						);
 					}
 
+					subMenu.sort(({ order: a }, { order: b}) => a - b);
+
 					return (
 						<MenuCategory key={key} title={title} subMenu={subMenu}>
 							{

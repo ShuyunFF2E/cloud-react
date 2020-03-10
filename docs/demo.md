@@ -1,9 +1,11 @@
 ---
-category: 组件文档
-title: demo 文档
+category: 指南
+title: 组件 demo 文档示例
+order: 3
 ---
 
-1. 组件的文档放到组件的demos目录上，文件名称 `*.markdown`，例如：
+### demo文件目录
+组件的文档放到组件的demos目录下，文件名称 `*.markdown`，例如：
 
 ````javascript
 |- src
@@ -13,7 +15,7 @@ title: demo 文档
 				|- basic.markdown
 ````
 
-2. 文件内容格式
+### 文件内容格式
 
 ````markdown
 ---
@@ -23,7 +25,7 @@ desc: 当您的使用场景比较简单的时候，看看基础用法是否就�
 
 ```javascript
 import React form 'react';
-import Button from 'ccms-components-react';
+import { Button } from 'cloud-react';
 
 export default class BasicDemo extends React.Component {
 	render() {
