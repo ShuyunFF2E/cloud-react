@@ -1,4 +1,4 @@
-const getOptions = require('loader-utils').getOptions;
+const { getOptions } = require('loader-utils');
 const frontmatter = require('front-matter')
 
 const md = require('markdown-it')({
@@ -7,7 +7,7 @@ const md = require('markdown-it')({
 
 const stringify = (src) => JSON.stringify(src).replace(/\u2028/g, '\\u2028').replace(/\u2029/g, '\\u2029');
 
-module.exports = function (source) {
+module.exports = function(source) {
 	if (this.cacheable) this.cacheable();
 
 	const { pattern, insert = {} } = getOptions(this);
@@ -24,6 +24,10 @@ module.exports = function (source) {
 	}
 
 	fm.html = md.render(fm.body);
+	// 分类修复为中文
+	if (fm.attributes.category === 'Components') {
+		fm.attributes.category = '组件';
+	}
 
 	return `module.exports = {
 		body: ${stringify(fm.body)},
