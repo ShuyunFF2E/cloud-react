@@ -2,29 +2,25 @@
 
 @modal-prefix-cls: ~'@{prefix}-modal';
 
-@modal-color: #666;
+@header-background: #ededed;
+@close-icon-color: #cecece;
 
-@container-background: #F8F8F8;
-@header-background: #EDEDED;
-@close-icon-color: #CECECE;
-
-@body-font-color: #3D3D3D;
 @body-border-radius: 2px;
 
-@footer-background: #F5F5F5;
-@footer-border: 1px solid #E8E8E8;
+@footer-background: #f5f5f5;
+@footer-border: 1px solid #e8e8e8;
 
-@confirm-icon-color: #FAAD14;
+@confirm-icon-color: #faad14;
 @info-icon-color: #1890ff;
 @success-icon-color: #52c41a;
 @error-icon-color: #f5222d;
-@warning-icon-color: #FAAD14;
+@warning-icon-color: #faad14;
 
-@confirm-loading-border: 1px solid #DDD;
-@confirm-loading-border-top: 1px solid #FFF;
+@confirm-loading-border: 1px solid #ddd;
+@confirm-loading-border-top: 1px solid @color-white;
 
 .@{modal-prefix-cls} {
-	font-family: Tahoma, "Microsoft Yahei", sans-serif;
+	font-family: Tahoma, 'Microsoft Yahei', sans-serif;
 	position: fixed;
 	top: 0;
 	right: 0;
@@ -37,9 +33,8 @@
 		left: 0;
 		right: 0;
 		bottom: 0;
-		background: @modal-color;
+		background: @color-gray2;
 		opacity: 0.6;
-
 	}
 
 	&-container {
@@ -48,7 +43,7 @@
 		max-width: 50%;
 		margin: 0 auto;
 		position: relative;
-		background: @container-background;
+		background: @color-gray1;
 		border-radius: @body-border-radius;
 		white-space: normal;
 		animation: modal-fade-in 0.5s;
@@ -62,7 +57,7 @@
 				opacity: 1;
 			}
 		}
-	};
+	}
 
 	&-header {
 		border-radius: 2px;
@@ -71,7 +66,7 @@
 		font-size: 14px;
 		background: @header-background;
 		.@{modal-prefix-cls}-title {
-			color: @modal-color;
+			color: @color-gray2;
 			cursor: text;
 		}
 
@@ -87,7 +82,7 @@
 		max-height: calc(100vh - 200px);
 		min-height: 80px;
 		font-size: 14px;
-		color: @body-font-color;
+		color: @color-gray4;
 		padding: 20px;
 		overflow: auto;
 	}
@@ -156,7 +151,7 @@
 	.more-info {
 		display: inline;
 		font-size: 14px;
-		color: @modal-color;
+		color: @color-gray2;
 		vertical-align: text-top;
 		line-height: 26px;
 	}
