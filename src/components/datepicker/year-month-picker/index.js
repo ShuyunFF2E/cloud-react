@@ -2,19 +2,9 @@ import React, { useState, useEffect, useMemo, useRef, useLayoutEffect } from 're
 import PropTypes from 'prop-types';
 import Input from 'cloud-react/input';
 import Popup from './popup';
-import {
-	createWrapper,
-	renderDOM,
-	destroyDOM,
-	destroyAllDOM,
-	isVaild,
-	selector,
-	calendarIcon,
-	datepickerUI,
-	getPositionByComp
-} from '../util/view-common';
+import { createWrapper, renderDOM, destroyDOM, destroyAllDOM, isVaild, selector, calendarIcon, datepickerUI, getPositionByComp } from '../util/view-common';
 import enumObj from '../util/enum';
-import utils from '../util'
+import utils from '../util';
 
 function YearMonthPicker(props) {
 	const { value, defaultValue, open, disabled, className, min, max, hasClear, placeholder, showThisMonth, position, onChange, format, ...otherProps } = props;
@@ -22,24 +12,33 @@ function YearMonthPicker(props) {
 	const firstUpdate = useRef(true);
 	const [currentValue, setCurrentValue] = useState(isVaild(value) ? value : defaultValue);
 	const [visible, setVisible] = useState(open);
-	const [id,] = useState(Math.random().toString().replace('.', ''));
+	const [id] = useState(
+		Math.random()
+			.toString()
+			.replace('.', '')
+	);
 	const [suffix, setSuffix] = useState(calendarIcon);
-	const memoValue = useMemo(() => { return value }, [value])
+	const memoValue = useMemo(() => {
+		return value;
+	}, [value]);
 
 	function onValueChange(output = '', isPop = false) {
-		const dateArr = output.split('/')
-		const _output = utils.convert({
-			year: dateArr[0],
-			month: dateArr[1]
-		}, format)
+		const dateArr = output.split('/');
+		const _output = utils.convert(
+			{
+				year: dateArr[0],
+				month: dateArr[1]
+			},
+			format
+		);
 		setCurrentValue(_output);
-		if(isPop) {
+		if (isPop) {
 			onChange(_output);
 		}
 	}
 
 	function onPopChange(output) {
-		onValueChange(output, true)
+		onValueChange(output, true);
 		// eslint-disable-next-line no-use-before-define
 		changeVisible(null, false);
 		if (hasClear) {
@@ -54,21 +53,23 @@ function YearMonthPicker(props) {
 			const checkValue = currentValue;
 			const { HEIGHT_MONTH } = datepickerUI;
 			const { left, top } = getPositionByComp(inpRef.current.inputRef.current.getBoundingClientRect(), position, HEIGHT_MONTH);
-			renderDOM(id, <Popup
-				left={left}
-				top={top}
-				className={className}
-				checkValue={checkValue}
-				showThisMonth={showThisMonth}
-				max={max}
-				min={min}
-				onChange={onPopChange}
-			/>);
+			renderDOM(
+				id,
+				<Popup
+					left={left}
+					top={top}
+					className={className}
+					checkValue={checkValue}
+					showThisMonth={showThisMonth}
+					max={max}
+					min={min}
+					onChange={onPopChange}
+				/>
+			);
 			return;
 		}
 		destroyDOM(id);
 	}
-
 
 	useEffect(() => {
 		document.addEventListener('click', changeVisible, false);
@@ -78,9 +79,9 @@ function YearMonthPicker(props) {
 		return () => {
 			setTimeout(() => {
 				document.removeEventListener('click', changeVisible, false);
-			},0)
-		}
-    }, []);
+			}, 0);
+		};
+	}, []);
 
 	useEffect(() => {
 		setVisible(open);
@@ -110,39 +111,35 @@ function YearMonthPicker(props) {
 	}
 
 	useLayoutEffect(() => {
-    if (firstUpdate.current) {
-      firstUpdate.current = false;
-    } else if(value) {
+		if (firstUpdate.current) {
+			firstUpdate.current = false;
+		} else if (value) {
 			onValueChange(value);
 		} else {
-			onInpChange()
+			onInpChange();
 		}
 	}, [memoValue]);
 
 	return (
-		<div
-			onClick={onInpClick}
-			className={`${selector}-container`}>
-			<Input {...otherProps}
+		<div onClick={onInpClick} className={`${selector}-container`}>
+			<Input
+				{...otherProps}
 				ref={inpRef}
 				suffix={suffix}
-						value={currentValue}
+				value={currentValue}
 				placeholder={placeholder}
 				readOnly
 				hasClear={hasClear}
 				className={`${selector}-inp`}
 				onChange={evt => onInpChange(evt)}
 				disabled={disabled}
-		/>
-	</div>);
+			/>
+		</div>
+	);
 }
 
 YearMonthPicker.propTypes = {
-	position: PropTypes.oneOf([
-		enumObj.AUTO,
-		enumObj.UP,
-		enumObj.DOWN
-	]),
+	position: PropTypes.oneOf([enumObj.AUTO, enumObj.UP, enumObj.DOWN]),
 	hasClear: PropTypes.bool,
 	className: PropTypes.string,
 	disabled: PropTypes.bool,
@@ -150,12 +147,12 @@ YearMonthPicker.propTypes = {
 	open: PropTypes.bool,
 	defaultValue: PropTypes.string,
 	value: PropTypes.string,
-    min: PropTypes.string,
+	min: PropTypes.string,
 	max: PropTypes.string,
 	showThisMonth: PropTypes.bool,
 	onChange: PropTypes.func,
 	format: PropTypes.string
-}
+};
 
 YearMonthPicker.defaultProps = {
 	className: '',
@@ -169,8 +166,8 @@ YearMonthPicker.defaultProps = {
 	value: undefined,
 	min: '1900/01',
 	max: '2100/12',
-	format: 'YYYY-MM',
-	onChange: () => { }
-}
+	format: 'YYYY/MM',
+	onChange: () => {}
+};
 
 export default YearMonthPicker;

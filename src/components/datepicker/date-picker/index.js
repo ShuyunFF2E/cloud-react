@@ -4,29 +4,66 @@ import Input from 'cloud-react/input';
 import Popup from './popup';
 import util from '../util';
 import enumObj from '../util/enum';
-import { createWrapper, renderDOM, destroyDOM, destroyAllDOM, isVaild, formatZero, getPositionByComp, calendarIcon, datepickerUI, selector } from '../util/view-common';
+import {
+	createWrapper,
+	renderDOM,
+	destroyDOM,
+	destroyAllDOM,
+	isVaild,
+	formatZero,
+	getPositionByComp,
+	calendarIcon,
+	datepickerUI,
+	selector
+} from '../util/view-common';
 
+const DEFAULT_FORMAT = 'yyyy/MM/dd';
 
-function getFormat(_showTimePicker, _mode) {
+function getFormat(_showTimePicker, _mode, format = DEFAULT_FORMAT) {
 	if (_showTimePicker) {
 		if (_mode === enumObj.DATE_HOUR) {
-			return 'yyyy/MM/dd hh';
-		} if (_mode === enumObj.DATE_HOUR_MINUTE) {
-			return 'yyyy/MM/dd hh:mm';
+			return `${format} hh`;
 		}
-		return 'yyyy/MM/dd hh:mm:ss';
+		if (_mode === enumObj.DATE_HOUR_MINUTE) {
+			return `${format} hh:mm`;
+		}
+		return `${format} hh:mm:ss`;
 	}
-	return 'yyyy/MM/dd';
+	return `${format}`;
 }
 
 function DatePicker(props) {
-	const { value, defaultValue, defaultTime, open, disabled, minDate, maxDate, position, className, hasClear,
-		showToday, showNow, showTimePicker, mode, onChange, placeholder, maxYear, minYear, format, ...otherProps } = props;
+	const {
+		value,
+		defaultValue,
+		defaultTime,
+		open,
+		disabled,
+		minDate,
+		maxDate,
+		position,
+		className,
+		hasClear,
+		showToday,
+		showNow,
+		showTimePicker,
+		mode,
+		onChange,
+		placeholder,
+		maxYear,
+		minYear,
+		format,
+		...otherProps
+	} = props;
 	const inpRef = React.createRef();
 	const firstUpdate = useRef(true);
 	// 每个组件实例id，对应面板DOM节点
-	const [id,] = useState(Math.random().toString().replace('.', ''));
-	let fmt = getFormat(showTimePicker, mode);
+	const [id] = useState(
+		Math.random()
+			.toString()
+			.replace('.', '')
+	);
+	let fmt = getFormat(showTimePicker, mode, format);
 	const [visible, setVisible] = useState(open);
 	const [currentValueDate, setCurrentValueDate] = useState(isVaild(value) ? value : defaultValue);
 	const [currentValue, setCurrentValue] = useState(() => {
@@ -36,23 +73,24 @@ function DatePicker(props) {
 		return util.convert(util.displayNow(currentValueDate), fmt);
 	});
 	const [suffix, setSuffix] = useState(calendarIcon);
-	const memoValue = useMemo(() => { return value }, [value])
-
+	const memoValue = useMemo(() => {
+		return value;
+	}, [value]);
 
 	function onValueChange(obj = {}, isPop = false) {
 		const dpArr = [`${obj.year}/${formatZero(obj.month)}/${formatZero(obj.day)}`];
-		const str = dpArr.push(` ${formatZero(obj.hour)}:${formatZero(obj.minute)}:${formatZero(obj.second)}`) && dpArr.toString()
+		const str = dpArr.push(` ${formatZero(obj.hour)}:${formatZero(obj.minute)}:${formatZero(obj.second)}`) && dpArr.toString();
 		const outputDate = new Date(str);
-		const output = util.convert(util.displayNow(outputDate), format);
+		const output = util.convert(util.displayNow(outputDate), fmt);
 		setCurrentValue(output);
 		setCurrentValueDate(outputDate);
-		if(isPop) {
+		if (isPop) {
 			onChange(output);
 		}
 	}
 
 	useEffect(() => {
-		if(defaultValue && hasClear) {
+		if (defaultValue && hasClear) {
 			setSuffix(null);
 		}
 	}, []);
@@ -65,10 +103,9 @@ function DatePicker(props) {
 		fmt = getFormat(showTimePicker, mode);
 	}, [showTimePicker, mode]);
 
-
 	function onPopChange(obj) {
 		if (obj) {
-			onValueChange(obj, true)
+			onValueChange(obj, true);
 			// eslint-disable-next-line no-use-before-define
 			changeVisible(null, false);
 			// 有clear Icon时，日历Icon不显示
@@ -79,30 +116,37 @@ function DatePicker(props) {
 	}
 	// 响应事件，渲染或者 卸载DOM
 	function changeVisible(evt, isVisible) {
-		if(isVisible && id) {
+		if (isVisible && id) {
 			setVisible(true);
 			createWrapper(id);
 			const checkDate = currentValueDate;
 			const { HEIGHT_DEFAULT, HEIGHT_TIME } = datepickerUI;
 			// 获取面板的定位
-			const { left, top } = getPositionByComp(inpRef.current.inputRef.current.getBoundingClientRect(), position, showTimePicker ? HEIGHT_TIME : HEIGHT_DEFAULT);
+			const { left, top } = getPositionByComp(
+				inpRef.current.inputRef.current.getBoundingClientRect(),
+				position,
+				showTimePicker ? HEIGHT_TIME : HEIGHT_DEFAULT
+			);
 			// 渲染DOM
-			renderDOM(id, <Popup
-				left={left}
-				top={top}
-				mode={mode}
-				className={className}
-				checkDateObj={util.transformObj(checkDate)}
-				showToday={showToday}
-				showNow={showNow}
-				defaultTime={defaultTime}
-				showTimePicker={showTimePicker}
-				max={maxDate}
-				min={minDate}
-				maxYear={maxYear}
-				minYear={minYear}
-				onChange={onPopChange}
-			/>);
+			renderDOM(
+				id,
+				<Popup
+					left={left}
+					top={top}
+					mode={mode}
+					className={className}
+					checkDateObj={util.transformObj(checkDate)}
+					showToday={showToday}
+					showNow={showNow}
+					defaultTime={defaultTime}
+					showTimePicker={showTimePicker}
+					max={maxDate}
+					min={minDate}
+					maxYear={maxYear}
+					minYear={minYear}
+					onChange={onPopChange}
+				/>
+			);
 			return;
 		}
 		destroyDOM(id);
@@ -110,16 +154,16 @@ function DatePicker(props) {
 	// 组件渲染时，仅注册一次相关事件
 	useEffect(() => {
 		document.addEventListener('click', changeVisible, false);
-		if(open) {
+		if (open) {
 			changeVisible(null, visible);
 		}
 		return () => {
 			// fix issue 121
 			setTimeout(() => {
 				document.removeEventListener('click', changeVisible, false);
-			},0)
-		}
-    }, []);
+			}, 0);
+		};
+	}, []);
 
 	function onInpClick(evt) {
 		if (disabled) return;
@@ -129,10 +173,10 @@ function DatePicker(props) {
 		// 阻止与原生事件的冒泡
 		evt.nativeEvent.stopImmediatePropagation();
 		// 如果不可见则显示面板
-        if (!visible || !document.getElementById(id)) {
+		if (!visible || !document.getElementById(id)) {
 			destroyAllDOM();
-            changeVisible(evt, true);
-        }
+			changeVisible(evt, true);
+		}
 	}
 
 	function onInpChange(evt = '') {
@@ -146,23 +190,22 @@ function DatePicker(props) {
 	}
 
 	useLayoutEffect(() => {
-    if (firstUpdate.current) {
-      firstUpdate.current = false;
-    } else if(value) {
+		if (firstUpdate.current) {
+			firstUpdate.current = false;
+		} else if (value) {
 			onValueChange(util.displayNow(value));
 		} else {
-			onInpChange()
+			onInpChange();
 		}
 	}, [memoValue]);
 
-  return (
-		<div
-			onClick={onInpClick}
-			className={`${selector}-container`}>
-				<Input {...otherProps}
+	return (
+		<div onClick={onInpClick} className={`${selector}-container`}>
+			<Input
+				{...otherProps}
 				ref={inpRef}
 				suffix={suffix}
-						value={currentValue}
+				value={currentValue}
 				placeholder={placeholder}
 				readOnly
 				hasClear={hasClear}
@@ -171,31 +214,22 @@ function DatePicker(props) {
 				onChange={evt => onInpChange(evt)}
 				onClick={onInpClick}
 			/>
-		</div>);
+		</div>
+	);
 }
 
-DatePicker.propTypes =  {
+DatePicker.propTypes = {
 	className: PropTypes.string,
 	disabled: PropTypes.bool,
 	placeholder: PropTypes.string,
 	format: PropTypes.string,
-	position: PropTypes.oneOf([
-		enumObj.AUTO,
-		enumObj.UP,
-		enumObj.DOWN
-	]),
-	mode: PropTypes.oneOf([
-		enumObj.DATE_HOUR,
-		enumObj.DATE_HOUR_MINUTE
-	]),
+	position: PropTypes.oneOf([enumObj.AUTO, enumObj.UP, enumObj.DOWN]),
+	mode: PropTypes.oneOf([enumObj.DATE_HOUR, enumObj.DATE_HOUR_MINUTE]),
 	open: PropTypes.bool,
 	hasClear: PropTypes.bool,
 	defaultValue: PropTypes.instanceOf(Date),
 	defaultTime: PropTypes.string,
-	value: PropTypes.oneOfType([
-		PropTypes.instanceOf(Date),
-		PropTypes.string
-	]),
+	value: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.string]),
 	maxDate: PropTypes.instanceOf(Date),
 	minDate: PropTypes.instanceOf(Date),
 	maxYear: PropTypes.number,
@@ -206,11 +240,11 @@ DatePicker.propTypes =  {
 	showNow: PropTypes.bool,
 	showTimePicker: PropTypes.bool,
 	onChange: PropTypes.func
-}
+};
 
 DatePicker.defaultProps = {
 	className: '',
-	format: 'yyyy/MM/dd',
+	format: DEFAULT_FORMAT,
 	mode: undefined,
 	disabled: false,
 	placeholder: '请选择日期',
@@ -227,7 +261,7 @@ DatePicker.defaultProps = {
 	maxDate: undefined,
 	minYear: 1980,
 	maxYear: 2030,
-	onChange: () => { }
-}
+	onChange: () => {}
+};
 
 export default DatePicker;
