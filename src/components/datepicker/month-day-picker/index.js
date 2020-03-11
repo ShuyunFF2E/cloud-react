@@ -2,46 +2,45 @@ import React, { useState, useEffect, useMemo, useRef, useLayoutEffect } from 're
 import PropTypes from 'prop-types';
 import Input from 'cloud-react/input';
 import Popup from './popup';
-import {
-	createWrapper,
-	renderDOM,
-	destroyDOM,
-	destroyAllDOM,
-	isVaild,
-	datepickerUI,
-	selector,
-	getPositionByComp,
-	calendarIcon
-} from '../util/view-common';
+import { createWrapper, renderDOM, destroyDOM, destroyAllDOM, isVaild, datepickerUI, selector, getPositionByComp, calendarIcon } from '../util/view-common';
 import enumObj from '../util/enum';
-import utils from '../util'
+import utils from '../util';
 
 function MonthDayPicker(props) {
 	const { value, defaultValue, open, disabled, className, hasClear, placeholder, showToday, position, onChange, format, ...otherProps } = props;
 	const [currentValue, setCurrentValue] = useState(isVaild(value) ? value : defaultValue);
 	const [visible, setVisible] = useState(open);
 	// 每个组件实例id，对应面板DOM节点
-	const [id,] = useState(Math.random().toString().replace('.', ''));
+	const [id] = useState(
+		Math.random()
+			.toString()
+			.replace('.', '')
+	);
 	// 日历Icon位置，因为可能会有clear Icon出现。所以交替显示
 	const [suffix, setSuffix] = useState(calendarIcon);
 	const inpRef = React.createRef();
 	const firstUpdate = useRef(true);
-	const memoValue = useMemo(() => { return value }, [value])
+	const memoValue = useMemo(() => {
+		return value;
+	}, [value]);
 
 	function onValueChange(output = '', isPop = false) {
-		const dateArr = output.split('/')
-		const _output = utils.convert({
-			month: dateArr[0],
-			day: dateArr[1]
-		}, format)
+		const dateArr = output.split('/');
+		const _output = utils.convert(
+			{
+				month: dateArr[0],
+				day: dateArr[1]
+			},
+			format
+		);
 		setCurrentValue(_output);
-		if(isPop) {
+		if (isPop) {
 			onChange(_output);
 		}
 	}
 
 	function onPopChange(output) {
-		onValueChange(output, true)
+		onValueChange(output, true);
 		// eslint-disable-next-line no-use-before-define
 		changeVisible(null, false);
 		if (hasClear) {
@@ -58,14 +57,7 @@ function MonthDayPicker(props) {
 			// 获取面板的定位
 			const { left, top } = getPositionByComp(inpRef.current.inputRef.current.getBoundingClientRect(), position, HEIGHT_MONTH_DAY);
 			// 渲染DOM
-			renderDOM(id, <Popup
-				left={left}
-				top={top}
-				className={className}
-				checkValue={checkValue}
-				showToday={showToday}
-				onChange={onPopChange}
-			/>);
+			renderDOM(id, <Popup left={left} top={top} className={className} checkValue={checkValue} showToday={showToday} onChange={onPopChange} />);
 			return;
 		}
 		destroyDOM(id);
@@ -80,14 +72,13 @@ function MonthDayPicker(props) {
 		return () => {
 			setTimeout(() => {
 				document.removeEventListener('click', changeVisible, false);
-			},0)
-		}
-    }, []);
+			}, 0);
+		};
+	}, []);
 
 	useEffect(() => {
 		setVisible(open);
 	}, [open]);
-
 
 	function onInpClick(evt) {
 		if (disabled) return;
@@ -111,38 +102,34 @@ function MonthDayPicker(props) {
 	}
 
 	useLayoutEffect(() => {
-    if (firstUpdate.current) {
-      firstUpdate.current = false;
-    } else if(value) {
+		if (firstUpdate.current) {
+			firstUpdate.current = false;
+		} else if (value) {
 			onValueChange(value);
 		} else {
-			onInpChange()
+			onInpChange();
 		}
 	}, [memoValue]);
 	return (
-    <div
-			onClick={onInpClick}
-			className={`${selector}-container`}>
-			<Input {...otherProps}
+		<div onClick={onInpClick} className={`${selector}-container`}>
+			<Input
+				{...otherProps}
 				ref={inpRef}
 				suffix={suffix}
-						value={currentValue}
+				value={currentValue}
 				placeholder={placeholder}
 				readOnly
 				hasClear={hasClear}
 				className={`${selector}-inp`}
 				onChange={evt => onInpChange(evt)}
 				disabled={disabled}
- 		/>
-	</div>);
+			/>
+		</div>
+	);
 }
 
 MonthDayPicker.propTypes = {
-	position: PropTypes.oneOf([
-		enumObj.AUTO,
-		enumObj.UP,
-		enumObj.DOWN
-	]),
+	position: PropTypes.oneOf([enumObj.AUTO, enumObj.UP, enumObj.DOWN]),
 	className: PropTypes.string,
 	hasClear: PropTypes.bool,
 	disabled: PropTypes.bool,
@@ -153,7 +140,7 @@ MonthDayPicker.propTypes = {
 	showToday: PropTypes.bool,
 	onChange: PropTypes.func,
 	format: PropTypes.string
-}
+};
 
 MonthDayPicker.defaultProps = {
 	className: '',
@@ -165,8 +152,8 @@ MonthDayPicker.defaultProps = {
 	showToday: true,
 	defaultValue: '',
 	value: undefined,
-	format: 'MM-DD',
-	onChange: () => { }
-}
+	format: 'MM/DD',
+	onChange: () => {}
+};
 
 export default MonthDayPicker;
