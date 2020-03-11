@@ -15,12 +15,6 @@
 
 .table-wrap.cloud-react-skin,
 .table-wrap.cloud-react-skin.icon-follow-text {
-	// 表头底色
-	.table-header{
-		border-bottom: @table-border;
-		background-image: none;
-	}
-
 	// th区域
 	[grid-manager] th {
 		padding: 0 !important;
@@ -35,9 +29,9 @@
 		.th-wrap .sorting-action {
 			visibility: hidden;
 		}
-		.th-wrap:hover .sorting-action{
+		.th-wrap:hover .sorting-action {
 			visibility: visible;
-			color:@sort-action-color-hover !important;
+			color: @sort-action-color-hover !important;
 		}
 
 		.th-text {
@@ -58,7 +52,7 @@
 
 	// tbody区域
 	tbody {
-		tr:not([top-full-column-interval=true]):not([top-full-column=true]) > td {
+		tr:not([top-full-column-interval='true']):not([top-full-column='true']) > td {
 			height: 42px;
 			min-height: 42px;
 			padding: 6px;
@@ -66,10 +60,10 @@
 				white-space: normal;
 			}
 		}
-		tr[top-full-column=true] {
+		tr[top-full-column='true'] {
 			border-top: @table-border;
 			border-bottom: @table-border;
-			td{
+			td {
 				border-left: 0;
 				border-right: 0;
 				.full-column-td {
@@ -77,15 +71,13 @@
 				}
 			}
 		}
-		tr[top-full-column-interval=true] td > div {
+		tr[top-full-column-interval='true'] td > div {
 			height: 6px;
 		}
 	}
 
 	// 分页区域
 	.gm-toolbar {
-		border-top: @table-border;
-		background-image: none;
 		.change-size {
 			position: absolute;
 			top: 7px;
@@ -99,7 +91,7 @@
 			vertical-align: middle;
 		}
 		/* 无总页模式不显示总条数 */
-		&[no-totals-mode="true"] {
+		&[no-totals-mode='true'] {
 			.totals-count {
 				display: none;
 			}
