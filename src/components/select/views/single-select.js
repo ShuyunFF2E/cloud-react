@@ -7,17 +7,36 @@ import { filterOptions } from '../utils';
 
 import '../index.less';
 
+const scrollIntoView = index => {
+	const els = document.getElementsByClassName(`${selector}-select-options`)[0];
+	if (els) {
+		els.scrollTop = index * 30;
+	}
+}
+
 export default function SingleSelect(props) {
 	const { dataSource, searchable, value, emptyRender, onChange, onSearch, searchPlaceholder, className } = props;
 	const [ options, setOptions ] = useState(dataSource);
 	const [ searchValue, setSearchValue ] = useState('');
 	const classNames = classnames(`${selector}-select-options`, className);
+	let selectIndex = 0;
 
-	const views = useMemo(() => Children.map(options, child => cloneElement(child, {
-		...child.props,
-		isSelected: value === child.props.value,
-		onChange
-	})), [options, value]);
+	useEffect(() => {
+		scrollIntoView(selectIndex);
+	}, []);
+
+	const views = useMemo(() => Children.map(options, (child, index) => {
+		const childValue = child.props.value;
+		if (value === childValue) {
+			selectIndex = index;
+		}
+		
+		return cloneElement(child, {
+			...child.props,
+			isSelected: value === childValue,
+			onChange
+		});
+	}), [options, value]);
 
 	const onOptionsSearch = e => {
 		const { value: search } = e.target;
