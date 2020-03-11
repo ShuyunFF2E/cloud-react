@@ -1,11 +1,14 @@
 const { getOptions } = require('loader-utils');
-const frontmatter = require('front-matter')
+const frontmatter = require('front-matter');
 
 const md = require('markdown-it')({
-	html: true,
+	html: true
 });
 
-const stringify = (src) => JSON.stringify(src).replace(/\u2028/g, '\\u2028').replace(/\u2029/g, '\\u2029');
+const stringify = src =>
+	JSON.stringify(src)
+		.replace(/\u2028/g, '\\u2028')
+		.replace(/\u2029/g, '\\u2029');
 
 module.exports = function(source) {
 	if (this.cacheable) this.cacheable();
@@ -17,7 +20,7 @@ module.exports = function(source) {
 		let reg = pattern;
 
 		if (pattern instanceof RegExp) {
-			reg = new RegExp(`(${pattern.toString().replace(/^\/|\/$/g, '')})`)
+			reg = new RegExp(`(${pattern.toString().replace(/^\/|\/$/g, '')})`);
 		}
 
 		fm.body = fm.body.replace(reg, insert.before ? `\n${insert.value}\n\n$1\n\n` : `\n\n$1\n\n${insert.value}\n`);
@@ -34,4 +37,4 @@ module.exports = function(source) {
 		html: ${stringify(fm.html)},
 		attributes: ${stringify(fm.attributes)}
 	}`;
-}
+};

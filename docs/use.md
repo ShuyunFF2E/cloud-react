@@ -5,22 +5,28 @@ order: 2
 ---
 
 ### 安装
+
 使用`npm`或`yarn`安装
 
 ```bash
 npm i cloud-react -S
 ```
+
 ```bash
 yarn add cloud-react --save
 ```
+
 如果你的网络环境不佳，推荐使用 `cnpm`。
 
 ### 示例
+
 ```js
 import { Button } from 'cloud-react';
 ReactDOM.render(<Button>按钮</Button>, mountNode);
 ```
+
 #### 引入样式
+
 ```js
 import 'cloud-react/cloud-react.css';
 ```

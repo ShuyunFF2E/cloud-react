@@ -12,12 +12,12 @@ const scrollIntoView = index => {
 	if (els) {
 		els.scrollTop = index * 30;
 	}
-}
+};
 
 export default function SingleSelect(props) {
 	const { dataSource, searchable, value, emptyRender, onChange, onSearch, searchPlaceholder, className } = props;
-	const [ options, setOptions ] = useState(dataSource);
-	const [ searchValue, setSearchValue ] = useState('');
+	const [options, setOptions] = useState(dataSource);
+	const [searchValue, setSearchValue] = useState('');
 	const classNames = classnames(`${selector}-select-options`, className);
 	let selectIndex = 0;
 
@@ -25,23 +25,27 @@ export default function SingleSelect(props) {
 		scrollIntoView(selectIndex);
 	}, []);
 
-	const views = useMemo(() => Children.map(options, (child, index) => {
-		const childValue = child.props.value;
-		if (value === childValue) {
-			selectIndex = index;
-		}
-		
-		return cloneElement(child, {
-			...child.props,
-			isSelected: value === childValue,
-			onChange
-		});
-	}), [options, value]);
+	const views = useMemo(
+		() =>
+			Children.map(options, (child, index) => {
+				const childValue = child.props.value;
+				if (value === childValue) {
+					selectIndex = index;
+				}
+
+				return cloneElement(child, {
+					...child.props,
+					isSelected: value === childValue,
+					onChange
+				});
+			}),
+		[options, value]
+	);
 
 	const onOptionsSearch = e => {
 		const { value: search } = e.target;
 		setSearchValue(search);
-		onSearch(search)
+		onSearch(search);
 	};
 
 	const clearSearch = () => setSearchValue('');
@@ -51,39 +55,26 @@ export default function SingleSelect(props) {
 		setOptions(result);
 	}, [searchValue]);
 
-  return (
-	<div className={classNames}>
-		{
-			searchable &&
-			<OptionsSearch
-				searchValue={searchValue}
-				placeholder={searchPlaceholder}
-				onOptionsSearch={onOptionsSearch}
-				clearSearch={clearSearch} />
-		}
-		{ views }
-		{
-			!views.length && <OptionsEmpty emptyRender={emptyRender} />
-		}
-    </div>
-  )
+	return (
+		<div className={classNames}>
+			{searchable && (
+				<OptionsSearch searchValue={searchValue} placeholder={searchPlaceholder} onOptionsSearch={onOptionsSearch} clearSearch={clearSearch} />
+			)}
+			{views}
+			{!views.length && <OptionsEmpty emptyRender={emptyRender} />}
+		</div>
+	);
 }
 
 SingleSelect.propTypes = {
-	dataSource: PropTypes.oneOfType([
-		PropTypes.object,
-		PropTypes.array
-	]),
+	dataSource: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 	searchable: PropTypes.bool,
 	searchPlaceholder: PropTypes.string,
-	value: PropTypes.oneOfType([
-		PropTypes.string,
-		PropTypes.number
-	]),
+	value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 	className: PropTypes.string,
 	onChange: PropTypes.func,
 	onSearch: PropTypes.func
-}
+};
 
 SingleSelect.defaultProps = {
 	dataSource: [],
@@ -93,4 +84,4 @@ SingleSelect.defaultProps = {
 	className: '',
 	onChange: () => {},
 	onSearch: () => {}
-}
+};
