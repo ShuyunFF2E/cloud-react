@@ -7,8 +7,6 @@ if( typeof window === 'undefined' ) {
 
 export { default as Button } from './button';
 
-export { default as CcMenu } from './cc-menu';
-
 export { default as Checkbox } from './checkbox';
 
 export { default as Datepicker } from './datepicker';
