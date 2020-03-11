@@ -5,7 +5,7 @@ import classes from './index.less';
 
 const getHash = (href = window.location.href) => {
 	return decodeURIComponent(href.split('#').pop());
-}
+};
 
 function MenuCategory({ title, children }) {
 	return (
@@ -26,11 +26,10 @@ function MenuItem({ path, title, subtitle, activeKey, ...props }) {
 			<span>{title}</span>
 			<span className={classes.subtitle}>{subtitle}</span>
 		</a>
-	)
+	);
 }
 
 export default function Menu({ dataSource }) {
-
 	const [activeKey, setActiveKey] = useState(getHash());
 	const onChangeActiveKey = ({ target }) => setActiveKey(getHash(target.href));
 
@@ -40,38 +39,21 @@ export default function Menu({ dataSource }) {
 
 	return (
 		<div className={classes.menu}>
-			{
-				dataSource.map(({title, subtitle, path, subMenu = []}, key) => {
-					if (!subMenu.length) {
-						return (
-							<MenuItem
-								key={key}
-								path={path}
-								title={title}
-								subtitle={subtitle}
-								activeKey={activeKey}
-								onClick={onChangeActiveKey} />
-						);
-					}
+			{dataSource.map(({ title, subtitle, path, subMenu = [] }, key) => {
+				if (!subMenu.length) {
+					return <MenuItem key={key} path={path} title={title} subtitle={subtitle} activeKey={activeKey} onClick={onChangeActiveKey} />;
+				}
 
-					subMenu.sort(({ order: a }, { order: b}) => a - b);
+				subMenu.sort(({ order: a }, { order: b }) => a - b);
 
-					return (
-						<MenuCategory key={key} title={title} subMenu={subMenu}>
-							{
-								subMenu.map((props, subKey) => (
-									<MenuItem
-										{...props}
-										key={subKey}
-										activeKey={activeKey}
-										onClick={onChangeActiveKey} />
-								))
-							}
-						</MenuCategory>
-					);
-
-				})
-			}
+				return (
+					<MenuCategory key={key} title={title} subMenu={subMenu}>
+						{subMenu.map((props, subKey) => (
+							<MenuItem {...props} key={subKey} activeKey={activeKey} onClick={onChangeActiveKey} />
+						))}
+					</MenuCategory>
+				);
+			})}
 		</div>
 	);
 }

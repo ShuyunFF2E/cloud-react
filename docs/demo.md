@@ -4,16 +4,17 @@ title: 组件 demo 文档示例
 order: 3
 ---
 
-### demo文件目录
-组件的文档放到组件的demos目录下，文件名称 `*.markdown`，例如：
+### demo 文件目录
 
-````javascript
+组件的文档放到组件的 demos 目录下，文件名称 `*.markdown`，例如：
+
+```javascript
 |- src
 	|- components
 		|- button
 			|- demos
 				|- basic.markdown
-````
+```
 
 ### 文件内容格式
 
@@ -52,7 +53,6 @@ OR
 	color: red;
 }
 ```
-
 ````
 
 输出：该文件的内容会自动被解析和动态引入到 `组件API文档` 的代码演示容器中 `<div id="code-demo">你在这</div>`

@@ -6,21 +6,18 @@ const REQUIRED = 'required';
 const VALIDATOR = 'validator';
 
 const requiredValidator = (rule, value) => {
-	if (
-		rule[REQUIRED] &&
-		(['', undefined, null].includes(value) || Array.isArray(value) && value.length === 0)
-	) {
+	if (rule[REQUIRED] && (['', undefined, null].includes(value) || value.trim().length === 0 || (Array.isArray(value) && value.length === 0))) {
 		return rule.message || '必填项';
 	}
 	return null;
-}
+};
 
 const patternValidator = (rule, value) => {
 	if (rule[PATTERN] instanceof RegExp && !rule[PATTERN].test(value)) {
 		return rule.message || '内容格式不正确';
 	}
 	return null;
-}
+};
 
 const minValidator = (rule, value) => {
 	const _value = Number(value);
@@ -29,7 +26,7 @@ const minValidator = (rule, value) => {
 		return rule.message || `内容最小为${rule[MIN]}`;
 	}
 	return null;
-}
+};
 
 const maxValidator = (rule, value) => {
 	const _value = Number(value);
@@ -38,18 +35,14 @@ const maxValidator = (rule, value) => {
 		return rule.message || `内容最大为${rule[MAX]}`;
 	}
 	return null;
-}
+};
 
 const lenValidator = (rule, value) => {
-	if (
-		!Number.isNaN(Number(rule[LEN])) &&
-		typeof value === 'string' &&
-		value.length > rule[LEN]
-	) {
+	if (!Number.isNaN(Number(rule[LEN])) && typeof value === 'string' && value.length > rule[LEN]) {
 		return rule.message || `字符最大长度为${rule[LEN]}`;
 	}
 	return null;
-}
+};
 
 const isError = errors => errors.some(error => !(error instanceof Promise) && Boolean(error));
 
@@ -74,7 +67,7 @@ export default function validator(name, value, rules) {
 		} else if (VALIDATOR in rule && typeof rule[VALIDATOR] === 'function') {
 			error = new Promise(resolve => {
 				rule[VALIDATOR](name, value, err => {
-					resolve({ name, message: err })
+					resolve({ name, message: err });
 				});
 			});
 		}
