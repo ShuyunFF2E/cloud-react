@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { prefixCls } from '@utils/config'
+import { prefixCls } from '@utils/config';
 import Icon from '../icon';
 import Button from '../button';
 import './index.less';
@@ -64,7 +64,6 @@ class Notification extends Component {
 
 	componentWillUnmount() {
 		window.removeEventListener('resize', this.screenChange);
-		this.onReset();
 	}
 
 	// 屏幕变化
@@ -95,7 +94,7 @@ class Notification extends Component {
 		// 鼠标点击位置与modal的位移
 		const diffX = mouseX - X;
 		const diffY = mouseY - Y;
-		return { X, Y, mouseX, mouseY, diffX, diffY }
+		return { X, Y, mouseX, mouseY, diffX, diffY };
 	};
 
 	/**
@@ -106,7 +105,7 @@ class Notification extends Component {
 		const position = this.getPosition(e);
 		window.onmousemove = this.onMouseMove;
 		window.onmouseup = this.onMouseUp;
-		this.setState({ moving: true, diffX: position.diffX, diffY: position.diffY })
+		this.setState({ moving: true, diffX: position.diffX, diffY: position.diffY });
 	};
 
 	// 松开鼠标，设置modal状态为不可移动
@@ -159,11 +158,30 @@ class Notification extends Component {
 			diffX: '',
 			diffY: '',
 			moving: false
-		})
+		});
 	};
 
 	render() {
-		const { visible, modalStyle, bodyStyle, className, id, type, children, title, footer, hasFooter, showMask, okText, cancelText, clickMaskCanClose, showConfirmLoading, onOk, onClose, onCancel } = this.props;
+		const {
+			visible,
+			modalStyle,
+			bodyStyle,
+			className,
+			id,
+			type,
+			children,
+			title,
+			footer,
+			hasFooter,
+			showMask,
+			okText,
+			cancelText,
+			clickMaskCanClose,
+			showConfirmLoading,
+			onOk,
+			onClose,
+			onCancel
+		} = this.props;
 
 		if (!visible && !showConfirmLoading) {
 			return null;
@@ -183,13 +201,15 @@ class Notification extends Component {
 		return (
 			<div id="mask" className={`${prefixCls}-modal`}>
 				{/* 遮罩层 */}
-				<ModalMask
-					showMask={showMask}
-					onClose={onClose}
-					onReset={this.onReset}
-					clickMaskCanClose={clickMaskCanClose}/>
+				<ModalMask showMask={showMask} onClose={onClose} onReset={this.onReset} clickMaskCanClose={clickMaskCanClose} />
 				{/* 弹出框 */}
-				<div ref={c=> { this.modalRef = c; }} id={this.state.modalId} className={classNames(`${prefixCls}-modal-container ${className}`)} style={style}>
+				<div
+					ref={c => {
+						this.modalRef = c;
+					}}
+					id={this.state.modalId}
+					className={classNames(`${prefixCls}-modal-container ${className}`)}
+					style={style}>
 					<ModalHeader
 						id={id}
 						type={type}
@@ -198,11 +218,10 @@ class Notification extends Component {
 						onMouseUp={this.onMouseUp}
 						onMouseMove={this.onMouseMove}
 						onClose={onClose}
-						title={title}/>
+						title={title}
+					/>
 
-					<ModalBody style={bodyStyle}>
-						{children}
-					</ModalBody>
+					<ModalBody style={bodyStyle}>{children}</ModalBody>
 
 					<ModalFooter
 						id={id}
@@ -214,36 +233,43 @@ class Notification extends Component {
 						hasFooter={hasFooter}
 						onCancel={onCancel}
 						onReset={this.onReset}
-						onOk={onOk}/>
+						onOk={onOk}
+					/>
 				</div>
 			</div>
-		)
+		);
 	}
 }
 
 function ModalMask({ onReset, showMask, onClose, clickMaskCanClose }) {
 	const close = () => {
-		onClose();
 		onReset();
+		onClose();
 	};
-	return (
-		showMask && <div className={classNames(`${prefixCls}-modal-mask`)} onClick={clickMaskCanClose && showMask ? close : () => {}}/>
-	);
+	return showMask && <div className={classNames(`${prefixCls}-modal-mask`)} onClick={clickMaskCanClose && showMask ? close : () => {}} />;
 }
 
 function ModalHeader({ type, title, onClose, onReset, onMouseDown, onMouseUp, onMouseMove }) {
 	const close = () => {
-		onClose();
 		onReset();
+		onClose();
 	};
 	const selected = e => {
 		e.stopPropagation();
 	};
 	return (
-		type === 'modal' && <header className={classNames(`${prefixCls}-modal-header`)} onMouseMoveCapture={e => onMouseMove(e)} onMouseDown={e => onMouseDown(e)} onMouseUp={e => onMouseUp(e)}>
-			<span className={classNames(`${prefixCls}-modal-title`)} onMouseDown={event => selected(event)}>{title}</span>
-			<Icon type="close" className="close-icon" onMouseDown={event => selected(event)} onClick={close}/>
-		</header>
+		type === 'modal' && (
+			<header
+				className={classNames(`${prefixCls}-modal-header`)}
+				onMouseMoveCapture={e => onMouseMove(e)}
+				onMouseDown={e => onMouseDown(e)}
+				onMouseUp={e => onMouseUp(e)}>
+				<span className={classNames(`${prefixCls}-modal-title`)} onMouseDown={event => selected(event)}>
+					{title}
+				</span>
+				<Icon type="close" className="close-icon" onMouseDown={event => selected(event)} onClick={close} />
+			</header>
+		)
 	);
 }
 
@@ -260,12 +286,12 @@ function ModalBody({ style, children }) {
  */
 function ModalFooter({ type, footer, okText, cancelText, hasFooter, showConfirmLoading, onCancel, onOk, onReset }) {
 	const ok = () => {
-		onOk();
 		onReset();
+		onOk();
 	};
 	const cancel = () => {
-		onCancel();
 		onReset();
+		onCancel();
 	};
 	const footerClass = classNames(`${prefixCls}-modal-footer`);
 	const confirmClass = classNames(`${prefixCls}-modal-confirm-btn`);
@@ -273,32 +299,32 @@ function ModalFooter({ type, footer, okText, cancelText, hasFooter, showConfirmL
 		return null;
 	}
 	if (hasFooter && footer) {
-		return (
-			<footer className={footerClass}>
-				{footer}
-			</footer>
-		);
+		return <footer className={footerClass}>{footer}</footer>;
 	}
 	if (hasFooter && type !== 'modal' && type !== 'confirm') {
 		return (
 			<footer className={footerClass}>
-				<Button type="primary" onClick={cancel}>知道了</Button>
+				<Button type="primary" onClick={cancel}>
+					知道了
+				</Button>
 			</footer>
 		);
 	}
 	return (
 		<footer className={footerClass}>
 			<Button type="primary" className={confirmClass} disabled={showConfirmLoading} onClick={ok}>
-				<ConfirmLoading showConfirmLoading={showConfirmLoading}/>
+				<ConfirmLoading showConfirmLoading={showConfirmLoading} />
 				{okText}
 			</Button>
-			<Button type="normal" disabled={showConfirmLoading} onClick={cancel}>{cancelText}</Button>
+			<Button type="normal" disabled={showConfirmLoading} onClick={cancel}>
+				{cancelText}
+			</Button>
 		</footer>
 	);
 }
 
 function ConfirmLoading({ showConfirmLoading }) {
-	return (showConfirmLoading && <span className={classNames(`${prefixCls}-modal-confirm-loading`)}/>);
+	return showConfirmLoading && <span className={classNames(`${prefixCls}-modal-confirm-loading`)} />;
 }
 
 export default Notification;
