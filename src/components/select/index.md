@@ -41,6 +41,7 @@ subtitle: 下拉选择
 | onSearch | 搜索文本框变化时回调此函数 | function(value: string) | - |
 | onSelectOpen | 下拉选择框弹开的时候回调此函数 | function | - |
 | onSelectClose | 下拉选择框关闭的时候回调此函数 | function | - |
+| onBeforeChange | 确认选择值之前回调此函数，仅支持单选 | function | - |
 
 ### Option
 | 属性 | 说明 | 类型 | 默认值 |
