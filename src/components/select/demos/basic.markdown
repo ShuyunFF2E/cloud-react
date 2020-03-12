@@ -104,7 +104,6 @@ export default function SelectDemo() {
 					onSelectOpen={handleOpen}
 					onSelectClose={handleClose}
 					onChange={handleChange}
-					value={[4]}
 					searchable
 					>
 					<Option value="">不限</Option>
