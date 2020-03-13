@@ -69,13 +69,22 @@ export default class Field {
 	};
 
 	getValue = name => {
-		if (!(name in this.fieldsMeta)) {
+		const { fieldsMeta, __fieldsMeta__ } = this;
+
+		if (!(name in fieldsMeta) && !(name in __fieldsMeta__)) {
 			return undefined;
 		}
 
-		const fieldMeta = this.fieldsMeta[name];
+		const fieldMeta = fieldsMeta[name];
+		const __fieldMeta__ = __fieldsMeta__[name];
 
-		return fieldMeta[fieldMeta.valueName];
+		if (fieldMeta) {
+			return fieldMeta[fieldMeta.valueName];
+		}
+		if (__fieldMeta__) {
+			return __fieldMeta__.value;
+		}
+		return undefined;
 	};
 
 	setValue = (name, value) => {
