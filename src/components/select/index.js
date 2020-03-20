@@ -260,17 +260,24 @@ class Select extends Component {
 
 	onSimpleOptionChange = data => {
 		const { labelInValue, onChange, onBeforeChange } = this.props;
-		const { prevResult } = this.state;
+		const { prevValue, prevResult } = this.state;
+		
+		if (data.value === prevValue) {
+			this.handleSelect();
+			return;
+		}
+
 		const option = formatOptionSource(data);
 		const selectValue = option[0].value;
 		const checkedValue = labelInValue ? option[0] : selectValue;
 
 		const onBeforeSelectChange = onBeforeChange || (() => Promise.resolve());
 
-		onBeforeSelectChange().then(() => {
+		onBeforeSelectChange(checkedValue).then(() => {
 			this.setState({
 				selected: option,
 				value: selectValue,
+				prevValue: selectValue,
 				prevResult: checkedValue
 			});
 	
