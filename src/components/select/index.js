@@ -157,7 +157,7 @@ class Select extends Component {
 	}
 
 	get optionsNode() {
-		const { multiple } = this.props;
+		const { multiple, confirmTemplate } = this.props;
 		const { value } = this.state;
 
 		if (multiple) {
@@ -168,6 +168,7 @@ class Select extends Component {
 					dataSource={this.children}
 					onOk={this.handleOk}
 					onCancel={this.handleCancel}
+					confirmTemplate={confirmTemplate}
 					onChange={this.onMultiSelectValueChange}
 				/>
 			);
@@ -280,7 +281,7 @@ class Select extends Component {
 				prevValue: selectValue,
 				prevResult: checkedValue
 			});
-	
+
 			this.handleSelect();
 			onChange(checkedValue, prevResult);
 		});
@@ -315,8 +316,8 @@ class Select extends Component {
 			this.setState({
 				prevResult: checkedValue
 			});
-			onChange(checkedValue, prevResult);
 		}
+		onChange(checkedValue, prevResult);
 	};
 
 	onClearSelected = e => {
