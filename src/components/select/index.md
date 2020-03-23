@@ -42,6 +42,7 @@ subtitle: 下拉选择
 | onSelectOpen | 下拉选择框弹开的时候回调此函数 | function | - |
 | onSelectClose | 下拉选择框关闭的时候回调此函数 | function | - |
 | onBeforeChange | 确认选择值之前回调此函数，仅支持单选 | function(value) | - |
+| confirmTemplate | 自定义确认取消按钮模板(适用于多选下拉) | function:({ onOk, onCancel }) | 组件默认模板 |
 
 ### Option
 | 属性 | 说明 | 类型 | 默认值 |
