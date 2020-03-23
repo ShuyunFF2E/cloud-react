@@ -12,12 +12,37 @@ import { TreeSelect } from 'cloud-react';
 export default class TreeSelectDemo extends React.Component {
 
     constructor(props) {
-        super(props);
-    }
+		super(props);
+		
+		this.state = {
+			selectedNodes: [{
+				id: 112,
+				name: '删除两个',
+				pId: 11
+			}],
+			confirmNodes:[{
+				id: 112,
+				name: '删除两个',
+				pId: 11
+			}]
+		}
+	}
 
     handleChange = (node, selectedNodes) => {
-        console.log(node, selectedNodes);
-    }
+		console.log(node, selectedNodes);
+		
+		this.setState({
+			selectedNodes
+		})
+	}
+	
+	onOk = (node, selectedNodes) => {
+		console.log(node, selectedNodes);
+		
+		this.setState({
+			confirmNodes: selectedNodes
+		})
+	}
 
 	render() {
 
@@ -185,13 +210,15 @@ export default class TreeSelectDemo extends React.Component {
 					style={{marginBottom: 20}}
 					placeholder="选择一个选项"
 					dataSource={treeData}
+					value={this.state.selectedNodes}
 					onChange={this.handleChange} />
 				<TreeSelect
 					multiple
 					hasConfirmButton
 					placeholder="选择一个选项"
 					dataSource={treeData}
-					onChange={this.handleChange} />
+					value={this.state.confirmNodes}
+					onOk={this.onOk} />
 			</div>
 		);
 	}
