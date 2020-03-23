@@ -23,7 +23,18 @@ class TreeContainer extends React.Component {
     }
 
     render() {
-        const { dataSource, multiple, searchable, hasConfirmButton, okBtnText, cancelBtnText, onOk, onCancel, ...otherProps } = this.props;
+        const {
+            dataSource,
+            multiple,
+            searchable,
+            value,
+            hasConfirmButton,
+            okBtnText,
+            cancelBtnText,
+            onOk,
+            onCancel,
+            ...otherProps
+        } = this.props;
         const classNames = cls(`${selector}-options`, {
             [`${selector}-options-confirm`]: hasConfirmButton
         });
@@ -31,9 +42,11 @@ class TreeContainer extends React.Component {
             <div className={classNames}>
                 <Tree
                     {...otherProps}
+                    showIcon={false}
+                    supportSearch={searchable}
+                    selectedValue={value}
                     onSelectedNode={this.selectNode}
                     treeData={dataSource}
-                    supportSearch={searchable}
                     supportCheckbox={multiple} />
                 {
                     hasConfirmButton &&
@@ -51,10 +64,10 @@ class TreeContainer extends React.Component {
 TreeContainer.propTypes = {
     dataSource: PropTypes.array,
     multiple: PropTypes.bool,
-	searchable: PropTypes.bool,
+    searchable: PropTypes.bool,
     hasConfirmButton: PropTypes.bool,
-	okBtnText: PropTypes.string,
-	cancelBtnText: PropTypes.string,
+    okBtnText: PropTypes.string,
+    cancelBtnText: PropTypes.string,
     onOk: PropTypes.func,
     onCancel: PropTypes.func,
 }
@@ -62,10 +75,10 @@ TreeContainer.propTypes = {
 TreeContainer.defaultProps = {
     dataSource: [],
     multiple: false,
-	searchable: false,
+    searchable: false,
     hasConfirmButton: false,
-	okBtnText: '',
-	cancelBtnText: '',
+    okBtnText: '',
+    cancelBtnText: '',
     onOk: () => {},
     onCancel: () => {},
 }

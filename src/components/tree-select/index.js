@@ -37,7 +37,7 @@ class TreeSelect extends Component {
 		const { prevProps } = prevState;
 		const { value, dataSource } = props;
 		const { value: prevValue, dataSource: prevData } = prevProps;
-		if (value !== prevValue || !jeasy.equal(dataSource, prevData)) {
+		if (!jeasy.equal(value, prevValue) || !jeasy.equal(dataSource, prevData)) {
 			return {
 				value,
 				prevValue: value,
@@ -159,7 +159,7 @@ class TreeSelect extends Component {
 		if (!isClickSelect && open) {
 			const { onSelectClose, open: propOpen, hasConfirmButton } = this.props;
 			onSelectClose();
-			if (hasConfirmButton) this.onMultiOptionChange(prevValue);
+			if (hasConfirmButton) this.onMultiOptionChange({}, prevValue);
 			if (propOpen === null) this.setState({ open: false });
 		};
 	}
@@ -206,7 +206,8 @@ class TreeSelect extends Component {
 	onMultiOptionChange = (node, selectedNodes) => {
 		const { hasConfirmButton, onChange } = this.props;
 		this.setState({
-			value: selectedNodes
+			value: selectedNodes,
+			node
 		});
 		if (!hasConfirmButton) {
 			this.setState({
@@ -227,7 +228,8 @@ class TreeSelect extends Component {
 		});
 	}
 
-	handleOk = (node, selectedNodes) => {
+	handleOk = () => {
+		const { value: selectedNodes, node } = this.state;
 		this.setState({
 			prevValue: selectedNodes
 		});
