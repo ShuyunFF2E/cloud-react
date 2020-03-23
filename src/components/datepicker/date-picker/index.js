@@ -53,6 +53,7 @@ function DatePicker(props) {
 		maxYear,
 		minYear,
 		format,
+		selectorStyle,
 		...otherProps
 	} = props;
 	const inpRef = React.createRef();
@@ -210,6 +211,7 @@ function DatePicker(props) {
 				readOnly
 				hasClear={hasClear}
 				className={`${selector}-inp`}
+				style={selectorStyle}
 				disabled={disabled}
 				onChange={evt => onInpChange(evt)}
 				onClick={onInpClick}
@@ -220,6 +222,7 @@ function DatePicker(props) {
 
 DatePicker.propTypes = {
 	className: PropTypes.string,
+	selectorStyle: PropTypes.object,
 	disabled: PropTypes.bool,
 	placeholder: PropTypes.string,
 	format: PropTypes.string,
@@ -244,6 +247,7 @@ DatePicker.propTypes = {
 
 DatePicker.defaultProps = {
 	className: '',
+	selectorStyle: {},
 	format: DEFAULT_FORMAT,
 	mode: undefined,
 	disabled: false,
