@@ -226,7 +226,7 @@ export default class Field {
 			values[name] = value;
 		}
 
-		Promise.all(errorPromises).then(res => {
+		return Promise.all(errorPromises).then(res => {
 			let errors = null;
 
 			res.forEach(({ name, message }) => {
@@ -250,6 +250,8 @@ export default class Field {
 			if (_callback && typeof _callback === 'function') {
 				_callback(errors, values);
 			}
+
+			return errors;
 		});
 	};
 
