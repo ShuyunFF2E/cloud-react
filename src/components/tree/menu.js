@@ -5,16 +5,15 @@ import TreeContext from './context';
 import './index.less';
 
 class TreeMenu extends Component {
-
 	static contextType = TreeContext;
 
-	addNode = e => {
+	addNode = (e, node) => {
 		const { disableAdd, options } = this.props;
 		if (disableAdd) {
 			e.preventDefault();
 			return;
 		}
-		options.showInput();
+		options.showInput('', node);
 	};
 
 	deleteNode = e => {
@@ -36,14 +35,23 @@ class TreeMenu extends Component {
 	};
 
 	render() {
-		const { visible, disableRemove, disableAdd, disableRename, menuStyle, prefixCls } = this.props;
-		return visible && this.context.supportMenu && (
-			<ul className={classNames(`${prefixCls}-menu`)} style={menuStyle}>
-				<li role="presentation" className={disableAdd ? 'disabled' : ''} onClick={this.addNode}>新增</li>
-				<li role="presentation" className={disableRemove ? 'disabled' : ''} onClick={this.deleteNode}>删除</li>
-				<li role="presentation" className={disableRename ? 'disabled' : ''} onClick={this.renameNode}>重命名</li>
-			</ul>
+		const { visible, nodeData, disableRemove, disableAdd, disableRename, menuStyle, prefixCls } = this.props;
+		return (
+			visible &&
+			this.context.supportMenu && (
+				<ul className={classNames(`${prefixCls}-menu`)} style={menuStyle}>
+					<li role="presentation" className={disableAdd ? 'disabled' : ''} onClick={e => this.addNode(e, nodeData)}>
+						新增
+					</li>
+					<li role="presentation" className={disableRemove ? 'disabled' : ''} onClick={this.deleteNode}>
+						删除
+					</li>
+					<li role="presentation" className={disableRename ? 'disabled' : ''} onClick={this.renameNode}>
+						重命名
+					</li>
+				</ul>
+			)
 		);
-	};
+	}
 }
 export default TreeMenu;

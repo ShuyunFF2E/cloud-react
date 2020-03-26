@@ -16,34 +16,86 @@ class Store {
 	 * @param treeData
 	 * @param maxLevel
 	 * @param selectedValue
+	 * @param isUnfold
 	 * @returns {*}
 	 */
-	initData = (treeData, maxLevel, selectedValue) => {
+	initData = (treeData, maxLevel, selectedValue, isUnfold) => {
 		// 单选则直接选中回显值，多选则默认第一个
 		this.activeNode = selectedValue && selectedValue[0];
 		// 处理已选中的节点，treeData中存在selectedValue中的值则选中
 		const cloneData = jEasy.clone(treeData);
+
+		// 递归向上查找选择
+		const upFind = currentNode => {
+			// eslint-disable-next-line no-param-reassign
+			currentNode.indeterminate = true;
+			// 被选节点没有子节点则找到父节点对其进行半选
+			const pNode = this.findNodeById(cloneData, currentNode.pId);
+			// 没有父节点则不再查找
+			if (!pNode) {
+				return;
+			}
+			pNode.indeterminate = true;
+			// 如果子节点全部选中则父节点选中
+			if (pNode.children.every(x => x.checked)) {
+				pNode.checked = true;
+			}
+			upFind(pNode);
+		};
+
+		// 递归向下查找选择
+		const downFind = currentNode => {
+			// eslint-disable-next-line no-param-reassign
+			currentNode.checked = true;
+			// 没有子节点则不再进行查找
+			if (!currentNode.children || !currentNode.children.length) {
+				return;
+			}
+			currentNode.children.forEach(son => {
+				// eslint-disable-next-line no-param-reassign
+				son.checked = true;
+				downFind(son);
+			});
+		};
+
+		// 递归格式化数据
 		const format = (node, level) => {
 			const { children } = node;
 			const tmp = node;
+			// 增加层级
 			tmp.level = level;
+			// 增加是否展开标志
+			tmp.isUnfold = isUnfold;
+
+			// 根节点默认展开
+			if (!node.pId) {
+				tmp.isUnfold = true;
+			}
+
+			// 存在已选中节点，则根节点半选
+			if (selectedValue && selectedValue.length && !node.pId) {
+				tmp.indeterminate = true;
+			}
 			if (!children) {
 				tmp.children = [];
 			}
+
 			// 超过最大层级的节点将不允许新增节点
 			if (maxLevel && node.level >= maxLevel) {
 				tmp.disableAdd = true;
 			}
-			// 找到treeData中对应的值进行checked
-			const activeNodeIndex = selectedValue && selectedValue.findIndex(x => x.id === node.id);
-			// 找到该值
+
+			// 找到treeData中对应的值进行选中
+			const activeNodeIndex = selectedValue && selectedValue.findIndex(x => x.id === tmp.id);
 			if (activeNodeIndex !== -1) {
-				// 节点存在子元素，且子元素没有被选中
-				if (tmp.children.length && !tmp.children.find(x => x.checked)) {
-					// 选中节点
-					tmp.indeterminate = true;
+				// 当前节点选中
+				tmp.checked = true;
+				// 被选中的元素有子节点，则子节点全部选中
+				if (tmp.children.length) {
+					downFind(tmp);
 				} else {
-					tmp.checked = true;
+					// 被选节点没有子节点则找到父节点对其进行半选
+					upFind(tmp);
 				}
 			}
 
@@ -96,7 +148,8 @@ class Store {
 	 */
 	selectedForCheckbox(data, node) {
 		const { checked, children, pId, parentId } = node;
-
+		// eslint-disable-next-line no-param-reassign
+		node.indeterminate = false;
 		// 变更自身节点选中状态
 		if (node.children && node.children.length) {
 			node.children.forEach(item => {
@@ -105,7 +158,7 @@ class Store {
 					tmpNode.checked = checked;
 					tmpNode.indeterminate = false;
 				}
-			})
+			});
 		}
 
 		// 变更子项选中状态
@@ -165,7 +218,7 @@ class Store {
 		changeChildren(children || []);
 		changeParent(pId || parentId);
 		return data;
-	};
+	}
 
 	/**
 	 * 根据参数获取节点
@@ -176,7 +229,7 @@ class Store {
 	 */
 	findNodeByParam = (data, param, value) => {
 		let node = null;
-		const find = (array) => {
+		const find = array => {
 			array.some(item => {
 				if (item[param] === value) {
 					node = item;
@@ -200,7 +253,7 @@ class Store {
 	 */
 	findNodeById(data, id) {
 		return this.findNodeByParam(data, 'id', id);
-	};
+	}
 
 	/**
 	 * 根据id更新节点数据
@@ -211,7 +264,7 @@ class Store {
 	updateNodeById(data, id, updatePart) {
 		const node = this.findNodeById(data, id);
 		return node && Object.assign(node, updatePart);
-	};
+	}
 
 	/**
 	 * 更新激活节点
@@ -223,7 +276,17 @@ class Store {
 			this.updateNodeById(data, this.activeNode.id, { isActive: false });
 		}
 		this.activeNode = this.updateNodeById(data, node.id, { isActive: true });
-	};
+	}
+
+	/**
+	 * 收起/展开节点
+	 * @param data
+	 * @param node
+	 */
+	onFoldNode(data, node) {
+		this.updateNodeById(data, node.id, { isUnfold: !node.isUnfold });
+		return data;
+	}
 
 	/**
 	 * 新增节点
@@ -234,16 +297,35 @@ class Store {
 	 */
 	addChildNode(data, pId, newNode, isAddFront) {
 		const pNode = this.findNodeById(data, pId);
+
 		if (!pNode.children) {
 			pNode.children = [];
 		}
 		if (isAddFront) {
 			pNode.children.unshift(newNode);
+			Message.success('添加成功');
 			return data;
 		}
 		pNode.children.push(newNode);
+		Message.success('添加成功');
 		return data;
-	};
+	}
+
+	/**
+	 * 名称重复校验
+	 * @param data
+	 * @param name
+	 * @returns {*}
+	 */
+	checkRepeatName(data, name) {
+		const sameNode = this.findNodeByParam(data, 'name', name);
+		// 名称重复检测
+		if (sameNode && sameNode.name === name) {
+			Message.error('该名称节点已存在！');
+			return true;
+		}
+		return false;
+	}
 
 	/**
 	 * 删除节点
@@ -265,7 +347,7 @@ class Store {
 			}
 		});
 		return data;
-	};
+	}
 
 	/**
 	 * 重命名节点
@@ -278,7 +360,7 @@ class Store {
 		const item = this.findNodeById(data, id);
 		item.name = newValue;
 		return data;
-	};
+	}
 
 	/**
 	 * 搜索节点
@@ -290,13 +372,14 @@ class Store {
 		// 搜索前删除掉已激活的节点
 		this.activeNode = null;
 
-		const search = (node) => {
+		const search = node => {
 			return node.filter(item => {
+				const tmp = item;
+				tmp.isUnfold = true;
 				if (item.name.indexOf(searchText) !== -1) {
 					return item;
 				}
 				if (item.children && item.children.length) {
-					const tmp = item;
 					tmp.children = search(tmp.children);
 					return item.children.length > 0;
 				}
@@ -305,7 +388,7 @@ class Store {
 		};
 		search(cloneData);
 		return cloneData;
-	};
+	}
 }
 
 const store = new Store();
