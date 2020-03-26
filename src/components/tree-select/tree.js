@@ -42,7 +42,6 @@ class TreeContainer extends React.Component {
             <div className={classNames}>
                 <Tree
                     {...otherProps}
-                    showIcon={false}
                     supportSearch={searchable}
                     selectedValue={value}
                     onSelectedNode={this.selectNode}

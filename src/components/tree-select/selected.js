@@ -68,10 +68,10 @@ export default class Selected extends React.Component {
 		const iconClasses = classnames(`${selector}-select-icon`, {
 			open,
 			close: !open,
-			hidden: clear && selectStr
+			hidden: clear && selectStr && !disabled
 		});
 		const clearClasses = classnames(`${selector}-select-icon ${selector}-clear-icon`, {
-			show: clear && selectStr
+			show: clear && selectStr && !disabled
 		});
 
 		return (
