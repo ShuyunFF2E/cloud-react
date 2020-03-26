@@ -1,7 +1,7 @@
 ---
 order: 2
-title: 多选
-desc: 树下拉多选
+title: 多层单选与多选
+desc: 与Tree结合的树下拉
 ---
 
 ````javascript
@@ -24,6 +24,11 @@ export default class TreeSelectDemo extends React.Component {
 				id: 112,
 				name: '删除两个',
 				pId: 11
+			}],
+			singleNodes:[{
+				id: 112,
+				name: '删除两个',
+				pId: 11
 			}]
 		}
 	}
@@ -41,6 +46,14 @@ export default class TreeSelectDemo extends React.Component {
 		
 		this.setState({
 			confirmNodes: selectedNodes
+		})
+	}
+
+	onChangeSingle = (node, selectedNodes) => {
+		console.log(node, selectedNodes);
+		
+		this.setState({
+			singleNodes: selectedNodes
 		})
 	}
 
@@ -205,6 +218,7 @@ export default class TreeSelectDemo extends React.Component {
 
 		return (
 			<div>
+				<span style={{ marginBottom: 5, fontSize: 12 }}>多选：</span>
 				<TreeSelect
 					multiple
 					style={{marginBottom: 20}}
@@ -216,9 +230,18 @@ export default class TreeSelectDemo extends React.Component {
 					multiple
 					hasConfirmButton
 					placeholder="选择一个选项"
+					style={{marginBottom: 20}}
 					dataSource={treeData}
+					showIcon={false}
 					value={this.state.confirmNodes}
 					onOk={this.onOk} />
+				<span style={{ marginBottom: 5, fontSize: 12 }}>单选：</span>
+				<TreeSelect
+					single
+					placeholder="选择一个选项"
+					dataSource={treeData}
+					value={this.state.singleNodes}
+					onChange={this.onChangeSingle} />
 			</div>
 		);
 	}

@@ -1,7 +1,7 @@
 ---
 order: 1
 title: 基本使用
-desc: 下拉树单选基础使用
+desc: 基础使用
 ---
 
 ````javascript
@@ -11,17 +11,17 @@ import { TreeSelect } from 'cloud-react';
 
 export default class TreeSelectDemo extends React.Component {
 
-    constructor(props) {
-        super(props);
-    }
+	constructor(props) {
+		super(props);
+	}
 
-    handleChange = (node, selectedNodes) => {
-        console.log(node, selectedNodes);
-    }
+	handleChange = (node, selectedNodes) => {
+		console.log(node, selectedNodes);
+	}
 
 	render() {
-        const treeData = [{
-			label: '苹果',
+		const treeData = [{
+			label: '栗子',
 			value: 'apple',
 			children: [{
 				label: '荔枝',

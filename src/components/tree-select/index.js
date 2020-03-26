@@ -16,9 +16,9 @@ class TreeSelect extends Component {
 	constructor(props) {
 		super(props);
 
-		const { open, defaultOpen, value, defaultValue, multiple } = props;
+		const { open, defaultOpen, value, defaultValue, multiple, single } = props;
 		let values;
-		if (multiple) {
+		if (multiple || single) {
 			values = value || defaultValue || [];
 		} else {
 			values = value !== null ? value : defaultValue;
@@ -99,7 +99,7 @@ class TreeSelect extends Component {
 	}
 
 	get treeNode() {
-		if (!this.props.multiple) {
+		if (!this.props.multiple && !this.props.single) {
 			return (
 				<SingleTree
 					{...this.props}
@@ -159,7 +159,7 @@ class TreeSelect extends Component {
 		if (!isClickSelect && open) {
 			const { onSelectClose, open: propOpen, hasConfirmButton } = this.props;
 			onSelectClose();
-			if (hasConfirmButton) this.onMultiOptionChange({}, prevValue);
+			if (hasConfirmButton) this.onTreeOptionChange({}, prevValue);
 			if (propOpen === null) this.setState({ open: false });
 		};
 	}
@@ -185,9 +185,9 @@ class TreeSelect extends Component {
 	}
 
 	onValueChange = (node, selectedNodes) => {
-		const { multiple } = this.props;
-		if (multiple) {
-			this.onMultiOptionChange(node, selectedNodes);
+		const { multiple, single } = this.props;
+		if (multiple || single) {
+			this.onTreeOptionChange(node, selectedNodes);
 		} else {
 			this.onSimpleChange(node);
 		}
@@ -203,25 +203,26 @@ class TreeSelect extends Component {
 		onChange(node);
 	}
 
-	onMultiOptionChange = (node, selectedNodes) => {
-		const { hasConfirmButton, onChange } = this.props;
+	onTreeOptionChange = (node, selectedNodes) => {
+		const { single, hasConfirmButton, onChange } = this.props;
 		this.setState({
 			value: selectedNodes,
 			node
 		});
-		if (!hasConfirmButton) {
+		if (!hasConfirmButton || single) {
 			this.setState({
 				prevValue: selectedNodes
 			});
 			onChange(node, selectedNodes);
+			if (single) this.handleSelect();
 		}
 	}
 
 	onClearSelected = e => {
 		e.preventDefault();
 		e.stopPropagation();
-		const { multiple } = this.props;
-		const value = multiple ? [] : {};
+		const { multiple, single } = this.props;
+		const value = multiple || single ? [] : {};
 		this.setState({
 			value,
 			prevValue: value
@@ -272,6 +273,7 @@ const noop = () => {};
 
 TreeSelect.propTypes = {
 	multiple: PropTypes.bool,
+	single: PropTypes.bool,
 	allowClear: PropTypes.bool,
 	defaultOpen: PropTypes.bool,
     open: PropTypes.bool,
@@ -309,7 +311,8 @@ TreeSelect.propTypes = {
 };
 
 TreeSelect.defaultProps = {
-    multiple: false,
+	multiple: false,
+	single: false,
 	allowClear: false,
 	defaultOpen: false,
     open: null,
