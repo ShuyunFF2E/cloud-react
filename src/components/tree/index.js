@@ -13,7 +13,7 @@ import './index.less';
 
 const noop = () => {};
 
-class Tree extends Component{
+class Tree extends Component {
 	// 默认值， 默认类型与值不匹配
 	static defaultProps = {
 		style: {},
@@ -22,6 +22,7 @@ class Tree extends Component{
 		searchMaxLength: '',
 		nodeNameMaxLength: '',
 		maxLevel: 0,
+		isUnfold: false,
 		showIcon: true,
 		openIconType: 'folder-solid-open',
 		closeIconType: 'folder-solid',
@@ -47,6 +48,7 @@ class Tree extends Component{
 		searchMaxLength: PropTypes.number,
 		nodeNameMaxLength: PropTypes.number,
 		maxLevel: PropTypes.number,
+		isUnfold: PropTypes.bool,
 		showIcon: PropTypes.bool,
 		openIconType: PropTypes.string,
 		closeIconType: PropTypes.string,
@@ -61,7 +63,7 @@ class Tree extends Component{
 		onRenameNode: PropTypes.func,
 		onRemoveNode: PropTypes.func,
 		onSelectedNode: PropTypes.func,
-		onSearchResult: PropTypes.func,
+		onSearchResult: PropTypes.func
 	};
 
 	constructor(props) {
@@ -74,14 +76,14 @@ class Tree extends Component{
 			menuStyle: null,
 			menuOptions: null,
 			searchText: '',
-			treeData: store.initData(props.treeData, props.maxLevel, props.selectedValue)
+			treeData: store.initData(props.treeData, props.maxLevel, props.selectedValue, props.isUnfold)
 		};
 	}
 
 	componentDidMount() {
 		document.addEventListener('click', this.hideMenu);
 		document.addEventListener('scroll', this.hideMenu, true);
-	};
+	}
 
 	componentWillUnmount() {
 		document.removeEventListener('click', this.hideMenu);
@@ -111,7 +113,7 @@ class Tree extends Component{
 		});
 
 		// 支持搜索则返回搜素结果
-		if (supportSearch) {
+		if (supportSearch && onSearchNode) {
 			onSearchNode(searchText, backTree);
 		}
 	};
@@ -153,7 +155,7 @@ class Tree extends Component{
 		store.updateActiveNode(data, node);
 		// 更新checked状态
 		const tmp = store.selectedForCheckbox(data, node);
-		const filterSelected = (selectedData) => {
+		const filterSelected = selectedData => {
 			selectedData.forEach(item => {
 				if (item.checked) {
 					selectedList.push(item);
@@ -169,22 +171,35 @@ class Tree extends Component{
 	};
 
 	/**
+	 * 展开/隐藏节点
+	 * @param data
+	 * @param node
+	 */
+	onFoldNodeAction = (data, node) => {
+		const backData = store.onFoldNode(data, node);
+		this.setState({
+			treeData: [...backData]
+		});
+	};
+
+	/**
 	 * 新增节点
 	 * @param pId
 	 * @param value
 	 */
 	onAddAction = (pId, value) => {
 		const { onAddNode, isAddFront } = this.props;
-		onAddNode(pId, value).then(res => {
-			const data = store.addChildNode(this.state.treeData, pId, { id: res.data || res.id, name: value, children: [], pId }, isAddFront);
-			// 新增之后重新init判断层级，不然会出现无层级可继续添加问题
-			this.setState({
-				treeData: [...data]
+		onAddNode(pId, value)
+			.then(res => {
+				const data = store.addChildNode(this.state.treeData, pId, { id: res.data || res.id, name: value, children: [], pId }, isAddFront);
+				// 新增之后重新init判断层级，不然会出现无层级可继续添加问题
+				this.setState({
+					treeData: [...data]
+				});
+			})
+			.catch(() => {
+				Message.error('添加失败');
 			});
-			Message.success('添加成功');
-		}).catch(() => {
-			Message.error('添加失败');
-		});
 	};
 
 	/**
@@ -194,15 +209,25 @@ class Tree extends Component{
 	 */
 	onRenameAction = (id, newValue) => {
 		const { onRenameNode } = this.props;
-		onRenameNode(id, newValue).then(() => {
-			const data = store.renameChildNode(this.state.treeData, id, newValue);
-			this.setState({
-				treeData: [...data]
+		onRenameNode(id, newValue)
+			.then(() => {
+				const data = store.renameChildNode(this.state.treeData, id, newValue);
+				this.setState({
+					treeData: [...data]
+				});
+				Message.success('更新成功');
+			})
+			.catch(() => {
+				Message.error('更新失败');
 			});
-			Message.success('更新成功');
-		}).catch(() => {
-			Message.error('更新失败');
-		});
+	};
+
+	/**
+	 * 名称重复校验
+	 * @param name
+	 */
+	onCheckRepeatNameAction = name => {
+		return store.checkRepeatName(this.state.treeData, name);
 	};
 
 	/**
@@ -214,15 +239,17 @@ class Tree extends Component{
 		Modal.confirm({
 			body: `确定删除节点【${node.name}】吗?`,
 			onOk: () => {
-				onRemoveNode(node.id).then(() => {
-					// 删除DOM节点
-					const data = store.removeChildNode(this.state.treeData, node);
-					this.setState({
-						treeData: [...data]
+				onRemoveNode(node.id)
+					.then(() => {
+						// 删除DOM节点
+						const data = store.removeChildNode(this.state.treeData, node);
+						this.setState({
+							treeData: [...data]
+						});
+					})
+					.catch(() => {
+						Message.error('删除失败');
 					});
-				}).catch(() => {
-					Message.error('删除失败');
-				});
 			},
 			onCancel: () => {}
 		});
@@ -256,12 +283,12 @@ class Tree extends Component{
 	};
 
 	render() {
-
 		const selector = `${prefixCls}-tree`;
 
 		const {
 			style,
 			className,
+			isUnfold,
 			searchPlaceholder,
 			searchMaxLength,
 			supportSearch,
@@ -277,12 +304,33 @@ class Tree extends Component{
 			selectedValue
 		} = this.props;
 
-		const { onAddAction, onRenameAction, onRemoveAction, onSelectedAction, showMenu } = this;
+		const { onAddAction, onRenameAction, onRemoveAction, onSelectedAction, onFoldNodeAction, onCheckRepeatNameAction, showMenu } = this;
 		const { treeData, searchText, nodeData, menuStyle, menuOptions, visibleMenu } = this.state;
 		const { id, name, disableAdd, disableRename, disableRemove } = nodeData;
 
 		return (
-			<TreeContext.Provider value={{ treeData, searchText, supportCheckbox, supportMenu, isAddFront, nodeNameMaxLength, showIcon, openIconType, closeIconType, iconColor, selectedValue, showMenu, onAddAction, onRenameAction, onRemoveAction, onSelectedAction }}>
+			<TreeContext.Provider
+				value={{
+					treeData,
+					isUnfold,
+					searchText,
+					supportCheckbox,
+					supportMenu,
+					isAddFront,
+					nodeNameMaxLength,
+					showIcon,
+					openIconType,
+					closeIconType,
+					iconColor,
+					selectedValue,
+					showMenu,
+					onAddAction,
+					onRenameAction,
+					onRemoveAction,
+					onSelectedAction,
+					onFoldNodeAction,
+					onCheckRepeatNameAction
+				}}>
 				<div className={`${selector} ${className}`} style={style}>
 					<Search
 						prefixCls={selector}
@@ -290,11 +338,13 @@ class Tree extends Component{
 						supportImmediatelySearch={supportImmediatelySearch}
 						supportSearch={supportSearch && !supportCheckbox}
 						searchPlaceholder={searchPlaceholder}
-						searchMaxLength={searchMaxLength}/>
+						searchMaxLength={searchMaxLength}
+					/>
 
 					<Menu
 						id={id}
 						name={name}
+						nodeData={nodeData}
 						menuStyle={menuStyle}
 						prefixCls={selector}
 						disableAdd={disableAdd}
@@ -302,12 +352,10 @@ class Tree extends Component{
 						disableRemove={disableRemove}
 						options={menuOptions}
 						deleteNode={() => this.onRemoveAction(nodeData)}
-						visible={visibleMenu}/>
+						visible={visibleMenu}
+					/>
 
-					<TreeList
-						prefixCls={selector}
-						nodeNameMaxLength={nodeNameMaxLength}
-						data={treeData}/>
+					<TreeList prefixCls={selector} nodeNameMaxLength={nodeNameMaxLength} data={treeData} />
 				</div>
 			</TreeContext.Provider>
 		);
