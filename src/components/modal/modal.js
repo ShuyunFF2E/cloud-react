@@ -191,7 +191,8 @@ class Notification extends Component {
 		const style = {
 			...modalStyle,
 			left: pageX,
-			top: pageY
+			top: pageY,
+			pointerEvents: 'auto'
 		};
 
 		if (!moving) {
@@ -199,7 +200,7 @@ class Notification extends Component {
 		}
 
 		return (
-			<div id="mask" className={`${prefixCls}-modal`}>
+			<div id="mask" className={`${prefixCls}-modal ${showMask ? '' : 'other-area-can-click'}`}>
 				{/* 遮罩层 */}
 				<ModalMask showMask={showMask} onClose={onClose} onReset={this.onReset} clickMaskCanClose={clickMaskCanClose} />
 				{/* 弹出框 */}
@@ -208,7 +209,7 @@ class Notification extends Component {
 						this.modalRef = c;
 					}}
 					id={this.state.modalId}
-					className={classNames(`${prefixCls}-modal-container ${className}`)}
+					className={classNames(`${prefixCls}-modal-container ${className || ''}`)}
 					style={style}>
 					<ModalHeader
 						id={id}
@@ -221,7 +222,7 @@ class Notification extends Component {
 						title={title}
 					/>
 
-					<ModalBody style={bodyStyle}>{children}</ModalBody>
+					<ModalBody style={{ ...bodyStyle }}>{children}</ModalBody>
 
 					<ModalFooter
 						id={id}
