@@ -40,31 +40,33 @@ function InputNumber(props) {
 	// 	setCurrentPrecision(pr);
 	// }, [precision, step]);
 
-	function getCurrentPrecision(_value = 0) { // 精度判断
-		let _precision
+	function getCurrentPrecision(_value = 0) {
+		// 精度判断
+		let _precision;
 		if (precision === undefined || precision === null) {
-			const valuePrecision = Number.isInteger(_value) ? 0 : _value.toString().split('.')[1].length
-			const stepPrecision =  Number.isInteger(step) ? 0 : step.toString().split('.')[1].length
-			_precision = (valuePrecision >= stepPrecision) ? valuePrecision : stepPrecision
+			const valuePrecision = Number.isInteger(_value) ? 0 : _value.toString().split('.')[1].length;
+			const stepPrecision = Number.isInteger(step) ? 0 : step.toString().split('.')[1].length;
+			_precision = valuePrecision >= stepPrecision ? valuePrecision : stepPrecision;
 		} else {
 			_precision = parseInt(precision, 10);
 		}
 
-		return _precision
+		return _precision;
 	}
-	function getDefaultValue() { // 获取默认value
+	function getDefaultValue() {
+		// 获取默认value
 		const number = parseFloat(defaultValue);
-		return number ? number.toFixed(getCurrentPrecision(number)) : ''
+		return defaultValue !== undefined ? number.toFixed(getCurrentPrecision(number)) : '';
 	}
 
 	function getValue() {
-		return isFirst ? getDefaultValue() : value
+		return isFirst ? getDefaultValue() : value;
 	}
 
 	useEffect(() => {
 		isControlled = value !== undefined;
 		setCurrentValue(getValue());
-		setIsFrist(false)
+		setIsFrist(false);
 		setBtnStatus(isInvalid(value), getMax(value, max).lessMax, getMin(value, min).greaterMin);
 	}, [value, min, max, precision]);
 
@@ -74,8 +76,8 @@ function InputNumber(props) {
 
 	function handleChange(evt) {
 		const targetValue = evt.target.value.trim().replace(/[^\-?\d.]/g, '');
-		setCurrentValue(targetValue);
-		onChange(targetValue);
+		setCurrentValue(Number(targetValue));
+		onChange(Number(targetValue));
 	}
 
 	function handleBlur(evt) {
@@ -95,19 +97,22 @@ function InputNumber(props) {
 	function handlePlusMinus(isPlus) {
 		let val = currentValue;
 		if (isControlled) {
-			if (!isInvalid(currentValue)) {  // 删除值 & 初始
-				const _val = fixDoubleOperation(Number(currentValue), Number(isPlus ? step : -1 * step))
+			if (!isInvalid(currentValue)) {
+				// 删除值 & 初始
+				const _val = fixDoubleOperation(Number(currentValue), Number(isPlus ? step : -1 * step));
 				val = getCurrentValue(_val, min, max, getCurrentPrecision(_val));
 				// val = currentPrecision >= 0 ? _val.toFixed(currentPrecision) : _val
 			} else {
 				val = getValueByBlank(min, max, step);
 			}
 		} else {
-			if (!isInvalid(currentValue)) { // 有value
-				const _val = fixDoubleOperation(Number(currentValue), Number(isPlus ? step : -1 * step))
+			if (!isInvalid(currentValue)) {
+				// 有value
+				const _val = fixDoubleOperation(Number(currentValue), Number(isPlus ? step : -1 * step));
 				const tempValue = getCurrentValue(_val, min, max, getCurrentPrecision(_val));
 				// const tempValue = currentPrecision >= 0 ? _val.toFixed(currentPrecision) : _val;
-				if (isPlus) { // 加
+				if (isPlus) {
+					// 加
 					if (getMax(currentValue, max).lessEqualMax) {
 						val = tempValue;
 					}
@@ -151,30 +156,31 @@ function InputNumber(props) {
 	return (
 		<div className={compClass} style={style}>
 			<div className={`${selector}-handler-wrap`}>
-                <span className={upBtnClass} onClick={handlePlus}>
-                    <Icon type="up" className={`${selector}-handler-up-icon`}/>
-                </span>
+				<span className={upBtnClass} onClick={handlePlus}>
+					<Icon type="up" className={`${selector}-handler-up-icon`} />
+				</span>
 				<span className={downBtnClass} onClick={handleMinus}>
-                    <Icon type="down" className={`${selector}-handler-down-icon`}/>
-                </span>
+					<Icon type="down" className={`${selector}-handler-down-icon`} />
+				</span>
 			</div>
 			<div className={`${selector}-handler-input`}>
-				<input className={`${selector}-input`}
-					   min={min}
-					   max={max}
-					   step={step}
-					   onFocus={handleFocus}
-					   onChange={handleChange}
-					   onBlur={handleBlur}
-					   disabled={disabled}
-					   value={currentValue}
-					   placeholder={placeholder}
-					   {...other} />
+				<input
+					className={`${selector}-input`}
+					min={min}
+					max={max}
+					step={step}
+					onFocus={handleFocus}
+					onChange={handleChange}
+					onBlur={handleBlur}
+					disabled={disabled}
+					value={currentValue}
+					placeholder={placeholder}
+					{...other}
+				/>
 			</div>
 		</div>
 	);
 }
-
 
 InputNumber.propTypes = {
 	className: PropTypes.string,
@@ -185,14 +191,8 @@ InputNumber.propTypes = {
 	max: PropTypes.number,
 	step: PropTypes.number,
 	precision: PropTypes.number,
-	value: PropTypes.oneOfType([
-		PropTypes.string,
-		PropTypes.number
-	]),
-	defaultValue: PropTypes.oneOfType([
-		PropTypes.string,
-		PropTypes.number
-	]),
+	value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+	defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 	disabled: PropTypes.bool,
 	onChange: PropTypes.func,
 	onBlur: PropTypes.func,
