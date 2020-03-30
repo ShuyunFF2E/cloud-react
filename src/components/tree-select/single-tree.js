@@ -155,11 +155,11 @@ class SingleTree extends React.Component {
 
 	render() {
 		const { props, state, clearSearch, onOptionsSearch } = this;
-		const { searchable, searchPlaceholder, className, emptyRender } = props;
+		const { searchable, searchPlaceholder, dropdownClassName, dropdownStyle, emptyRender } = props;
 		const { dataSource, searchValue } = state;
-		const classNames = classnames(`${selector}-options`, className, `${selector}-single-options`);
+		const classNames = classnames(`${selector}-options`, dropdownClassName, `${selector}-single-options`);
 		return (
-			<div className={classNames}>
+			<div className={classNames} style={dropdownStyle}>
 				{
 					searchable &&
 					<OptionsSearch
@@ -185,7 +185,8 @@ SingleTree.propTypes = {
 		PropTypes.object,
 		PropTypes.array
 	]),
-	className: PropTypes.string,
+	dropdownClassName: PropTypes.string,
+	dropdownStyle: PropTypes.object,
 	onChange: PropTypes.func,
 	onSearch: PropTypes.func
 }
@@ -195,7 +196,8 @@ SingleTree.defaultProps = {
 	searchable: false,
 	searchPlaceholder: '',
 	value: {},
-	className: '',
+	dropdownClassName: '',
+	dropdownStyle: {},
 	onChange: () => {},
 	onSearch: () => {}
 }

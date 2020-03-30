@@ -224,6 +224,8 @@ export default class TreeSelectDemo extends React.Component {
 					style={{marginBottom: 20}}
 					placeholder="选择一个选项"
 					dataSource={treeData}
+					dropdownStyle={{ color: 'red' }}
+					dropdownClassName="test"
 					value={this.state.selectedNodes}
 					onChange={this.handleChange} />
 				<TreeSelect
