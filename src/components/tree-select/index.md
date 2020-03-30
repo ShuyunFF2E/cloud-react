@@ -25,7 +25,8 @@ subtitle: 树下拉
 | hasConfirmButton | 多选时是否有确认按钮 | boolean | false |
 | okBtnText | 多选时确认操作按钮文案| string | '确认' |
 | cancelBtnText | 多选时取消操作按钮文案 | string | '取消' |
-| className | 下拉菜单的 className 属性 | string | - |
+| dropdownStyle | 下拉菜单的 style 属性 | object | - |
+| dropdownClassName | 下拉菜单的 className 属性 | string | - |
 | getPopupContainer | 下拉菜单渲染的父节点。如果发现下拉菜单被挡住，可以尝试修改定位父元素，如() => document.body | function(triggerNode) | triggerNode => triggerNode.parentElement |
 | containParentNode | 多选时结果是否包含各个父节点 | boolean | false |
 | onChange | 选中option变化时回调此函数 | function(node, selectedNodes) | - |

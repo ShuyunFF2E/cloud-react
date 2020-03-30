@@ -65,7 +65,7 @@ class TreeSelect extends Component {
 	}
 
 	componentDidUpdate() {
-        const { visible } = this;
+		const { visible } = this;
 		if (visible) this.getOptionsContainer();
 		if (this.optionsContainer) {
 			if (visible) {
@@ -115,7 +115,7 @@ class TreeSelect extends Component {
 				onChange={this.onValueChange}
 				onOk={this.handleOk}
 				onCancel={this.handleCancel} />
-        )
+		)
 	}
 
 	get selectedContainer() {
@@ -250,7 +250,7 @@ class TreeSelect extends Component {
 	render() {
 		const { placeholder, disabled, allowClear, style, className } = this.props;
 		const { value, open } = this.state;
-        const classNames = classnames(`${selector}`, { [`${selector}-open`]: open }, className);
+		const classNames = classnames(`${selector}`, { [`${selector}-open`]: open }, className);
 
 		return (
 			<div className={`${classNames}`} style={style} ref={this.node}>
@@ -276,14 +276,14 @@ TreeSelect.propTypes = {
 	single: PropTypes.bool,
 	allowClear: PropTypes.bool,
 	defaultOpen: PropTypes.bool,
-    open: PropTypes.bool,
-    dataSource: PropTypes.array,
+	open: PropTypes.bool,
+	dataSource: PropTypes.array,
 	disabled: PropTypes.bool,
 	placeholder: PropTypes.string,
 	width: PropTypes.oneOfType([
 		PropTypes.string,
 		PropTypes.number
-    ]),
+	]),
 	searchable: PropTypes.bool,
 	emptyRender: PropTypes.oneOfType([
 		PropTypes.string,
@@ -301,8 +301,8 @@ TreeSelect.propTypes = {
 	okBtnText: PropTypes.string,
 	cancelBtnText: PropTypes.string,
 	className: PropTypes.string,
-    zIndex: PropTypes.number,
-    getPopupContainer: PropTypes.func,
+	zIndex: PropTypes.number,
+	getPopupContainer: PropTypes.func,
 	onChange: PropTypes.func,
 	onSelectOpen: PropTypes.func,
 	onSelectClose: PropTypes.func,
@@ -325,11 +325,11 @@ TreeSelect.defaultProps = {
 	defaultValue: [],
 	value: [],
 	hasConfirmButton: false,
-    okBtnText: '确定',
+	okBtnText: '确定',
 	cancelBtnText: '取消',
 	className: '',
-    zIndex: 1050,
-    getPopupContainer: triggerNode => triggerNode.parentElement,
+	zIndex: 1050,
+	getPopupContainer: triggerNode => triggerNode.parentElement,
 	onChange: noop,
 	onSelectOpen: noop,
 	onSelectClose: noop,
