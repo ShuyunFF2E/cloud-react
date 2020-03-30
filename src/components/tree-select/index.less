@@ -159,13 +159,14 @@
 	box-sizing: @box-sizing;
 	padding: 5px 13px;
 	margin: 0;
+	line-height: normal;
 	max-height: @max-height;
 	max-width: @max-width;
 	min-width: @min-width;
 	width: 100%;
 	overflow: auto;
-    border: @select-normal-border;
-    border-top: none;
+	border: @select-normal-border;
+	border-top: none;
 	background: @background-color;
 	cursor: pointer;
 
@@ -179,9 +180,9 @@
 		padding-bottom: 45px;
 	}
 
-    .column-layout;
-    
-    .@{select-prefix-cls}-search {
+	.column-layout;
+
+	.@{select-prefix-cls}-search {
 		width: 100%;
 		padding: @default-padding;
 		position: relative;
@@ -208,9 +209,9 @@
 				display: block;
 			}
 		}
-    }
-    
-    .@{select-prefix-cls}-empty-options {
+	}
+
+	.@{select-prefix-cls}-empty-options {
 		height: @height;
 		line-height: @height;
 		margin: @default-margin;
@@ -223,7 +224,7 @@
 		.column-layout;
 
 		.@{select-prefix-cls}-option {
-            padding: @default-padding @large-padding;
+			padding: @default-padding @large-padding;
 
 			&.selected {
 				background: @background-color;
@@ -256,47 +257,47 @@
 }
 
 .@{select-prefix-cls}-single-options {
-    padding: 0;
+	padding: 0;
 
-    .@{select-prefix-cls}-option-list {
+	.@{select-prefix-cls}-option-list {
 		.column-layout;
 
 		.@{select-prefix-cls}-option {
-            display: none;
-            justify-content: space-between;
-            padding: @default-padding @large-padding;
-            height: @height;
-            line-height: @height - @default-padding * 2;
-            .text-overflow-ellipsis();
+			display: none;
+			justify-content: space-between;
+			padding: @default-padding @large-padding;
+			height: @height;
+			line-height: @height - @default-padding * 2;
+			.text-overflow-ellipsis();
 
-            .@{select-prefix-cls}-icon {
-                color: #ccc;
-                transition: transform 0.3s;
+			.@{select-prefix-cls}-icon {
+				color: #ccc;
+				transition: transform 0.3s;
 
-                &.open {
-                    transform: rotate(90deg);
-                }
+				&.open {
+					transform: rotate(90deg);
+				}
 
-                &.close {
-                    transform: rotate(0deg);
-                }
+				&.close {
+					transform: rotate(0deg);
+				}
 			}
 			
 			.search-text {
 				color: @searched-fontColor;
 			}
 
-            &-show {
-                display: flex;
-            }
+			&-show {
+				display: flex;
+			}
 
-            &-child {
-                padding-left: 20px;
-            }
+			&-child {
+				padding-left: 20px;
+			}
 
-            &.selected {
-                background: #f6f6f6;
-            }
-        }
+			&.selected {
+				background: #f6f6f6;
+			}
+		}
 	}
 }
