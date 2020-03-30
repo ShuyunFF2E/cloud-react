@@ -4,9 +4,9 @@
 
 @normal-color: @color-gray5;
 @normal-text-color: #666;
-@checked-color: #00AAF1;
-@radio-bg-color: #FFF;
-@radio-disabled-bg-color: #EEE;
+@checked-color: #00aaf1;
+@radio-bg-color: #fff;
+@radio-disabled-bg-color: #eee;
 
 @radio-size: 14px;
 
@@ -19,7 +19,6 @@
 }
 
 .@{raido-prefix-cls} {
-
 	display: inline-flex;
 	align-items: center;
 	margin-right: 8px;
@@ -50,6 +49,7 @@
 	}
 
 	&-input {
+		position: absolute;
 		opacity: 0;
 		cursor: pointer;
 
@@ -70,7 +70,8 @@
 			}
 		}
 
-		&:disabled, &:disabled + .@{raido-prefix-cls}-inner {
+		&:disabled,
+		&:disabled + .@{raido-prefix-cls}-inner {
 			.disabled;
 		}
 
