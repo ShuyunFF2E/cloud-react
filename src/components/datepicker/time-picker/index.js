@@ -6,16 +6,16 @@ import { timeSelector } from '../util/view-common';
 
 function TimePicker(props) {
 	const { value, defaultValue, className, style, disabled, onChange, onBlur } = props;
-	const controlled = typeof value !== 'undefined'  && value;
+	const controlled = typeof value !== 'undefined' && value;
 	const inpMinuteRef = React.createRef();
 	const inpSecondRef = React.createRef();
 
 	function getValue() {
 		if (controlled) {
-			return typeof value === 'string' ?
-			value.split(':') : [value.hour,value.minute,value.second];
-		} if (defaultValue !== undefined) {
-			return defaultValue.split(':')
+			return typeof value === 'string' ? value.split(':') : [value.hour, value.minute, value.second];
+		}
+		if (defaultValue !== undefined) {
+			return defaultValue.split(':');
 		}
 		return ['00', '00', '00'];
 	}
@@ -23,10 +23,13 @@ function TimePicker(props) {
 	const [hour, setHour] = useState(getValue()[0]);
 	const [minute, setMinute] = useState(getValue()[1]);
 	const [second, setSecond] = useState(getValue()[2]);
-	const memoValue = useMemo(() => { return value }, [value])
+	const [temp, setTemp] = useState('');
+	const memoValue = useMemo(() => {
+		return value;
+	}, [value]);
 
 	useEffect(() => {
-		const arr = getValue()
+		const arr = getValue();
 		setHour(arr[0]);
 		setMinute(arr[1]);
 		setSecond(arr[2]);
@@ -89,44 +92,63 @@ function TimePicker(props) {
 	}
 
 	function onInpBlur() {
-		setHour(utils.formatTime(hour,'00'));
-		setMinute(utils.formatTime(minute, '00'));
-		setSecond(utils.formatTime(second, '00'));
+		setHour(utils.formatTime(hour, temp || '00'));
+		setMinute(utils.formatTime(minute, temp || '00'));
+		setSecond(utils.formatTime(second, temp || '00'));
 		onBlur();
+	}
+
+	function onInpFocus(type = '') {
+		switch (type) {
+			case 'hour':
+				setTemp(hour);
+				setHour('');
+				break;
+			case 'minute':
+				setTemp(minute);
+				setMinute('');
+				break;
+			case 'second':
+				setTemp(second);
+				setSecond('');
+				break;
+			default:
+				break;
+		}
 	}
 
 	const classes = cls({
 		[timeSelector]: true,
 		[`${timeSelector}-disabled`]: disabled,
-		[className]: true,
+		[className]: true
 	});
 
-	return (<div className={classes} onBlur={onInpBlur} style={style}>
-		<input value={hour} disabled={disabled} maxLength="2" onChange={onHourChange} /><label className="colon">:</label>
-		<input ref={inpMinuteRef} value={minute} disabled={disabled} maxLength="2" onChange={onMinuteChange} /><label className="colon">:</label>
-		<input ref={inpSecondRef} value={second} disabled={disabled} maxLength="2" onChange={onSecondChange} />
-	</div>);
-
+	return (
+		<div className={classes} onBlur={onInpBlur} style={style}>
+			<input value={hour} disabled={disabled} onFocus={() => onInpFocus('hour')} maxLength="2" onChange={onHourChange} />
+			<label className="colon">:</label>
+			<input ref={inpMinuteRef} value={minute} onFocus={() => onInpFocus('minute')} disabled={disabled} maxLength="2" onChange={onMinuteChange} />
+			<label className="colon">:</label>
+			<input ref={inpSecondRef} value={second} onFocus={() => onInpFocus('second')} disabled={disabled} maxLength="2" onChange={onSecondChange} />
+		</div>
+	);
 }
 TimePicker.propTypes = {
 	className: PropTypes.string,
 	style: PropTypes.object,
-	value: PropTypes.oneOfType([
-		PropTypes.object,
-		PropTypes.string
-	]),
+	value: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
 	defaultValue: PropTypes.string,
 	disabled: PropTypes.bool,
 	onChange: PropTypes.func,
 	onBlur: PropTypes.func
-}
+};
 TimePicker.defaultProps = {
 	className: '',
 	style: {},
 	value: undefined,
 	defaultValue: '00:00:00',
 	disabled: false,
-	onChange: () => { },
-	onBlur: () => { }
-}
-export default TimePicker
+	onChange: () => {},
+	onBlur: () => {}
+};
+export default TimePicker;
