@@ -19,7 +19,7 @@
 
 	ul {
 		margin: 0;
-		padding-left: 20px;
+		padding-left: 16px;
 	}
 
 	li {
@@ -46,8 +46,9 @@
 	// 列表组件
 	&-list {
 		white-space: nowrap;
-		position: relative;
-		left: 16px;
+		> li {
+			margin-left: 16px;
+		}
 		&-node-area {
 			.@{prefix}-icon {
 				display: @display;
@@ -60,7 +61,6 @@
 			.node-item {
 				display: inline-flex;
 				height: 26px;
-				padding: 0 4px;
 				border-radius: 2px;
 				line-height: 26px;
 				cursor: pointer;
@@ -102,11 +102,12 @@
 			}
 
 			.is-add {
-				padding-left: 38px;
+				padding-left: 34px;
 			}
 
 			.is-rename {
 				display: @display;
+				padding-left: 2px;
 			}
 			.save-icon {
 				color: #36cb37;
