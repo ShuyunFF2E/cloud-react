@@ -46,8 +46,9 @@
 	// 列表组件
 	&-list {
 		white-space: nowrap;
-		position: relative;
-		left: 16px;
+		> li {
+			margin-left: 16px;
+		}
 		&-node-area {
 			.@{prefix}-icon {
 				display: @display;
@@ -102,7 +103,7 @@
 			}
 
 			.is-add {
-				padding-left: 38px;
+				padding-left: 22px;
 			}
 
 			.is-rename {
