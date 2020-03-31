@@ -51,7 +51,8 @@ function Form() {
 | validate | 校验并获取一组输入域的值与`error`，`names`可不传，默认是表单域的全部`init`过的`names` | Function([names: string], callback: Function(errors: object, values: object)) | - |
 | setError | 设置单个输入控件的`error` | Function(name: string, errors: string/array[string]) | - |
 | setErrors | 设置一组输入控件的`error` | Function(obj: object) | - |
-| reset | 重置一组输入控件的值、清空校验 | Function([names: string[]]) | - |
+| reset | 重置一组输入控件的值、清空校验（initValue存在时重置回initValue） | Function([names: string[]]) | - |
+| clear | 清空一组输入控件的值、清空校验 | Function([names: string[]]) | - |
 | remove | 删除某一个或者一组控件的数据，删除后与之相关的`validate` `value`都会被清空 | Function(name: string/string[]) | 
 
 ### init
