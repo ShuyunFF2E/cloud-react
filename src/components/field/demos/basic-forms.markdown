@@ -29,6 +29,10 @@ export default class FormHorizontalDemo extends React.Component {
 		console.log(this.field.getValues());
 	}
 
+	onClear() {
+		this.field.clear();
+	}
+
 	render() {
 		const { init } = this.field;
 
@@ -128,6 +132,9 @@ export default class FormHorizontalDemo extends React.Component {
 					</Button>
 					<Button style={{ marginRight: 10 }} onClick={this.onReset.bind(this)}>
 						重置
+					</Button>
+					<Button style={{ marginRight: 10 }} onClick={this.onClear.bind(this)}>
+						清除
 					</Button>
 					<Button onClick={this.getValues.bind(this)}>获取所有值</Button>
 				</Form.Item>

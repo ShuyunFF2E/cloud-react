@@ -190,6 +190,34 @@ export default class Field {
 		this.__render__();
 	};
 
+	clear = (names = Object.keys(this.fieldsMeta)) => {
+		const _names = typeof names === 'string' ? [names] : names;
+
+		_names.forEach(name => {
+			const fieldMeta = this.fieldsMeta[name];
+
+			if (fieldMeta) {
+				let value;
+
+				if (typeof fieldMeta.value === 'boolean') {
+					value = false;
+				} else if (typeof fieldMeta.value === 'string' || typeof fieldMeta.value === 'number') {
+					value = '';
+				} else if (typeof fieldMeta.value === 'object' && Array.isArray(fieldMeta.value)) {
+					value = [];
+				}
+
+				Object.assign(fieldMeta, {
+					value,
+					state: '',
+					errors: undefined
+				});
+			}
+		});
+
+		this.__render__();
+	};
+
 	remove = names => {
 		const _names = typeof names === 'string' ? [names] : names;
 
