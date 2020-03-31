@@ -91,7 +91,7 @@ function DatePicker(props) {
 	}
 
 	useEffect(() => {
-		if (defaultValue && hasClear) {
+		if ((value || defaultValue) && hasClear) {
 			setSuffix(null);
 		}
 	}, []);
