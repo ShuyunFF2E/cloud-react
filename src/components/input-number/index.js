@@ -56,7 +56,7 @@ function InputNumber(props) {
 	function getDefaultValue() {
 		// 获取默认value
 		const number = parseFloat(defaultValue);
-		return defaultValue !== undefined ? number.toFixed(getCurrentPrecision(number)) : '';
+		return value || (Number.isNaN(number) ? '' : number.toFixed(getCurrentPrecision(number)));
 	}
 
 	function getValue() {
