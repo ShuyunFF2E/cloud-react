@@ -3,16 +3,36 @@ import './index.less';
 import Notification from './modal';
 import Prompt from './prompt';
 
-class Modal extends Component{
+class Modal extends Component {
 	render() {
-		const { visible, modalStyle, bodyStyle, className, title, children, header, footer, hasFooter, onOk, onClose, onCancel, okText, cancelText, showMask, clickMaskCanClose, showConfirmLoading } = this.props;
-		return(
+		const {
+			visible,
+			modalStyle,
+			bodyStyle,
+			disabledOk,
+			className,
+			title,
+			children,
+			header,
+			footer,
+			hasFooter,
+			onOk,
+			onClose,
+			onCancel,
+			okText,
+			cancelText,
+			showMask,
+			clickMaskCanClose,
+			showConfirmLoading
+		} = this.props;
+		return (
 			<Notification
 				type="modal"
 				visible={visible}
 				title={title}
 				modalStyle={modalStyle}
 				bodyStyle={bodyStyle}
+				disabledOk={disabledOk}
 				className={className}
 				header={header}
 				footer={footer}
@@ -32,7 +52,7 @@ class Modal extends Component{
 }
 
 // confirm方法
-Modal.confirm = (props) => {
+Modal.confirm = props => {
 	const config = {
 		...props,
 		type: 'confirm',
@@ -42,7 +62,7 @@ Modal.confirm = (props) => {
 };
 
 // info方法
-Modal.info = (props) => {
+Modal.info = props => {
 	const config = {
 		...props,
 		type: 'info',
@@ -52,7 +72,7 @@ Modal.info = (props) => {
 };
 
 // success方法
-Modal.success = (props) => {
+Modal.success = props => {
 	const config = {
 		...props,
 		type: 'success',
@@ -62,7 +82,7 @@ Modal.success = (props) => {
 };
 
 // error方法
-Modal.error = (props) => {
+Modal.error = props => {
 	const config = {
 		...props,
 		type: 'error',
@@ -72,7 +92,7 @@ Modal.error = (props) => {
 };
 
 // warning方法
-Modal.warning = (props) => {
+Modal.warning = props => {
 	const config = {
 		...props,
 		type: 'warning',
