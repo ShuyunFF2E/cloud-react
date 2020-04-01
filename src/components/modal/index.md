@@ -18,6 +18,7 @@ subtitle: 弹出框
 | title              | 弹出框的标题                             | string              | title  |
 | modalStyle         | 设置弹出框样式                           | object              | -      |
 | bodyStyle          | 设置弹出框内容区域样式                   | object              | -      |
+| disabledOk         | 禁用确认按钮                             | boolean             | false  |
 | className          | 设置弹出框样式名称                       | string              | -      |
 | hasFooter          | 是否显示底部区域                         | boolean             | true   |
 | footer             | modal 底部内容区域                       | string 或 ReactNode | -      |

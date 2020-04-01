@@ -25,6 +25,7 @@ class Notification extends Component {
 		visible: false,
 		modalStyle: {},
 		bodyStyle: {},
+		disabledOk: false,
 		title: 'title',
 		children: '',
 		footer: '',
@@ -43,6 +44,7 @@ class Notification extends Component {
 		visible: PropTypes.bool,
 		modalStyle: PropTypes.object,
 		bodyStyle: PropTypes.object,
+		disabledOk: PropTypes.bool,
 		title: PropTypes.string,
 		children: PropTypes.node,
 		footer: PropTypes.node,
@@ -166,6 +168,7 @@ class Notification extends Component {
 			visible,
 			modalStyle,
 			bodyStyle,
+			disabledOk,
 			className,
 			id,
 			type,
@@ -229,6 +232,7 @@ class Notification extends Component {
 						type={type}
 						okText={okText}
 						cancelText={cancelText}
+						disabledOk={disabledOk}
 						showConfirmLoading={showConfirmLoading}
 						footer={footer}
 						hasFooter={hasFooter}
@@ -285,7 +289,7 @@ function ModalBody({ style, children }) {
 /**
  * @return {null}
  */
-function ModalFooter({ type, footer, okText, cancelText, hasFooter, showConfirmLoading, onCancel, onOk, onReset }) {
+function ModalFooter({ type, footer, okText, cancelText, hasFooter, showConfirmLoading, onCancel, onOk, onReset, disabledOk }) {
 	const ok = () => {
 		onReset();
 		onOk();
@@ -313,7 +317,7 @@ function ModalFooter({ type, footer, okText, cancelText, hasFooter, showConfirmL
 	}
 	return (
 		<footer className={footerClass}>
-			<Button type="primary" className={confirmClass} disabled={showConfirmLoading} onClick={ok}>
+			<Button type="primary" className={confirmClass} disabled={showConfirmLoading || disabledOk} onClick={ok}>
 				<ConfirmLoading showConfirmLoading={showConfirmLoading} />
 				{okText}
 			</Button>
