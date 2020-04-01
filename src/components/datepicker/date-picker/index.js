@@ -85,13 +85,17 @@ function DatePicker(props) {
 		const output = util.convert(util.displayNow(outputDate), fmt);
 		setCurrentValue(output);
 		setCurrentValueDate(outputDate);
+		// 有clear Icon时，日历Icon不显示
+		if (hasClear) {
+			setSuffix(null);
+		}
 		if (isPop) {
 			onChange(output);
 		}
 	}
 
 	useEffect(() => {
-		if ((value || defaultValue) && hasClear) {
+		if (defaultValue && hasClear) {
 			setSuffix(null);
 		}
 	}, []);
@@ -109,10 +113,6 @@ function DatePicker(props) {
 			onValueChange(obj, true);
 			// eslint-disable-next-line no-use-before-define
 			changeVisible(null, false);
-			// 有clear Icon时，日历Icon不显示
-			if (hasClear) {
-				setSuffix(null);
-			}
 		}
 	}
 	// 响应事件，渲染或者 卸载DOM
