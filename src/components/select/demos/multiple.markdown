@@ -22,6 +22,42 @@ const dataList = [
 	{
 		label: '荔枝',
 		value: 'litchi'
+	},
+	{
+		label: '苹果1',
+		value: 'apple1'
+	},
+	{
+		label: '草莓1',
+		value: 'strawberry1'
+	},
+	{
+		label: '荔枝1',
+		value: 'litchi'
+	},
+	{
+		label: '苹果2',
+		value: 'apple2'
+	},
+	{
+		label: '草莓2',
+		value: 'strawberry2'
+	},
+	{
+		label: '荔枝2',
+		value: 'litchi2'
+	},
+	{
+		label: '苹果3',
+		value: 'apple3'
+	},
+	{
+		label: '草莓3',
+		value: 'strawberry3'
+	},
+	{
+		label: '荔枝3',
+		value: 'litchi3'
 	}
 ];
 
@@ -48,14 +84,9 @@ export default function SelectDemo() {
 				style={{ margin: '0 10px 10px 0', width: 200 }}
 				multiple
 				searchable
-				allowClear
-			>
+				allowClear>
 				{dataList.map((item, index) => (
-					<Option
-						value={item.value}
-						disabled={item.disabled}
-						key={index}
-					>
+					<Option value={item.value} disabled={item.disabled} key={index}>
 						{item.label}
 					</Option>
 				))}
@@ -73,14 +104,9 @@ export default function SelectDemo() {
 				multiple
 				searchable
 				hasConfirmButton
-				hasSelectAll
-			>
+				hasSelectAll>
 				{dataList.map((item, index) => (
-					<Option
-						value={item.value}
-						disabled={item.disabled}
-						key={index}
-					>
+					<Option value={item.value} disabled={item.disabled} key={index}>
 						{item.label}
 					</Option>
 				))}
@@ -94,7 +120,8 @@ export default function SelectDemo() {
 				dataSource={dataList}
 				multiple
 				allowClear
-				labelInValue />
+				labelInValue
+			/>
 		</div>
 	);
 }
