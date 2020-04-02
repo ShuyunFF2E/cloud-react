@@ -57,6 +57,10 @@ export default class Header extends Component {
 			_year -= 1;
 		}
 
+		if (currentYear > this.props.maxYear || currentYear < this.props.minYear) {
+			return true;
+		}
+
 		if (max && min) {
 			const { year: maxYear, month: maxMonth } = max;
 			const { year: minYear, month: minMonth } = min;
