@@ -118,7 +118,7 @@ function InputNumber(props) {
 		setFocused(false);
 		const targetValue = evt.target.value.trim();
 		const val = getCurrentValue(targetValue, min, max, precision);
-		const _val = isInvalidNumber(val) ? val : Number(val);
+		const _val = isInvalidNumber(String(val)) ? val : Number(val);
 		setCurrentValue(_val);
 		onBlur(_val);
 		onChange(_val);
