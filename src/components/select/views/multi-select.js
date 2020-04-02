@@ -119,11 +119,11 @@ export default function MultiSelect(props) {
 
 	return (
 		<div className={classNames}>
-			{searchable && (
-				<OptionsSearch searchValue={searchValue} placeholder={searchPlaceholder} onOptionsSearch={onOptionsSearch} clearSearch={clearSearch} />
-			)}
-			{!views.length && <OptionsEmpty emptyRender={emptyRender} />}
-			{
+			<div>
+				{searchable && (
+					<OptionsSearch searchValue={searchValue} placeholder={searchPlaceholder} onOptionsSearch={onOptionsSearch} clearSearch={clearSearch} />
+				)}
+				{!views.length && <OptionsEmpty emptyRender={emptyRender} />}
 				<div className={`${selector}-multiple-options`}>
 					<div className={`${selector}-option-list`}>
 						{hasSelectAll && !!views.length && (
@@ -133,11 +133,11 @@ export default function MultiSelect(props) {
 						)}
 						{views}
 					</div>
-					{hasConfirmButton && (
-						<ConfirmBtn onOk={onOk} onCancel={onCancel} okBtnText={okBtnText} cancelBtnText={cancelBtnText} confirmTemplate={confirmTemplate} />
-					)}
 				</div>
-			}
+			</div>
+			{hasConfirmButton && (
+				<ConfirmBtn onOk={onOk} onCancel={onCancel} okBtnText={okBtnText} cancelBtnText={cancelBtnText} confirmTemplate={confirmTemplate} />
+			)}
 		</div>
 	);
 }

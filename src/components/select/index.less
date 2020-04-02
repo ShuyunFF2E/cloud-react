@@ -180,13 +180,16 @@
 	box-sizing: @box-sizing;
 	padding: 0;
 	margin: 0;
-	max-height: @max-height;
 	min-width: @min-width;
 	width: 100%;
-	overflow: auto;
 	border: @select-normal-border;
 	background: @background-color;
 	cursor: pointer;
+
+	> div {
+		max-height: @max-height;
+		overflow: auto;
+	}
 
 	& * {
 		box-sizing: @box-sizing;
@@ -270,19 +273,19 @@
 				}
 			}
 		}
+	}
 
-		.@{select-prefix-cls}-operate-btn {
-			display: flex;
-			justify-content: flex-end;
-			padding: @large-padding;
-			border-top: 1px solid @sign-color;
+	.@{select-prefix-cls}-operate-btn {
+		display: flex;
+		justify-content: flex-end;
+		padding: @large-padding;
+		border-top: 1px solid @sign-color;
 
-			.btn {
-				width: @min-width;
+		.btn {
+			width: @min-width;
 
-				&:not(:last-child) {
-					margin-right: 10px;
-				}
+			&:not(:last-child) {
+				margin-right: 10px;
 			}
 		}
 	}
