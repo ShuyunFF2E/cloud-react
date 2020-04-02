@@ -11,7 +11,24 @@ import './index.less';
 const selector = `${prefixCls}-input-number`;
 
 function InputNumber(props) {
-	const { className, style, placeholder, size, min, max, step, precision, value, defaultValue, disabled, onChange, onBlur, onFocus, ...other } = props;
+	const {
+		className,
+		style,
+		placeholder,
+		size,
+		min,
+		max,
+		step,
+		precision,
+		value,
+		defaultValue,
+		disabled,
+		onChange,
+		onBlur,
+		onFocus,
+		noStep,
+		...other
+	} = props;
 
 	const [currentValue, setCurrentValue] = useState('');
 	const [upButtonEnabled, setUpButtonEnabled] = useState(true);
@@ -167,14 +184,16 @@ function InputNumber(props) {
 
 	return (
 		<div className={compClass} style={style}>
-			<div className={`${selector}-handler-wrap`}>
-				<span className={upBtnClass} onClick={handlePlus}>
-					<Icon type="up" className={`${selector}-handler-up-icon`} />
-				</span>
-				<span className={downBtnClass} onClick={handleMinus}>
-					<Icon type="down" className={`${selector}-handler-down-icon`} />
-				</span>
-			</div>
+			{noStep ? null : (
+				<div className={`${selector}-handler-wrap`}>
+					<span className={upBtnClass} onClick={handlePlus}>
+						<Icon type="up" className={`${selector}-handler-up-icon`} />
+					</span>
+					<span className={downBtnClass} onClick={handleMinus}>
+						<Icon type="down" className={`${selector}-handler-down-icon`} />
+					</span>
+				</div>
+			)}
 			<div className={`${selector}-handler-input`}>
 				<input
 					className={`${selector}-input`}
@@ -202,6 +221,7 @@ InputNumber.propTypes = {
 	min: PropTypes.number,
 	max: PropTypes.number,
 	step: PropTypes.number,
+	noStep: PropTypes.bool,
 	precision: PropTypes.number,
 	value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 	defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -222,6 +242,7 @@ InputNumber.defaultProps = {
 	size: 'default',
 	placeholder: '请输入...',
 	step: 1,
+	noStep: false,
 	disabled: false,
 	onChange: noop,
 	onBlur: noop,
