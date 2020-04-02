@@ -53,6 +53,7 @@
 
 .@{checkbox-prefix-cls} {
 	display: inline-flex;
+	width: 100%;
 
 	&:not(.@{checkbox-prefix-cls}-disabled):hover {
 		cursor: pointer;
@@ -80,6 +81,7 @@
 
 	&-wrapper {
 		position: relative;
+		flex-shrink: 0;
 		width: @checkbox-size;
 		height: @checkbox-size;
 		margin-right: 8px;
@@ -105,6 +107,9 @@
 
 	&-text {
 		color: @normal-text-color;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 
 	&.@{checkbox-prefix-cls}-checked {

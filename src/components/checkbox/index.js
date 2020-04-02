@@ -132,7 +132,7 @@ class Checkbox extends React.Component {
 					/>
 					<span className={`${classSelector}-inner`}/>
 				</span>
-				<span className={`${classSelector}-text`}>{children}</span>
+				<span className={`${classSelector}-text`} title={children}>{children}</span>
 			</label>
 		)
 	}
