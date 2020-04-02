@@ -92,10 +92,15 @@ function InputNumber(props) {
 	}, [currentValue, min, max]);
 
 	function isNotCompleteNumber(num) {
+		// - & x. Is not complete number
 		return (
 			// eslint-disable-next-line no-restricted-globals
 			isNaN(num) || num === '' || num === null || (num && num.toString().indexOf('.') === num.toString().length - 1)
 		);
+	}
+
+	function isInvalidNumber(num) {
+		return num === '' || num === null || (num.indexOf('.') >= 0 && num.charAt(num.length - 1) === '0'); // .00 will disappear in toNumber
 	}
 
 	function infinityNumFilter(num) {
@@ -113,9 +118,10 @@ function InputNumber(props) {
 		setFocused(false);
 		const targetValue = evt.target.value.trim();
 		const val = getCurrentValue(targetValue, min, max, precision);
-		setCurrentValue(Number(val));
-		onBlur(Number(val));
-		onChange(Number(val));
+		const _val = isInvalidNumber(val) ? val : Number(val);
+		setCurrentValue(_val);
+		onBlur(_val);
+		onChange(_val);
 	}
 
 	function handleFocus() {
