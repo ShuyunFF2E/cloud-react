@@ -74,19 +74,31 @@ function InputNumber(props) {
 		setBtnStatus(isInvalid(currentValue), getMax(currentValue, max).lessMax, getMin(currentValue, min).greaterMin);
 	}, [currentValue, min, max]);
 
+	function isNotCompleteNumber(num) {
+		return (
+			// eslint-disable-next-line no-restricted-globals
+			isNaN(num) || num === '' || num === null || (num && num.toString().indexOf('.') === num.toString().length - 1)
+		);
+	}
+
+	function infinityNumFilter(num) {
+		return String(num).length > 16 ? String(num) : Number(num);
+	}
+
 	function handleChange(evt) {
 		const targetValue = evt.target.value.trim().replace(/[^\-?\d.]/g, '');
-		setCurrentValue(Number(targetValue));
-		onChange(Number(targetValue));
+		const _targetValue = isNotCompleteNumber(targetValue) ? targetValue : infinityNumFilter(targetValue);
+		setCurrentValue(_targetValue);
+		onChange(_targetValue);
 	}
 
 	function handleBlur(evt) {
 		setFocused(false);
-		const targetValue = evt.target.value.trim().replace(/[^\-?\d.]/g, '');
+		const targetValue = evt.target.value.trim();
 		const val = getCurrentValue(targetValue, min, max, precision);
-		setCurrentValue(val);
-		onBlur(val);
-		onChange(val);
+		setCurrentValue(Number(val));
+		onBlur(Number(val));
+		onChange(Number(val));
 	}
 
 	function handleFocus() {
