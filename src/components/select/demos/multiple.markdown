@@ -20,7 +20,7 @@ const dataList = [
 		value: 'strawberry'
 	},
 	{
-		label: '荔枝',
+		label: '特别特别长的选项特别特别长的选项特别特别长的选项特别特别长的选项特别特别长的选项',
 		value: 'litchi'
 	},
 	{
