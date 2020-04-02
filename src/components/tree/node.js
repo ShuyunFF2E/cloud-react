@@ -214,7 +214,7 @@ function ShowInput({ isShow, isAdd, maxLength, inputValue, handleInputChange, sa
  */
 function ShowSelection({ searchText, backValue, hasBackValue, indeterminate, checked, supportCheckbox, id, name, disableSelected, onHandleSelect }) {
 	// 处理搜索关键字高亮
-	const re = new RegExp(searchText, 'g');
+	const re = new RegExp(`(${searchText.replace(/[(){}.+*?^$|\\[\]]/g, '\\$&')})`, 'ig');
 	const tmp = name.replace(re, `<span class="hot-text">${searchText}</span>`);
 	const labelWidth = {
 		width: '100%',

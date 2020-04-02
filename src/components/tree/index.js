@@ -76,8 +76,23 @@ class Tree extends Component {
 			menuStyle: null,
 			menuOptions: null,
 			searchText: '',
-			treeData: store.initData(props.treeData, props.maxLevel, props.selectedValue, props.isUnfold)
+			treeData: store.initData(props.treeData, props.maxLevel, props.selectedValue, props.isUnfold),
+			prevProps: props
 		};
+	}
+
+	// 监听外部回显数据变化
+	static getDerivedStateFromProps(nextProps, prevState) {
+		const { prevProps } = prevState;
+
+		if (prevProps !== nextProps) {
+			return {
+				selectedValue: nextProps.selectedValue,
+				prevProps: nextProps,
+				treeData: store.initData(nextProps.treeData, prevState.maxLevel, nextProps.selectedValue, prevState.isUnfold)
+			};
+		}
+		return null;
 	}
 
 	componentDidMount() {
@@ -355,7 +370,9 @@ class Tree extends Component {
 						visible={visibleMenu}
 					/>
 
-					<TreeList prefixCls={selector} nodeNameMaxLength={nodeNameMaxLength} data={treeData} />
+					{treeData[0].children.length > 0 && <TreeList prefixCls={selector} nodeNameMaxLength={nodeNameMaxLength} data={treeData} />}
+
+					{!treeData[0].children.length && <p>暂无搜索结果</p>}
 				</div>
 			</TreeContext.Provider>
 		);
