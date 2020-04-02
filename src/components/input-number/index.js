@@ -67,13 +67,14 @@ function InputNumber(props) {
 		} else {
 			_precision = parseInt(precision, 10);
 		}
+		console.log('[_precision]', _precision);
 
 		return _precision;
 	}
 	function getDefaultValue() {
 		// 获取默认value
 		const number = parseFloat(defaultValue);
-		return value || (Number.isNaN(number) ? '' : number.toFixed(getCurrentPrecision(number)));
+		return value || (Number.isNaN(number) ? '' : getCurrentValue(number, min, max, getCurrentPrecision(number)));
 	}
 
 	function getValue() {

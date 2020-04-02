@@ -2,6 +2,10 @@ export function isInvalid(value) {
 	return Number.isNaN(Number(value)) || value === null || value.toString().trim() === '';
 }
 
+function fixedPrecision(value, precision) {
+	return value.toFixed(Math.abs(parseInt(precision, 10)));
+}
+
 /**
  *
  *
@@ -16,15 +20,15 @@ export function getCurrentValue(value, min, max, precision = -1) {
 	if (isInvalid(value)) {
 		return '';
 	}
-	const val = precision >= 0 ? Number(value).toFixed(Math.abs(parseInt(precision, 10))) : Number(value);
+	const val = precision >= 0 ? fixedPrecision(Number(value), precision) : Number(value);
 	if (val > max) {
-		return max;
+		return fixedPrecision(max, precision);
 	}
 	if (val < min) {
-		return min;
+		return fixedPrecision(min, precision);
 	}
 	return val;
-};
+}
 
 export function getMax(value, max) {
 	const _isInvalid = isInvalid(value);
@@ -43,14 +47,14 @@ export function getMin(value, min) {
 }
 
 export function getValueByBlank(min, max, step) {
-	if (min === -Infinity && max === Infinity || min === Infinity && max === -Infinity || min <= 0 && max >= 0) {
+	if ((min === -Infinity && max === Infinity) || (min === Infinity && max === -Infinity) || (min <= 0 && max >= 0)) {
 		return 0;
 	}
 	if (min === -Infinity && max === -Infinity) {
 		return 0 - step;
 	}
 	if (min === Infinity && max === Infinity) {
-		return 0 + step
+		return 0 + step;
 	}
 	if (min < 0 && max < 0) {
 		return max;
@@ -71,18 +75,17 @@ export function getValueByBlank(min, max, step) {
  * @returns
  */
 export function fixDoubleOperation(n1, n2, type = 'add') {
-	const l1 = String(n1).indexOf('.') >= 0 ? String(n1).split('.')[1].length : 0
-	const l2 = String(n2).indexOf('.') >= 0 ? String(n2).split('.')[1].length : 0
-	const displacement = 10 ** Math.max(l1,l2)
-	const _n1 = Number((n1 * displacement).toFixed())
-	const _n2 = Number((n2 * displacement).toFixed())
+	const l1 = String(n1).indexOf('.') >= 0 ? String(n1).split('.')[1].length : 0;
+	const l2 = String(n2).indexOf('.') >= 0 ? String(n2).split('.')[1].length : 0;
+	const displacement = 10 ** Math.max(l1, l2);
+	const _n1 = Number((n1 * displacement).toFixed());
+	const _n2 = Number((n2 * displacement).toFixed());
 	switch (type) {
 		case 'add': {
-			return (_n1 + _n2) / displacement
+			return (_n1 + _n2) / displacement;
 		}
 		default: {
-			return (_n1 + _n2) / displacement
+			return (_n1 + _n2) / displacement;
 		}
 	}
-	
 }
