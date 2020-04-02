@@ -32,15 +32,14 @@ class Store {
 			// 被选节点没有子节点则找到父节点对其进行半选
 			const pNode = this.findNodeById(cloneData, currentNode.pId);
 			// 没有父节点则不再查找
-			if (!pNode) {
-				return;
+			if (pNode) {
+				pNode.indeterminate = true;
+				// 如果子节点全部选中则父节点选中
+				if (pNode.children.every(x => x.checked)) {
+					pNode.checked = true;
+				}
+				upFind(pNode);
 			}
-			pNode.indeterminate = true;
-			// 如果子节点全部选中则父节点选中
-			if (pNode.children.every(x => x.checked)) {
-				pNode.checked = true;
-			}
-			upFind(pNode);
 		};
 
 		// 递归向下查找选择
@@ -68,7 +67,7 @@ class Store {
 			tmp.isUnfold = isUnfold;
 
 			// 根节点默认展开
-			if (!node.pId) {
+			if (!+node.pId) {
 				tmp.isUnfold = true;
 			}
 
@@ -93,10 +92,9 @@ class Store {
 				// 被选中的元素有子节点，则子节点全部选中
 				if (tmp.children.length) {
 					downFind(tmp);
-				} else {
-					// 被选节点没有子节点则找到父节点对其进行半选
-					upFind(tmp);
 				}
+				// 寻找父节点
+				upFind(tmp);
 			}
 
 			if (!children || !children.length) {
