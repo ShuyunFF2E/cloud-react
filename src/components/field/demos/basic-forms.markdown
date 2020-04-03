@@ -38,23 +38,15 @@ export default class FormHorizontalDemo extends React.Component {
 
 		return (
 			<Form layout="horizontal" labelCol={{ span: 6 }} field={this.field}>
-				<Form.Item label="用户名">
-					<Input
-						placeholder="请输入用户名"
-						{...init('userName', {
-							rules: [{ required: true, message: '用户名不能为空' }, { len: 10 }]
-						})}
-					/>
+				<Form.Item label="用户名" help="使用了Form.Nexus组件，可以查看示例代码">
+					<User field={this.field} />
 				</Form.Item>
 
 				<Form.Item label="邮箱">
 					<Input
 						placeholder="请输入验证邮箱"
 						{...init('email', {
-							rules: [
-								{ required: true, message: '验证邮箱不能为空' },
-								{ pattern: /^\w+@[a-z]{2,10}\.[a-z]{2,8}$/, message: '邮箱格式不正确' }
-							]
+							rules: [{ required: true, message: '验证邮箱不能为空' }, { pattern: /^\w+@[a-z]{2,10}\.[a-z]{2,8}$/, message: '邮箱格式不正确' }]
 						})}
 					/>
 				</Form.Item>
@@ -141,5 +133,33 @@ export default class FormHorizontalDemo extends React.Component {
 			</Form>
 		);
 	}
+}
+
+function User({ field: { init } }) {
+	return (
+		<Form.Nexus>
+			<div style={{ display: 'inline-flex', alignItem: 'flex-start' }}>
+				<div>
+					<Input
+						style={{ width: 140, marginRight: 10 }}
+						placeholder="请输入名字"
+						{...init('firstName', {
+							rules: [{ required: true, message: '名字不能为空' }, { len: 10 }]
+						})}
+					/>
+				</div>
+
+				<div>
+					<Input
+						style={{ width: 100 }}
+						placeholder="请输入姓氏"
+						{...init('lastName', {
+							rules: [{ required: true, message: '姓氏不能为空' }, { len: 10 }]
+						})}
+					/>
+				</div>
+			</div>
+		</Form.Nexus>
+	);
 }
 ```
