@@ -8,7 +8,7 @@ import { filterOptions } from '../utils';
 import '../index.less';
 
 const scrollIntoView = index => {
-	const els = document.getElementsByClassName(`${selector}-select-options`)[0];
+	const els = document.getElementsByClassName(`${selector}-single-options`)[0];
 	if (els) {
 		els.scrollTop = index * 30;
 	}
@@ -57,7 +57,7 @@ export default function SingleSelect(props) {
 
 	return (
 		<div className={classNames}>
-			<div>
+			<div className={`${selector}-single-options`}>
 				{searchable && (
 					<OptionsSearch searchValue={searchValue} placeholder={searchPlaceholder} onOptionsSearch={onOptionsSearch} clearSearch={clearSearch} />
 				)}
