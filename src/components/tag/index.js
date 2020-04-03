@@ -17,7 +17,6 @@ const typeEnum = {
 };
 
 export default class Tag extends Component {
-
 	static propTypes = {
 		type: PropTypes.oneOf([typeEnum.NONE, typeEnum.SUCCESS, typeEnum.WARNING, typeEnum.DEFAULT, typeEnum.DANGER]),
 		closable: PropTypes.bool,
@@ -37,19 +36,17 @@ export default class Tag extends Component {
 	};
 
 	get classes() {
-
 		const { checked, closable, type, disabled } = this.props;
 
 		return classnames(`${prefix}`, {
-			'closable': closable,
-			'checked': checked,
-			'disabled': disabled,
+			closable: closable,
+			checked: checked,
+			disabled: disabled,
 			[`${type}`]: !!type
 		});
 	}
 
 	handleRemove = event => {
-
 		const { onClose } = this.props;
 
 		if (onClose) {
@@ -58,33 +55,25 @@ export default class Tag extends Component {
 		}
 	};
 
-	handleClick = () => {
-
+	handleClick = evt => {
 		const { disabled, onClick } = this.props;
 
-		if(disabled) return;
+		if (disabled) return;
 
 		if (onClick) {
-			onClick();
+			onClick(evt);
 		}
 	};
 
 	render() {
-
 		const { closable, ...others } = this.props;
 
-		const props = omit(others, [
-			'type',
-			'checked',
-			'disabled',
-			'onClick',
-			'onClose'
-		]);
+		const props = omit(others, ['type', 'checked', 'disabled', 'onClick', 'onClose']);
 
 		return (
 			<span className={this.classes} onClick={this.handleClick} {...props}>
-				{ this.props.children }
-				{closable ? <Icon type="close" onClick={this.handleRemove} className="tag-close-icon"/> : null}
+				{this.props.children}
+				{closable ? <Icon type="close" onClick={this.handleRemove} className="tag-close-icon" /> : null}
 			</span>
 		);
 	}
