@@ -19,14 +19,14 @@ export default function Option(props) {
 	if (multiple) {
 		const { value, children } = otherProps;
 		return (
-			<Checkbox
-				checked={isSelected}
-				disabled={disabled}
-				value={value}
-				className={classNames}
-				onChange={onChange}>
-				{ children }
-			</Checkbox>
+			<label className={classnames(classNames, `${selector}-multi-option`)}>
+				<Checkbox
+					checked={isSelected}
+					disabled={disabled}
+					value={value}
+					onChange={onChange} />
+				<span title={children}>{ children }</span>
+			</label>
 		);
 	}
 

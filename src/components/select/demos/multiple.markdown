@@ -33,7 +33,7 @@ const dataList = [
 	},
 	{
 		label: '荔枝1',
-		value: 'litchi'
+		value: 'litchi1'
 	},
 	{
 		label: '苹果2',

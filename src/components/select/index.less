@@ -247,6 +247,15 @@
 		}
 	}
 
+	.@{select-prefix-cls}-multi-option {
+		display: flex;
+		cursor: pointer;
+
+		> span {
+			.text-overflow-ellipsis();
+		}
+	}
+
 	.@{select-prefix-cls}-empty-options {
 		height: @height;
 		line-height: @height;
