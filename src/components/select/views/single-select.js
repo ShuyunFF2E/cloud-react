@@ -57,11 +57,13 @@ export default function SingleSelect(props) {
 
 	return (
 		<div className={classNames}>
-			{searchable && (
-				<OptionsSearch searchValue={searchValue} placeholder={searchPlaceholder} onOptionsSearch={onOptionsSearch} clearSearch={clearSearch} />
-			)}
-			{views}
-			{!views.length && <OptionsEmpty emptyRender={emptyRender} />}
+			<div>
+				{searchable && (
+					<OptionsSearch searchValue={searchValue} placeholder={searchPlaceholder} onOptionsSearch={onOptionsSearch} clearSearch={clearSearch} />
+				)}
+				{views}
+				{!views.length && <OptionsEmpty emptyRender={emptyRender} />}
+			</div>
 		</div>
 	);
 }
