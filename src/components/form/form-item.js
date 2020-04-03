@@ -4,14 +4,13 @@ import classnames from 'classnames';
 import { prefixCls } from '@utils/config';
 
 import FormContext from './context';
-import { LAYOUT_TYPES } from './constants';
+import Explain from './explain';
+import { LAYOUT_TYPES, DATA_FIELD, findFieldsName } from './constants';
 
 const MAX_COL = 24;
-const DATA_FIELD = 'data-field';
 const noop = () => {};
 
 export default class Form extends Component {
-
 	static contextType = FormContext;
 
 	static propTypes = {
@@ -43,11 +42,11 @@ export default class Form extends Component {
 	};
 
 	componentWillUnmount() {
-		const { field, dataField } = this;
+		const { field, dataFields } = this;
 
 		// 如果设置了校验规则，则重置并删除
-		if (field && field.remove && dataField) {
-			field.remove(dataField);
+		if (field && field.remove && dataFields && dataFields.length) {
+			field.remove(dataFields);
 		}
 	}
 
@@ -70,17 +69,43 @@ export default class Form extends Component {
 		return null;
 	}
 
+	get dataFields() {
+		const {
+			field,
+			props: { children }
+		} = this;
+		const fieldsName = findFieldsName(children);
+
+		if (field && field.fieldsMeta && fieldsName.length) {
+			return fieldsName;
+		}
+
+		return null;
+	}
+
 	get required() {
-		const { fieldsMeta, dataField, props: { required } } = this;
+		const {
+			fieldsMeta,
+			dataFields,
+			props: { required }
+		} = this;
 
 		if (required !== undefined) {
 			return required;
 		}
 
-		if (fieldsMeta && dataField) {
-			const { rules = [] } = fieldsMeta[dataField];
+		if (fieldsMeta && dataFields && dataFields.length) {
+			const _dataFields = [...dataFields];
+			let _required = false;
 
-			return rules.some(rule => rule.required);
+			while (_dataFields.length > 0 && !required) {
+				const dataField = _dataFields.shift();
+				const { rules = [] } = fieldsMeta[dataField];
+
+				_required = rules.some(rule => rule.required);
+			}
+
+			return _required;
 		}
 
 		return false;
@@ -97,10 +122,7 @@ export default class Form extends Component {
 			required,
 			className: classnames(`${prefixCls}-form-item-label`, {
 				'has-colon': colon,
-				[`col-${labelColSpan}`]: (
-					labelColSpan !== undefined &&
-					layout !== LAYOUT_TYPES.VERTICAL
-				),
+				[`col-${labelColSpan}`]: labelColSpan !== undefined && layout !== LAYOUT_TYPES.VERTICAL,
 				[`col-offset-${offset}`]: offset !== undefined
 			})
 		};
@@ -116,10 +138,7 @@ export default class Form extends Component {
 
 		const wrapperAttrs = {
 			className: classnames(`${prefixCls}-form-item-wrapper`, {
-				[`col-${span}`]: (
-					span !== undefined &&
-					layout !== LAYOUT_TYPES.VERTICAL
-				),
+				[`col-${span}`]: span !== undefined && layout !== LAYOUT_TYPES.VERTICAL,
 				[`col-offset-${offset}`]: offset !== undefined
 			})
 		};
@@ -133,7 +152,6 @@ export default class Form extends Component {
 	}
 
 	renderChildren(children) {
-
 		if (['object', 'string', 'array'].indexOf(typeof children) === -1) {
 			return children;
 		}
@@ -157,8 +175,7 @@ export default class Form extends Component {
 						className={classnames('contents', {
 							'has-error': state === 'error',
 							'has-success': state === 'success'
-						})}
-					>
+						})}>
 						{cloneElement(child, child.props)}
 						{error ? <Explain className="error">{error}</Explain> : null}
 					</div>
@@ -177,7 +194,9 @@ export default class Form extends Component {
 
 	render() {
 		const { layout, labelAlign } = this.context;
-		const { props: { className } } = this;
+		const {
+			props: { className }
+		} = this;
 
 		return (
 			<div className={classnames(`${prefixCls}-form-item`, layout, labelAlign, className)}>
@@ -186,10 +205,4 @@ export default class Form extends Component {
 			</div>
 		);
 	}
-}
-
-function Explain({ children, className }) {
-	return children && (
-		<div className={classnames(`${prefixCls}-form-item-explain`, className)}>{children}</div>
-	);
 }
