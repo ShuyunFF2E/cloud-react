@@ -39,9 +39,9 @@ export default class Tag extends Component {
 		const { checked, closable, type, disabled } = this.props;
 
 		return classnames(`${prefix}`, {
-			closable: closable,
-			checked: checked,
-			disabled: disabled,
+			closable,
+			checked,
+			disabled,
 			[`${type}`]: !!type
 		});
 	}
