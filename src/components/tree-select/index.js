@@ -112,9 +112,11 @@ class TreeSelect extends Component {
 		return (
 			<Tree
 				{...this.props}
+				value={this.state.value}
 				onChange={this.onValueChange}
 				onOk={this.handleOk}
-				onCancel={this.handleCancel} />
+				onCancel={this.handleCancel}
+				onReset={this.handleReset} />
 		)
 	}
 
@@ -204,16 +206,17 @@ class TreeSelect extends Component {
 	}
 
 	onTreeOptionChange = (node, selectedNodes) => {
-		const { single, hasConfirmButton, onChange } = this.props;
+		const { single, hasConfirmButton, containParentNode, onChange } = this.props;
+		const selectedData = containParentNode ? selectedNodes : selectedNodes.filter(v => !v.children || !v.children.length);
 		this.setState({
-			value: selectedNodes,
+			value: selectedData,
 			node
 		});
 		if (!hasConfirmButton || single) {
 			this.setState({
-				prevValue: selectedNodes
+				prevValue: selectedData
 			});
-			onChange(node, selectedNodes);
+			onChange(node, selectedData);
 			if (single) this.handleSelect();
 		}
 	}
@@ -245,6 +248,13 @@ class TreeSelect extends Component {
 		})
 		this.props.onCancel();
 		this.handleSelect();
+	}
+
+	handleReset = () => {
+		this.setState({
+			value: []
+		});
+		this.props.onReset();
 	}
 
 	render() {
@@ -298,8 +308,6 @@ TreeSelect.propTypes = {
 		PropTypes.object
 	]),
 	hasConfirmButton: PropTypes.bool,
-	okBtnText: PropTypes.string,
-	cancelBtnText: PropTypes.string,
 	className: PropTypes.string,
 	zIndex: PropTypes.number,
 	getPopupContainer: PropTypes.func,
@@ -307,7 +315,8 @@ TreeSelect.propTypes = {
 	onSelectOpen: PropTypes.func,
 	onSelectClose: PropTypes.func,
 	onOk: PropTypes.func,
-	onCancel: PropTypes.func
+	onCancel: PropTypes.func,
+	onReset: PropTypes.func
 };
 
 TreeSelect.defaultProps = {
@@ -325,8 +334,6 @@ TreeSelect.defaultProps = {
 	defaultValue: [],
 	value: [],
 	hasConfirmButton: false,
-	okBtnText: '确定',
-	cancelBtnText: '取消',
 	className: '',
 	zIndex: 1050,
 	getPopupContainer: triggerNode => triggerNode.parentElement,
@@ -334,7 +341,8 @@ TreeSelect.defaultProps = {
 	onSelectOpen: noop,
 	onSelectClose: noop,
 	onOk: noop,
-	onCancel: noop
+	onCancel: noop,
+	onReset: noop
 };
 
 export default TreeSelect;

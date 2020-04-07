@@ -221,6 +221,8 @@ export default class TreeSelectDemo extends React.Component {
 				<span style={{ marginBottom: 5, fontSize: 12 }}>多选：</span>
 				<TreeSelect
 					multiple
+					isUnfold
+					containParentNode
 					style={{marginBottom: 20}}
 					placeholder="选择一个选项"
 					dataSource={treeData}
@@ -231,8 +233,10 @@ export default class TreeSelectDemo extends React.Component {
 				<TreeSelect
 					multiple
 					hasConfirmButton
+					isUnfold
 					placeholder="选择一个选项"
 					style={{marginBottom: 20}}
+					footerTypes={['ok', 'reset']}
 					dataSource={treeData}
 					showIcon={false}
 					value={this.state.confirmNodes}
@@ -240,6 +244,8 @@ export default class TreeSelectDemo extends React.Component {
 				<span style={{ marginBottom: 5, fontSize: 12 }}>单选：</span>
 				<TreeSelect
 					single
+					isUnfold
+					containParentNode
 					placeholder="选择一个选项"
 					dataSource={treeData}
 					value={this.state.singleNodes}

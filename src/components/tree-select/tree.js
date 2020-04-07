@@ -7,16 +7,16 @@ import { selector } from './const';
 
 import './index.less';
 
-const ConfirmBtn = ({ onOk, onCancel, okBtnText, cancelBtnText }) => {
-	return (
-		<div className={`${selector}-operate-btn`}>
-			<Button type="primary" size="small" className="btn" onClick={onOk}>{ okBtnText }</Button>
-			<Button size="small" className="btn" onClick={onCancel}>{ cancelBtnText }</Button>
-		</div>
-	)
-}
-
 class TreeContainer extends React.Component {
+
+	get buttons() {
+		const { okBtnText, cancelBtnText, resetBtnText, onOk, onCancel, onReset } = this.props;
+		return {
+			ok: <Button type="primary" size="small" key="ok" className="btn" onClick={onOk}>{ okBtnText }</Button>,
+			cancel: <Button size="small" className="btn" key="cancel" onClick={onCancel}>{ cancelBtnText }</Button>,
+			reset: <Button size="small" className="btn" key="reset" onClick={onReset}>{ resetBtnText }</Button>
+		}
+	}
 
 	selectNode = (node, selectedNodes) => {
 		this.props.onChange(node, selectedNodes);
@@ -29,12 +29,9 @@ class TreeContainer extends React.Component {
 			searchable,
 			value,
 			hasConfirmButton,
-			okBtnText,
-			cancelBtnText,
+			footerTypes,
 			dropdownClassName,
 			dropdownStyle,
-			onOk,
-			onCancel,
 			...otherProps
 		} = this.props;
 		const classNames = cls(`${selector}-options`, dropdownClassName, {
@@ -51,11 +48,12 @@ class TreeContainer extends React.Component {
 					supportCheckbox={multiple} />
 				{
 					hasConfirmButton &&
-					<ConfirmBtn
-						onOk={onOk}
-						onCancel={onCancel}
-						okBtnText={okBtnText}
-						cancelBtnText={cancelBtnText} />
+
+					<div className={`${selector}-operate-btn`}>
+						{
+							footerTypes.map(v=> this.buttons[v])
+						}
+					</div>
 				}
 			</div>
 		)
@@ -69,6 +67,8 @@ TreeContainer.propTypes = {
 	hasConfirmButton: PropTypes.bool,
 	okBtnText: PropTypes.string,
 	cancelBtnText: PropTypes.string,
+	resetBtnText: PropTypes.string,
+	footerTypes: PropTypes.array,
 	dropdownClassName: PropTypes.string,
 	dropdownStyle: PropTypes.object,
 	onOk: PropTypes.func,
@@ -80,8 +80,10 @@ TreeContainer.defaultProps = {
 	multiple: false,
 	searchable: false,
 	hasConfirmButton: false,
-	okBtnText: '',
-	cancelBtnText: '',
+	okBtnText: '确定',
+	cancelBtnText: '取消',
+	resetBtnText: '重置',
+	footerTypes: ['ok', 'cancel'],
 	dropdownClassName: '',
 	dropdownStyle: {},
 	onOk: () => {},
