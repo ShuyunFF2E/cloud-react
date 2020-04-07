@@ -89,9 +89,10 @@ class Tree extends Component {
 			return {
 				selectedValue: nextProps.selectedValue,
 				prevProps: nextProps,
-				treeData: store.initData(nextProps.treeData, prevState.maxLevel, nextProps.selectedValue, prevState.isUnfold)
+				treeData: store.initData(nextProps.treeData, prevProps.maxLevel, nextProps.selectedValue, prevProps.isUnfold)
 			};
 		}
+
 		return null;
 	}
 
