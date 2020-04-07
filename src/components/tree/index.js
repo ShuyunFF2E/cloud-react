@@ -23,7 +23,7 @@ class Tree extends Component {
 		nodeNameMaxLength: '',
 		maxLevel: 0,
 		isUnfold: false,
-		showIcon: true,
+		showIcon: false,
 		openIconType: 'folder-solid-open',
 		closeIconType: 'folder-solid',
 		iconColor: '#999',
@@ -371,9 +371,11 @@ class Tree extends Component {
 						visible={visibleMenu}
 					/>
 
-					{treeData[0].children.length > 0 && <TreeList prefixCls={selector} nodeNameMaxLength={nodeNameMaxLength} data={treeData} />}
+					{treeData && treeData.length > 0 && treeData[0].children && treeData[0].children.length > 0 && (
+						<TreeList prefixCls={selector} nodeNameMaxLength={nodeNameMaxLength} data={treeData} />
+					)}
 
-					{!treeData[0].children.length && <p>暂无搜索结果</p>}
+					{(!treeData || !treeData.length || !treeData[0].children || !treeData[0].children.length) && <p>暂无结果</p>}
 				</div>
 			</TreeContext.Provider>
 		);

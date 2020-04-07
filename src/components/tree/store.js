@@ -20,6 +20,10 @@ class Store {
 	 * @returns {*}
 	 */
 	initData = (treeData, maxLevel, selectedValue, isUnfold) => {
+		// 数据不存在或无数据使时
+		if (!treeData || !treeData.length) {
+			return [];
+		}
 		// 单选则直接选中回显值，多选则默认第一个
 		this.activeNode = selectedValue && selectedValue[0];
 		// 处理已选中的节点，treeData中存在selectedValue中的值则选中
