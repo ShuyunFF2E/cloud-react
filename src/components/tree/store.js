@@ -23,7 +23,7 @@ class Store {
 		// 单选则直接选中回显值，多选则默认第一个
 		this.activeNode = selectedValue && selectedValue[0];
 		// 处理已选中的节点，treeData中存在selectedValue中的值则选中
-		const cloneData = jEasy.clone(treeData);
+		const cloneData = this.onResetData(jEasy.clone(treeData));
 
 		// 递归向上查找选择
 		const upFind = currentNode => {
@@ -111,6 +111,37 @@ class Store {
 			});
 		}
 		return cloneData;
+	};
+
+	/**
+	 * 重置选中情况
+	 * @param data
+	 * @returns {{length}|*}
+	 */
+	onResetData = data => {
+		const format = item => {
+			// eslint-disable-next-line no-param-reassign
+			item.indeterminate = false;
+			// eslint-disable-next-line no-param-reassign
+			item.checked = false;
+			if (item.children && item.children.length) {
+				item.children.forEach(i => {
+					// eslint-disable-next-line no-param-reassign
+					i.indeterminate = false;
+					// eslint-disable-next-line no-param-reassign
+					i.checked = false;
+					format(i);
+				});
+			}
+		};
+
+		if (data.length) {
+			data.map(item => {
+				return format(item);
+			});
+		}
+
+		return data;
 	};
 
 	/**
