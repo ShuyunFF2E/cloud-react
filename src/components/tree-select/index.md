@@ -25,6 +25,8 @@ subtitle: 树下拉
 | hasConfirmButton | 多选时是否有确认按钮 | boolean | false |
 | okBtnText | 多选时确认操作按钮文案| string | '确认' |
 | cancelBtnText | 多选时取消操作按钮文案 | string | '取消' |
+| resetBtnText | 多选时重置操作按钮文案 | string | '重置' |
+| footerTypes | 多选时操作按钮类型，可选'ok', 'cancel', 'reset' | array | ['ok', 'cancel'] |
 | dropdownStyle | 下拉菜单的 style 属性 | object | - |
 | dropdownClassName | 下拉菜单的 className 属性 | string | - |
 | getPopupContainer | 下拉菜单渲染的父节点。如果发现下拉菜单被挡住，可以尝试修改定位父元素，如() => document.body | function(triggerNode) | triggerNode => triggerNode.parentElement |
@@ -32,6 +34,7 @@ subtitle: 树下拉
 | onChange | 选中option变化时回调此函数 | function(node, selectedNodes) | - |
 | onOk | 多选时确认操作回调函数| function(node, selectedNodes) | - |
 | onCancel | 多选时取消操作回调函数 | function | - |
+| onReset | 多选时重置操作回调函数 | function | - |
 | onSearch | 搜索文本框变化时回调此函数 | function(value: string, nodes) | - |
 | onSelectOpen | 下拉选择框弹开的时候回调此函数 | function | - |
 | onSelectClose | 下拉选择框关闭的时候回调此函数 | function | - |
