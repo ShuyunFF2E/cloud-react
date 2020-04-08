@@ -80,38 +80,31 @@ export default class Header extends Component {
 		return false;
 	};
 
-	getMinYear = (disabled = false) => {
+	getMinYear = () => {
 		const { min, minYear, year } = this.props;
 		const _minYear = min && min.year < minYear ? min.year : minYear;
-		if (disabled) {
-			return _minYear;
-		}
 		return year < _minYear ? year : _minYear;
 	};
 
-	getMaxYear = (disabled = false) => {
+	getMaxYear = () => {
 		const { max, maxYear, year } = this.props;
 		const _maxYear = max && max.year > maxYear ? max.year : maxYear;
-		if (disabled) {
-			return _maxYear;
-		}
 		return year > _maxYear ? year : _maxYear;
 	};
 
 	getDisabledYear = currentYear => {
-		if (currentYear < this.getMinYear(true) || currentYear > this.getMaxYear(true)) {
-			return true;
+		const { min, max } = this.props;
+		let result = false;
+		if (min && max) {
+			result = currentYear < min.year || currentYear > max.year;
+		} else if (max && !min) {
+			result = currentYear > max.year || currentYear < this.getMinYear();
+		} else if (!max && min) {
+			result = currentYear < min.year || currentYear > this.getMaxYear();
+		} else if (!max && !min) {
+			result = currentYear < this.getMinYear() || currentYear > this.getMaxYear();
 		}
-		return false;
-		// if (min && max) {
-		// 	result = currentYear < min.year || currentYear > max.year;
-		// } else if (max && !min) {
-		// 	result = currentYear > max.year || currentYear < minYear;
-		// } else if (!max && min) {
-		// 	result = currentYear < min.year || currentYear > maxYear;
-		// } else if (!max && !min) {
-		// 	result = currentYear < minYear || currentYear > maxYear;
-		// }
+		return result;
 	};
 
 	renderMonth() {
