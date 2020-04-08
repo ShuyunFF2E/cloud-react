@@ -24,16 +24,22 @@ function TimePicker(props) {
 	const [minute, setMinute] = useState(getValue()[1]);
 	const [second, setSecond] = useState(getValue()[2]);
 	const [temp, setTemp] = useState('');
+	// fix field timePicker
 	const memoValue = useMemo(() => {
-		return value;
-	}, [value]);
+		return getValue();
+	}, [getValue()]);
 
 	useEffect(() => {
-		const arr = getValue();
-		setHour(arr[0]);
-		setMinute(arr[1]);
-		setSecond(arr[2]);
-	}, [memoValue]);
+		setHour(memoValue[0]);
+	}, [memoValue[0]]);
+
+	useEffect(() => {
+		setMinute(memoValue[1]);
+	}, [memoValue[1]]);
+
+	useEffect(() => {
+		setSecond(memoValue[2]);
+	}, [memoValue[2]]);
 
 	function onHourChange(evt) {
 		let inpValue = evt.target.value.trim().replace(/[^\d]/g, '');

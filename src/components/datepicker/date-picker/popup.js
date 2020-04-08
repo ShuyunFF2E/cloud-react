@@ -65,8 +65,8 @@ function Popup(props) {
 				max={util.transformObj(max)}
 				month={tempMonth}
 				year={tempYear}
-				maxYear={(max && max.getFullYear()) || maxYear}
-				minYear={(min && min.getFullYear()) || minYear}
+				maxYear={maxYear}
+				minYear={minYear}
 				onChange={onHeaderChange}
 			/>
 			<Grid
