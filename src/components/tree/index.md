@@ -23,7 +23,7 @@ subtitle: 树
 | supportCheckbox          | 是否支持多选，false 为单选，true 为多选                              | Boolean  | false             |
 | supportMenu              | 是否支持右键菜单                                                     | Boolean  | true              |
 | isUnfold                 | 是否展开存在子节点的节点，默认不展开（根节点一直展开）               | Boolean  | false             |
-| showIcon                 | 是否显示节点前面的 icon                                              | Boolean  | false              |
+| showIcon                 | 是否显示节点前面的 icon                                              | Boolean  | false             |
 | openIconType             | 节点前面的展开 icon 类型，可在 icon 组件中查看相关类型               | String   | folder-solid-open |
 | closeIconType            | 节点前面的关闭 icon 类型，可在 icon 组件中查看相关类型               | String   | folder-solid      |
 | iconColor                | 节点前面的 icon 颜色                                                 | String   | #999              |
@@ -42,7 +42,7 @@ subtitle: 树
 -   disableRename: 布尔类型，设置为 true 则表示不可重命名；
 -   disableRemove: 布尔类型，设置为 true 则表示不可删除；
 -   disableSelected: 布尔类型，设置为 true 则表示不可选择，只是不可选择该节点，若有子节点，其子节点仍可以选择；
--   pId 与 parentId：父节点 id，使用时可写成 parentId 也可写成 pId
+-   pId：父节点 id
 
 ### 数据格式：treeData 属性值
 

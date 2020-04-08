@@ -70,15 +70,18 @@ class Store {
 			// 增加是否展开标志
 			tmp.isUnfold = isUnfold;
 
-			// 根节点默认展开
-			if (!+node.pId) {
+			// 寻找父节点
+			const pNode = this.findNodeById(cloneData, tmp.pId);
+			// 无父节点则为根节点，默认展开
+			if (!pNode) {
 				tmp.isUnfold = true;
 			}
 
 			// 存在已选中节点，则根节点半选
-			if (selectedValue && selectedValue.length && !node.pId) {
+			if (selectedValue && selectedValue.length && !pNode) {
 				tmp.indeterminate = true;
 			}
+
 			if (!children) {
 				tmp.children = [];
 			}
@@ -180,7 +183,7 @@ class Store {
 	 * @returns {*}
 	 */
 	selectedForCheckbox(data, node) {
-		const { checked, children, pId, parentId } = node;
+		const { checked, children, pId } = node;
 		// eslint-disable-next-line no-param-reassign
 		node.indeterminate = false;
 		// 变更自身节点选中状态
@@ -243,13 +246,13 @@ class Store {
 				parentNode.indeterminate = true;
 			}
 
-			if (parentNode.pId || parentNode.parentId) {
-				changeParent(parentNode.pId || parentNode.parentId);
+			if (parentNode.pId || parentNode.pId === 0) {
+				changeParent(parentNode.pId);
 			}
 		};
 
 		changeChildren(children || []);
-		changeParent(pId || parentId);
+		changeParent(pId);
 		return data;
 	}
 
@@ -367,7 +370,7 @@ class Store {
 	 * @returns {*}
 	 */
 	removeChildNode(data, node) {
-		const parentNode = this.findNodeById(data, node.pId || node.parentId);
+		const parentNode = this.findNodeById(data, node.pId);
 
 		// 存在子节点则不可删除
 		if (!parentNode || node.children.length) {

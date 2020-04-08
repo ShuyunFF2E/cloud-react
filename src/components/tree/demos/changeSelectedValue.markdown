@@ -35,15 +35,15 @@ export default class TreeDemo extends React.Component {
 		const randomSelected = [
 			{
 				id: 11,
-				pId: 1
+				pId: 0
 			},
 			{
 				id: 12,
-				pId: 1
+				pId: 0
 			},
 			{
 				id: 13,
-				pId: 1
+				pId: 0
 			},
 			{
 				id: 121,
@@ -96,14 +96,14 @@ export default class TreeDemo extends React.Component {
 	render() {
 		const treeData = [
 			{
-				id: 1,
+				id: 0,
 				name: '根节点',
 				pId: null,
 				children: [
 					{
 						id: 11,
 						name: '一级节点1',
-						pId: 1,
+						pId: 0,
 						disableAdd: true,
 						children: [
 							{
@@ -117,7 +117,7 @@ export default class TreeDemo extends React.Component {
 					{
 						id: 12,
 						name: '一级节点2',
-						pId: 1,
+						pId: 0,
 						disableRemove: true,
 						children: [
 							{
@@ -188,7 +188,7 @@ export default class TreeDemo extends React.Component {
 					{
 						id: 13,
 						name: '节点3',
-						pId: 1
+						pId: 0
 					}
 				]
 			}
