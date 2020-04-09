@@ -16,7 +16,7 @@
 @default-font-size: 12px;
 @small-font-size: 12px;
 
-@clear-icon-font-size: 14px;
+@clear-icon-font-size: 16px;
 @clear-icon-color: #dbdbdb;
 @clear-icon-hover-color: #808080;
 
@@ -25,7 +25,7 @@
 
 @both-space-size: 8px;
 
-@transition: .3s;
+@transition: 0.3s;
 
 .@{input-prefix-cls} {
 	&,
@@ -49,11 +49,7 @@
 		vertical-align: top;
 	}
 
-	/* group */
 	&-wrapper {
-		display: inline-block;
-		vertical-align: top;
-
 		> .@{input-prefix-cls}-group {
 			display: table;
 			width: 100%;
@@ -66,43 +62,47 @@
 		}
 	}
 
+	/* group */
 	&-group {
-		input {
+		&,
+		.@{input-prefix-cls}-group {
+			display: inline-flex;
+			align-items: center;
+		}
+
+		width: @default-width;
+
+		.@{input-prefix-cls}-group {
 			width: 100%;
 		}
-	}
-	&-counter {
-		font-size: 12px;
-		color: #c9c9c9;
-		display: inline-block;
-    	height: 19px;
-	}
 
-	&-affix & {
-		@has-addon-both-padding: 28px;
-
-		/* has prefix || suffix */
-		&:not(:first-child) {
-			padding-left: @has-addon-both-padding;
+		input {
+			width: 100%;
+			border: none;
 		}
 	}
 
 	&-prefix,
 	&-suffix {
-		display: flex;
-    	align-items: center;
-		position: absolute;
-		top: 50%;
-		transform: translateY(-50%);
-		z-index: 2;
+		display: inline-flex;
+		align-items: center;
 	}
 
 	&-prefix {
-		left: @both-space-size;
+		margin-left: 8px;
 	}
 
 	&-suffix {
-		right: @both-space-size;
+		margin-right: 8px;
+	}
+
+	&-affix {
+		border: 1px solid @color-gray5;
+	}
+
+	&-counter {
+		font-size: 12px;
+		color: #c9c9c9;
 	}
 
 	&-addon {
@@ -116,8 +116,9 @@
 		border: 1px solid @color-gray5;
 		transition: @transition;
 
-		/* display: table-cell; width depends on content */
-		width: 0.1px;
+		width: 1px;
+		white-space: nowrap;
+		vertical-align: middle;
 
 		&:not(:first-child) {
 			border-left: none;
@@ -136,6 +137,10 @@
 		pointer-events: none;
 		cursor: pointer;
 		opacity: 0;
+
+		~ * {
+			margin-left: 4px;
+		}
 
 		&.show {
 			opacity: 1;
@@ -168,11 +173,15 @@
 		font-size: @small-font-size;
 	}
 
+	&-focus.@{input-prefix-cls}-affix,
+	&-focus &-affix,
 	&-textarea:focus,
 	&:focus {
 		border-color: @focus-border-color;
 	}
 
+	&-disabled.@{input-prefix-cls}-affix,
+	&-disabled &-affix,
 	&-textarea:disabled,
 	&:disabled {
 		color: @color-gray3;

@@ -141,6 +141,7 @@ function User({ field: { init } }) {
 			<div style={{ display: 'inline-flex', alignItem: 'flex-start' }}>
 				<div>
 					<Input
+						hasClear
 						style={{ width: 140, marginRight: 10 }}
 						placeholder="请输入名字"
 						{...init('firstName', {
@@ -151,6 +152,7 @@ function User({ field: { init } }) {
 
 				<div>
 					<Input
+						hasClear
 						style={{ width: 100 }}
 						placeholder="请输入姓氏"
 						{...init('lastName', {

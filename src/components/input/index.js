@@ -27,6 +27,8 @@ class Input extends React.PureComponent {
 		hasCounter: PropTypes.bool,
 		hasClear: PropTypes.bool,
 		onChange: PropTypes.func,
+		onFocus: PropTypes.func,
+		onBlur: PropTypes.func,
 		onKeyDown: PropTypes.func,
 		onEnter: PropTypes.func
 	};
@@ -43,6 +45,8 @@ class Input extends React.PureComponent {
 		addonBefore: nothing,
 		hasCounter: false,
 		hasClear: false,
+		onFocus: noop,
+		onBlur: noop,
 		onChange: noop,
 		onKeyDown: noop,
 		onEnter: noop
@@ -61,6 +65,7 @@ class Input extends React.PureComponent {
 		super(props);
 		const { value, defaultValue } = props;
 		this.state = {
+			focused: false,
 			value: (value === nothing ? defaultValue : value) || ''
 		};
 		this.inputRef = React.createRef();
@@ -87,6 +92,14 @@ class Input extends React.PureComponent {
 
 	onChange = evt => {
 		this.setValue(evt.target.value, evt);
+	};
+
+	onFocus = evt => {
+		this.setState({ focused: true }, () => this.props.onFocus(evt));
+	};
+
+	onBlur = evt => {
+		this.setState({ focused: false }, () => this.props.onFocus(evt));
 	};
 
 	onClearValue = evt => {
@@ -157,51 +170,26 @@ class Input extends React.PureComponent {
 		);
 	}
 
-	getPaddingRight() {
-		const { hasClear, hasCounter } = this.props;
-
-		if (hasClear && !hasCounter) {
-			return 28;
-		}
-
-		if (!hasClear && hasCounter) {
-			return 40;
-		}
-
-		if (hasClear && hasCounter) {
-			return 56;
-		}
-
-		return 8;
-	}
-
 	render() {
 		const { isPure } = this;
-		const { value } = this.state;
+		const { value, focused } = this.state;
 		const { size, className, style, hasClear, hasCounter, addonAfter, addonBefore, prefix, suffix, ...others } = this.props;
 
-		const classNames = classnames(
-			`${prefixCls}-input`,
-			{
-				[size]: true
-			},
-			className
-		);
+		const _className = `${prefixCls}-input`;
 
 		const props = omit(others, ['defaultValue', 'hasCounter', 'hasClear', 'prefix', 'suffix', 'addonAfter', 'addonBefore', 'onEnter']);
-
-		const inputStyle = {
-			paddingRight: `${this.getPaddingRight()}px`,
-			...style
+		const commonProps = {
+			ref: this.inputRef,
+			value,
+			onBlur: this.onBlur,
+			onFocus: this.onFocus,
+			onChange: this.onChange,
+			onKeyDown: this.onKeyDown
 		};
-
-		const Element = (
-			<input {...props} ref={this.inputRef} style={inputStyle} value={value} className={classNames} onChange={this.onChange} onKeyDown={this.onKeyDown} />
-		);
 
 		// basic input
 		if (isPure) {
-			return Element;
+			return <input {...props} {...commonProps} style={isPure ? style : {}} className={classnames(_className, className, size)} />;
 		}
 
 		// merge clearIcon & suffix
@@ -209,22 +197,31 @@ class Input extends React.PureComponent {
 
 		// has addon content
 		return (
-			<InputWrapper prefix={prefix} suffix={_suffix} addonAfter={addonAfter} addonBefore={addonBefore}>
-				{Element}
+			<InputWrapper
+				prefix={prefix}
+				suffix={_suffix}
+				addonAfter={addonAfter}
+				addonBefore={addonBefore}
+				style={style}
+				className={classnames(className, {
+					[`${_className}-focus`]: focused,
+					[`${_className}-disabled`]: props.disabled
+				})}>
+				<input {...props} {...commonProps} className={classnames(_className, size)} />
 			</InputWrapper>
 		);
 	}
 }
 
 // InputWrapper
-function InputWrapper({ prefix, suffix, addonBefore, addonAfter, className, children }) {
+function InputWrapper({ prefix, suffix, addonBefore, addonAfter, className, style, children }) {
 	const both = prefix || suffix;
 	const addon = addonBefore || addonAfter;
 
 	// complex types
 	if (both && addon) {
 		return (
-			<InputWrapper addonBefore={addonBefore} addonAfter={addonAfter}>
+			<InputWrapper addonBefore={addonBefore} addonAfter={addonAfter} className={className} style={style}>
 				<InputWrapper prefix={prefix} suffix={suffix}>
 					{children}
 				</InputWrapper>
@@ -234,7 +231,7 @@ function InputWrapper({ prefix, suffix, addonBefore, addonAfter, className, chil
 
 	if (both && !addon) {
 		return (
-			<InputWrapper className={classnames(`${prefixCls}-input-affix`)}>
+			<InputWrapper className={classnames(`${prefixCls}-input-affix`, className)} style={style}>
 				<Addon className={classnames(`${prefixCls}-input-prefix`)}>{prefix}</Addon>
 				{children}
 				<Addon className={classnames(`${prefixCls}-input-suffix`)}>{suffix}</Addon>
@@ -244,7 +241,7 @@ function InputWrapper({ prefix, suffix, addonBefore, addonAfter, className, chil
 
 	if (!both && addon) {
 		return (
-			<div className={classnames(`${prefixCls}-input-wrapper`)}>
+			<div className={classnames(`${prefixCls}-input-wrapper`, className)} style={style}>
 				<InputWrapper>
 					<Addon className={classnames(`${prefixCls}-input-addon`)}>{addonBefore}</Addon>
 					{children}
@@ -254,7 +251,11 @@ function InputWrapper({ prefix, suffix, addonBefore, addonAfter, className, chil
 		);
 	}
 
-	return <div className={classnames(`${prefixCls}-input-group`, className)}>{children}</div>;
+	return (
+		<div className={classnames(`${prefixCls}-input-group`, className)} style={style}>
+			{children}
+		</div>
+	);
 }
 
 InputWrapper.propTypes = {
@@ -277,7 +278,7 @@ InputWrapper.defaultProps = {
 
 // Addon
 function Addon({ className, children }) {
-	return !children ? null : <span className={className}>{children}</span>;
+	return !children ? null : <div className={className}>{children}</div>;
 }
 
 Addon.propTypes = {
