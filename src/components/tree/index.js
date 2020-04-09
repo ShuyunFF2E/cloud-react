@@ -85,7 +85,7 @@ class Tree extends Component {
 	static getDerivedStateFromProps(nextProps, prevState) {
 		const { prevProps } = prevState;
 
-		if (prevProps !== nextProps) {
+		if (prevProps.selectedValue !== nextProps.selectedValue) {
 			return {
 				selectedValue: nextProps.selectedValue,
 				prevProps: nextProps,
