@@ -22,6 +22,10 @@ class Node extends Component {
 
 	// 打开右键菜单
 	onHandleContextMenu = (e, node, options) => {
+		// 不使用右键菜单则使用浏览器默认右键菜单
+		if (!this.context.supportMenu) {
+			return;
+		}
 		e.preventDefault();
 		const menuStyle = {
 			left: `${e.clientX}px`,
