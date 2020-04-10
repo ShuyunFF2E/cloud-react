@@ -83,6 +83,8 @@ class Select extends Component {
 
 	componentDidMount() {
 		document.addEventListener('click', this.handleClick);
+
+		this.node.current.addEventListener('mouseleave', this.handleMouseLeave);
 	}
 
 	shouldComponentUpdate(nextProps, nextState) {
@@ -117,6 +119,7 @@ class Select extends Component {
 
 	componentWillUnmount() {
 		document.removeEventListener('click', this.handleClick);
+		this.node.current.removeEventListener('mouseleave', this.handleMouseLeave);
 
 		const { optionsContainer } = this;
 
@@ -223,6 +226,17 @@ class Select extends Component {
 		optionsContainer.style.width = `${width}px`;
 
 		return optionsContainer;
+	}
+
+	handleMouseLeave = () => {
+		const {
+			props: { trigger },
+			state: { open },
+			handleSelect
+		} = this;
+		if (trigger === 'hover' && open) {
+			handleSelect();
+		}
 	}
 
 	handleClick = e => {

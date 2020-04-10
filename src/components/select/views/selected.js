@@ -66,7 +66,8 @@ export default class Selected extends React.Component {
 	}
 
 	onMouseLeave = () => {
-		if (this.props.allowClear) {
+		const { disabled, allowClear } = this.props;
+		if (!disabled && allowClear) {
 			this.setState({
 				clear: false
 			})
