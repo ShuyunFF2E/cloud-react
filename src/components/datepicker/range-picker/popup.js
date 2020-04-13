@@ -21,20 +21,30 @@ function getDateObjArr(checkDateArr, min, max) {
 			second: ''
 		};
 		if (defaultTotalMonth >= minTotalMonth && defaultTotalMonth <= maxTotalMonth) {
-			return { ...dateObj, ...{
-				year: defaultYear,
-				month: defaultMonth + value
-			} };
-		}  if (defaultTotalMonth > maxTotalMonth) {
-			return { ...dateObj, ...{
-				year: max.getFullYear(),
-				month: max.getMonth() + 1 + value,
-			} };
+			return {
+				...dateObj,
+				...{
+					year: defaultYear,
+					month: defaultMonth + value
+				}
+			};
 		}
-		return { ...dateObj, ...{
-			year: min.getFullYear(),
-			month: min.getMonth() + 1 + value
-		} };
+		if (defaultTotalMonth > maxTotalMonth) {
+			return {
+				...dateObj,
+				...{
+					year: max.getFullYear(),
+					month: max.getMonth() + 1 + value
+				}
+			};
+		}
+		return {
+			...dateObj,
+			...{
+				year: min.getFullYear(),
+				month: min.getMonth() + 1 + value
+			}
+		};
 	}
 
 	const arr = [];
@@ -51,19 +61,27 @@ function getDateObjArr(checkDateArr, min, max) {
 	return arr;
 }
 
-function trans2DateArray(arr) {
-	return [new Date(`${arr[0].year}/${arr[0].month}/${arr[0].day}`), new Date(`${arr[1].year}/${arr[1].month}/${arr[1].day}`)]
+function initTime() {
+	return {
+		hour: '00',
+		minute: '00',
+		second: '00'
+	};
 }
 
 function Popup(props) {
 	// checkDateArr为数组，当前rangepicker组件里的值, min/max 都是Date
-	const { left, top, min, max, className, checkDateArr, onChange, maxYear, minYear } = props;
+	const { left, top, min, max, className, checkDateArr, onChange, maxYear, minYear, showTimePicker, mode } = props;
 
 	// 需要设计3对min/max, 配置的min/max, 组件A的min/max, 组件B的min/max
 	const [tempArrObj, setTempArrObj] = useState(getDateObjArr(checkDateArr, min, max));
 
 	const [tempMin, setTempMin] = useState(min);
 	const [tempMax, setTempMax] = useState(max);
+	const [startTime, setStartTime] = useState(initTime());
+	const [endTime, setEndTime] = useState(initTime());
+	const [timeIsValid, setTimeIsValid] = useState(false);
+	// const [currentRange, setCurrentRange] = useState([])
 
 	function initEnd(attribute, _startMin) {
 		if (attribute) {
@@ -90,19 +108,22 @@ function Popup(props) {
 
 		const y = maxB.getMonth() === 0 ? maxB.getFullYear() - 1 : maxB.getFullYear();
 		const m = maxB.getMonth() === 0 ? 12 : maxB.getMonth();
-		return new Date(y, m,0,23,59,59);
+		return new Date(y, m, 0, 23, 59, 59);
 	}
 
 	function initTempRange(arrObj) {
 		const endMinDate = initEnd(min, arrObj[0]);
 		if (arrObj[0].year === arrObj[1].year && arrObj[0].month === arrObj[1].month) {
-			const endYear = arrObj[1].month === 12 ?  arrObj[1].year + 1 : arrObj[1].year;
+			const endYear = arrObj[1].month === 12 ? arrObj[1].year + 1 : arrObj[1].year;
 			const endMonth = arrObj[1].month === 12 ? 1 : arrObj[1].month + 1;
 			return [
 				{
 					days: util.refreshDays(arrObj[0].year, arrObj[0].month),
 					year: arrObj[0].year,
 					month: arrObj[0].month,
+					hour: arrObj.hour,
+					minute: arrObj.minute,
+					second: arrObj.second,
 					minDate: min,
 					maxDate: initStartMax(max, endMinDate)
 				},
@@ -110,6 +131,9 @@ function Popup(props) {
 					days: util.refreshDays(endYear, endMonth),
 					year: endYear,
 					month: endMonth,
+					hour: arrObj.hour,
+					minute: arrObj.minute,
+					second: arrObj.second,
 					// 记录End日期框范围（至少大于Start日期框一个月）
 					minDate: endMinDate,
 					maxDate: initEnd(max),
@@ -143,22 +167,31 @@ function Popup(props) {
 					max: tempMax
 				}
 			}
-		]
+		];
 	}
 
 	function initTempRangeValue() {
 		if (checkDateArr.length === 2 && checkDateArr[0] && checkDateArr[1]) {
-			return [{
-				year: tempArrObj[0].year,
-				month: tempArrObj[0].month,
-				day: tempArrObj[0].day
-			}, {
-				year: tempArrObj[1].year,
-				month: tempArrObj[1].month,
-				day: tempArrObj[1].day
-			}];
+			return [
+				{
+					year: tempArrObj[0].year,
+					month: tempArrObj[0].month,
+					day: tempArrObj[0].day,
+					hour: tempArrObj[0].hour,
+					minute: tempArrObj[0].minute,
+					second: tempArrObj[0].second
+				},
+				{
+					year: tempArrObj[1].year,
+					month: tempArrObj[1].month,
+					day: tempArrObj[1].day,
+					hour: tempArrObj[1].hour,
+					minute: tempArrObj[1].minute,
+					second: tempArrObj[1].second
+				}
+			];
 		}
-		return [null, null];
+		return [initTime(), initTime()];
 	}
 
 	// 跟年月 下拉框对应的Grid
@@ -167,7 +200,7 @@ function Popup(props) {
 	const [tempRangeValue, setTempRangeValue] = useState(initTempRangeValue());
 
 	useEffect(() => {
-		const _tempArr = getDateObjArr(checkDateArr, tempRange[0].minDate,  tempRange[0].maxDate)
+		const _tempArr = getDateObjArr(checkDateArr, tempRange[0].minDate, tempRange[0].maxDate);
 		setTempArrObj(_tempArr);
 		setTempRange(initTempRange(_tempArr));
 	}, [checkDateArr]);
@@ -181,7 +214,7 @@ function Popup(props) {
 
 		const range = [...tempRange];
 		range[0].minDate = min;
-		range[0].maxDate =  initStartMax(max, _tempEndMin);
+		range[0].maxDate = initStartMax(max, _tempEndMin);
 		range[1].minDate = _tempEndMin;
 		range[1].maxDate = _tempEndMax;
 		range[1].config = {
@@ -191,13 +224,83 @@ function Popup(props) {
 		setTempRange(range);
 	}, [min, max]);
 
+	function rangeEmptyValidator(range) {
+		return range[0] && range[1];
+	}
+
+	function rangeLimitValidator(rangeValue) {
+		// 验证时间范围
+		if (util.transTimeObj2Date(rangeValue[0], showTimePicker) > min && util.transTimeObj2Date(rangeValue[1], showTimePicker) < max) {
+			return true;
+		}
+		return false;
+	}
+
+	function sortObjDate(dateArr) {
+		// 时间大小排序
+		const _dateArr = dateArr;
+		const dateOne = util.transTimeObj2Date(dateArr[0]);
+		const dateTwo = util.transTimeObj2Date(dateArr[1]);
+		return dateOne > dateTwo ? _dateArr.reverse() : _dateArr;
+	}
+
 	function onGridChange(values) {
+		if (rangeEmptyValidator(values)) {
+			const timeRange = sortObjDate(values);
+			// setCurrentRange([{ ...timeRange[0], ...startTime }, { ...timeRange[1], ...endTime }])
+			setTempRangeValue([
+				{ ...timeRange[0], ...startTime },
+				{ ...timeRange[1], ...endTime }
+			]);
+		}
 		setTempRangeValue(values);
 	}
 
-	function onOK(value) {
-		if (value[0] && value[1]) {
-			onChange(trans2DateArray(value));
+	function rangeValueValidatior() {
+		// 时间范围验证
+		// if(rangeEmptyValidator(currentRange) && rangeLimitValidator(currentRange)) {
+		if (rangeEmptyValidator(tempRangeValue) && rangeLimitValidator(tempRangeValue)) {
+			setTimeIsValid(true);
+		} else {
+			setTimeIsValid(false);
+		}
+	}
+
+	function onTimePickChange(time, type) {
+		if (type === 'start') {
+			setStartTime(time);
+		} else {
+			setEndTime(time);
+		}
+		rangeValueValidatior();
+	}
+
+	function timeChangeValidator(timeObj) {
+		return Object.values(timeObj).join('') === '000000';
+	}
+
+	// useEffect(() => {
+	// 	rangeValueValidatior()
+	// },[currentRange])
+
+	useEffect(() => {
+		rangeValueValidatior();
+	}, [tempRangeValue]);
+
+	useEffect(() => {
+		if (rangeEmptyValidator(tempRangeValue)) {
+			// timepicker更新
+			// setCurrentRange([{ ...currentRange[0], ...startTime }, { ...currentRange[1], ...endTime }])
+			setTempRangeValue([
+				{ ...tempRangeValue[0], ...(timeChangeValidator(startTime) ? {} : startTime) },
+				{ ...tempRangeValue[1], ...(timeChangeValidator(endTime) ? {} : endTime) }
+			]);
+		}
+	}, [startTime, endTime]);
+
+	function onOK() {
+		if (rangeEmptyValidator(tempRangeValue)) {
+			onChange([util.transTimeObj2Date(tempRangeValue[0], showTimePicker), util.transTimeObj2Date(tempRangeValue[1], showTimePicker)]);
 		}
 	}
 
@@ -222,7 +325,6 @@ function Popup(props) {
 			range[1].minDate = _min;
 			range[1].config.min = _min;
 			setTempRange(range);
-
 		} else {
 			const d1 = tempArrObj[1];
 			d1.year = y;
@@ -258,7 +360,7 @@ function Popup(props) {
 					max={util.transformObj(tempRange[0].maxDate)}
 					maxYear={maxYear}
 					minYear={minYear}
-					style={{ width:250, marginRight: '8px' }}
+					style={{ width: 250, marginRight: '8px' }}
 				/>
 				<Header
 					month={tempRange[1].month}
@@ -268,13 +370,17 @@ function Popup(props) {
 					max={util.transformObj(tempRange[1].maxDate)}
 					maxYear={maxYear}
 					minYear={minYear}
-					style={{ width:250 }}
+					style={{ width: 250 }}
 				/>
 			</div>
 			<Grid
 				range={tempRange}
+				mode={mode}
 				rangValue={tempRangeValue}
+				showTimePicker={showTimePicker}
 				onChange={onGridChange}
+				timeIsValid={timeIsValid}
+				onTimePickChange={onTimePickChange}
 				onOK={onOK}
 			/>
 		</div>
@@ -285,20 +391,24 @@ Popup.propTypes = {
 	className: PropTypes.string,
 	left: PropTypes.number,
 	top: PropTypes.number,
+	mode: PropTypes.string,
 	min: PropTypes.instanceOf(Date),
 	max: PropTypes.instanceOf(Date),
-	checkDateArr: PropTypes.arrayOf(PropTypes.instanceOf(Date)),
+	showTimePicker: PropTypes.bool,
+	checkDateArr: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.string])),
 	onChange: PropTypes.func
-}
+};
 
 Popup.defaultProps = {
 	left: 0,
 	top: 0,
 	min: undefined,
 	max: undefined,
+	mode: undefined,
+	showTimePicker: false,
 	className: '',
-	checkDateArr:[null, null],
-	onChange: () => { }
-}
+	checkDateArr: [null, null],
+	onChange: () => {}
+};
 
 export default Popup;

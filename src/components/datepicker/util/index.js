@@ -1,3 +1,5 @@
+import enumObj from './enum';
+
 const monthArr = ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'];
 const miniWeek = ['日', '一', '二', '三', '四', '五', '六'];
 
@@ -7,7 +9,7 @@ function current() {
 
 function getMonthSize(year, month) {
 	const now = current();
-	return new Date((year || now.getFullYear()), (month || now.getMonth() + 1), 0).getDate();
+	return new Date(year || now.getFullYear(), month || now.getMonth() + 1, 0).getDate();
 }
 
 function getWeekDisplayRange(year, month) {
@@ -19,7 +21,7 @@ function getWeekDisplayRange(year, month) {
 }
 // 获取当前年月日时分秒对象
 function displayNow(date = current()) {
-	const now = new Date(date)
+	const now = new Date(date);
 	const newHour = `0${now.getHours()}`;
 	const newMinute = `0${now.getMinutes()}`;
 	const newSecond = `0${now.getSeconds()}`;
@@ -29,13 +31,13 @@ function displayNow(date = current()) {
 		day: now.getDate(),
 		hour: newHour.substr(newHour.length - 2, 2),
 		minute: newMinute.substr(newMinute.length - 2, 2),
-		second: newSecond.substr(newSecond.length - 2, 2),
-	}
+		second: newSecond.substr(newSecond.length - 2, 2)
+	};
 }
 
 function today() {
 	const now = current();
-	return `${now.getFullYear()}-${(now.getMonth() + 1)}-${now.getDate()}`;
+	return `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
 }
 // 根据年月获取对应面板的日期详情
 function getMonthData(year, month) {
@@ -60,15 +62,15 @@ function getMonthData(year, month) {
 
 	const prevRange = getMonthSize(_year, prevMonth);
 
-	for (let i = 0; i < dayBefore;) {
+	for (let i = 0; i < dayBefore; ) {
 		prevMonthDays.push(prevRange - i);
 		i += 1;
 	}
-	for (let j = 1; j <= dayAfter;) {
+	for (let j = 1; j <= dayAfter; ) {
 		nextMonthDays.push(j);
 		j += 1;
 	}
-	for (let k = 0; k < monthSize;) {
+	for (let k = 0; k < monthSize; ) {
 		curMonthDays.push(k + 1);
 		k += 1;
 	}
@@ -77,7 +79,7 @@ function getMonthData(year, month) {
 		prev: prevMonthDays.reverse(),
 		current: curMonthDays,
 		next: nextMonthDays
-	}
+	};
 }
 
 function refreshDays(year, month) {
@@ -96,15 +98,15 @@ function convert(date, fmt) {
 		'm+': minute,
 		's+': second,
 		'q+': Math.floor((currentDate.getMonth() + 3) / 3),
-		'S': currentDate.getMilliseconds()
+		S: currentDate.getMilliseconds()
 	};
 	let _fmt = fmt;
 	if (year && /(y+|Y+)/.test(_fmt)) {
-		_fmt = _fmt.replace(RegExp.$1, (year.toString()).substr(4 - RegExp.$1.length));
+		_fmt = _fmt.replace(RegExp.$1, year.toString().substr(4 - RegExp.$1.length));
 	}
 	Object.keys(o).forEach(k => {
 		if (new RegExp(`(${k})`).test(_fmt)) {
-			_fmt = _fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? (o[k]) : ((`00${o[k]}`).substr((o[k].toString()).length)));
+			_fmt = _fmt.replace(RegExp.$1, RegExp.$1.length === 1 ? o[k] : `00${o[k]}`.substr(o[k].toString().length));
 		}
 	});
 	return _fmt;
@@ -118,7 +120,7 @@ function range(from, to) {
 		_from = 0;
 	}
 	const arr = [];
-	for (let i = _from; i < _to;) {
+	for (let i = _from; i < _to; ) {
 		arr[i] = i;
 		i += 1;
 	}
@@ -126,8 +128,8 @@ function range(from, to) {
 }
 
 function formatTime(param, d = '') {
-	if (param === '') {
-		return  d;
+	if (param === '' || param === undefined) {
+		return d;
 	}
 	if (param.length === 2) {
 		return param;
@@ -142,6 +144,27 @@ function transformObj(date) {
 	return null;
 }
 
+function getFormat(_showTimePicker, _mode, format = enumObj.DEFAULT_FORMAT) {
+	if (_showTimePicker) {
+		if (_mode === enumObj.DATE_HOUR) {
+			return `${format} hh`;
+		}
+		if (_mode === enumObj.DATE_HOUR_MINUTE) {
+			return `${format} hh:mm`;
+		}
+		return `${format} hh:mm:ss`;
+	}
+	return `${format}`;
+}
+
+function serializeTime(dateObj) {
+	return `${formatTime(dateObj.hour, '00')}:${formatTime(dateObj.minute, '00')}:${formatTime(dateObj.second, '00')}`;
+}
+
+function transTimeObj2Date(obj, showTimePicker) {
+	return new Date(`${obj.year}/${obj.month}/${obj.day} ${showTimePicker ? serializeTime(obj) : ''}`);
+}
+
 const utils = {
 	convert,
 	formatTime,
@@ -151,7 +174,9 @@ const utils = {
 	monthArr,
 	miniWeek,
 	transformObj,
-	range
-}
+	transTimeObj2Date,
+	range,
+	getFormat
+};
 
 export default utils;

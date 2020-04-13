@@ -17,21 +17,6 @@ import {
 	selector
 } from '../util/view-common';
 
-const DEFAULT_FORMAT = 'yyyy/MM/dd';
-
-function getFormat(_showTimePicker, _mode, format = DEFAULT_FORMAT) {
-	if (_showTimePicker) {
-		if (_mode === enumObj.DATE_HOUR) {
-			return `${format} hh`;
-		}
-		if (_mode === enumObj.DATE_HOUR_MINUTE) {
-			return `${format} hh:mm`;
-		}
-		return `${format} hh:mm:ss`;
-	}
-	return `${format}`;
-}
-
 function DatePicker(props) {
 	const {
 		value,
@@ -64,7 +49,7 @@ function DatePicker(props) {
 			.toString()
 			.replace('.', '')
 	);
-	let fmt = getFormat(showTimePicker, mode, format);
+	let fmt = util.getFormat(showTimePicker, mode, format);
 	const [visible, setVisible] = useState(open);
 	const [currentValueDate, setCurrentValueDate] = useState(isVaild(value) ? value : defaultValue);
 	const [currentValue, setCurrentValue] = useState(() => {
@@ -105,7 +90,7 @@ function DatePicker(props) {
 	}, [open]);
 
 	useEffect(() => {
-		fmt = getFormat(showTimePicker, mode);
+		fmt = util.getFormat(showTimePicker, mode);
 	}, [showTimePicker, mode]);
 
 	function onPopChange(obj) {
@@ -248,7 +233,7 @@ DatePicker.propTypes = {
 DatePicker.defaultProps = {
 	className: '',
 	selectorStyle: {},
-	format: DEFAULT_FORMAT,
+	format: '',
 	mode: undefined,
 	disabled: false,
 	placeholder: '请选择日期',
