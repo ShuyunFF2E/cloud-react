@@ -73,7 +73,6 @@ subtitle: 日期选择框
 | format         | 格式化输出格式                         | string                                                | `默认 YYYY/MM/DD`                  |
 | onChange       | 选择日期改变                           | Function(value: [string,string], value2: [date,date]) | -                                  |
 | showTimePicker | 是否展示时间选择器                     | boolean                                               | `false`                            |
-| mode           | 输入时间格式(可选值:DATE_HOUR          | DATE_HOUR_MINUTE )                                    | string                             | - |
 
 ### YearPicker
 

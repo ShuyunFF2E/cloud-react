@@ -133,6 +133,7 @@ function RangePicker(props) {
 					onChange={onPopChange}
 					left={left}
 					top={top}
+					mode={mode}
 				/>
 			);
 			return;
