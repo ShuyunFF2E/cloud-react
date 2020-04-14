@@ -99,7 +99,7 @@ class Input extends React.PureComponent {
 	};
 
 	onBlur = evt => {
-		this.setState({ focused: false }, () => this.props.onFocus(evt));
+		this.setState({ focused: false }, () => this.props.onBlur(evt));
 	};
 
 	onClearValue = evt => {
