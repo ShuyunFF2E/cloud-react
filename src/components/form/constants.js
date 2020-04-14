@@ -30,3 +30,17 @@ export const findFieldsName = (children = []) => {
 
 	return result;
 };
+
+export const getNamesByNode = parentNode => {
+	const children = parentNode.querySelectorAll(`[${DATA_FIELD}]`);
+
+	return [...children].map(child => child.getAttribute(DATA_FIELD));
+};
+
+export const findDestroyedFields = (prevNames, names) => {
+	return prevNames.reduce((acc, n) => {
+		if (!names.includes(n)) acc.push(n);
+
+		return acc;
+	}, []);
+};

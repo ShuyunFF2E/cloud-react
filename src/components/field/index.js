@@ -226,6 +226,8 @@ export default class Field {
 				delete this.fieldsMeta[name];
 			}
 		});
+
+		this.__render__();
 	};
 
 	validate = (names, callback) => {

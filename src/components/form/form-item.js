@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component, Children, cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
@@ -5,7 +6,7 @@ import { prefixCls } from '@utils/config';
 
 import FormContext from './context';
 import Explain from './explain';
-import { LAYOUT_TYPES, DATA_FIELD, findFieldsName } from './constants';
+import { LAYOUT_TYPES, DATA_FIELD, findFieldsName, getNamesByNode, findDestroyedFields } from './constants';
 
 const MAX_COL = 24;
 const noop = () => {};
@@ -41,12 +42,31 @@ export default class Form extends Component {
 		children: null
 	};
 
+	wrapperRef = React.createRef();
+
+	getSnapshotBeforeUpdate() {
+		return getNamesByNode(this.wrapperRef.current);
+	}
+
+	componentDidUpdate(_, __, snapshotNames) {
+		const _names = getNamesByNode(this.wrapperRef.current);
+		const names = findDestroyedFields(snapshotNames, _names);
+
+		if (names.length > 0) {
+			this.destructionExpiredFields(names);
+		}
+	}
+
 	componentWillUnmount() {
-		const { field, dataFields } = this;
+		this.destructionExpiredFields();
+	}
+
+	destructionExpiredFields(names = this.dataFields) {
+		const { field } = this;
 
 		// 如果设置了校验规则，则重置并删除
-		if (field && field.remove && dataFields && dataFields.length) {
-			field.remove(dataFields);
+		if (field && field.remove && names && names.length) {
+			field.remove(names);
 		}
 	}
 
@@ -144,7 +164,7 @@ export default class Form extends Component {
 		};
 
 		return (
-			<div {...wrapperAttrs}>
+			<div ref={this.wrapperRef} {...wrapperAttrs}>
 				{this.renderChildren(children)}
 				{<Explain>{help}</Explain>}
 			</div>
