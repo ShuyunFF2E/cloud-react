@@ -98,8 +98,13 @@ class TreeSelect extends Component {
 		return this.props.zIndex;
 	}
 
+	get isTree() {
+		const { multiple, single } = this.props;
+		return multiple || single;
+	}
+
 	get treeNode() {
-		if (!this.props.multiple && !this.props.single) {
+		if (!this.isTree) {
 			return (
 				<SingleTree
 					{...this.props}
@@ -224,12 +229,17 @@ class TreeSelect extends Component {
 	onClearSelected = e => {
 		e.preventDefault();
 		e.stopPropagation();
-		const { multiple, single } = this.props;
-		const value = multiple || single ? [] : {};
+		const value = this.isTree ? [] : {};
 		this.setState({
 			value,
 			prevValue: value
 		});
+
+		if (this.isTree) {
+			this.props.onChange({}, value);
+		} else {
+			this.props.onChange(value);
+		}
 	}
 
 	handleOk = () => {

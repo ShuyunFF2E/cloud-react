@@ -223,6 +223,7 @@ export default class TreeSelectDemo extends React.Component {
 					multiple
 					isUnfold
 					containParentNode
+					allowClear
 					style={{marginBottom: 20}}
 					placeholder="选择一个选项"
 					dataSource={treeData}
@@ -234,12 +235,14 @@ export default class TreeSelectDemo extends React.Component {
 					multiple
 					hasConfirmButton
 					isUnfold
+					allowClear
 					placeholder="选择一个选项"
 					style={{marginBottom: 20}}
 					footerTypes={['ok', 'reset']}
 					dataSource={treeData}
 					showIcon={false}
 					value={this.state.confirmNodes}
+					onChange={this.handleChange}
 					onOk={this.onOk} />
 				<span style={{ marginBottom: 5, fontSize: 12 }}>单选：</span>
 				<TreeSelect
