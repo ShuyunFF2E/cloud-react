@@ -340,6 +340,7 @@ class Select extends Component {
 
 		const { multiple } = this.props;
 		const value = multiple ? [] : '';
+		const { prevResult } = this.state;
 
 		this.setState({
 			selected: [],
@@ -347,6 +348,7 @@ class Select extends Component {
 			prevValue: value,
 			prevResult: value
 		});
+		this.props.onChange(value, prevResult);
 	};
 
 	handleOk = () => {

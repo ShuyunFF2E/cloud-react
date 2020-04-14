@@ -15,8 +15,8 @@ export default class TreeSelectDemo extends React.Component {
 		super(props);
 	}
 
-	handleChange = (node, selectedNodes) => {
-		console.log(node, selectedNodes);
+	handleChange = node => {
+		console.log(node);
 	}
 
 	render() {
