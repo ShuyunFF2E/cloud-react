@@ -1,13 +1,12 @@
 import React, { Component, Children, cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import { noop } from '@utils';
 
 import FormContext from './context';
 import Explain from './explain';
 
 import { DATA_FIELD, findFieldsName } from './constants';
-
-const noop = () => {};
 
 export default class FormB extends Component {
 	static contextType = FormContext;

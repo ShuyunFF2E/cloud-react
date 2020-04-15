@@ -1,4 +1,4 @@
-import { prefixCls } from '@utils/config';
+import { prefixCls } from '@utils';
 
 export const TYPE = {
 	PICTURE: 'picture',

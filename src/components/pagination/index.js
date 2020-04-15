@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { prefixCls } from '@utils/config';
+import { noop, prefixCls } from '@utils';
 
 import Icon from '../icon';
 
 import './index.less';
-
-const noop = () => {};
 
 class Pagination extends Component {
 	static propTypes = {
@@ -31,7 +29,6 @@ class Pagination extends Component {
 	};
 
 	constructor(props) {
-
 		super(props);
 
 		const { pageSize, current, showPageSizeOptions, pageSizeOptions } = props;
@@ -71,12 +68,7 @@ class Pagination extends Component {
 	renderLowerPagesLength = (current, pages) => {
 		for (let i = 1; i <= this.totalPage; i += 1) {
 			pages.push(
-				<li
-					role="presentation"
-					onClick={() => this.goPage(i)}
-					className={current === i ? 'active' : ''}
-					key={i}
-				>
+				<li role="presentation" onClick={() => this.goPage(i)} className={current === i ? 'active' : ''} key={i}>
 					{i}
 				</li>
 			);
@@ -89,12 +81,7 @@ class Pagination extends Component {
 	renderRightEllipsePages = (offset, pages, current) => {
 		for (let i = 1; i <= offset + 1; i += 1) {
 			pages.push(
-				<li
-					role="presentation"
-					key={i}
-					className={current === i ? 'active' : ''}
-					onClick={() => this.goPage(i)}
-				>
+				<li role="presentation" key={i} className={current === i ? 'active' : ''} onClick={() => this.goPage(i)}>
 					{i}
 				</li>
 			);
@@ -103,20 +90,11 @@ class Pagination extends Component {
 		pages.push(
 			<li key="nextMore" className="ellips">
 				<span className="dot"></span>
-				<Icon
-					type="doubleRight"
-					className="moreIcon"
-					onClick={this.nextMore}
-				></Icon>
+				<Icon type="doubleRight" className="moreIcon" onClick={this.nextMore}></Icon>
 			</li>
 		);
 		pages.push(
-			<li
-				role="presentation"
-				key={this.totalPage}
-				className={current === this.totalPage ? 'active' : ''}
-				onClick={() => this.goPage(this.totalPage)}
-			>
+			<li role="presentation" key={this.totalPage} className={current === this.totalPage ? 'active' : ''} onClick={() => this.goPage(this.totalPage)}>
 				{this.totalPage}
 			</li>
 		);
@@ -127,23 +105,14 @@ class Pagination extends Component {
 	 */
 	renderLeftEllipsePages = (offset, pages, current) => {
 		pages.push(
-			<li
-				role="presentation"
-				key="1"
-				className={current === 1 ? ' active' : ''}
-				onClick={() => this.goPage(1)}
-			>
+			<li role="presentation" key="1" className={current === 1 ? ' active' : ''} onClick={() => this.goPage(1)}>
 				1
 			</li>
 		);
 		pages.push(
 			<li key="preMore" className="ellips">
 				<span className="dot"></span>
-				<Icon
-					type="doubleLeft"
-					className="moreIcon"
-					onClick={this.preMore}
-				></Icon>
+				<Icon type="doubleLeft" className="moreIcon" onClick={this.preMore}></Icon>
 			</li>
 		);
 
@@ -153,20 +122,14 @@ class Pagination extends Component {
 					role="presentation"
 					key={this.totalPage - i}
 					className={current === this.totalPage - i ? ' active' : ''}
-					onClick={() => this.goPage(this.totalPage - i)}
-				>
+					onClick={() => this.goPage(this.totalPage - i)}>
 					{this.totalPage - i}
 				</li>
 			);
 		}
 
 		pages.push(
-			<li
-				role="presentation"
-				key={this.totalPage}
-				className={current === this.totalPage ? ' active' : ''}
-				onClick={() => this.goPage(this.totalPage)}
-			>
+			<li role="presentation" key={this.totalPage} className={current === this.totalPage ? ' active' : ''} onClick={() => this.goPage(this.totalPage)}>
 				{this.totalPage}
 			</li>
 		);
@@ -177,34 +140,20 @@ class Pagination extends Component {
 	 */
 	renderBothEllipsePages = (offset, pages, current) => {
 		pages.push(
-			<li
-				role="presentation"
-				key="1"
-				className={current === 1 ? ' active' : ''}
-				onClick={() => this.goPage(1)}
-			>
+			<li role="presentation" key="1" className={current === 1 ? ' active' : ''} onClick={() => this.goPage(1)}>
 				1
 			</li>
 		);
 		pages.push(
 			<li key="preMore" className="ellips">
 				<span className="dot"></span>
-				<Icon
-					type="doubleLeft"
-					className="moreIcon"
-					onClick={this.preMore}
-				></Icon>
+				<Icon type="doubleLeft" className="moreIcon" onClick={this.preMore}></Icon>
 			</li>
 		);
 
 		for (let i = offset / 2; i >= 0; i -= 1) {
 			pages.push(
-				<li
-					role="presentation"
-					key={current - i}
-					className={current === current - i ? ' active' : ''}
-					onClick={() => this.goPage(current - i)}
-				>
+				<li role="presentation" key={current - i} className={current === current - i ? ' active' : ''} onClick={() => this.goPage(current - i)}>
 					{current - i}
 				</li>
 			);
@@ -212,12 +161,7 @@ class Pagination extends Component {
 
 		for (let j = 1; j <= offset / 2; j += 1) {
 			pages.push(
-				<li
-					role="presentation"
-					key={current + j}
-					className={current === current + j ? ' active' : ''}
-					onClick={() => this.goPage(current + j)}
-				>
+				<li role="presentation" key={current + j} className={current === current + j ? ' active' : ''} onClick={() => this.goPage(current + j)}>
 					{current + j}
 				</li>
 			);
@@ -226,20 +170,11 @@ class Pagination extends Component {
 		pages.push(
 			<li key="nextMore" className="ellips">
 				<span className="dot"></span>
-				<Icon
-					type="doubleRight"
-					className="moreIcon"
-					onClick={this.nextMore}
-				></Icon>
+				<Icon type="doubleRight" className="moreIcon" onClick={this.nextMore}></Icon>
 			</li>
 		);
 		pages.push(
-			<li
-				role="presentation"
-				key={this.totalPage}
-				className={current === this.totalPage ? 'active' : ''}
-				onClick={() => this.goPage(this.totalPage)}
-			>
+			<li role="presentation" key={this.totalPage} className={current === this.totalPage ? 'active' : ''} onClick={() => this.goPage(this.totalPage)}>
 				{this.totalPage}
 			</li>
 		);
@@ -313,13 +248,7 @@ class Pagination extends Component {
 			return (
 				<div className="quickJumper">
 					跳转到
-					<input
-						type="text"
-						onKeyPress={this.handlePage}
-						onChange={this.changeInput}
-						value={this.state.pageNum}
-					/>
-					页
+					<input type="text" onKeyPress={this.handlePage} onChange={this.changeInput} value={this.state.pageNum} />页
 				</div>
 			);
 		}
@@ -337,11 +266,7 @@ class Pagination extends Component {
 		if (showPageSizeOptions) {
 			return (
 				<div className="change-size">
-					<select
-						name="pSizeArea"
-						value={(pageSize || pageSizeOptions[0]).toString()}
-						onChange={this.selectPageSize}
-					>
+					<select name="pSizeArea" value={(pageSize || pageSizeOptions[0]).toString()} onChange={this.selectPageSize}>
 						{pageSizeOptions.map(item => {
 							return (
 								<option value={item} key={item}>
@@ -369,9 +294,9 @@ class Pagination extends Component {
 			}
 
 			inputPage = parseInt(inputPage, 10);
-			if ((inputPage < 1 && this.totalPage > 1) || (inputPage > this.totalPage)) {
+			if ((inputPage < 1 && this.totalPage > 1) || inputPage > this.totalPage) {
 				this.setState({
-					pageNum: current,
+					pageNum: current
 				});
 				return;
 			}
@@ -387,29 +312,16 @@ class Pagination extends Component {
 	};
 
 	render() {
-
 		const classes = classNames(`${prefixCls}-pagination`);
 
 		return (
 			<div className={classes} style={this.props.style}>
 				<ul>
-					<li
-						onClick={this.prevPage}
-						role="presentation"
-						className={this.props.current === 1 ? 'nomore' : ''}
-					>
+					<li onClick={this.prevPage} role="presentation" className={this.props.current === 1 ? 'nomore' : ''}>
 						<Icon type="left" className="pg-icon"></Icon>
 					</li>
 					{this.getPages()}
-					<li
-						onClick={this.nextPage}
-						role="presentation"
-						className={
-							this.props.current === this.totalPage
-								? 'nomore'
-								: ''
-						}
-					>
+					<li onClick={this.nextPage} role="presentation" className={this.props.current === this.totalPage ? 'nomore' : ''}>
 						<Icon type="right" className="pg-icon"></Icon>
 					</li>
 				</ul>

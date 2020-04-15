@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import { prefixCls } from '@utils/config';
+import { prefixCls } from '@utils';
 import './index.less';
 
 const Toggle = props => {

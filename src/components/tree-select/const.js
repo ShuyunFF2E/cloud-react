@@ -1,4 +1,4 @@
-import { prefixCls } from '@utils/config';
+import { prefixCls } from '@utils';
 
 export const selector = `${prefixCls}-tree-select`;
 
@@ -11,7 +11,7 @@ export const getOpenKeys = (selected, nodes) => {
 				if (child) keys.push(v.value);
 				getKeys(v.children);
 			}
-		})
+		});
 	};
 	getKeys(nodes);
 	return keys;

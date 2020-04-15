@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { prefixCls } from '@utils/config';
+import { prefixCls } from '@utils';
 /* eslint-disable-next-line */
 import Group from './group';
 

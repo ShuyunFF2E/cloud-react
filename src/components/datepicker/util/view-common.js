@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { prefixCls } from '@utils/config';
+import { prefixCls } from '@utils';
 
 import Icon from '../../icon';
 import enumObj from './enum';
@@ -44,7 +44,7 @@ export function destroyDOM(id, callback) {
 export function destroyAllDOM() {
 	const dpArr = document.getElementsByClassName(`${selector}-container`);
 	const len = dpArr.length;
-	for(let i = 0;i < len;) {
+	for (let i = 0; i < len; ) {
 		destroyDOM(dpArr[i].id);
 		i += 1;
 	}
@@ -87,7 +87,7 @@ export function getPositionByComp({ left, bottom, top }, position, HEIGHT) {
 	let _top = 0;
 	switch (position) {
 		case enumObj.AUTO:
-			_top = getAvailHeight() - bottom > HEIGHT ? (bottom +  getScrollTop()) : (top + getScrollTop() - HEIGHT);
+			_top = getAvailHeight() - bottom > HEIGHT ? bottom + getScrollTop() : top + getScrollTop() - HEIGHT;
 			break;
 		case enumObj.UP:
 			_top = top + getScrollTop() - HEIGHT;
@@ -101,11 +101,10 @@ export function getPositionByComp({ left, bottom, top }, position, HEIGHT) {
 	return {
 		left,
 		top: _top
-	}
+	};
 }
 
 export function formatNumber(data) {
-
 	const stringValue = data.trim().replace(/[^\d]/g, '');
 	const numberValue = parseInt(data.trim().replace(/[^\d]/g, ''), 10);
 

@@ -1,29 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import omit from '@utils/omit';
-import { prefixCls } from '@utils/config';
+import { noop, omit, prefixCls } from '@utils';
 
 const ENTER_KEY_CODE = 13;
 const nothing = undefined;
-const noop = () => {};
 
 let hiddenTextarea = null;
 
 const defaultMinRows = 1;
 const defaultMaxRows = 2 ** 64;
 
-const TWIN_STYLE = [
-	'border',
-	'padding',
-	'width',
-	'height',
-	'line-height',
-	'font',
-	'letter-spacing',
-	'text-indent',
-	'box-sizing'
-];
+const TWIN_STYLE = ['border', 'padding', 'width', 'height', 'line-height', 'font', 'letter-spacing', 'text-indent', 'box-sizing'];
 const ADDON_STYLE = {
 	position: 'fixed',
 	left: '-9999px',
@@ -31,7 +19,7 @@ const ADDON_STYLE = {
 	opacity: 0,
 	height: 0,
 	zIndex: -1
-}
+};
 
 function calcAutoHeight(textareaNode, value, minRows, maxRows) {
 	if (!hiddenTextarea) {
@@ -84,7 +72,6 @@ function destory() {
 }
 
 export default class Textarea extends React.PureComponent {
-
 	static propTypes = {
 		autoSize: PropTypes.bool,
 		minRows: PropTypes.number,
@@ -97,7 +84,7 @@ export default class Textarea extends React.PureComponent {
 		onFocus: PropTypes.func,
 		onEnter: PropTypes.func,
 		onChange: PropTypes.func,
-		onKeyDown: PropTypes.func,
+		onKeyDown: PropTypes.func
 	};
 
 	static defaultProps = {
@@ -126,7 +113,7 @@ export default class Textarea extends React.PureComponent {
 		super(props);
 		const { value, defaultValue } = this.props;
 		this.state = {
-			value: (value === nothing ?  defaultValue : value) || '',
+			value: (value === nothing ? defaultValue : value) || '',
 			autoSizeStyle: {}
 		};
 		this.textareaRef = React.createRef();
@@ -147,19 +134,19 @@ export default class Textarea extends React.PureComponent {
 			onEnter(evt);
 		}
 		onKeyDown(evt);
-	}
+	};
 
 	onChange = evt => {
 		if (this.props.value === nothing) {
 			this.setState({ value: evt.target.value }, this.calcAutoHeight);
 		}
 		this.props.onChange(evt);
-	}
+	};
 
 	onBlur = evt => {
 		destory();
 		this.props.onBlur(evt);
-	}
+	};
 
 	calcAutoHeight() {
 		const { value } = this.state;
@@ -179,13 +166,7 @@ export default class Textarea extends React.PureComponent {
 
 		const classNames = classnames(`${prefixCls}-input-textarea`, className);
 		const styles = { ...style, ...autoSizeStyle };
-		const props = omit(others, [
-			'defaultValue',
-			'autoSize',
-			'minRows',
-			'maxRows',
-			'onEnter'
-		]);
+		const props = omit(others, ['defaultValue', 'autoSize', 'minRows', 'maxRows', 'onEnter']);
 
 		return (
 			<textarea
@@ -196,7 +177,8 @@ export default class Textarea extends React.PureComponent {
 				style={styles}
 				onBlur={this.onBlur}
 				onChange={this.onChange}
-				onKeyDown={this.onKeyDown} />
+				onKeyDown={this.onKeyDown}
+			/>
 		);
 	}
 }

@@ -1,54 +1,49 @@
 import React, { Children, cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { prefixCls } from '@utils/config';
+import { noop, prefixCls } from '@utils';
 
 import './index.less';
 
-const noop = () => {};
 const classSelector = `${prefixCls}-checkbox`;
 
 function Group(props) {
-
 	const { children, value, onChange, disabled, layout } = props;
 
 	let checkedValue = value ? [...value] : value;
 
-	const group = Children.map(children, child => cloneElement(child, {
+	const group = Children.map(children, child =>
+		cloneElement(child, {
+			disabled: disabled === undefined ? child.props.disabled : disabled,
 
-		disabled: disabled === undefined ? child.props.disabled : disabled,
+			checked: checkedValue === undefined ? undefined : checkedValue.indexOf(child.props.value) > -1,
 
-		checked: checkedValue === undefined ? undefined : checkedValue.indexOf(child.props.value) > -1,
+			onChange(checked, val) {
+				if (checkedValue === undefined) {
+					checkedValue = [];
+				}
 
-		onChange(checked, val) {
-			if (checkedValue === undefined) {
-				checkedValue = [];
+				const index = checkedValue.indexOf(val);
+
+				if (index > -1 && !checked) {
+					checkedValue.splice(index, 1);
+				}
+
+				if (index === -1 && checked) {
+					checkedValue.push(val);
+				}
+
+				onChange(checkedValue);
 			}
-
-			const index = checkedValue.indexOf(val);
-
-			if (index > -1 && !checked) {
-				checkedValue.splice(index, 1);
-			}
-
-			if (index === -1 && checked) {
-				checkedValue.push(val);
-			}
-
-			onChange(checkedValue);
-		}
-	}));
+		})
+	);
 
 	const classes = classNames(`${classSelector}-group`, {
 		vertical: layout === 'v',
 		horizontal: layout === 'h'
 	});
 
-	return (
-		<span className={classes}>
-			{ group }
-		</span>
-	)
+	return <span className={classes}>{group}</span>;
 }
 
 Group.propTypes = {
@@ -66,7 +61,6 @@ Group.defaultProps = {
 };
 
 class Checkbox extends React.Component {
-
 	static propTypes = {
 		value: PropTypes.any,
 		defaultChecked: PropTypes.bool,
@@ -123,18 +117,21 @@ class Checkbox extends React.Component {
 
 		return (
 			<label className={classes} style={style}>
-				<span className={ `${classSelector}-wrapper` }>
-					<input type="checkbox"
-						   value={value}
-						   disabled={disabled}
-						   className={`${classSelector}-input`}
-						   onChange={() => { this.onChangeAction() }}
+				<span className={`${classSelector}-wrapper`}>
+					<input
+						type="checkbox"
+						value={value}
+						disabled={disabled}
+						className={`${classSelector}-input`}
+						onChange={() => {
+							this.onChangeAction();
+						}}
 					/>
-					<span className={`${classSelector}-inner`}/>
+					<span className={`${classSelector}-inner`} />
 				</span>
 				<span className={`${classSelector}-text`}>{children}</span>
 			</label>
-		)
+		);
 	}
 }
 

@@ -4,6 +4,8 @@ import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import jeasy from 'jeasy';
 
+import { noop } from '@utils';
+
 import Tree from './tree';
 import Selected from './selected';
 import SingleTree from './single-tree';
@@ -284,8 +286,6 @@ class TreeSelect extends Component {
 		);
 	}
 }
-
-const noop = () => {};
 
 TreeSelect.propTypes = {
 	multiple: PropTypes.bool,

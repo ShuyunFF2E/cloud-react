@@ -1,8 +1,8 @@
-import React, { Component }  from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 
-import { prefixCls } from '@utils/config';
+import { prefixCls } from '@utils';
 
 import './index.less';
 import Icon from '../icon';
@@ -10,20 +10,18 @@ import Icon from '../icon';
 const DEFAULTOPTS = { duration: 3000, contextContainer: document.body };
 
 const MESSAGE_TYPE = {
-	'success': {
+	success: {
 		icon: 'check-circle-solid'
 	},
-	'error': {
+	error: {
 		icon: 'warning-circle-solid'
 	}
 };
-
 
 const wraperMap = new Map();
 let wraper;
 
 function removeWraper(contextContainer) {
-
 	if (!wraperMap.get(contextContainer).children.length) {
 		ReactDOM.unmountComponentAtNode(wraper);
 		contextContainer.removeChild(wraper);
@@ -32,7 +30,6 @@ function removeWraper(contextContainer) {
 }
 
 function entity(config) {
-
 	const { type, msg, options } = config;
 
 	const opts = Object.assign({}, DEFAULTOPTS, options);
@@ -66,12 +63,10 @@ function entity(config) {
 
 	contextContainer.appendChild(wraper);
 
-	ReactDOM.render(<MessageEntity {...props} container={container}/>, container);
+	ReactDOM.render(<MessageEntity {...props} container={container} />, container);
 }
 
-
 class MessageEntity extends Component {
-
 	constructor(props) {
 		super(props);
 		this.noticeRef = React.createRef();
@@ -107,14 +102,16 @@ class MessageEntity extends Component {
 		currentNotice.classList.add('fade-out');
 
 		// 监听动画完成
-		currentNotice.addEventListener('webkitTransitionEnd', () => {
-			ReactDOM.unmountComponentAtNode(container);
-			wraper.removeChild(container);
-			removeWraper(contextContainer);
-
-		}, { once: true, capture: true });
+		currentNotice.addEventListener(
+			'webkitTransitionEnd',
+			() => {
+				ReactDOM.unmountComponentAtNode(container);
+				wraper.removeChild(container);
+				removeWraper(contextContainer);
+			},
+			{ once: true, capture: true }
+		);
 	};
-
 
 	/**
 	 * 自动关闭提示信息
@@ -124,7 +121,7 @@ class MessageEntity extends Component {
 		if (duration > 0) {
 			this.timer = setTimeout(() => {
 				this.onHandleClose();
-			}, duration)
+			}, duration);
 		}
 	}
 
@@ -144,7 +141,7 @@ class MessageEntity extends Component {
 				<div className="msg-text">{msg}</div>
 				<Icon type="close" onClick={this.onHandleClose} className="close-icon"></Icon>
 			</div>
-		)
+		);
 	}
 }
 
@@ -154,14 +151,14 @@ const Message = {
 			type: 'error',
 			msg,
 			options
-		})
+		});
 	},
 	success(msg, options) {
 		entity({
 			type: 'success',
 			msg,
 			options
-		})
+		});
 	}
 };
 

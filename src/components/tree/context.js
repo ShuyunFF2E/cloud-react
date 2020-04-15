@@ -1,13 +1,6 @@
-/**
- * 上下文所需字段
- * context.js
- * wangbo
- * 2019-07-08
- */
-
 import React from 'react';
+import { noop } from '@utils';
 
-const noop = () => {};
 const TreeContext = React.createContext({
 	supportCheckbox: false,
 	supportMenu: true,

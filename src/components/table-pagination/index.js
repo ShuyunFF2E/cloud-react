@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { prefixCls } from '@utils/config';
+import { noop, prefixCls } from '@utils';
 
 import Icon from '../icon';
 import './index.less';
-
-const noop = () => {};
 
 class TablePagination extends Component {
 	static propTypes = {
@@ -74,7 +72,7 @@ class TablePagination extends Component {
 	renderRefresh = () => {
 		return (
 			<div className="refresh-action" onClick={() => this.goPage(this.props.current)}>
-				<Icon  type="refresh"/>
+				<Icon type="refresh" />
 				<span className="refresh-label">刷新</span>
 			</div>
 		);
@@ -84,11 +82,7 @@ class TablePagination extends Component {
 		const { pageSizeOptions } = this.state;
 		return (
 			<div className="change-size">
-				<select
-					name="selectPageSize"
-					value={(this.props.pageSize || pageSizeOptions[0]).toString()}
-					onChange={this.selectPageSize}
-				>
+				<select name="selectPageSize" value={(this.props.pageSize || pageSizeOptions[0]).toString()} onChange={this.selectPageSize}>
 					{pageSizeOptions.map(item => {
 						return (
 							<option value={item} key={item}>
@@ -108,42 +102,20 @@ class TablePagination extends Component {
 		return (
 			<div className="action-group">
 				<div className="icon-group">
-					<Icon
-						className={current === 1 ? 'disabled' : ''}
-						type="first-solid"
-						onClick={this.firstPage}
-					/>
-					<Icon
-						className={current === 1 ? 'disabled' : ''}
-						type="left-solid"
-						onClick={this.prevPage}
-					/>
+					<Icon className={current === 1 ? 'disabled' : ''} type="first-solid" onClick={this.firstPage} />
+					<Icon className={current === 1 ? 'disabled' : ''} type="left-solid" onClick={this.prevPage} />
 				</div>
 				<div className="goto-page">
-					<input
-						type="text"
-						className="gp-input"
-						value={pageNum}
-						onChange={this.onChange}
-						onKeyPress={this.handlePage}
-					/>
+					<input type="text" className="gp-input" value={pageNum} onChange={this.onChange} onKeyPress={this.handlePage} />
 					/共<span>{this.totalPage}</span>页
-					</div>
+				</div>
 				<div className="icon-group">
-					<Icon
-						className={current === this.totalPage ? 'disabled' : ''}
-						type="right-solid"
-						onClick={this.nextPage}
-					/>
-					<Icon
-						className={current === this.totalPage ? 'disabled' : ''}
-						type="last-solid"
-						onClick={this.lastPage}
-					/>
+					<Icon className={current === this.totalPage ? 'disabled' : ''} type="right-solid" onClick={this.nextPage} />
+					<Icon className={current === this.totalPage ? 'disabled' : ''} type="last-solid" onClick={this.lastPage} />
 				</div>
 			</div>
-		)
-	}
+		);
+	};
 
 	renderCheckedTotal = () => {
 		const { checkedTotal } = this.props;
@@ -152,11 +124,11 @@ class TablePagination extends Component {
 		}
 
 		if (typeof checkedTotal === 'string' || typeof checkedTotal === 'number') {
-			return <div className="checked-info">已选{checkedTotal}条</div>
+			return <div className="checked-info">已选{checkedTotal}条</div>;
 		}
 
-		return <div className="checked-info">{checkedTotal}</div>
-	}
+		return <div className="checked-info">{checkedTotal}</div>;
+	};
 
 	goPage = current => {
 		this.props.onChange(current, this.props.pageSize);
@@ -194,7 +166,7 @@ class TablePagination extends Component {
 				return;
 			}
 
-			if ((inputPage < 1 && this.totalPage > 1) || (inputPage > this.totalPage)) {
+			if ((inputPage < 1 && this.totalPage > 1) || inputPage > this.totalPage) {
 				this.setState({
 					pageNum: current
 				});
@@ -216,7 +188,6 @@ class TablePagination extends Component {
 	};
 
 	render() {
-
 		const { showTotal, showRefresh, showPageSizeOptions } = this.props;
 		const classes = classNames(`${prefixCls}-table-pagination`);
 

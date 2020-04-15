@@ -1,15 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import omit from '@utils/omit';
-import { prefixCls } from '@utils/config';
+import { noop, omit, prefixCls } from '@utils';
 
 import Icon from '../icon';
 import Textarea from './textarea';
 
 import './index.less';
 
-const noop = () => {};
 const nothing = undefined;
 const ENTER_KEY_CODE = 13;
 

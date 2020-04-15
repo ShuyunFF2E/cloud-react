@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { prefixCls } from '@utils/config';
-import omit from '@utils/omit';
+import { omit, prefixCls } from '@utils';
 
 import Icon from '../icon';
 import './index.less';

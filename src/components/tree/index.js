@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import jEasy from 'jeasy';
-import { prefixCls } from '@utils/config';
+import { noop, prefixCls } from '@utils';
 import TreeContext from './context';
 import Search from './search';
 import TreeList from './list';
@@ -10,8 +10,6 @@ import Modal from '../modal';
 import store from './store';
 import Menu from './menu';
 import './index.less';
-
-const noop = () => {};
 
 class Tree extends Component {
 	// 默认值， 默认类型与值不匹配

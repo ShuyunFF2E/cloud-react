@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
-import { prefixCls } from '@utils/config';
-import noop from '@utils/noop';
-// import Input from '../input';
+import { noop, prefixCls } from '@utils';
 import Icon from '../icon';
 import { isInvalid, getCurrentValue, getMax, getMin, getValueByBlank, fixDoubleOperation } from './util';
 import './index.less';

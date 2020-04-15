@@ -1,7 +1,7 @@
 import { useState } from 'react';
+import { noop } from '@utils';
 import validator from './validator';
 
-const noop = () => {};
 const DATA_FIELD = 'data-field';
 const emptyState = {};
 const emptyValues = ['', null, undefined];

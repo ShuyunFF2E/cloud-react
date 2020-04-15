@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { prefixCls } from '@utils/config';
+import { prefixCls } from '@utils';
 import Icon from '../icon';
 import Button from '../button';
 import './index.less';

@@ -2,14 +2,13 @@
 import React, { Component, Children, cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { prefixCls } from '@utils/config';
+import { noop, prefixCls } from '@utils';
 
 import FormContext from './context';
 import Explain from './explain';
 import { LAYOUT_TYPES, DATA_FIELD, findFieldsName, getNamesByNode, findDestroyedFields } from './constants';
 
 const MAX_COL = 24;
-const noop = () => {};
 
 export default class Form extends Component {
 	static contextType = FormContext;
