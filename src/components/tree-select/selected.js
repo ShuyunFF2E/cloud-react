@@ -10,7 +10,7 @@ import './index.less';
 const getLables = dataSource => {
 	const source = Array.isArray(dataSource) ? dataSource : [dataSource];
 	return source.map(item => item.name || item.label).join(',');
-}
+};
 
 export default class Selected extends React.Component {
 	constructor(props) {
@@ -42,7 +42,7 @@ export default class Selected extends React.Component {
 		if (disabled) return;
 
 		onClick();
-	}
+	};
 
 	onMouseEnter = () => {
 		if (this.props.allowClear) {
@@ -50,19 +50,23 @@ export default class Selected extends React.Component {
 				clear: true
 			});
 		}
-	}
+	};
 
 	onMouseLeave = () => {
 		if (this.props.allowClear) {
 			this.setState({
 				clear: false
-			})
+			});
 		}
-	}
+	};
 
 	render() {
-		const { props: { disabled, placeholder, open, onClear },
-				state: { selectStr, clear }, onMouseEnter, onMouseLeave } = this;
+		const {
+			props: { disabled, placeholder, open, onClear },
+			state: { selectStr, clear },
+			onMouseEnter,
+			onMouseLeave
+		} = this;
 
 		const classNames = classnames(`${selector}-wrapper`, { disabled, empty: !selectStr });
 		const iconClasses = classnames(`${selector}-select-icon`, {
@@ -75,15 +79,8 @@ export default class Selected extends React.Component {
 		});
 
 		return (
-			<div
-				ref={this.ref}
-				className={classNames}
-				onClick={this.onWrapperClick}
-				onMouseEnter={onMouseEnter}
-				onMouseLeave={onMouseLeave}>
-				<span className={`${selector}-selected`}>
-					{ selectStr || placeholder }
-				</span>
+			<div ref={this.ref} className={classNames} onClick={this.onWrapperClick} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+				<span className={`${selector}-selected`}>{selectStr || placeholder}</span>
 				<Icon type="close-circle-solid" className={clearClasses} onClick={onClear} />
 				<Icon type="down-solid" className={iconClasses} />
 			</div>
@@ -95,14 +92,11 @@ Selected.propTypes = {
 	disabled: PropTypes.bool,
 	allowClear: PropTypes.bool,
 	open: PropTypes.bool,
-	dataSource: PropTypes.oneOfType([
-		PropTypes.object,
-		PropTypes.array
-	]),
+	dataSource: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 	placeholder: PropTypes.string,
 	onClick: PropTypes.func,
 	onClear: PropTypes.func
-}
+};
 
 Selected.defaultProps = {
 	disabled: false,
@@ -112,4 +106,4 @@ Selected.defaultProps = {
 	placeholder: '',
 	onClick: () => {},
 	onClear: () => {}
-}
+};

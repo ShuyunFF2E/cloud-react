@@ -66,11 +66,17 @@ export default class ModalDemo extends React.Component {
 	render() {
 		return (
 			<div>
-				<Button type="primary" onClick={this.openBasicModal}>基本弹出框</Button>
+				<Button type="primary" onClick={this.openBasicModal}>
+					基本弹出框
+				</Button>
 				{blank}
-				<Button type="normal" onClick={this.openMaskCloseModal}>点击遮罩区域关闭对话框</Button>
+				<Button type="normal" onClick={this.openMaskCloseModal}>
+					点击遮罩区域关闭对话框
+				</Button>
 				{blank}
-				<Button type="normal" onClick={this.openHideMaskModal}>不显示遮罩层</Button>
+				<Button type="normal" onClick={this.openHideMaskModal}>
+					不显示遮罩层
+				</Button>
 				<Modal
 					title="basic title"
 					visible={this.state.visible}

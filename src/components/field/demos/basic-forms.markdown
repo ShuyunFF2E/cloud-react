@@ -46,7 +46,10 @@ export default class FormHorizontalDemo extends React.Component {
 					<Input
 						placeholder="请输入验证邮箱"
 						{...init('email', {
-							rules: [{ required: true, message: '验证邮箱不能为空' }, { pattern: /^\w+@[a-z]{2,10}\.[a-z]{2,8}$/, message: '邮箱格式不正确' }]
+							rules: [
+								{ required: true, message: '验证邮箱不能为空' },
+								{ pattern: /^\w+@[a-z]{2,10}\.[a-z]{2,8}$/, message: '邮箱格式不正确' }
+							]
 						})}
 					/>
 				</Form.Item>

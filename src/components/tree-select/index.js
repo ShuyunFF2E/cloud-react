@@ -12,7 +12,6 @@ import { selector } from './const';
 import './index.less';
 
 class TreeSelect extends Component {
-
 	constructor(props) {
 		super(props);
 
@@ -42,7 +41,7 @@ class TreeSelect extends Component {
 				value,
 				prevValue: value,
 				prevProps: props
-			}
+			};
 		}
 		return null;
 	}
@@ -56,12 +55,14 @@ class TreeSelect extends Component {
 		const { open, value } = nextState;
 		const { disabled: prevDisabled, width: prevWidth, open: prevPropOpen, searchable: prevSearchable } = this.props;
 		const { open: prevOpen, value: prevValue } = this.state;
-		return disabled !== prevDisabled ||
+		return (
+			disabled !== prevDisabled ||
 			width !== prevWidth ||
 			propOpen !== prevPropOpen ||
 			open !== prevOpen ||
 			value !== prevValue ||
-			searchable !== prevSearchable;
+			searchable !== prevSearchable
+		);
 	}
 
 	componentDidUpdate() {
@@ -71,7 +72,7 @@ class TreeSelect extends Component {
 			if (visible) {
 				ReactDOM.render(this.treeNode, this.optionsContainer);
 			} else {
-				ReactDOM.unmountComponentAtNode(this.optionsContainer)
+				ReactDOM.unmountComponentAtNode(this.optionsContainer);
 			}
 		}
 	}
@@ -105,14 +106,7 @@ class TreeSelect extends Component {
 
 	get treeNode() {
 		if (!this.isTree) {
-			return (
-				<SingleTree
-					{...this.props}
-					value={this.state.value}
-					onChange={this.onValueChange}
-					onOk={this.handleOk}
-					onCancel={this.handleCancel} />
-			);
+			return <SingleTree {...this.props} value={this.state.value} onChange={this.onValueChange} onOk={this.handleOk} onCancel={this.handleCancel} />;
 		}
 		return (
 			<Tree
@@ -121,8 +115,9 @@ class TreeSelect extends Component {
 				onChange={this.onValueChange}
 				onOk={this.handleOk}
 				onCancel={this.handleCancel}
-				onReset={this.handleReset} />
-		)
+				onReset={this.handleReset}
+			/>
+		);
 	}
 
 	get selectedContainer() {
@@ -139,10 +134,10 @@ class TreeSelect extends Component {
 		if (this.popupContainer === document.body) {
 			const nodePosition = this.node.current.getBoundingClientRect();
 			const { left, top } = nodePosition;
-			return [ left, top + height, width ];
+			return [left, top + height, width];
 		}
 		const { offsetLeft, offsetTop } = this.selectedContainer;
-		return [ offsetLeft, offsetTop + height, width ];
+		return [offsetLeft, offsetTop + height, width];
 	}
 
 	getOptionsContainer() {
@@ -151,7 +146,7 @@ class TreeSelect extends Component {
 			this.popupContainer.appendChild(this.optionsContainer);
 		}
 		const { optionsContainer, zIndex } = this;
-		const [ left, top, width ] = this.getOptionsNodePosition();
+		const [left, top, width] = this.getOptionsNodePosition();
 		optionsContainer.style.position = 'absolute';
 		optionsContainer.style.zIndex = zIndex;
 		optionsContainer.style.top = `${top}px`;
@@ -168,8 +163,8 @@ class TreeSelect extends Component {
 			onSelectClose();
 			if (hasConfirmButton) this.onTreeOptionChange({}, prevValue);
 			if (propOpen === null) this.setState({ open: false });
-		};
-	}
+		}
+	};
 
 	handleSelect = () => {
 		const { open } = this.state;
@@ -180,7 +175,7 @@ class TreeSelect extends Component {
 			onSelectOpen();
 		}
 		if (propOpen === null) this.setState({ open: !open });
-	}
+	};
 
 	onClickSelected = () => {
 		const { disabled } = this.props;
@@ -189,7 +184,7 @@ class TreeSelect extends Component {
 		}
 
 		this.handleSelect();
-	}
+	};
 
 	onValueChange = (node, selectedNodes) => {
 		const { multiple, single } = this.props;
@@ -198,7 +193,7 @@ class TreeSelect extends Component {
 		} else {
 			this.onSimpleChange(node);
 		}
-	}
+	};
 
 	onSimpleChange = node => {
 		const { onChange } = this.props;
@@ -208,7 +203,7 @@ class TreeSelect extends Component {
 		});
 		this.handleSelect();
 		onChange(node);
-	}
+	};
 
 	onTreeOptionChange = (node, selectedNodes) => {
 		const { single, hasConfirmButton, containParentNode, onChange } = this.props;
@@ -224,7 +219,7 @@ class TreeSelect extends Component {
 			onChange(node, selectedData);
 			if (single) this.handleSelect();
 		}
-	}
+	};
 
 	onClearSelected = e => {
 		e.preventDefault();
@@ -240,7 +235,7 @@ class TreeSelect extends Component {
 		} else {
 			this.props.onChange(value);
 		}
-	}
+	};
 
 	handleOk = () => {
 		const { value: selectedNodes, node } = this.state;
@@ -255,17 +250,17 @@ class TreeSelect extends Component {
 		const { prevValue } = this.state;
 		this.setState({
 			value: prevValue
-		})
+		});
 		this.props.onCancel();
 		this.handleSelect();
-	}
+	};
 
 	handleReset = () => {
 		this.setState({
 			value: []
 		});
 		this.props.onReset();
-	}
+	};
 
 	render() {
 		const { placeholder, disabled, allowClear, style, className } = this.props;
@@ -283,7 +278,8 @@ class TreeSelect extends Component {
 					allowClear={allowClear}
 					placeholder={placeholder}
 					dataSource={value}
-					disabled={disabled} />
+					disabled={disabled}
+				/>
 			</div>
 		);
 	}
@@ -300,23 +296,11 @@ TreeSelect.propTypes = {
 	dataSource: PropTypes.array,
 	disabled: PropTypes.bool,
 	placeholder: PropTypes.string,
-	width: PropTypes.oneOfType([
-		PropTypes.string,
-		PropTypes.number
-	]),
+	width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 	searchable: PropTypes.bool,
-	emptyRender: PropTypes.oneOfType([
-		PropTypes.string,
-		PropTypes.node
-	]),
-	defaultValue: PropTypes.oneOfType([
-		PropTypes.array,
-		PropTypes.object
-	]),
-	value: PropTypes.oneOfType([
-		PropTypes.array,
-		PropTypes.object
-	]),
+	emptyRender: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+	defaultValue: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+	value: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
 	hasConfirmButton: PropTypes.bool,
 	className: PropTypes.string,
 	zIndex: PropTypes.number,
@@ -334,12 +318,12 @@ TreeSelect.defaultProps = {
 	single: false,
 	allowClear: false,
 	defaultOpen: false,
-    open: null,
-    dataSource: [],
+	open: null,
+	dataSource: [],
 	disabled: false,
 	placeholder: '',
 	width: 'auto',
-    searchable: false,
+	searchable: false,
 	emptyRender: '暂时没有数据',
 	defaultValue: [],
 	value: [],

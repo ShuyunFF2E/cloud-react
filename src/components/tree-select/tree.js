@@ -8,32 +8,33 @@ import { selector } from './const';
 import './index.less';
 
 class TreeContainer extends React.Component {
-
 	get buttons() {
 		const { okBtnText, cancelBtnText, resetBtnText, onOk, onCancel, onReset } = this.props;
 		return {
-			ok: <Button type="primary" size="small" key="ok" className="btn" onClick={onOk}>{ okBtnText }</Button>,
-			cancel: <Button size="small" className="btn" key="cancel" onClick={onCancel}>{ cancelBtnText }</Button>,
-			reset: <Button size="small" className="btn" key="reset" onClick={onReset}>{ resetBtnText }</Button>
-		}
+			ok: (
+				<Button type="primary" size="small" key="ok" className="btn" onClick={onOk}>
+					{okBtnText}
+				</Button>
+			),
+			cancel: (
+				<Button size="small" className="btn" key="cancel" onClick={onCancel}>
+					{cancelBtnText}
+				</Button>
+			),
+			reset: (
+				<Button size="small" className="btn" key="reset" onClick={onReset}>
+					{resetBtnText}
+				</Button>
+			)
+		};
 	}
 
 	selectNode = (node, selectedNodes) => {
 		this.props.onChange(node, selectedNodes);
-	}
+	};
 
 	render() {
-		const {
-			dataSource,
-			multiple,
-			searchable,
-			value,
-			hasConfirmButton,
-			footerTypes,
-			dropdownClassName,
-			dropdownStyle,
-			...otherProps
-		} = this.props;
+		const { dataSource, multiple, searchable, value, hasConfirmButton, footerTypes, dropdownClassName, dropdownStyle, ...otherProps } = this.props;
 		const classNames = cls(`${selector}-options`, dropdownClassName, {
 			[`${selector}-options-confirm`]: hasConfirmButton
 		});
@@ -45,18 +46,11 @@ class TreeContainer extends React.Component {
 					selectedValue={value}
 					onSelectedNode={this.selectNode}
 					treeData={dataSource}
-					supportCheckbox={multiple} />
-				{
-					hasConfirmButton &&
-
-					<div className={`${selector}-operate-btn`}>
-						{
-							footerTypes.map(v=> this.buttons[v])
-						}
-					</div>
-				}
+					supportCheckbox={multiple}
+				/>
+				{hasConfirmButton && <div className={`${selector}-operate-btn`}>{footerTypes.map(v => this.buttons[v])}</div>}
 			</div>
-		)
+		);
 	}
 }
 
@@ -72,8 +66,8 @@ TreeContainer.propTypes = {
 	dropdownClassName: PropTypes.string,
 	dropdownStyle: PropTypes.object,
 	onOk: PropTypes.func,
-	onCancel: PropTypes.func,
-}
+	onCancel: PropTypes.func
+};
 
 TreeContainer.defaultProps = {
 	dataSource: [],
@@ -87,7 +81,7 @@ TreeContainer.defaultProps = {
 	dropdownClassName: '',
 	dropdownStyle: {},
 	onOk: () => {},
-	onCancel: () => {},
-}
+	onCancel: () => {}
+};
 
 export default TreeContainer;

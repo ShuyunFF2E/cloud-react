@@ -237,7 +237,7 @@ class Select extends Component {
 		if (trigger === 'hover' && open) {
 			handleSelect();
 		}
-	}
+	};
 
 	handleClick = e => {
 		const { open, prevValue } = this.state;
@@ -276,7 +276,7 @@ class Select extends Component {
 	onSimpleOptionChange = data => {
 		const { labelInValue, onChange, onBeforeChange } = this.props;
 		const { prevValue, prevResult } = this.state;
-		
+
 		if (data.value === prevValue) {
 			this.handleSelect();
 			return;

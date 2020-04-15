@@ -11,27 +11,28 @@ import { selector, getOpenKeys } from './const';
 const OptionsSearch = ({ searchValue, onOptionsSearch, clearSearch, placeholder }) => {
 	return (
 		<div className={`${selector}-search`}>
-			<Input
-				value={searchValue}
-				onChange={onOptionsSearch}
-				placeholder={placeholder}
-				className={`${selector}-search-input`} />
+			<Input value={searchValue} onChange={onOptionsSearch} placeholder={placeholder} className={`${selector}-search-input`} />
 			<Icon
 				type="close-circle-solid"
 				className={classnames(`${selector}-search-icon`, {
 					show: searchValue
 				})}
-				onClick={clearSearch} />
+				onClick={clearSearch}
+			/>
 		</div>
-	)
-}
+	);
+};
 
 const OptionsEmpty = ({ emptyRender, ...props }) => {
-    return <div className={`${selector}-empty-options`} {...props}> { emptyRender } </div>;
-}
+	return (
+		<div className={`${selector}-empty-options`} {...props}>
+			{' '}
+			{emptyRender}{' '}
+		</div>
+	);
+};
 
 class SingleTree extends React.Component {
-
 	constructor(props) {
 		super(props);
 
@@ -42,7 +43,7 @@ class SingleTree extends React.Component {
 			dataSource,
 			selected: value,
 			prevProps: props
-		}
+		};
 	}
 
 	static getDerivedStateFromProps(props, prevState) {
@@ -55,7 +56,7 @@ class SingleTree extends React.Component {
 				prevValue: value,
 				openKeys: getOpenKeys(value, dataSource),
 				prevProps: props
-			}
+			};
 		}
 		return null;
 	}
@@ -64,17 +65,17 @@ class SingleTree extends React.Component {
 		const { value } = e.target;
 		this.setState({
 			searchValue: value
-		})
+		});
 		this.props.onSearch(value);
 		this.onFilterDataSource(value);
-	}
+	};
 
 	clearSearch = () => {
 		this.setState({
 			searchValue: ''
 		});
 		this.onFilterDataSource('');
-	}
+	};
 
 	onFilterDataSource = searchText => {
 		const dataSource = jeasy.clone(this.props.dataSource);
@@ -94,9 +95,9 @@ class SingleTree extends React.Component {
 			});
 		};
 		this.setState({ dataSource: search(dataSource), openKeys });
-	}
+	};
 
-	onClickOption = data => {		
+	onClickOption = data => {
 		if (data.children) {
 			const { openKeys } = this.state;
 			if (openKeys.includes(data.value)) {
@@ -106,12 +107,12 @@ class SingleTree extends React.Component {
 			} else {
 				this.setState({
 					openKeys: [...openKeys, data.value]
-				})
+				});
 			}
 		} else {
 			this.props.onChange(data);
 		}
-	}
+	};
 
 	getLabel = (label, searchText) => {
 		if (!searchText) {
@@ -119,7 +120,7 @@ class SingleTree extends React.Component {
 		}
 		const regx = new RegExp(searchText, 'g');
 		return label.replace(regx, `<span class="search-text">${searchText}</span>`);
-	}
+	};
 
 	renderChildren(dataSource, parentNode = {}) {
 		const { openKeys, selected, searchValue } = this.state;
@@ -139,15 +140,9 @@ class SingleTree extends React.Component {
 				<div key={v.value} className={`${selector}-option-list`}>
 					<div className={classNames} onClick={this.onClickOption.bind(this, v)}>
 						<span dangerouslySetInnerHTML={{ __html: label }}></span>
-						{
-							v.children && v.children.length ?
-							<Icon type="right" className={iconClassNames} /> : null
-						}
+						{v.children && v.children.length ? <Icon type="right" className={iconClassNames} /> : null}
 					</div>
-					{
-						v.children && v.children.length ?
-						this.renderChildren(v.children, v) : null
-					}
+					{v.children && v.children.length ? this.renderChildren(v.children, v) : null}
 				</div>
 			);
 		});
@@ -160,20 +155,13 @@ class SingleTree extends React.Component {
 		const classNames = classnames(`${selector}-options`, dropdownClassName, `${selector}-single-options`);
 		return (
 			<div className={classNames} style={dropdownStyle}>
-				{
-					searchable &&
-					<OptionsSearch
-						searchValue={searchValue}
-						onOptionsSearch={onOptionsSearch}
-						placeholder={searchPlaceholder}
-						clearSearch={clearSearch} />
-				}
-				{ this.renderChildren(dataSource) }
-				{
-					!dataSource.length && <OptionsEmpty emptyRender={emptyRender} />
-				}
+				{searchable && (
+					<OptionsSearch searchValue={searchValue} onOptionsSearch={onOptionsSearch} placeholder={searchPlaceholder} clearSearch={clearSearch} />
+				)}
+				{this.renderChildren(dataSource)}
+				{!dataSource.length && <OptionsEmpty emptyRender={emptyRender} />}
 			</div>
-		)
+		);
 	}
 }
 
@@ -181,15 +169,12 @@ SingleTree.propTypes = {
 	dataSource: PropTypes.array,
 	searchable: PropTypes.bool,
 	searchPlaceholder: PropTypes.string,
-	value: PropTypes.oneOfType([
-		PropTypes.object,
-		PropTypes.array
-	]),
+	value: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 	dropdownClassName: PropTypes.string,
 	dropdownStyle: PropTypes.object,
 	onChange: PropTypes.func,
 	onSearch: PropTypes.func
-}
+};
 
 SingleTree.defaultProps = {
 	dataSource: [],
@@ -200,6 +185,6 @@ SingleTree.defaultProps = {
 	dropdownStyle: {},
 	onChange: () => {},
 	onSearch: () => {}
-}
+};
 
 export default SingleTree;

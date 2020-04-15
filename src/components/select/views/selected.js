@@ -9,12 +9,14 @@ import '../index.less';
 
 const getLables = (dataSource, multiple) => {
 	if (multiple) {
-		return dataSource.map(item => {
-			if (Array.isArray(item.label)) {
-				return item.label.find(v => typeof v === 'string');
-			}
-			return item.label;
-		}).join(',');
+		return dataSource
+			.map(item => {
+				if (Array.isArray(item.label)) {
+					return item.label.find(v => typeof v === 'string');
+				}
+				return item.label;
+			})
+			.join(',');
 	}
 	return dataSource.map(item => item.label);
 };
@@ -49,7 +51,7 @@ export default class Selected extends React.Component {
 		if (disabled || trigger !== 'click') return;
 
 		onClick();
-	}
+	};
 
 	onMouseEnter = () => {
 		const { disabled, open, trigger, allowClear, onClick } = this.props;
@@ -63,20 +65,24 @@ export default class Selected extends React.Component {
 				});
 			}
 		}
-	}
+	};
 
 	onMouseLeave = () => {
 		const { disabled, allowClear } = this.props;
 		if (!disabled && allowClear) {
 			this.setState({
 				clear: false
-			})
+			});
 		}
-	}
+	};
 
 	render() {
-		const { props: { dataSource, disabled, placeholder, open, onClear, showArrow, showSelectStyle },
-				state: { selected, clear }, onMouseEnter, onMouseLeave } = this;
+		const {
+			props: { dataSource, disabled, placeholder, open, onClear, showArrow, showSelectStyle },
+			state: { selected, clear },
+			onMouseEnter,
+			onMouseLeave
+		} = this;
 
 		const classNames = classnames(`${selector}-wrapper`, {
 			disabled,
@@ -93,22 +99,10 @@ export default class Selected extends React.Component {
 		});
 
 		return (
-			<div
-				ref={this.ref}
-				className={classNames}
-				onClick={this.onWrapperClick}
-				onMouseEnter={onMouseEnter}
-				onMouseLeave={onMouseLeave}>
-				<span className={`${selector}-selected`}>
-					{
-						selected.length ? selected : placeholder
-					}
-				</span>
+			<div ref={this.ref} className={classNames} onClick={this.onWrapperClick} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+				<span className={`${selector}-selected`}>{selected.length ? selected : placeholder}</span>
 				<Icon type="close-circle-solid" className={clearClasses} onClick={onClear} />
-				{
-					showArrow &&
-					<Icon type="down-solid" className={iconClasses} />
-				}
+				{showArrow && <Icon type="down-solid" className={iconClasses} />}
 			</div>
 		);
 	}
@@ -119,17 +113,14 @@ Selected.propTypes = {
 	disabled: PropTypes.bool,
 	allowClear: PropTypes.bool,
 	open: PropTypes.bool,
-	dataSource: PropTypes.oneOfType([
-		PropTypes.object,
-		PropTypes.array
-	]),
+	dataSource: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 	placeholder: PropTypes.string,
 	showArrow: PropTypes.bool,
 	showSelectStyle: PropTypes.bool,
 	trigger: PropTypes.string,
 	onClick: PropTypes.func,
 	onClear: PropTypes.func
-}
+};
 
 Selected.defaultProps = {
 	multiple: false,
@@ -143,4 +134,4 @@ Selected.defaultProps = {
 	trigger: 'click',
 	onClick: () => {},
 	onClear: () => {}
-}
+};

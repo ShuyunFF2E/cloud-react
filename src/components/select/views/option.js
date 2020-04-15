@@ -13,41 +13,32 @@ export default function Option(props) {
 		if (disabled) return;
 
 		onChange(props);
-	}
+	};
 	const classNames = classnames(`${selector}-option`, { disabled, selected: isSelected }, className);
 
 	if (multiple) {
 		const { value, children } = otherProps;
 		return (
 			<label className={classnames(classNames, `${selector}-multi-option`)}>
-				<Checkbox
-					checked={isSelected}
-					disabled={disabled}
-					value={value}
-					onChange={onChange} />
-				<span title={children}>{ children }</span>
+				<Checkbox checked={isSelected} disabled={disabled} value={value} onChange={onChange} />
+				<span title={children}>{children}</span>
 			</label>
 		);
 	}
 
-	return useMemo(() => (
-		<div {...otherProps} onClick={onOptionClick} className={classNames} />
-	), [isSelected]);
+	return useMemo(() => <div {...otherProps} onClick={onOptionClick} className={classNames} />, [isSelected]);
 }
 
 Option.propTypes = {
 	disabled: PropTypes.bool,
-	value: PropTypes.oneOfType([
-		PropTypes.string,
-		PropTypes.number
-	]),
+	value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 	className: PropTypes.string,
 	onChange: PropTypes.func
-}
+};
 
 Option.defaultProps = {
 	disabled: false,
 	value: '',
 	className: '',
 	onChange: () => {}
-}
+};
