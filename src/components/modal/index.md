@@ -12,24 +12,25 @@ subtitle: 弹出框
 
 ### Modal
 
-| 属性               | 说明                                     | 类型                | 默认值 |
-| ------------------ | ---------------------------------------- | ------------------- | ------ |
-| visible            | 是否显示 modal 弹出框                    | boolean             | false  |
-| title              | 弹出框的标题                             | string              | title  |
-| modalStyle         | 设置弹出框样式                           | object              | -      |
-| bodyStyle          | 设置弹出框内容区域样式                   | object              | -      |
-| disabledOk         | 禁用确认按钮                             | boolean             | false  |
-| className          | 设置弹出框样式名称                       | string              | -      |
-| hasFooter          | 是否显示底部区域                         | boolean             | true   |
-| footer             | modal 底部内容区域                       | string 或 ReactNode | -      |
-| onClose            | 点击右上角关闭按钮时触发的回调           | function            | -      |
-| onOk               | 点击确定按钮时触发的回调                 | function            | -      |
-| onCancel           | 点击取消按钮时触发的回调                 | function            | -      |
-| okText             | 确定按钮自定义文本                       | string              | 确定   |
-| cancelText         | 取消按钮自定义文本                       | string              | 取消   |
-| showMask           | 是否显示遮罩层                           | boolean             | true   |
-| clickMaskCanClose  | 点击遮罩层是否关闭, showMask 必须为 true | boolean             | true   |
-| showConfirmLoading | 点击确定是否显示 loading，用于异步关闭   | boolean             | false  |
+| 属性               | 说明                                     | 类型                | 默认值              |
+| ------------------ | ---------------------------------------- | ------------------- | ------------------- |
+| visible            | 是否显示 modal 弹出框                    | boolean             | false               |
+| title              | 弹出框的标题                             | string              | title               |
+| modalStyle         | 设置弹出框样式                           | object              | -                   |
+| bodyStyle          | 设置弹出框内容区域样式                   | object              | -                   |
+| disabledOk         | 禁用确认按钮                             | boolean             | false               |
+| className          | 设置弹出框样式名称                       | string              | -                   |
+| hasFooter          | 是否显示底部区域                         | boolean             | true                |
+| footer             | modal 底部内容区域                       | string 或 ReactNode | -                   |
+| onClose            | 点击右上角关闭按钮时触发的回调           | function            | -                   |
+| onOk               | 点击确定按钮时触发的回调                 | function            | -                   |
+| onCancel           | 点击取消按钮时触发的回调                 | function            | -                   |
+| okText             | 确定按钮自定义文本                       | string              | 确定                |
+| cancelText         | 取消按钮自定义文本                       | string              | 取消                |
+| showMask           | 是否显示遮罩层                           | boolean             | true                |
+| clickMaskCanClose  | 点击遮罩层是否关闭, showMask 必须为 true | boolean             | true                |
+| showConfirmLoading | 点击确定是否显示 loading，用于异步关闭   | boolean             | false               |
+| getPopupContainer  | Modal 渲染的父节点                       | function            | () => document.body |
 
 ### Modal.method()
 
