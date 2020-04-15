@@ -1,5 +1,10 @@
 @import '../style/index';
 
+/*
+ * 请不要删除 样式中的 !important
+ * 样式文件中所有 !important 都是为了覆盖 ccms-components 组件库的流氓样式而写
+**/
+
 @input-prefix-cls: ~'@{prefix}-input';
 
 @border-radius: 0px;
@@ -34,6 +39,7 @@
 		position: relative;
 		display: inline-block;
 		line-height: 1.5;
+		height: auto !important;
 		color: @color;
 		transition: border @transition, color @transition;
 		box-sizing: border-box;
@@ -45,7 +51,7 @@
 		border: 1px solid @color-gray5;
 		border-radius: @border-radius;
 		outline: none;
-		width: @default-width;
+		width: @default-width !important;
 		vertical-align: top;
 	}
 
@@ -77,8 +83,14 @@
 		}
 
 		input {
-			width: 100%;
-			border: none;
+			width: 100% !important;
+			height: auto !important;
+
+			&,
+			&:focus,
+			&:disabled {
+				border: none !important;
+			}
 		}
 	}
 
