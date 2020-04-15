@@ -1,53 +1,32 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import ReactDOM from 'react-dom';
+
 import './index.less';
 import Notification from './modal';
 import Prompt from './prompt';
 
 class Modal extends Component {
+	static propTypes = {
+		getPopupContainer: PropTypes.func,
+		children: PropTypes.any
+	};
+
+	static defaultProps = {
+		getPopupContainer: () => document.body,
+		children: null
+	};
+
 	render() {
-		const {
-			visible,
-			modalStyle,
-			bodyStyle,
-			disabledOk,
-			className,
-			title,
-			children,
-			header,
-			footer,
-			hasFooter,
-			onOk,
-			onClose,
-			onCancel,
-			okText,
-			cancelText,
-			showMask,
-			clickMaskCanClose,
-			showConfirmLoading
-		} = this.props;
-		return (
-			<Notification
-				type="modal"
-				visible={visible}
-				title={title}
-				modalStyle={modalStyle}
-				bodyStyle={bodyStyle}
-				disabledOk={disabledOk}
-				className={className}
-				header={header}
-				footer={footer}
-				hasFooter={hasFooter}
-				showMask={showMask}
-				okText={okText}
-				cancelText={cancelText}
-				clickMaskCanClose={clickMaskCanClose}
-				showConfirmLoading={showConfirmLoading}
-				onOk={onOk}
-				onCancel={onCancel}
-				onClose={onClose}>
+		const { getPopupContainer, children, ...props } = this.props;
+
+		const Child = (
+			<Notification type="modal" {...props}>
 				{children}
 			</Notification>
 		);
+
+		return ReactDOM.createPortal(Child, getPopupContainer());
 	}
 }
 
