@@ -6,11 +6,12 @@ import { noop, prefixCls } from '@utils';
 
 import FormContext from './context';
 import Explain from './explain';
-import { LAYOUT_TYPES, DATA_FIELD, findFieldsName, getNamesByNode, findDestroyedFields } from './constants';
+import RenderChildren from './render-children';
+import { LAYOUT_TYPES, findFieldsName, getNamesByNode, findDestroyedFields } from './constants';
 
 const MAX_COL = 24;
 
-export default class Form extends Component {
+export default class FormItem extends Component {
 	static contextType = FormContext;
 
 	static propTypes = {
@@ -164,51 +165,10 @@ export default class Form extends Component {
 
 		return (
 			<div ref={this.wrapperRef} {...wrapperAttrs}>
-				{this.renderChildren(children)}
-				{<Explain>{help}</Explain>}
+				<RenderChildren field={this.field}>{children}</RenderChildren>
+				<Explain>{help}</Explain>
 			</div>
 		);
-	}
-
-	renderChildren(children) {
-		if (['object', 'string', 'array'].indexOf(typeof children) === -1) {
-			return children;
-		}
-
-		return Children.map(children, (child, key) => {
-			if (!child) return null;
-
-			const { props } = child;
-
-			if (!props) return child;
-
-			if (props && props[DATA_FIELD]) {
-				const { getState = noop, getError = noop } = this.field || {};
-
-				const state = getState.call(this.field, props[DATA_FIELD]);
-				const error = getError.call(this.field, props[DATA_FIELD]);
-
-				return (
-					<div
-						key={key.toString()}
-						className={classnames('contents', {
-							'has-error': state === 'error',
-							'has-success': state === 'success'
-						})}>
-						{cloneElement(child, child.props)}
-						{error ? <Explain className="error">{error}</Explain> : null}
-					</div>
-				);
-			}
-
-			let items = props.children;
-
-			if (props.children && Children.count(props.children) && !props[DATA_FIELD]) {
-				items = this.renderChildren(props.children);
-			}
-
-			return cloneElement(child, { key, ...child.props, children: items });
-		});
 	}
 
 	render() {

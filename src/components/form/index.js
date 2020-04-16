@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import { prefixCls } from '@utils';
 
 import FormItem from './form-item';
-import Nexus from './nexus';
+import Nexus from './form-nexus';
 import FormContext from './context';
 import { LAYOUT_TYPES, LABEL_ALIGN } from './constants';
 

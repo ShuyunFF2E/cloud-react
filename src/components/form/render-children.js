@@ -1,57 +1,23 @@
 import React, { Component, Children, cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { noop } from '@utils';
 
-import FormContext from './context';
 import Explain from './explain';
 
-import { DATA_FIELD, findFieldsName } from './constants';
+import { DATA_FIELD } from './constants';
 
-export default class FormB extends Component {
-	static contextType = FormContext;
+export const noop = () => {};
 
+export default class RenderChildren extends Component {
 	static propTypes = {
-		children: PropTypes.any
+		children: PropTypes.any,
+		field: PropTypes.object
 	};
 
 	static defaultProps = {
-		children: null
+		children: null,
+		field: {}
 	};
-
-	componentWillUnmount() {
-		const { field, dataFields } = this;
-
-		// 如果设置了校验规则，则重置并删除
-		if (field && field.remove && dataFields && dataFields.length) {
-			field.remove(dataFields);
-		}
-	}
-
-	get field() {
-		return this.context.field;
-	}
-
-	get fieldsMeta() {
-		if (this.field && this.field.fieldsMeta) {
-			return this.field.fieldsMeta;
-		}
-		return null;
-	}
-
-	get dataFields() {
-		const {
-			field,
-			props: { children }
-		} = this;
-		const fieldsName = findFieldsName(children);
-
-		if (field && field.fieldsMeta && fieldsName.length) {
-			return fieldsName;
-		}
-
-		return null;
-	}
 
 	renderChildren(children) {
 		if (['object', 'string', 'array'].indexOf(typeof children) === -1) {
@@ -66,10 +32,11 @@ export default class FormB extends Component {
 			if (!props) return child;
 
 			if (props && props[DATA_FIELD]) {
-				const { getState = noop, getError = noop } = this.field || {};
+				const { field } = this.props;
+				const { getState = noop, getError = noop } = field;
 
-				const state = getState.call(this.field, props[DATA_FIELD]);
-				const error = getError.call(this.field, props[DATA_FIELD]);
+				const state = getState.call(field, props[DATA_FIELD]);
+				const error = getError.call(field, props[DATA_FIELD]);
 
 				return (
 					<div
