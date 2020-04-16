@@ -61,7 +61,8 @@ class Node extends Component {
 	};
 
 	// 保存节点信息
-	onSaveClick = (pId, name) => {
+	onSaveClick = (data, name) => {
+		const { id, level } = data;
 		// 输入内容不能为空
 		if (!this.state.inputValue) {
 			Message.error('名称不能为空！');
@@ -79,7 +80,7 @@ class Node extends Component {
 		});
 
 		// 编辑与新增
-		this.context[!this.state.isAdd ? 'onRenameAction' : 'onAddAction'](pId, name);
+		this.context[!this.state.isAdd ? 'onRenameAction' : 'onAddAction'](id, name, level);
 	};
 
 	// 取消保存
@@ -147,7 +148,7 @@ class Node extends Component {
 						inputValue={this.state.inputValue}
 						maxLength={this.context.nodeNameMaxLength}
 						handleInputChange={this.handleInputChange}
-						saveItem={() => this.onSaveClick(data.id, this.state.inputValue)}
+						saveItem={() => this.onSaveClick(data, this.state.inputValue)}
 						cancelSave={this.onClickCancel}
 					/>
 

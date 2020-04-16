@@ -68,13 +68,16 @@ class Tree extends Component {
 		// 从外部接收到的数据存放到state中，便于子组件对其树数据进行修改
 		super(props);
 
+		const treeData =  store.initData(props.treeData, props.maxLevel, props.selectedValue, props.isUnfold);
+
 		this.state = {
 			visibleMenu: false,
 			nodeData: {},
 			menuStyle: null,
 			menuOptions: null,
 			searchText: '',
-			treeData: store.initData(props.treeData, props.maxLevel, props.selectedValue, props.isUnfold),
+			treeData: jEasy.clone(treeData),
+			allTreeData: jEasy.clone(treeData),
 			prevProps: props
 		};
 	}
@@ -115,8 +118,7 @@ class Tree extends Component {
 		});
 		const { supportSearch, onSearchNode } = this.props;
 
-		// 保留原始数据供每次搜索使用
-		const tmp = jEasy.clone(store.initData(this.props.treeData, this.props.maxLevel));
+		const tmp = jEasy.clone(this.state.allTreeData);
 
 		// 搜索结果数据
 		const backTree = store.searchNode(tmp, searchText);
@@ -201,14 +203,15 @@ class Tree extends Component {
 	 * @param pId
 	 * @param value
 	 */
-	onAddAction = (pId, value) => {
-		const { onAddNode, isAddFront } = this.props;
+	onAddAction = (pId, value, pLevel) => {
+		const { onAddNode, isAddFront, maxLevel } = this.props;
 		onAddNode(pId, value)
 			.then(res => {
-				const data = store.addChildNode(this.state.treeData, pId, { id: res.data || res.id, name: value, children: [], pId }, isAddFront);
+				const data = store.addChildNode(this.state.treeData, pId, { id: res.data || res.id, name: value, children: [], pId, level: pLevel + 1, disableAdd: maxLevel - pLevel === 1 }, isAddFront);
 				// 新增之后重新init判断层级，不然会出现无层级可继续添加问题
 				this.setState({
-					treeData: [...data]
+					treeData: jEasy.clone(data),
+					allTreeData: jEasy.clone(data)
 				});
 			})
 			.catch(() => {
@@ -227,7 +230,8 @@ class Tree extends Component {
 			.then(() => {
 				const data = store.renameChildNode(this.state.treeData, id, newValue);
 				this.setState({
-					treeData: [...data]
+					treeData: jEasy.clone(data),
+					allTreeData: jEasy.clone(data)
 				});
 				Message.success('更新成功');
 			})
@@ -251,14 +255,16 @@ class Tree extends Component {
 	onRemoveAction = node => {
 		const { onRemoveNode } = this.props;
 		Modal.confirm({
+			isShowIcon: false,
 			body: `确定删除节点【${node.name}】吗?`,
 			onOk: () => {
-				onRemoveNode(node.id)
+				onRemoveNode(node.id, node)
 					.then(() => {
 						// 删除DOM节点
 						const data = store.removeChildNode(this.state.treeData, node);
 						this.setState({
-							treeData: [...data]
+							treeData: jEasy.clone(data),
+							allTreeData: jEasy.clone(data)
 						});
 					})
 					.catch(() => {
@@ -369,11 +375,11 @@ class Tree extends Component {
 						visible={visibleMenu}
 					/>
 
-					{treeData && treeData.length > 0 && treeData[0].children && treeData[0].children.length > 0 && (
+					{treeData && treeData.length > 0 && (
 						<TreeList prefixCls={selector} nodeNameMaxLength={nodeNameMaxLength} data={treeData} />
 					)}
 
-					{(!treeData || !treeData.length || !treeData[0].children || !treeData[0].children.length) && <p>暂无结果</p>}
+					{(!treeData || !treeData.length) && <p>暂无结果</p>}
 				</div>
 			</TreeContext.Provider>
 		);

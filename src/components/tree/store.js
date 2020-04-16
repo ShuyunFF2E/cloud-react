@@ -408,22 +408,34 @@ class Store {
 		// 搜索前删除掉已激活的节点
 		this.activeNode = null;
 
+		if (!searchText) {
+			return cloneData;
+		}
+
 		const search = node => {
 			return node.filter(item => {
 				const tmp = item;
 				tmp.isUnfold = true;
+
 				if (item.name.indexOf(searchText) !== -1) {
+					if (item.children && item.children.length) {
+						const children = search(tmp.children);
+						if (children.length) {
+							tmp.children = children;
+						} else {
+							tmp.isUnfold = false;
+						}
+					}
 					return item;
 				}
 				if (item.children && item.children.length) {
 					tmp.children = search(tmp.children);
 					return item.children.length > 0;
 				}
-				return !item.children.length && item.name.indexOf(String(searchText)) !== -1;
+				return !item.children.length && item.name.indexOf(searchText) !== -1;
 			});
 		};
-		search(cloneData);
-		return cloneData;
+		return search(cloneData);
 	}
 }
 

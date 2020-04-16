@@ -5,22 +5,37 @@ import Icon from '../icon';
 
 class Search extends Component{
 
-	handleSearch = e => {
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			value: ''
+		};
+	}
+
+	handleChange = e => {
+		const { value } = e.target;
+		this.setState({
+			value
+		});
 		const { supportImmediatelySearch, onSearchAction } = this.props;
-		// 回车或实时触发搜索
-		if (e.keyCode === 13 || supportImmediatelySearch) {
-			onSearchAction(e.target.value);
+		if (supportImmediatelySearch) {
+			onSearchAction(value);
 		}
+	}
+
+	handleSearch = () => {
+		this.props.onSearchAction(this.state.value);
 	};
 
 	render() {
 		const { supportSearch, searchPlaceholder, searchMaxLength, prefixCls } = this.props;
 		return(
 			supportSearch && <div className={classNames(`${prefixCls}-search`)}>
-				<Input suffix={<Icon type="search"/>}
+				<Input suffix={<Icon type="search" onClick={this.handleSearch} style={{ cursor: 'pointer' }} />}
 					   className={classNames(`${prefixCls}-search-input`)}
 					   onEnter={this.handleSearch}
-					   onChange={this.handleSearch}
+					   onChange={this.handleChange}
 					   maxLength={searchMaxLength}
 					   placeholder={searchPlaceholder} />
 			</div>

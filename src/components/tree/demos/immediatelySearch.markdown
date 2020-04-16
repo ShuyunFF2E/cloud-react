@@ -47,24 +47,38 @@ export default class TreeDemo extends React.Component {
                             id: 111,
                             name: '22323',
                             pId: 11,
-                            categoryType: 0
+                            categoryType: 0,
+                            children: [
+                                {
+                                    id: 1111,
+                                    name: '2333',
+                                    pId: 111,
+                                    categoryType: 0,
+                                    children: []
+                                }
+                            ]
                         }
                     ]
                 }, {
                     id: 12,
-                    name: '禁止删除节点',
+                    name: '0414禁止删除节点',
                     pId: 1,
                     disableRemove: true,
                     children: [
                         {
                             id: 121,
-                            name: '禁止重命名节点',
+                            name: '0414禁止重命名节点',
                             pId: 12,
                             disableRename: true,
                             children: [
                                 {
                                     id: 1211,
-                                    name: '2345',
+                                    name: '04142345',
+                                    pId: 121
+                                },
+                                {
+                                    id: 1212,
+                                    name: '42345',
                                     pId: 121
                                 }
                             ]
@@ -94,7 +108,7 @@ export default class TreeDemo extends React.Component {
             ]
         }];
 		return (
-			<Tree
+            <Tree
 				treeData={treeData}
 				supportMenu={this.state.supportMenu}
 				supportSearch={this.state.supportSearch}
