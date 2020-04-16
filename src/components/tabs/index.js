@@ -4,6 +4,7 @@ import cls from 'classnames';
 import { prefixCls } from '@utils';
 
 import IconRaw from '../icon';
+import Tooltip from '../tooltip';
 
 import './index.less';
 
@@ -194,16 +195,13 @@ export default class Tabs extends PureComponent {
 		const { activedKey } = this.state;
 		if (key === activedKey) {
 			return;
-		} // change event, not click event
+		}
 
-		this.setState(
-			{
-				activedKey: key
-			},
-			() => {
-				this.props.onChange(key);
-			}
-		);
+		this.setState({
+			activedKey: key
+		});
+
+		this.props.onChange(key);
 	};
 
 	handleClose = key => () => {
@@ -220,7 +218,8 @@ export default class Tabs extends PureComponent {
 
 	renderTabHeader(child, isActived) {
 		const { type, activeClassName } = this.props;
-		const { disabled, closable, tab } = child.props;
+		const { disabled, closable, tab, tabBarStyle } = child.props;
+		const { width } = tabBarStyle;
 		const { key } = child;
 
 		// class & style
@@ -228,8 +227,8 @@ export default class Tabs extends PureComponent {
 
 		// render
 		return (
-			<span className={className} onClick={this.handleChange(key)} key={key}>
-				{tab}
+			<span className={className} key={key} style={tabBarStyle} onClick={this.handleChange(key)}>
+				{width && width !== 'auto' ? <Tooltip content={tab}>{tab}</Tooltip> : tab}
 				{isActived && closable && (
 					<span className="closable-wrapper">
 						<Icon type="close" className="closable" onClick={this.handleClose(key)} />
@@ -260,20 +259,26 @@ export default class Tabs extends PureComponent {
 		const { activedKey, hasMore } = this.state;
 
 		const headers = [];
+		const fixedHeaders = [];
 		let panel = [];
 
 		Children.forEach(children, child => {
 			if (!isValidElement(child)) return;
+
 			const isActived = child.key === activedKey;
 			headers.push(this.renderTabHeader(child, isActived));
 
+			if (type === 'card' && child.props.fixed) {
+				fixedHeaders.push(this.renderTabHeader(child, isActived));
+			}
 			// 处理panel
 			if (mode === 'remain') {
-				// const style = { ...child.props.style, display: isActived ? 'block' : 'none' };
 				const style = isActived ? child.props.style : { ...child.props.style, display: 'none' };
 				const target = React.cloneElement(child, { style });
 				panel.push(target);
-			} else if (isActived) {
+			}
+
+			if (isActived) {
 				panel = child;
 			}
 		});
@@ -282,11 +287,15 @@ export default class Tabs extends PureComponent {
 		const headerClassName = cls(`${prefixCls}-tabs-header-${type}`, {
 			[`${prefixCls}-tabs-header-more`]: hasMore
 		});
+
 		return (
 			<div className={finalClassName} style={this.props.style}>
 				<section className={headerClassName}>
 					{this.renderMoreIcon()}
 					<div className={`${prefixCls}-tabs-items`}>
+						{!!fixedHeaders.length && (
+							<div className={cls(`${prefixCls}-tabs-items-fixed`, { 'fixed-has-more-icon': this.state.hasMore })}>{fixedHeaders}</div>
+						)}
 						<div className={`${prefixCls}-tabs-items-scroll`} ref={this.tabsRef}>
 							{headers}
 							{this.hasLineBar && <div className={`${prefixCls}-tabs-item-bar`} ref={this.activeBarRef} />}
@@ -312,15 +321,19 @@ Panel.propTypes = {
 	tab: PropTypes.node.isRequired, // eslint-disable-line
 	closable: PropTypes.bool, // eslint-disable-line
 	disabled: PropTypes.bool, // eslint-disable-line
+	fixed: PropTypes.bool, // eslint-disable-line
 	className: PropTypes.string,
-	style: PropTypes.object
+	style: PropTypes.object,
+	tabBarStyle: PropTypes.object // eslint-disable-line
 };
 
 Panel.defaultProps = {
 	disabled: false,
 	closable: false,
+	fixed: false,
 	className: '',
-	style: {}
+	style: {},
+	tabBarStyle: {}
 };
 
 Tabs.Panel = Panel;

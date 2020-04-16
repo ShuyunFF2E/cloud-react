@@ -117,6 +117,17 @@
 			left: 0;
 			transition: left 0.3s;
 		}
+
+		&-fixed {
+			z-index: 3;
+			position: absolute;
+			top: 0;
+			left: 0;
+
+			&.fixed-has-more-icon {
+				left: 30px;
+			}
+		}
 	}
 
 	&-item-card:extend(.cloud-tabs-item-basic all) {
