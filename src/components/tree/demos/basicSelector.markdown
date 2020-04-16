@@ -39,8 +39,8 @@ export default class TreeDemo extends React.Component {
 		});
 	};
 
-	removeNode = id => {
-		console.info('向后端发送一条请求，删除一个节点，参数为' + 'id:' + id);
+	removeNode = (id, node) => {
+		console.info('向后端发送一条请求，删除一个节点，参数为' + 'id:' + id, node);
 		return new Promise((resolve, reject) => {
 			resolve({ data: '删除成功' });
 			// reject('删除失败');
