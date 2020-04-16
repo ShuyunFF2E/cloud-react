@@ -6,6 +6,14 @@ const DATA_FIELD = 'data-field';
 const emptyState = {};
 const emptyValues = ['', null, undefined];
 
+const DEFAULT_OPTS = {
+	trigger: 'onChange',
+	valueName: 'value',
+	checkable: true,
+	rules: [],
+	onChange: () => {}
+};
+
 export default class Field {
 	constructor(component, opts = {}) {
 		this.fieldsMeta = {};
@@ -16,9 +24,18 @@ export default class Field {
 	__fieldsMeta__ = {};
 
 	init = (name, opts = {}) => {
-		const { trigger = 'onChange', valueName = 'value', initValue, rules = [], onChange = () => {} } = opts;
+		const {
+			initValue,
+			rules = DEFAULT_OPTS.rules,
+			trigger = DEFAULT_OPTS.trigger,
+			onChange = DEFAULT_OPTS.onChange,
+			valueName = DEFAULT_OPTS.valueName,
+			checkable = DEFAULT_OPTS.checkable
+		} = opts;
 
-		if (!this.fieldsMeta[name]) {
+		let fieldMeta = this.fieldsMeta[name];
+
+		if (!fieldMeta) {
 			this.fieldsMeta[name] = {
 				...(this.__fieldsMeta__[name] || {}),
 				state: '',
@@ -26,13 +43,25 @@ export default class Field {
 				valueName,
 				trigger,
 				initValue,
+				checkable,
 				change: onChange
 			};
+
+			fieldMeta = this.fieldsMeta[name];
+		}
+		// 更新checkable、重置校验状态和清除错误信息
+		else if (fieldMeta.checkable !== checkable && checkable === false) {
+			delete fieldMeta.errors;
+
+			fieldMeta.state = '';
+			window.requestAnimationFrame(this.__render__);
 		}
 
-		const fieldMeta = this.fieldsMeta[name];
-
-		Object.assign(fieldMeta, { value: 'value' in fieldMeta ? fieldMeta.value : initValue });
+		Object.assign(fieldMeta, {
+			rules,
+			checkable,
+			value: 'value' in fieldMeta ? fieldMeta.value : initValue
+		});
 
 		if (typeof fieldMeta[fieldMeta.trigger] === 'undefined') {
 			fieldMeta[fieldMeta.trigger] = (evt, ...others) => {
@@ -241,16 +270,18 @@ export default class Field {
 		while (_names.length) {
 			const name = _names.shift();
 			const fieldMeta = this.fieldsMeta[name];
-			const { rules, value } = fieldMeta;
+			const { rules, value, checkable } = fieldMeta;
 
-			fieldMeta.state = 'validating';
+			if (checkable === true) {
+				fieldMeta.state = 'validating';
 
-			const error = validator(name, value, rules);
+				const error = validator(name, value, rules);
 
-			if (error instanceof Promise) {
-				errorPromises.push(error);
-			} else {
-				errorPromises.push(Promise.resolve({ name, message: error }));
+				if (error instanceof Promise) {
+					errorPromises.push(error);
+				} else {
+					errorPromises.push(Promise.resolve({ name, message: error }));
+				}
 			}
 
 			values[name] = value;
