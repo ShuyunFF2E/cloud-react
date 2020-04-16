@@ -60,22 +60,20 @@ function Form() {
 
 `init(name[, options])`
 
-| 属性              | 说明                                                               | 类型                 | 默认值     |
-| ----------------- | ------------------------------------------------------------------ | -------------------- | ---------- |
-| name              | 必填输入控件唯一标志                                               | string               | -          |
-| options.initValue | 组件初始值，对控件件的`defaultValue`                               | any                  | -          |
-| options.valueName | 组件值的属性名称，如`Radio`的是`checked`，`Input`是`value`         | string               | `value`    |
-| options.trigger   | 触发取数据的方法，对应控件的 handle 方法，如`onChange`、`onSelect` | string               | `onChange` |
-| options.onChange  | 在组件触发`onChange`时调用                                         | Function(evt: event) | -          |
-| options.rules     | 校验规则                                                           | array                | -          |
+| 属性              | 说明                                                                      | 类型                 | 默认值     |
+| ----------------- | ------------------------------------------------------------------------- | -------------------- | ---------- |
+| name              | 必填输入控件唯一标志                                                      | string               | -          |
+| options.initValue | 组件初始值，对控件件的`defaultValue`                                      | any                  | -          |
+| options.valueName | 组件值的属性名称，如`Radio`的是`checked`，`Input`是`value`                | string               | `value`    |
+| options.trigger   | 触发取数据的方法，对应控件的 handle 方法，如`onChange`、`onSelect`        | string               | `onChange` |
+| options.onChange  | 在组件触发`onChange`时调用                                                | Function(evt: event) | -          |
+| options.rules     | 校验规则                                                                  | array                | -          |
+| options.checkable | 是否可校验，当设置为`false`时仅跳过该字段的校验，不会清空该字段的其他信息 | boolean              | `true`     |
 
 ### options.rules
 
 ```javascript
-[
-	{ required: true, message: '内容不允许为空' },
-	{ len: 20, message: '最长只能输入20个字符' }
-];
+[{ required: true, message: '内容不允许为空' }, { len: 20, message: '最长只能输入20个字符' }];
 ```
 
 | 属性      | 说明                                                                 | 类型                            | 默认值    |
