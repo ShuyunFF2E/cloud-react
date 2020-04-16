@@ -1,141 +1,143 @@
-import React, { useState, useEffect } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import cls from 'classnames';
+import classnames from 'classnames';
 import { noop, prefixCls } from '@utils';
+
 import Icon from '../icon';
-import { isInvalid, getCurrentValue, getMax, getMin, getValueByBlank, fixDoubleOperation } from './util';
+
+import {
+	isInvalid,
+	isInvalidNumber,
+	infinityNumFilter,
+	isNotCompleteNumber,
+	fixDoubleOperation,
+	getCurrentValue,
+	getCurrentPrecision,
+	getValueByBlank,
+	getMax,
+	getMin
+} from './util';
+
 import './index.less';
 
 const selector = `${prefixCls}-input-number`;
 
-function InputNumber(props) {
-	const {
-		className,
-		style,
-		placeholder,
-		size,
-		min,
-		max,
-		step,
-		precision,
-		value,
-		defaultValue,
-		disabled,
-		onChange,
-		onBlur,
-		onFocus,
-		noStep,
-		...other
-	} = props;
+class InputNumber extends Component {
+	constructor() {
+		super();
 
-	const [currentValue, setCurrentValue] = useState('');
-	const [upButtonEnabled, setUpButtonEnabled] = useState(true);
-	const [downButtonEnabled, setDownButtonEnabled] = useState(true);
-	// const [currentPrecision, setCurrentPrecision] = useState(0);
-	const [focused, setFocused] = useState(false);
-	const [isFirst, setIsFrist] = useState(true);
-
-	let isControlled = value !== undefined; // 受控判断
-
-	function setBtnStatus(isInvalided, isUpEnabled, isDownEnabled) {
-		// 非法输入最终会变成空字符串，空字符串默认可+-
-		setUpButtonEnabled(isInvalided || isUpEnabled);
-		setDownButtonEnabled(isInvalided || isDownEnabled);
+		this.state = {
+			currentValue: '',
+			upButtonEnabled: true,
+			downButtonEnabled: true,
+			focused: false
+		};
 	}
 
-	// 使用函数形式，防止首次渲染useEffect触发两次而跳过defaulteValue判断
-	// useEffect(() => {
-	// 	let pr = '';
-	// 	if (precision === undefined || precision === null) {
-	// 		pr = Number.isInteger(step) ? 0 : step.toString().split('.')[1].length
-	// 		// pr = -1
-	// 	} else {
-	// 		pr = parseInt(precision, 10);
-	// 	}
-	// 	setCurrentPrecision(pr);
-	// }, [precision, step]);
-
-	function getCurrentPrecision(_value = 0) {
-		// 精度判断
-		let _precision;
-		if (precision === undefined || precision === null) {
-			const valuePrecision = Number.isInteger(_value) ? 0 : _value.toString().split('.')[1].length;
-			const stepPrecision = Number.isInteger(step) ? 0 : step.toString().split('.')[1].length;
-			_precision = valuePrecision >= stepPrecision ? valuePrecision : stepPrecision;
-		} else {
-			_precision = parseInt(precision, 10);
-		}
-		console.log('[_precision]', _precision);
-
-		return _precision;
-	}
-	function getDefaultValue() {
+	componentDidMount() {
+		const { min, max, value, defaultValue, precision, step } = this.props;
+		let _value = value;
 		// 获取默认value
 		const number = parseFloat(defaultValue);
-		return value || (Number.isNaN(number) ? '' : getCurrentValue(number, min, max, getCurrentPrecision(number)));
+		_value = value || (Number.isNaN(number) ? '' : getCurrentValue(number, min, max, getCurrentPrecision(number, precision, step)));
+
+		this.setState({
+			currentValue: _value
+		});
+
+		this.isControlled = value !== undefined;
 	}
 
-	function getValue() {
-		return isFirst ? getDefaultValue() : value;
+	componentDidUpdate(prevProps, prevState) {
+		const { value, min, max, precision } = this.props;
+
+		if (prevProps.value !== value || prevProps.min !== min || prevProps.max !== max || prevProps.precision !== precision) {
+			this.setIsControlled(value !== undefined);
+			this.updateCurrentValue();
+		}
+
+		if (this.state.currentValue !== prevState.currentValue) {
+			this.updateBtnStatus();
+		}
 	}
 
-	useEffect(() => {
-		isControlled = value !== undefined;
-		setCurrentValue(getValue());
-		setIsFrist(false);
-		setBtnStatus(isInvalid(value), getMax(value, max).lessMax, getMin(value, min).greaterMin);
-	}, [value, min, max, precision]);
-
-	useEffect(() => {
-		setBtnStatus(isInvalid(currentValue), getMax(currentValue, max).lessMax, getMin(currentValue, min).greaterMin);
-	}, [currentValue, min, max]);
-
-	function isNotCompleteNumber(num) {
-		// - & x. Is not complete number
-		return (
-			// eslint-disable-next-line no-restricted-globals
-			isNaN(num) || num === '' || num === null || (num && num.toString().indexOf('.') === num.toString().length - 1)
-		);
+	updateCurrentValue() {
+		this.setState({
+			currentValue: this.props.value
+		});
 	}
 
-	function isInvalidNumber(num) {
-		return num === '' || num === null || (num.indexOf('.') >= 0 && num.charAt(num.length - 1) === '0'); // .00 will disappear in toNumber
+	updateBtnStatus() {
+		const { currentValue } = this.state;
+		const { min, max } = this.props;
+		const isInvalided = isInvalid(currentValue);
+		const isUpEnabled = isInvalided || getMax(currentValue, max).lessMax;
+		const isDownEnabled = isInvalided || getMin(currentValue, min).greaterMin;
+
+		this.setState({
+			upButtonEnabled: isUpEnabled,
+			downButtonEnabled: isDownEnabled
+		});
 	}
 
-	function infinityNumFilter(num) {
-		return String(num).length > 16 ? String(num) : Number(num);
+	setIsControlled(value) {
+		this.isControlled = value;
 	}
 
-	function handleChange(evt) {
-		const targetValue = evt.target.value.trim().replace(/[^\-?\d.]/g, '');
-		const _targetValue = isNotCompleteNumber(targetValue) ? targetValue : infinityNumFilter(targetValue);
-		setCurrentValue(_targetValue);
-		onChange(_targetValue);
-	}
+	handlePlus = () => {
+		if (this.state.upButtonEnabled) {
+			this.handlePlusMinus(true);
+		}
+	};
 
-	function handleBlur(evt) {
-		setFocused(false);
-		const targetValue = evt.target.value.trim();
+	handleMinus = () => {
+		if (this.state.downButtonEnabled) {
+			this.handlePlusMinus(false);
+		}
+	};
+
+	handleFocus = () => {
+		this.setState({
+			focused: true
+		});
+		this.props.onFocus();
+	};
+
+	handleBlur = event => {
+		const { min, max, precision, onBlur, onChange } = this.props;
+		const targetValue = event.target.value.trim();
 		const val = getCurrentValue(targetValue, min, max, precision);
 		const _val = isInvalidNumber(String(val)) ? val : Number(val);
-		setCurrentValue(_val);
+
+		this.setState({
+			focused: false,
+			currentValue: _val
+		});
+
 		onBlur(_val);
 		onChange(_val);
-	}
+	};
 
-	function handleFocus() {
-		setFocused(true);
-		onFocus();
-	}
+	handleChange = event => {
+		const targetValue = event.target.value.trim().replace(/[^\-?\d.]/g, '');
+		const _targetValue = isNotCompleteNumber(targetValue) ? targetValue : infinityNumFilter(targetValue);
 
-	function handlePlusMinus(isPlus) {
+		this.setState({
+			currentValue: _targetValue
+		});
+		this.props.onChange(_targetValue);
+	};
+
+	handlePlusMinus(isPlus) {
+		const { min, max, precision, step, onChange } = this.props;
+		const { currentValue } = this.state;
+
 		let val = currentValue;
-		if (isControlled) {
+		if (this.isControlled) {
 			if (!isInvalid(currentValue)) {
 				// 删除值 & 初始
 				const _val = fixDoubleOperation(Number(currentValue), Number(isPlus ? step : -1 * step));
-				val = getCurrentValue(_val, min, max, getCurrentPrecision(_val));
-				// val = currentPrecision >= 0 ? _val.toFixed(currentPrecision) : _val
+				val = getCurrentValue(_val, min, max, getCurrentPrecision(_val, precision, step));
 			} else {
 				val = getValueByBlank(min, max, step);
 			}
@@ -143,8 +145,7 @@ function InputNumber(props) {
 			if (!isInvalid(currentValue)) {
 				// 有value
 				const _val = fixDoubleOperation(Number(currentValue), Number(isPlus ? step : -1 * step));
-				const tempValue = getCurrentValue(_val, min, max, getCurrentPrecision(_val));
-				// const tempValue = currentPrecision >= 0 ? _val.toFixed(currentPrecision) : _val;
+				const tempValue = getCurrentValue(_val, min, max, getCurrentPrecision(_val, precision, step));
 				if (isPlus) {
 					// 加
 					if (getMax(currentValue, max).lessEqualMax) {
@@ -156,7 +157,10 @@ function InputNumber(props) {
 			} else {
 				val = getValueByBlank(min, max, step);
 			}
-			setCurrentValue(val);
+
+			this.setState({
+				currentValue: val
+			});
 		}
 		if (!isInvalid(val)) {
 			val = Number(val);
@@ -164,58 +168,71 @@ function InputNumber(props) {
 		onChange(val);
 	}
 
-	function handlePlus() {
-		if (upButtonEnabled) {
-			handlePlusMinus(true);
-		}
-	}
+	renderStep() {
+		const { noStep } = this.props;
+		const { upButtonEnabled, downButtonEnabled } = this.state;
 
-	function handleMinus() {
-		if (downButtonEnabled) {
-			handlePlusMinus(false);
-		}
-	}
+		const upBtnClass = classnames(`${selector}-handler ${selector}-handler-up`, {
+			[`${selector}-handler-disabled`]: !upButtonEnabled
+		});
+		const downBtnClass = classnames(`${selector}-handler ${selector}-handler-down`, {
+			[`${selector}-handler-disabled`]: !downButtonEnabled
+		});
 
-	const compClass = cls(`${selector} ${size} ${className}`, {
-		[`${selector}-disabled`]: disabled,
-		[`${selector}-focused`]: focused
-	});
-	const upBtnClass = cls(`${selector}-handler ${selector}-handler-up`, {
-		[`${selector}-handler-disabled`]: !upButtonEnabled
-	});
-	const downBtnClass = cls(`${selector}-handler ${selector}-handler-down`, {
-		[`${selector}-handler-disabled`]: !downButtonEnabled
-	});
-
-	return (
-		<div className={compClass} style={style}>
-			{noStep ? null : (
+		return (
+			!noStep && (
 				<div className={`${selector}-handler-wrap`}>
-					<span className={upBtnClass} onClick={handlePlus}>
+					<span className={upBtnClass} onClick={this.handlePlus}>
 						<Icon type="up" className={`${selector}-handler-up-icon`} />
 					</span>
-					<span className={downBtnClass} onClick={handleMinus}>
+					<span className={downBtnClass} onClick={this.handleMinus}>
 						<Icon type="down" className={`${selector}-handler-down-icon`} />
 					</span>
 				</div>
-			)}
+			)
+		);
+	}
+
+	renderInput() {
+		const { min, max, step, disabled, placeholder } = this.props;
+
+		const { currentValue } = this.state;
+
+		return (
 			<div className={`${selector}-handler-input`}>
 				<input
 					className={`${selector}-input`}
 					min={min}
 					max={max}
 					step={step}
-					onFocus={handleFocus}
-					onChange={handleChange}
-					onBlur={handleBlur}
+					onFocus={this.handleFocus}
+					onChange={this.handleChange}
+					onBlur={this.handleBlur}
 					disabled={disabled}
 					value={currentValue}
 					placeholder={placeholder}
-					{...other}
 				/>
 			</div>
-		</div>
-	);
+		);
+	}
+
+	render() {
+		const { size, disabled, className, style } = this.props;
+
+		const { focused } = this.state;
+
+		const compClass = classnames(`${selector} ${size} ${className}`, {
+			[`${selector}-disabled`]: disabled,
+			[`${selector}-focused`]: focused
+		});
+
+		return (
+			<div className={compClass} style={style}>
+				{this.renderStep()}
+				{this.renderInput()}
+			</div>
+		);
+	}
 }
 
 InputNumber.propTypes = {
@@ -253,4 +270,5 @@ InputNumber.defaultProps = {
 	onBlur: noop,
 	onFocus: noop
 };
+
 export default InputNumber;

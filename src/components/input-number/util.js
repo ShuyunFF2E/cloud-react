@@ -89,3 +89,34 @@ export function fixDoubleOperation(n1, n2, type = 'add') {
 		}
 	}
 }
+
+export function getCurrentPrecision(value = 0, precision, step) {
+	// 精度判断
+	let _precision;
+	if (precision === undefined || precision === null) {
+		const valuePrecision = Number.isInteger(value) ? 0 : value.toString().split('.')[1].length;
+		const stepPrecision = Number.isInteger(step) ? 0 : step.toString().split('.')[1].length;
+		_precision = valuePrecision >= stepPrecision ? valuePrecision : stepPrecision;
+	} else {
+		_precision = parseInt(precision, 10);
+	}
+
+	return _precision;
+}
+
+export function isInvalidNumber(num) {
+	// .00 will disappear in toNumber
+	return num === '' || num === null || (num.indexOf('.') >= 0 && num.charAt(num.length - 1) === '0');
+}
+
+export function infinityNumFilter(num) {
+	return String(num).length > 16 ? String(num) : Number(num);
+}
+
+export function isNotCompleteNumber(num) {
+	// - & x. Is not complete number
+	return (
+		// eslint-disable-next-line no-restricted-globals
+		isNaN(num) || num === '' || num === null || (num && num.toString().indexOf('.') === num.toString().length - 1)
+	);
+}
