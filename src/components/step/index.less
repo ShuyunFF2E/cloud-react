@@ -2,17 +2,7 @@
 
 @step-prefix-cls: ~'@{prefix}-step';
 
-@finish-color: #00AAF1;
-@finish-border-color: @finish-color;
-
-@process-color: #fff;
-@process-background-color: @finish-color;
-
-@wait-color: @process-color;
-@wait-background-color: #DEDEDE;
-
-@title-color: #333;
-@content-color: #666;
+@wait-background-color: #dedede;
 
 // 画图标
 .drawing-icon(@icon-size) {
@@ -26,8 +16,8 @@
 // 画横线
 .drawing-horizontal-line(@icon-size, @both-margin) {
 	.@{item-selector}:not(:last-child)::before {
-		width: calc(~"100% - @{icon-size} - @{both-margin} * 2");
-		left: calc(~"50% + @{icon-size} / 2 + @{both-margin}");
+		width: calc(~'100% - @{icon-size} - @{both-margin} * 2');
+		left: calc(~'50% + @{icon-size} / 2 + @{both-margin}');
 		top: floor(@icon-size / 2);
 	}
 }
@@ -35,14 +25,13 @@
 // 画竖线
 .drawing-vertical-line(@icon-size, @both-margin) {
 	.@{item-selector}:not(:last-child)::before {
-		height: calc(~"100% - @{icon-size} - @{both-margin} * 2");
+		height: calc(~'100% - @{icon-size} - @{both-margin} * 2');
 		left: floor(@icon-size / 2);
-		top: calc(~"@{icon-size} + @{both-margin}");
+		top: calc(~'@{icon-size} + @{both-margin}');
 	}
 }
 
 .@{step-prefix-cls} {
-
 	display: flex;
 	width: 100%;
 
@@ -104,8 +93,8 @@
 
 			&.inline {
 				.@{item-selector}:not(:last-child)::before {
-					width: calc(~"100% - @{circle-icon-size} - @{circle-both-margin} * 2");
-					left: calc(~"@{circle-icon-size} + @{circle-both-margin}");
+					width: calc(~'100% - @{circle-icon-size} - @{circle-both-margin} * 2');
+					left: calc(~'@{circle-icon-size} + @{circle-both-margin}');
 				}
 			}
 		}
@@ -146,7 +135,7 @@
 			overflow: hidden;
 
 			&:not(:last-child)::before {
-				content: "";
+				content: '';
 				position: absolute;
 				width: 1px;
 			}
@@ -175,7 +164,7 @@
 
 			.@{body-selector} {
 				margin-top: 7px;
-				width: calc(~"100% - @{body-padding-left} - @{circle-icon-size}");
+				width: calc(~'100% - @{body-padding-left} - @{circle-icon-size}');
 			}
 		}
 
@@ -186,13 +175,13 @@
 				min-height: 28px;
 
 				&:not(:last-child)::before {
-					top: calc(~"@{dot-icon-size} + @{dot-both-margin}");
+					top: calc(~'@{dot-icon-size} + @{dot-both-margin}');
 				}
 			}
 
 			.@{body-selector} {
 				margin-top: 4px;
-				width: calc(~"100% - @{body-padding-left} - @{dot-icon-size}");
+				width: calc(~'100% - @{body-padding-left} - @{dot-icon-size}');
 			}
 		}
 	}
@@ -201,7 +190,7 @@
 		.@{item-selector} {
 			&:not(:last-child) {
 				.@{body-selector} {
-					max-width: calc(~"100% - @{circle-icon-size} - @{circle-both-margin} * 2");
+					max-width: calc(~'100% - @{circle-icon-size} - @{circle-both-margin} * 2');
 				}
 			}
 
@@ -231,7 +220,7 @@
 		flex: 1;
 
 		&:not(:last-child)::before {
-			content: "";
+			content: '';
 			position: absolute;
 			width: calc(100% - 40px);
 			height: 1px;
@@ -241,7 +230,7 @@
 			background: @wait-background-color;
 		}
 		&.finish::before {
-			background: @finish-border-color;
+			background: @color-blue1;
 		}
 		&.process::before {
 			background: @wait-background-color;
@@ -256,18 +245,18 @@
 		cursor: pointer;
 
 		&.wait {
-			color: @wait-color;
+			color: @color-white;
 			background: @wait-background-color;
 		}
 
 		&.finish {
-			color: @finish-color;
-			border: 1px solid @finish-border-color;
+			color: @color-blue1;
+			border: 1px solid @color-blue1;
 		}
 
 		&.process {
-			color: @process-color;
-			background: @process-background-color;
+			color: @color-white;
+			background: @color-blue1;
 		}
 	}
 
@@ -282,7 +271,7 @@
 	.@{title-selector} {
 		word-break: break-all;
 		line-height: 1.4;
-		color: @title-color;
+		color: @color-gray8;
 	}
 
 	// 内容的样式
@@ -290,6 +279,6 @@
 		margin-top: 4px;
 		word-break: break-all;
 		line-height: 1.4;
-		color: @content-color;
+		color: @color-gray2;
 	}
 }

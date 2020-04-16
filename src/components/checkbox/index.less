@@ -2,12 +2,6 @@
 
 @checkbox-prefix-cls: ~'@{prefix}-checkbox';
 
-@normal-color: #00aaf1;
-@checked-color: #0083ba;
-@normal-border-color: @color-gray5;
-@checkbox-bg-color: #fff;
-@disabled-bg-color: #eee;
-@normal-text-color: #666;
 @checkbox-size: 14px;
 
 .@{checkbox-prefix-cls}-checked-inner-after {
@@ -59,7 +53,7 @@
 		cursor: pointer;
 
 		.@{checkbox-prefix-cls}-wrapper .@{checkbox-prefix-cls}-inner {
-			border-color: @normal-color;
+			border-color: @color-blue1;
 		}
 	}
 
@@ -100,51 +94,51 @@
 		left: 0;
 		right: 0;
 		bottom: 0;
-		background: @checkbox-bg-color;
+		background: @color-white;
 		border-radius: 2px;
-		border: 1px solid @normal-border-color;
+		border: 1px solid @color-gray5;
 	}
 
 	&-text {
-		color: @normal-text-color;
+		color: @color-gray2;
 	}
 
 	&.@{checkbox-prefix-cls}-checked {
 		.@{checkbox-prefix-cls}-inner {
-			border: 1px solid @checked-color;
+			border: 1px solid @color-blue3;
 
 			&::after:extend(.cloud-checkbox-checked-inner-after) {
-				border-color: @checked-color;
+				border-color: @color-blue3;
 			}
 		}
 
 		&.@{checkbox-prefix-cls}-disabled .@{checkbox-prefix-cls}-inner::after:extend(.cloud-checkbox-checked-inner-after) {
-			border-color: @normal-border-color;
+			border-color: @color-gray5;
 		}
 
 		&:not(.@{checkbox-prefix-cls}-disabled):hover .@{checkbox-prefix-cls}-wrapper .@{checkbox-prefix-cls}-inner::after {
-			border-color: @normal-color;
+			border-color: @color-blue1;
 		}
 	}
 
 	&.@{checkbox-prefix-cls}-indeterminate {
 		.@{checkbox-prefix-cls}-inner {
-			border-color: @checked-color;
+			border-color: @color-blue3;
 
 			&::after:extend(.cloud-checkbox-indeterminate-inner-after) {
-				background: @checked-color;
+				background: @color-blue3;
 			}
 		}
 
 		&.@{checkbox-prefix-cls}-disabled .@{checkbox-prefix-cls}-inner {
-			border-color: @normal-border-color;
+			border-color: @color-gray5;
 			&::after:extend(.cloud-checkbox-indeterminate-inner-after) {
-				background: @normal-border-color;
+				background: @color-gray5;
 			}
 		}
 
 		&:not(.@{checkbox-prefix-cls}-disabled):hover .@{checkbox-prefix-cls}-wrapper .@{checkbox-prefix-cls}-inner::after {
-			background: @normal-color;
+			background: @color-blue1;
 		}
 	}
 
@@ -154,8 +148,8 @@
 		}
 
 		.@{checkbox-prefix-cls}-inner {
-			border-color: @normal-border-color;
-			background: @disabled-bg-color;
+			border-color: @color-gray5;
+			background: @color-gray7;
 		}
 	}
 }

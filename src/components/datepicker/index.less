@@ -8,7 +8,6 @@
 @icon: #c2c2c2;
 
 @disabled-color: rgba(0, 0, 0, 0.25);
-@disabled-bgcolor: #eee;
 
 @width: 230px;
 @height: 30px;
@@ -28,7 +27,7 @@
 
 .cloud-input-group > .@{selector}-inp,
 .@{selector}-inp {
-	background-color: #ffffff;
+	background-color: @color-white;
 	text-align: left;
 	width: @width;
 	cursor: pointer;
@@ -46,7 +45,7 @@
 
 	&[disabled] {
 		cursor: not-allowed;
-		background-color: @disabled-bgcolor;
+		background-color: @color-gray7;
 	}
 
 	&-icon {
@@ -272,7 +271,7 @@
 .@{range} {
 	display: inline-block;
 	width: 490px;
-	border: 1px solid #ddd;
+	border: 1px solid @color-gray6;
 	box-sizing: border-box;
 
 	> * {
@@ -287,7 +286,7 @@
 		}
 	}
 	&-disabled {
-		background-color: @disabled-bgcolor;
+		background-color: @color-gray7;
 	}
 	&-separator {
 		width: 10px;
@@ -309,19 +308,17 @@
 }
 
 .@{time} {
-	background: #ffffff;
+	background: @color-white;
 	height: 30px;
 	width: 86px;
-	border: 1px solid #ddd;
+	border: 1px solid @color-gray6;
 	box-sizing: border-box;
 	text-align: center;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+	.flex-center();
 
 	&-disabled {
 		cursor: not-allowed;
-		background-color: @disabled-bgcolor;
+		background-color: @color-gray7;
 
 		.colon {
 			color: @disabled-color;
@@ -343,7 +340,7 @@
 		&:disabled {
 			cursor: not-allowed;
 			color: @disabled-color;
-			background-color: @disabled-bgcolor;
+			background-color: @color-gray7;
 		}
 
 		&:hover,
@@ -351,8 +348,8 @@
 			outline: none;
 		}
 		&:focus {
-			color: #fff;
-			background-color: #00aaf1;
+			color: @color-white;
+			background-color: @color-blue1;
 		}
 	}
 }

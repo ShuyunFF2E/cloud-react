@@ -10,12 +10,9 @@
 @border-radius: 0px;
 @default-width: 250px;
 
-@color: #3d3d3d;
 @placeholder-color: #c9c9c9;
 
 @focus-border-color: #aacbe1;
-
-@disabled-background: #eee;
 
 @large-font-size: 14px;
 @default-font-size: 12px;
@@ -40,7 +37,7 @@
 		display: inline-block;
 		line-height: 1.5;
 		height: auto !important;
-		color: @color;
+		color: @color-gray4;
 		transition: border @transition, color @transition;
 		box-sizing: border-box;
 		vertical-align: middle;
@@ -197,7 +194,7 @@
 	&-textarea:disabled,
 	&:disabled {
 		color: @color-gray3;
-		background: @disabled-background;
+		background: @color-gray7;
 		border-color: @color-gray5;
 	}
 
