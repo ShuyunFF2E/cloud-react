@@ -2,8 +2,7 @@
 
 @loading-prefix-cls: ~'@{prefix}-loading';
 
-@color: #00A9F0;
-@backgroundColor: rgba(244, 244, 244, .6);
+@backgroundColor: rgba(244, 244, 244, 0.6);
 
 @keyframes rotate {
 	100% {
@@ -40,7 +39,7 @@
 		position: absolute;
 		top: 0;
 	}
-	&-layer{
+	&-layer {
 		background: @backgroundColor;
 	}
 	&-animation {
@@ -55,25 +54,22 @@
 			.path {
 				stroke-width: 3px;
 				stroke-miterlimit: 10;
-				stroke: @color;
+				stroke: @color-blue4;
 				stroke-dasharray: 1, 200;
 				stroke-dashoffset: 0;
 				animation: dash 1.2s linear infinite;
 				stroke-linecap: round;
-				fill: none
+				fill: none;
 			}
 		}
 	}
-	&-tip-animation{
+	&-tip-animation {
 		margin-top: -20px;
 	}
 	&-text {
-		color: @color;
+		color: @color-blue4;
 		line-height: 30px;
 		position: absolute;
 		top: calc(50% + 5px);
 	}
 }
-
-
-

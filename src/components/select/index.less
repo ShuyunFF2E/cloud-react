@@ -21,15 +21,12 @@
 
 @box-sizing: border-box;
 
-@font-color: #3d3d3d;
-@background-color: #fff;
 @select-empty-color: #c9c9c9;
-@select-normal-border: 1px solid #d9d9d9;
+@select-normal-border: 1px solid @color-gray5;
 @select-hover-color: #aacbe1;
 @select-hover-border: 1px solid @select-hover-color;
-@select-disabled-border: 1px solid #d9d9d9;
+@select-disabled-border: 1px solid @color-gray5;
 @select-disabled-color: #c9c9c9;
-@select-disabled-background: #eee;
 @dropdown-icon-color: #c2c2c2;
 @option-hover-background: #f6f6f6;
 @option-disabled-background: #f6f6f6;
@@ -81,7 +78,7 @@
 
 		&.disabled {
 			border: @select-disabled-border;
-			background: @select-disabled-background;
+			background: @color-gray7;
 			cursor: not-allowed;
 
 			&:hover {
@@ -90,7 +87,7 @@
 
 			.@{select-prefix-cls}-selected {
 				color: @select-disabled-color;
-				background: @select-disabled-background;
+				background: @color-gray7;
 				cursor: not-allowed;
 			}
 
@@ -122,7 +119,7 @@
 			flex: 1 0;
 			padding: @item-padding;
 			font-size: @font-size;
-			color: @font-color;
+			color: @color-gray4;
 			border: none;
 			.text-overflow-ellipsis();
 			cursor: pointer;
@@ -183,7 +180,7 @@
 	min-width: @min-width;
 	width: 100%;
 	border: @select-normal-border;
-	background: @background-color;
+	background: @color-white;
 	cursor: pointer;
 
 	> div {
@@ -194,7 +191,7 @@
 	& * {
 		box-sizing: @box-sizing;
 		font-size: @font-size;
-		color: @font-color;
+		color: @color-gray4;
 	}
 
 	.@{select-prefix-cls}-search {
@@ -275,7 +272,7 @@
 				padding: @default-padding @large-padding;
 
 				&.selected {
-					background: @background-color;
+					background: @color-white;
 				}
 
 				&:hover {

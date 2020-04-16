@@ -2,29 +2,27 @@
 
 @tag-prefix-cls: ~'@{prefix}-tag';
 
-@default-backgroud-color:#FDFDFD;
-@default-border:#e3e3e3;
-@default-color:#777777;
-@default-hover-color: rgba(119,119,119, 0.6);
-@close-color:#0183BA;
-@disabled-color:#DDDDDD;
-@white-color: #FFFFFF;
+@default-backgroud-color: #fdfdfd;
+@default-border: #e3e3e3;
+@default-color: #777777;
+@default-hover-color: rgba(119, 119, 119, 0.6);
+@close-color: #0183ba;
 
 .bordered() {
-	background: #EFF7FF;
-	border: 1px solid #E7F3FF;
+	background: #eff7ff;
+	border: 1px solid #e7f3ff;
 }
 
 .disabled() {
-	color: @white-color;
-	background-color: @disabled-color;
+	color: @color-white;
+	background-color: @color-gray6;
 	border: none;
 }
 
-.status-style(@backgourdColor){
-	color: @white-color;
+.status-style(@backgourdColor) {
+	color: @color-white;
 	background-color: @backgourdColor;
-	border:none;
+	border: none;
 }
 
 .@{tag-prefix-cls} {
@@ -42,43 +40,43 @@
 	border: 1px solid @default-border;
 	border-radius: 2px;
 
-	&:hover{
+	&:hover {
 		.bordered();
 		color: @default-hover-color;
 	}
 
 	a {
 		color: @default-color;
-		transition: color .3s ease;
+		transition: color 0.3s ease;
 	}
 
-	&.checked{
+	&.checked {
 		color: @close-color;
 		.bordered();
 	}
 
-	&.closable{
+	&.closable {
 		padding-right: 24px;
-		.tag-close-icon{
+		.tag-close-icon {
 			position: absolute;
 			right: 2px;
 			font-size: 10px;
 		}
 	}
 
-	&.success{
-		.status-style(#75CF48);
+	&.success {
+		.status-style(#75cf48);
 	}
-	&.warning{
-		.status-style(#FCBB27);
+	&.warning {
+		.status-style(#fcbb27);
 	}
-	&.default{
-		.status-style(#999);
+	&.default {
+		.status-style(@color-gray3);
 	}
-	&.danger{
-		.status-style(#FF524F);
+	&.danger {
+		.status-style(#ff524f);
 	}
-	&.disabled{
+	&.disabled {
 		.disabled();
 		&:hover {
 			.disabled();

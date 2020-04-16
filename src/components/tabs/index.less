@@ -10,183 +10,175 @@
 @font-color-line-active: #33b5e5;
 
 @tab-accent-border-color: #33b5e5;
-@tab-card-border-color: #d9d9d9;
 @tab-card-bg: #f4f4f4;
 @tab-card-active-bg: #fcfcfc;
-@tab-icon-bg: #eee;
-@tab-icon-color: #999;
 
 @disabled-color: #ccc;
-@hover-color: #0083ba;
 @hover-bg-color: #fcfcfc;
-
-@tile-accent-color: #0083ba;
-
 @closable-color: #cecece;
 
 .@{selector}-header-basic {
-    position: relative;
-    display: flex;
-    overflow: hidden;
-    white-space: nowrap;
-    height: 30px;
-    margin-bottom: 10px;
-    &::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        width: 100%;
-    }
-    &.@{selector}-header-more {
-        padding: 0 30px;
-    }
+	position: relative;
+	display: flex;
+	overflow: hidden;
+	white-space: nowrap;
+	height: 30px;
+	margin-bottom: 10px;
+	&::before {
+		content: '';
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		width: 100%;
+	}
+	&.@{selector}-header-more {
+		padding: 0 30px;
+	}
 }
 
 .@{selector}-more-icon-basic {
-    position: absolute;
-    line-height: 28px;
-    width: 20px;
-    text-align: center;
-    color: @tab-icon-color;
-    cursor: pointer;
+	position: absolute;
+	line-height: 28px;
+	width: 20px;
+	text-align: center;
+	color: @color-gray3;
+	cursor: pointer;
 
-    &.before {
-        left: 0;
-    }
+	&.before {
+		left: 0;
+	}
 
-    &.after {
-        right: 0;
-    }
+	&.after {
+		right: 0;
+	}
 
-    .icon {
-        font-size: @font-size;
-    }
+	.icon {
+		font-size: @font-size;
+	}
 }
 
 .@{subSelector}-basic {
-    position: relative;
-    display: inline-block;
-    line-height: 28px;
-    font-size: @font-size;
-    margin-right: 5px;
-    color: @font-color;
-    text-align: center;
-    cursor: pointer;
-    padding: 0 20px;
-    transition: .3s;
-    &.disabled {
-        color: @disabled-color !important;
-        cursor: not-allowed !important;
-        user-select: none;
-        pointer-events: none;
-    }
-    &:hover {
-        color: @hover-color;
-        background: @hover-bg-color;
-        .closable-wrapper {
-            background: #c2c2c2;
-            .closable {
-                color: #fff;
-            }
-        }
-    }
+	position: relative;
+	display: inline-block;
+	line-height: 28px;
+	font-size: @font-size;
+	margin-right: 5px;
+	color: @font-color;
+	text-align: center;
+	cursor: pointer;
+	padding: 0 20px;
+	transition: 0.3s;
+	&.disabled {
+		color: @disabled-color !important;
+		cursor: not-allowed !important;
+		user-select: none;
+		pointer-events: none;
+	}
+	&:hover {
+		color: @color-blue3;
+		background: @hover-bg-color;
+		.closable-wrapper {
+			background: #c2c2c2;
+			.closable {
+				color: #fff;
+			}
+		}
+	}
 }
 
 .@{selector} {
-    width: 100%;
-    box-sizing: border-box;
-    &-header-card:extend(.cloud-tabs-header-basic all) {
-        &::before {
-            border-bottom: 1px solid @tab-accent-border-color
-        }
-    }
+	width: 100%;
+	box-sizing: border-box;
+	&-header-card:extend(.cloud-tabs-header-basic all) {
+		&::before {
+			border-bottom: 1px solid @tab-accent-border-color;
+		}
+	}
 
-    &-header-line {
-        &:extend(.cloud-tabs-header-basic all);
-    }
+	&-header-line {
+		&:extend(.cloud-tabs-header-basic all);
+	}
 
-    &-more-icon-card {
-        &:extend(.cloud-tabs-more-icon-basic all);
-        background: @tab-icon-bg;
-    }
+	&-more-icon-card {
+		&:extend(.cloud-tabs-more-icon-basic all);
+		background: @color-gray7;
+	}
 
-    &-more-icon-line {
-        &:extend(.cloud-tabs-more-icon-basic all);
-    }
+	&-more-icon-line {
+		&:extend(.cloud-tabs-more-icon-basic all);
+	}
 
-    &-items {
-        width: 100%;
-        overflow: hidden;
+	&-items {
+		width: 100%;
+		overflow: hidden;
 
-        &-scroll {
-            position: relative;
-            left: 0;
-            transition: left .3s;
-        }
-    }
+		&-scroll {
+			position: relative;
+			left: 0;
+			transition: left 0.3s;
+		}
+	}
 
-    &-item-card:extend(.cloud-tabs-item-basic all) {
-        border: 1px solid @tab-card-border-color;
-        border-bottom-color: @tab-accent-border-color;
-        background-color: @tab-card-bg;
-        &.active {
-            background: @tab-card-active-bg;
-            border-color: @tab-accent-border-color;
-            border-bottom-color: @hover-bg-color;
-            color: @font-color-active;
-        }
-    }
+	&-item-card:extend(.cloud-tabs-item-basic all) {
+		border: 1px solid @color-gray5;
+		border-bottom-color: @tab-accent-border-color;
+		background-color: @tab-card-bg;
+		&.active {
+			background: @tab-card-active-bg;
+			border-color: @tab-accent-border-color;
+			border-bottom-color: @hover-bg-color;
+			color: @font-color-active;
+		}
+	}
 
-    &-item-line:extend(.cloud-tabs-item-basic all) {
-        color: @font-color-line;
-        
-        &:hover {
-            background: none;
-        }
+	&-item-line:extend(.cloud-tabs-item-basic all) {
+		color: @font-color-line;
 
-        &.active {
-            color: @font-color-line-active;
-        }
-    }
+		&:hover {
+			background: none;
+		}
 
-    &-item-bar {
-        transition: left .3s;
-        position: absolute;
-        bottom: 1px;
-        left: 0;
-        height: 2px;
-        z-index: 1;
-        box-sizing: border-box;
-        background: @tab-accent-border-color;
-    }
+		&.active {
+			color: @font-color-line-active;
+		}
+	}
 
-    .@{subSelector}-tile:extend(.cloud-tabs-item-basic all) {
-        &.active {
-            border-bottom: 2px solid @tile-accent-color;
-            color: @font-color-active;
-        }
-    }
+	&-item-bar {
+		transition: left 0.3s;
+		position: absolute;
+		bottom: 1px;
+		left: 0;
+		height: 2px;
+		z-index: 1;
+		box-sizing: border-box;
+		background: @tab-accent-border-color;
+	}
 
-    .closable-wrapper {
-        box-sizing: border-box;
-        height: 12px;
-        width: 12px;
-        line-height: 1;
-        border-radius: 50%;
-        position: absolute;
-        top: 2px;
-        right: 2px;
-        text-align: center;
-        transition: .1s;
-        .closable {
-            transform: scale(.85);
-            display: inline-block;
-            line-height: 1;
-            font-size: 12px;
-            color: @closable-color;
-            transition: .1s;
-        }
-    }
+	.@{subSelector}-tile:extend(.cloud-tabs-item-basic all) {
+		&.active {
+			border-bottom: 2px solid @color-blue3;
+			color: @font-color-active;
+		}
+	}
+
+	.closable-wrapper {
+		box-sizing: border-box;
+		height: 12px;
+		width: 12px;
+		line-height: 1;
+		border-radius: 50%;
+		position: absolute;
+		top: 2px;
+		right: 2px;
+		text-align: center;
+		transition: 0.1s;
+		.closable {
+			transform: scale(0.85);
+			display: inline-block;
+			line-height: 1;
+			font-size: 12px;
+			color: @closable-color;
+			transition: 0.1s;
+		}
+	}
 }
-

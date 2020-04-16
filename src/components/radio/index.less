@@ -2,11 +2,6 @@
 
 @raido-prefix-cls: ~'@{prefix}-radio';
 
-@normal-color: @color-gray5;
-@normal-text-color: #666;
-@checked-color: #00aaf1;
-@radio-bg-color: #fff;
-@radio-disabled-bg-color: #eee;
 @radio-disabled-inner-color: #d1d1d1;
 
 @radio-size: 14px;
@@ -25,7 +20,7 @@
 	margin-right: 8px;
 
 	cursor: pointer;
-	color: @normal-color;
+	color: @color-gray5;
 
 	&-group {
 		display: inline-flex;
@@ -45,7 +40,7 @@
 		margin-right: 5px;
 
 		&:hover {
-			color: @checked-color;
+			color: @color-blue1;
 		}
 	}
 
@@ -55,7 +50,7 @@
 		cursor: pointer;
 
 		&:checked + .@{raido-prefix-cls}-inner {
-			color: @checked-color;
+			color: @color-blue1;
 
 			&::after:extend(.cloud-radio-position) {
 				content: '';
@@ -78,7 +73,7 @@
 		}
 
 		&[disabled]:not(:checked) + .@{raido-prefix-cls}-inner {
-			background-color: @radio-disabled-bg-color;
+			background-color: @color-gray7;
 		}
 	}
 
@@ -87,11 +82,11 @@
 
 		border-radius: 50%;
 		border: 1px solid currentColor;
-		background-color: @radio-bg-color;
+		background-color: @color-white;
 	}
 
 	&-text {
-		color: @normal-text-color;
+		color: @color-gray2;
 	}
 
 	.disabled {
