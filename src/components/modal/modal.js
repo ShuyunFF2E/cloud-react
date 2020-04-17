@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import { prefixCls } from '@utils';
+import classnames from 'classnames';
+import { prefixCls, getRootDocument } from '@utils';
 import Icon from '../icon';
 import Button from '../button';
 import './index.less';
+
+const rootDocument = getRootDocument();
 
 class Notification extends Component {
 	constructor(props) {
@@ -12,12 +14,10 @@ class Notification extends Component {
 		this.modalRef = React.createRef();
 
 		this.state = {
-			modalId: new Date().getTime(),
 			pageX: '',
 			pageY: '',
 			diffX: '',
-			diffY: '',
-			moving: false
+			diffY: ''
 		};
 	}
 
@@ -61,106 +61,130 @@ class Notification extends Component {
 
 	// 组件装在完毕监听屏幕大小切换事件
 	componentDidMount() {
+		if (this.props.visible) {
+			this.addTransition();
+		}
+
+		this.screenChange();
 		window.addEventListener('resize', this.screenChange);
+	}
+
+	componentDidUpdate({ visible: prevVisible }) {
+		const { visible } = this.props;
+
+		if (prevVisible !== visible && visible) {
+			this.addTransition();
+			this.screenChange();
+		}
 	}
 
 	componentWillUnmount() {
 		window.removeEventListener('resize', this.screenChange);
 	}
 
+	/* eslint-disable-next-line */
+	get mask() {
+		return rootDocument.getElementById('mask');
+	}
+
 	// 屏幕变化
 	screenChange = () => {
-		setTimeout(() => {
-			const maskHeight = document.getElementById('mask') && document.getElementById('mask').offsetHeight;
-			const modalHeight = this.modalRef && this.modalRef.offsetHeight;
-			if (!this.modalRef || !this.modalRef.style || this.state.pageY) return;
+		if (!this.modalRef || !this.modalRef.style || this.state.pageY) return;
+
+		window.requestAnimationFrame(() => {
+			const maskHeight = this.mask.offsetHeight;
+			const modalHeight = this.modalRef.offsetHeight;
+
 			this.modalRef.style.top = `${(maskHeight - modalHeight) / 2}px`;
-		}, 100);
+			this.modalRef.style.opacity = 1;
+		});
 	};
 
+	removeTransition() {
+		this.modalRef.classList.remove('transition');
+	}
+
+	addTransition() {
+		this.modalRef.classList.add('transition');
+	}
+
 	// 获取鼠标点击title时的坐标、title的坐标以及两者的位移
-	getPosition = e => {
-		// 标题DOM元素titleDom
-		const titleDom = e.target;
+	getPosition = ({ target: titleDom, pageX, screenY }) => {
 		// titleDom的坐标(视窗)
 		const X = titleDom.getBoundingClientRect().left;
-		// 由于Y轴出现滚动条，需要与鼠标保持一致，存储页面相对位置
-		const ele = document.getElementById(this.state.modalId);
-		// 设置可移动样式
-		ele.style.cursor = 'move';
 
-		const Y = ele.offsetTop;
+		// 由于Y轴出现滚动条，需要与鼠标保持一致，存储页面相对位置
+		const Y = this.modalRef.offsetTop;
+
 		// 鼠标点击的坐标(页面)
-		const mouseX = e.pageX;
-		const mouseY = e.screenY;
+		const mouseX = pageX;
+		const mouseY = screenY;
+
 		// 鼠标点击位置与modal的位移
 		const diffX = mouseX - X;
 		const diffY = mouseY - Y;
+
 		return { X, Y, mouseX, mouseY, diffX, diffY };
 	};
 
 	/**
-	 * 鼠标按下，设置modal状态为可移动，并注册鼠标移动事件
+	 * 鼠标按下，注册鼠标移动事件
 	 * 计算鼠标按下时，指针所在位置与modal位置以及两者的差值
 	 * */
-	onMouseDown = e => {
-		const position = this.getPosition(e);
-		window.onmousemove = this.onMouseMove;
-		window.onmouseup = this.onMouseUp;
-		this.setState({ moving: true, diffX: position.diffX, diffY: position.diffY });
+	onMouseDown = evt => {
+		const { diffX, diffY } = this.getPosition(evt);
+
+		rootDocument.addEventListener('mousemove', this.onMouseMove);
+		rootDocument.addEventListener('mouseup', this.onMouseUp);
+
+		this.removeTransition();
+		this.setState({ diffX, diffY });
 	};
 
-	// 松开鼠标，设置modal状态为不可移动
+	// 松开鼠标
 	onMouseUp = () => {
-		const { moving } = this.state;
-		const ele = document.getElementById(this.state.modalId);
-		if (ele) {
-			ele.style.cursor = 'default';
-		}
-		if (moving) {
-			this.setState({ moving: false });
-		}
+		rootDocument.removeEventListener('mousemove', this.onMouseMove);
+		rootDocument.removeEventListener('mouseup', this.onMouseUp);
 	};
 
 	// 鼠标移动重新设置modal的位置
-	onMouseMove = e => {
-		const { moving, diffX, diffY } = this.state;
-		if (moving) {
+	onMouseMove = evt => {
+		window.requestAnimationFrame(() => {
+			const { diffX, diffY } = this.state;
+
 			// 获取鼠标位置数据
-			const position = this.getPosition(e);
+			const position = this.getPosition(evt);
 			// 计算modal应该随鼠标移动到的坐标
 			const x = position.mouseX - diffX;
 			const y = position.mouseY - diffY;
+
 			// 窗口大小，结构限制，需要做调整，减去侧边栏宽度
-			const { clientWidth, clientHeight } = document.documentElement;
-			const modal = document.getElementById(this.state.modalId);
+			const { clientWidth, clientHeight } = rootDocument.documentElement;
+			const modal = this.modalRef;
+
 			if (modal) {
 				modal.style.margin = 0;
 
 				// 计算modal坐标的最大值
 				const maxHeight = clientHeight - modal.offsetHeight;
 				const maxWidth = clientWidth - modal.offsetWidth;
+
 				// 判断得出modal的最终位置，不得超出浏览器可见窗口
 				// eslint-disable-next-line no-nested-ternary
 				const left = x > 0 ? (x < maxWidth ? x : maxWidth) : 0;
 				// eslint-disable-next-line no-nested-ternary
 				const top = y > 0 ? (y < maxHeight ? y : maxHeight) : 0;
-				this.setState({
-					pageX: left,
-					pageY: top
-				});
+
+				this.setState({ pageX: left, pageY: top });
 			}
-		}
+		});
+
+		// 阻止默认行为(拖动时文字选中)
+		evt.preventDefault();
 	};
 
 	onReset = () => {
-		this.setState({
-			pageX: '',
-			pageY: '',
-			diffX: '',
-			diffY: '',
-			moving: false
-		});
+		this.setState({ pageX: '', pageY: '', diffX: '', diffY: '' });
 	};
 
 	render() {
@@ -170,7 +194,6 @@ class Notification extends Component {
 			bodyStyle,
 			disabledOk,
 			className,
-			id,
 			type,
 			children,
 			title,
@@ -190,7 +213,8 @@ class Notification extends Component {
 			return null;
 		}
 
-		const { pageX, pageY, moving } = this.state;
+		const { pageX, pageY } = this.state;
+
 		const style = {
 			...modalStyle,
 			left: pageX,
@@ -198,47 +222,37 @@ class Notification extends Component {
 			pointerEvents: 'auto'
 		};
 
-		if (!moving) {
-			this.screenChange();
-		}
-
 		return (
-			<div id="mask" className={`${prefixCls}-modal ${showMask ? '' : 'other-area-can-click'}`}>
+			<div
+				id="mask"
+				className={classnames(`${prefixCls}-modal`, {
+					'other-area-can-click': !showMask
+				})}>
 				{/* 遮罩层 */}
 				<ModalMask showMask={showMask} onClose={onClose} onReset={this.onReset} clickMaskCanClose={clickMaskCanClose} />
+
 				{/* 弹出框 */}
 				<div
-					ref={c => {
-						this.modalRef = c;
+					ref={ref => {
+						this.modalRef = ref;
 					}}
-					id={this.state.modalId}
-					className={classNames(`${prefixCls}-modal-container ${className || ''}`)}
-					style={style}>
-					<ModalHeader
-						id={id}
-						type={type}
-						onReset={this.onReset}
-						onMouseDown={this.onMouseDown}
-						onMouseUp={this.onMouseUp}
-						onMouseMove={this.onMouseMove}
-						onClose={onClose}
-						title={title}
-					/>
+					style={style}
+					className={classnames(`${prefixCls}-modal-container`, className)}>
+					<ModalHeader type={type} onReset={this.onReset} onMouseDown={this.onMouseDown} onClose={onClose} title={title} />
 
 					<ModalBody style={{ ...bodyStyle }}>{children}</ModalBody>
 
 					<ModalFooter
-						id={id}
 						type={type}
+						onOk={onOk}
+						footer={footer}
 						okText={okText}
+						onReset={this.onReset}
+						onCancel={onCancel}
+						hasFooter={hasFooter}
 						cancelText={cancelText}
 						disabledOk={disabledOk}
 						showConfirmLoading={showConfirmLoading}
-						footer={footer}
-						hasFooter={hasFooter}
-						onCancel={onCancel}
-						onReset={this.onReset}
-						onOk={onOk}
 					/>
 				</div>
 			</div>
@@ -251,10 +265,10 @@ function ModalMask({ onReset, showMask, onClose, clickMaskCanClose }) {
 		onReset();
 		onClose();
 	};
-	return showMask && <div className={classNames(`${prefixCls}-modal-mask`)} onClick={clickMaskCanClose && showMask ? close : () => {}} />;
+	return showMask && <div className={classnames(`${prefixCls}-modal-mask`)} onClick={clickMaskCanClose ? close : () => {}} />;
 }
 
-function ModalHeader({ type, title, onClose, onReset, onMouseDown, onMouseUp, onMouseMove }) {
+function ModalHeader({ type, title, onClose, onReset, ...props }) {
 	const close = () => {
 		onReset();
 		onClose();
@@ -264,12 +278,8 @@ function ModalHeader({ type, title, onClose, onReset, onMouseDown, onMouseUp, on
 	};
 	return (
 		type === 'modal' && (
-			<header
-				className={classNames(`${prefixCls}-modal-header`)}
-				onMouseMoveCapture={e => onMouseMove(e)}
-				onMouseDown={e => onMouseDown(e)}
-				onMouseUp={e => onMouseUp(e)}>
-				<span className={classNames(`${prefixCls}-modal-title`)} onMouseDown={event => selected(event)}>
+			<header {...props} className={classnames(`${prefixCls}-modal-header`)}>
+				<span className={classnames(`${prefixCls}-modal-title`)} onMouseDown={event => selected(event)}>
 					{title}
 				</span>
 				<Icon type="close" className="close-icon" onMouseDown={event => selected(event)} onClick={close} />
@@ -280,7 +290,7 @@ function ModalHeader({ type, title, onClose, onReset, onMouseDown, onMouseUp, on
 
 function ModalBody({ style, children }) {
 	return (
-		<section className={classNames(`${prefixCls}-modal-body`)} style={style}>
+		<section className={classnames(`${prefixCls}-modal-body`)} style={style}>
 			{children}
 		</section>
 	);
@@ -298,14 +308,16 @@ function ModalFooter({ type, footer, okText, cancelText, hasFooter, showConfirmL
 		onReset();
 		onCancel();
 	};
-	const footerClass = classNames(`${prefixCls}-modal-footer`);
-	const confirmClass = classNames(`${prefixCls}-modal-confirm-btn`);
+	const footerClass = classnames(`${prefixCls}-modal-footer`);
+	const confirmClass = classnames(`${prefixCls}-modal-confirm-btn`);
 	if (!hasFooter) {
 		return null;
 	}
+
 	if (hasFooter && footer) {
 		return <footer className={footerClass}>{footer}</footer>;
 	}
+
 	if (hasFooter && type !== 'modal' && type !== 'confirm') {
 		return (
 			<footer className={footerClass}>
@@ -315,6 +327,7 @@ function ModalFooter({ type, footer, okText, cancelText, hasFooter, showConfirmL
 			</footer>
 		);
 	}
+
 	return (
 		<footer className={footerClass}>
 			<Button type="primary" className={confirmClass} disabled={showConfirmLoading || disabledOk} onClick={ok}>
@@ -329,7 +342,7 @@ function ModalFooter({ type, footer, okText, cancelText, hasFooter, showConfirmL
 }
 
 function ConfirmLoading({ showConfirmLoading }) {
-	return showConfirmLoading && <span className={classNames(`${prefixCls}-modal-confirm-loading`)} />;
+	return showConfirmLoading && <span className={classnames(`${prefixCls}-modal-confirm-loading`)} />;
 }
 
 export default Notification;
