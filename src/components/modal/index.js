@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 
+import { getRootDocument } from '@utils';
 import './index.less';
 import Notification from './modal';
 import Prompt from './prompt';
@@ -13,7 +14,7 @@ class Modal extends Component {
 	};
 
 	static defaultProps = {
-		getPopupContainer: () => document.body,
+		getPopupContainer: () => getRootDocument().body,
 		children: null
 	};
 

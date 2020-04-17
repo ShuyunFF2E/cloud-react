@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
+import { getRootDocument } from '@utils';
 import Icon from '../icon';
 import Notification from './modal';
 
@@ -18,10 +19,12 @@ class Prompt extends React.Component {
 		icon: '',
 		body: '',
 		onOk: () => {},
-		onCancel: () => {}
+		onCancel: () => {},
+		getPopupContainer: () => getRootDocument().body
 	};
 
 	static propTypes = {
+		getPopupContainer: PropTypes.func,
 		isShowIcon: PropTypes.bool,
 		style: PropTypes.object,
 		type: PropTypes.string,
@@ -114,7 +117,7 @@ class Prompt extends React.Component {
 	};
 
 	render() {
-		const { isShowIcon, type, icon, body, iconStyle, style } = this.props;
+		const { isShowIcon, type, icon, body, iconStyle, style, getPopupContainer } = this.props;
 		const promptStyle = {
 			...style,
 			width: style.width || '400px',
@@ -128,15 +131,15 @@ class Prompt extends React.Component {
 			minHeight: style.height && 'calc(100% - 40px - 51px)'
 		};
 
-		return (
+		return ReactDOM.createPortal(
 			<Notification
 				visible
 				type={type}
-				modalStyle={promptStyle}
-				bodyStyle={promptBodyStyle}
-				showConfirmLoading={this.state.showConfirmLoading}
+				onOk={this.handleOk}
 				onCancel={this.handleCancel}
-				onOk={this.handleOk}>
+				bodyStyle={promptBodyStyle}
+				modalStyle={promptStyle}
+				showConfirmLoading={this.state.showConfirmLoading}>
 				<div>
 					<header className="info-area">
 						{isShowIcon && <Icon type={icon} className={`icon-style ${type}-style`} style={iconStyle} />}
@@ -145,7 +148,8 @@ class Prompt extends React.Component {
 						</section>
 					</header>
 				</div>
-			</Notification>
+			</Notification>,
+			getPopupContainer()
 		);
 	}
 }
