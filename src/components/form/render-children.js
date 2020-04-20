@@ -3,21 +3,25 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 import Explain from './explain';
-
+import FormContext from './context';
 import { DATA_FIELD } from './constants';
 
 export const noop = () => {};
 
 export default class RenderChildren extends Component {
+	static contextType = FormContext;
+
 	static propTypes = {
-		children: PropTypes.any,
-		field: PropTypes.object
+		children: PropTypes.any
 	};
 
 	static defaultProps = {
-		children: null,
-		field: {}
+		children: null
 	};
+
+	get field() {
+		return this.context.field;
+	}
 
 	renderChildren(children) {
 		if (['object', 'string', 'array'].indexOf(typeof children) === -1) {
@@ -32,11 +36,10 @@ export default class RenderChildren extends Component {
 			if (!props) return child;
 
 			if (props && props[DATA_FIELD]) {
-				const { field } = this.props;
-				const { getState = noop, getError = noop } = field;
+				const { getState = noop, getError = noop } = this.field;
 
-				const state = getState.call(field, props[DATA_FIELD]);
-				const error = getError.call(field, props[DATA_FIELD]);
+				const state = getState.call(this.field, props[DATA_FIELD]);
+				const error = getError.call(this.field, props[DATA_FIELD]);
 
 				return (
 					<div
