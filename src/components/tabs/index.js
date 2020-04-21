@@ -276,9 +276,7 @@ export default class Tabs extends PureComponent {
 				const style = isActived ? child.props.style : { ...child.props.style, display: 'none' };
 				const target = React.cloneElement(child, { style });
 				panel.push(target);
-			}
-
-			if (isActived) {
+			} else if (isActived) {
 				panel = child;
 			}
 		});
