@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
-import YearRegionHeader from '../common/year-region-header';
-import YearGrid from '../common/year-grid';
+import YearRegionHeader from './year-region-header';
+import YearGrid from './grid';
 import Header from './header';
 import MonthGrid from '../common/month-grid';
 import enumObj from '../util/enum';
@@ -22,13 +22,19 @@ export default class Popup extends Component {
         }
     }
 
+    maxYear = parseInt(this.props.max ? this.props.max.split('/')[0] : defaultMaxYear, 10);
+
+    minYear = parseInt(this.props.min ? this.props.min.split('/')[0] : defaultMinYear, 10);
+
     getInitTempYear() {
-        const { min, max, checkValue } = this.props;
+        const {
+            props: { checkValue },
+            minYear,
+            maxYear
+        } = this;
         if (checkValue) {
             return parseInt(checkValue.split('/')[0], 10);
         }
-		const maxYear = parseInt(max ? max.split('/')[0] : defaultMaxYear, 10);
-		const minYear = parseInt(min ? min.split('/')[0] : defaultMinYear, 10);
 		if (currentYear > maxYear) {
 			return maxYear;
 		}
@@ -39,9 +45,11 @@ export default class Popup extends Component {
     }
 
     getInitRegion = () => {
-        const { min, max, checkValue } = this.props;
-        const maxYear = parseInt(max ? max.split('/')[0] : defaultMaxYear, 10);
-        const minYear = parseInt(min ? min.split('/')[0] : defaultMinYear, 10);
+        const {
+            props: { checkValue },
+            minYear,
+            maxYear
+        } = this;
         const year = parseInt(checkValue ? checkValue.split('/')[0] : defaultMinYear, 10);
 		if (year + 7 <= maxYear || year - 7 >= minYear) {
 			return [year - 7, year + 7];
