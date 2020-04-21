@@ -95,10 +95,8 @@ class Picker extends Component {
                 visible: true
             });
 			createWrapper(id);
-            // const checkValue = currentValue ? parseInt(currentValue, 10) : undefined;
             const checkValue = integer ? parseInt(currentValue, 10) : currentValue;
             const { left, top } = getPositionByComp(inpRef.current.inputRef.current.getBoundingClientRect(), position, height);
-            // const View = isYearPicker ? yearPopup : monthPopup;
             renderDOM(
                 id,
                 <Popup
