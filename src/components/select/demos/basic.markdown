@@ -42,31 +42,18 @@ export default function SelectDemo() {
 	const closeModal = () => setVisible(false);
 
 	return (
-		<div style={{height:300}}>
-			<Select
-				placeholder="请选择..."
-				defaultValue={4}
-				onSelectOpen={handleOpen}
-				onSelectClose={handleClose}
-				onChange={handleChange}
-			>
+		<div style={{ height: 300 }}>
+			<Select placeholder="请选择..." defaultValue={4} onSelectOpen={handleOpen} onSelectClose={handleClose} onChange={handleChange}>
 				{dataList.map((item, index) => (
 					<Option value={item.value} disabled={item.disabled} key={index}>
 						{item.label}
 					</Option>
 				))}
 			</Select>
-			<div style={{margin: '20px 0'}}>
+			<div style={{ margin: '20px 0' }}>
 				<Button onClick={openModal}>打开弹框</Button>
-				<Modal 
-					title="内容"
-					visible={visible}
-					onOk={closeModal}
-					onCancel={closeModal}
-					onClose={closeModal}>
-					<Select
-						placeholder="请选择..."
-						defaultValue={4}>
+				<Modal title="内容" visible={visible} onOk={closeModal} onCancel={closeModal} onClose={closeModal}>
+					<Select placeholder="请选择..." defaultValue={4}>
 						{dataList.map((item, index) => (
 							<Option value={item.value} disabled={item.disabled} key={index}>
 								{item.label}
@@ -76,19 +63,19 @@ export default function SelectDemo() {
 				</Modal>
 			</div>
 
-			<Tabs defaultActiveKey="eat" style={{margin: '20px 0'}}>
-				<Tabs.Panel tab="选项1" key='1'>
-						<Select
-							placeholder="请选择..."
-							defaultValue={4}>
-							{dataList.map((item, index) => (
-								<Option value={item.value} disabled={item.disabled} key={index}>
-									{item.label}
-								</Option>
-							))}
-						</Select>
+			<Tabs defaultActiveKey="eat" style={{ margin: '20px 0' }}>
+				<Tabs.Panel tab="选项1" key="1">
+					<Select placeholder="请选择..." defaultValue={4}>
+						{dataList.map((item, index) => (
+							<Option value={item.value} disabled={item.disabled} key={index}>
+								{item.label}
+							</Option>
+						))}
+					</Select>
 				</Tabs.Panel>
-				<Tabs.Panel tab="吃饭" key="eat">吃饭啊啊啊啊啊</Tabs.Panel>
+				<Tabs.Panel tab="吃饭" key="eat">
+					吃饭啊啊啊啊啊
+				</Tabs.Panel>
 			</Tabs>
 
 			<div>
@@ -96,7 +83,7 @@ export default function SelectDemo() {
 				<Select placeholder="xxxxx" defaultValue="xxxxxx" onChange={handleChange} dataSource={dataList} />
 			</div>
 
-			<div style={{ margin: "20px 0" }}>
+			<div style={{ margin: '20px 0' }}>
 				自定义带icon的option：
 				<Select
 					placeholder="请选择..."
@@ -104,12 +91,12 @@ export default function SelectDemo() {
 					onSelectOpen={handleOpen}
 					onSelectClose={handleClose}
 					onChange={handleChange}
-					searchable
-					>
+					searchable>
 					<Option value="">不限</Option>
 					{dataList.map((item, index) => (
 						<Option value={item.value} disabled={item.disabled} key={index}>
-							<Icon type="config" style={{ fontSize: 12, marginRight: 5 }} />{item.label}
+							<Icon type="config" style={{ fontSize: 12, marginRight: 5 }} />
+							{item.label}
 						</Option>
 					))}
 				</Select>

@@ -4,7 +4,7 @@ title: 基础用法
 desc: 默认配置
 ---
 
-````javascript
+```javascript
 import React, { Component } from 'react';
 import { Table } from 'cloud-react';
 
@@ -16,7 +16,8 @@ const columnData = [
 		key: 'name',
 		text: '名称',
 		align: 'left'
-	},{
+	},
+	{
 		key: 'info',
 		text: '使用说明'
 	}
@@ -28,14 +29,7 @@ const resouse = (settings, params) => {
 };
 export default class TableDemo extends Component {
 	render() {
-		return (
-			<Table
-				gridManagerName={gridManagerName}
-				ajaxData={resouse}
-				columnData={columnData}
-			/>
-		);
+		return <Table gridManagerName={gridManagerName} ajaxData={resouse} columnData={columnData} />;
 	}
 }
-
-````
+```

@@ -15,11 +15,7 @@ const dataList = [];
 export default function SelectDemo() {
 	const emptyRender = '没有数据啊！！！！！';
 
-	const emptyRender2 = (
-		<div style={{ color: 'red', alignSelf: 'flex-start' }}>
-			嘿嘿嘿！！！
-		</div>
-	);
+	const emptyRender2 = <div style={{ color: 'red', alignSelf: 'flex-start' }}>嘿嘿嘿！！！</div>;
 
 	const handleChange = value => {
 		console.log('select --- ' + value);
@@ -32,8 +28,7 @@ export default function SelectDemo() {
 				defaultValue="apple"
 				emptyRender={emptyRender}
 				style={{ margin: '0 10px 10px 0', width: 200 }}
-				onChange={handleChange}
-			>
+				onChange={handleChange}>
 				{dataList.map((item, index) => (
 					<Option value={item.value} key={index}>
 						{item.label}
@@ -45,8 +40,7 @@ export default function SelectDemo() {
 				defaultValue="apple"
 				emptyRender={emptyRender2}
 				style={{ margin: '0 10px 10px 0', width: 200 }}
-				onChange={handleChange}
-			>
+				onChange={handleChange}>
 				{dataList.map((item, index) => (
 					<Option value={item.value} key={index}>
 						{item.label}

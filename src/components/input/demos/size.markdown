@@ -4,7 +4,7 @@ title: 输入框大小
 desc: 三种尺寸：large、default、small
 ---
 
-````javascript
+```javascript
 import React from 'react';
 import { Input } from 'cloud-react';
 
@@ -21,4 +21,4 @@ export default function InputDemo() {
 		</div>
 	);
 }
-````
+```

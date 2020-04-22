@@ -4,12 +4,11 @@ title: Radio.Group
 desc: 组合
 ---
 
-````javascript
+```javascript
 import React, { useState } from 'react';
 import { Radio } from 'cloud-react';
 
 export default function RadioDemo() {
-
 	const [value, setValue] = useState();
 
 	const onChange = value => {
@@ -22,6 +21,6 @@ export default function RadioDemo() {
 			<Radio value={2}>B</Radio>
 			<Radio value={3}>C</Radio>
 		</Radio.Group>
-	)
+	);
 }
-````
+```

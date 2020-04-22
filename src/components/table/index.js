@@ -62,7 +62,7 @@ const emptyTemplate = settings => {
 	const text = window.jTool.isEmptyObject(settings.query) ? '暂无数据' : '搜索为空';
 	return (
 		<div style={voidStyle}>
-			<Icon type="warning-circle-solid" style={voidIconStyle}/>
+			<Icon type="warning-circle-solid" style={voidIconStyle} />
 			<span style={voidMsgStyle}>{text}</span>
 		</div>
 	);

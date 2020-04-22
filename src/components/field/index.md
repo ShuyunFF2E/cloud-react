@@ -73,7 +73,10 @@ function Form() {
 ### options.rules
 
 ```javascript
-[{ required: true, message: '内容不允许为空' }, { len: 20, message: '最长只能输入20个字符' }];
+[
+	{ required: true, message: '内容不允许为空' },
+	{ len: 20, message: '最长只能输入20个字符' }
+];
 ```
 
 | 属性      | 说明                                                                 | 类型                            | 默认值    |

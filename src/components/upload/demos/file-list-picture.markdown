@@ -9,30 +9,28 @@ import React from 'react';
 import { Upload } from 'cloud-react';
 
 export default class UploadDemo extends React.Component {
-
 	render() {
-
 		const props = {
 			action: '/upload',
 			type: 'picture',
-			fileList:  [
+			fileList: [
 				{
 					id: '-1',
 					name: 'image.png',
-					url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+					url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
 				},
 				{
 					id: '-2',
 					name: 'image.png',
-					url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+					url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
 				},
 				{
 					id: '-3',
 					name: 'image.png',
-					url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+					url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
 				}
-			],
-		}
+			]
+		};
 
 		return (
 			<div className="wrapper">
@@ -48,4 +46,3 @@ export default class UploadDemo extends React.Component {
 	width: 400px;
 }
 ```
-

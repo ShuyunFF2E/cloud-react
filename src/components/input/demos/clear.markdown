@@ -4,7 +4,7 @@ title: 一键清除
 desc: 输入内容后可点击输入框后面的按钮一键清除内容
 ---
 
-````javascript
+```javascript
 import React from 'react';
 import { Input, Icon } from 'cloud-react';
 
@@ -19,4 +19,4 @@ export default function InputDemo() {
 		</div>
 	);
 }
-````
+```

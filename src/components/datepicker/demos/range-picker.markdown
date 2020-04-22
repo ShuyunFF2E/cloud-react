@@ -4,18 +4,17 @@ title: 区间选择器
 desc: 基本用法，区间选择器。
 ---
 
-````javascript
+```javascript
 import React from 'react';
 import { Datepicker } from 'cloud-react';
 
 export default class DatePickerDemo extends React.Component {
-
 	render() {
 		return (
 			<div>
-			  	<Datepicker.RangePicker  minDate={new Date('2018/07/03')} maxDate={new Date('2019/10/23')} />
+				<Datepicker.RangePicker minDate={new Date('2018/07/03')} maxDate={new Date('2019/10/23')} />
 			</div>
 		);
 	}
 }
-````
+```

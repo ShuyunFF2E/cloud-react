@@ -32,12 +32,7 @@ export default function SelectDemo() {
 
 	return (
 		<div>
-			<Select
-				placeholder="请选择..."
-				defaultValue="apple"
-				style={{ marginBottom: '10px' }}
-				disabled={disabled}
-			>
+			<Select placeholder="请选择..." defaultValue="apple" style={{ marginBottom: '10px' }} disabled={disabled}>
 				{dataList.map((item, index) => (
 					<Option value={item.value} key={index}>
 						{item.label}

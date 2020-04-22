@@ -11,21 +11,21 @@ import { Button, Modal } from 'cloud-react';
 const blank = '\u00A0';
 
 export default class ModalDemo extends React.Component {
-	 constructor(props) {
-		 super(props);
-		 this.state = {
-		 	content: ''
-		 };
-	 }
+	constructor(props) {
+		super(props);
+		this.state = {
+			content: ''
+		};
+	}
 
-	 handleOk = () =>  {
-	 	this.setState({
-	 		content: 'it is ok'
-	 	});
-	 };
+	handleOk = () => {
+		this.setState({
+			content: 'it is ok'
+		});
+	};
 
-	 openConfirmModal = () => {
-	 	Modal.confirm({
+	openConfirmModal = () => {
+		Modal.confirm({
 			isShowIcon: false,
 			body: 'something you can write here',
 			onOk: () => {
@@ -37,18 +37,18 @@ export default class ModalDemo extends React.Component {
 				});
 			}
 		});
-	 };
+	};
 
-	 // 打开确认弹出框
-	 openAsyncConfirmModal = () => {
-	 	Modal.confirm({
+	// 打开确认弹出框
+	openAsyncConfirmModal = () => {
+		Modal.confirm({
 			body: 'this is a async demo，do you want to test it ？ if you want, please click the button',
 			onOk: () => {
 				return new Promise((resolve, reject) => {
-						setTimeout(Math.random() > 0.5 ? resolve : reject, 2000);
-					}).catch(() => {
-						console.log('error');
-					});
+					setTimeout(Math.random() > 0.5 ? resolve : reject, 2000);
+				}).catch(() => {
+					console.log('error');
+				});
 			},
 			onCancel: () => {
 				this.setState({
@@ -56,19 +56,23 @@ export default class ModalDemo extends React.Component {
 				});
 			}
 		});
-	 };
+	};
 
-	 render() {
-		 return (
-			 <div>
-				 <Button type='primary' onClick={this.openConfirmModal}>确认对话框</Button>
-				 {blank}
-				 <Button type='normal' onClick={this.openAsyncConfirmModal}>异步确认对话框</Button>
-				 <br/>
-				 <br/>
-				 {this.state.content}
-			 </div>
-		 );
-	 }
+	render() {
+		return (
+			<div>
+				<Button type="primary" onClick={this.openConfirmModal}>
+					确认对话框
+				</Button>
+				{blank}
+				<Button type="normal" onClick={this.openAsyncConfirmModal}>
+					异步确认对话框
+				</Button>
+				<br />
+				<br />
+				{this.state.content}
+			</div>
+		);
+	}
 }
 ```

@@ -4,7 +4,7 @@ title: 顶部通栏
 desc: topFullColumn使用介绍
 ---
 
-````javascript
+```javascript
 import React, { Component } from 'react';
 import { Table } from 'cloud-react';
 
@@ -13,28 +13,32 @@ const gridManagerName = 'top-full-table';
 
 const columnData = [
 	{
-        key: 'title',
-        remind: 'the title',
-        text: '标题'
-    },{
-        key: 'readNumber',
-        text: '阅读量',
-        width: '150px',
-        align: 'center'
-    },{
-        key: 'info',
-        text: '简介',
-    }
+		key: 'title',
+		remind: 'the title',
+		text: '标题'
+	},
+	{
+		key: 'readNumber',
+		text: '阅读量',
+		width: '150px',
+		align: 'center'
+	},
+	{
+		key: 'info',
+		text: '简介'
+	}
 ];
 
 const topFullColumn = {
 	template: (row, index) => {
 		return (
-			<div style={{padding: '12px', textAlign: 'center'}}>
-		        {index} - 快速、灵活的对Table标签进行实例化，让Table标签充满活力。该项目已开源,
-		        <a target="_blank" href="https://github.com/baukh789/GridManager">点击进入</a>
-		        github
-		    </div>
+			<div style={{ padding: '12px', textAlign: 'center' }}>
+				{index} - 快速、灵活的对Table标签进行实例化，让Table标签充满活力。该项目已开源,
+				<a target="_blank" href="https://github.com/baukh789/GridManager">
+					点击进入
+				</a>
+				github
+			</div>
 		);
 	}
 };
@@ -43,8 +47,8 @@ export default class TableDemo extends Component {
 		return (
 			<Table
 				gridManagerName={gridManagerName}
-				ajaxData='https://www.lovejavascript.com/blogManager/getBlogList'
-				ajaxType='POST'
+				ajaxData="https://www.lovejavascript.com/blogManager/getBlogList"
+				ajaxType="POST"
 				disableBorder={true}
 				columnData={columnData}
 				supportAjaxPage={true}
@@ -53,5 +57,4 @@ export default class TableDemo extends Component {
 		);
 	}
 }
-
-````
+```

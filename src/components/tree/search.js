@@ -3,8 +3,7 @@ import classNames from 'classnames';
 import Input from '../input';
 import Icon from '../icon';
 
-class Search extends Component{
-
+class Search extends Component {
 	constructor(props) {
 		super(props);
 
@@ -22,7 +21,7 @@ class Search extends Component{
 		if (supportImmediatelySearch) {
 			onSearchAction(value);
 		}
-	}
+	};
 
 	handleSearch = () => {
 		this.props.onSearchAction(this.state.value);
@@ -30,15 +29,19 @@ class Search extends Component{
 
 	render() {
 		const { supportSearch, searchPlaceholder, searchMaxLength, prefixCls } = this.props;
-		return(
-			supportSearch && <div className={classNames(`${prefixCls}-search`)}>
-				<Input suffix={<Icon type="search" onClick={this.handleSearch} style={{ cursor: 'pointer' }} />}
-					   className={classNames(`${prefixCls}-search-input`)}
-					   onEnter={this.handleSearch}
-					   onChange={this.handleChange}
-					   maxLength={searchMaxLength}
-					   placeholder={searchPlaceholder} />
-			</div>
+		return (
+			supportSearch && (
+				<div className={classNames(`${prefixCls}-search`)}>
+					<Input
+						suffix={<Icon type="search" onClick={this.handleSearch} style={{ cursor: 'pointer' }} />}
+						className={classNames(`${prefixCls}-search-input`)}
+						onEnter={this.handleSearch}
+						onChange={this.handleChange}
+						maxLength={searchMaxLength}
+						placeholder={searchPlaceholder}
+					/>
+				</div>
+			)
 		);
 	}
 }

@@ -7,8 +7,27 @@ import InnerTimePicker from './inner-time-picker';
 import { selector } from '../util/view-common';
 
 function Grid(props) {
-	const { days, year, month, day, hour, minute, second, showNow, showToday, mode, minDate, maxDate, rangeConfig,
-		onPickDate, showOK, showTimePicker, style, onTimePickChange, onOK } = props;
+	const {
+		days,
+		year,
+		month,
+		day,
+		hour,
+		minute,
+		second,
+		showNow,
+		showToday,
+		mode,
+		minDate,
+		maxDate,
+		rangeConfig,
+		onPickDate,
+		showOK,
+		showTimePicker,
+		style,
+		onTimePickChange,
+		onOK
+	} = props;
 
 	const [tempDay, setTempDay] = useState(day);
 	const [isClickDay, setIsClickDay] = useState(false);
@@ -16,10 +35,10 @@ function Grid(props) {
 	const [tempHour, setTempHour] = useState(hour);
 	const [tempMinute, setTempMinute] = useState(minute);
 	const [tempSecond, setTempSecond] = useState(second);
-	const openTime = utils.displayNow()
-	const _hour = !showTimePicker && openTime.hour || hour;
-	const _minute = !showTimePicker && openTime.minute || minute;
-	const _second = !showTimePicker && openTime.second || second;
+	const openTime = utils.displayNow();
+	const _hour = (!showTimePicker && openTime.hour) || hour;
+	const _minute = (!showTimePicker && openTime.minute) || minute;
+	const _second = (!showTimePicker && openTime.second) || second;
 
 	useEffect(() => {
 		setTempDay(day);
@@ -37,7 +56,6 @@ function Grid(props) {
 		setTempSecond(second);
 	}, [second]);
 
-
 	function onPickDay(paramsObj) {
 		setIsClickDay(true);
 		onPickDate(paramsObj);
@@ -52,7 +70,7 @@ function Grid(props) {
 	}
 
 	function getOkButtonDisabled() {
-		const currentTime = new Date(`${year}/${month}/${tempDay} ${_hour}:${_minute}:${_second}`).getTime()
+		const currentTime = new Date(`${year}/${month}/${tempDay} ${_hour}:${_minute}:${_second}`).getTime();
 		if (minDate && minDate.getTime() > currentTime) {
 			return true;
 		}
@@ -64,30 +82,32 @@ function Grid(props) {
 	}
 
 	function onSave() {
-		const nowTime = utils.displayNow()
+		const nowTime = utils.displayNow();
 		if (tempDay) {
 			onOK(utils.displayNow(new Date(`${year}/${month}/${tempDay} ${hour || nowTime.hour}:${minute || nowTime.minute}:${second || nowTime.second}`)));
 		}
 	}
 
-	const btnStyle = rangeConfig || ((!showTimePicker && showToday) || (showTimePicker && showNow)) ? {} : { justifyContent: 'flex-end' };
+	const btnStyle = rangeConfig || (!showTimePicker && showToday) || (showTimePicker && showNow) ? {} : { justifyContent: 'flex-end' };
 	const len = Math.ceil(days.length / 7);
 	return (
 		<div className="grid" style={style}>
 			<table className="grid-table">
 				<thead>
 					<tr>
-						{utils.miniWeek.map((e, i) => <th key={i.toString()}>{e}</th>)}
+						{utils.miniWeek.map((e, i) => (
+							<th key={i.toString()}>{e}</th>
+						))}
 					</tr>
 				</thead>
 				<tbody>
-					{utils.range(len).map((e, i) =>
+					{utils.range(len).map((e, i) => (
 						<Week
 							key={i.toString()}
 							currentDateObj={{
-							  year,
-							  month,
-							  day: tempDay
+								year,
+								month,
+								day: tempDay
 							}}
 							rangeConfig={rangeConfig}
 							year={year}
@@ -102,25 +122,29 @@ function Grid(props) {
 							head={i === 0}
 							tail={i === len - 1}
 						/>
-					)}
+					))}
 				</tbody>
 			</table>
-			{
-				showTimePicker && <InnerTimePicker
-					onChange={onTimePickChange}
-					mode={mode}
-					hour={tempHour}
-					minute={tempMinute}
-					second={tempSecond}
-				/>
-			}
+			{showTimePicker && <InnerTimePicker onChange={onTimePickChange} mode={mode} hour={tempHour} minute={tempMinute} second={tempSecond} />}
 			<div className={`${selector}-popup-btns`} style={btnStyle}>
-				{ showToday && !showTimePicker && <Button size="small" disabled={getTodayDisabled()} onClick={onToadyClick}>今天</Button> }
-				{ showNow && showTimePicker && <Button size="small" onClick={onToadyClick}>此刻</Button> }
-				{ showOK && <Button type="primary" size="small" disabled={!tempDay || getOkButtonDisabled()} onClick={onSave}>确定</Button> }
+				{showToday && !showTimePicker && (
+					<Button size="small" disabled={getTodayDisabled()} onClick={onToadyClick}>
+						今天
+					</Button>
+				)}
+				{showNow && showTimePicker && (
+					<Button size="small" onClick={onToadyClick}>
+						此刻
+					</Button>
+				)}
+				{showOK && (
+					<Button type="primary" size="small" disabled={!tempDay || getOkButtonDisabled()} onClick={onSave}>
+						确定
+					</Button>
+				)}
 			</div>
 		</div>
-	)
+	);
 }
 
 Grid.propTypes = {
@@ -142,8 +166,8 @@ Grid.propTypes = {
 	showOK: PropTypes.bool,
 	onPickDate: PropTypes.func,
 	onTimePickChange: PropTypes.func,
-	onOK: PropTypes.func,
-}
+	onOK: PropTypes.func
+};
 
 Grid.defaultProps = {
 	rangeConfig: undefined,
@@ -162,9 +186,9 @@ Grid.defaultProps = {
 	showNow: false,
 	showTimePicker: false,
 	showOK: true,
-	onPickDate: ()=>{},
-	onTimePickChange: ()=>{},
-	onOK: ()=>{}
-}
+	onPickDate: () => {},
+	onTimePickChange: () => {},
+	onOK: () => {}
+};
 
 export default Grid;

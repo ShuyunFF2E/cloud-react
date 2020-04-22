@@ -32,19 +32,21 @@ module.exports = function(source) {
 		[JAVASCRIPT]: DEFAULT_TEMPLATE
 	};
 
-	[...body.match(CODE_BLOCK_REG)].forEach(v => v.replace(CODE_BLOCK_REG, (_, language, code) => {
-		switch (language.toLocaleLowerCase()) {
-			case CSS:
-			case LESS:
-				codeMap[LESS] = code;
-				break;
-			case JS:
-			case JSX:
-			case JAVASCRIPT:
-				codeMap[JAVASCRIPT] = code;
-				break;
-		}
-	}));
+	[...body.match(CODE_BLOCK_REG)].forEach(v =>
+		v.replace(CODE_BLOCK_REG, (_, language, code) => {
+			switch (language.toLocaleLowerCase()) {
+				case CSS:
+				case LESS:
+					codeMap[LESS] = code;
+					break;
+				case JS:
+				case JSX:
+				case JAVASCRIPT:
+					codeMap[JAVASCRIPT] = code;
+					break;
+			}
+		})
+	);
 
 	let constructor = '';
 	let staticDefine = '';
@@ -64,22 +66,26 @@ module.exports = function(source) {
 
 	if (codeMap[LESS]) {
 		less.render(codeMap[LESS], (_, output) => {
-			callback(null, `
+			callback(
+				null,
+				`
 				/* eslint-disable */
 				${codeMap[JAVASCRIPT]}
 
 				${staticDefine}
-				${constructor}.css = \`${
-					output.css.replace(/\{[^}]+\}/g, block => block.replace(/[\s\n\t]+/g, ''))
-				}\`;
-			`);
-		})
+				${constructor}.css = \`${output.css.replace(/\{[^}]+\}/g, block => block.replace(/[\s\n\t]+/g, ''))}\`;
+			`
+			);
+		});
 	} else {
-		callback(null, `
+		callback(
+			null,
+			`
 			/* eslint-disable */
 			${codeMap[JAVASCRIPT]}
 
 			${staticDefine}
-		`);
+		`
+		);
 	}
-}
+};

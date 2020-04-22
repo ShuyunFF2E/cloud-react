@@ -4,7 +4,7 @@ title: 基本的表单
 desc: 标签描述和控件在一条水平线上
 ---
 
-````javascript
+```javascript
 import React, { useState } from 'react';
 import { Form, Input, Button, Checkbox, Radio, Select, Field } from 'cloud-react';
 
@@ -34,10 +34,7 @@ export default function FormHorizontalDemo() {
 			<Form.Item label="备注333">
 				<div>
 					<Input.Textarea autoSize minRows={2} placeholder="备注信息..." />
-					{
-						err &&
-						<Input placeholder="xaaaaaa" />
-					}
+					{err && <Input placeholder="xaaaaaa" />}
 				</div>
 			</Form.Item>
 
@@ -63,10 +60,12 @@ export default function FormHorizontalDemo() {
 			</Form.Item>
 
 			<Form.Item wrapperCol={{ offset: 6 }}>
-				<Button type="primary" style={{ marginRight: 10 }} onClick={onClick}>提交</Button>
+				<Button type="primary" style={{ marginRight: 10 }} onClick={onClick}>
+					提交
+				</Button>
 				<Button>重置</Button>
 			</Form.Item>
 		</Form>
-	)
+	);
 }
-````
+```

@@ -4,12 +4,11 @@ title: Checkbox.Group
 desc: 组合
 ---
 
-````javascript
+```javascript
 import React, { useState } from 'react';
 import { Checkbox } from 'cloud-react';
 
 export default function RadioDemo() {
-
 	const groupValue = [1, 2, 3];
 	const [value, setCheckedValue] = useState([1, 2]);
 	const [checked, setCheckedAll] = useState(false);
@@ -31,14 +30,16 @@ export default function RadioDemo() {
 
 	return (
 		<div>
-			<Checkbox checked={checked} indeterminate={indeterminate} onChange={handleCheckAll}>check all</Checkbox>
-			<br/>
+			<Checkbox checked={checked} indeterminate={indeterminate} onChange={handleCheckAll}>
+				check all
+			</Checkbox>
+			<br />
 			<Checkbox.Group value={value} disabled={false} onChange={handleChange} layout={'v'}>
 				<Checkbox value={1}>item 1</Checkbox>
 				<Checkbox value={2}>item 2</Checkbox>
 				<Checkbox value={3}>item 3</Checkbox>
 			</Checkbox.Group>
 		</div>
-	)
+	);
 }
-````
+```

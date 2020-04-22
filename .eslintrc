@@ -1,52 +1,52 @@
 {
-  "extends": ["airbnb", "prettier", "prettier/react"],
-  "plugins": ["prettier"],
-  "settings": {
-	"import/resolver": {
-		"webpack": {
-			"config": "./webpack.config.js"
-		}
-	}
-  },
-  "rules": {
-    "react/jsx-filename-extension": [
-      1,
-      {
-        "extensions": [".js", ".jsx"]
-      }
-    ],
-	"react/prefer-stateless-function": "off",
-	"react/destructuring-assignment": 0,
-    "react/prop-types": 0,
-    "no-underscore-dangle": 0,
-    "import/imports-first": ["error", "absolute-first"],
-    "import/newline-after-import": "error",
-	"react/forbid-prop-types": "off",
-	"react/no-danger": "off",
-	"no-console": "off",
-	"jsx-a11y/click-events-have-key-events": 0,
-	"jsx-a11y/no-static-element-interactions": 0,
-	"jsx-a11y/no-noninteractive-element-interactions": "warn",
-	"jsx-a11y/no-interactive-element-to-noninteractive-role": "off",
-	"template-curly-spacing": ["error", "never"],
-	"object-curly-spacing": ["error", "always", { "objectsInObjects": true,  "arraysInObjects": true}],
-	"jsx-a11y/label-has-for": 0,
-	"quotes": ["error", "single"],
-	// jsx 中属性全部使用双引
-	"jsx-quotes": ["error", "prefer-double"],
-	"space-infix-ops": ["error"],
-	"react/sort-comp": "off",
-	"jsx-a11y/label-has-associated-control": "off"
-  },
-  "globals": {
-    "window": true,
-    "document": true,
-    "localStorage": true,
-    "FormData": true,
-    "FileReader": true,
-    "Blob": true,
-    "XMLHttpRequest": true,
-    "navigator": true
-  },
-  "parser": "babel-eslint"
+    "extends": ["airbnb", "prettier", "prettier/react"],
+    "plugins": ["prettier"],
+    "settings": {
+        "import/resolver": {
+            "webpack": {
+                "config": "./webpack.config.js"
+            }
+        }
+    },
+    "rules": {
+        "react/jsx-filename-extension": [
+            1,
+            {
+                "extensions": [".js", ".jsx"]
+            }
+        ],
+        "react/prefer-stateless-function": "off",
+        "react/destructuring-assignment": 0,
+        "react/prop-types": 0,
+        "no-underscore-dangle": 0,
+        "import/imports-first": ["error", "absolute-first"],
+        "import/newline-after-import": "error",
+        "react/forbid-prop-types": "off",
+        "react/no-danger": "off",
+        "no-console": "off",
+        "jsx-a11y/click-events-have-key-events": 0,
+        "jsx-a11y/no-static-element-interactions": 0,
+        "jsx-a11y/no-noninteractive-element-interactions": "warn",
+        "jsx-a11y/no-interactive-element-to-noninteractive-role": "off",
+        "template-curly-spacing": ["error", "never"],
+        "object-curly-spacing": ["error", "always", { "objectsInObjects": true, "arraysInObjects": true }],
+        "jsx-a11y/label-has-for": 0,
+        "quotes": ["error", "single"],
+        // jsx 中属性全部使用双引
+        "jsx-quotes": ["error", "prefer-double"],
+        "space-infix-ops": ["error"],
+        "react/sort-comp": "off",
+        "jsx-a11y/label-has-associated-control": "off"
+    },
+    "globals": {
+        "window": true,
+        "document": true,
+        "localStorage": true,
+        "FormData": true,
+        "FileReader": true,
+        "Blob": true,
+        "XMLHttpRequest": true,
+        "navigator": true
+    },
+    "parser": "babel-eslint"
 }

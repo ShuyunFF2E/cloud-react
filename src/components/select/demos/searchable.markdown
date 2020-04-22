@@ -35,13 +35,8 @@ export default function SelectDemo() {
 	};
 
 	return (
-		<div style={{height: 150}}>
-			<Select
-				searchable
-				placeholder="带搜索的下拉单选"
-				onSearch={handleSearch}
-				onChange={handleChange}
-			>
+		<div style={{ height: 150 }}>
+			<Select searchable placeholder="带搜索的下拉单选" onSearch={handleSearch} onChange={handleChange}>
 				{dataList.map((item, index) => (
 					<Option value={item.value} key={index}>
 						{item.label}

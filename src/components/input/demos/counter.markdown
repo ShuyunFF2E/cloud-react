@@ -4,7 +4,7 @@ title: 计数器
 desc: 统计当前输入字数
 ---
 
-````javascript
+```javascript
 import React from 'react';
 import { Input, Icon } from 'cloud-react';
 
@@ -15,15 +15,8 @@ export default function InputDemo() {
 			<br />
 			<Input hasClear hasCounter maxLength="10" size="default" placeholder="计数器加清除" />
 			<br />
-			<Input
-				hasCounter
-				maxLength="10"
-				hasClear
-				size="default"
-				addonBefore={<span>http://</span>}
-				addonAfter=".com"
-				placeholder="带图标"/>
+			<Input hasCounter maxLength="10" hasClear size="default" addonBefore={<span>http://</span>} addonAfter=".com" placeholder="带图标" />
 		</div>
 	);
 }
-````
+```

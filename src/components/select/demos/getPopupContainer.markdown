@@ -26,12 +26,7 @@ export default function SelectDemo() {
 		<div style={{ height: 100, overflow: 'scroll' }}>
 			<span>滚动区域</span>
 			<div style={{ height: 300, position: 'relative' }} id="test">
-				<Select
-					placeholder="请选择..."
-					defaultValue="litchi"
-					getPopupContainer={() => document.getElementById('test')}
-					onChange={handleChange}
-				>
+				<Select placeholder="请选择..." defaultValue="litchi" getPopupContainer={() => document.getElementById('test')} onChange={handleChange}>
 					{dataList.map((item, index) => (
 						<Option value={item.value} key={index}>
 							{item.label}

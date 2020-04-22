@@ -68,7 +68,7 @@ class Tree extends Component {
 		// 从外部接收到的数据存放到state中，便于子组件对其树数据进行修改
 		super(props);
 
-		const treeData =  store.initData(props.treeData, props.maxLevel, props.selectedValue, props.isUnfold);
+		const treeData = store.initData(props.treeData, props.maxLevel, props.selectedValue, props.isUnfold);
 
 		this.state = {
 			visibleMenu: false,
@@ -207,7 +207,12 @@ class Tree extends Component {
 		const { onAddNode, isAddFront, maxLevel } = this.props;
 		onAddNode(pId, value)
 			.then(res => {
-				const data = store.addChildNode(this.state.treeData, pId, { id: res.data || res.id, name: value, children: [], pId, level: pLevel + 1, disableAdd: maxLevel - pLevel === 1 }, isAddFront);
+				const data = store.addChildNode(
+					this.state.treeData,
+					pId,
+					{ id: res.data || res.id, name: value, children: [], pId, level: pLevel + 1, disableAdd: maxLevel - pLevel === 1 },
+					isAddFront
+				);
 				// 新增之后重新init判断层级，不然会出现无层级可继续添加问题
 				this.setState({
 					treeData: jEasy.clone(data),
@@ -375,9 +380,7 @@ class Tree extends Component {
 						visible={visibleMenu}
 					/>
 
-					{treeData && treeData.length > 0 && (
-						<TreeList prefixCls={selector} nodeNameMaxLength={nodeNameMaxLength} data={treeData} />
-					)}
+					{treeData && treeData.length > 0 && <TreeList prefixCls={selector} nodeNameMaxLength={nodeNameMaxLength} data={treeData} />}
 
 					{(!treeData || !treeData.length) && <p>暂无结果</p>}
 				</div>

@@ -21,11 +21,31 @@ const maxDefaultDate = new Date('2099/12/31 23:59:59');
 const fmt = 'yyyy/MM/dd';
 
 function RangePicker(props) {
-
-	const { value, defaultValue, open, disabled, style, hasClear, minDate, maxDate, placeholder, className, position, onChange, maxYear, minYear, format, ...otherProps } = props;
+	const {
+		value,
+		defaultValue,
+		open,
+		disabled,
+		style,
+		hasClear,
+		minDate,
+		maxDate,
+		placeholder,
+		className,
+		position,
+		onChange,
+		maxYear,
+		minYear,
+		format,
+		...otherProps
+	} = props;
 
 	const inpRef = React.createRef();
-	const [id,] = useState(Math.random().toString().replace('.', ''));
+	const [id] = useState(
+		Math.random()
+			.toString()
+			.replace('.', '')
+	);
 	const [suffix, setSuffix] = useState(calendarIcon);
 	const [controlled, setControlled] = useState(typeof value !== 'undefined');
 
@@ -41,8 +61,9 @@ function RangePicker(props) {
 				return isStr ? [util.convert(util.displayNow(_value[0]), fmt), ''] : [_value[0], null];
 			case 2:
 			default:
-				return isStr ? [_value[0] ? util.convert(util.displayNow(_value[0]), fmt) : '',
-					_value[1] ? util.convert(util.displayNow(_value[1]), fmt) : ''] : [_value[0], _value[1]];
+				return isStr
+					? [_value[0] ? util.convert(util.displayNow(_value[0]), fmt) : '', _value[1] ? util.convert(util.displayNow(_value[1]), fmt) : '']
+					: [_value[0], _value[1]];
 		}
 	}
 
@@ -52,10 +73,12 @@ function RangePicker(props) {
 
 	const [minTempDate, setMinTempDate] = useState(minDate || minDefaultDate);
 	const [maxTempDate, setMaxTempDate] = useState(maxDate || maxDefaultDate);
-	const memoValue = useMemo(() => { return value.join('-') }, [value])
+	const memoValue = useMemo(() => {
+		return value.join('-');
+	}, [value]);
 	const firstUpdate = useRef(true);
 
-	function onValueChange (arr = [], isPop = false) {
+	function onValueChange(arr = [], isPop = false) {
 		let newArr = arr;
 		// 增加代码健壮性，如果日期顺序不对，则进行reverse后正确显示
 		if (arr[1] < arr[0]) {
@@ -64,7 +87,7 @@ function RangePicker(props) {
 		setCurrentValueDate(newArr);
 		const output = [util.convert(util.displayNow(newArr[0]), format), util.convert(util.displayNow(newArr[1]), format)];
 		setCurrentValue(output);
-		if(isPop) {
+		if (isPop) {
 			onChange(output, arr);
 		}
 	}
@@ -77,16 +100,13 @@ function RangePicker(props) {
 	// 	setControlled(typeof value !== 'undefined');
 	// }, [value]);
 
-
-
-
 	useEffect(() => {
 		setMinTempDate(new Date(new Date(minDate).setHours(0, 0, 0, 0)));
 		setMaxTempDate(maxDate);
 	}, [minDate, maxDate]);
 
 	function onPopChange(arr) {
-		onValueChange(arr, true)
+		onValueChange(arr, true);
 		// eslint-disable-next-line no-use-before-define
 		changeVisible(null, false);
 		if (hasClear) {
@@ -95,24 +115,27 @@ function RangePicker(props) {
 	}
 
 	function changeVisible(evt, isVisible) {
-		if(isVisible && id) {
+		if (isVisible && id) {
 			setVisible(true);
 			createWrapper(id);
 			const { HEIGHT_DEFAULT } = datepickerUI;
 			// 获取面板的定位
 			const { left, top } = getPositionByComp(inpRef.current.inputRef.current.getBoundingClientRect(), position, HEIGHT_DEFAULT);
 			// 渲染DOM
-			renderDOM(id, <Popup
-				min={minTempDate}
-				max={maxTempDate}
-				maxYear={maxYear}
-				minYear={minYear}
-				className={className}
-				checkDateArr={currentValueDate}
-				onChange={onPopChange}
-				left={left}
-				top={top}
-			/>);
+			renderDOM(
+				id,
+				<Popup
+					min={minTempDate}
+					max={maxTempDate}
+					maxYear={maxYear}
+					minYear={minYear}
+					className={className}
+					checkDateArr={currentValueDate}
+					onChange={onPopChange}
+					left={left}
+					top={top}
+				/>
+			);
 			return;
 		}
 		destroyDOM(id);
@@ -126,9 +149,8 @@ function RangePicker(props) {
 		return () => {
 			setTimeout(() => {
 				document.removeEventListener('click', changeVisible, false);
-			},0)
-		
-		}
+			}, 0);
+		};
 	}, []);
 
 	function onInpClick(evt) {
@@ -153,43 +175,45 @@ function RangePicker(props) {
 	}
 
 	useLayoutEffect(() => {
-    if (firstUpdate.current) {
-      firstUpdate.current = false;
-    } else if(value[0]) {
+		if (firstUpdate.current) {
+			firstUpdate.current = false;
+		} else if (value[0]) {
 			setControlled(typeof value !== 'undefined');
 			onValueChange(value);
 		} else {
 			setControlled(typeof value !== 'undefined');
-			onInpChange()
+			onInpChange();
 		}
-  }, [memoValue]);
+	}, [memoValue]);
 
 	const disabledClass = disabled ? `${rangeSelector}-disabled` : '';
-	return (<div className={`${rangeSelector} ${className} ${disabledClass}`} {...otherProps}>
-		<Input
-			ref={inpRef}
-			style={style}
-			value={currentValue[0]}
-			placeholder={placeholder[0]}
-			readOnly
-			disabled={disabled}
-			className={`${selector}-inp`}
-			onClick={onInpClick}
-		/>
-		<span className={`${rangeSelector}-separator`} />
-		<Input
-			value={currentValue[1]}
-			placeholder={placeholder[0]}
-			readOnly
-			suffix={suffix}
-			hasClear={hasClear}
-			style={style}
-			disabled={disabled}
-			className={`${selector}-inp`}
-			onChange={evt => onInpChange(evt)}
-			onClick={onInpClick}
-		/>
-	</div>);
+	return (
+		<div className={`${rangeSelector} ${className} ${disabledClass}`} {...otherProps}>
+			<Input
+				ref={inpRef}
+				style={style}
+				value={currentValue[0]}
+				placeholder={placeholder[0]}
+				readOnly
+				disabled={disabled}
+				className={`${selector}-inp`}
+				onClick={onInpClick}
+			/>
+			<span className={`${rangeSelector}-separator`} />
+			<Input
+				value={currentValue[1]}
+				placeholder={placeholder[0]}
+				readOnly
+				suffix={suffix}
+				hasClear={hasClear}
+				style={style}
+				disabled={disabled}
+				className={`${selector}-inp`}
+				onChange={evt => onInpChange(evt)}
+				onClick={onInpClick}
+			/>
+		</div>
+	);
 }
 
 RangePicker.propTypes = {
@@ -199,23 +223,16 @@ RangePicker.propTypes = {
 	hasClear: PropTypes.bool,
 	placeholder: PropTypes.arrayOf(PropTypes.string),
 	defaultValue: PropTypes.arrayOf(PropTypes.instanceOf(Date)),
-	value: PropTypes.oneOfType([
-		PropTypes.arrayOf(PropTypes.instanceOf(Date)),
-		PropTypes.arrayOf(PropTypes.string)
-	]),
+	value: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.instanceOf(Date)), PropTypes.arrayOf(PropTypes.string)]),
 	open: PropTypes.bool,
-	position: PropTypes.oneOf([
-		enumObj.AUTO,
-		enumObj.UP,
-		enumObj.DOWN
-	]),
+	position: PropTypes.oneOf([enumObj.AUTO, enumObj.UP, enumObj.DOWN]),
 	maxDate: PropTypes.instanceOf(Date),
 	minDate: PropTypes.instanceOf(Date),
 	maxYear: PropTypes.number,
 	minYear: PropTypes.number,
 	format: PropTypes.string,
 	onChange: PropTypes.func
-}
+};
 
 RangePicker.defaultProps = {
 	className: '',
@@ -233,6 +250,6 @@ RangePicker.defaultProps = {
 	maxYear: 2030,
 	format: 'YYYY/MM/DD',
 	onChange: () => {}
-}
+};
 
 export default RangePicker;

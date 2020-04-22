@@ -21,20 +21,30 @@ function getDateObjArr(checkDateArr, min, max) {
 			second: ''
 		};
 		if (defaultTotalMonth >= minTotalMonth && defaultTotalMonth <= maxTotalMonth) {
-			return { ...dateObj, ...{
-				year: defaultYear,
-				month: defaultMonth + value
-			} };
-		}  if (defaultTotalMonth > maxTotalMonth) {
-			return { ...dateObj, ...{
-				year: max.getFullYear(),
-				month: max.getMonth() + 1 + value,
-			} };
+			return {
+				...dateObj,
+				...{
+					year: defaultYear,
+					month: defaultMonth + value
+				}
+			};
 		}
-		return { ...dateObj, ...{
-			year: min.getFullYear(),
-			month: min.getMonth() + 1 + value
-		} };
+		if (defaultTotalMonth > maxTotalMonth) {
+			return {
+				...dateObj,
+				...{
+					year: max.getFullYear(),
+					month: max.getMonth() + 1 + value
+				}
+			};
+		}
+		return {
+			...dateObj,
+			...{
+				year: min.getFullYear(),
+				month: min.getMonth() + 1 + value
+			}
+		};
 	}
 
 	const arr = [];
@@ -52,7 +62,7 @@ function getDateObjArr(checkDateArr, min, max) {
 }
 
 function trans2DateArray(arr) {
-	return [new Date(`${arr[0].year}/${arr[0].month}/${arr[0].day}`), new Date(`${arr[1].year}/${arr[1].month}/${arr[1].day}`)]
+	return [new Date(`${arr[0].year}/${arr[0].month}/${arr[0].day}`), new Date(`${arr[1].year}/${arr[1].month}/${arr[1].day}`)];
 }
 
 function Popup(props) {
@@ -90,13 +100,13 @@ function Popup(props) {
 
 		const y = maxB.getMonth() === 0 ? maxB.getFullYear() - 1 : maxB.getFullYear();
 		const m = maxB.getMonth() === 0 ? 12 : maxB.getMonth();
-		return new Date(y, m,0,23,59,59);
+		return new Date(y, m, 0, 23, 59, 59);
 	}
 
 	function initTempRange(arrObj) {
 		const endMinDate = initEnd(min, arrObj[0]);
 		if (arrObj[0].year === arrObj[1].year && arrObj[0].month === arrObj[1].month) {
-			const endYear = arrObj[1].month === 12 ?  arrObj[1].year + 1 : arrObj[1].year;
+			const endYear = arrObj[1].month === 12 ? arrObj[1].year + 1 : arrObj[1].year;
 			const endMonth = arrObj[1].month === 12 ? 1 : arrObj[1].month + 1;
 			return [
 				{
@@ -143,20 +153,23 @@ function Popup(props) {
 					max: tempMax
 				}
 			}
-		]
+		];
 	}
 
 	function initTempRangeValue() {
 		if (checkDateArr.length === 2 && checkDateArr[0] && checkDateArr[1]) {
-			return [{
-				year: tempArrObj[0].year,
-				month: tempArrObj[0].month,
-				day: tempArrObj[0].day
-			}, {
-				year: tempArrObj[1].year,
-				month: tempArrObj[1].month,
-				day: tempArrObj[1].day
-			}];
+			return [
+				{
+					year: tempArrObj[0].year,
+					month: tempArrObj[0].month,
+					day: tempArrObj[0].day
+				},
+				{
+					year: tempArrObj[1].year,
+					month: tempArrObj[1].month,
+					day: tempArrObj[1].day
+				}
+			];
 		}
 		return [null, null];
 	}
@@ -167,7 +180,7 @@ function Popup(props) {
 	const [tempRangeValue, setTempRangeValue] = useState(initTempRangeValue());
 
 	useEffect(() => {
-		const _tempArr = getDateObjArr(checkDateArr, tempRange[0].minDate,  tempRange[0].maxDate)
+		const _tempArr = getDateObjArr(checkDateArr, tempRange[0].minDate, tempRange[0].maxDate);
 		setTempArrObj(_tempArr);
 		setTempRange(initTempRange(_tempArr));
 	}, [checkDateArr]);
@@ -181,7 +194,7 @@ function Popup(props) {
 
 		const range = [...tempRange];
 		range[0].minDate = min;
-		range[0].maxDate =  initStartMax(max, _tempEndMin);
+		range[0].maxDate = initStartMax(max, _tempEndMin);
 		range[1].minDate = _tempEndMin;
 		range[1].maxDate = _tempEndMax;
 		range[1].config = {
@@ -222,7 +235,6 @@ function Popup(props) {
 			range[1].minDate = _min;
 			range[1].config.min = _min;
 			setTempRange(range);
-
 		} else {
 			const d1 = tempArrObj[1];
 			d1.year = y;
@@ -258,7 +270,7 @@ function Popup(props) {
 					max={util.transformObj(tempRange[0].maxDate)}
 					maxYear={maxYear}
 					minYear={minYear}
-					style={{ width:250, marginRight: '8px' }}
+					style={{ width: 250, marginRight: '8px' }}
 				/>
 				<Header
 					month={tempRange[1].month}
@@ -268,15 +280,10 @@ function Popup(props) {
 					max={util.transformObj(tempRange[1].maxDate)}
 					maxYear={maxYear}
 					minYear={minYear}
-					style={{ width:250 }}
+					style={{ width: 250 }}
 				/>
 			</div>
-			<Grid
-				range={tempRange}
-				rangValue={tempRangeValue}
-				onChange={onGridChange}
-				onOK={onOK}
-			/>
+			<Grid range={tempRange} rangValue={tempRangeValue} onChange={onGridChange} onOK={onOK} />
 		</div>
 	);
 }
@@ -289,7 +296,7 @@ Popup.propTypes = {
 	max: PropTypes.instanceOf(Date),
 	checkDateArr: PropTypes.arrayOf(PropTypes.instanceOf(Date)),
 	onChange: PropTypes.func
-}
+};
 
 Popup.defaultProps = {
 	left: 0,
@@ -297,8 +304,8 @@ Popup.defaultProps = {
 	min: undefined,
 	max: undefined,
 	className: '',
-	checkDateArr:[null, null],
-	onChange: () => { }
-}
+	checkDateArr: [null, null],
+	onChange: () => {}
+};
 
 export default Popup;

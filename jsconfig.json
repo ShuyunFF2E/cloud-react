@@ -1,13 +1,13 @@
 {
-	"compilerOptions": {
-	  "target": "es2015",
-	  "allowSyntheticDefaultImports": false,
-	  "moduleResolution": "node",
-	  "baseUrl": ".",
-	  "paths": {
-		"@utils/*": ["./src/utils/*"],
-	  }
-	},
-	"include": ["./src/**/*"],
-	"exclude": ["./node_modules", "./dist"]
+    "compilerOptions": {
+        "target": "es2015",
+        "allowSyntheticDefaultImports": false,
+        "moduleResolution": "node",
+        "baseUrl": ".",
+        "paths": {
+            "@utils/*": ["./src/utils/*"]
+        }
+    },
+    "include": ["./src/**/*"],
+    "exclude": ["./node_modules", "./dist"]
 }

@@ -4,7 +4,7 @@ title: 多行纯文本输入框
 desc: 设置最小、最大行数或者直接由文本自适应， 固定行数
 ---
 
-````javascript
+```javascript
 import React from 'react';
 import { Input, Icon } from 'cloud-react';
 
@@ -19,4 +19,4 @@ export default function InputDemo() {
 		</div>
 	);
 }
-````
+```

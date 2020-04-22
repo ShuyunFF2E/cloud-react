@@ -5,14 +5,14 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 const buildOutputDir = path.join(__dirname, '../cloud-react-site');
-const resolve = dir => path.resolve(__dirname, '..',  dir);
+const resolve = dir => path.resolve(__dirname, '..', dir);
 
 const publicPath = '/';
 
 module.exports = () => ({
 	devtool: 'none',
 	entry: {
-		'app': './demos/index.js'
+		app: './demos/index.js'
 	},
 	output: {
 		path: buildOutputDir,
@@ -29,9 +29,7 @@ module.exports = () => ({
 		]
 	},
 	optimization: {
-		minimizer: [
-			new OptimizeCSSAssetsPlugin()
-		]
+		minimizer: [new OptimizeCSSAssetsPlugin()]
 	},
 	plugins: [
 		new CleanWebpackPlugin([buildOutputDir]),

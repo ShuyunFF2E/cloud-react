@@ -4,22 +4,21 @@ title: 基本用法
 desc: 简单的步骤条。
 ---
 
-````javascript
+```javascript
 import React from 'react';
 import { Step } from 'cloud-react';
 
 const title1Style = {
 	textAlign: 'center'
-}
+};
 const title2Style = {
 	marginTop: '100px',
 	textAlign: 'center'
-}
+};
 
 export default function StepDemo() {
 	return (
 		<>
-
 			<h4 style={title1Style}>把大象装进冰箱分几步</h4>
 
 			<Step current={0}>
@@ -39,4 +38,4 @@ export default function StepDemo() {
 		</>
 	);
 }
-````
+```

@@ -4,14 +4,14 @@ title: 输入框
 desc: 最基本的一个输入框
 ---
 
-````javascript
+```javascript
 import React from 'react';
 import { Input } from 'cloud-react';
 
 export default function InputDemo() {
 	return <Input placeholder="basic usage" />;
 }
-````
+```
 
 ```less
 .input-demo-box {

@@ -8,7 +8,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const pkg = require('../package.json');
 
 const buildOutputDir = path.join(__dirname, '../dist');
-const resolve = dir => path.resolve(__dirname, '..',  dir);
+const resolve = dir => path.resolve(__dirname, '..', dir);
 
 module.exports = () => ({
 	devtool: 'none',
@@ -30,7 +30,7 @@ module.exports = () => ({
 		]
 	},
 	externals: {
-		'react': 'react',
+		react: 'react',
 		'react-dom': 'react-dom'
 	},
 	performance: {
@@ -48,7 +48,7 @@ module.exports = () => ({
 				}
 			}),
 			// 压缩css
-            new OptimizeCSSAssetsPlugin()
+			new OptimizeCSSAssetsPlugin()
 		]
 	},
 	plugins: [

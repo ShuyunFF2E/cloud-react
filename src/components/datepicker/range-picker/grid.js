@@ -23,7 +23,7 @@ function Grid(props) {
 		} else {
 			setOKDisabled(true);
 		}
-	},[rangValue]);
+	}, [rangValue]);
 
 	function onPickDay(year, month, day) {
 		let _startGrid = {};
@@ -56,24 +56,26 @@ function Grid(props) {
 				<table className="grid-table">
 					<thead>
 						<tr>
-							{utils.miniWeek.map((e, i) => <th key={i.toString()}>{e}</th>)}
+							{utils.miniWeek.map((e, i) => (
+								<th key={i.toString()}>{e}</th>
+							))}
 						</tr>
 					</thead>
 					<tbody>
-					{utils.range(startGridLen).map((e, i) =>
-						<Week
-							key={i.toString()}
-							year={startGrid.year}
-							month={startGrid.month}
-							checkGridArr={checkGridArr}
-							minDate={startGrid.minDate}
-							maxDate={startGrid.maxDate}
-							onPickDate={onPickDay}
-							days={startGrid.days.slice(i * 7, (i + 1) * 7)}
-							head={i === 0}
-							tail={i === startGridLen - 1}
-						/>
-					)}
+						{utils.range(startGridLen).map((e, i) => (
+							<Week
+								key={i.toString()}
+								year={startGrid.year}
+								month={startGrid.month}
+								checkGridArr={checkGridArr}
+								minDate={startGrid.minDate}
+								maxDate={startGrid.maxDate}
+								onPickDate={onPickDay}
+								days={startGrid.days.slice(i * 7, (i + 1) * 7)}
+								head={i === 0}
+								tail={i === startGridLen - 1}
+							/>
+						))}
 					</tbody>
 				</table>
 			</div>
@@ -81,33 +83,37 @@ function Grid(props) {
 				<table className="grid-table">
 					<thead>
 						<tr>
-							{utils.miniWeek.map((e, i) => <th key={i.toString()}>{e}</th>)}
+							{utils.miniWeek.map((e, i) => (
+								<th key={i.toString()}>{e}</th>
+							))}
 						</tr>
 					</thead>
 					<tbody>
-					{utils.range(endGridLen).map((e, i) =>
-						<Week
-							key={i.toString()}
-							year={endGrid.year}
-							month={endGrid.month}
-							checkGridArr={checkGridArr}
-							rangeConfig={endGrid.config}
-							minDate={endGrid.minDate}
-							maxDate={endGrid.maxDate}
-							onPickDate={onPickDay}
-							days={endGrid.days.slice(i * 7, (i + 1) * 7)}
-							head={i === 0}
-							tail={i === endGridLen - 1}
-						/>
-					)}
+						{utils.range(endGridLen).map((e, i) => (
+							<Week
+								key={i.toString()}
+								year={endGrid.year}
+								month={endGrid.month}
+								checkGridArr={checkGridArr}
+								rangeConfig={endGrid.config}
+								minDate={endGrid.minDate}
+								maxDate={endGrid.maxDate}
+								onPickDate={onPickDay}
+								days={endGrid.days.slice(i * 7, (i + 1) * 7)}
+								head={i === 0}
+								tail={i === endGridLen - 1}
+							/>
+						))}
 					</tbody>
 				</table>
 				<div className={`${selector}-popup-btns`} style={{ justifyContent: 'flex-end' }}>
-					<Button type="primary" size="small" disabled={OKDisabled} onClick={onBtnOK}>确定</Button>
+					<Button type="primary" size="small" disabled={OKDisabled} onClick={onBtnOK}>
+						确定
+					</Button>
 				</div>
 			</div>
 		</div>
-	)
+	);
 }
 
 Grid.propTypes = {
@@ -115,13 +121,13 @@ Grid.propTypes = {
 	rangValue: PropTypes.array,
 	onChange: PropTypes.func,
 	onOK: PropTypes.func
-}
+};
 
 Grid.defaultProps = {
 	range: [null, null],
 	rangValue: [null, null],
-	onChange: ()=>{},
-	onOK: ()=>{}
-}
+	onChange: () => {},
+	onOK: () => {}
+};
 
 export default Grid;
