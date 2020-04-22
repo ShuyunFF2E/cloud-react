@@ -20,7 +20,8 @@ class Prompt extends React.Component {
 		body: '',
 		onOk: () => {},
 		onCancel: () => {},
-		getPopupContainer: () => getRootDocument().body
+		// 暂时关闭Modal.method类型组件无视iframe嵌套问题
+		getPopupContainer: () => getRootDocument(false).body
 	};
 
 	static propTypes = {

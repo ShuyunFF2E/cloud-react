@@ -9,17 +9,17 @@ import Prompt from './prompt';
 
 class Modal extends Component {
 	static propTypes = {
-		getPopupContainer: PropTypes.func,
+		ignoreFrame: PropTypes.bool,
 		children: PropTypes.any
 	};
 
 	static defaultProps = {
-		getPopupContainer: () => getRootDocument().body,
+		ignoreFrame: false,
 		children: null
 	};
 
 	render() {
-		const { getPopupContainer, children, ...props } = this.props;
+		const { children, ...props } = this.props;
 
 		const Child = (
 			<Notification type="modal" {...props}>
@@ -27,7 +27,7 @@ class Modal extends Component {
 			</Notification>
 		);
 
-		return ReactDOM.createPortal(Child, getPopupContainer());
+		return ReactDOM.createPortal(Child, getRootDocument(props.ignoreFrame).body);
 	}
 }
 
