@@ -1,5 +1,7 @@
-export default function getRootDocument() {
+export default function getRootDocument(ignoreFrame) {
 	let _document = window.document;
+
+	if (!ignoreFrame) return _document;
 
 	const getDocument = contextWindow => {
 		try {
