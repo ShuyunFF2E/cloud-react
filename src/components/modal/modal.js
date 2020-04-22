@@ -6,8 +6,6 @@ import Icon from '../icon';
 import Button from '../button';
 import './index.less';
 
-const rootDocument = getRootDocument();
-
 class Notification extends Component {
 	constructor(props) {
 		super(props);
@@ -35,6 +33,7 @@ class Notification extends Component {
 		cancelText: '取消',
 		clickMaskCanClose: true,
 		showConfirmLoading: false,
+		ignoreFrame: false,
 		onOk: () => {},
 		onCancel: () => {},
 		onClose: () => {}
@@ -56,7 +55,8 @@ class Notification extends Component {
 		onClose: PropTypes.func,
 		showMask: PropTypes.bool,
 		showConfirmLoading: PropTypes.bool,
-		clickMaskCanClose: PropTypes.bool
+		clickMaskCanClose: PropTypes.bool,
+		ignoreFrame: PropTypes.bool
 	};
 
 	// 组件装在完毕监听屏幕大小切换事件
@@ -82,9 +82,11 @@ class Notification extends Component {
 		window.removeEventListener('resize', this.screenChange);
 	}
 
+	rootDocument = getRootDocument(this.props.ignoreFrame);
+
 	/* eslint-disable-next-line */
 	get mask() {
-		return rootDocument.getElementById('mask');
+		return this.rootDocument.getElementById('mask');
 	}
 
 	// 屏幕变化
@@ -134,8 +136,8 @@ class Notification extends Component {
 	onMouseDown = evt => {
 		const { diffX, diffY } = this.getPosition(evt);
 
-		rootDocument.addEventListener('mousemove', this.onMouseMove);
-		rootDocument.addEventListener('mouseup', this.onMouseUp);
+		this.rootDocument.addEventListener('mousemove', this.onMouseMove);
+		this.rootDocument.addEventListener('mouseup', this.onMouseUp);
 
 		this.removeTransition();
 		this.setState({ diffX, diffY });
@@ -143,8 +145,8 @@ class Notification extends Component {
 
 	// 松开鼠标
 	onMouseUp = () => {
-		rootDocument.removeEventListener('mousemove', this.onMouseMove);
-		rootDocument.removeEventListener('mouseup', this.onMouseUp);
+		this.rootDocument.removeEventListener('mousemove', this.onMouseMove);
+		this.rootDocument.removeEventListener('mouseup', this.onMouseUp);
 	};
 
 	// 鼠标移动重新设置modal的位置
@@ -159,7 +161,7 @@ class Notification extends Component {
 			const y = position.mouseY - diffY;
 
 			// 窗口大小，结构限制，需要做调整，减去侧边栏宽度
-			const { clientWidth, clientHeight } = rootDocument.documentElement;
+			const { clientWidth, clientHeight } = this.rootDocument.documentElement;
 			const modal = this.modalRef;
 
 			if (modal) {

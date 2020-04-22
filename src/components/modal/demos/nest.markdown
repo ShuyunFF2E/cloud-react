@@ -53,7 +53,13 @@ export default class ModalDemo extends React.Component {
 				<Button type="normal" onClick={this.openNestModal}>
 					打开嵌套弹出框
 				</Button>
-				<Modal title="basic title" visible={this.state.visible} onOk={this.handleOk} onCancel={this.handleCancel} onClose={this.handleClose}>
+				<Modal
+					ignoreFrame
+					title="basic title"
+					visible={this.state.visible}
+					onOk={this.handleOk}
+					onCancel={this.handleCancel}
+					onClose={this.handleClose}>
 					<SecondModal />
 				</Modal>
 			</div>
