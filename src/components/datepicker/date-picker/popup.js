@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import Header from '../common/header';
 import Grid from './grid';
 import util from '../util';
-import { selector } from '../util/view-common';
+import { selectorClass } from '../constant';
+// import { selector } from '../util/view-common';
 
 const defaultDateObj = util.displayNow(new Date());
 
@@ -59,7 +60,7 @@ function Popup(props) {
 	const days = tempYear && tempMonth ? util.refreshDays(tempYear, tempMonth) : util.refreshDays(defaultDateObj.year, defaultDateObj.month);
 
 	return (
-		<div className={`${selector}-popup ${className}`} style={{ left, top }} onClick={popClick}>
+		<div className={`${selectorClass}-popup ${className}`} style={{ left, top }} onClick={popClick}>
 			<Header
 				min={util.transformObj(min)}
 				max={util.transformObj(max)}

@@ -1,22 +1,13 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
-import { prefixCls } from '@utils';
-
-import Icon from '../../icon';
-import enumObj from './enum';
+import { enumObj, containerClass } from '../constant';
 
 const container = {};
 
-export const selector = `${prefixCls}-datepicker`;
-export const timeSelector = `${prefixCls}-timepicker`;
-export const rangeSelector = `${prefixCls}-rangepicker`;
-
-export const calendarIcon = <Icon type="calendar" className={`${selector}-inp-icon`}></Icon>;
 // 根据实例id创建日历面板弹层
 export function createWrapper(id) {
 	container[id] = document.createElement('div');
 	container[id].id = id;
-	container[id].className = `${selector}-container`;
+	container[id].className = containerClass;
 	container[id].style.position = 'absolute';
 	container[id].style.left = 0;
 	container[id].style.top = 0;
@@ -42,7 +33,7 @@ export function destroyDOM(id, callback) {
 }
 
 export function destroyAllDOM() {
-	const dpArr = document.getElementsByClassName(`${selector}-container`);
+	const dpArr = document.getElementsByClassName(containerClass);
 	const len = dpArr.length;
 	for (let i = 0; i < len; ) {
 		destroyDOM(dpArr[i].id);
@@ -59,10 +50,6 @@ export const datepickerUI = {
 	HEIGHT_DEFAULT: 262,
 	// 年月日时分秒视图
 	HEIGHT_TIME: 313,
-	// 年视图
-	HEIGHT_YEAR: 244,
-	// 月视图
-	HEIGHT_MONTH: 211,
 	// 月日视图
 	HEIGHT_MONTH_DAY: 262
 };
@@ -85,6 +72,7 @@ export function getAvailHeight() {
 // 根据位置计算坐标
 export function getPositionByComp({ left, bottom, top }, position, HEIGHT) {
 	let _top = 0;
+
 	switch (position) {
 		case enumObj.AUTO:
 			_top = getAvailHeight() - bottom > HEIGHT ? bottom + getScrollTop() : top + getScrollTop() - HEIGHT;

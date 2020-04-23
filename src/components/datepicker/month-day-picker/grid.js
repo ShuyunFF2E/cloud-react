@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import Button from 'cloud-react/button';
 import utils from '../util';
 import WeekGrid from './week';
-import { selector, formatZero } from '../util/view-common';
+import { formatZero } from '../util/view-common';
+import { miniWeek, selectorClass } from '../constant';
 
 const defaultYear = new Date().getFullYear();
 const defaultMonth = new Date().getMonth() + 1;
@@ -44,7 +45,7 @@ function Grid(props) {
 			<table className="grid-table">
 				<thead>
 					<tr>
-						{utils.miniWeek.map((e, i) => (
+						{miniWeek.map((e, i) => (
 							<th key={i.toString()}>{e}</th>
 						))}
 					</tr>
@@ -69,7 +70,7 @@ function Grid(props) {
 					))}
 				</tbody>
 			</table>
-			<div className={`${selector}-popup-btns`} style={{ justifyContent: 'flex-end' }}>
+			<div className={`${selectorClass}-popup-btns`} style={{ justifyContent: 'flex-end' }}>
 				{showToday && (
 					<Button size="small" onClick={() => onSave(formatZero(defaultDay), defaultMonth)}>
 						今天

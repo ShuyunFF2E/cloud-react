@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
-import Icon from 'cloud-react/icon';
-import Select from 'cloud-react/select';
-import util from '../util';
-
-const { monthArr } = util;
+import Icon from '../../icon';
+import Select from '../../select';
+import { monthArr } from '../constant';
 
 export default class Header extends Component {
 	handlePrevClick = () => {

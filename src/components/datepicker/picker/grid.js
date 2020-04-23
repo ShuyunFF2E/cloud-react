@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Button from 'cloud-react/button';
-import { selector } from '../util/view-common';
+import { selectorClass } from '../constant';
 
 const nowYear = new Date().getFullYear();
 const disClass = 'grid-disabled';
@@ -73,7 +73,7 @@ function YearGrid(props) {
 					})}
 				</tbody>
 			</table>
-			<div className={`${selector}-popup-btns`} style={{ justifyContent: 'flex-end' }}>
+			<div className={`${selectorClass}-popup-btns`} style={{ justifyContent: 'flex-end' }}>
 				{showThisYear && (
 					<Button size="small" disabled={getDisabledNow()} onClick={() => onSave(nowYear)}>
 						今年

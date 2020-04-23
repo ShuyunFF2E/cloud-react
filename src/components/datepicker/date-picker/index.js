@@ -3,19 +3,9 @@ import PropTypes from 'prop-types';
 import Input from 'cloud-react/input';
 import Popup from './popup';
 import util from '../util';
-import enumObj from '../util/enum';
-import {
-	createWrapper,
-	renderDOM,
-	destroyDOM,
-	destroyAllDOM,
-	isVaild,
-	formatZero,
-	getPositionByComp,
-	calendarIcon,
-	datepickerUI,
-	selector
-} from '../util/view-common';
+import { enumObj, selectorClass, containerClass, calendarIcon } from '../constant';
+
+import { createWrapper, renderDOM, destroyDOM, destroyAllDOM, isVaild, formatZero, getPositionByComp, datepickerUI } from '../util/view-common';
 
 const DEFAULT_FORMAT = 'yyyy/MM/dd';
 
@@ -201,7 +191,7 @@ function DatePicker(props) {
 	}, [memoValue]);
 
 	return (
-		<div onClick={onInpClick} className={`${selector}-container`}>
+		<div onClick={onInpClick} className={containerClass}>
 			<Input
 				{...otherProps}
 				ref={inpRef}
@@ -210,7 +200,7 @@ function DatePicker(props) {
 				placeholder={placeholder}
 				readOnly
 				hasClear={hasClear}
-				className={`${selector}-inp`}
+				className={`${selectorClass}-inp`}
 				style={selectorStyle}
 				disabled={disabled}
 				onChange={evt => onInpChange(evt)}

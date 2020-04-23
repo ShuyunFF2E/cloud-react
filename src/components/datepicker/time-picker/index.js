@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
 import utils from '../util';
-import { timeSelector } from '../util/view-common';
+import { timeSelectorClass } from '../constant';
 
 function TimePicker(props) {
 	const { value, defaultValue, className, style, disabled, onChange, onBlur } = props;
@@ -124,8 +124,8 @@ function TimePicker(props) {
 	}
 
 	const classes = cls({
-		[timeSelector]: true,
-		[`${timeSelector}-disabled`]: disabled,
+		[timeSelectorClass]: true,
+		[`${timeSelectorClass}-disabled`]: disabled,
 		[className]: true
 	});
 

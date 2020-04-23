@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Input from 'cloud-react/input';
-import enumObj from '../util/enum';
-import { formatNumber, timeSelector } from '../util/view-common';
+import { enumObj, timeSelectorClass } from '../constant';
+import { formatNumber } from '../util/view-common';
 
 function InnerTimePicker(props) {
 	const { hour, minute, second, mode, label, onChange } = props;
@@ -103,7 +103,7 @@ function InnerTimePicker(props) {
 	}
 
 	return (
-		<div className={`inner-${timeSelector}`}>
+		<div className={`inner-${timeSelectorClass}`}>
 			<label>{label}</label>
 			<Input value={tempHour} maxLength="2" placeholder="小时" onChange={handleHourChange} />
 			{mode === enumObj.DATE_HOUR ? null : (
