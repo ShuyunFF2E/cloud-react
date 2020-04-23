@@ -202,22 +202,21 @@ class Tree extends Component {
 	 * 新增节点
 	 * @param pId
 	 * @param value
+	 * @param pLevel
 	 */
 	onAddAction = (pId, value, pLevel) => {
 		const { onAddNode, isAddFront, maxLevel } = this.props;
 		onAddNode(pId, value)
 			.then(res => {
-				const data = store.addChildNode(
-					this.state.treeData,
-					pId,
-					{ id: res.data || res.id, name: value, children: [], pId, level: pLevel + 1, disableAdd: maxLevel - pLevel === 1 },
-					isAddFront
-				);
+				const newNode = { id: res.data || res.id, name: value, children: [], pId, level: pLevel + 1, disableAdd: maxLevel - pLevel === 1 };
+				const treeData = store.addChildNode(this.state.treeData, pId, newNode, isAddFront);
+				const allTreeData = store.addChildNode(this.state.allTreeData, pId, newNode, isAddFront);
 				// 新增之后重新init判断层级，不然会出现无层级可继续添加问题
 				this.setState({
-					treeData: jEasy.clone(data),
-					allTreeData: jEasy.clone(data)
+					treeData: jEasy.clone(treeData),
+					allTreeData: jEasy.clone(allTreeData)
 				});
+				Message.success('添加成功');
 			})
 			.catch(() => {
 				Message.error('添加失败');
@@ -233,10 +232,11 @@ class Tree extends Component {
 		const { onRenameNode } = this.props;
 		onRenameNode(id, newValue)
 			.then(() => {
-				const data = store.renameChildNode(this.state.treeData, id, newValue);
+				const treeData = store.renameChildNode(this.state.treeData, id, newValue);
+				const allTreeData = store.renameChildNode(this.state.allTreeData, id, newValue);
 				this.setState({
-					treeData: jEasy.clone(data),
-					allTreeData: jEasy.clone(data)
+					treeData: jEasy.clone(treeData),
+					allTreeData: jEasy.clone(allTreeData)
 				});
 				Message.success('更新成功');
 			})
@@ -265,11 +265,11 @@ class Tree extends Component {
 			onOk: () => {
 				onRemoveNode(node.id, node)
 					.then(() => {
-						// 删除DOM节点
-						const data = store.removeChildNode(this.state.treeData, node);
+						const treeData = store.removeChildNode(this.state.treeData, node);
+						const allTreeData = store.removeChildNode(this.state.allTreeData, node, false);
 						this.setState({
-							treeData: jEasy.clone(data),
-							allTreeData: jEasy.clone(data)
+							treeData: jEasy.clone(treeData),
+							allTreeData: jEasy.clone(allTreeData)
 						});
 					})
 					.catch(() => {

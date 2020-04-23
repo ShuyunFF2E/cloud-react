@@ -31,8 +31,7 @@ class Store {
 
 		// 递归向上查找选择
 		const upFind = currentNode => {
-			// eslint-disable-next-line no-param-reassign
-			currentNode.indeterminate = true;
+			Object.assign(currentNode, { indeterminate: true });
 			// 被选节点没有子节点则找到父节点对其进行半选
 			const pNode = this.findNodeById(cloneData, currentNode.pId);
 			// 没有父节点则不再查找
@@ -48,15 +47,13 @@ class Store {
 
 		// 递归向下查找选择
 		const downFind = currentNode => {
-			// eslint-disable-next-line no-param-reassign
-			currentNode.checked = true;
+			Object.assign(currentNode, { checked: true });
 			// 没有子节点则不再进行查找
 			if (!currentNode.children || !currentNode.children.length) {
 				return;
 			}
 			currentNode.children.forEach(son => {
-				// eslint-disable-next-line no-param-reassign
-				son.checked = true;
+				Object.assign(son, { checked: true });
 				downFind(son);
 			});
 		};
@@ -127,16 +124,10 @@ class Store {
 	 */
 	onResetData = data => {
 		const format = item => {
-			// eslint-disable-next-line no-param-reassign
-			item.indeterminate = false;
-			// eslint-disable-next-line no-param-reassign
-			item.checked = false;
+			Object.assign(item, { indeterminate: false, checked: false });
 			if (item.children && item.children.length) {
 				item.children.forEach(i => {
-					// eslint-disable-next-line no-param-reassign
-					i.indeterminate = false;
-					// eslint-disable-next-line no-param-reassign
-					i.checked = false;
+					Object.assign(i, { indeterminate: false, checked: false });
 					format(i);
 				});
 			}
@@ -184,8 +175,7 @@ class Store {
 	 */
 	selectedForCheckbox(data, node) {
 		const { checked, children, pId } = node;
-		// eslint-disable-next-line no-param-reassign
-		node.indeterminate = false;
+		Object.assign(node, { indeterminate: false });
 		// 变更自身节点选中状态
 		if (node.children && node.children.length) {
 			node.children.forEach(item => {
@@ -339,11 +329,9 @@ class Store {
 		}
 		if (isAddFront) {
 			pNode.children.unshift(newNode);
-			Message.success('添加成功');
 			return data;
 		}
 		pNode.children.push(newNode);
-		Message.success('添加成功');
 		return data;
 	}
 
@@ -367,14 +355,17 @@ class Store {
 	 * 删除节点
 	 * @param data
 	 * @param node
+	 * @param showErrorMsg
 	 * @returns {*}
 	 */
-	removeChildNode(data, node) {
+	removeChildNode(data, node, showErrorMsg = true) {
 		const parentNode = this.findNodeById(data, node.pId);
 
 		// 存在子节点则不可删除
 		if (!parentNode || node.children.length) {
-			Message.error('该目录存在子目录，不可删除!');
+			if (showErrorMsg) {
+				Message.error('该目录存在子目录，不可删除!');
+			}
 			return data;
 		}
 		parentNode.children.forEach((child, index) => {
