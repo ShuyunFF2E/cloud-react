@@ -12,10 +12,10 @@
 
 .@{upload-prefix-cls} {
 	box-sizing: @box-sizing;
-    color: rgba(0,0,0,0.65);
-    font-size: @size-big;
-    line-height: 1.5;
-    list-style: none;
+	color: rgba(0, 0, 0, 0.65);
+	font-size: @size-big;
+	line-height: 1.5;
+	list-style: none;
 	outline: 0;
 
 	input[type='file'] {
@@ -46,11 +46,11 @@
 		border: 1px dashed @border-color;
 		border-radius: 4px;
 		cursor: pointer;
-        transition: @border-color .3s ease;
+		transition: @border-color 0.3s ease;
 
-        &:hover {
-            border-color: @border-hover-color;
-        }
+		&:hover {
+			border-color: @border-hover-color;
+		}
 
 		> .@{upload-prefix-cls} {
 			display: table-cell;
@@ -60,12 +60,11 @@
 			text-align: center;
 			vertical-align: middle;
 		}
+	}
 
-    }
-
-    &-text {
-        margin-top: 8px;
-        color: @color-666;
+	&-text {
+		margin-top: 8px;
+		color: @color-666;
 	}
 
 	&-list {
@@ -122,7 +121,7 @@
 				}
 			}
 
-			>img {
+			> img {
 				width: 86px;
 				height: 86px;
 			}
@@ -133,8 +132,8 @@
 				right: 8px;
 				z-index: 10;
 				opacity: 0;
-				transition: all .3s;
-				color: rgba(255,255,255, 0.9);
+				transition: all 0.3s;
+				color: rgba(255, 255, 255, 0.9);
 				cursor: pointer;
 			}
 		}

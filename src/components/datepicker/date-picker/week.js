@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import cls from 'classnames';
 import utils from '../util';
 
-
 function Week(props) {
 	// rangeConfig出现在区间选择器时（仅用于年月日模式）
 	const { head, tail, year, month, day, days, time, minDate, maxDate, isClickDay, currentDateObj, rangeConfig, onPickDate } = props;
@@ -17,30 +16,32 @@ function Week(props) {
 	}
 
 	function getDisabled(date) {
-		const currentTimeStamp = new Date(date)
-		const minDateStamp = new Date(minDate)
-		const maxDateStamp = new Date(maxDate)
+		const currentTimeStamp = new Date(date);
+		const minDateStamp = new Date(minDate);
+		const maxDateStamp = new Date(maxDate);
 		let defaultRange = false;
 		if (rangeConfig) {
-			defaultRange = rangeConfig.min && currentTimeStamp.getTime() < rangeConfig.min.getTime() || rangeConfig.max && currentTimeStamp.getTime() > rangeConfig.max.getTime();
+			defaultRange =
+				(rangeConfig.min && currentTimeStamp.getTime() < rangeConfig.min.getTime()) ||
+				(rangeConfig.max && currentTimeStamp.getTime() > rangeConfig.max.getTime());
 		}
-		if(defaultRange) {
-			return defaultRange
-		} 
+		if (defaultRange) {
+			return defaultRange;
+		}
 		// fix issue #169
-		if(minDate && currentTimeStamp.getTime() <= minDateStamp.getTime()) {
-			if(currentTimeStamp.getDate() === minDateStamp.getDate()) {
-				return false
-			} 
-			return true
-		} 
-		if (maxDate && currentTimeStamp.getTime() >= maxDateStamp.getTime()) {
-			if(currentTimeStamp.getDate() === maxDateStamp.getDate()) {
-				return false
-			} 
-			return true
+		if (minDate && currentTimeStamp.getTime() <= minDateStamp.getTime()) {
+			if (currentTimeStamp.getDate() === minDateStamp.getDate()) {
+				return false;
+			}
+			return true;
 		}
-		return false
+		if (maxDate && currentTimeStamp.getTime() >= maxDateStamp.getTime()) {
+			if (currentTimeStamp.getDate() === maxDateStamp.getDate()) {
+				return false;
+			}
+			return true;
+		}
+		return false;
 	}
 
 	const idx = days.indexOf(1);
@@ -48,7 +49,7 @@ function Week(props) {
 	return (
 		<tr>
 			{days.map((o, i) => {
-				const inMonth = !((head && i < idx) || (tail && idx > -1 &&  i > idx - 1));
+				const inMonth = !((head && i < idx) || (tail && idx > -1 && i > idx - 1));
 				let date = null;
 				if (inMonth) {
 					date = `${year}/${month}/${o} ${time}`;
@@ -57,7 +58,7 @@ function Week(props) {
 				} else if (!inMonth && i > idx - 1) {
 					date = month < 12 ? `${year}/${month + 1}/${o} ${time}` : `${year + 1}/01/${o} ${time}`;
 				}
-				const isToday = inMonth && (`${year}-${month}-${o}` === today);
+				const isToday = inMonth && `${year}-${month}-${o}` === today;
 				let isCheck = false;
 				// 是否已经点击过了，此时数据尚未写入Input中，只是临时保存
 				if (isClickDay) {
@@ -76,8 +77,8 @@ function Week(props) {
 				let _month = month;
 				let _year = year;
 
-				if ( tail && idx > -1 &&  i > idx - 1) {
-					if (parseInt(month,10) === 12) {
+				if (tail && idx > -1 && i > idx - 1) {
+					if (parseInt(month, 10) === 12) {
 						_month = 1;
 						_year = year + 1;
 					} else {
@@ -85,7 +86,7 @@ function Week(props) {
 					}
 				}
 				if (head && i < idx) {
-					if (parseInt(month,10) === 1) {
+					if (parseInt(month, 10) === 1) {
 						_month = 12;
 						_year = year - 1;
 					} else {
@@ -93,14 +94,15 @@ function Week(props) {
 					}
 				}
 
-				return (<td className={classes} key={`${_year}-${_month}-${o}`} data-i={`${_year}-${_month}-${o}`}>
-					<span onClick={() => !isDisabled && onDayClick(_year, _month, o) }>{o}</span>
-				</td>);
+				return (
+					<td className={classes} key={`${_year}-${_month}-${o}`} data-i={`${_year}-${_month}-${o}`}>
+						<span onClick={() => !isDisabled && onDayClick(_year, _month, o)}>{o}</span>
+					</td>
+				);
 			})}
 		</tr>
-	)
+	);
 }
-
 
 Week.propTypes = {
 	rangeConfig: PropTypes.object,
@@ -115,8 +117,8 @@ Week.propTypes = {
 	minDate: PropTypes.instanceOf(Date),
 	head: PropTypes.bool,
 	tail: PropTypes.bool,
-	onPickDate: PropTypes.func,
-}
+	onPickDate: PropTypes.func
+};
 
 Week.defaultProps = {
 	rangeConfig: undefined,
@@ -131,7 +133,7 @@ Week.defaultProps = {
 	time: '00:00:00',
 	head: true,
 	tail: true,
-	onPickDate: () => { }
-}
+	onPickDate: () => {}
+};
 
 export default Week;

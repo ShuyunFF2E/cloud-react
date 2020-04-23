@@ -1,18 +1,17 @@
 ---
+
 name: Bug report
 about: 使用过程中遇到的问题
-title: "[组件名称] 核心问题描述"
+title: '[组件名称] 核心问题描述'
 labels: bug
 assignees: silence717
-
----
-
-**描述一下问题**
-清晰描述下当前bug的问题、现象。
+---**描述一下问题**
+清晰描述下当前 bug 的问题、现象。
 
 **如何复现**
 复现步骤：
-1. 创建demo，建议贴出源代码
+
+1. 创建 demo，建议贴出源代码
 2. 做什么样的操作
 3. 查看错误
 
@@ -23,7 +22,8 @@ assignees: silence717
 如果可能，请贴一张截图。
 
 **使用环境**
- - 操作系统: [e.g. windows]
- - 浏览器 [e.g. chrome, safari]
- - node版本 [e.g. 10.0.0]
- - npm 版本[e.g. 6.4.1]
+
+-   操作系统: [e.g. windows]
+-   浏览器 [e.g. chrome, safari]
+-   node 版本 [e.g. 10.0.0]
+-   npm 版本[e.g. 6.4.1]

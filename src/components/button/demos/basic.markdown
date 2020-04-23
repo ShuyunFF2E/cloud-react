@@ -4,7 +4,7 @@ title: 按钮类型
 desc: 按钮四种类型：主按钮、次按钮、虚线按钮、连接按钮
 ---
 
-````javascript
+```javascript
 import React from 'react';
 import { Button, InputNumber } from 'cloud-react';
 
@@ -27,4 +27,4 @@ export default class ButtonDemo extends React.Component {
 		);
 	}
 }
-````
+```

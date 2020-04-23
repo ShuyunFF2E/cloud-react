@@ -39,13 +39,7 @@ export default function SelectDemo() {
 
 	return (
 		<div style={{ display: 'flex' }}>
-			<Select
-				placeholder="请选择..."
-				value={value}
-				style={{ margin: '0 10px 10px 0', width: 200 }}
-				open={open}
-				onChange={handleChange}
-			>
+			<Select placeholder="请选择..." value={value} style={{ margin: '0 10px 10px 0', width: 200 }} open={open} onChange={handleChange}>
 				{dataList.map((item, index) => (
 					<Option value={item.value} key={index}>
 						{item.label}

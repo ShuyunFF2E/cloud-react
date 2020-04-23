@@ -4,12 +4,11 @@ title: 水平
 desc: 标签描述和控件在一条水平线上
 ---
 
-````javascript
+```javascript
 import React, { useState } from 'react';
 import { Form, Input, Button } from 'cloud-react';
 
 export default function FormHorizontalDemo() {
-
 	return (
 		<Form layout="horizontal" labelCol={{ span: 6 }}>
 			<Form.Item label="用户名">
@@ -25,10 +24,12 @@ export default function FormHorizontalDemo() {
 			</Form.Item>
 
 			<Form.Item wrapperCol={{ offset: 6 }}>
-				<Button type="primary" style={{ marginRight: 10 }}>提交</Button>
+				<Button type="primary" style={{ marginRight: 10 }}>
+					提交
+				</Button>
 				<Button>重置</Button>
 			</Form.Item>
 		</Form>
-	)
+	);
 }
-````
+```

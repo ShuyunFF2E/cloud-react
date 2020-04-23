@@ -7,42 +7,45 @@ import { TYPE, PREFIX } from './constant';
 const prefix = `${PREFIX}-list`;
 
 const Text = props => {
-
 	const { list, onRemove } = props;
 
-	return (
-		list.map(item => {
-			return (
-				<div key={item.id} className={`${prefix}-text`}>
-					<span>{item.name}</span>
-					<Icon type="close" style={ { fontSize: '14px' }} onClick={ () => { onRemove(item) }}/>
-				</div>
-			)
-		})
-	);
+	return list.map(item => {
+		return (
+			<div key={item.id} className={`${prefix}-text`}>
+				<span>{item.name}</span>
+				<Icon
+					type="close"
+					style={{ fontSize: '14px' }}
+					onClick={() => {
+						onRemove(item);
+					}}
+				/>
+			</div>
+		);
+	});
 };
 
 const Picture = props => {
-
 	const { list, onRemove } = props;
 
-	return (
-		list.map(item => {
-			return (
-				<div key={item.id} className={`${prefix}-pic`}>
-					<img src={item.url} alt={item.name} />
-					<Icon type="delete" style={ { fontSize: '14px' }} onClick={ () => { onRemove(item) }}/>
-				</div>
-			)
-		})
-	);
+	return list.map(item => {
+		return (
+			<div key={item.id} className={`${prefix}-pic`}>
+				<img src={item.url} alt={item.name} />
+				<Icon
+					type="delete"
+					style={{ fontSize: '14px' }}
+					onClick={() => {
+						onRemove(item);
+					}}
+				/>
+			</div>
+		);
+	});
 };
 
 class UploadList extends Component {
-
-
 	render() {
-
 		const { fileList, type, onRemove } = this.props;
 
 		const classes = classNames(`${prefix}`, {
@@ -51,19 +54,15 @@ class UploadList extends Component {
 
 		return (
 			<div className={classes}>
-				{ type === TYPE.DEFAULT ? <Text list={fileList} onRemove={onRemove} /> : <Picture list={fileList} onRemove={onRemove} /> }
+				{type === TYPE.DEFAULT ? <Text list={fileList} onRemove={onRemove} /> : <Picture list={fileList} onRemove={onRemove} />}
 			</div>
-		)
+		);
 	}
-
 }
 
 UploadList.propTypes = {
 	fileList: PropTypes.array,
-	type: PropTypes.oneOf([
-		TYPE.PICTURE,
-		TYPE.DEFAULT
-	]),
+	type: PropTypes.oneOf([TYPE.PICTURE, TYPE.DEFAULT]),
 	onRemove: PropTypes.func
 };
 

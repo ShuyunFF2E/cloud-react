@@ -23,7 +23,7 @@ module.exports = () => ({
 	devServer,
 	devtool: 'cheap-module-eval-source-map',
 	entry: {
-		'app': './demos/index.js'
+		app: './demos/index.js'
 	},
 	output: {
 		publicPath,

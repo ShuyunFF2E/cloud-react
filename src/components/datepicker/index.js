@@ -7,11 +7,11 @@ import TimePicker from './time-picker';
 import './index.less';
 
 Object.assign(Datepicker, {
-    RangePicker,
-    TimePicker,
-    YearPicker,
-    YearMonthPicker,
-    MonthDayPicker
+	RangePicker,
+	TimePicker,
+	YearPicker,
+	YearMonthPicker,
+	MonthDayPicker
 });
 
 export default Datepicker;

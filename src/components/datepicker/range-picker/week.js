@@ -19,9 +19,10 @@ function Week(props) {
 		const currentTimeStamp = new Date(date).getTime();
 		let defaultRange = false;
 		if (rangeConfig) {
-			defaultRange = rangeConfig.min && currentTimeStamp < rangeConfig.min.getTime() || rangeConfig.max && currentTimeStamp > rangeConfig.max.getTime();
+			defaultRange =
+				(rangeConfig.min && currentTimeStamp < rangeConfig.min.getTime()) || (rangeConfig.max && currentTimeStamp > rangeConfig.max.getTime());
 		}
-		return defaultRange || minDate && currentTimeStamp < new Date(minDate).getTime() || maxDate && currentTimeStamp > new Date(maxDate).getTime();
+		return defaultRange || (minDate && currentTimeStamp < new Date(minDate).getTime()) || (maxDate && currentTimeStamp > new Date(maxDate).getTime());
 	}
 
 	const idx = days.indexOf(1);
@@ -29,7 +30,7 @@ function Week(props) {
 	return (
 		<tr>
 			{days.map((o, i) => {
-				const inMonth = !((head && i < idx) || (tail && idx > -1 &&  i > idx - 1));
+				const inMonth = !((head && i < idx) || (tail && idx > -1 && i > idx - 1));
 				let date = null;
 				if (inMonth) {
 					date = `${year}/${month}/${o}`;
@@ -38,7 +39,7 @@ function Week(props) {
 				} else if (!inMonth && i > idx - 1) {
 					date = month < 12 ? `${year}/${month + 1}/${o}` : `${year + 1}/01/${o}`;
 				}
-				const isToday = inMonth && (`${year}-${month}-${o}` === today);
+				const isToday = inMonth && `${year}-${month}-${o}` === today;
 				const isCheck = inMonth && (isEqualDate(checkGridArr[0], year, month, o) || isEqualDate(checkGridArr[1], year, month, o));
 
 				const isDisabled = getDisabled(date);
@@ -51,8 +52,8 @@ function Week(props) {
 				let _month = month;
 				let _year = year;
 
-				if ( tail && idx > -1 &&  i > idx - 1) {
-					if (parseInt(month,10) === 12) {
+				if (tail && idx > -1 && i > idx - 1) {
+					if (parseInt(month, 10) === 12) {
 						_month = 1;
 						_year = year + 1;
 					} else {
@@ -60,7 +61,7 @@ function Week(props) {
 					}
 				}
 				if (head && i < idx) {
-					if (parseInt(month,10) === 1) {
+					if (parseInt(month, 10) === 1) {
 						_month = 12;
 						_year = year - 1;
 					} else {
@@ -68,14 +69,15 @@ function Week(props) {
 					}
 				}
 
-				return (<td className={classes} key={`${_year}-${_month}-${o}`} data-i={`${_year}-${_month}-${o}`}>
-					<span onClick={() => !isDisabled && onDayClick(_year, _month, o) }>{o}</span>
-				</td>);
+				return (
+					<td className={classes} key={`${_year}-${_month}-${o}`} data-i={`${_year}-${_month}-${o}`}>
+						<span onClick={() => !isDisabled && onDayClick(_year, _month, o)}>{o}</span>
+					</td>
+				);
 			})}
 		</tr>
-	)
+	);
 }
-
 
 Week.propTypes = {
 	rangeConfig: PropTypes.object,
@@ -87,8 +89,8 @@ Week.propTypes = {
 	minDate: PropTypes.instanceOf(Date),
 	head: PropTypes.bool,
 	tail: PropTypes.bool,
-	onPickDate: PropTypes.func,
-}
+	onPickDate: PropTypes.func
+};
 
 Week.defaultProps = {
 	year: null,
@@ -100,7 +102,7 @@ Week.defaultProps = {
 	maxDate: undefined,
 	head: true,
 	tail: true,
-	onPickDate: () => { }
-}
+	onPickDate: () => {}
+};
 
 export default Week;

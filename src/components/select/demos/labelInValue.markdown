@@ -27,12 +27,7 @@ export default function SelectDemo() {
 	};
 
 	return (
-		<Select
-			labelInValue
-			placeholder="请选择..."
-			defaultValue="strawberry"
-			onChange={handleChange}
-		>
+		<Select labelInValue placeholder="请选择..." defaultValue="strawberry" onChange={handleChange}>
 			{dataList.map((item, index) => (
 				<Option value={item.value} key={index}>
 					{item.label}

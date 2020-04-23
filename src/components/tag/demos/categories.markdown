@@ -1,15 +1,14 @@
 ---
 order: 2
 title: 可选择标签
-desc:  onClick使用
+desc: onClick使用
 ---
 
-````javascript
+```javascript
 import React, { Component } from 'react';
 import { Tag } from 'cloud-react';
 
 export default class TagDemo extends Component {
-
 	constructor(props) {
 		super(props);
 
@@ -25,41 +24,31 @@ export default class TagDemo extends Component {
 	}
 
 	handleClick = index => {
-
 		const tagList = this.state.tags.map((item, _index) => {
 			return {
 				...item,
 				checked: index === _index ? !item.checked : item.checked
-			}
+			};
 		});
 
 		this.setState({
 			tags: tagList
 		});
-
-	}
+	};
 
 	render() {
-
 		const { tags } = this.state;
 
 		return (
 			<>
 				<label>时尚的运动：</label>
-				{
-					tags.map(({ checked, disabled, text }, index) => (
-						<Tag
-							key={index}
-							checked={checked}
-							disabled={disabled}
-							onClick={ () => this.handleClick(index) }>
-							{text}
-						</Tag>
-					))
-				}
+				{tags.map(({ checked, disabled, text }, index) => (
+					<Tag key={index} checked={checked} disabled={disabled} onClick={() => this.handleClick(index)}>
+						{text}
+					</Tag>
+				))}
 			</>
 		);
 	}
 }
-
-````
+```

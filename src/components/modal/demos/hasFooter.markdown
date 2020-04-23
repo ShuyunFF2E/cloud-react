@@ -11,58 +11,62 @@ import { Button, Modal } from 'cloud-react';
 const blank = '\u00A0';
 
 export default class ModalDemo extends React.Component {
-	 constructor(props) {
-		 super(props);
-		 this.state = {
-		 	visible: false,
-		 	hasFooter: true
-		 };
-	 }
+	constructor(props) {
+		super(props);
+		this.state = {
+			visible: false,
+			hasFooter: true
+		};
+	}
 
-	 // 打开带底部区域的弹出框
-	 openHasFooterModal = () => {
+	// 打开带底部区域的弹出框
+	openHasFooterModal = () => {
 		this.setState({
 			visible: true,
 			hasFooter: true
 		});
-	 };
-	 // 打开不带底部区域的弹出框
-	 openNoFooterModal = () => {
+	};
+	// 打开不带底部区域的弹出框
+	openNoFooterModal = () => {
 		this.setState({
 			visible: true,
 			hasFooter: false
 		});
-	 };
+	};
 
-	 handleOk = () => {
-	 	this.setState({
+	handleOk = () => {
+		this.setState({
 			visible: false
 		});
-	 };
+	};
 
-	 handleClose = () => {
-	 	this.setState({
+	handleClose = () => {
+		this.setState({
 			visible: false
 		});
-	 };
+	};
 
-	 render() {
-		 return (
-			 <div>
-				 <Button type='primary' onClick={this.openNoFooterModal}>隐藏底部区域弹出框</Button>
-				 {blank}
-				 <Button type='normal' onClick={this.openHasFooterModal}>显示底部区域弹出框</Button>
-				 <br/>
-				 <Modal
-				 	visible={this.state.visible}
-				 	hasFooter={this.state.hasFooter}
-				 	onOk={this.handleOk}
-				 	onCancel={this.handleClose}
+	render() {
+		return (
+			<div>
+				<Button type="primary" onClick={this.openNoFooterModal}>
+					隐藏底部区域弹出框
+				</Button>
+				{blank}
+				<Button type="normal" onClick={this.openHasFooterModal}>
+					显示底部区域弹出框
+				</Button>
+				<br />
+				<Modal
+					visible={this.state.visible}
+					hasFooter={this.state.hasFooter}
+					onOk={this.handleOk}
+					onCancel={this.handleClose}
 					onClose={this.handleClose}>
-				 	this is a has or no Footer demo
-				 </Modal>
-			 </div>
-		 );
-	 }
+					this is a has or no Footer demo
+				</Modal>
+			</div>
+		);
+	}
 }
 ```

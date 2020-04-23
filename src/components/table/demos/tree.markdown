@@ -4,7 +4,7 @@ title: 树表格
 desc: 使用树结构数据
 ---
 
-````javascript
+```javascript
 import React, { Component } from 'react';
 import { Button, Table, Message } from 'cloud-react';
 
@@ -15,7 +15,8 @@ const columnData = [
 	{
 		key: 'name',
 		text: '标签'
-	},{
+	},
+	{
 		key: 'info',
 		text: '使用说明'
 	}
@@ -23,7 +24,7 @@ const columnData = [
 
 // 静态数据
 const resouse = {
-	"data":[
+	data: [
 		{
 			name: 'h1~h6',
 			info: '用来定义 HTML 标题',
@@ -36,22 +37,22 @@ const resouse = {
 					name: 'h2',
 					info: '用来定义 HTML 标题'
 				},
-                {
-                    name: 'h3',
-                    info: '用来定义 HTML 标题'
-                },
-                {
-                    name: 'h4',
-                    info: '用来定义 HTML 标题'
-                },
-                {
-                    name: 'h5',
-                    info: '用来定义 HTML 标题'
-                },
-                {
-                    name: 'h6',
-                    info: '定义重要等级最低的标题'
-                }
+				{
+					name: 'h3',
+					info: '用来定义 HTML 标题'
+				},
+				{
+					name: 'h4',
+					info: '用来定义 HTML 标题'
+				},
+				{
+					name: 'h5',
+					info: '用来定义 HTML 标题'
+				},
+				{
+					name: 'h6',
+					info: '定义重要等级最低的标题'
+				}
 			]
 		},
 		{
@@ -82,14 +83,14 @@ const resouse = {
 						}
 					]
 				},
-                {
-                    name: 'tfoot',
-                    info: '用于组合 HTML 表格的页脚内容'
-                }
+				{
+					name: 'tfoot',
+					info: '用于组合 HTML 表格的页脚内容'
+				}
 			]
 		}
 	],
-	"totals": 3
+	totals: 3
 };
 
 export default class TableDemo extends Component {
@@ -105,40 +106,43 @@ export default class TableDemo extends Component {
 	}
 	render() {
 		const treeConfig = {
-	        // 树展开操作按键所属容器，此处配置columnData的key值。未配置时，将默认选择columnData的第一项
-	        insertTo: 'name',
+			// 树展开操作按键所属容器，此处配置columnData的key值。未配置时，将默认选择columnData的第一项
+			insertTo: 'name',
 
 			// 初始将所有数据展开, 默认为false
-            openState: false,
+			openState: false,
 
-            // 子节点关键字，默认为'children'
-            treeKey: 'children'
-        };
+			// 子节点关键字，默认为'children'
+			treeKey: 'children'
+		};
 		return (
 			<>
-				<Table
-					gridManagerName={gridManagerName}
-					supportTreeData={true}
-	                treeConfig={treeConfig}
-					ajaxData={resouse}
-					columnData={columnData}
-				/>
+				<Table gridManagerName={gridManagerName} supportTreeData={true} treeConfig={treeConfig} ajaxData={resouse} columnData={columnData} />
 				<div className="table-action">
-					<Button onClick={() => {this.updateTreeState()}}>改变折叠状态</Button>
-					<Button onClick={() => {this.getCheckedData()}}>获取选中数据</Button>
+					<Button
+						onClick={() => {
+							this.updateTreeState();
+						}}>
+						改变折叠状态
+					</Button>
+					<Button
+						onClick={() => {
+							this.getCheckedData();
+						}}>
+						获取选中数据
+					</Button>
 				</div>
 			</>
 		);
 	}
 }
+```
 
-````
-
-````less
-.table-action{
+```less
+.table-action {
 	padding-top: 10px;
-	>button{
-		margin-right: 10px
+	> button {
+		margin-right: 10px;
 	}
 }
-````
+```

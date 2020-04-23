@@ -4,7 +4,7 @@ title: 按钮尺寸
 desc: 按钮三种尺寸：large、default、small
 ---
 
-````javascript
+```javascript
 import React from 'react';
 import { Button } from 'cloud-react';
 
@@ -15,7 +15,7 @@ export default class ButtonDemo extends React.Component {
 		super();
 		this.state = {
 			size: 'large'
-		}
+		};
 	}
 
 	onChangeSize(size) {
@@ -34,20 +34,30 @@ export default class ButtonDemo extends React.Component {
 					{blank}
 					<Button onClick={this.onChangeSize.bind(this, 'small')}>small</Button>
 					{blank}
-					<Button type="link" disabled>current: {size}</Button>
+					<Button type="link" disabled>
+						current: {size}
+					</Button>
 				</div>
 
 				<div>
-					<Button type="primary" size={size}>primary</Button>
+					<Button type="primary" size={size}>
+						primary
+					</Button>
 					{blank}
-					<Button type="normal" size={size}>normal</Button>
+					<Button type="normal" size={size}>
+						normal
+					</Button>
 					{blank}
-					<Button type="dashed" size={size}>dashed</Button>
+					<Button type="dashed" size={size}>
+						dashed
+					</Button>
 					{blank}
-					<Button type="link" size={size}>link</Button>
+					<Button type="link" size={size}>
+						link
+					</Button>
 				</div>
 			</>
 		);
 	}
 }
-````
+```

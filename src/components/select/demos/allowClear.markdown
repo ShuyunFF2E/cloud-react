@@ -36,13 +36,8 @@ export default function SelectDemo() {
 	};
 
 	return (
-		<div style={{height: 150}}>
-			<Select
-				placeholder="请选择..."
-				defaultValue={4}
-				allowClear
-				onChange={handleChange}
-			>
+		<div style={{ height: 150 }}>
+			<Select placeholder="请选择..." defaultValue={4} allowClear onChange={handleChange}>
 				{dataList.map((item, index) => (
 					<Option value={item.value} disabled={item.disabled} key={index}>
 						{item.label}

@@ -23,10 +23,10 @@ function YearRegionHeader(props) {
 	}
 
 	function getDisabled(params) {
-		if(params === enumObj.LEFT) {
+		if (params === enumObj.LEFT) {
 			return region[0] <= min;
 		}
-		if(params === enumObj.RIGHT) {
+		if (params === enumObj.RIGHT) {
 			return region[1] >= max;
 		}
 		return false;
@@ -59,13 +59,13 @@ YearRegionHeader.propTypes = {
 	max: PropTypes.number,
 	region: PropTypes.arrayOf(PropTypes.number),
 	onChange: PropTypes.func
-}
+};
 
 YearRegionHeader.defaultProps = {
 	min: undefined,
 	max: undefined,
 	region: [defaultYear, defaultYear],
-	onChange: () => { }
-}
+	onChange: () => {}
+};
 
 export default YearRegionHeader;

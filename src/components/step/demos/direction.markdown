@@ -4,11 +4,11 @@ title: 纵向
 desc: 纵向方向的步骤
 ---
 
-````javascript
+```javascript
 import React from 'react';
 import { Step } from 'cloud-react';
 
-const title1Style = {}
+const title1Style = {};
 const title2Style = { marginTop: '50px' };
 
 export default function StepDemo() {
@@ -62,9 +62,9 @@ export default function StepDemo() {
 		</>
 	);
 }
-````
+```
 
-````less
+```less
 .step-demo-direction {
 	display: flex;
 
@@ -72,4 +72,4 @@ export default function StepDemo() {
 		width: 50%;
 	}
 }
-````
+```

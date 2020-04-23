@@ -37,12 +37,7 @@ export default function SelectDemo() {
 	return (
 		<div style={{ height: 200 }}>
 			指定特定的键值key：
-			<Select
-				placeholder="xxxxx"
-				labelKey="title"
-				valueKey="name"
-				onChange={handleChange}
-				dataSource={dataList} />
+			<Select placeholder="xxxxx" labelKey="title" valueKey="name" onChange={handleChange} dataSource={dataList} />
 		</div>
 	);
 }

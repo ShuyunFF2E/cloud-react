@@ -1,20 +1,19 @@
 ---
 order: 10
 title: 自定义配置样式
-desc:  使用className或style属性自定义配置样式
+desc: 使用className或style属性自定义配置样式
 ---
 
 ```javascript
 import React from 'react';
 import { Tree } from 'cloud-react';
 export default class TreeDemo extends React.Component {
-
 	constructor(props) {
 		super(props);
 
 		this.state = {
 			showIcon: false
-		}
+		};
 	}
 
 	selectedNode = (node, selectedList) => {
@@ -25,87 +24,88 @@ export default class TreeDemo extends React.Component {
 	};
 
 	render() {
-        const treeData = [{
-            id: 1,
-            name: '所有',
-            pId: null,
-            children: [
-                {
-                    id: 11,
-                    name: '这里将会是一个超级超级长的节点，这个节点名称也会超级超级长，毕竟是为了测试极端情况下的样式问题',
-                    pId: 1,
-                    disableAdd: true,
-                    children: [
-                        {
-                            id: 111,
-                            name: '这里将会是一个超级超级长的节点，这个节点名称也会超级超级长，毕竟是为了测试极端情况下的样式问题',
-                            pId: 11,
-                            categoryType: 0
-                        }
-                    ]
-                }, {
-                    id: 12,
-                    name: '禁止删除节点',
-                    pId: 1,
-                    disableRemove: true,
-                    children: [
-                        {
-                            id: 121,
-                            name: '禁止重命名节点',
-                            pId: 12,
-                            disableRename: true,
-                            children: [
-                                {
-                                    id: 1211,
-                                    name: '2345',
-                                    pId: 121
-                                }
-                            ]
-                        }, {
-                            id: 122,
-                            name: 'lerous',
-                            pId: 12
-                        }, {
-                            id: 123,
-                            name: 'baukh321',
-                            pId: 12
-                        }, {
-                            id: 124,
-                            name: 'bauh789',
-                            pId: 12
-                        }, {
-                            id: 125,
-                            name: 'baukh',
-                            pId: 12
-                        }
-                    ]
-                }, {
-                    id: 13,
-                    name: '未分类',
-                    pId: 1
-                }
-            ]
-        }];
-        const style = {
-        	color: 'red'
-        };
+		const treeData = [
+			{
+				id: 1,
+				name: '所有',
+				pId: null,
+				children: [
+					{
+						id: 11,
+						name: '这里将会是一个超级超级长的节点，这个节点名称也会超级超级长，毕竟是为了测试极端情况下的样式问题',
+						pId: 1,
+						disableAdd: true,
+						children: [
+							{
+								id: 111,
+								name: '这里将会是一个超级超级长的节点，这个节点名称也会超级超级长，毕竟是为了测试极端情况下的样式问题',
+								pId: 11,
+								categoryType: 0
+							}
+						]
+					},
+					{
+						id: 12,
+						name: '禁止删除节点',
+						pId: 1,
+						disableRemove: true,
+						children: [
+							{
+								id: 121,
+								name: '禁止重命名节点',
+								pId: 12,
+								disableRename: true,
+								children: [
+									{
+										id: 1211,
+										name: '2345',
+										pId: 121
+									}
+								]
+							},
+							{
+								id: 122,
+								name: 'lerous',
+								pId: 12
+							},
+							{
+								id: 123,
+								name: 'baukh321',
+								pId: 12
+							},
+							{
+								id: 124,
+								name: 'bauh789',
+								pId: 12
+							},
+							{
+								id: 125,
+								name: 'baukh',
+								pId: 12
+							}
+						]
+					},
+					{
+						id: 13,
+						name: '未分类',
+						pId: 1
+					}
+				]
+			}
+		];
+		const style = {
+			color: 'red'
+		};
 
-		return (
-			<Tree
-				treeData={treeData}
-				style={style}
-				className='bg'
-				showIcon={this.state.showIcon}
-				onSelectedNode={this.selectedNode}/>
-		);
+		return <Tree treeData={treeData} style={style} className="bg" showIcon={this.state.showIcon} onSelectedNode={this.selectedNode} />;
 	}
 }
 ```
 
 ```less
 .bg {
-    background: #d7e7f3;
-    width: 200px;
-    overflow: auto;
+	background: #d7e7f3;
+	width: 200px;
+	overflow: auto;
 }
 ```

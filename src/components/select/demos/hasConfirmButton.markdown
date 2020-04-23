@@ -46,7 +46,7 @@ export default function SelectDemo() {
 	const values2 = [2, 3];
 
 	return (
-		<div style={{height: 170}}>
+		<div style={{ height: 170 }}>
 			<Select
 				placeholder="请选择..."
 				defaultValue={values2}
@@ -58,14 +58,9 @@ export default function SelectDemo() {
 				okBtnText="确认1"
 				cancelBtnText="取消2"
 				onOk={onOk}
-				onCancel={onCancel}
-			>
+				onCancel={onCancel}>
 				{dataList.map((item, index) => (
-					<Option
-						value={item.value}
-						disabled={item.disabled}
-						key={index}
-					>
+					<Option value={item.value} disabled={item.disabled} key={index}>
 						{item.label}
 					</Option>
 				))}

@@ -8,7 +8,7 @@ const createElement = (className = '__empty__') => {
 	const element = document.createElement('div');
 	element.classList.add(className);
 	return element;
-}
+};
 
 const separateMarkdownHtml = html => {
 	const container = createElement();
@@ -35,7 +35,7 @@ const separateMarkdownHtml = html => {
 	container.appendChild(markdownBody);
 
 	return container.innerHTML;
-}
+};
 
 export default class MarkdownOutput extends React.Component {
 	static propTypes = {
@@ -64,13 +64,14 @@ export default class MarkdownOutput extends React.Component {
 
 		// 跟具体组件代码无关的代码高亮
 		[...document.querySelectorAll('pre > code')].forEach(ele => {
-			window.requestAnimationFrame(() => window.Prism.highlightElement(ele))
-		})
+			window.requestAnimationFrame(() => window.Prism.highlightElement(ele));
+		});
 
 		// 动态添加 demo
 		demos
 			.sort((p, n) => p.order - n.order)
-			.filter(v => v).forEach(Demo => {
+			.filter(v => v)
+			.forEach(Demo => {
 				const wrap = document.createElement('div');
 
 				ReactDOM.render(
@@ -103,7 +104,9 @@ export default class MarkdownOutput extends React.Component {
 
 		return (
 			<section ref={this.markdownRef}>
-				<h1 className={classes.title}>{title} {subtitle}</h1>
+				<h1 className={classes.title}>
+					{title} {subtitle}
+				</h1>
 				<div dangerouslySetInnerHTML={{ __html: separateMarkdownHtml(html) }} />
 			</section>
 		);

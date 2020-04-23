@@ -16,11 +16,13 @@ const files = fs.readdirSync(filePath);
 
 // 通过文件夹名称生成组件名称
 const toComponentsName = text => {
-	return text.replace(/-\w/g, str => {
-		return str.split('-')[1].toUpperCase();
-	}).replace(/^[A-Za-z]/, str => {
-		return str.toLocaleUpperCase();
-	});
+	return text
+		.replace(/-\w/g, str => {
+			return str.split('-')[1].toUpperCase();
+		})
+		.replace(/^[A-Za-z]/, str => {
+			return str.toLocaleUpperCase();
+		});
 };
 
 // 生成代码
@@ -41,6 +43,6 @@ files.forEach(item => {
 });
 
 const indexCode = `${description}\n${condition}\n${fileCode}`;
-fs.writeFile(indexFile, indexCode, function (err) {
+fs.writeFile(indexFile, indexCode, function(err) {
 	if (err) throw err;
 });

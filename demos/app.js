@@ -30,7 +30,10 @@ const routeViews = [];
  * 注意那段的注释
  */
 docs.forEach(({ path, result, demos = [] }, key) => {
-	const { html, attributes: { title, subtitle, order, category = '' } } = result;
+	const {
+		html,
+		attributes: { title, subtitle, order, category = '' }
+	} = result;
 	const routePath = `/${category}${path}`.replace(/\/+/g, '/').toLocaleLowerCase();
 
 	if (!menuConf[category]) {
@@ -45,25 +48,17 @@ docs.forEach(({ path, result, demos = [] }, key) => {
 		order,
 		subtitle,
 		path: routePath
-	})
+	});
 
-	routeViews.push(
-		<Route
-			key={key}
-			path={routePath}
-			component={() => <Markdown title={title} subtitle={subtitle} html={html} demos={demos} />} />
-	);
+	routeViews.push(<Route key={key} path={routePath} component={() => <Markdown title={title} subtitle={subtitle} html={html} demos={demos} />} />);
 });
-
 
 function App() {
 	const infinity = Math.pow(2, 32);
 	const menuDataSource = [];
 
 	Object.keys(menuConf).map(key => {
-		!key
-			? menuDataSource.push(...menuConf[key].subMenu)
-			: menuDataSource.push(menuConf[key]);
+		!key ? menuDataSource.push(...menuConf[key].subMenu) : menuDataSource.push(menuConf[key]);
 	});
 	menuDataSource.sort(({ order: p = infinity }, { order: n = infinity }) => p - n);
 

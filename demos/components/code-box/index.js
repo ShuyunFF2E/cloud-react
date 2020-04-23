@@ -24,7 +24,7 @@ class CodeBox extends React.Component {
 		code: '',
 		css: '',
 		children: ''
-	}
+	};
 
 	constructor(props) {
 		super(props);
@@ -45,14 +45,14 @@ class CodeBox extends React.Component {
 
 	state = {
 		expand: false
-	}
+	};
 
 	componentDidMount() {
 		const { current } = this.codeBlock;
 
 		window.requestAnimationFrame(() => {
 			window.Prism.highlightElement(current.children[0]);
-		})
+		});
 	}
 
 	componentWillUnmount() {
@@ -64,7 +64,7 @@ class CodeBox extends React.Component {
 	onToggle = () => {
 		const { expand } = this.state;
 		this.setState({ expand: !expand });
-	}
+	};
 
 	render() {
 		const { expand } = this.state;
@@ -83,20 +83,19 @@ class CodeBox extends React.Component {
 						[classes.expand]: expand
 					})}
 					onClick={this.onToggle}
-					role="presentation"
-				>
+					role="presentation">
 					<span className={classes.icon}>
 						<img src={codeIcon} alt="代码" />
-						<span className={classes.iconDesc}>
-							{expand ? '隐藏代码' : '显示代码'}
-						</span>
+						<span className={classes.iconDesc}>{expand ? '隐藏代码' : '显示代码'}</span>
 					</span>
 				</div>
 
-				<pre ref={this.codeBlock} className={classnames({
-					[classes.codeBlock]: true,
-					[classes.hidden]: !expand
-				})}>
+				<pre
+					ref={this.codeBlock}
+					className={classnames({
+						[classes.codeBlock]: true,
+						[classes.hidden]: !expand
+					})}>
 					<code dangerouslySetInnerHTML={{ __html: code }} className="language-jsx" />
 				</pre>
 			</section>

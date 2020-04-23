@@ -2,22 +2,21 @@
 
 @pagination-prefix-cls: ~'@{prefix}-pagination';
 
-@pagination-item-color: rgba(0,0,0,0.65);
+@pagination-item-color: rgba(0, 0, 0, 0.65);
 @pagination-item-border-color: #ddd;
-@pagination-item-hover-color: rgba(0,170,241,1);
+@pagination-item-hover-color: rgba(0, 170, 241, 1);
 @pagination-item-disabled-color: #b5b5b5;
-@pagination-item-ellips-color: rgba(0,0,0,0.25);
-@pagination-item-active-bg: rgba(229,247,255,1);
+@pagination-item-ellips-color: rgba(0, 0, 0, 0.25);
+@pagination-item-active-bg: rgba(229, 247, 255, 1);
 
-.@{pagination-prefix-cls}{
-
+.@{pagination-prefix-cls} {
 	display: flex;
 	align-items: center;
 
-	ul{
+	ul {
 		display: flex;
 		padding-inline-start: 0;
-		li{
+		li {
 			width: 26px;
 			margin-right: 5px;
 			height: 26px;
@@ -27,31 +26,31 @@
 			line-height: 26px;
 			border-radius: 3px;
 			cursor: pointer;
-			&:hover{
+			&:hover {
 				border-color: @pagination-item-hover-color;
 				color: @pagination-item-hover-color;
 			}
-			.pg-icon{
+			.pg-icon {
 				font-size: 12px;
 			}
 		}
-		.nomore{
+		.nomore {
 			color: @pagination-item-disabled-color;
 			cursor: not-allowed;
-			&:hover{
+			&:hover {
 				border-color: @pagination-item-border-color;
-				color:@pagination-item-disabled-color;
+				color: @pagination-item-disabled-color;
 			}
 		}
-		.ellips{
+		.ellips {
 			border: none;
 			position: relative;
 			text-align: center;
 			line-height: 26px;
-			.dot{
+			.dot {
 				display: block;
-				&:after{
-					content: "\2022\2022\2022";
+				&:after {
+					content: '\2022\2022\2022';
 					display: block;
 					letter-spacing: 2px;
 					color: @pagination-item-ellips-color;
@@ -59,30 +58,30 @@
 					margin-top: 1px;
 				}
 			}
-			.moreIcon{
+			.moreIcon {
 				font-size: 12px;
 				display: none;
 			}
-			&:hover{
-				span.dot{
+			&:hover {
+				span.dot {
 					display: none;
 				}
-				.moreIcon{
+				.moreIcon {
 					display: block;
 				}
 			}
 		}
-		.active{
-			background:@pagination-item-active-bg;
-			border:1px solid @pagination-item-hover-color;
+		.active {
+			background: @pagination-item-active-bg;
+			border: 1px solid @pagination-item-hover-color;
 		}
 	}
-	.quickJumper{
+	.quickJumper {
 		display: flex;
 		align-items: center;
 		height: 26px;
 		margin-left: 8px;
-		>input{
+		> input {
 			position: relative;
 			display: inline-block;
 			outline: none;
@@ -94,8 +93,8 @@
 			background-image: none;
 			border: 1px solid @pagination-item-disabled-color;
 			border-radius: 3px;
-			-webkit-transition: all .2s;
-			transition: all .2s;
+			-webkit-transition: all 0.2s;
+			transition: all 0.2s;
 			width: 38px;
 			margin: 0 8px;
 		}

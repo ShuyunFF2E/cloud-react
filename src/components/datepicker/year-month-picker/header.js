@@ -28,11 +28,11 @@ function Header(props) {
 Header.propTypes = {
 	year: PropTypes.number,
 	onChange: PropTypes.func
-}
+};
 
 Header.defaultProps = {
 	year: defaultYear,
-	onChange: () => { }
-}
+	onChange: () => {}
+};
 
 export default Header;

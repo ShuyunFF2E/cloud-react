@@ -25,7 +25,7 @@ module.exports = ({ mode } = { mode: 'development' }) => {
 					'@utils': resolve('./src/utils/'),
 					'@components': resolve('./src/components'),
 					'@docs': resolve('./docs'),
-					[name]: resolve('./src/components'),
+					[name]: resolve('./src/components')
 				},
 				modules: [resolve(__dirname, './src'), 'node_modules'],
 				extensions: ['.js']
@@ -79,7 +79,7 @@ module.exports = ({ mode } = { mode: 'development' }) => {
 						options: {
 							target: [
 								{ path: resolve('./docs'), importPath: '@docs' },
-								{ path: resolve('./src/components'), importPath: '@components' },
+								{ path: resolve('./src/components'), importPath: '@components' }
 							]
 						},
 						include: resolve('demos')

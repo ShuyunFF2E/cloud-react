@@ -10,14 +10,14 @@ const markdownFileGen = /\w+\.md$/;
 function combinationName(name) {
 	return name.replace(/-(\w)/g, (s, $1) => $1.toUpperCase());
 }
-function  transformName(name) {
+function transformName(name) {
 	return name.replace(/^(\w)/, (s, $1) => $1.toUpperCase());
 }
 
 function fsExistsSync(path) {
 	try {
 		fs.accessSync(path, fs.F_OK);
-	} catch(e) {
+	} catch (e) {
 		return false;
 	}
 	return true;
@@ -27,23 +27,22 @@ function scanningTargetPath({ path: context, importPath, filename = 'index.md', 
 	const introduces = [];
 	const values = [];
 
-	fs.readdirSync(context).forEach((file) => {
+	fs.readdirSync(context).forEach(file => {
 		const fullPath = path.join(context, file);
 		const stat = fs.statSync(fullPath);
 		let [introduce, value] = [];
 
 		if (stat.isFile() && markdownFileGen.test(file)) {
-			const [name] = file.split(/\.md$/i)
-      		const moduleName = combinationName(name);
+			const [name] = file.split(/\.md$/i);
+			const moduleName = combinationName(name);
 
 			value = { path: `/${name}`, label: moduleName, result: moduleName };
-      		introduce = { name: moduleName, dir: resolve(importPath, file) };
-
+			introduce = { name: moduleName, dir: resolve(importPath, file) };
 		} else if (stat.isDirectory() && fsExistsSync(resolve(fullPath, filename))) {
-      		const moduleName = combinationName(file);
+			const moduleName = combinationName(file);
 
 			value = { path: `/${file}`, label: moduleName, result: moduleName };
-      		introduce = { name: moduleName, dir: resolve(importPath, file, filename) };
+			introduce = { name: moduleName, dir: resolve(importPath, file, filename) };
 		}
 
 		// loader demos
@@ -51,9 +50,9 @@ function scanningTargetPath({ path: context, importPath, filename = 'index.md', 
 
 		if (stat.isDirectory() && fsExistsSync(demoFullDirectory)) {
 			value.demos = [];
-			fs.readdirSync(demoFullDirectory).forEach((demoFile) => {
+			fs.readdirSync(demoFullDirectory).forEach(demoFile => {
 				const [name] = demoFile.split('.');
-      			const moduleName = transformName(combinationName(`${file}-${name}`));
+				const moduleName = transformName(combinationName(`${file}-${name}`));
 
 				introduces.push({ name: moduleName, dir: resolve(importPath, file, demoDirectory, demoFile) });
 				value.demos.push(moduleName);
@@ -75,7 +74,7 @@ function scanningTargetPath({ path: context, importPath, filename = 'index.md', 
 function generateImportCodes(imports = []) {
 	const res = imports.map(({ name, dir }) => {
 		const crossEnvPath = dir.split(path.sep).join('/');
-		return `import ${name} from '${crossEnvPath}';` 
+		return `import ${name} from '${crossEnvPath}';`;
 	});
 	return res.join('\n');
 }
@@ -122,12 +121,12 @@ module.exports = function(source) {
 		index++;
 	}
 
-	if(imports.length) {
+	if (imports.length) {
 		const importCodes = generateImportCodes(imports);
 		const constDocsCode = generateDocsCodes(result);
 
 		source = source.replace(regexpGen, mergeCode(importCodes, constDocsCode));
 	}
 
-  return source;
-}
+	return source;
+};

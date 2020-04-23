@@ -4,18 +4,13 @@ title: 背景
 desc: 默认无背景，layer = true 时，有背景。
 ---
 
-````javascript
+```javascript
 import React from 'react';
 import { Loading } from 'cloud-react';
 
 export default class LoadingDemo extends React.Component {
-
 	render() {
-		return (
-			<Loading layer/>
-		);
+		return <Loading layer />;
 	}
 }
-````
-
-
+```

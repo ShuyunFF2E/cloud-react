@@ -4,7 +4,7 @@ title: 按钮组合
 desc: 通过 Button.Group 容器组件来包装 Button，可以统一设置 size, type
 ---
 
-````javascript
+```javascript
 import React from 'react';
 import { Button } from 'cloud-react';
 
@@ -65,4 +65,4 @@ export default class ButtonDemo extends React.Component {
 		);
 	}
 }
-````
+```

@@ -7,7 +7,7 @@ import { selector } from '../util/view-common';
 
 const currentYear = new Date().getFullYear();
 function Popup(props) {
-    const { left, top, min, max, className, checkValue, showThisYear, onChange } = props;
+	const { left, top, min, max, className, checkValue, showThisYear, onChange } = props;
 	// 初始化年份区间，15年
 	function getInitRegion() {
 		const maxYear = parseInt(max, 10);
@@ -22,57 +22,47 @@ function Popup(props) {
 		return [minYear, minYear + 14];
 	}
 
-    const [region, setRegion] = useState(getInitRegion());
+	const [region, setRegion] = useState(getInitRegion());
 
-    function onHeaderChange(params) {
-        if (params === enumObj.LEFT) {
-            setRegion([region[0] - 15, region[0] - 1]);
-        } else if (params === enumObj.RIGHT) {
-            setRegion([region[1] + 1, region[1] + 15]);
-        }
-    }
+	function onHeaderChange(params) {
+		if (params === enumObj.LEFT) {
+			setRegion([region[0] - 15, region[0] - 1]);
+		} else if (params === enumObj.RIGHT) {
+			setRegion([region[1] + 1, region[1] + 15]);
+		}
+	}
 
-    function popClick(evt) {
+	function popClick(evt) {
 		evt.stopPropagation();
 		evt.nativeEvent.stopImmediatePropagation();
-    }
+	}
 
 	return (
-        <div className={`${selector}-popup ${className}`} style={{ left, top }} onClick={popClick}>
-            <YearRegionHeader
-				min={min}
-				max={max}
-				region={region}
-				onChange={onHeaderChange} />
-            <YearGrid
+		<div className={`${selector}-popup ${className}`} style={{ left, top }} onClick={popClick}>
+			<YearRegionHeader min={min} max={max} region={region} onChange={onHeaderChange} />
+			<YearGrid
 				min={min}
 				max={max}
 				showThisYear={showThisYear}
 				minRegion={region[0]}
 				maxRegion={region[1]}
 				checkValue={checkValue}
-				onChange={(value) => onChange(value)} />
-        </div>
+				onChange={value => onChange(value)}
+			/>
+		</div>
 	);
 }
 
-
 Popup.propTypes = {
 	className: PropTypes.string,
-    left: PropTypes.number,
-    top: PropTypes.number,
-    min: PropTypes.oneOfType([
-        PropTypes.number,
-        PropTypes.string
-    ]),
-    max: PropTypes.oneOfType([
-        PropTypes.number,
-        PropTypes.string
-    ]),
+	left: PropTypes.number,
+	top: PropTypes.number,
+	min: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+	max: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 	showThisYear: PropTypes.bool,
-    checkValue: PropTypes.number,
+	checkValue: PropTypes.number,
 	onChange: PropTypes.func
-}
+};
 
 Popup.defaultProps = {
 	className: '',
@@ -82,7 +72,7 @@ Popup.defaultProps = {
 	max: undefined,
 	showThisYear: false,
 	checkValue: currentYear,
-	onChange: () => { }
-}
+	onChange: () => {}
+};
 
 export default Popup;

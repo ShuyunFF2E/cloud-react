@@ -26,12 +26,14 @@ const dataList = [
 ];
 
 export default function SelectDemo() {
-
 	const [list, setList] = useState([]);
 
 	useEffect(() => {
 		setTimeout(() => {
-			setList([{ label: '吃饭', value: 1 }, { label: '睡觉', value: 2 }]);
+			setList([
+				{ label: '吃饭', value: 1 },
+				{ label: '睡觉', value: 2 }
+			]);
 		}, 1000);
 	}, []);
 
@@ -45,17 +47,15 @@ export default function SelectDemo() {
 	};
 
 	return (
-		<div style={{height: 150}}>
-
+		<div style={{ height: 150 }}>
 			<Select
 				onSearch={handleSearch}
 				onChange={handleChange}
-				style={{width: 80, textAlign: 'center'}}
+				style={{ width: 80, textAlign: 'center' }}
 				defaultValue="apple"
 				trigger="hover"
 				showArrow={false}
-				showSelectStyle={false}
-			>
+				showSelectStyle={false}>
 				{dataList.map((item, index) => (
 					<Option value={item.value} key={index}>
 						{item.label}

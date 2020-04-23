@@ -5,7 +5,6 @@ import enumObj from '../util/enum';
 import { formatNumber, timeSelector } from '../util/view-common';
 
 function InnerTimePicker(props) {
-
 	const { hour, minute, second, mode, label, onChange } = props;
 	const inpMinuteRef = React.createRef();
 	const inpSecondRef = React.createRef();
@@ -26,12 +25,10 @@ function InnerTimePicker(props) {
 	}, [second]);
 
 	function handleHourChange(event) {
-
 		const { stringValue, numberValue, length } = formatNumber(event.target.value);
 		let _value = stringValue;
 
 		if (!Number.isNaN(numberValue)) {
-
 			if (numberValue >= 24) {
 				_value = '23';
 			}
@@ -52,16 +49,14 @@ function InnerTimePicker(props) {
 			hour: _value,
 			minute: tempMinute,
 			second: tempSecond
-		})
+		});
 	}
 
 	function handleMinuteChange(event) {
-
 		const { stringValue, numberValue, length } = formatNumber(event.target.value);
 		let _value = stringValue;
 
 		if (!Number.isNaN(numberValue)) {
-
 			if (numberValue >= 60) {
 				_value = '59';
 			}
@@ -83,11 +78,10 @@ function InnerTimePicker(props) {
 			hour: tempHour,
 			minute: _value,
 			second: tempSecond
-		})
+		});
 	}
 
 	function handleSecondChange(event) {
-
 		const { stringValue, numberValue } = formatNumber(event.target.value);
 		let _value = stringValue;
 
@@ -105,28 +99,25 @@ function InnerTimePicker(props) {
 			hour: tempHour,
 			minute: tempMinute,
 			second: _value
-		})
+		});
 	}
-
 
 	return (
 		<div className={`inner-${timeSelector}`}>
 			<label>{label}</label>
 			<Input value={tempHour} maxLength="2" placeholder="小时" onChange={handleHourChange} />
-			{
-				mode === enumObj.DATE_HOUR ? null :
-					<section>
-						<label className="colon">:</label>
-						<Input ref={inpMinuteRef} value={tempMinute} maxLength="2" placeholder="分钟" onChange={handleMinuteChange} />
-					</section>
-			}
-			{
-				(mode === enumObj.DATE_HOUR_MINUTE || mode === enumObj.DATE_HOUR) ? null :
-					<section>
-						<label className="colon">:</label>
-						<Input ref={inpSecondRef} value={tempSecond} maxLength="2" placeholder="秒" onChange={handleSecondChange} />
-					</section>
-			}
+			{mode === enumObj.DATE_HOUR ? null : (
+				<section>
+					<label className="colon">:</label>
+					<Input ref={inpMinuteRef} value={tempMinute} maxLength="2" placeholder="分钟" onChange={handleMinuteChange} />
+				</section>
+			)}
+			{mode === enumObj.DATE_HOUR_MINUTE || mode === enumObj.DATE_HOUR ? null : (
+				<section>
+					<label className="colon">:</label>
+					<Input ref={inpSecondRef} value={tempSecond} maxLength="2" placeholder="秒" onChange={handleSecondChange} />
+				</section>
+			)}
 		</div>
 	);
 }
@@ -138,7 +129,7 @@ InnerTimePicker.propTypes = {
 	mode: PropTypes.string,
 	label: PropTypes.string,
 	onChange: PropTypes.func
-}
+};
 
 InnerTimePicker.defaultProps = {
 	mode: enumObj.DATE_TIME,
@@ -147,6 +138,6 @@ InnerTimePicker.defaultProps = {
 	second: '00',
 	label: '时间：',
 	onChange: () => {}
-}
+};
 
 export default InnerTimePicker;

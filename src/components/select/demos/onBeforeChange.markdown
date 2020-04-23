@@ -42,21 +42,15 @@ export default function SelectDemo() {
 					resolve();
 				}
 			});
-		})
+		});
 	};
 
 	const handleOpen = () => console.log('open');
 	const handleClose = () => console.log('close');
 
 	return (
-		<div style={{height:300}}>
-			<Select
-				placeholder="请选择..."
-				onSelectOpen={handleOpen}
-				onSelectClose={handleClose}
-				onChange={handleChange}
-				onBeforeChange={handleBeforeChange}
-			>
+		<div style={{ height: 300 }}>
+			<Select placeholder="请选择..." onSelectOpen={handleOpen} onSelectClose={handleClose} onChange={handleChange} onBeforeChange={handleBeforeChange}>
 				{dataList.map((item, index) => (
 					<Option value={item.value} disabled={item.disabled} key={index}>
 						{item.label}
