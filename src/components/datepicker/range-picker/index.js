@@ -2,19 +2,9 @@ import React, { useState, useEffect, useMemo, useRef, useLayoutEffect } from 're
 import PropTypes from 'prop-types';
 import Input from '../../input';
 import Popup from './popup';
-import {
-	createWrapper,
-	renderDOM,
-	destroyDOM,
-	destroyAllDOM,
-	datepickerUI,
-	calendarIcon,
-	rangeSelector,
-	selector,
-	getPositionByComp
-} from '../util/view-common';
+import { createWrapper, renderDOM, destroyDOM, destroyAllDOM, datepickerUI, getPositionByComp } from '../util/view-common';
 import util from '../util';
-import enumObj from '../util/enum';
+import { enumObj, calendarIcon, selectorClass, rangeSelectorClass } from '../constant';
 
 const minDefaultDate = new Date('1900/01/01 00:00:00');
 const maxDefaultDate = new Date('2099/12/31 23:59:59');
@@ -186,9 +176,9 @@ function RangePicker(props) {
 		}
 	}, [memoValue]);
 
-	const disabledClass = disabled ? `${rangeSelector}-disabled` : '';
+	const disabledClass = disabled ? `${rangeSelectorClass}-disabled` : '';
 	return (
-		<div className={`${rangeSelector} ${className} ${disabledClass}`} {...otherProps}>
+		<div className={`${rangeSelectorClass} ${className} ${disabledClass}`} {...otherProps}>
 			<Input
 				ref={inpRef}
 				style={style}
@@ -196,10 +186,10 @@ function RangePicker(props) {
 				placeholder={placeholder[0]}
 				readOnly
 				disabled={disabled}
-				className={`${selector}-inp`}
+				className={`${selectorClass}-inp`}
 				onClick={onInpClick}
 			/>
-			<span className={`${rangeSelector}-separator`} />
+			<span className={`${rangeSelectorClass}-separator`} />
 			<Input
 				value={currentValue[1]}
 				placeholder={placeholder[0]}
@@ -208,7 +198,7 @@ function RangePicker(props) {
 				hasClear={hasClear}
 				style={style}
 				disabled={disabled}
-				className={`${selector}-inp`}
+				className={`${selectorClass}-inp`}
 				onChange={evt => onInpChange(evt)}
 				onClick={onInpClick}
 			/>

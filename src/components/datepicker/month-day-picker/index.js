@@ -2,8 +2,9 @@ import React, { useState, useEffect, useMemo, useRef, useLayoutEffect } from 're
 import PropTypes from 'prop-types';
 import Input from 'cloud-react/input';
 import Popup from './popup';
-import { createWrapper, renderDOM, destroyDOM, destroyAllDOM, isVaild, datepickerUI, selector, getPositionByComp, calendarIcon } from '../util/view-common';
-import enumObj from '../util/enum';
+import { createWrapper, renderDOM, destroyDOM, destroyAllDOM, isVaild, datepickerUI, getPositionByComp } from '../util/view-common';
+import { enumObj, calendarIcon, containerClass, selectorClass } from '../constant';
+
 import utils from '../util';
 
 function MonthDayPicker(props) {
@@ -111,7 +112,7 @@ function MonthDayPicker(props) {
 		}
 	}, [memoValue]);
 	return (
-		<div onClick={onInpClick} className={`${selector}-container`}>
+		<div onClick={onInpClick} className={containerClass}>
 			<Input
 				{...otherProps}
 				ref={inpRef}
@@ -120,7 +121,7 @@ function MonthDayPicker(props) {
 				placeholder={placeholder}
 				readOnly
 				hasClear={hasClear}
-				className={`${selector}-inp`}
+				className={`${selectorClass}-inp`}
 				onChange={evt => onInpChange(evt)}
 				disabled={disabled}
 			/>

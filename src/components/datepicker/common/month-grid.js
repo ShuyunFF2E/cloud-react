@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Button from 'cloud-react/button';
-import util from '../util';
-import { selector } from '../util/view-common';
+import { monthArr, selectorClass } from '../constant';
 
 const currentMonth = new Date().getMonth() + 1;
-
-const { monthArr } = util;
 
 function MonthGrid(props) {
 	// 月日选择器是传入month
@@ -131,7 +128,7 @@ function MonthGrid(props) {
 					})}
 				</tbody>
 			</table>
-			<div className={`${selector}-popup-btns`} style={{ justifyContent: 'flex-end' }}>
+			<div className={`${selectorClass}-popup-btns`} style={{ justifyContent: 'flex-end' }}>
 				{showThisMonth && (
 					<Button size="small" disabled={getMonthDisabled()} onClick={() => onSave(currentMonth)}>
 						当月

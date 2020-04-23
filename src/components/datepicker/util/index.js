@@ -1,24 +1,17 @@
-const monthArr = ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'];
-const miniWeek = ['日', '一', '二', '三', '四', '五', '六'];
-
-function current() {
-	return new Date();
-}
-
 function getMonthSize(year, month) {
-	const now = current();
+	const now = new Date();
 	return new Date(year || now.getFullYear(), month || now.getMonth() + 1, 0).getDate();
 }
 
 function getWeekDisplayRange(year, month) {
-	const now = current();
+	const now = new Date();
 	const mm = month || now.getMonth();
 	const yy = year || now.getFullYear();
 
 	return [new Date(yy, mm - 1, 1).getDay(), new Date(yy, mm, 0).getDay()];
 }
 // 获取当前年月日时分秒对象
-function displayNow(date = current()) {
+function displayNow(date = new Date()) {
 	const now = new Date(date);
 	const newHour = `0${now.getHours()}`;
 	const newMinute = `0${now.getMinutes()}`;
@@ -34,7 +27,7 @@ function displayNow(date = current()) {
 }
 
 function today() {
-	const now = current();
+	const now = new Date();
 	return `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
 }
 // 根据年月获取对应面板的日期详情
@@ -148,8 +141,6 @@ const utils = {
 	refreshDays,
 	displayNow,
 	today,
-	monthArr,
-	miniWeek,
 	transformObj,
 	range
 };

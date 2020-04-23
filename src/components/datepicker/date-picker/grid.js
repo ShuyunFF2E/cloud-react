@@ -4,7 +4,7 @@ import Button from 'cloud-react/button';
 import Week from './week';
 import utils from '../util';
 import InnerTimePicker from './inner-time-picker';
-import { selector } from '../util/view-common';
+import { miniWeek, selectorClass } from '../constant';
 
 function Grid(props) {
 	const {
@@ -95,7 +95,7 @@ function Grid(props) {
 			<table className="grid-table">
 				<thead>
 					<tr>
-						{utils.miniWeek.map((e, i) => (
+						{miniWeek.map((e, i) => (
 							<th key={i.toString()}>{e}</th>
 						))}
 					</tr>
@@ -126,7 +126,7 @@ function Grid(props) {
 				</tbody>
 			</table>
 			{showTimePicker && <InnerTimePicker onChange={onTimePickChange} mode={mode} hour={tempHour} minute={tempMinute} second={tempSecond} />}
-			<div className={`${selector}-popup-btns`} style={btnStyle}>
+			<div className={`${selectorClass}-popup-btns`} style={btnStyle}>
 				{showToday && !showTimePicker && (
 					<Button size="small" disabled={getTodayDisabled()} onClick={onToadyClick}>
 						今天

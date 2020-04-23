@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import Header from '../common/header';
 import Grid from './grid';
 import util from '../util';
-import enumObj from '../util/enum';
-import { rangeSelector } from '../util/view-common';
+import { enumObj, rangeSelectorClass } from '../constant';
 
 const defaultYear = new Date().getFullYear();
 const defaultMonth = new Date().getMonth() + 1;
@@ -260,8 +259,8 @@ function Popup(props) {
 	}
 
 	return (
-		<div className={`${rangeSelector}-popup ${className}`} style={{ left, top }} onClick={popClick}>
-			<div className={`${rangeSelector}-popup-container`}>
+		<div className={`${rangeSelectorClass}-popup ${className}`} style={{ left, top }} onClick={popClick}>
+			<div className={`${rangeSelectorClass}-popup-container`}>
 				<Header
 					month={tempRange[0].month}
 					year={tempRange[0].year}

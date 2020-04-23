@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import Header from './header';
 import MonthGrid from '../common/month-grid';
 import Grid from './grid';
-import enumObj from '../util/enum';
-import { formatZero, selector } from '../util/view-common';
+import { enumObj, selectorClass } from '../constant';
+import { formatZero } from '../util/view-common';
 
 const currentMonth = new Date().getMonth() + 1;
 
@@ -93,7 +93,7 @@ function Popup(props) {
 	}
 
 	return (
-		<div className={`${selector}-popup ${className}`} style={{ left, top }} onClick={popClick}>
+		<div className={`${selectorClass}-popup ${className}`} style={{ left, top }} onClick={popClick}>
 			{renderCompByMode(tempMode)}
 		</div>
 	);

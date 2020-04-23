@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Icon from 'cloud-react/icon';
-import enumObj from '../util/enum';
+import { enumObj } from '../constant';
 
 const defaultYear = new Date().getFullYear();
 
@@ -28,11 +28,11 @@ function Header(props) {
 Header.propTypes = {
 	year: PropTypes.number,
 	onChange: PropTypes.func
-}
+};
 
 Header.defaultProps = {
 	year: defaultYear,
-	onChange: () => { }
-}
+	onChange: () => {}
+};
 
 export default Header;
