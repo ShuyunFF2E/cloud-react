@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import YearRegionHeader from './year-region-header';
-import YearGrid from './grid';
-import Header from './header';
+import { ArrowLeft, ArrowRight } from '../common/arrow';
 import MonthGrid from '../common/month-grid';
-import { enumObj, selectorClass, currentYear } from '../constant';
+import { displayNow } from '../util';
+import { enumObj, selectorClass } from '../constant';
+import YearGrid from './grid';
 
 export default class Popup extends Component {
 	constructor(props) {
@@ -13,6 +13,7 @@ export default class Popup extends Component {
 
 		this.minYear = parseInt(min.split('/')[0], 10);
 		this.maxYear = parseInt(max.split('/')[0], 10);
+		this.currentYear = displayNow().year;
 
 		this.state = {
 			region: this.getInitRegion(),
@@ -28,18 +29,18 @@ export default class Popup extends Component {
 		if (checkValue) {
 			return parseInt(checkValue.split('/')[0], 10);
 		}
-		if (currentYear > maxYear) {
+		if (this.currentYear > maxYear) {
 			return maxYear;
 		}
-		if (currentYear < minYear) {
+		if (this.currentYear < minYear) {
 			return minYear;
 		}
-		return currentYear;
+		return this.currentYear;
 	}
 
 	getInitRegion = () => {
 		const { minYear, maxYear } = this;
-		const year = parseInt(this.props.checkValue.split('/')[0], 10) || currentYear;
+		const year = parseInt(this.props.checkValue.split('/')[0], 10) || this.currentYear;
 
 		if (year + 7 <= maxYear || year - 7 >= minYear) {
 			return [year - 7, year + 7];
@@ -98,16 +99,36 @@ export default class Popup extends Component {
 		evt.nativeEvent.stopImmediatePropagation();
 	};
 
+	handleLeftClick = params => {
+		if (this.state.region[0] <= this.minYear) {
+			return;
+		}
+		this.onYearHeaderChange(params);
+	};
+
+	handleRightClick = params => {
+		if (this.state.region[1] >= this.maxYear) {
+			return;
+		}
+		this.onYearHeaderChange(params);
+	};
+
 	renderYear() {
 		const { region } = this.state;
 		const { checkValue, showCurrent, className, left, top } = this.props;
-		const { minYear, maxYear, onYearHeaderChange, onYearGridChange, popClick } = this;
+		const { minYear, maxYear, onYearGridChange, popClick } = this;
 
 		const _checkYear = checkValue ? parseInt(checkValue.split('/')[0], 10) : null;
 
 		return (
 			<div className={`${selectorClass}-popup ${className}`} style={{ left, top }} onClick={popClick}>
-				<YearRegionHeader min={minYear} max={maxYear} region={region} onChange={onYearHeaderChange} />
+				<div className="header">
+					<ArrowLeft onClick={this.handleLeftClick} disabled={region[0] <= minYear} />
+					<label>{region[0]}年</label>
+					<i> - </i>
+					<label>{region[1]}年</label>
+					<ArrowRight onClick={this.handleRightClick} disabled={region[1] >= maxYear} />
+				</div>
 				<YearGrid
 					{...this.props}
 					min={minYear}
@@ -134,7 +155,11 @@ export default class Popup extends Component {
 		return (
 			<div className={`${selectorClass}-popup ${className}`} style={{ left, top }} onClick={popClick}>
 				<section>
-					<Header year={tempYear} onChange={onHeaderChange} />
+					<div className="header">
+						<ArrowLeft onClick={onHeaderChange} />
+						<label>{tempYear}年</label>
+						<ArrowRight onClick={onHeaderChange} />
+					</div>
 					<MonthGrid checkValue={checkValue} max={max} min={min} currentYear={tempYear} showThisMonth={showCurrent} onChange={onMonthGridChange} />
 				</section>
 			</div>

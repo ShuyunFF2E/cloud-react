@@ -11,7 +11,7 @@ function getWeekDisplayRange(year, month) {
 	return [new Date(yy, mm - 1, 1).getDay(), new Date(yy, mm, 0).getDay()];
 }
 // 获取当前年月日时分秒对象
-function displayNow(date = new Date()) {
+export function displayNow(date = new Date()) {
 	const now = new Date(date);
 	const newHour = `0${now.getHours()}`;
 	const newMinute = `0${now.getMinutes()}`;
@@ -73,7 +73,7 @@ function getMonthData(year, month) {
 	};
 }
 
-function refreshDays(year, month) {
+export function refreshDays(year, month) {
 	// eslint-disable-next-line no-shadow
 	const { prev, current, next } = getMonthData(year, month);
 	return prev.concat(current).concat(next);
@@ -103,7 +103,7 @@ function convert(date, fmt) {
 	return _fmt;
 }
 
-function range(from, to) {
+export function range(from, to) {
 	let _to = null;
 	let _from = null;
 	if (to === undefined) {
@@ -133,6 +133,10 @@ function transformObj(date) {
 		return displayNow(date);
 	}
 	return null;
+}
+
+export function formatZero(value) {
+	return parseInt(value, 10) < 10 ? `0${parseInt(value, 10)}` : value;
 }
 
 const utils = {

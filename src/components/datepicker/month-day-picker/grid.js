@@ -1,87 +1,113 @@
-import React, { useState, useEffect } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Button from 'cloud-react/button';
-import utils from '../util';
+import { formatZero, refreshDays, displayNow, range } from '../util';
 import WeekGrid from './week';
-import { formatZero } from '../util/view-common';
 import { miniWeek, selectorClass } from '../constant';
 
-const defaultYear = new Date().getFullYear();
-const defaultMonth = new Date().getMonth() + 1;
-const defaultDay = new Date().getDate();
+class Grid extends Component {
+	constructor(props) {
+		super(props);
 
-function Grid(props) {
-	const { month, day, checkValue, showToday, onChange } = props;
+		const { month, day } = props;
 
-	const [tempMonth, setTempMonth] = useState(month);
-	const [tempDay, setTempDay] = useState(day);
-	const [isClickDay, setIsClickDay] = useState(false);
-
-	useEffect(() => {
-		setTempMonth(month);
-	}, [month]);
-
-	useEffect(() => {
-		setTempDay(day);
-	}, [day]);
-
-	function onPickDate(value) {
-		setIsClickDay(true);
-		setTempDay(value);
+		this.state = {
+			tempMonth: month,
+			tempDay: day,
+			isClickDay: false
+		};
 	}
 
-	function onSave(value, m) {
-		if (value) {
-			onChange(value, m);
-		} else {
-			onChange(formatZero(tempDay));
+	componentDidUpdate(prevProps) {
+		const { month, day } = prevProps;
+
+		if (month !== this.props.month) {
+			this.updateMonthState();
+		}
+
+		if (day !== this.props.day) {
+			this.updateDayState();
 		}
 	}
 
-	const days = utils.refreshDays(defaultYear, tempMonth || defaultMonth);
-	const len = Math.ceil(days.length / 7);
-	return (
-		<div className="grid">
-			<table className="grid-table">
-				<thead>
-					<tr>
-						{miniWeek.map((e, i) => (
-							<th key={i.toString()}>{e}</th>
+	updateMonthState() {
+		this.setState({
+			tempMonth: this.props.month
+		});
+	}
+
+	updateDayState() {
+		this.setState({
+			tempDay: this.props.day
+		});
+	}
+
+	handlePickDate = value => {
+		this.setState({
+			isClickDay: true,
+			tempDay: value
+		});
+	};
+
+	handleSave = (value, m) => {
+		if (value) {
+			this.props.onChange(value, m);
+		} else {
+			this.props.onChange(formatZero(this.state.tempDay));
+		}
+	};
+
+	render() {
+		const { tempMonth, tempDay, isClickDay } = this.state;
+		const { checkValue, showToday } = this.props;
+
+		const { year, month, day } = displayNow();
+		const days = refreshDays(year, tempMonth || month);
+		const len = Math.ceil(days.length / 7);
+
+		return (
+			<div className="grid">
+				<table className="grid-table">
+					<thead>
+						<tr>
+							{miniWeek.map((e, i) => (
+								<th key={i.toString()}>{e}</th>
+							))}
+						</tr>
+					</thead>
+					<tbody>
+						{range(len).map((e, i) => (
+							<WeekGrid
+								key={i.toString()}
+								currentDateObj={{
+									month: tempMonth,
+									day: tempDay
+								}}
+								month={tempMonth}
+								day={tempDay}
+								isClickDay={isClickDay}
+								checkValue={checkValue}
+								onPickDate={value => this.handlePickDate(value)}
+								days={days.slice(i * 7, (i + 1) * 7)}
+								head={i === 0}
+								tail={i === len - 1}
+							/>
 						))}
-					</tr>
-				</thead>
-				<tbody>
-					{utils.range(len).map((e, i) => (
-						<WeekGrid
-							key={i.toString()}
-							currentDateObj={{
-								month: tempMonth,
-								day: tempDay
-							}}
-							month={tempMonth}
-							day={tempDay}
-							isClickDay={isClickDay}
-							checkValue={checkValue}
-							onPickDate={value => onPickDate(value)}
-							days={days.slice(i * 7, (i + 1) * 7)}
-							head={i === 0}
-							tail={i === len - 1}
-						/>
-					))}
-				</tbody>
-			</table>
-			<div className={`${selectorClass}-popup-btns`} style={{ justifyContent: 'flex-end' }}>
-				{showToday && (
-					<Button size="small" onClick={() => onSave(formatZero(defaultDay), defaultMonth)}>
-						今天
+					</tbody>
+				</table>
+				<div className={`${selectorClass}-popup-btns`}>
+					{showToday && (
+						<Button size="small" onClick={() => this.handleSave(formatZero(day), month)}>
+							今天
+						</Button>
+					)}
+					<Button type="primary" size="small" disabled={!tempDay} onClick={() => this.handleSave()}>
+						确认
 					</Button>
-				)}
-				<Button type="primary" size="small" disabled={!tempDay} onClick={() => onSave()} style={{ marginLeft: '10px' }}>
-					确认
-				</Button>
+				</div>
 			</div>
-		</div>
-	);
+		);
+	}
 }
 
 Grid.propTypes = {

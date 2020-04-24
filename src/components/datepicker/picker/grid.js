@@ -5,6 +5,7 @@ import { selectorClass } from '../constant';
 
 const nowYear = new Date().getFullYear();
 const disClass = 'grid-disabled';
+
 function getClassName(checkValue, current, min, max) {
 	if (current < min || current > max) {
 		return ` ${disClass} `;
@@ -73,7 +74,7 @@ function YearGrid(props) {
 					})}
 				</tbody>
 			</table>
-			<div className={`${selectorClass}-popup-btns`} style={{ justifyContent: 'flex-end' }}>
+			<div className={`${selectorClass}-popup-btns`}>
 				{showThisYear && (
 					<Button size="small" disabled={getDisabledNow()} onClick={() => onSave(nowYear)}>
 						今年

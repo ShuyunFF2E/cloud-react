@@ -128,7 +128,7 @@ function MonthGrid(props) {
 					})}
 				</tbody>
 			</table>
-			<div className={`${selectorClass}-popup-btns`} style={{ justifyContent: 'flex-end' }}>
+			<div className={`${selectorClass}-popup-btns`}>
 				{showThisMonth && (
 					<Button size="small" disabled={getMonthDisabled()} onClick={() => onSave(currentMonth)}>
 						当月

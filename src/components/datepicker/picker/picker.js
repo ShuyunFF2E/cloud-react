@@ -38,7 +38,7 @@ class Picker extends Component {
 			if (value) {
 				this.onValueChange(value);
 			} else {
-				this.onInpChange();
+				this.handleChange();
 			}
 		}
 		if (prevOpen !== open) {
@@ -112,11 +112,8 @@ class Picker extends Component {
 	};
 
 	handleClick = evt => {
-		const {
-			changeVisible,
-			props: { disabled },
-			state: { visible, id }
-		} = this;
+		const { disabled } = this.props;
+		const { visible, id } = this.state;
 
 		if (disabled) return;
 
@@ -128,7 +125,7 @@ class Picker extends Component {
 		if (!visible || !document.getElementById(id)) {
 			// 先释放其他面板
 			destroyAllDOM();
-			changeVisible(evt, true);
+			this.changeVisible(evt, true);
 		}
 	};
 

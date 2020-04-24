@@ -1,31 +1,65 @@
-import React, { useState, useEffect, useMemo, useRef, useLayoutEffect } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Input from 'cloud-react/input';
 import Popup from './popup';
-import { createWrapper, renderDOM, destroyDOM, destroyAllDOM, isVaild, datepickerUI, getPositionByComp } from '../util/view-common';
+import { createWrapper, renderDOM, destroyDOM, destroyAllDOM, isVaild, getPositionByComp } from '../util/view-common';
 import { enumObj, calendarIcon, containerClass, selectorClass } from '../constant';
 
 import utils from '../util';
 
-function MonthDayPicker(props) {
-	const { value, defaultValue, open, disabled, className, hasClear, placeholder, showToday, position, onChange, format, ...otherProps } = props;
-	const [currentValue, setCurrentValue] = useState(isVaild(value) ? value : defaultValue);
-	const [visible, setVisible] = useState(open);
-	// 每个组件实例id，对应面板DOM节点
-	const [id] = useState(
-		Math.random()
-			.toString()
-			.replace('.', '')
-	);
-	// 日历Icon位置，因为可能会有clear Icon出现。所以交替显示
-	const [suffix, setSuffix] = useState(calendarIcon);
-	const inpRef = React.createRef();
-	const firstUpdate = useRef(true);
-	const memoValue = useMemo(() => {
-		return value;
-	}, [value]);
+class MonthDayPicker extends Component {
+	constructor(props) {
+		super(props);
 
-	function onValueChange(output = '', isPop = false) {
+		this.inpRef = React.createRef();
+
+		const { value, defaultValue, open } = props;
+
+		this.state = {
+			suffix: calendarIcon,
+			currentValue: isVaild(value) ? value : defaultValue,
+			id: Math.random()
+				.toString()
+				.replace('.', ''),
+			visible: open
+		};
+	}
+
+	componentDidMount() {
+		document.addEventListener('click', this.changeVisible, false);
+		if (this.props.open) {
+			this.changeVisible(null, this.state.visible);
+		}
+	}
+
+	componentDidUpdate(prevProps) {
+		const { value: prevValue, open: prevOpen } = prevProps;
+		const { value, open } = this.props;
+		if (prevValue !== value) {
+			if (value) {
+				this.handleValueChange(value);
+			} else {
+				this.handleChange();
+			}
+		}
+		if (prevOpen !== open) {
+			this.updateVisible();
+		}
+	}
+
+	componentWillUnmount() {
+		document.removeEventListener('click', this.changeVisible, false);
+	}
+
+	updateVisible() {
+		this.setState({
+			visible: this.props.open
+		});
+	}
+
+	handleValueChange = (output = '', isPop = false) => {
+		const { format, onChange } = this.props;
+
 		const dateArr = output.split('/');
 		const _output = utils.convert(
 			{
@@ -34,54 +68,52 @@ function MonthDayPicker(props) {
 			},
 			format
 		);
-		setCurrentValue(_output);
+
+		this.setState({
+			currentValue: _output
+		});
+
 		if (isPop) {
 			onChange(_output);
 		}
-	}
+	};
 
-	function onPopChange(output) {
-		onValueChange(output, true);
+	onPopChange = output => {
+		this.handleValueChange(output, true);
 		// eslint-disable-next-line no-use-before-define
-		changeVisible(null, false);
-		if (hasClear) {
-			setSuffix(null);
+		this.changeVisible(null, false);
+		if (this.props.hasClear) {
+			this.setState({
+				suffix: null
+			});
 		}
-	}
+	};
 
-	function changeVisible(evt, isVisible) {
+	changeVisible = (evt, isVisible) => {
+		const { inpRef, onPopChange } = this;
+		const { id, currentValue } = this.state;
+		const { position, className, showToday } = this.props;
+
 		if (isVisible && id) {
-			setVisible(true);
+			this.setState({
+				visible: true
+			});
+
 			createWrapper(id);
-			const checkValue = currentValue;
-			const { HEIGHT_MONTH_DAY } = datepickerUI;
+
 			// 获取面板的定位
-			const { left, top } = getPositionByComp(inpRef.current.inputRef.current.getBoundingClientRect(), position, HEIGHT_MONTH_DAY);
+			const { left, top } = getPositionByComp(inpRef.current.inputRef.current.getBoundingClientRect(), position, 262);
 			// 渲染DOM
-			renderDOM(id, <Popup left={left} top={top} className={className} checkValue={checkValue} showToday={showToday} onChange={onPopChange} />);
+			renderDOM(id, <Popup left={left} top={top} className={className} checkValue={currentValue} showToday={showToday} onChange={onPopChange} />);
 			return;
 		}
 		destroyDOM(id);
-	}
+	};
 
-	// 组件渲染时，仅注册一次相关事件
-	useEffect(() => {
-		document.addEventListener('click', changeVisible, false);
-		if (open) {
-			changeVisible(null, visible);
-		}
-		return () => {
-			setTimeout(() => {
-				document.removeEventListener('click', changeVisible, false);
-			}, 0);
-		};
-	}, []);
+	handleClick = evt => {
+		const { disabled } = this.props;
+		const { id, visible } = this.state;
 
-	useEffect(() => {
-		setVisible(open);
-	}, [open]);
-
-	function onInpClick(evt) {
 		if (disabled) return;
 
 		evt.stopPropagation();
@@ -89,44 +121,41 @@ function MonthDayPicker(props) {
 		// 如果不可见则显示面板
 		if (!visible || !document.getElementById(id)) {
 			destroyAllDOM();
-			changeVisible(evt, true);
+			this.changeVisible(evt, true);
 		}
-	}
+	};
 
-	function onInpChange(evt = '') {
+	handleChange = (evt = '') => {
 		if (!evt || !evt.target.value.trim().length) {
-			setCurrentValue('');
-			// 清空后，显示出日历Icon
-			setSuffix(calendarIcon);
-			onChange('');
+			this.props.onChange('');
+			this.setState({
+				currentValue: '',
+				suffix: calendarIcon
+			});
 		}
-	}
+	};
 
-	useLayoutEffect(() => {
-		if (firstUpdate.current) {
-			firstUpdate.current = false;
-		} else if (value) {
-			onValueChange(value);
-		} else {
-			onInpChange();
-		}
-	}, [memoValue]);
-	return (
-		<div onClick={onInpClick} className={containerClass}>
-			<Input
-				{...otherProps}
-				ref={inpRef}
-				suffix={suffix}
-				value={currentValue}
-				placeholder={placeholder}
-				readOnly
-				hasClear={hasClear}
-				className={`${selectorClass}-inp`}
-				onChange={evt => onInpChange(evt)}
-				disabled={disabled}
-			/>
-		</div>
-	);
+	render() {
+		const { inpRef, handleClick, handleChange } = this;
+		const { suffix, currentValue } = this.state;
+		const { placeholder, hasClear, disabled } = this.props;
+
+		return (
+			<div onClick={handleClick} className={containerClass}>
+				<Input
+					readOnly
+					ref={inpRef}
+					suffix={suffix}
+					value={currentValue}
+					placeholder={placeholder}
+					hasClear={hasClear}
+					className={`${selectorClass}-inp`}
+					onChange={handleChange}
+					disabled={disabled}
+				/>
+			</div>
+		);
+	}
 }
 
 MonthDayPicker.propTypes = {
