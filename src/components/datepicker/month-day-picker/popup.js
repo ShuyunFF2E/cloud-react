@@ -1,102 +1,125 @@
-import React, { useState } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
-import Header from './header';
+import { ArrowLeft, ArrowRight } from '../common/arrow';
 import MonthGrid from '../common/month-grid';
-import Grid from './grid';
-import { enumObj, selectorClass } from '../constant';
 import { formatZero } from '../util/view-common';
+import { enumObj, monthArr, selectorClass } from '../constant';
+import Grid from './grid';
 
 const currentMonth = new Date().getMonth() + 1;
 
-function Popup(props) {
-	const { left, top, checkValue, className, showToday, onChange } = props;
+class Popup extends Component {
+	constructor(props) {
+		super(props);
 
-	const [tempMode, setTempMode] = useState(enumObj.MONTH_DAY_MODEL);
+		const { checkValue } = props;
 
-	function getInitTempMonth() {
-		if (checkValue) {
-			return parseInt(checkValue.split('/')[0], 10);
-		}
-		return currentMonth;
+		this.state = {
+			tempMode: enumObj.MONTH_DAY_MODEL,
+			tempMonth: checkValue ? parseInt(checkValue.split('/')[0], 10) : currentMonth,
+			tempDay: checkValue ? parseInt(checkValue.split('/')[1], 10) : ''
+		};
 	}
 
-	function getInitTempDay() {
-		if (checkValue) {
-			return parseInt(checkValue.split('/')[1], 10);
-		}
-		return '';
-	}
+	handleMonthGridChange = m => {
+		this.setState({
+			tempMonth: m,
+			tempMode: enumObj.MONTH_DAY_MODEL
+		});
+	};
 
-	const [tempMonth, setTempMonth] = useState(getInitTempMonth());
-
-	const [tempDay, setTempDay] = useState(getInitTempDay());
-
-	function onHeaderChange(params) {
-		let m = tempMonth;
-		if (params === enumObj.LEFT) {
-			if (tempMonth > 1) {
-				m = tempMonth - 1;
-				setTempMonth(m);
-			}
-		} else if (tempMonth < 12) {
-			m = tempMonth + 1;
-			setTempMonth(m);
-		}
-		setTempDay('');
-	}
-
-	function onChooseMonth() {
-		if (tempMode === enumObj.MONTH_DAY_MODEL) {
-			setTempMode(enumObj.MONTH_MODEL);
-		}
-	}
-
-	function onMonthGridChange(m) {
-		setTempMonth(m);
-		setTempMode(enumObj.MONTH_DAY_MODEL);
-	}
-
-	function onDayGridChange(value, m) {
-		setTempDay(value);
-		if (m) {
-			setTempMonth(m);
-			onChange(`${formatZero(m)}/${formatZero(value)}`);
-		} else {
-			onChange(`${formatZero(tempMonth)}/${formatZero(value)}`);
-		}
-	}
-
-	function popClick(evt) {
+	popClick = evt => {
 		evt.stopPropagation();
 		evt.nativeEvent.stopImmediatePropagation();
+	};
+
+	handleHeaderChange = params => {
+		const { tempMonth } = this.state;
+
+		if (params === enumObj.LEFT) {
+			if (tempMonth > 1) {
+				this.setState({
+					tempMonth: tempMonth - 1
+				});
+			}
+		} else if (tempMonth < 12) {
+			this.setState({
+				tempMonth: tempMonth + 1
+			});
+		}
+		this.setState({
+			tempDay: ''
+		});
+	};
+
+	handleDayGridChange = (value, m) => {
+		this.setState({
+			tempDay: value
+		});
+
+		if (m) {
+			this.setState({
+				tempMonth: m
+			});
+			this.props.onChange(`${formatZero(m)}/${formatZero(value)}`);
+		} else {
+			this.props.onChange(`${formatZero(this.state.tempMonth)}/${formatZero(value)}`);
+		}
+	};
+
+	handleChooseMonth = () => {
+		const { tempMode } = this.state;
+
+		if (tempMode === enumObj.MONTH_DAY_MODEL) {
+			this.setState({
+				tempMode: enumObj.MONTH_MODEL
+			});
+		}
+	};
+
+	renderMonth() {
+		const { tempMonth } = this.state;
+
+		return (
+			<section>
+				<div className="header">
+					<label>选择月份</label>
+				</div>
+				<MonthGrid showThisMonth month={tempMonth} onChange={(m, y) => this.handleMonthGridChange(m, y)} />
+			</section>
+		);
 	}
 
-	function renderCompByMode(mode) {
-		if (mode === enumObj.MONTH_MODEL) {
-			return (
-				<section>
-					<Header />
-					<MonthGrid month={tempMonth} onChange={(m, y) => onMonthGridChange(m, y)} />
-				</section>
-			);
-		}
-		if (mode === enumObj.MONTH_DAY_MODEL) {
-			return (
-				<section>
-					<Header month={tempMonth} onChooseMonth={onChooseMonth} onChange={onHeaderChange} />
-					<Grid month={tempMonth} day={tempDay} showToday={showToday} checkValue={checkValue} onChange={onDayGridChange} />
-				</section>
-			);
-		}
-		return null;
+	renderDay() {
+		const { tempMonth, tempDay } = this.state;
+
+		return (
+			<section>
+				<div className="header">
+					<section>
+						<ArrowLeft disabled={tempMonth === 1} onClick={this.handleHeaderChange} />
+						<label className="header-label" role="presentation" onClick={this.handleChooseMonth}>
+							{monthArr[tempMonth - 1]}
+						</label>
+						<ArrowRight disabled={tempMonth === 12} onClick={this.handleHeaderChange} />
+					</section>
+				</div>
+				<Grid {...this.props} month={tempMonth} day={tempDay} onChange={this.handleDayGridChange} />
+			</section>
+		);
 	}
 
-	return (
-		<div className={`${selectorClass}-popup ${className}`} style={{ left, top }} onClick={popClick}>
-			{renderCompByMode(tempMode)}
-		</div>
-	);
+	render() {
+		const { tempMode } = this.state;
+		const { left, top, className } = this.props;
+
+		return (
+			<div className={`${selectorClass}-popup ${className}`} style={{ left, top }} onClick={this.popClick}>
+				{tempMode === enumObj.MONTH_MODEL && this.renderMonth()}
+				{tempMode === enumObj.MONTH_DAY_MODEL && this.renderDay()}
+			</div>
+		);
+	}
 }
 
 Popup.propTypes = {
