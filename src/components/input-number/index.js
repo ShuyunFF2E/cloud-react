@@ -8,7 +8,6 @@ import Icon from '../icon';
 import {
 	isInvalid,
 	isInvalidNumber,
-	infinityNumFilter,
 	isNotCompleteNumber,
 	fixDoubleOperation,
 	getCurrentValue,
@@ -120,7 +119,7 @@ class InputNumber extends Component {
 
 	handleChange = event => {
 		const targetValue = event.target.value.trim().replace(/[^\-?\d.]/g, '');
-		const _targetValue = isNotCompleteNumber(targetValue) ? targetValue : infinityNumFilter(targetValue);
+		const _targetValue = isNotCompleteNumber(targetValue) ? targetValue : String(targetValue);
 
 		this.setState({
 			currentValue: _targetValue
