@@ -245,6 +245,7 @@ class Notification extends Component {
 					<ModalBody style={{ ...bodyStyle }}>{children}</ModalBody>
 
 					<ModalFooter
+						visible={visible}
 						type={type}
 						onOk={onOk}
 						footer={footer}
@@ -301,10 +302,12 @@ function ModalBody({ style, children }) {
 /**
  * @return {null}
  */
-function ModalFooter({ type, footer, okText, cancelText, hasFooter, showConfirmLoading, onCancel, onOk, onReset, disabledOk }) {
+function ModalFooter({ visible, type, footer, okText, cancelText, hasFooter, showConfirmLoading, onCancel, onOk, onReset, disabledOk }) {
 	const ok = () => {
-		onReset();
 		onOk();
+		if (!visible) {
+			onReset();
+		}
 	};
 	const cancel = () => {
 		onReset();
