@@ -109,10 +109,6 @@ export function isInvalidNumber(num) {
 	return num === '' || num === null || (num.indexOf('.') >= 0 && num.charAt(num.length - 1) === '0');
 }
 
-export function infinityNumFilter(num) {
-	return String(num).length > 16 ? String(num) : Number(num);
-}
-
 export function isNotCompleteNumber(num) {
 	// - & x. Is not complete number
 	return (
