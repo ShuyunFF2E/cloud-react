@@ -77,19 +77,20 @@ class Picker extends Component {
 	};
 
 	changeVisible = (evt, isVisible) => {
-		const {
-			inpRef,
-			state: { id, currentValue },
-			props: { position, tempMode, height, min, max, showCurrent, integer, className },
-			onPopChange
-		} = this;
+		const { inpRef, onPopChange } = this;
+		const { id, currentValue } = this.state;
+		const { position, tempMode, height, min, max, showCurrent, integer, className } = this.props;
+
 		if (isVisible && id) {
 			this.setState({
 				visible: true
 			});
+
 			createWrapper(id);
+
 			const checkValue = integer ? parseInt(currentValue, 10) : currentValue;
 			const { left, top } = getPositionByComp(inpRef.current.inputRef.current.getBoundingClientRect(), position, height);
+
 			renderDOM(
 				id,
 				<Popup
@@ -106,6 +107,7 @@ class Picker extends Component {
 			);
 			return;
 		}
+
 		destroyDOM(id);
 	};
 
@@ -115,6 +117,7 @@ class Picker extends Component {
 			props: { disabled },
 			state: { visible, id }
 		} = this;
+
 		if (disabled) return;
 
 		// 阻止合成事件的冒泡
@@ -151,11 +154,11 @@ class Picker extends Component {
 		return (
 			<div onClick={handleClick} className={containerClass}>
 				<Input
+					readOnly
 					ref={inpRef}
 					suffix={suffix}
 					value={currentValue}
 					placeholder={placeholder}
-					readOnly
 					hasClear={hasClear}
 					className={`${selectorClass}-inp`}
 					onChange={handleChange}
@@ -176,8 +179,6 @@ Picker.propTypes = {
 	open: PropTypes.bool,
 	defaultValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 	value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-	min: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-	max: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 	showCurrent: PropTypes.bool,
 	onChange: PropTypes.func
 };
@@ -192,8 +193,6 @@ Picker.defaultProps = {
 	showCurrent: true,
 	defaultValue: '',
 	value: undefined,
-	min: '',
-	max: '',
 	onChange: noop
 };
 

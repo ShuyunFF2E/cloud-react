@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import utils from '../util';
 import { enumObj } from '../constant';
-
 import Picker from './picker';
 
 export class YearPicker extends Component {
@@ -10,10 +10,20 @@ export class YearPicker extends Component {
 	};
 
 	render() {
-		const { min = 1990, max = 2100, ...otherProps } = this.props;
-		return <Picker {...otherProps} min={min} max={max} integer tempMode={enumObj.YEAR_MODEL} height={244} formatValue={this.formatValue} />;
+		return <Picker {...this.props} integer tempMode={enumObj.YEAR_MODEL} height={244} formatValue={this.formatValue} />;
 	}
 }
+YearPicker.propTypes = {
+	min: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+	max: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+	placeholder: PropTypes.string
+};
+
+YearPicker.defaultProps = {
+	min: 1900,
+	max: 2100,
+	placeholder: '请选择年份'
+};
 
 export class YearMonthPicker extends Component {
 	formatValue = output => {
@@ -23,12 +33,25 @@ export class YearMonthPicker extends Component {
 				year: dateArr[0],
 				month: dateArr[1]
 			},
-			this.props.format || 'YYYY/MM'
+			this.props.format
 		);
 	};
 
 	render() {
-		const { min = '1900/01', max = '2100/12', format = 'YYYY/MM', ...otherProps } = this.props;
-		return <Picker {...otherProps} min={min} max={max} format={format} tempMode={enumObj.YEAR_MONTH_MODEL} height={211} formatValue={this.formatValue} />;
+		return <Picker {...this.props} tempMode={enumObj.YEAR_MONTH_MODEL} height={211} formatValue={this.formatValue} />;
 	}
 }
+
+YearMonthPicker.propTypes = {
+	min: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+	max: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+	format: PropTypes.string,
+	placeholder: PropTypes.string
+};
+
+YearMonthPicker.defaultProps = {
+	min: '1900/01',
+	max: '2100/12',
+	format: 'YYYY/MM',
+	placeholder: '请选择年月'
+};

@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
 import YearRegionHeader from './year-region-header';
 import YearGrid from './grid';
 import Header from './header';
 import MonthGrid from '../common/month-grid';
-import { enumObj, selectorClass } from '../constant';
-// import { selector } from '../util/view-common';
-import { currentYear, defaultMaxYear, defaultMinYear } from './const';
+import { enumObj, selectorClass, currentYear } from '../constant';
 
 export default class Popup extends Component {
 	constructor(props) {
 		super(props);
 
-		const { tempMode } = props;
+		const { tempMode, min, max } = props;
+
+		this.minYear = parseInt(min.split('/')[0], 10);
+		this.maxYear = parseInt(max.split('/')[0], 10);
 
 		this.state = {
 			region: this.getInitRegion(),
@@ -21,16 +21,10 @@ export default class Popup extends Component {
 		};
 	}
 
-	maxYear = parseInt(this.props.max ? this.props.max.split('/')[0] : defaultMaxYear, 10);
-
-	minYear = parseInt(this.props.min ? this.props.min.split('/')[0] : defaultMinYear, 10);
-
 	getInitTempYear() {
-		const {
-			props: { checkValue },
-			minYear,
-			maxYear
-		} = this;
+		const { checkValue } = this.props;
+		const { minYear, maxYear } = this;
+
 		if (checkValue) {
 			return parseInt(checkValue.split('/')[0], 10);
 		}
@@ -44,12 +38,9 @@ export default class Popup extends Component {
 	}
 
 	getInitRegion = () => {
-		const {
-			props: { checkValue },
-			minYear,
-			maxYear
-		} = this;
-		const year = parseInt(checkValue ? checkValue.split('/')[0] : defaultMinYear, 10);
+		const { minYear, maxYear } = this;
+		const year = parseInt(this.props.checkValue.split('/')[0], 10) || currentYear;
+
 		if (year + 7 <= maxYear || year - 7 >= minYear) {
 			return [year - 7, year + 7];
 		}
@@ -61,9 +52,11 @@ export default class Popup extends Component {
 
 	onHeaderChange = params => {
 		const { tempMode } = this.state;
+
 		if (tempMode === enumObj.YEAR_MODEL) {
 			this.onYearHeaderChange(params);
-		} else if (tempMode === enumObj.YEAR_MONTH_MODEL) {
+		}
+		if (tempMode === enumObj.YEAR_MONTH_MODEL) {
 			this.setState({
 				tempMode: enumObj.YEAR_MODEL
 			});
@@ -72,6 +65,7 @@ export default class Popup extends Component {
 
 	onYearHeaderChange = params => {
 		const { region } = this.state;
+
 		if (params === enumObj.LEFT) {
 			this.setState({
 				region: [region[0] - 15, region[0] - 1]
@@ -105,23 +99,19 @@ export default class Popup extends Component {
 	};
 
 	renderYear() {
-		const {
-			state: { region },
-			props: { min, max, checkValue, showCurrent, className, left, top },
-			onYearHeaderChange,
-			onYearGridChange,
-			popClick
-		} = this;
-		const _min = parseInt(min.split('/')[0], 10);
-		const _max = parseInt(max.split('/')[0], 10);
+		const { region } = this.state;
+		const { checkValue, showCurrent, className, left, top } = this.props;
+		const { minYear, maxYear, onYearHeaderChange, onYearGridChange, popClick } = this;
+
 		const _checkYear = checkValue ? parseInt(checkValue.split('/')[0], 10) : null;
+
 		return (
 			<div className={`${selectorClass}-popup ${className}`} style={{ left, top }} onClick={popClick}>
-				<YearRegionHeader min={_min} max={_max} region={region} onChange={onYearHeaderChange} />
+				<YearRegionHeader min={minYear} max={maxYear} region={region} onChange={onYearHeaderChange} />
 				<YearGrid
 					{...this.props}
-					min={_min}
-					max={_max}
+					min={minYear}
+					max={maxYear}
 					showThisYear={showCurrent}
 					minRegion={region[0]}
 					maxRegion={region[1]}
@@ -132,18 +122,14 @@ export default class Popup extends Component {
 		);
 	}
 
-	render() {
+	renderYearMonth() {
 		const {
-			state: { tempMode, tempYear },
+			state: { tempYear },
 			props: { checkValue, showCurrent, min, max, left, top, className },
 			onMonthGridChange,
 			onHeaderChange,
 			popClick
 		} = this;
-
-		if (tempMode === enumObj.YEAR_MODEL) {
-			return this.renderYear();
-		}
 
 		return (
 			<div className={`${selectorClass}-popup ${className}`} style={{ left, top }} onClick={popClick}>
@@ -153,5 +139,19 @@ export default class Popup extends Component {
 				</section>
 			</div>
 		);
+	}
+
+	render() {
+		const { tempMode } = this.state;
+
+		if (tempMode === enumObj.YEAR_MODEL) {
+			return this.renderYear();
+		}
+
+		if (tempMode === enumObj.YEAR_MONTH_MODEL) {
+			return this.renderYearMonth();
+		}
+
+		return null;
 	}
 }

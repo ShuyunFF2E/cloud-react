@@ -1,29 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Icon from 'cloud-react/icon';
-import { enumObj } from '../constant';
+import { ArrowLeft, ArrowRight } from '../common/arrow';
 
-const defaultYear = new Date().getFullYear();
-
-function Header(props) {
+const Header = props => {
 	const { year, onChange } = props;
-
-	function onArrowChange(params) {
-		onChange(params);
-	}
 
 	return (
 		<div className="header">
-			<span className="arrow-left" onClick={() => onArrowChange(enumObj.LEFT)}>
-				<Icon type="left" style={{ fontSize: '16px', verticalAlign: 'middle' }} />
-			</span>
+			<ArrowLeft onClick={onChange} />
 			<label>{year}年</label>
-			<span className="arrow-right" onClick={() => onArrowChange(enumObj.RIGHT)}>
-				<Icon type="right" style={{ fontSize: '16px', verticalAlign: 'middle' }} />
-			</span>
+			<ArrowRight onClick={onChange} />
 		</div>
 	);
-}
+};
 
 Header.propTypes = {
 	year: PropTypes.number,
@@ -31,7 +20,7 @@ Header.propTypes = {
 };
 
 Header.defaultProps = {
-	year: defaultYear,
+	year: new Date().getFullYear(),
 	onChange: () => {}
 };
 

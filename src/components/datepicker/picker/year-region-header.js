@@ -1,58 +1,36 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import cls from 'classnames';
-import Icon from 'cloud-react/icon';
-import { enumObj } from '../constant';
+import { ArrowLeft, ArrowRight } from '../common/arrow';
 
 const defaultYear = new Date().getFullYear();
 
-function YearRegionHeader(props) {
-	const { min, max, region } = props;
+const YearRegionHeader = props => {
+	const { min, max, region, onChange } = props;
 
-	function onChange(params) {
-		if (params === enumObj.LEFT) {
-			if (region[0] <= min) {
-				return;
-			}
-		} else if (params === enumObj.RIGHT) {
-			if (region[1] >= max) {
-				return;
-			}
+	const handleLeftClick = params => {
+		if (region[0] <= min) {
+			return;
 		}
-		props.onChange(params);
-	}
+		onChange(params);
+	};
 
-	function getDisabled(params) {
-		if (params === enumObj.LEFT) {
-			return region[0] <= min;
+	const handleRightClick = params => {
+		if (region[1] >= max) {
+			return;
 		}
-		if (params === enumObj.RIGHT) {
-			return region[1] >= max;
-		}
-		return false;
-	}
-
-	const arrowLeftClass = cls('arrow-left', {
-		'arrow-disabled': getDisabled(enumObj.LEFT)
-	});
-	const arrowRightClass = cls('arrow-right', {
-		'arrow-disabled': getDisabled(enumObj.RIGHT)
-	});
+		onChange(params);
+	};
 
 	return (
 		<div className="header">
-			<span className={arrowLeftClass} onClick={() => onChange(enumObj.LEFT)}>
-				<Icon type="left" style={{ fontSize: '16px', verticalAlign: 'middle' }} />
-			</span>
+			<ArrowLeft onClick={handleLeftClick} disabled={region[0] <= min} />
 			<label>{region[0]}年</label>
 			<i> - </i>
 			<label>{region[1]}年</label>
-			<span className={arrowRightClass} onClick={() => onChange(enumObj.RIGHT)}>
-				<Icon type="right" style={{ fontSize: '16px', verticalAlign: 'middle' }} />
-			</span>
+			<ArrowRight onClick={handleRightClick} disabled={region[1] >= max} />
 		</div>
 	);
-}
+};
 
 YearRegionHeader.propTypes = {
 	min: PropTypes.number,
