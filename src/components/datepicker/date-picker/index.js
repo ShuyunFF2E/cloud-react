@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo, useRef, useLayoutEffect } from 're
 import PropTypes from 'prop-types';
 import Input from 'cloud-react/input';
 import Popup from './popup';
-import util from '../util';
+import { convert, displayNow, transformObj } from '../util';
 import { enumObj, selectorClass, containerClass, calendarIcon } from '../constant';
 
 import { createWrapper, renderDOM, destroyDOM, destroyAllDOM, isVaild, formatZero, getPositionByComp, datepickerUI } from '../util/view-common';
@@ -61,7 +61,7 @@ function DatePicker(props) {
 		if (!currentValueDate) {
 			return '';
 		}
-		return util.convert(util.displayNow(currentValueDate), fmt);
+		return convert(displayNow(currentValueDate), fmt);
 	});
 	const [suffix, setSuffix] = useState(calendarIcon);
 	const memoValue = useMemo(() => {
@@ -72,7 +72,7 @@ function DatePicker(props) {
 		const dpArr = [`${obj.year}/${formatZero(obj.month)}/${formatZero(obj.day)}`];
 		const str = dpArr.push(` ${formatZero(obj.hour)}:${formatZero(obj.minute)}:${formatZero(obj.second)}`) && dpArr.toString();
 		const outputDate = new Date(str);
-		const output = util.convert(util.displayNow(outputDate), fmt);
+		const output = convert(displayNow(outputDate), fmt);
 		setCurrentValue(output);
 		setCurrentValueDate(outputDate);
 		// 有clear Icon时，日历Icon不显示
@@ -126,7 +126,7 @@ function DatePicker(props) {
 					top={top}
 					mode={mode}
 					className={className}
-					checkDateObj={util.transformObj(checkDate)}
+					checkDateObj={transformObj(checkDate)}
 					showToday={showToday}
 					showNow={showNow}
 					defaultTime={defaultTime}
@@ -184,7 +184,7 @@ function DatePicker(props) {
 		if (firstUpdate.current) {
 			firstUpdate.current = false;
 		} else if (value) {
-			onValueChange(util.displayNow(value));
+			onValueChange(displayNow(value));
 		} else {
 			onInpChange();
 		}

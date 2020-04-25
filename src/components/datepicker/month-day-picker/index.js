@@ -5,7 +5,7 @@ import Popup from './popup';
 import { createWrapper, renderDOM, destroyDOM, destroyAllDOM, isVaild, getPositionByComp } from '../util/view-common';
 import { enumObj, calendarIcon, containerClass, selectorClass } from '../constant';
 
-import utils from '../util';
+import { convert } from '../util';
 
 class MonthDayPicker extends Component {
 	constructor(props) {
@@ -61,7 +61,7 @@ class MonthDayPicker extends Component {
 		const { format, onChange } = this.props;
 
 		const dateArr = output.split('/');
-		const _output = utils.convert(
+		const _output = convert(
 			{
 				month: dateArr[0],
 				day: dateArr[1]

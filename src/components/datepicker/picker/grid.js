@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Button from 'cloud-react/button';
 import { selectorClass } from '../constant';
+import { displayNow } from '../util';
 
 const nowYear = new Date().getFullYear();
 const disClass = 'grid-disabled';
@@ -19,73 +20,88 @@ function getClassName(checkValue, current, min, max) {
 	return '';
 }
 
-function YearGrid(props) {
-	const { minRegion, maxRegion, checkValue, min, max, showThisYear, onChange } = props;
-	const len = Math.ceil((maxRegion - minRegion) / 3);
-	const [tempYear, setTempYear] = useState(checkValue);
+class YearGrid extends Component {
+	constructor(props) {
+		super(props);
 
-	useEffect(() => {
-		setTempYear(checkValue);
-	}, [checkValue]);
+		const { minRegion, maxRegion, checkValue } = props;
+		this.len = Math.ceil((maxRegion - minRegion) / 3);
 
-	function onUpdate(year, cls) {
+		this.state = {
+			tempYear: checkValue
+		};
+	}
+
+	getDisabledNow = () => {
+		const { min, max } = this.props;
+		const { year } = displayNow();
+		return year > max || year < min;
+	};
+
+	onUpdate = (year, cls) => {
 		if (cls.indexOf(disClass) > -1) {
 			return;
 		}
-		setTempYear(year);
-	}
 
-	function onSave(year) {
+		this.setState({
+			tempYear: year
+		});
+	};
+
+	onSave = year => {
+		const { tempYear } = this.state;
+
 		if (year) {
-			onChange(year);
+			this.props.onChange(year);
 		} else if (tempYear) {
-			onChange(tempYear);
+			this.props.onChange(tempYear);
 		}
-	}
+	};
 
-	function getDisabledNow() {
-		return nowYear > max || nowYear < min;
-	}
+	render() {
+		const { minRegion, min, max, showThisYear } = this.props;
+		const { tempYear } = this.state;
 
-	return (
-		<div className="grid">
-			<table className="grid-table year-grid-table">
-				<tbody>
-					{Array.from({ length: len }).map((o, index) => {
-						const index1 = minRegion + index * 3;
-						const index2 = minRegion + index * 3 + 1;
-						const index3 = minRegion + index * 3 + 2;
-						const cls1 = getClassName(tempYear, index1, min, max);
-						const cls2 = getClassName(tempYear, index2, min, max);
-						const cls3 = getClassName(tempYear, index3, min, max);
-						return (
-							<tr key={index.toString()}>
-								<td className={cls1}>
-									<span onClick={() => onUpdate(index1, cls1)}>{index1}年</span>
-								</td>
-								<td className={cls2}>
-									<span onClick={() => onUpdate(index2, cls2)}>{index2}年</span>
-								</td>
-								<td className={cls3}>
-									<span onClick={() => onUpdate(index3, cls3)}>{index3}年</span>
-								</td>
-							</tr>
-						);
-					})}
-				</tbody>
-			</table>
-			<div className={`${selectorClass}-popup-btns`}>
-				{showThisYear && (
-					<Button size="small" disabled={getDisabledNow()} onClick={() => onSave(nowYear)}>
-						今年
+		return (
+			<div className="grid">
+				<table className="grid-table year-grid-table">
+					<tbody>
+						{Array.from({ length: this.len }).map((o, index) => {
+							const index1 = minRegion + index * 3;
+							const index2 = minRegion + index * 3 + 1;
+							const index3 = minRegion + index * 3 + 2;
+							const cls1 = getClassName(tempYear, index1, min, max);
+							const cls2 = getClassName(tempYear, index2, min, max);
+							const cls3 = getClassName(tempYear, index3, min, max);
+							return (
+								<tr key={index.toString()}>
+									<td className={cls1}>
+										<span onClick={() => this.onUpdate(index1, cls1)}>{index1}年</span>
+									</td>
+									<td className={cls2}>
+										<span onClick={() => this.onUpdate(index2, cls2)}>{index2}年</span>
+									</td>
+									<td className={cls3}>
+										<span onClick={() => this.onUpdate(index3, cls3)}>{index3}年</span>
+									</td>
+								</tr>
+							);
+						})}
+					</tbody>
+				</table>
+				<div className={`${selectorClass}-popup-btns`}>
+					{showThisYear && (
+						<Button size="small" disabled={this.getDisabledNow()} onClick={() => this.onSave(nowYear)}>
+							今年
+						</Button>
+					)}
+					<Button type="primary" size="small" disabled={!tempYear} onClick={() => this.onSave()}>
+						确认
 					</Button>
-				)}
-				<Button type="primary" size="small" disabled={!tempYear} onClick={() => onSave()} style={{ marginLeft: '10px' }}>
-					确认
-				</Button>
+				</div>
 			</div>
-		</div>
-	);
+		);
+	}
 }
 
 YearGrid.propTypes = {

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Header from '../common/header';
 import Grid from './grid';
-import util from '../util';
+import { displayNow, refreshDays, transformObj } from '../util';
 import { enumObj, rangeSelectorClass } from '../constant';
 
 const defaultYear = new Date().getFullYear();
@@ -48,12 +48,12 @@ function getDateObjArr(checkDateArr, min, max) {
 
 	const arr = [];
 	if (checkDateArr[0]) {
-		arr.push(util.displayNow(checkDateArr[0]));
+		arr.push(displayNow(checkDateArr[0]));
 	} else {
 		arr.push(getDateObj(0));
 	}
 	if (checkDateArr[1]) {
-		arr.push(util.displayNow(checkDateArr[1]));
+		arr.push(displayNow(checkDateArr[1]));
 	} else {
 		arr.push(getDateObj(1));
 	}
@@ -109,14 +109,14 @@ function Popup(props) {
 			const endMonth = arrObj[1].month === 12 ? 1 : arrObj[1].month + 1;
 			return [
 				{
-					days: util.refreshDays(arrObj[0].year, arrObj[0].month),
+					days: refreshDays(arrObj[0].year, arrObj[0].month),
 					year: arrObj[0].year,
 					month: arrObj[0].month,
 					minDate: min,
 					maxDate: initStartMax(max, endMinDate)
 				},
 				{
-					days: util.refreshDays(endYear, endMonth),
+					days: refreshDays(endYear, endMonth),
 					year: endYear,
 					month: endMonth,
 					// 记录End日期框范围（至少大于Start日期框一个月）
@@ -133,14 +133,14 @@ function Popup(props) {
 
 		return [
 			{
-				days: util.refreshDays(arrObj[0].year, arrObj[0].month),
+				days: refreshDays(arrObj[0].year, arrObj[0].month),
 				year: arrObj[0].year,
 				month: arrObj[0].month,
 				minDate: min,
 				maxDate: initStartMax(max, endMinDate)
 			},
 			{
-				days: util.refreshDays(arrObj[1].year, arrObj[1].month),
+				days: refreshDays(arrObj[1].year, arrObj[1].month),
 				year: arrObj[1].year,
 				month: arrObj[1].month,
 				// 记录End日期框范围（至少大于Start日期框一个月）
@@ -228,7 +228,7 @@ function Popup(props) {
 
 			const _min = initEnd(min, d0);
 
-			range[0].days = util.refreshDays(y, m);
+			range[0].days = refreshDays(y, m);
 			range[0].year = y;
 			range[0].month = m;
 			range[1].minDate = _min;
@@ -240,7 +240,7 @@ function Popup(props) {
 			d1.month = m;
 			setTempArrObj([tempArrObj[0], d1]);
 
-			range[1].days = util.refreshDays(y, m);
+			range[1].days = refreshDays(y, m);
 			range[1].year = y;
 			range[1].month = m;
 
@@ -265,8 +265,8 @@ function Popup(props) {
 					month={tempRange[0].month}
 					year={tempRange[0].year}
 					onChange={(y, m, old) => onHeaderChange(y, m, old, enumObj.START)}
-					min={util.transformObj(tempRange[0].minDate)}
-					max={util.transformObj(tempRange[0].maxDate)}
+					min={transformObj(tempRange[0].minDate)}
+					max={transformObj(tempRange[0].maxDate)}
 					maxYear={maxYear}
 					minYear={minYear}
 					style={{ width: 250, marginRight: '8px' }}
@@ -275,8 +275,8 @@ function Popup(props) {
 					month={tempRange[1].month}
 					year={tempRange[1].year}
 					onChange={(y, m, old) => onHeaderChange(y, m, old, enumObj.END)}
-					min={util.transformObj(tempRange[1].minDate)}
-					max={util.transformObj(tempRange[1].maxDate)}
+					min={transformObj(tempRange[1].minDate)}
+					max={transformObj(tempRange[1].maxDate)}
 					maxYear={maxYear}
 					minYear={minYear}
 					style={{ width: 250 }}

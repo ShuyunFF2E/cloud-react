@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import utils from '../util';
+import { convert } from '../util';
 import { enumObj } from '../constant';
 import Picker from './picker';
 
@@ -28,7 +28,7 @@ YearPicker.defaultProps = {
 export class YearMonthPicker extends Component {
 	formatValue = output => {
 		const dateArr = output.split('/');
-		return utils.convert(
+		return convert(
 			{
 				year: dateArr[0],
 				month: dateArr[1]

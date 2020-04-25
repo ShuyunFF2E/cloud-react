@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
-import utils from '../util';
+import { today } from '../util';
 
 function isEqualDate(obj, year, month, day) {
 	return obj && obj.year === year && obj.month === month && obj.day === day;
@@ -26,7 +26,6 @@ function Week(props) {
 	}
 
 	const idx = days.indexOf(1);
-	const today = utils.today();
 	return (
 		<tr>
 			{days.map((o, i) => {
@@ -39,7 +38,7 @@ function Week(props) {
 				} else if (!inMonth && i > idx - 1) {
 					date = month < 12 ? `${year}/${month + 1}/${o}` : `${year + 1}/01/${o}`;
 				}
-				const isToday = inMonth && `${year}-${month}-${o}` === today;
+				const isToday = inMonth && `${year}-${month}-${o}` === today();
 				const isCheck = inMonth && (isEqualDate(checkGridArr[0], year, month, o) || isEqualDate(checkGridArr[1], year, month, o));
 
 				const isDisabled = getDisabled(date);
