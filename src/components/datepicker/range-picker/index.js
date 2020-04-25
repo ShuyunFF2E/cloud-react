@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Input from '../../input';
 import Popup from './popup';
 import { createWrapper, renderDOM, destroyDOM, destroyAllDOM, datepickerUI, getPositionByComp } from '../util/view-common';
-import util from '../util';
+import { convert, displayNow } from '../util';
 import { enumObj, calendarIcon, selectorClass, rangeSelectorClass } from '../constant';
 
 const minDefaultDate = new Date('1900/01/01 00:00:00');
@@ -48,11 +48,11 @@ function RangePicker(props) {
 			case 0:
 				return isStr ? ['', ''] : [null, null];
 			case 1:
-				return isStr ? [util.convert(util.displayNow(_value[0]), fmt), ''] : [_value[0], null];
+				return isStr ? [convert(displayNow(_value[0]), fmt), ''] : [_value[0], null];
 			case 2:
 			default:
 				return isStr
-					? [_value[0] ? util.convert(util.displayNow(_value[0]), fmt) : '', _value[1] ? util.convert(util.displayNow(_value[1]), fmt) : '']
+					? [_value[0] ? convert(displayNow(_value[0]), fmt) : '', _value[1] ? convert(displayNow(_value[1]), fmt) : '']
 					: [_value[0], _value[1]];
 		}
 	}
@@ -75,7 +75,7 @@ function RangePicker(props) {
 			newArr = arr.reverse();
 		}
 		setCurrentValueDate(newArr);
-		const output = [util.convert(util.displayNow(newArr[0]), format), util.convert(util.displayNow(newArr[1]), format)];
+		const output = [convert(displayNow(newArr[0]), format), convert(displayNow(newArr[1]), format)];
 		setCurrentValue(output);
 		if (isPop) {
 			onChange(output, arr);

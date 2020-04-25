@@ -2,11 +2,10 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Header from '../common/header';
 import Grid from './grid';
-import util from '../util';
+import { displayNow, refreshDays, transformObj } from '../util';
 import { selectorClass } from '../constant';
-// import { selector } from '../util/view-common';
 
-const defaultDateObj = util.displayNow(new Date());
+const defaultDateObj = displayNow();
 
 function Popup(props) {
 	const { left, top, min, max, mode, className, showToday, showNow, showTimePicker, checkDateObj, onChange, maxYear, minYear, defaultTime } = props;
@@ -57,13 +56,13 @@ function Popup(props) {
 		setTempMinute(paramsObj.minute);
 		setTempSecond(paramsObj.second);
 	}
-	const days = tempYear && tempMonth ? util.refreshDays(tempYear, tempMonth) : util.refreshDays(defaultDateObj.year, defaultDateObj.month);
+	const days = tempYear && tempMonth ? refreshDays(tempYear, tempMonth) : refreshDays(defaultDateObj.year, defaultDateObj.month);
 
 	return (
 		<div className={`${selectorClass}-popup ${className}`} style={{ left, top }} onClick={popClick}>
 			<Header
-				min={util.transformObj(min)}
-				max={util.transformObj(max)}
+				min={transformObj(min)}
+				max={transformObj(max)}
 				month={tempMonth}
 				year={tempYear}
 				maxYear={maxYear}

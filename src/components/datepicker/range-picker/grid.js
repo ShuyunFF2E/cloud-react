@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Button from 'cloud-react/button';
 import Week from './week';
-import utils from '../util';
+import { range } from '../util';
 // import { selector, rangeSelector } from '../util/view-common';
 import { miniWeek, selectorClass, rangeSelectorClass } from '../constant';
 
 function Grid(props) {
-	const { range, rangValue, onChange, onOK } = props;
-	const startGrid = range[0];
-	const endGrid = range[1];
+	const { range: _range, rangValue, onChange, onOK } = props;
+	const startGrid = _range[0];
+	const endGrid = _range[1];
 
 	const startGridLen = Math.ceil(startGrid.days.length / 7);
 	const endGridLen = Math.ceil(endGrid.days.length / 7);
@@ -63,7 +63,7 @@ function Grid(props) {
 						</tr>
 					</thead>
 					<tbody>
-						{utils.range(startGridLen).map((e, i) => (
+						{range(startGridLen).map((e, i) => (
 							<Week
 								key={i.toString()}
 								year={startGrid.year}
@@ -90,7 +90,7 @@ function Grid(props) {
 						</tr>
 					</thead>
 					<tbody>
-						{utils.range(endGridLen).map((e, i) => (
+						{range(endGridLen).map((e, i) => (
 							<Week
 								key={i.toString()}
 								year={endGrid.year}

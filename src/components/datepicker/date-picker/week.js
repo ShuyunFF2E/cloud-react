@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
-import utils from '../util';
+import { today, displayNow } from '../util';
 
 function Week(props) {
 	// rangeConfig出现在区间选择器时（仅用于年月日模式）
@@ -45,7 +45,6 @@ function Week(props) {
 	}
 
 	const idx = days.indexOf(1);
-	const today = utils.today();
 	return (
 		<tr>
 			{days.map((o, i) => {
@@ -58,7 +57,7 @@ function Week(props) {
 				} else if (!inMonth && i > idx - 1) {
 					date = month < 12 ? `${year}/${month + 1}/${o} ${time}` : `${year + 1}/01/${o} ${time}`;
 				}
-				const isToday = inMonth && `${year}-${month}-${o}` === today;
+				const isToday = inMonth && `${year}-${month}-${o}` === today();
 				let isCheck = false;
 				// 是否已经点击过了，此时数据尚未写入Input中，只是临时保存
 				if (isClickDay) {
@@ -122,11 +121,11 @@ Week.propTypes = {
 
 Week.defaultProps = {
 	rangeConfig: undefined,
-	year: utils.displayNow.year,
-	month: utils.displayNow.month,
+	year: displayNow().year,
+	month: displayNow().month,
 	days: [],
 	isClickDay: false,
-	day: utils.displayNow.day,
+	day: displayNow().day,
 	currentDateObj: null,
 	minDate: undefined,
 	maxDate: undefined,

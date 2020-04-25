@@ -26,7 +26,7 @@ export function displayNow(date = new Date()) {
 	};
 }
 
-function today() {
+export function today() {
 	const now = new Date();
 	return `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
 }
@@ -79,7 +79,8 @@ export function refreshDays(year, month) {
 	return prev.concat(current).concat(next);
 }
 // 格式转换format
-function convert(date, fmt) {
+
+export function convert(date, fmt) {
 	const { year, month, day, hour, minute, second } = date;
 	const currentDate = new Date(`${year}/${month}/${day} ${hour}:${minute}:${second}`);
 	const o = {
@@ -128,11 +129,12 @@ function formatTime(param, d = '') {
 	return `0${param}`;
 }
 
-function transformObj(date) {
-	if (date) {
-		return displayNow(date);
-	}
-	return null;
+export function transformObj(date) {
+	return date ? displayNow(date) : null;
+	// if (date) {
+	// 	return displayNow(date);
+	// }
+	// return null;
 }
 
 export function formatZero(value) {

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Button from 'cloud-react/button';
 import Week from './week';
-import utils from '../util';
+import { displayNow, range } from '../util';
 import InnerTimePicker from './inner-time-picker';
 import { miniWeek, selectorClass } from '../constant';
 
@@ -35,7 +35,7 @@ function Grid(props) {
 	const [tempHour, setTempHour] = useState(hour);
 	const [tempMinute, setTempMinute] = useState(minute);
 	const [tempSecond, setTempSecond] = useState(second);
-	const openTime = utils.displayNow();
+	const openTime = displayNow();
 	const _hour = (!showTimePicker && openTime.hour) || hour;
 	const _minute = (!showTimePicker && openTime.minute) || minute;
 	const _second = (!showTimePicker && openTime.second) || second;
@@ -78,13 +78,13 @@ function Grid(props) {
 	}
 
 	function onToadyClick() {
-		onOK(utils.displayNow());
+		onOK(displayNow());
 	}
 
 	function onSave() {
-		const nowTime = utils.displayNow();
+		const nowTime = displayNow();
 		if (tempDay) {
-			onOK(utils.displayNow(new Date(`${year}/${month}/${tempDay} ${hour || nowTime.hour}:${minute || nowTime.minute}:${second || nowTime.second}`)));
+			onOK(displayNow(new Date(`${year}/${month}/${tempDay} ${hour || nowTime.hour}:${minute || nowTime.minute}:${second || nowTime.second}`)));
 		}
 	}
 
@@ -101,7 +101,7 @@ function Grid(props) {
 					</tr>
 				</thead>
 				<tbody>
-					{utils.range(len).map((e, i) => (
+					{range(len).map((e, i) => (
 						<Week
 							key={i.toString()}
 							currentDateObj={{
@@ -173,10 +173,10 @@ Grid.defaultProps = {
 	rangeConfig: undefined,
 	style: {},
 	mode: undefined,
-	year: utils.displayNow.year,
-	month: utils.displayNow.month,
+	year: displayNow().year,
+	month: displayNow().month,
 	days: [],
-	day: utils.displayNow.day,
+	day: displayNow().day,
 	hour: '',
 	minute: '',
 	second: '',
