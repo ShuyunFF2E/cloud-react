@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { ArrowLeft, ArrowRight } from '../common/arrow';
-import MonthGrid from '../common/month-grid';
 import { formatZero } from '../util/view-common';
-import { enumObj, monthArr, selectorClass } from '../constant';
+import { enumObj, monthArr } from '../constant';
+import { displayNow } from '../util';
+import MonthGrid from '../common/month-grid';
 import Grid from './grid';
-
-const currentMonth = new Date().getMonth() + 1;
 
 class Popup extends Component {
 	constructor(props) {
@@ -16,7 +15,7 @@ class Popup extends Component {
 
 		this.state = {
 			tempMode: enumObj.MONTH_DAY_MODEL,
-			tempMonth: checkValue ? parseInt(checkValue.split('/')[0], 10) : currentMonth,
+			tempMonth: checkValue ? parseInt(checkValue.split('/')[0], 10) : displayNow().month,
 			tempDay: checkValue ? parseInt(checkValue.split('/')[1], 10) : ''
 		};
 	}
@@ -26,11 +25,6 @@ class Popup extends Component {
 			tempMonth: m,
 			tempMode: enumObj.MONTH_DAY_MODEL
 		});
-	};
-
-	popClick = evt => {
-		evt.stopPropagation();
-		evt.nativeEvent.stopImmediatePropagation();
 	};
 
 	handleHeaderChange = params => {
@@ -50,6 +44,28 @@ class Popup extends Component {
 		this.setState({
 			tempDay: ''
 		});
+	};
+
+	handleLeftClick = () => {
+		const { tempMonth } = this.state;
+
+		if (tempMonth > 1) {
+			this.setState({
+				tempMonth: tempMonth - 1,
+				tempDay: ''
+			});
+		}
+	};
+
+	handleRightClick = () => {
+		const { tempMonth } = this.state;
+
+		if (tempMonth < 12) {
+			this.setState({
+				tempMonth: tempMonth + 1,
+				tempDay: ''
+			});
+		}
 	};
 
 	handleDayGridChange = (value, m) => {
@@ -81,12 +97,12 @@ class Popup extends Component {
 		const { tempMonth } = this.state;
 
 		return (
-			<section>
+			<>
 				<div className="header">
 					<label>选择月份</label>
 				</div>
-				<MonthGrid showThisMonth month={tempMonth} onChange={(m, y) => this.handleMonthGridChange(m, y)} />
-			</section>
+				<MonthGrid month={tempMonth} onChange={(m, y) => this.handleMonthGridChange(m, y)} />
+			</>
 		);
 	}
 
@@ -94,46 +110,44 @@ class Popup extends Component {
 		const { tempMonth, tempDay } = this.state;
 
 		return (
-			<section>
+			<>
 				<div className="header">
 					<section>
-						<ArrowLeft disabled={tempMonth === 1} onClick={this.handleHeaderChange} />
+						<ArrowLeft disabled={tempMonth === 1} onClick={this.handleLeftClick} />
 						<label className="header-label" role="presentation" onClick={this.handleChooseMonth}>
 							{monthArr[tempMonth - 1]}
 						</label>
-						<ArrowRight disabled={tempMonth === 12} onClick={this.handleHeaderChange} />
+						<ArrowRight disabled={tempMonth === 12} onClick={this.handleRightClick} />
 					</section>
 				</div>
 				<Grid {...this.props} month={tempMonth} day={tempDay} onChange={this.handleDayGridChange} />
-			</section>
+			</>
 		);
 	}
 
 	render() {
 		const { tempMode } = this.state;
-		const { left, top, className } = this.props;
 
-		return (
-			<div className={`${selectorClass}-popup ${className}`} style={{ left, top }} onClick={this.popClick}>
-				{tempMode === enumObj.MONTH_MODEL && this.renderMonth()}
-				{tempMode === enumObj.MONTH_DAY_MODEL && this.renderDay()}
-			</div>
-		);
+		if (tempMode === enumObj.MONTH_MODEL) {
+			return this.renderMonth();
+		}
+
+		if (tempMode === enumObj.MONTH_DAY_MODEL) {
+			return this.renderDay();
+		}
+
+		return null;
 	}
 }
 
 Popup.propTypes = {
 	showToday: PropTypes.bool,
-	left: PropTypes.number,
-	top: PropTypes.number,
 	checkValue: PropTypes.string,
 	onChange: PropTypes.func
 };
 
 Popup.defaultProps = {
-	left: 0,
-	top: 0,
-	showToday: false,
+	showToday: true,
 	checkValue: '',
 	onChange: () => {}
 };

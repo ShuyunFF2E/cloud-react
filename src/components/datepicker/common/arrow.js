@@ -9,24 +9,40 @@ const style = {
 };
 
 export const ArrowLeft = props => {
+	const { disabled, onClick } = props;
+
 	const classes = classnames('arrow-left', {
-		'arrow-disabled': props.disabled
+		'arrow-disabled': disabled
 	});
 
+	const handleClick = () => {
+		if (!disabled) {
+			onClick(enumObj.LEFT);
+		}
+	};
+
 	return (
-		<span className={classes} onClick={() => props.onClick(enumObj.LEFT)}>
+		<span className={classes} onClick={handleClick}>
 			<Icon type="left" style={style} />
 		</span>
 	);
 };
 
 export const ArrowRight = props => {
+	const { disabled, onClick } = props;
+
 	const classes = classnames('arrow-right', {
 		'arrow-disabled': props.disabled
 	});
 
+	const handleClick = () => {
+		if (!disabled) {
+			onClick(enumObj.RIGHT);
+		}
+	};
+
 	return (
-		<span className={classes} onClick={() => props.onClick(enumObj.RIGHT)}>
+		<span className={classes} onClick={handleClick}>
 			<Icon type="right" style={style} />
 		</span>
 	);

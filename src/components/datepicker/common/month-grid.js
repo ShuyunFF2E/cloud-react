@@ -1,35 +1,49 @@
-import React, { useState, useEffect } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Button from 'cloud-react/button';
 import { monthArr, selectorClass } from '../constant';
 
 const currentMonth = new Date().getMonth() + 1;
 
-function MonthGrid(props) {
-	// 月日选择器是传入month
-	// 年月选择器时传入checkValue, currentYear, max, min 其中max/min 都是 年/月 的格式
-	const { month, checkValue, showThisMonth, max, min, currentYear, onChange } = props;
+function formatData(value) {
+	return parseInt(value.split('-')[1], 10);
+}
 
-	function getInitTempMonth() {
-		if (checkValue) {
-			return parseInt(checkValue.split('/')[1], 10);
-		}
-		return parseInt(month, 10);
+class MonthGrid extends Component {
+	constructor(props) {
+		super(props);
+
+		const { checkValue, month } = props;
+
+		this.state = {
+			tempMonth: checkValue ? formatData(checkValue) : parseInt(month, 10)
+		};
 	}
 
-	const [tempMonth, setTempMonth] = useState(getInitTempMonth());
+	componentDidUpdate(prevProps) {
+		const { month, checkValue } = this.props;
 
-	useEffect(() => {
-		setTempMonth(parseInt(month, 10));
-	}, [month]);
-
-	useEffect(() => {
-		if (checkValue) {
-			setTempMonth(parseInt(checkValue.split('/')[1], 10));
+		if (prevProps.month !== month) {
+			this.updateTempMonth(month);
 		}
-	}, [checkValue]);
 
-	function getMonthDisabled() {
+		if (prevProps.checkValue !== checkValue) {
+			this.updateTempMonth(formatData(checkValue));
+		}
+	}
+
+	updateTempMonth(value) {
+		this.setState({
+			tempMonth: value
+		});
+	}
+
+	onUpdate = index => {
+		this.updateTempMonth(index + 1);
+	};
+
+	getMonthDisabled = () => {
+		const { currentYear, month, min, max } = this.props;
 		// 月日 选择器时，不存在最大最小值区间
 		if (month) {
 			return false;
@@ -52,9 +66,11 @@ function MonthGrid(props) {
 			}
 		}
 		return false;
-	}
+	};
 
-	function getClassName(_tempMonth, current, _month) {
+	getClassName = (_tempMonth, current, _month) => {
+		const { currentYear, month, min, max } = this.props;
+
 		function simpleCheck() {
 			if (_tempMonth) {
 				if (parseInt(_tempMonth, 10) === current) {
@@ -91,65 +107,72 @@ function MonthGrid(props) {
 			}
 		}
 		return simpleCheck();
-	}
+	};
 
-	function onUpdate(index) {
-		setTempMonth(index + 1);
-	}
+	onSave = value => {
+		const { currentYear, onChange } = this.props;
+		const { tempMonth } = this.state;
 
-	function onSave(value) {
 		if (value) {
 			onChange(value, currentYear);
 		} else if (tempMonth) {
 			onChange(tempMonth, currentYear);
 		}
-	}
-	return (
-		<div className="grid">
-			<table className="grid-table year-grid-table">
-				<tbody>
-					{Array.from({ length: 4 }).map((o, index) => {
-						const index1 = index * 3;
-						const index2 = index * 3 + 1;
-						const index3 = index * 3 + 2;
-						return (
-							<tr key={index.toString()}>
-								<td className={getClassName(tempMonth, index1 + 1, month)}>
-									<span onClick={() => onUpdate(index1)}>{monthArr[index1]}</span>
-								</td>
-								<td className={getClassName(tempMonth, index2 + 1, month)}>
-									<span onClick={() => onUpdate(index2)}>{monthArr[index2]}</span>
-								</td>
-								<td className={getClassName(tempMonth, index3 + 1, month)}>
-									<span onClick={() => onUpdate(index3)}>{monthArr[index3]}</span>
-								</td>
-							</tr>
-						);
-					})}
-				</tbody>
-			</table>
-			<div className={`${selectorClass}-popup-btns`}>
-				{showThisMonth && (
-					<Button size="small" disabled={getMonthDisabled()} onClick={() => onSave(currentMonth)}>
-						当月
+	};
+
+	render() {
+		const { month, showThisMonth } = this.props;
+		const { tempMonth } = this.state;
+
+		return (
+			<div className="grid">
+				<table className="grid-table year-grid-table">
+					<tbody>
+						{Array.from({ length: 4 }).map((o, index) => {
+							const index1 = index * 3;
+							const index2 = index * 3 + 1;
+							const index3 = index * 3 + 2;
+							return (
+								<tr key={index.toString()}>
+									<td className={this.getClassName(tempMonth, index1 + 1, month)}>
+										<span onClick={() => this.onUpdate(index1)}>{monthArr[index1]}</span>
+									</td>
+									<td className={this.getClassName(tempMonth, index2 + 1, month)}>
+										<span onClick={() => this.onUpdate(index2)}>{monthArr[index2]}</span>
+									</td>
+									<td className={this.getClassName(tempMonth, index3 + 1, month)}>
+										<span onClick={() => this.onUpdate(index3)}>{monthArr[index3]}</span>
+									</td>
+								</tr>
+							);
+						})}
+					</tbody>
+				</table>
+				<div className={`${selectorClass}-popup-btns`}>
+					{showThisMonth && (
+						<Button size="small" disabled={this.getMonthDisabled()} onClick={() => this.onSave(currentMonth)}>
+							当月
+						</Button>
+					)}
+					<Button type="primary" size="small" disabled={!tempMonth} onClick={() => this.onSave()}>
+						确认
 					</Button>
-				)}
-				<Button type="primary" size="small" disabled={!tempMonth} onClick={() => onSave()} style={{ marginLeft: '10px' }}>
-					确认
-				</Button>
+				</div>
 			</div>
-		</div>
-	);
+		);
+	}
 }
 
 MonthGrid.propTypes = {
 	checkValue: PropTypes.string,
+	showThisMonth: PropTypes.bool,
 	month: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 	onChange: PropTypes.func
 };
 
 MonthGrid.defaultProps = {
 	month: undefined,
+	showThisMonth: true,
 	checkValue: '',
 	onChange: () => {}
 };

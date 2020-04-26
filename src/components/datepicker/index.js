@@ -1,10 +1,9 @@
 import Datepicker from './date-picker';
-// import YearPicker from './year-picker';
-// import YearMonthPicker from './year-month-picker';
-import MonthDayPicker from './month-day-picker';
+import MonthDayPicker from './month-day/index';
 import RangePicker from './range-picker';
 import TimePicker from './time-picker';
-import { YearPicker, YearMonthPicker } from './picker';
+import YearPicker from './year';
+import YearMonthPicker from './year-month';
 import './index.less';
 
 Object.assign(Datepicker, {
