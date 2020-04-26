@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Input from 'cloud-react/input';
-import Popup from './popup';
+import { noop } from '@utils';
+import Input from '../../input';
+import Year from '../year/main';
+import YearMonth from '../year-month/main';
+import MonthDay from '../month-day/main';
 import { createWrapper, renderDOM, destroyDOM, destroyAllDOM, isVaild, getPositionByComp } from '../util/view-common';
 import { enumObj, calendarIcon, containerClass, selectorClass } from '../constant';
 
-import { convert } from '../util';
-
-class MonthDayPicker extends Component {
+class Picker extends Component {
 	constructor(props) {
 		super(props);
-
-		this.inpRef = React.createRef();
 
 		const { value, defaultValue, open } = props;
 
@@ -23,6 +22,8 @@ class MonthDayPicker extends Component {
 				.replace('.', ''),
 			visible: open
 		};
+
+		this.inpRef = React.createRef();
 	}
 
 	componentDidMount() {
@@ -58,30 +59,19 @@ class MonthDayPicker extends Component {
 	}
 
 	handleValueChange = (output = '', isPop = false) => {
-		const { format, onChange } = this.props;
-
-		const dateArr = output.split('/');
-		const _output = convert(
-			{
-				month: dateArr[0],
-				day: dateArr[1]
-			},
-			format
-		);
-
+		const value = this.props.formatValue(output);
 		this.setState({
-			currentValue: _output
+			currentValue: value
 		});
-
 		if (isPop) {
-			onChange(_output);
+			this.props.onChange(value);
 		}
 	};
 
 	onPopChange = output => {
 		this.handleValueChange(output, true);
-		// eslint-disable-next-line no-use-before-define
 		this.changeVisible(null, false);
+
 		if (this.props.hasClear) {
 			this.setState({
 				suffix: null
@@ -89,10 +79,34 @@ class MonthDayPicker extends Component {
 		}
 	};
 
+	renderMainPop = () => {
+		const { tempMode } = this.props;
+		const { currentValue } = this.state;
+
+		if (tempMode === enumObj.YEAR_MODEL) {
+			return <Year {...this.props} checkValue={currentValue} onChange={this.onPopChange} />;
+		}
+
+		if (tempMode === enumObj.YEAR_MONTH_MODEL) {
+			return <YearMonth {...this.props} checkValue={currentValue} onChange={this.onPopChange} />;
+		}
+
+		if (tempMode === enumObj.MONTH_DAY_MODEL) {
+			return <MonthDay {...this.props} checkValue={currentValue} onChange={this.onPopChange} />;
+		}
+
+		return null;
+	};
+
+	popClick = evt => {
+		evt.stopPropagation();
+		evt.nativeEvent.stopImmediatePropagation();
+	};
+
 	changeVisible = (evt, isVisible) => {
-		const { inpRef, onPopChange } = this;
-		const { id, currentValue } = this.state;
-		const { position, className, showToday } = this.props;
+		const { inpRef } = this;
+		const { id } = this.state;
+		const { position, className, height } = this.props;
 
 		if (isVisible && id) {
 			this.setState({
@@ -101,25 +115,34 @@ class MonthDayPicker extends Component {
 
 			createWrapper(id);
 
-			// 获取面板的定位
-			const { left, top } = getPositionByComp(inpRef.current.inputRef.current.getBoundingClientRect(), position, 262);
-			// 渲染DOM
-			renderDOM(id, <Popup left={left} top={top} className={className} checkValue={currentValue} showToday={showToday} onChange={onPopChange} />);
+			const { left, top } = getPositionByComp(inpRef.current.inputRef.current.getBoundingClientRect(), position, height);
+
+			renderDOM(
+				id,
+				<div className={`${selectorClass}-popup ${className}`} style={{ left, top }} onClick={this.popClick}>
+					{this.renderMainPop()}
+				</div>
+			);
+
 			return;
 		}
+
 		destroyDOM(id);
 	};
 
 	handleClick = evt => {
 		const { disabled } = this.props;
-		const { id, visible } = this.state;
+		const { visible, id } = this.state;
 
 		if (disabled) return;
 
+		// 阻止合成事件的冒泡
 		evt.stopPropagation();
+		// 阻止与原生事件的冒泡
 		evt.nativeEvent.stopImmediatePropagation();
 		// 如果不可见则显示面板
 		if (!visible || !document.getElementById(id)) {
+			// 先释放其他面板
 			destroyAllDOM();
 			this.changeVisible(evt, true);
 		}
@@ -158,32 +181,32 @@ class MonthDayPicker extends Component {
 	}
 }
 
-MonthDayPicker.propTypes = {
+Picker.propTypes = {
 	position: PropTypes.oneOf([enumObj.AUTO, enumObj.UP, enumObj.DOWN]),
 	className: PropTypes.string,
 	hasClear: PropTypes.bool,
 	disabled: PropTypes.bool,
 	placeholder: PropTypes.string,
 	open: PropTypes.bool,
-	defaultValue: PropTypes.string,
-	value: PropTypes.string,
-	showToday: PropTypes.bool,
-	onChange: PropTypes.func,
-	format: PropTypes.string
+	defaultValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+	value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+	// showCurrent: PropTypes.bool,
+	formatValue: PropTypes.func,
+	onChange: PropTypes.func
 };
 
-MonthDayPicker.defaultProps = {
-	className: '',
+Picker.defaultProps = {
 	position: enumObj.AUTO,
-	placeholder: '',
+	className: '',
 	hasClear: false,
 	disabled: false,
+	placeholder: '',
 	open: false,
-	showToday: true,
+	// showCurrent: true,
 	defaultValue: '',
 	value: undefined,
-	format: 'MM/DD',
-	onChange: () => {}
+	formatValue: noop,
+	onChange: noop
 };
 
-export default MonthDayPicker;
+export default Picker;
