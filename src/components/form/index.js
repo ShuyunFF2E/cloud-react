@@ -16,8 +16,8 @@ export default class Form extends Component {
 		field: PropTypes.object,
 		colon: PropTypes.bool,
 		className: PropTypes.string,
-		layout: PropTypes.oneOf(Object.values(LAYOUT_TYPES)),
-		labelAlign: PropTypes.oneOf(Object.values(LABEL_ALIGN)),
+		layout: PropTypes.oneOf([LAYOUT_TYPES.HORIZONTAL, LAYOUT_TYPES.VERTICAL, LAYOUT_TYPES.INLINE]),
+		labelAlign: PropTypes.oneOf([LABEL_ALIGN.LEFT, LABEL_ALIGN.RIGHT]),
 		labelCol: PropTypes.shape({
 			span: PropTypes.number,
 			offset: PropTypes.number
