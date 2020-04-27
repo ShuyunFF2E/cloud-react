@@ -9,17 +9,8 @@ import { createWrapper, renderDOM, destroyDOM, destroyAllDOM, isVaild, formatZer
 
 const DEFAULT_FORMAT = 'yyyy/MM/dd';
 
-function getFormat(_showTimePicker, _mode, format = DEFAULT_FORMAT) {
-	if (_showTimePicker) {
-		if (_mode === enumObj.DATE_HOUR) {
-			return `${format} hh`;
-		}
-		if (_mode === enumObj.DATE_HOUR_MINUTE) {
-			return `${format} hh:mm`;
-		}
-		return `${format} hh:mm:ss`;
-	}
-	return `${format}`;
+function getFormat(_showTimePicker, format = DEFAULT_FORMAT) {
+	return _showTimePicker ? `${format} hh:mm:ss` : `${format}`;
 }
 
 function DatePicker(props) {
@@ -37,7 +28,6 @@ function DatePicker(props) {
 		showToday,
 		showNow,
 		showTimePicker,
-		mode,
 		onChange,
 		placeholder,
 		maxYear,
@@ -54,7 +44,7 @@ function DatePicker(props) {
 			.toString()
 			.replace('.', '')
 	);
-	let fmt = getFormat(showTimePicker, mode, format);
+	let fmt = getFormat(showTimePicker, format);
 	const [visible, setVisible] = useState(open);
 	const [currentValueDate, setCurrentValueDate] = useState(isVaild(value) ? value : defaultValue);
 	const [currentValue, setCurrentValue] = useState(() => {
@@ -95,8 +85,8 @@ function DatePicker(props) {
 	}, [open]);
 
 	useEffect(() => {
-		fmt = getFormat(showTimePicker, mode);
-	}, [showTimePicker, mode]);
+		fmt = getFormat(showTimePicker);
+	}, [showTimePicker]);
 
 	function onPopChange(obj) {
 		if (obj) {
@@ -124,7 +114,6 @@ function DatePicker(props) {
 				<Popup
 					left={left}
 					top={top}
-					mode={mode}
 					className={className}
 					checkDateObj={transformObj(checkDate)}
 					showToday={showToday}
@@ -217,7 +206,6 @@ DatePicker.propTypes = {
 	placeholder: PropTypes.string,
 	format: PropTypes.string,
 	position: PropTypes.oneOf([enumObj.AUTO, enumObj.UP, enumObj.DOWN]),
-	mode: PropTypes.oneOf([enumObj.DATE_HOUR, enumObj.DATE_HOUR_MINUTE]),
 	open: PropTypes.bool,
 	hasClear: PropTypes.bool,
 	defaultValue: PropTypes.instanceOf(Date),
@@ -239,7 +227,6 @@ DatePicker.defaultProps = {
 	className: '',
 	selectorStyle: {},
 	format: DEFAULT_FORMAT,
-	mode: undefined,
 	disabled: false,
 	placeholder: '请选择日期',
 	position: enumObj.AUTO,

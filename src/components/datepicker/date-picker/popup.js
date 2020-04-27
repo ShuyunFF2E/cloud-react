@@ -8,7 +8,7 @@ import { selectorClass } from '../constant';
 const defaultDateObj = displayNow();
 
 function Popup(props) {
-	const { left, top, min, max, mode, className, showToday, showNow, showTimePicker, checkDateObj, onChange, maxYear, minYear, defaultTime } = props;
+	const { left, top, min, max, className, showToday, showNow, showTimePicker, checkDateObj, onChange, maxYear, minYear, defaultTime } = props;
 	const _defaultTimes = defaultTime.split(':');
 
 	const [tempYear, setTempYear] = useState(checkDateObj ? checkDateObj.year : defaultDateObj.year);
@@ -70,7 +70,6 @@ function Popup(props) {
 				onChange={onHeaderChange}
 			/>
 			<Grid
-				mode={mode}
 				days={days}
 				day={tempDay}
 				month={tempMonth}
@@ -97,7 +96,6 @@ Popup.propTypes = {
 	top: PropTypes.number,
 	min: PropTypes.instanceOf(Date),
 	max: PropTypes.instanceOf(Date),
-	mode: PropTypes.string,
 	checkDateObj: PropTypes.object,
 	showToday: PropTypes.bool,
 	showTimePicker: PropTypes.bool,
@@ -108,7 +106,6 @@ Popup.defaultProps = {
 	className: '',
 	left: 0,
 	top: 0,
-	mode: undefined,
 	showToday: false,
 	showTimePicker: false,
 	checkDateObj: undefined,
