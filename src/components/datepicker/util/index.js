@@ -119,7 +119,7 @@ export function range(from, to) {
 	return arr;
 }
 
-function formatTime(param, d = '') {
+export function formatTime(param, d = '') {
 	if (param === '') {
 		return d;
 	}
@@ -131,10 +131,6 @@ function formatTime(param, d = '') {
 
 export function transformObj(date) {
 	return date ? displayNow(date) : null;
-	// if (date) {
-	// 	return displayNow(date);
-	// }
-	// return null;
 }
 
 export function formatZero(value) {
