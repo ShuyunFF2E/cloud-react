@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import Input from 'cloud-react/input';
-import { enumObj, timeSelectorClass } from '../constant';
+import Input from '../../input';
+import { timeSelectorClass } from '../constant';
 import { formatNumber } from '../util/view-common';
 
 function InnerTimePicker(props) {
-	const { hour, minute, second, mode, label, onChange } = props;
+	const { hour, minute, second, label, onChange } = props;
 	const inpMinuteRef = React.createRef();
 	const inpSecondRef = React.createRef();
 	const [tempHour, setTempHour] = useState(hour);
@@ -106,18 +106,10 @@ function InnerTimePicker(props) {
 		<div className={`inner-${timeSelectorClass}`}>
 			<label>{label}</label>
 			<Input value={tempHour} maxLength="2" placeholder="小时" onChange={handleHourChange} />
-			{mode === enumObj.DATE_HOUR ? null : (
-				<section>
-					<label className="colon">:</label>
-					<Input ref={inpMinuteRef} value={tempMinute} maxLength="2" placeholder="分钟" onChange={handleMinuteChange} />
-				</section>
-			)}
-			{mode === enumObj.DATE_HOUR_MINUTE || mode === enumObj.DATE_HOUR ? null : (
-				<section>
-					<label className="colon">:</label>
-					<Input ref={inpSecondRef} value={tempSecond} maxLength="2" placeholder="秒" onChange={handleSecondChange} />
-				</section>
-			)}
+			<label className="colon">:</label>
+			<Input ref={inpMinuteRef} value={tempMinute} maxLength="2" placeholder="分钟" onChange={handleMinuteChange} />
+			<label className="colon">:</label>
+			<Input ref={inpSecondRef} value={tempSecond} maxLength="2" placeholder="秒" onChange={handleSecondChange} />
 		</div>
 	);
 }
@@ -126,13 +118,11 @@ InnerTimePicker.propTypes = {
 	hour: PropTypes.string,
 	minute: PropTypes.string,
 	second: PropTypes.string,
-	mode: PropTypes.string,
 	label: PropTypes.string,
 	onChange: PropTypes.func
 };
 
 InnerTimePicker.defaultProps = {
-	mode: enumObj.DATE_TIME,
 	hour: '00',
 	minute: '00',
 	second: '00',

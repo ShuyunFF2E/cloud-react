@@ -17,7 +17,6 @@ function Grid(props) {
 		second,
 		showNow,
 		showToday,
-		mode,
 		minDate,
 		maxDate,
 		rangeConfig,
@@ -125,7 +124,7 @@ function Grid(props) {
 					))}
 				</tbody>
 			</table>
-			{showTimePicker && <InnerTimePicker onChange={onTimePickChange} mode={mode} hour={tempHour} minute={tempMinute} second={tempSecond} />}
+			{showTimePicker && <InnerTimePicker onChange={onTimePickChange} hour={tempHour} minute={tempMinute} second={tempSecond} />}
 			<div className={`${selectorClass}-popup-btns`} style={btnStyle}>
 				{showToday && !showTimePicker && (
 					<Button size="small" disabled={getTodayDisabled()} onClick={onToadyClick}>
@@ -157,7 +156,6 @@ Grid.propTypes = {
 	hour: PropTypes.string,
 	minute: PropTypes.string,
 	second: PropTypes.string,
-	mode: PropTypes.string,
 	maxDate: PropTypes.instanceOf(Date),
 	minDate: PropTypes.instanceOf(Date),
 	showTimePicker: PropTypes.bool,
@@ -172,7 +170,6 @@ Grid.propTypes = {
 Grid.defaultProps = {
 	rangeConfig: undefined,
 	style: {},
-	mode: undefined,
 	year: displayNow().year,
 	month: displayNow().month,
 	days: [],
