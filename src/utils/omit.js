@@ -1,5 +1,10 @@
 const omit = (props, omitFields) => {
-	return Object.fromEntries(Object.entries(props).filter(item => omitFields.indexOf(item[0]) === -1));
+	return Object.keys(props).reduce((acc, key) => {
+		if (!omitFields.includes(key)) {
+			acc[key] = props[key];
+		}
+		return acc;
+	}, {});
 };
 
 export default omit;
