@@ -30,3 +30,5 @@ cloud-react-site
 
 # auto generdate index file
 src/components/index.js
+
+package-lock.json
