@@ -345,7 +345,7 @@ class Store {
 		const sameNode = this.findNodeByParam(data, 'name', name);
 		// 名称重复检测
 		if (sameNode && sameNode.name === name) {
-			Message.error('该名称节点已存在！');
+			Message.error('该目录名称已存在！');
 			return true;
 		}
 		return false;
