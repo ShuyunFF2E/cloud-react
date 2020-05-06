@@ -14,7 +14,7 @@ export default class ToolTipDemo extends React.Component {
 			content: '这是一个toolTip',
 			isBlue: true,
 			tagArr: [
-				{ id: 1, name: 'aa' },
+				{ id: 1, name: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' },
 				{ id: 2, name: 'bb' },
 				{ id: 3, name: 'cc' }
 			]
