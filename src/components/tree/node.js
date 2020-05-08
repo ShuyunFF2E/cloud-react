@@ -14,8 +14,6 @@ class Node extends Component {
 		super(props);
 		this.state = {
 			inputValue: '',
-			isShowInput: false,
-			isAdd: false,
 			hasBackValue: true
 		};
 	}
@@ -41,17 +39,9 @@ class Node extends Component {
 		this.context.onFoldNodeAction(this.context.treeData, node);
 	};
 
-	// 显示Input输入框
-	showInput = (name, node) => {
-		// 新增子节点时才需要展开父节点
-		if (!name) {
-			// eslint-disable-next-line no-param-reassign
-			node.isUnfold = true;
-		}
+	setInputValue = name => {
 		this.setState({
-			inputValue: name || '',
-			isShowInput: true,
-			isAdd: !name
+			inputValue: name || ''
 		});
 	};
 
@@ -73,23 +63,23 @@ class Node extends Component {
 		if (isRepeat) {
 			return;
 		}
+
 		this.setState({
-			isShowInput: false,
-			isAdd: false,
 			inputValue: ''
 		});
 
 		// 编辑与新增
-		this.context[!this.state.isAdd ? 'onRenameAction' : 'onAddAction'](id, name, level);
+		this.context[!data.isAdd ? 'onRenameAction' : 'onAddAction'](id, name, level);
+
+		this.context.onReRenderNode({ currentNode: data });
 	};
 
 	// 取消保存
-	onClickCancel = () => {
+	onClickCancel = data => {
 		this.setState({
-			isShowInput: false,
-			isAdd: false,
 			inputValue: ''
 		});
+		this.context.onReRenderNode({ currentNode: data });
 	};
 
 	// 选中节点
@@ -106,16 +96,16 @@ class Node extends Component {
 
 	render() {
 		const { data, children, prefixCls } = this.props;
-		const { showInput, onSaveClick, onClickCancel } = this;
+		const { setInputValue, onSaveClick, onClickCancel } = this;
 		// 将三个方法传递出去可以供外部调用
-		const options = { showInput, onSaveClick, onClickCancel };
+		const options = { setInputValue, onSaveClick, onClickCancel };
 		return (
 			<Fragment>
 				<div className={classNames(`${prefixCls}-list-node-area ${data.children && data.children.length > 0 ? 'has-child-style' : null}`)}>
 					{/* 折叠展开icon */}
 					<ToggleFold hasChildren={data.children.length > 0} showChildrenItem={data.isUnfold} toggle={() => this.toggle(data)} />
 					<div
-						className={`node-item ${this.state.isShowInput && !this.state.isAdd ? 'hide-node' : null} ${data.isActive ? 'is-active' : null}`}
+						className={`node-item ${data.isEdit && !data.isAdd ? 'hide-node' : null} ${data.isActive ? 'is-active' : null}`}
 						onContextMenu={e => this.onHandleContextMenu(e, data, options)}>
 						{/* 节点前面的icon */}
 						<NodeIcon
@@ -143,13 +133,13 @@ class Node extends Component {
 					</div>
 
 					<ShowInput
-						isShow={this.state.isShowInput}
-						isAdd={this.state.isAdd}
+						isEdit={data.isEdit}
+						isAdd={data.isAdd}
 						inputValue={this.state.inputValue}
 						maxLength={this.context.nodeNameMaxLength}
 						handleInputChange={this.handleInputChange}
 						saveItem={() => this.onSaveClick(data, this.state.inputValue)}
-						cancelSave={this.onClickCancel}
+						cancelSave={() => this.onClickCancel(data)}
 					/>
 
 					{data.isUnfold && <ul>{children}</ul>}
@@ -174,32 +164,32 @@ function ToggleFold({ hasChildren, showChildrenItem, toggle }) {
 
 /**
  * 显示输入框
- * @param showInput
+ * @param isEdit
+ * @param isAdd
+ * @param maxLength
  * @param inputValue
  * @param handleInputChange
  * @param saveItem
  * @param cancelSave
- * @returns {null|*}
+ * @returns {*}
  * @constructor
  */
-function ShowInput({ isShow, isAdd, maxLength, inputValue, handleInputChange, saveItem, cancelSave }) {
-	return (
-		(isShow || isAdd) && (
-			<div className={!isAdd ? 'is-rename' : 'is-add'}>
-				<Input
-					className="node-input"
-					value={inputValue}
-					onChange={handleInputChange}
-					autoFocus
-					onEnter={saveItem}
-					maxLength={maxLength}
-					placeholder={`最多可输入${maxLength}个字符`}
-				/>
-				<Icon type="finish" className="save-icon" onClick={saveItem} />
-				<Icon type="close" className="cancel-icon" onClick={cancelSave} />
-			</div>
-		)
-	);
+function ShowInput({ isEdit, isAdd, maxLength, inputValue, handleInputChange, saveItem, cancelSave }) {
+	return isEdit || isAdd ? (
+		<div className={!isAdd ? 'is-rename' : 'is-add'}>
+			<Input
+				className="node-input"
+				value={inputValue}
+				onChange={handleInputChange}
+				autoFocus
+				onEnter={saveItem}
+				maxLength={maxLength}
+				placeholder={`最多可输入${maxLength}个字符`}
+			/>
+			<Icon type="finish" className="save-icon" onClick={saveItem} />
+			<Icon type="close" className="cancel-icon" onClick={cancelSave} />
+		</div>
+	) : null;
 }
 
 /**

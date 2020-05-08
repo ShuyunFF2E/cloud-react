@@ -7,13 +7,17 @@ import './index.less';
 class TreeMenu extends Component {
 	static contextType = TreeContext;
 
+	preNode = null;
+
 	addNode = (e, node) => {
 		const { disableAdd, options } = this.props;
 		if (disableAdd) {
 			e.preventDefault();
 			return;
 		}
-		options.showInput('', node);
+		options.setInputValue('');
+		this.props.onEditNodeBefore({ preNode: this.preNode, currentNode: node, isAdd: true, isUnfold: true });
+		this.preNode = node;
 	};
 
 	deleteNode = e => {
@@ -25,13 +29,15 @@ class TreeMenu extends Component {
 		this.props.deleteNode();
 	};
 
-	renameNode = e => {
+	renameNode = (e, node) => {
 		const { disableRename, options, name } = this.props;
 		if (disableRename) {
 			e.preventDefault();
 			return;
 		}
-		options.showInput(name);
+		options.setInputValue(name);
+		this.props.onEditNodeBefore({ preNode: this.preNode, currentNode: node, isEdit: true });
+		this.preNode = node;
 	};
 
 	render() {
@@ -46,7 +52,7 @@ class TreeMenu extends Component {
 					<li role="presentation" className={disableRemove ? 'disabled' : ''} onClick={this.deleteNode}>
 						删除
 					</li>
-					<li role="presentation" className={disableRename ? 'disabled' : ''} onClick={this.renameNode}>
+					<li role="presentation" className={disableRename ? 'disabled' : ''} onClick={e => this.renameNode(e, nodeData)}>
 						重命名
 					</li>
 				</ul>
