@@ -280,6 +280,22 @@ class Tree extends Component {
 		});
 	};
 
+	onReRenderNode = ({ preNode, currentNode, isEdit = false, isAdd = false, isUnfold }) => {
+		const { treeData } = this.state;
+		const pre = store.findNodeById(treeData, (preNode || {}).id);
+		if (pre) {
+			Object.assign(pre, { isEdit: false, isAdd: false });
+		}
+
+		const current = store.findNodeById(treeData, (currentNode || {}).id);
+		if (current) {
+			Object.assign(current, { isEdit, isAdd });
+			if (isUnfold !== undefined) {
+				Object.assign(current, { isUnfold });
+			}
+		}
+	};
+
 	/**
 	 * 显示菜单
 	 * @param node
@@ -329,7 +345,7 @@ class Tree extends Component {
 			selectedValue
 		} = this.props;
 
-		const { onAddAction, onRenameAction, onRemoveAction, onSelectedAction, onFoldNodeAction, onCheckRepeatNameAction, showMenu } = this;
+		const { onAddAction, onRenameAction, onRemoveAction, onSelectedAction, onFoldNodeAction, onCheckRepeatNameAction, showMenu, onReRenderNode } = this;
 		const { treeData, searchText, nodeData, menuStyle, menuOptions, visibleMenu } = this.state;
 		const { id, name, disableAdd, disableRename, disableRemove } = nodeData;
 
@@ -354,7 +370,8 @@ class Tree extends Component {
 					onRemoveAction,
 					onSelectedAction,
 					onFoldNodeAction,
-					onCheckRepeatNameAction
+					onCheckRepeatNameAction,
+					onReRenderNode
 				}}>
 				<div className={`${selector} ${className}`} style={style}>
 					<Search
@@ -378,6 +395,7 @@ class Tree extends Component {
 						options={menuOptions}
 						deleteNode={() => this.onRemoveAction(nodeData)}
 						visible={visibleMenu}
+						onEditNodeBefore={onReRenderNode}
 					/>
 
 					{treeData && treeData.length > 0 && <TreeList prefixCls={selector} nodeNameMaxLength={nodeNameMaxLength} data={treeData} />}

@@ -7,8 +7,7 @@ const TreeContext = React.createContext({
 	isAddFront: true,
 	nodeNameMaxLength: 10,
 	searchText: '',
-	// 显示输入框
-	showInput: noop,
+	setInputValue: noop,
 	// 点击保存按钮
 	onSaveClick: noop,
 	// 点击取消按钮
