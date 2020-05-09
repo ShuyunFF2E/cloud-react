@@ -13,8 +13,7 @@ class Node extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			inputValue: '',
-			hasBackValue: true
+			inputValue: ''
 		};
 	}
 
@@ -85,9 +84,6 @@ class Node extends Component {
 	// 选中节点
 	handleSelect = checked => {
 		const { data } = this.props;
-		this.setState({
-			hasBackValue: false
-		});
 		if (this.context.supportCheckbox) {
 			data.checked = checked;
 		}
@@ -99,49 +95,51 @@ class Node extends Component {
 		const { setInputValue, onSaveClick, onClickCancel } = this;
 		// 将三个方法传递出去可以供外部调用
 		const options = { setInputValue, onSaveClick, onClickCancel };
+		const paddingLeft = 16 * data.level;
 		return (
 			<Fragment>
-				<div className={classNames(`${prefixCls}-list-node-area ${data.children && data.children.length > 0 ? 'has-child-style' : null}`)}>
-					{/* 折叠展开icon */}
-					<ToggleFold hasChildren={data.children.length > 0} showChildrenItem={data.isUnfold} toggle={() => this.toggle(data)} />
+				<div className={classNames(`${prefixCls}-list-node-area ${data.children && !data.children.length ? 'child-style' : null}`)}>
 					<div
-						className={`node-item ${data.isEdit && !data.isAdd ? 'hide-node' : null} ${data.isActive ? 'is-active' : null}`}
-						onContextMenu={e => this.onHandleContextMenu(e, data, options)}>
-						{/* 节点前面的icon */}
-						<NodeIcon
-							showIcon={this.context.showIcon}
-							openIconType={this.context.openIconType}
-							closeIconType={this.context.closeIconType}
-							iconColor={this.context.iconColor}
-							hasChildren={data.children.length > 0}
-							showChildrenItem={data.isUnfold}
-						/>
+						style={{ minWidth: `calc(100% - ${paddingLeft}px)`, paddingLeft }}
+						className={`node-item-container ${data.isActive ? 'is-active' : null} ${this.context.supportCheckbox ? 'support-checkbox' : ''}`}>
+						{/* 折叠展开icon */}
+						<ToggleFold hasChildren={data.children.length > 0} showChildrenItem={data.isUnfold} toggle={() => this.toggle(data)} />
+						<div
+							className={`node-item ${data.isEdit && !data.isAdd ? 'hide-node' : null}`}
+							onContextMenu={e => this.onHandleContextMenu(e, data, options)}>
+							{/* 节点前面的icon */}
+							<NodeIcon
+								showIcon={this.context.showIcon}
+								openIconType={this.context.openIconType}
+								closeIconType={this.context.closeIconType}
+								iconColor={this.context.iconColor}
+								hasChildren={data.children.length > 0}
+								showChildrenItem={data.isUnfold}
+							/>
 
-						{/* checkbox选择，新增或编辑时不显示 */}
-						<ShowSelection
-							id={data.id}
-							name={data.name}
-							disableSelected={data.disableSelected}
-							searchText={this.context.searchText}
-							indeterminate={data.indeterminate}
-							checked={data.checked}
-							hasBackValue={this.state.hasBackValue}
-							backValue={this.context.selectedValue}
-							supportCheckbox={this.context.supportCheckbox}
-							onHandleSelect={this.handleSelect}
+							{/* checkbox选择，新增或编辑时不显示 */}
+							<ShowSelection
+								id={data.id}
+								name={data.name}
+								disableSelected={data.disableSelected}
+								searchText={this.context.searchText}
+								indeterminate={data.indeterminate}
+								checked={data.checked}
+								supportCheckbox={this.context.supportCheckbox}
+								onHandleSelect={this.handleSelect}
+							/>
+						</div>
+
+						<ShowInput
+							isEdit={data.isEdit}
+							isAdd={data.isAdd}
+							inputValue={this.state.inputValue}
+							maxLength={this.context.nodeNameMaxLength}
+							handleInputChange={this.handleInputChange}
+							saveItem={() => this.onSaveClick(data, this.state.inputValue)}
+							cancelSave={() => this.onClickCancel(data)}
 						/>
 					</div>
-
-					<ShowInput
-						isEdit={data.isEdit}
-						isAdd={data.isAdd}
-						inputValue={this.state.inputValue}
-						maxLength={this.context.nodeNameMaxLength}
-						handleInputChange={this.handleInputChange}
-						saveItem={() => this.onSaveClick(data, this.state.inputValue)}
-						cancelSave={() => this.onClickCancel(data)}
-					/>
-
 					{data.isUnfold && <ul>{children}</ul>}
 				</div>
 			</Fragment>
@@ -195,8 +193,6 @@ function ShowInput({ isEdit, isAdd, maxLength, inputValue, handleInputChange, sa
 /**
  * 显示复选框
  * @param searchText
- * @param backValue
- * @param hasBackValue
  * @param indeterminate
  * @param checked
  * @param supportCheckbox
@@ -204,20 +200,16 @@ function ShowInput({ isEdit, isAdd, maxLength, inputValue, handleInputChange, sa
  * @param name
  * @param disableSelected
  * @param onHandleSelect
- * @returns {null|*}
+ * @returns {*}
  * @constructor
  */
-function ShowSelection({ searchText, backValue, hasBackValue, indeterminate, checked, supportCheckbox, id, name, disableSelected, onHandleSelect }) {
+function ShowSelection({ searchText, indeterminate, checked, supportCheckbox, id, name, disableSelected, onHandleSelect }) {
 	// 处理搜索关键字高亮
 	const re = new RegExp(`(${searchText.replace(/[(){}.+*?^$|\\[\]]/g, '\\$&')})`, 'ig');
 	const tmp = name.replace(re, `<span class="hot-text">${searchText}</span>`);
 	const labelWidth = {
 		width: '100%',
 		zIndex: 0
-	};
-
-	const backStyle = {
-		color: '#08F'
 	};
 
 	// 多选类型展示
@@ -229,14 +221,7 @@ function ShowSelection({ searchText, backValue, hasBackValue, indeterminate, che
 		);
 	}
 
-	return (
-		<span
-			style={backValue.length === 1 && hasBackValue && backValue[0].id === id ? backStyle : null}
-			className="node-name"
-			dangerouslySetInnerHTML={{ __html: tmp }}
-			onClick={onHandleSelect}
-		/>
-	);
+	return <span className="node-name" dangerouslySetInnerHTML={{ __html: tmp }} onClick={onHandleSelect} />;
 }
 
 /**

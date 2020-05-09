@@ -26,6 +26,10 @@ class Store {
 		}
 		// 单选则直接选中回显值，多选则默认第一个
 		this.activeNode = selectedValue && selectedValue[0];
+		if (this.activeNode) {
+			this.updateNodeById(treeData, this.activeNode.id, { isActive: true });
+		}
+
 		// 处理已选中的节点，treeData中存在selectedValue中的值则选中
 		const cloneData = this.onResetData(jEasy.clone(treeData));
 
@@ -430,5 +434,4 @@ class Store {
 	}
 }
 
-const store = new Store();
-export default store;
+export default Store;
