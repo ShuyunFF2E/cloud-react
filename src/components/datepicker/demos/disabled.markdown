@@ -30,9 +30,6 @@ export default class DatePickerDemo extends React.Component {
 				<Datepicker disabled showNow={true} showTimePicker={true} placeholder="年月日 时分秒" />
 				<br />
 				<br />
-				<Datepicker.RangePicker disabled />
-				<br />
-				<br />
 			</div>
 		);
 	}
