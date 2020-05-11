@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { today } from '../util';
+import { today } from '../utils';
 
 class Week extends Component {
 	onDayClick = (_year, _month, _day) => {

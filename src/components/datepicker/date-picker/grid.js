@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { noop } from '@utils';
 import Button from '../../button';
-import { displayNow, range, refreshDays } from '../util';
-import { miniWeek, selectorClass } from '../constant';
+import { displayNow, range, refreshDays } from '../utils';
+import { selectorClass } from '../constant';
 import Week from './week';
 import Time from '../common/time';
+import WeekHead from '../common/week-head';
 
 class Grid extends Component {
 	constructor(props) {
@@ -74,7 +75,6 @@ class Grid extends Component {
 	};
 
 	onTimePickChange = ({ hour, minute, second }) => {
-		console.log({ hour, minute, second });
 		this.setState({
 			tempHour: hour,
 			tempMinute: minute,
@@ -110,13 +110,7 @@ class Grid extends Component {
 		return (
 			<div className="grid" style={style}>
 				<table className="grid-table">
-					<thead>
-						<tr>
-							{miniWeek.map((e, i) => (
-								<th key={i.toString()}>{e}</th>
-							))}
-						</tr>
-					</thead>
+					<WeekHead />
 					<tbody>
 						{range(len).map((e, i) => (
 							<Week

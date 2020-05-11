@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { displayNow } from '../util';
+import { displayNow } from '../utils';
 import Select from '../../select';
 import MonthGrid from '../common/month-grid';
 

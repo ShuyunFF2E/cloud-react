@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Button from 'cloud-react/button';
 import { selectorClass } from '../constant';
-import { displayNow } from '../util';
+import { displayNow } from '../utils';
 
 const nowYear = new Date().getFullYear();
 const disClass = 'grid-disabled';

@@ -13,7 +13,6 @@ subtitle: 日期选择框
 日期类组件包括以下六种形式。
 
 -   DatePicker
--   RangePicker
 -   TimePicker
 -   YearPicker
 -   YearMonthPicker

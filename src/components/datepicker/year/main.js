@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ArrowLeft, ArrowRight } from '../common/arrow';
-import { displayNow } from '../util';
+import { displayNow } from '../utils';
 import YearGrid from './grid';
 
 export default class Popup extends Component {
