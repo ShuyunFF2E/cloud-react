@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { ArrowLeft, ArrowRight } from '../common/arrow';
-import { formatZero } from '../util/view-common';
 import { enumObj, monthArr } from '../constant';
-import { displayNow } from '../util';
+import { formatZero, displayNow } from '../utils';
 import MonthGrid from '../common/month-grid';
 import Grid from './grid';
 

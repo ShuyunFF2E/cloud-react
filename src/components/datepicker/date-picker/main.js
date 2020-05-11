@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { noop } from '@utils';
 import Header from '../common/header';
 import Grid from './grid';
-import { displayNow, transformObj } from '../util';
+import { displayNow, transformObj } from '../utils';
 
 class DatePicker extends Component {
 	constructor(props) {

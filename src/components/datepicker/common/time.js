@@ -3,8 +3,14 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { noop } from '@utils';
 import { timeSelectorClass } from '../constant';
-import { formatTime } from '../util';
-import { formatNumber } from '../util/view-common';
+import { formatTime } from '../utils';
+
+function formatNumber(data) {
+	const stringValue = data.trim().replace(/[^\d]/g, '');
+	const numberValue = parseInt(data.trim().replace(/[^\d]/g, ''), 10);
+
+	return { numberValue, stringValue, length: stringValue.length };
+}
 
 class TimePicker extends Component {
 	constructor(props) {

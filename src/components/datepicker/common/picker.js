@@ -6,9 +6,9 @@ import Year from '../year/main';
 import YearMonth from '../year-month/main';
 import MonthDay from '../month-day/main';
 import DatePicker from '../date-picker/main';
-import { createWrapper, renderDOM, destroyDOM, destroyAllDOM, isVaild, getPositionByComp } from '../util/view-common';
+import { createWrapper, renderDOM, destroyDOM, destroyAllDOM, getPositionByComp } from './utils';
 import { enumObj, calendarIcon, containerClass, selectorClass } from '../constant';
-import { transformObj } from '../util';
+import { transformObj } from '../utils';
 
 class Picker extends Component {
 	constructor(props) {
@@ -18,7 +18,7 @@ class Picker extends Component {
 
 		this.state = {
 			suffix: calendarIcon,
-			currentValue: isVaild(value) ? value : defaultValue,
+			currentValue: value !== undefined && value !== null ? value : defaultValue,
 			id: Math.random()
 				.toString()
 				.replace('.', ''),

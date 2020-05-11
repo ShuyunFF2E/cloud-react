@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Button from 'cloud-react/button';
-import { formatZero, refreshDays, displayNow, range } from '../util';
+import Button from '../../button';
+import { selectorClass } from '../constant';
+import { formatZero, refreshDays, displayNow, range } from '../utils';
+import WeekHead from '../common/week-head';
 import WeekGrid from './week';
-import { miniWeek, selectorClass } from '../constant';
 
 class Grid extends Component {
 	constructor(props) {
@@ -68,13 +69,7 @@ class Grid extends Component {
 		return (
 			<div className="grid">
 				<table className="grid-table">
-					<thead>
-						<tr>
-							{miniWeek.map((e, i) => (
-								<th key={i.toString()}>{e}</th>
-							))}
-						</tr>
-					</thead>
+					<WeekHead />
 					<tbody>
 						{range(len).map((e, i) => (
 							<WeekGrid

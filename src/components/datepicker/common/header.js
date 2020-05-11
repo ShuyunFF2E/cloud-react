@@ -4,7 +4,7 @@ import { noop } from '@utils';
 import Select from '../../select';
 import { monthArr } from '../constant';
 import { ArrowLeft, ArrowRight } from './arrow';
-import { displayNow } from '../util/index';
+import { displayNow } from '../utils';
 
 export default class Header extends Component {
 	handlePrevClick = () => {

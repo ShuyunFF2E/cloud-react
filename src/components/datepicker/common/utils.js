@@ -41,46 +41,21 @@ export function destroyAllDOM() {
 	}
 }
 
-export function isVaild(value) {
-	return value !== undefined && value !== null;
-}
-
-export const datepickerUI = {
-	// 年月日视图
-	HEIGHT_DEFAULT: 262,
-	// 年月日时分秒视图
-	HEIGHT_TIME: 313
-};
-
-export function formatZero(value) {
-	return parseInt(value, 10) < 10 ? `0${parseInt(value, 10)}` : value;
-}
-
-export function getWinHeight() {
-	return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
-}
-
-export function getScrollTop() {
-	return Math.max(document.body.scrollTop, document.documentElement.scrollTop);
-}
-
-export function getAvailHeight() {
-	return document.body.clientHeight;
-}
 // 根据位置计算坐标
 export function getPositionByComp({ left, bottom, top }, position, HEIGHT) {
 	let _top = 0;
+	const scrollTop = Math.max(document.body.scrollTop, document.documentElement.scrollTop);
 
 	switch (position) {
 		case enumObj.AUTO:
-			_top = getAvailHeight() - bottom > HEIGHT ? bottom + getScrollTop() : top + getScrollTop() - HEIGHT;
+			_top = document.body.clientHeight - bottom > HEIGHT ? bottom + scrollTop : top + scrollTop - HEIGHT;
 			break;
 		case enumObj.UP:
-			_top = top + getScrollTop() - HEIGHT;
+			_top = top + scrollTop - HEIGHT;
 			break;
 		case enumObj.DOWN:
 		default:
-			_top = bottom + getScrollTop();
+			_top = bottom + scrollTop;
 			break;
 	}
 
@@ -88,11 +63,4 @@ export function getPositionByComp({ left, bottom, top }, position, HEIGHT) {
 		left,
 		top: _top
 	};
-}
-
-export function formatNumber(data) {
-	const stringValue = data.trim().replace(/[^\d]/g, '');
-	const numberValue = parseInt(data.trim().replace(/[^\d]/g, ''), 10);
-
-	return { numberValue, stringValue, length: stringValue.length };
 }

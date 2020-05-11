@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { convert } from '../util';
+import { convert } from '../utils';
 import { enumObj } from '../constant';
 import Picker from '../common/picker';
 

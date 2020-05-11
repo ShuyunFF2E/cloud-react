@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Picker from '../common/picker';
-import { convert } from '../util';
+import { convert } from '../utils';
 import { enumObj } from '../constant';
 
 export default class YearMonthPicker extends Component {

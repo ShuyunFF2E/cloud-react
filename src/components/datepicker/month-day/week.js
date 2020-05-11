@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
-import { displayNow } from '../util';
+import { displayNow } from '../utils';
 
 class WeekGird extends Component {
 	render() {
