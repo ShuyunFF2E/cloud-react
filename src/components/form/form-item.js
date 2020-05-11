@@ -120,7 +120,7 @@ export default class FormItem extends Component {
 
 			while (_dataFields.length > 0 && !required) {
 				const dataField = _dataFields.shift();
-				const { rules = [] } = fieldsMeta[dataField];
+				const { rules = [] } = fieldsMeta[dataField] || {};
 
 				_required = rules.some(rule => rule.required);
 			}
