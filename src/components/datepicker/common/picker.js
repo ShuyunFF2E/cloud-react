@@ -5,8 +5,10 @@ import Input from '../../input';
 import Year from '../year/main';
 import YearMonth from '../year-month/main';
 import MonthDay from '../month-day/main';
+import DatePicker from '../date-picker/main';
 import { createWrapper, renderDOM, destroyDOM, destroyAllDOM, isVaild, getPositionByComp } from '../util/view-common';
 import { enumObj, calendarIcon, containerClass, selectorClass } from '../constant';
+import { transformObj } from '../util';
 
 class Picker extends Component {
 	constructor(props) {
@@ -93,6 +95,10 @@ class Picker extends Component {
 
 		if (tempMode === enumObj.MONTH_DAY_MODEL) {
 			return <MonthDay {...this.props} checkValue={currentValue} onChange={this.onPopChange} />;
+		}
+
+		if (tempMode === enumObj.DATE_MODEL) {
+			return <DatePicker {...this.props} checkValue={transformObj(currentValue)} onChange={this.onPopChange} />;
 		}
 
 		return null;

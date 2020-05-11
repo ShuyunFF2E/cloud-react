@@ -1,40 +1,31 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import cls from 'classnames';
-import { today, displayNow } from '../util';
+import classnames from 'classnames';
+import { today } from '../util';
 
-function Week(props) {
-	// rangeConfig出现在区间选择器时（仅用于年月日模式）
-	const { head, tail, year, month, day, days, time, minDate, maxDate, isClickDay, currentDateObj, rangeConfig, onPickDate } = props;
-
-	function onDayClick(_year, _month, _day) {
-		onPickDate({
+class Week extends Component {
+	onDayClick = (_year, _month, _day) => {
+		this.props.onPickDate({
 			year: _year,
 			month: _month,
 			day: _day
 		});
-	}
+	};
 
-	function getDisabled(date) {
+	getDisabled = date => {
+		const { minDate, maxDate } = this.props;
+
 		const currentTimeStamp = new Date(date);
 		const minDateStamp = new Date(minDate);
 		const maxDateStamp = new Date(maxDate);
-		let defaultRange = false;
-		if (rangeConfig) {
-			defaultRange =
-				(rangeConfig.min && currentTimeStamp.getTime() < rangeConfig.min.getTime()) ||
-				(rangeConfig.max && currentTimeStamp.getTime() > rangeConfig.max.getTime());
-		}
-		if (defaultRange) {
-			return defaultRange;
-		}
-		// fix issue #169
+
 		if (minDate && currentTimeStamp.getTime() <= minDateStamp.getTime()) {
 			if (currentTimeStamp.getDate() === minDateStamp.getDate()) {
 				return false;
 			}
 			return true;
 		}
+
 		if (maxDate && currentTimeStamp.getTime() >= maxDateStamp.getTime()) {
 			if (currentTimeStamp.getDate() === maxDateStamp.getDate()) {
 				return false;
@@ -42,75 +33,76 @@ function Week(props) {
 			return true;
 		}
 		return false;
+	};
+
+	render() {
+		const { head, tail, days, time, currentDateObj } = this.props;
+		const { year, month, day } = currentDateObj;
+		const idx = days.indexOf(1);
+
+		return (
+			<tr>
+				{days.map((o, i) => {
+					const inMonth = !((head && i < idx) || (tail && idx > -1 && i > idx - 1));
+
+					let date = null;
+					if (inMonth) {
+						date = `${year}/${month}/${o} ${time}`;
+					} else {
+						if (i < idx) {
+							date = month > 1 ? `${year}/${month - 1}/${o} ${time}` : `${year - 1}/12/${o} ${time}`;
+						}
+						if (i > idx - 1) {
+							date = month < 12 ? `${year}/${month + 1}/${o} ${time}` : `${year + 1}/01/${o} ${time}`;
+						}
+					}
+
+					const isToday = inMonth && `${year}-${month}-${o}` === today();
+					const isCheck = inMonth && o === day;
+					const isDisabled = this.getDisabled(date);
+
+					const classes = classnames({
+						'grid-check': isCheck,
+						'grid-now': isToday,
+						'not-included': !inMonth,
+						'day-disabled': isDisabled
+					});
+
+					let _month = month;
+					let _year = year;
+
+					if (tail && idx > -1 && i > idx - 1) {
+						if (parseInt(month, 10) === 12) {
+							_month = 1;
+							_year = year + 1;
+						} else {
+							_month = month + 1;
+						}
+					}
+
+					if (head && i < idx) {
+						if (parseInt(month, 10) === 1) {
+							_month = 12;
+							_year = year - 1;
+						} else {
+							_month = month - 1;
+						}
+					}
+
+					return (
+						<td className={classes} key={`${_year}-${_month}-${o}`} data-i={`${_year}-${_month}-${o}`}>
+							<span onClick={() => !isDisabled && this.onDayClick(_year, _month, o)}>{o}</span>
+						</td>
+					);
+				})}
+			</tr>
+		);
 	}
-
-	const idx = days.indexOf(1);
-	return (
-		<tr>
-			{days.map((o, i) => {
-				const inMonth = !((head && i < idx) || (tail && idx > -1 && i > idx - 1));
-				let date = null;
-				if (inMonth) {
-					date = `${year}/${month}/${o} ${time}`;
-				} else if (!inMonth && i < idx) {
-					date = month > 1 ? `${year}/${month - 1}/${o} ${time}` : `${year - 1}/12/${o} ${time}`;
-				} else if (!inMonth && i > idx - 1) {
-					date = month < 12 ? `${year}/${month + 1}/${o} ${time}` : `${year + 1}/01/${o} ${time}`;
-				}
-				const isToday = inMonth && `${year}-${month}-${o}` === today();
-				let isCheck = false;
-				// 是否已经点击过了，此时数据尚未写入Input中，只是临时保存
-				if (isClickDay) {
-					isCheck = o === day && inMonth;
-				} else if (currentDateObj !== null && inMonth) {
-					isCheck = `${year}-${month}-${o}` === `${currentDateObj.year}-${currentDateObj.month}-${currentDateObj.day}`;
-				}
-
-				const isDisabled = getDisabled(date);
-				const classes = cls({
-					'grid-check': isCheck,
-					'grid-now': isToday,
-					'not-included': !inMonth,
-					'day-disabled': isDisabled
-				});
-				let _month = month;
-				let _year = year;
-
-				if (tail && idx > -1 && i > idx - 1) {
-					if (parseInt(month, 10) === 12) {
-						_month = 1;
-						_year = year + 1;
-					} else {
-						_month = month + 1;
-					}
-				}
-				if (head && i < idx) {
-					if (parseInt(month, 10) === 1) {
-						_month = 12;
-						_year = year - 1;
-					} else {
-						_month = month - 1;
-					}
-				}
-
-				return (
-					<td className={classes} key={`${_year}-${_month}-${o}`} data-i={`${_year}-${_month}-${o}`}>
-						<span onClick={() => !isDisabled && onDayClick(_year, _month, o)}>{o}</span>
-					</td>
-				);
-			})}
-		</tr>
-	);
 }
 
 Week.propTypes = {
-	rangeConfig: PropTypes.object,
-	year: PropTypes.number,
-	month: PropTypes.number,
 	days: PropTypes.array,
-	day: PropTypes.number,
 	time: PropTypes.string,
-	isClickDay: PropTypes.bool,
 	currentDateObj: PropTypes.object,
 	maxDate: PropTypes.instanceOf(Date),
 	minDate: PropTypes.instanceOf(Date),
@@ -120,12 +112,7 @@ Week.propTypes = {
 };
 
 Week.defaultProps = {
-	rangeConfig: undefined,
-	year: displayNow().year,
-	month: displayNow().month,
 	days: [],
-	isClickDay: false,
-	day: displayNow().day,
 	currentDateObj: null,
 	minDate: undefined,
 	maxDate: undefined,
