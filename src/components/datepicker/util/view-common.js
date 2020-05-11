@@ -49,9 +49,7 @@ export const datepickerUI = {
 	// 年月日视图
 	HEIGHT_DEFAULT: 262,
 	// 年月日时分秒视图
-	HEIGHT_TIME: 313,
-	// 月日视图
-	HEIGHT_MONTH_DAY: 262
+	HEIGHT_TIME: 313
 };
 
 export function formatZero(value) {

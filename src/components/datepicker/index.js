@@ -1,5 +1,5 @@
 import Datepicker from './date-picker';
-import MonthDayPicker from './month-day/index';
+import MonthDayPicker from './month-day';
 import RangePicker from './range-picker';
 import TimePicker from './time-picker';
 import YearPicker from './year';
