@@ -102,6 +102,7 @@ class Input extends React.PureComponent {
 
 	onClearValue = evt => {
 		this.setValue('', evt, () => this.inputNode.focus());
+		evt.stopPropagation();
 	};
 
 	setValue(value, evt, callback = noop) {

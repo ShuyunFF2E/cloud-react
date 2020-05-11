@@ -1,13 +1,9 @@
-import React from 'react';
 import { prefixCls } from '@utils';
-import Icon from '../icon';
 
 export const selectorClass = `${prefixCls}-datepicker`;
 export const timeSelectorClass = `${prefixCls}-timepicker`;
 export const rangeSelectorClass = `${prefixCls}-rangepicker`;
 export const containerClass = `${selectorClass}-container`;
-
-export const calendarIcon = <Icon type="calendar" className={`${selectorClass}-inp-icon`}></Icon>;
 
 export const monthArr = ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'];
 

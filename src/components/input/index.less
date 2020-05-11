@@ -90,6 +90,11 @@
 				border: none !important;
 			}
 		}
+		&:hover {
+			.@{input-prefix-cls}-clear {
+				display: block;
+			}
+		}
 	}
 
 	&-prefix,
@@ -147,6 +152,7 @@
 		pointer-events: none;
 		cursor: pointer;
 		opacity: 0;
+		display: none;
 
 		~ * {
 			margin-left: 4px;
