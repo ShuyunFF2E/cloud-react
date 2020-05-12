@@ -4,6 +4,7 @@ import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import jeasy from 'jeasy';
 
+import { flat } from '@utils';
 import SingleSelect from './views/single-select';
 import MultiSelect from './views/multi-select';
 import Selected from './views/selected';
@@ -64,7 +65,7 @@ class Select extends Component {
 
 		if (value !== prevValue || Children.count(children) !== Children.count(prevChildren) || !jeasy.equal(dataSource, prevData)) {
 			const { labelKey, valueKey, labelInValue } = props;
-			const childs = Array.isArray(children) ? children.flat(Infinity) : Children.toArray(children);
+			const childs = Array.isArray(children) ? flat(children, Infinity) : Children.toArray(children);
 			const source = childs.length ? childs : getOptions(dataSource, labelKey, valueKey);
 			const selected = getSelected(value, source);
 			const defaultValue = multiple ? [] : '';
@@ -152,7 +153,7 @@ class Select extends Component {
 
 	get children() {
 		const { children, dataSource, labelKey, valueKey } = this.props;
-		const childs = Array.isArray(children) ? children.flat(Infinity) : Children.toArray(children);
+		const childs = Array.isArray(children) ? flat(children, Infinity) : Children.toArray(children);
 
 		if (childs.length) return childs;
 
