@@ -1,30 +1,34 @@
 import ReactDOM from 'react-dom';
-import { enumObj, containerClass } from '../constant';
+import { wrapperClass, containerClass } from '../constant';
 
 const container = {};
 
 // 根据实例id创建日历面板弹层
-export function createWrapper(id) {
+export function createWrapper(id, height) {
 	container[id] = document.createElement('div');
 	container[id].id = id;
-	container[id].className = containerClass;
+	container[id].className = wrapperClass;
 	container[id].style.position = 'absolute';
 	container[id].style.left = 0;
-	container[id].style.top = 0;
+	container[id].style.top = '100%';
+	container[id].style.marginTop = '-1px';
 	container[id].style.width = '100%';
+	container[id].style.height = `${height}px`;
 }
+
 // 渲染DOM
-export function renderDOM(id, component) {
+export function renderDOM(id, containerEle, component) {
 	const wrapper = container[id];
-	document.body.appendChild(wrapper);
+	containerEle.appendChild(wrapper);
 	ReactDOM.render(component, wrapper);
 }
+
 // 释放DOM
-export function destroyDOM(id, callback) {
+export function destroyDOM(id, containerEle, callback) {
 	const wrapper = container[id];
 	if (wrapper) {
 		ReactDOM.unmountComponentAtNode(wrapper);
-		document.body.removeChild(wrapper);
+		containerEle.removeChild(wrapper);
 		delete container[id];
 	}
 	if (callback) {
@@ -33,34 +37,13 @@ export function destroyDOM(id, callback) {
 }
 
 export function destroyAllDOM() {
-	const dpArr = document.getElementsByClassName(containerClass);
-	const len = dpArr.length;
-	for (let i = 0; i < len; ) {
-		destroyDOM(dpArr[i].id);
-		i += 1;
+	const ele = document.getElementsByClassName(wrapperClass)[0];
+	const containerList = document.getElementsByClassName(containerClass);
+	const len = containerList.length;
+
+	for (let i = 0; i < len; i += 1) {
+		if (containerList[i].contains(ele)) {
+			destroyDOM(ele.id, containerList[i]);
+		}
 	}
-}
-
-// 根据位置计算坐标
-export function getPositionByComp({ left, bottom, top }, position, HEIGHT) {
-	let _top = 0;
-	const scrollTop = Math.max(document.body.scrollTop, document.documentElement.scrollTop);
-
-	switch (position) {
-		case enumObj.AUTO:
-			_top = document.body.clientHeight - bottom > HEIGHT ? bottom + scrollTop : top + scrollTop - HEIGHT;
-			break;
-		case enumObj.UP:
-			_top = top + scrollTop - HEIGHT;
-			break;
-		case enumObj.DOWN:
-		default:
-			_top = bottom + scrollTop;
-			break;
-	}
-
-	return {
-		left,
-		top: _top
-	};
 }
