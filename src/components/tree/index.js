@@ -11,11 +11,10 @@ import Store from './store';
 import Menu from './menu';
 import './index.less';
 
+const store = new Store();
+
 class Tree extends Component {
 	// 默认值， 默认类型与值不匹配
-
-	store = new Store();
-
 	static defaultProps = {
 		style: {},
 		className: '',
@@ -71,7 +70,7 @@ class Tree extends Component {
 		// 从外部接收到的数据存放到state中，便于子组件对其树数据进行修改
 		super(props);
 
-		const treeData = this.store.initData(props.treeData, props.maxLevel, props.selectedValue, props.isUnfold);
+		const treeData = store.initData(props.treeData, props.maxLevel, props.selectedValue, props.isUnfold);
 
 		this.state = {
 			visibleMenu: false,
@@ -81,7 +80,8 @@ class Tree extends Component {
 			searchText: '',
 			treeData: jEasy.clone(treeData),
 			allTreeData: jEasy.clone(treeData),
-			prevProps: props
+			prevProps: props,
+			preSelectedNode: props.selectedValue && props.selectedValue[0]
 		};
 	}
 
@@ -92,8 +92,9 @@ class Tree extends Component {
 		if (prevProps.selectedValue !== nextProps.selectedValue) {
 			return {
 				selectedValue: nextProps.selectedValue,
+				preSelectedNode: nextProps.selectedValue && nextProps.selectedValue[0],
 				prevProps: nextProps,
-				treeData: this.store.initData(nextProps.treeData, prevProps.maxLevel, nextProps.selectedValue, prevProps.isUnfold)
+				treeData: store.initData(nextProps.treeData, prevProps.maxLevel, nextProps.selectedValue, prevProps.isUnfold)
 			};
 		}
 
@@ -111,6 +112,18 @@ class Tree extends Component {
 	}
 
 	/**
+	 * 更新激活节点
+	 * @param data
+	 * @param node
+	 */
+	updateActiveNode = (data, node) => {
+		store.updateNodeById(data, node.id, { isActive: true });
+		if (this.state.preSelectedNode) {
+			store.updateNodeById(data, this.state.preSelectedNode.id, { isActive: false });
+		}
+	};
+
+	/**
 	 * 搜索
 	 * @returns {*}
 	 */
@@ -124,7 +137,7 @@ class Tree extends Component {
 		const tmp = jEasy.clone(this.state.allTreeData);
 
 		// 搜索结果数据
-		const backTree = this.store.searchNode(tmp, searchText);
+		const backTree = store.searchNode(tmp, searchText);
 
 		// 是多选并且存在已多选的节点列表才进行合并数据
 		this.setState({
@@ -146,9 +159,9 @@ class Tree extends Component {
 		const { supportCheckbox, onSelectedNode } = this.props;
 
 		// 更新节点选中状态
-		this.store.updateActiveNode(data, node);
+		this.updateActiveNode(data, node);
 		// 单选节点列表
-		const radioSelectedList = this.store.selectedForRadio(data, node);
+		const radioSelectedList = store.selectedForRadio(data, node);
 		// 多选节点列表
 		const checkboxSelectedList = this.getSelectedMoreList(data, node);
 
@@ -159,8 +172,9 @@ class Tree extends Component {
 
 		// 更新树列表数据
 		this.setState({
-			treeData: [...data]
+			treeData: jEasy.clone(data)
 		});
+		this.setState({ preSelectedNode: node });
 	};
 
 	/**
@@ -171,9 +185,9 @@ class Tree extends Component {
 	 */
 	getSelectedMoreList = (data, node) => {
 		const selectedList = [];
-		this.store.updateActiveNode(data, node);
+		this.updateActiveNode(data, node);
 		// 更新checked状态
-		const tmp = this.store.selectedForCheckbox(data, node);
+		const tmp = store.selectedForCheckbox(data, node);
 		const filterSelected = selectedData => {
 			selectedData.forEach(item => {
 				if (item.checked) {
@@ -195,7 +209,7 @@ class Tree extends Component {
 	 * @param node
 	 */
 	onFoldNodeAction = (data, node) => {
-		const backData = this.store.onFoldNode(data, node);
+		const backData = store.onFoldNode(data, node);
 		this.setState({
 			treeData: [...backData]
 		});
@@ -212,8 +226,8 @@ class Tree extends Component {
 		onAddNode(pId, value)
 			.then(res => {
 				const newNode = { id: res.data || res.id, name: value, children: [], pId, level: pLevel + 1, disableAdd: maxLevel - pLevel === 1 };
-				const treeData = this.store.addChildNode(this.state.treeData, pId, newNode, isAddFront);
-				const allTreeData = this.store.addChildNode(this.state.allTreeData, pId, newNode, isAddFront);
+				const treeData = store.addChildNode(this.state.treeData, pId, newNode, isAddFront);
+				const allTreeData = store.addChildNode(this.state.allTreeData, pId, newNode, isAddFront);
 				// 新增之后重新init判断层级，不然会出现无层级可继续添加问题
 				this.setState({
 					treeData: jEasy.clone(treeData),
@@ -235,8 +249,8 @@ class Tree extends Component {
 		const { onRenameNode } = this.props;
 		onRenameNode(id, newValue)
 			.then(() => {
-				const treeData = this.store.renameChildNode(this.state.treeData, id, newValue);
-				const allTreeData = this.store.renameChildNode(this.state.allTreeData, id, newValue);
+				const treeData = store.renameChildNode(this.state.treeData, id, newValue);
+				const allTreeData = store.renameChildNode(this.state.allTreeData, id, newValue);
 				this.setState({
 					treeData: jEasy.clone(treeData),
 					allTreeData: jEasy.clone(allTreeData)
@@ -253,7 +267,7 @@ class Tree extends Component {
 	 * @param name
 	 */
 	onCheckRepeatNameAction = name => {
-		return this.store.checkRepeatName(this.state.treeData, name);
+		return store.checkRepeatName(this.state.treeData, name);
 	};
 
 	/**
@@ -268,8 +282,8 @@ class Tree extends Component {
 			onOk: () => {
 				onRemoveNode(node.id, node)
 					.then(() => {
-						const treeData = this.store.removeChildNode(this.state.treeData, node);
-						const allTreeData = this.store.removeChildNode(this.state.allTreeData, node, false);
+						const treeData = store.removeChildNode(this.state.treeData, node);
+						const allTreeData = store.removeChildNode(this.state.allTreeData, node, false);
 						this.setState({
 							treeData: jEasy.clone(treeData),
 							allTreeData: jEasy.clone(allTreeData)
@@ -285,12 +299,12 @@ class Tree extends Component {
 
 	onReRenderNode = ({ preNode, currentNode, isEdit = false, isAdd = false, isUnfold }) => {
 		const { treeData } = this.state;
-		const pre = this.store.findNodeById(treeData, (preNode || {}).id);
+		const pre = store.findNodeById(treeData, (preNode || {}).id);
 		if (pre) {
 			Object.assign(pre, { isEdit: false, isAdd: false });
 		}
 
-		const current = this.store.findNodeById(treeData, (currentNode || {}).id);
+		const current = store.findNodeById(treeData, (currentNode || {}).id);
 		if (current) {
 			Object.assign(current, { isEdit, isAdd });
 			if (isUnfold !== undefined) {
