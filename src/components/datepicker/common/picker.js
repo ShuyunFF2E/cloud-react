@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { createRef, Component } from 'react';
 import PropTypes from 'prop-types';
 import { noop } from '@utils';
 import Input from '../../input';
@@ -7,8 +7,8 @@ import Year from '../year/main';
 import YearMonth from '../year-month/main';
 import MonthDay from '../month-day/main';
 import DatePicker from '../date-picker/main';
-import { createWrapper, renderDOM, destroyDOM, destroyAllDOM, getPositionByComp } from './utils';
-import { enumObj, containerClass, selectorClass } from '../constant';
+import { createWrapper, renderDOM, destroyDOM, destroyAllDOM } from './utils';
+import { enumObj, containerClass, selectorClass, wrapperClass } from '../constant';
 import { transformObj } from '../utils';
 
 class Picker extends Component {
@@ -25,7 +25,9 @@ class Picker extends Component {
 			visible: open
 		};
 
-		this.inpRef = React.createRef();
+		this.inpRef = createRef();
+
+		this.containerRef = createRef();
 	}
 
 	componentDidMount() {
@@ -38,6 +40,7 @@ class Picker extends Component {
 	componentDidUpdate(prevProps) {
 		const { value: prevValue, open: prevOpen } = prevProps;
 		const { value, open } = this.props;
+
 		if (prevValue !== value) {
 			if (value) {
 				this.handleValueChange(value);
@@ -104,30 +107,41 @@ class Picker extends Component {
 	};
 
 	changeVisible = (evt, isVisible) => {
-		const { inpRef } = this;
+		const { containerRef } = this;
 		const { id } = this.state;
-		const { position, className, height } = this.props;
+		const { className, containerEleClass, height } = this.props;
 
 		if (isVisible && id) {
 			this.setState({
 				visible: true
 			});
 
-			createWrapper(id);
-
-			const { left, top } = getPositionByComp(inpRef.current.inputRef.current.getBoundingClientRect(), position, height);
+			createWrapper(id, height);
 
 			renderDOM(
 				id,
-				<div className={`${selectorClass}-popup ${className}`} style={{ left, top }} onClick={this.popClick}>
+				containerRef.current,
+				<div className={`${selectorClass}-popup ${className}`} onClick={this.popClick}>
 					{this.renderMainPop()}
 				</div>
 			);
 
+			if (containerEleClass) {
+				// 在弹框里面，日历处于最下面，那么需要自动滚动，让日历选择面板显示出来
+				setTimeout(() => {
+					const containerElement = document.querySelectorAll(`.${containerEleClass}`)[0];
+					const wrapperElement = document.querySelector(`.${wrapperClass}`);
+					const containerHeight = containerElement.getClientRects()[0].bottom;
+
+					if (containerRef.current.getClientRects()[0].bottom + height > containerHeight) {
+						wrapperElement.scrollIntoView({ behavior: 'smooth', block: 'end' });
+					}
+				}, 0);
+			}
 			return;
 		}
 
-		destroyDOM(id);
+		destroyDOM(id, containerRef.current);
 	};
 
 	handleClick = evt => {
@@ -158,12 +172,12 @@ class Picker extends Component {
 	};
 
 	render() {
-		const { inpRef, handleClick, handleChange } = this;
+		const { inpRef, containerRef, handleClick, handleChange } = this;
 		const { currentValue } = this.state;
 		const { placeholder, disabled } = this.props;
 
 		return (
-			<div onClick={handleClick} className={containerClass}>
+			<div ref={containerRef} className={containerClass}>
 				<Input
 					readOnly
 					hasClear
@@ -173,6 +187,7 @@ class Picker extends Component {
 					onChange={handleChange}
 					disabled={disabled}
 					className={`${selectorClass}-inp`}
+					onClick={handleClick}
 					suffix={<Icon type="calendar" className={`${selectorClass}-inp-icon`} />}
 				/>
 			</div>
@@ -181,7 +196,6 @@ class Picker extends Component {
 }
 
 Picker.propTypes = {
-	position: PropTypes.oneOf([enumObj.AUTO, enumObj.UP, enumObj.DOWN]),
 	className: PropTypes.string,
 	disabled: PropTypes.bool,
 	placeholder: PropTypes.string,
@@ -193,7 +207,6 @@ Picker.propTypes = {
 };
 
 Picker.defaultProps = {
-	position: enumObj.AUTO,
 	className: '',
 	disabled: false,
 	placeholder: '',
