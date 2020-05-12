@@ -8,9 +8,6 @@ import jEasy from 'jeasy';
 import Message from '../message';
 
 class Store {
-	// 当前节点
-	activeNode = null;
-
 	/**
 	 * 初始化数据
 	 * @param treeData
@@ -24,14 +21,15 @@ class Store {
 		if (!treeData || !treeData.length) {
 			return [];
 		}
-		// 单选则直接选中回显值，多选则默认第一个
-		this.activeNode = selectedValue && selectedValue[0];
-		if (this.activeNode) {
-			this.updateNodeById(treeData, this.activeNode.id, { isActive: true });
-		}
 
 		// 处理已选中的节点，treeData中存在selectedValue中的值则选中
 		const cloneData = this.onResetData(jEasy.clone(treeData));
+
+		// 单选则直接选中回显值，多选则默认第一个
+		const activeNode = selectedValue && selectedValue[0];
+		if (activeNode) {
+			this.updateNodeById(cloneData, activeNode.id, { isActive: true });
+		}
 
 		// 递归向上查找选择
 		const upFind = currentNode => {
@@ -297,18 +295,6 @@ class Store {
 	}
 
 	/**
-	 * 更新激活节点
-	 * @param data
-	 * @param node
-	 */
-	updateActiveNode(data, node) {
-		if (this.activeNode) {
-			this.updateNodeById(data, this.activeNode.id, { isActive: false });
-		}
-		this.activeNode = this.updateNodeById(data, node.id, { isActive: true });
-	}
-
-	/**
 	 * 收起/展开节点
 	 * @param data
 	 * @param node
@@ -398,11 +384,8 @@ class Store {
 	 * @param data
 	 * @param searchText
 	 */
-	searchNode(data, searchText) {
+	searchNode = (data, searchText) => {
 		const cloneData = jEasy.clone(data);
-		// 搜索前删除掉已激活的节点
-		this.activeNode = null;
-
 		if (!searchText) {
 			return cloneData;
 		}
@@ -431,7 +414,7 @@ class Store {
 			});
 		};
 		return search(cloneData);
-	}
+	};
 }
 
 export default Store;
