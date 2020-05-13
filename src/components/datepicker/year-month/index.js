@@ -5,15 +5,8 @@ import { convert } from '../utils';
 import { enumObj } from '../constant';
 
 export default class YearMonthPicker extends Component {
-	formatValue = output => {
-		const dateArr = output.split('/');
-		return convert(
-			{
-				year: dateArr[0],
-				month: dateArr[1]
-			},
-			this.props.format
-		);
+	formatValue = ({ year, month }) => {
+		return convert({ year, month }, this.props.format);
 	};
 
 	render() {

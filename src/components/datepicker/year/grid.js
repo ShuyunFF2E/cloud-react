@@ -52,9 +52,9 @@ class YearGrid extends Component {
 		const { tempYear } = this.state;
 
 		if (year) {
-			this.props.onChange(year);
+			this.props.onChange({ year });
 		} else if (tempYear) {
-			this.props.onChange(tempYear);
+			this.props.onChange({ year: tempYear });
 		}
 	};
 
