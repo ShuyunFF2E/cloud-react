@@ -188,7 +188,7 @@ class Picker extends Component {
 					disabled={disabled}
 					className={`${selectorClass}-inp`}
 					onClick={handleClick}
-					suffix={<Icon type="calendar" className={`${selectorClass}-inp-icon`} />}
+					suffix={<Icon type="calendar" className={`${selectorClass}-inp-icon`} onClick={handleClick} />}
 				/>
 			</div>
 		);
