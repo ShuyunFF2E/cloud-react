@@ -121,7 +121,7 @@ class MonthGrid extends Component {
 	};
 
 	render() {
-		const { month, showThisMonth } = this.props;
+		const { month } = this.props;
 		const { tempMonth } = this.state;
 
 		return (
@@ -149,11 +149,9 @@ class MonthGrid extends Component {
 					</tbody>
 				</table>
 				<div className={`${selectorClass}-popup-btns`}>
-					{showThisMonth && (
-						<Button size="small" disabled={this.getMonthDisabled()} onClick={() => this.onSave(currentMonth)}>
-							当月
-						</Button>
-					)}
+					<Button size="small" disabled={this.getMonthDisabled()} onClick={() => this.onSave(currentMonth)}>
+						当月
+					</Button>
 					<Button type="primary" size="small" disabled={!tempMonth} onClick={() => this.onSave()}>
 						确认
 					</Button>
@@ -165,14 +163,12 @@ class MonthGrid extends Component {
 
 MonthGrid.propTypes = {
 	checkValue: PropTypes.string,
-	showThisMonth: PropTypes.bool,
 	month: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 	onChange: PropTypes.func
 };
 
 MonthGrid.defaultProps = {
 	month: undefined,
-	showThisMonth: true,
 	checkValue: '',
 	onChange: () => {}
 };

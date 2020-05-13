@@ -13,7 +13,7 @@ export default class DatePickerDemo extends React.Component {
 	render() {
 		return (
 			<div>
-				<Datepicker.MonthDayPicker onChange={this.onChange} showToday />
+				<Datepicker.MonthDayPicker onChange={this.onChange} />
 			</div>
 		);
 	}

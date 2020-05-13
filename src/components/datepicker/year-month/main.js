@@ -49,7 +49,7 @@ export default class Popup extends Component {
 
 	render() {
 		const { tempYear } = this.state;
-		const { checkValue, showThisMonth, min, max } = this.props;
+		const { checkValue, min, max } = this.props;
 
 		const years = [];
 
@@ -68,14 +68,7 @@ export default class Popup extends Component {
 						{years}
 					</Select>
 				</div>
-				<MonthGrid
-					checkValue={checkValue}
-					max={max}
-					min={min}
-					currentYear={tempYear}
-					showThisMonth={showThisMonth}
-					onChange={this.handleMonthGridChange}
-				/>
+				<MonthGrid checkValue={checkValue} max={max} min={min} currentYear={tempYear} onChange={this.handleMonthGridChange} />
 			</>
 		);
 	}

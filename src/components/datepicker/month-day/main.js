@@ -140,13 +140,11 @@ class Popup extends Component {
 }
 
 Popup.propTypes = {
-	showToday: PropTypes.bool,
 	checkValue: PropTypes.string,
 	onChange: PropTypes.func
 };
 
 Popup.defaultProps = {
-	showToday: true,
 	checkValue: '',
 	onChange: () => {}
 };

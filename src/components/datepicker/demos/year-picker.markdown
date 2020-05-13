@@ -12,7 +12,7 @@ export default class DatePickerDemo extends React.Component {
 	onInpChange = value => console.log(value);
 
 	render() {
-		return <Datepicker.YearPicker min={2014} max={2034} onChange={this.onInpChange} showThisYear={true} />;
+		return <Datepicker.YearPicker min={2014} max={2034} onChange={this.onInpChange} />;
 	}
 }
 ```

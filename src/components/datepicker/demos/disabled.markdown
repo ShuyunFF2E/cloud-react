@@ -24,10 +24,10 @@ export default class DatePickerDemo extends React.Component {
 				<Datepicker.TimePicker disabled value="" />
 				<br />
 				<br />
-				<Datepicker disabled showToday={true} placeholder="年月日" />
+				<Datepicker disabled placeholder="年月日" />
 				<br />
 				<br />
-				<Datepicker disabled showNow={true} showTimePicker={true} placeholder="年月日 时分秒" />
+				<Datepicker disabled showTimePicker={true} placeholder="年月日 时分秒" />
 				<br />
 				<br />
 			</div>
