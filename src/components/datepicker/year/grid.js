@@ -59,7 +59,7 @@ class YearGrid extends Component {
 	};
 
 	render() {
-		const { minRegion, min, max, showThisYear } = this.props;
+		const { minRegion, min, max } = this.props;
 		const { tempYear } = this.state;
 
 		return (
@@ -90,11 +90,9 @@ class YearGrid extends Component {
 					</tbody>
 				</table>
 				<div className={`${selectorClass}-popup-btns`}>
-					{showThisYear && (
-						<Button size="small" disabled={this.getDisabledNow()} onClick={() => this.onSave(nowYear)}>
-							今年
-						</Button>
-					)}
+					<Button size="small" disabled={this.getDisabledNow()} onClick={() => this.onSave(nowYear)}>
+						今年
+					</Button>
 					<Button type="primary" size="small" disabled={!tempYear} onClick={() => this.onSave()}>
 						确认
 					</Button>
@@ -105,7 +103,6 @@ class YearGrid extends Component {
 }
 
 YearGrid.propTypes = {
-	showThisYear: PropTypes.bool,
 	minRegion: PropTypes.number,
 	maxRegion: PropTypes.number,
 	min: PropTypes.number,
@@ -119,7 +116,6 @@ YearGrid.defaultProps = {
 	maxRegion: undefined,
 	min: undefined,
 	max: undefined,
-	showThisYear: false,
 	checkValue: '',
 	onChange: () => {}
 };

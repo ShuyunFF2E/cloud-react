@@ -99,13 +99,12 @@ class Grid extends Component {
 	};
 
 	render() {
-		const { year, month, showNow, showToday, minDate, maxDate, showTimePicker, style, onPickDate } = this.props;
+		const { year, month, minDate, maxDate, showTimePicker, style, onPickDate } = this.props;
 		const { tempDay, tempHour, tempMinute, tempSecond } = this.state;
 
 		const now = displayNow();
 		const days = year && month ? refreshDays(year, month) : refreshDays(now.year, now.month);
 		const len = Math.ceil(days.length / 7);
-		const btnStyle = (!showTimePicker && showToday) || (showTimePicker && showNow) ? {} : { justifyContent: 'flex-end' };
 
 		return (
 			<div className="grid" style={style}>
@@ -134,13 +133,13 @@ class Grid extends Component {
 
 				{showTimePicker && <Time type="inner" onChange={this.onTimePickChange} value={`${tempHour}:${tempMinute}:${tempSecond}`} />}
 
-				<div className={`${selectorClass}-popup-btns`} style={btnStyle}>
-					{showToday && !showTimePicker && (
+				<div className={`${selectorClass}-popup-btns`}>
+					{!showTimePicker && (
 						<Button size="small" disabled={this.getTodayDisabled()} onClick={this.onToadyClick}>
 							今天
 						</Button>
 					)}
-					{showNow && showTimePicker && (
+					{showTimePicker && (
 						<Button size="small" onClick={this.onToadyClick}>
 							此刻
 						</Button>
@@ -165,8 +164,6 @@ Grid.propTypes = {
 	maxDate: PropTypes.instanceOf(Date),
 	minDate: PropTypes.instanceOf(Date),
 	showTimePicker: PropTypes.bool,
-	showNow: PropTypes.bool,
-	showToday: PropTypes.bool,
 	onPickDate: PropTypes.func,
 	onOK: PropTypes.func
 };
@@ -181,8 +178,6 @@ Grid.defaultProps = {
 	second: '',
 	minDate: undefined,
 	maxDate: undefined,
-	showToday: false,
-	showNow: false,
 	showTimePicker: false,
 	onPickDate: noop,
 	onOK: noop

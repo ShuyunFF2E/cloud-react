@@ -12,7 +12,7 @@ export default class DatePickerDemo extends React.Component {
 	onChange = value => console.log(value);
 
 	render() {
-		return <Datepicker.YearMonthPicker onChange={this.onChange} min="2018/04" showThisMonth={true} />;
+		return <Datepicker.YearMonthPicker onChange={this.onChange} min="2018/04" />;
 	}
 }
 ```

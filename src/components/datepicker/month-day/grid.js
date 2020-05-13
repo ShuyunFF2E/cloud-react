@@ -60,7 +60,7 @@ class Grid extends Component {
 
 	render() {
 		const { tempMonth, tempDay, isClickDay } = this.state;
-		const { checkValue, showToday } = this.props;
+		const { checkValue } = this.props;
 
 		const { year, month, day } = displayNow();
 		const days = refreshDays(year, tempMonth || month);
@@ -91,11 +91,9 @@ class Grid extends Component {
 					</tbody>
 				</table>
 				<div className={`${selectorClass}-popup-btns`}>
-					{showToday && (
-						<Button size="small" onClick={() => this.handleSave(formatZero(day), month)}>
-							今天
-						</Button>
-					)}
+					<Button size="small" onClick={() => this.handleSave(formatZero(day), month)}>
+						今天
+					</Button>
 					<Button type="primary" size="small" disabled={!tempDay} onClick={() => this.handleSave()}>
 						确认
 					</Button>
@@ -108,13 +106,11 @@ class Grid extends Component {
 Grid.propTypes = {
 	month: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 	day: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-	showToday: PropTypes.bool,
 	checkValue: PropTypes.string,
 	onChange: PropTypes.func
 };
 
 Grid.defaultProps = {
-	showToday: false,
 	month: undefined,
 	day: undefined,
 	checkValue: '',

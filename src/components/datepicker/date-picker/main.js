@@ -51,7 +51,7 @@ class DatePicker extends Component {
 	};
 
 	render() {
-		const { min, max, showToday, showNow, showTimePicker, maxYear, minYear, onChange, checkValue, defaultTime } = this.props;
+		const { min, max, showTimePicker, maxYear, minYear, onChange, checkValue, defaultTime } = this.props;
 		const { tempYear, tempMonth, tempDay } = this.state;
 
 		return (
@@ -74,8 +74,6 @@ class DatePicker extends Component {
 					minDate={min || new Date(`${minYear}/1/1`)}
 					maxDate={max || new Date(`${maxYear}/12/31`)}
 					showTimePicker={showTimePicker}
-					showToday={showToday}
-					showNow={showNow}
 					onPickDate={this.onPickDate}
 					onOK={onChange}
 				/>
@@ -88,13 +86,11 @@ DatePicker.propTypes = {
 	min: PropTypes.instanceOf(Date),
 	max: PropTypes.instanceOf(Date),
 	checkValue: PropTypes.object,
-	showToday: PropTypes.bool,
 	showTimePicker: PropTypes.bool,
 	onChange: PropTypes.func
 };
 
 DatePicker.defaultProps = {
-	showToday: false,
 	showTimePicker: false,
 	checkValue: undefined,
 	min: undefined,
