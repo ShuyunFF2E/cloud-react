@@ -4,8 +4,8 @@ import { enumObj } from '../constant';
 import Picker from '../common/picker';
 
 export default class YearPicker extends Component {
-	formatValue = output => {
-		return output;
+	formatValue = ({ year }) => {
+		return year;
 	};
 
 	render() {

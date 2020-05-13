@@ -44,7 +44,10 @@ export default class Popup extends Component {
 
 	handleMonthGridChange = (_m, y) => {
 		const m = _m < 10 ? `0${parseInt(_m, 10)}` : _m;
-		this.props.onChange(`${y}/${m}`);
+		this.props.onChange({
+			year: y,
+			month: m
+		});
 	};
 
 	render() {

@@ -6,7 +6,7 @@ desc: 基本用法，时间选择器。
 
 ```javascript
 import React from 'react';
-import { Datepicker } from 'cloud-react';
+import { Datepicker, Button } from 'cloud-react';
 
 export default class DatePickerDemo extends React.Component {
 	constructor(props) {
@@ -27,6 +27,12 @@ export default class DatePickerDemo extends React.Component {
 		});
 	};
 
+	setValue = () => {
+		this.setState({
+			value: '20:00:00'
+		});
+	};
+
 	render() {
 		return (
 			<div>
@@ -34,6 +40,7 @@ export default class DatePickerDemo extends React.Component {
 				<br />
 				<br />
 				<Datepicker.TimePicker value={this.state.value} onChange={this.onChange} />
+				<Button onClick={this.setValue}>xxxxxx</Button>
 			</div>
 		);
 	}

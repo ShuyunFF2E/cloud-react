@@ -9,16 +9,16 @@ import MonthDay from '../month-day/main';
 import DatePicker from '../date-picker/main';
 import { createWrapper, renderDOM, destroyDOM, destroyAllDOM } from './utils';
 import { enumObj, containerClass, selectorClass, wrapperClass } from '../constant';
-import { transformObj } from '../utils';
+import { transformObj, displayNow } from '../utils';
 
 class Picker extends Component {
 	constructor(props) {
 		super(props);
 
-		const { value, defaultValue, open } = props;
+		const { value, defaultValue, open, formatValue } = props;
 
 		this.state = {
-			currentValue: value !== undefined && value !== null ? value : defaultValue,
+			currentValue: value ? formatValue(displayNow(new Date(value))) : defaultValue,
 			id: Math.random()
 				.toString()
 				.replace('.', ''),
@@ -43,7 +43,8 @@ class Picker extends Component {
 
 		if (prevValue !== value) {
 			if (value) {
-				this.handleValueChange(value);
+				const date = displayNow(new Date(value));
+				this.handleValueChange(date);
 			} else {
 				this.handleChange();
 			}

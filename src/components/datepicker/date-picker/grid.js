@@ -56,11 +56,16 @@ class Grid extends Component {
 
 	getTodayDisabled = () => {
 		const { minDate, maxDate } = this.props;
-		const nowTimestamp = new Date().getTime();
-		if (minDate && minDate.getTime() > nowTimestamp) {
+		const { year, month, day } = displayNow();
+		const { year: minYear, month: minMonth, day: minDay } = displayNow(minDate);
+		const { year: maxYear, month: maxMonth, day: maxDay } = displayNow(maxDate);
+		const todayTimestamp = new Date(year, month, day, '00', '00', '00').getTime();
+		const minDateTimestamp = new Date(minYear, minMonth, minDay, '00', '00', '00').getTime();
+		const maxDateTimestamp = new Date(maxYear, maxMonth, maxDay, '00', '00', '00').getTime();
+		if (minDate && minDateTimestamp > todayTimestamp) {
 			return true;
 		}
-		return !!(maxDate && maxDate.getTime() < nowTimestamp);
+		return !!(maxDate && maxDateTimestamp < todayTimestamp);
 	};
 
 	getOkButtonDisabled = () => {

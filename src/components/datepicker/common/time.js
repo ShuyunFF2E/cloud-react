@@ -29,6 +29,15 @@ class TimePicker extends Component {
 		};
 	}
 
+	componentDidUpdate(prevProps) {
+		const { value: prevValue } = prevProps;
+		const { value } = this.props;
+
+		if (prevValue !== value) {
+			this.updateState();
+		}
+	}
+
 	initValue() {
 		const { value, defaultValue } = this.props;
 
@@ -41,6 +50,16 @@ class TimePicker extends Component {
 		}
 
 		return ['00', '00', '00'];
+	}
+
+	updateState() {
+		const _value = this.initValue();
+
+		this.setState({
+			hour: _value[0],
+			minute: _value[1],
+			second: _value[2]
+		});
 	}
 
 	handleInpputBlur = () => {
