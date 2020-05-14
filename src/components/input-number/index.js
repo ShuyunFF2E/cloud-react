@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { noop, prefixCls } from '@utils';
+import { noop, omit, prefixCls } from '@utils';
 
 import Icon from '../icon';
 
@@ -193,13 +193,16 @@ class InputNumber extends Component {
 	}
 
 	renderInput() {
-		const { min, max, step, disabled, placeholder } = this.props;
+		const { min, max, step, disabled, placeholder, ...others } = this.props;
 
 		const { currentValue } = this.state;
+
+		const props = omit(others, ['className', 'defaultValue', 'noStep', 'onBlur', 'onChange', 'onFocus', 'precision', 'size', 'style', 'value']);
 
 		return (
 			<div className={`${selector}-handler-input`}>
 				<input
+					{...props}
 					className={`${selector}-input`}
 					min={min}
 					max={max}
