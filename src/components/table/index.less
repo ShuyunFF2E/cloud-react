@@ -1,6 +1,5 @@
 @import '../style/index';
 
-@table-border: 1px solid @color-gray7;
 @sort-action-color: #ccc;
 @pagination-color: #929292;
 @pagination-disabled-color: #d1d1d1;
@@ -55,20 +54,6 @@
 			> div {
 				white-space: normal;
 			}
-		}
-		tr[top-full-column='true'] {
-			border-top: @table-border;
-			border-bottom: @table-border;
-			td {
-				border-left: 0;
-				border-right: 0;
-				.full-column-td {
-					border-top: 0;
-				}
-			}
-		}
-		tr[top-full-column-interval='true'] td > div {
-			height: 6px;
 		}
 	}
 
