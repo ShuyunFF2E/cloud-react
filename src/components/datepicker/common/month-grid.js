@@ -6,7 +6,7 @@ import { monthArr, selectorClass } from '../constant';
 const currentMonth = new Date().getMonth() + 1;
 
 function formatData(value) {
-	return parseInt(value.split('-')[1], 10);
+	return parseInt(value.split('/')[1], 10);
 }
 
 class MonthGrid extends Component {
