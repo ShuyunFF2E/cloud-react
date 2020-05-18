@@ -6,7 +6,16 @@ const REQUIRED = 'required';
 const VALIDATOR = 'validator';
 
 const requiredValidator = (rule, value) => {
-	if (rule[REQUIRED] && (['', undefined, null].includes(value) || String(value).trim().length === 0 || (Array.isArray(value) && value.length === 0))) {
+	if (
+		rule[REQUIRED] &&
+		(['', undefined, null].includes(value) ||
+			String(value).trim().length === 0 ||
+			(Array.isArray(value) && value.length === 0) ||
+			(value instanceof Object &&
+				Object.keys(value)
+					.map(key => value[key])
+					.filter(v => !v).length !== 0))
+	) {
 		return rule.message || '必填项';
 	}
 	return null;

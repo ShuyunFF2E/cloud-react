@@ -6,7 +6,7 @@ desc: 常用控件的校验方式
 
 ```javascript
 import React, { useState } from 'react';
-import { Form, Input, Button, Checkbox, Radio, Select, Toggle, Field, InputNumber } from 'cloud-react';
+import { Form, Input, Button, Checkbox, Radio, Select, Toggle, Field, InputNumber, Datepicker } from 'cloud-react';
 
 export default class FormHorizontalDemo extends React.Component {
 	field = new Field(this, {
@@ -57,6 +57,27 @@ export default class FormHorizontalDemo extends React.Component {
 
 					<Form.Item label="用户名" help="使用了Form.Nexus组件，可以查看示例代码">
 						<User field={this.field} />
+					</Form.Item>
+
+					<Form.Item label="时间">
+						<Datepicker
+							{...init('test', {
+								rules: [{ required: true, message: '请输入时间' }]
+							})}
+							maxDate={new Date('2024/5/1')}
+							showTimePicker={true}
+							placeholder="年月日 时分秒"
+						/>
+					</Form.Item>
+
+					<Form.Item label="时间区间">
+						<Datepicker.RangePicker
+							{...init('test1', {
+								rules: [{ required: true, message: '请输入时间区间' }]
+							})}
+							minDate={new Date('2020/03/03')}
+							maxDate={new Date('2020/10/23')}
+						/>
 					</Form.Item>
 
 					<Form.Item label="邮箱">

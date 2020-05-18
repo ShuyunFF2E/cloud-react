@@ -50,18 +50,12 @@ class Picker extends Component {
 			}
 		}
 		if (prevOpen !== open) {
-			this.updateVisible();
+			this.changeVisible(null, open);
 		}
 	}
 
 	componentWillUnmount() {
 		document.removeEventListener('click', this.changeVisible, false);
-	}
-
-	updateVisible() {
-		this.setState({
-			visible: this.props.open
-		});
 	}
 
 	handleValueChange = (output = '', isPop = false) => {
@@ -142,6 +136,7 @@ class Picker extends Component {
 			return;
 		}
 
+		this.props.onClose();
 		destroyDOM(id, containerRef.current);
 	};
 
@@ -201,10 +196,11 @@ Picker.propTypes = {
 	disabled: PropTypes.bool,
 	placeholder: PropTypes.string,
 	open: PropTypes.bool,
-	defaultValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-	value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+	defaultValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.instanceOf(Date)]),
+	value: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.instanceOf(Date)]),
 	formatValue: PropTypes.func,
-	onChange: PropTypes.func
+	onChange: PropTypes.func,
+	onClose: PropTypes.func
 };
 
 Picker.defaultProps = {
@@ -215,7 +211,8 @@ Picker.defaultProps = {
 	defaultValue: '',
 	value: undefined,
 	formatValue: noop,
-	onChange: noop
+	onChange: noop,
+	onClose: noop
 };
 
 export default Picker;
