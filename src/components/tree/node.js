@@ -100,13 +100,13 @@ class Node extends Component {
 			<Fragment>
 				<div className={classNames(`${prefixCls}-list-node-area ${data.children && !data.children.length ? 'child-style' : null}`)}>
 					<div
+						onClick={this.context.supportCheckbox ? () => {} : this.handleSelect}
+						onContextMenu={e => this.onHandleContextMenu(e, data, options)}
 						style={{ minWidth: `calc(100% - ${paddingLeft}px)`, paddingLeft }}
 						className={`node-item-container ${data.isActive ? 'is-active' : null} ${this.context.supportCheckbox ? 'support-checkbox' : ''}`}>
 						{/* 折叠展开icon */}
 						<ToggleFold hasChildren={data.children.length > 0} showChildrenItem={data.isUnfold} toggle={() => this.toggle(data)} />
-						<div
-							className={`node-item ${data.isEdit && !data.isAdd ? 'hide-node' : null}`}
-							onContextMenu={e => this.onHandleContextMenu(e, data, options)}>
+						<div className={`node-item ${data.isEdit && !data.isAdd ? 'hide-node' : null}`}>
 							{/* 节点前面的icon */}
 							<NodeIcon
 								showIcon={this.context.showIcon}
@@ -221,7 +221,7 @@ function ShowSelection({ searchText, indeterminate, checked, supportCheckbox, id
 		);
 	}
 
-	return <span className="node-name" dangerouslySetInnerHTML={{ __html: tmp }} onClick={onHandleSelect} />;
+	return <span className="node-name" dangerouslySetInnerHTML={{ __html: tmp }} />;
 }
 
 /**
