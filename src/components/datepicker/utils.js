@@ -74,9 +74,7 @@ function getMonthData(year, month) {
 }
 
 export function refreshDays(year, month) {
-	// eslint-disable-next-line no-shadow
-	const { prev, current, next } = getMonthData(year, month);
-	return prev.concat(current).concat(next);
+	return getMonthData(year, month);
 }
 // 格式转换format
 

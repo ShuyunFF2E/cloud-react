@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { noop } from '@utils';
 import Button from '../../button';
-import { displayNow, range, refreshDays } from '../utils';
+import { displayNow, refreshDays } from '../utils';
 import { selectorClass } from '../constant';
-import Week from './week';
+import Week from '../common/week';
 import Time from '../common/time';
-import WeekHead from '../common/week-head';
 
 class Grid extends Component {
 	constructor(props) {
@@ -109,32 +108,20 @@ class Grid extends Component {
 
 		const now = displayNow();
 		const days = year && month ? refreshDays(year, month) : refreshDays(now.year, now.month);
-		const len = Math.ceil(days.length / 7);
 
 		return (
 			<div className="grid" style={style}>
-				<table className="grid-table">
-					<WeekHead />
-					<tbody>
-						{range(len).map((e, i) => (
-							<Week
-								key={i.toString()}
-								currentDateObj={{
-									year,
-									month,
-									day: tempDay
-								}}
-								time={`${this._hour}:${this._minute}:${this._second}`}
-								minDate={minDate}
-								maxDate={maxDate}
-								onPickDate={onPickDate}
-								days={days.slice(i * 7, (i + 1) * 7)}
-								head={i === 0}
-								tail={i === len - 1}
-							/>
-						))}
-					</tbody>
-				</table>
+				<Week
+					currentDateObj={{
+						year,
+						month,
+						day: tempDay
+					}}
+					minDate={minDate}
+					maxDate={maxDate}
+					onPickDate={onPickDate}
+					days={days}
+				/>
 
 				{showTimePicker && <Time type="inner" onChange={this.onTimePickChange} value={`${tempHour}:${tempMinute}:${tempSecond}`} />}
 

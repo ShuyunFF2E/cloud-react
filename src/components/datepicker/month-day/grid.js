@@ -2,39 +2,26 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Button from '../../button';
 import { selectorClass } from '../constant';
-import { formatZero, refreshDays, displayNow, range } from '../utils';
-import WeekHead from '../common/week-head';
-import WeekGrid from './week';
+import { formatZero, refreshDays, displayNow } from '../utils';
+import Week from '../common/week';
 
 class Grid extends Component {
 	constructor(props) {
 		super(props);
 
-		const { month, day } = props;
+		const { day } = props;
 
 		this.state = {
-			tempMonth: month,
-			tempDay: day,
-			isClickDay: false
+			tempDay: day
 		};
 	}
 
 	componentDidUpdate(prevProps) {
-		const { month, day } = prevProps;
-
-		if (month !== this.props.month) {
-			this.updateMonthState();
-		}
+		const { day } = prevProps;
 
 		if (day !== this.props.day) {
 			this.updateDayState();
 		}
-	}
-
-	updateMonthState() {
-		this.setState({
-			tempMonth: this.props.month
-		});
 	}
 
 	updateDayState() {
@@ -43,58 +30,49 @@ class Grid extends Component {
 		});
 	}
 
-	handlePickDate = value => {
+	handlePickDate = ({ month, day }) => {
 		this.setState({
-			isClickDay: true,
-			tempDay: value
+			tempDay: day
 		});
+		this.props.onPickDate({ month, day });
 	};
 
-	handleSave = (value, m) => {
+	handleSave = (_, value, m) => {
 		if (value) {
-			this.props.onChange(value, m);
+			this.props.onOk(value, m);
 		} else {
-			this.props.onChange(formatZero(this.state.tempDay));
+			this.props.onOk(formatZero(this.state.tempDay));
 		}
 	};
 
 	render() {
-		const { tempMonth, tempDay, isClickDay } = this.state;
-		const { checkValue } = this.props;
+		const {
+			props: { month, minDate, maxDate },
+			state: { tempDay },
+			handleSave
+		} = this;
 
-		const { year, month, day } = displayNow();
-		const days = refreshDays(year, tempMonth || month);
-		const len = Math.ceil(days.length / 7);
+		const { year, day } = displayNow();
+		const days = refreshDays(year, month || month);
 
 		return (
 			<div className="grid">
-				<table className="grid-table">
-					<WeekHead />
-					<tbody>
-						{range(len).map((e, i) => (
-							<WeekGrid
-								key={i.toString()}
-								currentDateObj={{
-									month: tempMonth,
-									day: tempDay
-								}}
-								month={tempMonth}
-								day={tempDay}
-								isClickDay={isClickDay}
-								checkValue={checkValue}
-								onPickDate={value => this.handlePickDate(value)}
-								days={days.slice(i * 7, (i + 1) * 7)}
-								head={i === 0}
-								tail={i === len - 1}
-							/>
-						))}
-					</tbody>
-				</table>
+				<Week
+					currentDateObj={{
+						year,
+						month,
+						day: tempDay
+					}}
+					minDate={minDate}
+					maxDate={maxDate}
+					onPickDate={this.handlePickDate}
+					days={days}
+				/>
 				<div className={`${selectorClass}-popup-btns`}>
-					<Button size="small" onClick={() => this.handleSave(formatZero(day), month)}>
+					<Button size="small" onClick={() => handleSave(null, formatZero(day), month)}>
 						今天
 					</Button>
-					<Button type="primary" size="small" disabled={!tempDay} onClick={() => this.handleSave()}>
+					<Button type="primary" size="small" disabled={!tempDay} onClick={handleSave}>
 						确认
 					</Button>
 				</div>
@@ -106,15 +84,13 @@ class Grid extends Component {
 Grid.propTypes = {
 	month: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 	day: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-	checkValue: PropTypes.string,
-	onChange: PropTypes.func
+	onOk: PropTypes.func
 };
 
 Grid.defaultProps = {
 	month: undefined,
 	day: undefined,
-	checkValue: '',
-	onChange: () => {}
+	onOk: () => {}
 };
 
 export default Grid;
