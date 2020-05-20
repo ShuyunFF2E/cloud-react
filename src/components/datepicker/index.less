@@ -195,6 +195,42 @@
 		}
 	}
 
+	.week-head span {
+		display: inline-block;
+		width: calc(100% / 7);
+		height: 28px;
+		line-height: 28px;
+		color: #3d3d3d;
+		font-size: 12px;
+		font-weight: bold;
+		text-align: center;
+	}
+
+	.grid-week {
+		display: flex;
+		flex-wrap: wrap;
+	}
+
+	.grid-day {
+		width: calc(100% / 7);
+		text-align: center;
+		padding-bottom: 5px;
+
+		span {
+			display: inline-block;
+			width: 26px;
+			height: 26px;
+			line-height: 26px;
+			cursor: pointer;
+			box-sizing: border-box;
+			border: 1px solid transparent;
+
+			&:hover {
+				border: 1px solid @color-blue1;
+			}
+		}
+	}
+
 	.grid-check span {
 		background-color: @grid-day-check-bgcolor !important;
 		border-color: @color-blue1 !important;

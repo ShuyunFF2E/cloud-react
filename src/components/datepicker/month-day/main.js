@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Select from '../../select';
 import { ArrowLeft, ArrowRight } from '../common/arrow';
 import { enumObj, monthArr } from '../constant';
 import { formatZero, displayNow } from '../utils';
@@ -50,8 +51,7 @@ class Popup extends Component {
 
 		if (tempMonth > 1) {
 			this.setState({
-				tempMonth: tempMonth - 1,
-				tempDay: ''
+				tempMonth: tempMonth - 1
 			});
 		}
 	};
@@ -61,10 +61,15 @@ class Popup extends Component {
 
 		if (tempMonth < 12) {
 			this.setState({
-				tempMonth: tempMonth + 1,
-				tempDay: ''
+				tempMonth: tempMonth + 1
 			});
 		}
+	};
+
+	handleMonthChange = value => {
+		this.setState({
+			tempMonth: value
+		});
 	};
 
 	handleDayGridChange = (value, m) => {
@@ -88,14 +93,11 @@ class Popup extends Component {
 		}
 	};
 
-	handleChooseMonth = () => {
-		const { tempMode } = this.state;
-
-		if (tempMode === enumObj.MONTH_DAY_MODEL) {
-			this.setState({
-				tempMode: enumObj.MONTH_MODEL
-			});
-		}
+	onPickDate = ({ month, day }) => {
+		this.setState({
+			tempMonth: month,
+			tempDay: day
+		});
 	};
 
 	renderMonth() {
@@ -119,13 +121,17 @@ class Popup extends Component {
 				<div className="header">
 					<section>
 						<ArrowLeft disabled={tempMonth === 1} onClick={this.handleLeftClick} />
-						<label className="header-label" role="presentation" onClick={this.handleChooseMonth}>
-							{monthArr[tempMonth - 1]}
-						</label>
+						<Select onChange={this.handleMonthChange} value={tempMonth}>
+							{monthArr.map((str, index) => (
+								<Select.Option value={index + 1} key={String(index + 1)}>
+									{str}
+								</Select.Option>
+							))}
+						</Select>
 						<ArrowRight disabled={tempMonth === 12} onClick={this.handleRightClick} />
 					</section>
 				</div>
-				<Grid {...this.props} month={tempMonth} day={tempDay} onChange={this.handleDayGridChange} />
+				<Grid {...this.props} month={tempMonth} day={tempDay} onOk={this.handleDayGridChange} onPickDate={this.onPickDate} />
 			</>
 		);
 	}
