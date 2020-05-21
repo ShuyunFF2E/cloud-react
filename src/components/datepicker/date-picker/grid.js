@@ -16,15 +16,12 @@ class Grid extends Component {
 		const _defaultTimes = defaultTime.split(':');
 
 		const openTime = displayNow();
-		this._hour = (!showTimePicker && openTime.hour) || (checkValue ? checkValue.hour : _defaultTimes[0]);
-		this._minute = (!showTimePicker && openTime.minute) || (checkValue ? checkValue.minute : _defaultTimes[1]);
-		this._second = (!showTimePicker && openTime.second) || (checkValue ? checkValue.second : _defaultTimes[2]);
 
 		this.state = {
 			tempDay: day,
-			tempHour: this._hour,
-			tempMinute: this._minute,
-			tempSecond: this._second
+			tempHour: (!showTimePicker && openTime.hour) || (checkValue ? checkValue.hour : _defaultTimes[0]),
+			tempMinute: (!showTimePicker && openTime.minute) || (checkValue ? checkValue.minute : _defaultTimes[1]),
+			tempSecond: (!showTimePicker && openTime.second) || (checkValue ? checkValue.second : _defaultTimes[2])
 		};
 	}
 
@@ -69,9 +66,9 @@ class Grid extends Component {
 
 	getOkButtonDisabled = () => {
 		const { year, month, minDate, maxDate } = this.props;
-		const { tempDay } = this.state;
+		const { tempDay, tempHour, tempMinute, tempSecond } = this.state;
 
-		const currentTime = new Date(`${year}/${month}/${tempDay} ${this._hour}:${this._minute}:${this._second}`).getTime();
+		const currentTime = new Date(`${year}/${month}/${tempDay} ${tempHour}:${tempMinute}:${tempSecond}`).getTime();
 		if (minDate && minDate.getTime() > currentTime) {
 			return true;
 		}
