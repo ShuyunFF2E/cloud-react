@@ -31,9 +31,9 @@ class TimePicker extends Component {
 
 	componentDidUpdate(prevProps) {
 		const { value: prevValue } = prevProps;
-		const { value } = this.props;
+		const { value, type } = this.props;
 
-		if (prevValue !== value) {
+		if (prevValue !== value && type === 'alone') {
 			this.updateState();
 		}
 	}
@@ -190,18 +190,22 @@ class TimePicker extends Component {
 		});
 	};
 
-	renderAlone() {
-		const { className, style, disabled } = this.props;
+	render() {
+		const { type, disabled, className, style } = this.props;
 		const { hour, minute, second } = this.state;
 
-		const classes = classnames({
-			[timeSelectorClass]: true,
-			[`${timeSelectorClass}-disabled`]: disabled,
-			[className]: true
-		});
+		const classes =
+			type === 'alone'
+				? classnames({
+						[timeSelectorClass]: true,
+						[`${timeSelectorClass}-disabled`]: disabled,
+						[className]: true
+				  })
+				: `inner-${timeSelectorClass}`;
 
 		return (
 			<div className={classes} onBlur={this.handleInpputBlur} style={style}>
+				{type === 'inner' && <label>时间：</label>}
 				<input value={hour} disabled={disabled} onFocus={this.handleHourFocus} maxLength="2" onChange={this.handleHourChange} />
 				<label className="colon">:</label>
 				<input
@@ -223,35 +227,6 @@ class TimePicker extends Component {
 				/>
 			</div>
 		);
-	}
-
-	renderInner() {
-		const { hour, minute, second } = this.state;
-
-		return (
-			<div className={`inner-${timeSelectorClass}`}>
-				<label>时间：</label>
-				<input value={hour} maxLength="2" placeholder="小时" onChange={this.handleHourChange} />
-				<label className="colon">:</label>
-				<input ref={this.inpMinuteRef} value={minute} maxLength="2" placeholder="分钟" onChange={this.handleMinuteChange} />
-				<label className="colon">:</label>
-				<input ref={this.inpSecondRef} value={second} maxLength="2" placeholder="秒" onChange={this.handleSecondChange} />
-			</div>
-		);
-	}
-
-	render() {
-		const { type } = this.props;
-
-		if (type === 'alone') {
-			return this.renderAlone();
-		}
-
-		if (type === 'inner') {
-			return this.renderInner();
-		}
-
-		return null;
 	}
 }
 
