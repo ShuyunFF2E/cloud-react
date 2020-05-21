@@ -28,6 +28,7 @@ subtitle: 日期选择框
 | value             | 当前值(手动清空可绑定 state 置空)            | Date                    | -                 |
 | open              | 控制弹层首次是否展开                         | boolean                 | `false`           |
 | placeholder       | 输入框默认提示                               | string                  | `请选择日期`      |
+| width             | 组件宽度                                     | string                  |                   | number | 230 |
 | minDate           | 最小值                                       | Date                    | `可精确到时分秒`  |
 | maxDate           | 最大值                                       | Date                    | `可精确到时分秒`  |
 | minYear           | 最小年份                                     | Number                  |                   |

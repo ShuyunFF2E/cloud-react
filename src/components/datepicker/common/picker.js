@@ -1,6 +1,6 @@
 import React, { createRef, Component } from 'react';
 import PropTypes from 'prop-types';
-import { noop } from '@utils';
+import { noop, omit } from '@utils';
 import Input from '../../input';
 import Icon from '../../icon';
 import Year from '../year/main';
@@ -170,11 +170,31 @@ class Picker extends Component {
 	render() {
 		const { inpRef, containerRef, handleClick, handleChange } = this;
 		const { currentValue } = this.state;
-		const { placeholder, disabled } = this.props;
+		const { placeholder, disabled, width = 230, ...others } = this.props;
+		const otherProps = omit(others, [
+			'value',
+			'containerEleClass',
+			'defaultValue',
+			'open',
+			'format',
+			'defaultTime',
+			'showTimePicker',
+			'min',
+			'max',
+			'maxYear',
+			'minYear',
+			'maxDate',
+			'minDate',
+			'tempMode',
+			'formatValue',
+			'integer'
+		]);
 
 		return (
 			<div ref={containerRef} className={containerClass}>
 				<Input
+					{...otherProps}
+					style={{ width: `${parseFloat(width)}px` }}
 					readOnly
 					hasClear
 					ref={inpRef}

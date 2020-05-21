@@ -58,7 +58,7 @@ class DateRange extends Component {
 
 	render() {
 		const {
-			props: { minDate, maxDate, showTimePicker, ...others },
+			props: { minDate, maxDate, showTimePicker, width = 480, ...others },
 			state: { startValue, endValue, endOpen },
 			onChangeStartTime,
 			onChangeEndTime,
@@ -67,10 +67,12 @@ class DateRange extends Component {
 		const start = startValue ? new Date(startValue) : '';
 		const end = endValue ? new Date(endValue) : '';
 		const props = omit(others, ['value', 'defaultValue', 'data-field', 'className']);
+		const pickerWidth = (parseFloat(width) - 20) / 2;
 		return (
 			<div {...others}>
 				<DatePicker
 					{...props}
+					width={`${pickerWidth}px`}
 					showTimePicker={showTimePicker}
 					value={start}
 					minDate={minDate}
@@ -81,6 +83,7 @@ class DateRange extends Component {
 				<span style={{ color: '#979797', margin: '0 5px' }}>-</span>
 				<DatePicker
 					{...props}
+					width={`${pickerWidth}px`}
 					showTimePicker={showTimePicker}
 					value={end}
 					minDate={start || minDate}
