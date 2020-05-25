@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { omit } from '@utils';
 import jeasy from 'jeasy';
+import { omit } from '@utils';
 
 import DatePicker from '../date-picker';
 
