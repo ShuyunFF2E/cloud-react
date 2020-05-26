@@ -18,6 +18,7 @@ module.exports = () => ({
 	output: {
 		filename: '[name].js',
 		path: buildOutputDir,
+		library: 'CloudReact',
 		libraryTarget: 'umd'
 	},
 	module: {
@@ -30,8 +31,8 @@ module.exports = () => ({
 		]
 	},
 	externals: {
-		react: 'react',
-		'react-dom': 'react-dom'
+		'react': 'React',
+		'react-dom': 'ReactDOM'
 	},
 	performance: {
 		hints: false
