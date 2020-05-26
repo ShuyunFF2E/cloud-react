@@ -18,7 +18,14 @@ module.exports = () => ({
 	output: {
 		filename: '[name].js',
 		path: buildOutputDir,
-		libraryTarget: 'umd'
+		library: 'CloudReact',
+		libraryTarget: 'umd',
+		auxiliaryComment: {
+			root: 'CloudReact',
+			commonjs: 'cloud-react',
+			commonjs2: 'cloud-react',
+			amd: 'cloud-react'
+		}
 	},
 	module: {
 		rules: [
@@ -30,8 +37,18 @@ module.exports = () => ({
 		]
 	},
 	externals: {
-		react: 'react',
-		'react-dom': 'react-dom'
+		react: {
+            root: 'React',
+            commonjs2: 'react',
+            commonjs: 'react',
+            amd: 'react'
+        },
+        'react-dom': {
+            root: 'ReactDOM',
+            commonjs2: 'react-dom',
+            commonjs: 'react-dom',
+            amd: 'react-dom'
+        }
 	},
 	performance: {
 		hints: false
