@@ -19,7 +19,13 @@ module.exports = () => ({
 		filename: '[name].js',
 		path: buildOutputDir,
 		library: 'CloudReact',
-		libraryTarget: 'umd'
+		libraryTarget: 'umd',
+		auxiliaryComment: {
+			root: 'CloudReact',
+			commonjs: 'cloud-react',
+			commonjs2: 'cloud-react',
+			amd: 'cloud-react'
+		}
 	},
 	module: {
 		rules: [
