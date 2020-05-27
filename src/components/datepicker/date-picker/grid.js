@@ -65,14 +65,19 @@ class Grid extends Component {
 	};
 
 	getOkButtonDisabled = () => {
-		const { year, month, minDate, maxDate } = this.props;
+		const { year, month, minDate, maxDate, showTimePicker } = this.props;
 		const { tempDay, tempHour, tempMinute, tempSecond } = this.state;
 
+		const { year: minYear, month: minMonth, day: minDay } = displayNow(minDate);
+		const { year: maxYear, month: maxMonth, day: maxDay } = displayNow(maxDate);
+
+		const min = showTimePicker || !minDate ? minDate : new Date(`${minYear}/${minMonth}/${minDay} 00:00:00`);
+		const max = showTimePicker || !maxDate ? maxDate : new Date(`${maxYear}/${maxMonth}/${maxDay} 23:59:59`);
 		const currentTime = new Date(`${year}/${month}/${tempDay} ${tempHour}:${tempMinute}:${tempSecond}`).getTime();
-		if (minDate && minDate.getTime() > currentTime) {
+		if (min && min.getTime() > currentTime) {
 			return true;
 		}
-		return !!(maxDate && maxDate.getTime() < currentTime);
+		return !!(max && max.getTime() < currentTime);
 	};
 
 	onTimePickChange = ({ hour, minute, second }) => {
