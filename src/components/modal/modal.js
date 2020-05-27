@@ -9,13 +9,14 @@ import './index.less';
 class Notification extends Component {
 	constructor(props) {
 		super(props);
-		this.modalRef = React.createRef();
+		this.ref = React.createRef();
 
 		this.state = {
 			pageX: '',
 			pageY: '',
 			diffX: '',
-			diffY: ''
+			diffY: '',
+			height: 0
 		};
 	}
 
@@ -76,6 +77,10 @@ class Notification extends Component {
 			this.addTransition();
 			this.screenChange();
 		}
+
+		if (this.modalRef) {
+			this.refreshHeight();
+		}
 	}
 
 	componentWillUnmount() {
@@ -84,9 +89,26 @@ class Notification extends Component {
 
 	rootDocument = getRootDocument(this.props.ignoreFrame);
 
+	get modalRef() {
+		return this.ref.current;
+	}
+
 	/* eslint-disable-next-line */
 	get mask() {
 		return this.rootDocument.getElementById('mask');
+	}
+
+	// 高度变化
+	refreshHeight() {
+		const { height } = this.modalRef.getBoundingClientRect();
+		const { height: prevHeight } = this.state;
+
+		if (height !== prevHeight) {
+			this.setState({
+				height
+			});
+			this.screenChange();
+		}
 	}
 
 	// 屏幕变化
@@ -234,12 +256,7 @@ class Notification extends Component {
 				<ModalMask showMask={showMask} onClose={onClose} onReset={this.onReset} clickMaskCanClose={clickMaskCanClose} />
 
 				{/* 弹出框 */}
-				<div
-					ref={ref => {
-						this.modalRef = ref;
-					}}
-					style={style}
-					className={classnames(`${prefixCls}-modal-container`, className)}>
+				<div ref={this.ref} style={style} className={classnames(`${prefixCls}-modal-container`, className)}>
 					<ModalHeader type={type} onReset={this.onReset} onMouseDown={this.onMouseDown} onClose={onClose} title={title} />
 
 					<ModalBody style={{ ...bodyStyle }}>{children}</ModalBody>
