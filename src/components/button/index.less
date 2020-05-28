@@ -165,4 +165,23 @@
 			}
 		}
 	}
+
+	&-loading {
+		display: inline-block;
+		width: 10px;
+		height: 10px;
+		border-radius: 50%;
+		animation: load 1.5s infinite linear;
+		margin-right: 10px;
+		border: 1px solid @color-gray6;
+		border-top: 1px solid @color-white;
+		@keyframes load {
+			from {
+				transform: rotate(0deg);
+			}
+			to {
+				transform: rotate(360deg);
+			}
+		}
+	}
 }

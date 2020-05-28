@@ -335,8 +335,7 @@ function ModalFooter({ visible, type, footer, okText, cancelText, hasFooter, sho
 
 	return (
 		<footer className={footerClass}>
-			<Button type="primary" className={confirmClass} disabled={showConfirmLoading || disabledOk} onClick={ok}>
-				<ConfirmLoading showConfirmLoading={showConfirmLoading} />
+			<Button type="primary" className={confirmClass} disabled={showConfirmLoading || disabledOk} onClick={ok} loading={showConfirmLoading}>
 				{okText}
 			</Button>
 			<Button type="normal" disabled={showConfirmLoading} onClick={cancel}>
@@ -344,10 +343,6 @@ function ModalFooter({ visible, type, footer, okText, cancelText, hasFooter, sho
 			</Button>
 		</footer>
 	);
-}
-
-function ConfirmLoading({ showConfirmLoading }) {
-	return showConfirmLoading && <span className={classnames(`${prefixCls}-modal-confirm-loading`)} />;
 }
 
 export default Notification;
