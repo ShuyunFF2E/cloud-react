@@ -1,7 +1,6 @@
 import React, { Children, cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-
 import { prefixCls } from '@utils';
 
 import './index.less';
@@ -27,6 +26,7 @@ class Button extends React.PureComponent {
 		size: PropTypes.string,
 		href: PropTypes.string,
 		block: PropTypes.bool,
+		loading: PropTypes.bool,
 		target: PropTypes.string,
 		htmlType: PropTypes.string,
 		children: PropTypes.node.isRequired,
@@ -38,6 +38,7 @@ class Button extends React.PureComponent {
 		type: 'normal',
 		href: '',
 		block: false,
+		loading: false,
 		target: '',
 		className: '',
 		htmlType: 'button'
@@ -52,6 +53,8 @@ class Button extends React.PureComponent {
 			target,
 			// custom attr
 			size,
+			disabled,
+			loading,
 			type,
 			block,
 			// html element
@@ -76,12 +79,14 @@ class Button extends React.PureComponent {
 			<ElementName
 				type="button"
 				className={classNames}
+				disabled={disabled || loading}
 				{...{
 					...others,
 					href: href || undefined,
 					type: href ? undefined : htmlType,
 					target: href ? target : undefined
 				}}>
+				{loading && <span className={`${prefixCls}-button-loading`} />}
 				{children}
 			</ElementName>
 		);
