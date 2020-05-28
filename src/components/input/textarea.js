@@ -74,6 +74,7 @@ function destory() {
 export default class Textarea extends React.PureComponent {
 	static propTypes = {
 		autoSize: PropTypes.bool,
+		hasCounter: PropTypes.bool,
 		minRows: PropTypes.number,
 		maxRows: PropTypes.number,
 		value: PropTypes.string,
@@ -89,6 +90,7 @@ export default class Textarea extends React.PureComponent {
 
 	static defaultProps = {
 		autoSize: false,
+		hasCounter: false,
 		minRows: defaultMinRows,
 		maxRows: defaultMaxRows,
 		style: {},
@@ -162,23 +164,35 @@ export default class Textarea extends React.PureComponent {
 
 	render() {
 		const { value, autoSizeStyle } = this.state;
-		const { className, style, ...others } = this.props;
+		const { className, style, hasCounter, maxLength, ...others } = this.props;
 
 		const classNames = classnames(`${prefixCls}-input-textarea`, className);
 		const styles = { ...style, ...autoSizeStyle };
-		const props = omit(others, ['defaultValue', 'autoSize', 'minRows', 'maxRows', 'onEnter']);
+		const props = omit(others, ['defaultValue', 'autoSize', 'minRows', 'maxRows', 'onEnter', 'hasCounter']);
+
+		const wrapperStyle = {
+			paddingBottom: hasCounter ? '10px' : ''
+		};
 
 		return (
-			<textarea
-				{...props}
-				ref={this.textareaRef}
-				className={classNames}
-				value={value}
-				style={styles}
-				onBlur={this.onBlur}
-				onChange={this.onChange}
-				onKeyDown={this.onKeyDown}
-			/>
+			<div className={`${prefixCls}-input-textarea-wrapper`} style={wrapperStyle}>
+				<textarea
+					{...props}
+					ref={this.textareaRef}
+					className={classNames}
+					maxLength={maxLength}
+					value={value}
+					style={styles}
+					onBlur={this.onBlur}
+					onChange={this.onChange}
+					onKeyDown={this.onKeyDown}
+				/>
+				{hasCounter && maxLength ? (
+					<span className={`${prefixCls}-input-textarea-counter`}>
+						<span>{value.length}</span>/{maxLength}
+					</span>
+				) : null}
+			</div>
 		);
 	}
 }
