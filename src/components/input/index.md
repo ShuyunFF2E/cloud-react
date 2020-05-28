@@ -33,16 +33,18 @@ subtitle: 输入框
 
 ### Input.Textarea
 
-| 属性         | 说明                               | 类型            | 默认值     |
-| ------------ | ---------------------------------- | --------------- | ---------- |
-| disabled     | 是否禁用状态                       | boolean         | `false`    |
-| value        | 输入框内容                         | string          | -          |
-| defaultValue | 输入框默认内容                     | string          | -          |
-| autoSize     | 自适应内容高度                     | boolean         | `false`    |
-| minRows      | 最小行数，设置了`autoSize`属性生效 | number          | `1`        |
-| maxRows      | 最大行数，设置了`autoSize`属性生效 | number          | `Infinity` |
-| rows         | 固定行数                           | number          | -          |
-| className    | 输入框的 className 属性            | string          | -          |
-| onEnter      | 按下键盘回车按键的回调             | function(event) | -          |
+| 属性         | 说明                                                        | 类型            | 默认值     |
+| ------------ | ----------------------------------------------------------- | --------------- | ---------- |
+| disabled     | 是否禁用状态                                                | boolean         | `false`    |
+| value        | 输入框内容                                                  | string          | -          |
+| defaultValue | 输入框默认内容                                              | string          | -          |
+| autoSize     | 自适应内容高度                                              | boolean         | `false`    |
+| minRows      | 最小行数，设置了`autoSize`属性生效                          | number          | `1`        |
+| maxRows      | 最大行数，设置了`autoSize`属性生效                          | number          | `Infinity` |
+| rows         | 固定行数                                                    | number          | -          |
+| className    | 输入框的 className 属性                                     | string          | -          |
+| onEnter      | 按下键盘回车按键的回调                                      | function(event) | -          |
+| hasCounter   | 计数器，展示当前字数和最大长度，因此需要`maxLength`配合使用 | boolean         | `false`    |
+| maxLength    | 原生属性，最大输入长度                                      | number          | -          |
 
 `Input.Textarea` 其他属性保持跟原生一致
