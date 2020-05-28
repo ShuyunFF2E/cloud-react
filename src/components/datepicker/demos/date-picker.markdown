@@ -15,6 +15,7 @@ export default class DatePickerDemo extends React.Component {
 		return (
 			<div>
 				<Datepicker
+					isAppendToBody
 					width="200px"
 					minDate={new Date('2020/05/14 00:00:00')}
 					maxDate={new Date('2020/11/5')}
