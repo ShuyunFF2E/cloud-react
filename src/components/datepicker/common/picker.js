@@ -1,4 +1,5 @@
 import React, { createRef, Component } from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { noop, omit } from '@utils';
 import Input from '../../input';
@@ -7,7 +8,7 @@ import Year from '../year/main';
 import YearMonth from '../year-month/main';
 import MonthDay from '../month-day/main';
 import DatePicker from '../date-picker/main';
-import { createWrapper, renderDOM, destroyDOM, destroyAllDOM } from './utils';
+import { destroyAllDOM, renderDOM, createWrapper, destroyDOM } from './utils';
 import { enumObj, containerClass, selectorClass, wrapperClass } from '../constant';
 import { transformObj, displayNow } from '../utils';
 
@@ -22,10 +23,12 @@ class Picker extends Component {
 			id: Math.random()
 				.toString()
 				.replace('.', ''),
-			visible: open
+			visible: open,
+			style: {}
 		};
 
 		this.inpRef = createRef();
+		this.popupRef = createRef();
 
 		this.containerRef = createRef();
 	}
@@ -104,22 +107,26 @@ class Picker extends Component {
 	changeVisible = (evt, isVisible) => {
 		const { containerRef } = this;
 		const { id } = this.state;
-		const { className, containerEleClass, height } = this.props;
+		const { containerEleClass, height, isAppendToBody, className } = this.props;
 
 		if (isVisible && id) {
 			this.setState({
 				visible: true
 			});
 
-			createWrapper(id, height);
+			if (isAppendToBody) {
+				this.positionPop();
+			} else {
+				createWrapper(id, height);
 
-			renderDOM(
-				id,
-				containerRef.current,
-				<div className={`${selectorClass}-popup ${className}`} onClick={this.popClick}>
-					{this.renderMainPop()}
-				</div>
-			);
+				renderDOM(
+					id,
+					containerRef.current,
+					<div className={`${selectorClass}-popup ${className}`} onClick={this.popClick}>
+						{this.renderMainPop()}
+					</div>
+				);
+			}
 
 			if (containerEleClass) {
 				// 在弹框里面，日历处于最下面，那么需要自动滚动，让日历选择面板显示出来
@@ -136,8 +143,22 @@ class Picker extends Component {
 			return;
 		}
 
+		this.setState({
+			visible: false
+		});
 		this.props.onClose();
 		destroyDOM(id, containerRef.current);
+	};
+
+	positionPop = () => {
+		const { left, bottom } = this.containerRef.current.getBoundingClientRect();
+		this.setState({
+			style: {
+				position: 'fixed',
+				left: `${left}px`,
+				top: `${bottom}px`
+			}
+		});
 	};
 
 	handleClick = evt => {
@@ -169,8 +190,8 @@ class Picker extends Component {
 
 	render() {
 		const { inpRef, containerRef, handleClick, handleChange } = this;
-		const { currentValue } = this.state;
-		const { placeholder, disabled, width = 230, ...others } = this.props;
+		const { currentValue, visible, style } = this.state;
+		const { placeholder, disabled, isAppendToBody, width = 230, className, ...others } = this.props;
 		const otherProps = omit(others, [
 			'value',
 			'containerEleClass',
@@ -206,6 +227,15 @@ class Picker extends Component {
 					onClick={handleClick}
 					suffix={<Icon type="calendar" className={`${selectorClass}-inp-icon`} onClick={handleClick} />}
 				/>
+
+				{visible &&
+					isAppendToBody &&
+					ReactDOM.createPortal(
+						<div className={`${selectorClass}-popup ${className}`} ref={this.popupRef} style={{ ...style }} onClick={this.popClick}>
+							{this.renderMainPop()}
+						</div>,
+						document.body
+					)}
 			</div>
 		);
 	}
@@ -216,6 +246,7 @@ Picker.propTypes = {
 	disabled: PropTypes.bool,
 	placeholder: PropTypes.string,
 	open: PropTypes.bool,
+	isAppendToBody: PropTypes.bool,
 	defaultValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.instanceOf(Date)]),
 	value: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.instanceOf(Date)]),
 	formatValue: PropTypes.func,
@@ -228,6 +259,7 @@ Picker.defaultProps = {
 	disabled: false,
 	placeholder: '',
 	open: false,
+	isAppendToBody: false,
 	defaultValue: '',
 	value: undefined,
 	formatValue: noop,
