@@ -40,7 +40,7 @@ export default class DatePickerDemo extends React.Component {
 				<br />
 				<br />
 				<Datepicker.TimePicker value={this.state.value} onChange={this.onChange} />
-				<Button onClick={this.setValue}>xxxxxx</Button>
+				<Button onClick={this.setValue}>设置时间</Button>
 			</div>
 		);
 	}
