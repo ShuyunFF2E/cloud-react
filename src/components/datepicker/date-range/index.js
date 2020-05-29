@@ -20,6 +20,22 @@ class DateRange extends Component {
 		};
 	}
 
+	componentDidUpdate(prevProps) {
+		const { value } = this.props;
+		if (!jeasy.equal(prevProps.value, value)) {
+			this.refreshValue(value);
+		}
+	}
+
+	refreshValue = value => {
+		const { start = '', end = '' } = value;
+
+		this.setState({
+			startValue: start,
+			endValue: end
+		});
+	};
+
 	onChangeStartTime = time => {
 		this.setState({
 			startValue: time,
