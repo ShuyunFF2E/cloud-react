@@ -28,23 +28,6 @@ function offsetBody(element) {
 }
 
 /**
- * 根据传入的元素获取相对绝对定位的元素位置信息
- * @param element: 当前元素
- * @returns {'width': number, 'height': number,...}
- */
-function offsetContainer(element) {
-	const isRelative = window.getComputedStyle(element).position === 'relative';
-	return {
-		left: isRelative ? 0 : element.offsetLeft,
-		top: isRelative ? 0 : element.offsetTop,
-		width: element.offsetWidth,
-		height: element.offsetHeight,
-		right: isRelative ? element.offsetWidth : element.offsetWidth + element.offsetLeft,
-		bottom: isRelative ? element.offsetHeight : element.offsetHeight + element.offsetTop
-	};
-}
-
-/**
  * 根据传入的位置返回一个位置坐标
  * @param position: 位置
  * @returns {main: 'top';, vice: 'right'}
@@ -85,48 +68,55 @@ function getPlacementObj(position) {
  * @param place: 位置对象
  * @param tooltipEle: 元素
  */
-function setComputeToolTipPosition(place, tooltipEle, scrollTop) {
+function setComputeToolTipPosition(place, tooltipEle, scrollTop, isBody) {
 	const _tooltipEle = tooltipEle;
 	const { main, vice } = place;
 	_tooltipEle.classList.add(`${main}-${vice}`);
 	// 主定位计算
 	switch (main) {
 		case CONFIG_PLACE.top:
-			_tooltipEle.style.top = `${targetEleOffset.top - arrowHeight - tooltipEleOffset.height + scrollTop}px`;
+			_tooltipEle.style.top = `${targetEleOffset.top -
+				arrowHeight -
+				(isBody ? tooltipEleOffset.height : tooltipEleOffset.top + tooltipEleOffset.height) +
+				scrollTop}px`;
 			break;
 		case CONFIG_PLACE.bottom:
-			_tooltipEle.style.top = `${targetEleOffset.bottom + arrowHeight + scrollTop}px`;
+			_tooltipEle.style.top = `${targetEleOffset.bottom + arrowHeight + scrollTop - (isBody ? 0 : tooltipEleOffset.bottom - tooltipEleOffset.height)}px`;
 			break;
 		case CONFIG_PLACE.right:
-			_tooltipEle.style.left = `${targetEleOffset.right + arrowHeight}px`;
+			_tooltipEle.style.left = `${targetEleOffset.right + arrowHeight - (isBody ? 0 : tooltipEleOffset.right - tooltipEleOffset.width)}px`;
 			break;
 		case CONFIG_PLACE.left:
-			_tooltipEle.style.left = `${targetEleOffset.left - arrowHeight - tooltipEleOffset.width}px`;
+			_tooltipEle.style.left = `${targetEleOffset.left - arrowHeight - tooltipEleOffset.width - (isBody ? 0 : tooltipEleOffset.left)}px`;
 			break;
 		// no default
 	}
 	// 副定位计算
 	switch (vice) {
 		case CONFIG_PLACE.top:
-			_tooltipEle.style.top = `${targetEleOffset.top + scrollTop}px`;
+			_tooltipEle.style.top = `${targetEleOffset.top + scrollTop - (isBody ? tooltipEleOffset.height : tooltipEleOffset.top)}px`;
 			break;
 		case CONFIG_PLACE.bottom:
-			_tooltipEle.style.top = `${targetEleOffset.bottom - tooltipEleOffset.height + scrollTop}px`;
+			_tooltipEle.style.top = `${targetEleOffset.bottom - tooltipEleOffset.height + scrollTop - (isBody ? 0 : tooltipEleOffset.top)}px`;
 			break;
 		case CONFIG_PLACE.right:
-			_tooltipEle.style.left = `${targetEleOffset.right - tooltipEleOffset.width}px`;
+			_tooltipEle.style.left = `${targetEleOffset.right - (isBody ? tooltipEleOffset.width : tooltipEleOffset.right)}px`;
 			break;
 		case CONFIG_PLACE.left:
-			_tooltipEle.style.left = `${targetEleOffset.left}px`;
+			_tooltipEle.style.left = `${targetEleOffset.left - (isBody ? 0 : tooltipEleOffset.left)}px`;
 			break;
 		case 'center':
 			if (/^(top|bottom)$/.test(main)) {
-				_tooltipEle.style.left = `${targetEleOffset.left - tooltipEleOffset.width / 2 + targetEleOffset.width / 2}px`;
+				_tooltipEle.style.left = `${targetEleOffset.left -
+					(isBody ? 0 : tooltipEleOffset.left) -
+					tooltipEleOffset.width / 2 +
+					targetEleOffset.width / 2}px`;
 			} else {
 				_tooltipEle.style.top = `${targetEleOffset.top -
 					targetEleOffset.height / 2 -
 					tooltipEleOffset.height / 2 +
-					targetEleOffset.height +
+					targetEleOffset.height -
+					(isBody ? 0 : tooltipEleOffset.top) +
 					scrollTop}px`;
 			}
 			break;
@@ -138,12 +128,17 @@ export default class ToolView extends Component {
 	componentDidMount() {
 		const { placement, targetEle, container } = this.props;
 		const tooltipEle = this.tipRef;
-		targetEleOffset = container() === document.body ? offsetBody(targetEle) : offsetContainer(targetEle);
-		const scrollTop = container() === document.body ? document.documentElement.scrollTop : 0;
+		this.isBody = true;
+		if (container !== document.body) {
+			container.style.position = 'relative';
+			this.isBody = false;
+		}
+		targetEleOffset = offsetBody(targetEle);
+		const scrollTop = container === document.body ? document.documentElement.scrollTop : 0;
 		tooltipEleOffset = offsetBody(tooltipEle);
 		// 先根据传入的 placement 返回一个位置对象 {main: position, vice: position}
 		const toolTipPos = getPlacementObj(placement);
-		setComputeToolTipPosition(toolTipPos, tooltipEle, scrollTop);
+		setComputeToolTipPosition(toolTipPos, tooltipEle, scrollTop, this.isBody);
 	}
 
 	render() {

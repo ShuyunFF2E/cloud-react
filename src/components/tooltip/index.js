@@ -27,6 +27,18 @@ function getClassName(classNames) {
 	return tagClassName;
 }
 
+/**
+ * 判断指定的容器是function还是element
+ * @param container: 容器
+ * @returns HTMLElement: 元素
+ */
+function getContainer(container) {
+	if (typeof container === 'string') {
+		return document.querySelector(container);
+	}
+	return container();
+}
+
 const mutationObserver = new MutationObserver(mutations => {
 	mutations.forEach(mutation => {
 		const targetClassName = getClassName(targetEle.classList);
@@ -51,7 +63,7 @@ const mutationObserver = new MutationObserver(mutations => {
  * @param component: 组件
  */
 function renderComponentWithPosition(wrapper, component) {
-	const container = component.props.container();
+	const { container } = component.props;
 	if (container && container instanceof window.HTMLElement) {
 		container.appendChild(wrapper);
 		ReactDOM.render(component, wrapper);
@@ -75,7 +87,7 @@ function destroyDOM(id, container) {
 	if (manualClear) {
 		mutationObserver.disconnect();
 	}
-	const containerDom = container();
+	const containerDom = getContainer(container);
 	if (containerDom && containerDom instanceof window.HTMLElement) {
 		const wrapper = containers[id];
 		ReactDOM.unmountComponentAtNode(wrapper);
@@ -138,6 +150,10 @@ class Tooltip extends Component {
 		}
 	}
 
+	componentWillUnmount() {
+		this.handleMouseLeave();
+	}
+
 	// 鼠标点击
 	handleClick = event => {
 		const { mouseEnterDelay, mouseLeaveDelay, container, trigger, content } = this.props;
@@ -150,6 +166,7 @@ class Tooltip extends Component {
 			createWrapper(id, targetEle);
 			const viewProps = {
 				...this.props,
+				container: getContainer(container),
 				targetEle: event.target
 			};
 			this.currentEle = targetEle;
@@ -169,7 +186,7 @@ class Tooltip extends Component {
 
 	// 鼠标移入
 	handleMouseEnter = event => {
-		const { mouseEnterDelay, visible, content, trigger } = this.props;
+		const { mouseEnterDelay, visible, content, trigger, container } = this.props;
 		if (trigger !== 'hover' || !content || this.isShow || visible === false) {
 			return;
 		}
@@ -180,6 +197,7 @@ class Tooltip extends Component {
 		const dom = ReactDOM.findDOMNode(this.triggerDom);
 		const viewProps = {
 			...this.props,
+			container: getContainer(container),
 			targetEle: typeof visible === 'boolean' ? event.children[0] : dom.children[0]
 		};
 		this.currentEle = targetEle;
@@ -246,7 +264,7 @@ Tooltip.propTypes = {
 		`${CONFIG_PLACE.right}-${CONFIG_PLACE.bottom}`
 	]),
 	theme: PropTypes.oneOf([CONFIG_THEME.dark, CONFIG_THEME.light, CONFIG_THEME.error]),
-	container: PropTypes.func
+	container: PropTypes.oneOfType([PropTypes.string, PropTypes.func])
 };
 
 Tooltip.defaultProps = {
