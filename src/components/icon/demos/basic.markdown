@@ -9,6 +9,7 @@ import jeasy from 'jeasy';
 import { Icon, Message } from 'cloud-react';
 
 const iconList = [
+	'remark',
 	'config',
 	'view',
 	'hide',
