@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import { getRootDocument } from '@utils';
-import { Message } from '../index';
+import Message from '../message';
 import './index.less';
 import Notification from './modal';
 import Prompt from './prompt';
