@@ -24,7 +24,7 @@ export default class ToolTipDemo extends React.Component {
 		const { content, show } = this.state;
 		const style = { marginRight: '10px' };
 		return (
-			<div id="wrap">
+			<div id="wrap" className="wrapClass">
 				<Button style={style} onClick={this.onChangeStatus.bind(this)}>
 					{show ? 'close' : 'show'} tooltip
 				</Button>
