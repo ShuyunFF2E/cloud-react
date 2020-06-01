@@ -167,11 +167,12 @@ export default class Textarea extends React.PureComponent {
 		const { className, style, hasCounter, maxLength, ...others } = this.props;
 
 		const classNames = classnames(`${prefixCls}-input-textarea`, className);
-		const styles = { ...style, ...autoSizeStyle };
 		const props = omit(others, ['defaultValue', 'autoSize', 'minRows', 'maxRows', 'onEnter', 'hasCounter']);
 
 		const wrapperStyle = {
-			paddingBottom: hasCounter ? '10px' : ''
+			paddingBottom: hasCounter ? '10px' : '',
+			...style,
+			...autoSizeStyle
 		};
 
 		return (
@@ -182,7 +183,6 @@ export default class Textarea extends React.PureComponent {
 					className={classNames}
 					maxLength={maxLength}
 					value={value}
-					style={styles}
 					onBlur={this.onBlur}
 					onChange={this.onChange}
 					onKeyDown={this.onKeyDown}

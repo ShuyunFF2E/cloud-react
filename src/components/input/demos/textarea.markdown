@@ -11,7 +11,7 @@ import { Input, Icon } from 'cloud-react';
 export default function InputDemo() {
 	return (
 		<div>
-			<Input.Textarea placeholder="basic textarea" maxLength={10} hasCounter />
+			<Input.Textarea placeholder="basic textarea" style={{ width: 400 }} autoSize maxLength={10} hasCounter />
 			<br />
 			<Input.Textarea placeholder="rows: 4" rows={4} />
 			<br />
