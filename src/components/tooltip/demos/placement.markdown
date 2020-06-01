@@ -25,54 +25,54 @@ export default class ToolTipDemo extends React.Component {
 		return (
 			<div style={wrap}>
 				<div>
-					<Tooltip content={content} placement="top-left">
+					<Tooltip content={content} placement="top-left" container=".wrapClass">
 						<Button type="normal">上左</Button>
 					</Tooltip>
 					{blank}
-					<Tooltip content={content} placement="top">
+					<Tooltip content={content} placement="top" container='.wrapClass'>
 						<Button type="normal">上中</Button>
 					</Tooltip>
 					{blank}
-					<Tooltip content={content} placement="top-right">
+					<Tooltip content={content} placement="top-right" container={() => document.getElementById('wrap')}>
 						<Button type="normal">上右</Button>
 					</Tooltip>
 				</div>
 				<div style={rightWrap}>
-					<Tooltip content={content} placement="right-top">
+					<Tooltip content={content} placement="right-top" container={() => document.getElementById('wrap')}>
 						<Button type="normal">右上</Button>
 					</Tooltip>
 					{blank}
-					<Tooltip content={content} placement="right">
+					<Tooltip content={content} placement="right" container={() => document.getElementById('wrap')}>
 						<Button type="normal">右中</Button>
 					</Tooltip>
 					{blank}
-					<Tooltip content={content} placement="right-bottom">
+					<Tooltip content={content} placement="right-bottom" container={() => document.getElementById('wrap')}>
 						<Button type="normal">右下</Button>
 					</Tooltip>
 				</div>
 				<div style={leftWrap}>
-					<Tooltip content={content} placement="left-top">
+					<Tooltip content={content} placement="left-top" container={() => document.getElementById('wrap')}>
 						<Button type="normal">左上</Button>
 					</Tooltip>
 					{blank}
-					<Tooltip content={content} placement="left">
+					<Tooltip content={content} placement="left" container={() => document.getElementById('wrap')}>
 						<Button type="normal">左中</Button>
 					</Tooltip>
 					{blank}
-					<Tooltip content={content} placement="left-bottom">
+					<Tooltip content={content} placement="left-bottom" container={() => document.getElementById('wrap')}>
 						<Button type="normal">左下</Button>
 					</Tooltip>
 				</div>
 				<div style={bottomWrap}>
-					<Tooltip content={content} placement="bottom-left">
+					<Tooltip content={content} placement="bottom-left" container={() => document.getElementById('wrap')}>
 						<Button type="normal">下左</Button>
 					</Tooltip>
 					{blank}
-					<Tooltip content={content} placement="bottom">
+					<Tooltip content={content} placement="bottom" container={() => document.getElementById('wrap')}>
 						<Button type="normal">下中</Button>
 					</Tooltip>
 					{blank}
-					<Tooltip content={content} placement="bottom-right">
+					<Tooltip content={content} placement="bottom-right" container={() => document.getElementById('wrap')}>
 						<Button type="normal">下右</Button>
 					</Tooltip>
 				</div>
