@@ -116,11 +116,12 @@ class Notification extends Component {
 		if (!this.modalRef || !this.modalRef.style || this.state.pageY) return;
 
 		window.requestAnimationFrame(() => {
-			const maskHeight = this.mask.offsetHeight;
-			const modalHeight = this.modalRef.offsetHeight;
-
-			this.modalRef.style.top = `${(maskHeight - modalHeight) / 2}px`;
-			this.modalRef.style.opacity = 1;
+			const maskHeight = this.mask && this.mask.offsetHeight;
+			const modalHeight = this.modalRef && this.modalRef.offsetHeight;
+			if (this.modalRef) {
+				this.modalRef.style.top = `${(maskHeight - modalHeight) / 2}px`;
+				this.modalRef.style.opacity = 1;
+			}
 		});
 	};
 
