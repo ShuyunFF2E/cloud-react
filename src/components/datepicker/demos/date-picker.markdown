@@ -22,12 +22,6 @@ export default class DatePickerDemo extends React.Component {
 		this.setState({ range });
 	};
 
-	setRangeValue = () => {
-		this.setState({
-			range: {}
-		});
-	};
-
 	render() {
 		return (
 			<div>
