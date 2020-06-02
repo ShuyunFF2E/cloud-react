@@ -155,14 +155,12 @@
 
 .@{select-prefix-cls}-options {
 	box-sizing: @box-sizing;
-	padding: 5px 13px;
 	margin: 0;
 	line-height: normal;
 	max-height: @max-height;
 	max-width: @max-width;
 	min-width: @min-width;
 	width: 100%;
-	overflow: auto;
 	border: @select-normal-border;
 	border-top: none;
 	background: @background-color;
@@ -251,6 +249,11 @@
 				margin-right: 10px;
 			}
 		}
+	}
+
+	.@{prefix}-tree {
+		padding: 5px 13px;
+		overflow: auto;
 	}
 }
 
