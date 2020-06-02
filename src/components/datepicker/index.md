@@ -38,7 +38,7 @@ subtitle: 日期选择框
 | defaultTime       | 显示默认打开时间(如设置 defaultValue 会覆盖) | string                  | `00:00:00`        |
 | onChange          | 选择日期改变                                 | Function(value: string) | -                 |
 | containerEleClass | 需要滚动的元素 class 名称                    | string                  | -                 |
-| isAppendToBody    | 日历选择弹框是否渲染在 body 上               | bool                    | false             |
+| isAppendToBody    | 日历选择弹框是否渲染在 body 上               | boolean                 | `false`           |
 
 ### TimePicker
 

@@ -13,10 +13,14 @@ export default class DatePickerDemo extends React.Component {
 		super(props);
 
 		this.state = {
+			visible: false,
 			range: { start: '2020-04-23 00:00:00', end: '2020-06-07 23:59:59' }
 		};
 	}
-	onInpChange = value => console.log(value);
+
+	onInpChange = range => {
+		this.setState({ range });
+	};
 
 	setRangeValue = () => {
 		this.setState({
@@ -40,20 +44,14 @@ export default class DatePickerDemo extends React.Component {
 				<Datepicker maxDate={new Date('2024/5/1')} minDate={new Date()} showTimePicker={true} onChange={this.onInpChange} placeholder="年月日 时分秒" />
 				<br />
 				<br />
-				<div style={{ display: 'flex' }}>
-					<Datepicker.RangePicker
-						width="420px"
-						showTimePicker={false}
-						value={this.state.range}
-						minDate={new Date('2020/3/1')}
-						maxDate={new Date('2024/5/1')}
-						showTimePicker
-						onChange={this.onInpChange}
-					/>
-					<Button onClick={this.setRangeValue} style={{ marginLeft: 10 }}>
-						设置range值
-					</Button>
-				</div>
+				<Datepicker.RangePicker
+					width={420}
+					value={this.state.range}
+					minDate={new Date('2020/3/1')}
+					maxDate={new Date('2024/5/1')}
+					onChange={this.onInpChange}
+					showTimePicker
+				/>
 			</div>
 		);
 	}
