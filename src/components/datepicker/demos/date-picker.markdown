@@ -9,7 +9,18 @@ import React from 'react';
 import { Datepicker } from 'cloud-react';
 
 export default class DatePickerDemo extends React.Component {
-	onInpChange = value => console.log(value);
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			visible: false,
+			range: { start: '2020-04-23 00:00:00', end: '2020-06-07 23:59:59' }
+		};
+	}
+
+	onInpChange = range => {
+		this.setState({ range });
+	};
 
 	render() {
 		return (
@@ -28,13 +39,12 @@ export default class DatePickerDemo extends React.Component {
 				<br />
 				<br />
 				<Datepicker.RangePicker
-					width="420px"
-					showTimePicker={false}
-					value={{ start: '2020-04-23 00:00:00', end: '2020-06-07 23:59:59' }}
+					width={420}
+					value={this.state.range}
 					minDate={new Date('2020/3/1')}
 					maxDate={new Date('2024/5/1')}
-					showTimePicker
 					onChange={this.onInpChange}
+					showTimePicker
 				/>
 			</div>
 		);
