@@ -34,7 +34,7 @@ class TreeContainer extends React.Component {
 	};
 
 	render() {
-		const { dataSource, multiple, searchable, value, hasConfirmButton, footerTypes, dropdownClassName, dropdownStyle, ...otherProps } = this.props;
+		const { dataSource, multiple, searchable, value, hasConfirmButton, footerTypes, dropdownClassName, dropdownStyle, style, ...otherProps } = this.props;
 		const classNames = cls(`${selector}-options`, dropdownClassName, {
 			[`${selector}-options-confirm`]: hasConfirmButton
 		});
