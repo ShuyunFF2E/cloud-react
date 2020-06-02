@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import jeasy from 'jeasy';
 import { omit } from '@utils';
 
 import DatePicker from '../date-picker';
@@ -11,72 +10,66 @@ class DateRange extends Component {
 		const { value, defaultValue } = props;
 		const date = value || defaultValue || {};
 
-		const { start = '', end = '' } = date;
+		const { start, end } = date;
 
 		this.state = {
 			endOpen: false,
-			startValue: start,
-			endValue: end
+			start,
+			end
 		};
 	}
 
-	onChangeStartTime = time => {
-		this.setState({
-			startValue: time,
-			endOpen: true
-		});
-		const { endValue } = this.state;
-		this.onChangeTime({
-			start: time,
-			end: endValue
-		});
+	static getDerivedStateFromProps({ value }) {
+		if (value !== undefined && typeof value === 'object') {
+			const { start, end } = value;
+			return { start, end };
+		}
+		return null;
+	}
+
+	onChangeStartTime = start => {
+		this.setState({ endOpen: true });
+		this.onChangeTime({ start, end: this.state.end });
 	};
 
-	onChangeEndTime = time => {
-		this.setState({
-			endValue: time
-		});
-		const { startValue } = this.state;
-		this.onChangeTime({
-			start: startValue,
-			end: time
-		});
+	onChangeEndTime = end => {
+		this.onChangeTime({ start: this.state.start, end });
 	};
 
-	onChangeTime = time => {
-		const { startValue, endValue } = this.state;
-		if (!jeasy.equal(time, { start: startValue, end: endValue })) {
-			this.props.onChange(time);
+	onChangeTime = (range = {}) => {
+		const { value } = this.props;
+
+		// 非受控组件不触发onChange事件
+		if (value === undefined) {
+			this.setState(range);
+		} else {
+			this.props.onChange(range);
 		}
 	};
 
 	onEndClose = () => {
-		this.setState({
-			endOpen: false
-		});
+		this.setState({ endOpen: false });
 	};
 
 	render() {
-		const {
-			props: { minDate, maxDate, showTimePicker, width = 480, ...others },
-			state: { startValue, endValue, endOpen },
-			onChangeStartTime,
-			onChangeEndTime,
-			onEndClose
-		} = this;
-		const start = startValue ? new Date(startValue) : '';
-		const end = endValue ? new Date(endValue) : '';
-		const props = omit(others, ['value', 'defaultValue', 'data-field', 'className']);
+		const { onChangeStartTime, onChangeEndTime, onEndClose } = this;
+		const { minDate, maxDate, width = 480, className, ...others } = this.props;
+		const { start, end, endOpen } = this.state;
+
+		const startValue = start ? new Date(start) : '';
+		const endValue = end ? new Date(end) : '';
+		const props = omit(others, ['value', 'defaultValue', 'data-field']);
+		const wraperProps = omit(props, ['showTimePicker', 'isAppendToBody']);
 		const pickerWidth = (parseFloat(width) - 20) / 2;
+
 		return (
-			<div {...others}>
+			<div className={className} {...wraperProps}>
 				<DatePicker
 					{...props}
 					width={`${pickerWidth}px`}
-					showTimePicker={showTimePicker}
-					value={start}
+					value={startValue}
 					minDate={minDate}
-					maxDate={end || maxDate}
+					maxDate={endValue || maxDate}
 					onChange={onChangeStartTime}
 					defaultTime="00:00:00"
 				/>
@@ -84,9 +77,8 @@ class DateRange extends Component {
 				<DatePicker
 					{...props}
 					width={`${pickerWidth}px`}
-					showTimePicker={showTimePicker}
-					value={end}
-					minDate={start || minDate}
+					value={endValue}
+					minDate={startValue || minDate}
 					maxDate={maxDate}
 					open={endOpen}
 					onChange={onChangeEndTime}
