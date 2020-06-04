@@ -29,7 +29,7 @@ export default class ToolTipDemo extends React.Component {
 						<Button type="normal">上左</Button>
 					</Tooltip>
 					{blank}
-					<Tooltip content={content} placement="top" container='.wrapClass'>
+					<Tooltip content={content} placement="top" container=".wrapClass">
 						<Button type="normal">上中</Button>
 					</Tooltip>
 					{blank}
