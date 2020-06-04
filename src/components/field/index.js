@@ -119,7 +119,7 @@ export default class Field {
 	setValue = (name, value) => {
 		const fieldMeta = this.fieldsMeta[name];
 
-		if (typeof fieldMeta === 'object') {
+		if (fieldMeta && typeof fieldMeta === 'object') {
 			fieldMeta[fieldMeta.valueName] = value;
 			this.validate([name]);
 			return;
@@ -213,6 +213,8 @@ export default class Field {
 					state: '',
 					errors: undefined
 				});
+
+				delete this.__fieldsMeta__[name];
 			}
 		});
 
@@ -241,6 +243,8 @@ export default class Field {
 					state: '',
 					errors: undefined
 				});
+
+				delete this.__fieldsMeta__[name];
 			}
 		});
 
@@ -251,9 +255,8 @@ export default class Field {
 		const _names = typeof names === 'string' ? [names] : names;
 
 		_names.forEach(name => {
-			if (name in this.fieldsMeta) {
-				delete this.fieldsMeta[name];
-			}
+			delete this.fieldsMeta[name];
+			delete this.__fieldsMeta__[name];
 		});
 
 		this.__render__();
