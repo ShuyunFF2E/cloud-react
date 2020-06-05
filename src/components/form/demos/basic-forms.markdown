@@ -56,7 +56,7 @@ export default function FormHorizontalDemo() {
 			</Form.Item>
 
 			<Form.Item label="备注">
-				<Input.Textarea autoSize minRows={2} placeholder="备注信息..." />
+				<Input.Textarea maxLength={10} hasCounter autoSize minRows={2} placeholder="备注信息..." />
 			</Form.Item>
 
 			<Form.Item wrapperCol={{ offset: 6 }}>
