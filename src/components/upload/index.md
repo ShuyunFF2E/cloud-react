@@ -24,6 +24,7 @@ title: Upload
 | headers         | 发送 http 请求的头信息,比如 content-type、cookie、accept-xxx 等 | object      | {}       |
 | withCredentials | 跨域请求是否允许发送 cookie 认证信息                            | boolean     | false    |
 | multiple        | 是否上传多个文件                                                | boolean     | false    |
+| customRequest   | 自定义上传                                                      | func        |          |
 | onProgress      | 上传过程中                                                      | func        |          |
 | onSuccess       | 上传成功后                                                      | func        |          |
 | onError         | 上传失败                                                        | func        |          |
