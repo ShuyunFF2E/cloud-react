@@ -38,7 +38,8 @@ class InputNumber extends Component {
 		let _value = value;
 		// 获取默认value
 		const number = parseFloat(defaultValue);
-		_value = value || (Number.isNaN(number) ? '' : getCurrentValue(number, min, max, getCurrentPrecision(number, precision, step)));
+		const defaultNumber = Number.isNaN(number) ? '' : getCurrentValue(number, min, max, getCurrentPrecision(number, precision, step));
+		_value = value !== undefined ? value : defaultNumber;
 
 		this.setState({
 			currentValue: _value
