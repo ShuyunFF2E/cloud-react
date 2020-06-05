@@ -2,7 +2,7 @@ import React, { Component, Children } from 'react';
 import ReactDOM from 'react-dom';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
-import jeasy from 'jeasy';
+import ShuyunUtils from 'shuyun-utils';
 
 import { flat } from '@utils';
 import SingleSelect from './views/single-select';
@@ -63,7 +63,7 @@ class Select extends Component {
 		const { value, children, dataSource, multiple } = props;
 		const { value: prevValue, children: prevChildren, dataSource: prevData } = prevProps;
 
-		if (value !== prevValue || Children.count(children) !== Children.count(prevChildren) || !jeasy.equal(dataSource, prevData)) {
+		if (value !== prevValue || Children.count(children) !== Children.count(prevChildren) || !ShuyunUtils.equal(dataSource, prevData)) {
 			const { labelKey, valueKey, labelInValue } = props;
 			const childs = Array.isArray(children) ? flat(children, Infinity) : Children.toArray(children);
 			const source = childs.length ? childs : getOptions(dataSource, labelKey, valueKey);

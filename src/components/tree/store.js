@@ -4,7 +4,7 @@
  * wangbo
  * 2019-07-22
  */
-import jEasy from 'jeasy';
+import ShuyunUtils from 'shuyun-utils';
 import Message from '../message';
 
 class Store {
@@ -23,7 +23,7 @@ class Store {
 		}
 
 		// 处理已选中的节点，treeData中存在selectedValue中的值则选中
-		const cloneData = this.onResetData(jEasy.clone(treeData));
+		const cloneData = this.onResetData(ShuyunUtils.clone(treeData));
 
 		// 单选则直接选中回显值，多选则默认第一个
 		const activeNode = selectedValue && selectedValue[0];
@@ -385,7 +385,7 @@ class Store {
 	 * @param searchText
 	 */
 	searchNode = (data, searchText) => {
-		const cloneData = jEasy.clone(data);
+		const cloneData = ShuyunUtils.clone(data);
 		if (!searchText) {
 			return cloneData;
 		}

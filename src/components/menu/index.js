@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import jeasy from 'jeasy';
+import ShuyunUtils from 'shuyun-utils';
 import classnames from 'classnames';
 
 import { noop, prefixCls } from '@utils';
@@ -54,7 +54,7 @@ export default class Menu extends PureComponent {
 
 	static getDerivedStateFromProps(nextProps, state) {
 		const { prevProps } = state;
-		if (!jeasy.equal(prevProps.openKeys, nextProps.openKeys) || !jeasy.equal(prevProps.selectedKeys, nextProps.selectedKeys)) {
+		if (!ShuyunUtils.equal(prevProps.openKeys, nextProps.openKeys) || !ShuyunUtils.equal(prevProps.selectedKeys, nextProps.selectedKeys)) {
 			return {
 				openKeys: nextProps.openKeys,
 				selectedKeys: nextProps.selectedKeys,

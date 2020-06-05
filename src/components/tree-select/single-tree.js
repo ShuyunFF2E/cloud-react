@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
-import jeasy from 'jeasy';
+import ShuyunUtils from 'shuyun-utils';
 import Icon from '../icon';
 import Input from '../input';
 
@@ -50,7 +50,7 @@ class SingleTree extends React.Component {
 		const { prevProps } = prevState;
 		const { value, dataSource } = props;
 		const { value: prevValue, dataSource: prevData } = prevProps;
-		if (value !== prevValue || !jeasy.equal(dataSource, prevData)) {
+		if (value !== prevValue || !ShuyunUtils.equal(dataSource, prevData)) {
 			return {
 				value,
 				prevValue: value,
@@ -78,7 +78,7 @@ class SingleTree extends React.Component {
 	};
 
 	onFilterDataSource = searchText => {
-		const dataSource = jeasy.clone(this.props.dataSource);
+		const dataSource = ShuyunUtils.clone(this.props.dataSource);
 		const openKeys = [];
 		const search = node => {
 			return node.filter(item => {
