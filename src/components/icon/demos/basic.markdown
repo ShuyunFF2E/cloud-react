@@ -5,7 +5,7 @@ desc: 将type值复制进行使用
 
 ```javascript
 import React, { Component } from 'react';
-import jeasy from 'jeasy';
+import ShunyunUtils from 'shuyun-utils';
 import { Icon, Message } from 'cloud-react';
 
 const iconList = [
@@ -60,7 +60,7 @@ export default class IconDemo extends Component {
 	render() {
 		const onClickHandler = event => {
 			const text = event.currentTarget.innerText;
-			jeasy.copyText(text);
+			ShunyunUtils.copyText(text);
 			Message.success(text + ' 已复制');
 		};
 
