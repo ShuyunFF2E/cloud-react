@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import jEasy from 'jeasy';
+import ShuyunUtils from 'shuyun-utils';
 import { noop, prefixCls } from '@utils';
 import TreeContext from './context';
 import Search from './search';
@@ -78,8 +78,8 @@ class Tree extends Component {
 			menuStyle: null,
 			menuOptions: null,
 			searchText: '',
-			treeData: jEasy.clone(treeData),
-			allTreeData: jEasy.clone(treeData),
+			treeData: ShuyunUtils.clone(treeData),
+			allTreeData: ShuyunUtils.clone(treeData),
 			prevProps: props,
 			preSelectedNode: props.selectedValue && props.selectedValue[0]
 		};
@@ -134,7 +134,7 @@ class Tree extends Component {
 		});
 		const { supportSearch, onSearchNode } = this.props;
 
-		const tmp = jEasy.clone(this.state.allTreeData);
+		const tmp = ShuyunUtils.clone(this.state.allTreeData);
 
 		// 搜索结果数据
 		const backTree = store.searchNode(tmp, searchText);
@@ -172,7 +172,7 @@ class Tree extends Component {
 
 		// 更新树列表数据
 		this.setState({
-			treeData: jEasy.clone(data)
+			treeData: ShuyunUtils.clone(data)
 		});
 		this.setState({ preSelectedNode: node });
 	};
@@ -230,8 +230,8 @@ class Tree extends Component {
 				const allTreeData = store.addChildNode(this.state.allTreeData, pId, newNode, isAddFront);
 				// 新增之后重新init判断层级，不然会出现无层级可继续添加问题
 				this.setState({
-					treeData: jEasy.clone(treeData),
-					allTreeData: jEasy.clone(allTreeData)
+					treeData: ShuyunUtils.clone(treeData),
+					allTreeData: ShuyunUtils.clone(allTreeData)
 				});
 				Message.success('添加成功');
 			})
@@ -252,8 +252,8 @@ class Tree extends Component {
 				const treeData = store.renameChildNode(this.state.treeData, id, newValue);
 				const allTreeData = store.renameChildNode(this.state.allTreeData, id, newValue);
 				this.setState({
-					treeData: jEasy.clone(treeData),
-					allTreeData: jEasy.clone(allTreeData)
+					treeData: ShuyunUtils.clone(treeData),
+					allTreeData: ShuyunUtils.clone(allTreeData)
 				});
 				Message.success('更新成功');
 			})
@@ -285,8 +285,8 @@ class Tree extends Component {
 						const treeData = store.removeChildNode(this.state.treeData, node);
 						const allTreeData = store.removeChildNode(this.state.allTreeData, node, false);
 						this.setState({
-							treeData: jEasy.clone(treeData),
-							allTreeData: jEasy.clone(allTreeData)
+							treeData: ShuyunUtils.clone(treeData),
+							allTreeData: ShuyunUtils.clone(allTreeData)
 						});
 					})
 					.catch(() => {

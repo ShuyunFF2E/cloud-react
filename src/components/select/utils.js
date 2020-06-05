@@ -1,9 +1,9 @@
-import jeasy from 'jeasy';
+import ShuyunUtils from 'shuyun-utils';
 
 // 将组件children转换成带label|value的对象数组
 export const formatOptionSource = data => {
 	const result = [];
-	if (jeasy.type(data) === 'object') {
+	if (ShuyunUtils.type(data) === 'object') {
 		result.push({
 			label: data.children,
 			value: data.value

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
-import jeasy from 'jeasy';
+import ShuyunUtils from 'shuyun-utils';
 
 import { noop } from '@utils';
 
@@ -38,7 +38,7 @@ class TreeSelect extends Component {
 		const { prevProps } = prevState;
 		const { value, dataSource } = props;
 		const { value: prevValue, dataSource: prevData } = prevProps;
-		if (!jeasy.equal(value, prevValue) || !jeasy.equal(dataSource, prevData)) {
+		if (!ShuyunUtils.equal(value, prevValue) || !ShuyunUtils.equal(dataSource, prevData)) {
 			return {
 				value,
 				prevValue: value,
