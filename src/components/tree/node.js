@@ -34,8 +34,9 @@ class Node extends Component {
 	};
 
 	// 显示/隐藏子节点
-	toggle = node => {
+	toggle = (e, node) => {
 		this.context.onFoldNodeAction(this.context.treeData, node);
+		e.stopPropagation();
 	};
 
 	setInputValue = name => {
@@ -105,7 +106,7 @@ class Node extends Component {
 						style={{ minWidth: `calc(100% - ${paddingLeft}px)`, paddingLeft }}
 						className={`node-item-container ${data.isActive ? 'is-active' : null} ${this.context.supportCheckbox ? 'support-checkbox' : ''}`}>
 						{/* 折叠展开icon */}
-						<ToggleFold hasChildren={data.children.length > 0} showChildrenItem={data.isUnfold} toggle={() => this.toggle(data)} />
+						<ToggleFold hasChildren={data.children.length > 0} showChildrenItem={data.isUnfold} toggle={e => this.toggle(e, data)} />
 						<div className={`node-item ${data.isEdit && !data.isAdd ? 'hide-node' : null}`}>
 							{/* 节点前面的icon */}
 							<NodeIcon
