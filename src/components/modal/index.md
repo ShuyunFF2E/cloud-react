@@ -34,12 +34,7 @@ subtitle: 弹出框
 
 ### Modal.createModal()
 
-通过 createModal 创建弹框，通过 open 方式打开弹框，createModal 接受两个参数（具体用法查看示例：方法打开弹框）：
-
-| 参数名     | 说明                                                                                  | 类型   | 默认值 |
-| ---------- | ------------------------------------------------------------------------------------- | ------ | ------ |
-| body       | 弹框内容, 支持 jsx 语法直接传入 dom 节点，也支持 html，string                         | any    | `--`   |
-| attributes | 需要的使用属性集合，参考 modal 属性，不支持 onOk，onClose，onCancel，visible 四个属性 | object | `--`   |
+通过 createModal 创建弹框，通过 open 方式打开弹框，createModal 参数为一个 modal 实例；
 
 ### Modal method
 

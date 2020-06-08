@@ -2,12 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import { getRootDocument } from '@utils';
-import Message from '../message';
 import './index.less';
 import Notification from './modal';
 import Prompt from './prompt';
-
-let container = null;
 
 class Modal extends Component {
 	static propTypes = {
@@ -33,7 +30,7 @@ class Modal extends Component {
 	}
 }
 
-export function randomId(len) {
+const randomId = len => {
 	const genUnit = () =>
 		Math.random()
 			.toString(36)
@@ -48,14 +45,11 @@ export function randomId(len) {
 		rs += genUnit();
 	}
 	return rs.substr(0, len);
-}
+};
 
-Modal.createModal = props => {
-	if (!props) {
-		return Message.error('未创建弹出框内容');
-	}
-	const { body, attributes } = props;
-	const containerId = randomId(10);
+Modal.createModal = ModalEntity => {
+	let container = null;
+
 	const close = () => {
 		if (container) {
 			setTimeout(() => {
@@ -65,13 +59,15 @@ Modal.createModal = props => {
 		}
 	};
 
-	const open = () => {
+	const open = params => {
+		const containerId = randomId(10);
 		container = document.getElementById(containerId);
 		if (!container) {
 			container = document.createElement('div');
 			container.id = containerId;
 			document.body.appendChild(container);
 		}
+		const { onClose, onOk, onCancel, ...options } = params || {};
 		return new Promise(resolve => {
 			function handleClose() {
 				close();
@@ -84,19 +80,11 @@ Modal.createModal = props => {
 				resolve(result);
 			}
 
-			ReactDOM.render(
-				<Modal visible onCancel={handleCancel} onClose={handleClose} onOk={handleOk} {...attributes}>
-					{body}
-				</Modal>,
-				container
-			);
+			ReactDOM.render(<ModalEntity visible onCancel={handleCancel} onClose={handleClose} onOk={handleOk} {...options} />, container);
 		});
 	};
 
-	return {
-		open,
-		close
-	};
+	return { open, close };
 };
 
 // confirm方法
