@@ -47,6 +47,7 @@
 
 		&-node-area {
 			min-width: fit-content;
+			min-width: -moz-min-content;
 			.@{prefix}-icon {
 				display: @display;
 				height: 26px;
@@ -61,7 +62,7 @@
 
 			.node-item {
 				display: inline-flex;
-				width: 100%;
+				width: calc(100% - 16px);
 				height: 26px;
 				border-radius: 2px;
 				line-height: 26px;
