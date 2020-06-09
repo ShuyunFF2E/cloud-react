@@ -25,7 +25,7 @@ class Store {
 		// 处理已选中的节点，treeData中存在selectedValue中的值则选中
 		const cloneData = this.onResetData(ShuyunUtils.clone(treeData));
 
-		// 单选则直接选中回显值，多选则默认第一个
+		// 选中回显值
 		const activeNode = selectedValue && selectedValue[0];
 		if (activeNode) {
 			this.updateNodeById(cloneData, activeNode.id, { isActive: true });
@@ -67,18 +67,23 @@ class Store {
 			// 增加层级
 			tmp.level = level;
 			// 增加是否展开标志
-			tmp.isUnfold = isUnfold;
+			if (isUnfold !== undefined) {
+				tmp.isUnfold = isUnfold;
+			}
 
 			// 寻找父节点
 			const pNode = this.findNodeById(cloneData, tmp.pId);
 			// 无父节点则为根节点，默认展开
-			if (!pNode) {
+			if (!pNode && isUnfold !== undefined) {
 				tmp.isUnfold = true;
 			}
 
 			// 存在已选中节点，则根节点半选
 			if (selectedValue && selectedValue.length && !pNode) {
-				tmp.indeterminate = true;
+				// 特殊情况处理——有多个根节点
+				if (selectedValue.find(item => this.findNodeById([tmp], item.id))) {
+					tmp.indeterminate = true;
+				}
 			}
 
 			if (!children) {
