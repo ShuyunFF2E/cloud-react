@@ -81,6 +81,7 @@ export default function SelectDemo() {
 				onSelectOpen={handleOpen}
 				onSelectClose={handleClose}
 				onChange={handleChange}
+				position="auto"
 				style={{ margin: '0 10px 10px 0', width: 200 }}
 				multiple
 				searchable

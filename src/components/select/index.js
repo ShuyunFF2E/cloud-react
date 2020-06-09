@@ -52,9 +52,11 @@ class Select extends Component {
 			prevValue: defaultSelectValue,
 			prevResult: labelInValue ? selected : defaultSelectValue,
 			selected,
-			prevProps: props
+			prevProps: props,
+			style: {}
 		};
 		this.node = React.createRef();
+		this.optionsNode = React.createRef();
 		this.selectedNode = React.createRef();
 	}
 
@@ -88,11 +90,15 @@ class Select extends Component {
 		this.node.current.addEventListener('mouseleave', this.handleMouseLeave);
 	}
 
+	componentDidUpdate(_, prevState) {
+		if (this.state.open !== prevState.open && this.state.open) this.positionPop();
+	}
+
 	shouldComponentUpdate(nextProps, nextState) {
 		const { disabled, width, open: propOpen, searchable } = nextProps;
-		const { open, value, selected } = nextState;
+		const { open, value, selected, style } = nextState;
 		const { disabled: prevDisabled, width: prevWidth, open: prevPropOpen, searchable: prevSearchable } = this.props;
-		const { open: prevOpen, value: prevValue, selected: prevSelected } = this.state;
+		const { open: prevOpen, value: prevValue, selected: prevSelected, style: prevStyle } = this.state;
 
 		return (
 			disabled !== prevDisabled ||
@@ -101,34 +107,14 @@ class Select extends Component {
 			open !== prevOpen ||
 			value !== prevValue ||
 			selected !== prevSelected ||
-			searchable !== prevSearchable
+			searchable !== prevSearchable ||
+			style !== prevStyle
 		);
-	}
-
-	componentDidUpdate() {
-		const { visible } = this;
-
-		if (visible) this.getOptionsContainer();
-		if (this.optionsContainer) {
-			if (visible) {
-				ReactDOM.render(this.optionsNode, this.optionsContainer);
-			} else {
-				ReactDOM.unmountComponentAtNode(this.optionsContainer);
-			}
-		}
 	}
 
 	componentWillUnmount() {
 		document.removeEventListener('click', this.handleClick);
 		this.node.current.removeEventListener('mouseleave', this.handleMouseLeave);
-
-		const { optionsContainer } = this;
-
-		if (optionsContainer) {
-			const parentEle = optionsContainer.parentElement;
-			ReactDOM.unmountComponentAtNode(optionsContainer);
-			if (parentEle) parentEle.removeChild(optionsContainer);
-		}
 	}
 
 	get defaultSelectValue() {
@@ -160,33 +146,20 @@ class Select extends Component {
 		return getOptions(dataSource, labelKey, valueKey);
 	}
 
-	get optionsNode() {
-		const { multiple, confirmTemplate } = this.props;
-		const { value } = this.state;
-
-		if (multiple) {
-			return (
-				<MultiSelect
-					{...this.props}
-					value={value}
-					dataSource={this.children}
-					onOk={this.handleOk}
-					onCancel={this.handleCancel}
-					confirmTemplate={confirmTemplate}
-					onChange={this.onMultiSelectValueChange}
-				/>
-			);
+	get selectedContainerStyle() {
+		const selectNode = this.selectedNode.current;
+		if (selectNode) {
+			return selectNode.ref.current.getBoundingClientRect();
 		}
-
-		return <SingleSelect {...this.props} value={value} dataSource={this.children} onChange={this.onSimpleOptionChange} />;
+		return {};
 	}
 
-	get selectedContainer() {
-		return this.selectedNode.current.ref.current;
-	}
-
-	get popupContainer() {
-		return this.props.getPopupContainer(this.selectedContainer);
+	get optionsNodeStyle() {
+		const ele = this.optionsNode.current;
+		if (ele) {
+			return ele.getBoundingClientRect();
+		}
+		return {};
 	}
 
 	setDefaultSelected(data) {
@@ -196,38 +169,30 @@ class Select extends Component {
 		this.setState({ selected });
 	}
 
-	getOptionsNodePosition() {
-		const selectedNodePosition = this.selectedContainer.getBoundingClientRect();
-		const { height, width } = selectedNodePosition;
-
-		if (this.popupContainer === document.body) {
-			const nodePosition = this.node.current.getBoundingClientRect();
-			const { left, top } = nodePosition;
-			return [left, top + height, width];
+	positionPop = () => {
+		const {
+			props: { isAppendToBody, position },
+			selectedContainerStyle: { left, top, bottom, height },
+			optionsNodeStyle: { height: optionsHeight }
+		} = this;
+		const isBottomDistanceEnough = bottom + optionsHeight < document.body.clientHeight;
+		const isLocationTop = optionsHeight < top && !isBottomDistanceEnough && position === 'auto';
+		if (isAppendToBody) {
+			this.setState({
+				style: {
+					position: 'fixed',
+					left: `${left}px`,
+					top: isLocationTop ? `${top - optionsHeight}px` : `${bottom}px`
+				}
+			});
+		} else {
+			this.setState({
+				style: {
+					top: isLocationTop ? `${-optionsHeight}px` : `${height}px`
+				}
+			});
 		}
-		const { offsetLeft, offsetTop } = this.selectedContainer;
-
-		return [offsetLeft, offsetTop + height, width];
-	}
-
-	getOptionsContainer() {
-		if (!this.optionsContainer) {
-			this.optionsContainer = document.createElement('div');
-			this.optionsContainer.classList.add(`${selector}-option-container`);
-			this.popupContainer.appendChild(this.optionsContainer);
-		}
-
-		const { optionsContainer } = this;
-		const [left, top, width] = this.getOptionsNodePosition();
-
-		optionsContainer.style.position = 'absolute';
-		optionsContainer.style.top = `${top}px`;
-		optionsContainer.style.left = `${left}px`;
-		optionsContainer.style.minWidth = `${width}px`;
-		optionsContainer.style.width = `${width}px`;
-
-		return optionsContainer;
-	}
+	};
 
 	handleMouseLeave = () => {
 		const {
@@ -242,7 +207,7 @@ class Select extends Component {
 
 	handleClick = e => {
 		const { open, prevValue } = this.state;
-		const isClickSelect = this.node.current.contains(e.target) || (this.optionsContainer && this.optionsContainer.contains(e.target));
+		const isClickSelect = this.node.current.contains(e.target) || (this.optionsNode.current && this.optionsNode.current.contains(e.target));
 
 		if (!isClickSelect && open) {
 			const { onSelectClose, open: propOpen, hasConfirmButton } = this.props;
@@ -382,10 +347,34 @@ class Select extends Component {
 		handleSelect();
 	};
 
+	renderOptions() {
+		const { multiple, confirmTemplate } = this.props;
+		const { value } = this.state;
+
+		if (multiple) {
+			return (
+				<MultiSelect
+					{...this.props}
+					value={value}
+					dataSource={this.children}
+					onOk={this.handleOk}
+					onCancel={this.handleCancel}
+					confirmTemplate={confirmTemplate}
+					onChange={this.onMultiSelectValueChange}
+				/>
+			);
+		}
+
+		return <SingleSelect {...this.props} value={value} dataSource={this.children} onChange={this.onSimpleOptionChange} />;
+	}
+
 	render() {
-		const { placeholder, disabled, allowClear, style, className, ...otherProps } = this.props;
-		const { selected, open } = this.state;
+		const { placeholder, disabled, allowClear, style, className, isAppendToBody, ...otherProps } = this.props;
+		const { selected, open, style: popupStyle } = this.state;
+		const { width } = this.selectedContainerStyle;
 		const classNames = classnames(`${selector}`, { [`${selector}-open`]: open }, className);
+
+		const containerEle = isAppendToBody ? document.body : this.node.current;
 
 		return (
 			<div className={`${classNames}`} style={style} ref={this.node}>
@@ -401,6 +390,14 @@ class Select extends Component {
 					dataSource={selected}
 					disabled={disabled}
 				/>
+
+				{open &&
+					ReactDOM.createPortal(
+						<div className={`${selector}-option-container`} ref={this.optionsNode} style={{ ...popupStyle, width: `${width}px` }}>
+							{this.renderOptions()}
+						</div>,
+						containerEle
+					)}
 			</div>
 		);
 	}
