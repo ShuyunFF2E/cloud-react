@@ -1,7 +1,7 @@
 ---
 order: 2
 title: 静态数据
-desc: 通过静态数据渲染方式介绍
+desc: 组件当前维护者信息
 ---
 
 ```javascript
@@ -22,7 +22,7 @@ const response = {
 		{
 			name: 'silence717',
 			pic: 'https://avatars0.githubusercontent.com/u/8267830?s=60&v=4',
-			components: ['Upload', 'Toggle'],
+			components: ['Upload', 'Toggle', 'InputNumber', 'Radio', 'Tag'],
 			other: ['前端架构', '样式整改'],
 			priority: 2
 		},
@@ -36,19 +36,20 @@ const response = {
 		{
 			name: 'lazyperson',
 			pic: 'https://avatars3.githubusercontent.com/u/18607584?s=460&v=4',
-			components: ['DatePicker', 'InputNumber'],
+			other: ['前期InputNumber、DatePicker开发'],
 			priority: 4
 		},
 		{
 			name: 'xtfan21',
 			pic: 'https://avatars3.githubusercontent.com/u/23092282?s=60&v=4',
-			components: ['Tree', 'Modal'],
+			components: ['Message', 'Tips'],
 			priority: 5
 		},
 		{
 			name: 'BoWang816',
 			pic: 'https://avatars0.githubusercontent.com/u/26587649?s=60&v=4',
-			components: ['Message', 'Tips'],
+			components: ['Modal'],
+			other: ['前期tree开发'],
 			priority: 6
 		},
 		{
@@ -66,20 +67,14 @@ const response = {
 		{
 			name: 'greria',
 			pic: 'https://avatars3.githubusercontent.com/u/16697576?s=400&v=4',
-			components: ['Select'],
+			components: ['Select', 'DatePicker'],
 			priority: 9
 		},
 		{
 			name: 'liyuan-meng',
 			pic: 'https://avatars1.githubusercontent.com/u/34151318?s=60&v=4',
-			components: ['Checkbox'],
+			components: ['Checkbox', 'Tree'],
 			priority: 10
-		},
-		{
-			name: 'wwELi',
-			pic: 'https://avatars1.githubusercontent.com/u/22408704?s=60&v=4',
-			components: ['Radio'],
-			priority: 11
 		},
 		{
 			name: 'DongWJ',
@@ -90,7 +85,7 @@ const response = {
 		{
 			name: 'jsonliu6',
 			pic: 'https://avatars1.githubusercontent.com/u/15153054?s=460&v=4',
-			components: ['Tag'],
+			components: ['Pagination'],
 			priority: 13
 		}
 	],

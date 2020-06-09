@@ -1,14 +1,16 @@
 ---
-
 name: Bug report
 about: 使用过程中遇到的问题
-title: '[组件名称] 核心问题描述'
+title: "[组件名称] 核心问题描述"
 labels: bug
 assignees: silence717
+
+---
+
+**如何复现**
 ---**描述一下问题**
 清晰描述下当前 bug 的问题、现象。
 
-**如何复现**
 复现步骤：
 
 1. 创建 demo，建议贴出源代码
