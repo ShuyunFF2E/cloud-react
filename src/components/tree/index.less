@@ -64,7 +64,6 @@
 
 			.node-item {
 				display: inline-flex;
-				width: calc(100% - 16px);
 				height: 26px;
 				border-radius: 2px;
 				line-height: 26px;
@@ -89,6 +88,7 @@
 			}
 
 			.node-input {
+				width: 152px;
 				height: 26px;
 				margin-right: 4px;
 			}
@@ -115,6 +115,10 @@
 				color: #36cb37;
 			}
 
+			.cancel-icon {
+				width: 28px;
+			}
+
 			.is-active:not(.support-checkbox) {
 				background: @selector-node-active-background;
 			}
@@ -123,7 +127,7 @@
 		.child-style .node-item-container {
 			.node-item,
 			.is-rename {
-				margin-left: 16px;
+				margin-left: 14px;
 			}
 		}
 
