@@ -18,6 +18,8 @@ class TreeMenu extends Component {
 		options.setInputValue('');
 		this.props.onEditNodeBefore({ preNode: this.preNode, currentNode: node, isAdd: true, isUnfold: true });
 		this.preNode = node;
+
+		this.scrollIntoView();
 	};
 
 	deleteNode = e => {
@@ -38,6 +40,17 @@ class TreeMenu extends Component {
 		options.setInputValue(name);
 		this.props.onEditNodeBefore({ preNode: this.preNode, currentNode: node, isEdit: true });
 		this.preNode = node;
+
+		this.scrollIntoView();
+	};
+
+	scrollIntoView = () => {
+		setTimeout(() => {
+			const ele = document.querySelector('.cloud-tree .cancel-icon');
+			if (ele) {
+				ele.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+			}
+		});
 	};
 
 	render() {

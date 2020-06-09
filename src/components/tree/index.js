@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import ShuyunUtils from 'shuyun-utils';
 import { noop, prefixCls } from '@utils';
 import TreeContext from './context';
@@ -94,7 +95,7 @@ class Tree extends Component {
 				selectedValue: nextProps.selectedValue,
 				preSelectedNode: nextProps.selectedValue && nextProps.selectedValue[0],
 				prevProps: nextProps,
-				treeData: store.initData(nextProps.treeData, prevProps.maxLevel, nextProps.selectedValue, prevProps.isUnfold)
+				treeData: store.initData(prevState.treeData, prevProps.maxLevel, nextProps.selectedValue)
 			};
 		}
 
@@ -415,7 +416,11 @@ class Tree extends Component {
 						onEditNodeBefore={onReRenderNode}
 					/>
 
-					{treeData && treeData.length > 0 && <TreeList prefixCls={selector} nodeNameMaxLength={nodeNameMaxLength} data={treeData} />}
+					{treeData && treeData.length > 0 && (
+						<div className={classNames(`${selector}-list-container`)}>
+							<TreeList prefixCls={selector} nodeNameMaxLength={nodeNameMaxLength} data={treeData} />
+						</div>
+					)}
 
 					{(!treeData || !treeData.length) && <p>暂无结果</p>}
 				</div>
