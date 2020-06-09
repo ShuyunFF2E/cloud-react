@@ -43,13 +43,14 @@ export default function SelectDemo() {
 
 	return (
 		<div style={{ height: 300 }}>
-			<Select placeholder="请选择..." defaultValue={4} onSelectOpen={handleOpen} onSelectClose={handleClose} onChange={handleChange}>
+			<Select placeholder="请选择..." defaultValue={4} position="auto" onSelectOpen={handleOpen} onSelectClose={handleClose} onChange={handleChange}>
 				{dataList.map((item, index) => (
 					<Option value={item.value} disabled={item.disabled} key={index}>
 						{item.label}
 					</Option>
 				))}
 			</Select>
+
 			<div style={{ margin: '20px 0' }}>
 				<Button onClick={openModal}>打开弹框</Button>
 				<Modal title="内容" visible={visible} onOk={closeModal} onCancel={closeModal} onClose={closeModal}>
@@ -80,7 +81,7 @@ export default function SelectDemo() {
 
 			<div>
 				使用dataSource快速生成Select：
-				<Select placeholder="xxxxx" defaultValue="xxxxxx" onChange={handleChange} dataSource={dataList} />
+				<Select placeholder="xxxxx" isAppendToBody position="auto" defaultValue="xxxxxx" onChange={handleChange} dataSource={dataList} />
 			</div>
 
 			<div style={{ margin: '20px 0' }}>
