@@ -30,12 +30,20 @@ export default class DatePickerDemo extends React.Component {
 					width="200px"
 					minDate={new Date('2020/05/14 00:00:00')}
 					maxDate={new Date('2020/11/5')}
+					defaultValue={'2020/11/5'}
 					onChange={this.onInpChange}
 					placeholder="年月日"
 				/>
 				<br />
 				<br />
-				<Datepicker maxDate={new Date('2024/5/1')} minDate={new Date()} showTimePicker={true} onChange={this.onInpChange} placeholder="年月日 时分秒" />
+				<Datepicker
+					defaultValue={new Date()}
+					maxDate={new Date('2024/5/1')}
+					minDate={new Date()}
+					showTimePicker={true}
+					onChange={this.onInpChange}
+					placeholder="年月日 时分秒"
+				/>
 				<br />
 				<br />
 				<Datepicker.RangePicker
