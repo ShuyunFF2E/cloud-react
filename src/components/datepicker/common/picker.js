@@ -8,8 +8,7 @@ import Year from '../year/main';
 import YearMonth from '../year-month/main';
 import MonthDay from '../month-day/main';
 import DatePicker from '../date-picker/main';
-import { destroyAllDOM, renderDOM, createWrapper, destroyDOM } from './utils';
-import { enumObj, containerClass, selectorClass, wrapperClass } from '../constant';
+import { enumObj, containerClass, selectorClass } from '../constant';
 import { transformObj, displayNow } from '../utils';
 
 class Picker extends Component {
@@ -21,9 +20,6 @@ class Picker extends Component {
 
 		this.state = {
 			currentValue: value ? formatValue(displayNow(new Date(value))) : defaultTime,
-			id: Math.random()
-				.toString()
-				.replace('.', ''),
 			visible: open,
 			style: {}
 		};
@@ -35,15 +31,16 @@ class Picker extends Component {
 	}
 
 	componentDidMount() {
-		document.addEventListener('click', this.changeVisible, false);
+		document.addEventListener('click', this.handleClick, false);
 		if (this.props.open) {
-			this.changeVisible(null, this.state.visible);
+			this.changeVisible(this.state.visible);
 		}
 	}
 
-	componentDidUpdate(prevProps) {
+	componentDidUpdate(prevProps, prevState) {
 		const { value: prevValue, open: prevOpen } = prevProps;
 		const { value, open } = this.props;
+		const { visible } = this.state;
 
 		if (prevValue !== value) {
 			if (value) {
@@ -54,12 +51,16 @@ class Picker extends Component {
 			}
 		}
 		if (prevOpen !== open) {
-			this.changeVisible(null, open);
+			this.changeVisible(open);
+		}
+		if (prevState.visible !== visible && visible) {
+			this.positionPop();
 		}
 	}
 
 	componentWillUnmount() {
-		document.removeEventListener('click', this.changeVisible, false);
+		document.removeEventListener('click', this.handleClick, false);
+		clearTimeout(this.popupTimeout);
 	}
 
 	handleValueChange = (output = '', isPop = false) => {
@@ -74,7 +75,7 @@ class Picker extends Component {
 
 	onPopChange = output => {
 		this.handleValueChange(output, true);
-		this.changeVisible(null, false);
+		this.changeVisible(false);
 	};
 
 	renderMainPop = () => {
@@ -105,41 +106,34 @@ class Picker extends Component {
 		evt.nativeEvent.stopImmediatePropagation();
 	};
 
-	changeVisible = (evt, isVisible) => {
-		const { containerRef } = this;
-		const { id } = this.state;
-		const { containerEleClass, height, isAppendToBody, className } = this.props;
+	handleClick = e => {
+		const isClickPicker = this.containerRef.current.contains(e.target) || (this.popupRef.current && this.popupRef.current.contains(e.target));
 
-		if (isVisible && id) {
+		if (!isClickPicker && this.state.visible) {
+			this.changeVisible(false);
+		}
+	};
+
+	changeVisible = isVisible => {
+		const { containerRef } = this;
+		const { containerEleClass, height } = this.props;
+
+		if (isVisible) {
 			this.setState({
 				visible: true
 			});
 
-			if (isAppendToBody) {
-				this.positionPop();
-			} else {
-				createWrapper(id, height);
-
-				renderDOM(
-					id,
-					containerRef.current,
-					<div className={`${selectorClass}-popup ${className}`} onClick={this.popClick}>
-						{this.renderMainPop()}
-					</div>
-				);
-			}
-
 			if (containerEleClass) {
 				// 在弹框里面，日历处于最下面，那么需要自动滚动，让日历选择面板显示出来
-				setTimeout(() => {
+				this.popupTimeout = setTimeout(() => {
 					const containerElement = document.querySelectorAll(`.${containerEleClass}`)[0];
-					const wrapperElement = document.querySelector(`.${wrapperClass}`);
+					const wrapperElement = this.popupRef.current;
 					const containerHeight = containerElement.getClientRects()[0].bottom;
 
 					if (containerRef.current.getClientRects()[0].bottom + height > containerHeight) {
 						wrapperElement.scrollIntoView({ behavior: 'smooth', block: 'end' });
 					}
-				}, 0);
+				}, 250);
 			}
 			return;
 		}
@@ -148,35 +142,41 @@ class Picker extends Component {
 			visible: false
 		});
 		this.props.onClose();
-		destroyDOM(id, containerRef.current);
 	};
 
 	positionPop = () => {
-		const { left, bottom } = this.containerRef.current.getBoundingClientRect();
-		this.setState({
-			style: {
-				position: 'fixed',
-				left: `${left}px`,
-				top: `${bottom}px`
-			}
-		});
+		const { left, top, bottom, height } = this.containerRef.current.getBoundingClientRect();
+		const { isAppendToBody, position, height: popupHeight } = this.props;
+		const isBottomDistanceEnough = bottom + popupHeight < document.body.clientHeight;
+		const isLocationTop = popupHeight < top && !isBottomDistanceEnough && position === 'auto';
+		const marginTop = isLocationTop ? '1px' : '-1px';
+		if (isAppendToBody) {
+			this.setState({
+				style: {
+					position: 'fixed',
+					left: `${left}px`,
+					top: isLocationTop ? `${top - popupHeight}px` : `${bottom}px`,
+					marginTop
+				}
+			});
+		} else {
+			this.setState({
+				style: {
+					top: isLocationTop ? `${-popupHeight}px` : `${height}px`,
+					marginTop
+				}
+			});
+		}
 	};
 
-	handleClick = evt => {
+	onClickInput = () => {
 		const { disabled } = this.props;
-		const { visible, id } = this.state;
+		const { visible } = this.state;
 
 		if (disabled) return;
 
-		// 阻止合成事件的冒泡
-		evt.stopPropagation();
-		// 阻止与原生事件的冒泡
-		evt.nativeEvent.stopImmediatePropagation();
-		// 如果不可见则显示面板
-		if (!visible || !document.getElementById(id)) {
-			// 先释放其他面板
-			destroyAllDOM();
-			this.changeVisible(evt, true);
+		if (!visible) {
+			this.changeVisible(true);
 		}
 	};
 
@@ -190,7 +190,7 @@ class Picker extends Component {
 	};
 
 	render() {
-		const { inpRef, containerRef, handleClick, handleChange } = this;
+		const { inpRef, containerRef, onClickInput, handleChange } = this;
 		const { currentValue, visible, style } = this.state;
 		const { placeholder, disabled, isAppendToBody, width = 230, className, ...others } = this.props;
 		const otherProps = omit(others, [
@@ -211,6 +211,7 @@ class Picker extends Component {
 			'formatValue',
 			'integer'
 		]);
+		const containerEle = isAppendToBody ? document.body : containerRef.current;
 
 		return (
 			<div ref={containerRef} className={containerClass}>
@@ -225,17 +226,16 @@ class Picker extends Component {
 					onChange={handleChange}
 					disabled={disabled}
 					className={`${selectorClass}-inp`}
-					onClick={handleClick}
-					suffix={<Icon type="calendar" className={`${selectorClass}-inp-icon`} onClick={handleClick} />}
+					onClick={onClickInput}
+					suffix={<Icon type="calendar" className={`${selectorClass}-inp-icon`} onClick={onClickInput} />}
 				/>
 
 				{visible &&
-					isAppendToBody &&
 					ReactDOM.createPortal(
-						<div className={`${selectorClass}-popup ${className}`} ref={this.popupRef} style={{ ...style }} onClick={this.popClick}>
+						<div className={`${selectorClass}-popup`} ref={this.popupRef} style={{ ...style }} onClick={this.popClick}>
 							{this.renderMainPop()}
 						</div>,
-						document.body
+						containerEle
 					)}
 			</div>
 		);
