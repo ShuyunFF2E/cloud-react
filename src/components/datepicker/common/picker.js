@@ -17,9 +17,10 @@ class Picker extends Component {
 		super(props);
 
 		const { value, defaultValue, open, formatValue } = props;
+		const defaultTime = defaultValue ? formatValue(displayNow(defaultValue)) : undefined;
 
 		this.state = {
-			currentValue: value ? formatValue(displayNow(new Date(value))) : defaultValue,
+			currentValue: value ? formatValue(displayNow(new Date(value))) : defaultTime,
 			id: Math.random()
 				.toString()
 				.replace('.', ''),
