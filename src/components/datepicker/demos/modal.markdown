@@ -42,6 +42,7 @@ export default class DatePickerDemo extends React.Component {
 				<Modal className="test" title="basic title" visible={this.state.visible} showMask onCancel={this.handleCancel}>
 					<Datepicker
 						maxYear={2023}
+						position="auto"
 						showTimePicker={true}
 						onChange={this.onInpChange}
 						maxDate={new Date('2024/5/1')}

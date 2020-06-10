@@ -52,9 +52,9 @@
 }
 
 .@{selector}-popup {
-	position: relative;
-	display: inline-block;
+	position: absolute;
 	line-height: initial;
+	margin-top: -1px;
 
 	&,
 	* {
@@ -65,7 +65,6 @@
 	animation: fadeIn 0.2s 0s ease both;
 	z-index: @z-index-picker;
 	background-color: @color-white;
-	position: absolute;
 	will-change: transform;
 
 	.header {

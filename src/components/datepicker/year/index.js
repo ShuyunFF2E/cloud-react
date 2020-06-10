@@ -9,7 +9,7 @@ export default class YearPicker extends Component {
 	};
 
 	render() {
-		return <Picker {...this.props} integer tempMode={enumObj.YEAR_MODEL} height={244} formatValue={this.formatValue} />;
+		return <Picker {...this.props} integer tempMode={enumObj.YEAR_MODEL} height={246} formatValue={this.formatValue} />;
 	}
 }
 
