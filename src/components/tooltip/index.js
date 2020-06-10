@@ -242,7 +242,7 @@ class Tooltip extends Component {
 }
 
 Tooltip.propTypes = {
-	content: PropTypes.node,
+	content: PropTypes.oneOfType([PropTypes.node, PropTypes.func, PropTypes.string]),
 	mouseEnterDelay: PropTypes.number,
 	mouseLeaveDelay: PropTypes.number,
 	trigger: PropTypes.string,
