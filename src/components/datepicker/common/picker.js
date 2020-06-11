@@ -8,7 +8,8 @@ import Year from '../year/main';
 import YearMonth from '../year-month/main';
 import MonthDay from '../month-day/main';
 import DatePicker from '../date-picker/main';
-import { enumObj, containerClass, selectorClass } from '../constant';
+import { renderDOM, createWrapper, destroyDOM } from './utils';
+import { enumObj, containerClass, selectorClass, wrapperClass } from '../constant';
 import { transformObj, displayNow } from '../utils';
 
 class Picker extends Component {
@@ -16,10 +17,12 @@ class Picker extends Component {
 		super(props);
 
 		const { value, defaultValue, open, formatValue } = props;
-		const defaultTime = defaultValue ? formatValue(displayNow(defaultValue)) : undefined;
 
 		this.state = {
-			currentValue: value ? formatValue(displayNow(new Date(value))) : defaultTime,
+			currentValue: value ? formatValue(displayNow(new Date(value))) : defaultValue,
+			id: Math.random()
+				.toString()
+				.replace('.', ''),
 			visible: open,
 			style: {}
 		};
@@ -37,10 +40,9 @@ class Picker extends Component {
 		}
 	}
 
-	componentDidUpdate(prevProps, prevState) {
+	componentDidUpdate(prevProps) {
 		const { value: prevValue, open: prevOpen } = prevProps;
 		const { value, open } = this.props;
-		const { visible } = this.state;
 
 		if (prevValue !== value) {
 			if (value) {
@@ -52,9 +54,6 @@ class Picker extends Component {
 		}
 		if (prevOpen !== open) {
 			this.changeVisible(open);
-		}
-		if (prevState.visible !== visible && visible) {
-			this.positionPop();
 		}
 	}
 
@@ -116,24 +115,41 @@ class Picker extends Component {
 
 	changeVisible = isVisible => {
 		const { containerRef } = this;
-		const { containerEleClass, height } = this.props;
+		const { id } = this.state;
+		const { containerEleClass, height, isAppendToBody, className } = this.props;
 
-		if (isVisible) {
+		if (isVisible && id) {
 			this.setState({
 				visible: true
 			});
+
+			const style = this.positionPop();
+
+			if (isAppendToBody) {
+				this.setState({ style });
+			} else {
+				createWrapper(id, height, style);
+
+				renderDOM(
+					id,
+					containerRef.current,
+					<div className={`${selectorClass}-popup ${className}`} ref={this.popupRef} onClick={this.popClick}>
+						{this.renderMainPop()}
+					</div>
+				);
+			}
 
 			if (containerEleClass) {
 				// 在弹框里面，日历处于最下面，那么需要自动滚动，让日历选择面板显示出来
 				this.popupTimeout = setTimeout(() => {
 					const containerElement = document.querySelectorAll(`.${containerEleClass}`)[0];
-					const wrapperElement = this.popupRef.current;
+					const wrapperElement = document.querySelector(`.${wrapperClass}`);
 					const containerHeight = containerElement.getClientRects()[0].bottom;
 
 					if (containerRef.current.getClientRects()[0].bottom + height > containerHeight) {
 						wrapperElement.scrollIntoView({ behavior: 'smooth', block: 'end' });
 					}
-				}, 250);
+				}, 0);
 			}
 			return;
 		}
@@ -142,6 +158,7 @@ class Picker extends Component {
 			visible: false
 		});
 		this.props.onClose();
+		destroyDOM(id, containerRef.current);
 	};
 
 	positionPop = () => {
@@ -151,22 +168,17 @@ class Picker extends Component {
 		const isLocationTop = popupHeight < top && !isBottomDistanceEnough && position === 'auto';
 		const marginTop = isLocationTop ? '1px' : '-1px';
 		if (isAppendToBody) {
-			this.setState({
-				style: {
-					position: 'fixed',
-					left: `${left}px`,
-					top: isLocationTop ? `${top - popupHeight}px` : `${bottom}px`,
-					marginTop
-				}
-			});
-		} else {
-			this.setState({
-				style: {
-					top: isLocationTop ? `${-popupHeight}px` : `${height}px`,
-					marginTop
-				}
-			});
+			return {
+				position: 'fixed',
+				left: `${left}px`,
+				top: isLocationTop ? `${top - popupHeight}px` : `${bottom}px`,
+				marginTop
+			};
 		}
+		return {
+			top: isLocationTop ? `${-popupHeight}px` : `${height}px`,
+			marginTop
+		};
 	};
 
 	onClickInput = () => {
@@ -175,6 +187,7 @@ class Picker extends Component {
 
 		if (disabled) return;
 
+		// 如果不可见则显示面板
 		if (!visible) {
 			this.changeVisible(true);
 		}
@@ -211,7 +224,6 @@ class Picker extends Component {
 			'formatValue',
 			'integer'
 		]);
-		const containerEle = isAppendToBody ? document.body : containerRef.current;
 
 		return (
 			<div ref={containerRef} className={containerClass}>
@@ -231,11 +243,12 @@ class Picker extends Component {
 				/>
 
 				{visible &&
+					isAppendToBody &&
 					ReactDOM.createPortal(
-						<div className={`${selectorClass}-popup`} ref={this.popupRef} style={{ ...style }} onClick={this.popClick}>
+						<div className={`${selectorClass}-popup ${className}`} ref={this.popupRef} style={{ ...style }} onClick={this.popClick}>
 							{this.renderMainPop()}
 						</div>,
-						containerEle
+						document.body
 					)}
 			</div>
 		);

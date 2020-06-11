@@ -44,8 +44,8 @@ export default class DatePickerDemo extends React.Component {
 				<br />
 				<br />
 				<Datepicker
-					maxDate={new Date('2024/5/1')}
 					position="auto"
+					maxDate={new Date('2024/5/1')}
 					minDate={new Date()}
 					showTimePicker={true}
 					onChange={this.onInpChange}
@@ -55,6 +55,7 @@ export default class DatePickerDemo extends React.Component {
 				<br />
 				<Datepicker.RangePicker
 					width={420}
+					position="auto"
 					value={this.state.range}
 					minDate={new Date('2020/3/1')}
 					maxDate={new Date('2024/5/1')}
