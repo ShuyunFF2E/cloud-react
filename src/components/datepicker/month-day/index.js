@@ -10,7 +10,7 @@ class MonthDayPicker extends Component {
 	};
 
 	render() {
-		return <Picker {...this.props} tempMode={enumObj.MONTH_DAY_MODEL} height={262} formatValue={this.formatValue} />;
+		return <Picker {...this.props} tempMode={enumObj.MONTH_DAY_MODEL} height={259} formatValue={this.formatValue} />;
 	}
 }
 

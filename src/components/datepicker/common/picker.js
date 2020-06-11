@@ -8,7 +8,7 @@ import Year from '../year/main';
 import YearMonth from '../year-month/main';
 import MonthDay from '../month-day/main';
 import DatePicker from '../date-picker/main';
-import { destroyAllDOM, renderDOM, createWrapper, destroyDOM } from './utils';
+import { renderDOM, createWrapper, destroyDOM } from './utils';
 import { enumObj, containerClass, selectorClass, wrapperClass } from '../constant';
 import { transformObj, displayNow } from '../utils';
 
@@ -35,9 +35,9 @@ class Picker extends Component {
 	}
 
 	componentDidMount() {
-		document.addEventListener('click', this.changeVisible, false);
+		document.addEventListener('click', this.handleClick, false);
 		if (this.props.open) {
-			this.changeVisible(null, this.state.visible);
+			this.changeVisible(this.state.visible);
 		}
 	}
 
@@ -54,12 +54,13 @@ class Picker extends Component {
 			}
 		}
 		if (prevOpen !== open) {
-			this.changeVisible(null, open);
+			this.changeVisible(open);
 		}
 	}
 
 	componentWillUnmount() {
-		document.removeEventListener('click', this.changeVisible, false);
+		document.removeEventListener('click', this.handleClick, false);
+		clearTimeout(this.popupTimeout);
 	}
 
 	handleValueChange = (output = '', isPop = false) => {
@@ -74,7 +75,7 @@ class Picker extends Component {
 
 	onPopChange = output => {
 		this.handleValueChange(output, true);
-		this.changeVisible(null, false);
+		this.changeVisible(false);
 	};
 
 	renderMainPop = () => {
@@ -105,7 +106,15 @@ class Picker extends Component {
 		evt.nativeEvent.stopImmediatePropagation();
 	};
 
-	changeVisible = (evt, isVisible) => {
+	handleClick = e => {
+		const isClickPicker = this.containerRef.current.contains(e.target) || (this.popupRef.current && this.popupRef.current.contains(e.target));
+
+		if (!isClickPicker && this.state.visible) {
+			this.changeVisible(false);
+		}
+	};
+
+	changeVisible = isVisible => {
 		const { containerRef } = this;
 		const { id } = this.state;
 		const { containerEleClass, height, isAppendToBody, className } = this.props;
@@ -115,15 +124,17 @@ class Picker extends Component {
 				visible: true
 			});
 
+			const style = this.positionPop();
+
 			if (isAppendToBody) {
-				this.positionPop();
+				this.setState({ style });
 			} else {
-				createWrapper(id, height);
+				createWrapper(id, height, style);
 
 				renderDOM(
 					id,
 					containerRef.current,
-					<div className={`${selectorClass}-popup ${className}`} onClick={this.popClick}>
+					<div className={`${selectorClass}-popup ${className}`} ref={this.popupRef} onClick={this.popClick}>
 						{this.renderMainPop()}
 					</div>
 				);
@@ -131,7 +142,7 @@ class Picker extends Component {
 
 			if (containerEleClass) {
 				// 在弹框里面，日历处于最下面，那么需要自动滚动，让日历选择面板显示出来
-				setTimeout(() => {
+				this.popupTimeout = setTimeout(() => {
 					const containerElement = document.querySelectorAll(`.${containerEleClass}`)[0];
 					const wrapperElement = document.querySelector(`.${wrapperClass}`);
 					const containerHeight = containerElement.getClientRects()[0].bottom;
@@ -152,31 +163,34 @@ class Picker extends Component {
 	};
 
 	positionPop = () => {
-		const { left, bottom } = this.containerRef.current.getBoundingClientRect();
-		this.setState({
-			style: {
+		const { left, top, bottom, height } = this.containerRef.current.getBoundingClientRect();
+		const { isAppendToBody, position, height: popupHeight } = this.props;
+		const isBottomDistanceEnough = bottom + popupHeight < document.body.clientHeight;
+		const isLocationTop = popupHeight < top && !isBottomDistanceEnough && position === 'auto';
+		const marginTop = isLocationTop ? '1px' : '-1px';
+		if (isAppendToBody) {
+			return {
 				position: 'fixed',
 				left: `${left}px`,
-				top: `${bottom}px`
-			}
-		});
+				top: isLocationTop ? `${top - popupHeight}px` : `${bottom}px`,
+				marginTop
+			};
+		}
+		return {
+			top: isLocationTop ? `${-popupHeight}px` : `${height}px`,
+			marginTop
+		};
 	};
 
-	handleClick = evt => {
+	onClickInput = () => {
 		const { disabled } = this.props;
-		const { visible, id } = this.state;
+		const { visible } = this.state;
 
 		if (disabled) return;
 
-		// 阻止合成事件的冒泡
-		evt.stopPropagation();
-		// 阻止与原生事件的冒泡
-		evt.nativeEvent.stopImmediatePropagation();
 		// 如果不可见则显示面板
-		if (!visible || !document.getElementById(id)) {
-			// 先释放其他面板
-			destroyAllDOM();
-			this.changeVisible(evt, true);
+		if (!visible) {
+			this.changeVisible(true);
 		}
 	};
 
@@ -190,7 +204,7 @@ class Picker extends Component {
 	};
 
 	render() {
-		const { inpRef, containerRef, handleClick, handleChange } = this;
+		const { inpRef, containerRef, onClickInput, handleChange } = this;
 		const { currentValue, visible, style } = this.state;
 		const { placeholder, disabled, isAppendToBody, width = 230, className, ...others } = this.props;
 		const otherProps = omit(others, [
@@ -225,8 +239,8 @@ class Picker extends Component {
 					onChange={handleChange}
 					disabled={disabled}
 					className={`${selectorClass}-inp`}
-					onClick={handleClick}
-					suffix={<Icon type="calendar" className={`${selectorClass}-inp-icon`} onClick={handleClick} />}
+					onClick={onClickInput}
+					suffix={<Icon type="calendar" className={`${selectorClass}-inp-icon`} onClick={onClickInput} />}
 				/>
 
 				{visible &&
