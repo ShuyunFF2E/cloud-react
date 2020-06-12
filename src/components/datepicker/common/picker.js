@@ -8,11 +8,14 @@ import Year from '../year/main';
 import YearMonth from '../year-month/main';
 import MonthDay from '../month-day/main';
 import DatePicker from '../date-picker/main';
+import ModalConfigContext from '../../modal/config-provider';
 import { renderDOM, createWrapper, destroyDOM } from './utils';
 import { enumObj, containerClass, selectorClass, wrapperClass } from '../constant';
 import { transformObj, displayNow } from '../utils';
 
 class Picker extends Component {
+	static contextType = ModalConfigContext;
+
 	constructor(props) {
 		super(props);
 
@@ -35,7 +38,7 @@ class Picker extends Component {
 	}
 
 	componentDidMount() {
-		document.addEventListener('click', this.handleClick, false);
+		this.document.addEventListener('click', this.handleClick, false);
 		if (this.props.open) {
 			this.changeVisible(this.state.visible);
 		}
@@ -59,8 +62,12 @@ class Picker extends Component {
 	}
 
 	componentWillUnmount() {
-		document.removeEventListener('click', this.handleClick, false);
+		this.document.removeEventListener('click', this.handleClick, false);
 		clearTimeout(this.popupTimeout);
+	}
+
+	get document() {
+		return this.context.rootDocument;
 	}
 
 	handleValueChange = (output = '', isPop = false) => {
@@ -165,7 +172,7 @@ class Picker extends Component {
 	positionPop = () => {
 		const { left, top, bottom, height } = this.containerRef.current.getBoundingClientRect();
 		const { isAppendToBody, position, height: popupHeight } = this.props;
-		const isBottomDistanceEnough = bottom + popupHeight < document.body.clientHeight;
+		const isBottomDistanceEnough = bottom + popupHeight < this.document.documentElement.clientHeight;
 		const isLocationTop = popupHeight < top && !isBottomDistanceEnough && position === 'auto';
 		const marginTop = isLocationTop ? '1px' : '-1px';
 		if (isAppendToBody) {
@@ -249,7 +256,7 @@ class Picker extends Component {
 						<div className={`${selectorClass}-popup ${className}`} ref={this.popupRef} style={{ ...style }} onClick={this.popClick}>
 							{this.renderMainPop()}
 						</div>,
-						document.body
+						this.document.body
 					)}
 			</div>
 		);

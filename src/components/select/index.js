@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import ShuyunUtils from 'shuyun-utils';
 
 import { flat } from '@utils';
+import ModalConfigContext from '../modal/config-provider';
 import SingleSelect from './views/single-select';
 import MultiSelect from './views/multi-select';
 import Selected from './views/selected';
@@ -37,6 +38,8 @@ const getOptions = (dataSource, labelKey, valueKey) => {
 
 class Select extends Component {
 	static Option = Option;
+
+	static contextType = ModalConfigContext;
 
 	constructor(props) {
 		super(props);
@@ -85,8 +88,7 @@ class Select extends Component {
 	}
 
 	componentDidMount() {
-		document.addEventListener('click', this.handleClick);
-
+		this.document.addEventListener('click', this.handleClick);
 		this.node.current.addEventListener('mouseleave', this.handleMouseLeave);
 	}
 
@@ -113,8 +115,12 @@ class Select extends Component {
 	}
 
 	componentWillUnmount() {
-		document.removeEventListener('click', this.handleClick);
+		this.document.removeEventListener('click', this.handleClick);
 		this.node.current.removeEventListener('mouseleave', this.handleMouseLeave);
+	}
+
+	get document() {
+		return this.context.rootDocument;
 	}
 
 	get defaultSelectValue() {
@@ -175,7 +181,7 @@ class Select extends Component {
 			selectedContainerStyle: { left, top, bottom, height },
 			optionsNodeStyle: { height: optionsHeight }
 		} = this;
-		const isBottomDistanceEnough = bottom + optionsHeight < document.body.clientHeight;
+		const isBottomDistanceEnough = bottom + optionsHeight < this.document.documentElement.clientHeight;
 		const isLocationTop = optionsHeight < top && !isBottomDistanceEnough && position === 'auto';
 		if (isAppendToBody) {
 			this.setState({
@@ -374,7 +380,7 @@ class Select extends Component {
 		const { width } = this.selectedContainerStyle;
 		const classNames = classnames(`${selector}`, { [`${selector}-open`]: open }, className);
 
-		const containerEle = isAppendToBody ? document.body : this.node.current;
+		const containerEle = isAppendToBody ? this.document.body : this.node.current;
 
 		return (
 			<div className={`${classNames}`} style={style} ref={this.node}>
