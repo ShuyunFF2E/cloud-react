@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 
-import { getRootDocument } from '@utils';
+import { getRootDocument, getRootWindow } from '@utils';
 import './index.less';
 import Notification from './modal';
 import Prompt from './prompt';
+import Context from './config-provider';
 
 class Modal extends Component {
 	static propTypes = {
@@ -14,20 +15,23 @@ class Modal extends Component {
 	};
 
 	static defaultProps = {
-		ignoreFrame: false,
+		ignoreFrame: true,
 		children: null
 	};
 
 	render() {
 		const { children, ...props } = this.props;
+		const rootDocument = getRootDocument(props.ignoreFrame);
+		const rootWindow = getRootWindow(props.ignoreFrame);
 
-		const Child = (
-			<Notification type="modal" {...props}>
-				{children}
-			</Notification>
+		return ReactDOM.createPortal(
+			<Context.Provider value={{ rootWindow, rootDocument }}>
+				<Notification type="modal" {...props}>
+					{children}
+				</Notification>
+			</Context.Provider>,
+			rootDocument.body
 		);
-
-		return ReactDOM.createPortal(Child, getRootDocument(props.ignoreFrame).body);
 	}
 }
 

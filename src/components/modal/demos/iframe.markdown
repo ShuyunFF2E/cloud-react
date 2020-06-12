@@ -27,7 +27,9 @@ export default class ModaliFrameDemo extends React.Component {
 	}
 
 	componentWillUnmount() {
-		this.rootWindow.removeEventListener('load', this.setStyle);
+		if (this.rootWindow) {
+			this.rootWindow.removeEventListener('load', this.setStyle);
+		}
 	}
 
 	setStyle = () => {

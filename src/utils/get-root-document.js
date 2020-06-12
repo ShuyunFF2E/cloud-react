@@ -1,4 +1,4 @@
-export default function getRootDocument(ignoreFrame) {
+export default function getRootDocument(ignoreFrame = true) {
 	let _document = window.document;
 
 	if (!ignoreFrame) return _document;
