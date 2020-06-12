@@ -12,25 +12,50 @@ subtitle: 弹出框
 
 ### Modal
 
-| 属性               | 说明                                                                          | 类型                | 默认值  |
-| ------------------ | ----------------------------------------------------------------------------- | ------------------- | ------- |
-| visible            | 是否显示 modal 弹出框                                                         | boolean             | `false` |
-| title              | 弹出框的标题                                                                  | string              | `title` |
-| modalStyle         | 设置弹出框样式                                                                | object              | -       |
-| bodyStyle          | 设置弹出框内容区域样式                                                        | object              | -       |
-| disabledOk         | 禁用确认按钮                                                                  | boolean             | `false` |
-| className          | 设置弹出框样式名称                                                            | string              | -       |
-| hasFooter          | 是否显示底部区域                                                              | boolean             | `true`  |
-| footer             | modal 底部内容区域                                                            | string 或 ReactNode | -       |
-| onClose            | 点击右上角关闭按钮时触发的回调                                                | function            | -       |
-| onOk               | 点击确定按钮时触发的回调                                                      | function            | -       |
-| onCancel           | 点击取消按钮时触发的回调                                                      | function            | -       |
-| okText             | 确定按钮自定义文本                                                            | string              | `确定`  |
-| cancelText         | 取消按钮自定义文本                                                            | string              | `取消`  |
-| showMask           | 是否显示遮罩层                                                                | boolean             | `true`  |
-| clickMaskCanClose  | 点击遮罩层是否关闭, showMask 必须为 true                                      | boolean             | `true`  |
-| showConfirmLoading | 点击确定是否显示 loading，用于异步关闭                                        | boolean             | `false` |
-| ignoreFrame        | 忽略 iframe 框架限制，设置为`true`时将`Modal`组件挂载到顶层窗口的`body`容器中 | boolean             | `true`  |
+| 属性               | 说明                                     | 类型                | 默认值  |
+| ------------------ | ---------------------------------------- | ------------------- | ------- |
+| visible            | 是否显示 modal 弹出框                    | boolean             | `false` |
+| title              | 弹出框的标题                             | string              | `title` |
+| modalStyle         | 设置弹出框样式                           | object              | -       |
+| bodyStyle          | 设置弹出框内容区域样式                   | object              | -       |
+| disabledOk         | 禁用确认按钮                             | boolean             | `false` |
+| className          | 设置弹出框样式名称                       | string              | -       |
+| hasFooter          | 是否显示底部区域                         | boolean             | `true`  |
+| footer             | modal 底部内容区域                       | string 或 ReactNode | -       |
+| onClose            | 点击右上角关闭按钮时触发的回调           | function            | -       |
+| onOk               | 点击确定按钮时触发的回调                 | function            | -       |
+| onCancel           | 点击取消按钮时触发的回调                 | function            | -       |
+| okText             | 确定按钮自定义文本                       | string              | `确定`  |
+| cancelText         | 取消按钮自定义文本                       | string              | `取消`  |
+| showMask           | 是否显示遮罩层                           | boolean             | `true`  |
+| clickMaskCanClose  | 点击遮罩层是否关闭, showMask 必须为 true | boolean             | `true`  |
+| showConfirmLoading | 点击确定是否显示 loading，用于异步关闭   | boolean             | `false` |
+
+### Modal.ConfigProvider
+
+提供`Modal`组件上下文对象给其他组件使用，主要用于`Modal`组件创建在 iframe 之外的窗口时使用
+| 属性 | 说明 | 类型 | 默认值 |
+| ------------------ | ---------------------------------------------------------------------------- | ------------------ | ------- |
+| rootDocument | 获取顶层窗口`document` | DOM Document | `document` |
+| rootWindow | 获取顶层窗口`window` | BOM Window | `window` |
+
+代码示例
+
+```jsx
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Modal } from 'cloud-react';
+
+class ConfigProviderDemo extends React.Component {
+	static contextType = Modal.ConfigProvider;
+
+	render() {
+		const { rootDocument, rootWindow } = this.context;
+
+		return ReactDOM.createPortal(<div>{/* ... */}</div>, rootDocument.body);
+	}
+}
+```
 
 ### Modal.createModal()
 

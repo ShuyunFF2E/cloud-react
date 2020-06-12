@@ -99,9 +99,7 @@ export default class ModalDemo extends React.Component {
 							<Datepicker.RangePicker isAppendToBody position="auto" width={400} />
 						</Form.Item>
 						<Form.Item wrapperCol={{ offset: 4 }}>
-							<Button type="primary" onClick={this.showMessage}>
-								提交
-							</Button>
+							<Button type="primary" onClick={this.showMessage}>提交</Button>
 						</Form.Item>
 					</Form>
 				</Modal>

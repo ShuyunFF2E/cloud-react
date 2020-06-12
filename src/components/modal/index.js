@@ -10,19 +10,19 @@ import Context from './config-provider';
 
 class Modal extends Component {
 	static propTypes = {
-		ignoreFrame: PropTypes.bool,
 		children: PropTypes.any
 	};
 
 	static defaultProps = {
-		ignoreFrame: true,
 		children: null
 	};
 
+	static ConfigProvider = Context;
+
 	render() {
 		const { children, ...props } = this.props;
-		const rootDocument = getRootDocument(props.ignoreFrame);
-		const rootWindow = getRootWindow(props.ignoreFrame);
+		const rootDocument = getRootDocument();
+		const rootWindow = getRootWindow();
 
 		return ReactDOM.createPortal(
 			<Context.Provider value={{ rootWindow, rootDocument }}>
