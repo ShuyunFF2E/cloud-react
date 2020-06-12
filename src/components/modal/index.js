@@ -1,32 +1,37 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
-import { getRootDocument } from '@utils';
+
+import { getRootWindow } from '@utils';
 import './index.less';
 import Notification from './modal';
 import Prompt from './prompt';
+import Context from './config-provider';
 
 class Modal extends Component {
 	static propTypes = {
-		ignoreFrame: PropTypes.bool,
 		children: PropTypes.any
 	};
 
 	static defaultProps = {
-		ignoreFrame: false,
 		children: null
 	};
 
+	static ConfigProvider = Context;
+
 	render() {
 		const { children, ...props } = this.props;
+		const rootWindow = getRootWindow();
+		const rootDocument = rootWindow.document;
 
-		const Child = (
-			<Notification type="modal" {...props}>
-				{children}
-			</Notification>
+		return ReactDOM.createPortal(
+			<Context.Provider value={{ rootWindow, rootDocument }}>
+				<Notification type="modal" {...props}>
+					{children}
+				</Notification>
+			</Context.Provider>,
+			rootDocument.body
 		);
-
-		return ReactDOM.createPortal(Child, getRootDocument(props.ignoreFrame).body);
 	}
 }
 
