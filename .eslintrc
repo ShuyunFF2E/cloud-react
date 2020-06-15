@@ -1,6 +1,6 @@
 {
-    "extends": ["airbnb", "prettier", "prettier/react"],
-    "plugins": ["prettier"],
+    "extends": ["airbnb", "prettier", "prettier/react", "plugin:jest/all"],
+    "plugins": ["prettier", "jest"],
     "settings": {
         "import/resolver": {
             "webpack": {
@@ -36,7 +36,12 @@
         "jsx-quotes": ["error", "prefer-double"],
         "space-infix-ops": ["error"],
         "react/sort-comp": "off",
-        "jsx-a11y/label-has-associated-control": "off"
+        "jsx-a11y/label-has-associated-control": "off",
+        "jest/no-disabled-tests": "warn",
+        "jest/no-focused-tests": "error",
+        "jest/no-identical-title": "error",
+        "jest/prefer-to-have-length": "warn",
+        "jest/valid-expect": "error"
     },
     "globals": {
         "window": true,
@@ -47,6 +52,9 @@
         "Blob": true,
         "XMLHttpRequest": true,
         "navigator": true
+    },
+    "env": {
+      "jest/globals": true
     },
     "parser": "babel-eslint"
 }

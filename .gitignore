@@ -32,3 +32,5 @@ cloud-react-site
 src/components/index.js
 
 package-lock.json
+
+coverage/
