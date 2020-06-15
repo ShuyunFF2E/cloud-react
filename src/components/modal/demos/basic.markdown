@@ -6,7 +6,7 @@ desc: 使用modal打开基本对话框，点击遮罩区域关闭对话框
 
 ```javascript
 import React from 'react';
-import { Button, Modal } from 'cloud-react';
+import { Button, Modal, Select, Datepicker, Form, Message } from 'cloud-react';
 
 const blank = '\u00A0';
 
@@ -63,6 +63,10 @@ export default class ModalDemo extends React.Component {
 		});
 	};
 
+	showMessage = () => {
+		Message.error('请输入内容');
+	};
+
 	render() {
 		return (
 			<div>
@@ -85,7 +89,21 @@ export default class ModalDemo extends React.Component {
 					onOk={this.handleOk}
 					onCancel={this.handleCancel}
 					onClose={this.handleClose}>
-					hello, this is a body content
+					<Form layout="horizontal" labelCol={{ span: 4 }} wrapperCol={{ span: 18 }}>
+						<Form.Item label="下拉选择">
+							<Select isAppendToBody style={{ width: 200 }}>
+								<Select.Option value={12}>选择我没错的</Select.Option>
+							</Select>
+						</Form.Item>
+						<Form.Item label="日期组件">
+							<Datepicker.RangePicker isAppendToBody position="auto" width={400} />
+						</Form.Item>
+						<Form.Item wrapperCol={{ offset: 4 }}>
+							<Button type="primary" onClick={this.showMessage}>
+								提交
+							</Button>
+						</Form.Item>
+					</Form>
 				</Modal>
 			</div>
 		);

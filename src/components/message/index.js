@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 
-import { prefixCls } from '@utils';
+import { prefixCls, getRootDocument } from '@utils';
 
 import './index.less';
 import Icon from '../icon';
 
-const DEFAULTOPTS = { duration: 3000, contextContainer: document.body };
+const rootDocument = getRootDocument();
+
+const DEFAULTOPTS = { duration: 3000, contextContainer: rootDocument.body };
 
 const MESSAGE_TYPE = {
 	success: {
@@ -44,7 +46,7 @@ function entity(config) {
 	wraper = wraperMap.get(contextContainer);
 
 	if (!wraper) {
-		wraper = document.createElement('div');
+		wraper = rootDocument.createElement('div');
 		wraperMap.set(contextContainer, wraper);
 	}
 
@@ -57,13 +59,13 @@ function entity(config) {
 		wraper.style.top = `${top}px`;
 	}
 
-	const container = document.createElement('div');
+	const container = rootDocument.createElement('div');
 
 	wraper.appendChild(container);
 
 	contextContainer.appendChild(wraper);
 
-	ReactDOM.render(<MessageEntity {...props} container={container} />, container);
+	ReactDOM.render(<MessageEntity {...props} container={container} contextContainer={contextContainer} />, container);
 }
 
 class MessageEntity extends Component {

@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import { getRootDocument } from '@utils';
+import { getRootDocument, getRootWindow } from '@utils';
 import Icon from '../icon';
 import Notification from './modal';
+import Context from './config-provider';
 
 import './index.less';
 
@@ -19,13 +20,10 @@ class Prompt extends React.Component {
 		icon: '',
 		body: '',
 		onOk: () => {},
-		onCancel: () => {},
-		// 暂时关闭Modal.method类型组件无视iframe嵌套问题
-		getPopupContainer: () => getRootDocument(false).body
+		onCancel: () => {}
 	};
 
 	static propTypes = {
-		getPopupContainer: PropTypes.func,
 		isShowIcon: PropTypes.bool,
 		style: PropTypes.object,
 		type: PropTypes.string,
@@ -46,7 +44,7 @@ class Prompt extends React.Component {
 		// 在 confirm 类型的时候，需要按回车触发确定事件
 		if (this.props.type === 'confirm') {
 			// 点击完以后，按钮还是处于聚焦状态，因此不断触发自己的click事件，导致弹框不断弹出
-			[...document.querySelectorAll('button')].forEach(item => {
+			[...this.document.querySelectorAll('button')].forEach(item => {
 				item.addEventListener(
 					'keydown',
 					event => {
@@ -55,14 +53,24 @@ class Prompt extends React.Component {
 					true
 				);
 			});
-			document.body.addEventListener('keydown', this.handleKeydown);
+			this.document.body.addEventListener('keydown', this.handleKeydown);
 		}
 	}
 
 	componentWillUnmount() {
 		if (this.props.type === 'confirm') {
-			document.body.removeEventListener('keydown', this.handleKeydown);
+			this.document.body.removeEventListener('keydown', this.handleKeydown);
 		}
+	}
+
+	/* eslint-disable-next-line */
+	get window() {
+		return getRootWindow();
+	}
+
+	/* eslint-disable-next-line */
+	get document() {
+		return getRootDocument();
 	}
 
 	handleKeydown = event => {
@@ -80,7 +88,7 @@ class Prompt extends React.Component {
 			// 删除react组件节点
 			ReactDOM.unmountComponentAtNode(ele);
 			// 删除dom节点
-			document.body.removeChild(ele);
+			this.document.body.removeChild(ele);
 			// 从 container 中移除当前销毁的 modal
 			containers.delete(id);
 		}
@@ -118,7 +126,7 @@ class Prompt extends React.Component {
 	};
 
 	render() {
-		const { isShowIcon, type, icon, body, iconStyle, style, getPopupContainer } = this.props;
+		const { isShowIcon, type, icon, body, iconStyle, style } = this.props;
 		const promptStyle = {
 			...style,
 			width: style.width || '400px',
@@ -133,35 +141,38 @@ class Prompt extends React.Component {
 		};
 
 		return ReactDOM.createPortal(
-			<Notification
-				visible
-				type={type}
-				onOk={this.handleOk}
-				onCancel={this.handleCancel}
-				bodyStyle={promptBodyStyle}
-				modalStyle={promptStyle}
-				showConfirmLoading={this.state.showConfirmLoading}>
-				<div>
-					<header className="info-area">
-						{isShowIcon && <Icon type={icon} className={`icon-style ${type}-style`} style={iconStyle} />}
-						<section className="more-info" style={{ ...style }}>
-							{body}
-						</section>
-					</header>
-				</div>
-			</Notification>,
-			getPopupContainer()
+			<Context.Provider value={{ rootDocument: this.document, rootWindow: this.window }}>
+				<Notification
+					visible
+					type={type}
+					onOk={this.handleOk}
+					onCancel={this.handleCancel}
+					bodyStyle={promptBodyStyle}
+					modalStyle={promptStyle}
+					showConfirmLoading={this.state.showConfirmLoading}>
+					<div>
+						<header className="info-area">
+							{isShowIcon && <Icon type={icon} className={`icon-style ${type}-style`} style={iconStyle} />}
+							<section className="more-info" style={{ ...style }}>
+								{body}
+							</section>
+						</header>
+					</div>
+				</Notification>
+			</Context.Provider>,
+			this.document.body
 		);
 	}
 }
 
 function prompt({ isShowIcon, type, icon, body, onOk, onCancel, iconStyle, style }) {
 	// 创建一个关联id
+	const rootDocument = getRootDocument();
 	const id = `prompt${new Date().getTime()}`;
-	const ele = document.createElement('div');
+	const ele = rootDocument.createElement('div');
 
 	containers.set(id, ele);
-	document.body.appendChild(ele);
+	rootDocument.body.appendChild(ele);
 
 	ReactDOM.render(
 		<Prompt id={id} style={style} isShowIcon={isShowIcon} iconStyle={iconStyle} type={type} icon={icon} body={body} onOk={onOk} onCancel={onCancel} />,

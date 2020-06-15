@@ -30,7 +30,7 @@ subtitle: 弹出框
 | showMask           | 是否显示遮罩层                                                                | boolean             | `true`  |
 | clickMaskCanClose  | 点击遮罩层是否关闭, showMask 必须为 true                                      | boolean             | `true`  |
 | showConfirmLoading | 点击确定是否显示 loading，用于异步关闭                                        | boolean             | `false` |
-| ignoreFrame        | 忽略 iframe 框架限制，设置为`true`时将`Modal`组件挂载到顶层窗口的`body`容器中 | boolean             | `false` |
+| ignoreFrame        | 忽略 iframe 框架限制，设置为`true`时将`Modal`组件挂载到顶层窗口的`body`容器中 | boolean             | `true`  |
 
 ### Modal.createModal()
 
