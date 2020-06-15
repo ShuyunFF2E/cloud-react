@@ -11,7 +11,7 @@ import './index.less';
 const nothing = undefined;
 const ENTER_KEY_CODE = 13;
 
-class Input extends React.PureComponent {
+class Input extends React.Component {
 	static propTypes = {
 		size: PropTypes.oneOf(['large', 'default', 'small']),
 		style: PropTypes.object,
@@ -59,14 +59,37 @@ class Input extends React.PureComponent {
 
 	static Textarea = Textarea;
 
+	isOnComposition = false;
+
 	constructor(props) {
 		super(props);
-		const { value, defaultValue } = props;
 		this.state = {
-			focused: false,
-			value: (value === nothing ? defaultValue : value) || ''
+			focused: false
 		};
 		this.inputRef = React.createRef();
+	}
+
+	shouldComponentUpdate(nextProps) {
+		return nextProps.value !== this.inputNode.value;
+	}
+
+	componentDidMount() {
+		const { defaultValue } = this.props;
+		if (defaultValue !== nothing) {
+			this.inputNode.value = defaultValue;
+		}
+		this.setInputValue();
+	}
+
+	componentDidUpdate() {
+		this.setInputValue();
+	}
+
+	setInputValue() {
+		const { value } = this.props;
+		if (value !== undefined) {
+			this.inputNode.value = value || '';
+		}
 	}
 
 	get isPure() {
@@ -89,7 +112,9 @@ class Input extends React.PureComponent {
 	};
 
 	onChange = evt => {
-		this.setValue(evt.target.value, evt);
+		if (!this.isOnComposition) {
+			this.props.onChange(evt);
+		}
 	};
 
 	onFocus = evt => {
@@ -106,11 +131,6 @@ class Input extends React.PureComponent {
 	};
 
 	setValue(value, evt, callback = noop) {
-		// not using value on props
-		if (this.props.value === nothing) {
-			this.setState({ value }, callback);
-		}
-
 		let keyboardEvent = evt;
 
 		// click the clear button
@@ -128,10 +148,26 @@ class Input extends React.PureComponent {
 		callback();
 	}
 
+	handleComposition = evt => {
+		if (evt.type === 'compositionend') {
+			this.isOnComposition = false;
+
+			// 谷歌浏览器：compositionstart onChange compositionend
+			// 火狐浏览器：compositionstart compositionend onChange
+			if (navigator.userAgent.indexOf('Chrome') > -1) {
+				this.onChange(evt);
+			}
+
+			return;
+		}
+
+		this.isOnComposition = true;
+	};
+
 	renderClearIcon() {
 		if (this.props.disabled) return null;
 
-		const { value } = this.state;
+		const { value } = this.inputNode;
 
 		const type = 'close-circle-solid';
 		const classNames = classnames(`${prefixCls}-input-clear`, {
@@ -143,7 +179,7 @@ class Input extends React.PureComponent {
 
 	renderCounter() {
 		const { hasCounter, maxLength } = this.props;
-		const { value } = this.state;
+		const { value } = this.inputNode;
 
 		return hasCounter && maxLength ? (
 			<span className={classnames(`${prefixCls}-input-counter`)}>
@@ -171,19 +207,21 @@ class Input extends React.PureComponent {
 
 	render() {
 		const { isPure } = this;
-		const { value, focused } = this.state;
-		const { size, className, style, hasClear, hasCounter, addonAfter, addonBefore, prefix, suffix, ...others } = this.props;
+		const { focused } = this.state;
+		const { size, className, style, hasClear, hasCounter, addonAfter, addonBefore, prefix, suffix, value, ...others } = this.props;
 
 		const _className = `${prefixCls}-input`;
 
 		const props = omit(others, ['defaultValue', 'hasCounter', 'hasClear', 'prefix', 'suffix', 'addonAfter', 'addonBefore', 'onEnter']);
 		const commonProps = {
 			ref: this.inputRef,
-			value,
 			onBlur: this.onBlur,
 			onFocus: this.onFocus,
 			onChange: this.onChange,
-			onKeyDown: this.onKeyDown
+			onKeyDown: this.onKeyDown,
+			onCompositionStart: this.handleComposition,
+			onCompositionUpdate: this.handleComposition,
+			onCompositionEnd: this.handleComposition
 		};
 
 		// basic input
