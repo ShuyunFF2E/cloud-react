@@ -19,6 +19,7 @@
         "version": "npm run build && npm publish dist",
         "postversion": "git push && git push --tags",
         "test": "jest --coverage",
+        "report-coverage": "codecov",
         "new:component": "cp -r tpls/new-component src/components/new-component"
     },
     "repository": {
@@ -49,6 +50,7 @@
         "babel-jest": "^26.0.1",
         "babel-loader": "^8.0.0-beta.4",
         "clean-webpack-plugin": "^1.0.1",
+        "codecov": "^3.7.0",
         "copy-webpack-plugin": "^4.6.0",
         "css-loader": "^2.1.0",
         "enzyme": "^3.11.0",
