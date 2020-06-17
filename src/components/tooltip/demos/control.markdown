@@ -28,7 +28,7 @@ export default class ToolTipDemo extends React.Component {
 				<Button style={style} onClick={this.onChangeStatus.bind(this)}>
 					{show ? 'close' : 'show'} tooltip
 				</Button>
-				<Tooltip content={content} placement="top" visible={show} container={() => document.getElementById('wrap')}>
+				<Tooltip content={content} placement="top" visible={show}>
 					<span>Click button {show ? 'close' : 'show'} toolTip.</span>
 				</Tooltip>
 			</div>
