@@ -32,7 +32,11 @@ subtitle: 弹出框
 | showConfirmLoading | 点击确定是否显示 loading，用于异步关闭                                        | boolean             | `false` |
 | ignoreFrame        | 忽略 iframe 框架限制，设置为`true`时将`Modal`组件挂载到顶层窗口的`body`容器中 | boolean             | `false` |
 
-### Modal.method()
+### Modal.createModal()
+
+通过 createModal 创建弹框，通过 open 方式打开弹框，createModal 参数为一个 modal 实例；
+
+### Modal method
 
 包括：
 
@@ -42,7 +46,7 @@ subtitle: 弹出框
 -   Modal.info()
 -   Modal.warning()
 
-以上均为一个函数，参数为 object，具体属性如下：
+以上均为函数，参数为 object，具体属性如下：
 
 | 方法名     | 说明                                          | 类型     | 默认值 |
 | ---------- | --------------------------------------------- | -------- | ------ |

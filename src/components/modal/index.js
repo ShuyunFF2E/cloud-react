@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
-
 import { getRootDocument } from '@utils';
 import './index.less';
 import Notification from './modal';
@@ -30,6 +29,63 @@ class Modal extends Component {
 		return ReactDOM.createPortal(Child, getRootDocument(props.ignoreFrame).body);
 	}
 }
+
+const randomId = len => {
+	const genUnit = () =>
+		Math.random()
+			.toString(36)
+			.substr(2);
+
+	const randomUnit = genUnit();
+	if (len <= 0) return randomUnit;
+	if (len <= 11) return randomUnit.substr(0, len);
+
+	let rs = '';
+	while (rs.length < len) {
+		rs += genUnit();
+	}
+	return rs.substr(0, len);
+};
+
+Modal.createModal = ModalEntity => {
+	let container = null;
+
+	const close = () => {
+		if (container) {
+			setTimeout(() => {
+				ReactDOM.unmountComponentAtNode(container);
+				document.body.removeChild(container);
+			});
+		}
+	};
+
+	const open = params => {
+		const containerId = randomId(10);
+		container = document.getElementById(containerId);
+		if (!container) {
+			container = document.createElement('div');
+			container.id = containerId;
+			document.body.appendChild(container);
+		}
+		const { onClose, onOk, onCancel, ...options } = params || {};
+		return new Promise(resolve => {
+			function handleClose() {
+				close();
+			}
+			function handleCancel() {
+				close();
+			}
+			function handleOk(result) {
+				close();
+				resolve(result);
+			}
+
+			ReactDOM.render(<ModalEntity visible onCancel={handleCancel} onClose={handleClose} onOk={handleOk} {...options} />, container);
+		});
+	};
+
+	return { open, close };
+};
 
 // confirm方法
 Modal.confirm = props => {
