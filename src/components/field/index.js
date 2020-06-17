@@ -149,7 +149,7 @@ export default class Field {
 	};
 
 	getErrors = names => {
-		if (!names || Array.isArray(names)) {
+		if (!names || !Array.isArray(names)) {
 			return [];
 		}
 
