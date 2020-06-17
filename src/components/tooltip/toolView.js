@@ -1,156 +1,163 @@
-import React, { Component } from 'react';
+import React, { Component, isValidElement } from 'react';
 import classNames from 'classnames';
 import { prefixCls } from '@utils';
 import { CONFIG_PLACE } from './config';
 import './index.less';
 
-let targetEleOffset = '';
-let tooltipEleOffset = '';
-
 // 箭头高度常量 如果修改样式高度此处也要修改
-const arrowHeight = 7;
+const ARROW_HEIGHT = 7;
 
-/**
- * 根据传入的元素获取相对body位置信息
- * @param element: 当前元素
- * @returns {'width': number, 'height': number,...}
- */
-function offsetBody(element) {
-	const { width, height, bottom, top, left, right } = element.getBoundingClientRect();
+// 获取元素的绝对位置
+function getAbsPosition(ele) {
+	const rect = {
+		left: ele.offsetLeft,
+		top: ele.offsetTop,
+		width: ele.offsetWidth,
+		height: ele.offsetHeight
+	};
+
+	let _ele = ele.offsetParent;
+
+	while (_ele) {
+		rect.left += _ele.offsetLeft;
+		rect.top += _ele.offsetTop;
+		_ele = _ele.offsetParent;
+	}
+
 	return {
-		width,
-		height,
-		bottom,
-		top,
-		left,
-		right
+		...rect,
+		right: rect.left + rect.width,
+		bottom: rect.top + rect.height
 	};
 }
 
-/**
- * 根据传入的位置返回一个位置坐标
- * @param position: 位置
- * @returns {main: 'top';, vice: 'right'}
- */
-function getPlacementObj(position) {
-	const positionObj = {};
-	if (position === 'auto') {
-		// 当触发元素上边距大于tooltip元素自身高度 并且 触发元素中间点到左边距距离大于tooltip元素自身宽度
-		if (targetEleOffset.top > tooltipEleOffset.height && targetEleOffset.left + targetEleOffset.width / 2 > tooltipEleOffset.width / 2) {
-			return { main: 'top', vice: 'center' };
-		}
-		// 当触发元素下边距大于tooltip元素自身高度 并且 触发元素中间点到左边距距离大于tooltip元素自身宽度
-		if (
-			window.innerHeight - targetEleOffset.bottom > tooltipEleOffset.height &&
-			targetEleOffset.left + targetEleOffset.width / 2 > tooltipEleOffset.width / 2
-		) {
-			return { main: 'bottom', vice: 'center' };
-		}
-		// 当触发元素左边距tooltip自身的宽度 并且 触发元素距离相对定位元素的高度减去自身高度大于tooltip元素自身高度一半
-		if (targetEleOffset.left > tooltipEleOffset.width && targetEleOffset.bottom > tooltipEleOffset.height / 2) {
-			return { main: 'left', vice: 'center' };
-		}
-		// 当触发元素上边距大于tooltip自身的宽度 并且 触发元素左边边距大于tooltip元素自身宽度
-		if (targetEleOffset.top > tooltipEleOffset.height && window.innerWidth - targetEleOffset.right > tooltipEleOffset.width) {
-			return { main: 'right', vice: 'center' };
-		}
+// 获取累计滚动条高度（排除BODY）
+function getScrollTop(ele) {
+	let scrollTop = 0;
+	let _ele = ele.parentNode;
+
+	while (_ele && !Number.isNaN(Number(_ele.scrollTop)) && _ele.tagName !== 'BODY') {
+		scrollTop += _ele.scrollTop;
+		_ele = _ele.parentNode;
 	}
-	// 不是 auto 直接赋值
-	const place = position.split('-');
-	const [main, vice] = place;
-	positionObj.main = main;
-	positionObj.vice = vice || 'center';
-	return positionObj;
+
+	return scrollTop;
 }
 
-/**
- * 计算 tooltip 的位置
- * @param place: 位置对象
- * @param tooltipEle: 元素
- */
-function setComputeToolTipPosition(place, tooltipEle, scrollTop, isBody) {
-	const _tooltipEle = tooltipEle;
-	const { main, vice } = place;
-	_tooltipEle.classList.add(`${main}-${vice}`);
-	// 主定位计算
+// 获取方向
+function getDirection(tooltip, target, placement) {
+	const { top } = getAbsPosition(target);
+	const targetRect = target.getBoundingClientRect();
+
+	let main = 'top';
+	let vice = 'center';
+
+	if (placement === 'auto') {
+		if (top - tooltip.offsetHeight < top - targetRect.top) {
+			main = 'bottom';
+		}
+	} else if (!/-/.test(placement)) {
+		main = placement;
+	} else {
+		[main, vice] = placement.split('-');
+	}
+
+	return [main, vice];
+}
+
+// 计算tooltip位置
+function getTooltipPositionInBody(tooltip, target, placement) {
+	const { offsetWidth, offsetHeight } = tooltip;
+	const { left, top, right, bottom, width, height } = getAbsPosition(target);
+
+	const style = {};
+	const [main, vice] = getDirection(tooltip, target, placement);
+
 	switch (main) {
 		case CONFIG_PLACE.top:
-			_tooltipEle.style.top = `${targetEleOffset.top -
-				arrowHeight -
-				(isBody ? tooltipEleOffset.height : tooltipEleOffset.top + tooltipEleOffset.height) +
-				scrollTop}px`;
+			style.top = top - offsetHeight - ARROW_HEIGHT;
 			break;
 		case CONFIG_PLACE.bottom:
-			_tooltipEle.style.top = `${targetEleOffset.bottom + arrowHeight + scrollTop - (isBody ? 0 : tooltipEleOffset.bottom - tooltipEleOffset.height)}px`;
-			break;
-		case CONFIG_PLACE.right:
-			_tooltipEle.style.left = `${targetEleOffset.right + arrowHeight - (isBody ? 0 : tooltipEleOffset.right - tooltipEleOffset.width)}px`;
+			style.top = bottom + ARROW_HEIGHT;
 			break;
 		case CONFIG_PLACE.left:
-			_tooltipEle.style.left = `${targetEleOffset.left - arrowHeight - tooltipEleOffset.width - (isBody ? 0 : tooltipEleOffset.left)}px`;
+			style.left = left - offsetWidth - ARROW_HEIGHT;
+			break;
+		case CONFIG_PLACE.right:
+			style.left = right + ARROW_HEIGHT;
 			break;
 		// no default
 	}
-	// 副定位计算
+
 	switch (vice) {
-		case CONFIG_PLACE.top:
-			_tooltipEle.style.top = `${targetEleOffset.top + scrollTop - (isBody ? tooltipEleOffset.height : tooltipEleOffset.top)}px`;
-			break;
-		case CONFIG_PLACE.bottom:
-			_tooltipEle.style.top = `${targetEleOffset.bottom - tooltipEleOffset.height + scrollTop - (isBody ? 0 : tooltipEleOffset.top)}px`;
-			break;
-		case CONFIG_PLACE.right:
-			_tooltipEle.style.left = `${targetEleOffset.right - (isBody ? tooltipEleOffset.width : tooltipEleOffset.right)}px`;
-			break;
-		case CONFIG_PLACE.left:
-			_tooltipEle.style.left = `${targetEleOffset.left - (isBody ? 0 : tooltipEleOffset.left)}px`;
-			break;
-		case 'center':
-			if (/^(top|bottom)$/.test(main)) {
-				_tooltipEle.style.left = `${targetEleOffset.left -
-					(isBody ? 0 : tooltipEleOffset.left) -
-					tooltipEleOffset.width / 2 +
-					targetEleOffset.width / 2}px`;
-			} else {
-				_tooltipEle.style.top = `${targetEleOffset.top -
-					targetEleOffset.height / 2 -
-					tooltipEleOffset.height / 2 +
-					targetEleOffset.height -
-					(isBody ? 0 : tooltipEleOffset.top) +
-					scrollTop}px`;
+		case CONFIG_PLACE.center:
+			if ([CONFIG_PLACE.top, CONFIG_PLACE.bottom].includes(main)) {
+				style.left = left + (width - offsetWidth) / 2;
+			}
+			if ([CONFIG_PLACE.left, CONFIG_PLACE.right].includes(main)) {
+				style.top = top + (height - offsetHeight) / 2;
 			}
 			break;
+		case CONFIG_PLACE.left:
+			style.left = left;
+			break;
+		case CONFIG_PLACE.right:
+			style.left = left - (offsetWidth - width);
+			break;
+		case CONFIG_PLACE.top:
+			style.top = top;
+			break;
+		case CONFIG_PLACE.bottom:
+			style.top = bottom - offsetHeight;
+			break;
 		// no default
 	}
+
+	return {
+		...style,
+		top: style.top - getScrollTop(target)
+	};
 }
 
 export default class ToolView extends Component {
+	state = {
+		dir: '',
+		style: {},
+		show: false
+	};
+
+	tipRef = React.createRef();
+
 	componentDidMount() {
-		const { placement, targetEle, container } = this.props;
-		const tooltipEle = this.tipRef;
-		this.isBody = true;
-		if (container !== document.body) {
-			container.style.position = 'relative';
-			this.isBody = false;
-		}
-		targetEleOffset = offsetBody(targetEle);
-		const scrollTop = container === document.body ? document.documentElement.scrollTop : 0;
-		tooltipEleOffset = offsetBody(tooltipEle);
-		// 先根据传入的 placement 返回一个位置对象 {main: position, vice: position}
-		const toolTipPos = getPlacementObj(placement);
-		setComputeToolTipPosition(toolTipPos, tooltipEle, scrollTop, this.isBody);
+		const { placement, target } = this.props;
+		const tooltip = this.tipRef.current;
+
+		setTimeout(() => {
+			this.setState(
+				{
+					style: getTooltipPositionInBody(tooltip, target, placement),
+					dir: getDirection(tooltip, target, placement).join('-')
+				},
+				() => this.setState({ show: true })
+			);
+		}, 0);
 	}
 
 	render() {
-		const { content, theme } = this.props;
-		return (
-			<div
-				ref={el => {
-					this.tipRef = el;
-				}}
-				className={classNames(`${prefixCls}-tooltip`, `is-${theme}`)}>
-				{typeof content === 'function' ? content() : content}
-			</div>
-		);
+		const { style, show, dir } = this.state;
+		const { content, theme, className } = this.props;
+
+		const props = {
+			ref: this.tipRef,
+			style,
+			className: classNames(`${prefixCls}-tooltip`, `is-${theme}`, dir, { show }, className)
+		};
+
+		// 检测到非React节点时，使用html到方式插入
+		if (isValidElement(content)) {
+			return <div {...props}>{content}</div>;
+		}
+
+		return <div {...props} dangerouslySetInnerHTML={{ __html: content }} />;
 	}
 }
