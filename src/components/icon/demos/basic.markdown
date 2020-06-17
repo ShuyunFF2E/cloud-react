@@ -15,6 +15,8 @@ const iconList = [
 	'hide',
 	'calendar',
 	'plus',
+	'plus-solid',
+	'sub-solid',
 	'upload',
 	'export',
 	'mail',
