@@ -1,5 +1,4 @@
 import getRootDocument from '../get-root-document';
-import jsdom from 'jsdom';
 
 describe('get root document', () => {
 	test('normal', () => {
