@@ -44,3 +44,13 @@ export const findDestroyedFields = (prevNames, names) => {
 		return acc;
 	}, []);
 };
+
+export const getParentFormClassName = (ele, className) => {
+	if (!ele) return null;
+
+	if (ele.classList.contains(className)) {
+		return ele;
+	}
+
+	return getParentFormClassName(ele.parentNode, className);
+};
