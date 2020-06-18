@@ -7,6 +7,7 @@ import './index.less';
 
 export default class TableLite extends Component {
 	static propTypes = {
+		className: PropTypes.string,
 		height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 		dataSource: PropTypes.array,
 		columnData: PropTypes.array,
@@ -19,6 +20,7 @@ export default class TableLite extends Component {
 		dataSource: [],
 		columnData: [],
 		expandable: false,
+		className: '',
 		childrenKey: 'children'
 	};
 
@@ -163,7 +165,7 @@ export default class TableLite extends Component {
 	}
 
 	render() {
-		const { height, dataSource, className = '' } = this.state;
+		const { height, dataSource, className } = this.state;
 		const theadContent = this.renderTheadContent();
 		const tbodyContent = this.renderTbodyContent();
 		return (
