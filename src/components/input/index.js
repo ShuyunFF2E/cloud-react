@@ -50,13 +50,6 @@ class Input extends React.Component {
 		onEnter: noop
 	};
 
-	static getDerivedStateFromProps({ value }) {
-		if (value !== undefined) {
-			return { value };
-		}
-		return null;
-	}
-
 	static Textarea = Textarea;
 
 	isOnComposition = false;
@@ -64,19 +57,29 @@ class Input extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			focused: false
+			focused: false,
+			counter: 0
 		};
 		this.inputRef = React.createRef();
 	}
 
-	shouldComponentUpdate(nextProps) {
-		return nextProps.value !== this.inputNode.value;
+	shouldComponentUpdate(nextProps, nextState) {
+		const observableProps = ['size', 'value', 'defaultValue', 'className', 'hasCounter', 'hasClear', 'disabled', 'placeholder', 'maxLength'];
+		return (
+			observableProps.map(attr => nextProps[attr] !== this.props[attr]).find(item => item) ||
+			JSON.stringify(nextProps.style) !== JSON.stringify(this.props.style) ||
+			Object.keys(this.state)
+				.map(attr => nextState[attr] !== this.state[attr])
+				.find(item => item) ||
+			nextProps.value !== this.inputNode.value
+		);
 	}
 
 	componentDidMount() {
 		const { defaultValue } = this.props;
 		if (defaultValue !== nothing) {
 			this.inputNode.value = defaultValue;
+			this.setCounter();
 		}
 		this.setInputValue();
 	}
@@ -89,7 +92,14 @@ class Input extends React.Component {
 		const { value } = this.props;
 		if (value !== undefined) {
 			this.inputNode.value = value || '';
+			this.setCounter();
 		}
+	}
+
+	setCounter() {
+		this.setState({
+			counter: this.inputNode.value.length
+		});
 	}
 
 	get isPure() {
@@ -114,6 +124,7 @@ class Input extends React.Component {
 	onChange = evt => {
 		if (!this.isOnComposition) {
 			this.props.onChange(evt);
+			this.setCounter();
 		}
 	};
 
@@ -143,6 +154,7 @@ class Input extends React.Component {
 				currentTarget: this.inputNode
 			});
 			this.inputNode.value = '';
+			this.setCounter();
 		}
 
 		this.props.onChange(keyboardEvent);
@@ -169,11 +181,13 @@ class Input extends React.Component {
 	renderClearIcon() {
 		if (this.props.disabled) return null;
 
-		const { value } = this.inputNode;
+		const { counter } = this.state;
+		const { size } = this.props;
 
 		const type = 'close-circle-solid';
 		const classNames = classnames(`${prefixCls}-input-clear`, {
-			show: value
+			show: counter,
+			'small-size': size === 'small'
 		});
 
 		return <Icon type={type} className={classNames} onClick={this.onClearValue} />;
@@ -181,11 +195,11 @@ class Input extends React.Component {
 
 	renderCounter() {
 		const { hasCounter, maxLength } = this.props;
-		const { value } = this.inputNode;
+		const { counter } = this.state;
 
 		return hasCounter && maxLength ? (
 			<span className={classnames(`${prefixCls}-input-counter`)}>
-				<span>{value.length}</span>/{maxLength}
+				<span>{counter}</span>/{maxLength}
 			</span>
 		) : null;
 	}
