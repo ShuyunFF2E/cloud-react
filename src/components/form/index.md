@@ -22,6 +22,7 @@ subtitle: 表单
 | onSubmit   | form 内有`htmlType="submit"`的元素的时候会触发                        | Function(evt:Event) | -          |
 | colon      | 配合`label`属性使用，表示是否显示`label`后面的冒号                    | boolean             | `true`     |
 | className  | Form 的 className 属性                                                | string              | -          |
+| scrollToFirstError | 提交失败自动滚动到第一个错误字段，`field`字段不存在时无效			| boolean              | `false`     |
 
 如果 Form 和 Form.Item 相同的属性，Form.Item 的优先级更高，如果 Form 上设置了就不用每一个 Form.Item 上都进行设置，更加方便
 
