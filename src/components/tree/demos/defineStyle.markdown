@@ -97,7 +97,7 @@ export default class TreeDemo extends React.Component {
 			color: 'red'
 		};
 
-		return <Tree treeData={treeData} style={style} className="bg" showIcon={this.state.showIcon} onSelectedNode={this.selectedNode} />;
+		return <Tree supportMenu isUnfold treeData={treeData} style={style} className="bg" showIcon={this.state.showIcon} onSelectedNode={this.selectedNode} />;
 	}
 }
 ```
@@ -107,5 +107,6 @@ export default class TreeDemo extends React.Component {
 	background: #d7e7f3;
 	width: 200px;
 	overflow: auto;
+	height: 300px;
 }
 ```

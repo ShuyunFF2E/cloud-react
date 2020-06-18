@@ -11,7 +11,7 @@ export default class ToolTipDemo extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			content: '失败原因：</br>1.缺少微信/淘宝/线下平台账号</br> 2.其他',
+			content: 'click close toolTip',
 			show: true
 		};
 	}

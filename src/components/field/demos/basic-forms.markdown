@@ -20,6 +20,7 @@ export default class FormHorizontalDemo extends React.Component {
 	};
 
 	onValidate() {
+		console.log(this.field.getErrors(['test', 'test1', 'email', 'number', 'address']), '--getErrors使用');
 		this.field.validate((errs, values) => {
 			console.log(errs, values);
 		});

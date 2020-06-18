@@ -51,7 +51,8 @@ class Node extends Component {
 	};
 
 	// 保存节点信息
-	onSaveClick = (data, name) => {
+	onSaveClick = (e, data, name) => {
+		e.stopPropagation();
 		const { id, level } = data;
 		// 输入内容不能为空
 		if (!this.state.inputValue) {
@@ -75,7 +76,8 @@ class Node extends Component {
 	};
 
 	// 取消保存
-	onClickCancel = data => {
+	onClickCancel = (e, data) => {
+		e.stopPropagation();
 		this.setState({
 			inputValue: ''
 		});
@@ -96,7 +98,8 @@ class Node extends Component {
 		const { setInputValue, onSaveClick, onClickCancel } = this;
 		// 将三个方法传递出去可以供外部调用
 		const options = { setInputValue, onSaveClick, onClickCancel };
-		const paddingLeft = 16 * data.level;
+		const paddingLeft = 14 * data.level;
+
 		return (
 			<Fragment>
 				<div className={classNames(`${prefixCls}-list-node-area ${data.children && !data.children.length ? 'child-style' : null}`)}>
@@ -107,7 +110,9 @@ class Node extends Component {
 						className={`node-item-container ${data.isActive ? 'is-active' : null} ${this.context.supportCheckbox ? 'support-checkbox' : ''}`}>
 						{/* 折叠展开icon */}
 						<ToggleFold hasChildren={data.children.length > 0} showChildrenItem={data.isUnfold} toggle={e => this.toggle(e, data)} />
-						<div className={`node-item ${data.isEdit && !data.isAdd ? 'hide-node' : null}`}>
+						<div
+							style={{ width: `calc(100% - ${paddingLeft}px - 8px)` }}
+							className={`node-item ${data.isEdit && !data.isAdd ? 'hide-node' : null}`}>
 							{/* 节点前面的icon */}
 							<NodeIcon
 								showIcon={this.context.showIcon}
@@ -137,8 +142,8 @@ class Node extends Component {
 							inputValue={this.state.inputValue}
 							maxLength={this.context.nodeNameMaxLength}
 							handleInputChange={this.handleInputChange}
-							saveItem={() => this.onSaveClick(data, this.state.inputValue)}
-							cancelSave={() => this.onClickCancel(data)}
+							saveItem={e => this.onSaveClick(e, data, this.state.inputValue)}
+							cancelSave={e => this.onClickCancel(e, data)}
 						/>
 					</div>
 					{data.isUnfold && <ul>{children}</ul>}
