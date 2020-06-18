@@ -148,18 +148,19 @@ export default class Field {
 		return null;
 	};
 
-	getErrors = names => {
-		if (!names || Array.isArray(names)) {
-			return [];
+	getErrors = (names = Object.keys(this.fieldsMeta)) => {
+		if (!names) {
+			return {};
 		}
 
-		const errors = {};
+		return names.reduce((acc, name) => {
+			const err = this.getError(name);
 
-		names.forEach(name => {
-			errors[name] = this.getError(name);
-		});
-
-		return errors;
+			if (err) {
+				acc[name] = err;
+			}
+			return acc;
+		}, {});
 	};
 
 	setError = (name, errors) => {

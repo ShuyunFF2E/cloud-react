@@ -31,7 +31,7 @@ export default class FormBasicDemo extends React.Component {
 		const { init } = this.field;
 
 		return (
-			<Form field={this.field} onSubmit={this.onSubmit.bind(this)} labelCol={{ offset: 6 }} wrapperCol={{ offset: 6 }}>
+			<Form field={this.field} onSubmit={this.onSubmit.bind(this)} labelCol={{ offset: 6 }} wrapperCol={{ offset: 6 }} scrollToFirstError>
 				<Form.Item label="用户名" help="额外的提示信息">
 					<Input style={{ width: '70%' }} placeholder="请输入用户名..." {...init('userName', {
 						rules: [{ required: true, message: '用户名不能为空' }]
