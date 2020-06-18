@@ -60,27 +60,6 @@ export default class FormHorizontalDemo extends React.Component {
 						<User field={this.field} />
 					</Form.Item>
 
-					<Form.Item label="时间">
-						<Datepicker
-							{...init('test', {
-								rules: [{ required: true, message: '请输入时间' }]
-							})}
-							maxDate={new Date('2024/5/1')}
-							showTimePicker={true}
-							placeholder="年月日 时分秒"
-						/>
-					</Form.Item>
-
-					<Form.Item label="时间区间">
-						<Datepicker.RangePicker
-							{...init('test1', {
-								rules: [{ required: true, message: '请输入时间区间' }]
-							})}
-							minDate={new Date('2020/03/03')}
-							maxDate={new Date('2020/10/23')}
-						/>
-					</Form.Item>
-
 					<Form.Item label="邮箱">
 						<Input
 							placeholder="请输入验证邮箱"
