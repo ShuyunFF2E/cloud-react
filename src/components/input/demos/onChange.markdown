@@ -6,13 +6,14 @@ desc: 受控的输入框
 
 ```javascript
 import React, { Component } from 'react';
-import { Input } from 'cloud-react';
+import { Button, Input } from 'cloud-react';
 
 export default class InputDemo extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			value: ''
+			value: '',
+			disabled: false
 		};
 		setTimeout(() => {
 			this.setState({
@@ -28,8 +29,33 @@ export default class InputDemo extends Component {
 		});
 	};
 
+	onChangeDisabled = () => {
+		const { disabled } = this.state;
+		this.setState({
+			disabled: !disabled
+		});
+	};
+
 	render() {
-		return <Input placeholder="basic usage" defaultValue={23} value={this.state.value} onChange={this.onChange} />;
+		const { disabled, value } = this.state;
+		return (
+			<div>
+				<Input
+					placeholder="basic usage"
+					hasClear
+					hasCounter
+					maxLength={20}
+					defaultValue={23}
+					value={value}
+					x={<span>22</span>}
+					disabled={disabled}
+					onChange={this.onChange}
+				/>
+				<Button type="primary" style={{ marginLeft: 15 }} onClick={this.onChangeDisabled}>
+					{disabled ? '解除禁用' : '禁用'}
+				</Button>
+			</div>
+		);
 	}
 }
 ```
