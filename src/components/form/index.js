@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import omit from '@utils/omit';
 
-import { prefixCls } from '@utils';
-
+import { prefixCls } from '@utils/config';
+import Modal from '../modal';
 import FormItem from './form-item';
 import Nexus from './form-nexus';
 import FormContext from './context';
@@ -16,6 +16,8 @@ const ERROR_SELECTOR = `.${prefixCls}-form-item-explain.error`;
 const FORM_ITEM_SELECTOR = `${prefixCls}-form-item`;
 
 export default class Form extends Component {
+	static contextType = Modal.ConfigProvider;
+
 	static propTypes = {
 		field: PropTypes.object,
 		colon: PropTypes.bool,
@@ -50,6 +52,11 @@ export default class Form extends Component {
 
 	static Nexus = Nexus;
 
+	get document() {
+		// TODO：没合并refactor/iframe分支之前，拿不到rootDocument，需要做一下容错处理
+		return this.context.rootDocument || document;
+	}
+
 	componentDidUpdate() {
 		const { field, scrollToFirstError } = this.props;
 
@@ -57,13 +64,12 @@ export default class Form extends Component {
 			return;
 		}
 
-		// TODO：document 后续需要获取Modal.ConfigProvider上的rootDocument来替换
-		const firstErrNode = document.querySelector(ERROR_SELECTOR);
+		const firstErrNode = this.document.querySelector(ERROR_SELECTOR);
 		const formItemNode = getParentFormClassName(firstErrNode, FORM_ITEM_SELECTOR);
 		const errors = field.getErrors();
 
 		// 没有表单项出现错误，不处理
-		if (Object.keys(errors).length === 0 && !firstErrNode) {
+		if (Object.keys(errors).length === 0 || !firstErrNode || !formItemNode) {
 			return;
 		}
 
