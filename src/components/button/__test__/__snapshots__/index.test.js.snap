@@ -1,67 +1,51 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Button Component test renders without crashing 1`] = `
+exports[`Button renders correctly 1`] = `
 <button
-  className="cloud-button primary default"
-  disabled={false}
+  class="cloud-button normal default"
   type="button"
 >
-  primary
+  Follow
 </button>
 `;
 
-exports[`Button renders correctly 1`] = `
-initialize {
-  "0": Object {
-    "attribs": Object {
-      "class": "cloud-button normal default",
-      "type": "button",
-    },
-    "children": Array [
-      Object {
-        "data": "Follow",
-        "next": null,
-        "parent": [Circular],
-        "prev": null,
-        "type": "text",
-      },
-    ],
-    "name": "button",
-    "namespace": "http://www.w3.org/1999/xhtml",
-    "next": null,
-    "parent": null,
-    "prev": null,
-    "root": Object {
-      "attribs": Object {},
-      "children": Array [
-        [Circular],
-      ],
-      "name": "root",
-      "namespace": "http://www.w3.org/1999/xhtml",
-      "next": null,
-      "parent": null,
-      "prev": null,
-      "type": "root",
-      "x-attribsNamespace": Object {},
-      "x-attribsPrefix": Object {},
-    },
-    "type": "tag",
-    "x-attribsNamespace": Object {
-      "class": undefined,
-      "type": undefined,
-    },
-    "x-attribsPrefix": Object {
-      "class": undefined,
-      "type": undefined,
-    },
-  },
-  "_root": [Circular],
-  "length": 1,
-  "options": Object {
-    "decodeEntities": true,
-    "normalizeWhitespace": false,
-    "withDomLvl1": true,
-    "xml": false,
-  },
-}
+exports[`Button renders correctly123 1`] = `
+<button
+  className="cloud-button normal default"
+  disabled={false}
+  type="button"
+>
+  Follow
+</button>
+`;
+
+exports[`Button should render empty button without error 1`] = `
+<Button
+  block={false}
+  className=""
+  href=""
+  htmlType="button"
+  loading={false}
+  size="default"
+  target=""
+  type="normal"
+>
+  <button
+    className="cloud-button normal default"
+    disabled={false}
+    type="button"
+  >
+     
+  </button>
+</Button>
+`;
+
+exports[`Button should support link button 1`] = `
+<a
+  class="cloud-button normal default"
+  href="https://baidu.com"
+  target="__blank"
+>
+  link
+</a>
 `;
