@@ -13,7 +13,7 @@ export default class ToolTipDemo extends React.Component {
 		this.state = {
 			darkContent: 'dark theme',
 			lightContent: 'light theme',
-			errorContent: 'error theme'
+			errorContent: <span>error theme</span>
 		};
 	}
 

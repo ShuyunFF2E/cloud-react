@@ -5,14 +5,7 @@ desc: 最简单的用法。
 
 ```javascript
 import React from 'react';
-import { Tooltip, Tag, Icon } from 'cloud-react';
-function jspTest() {
-  return (
-        <div>
-            <span style={{color: "blue"}}>还是jsp_1</span><br/><span>还是jsp_2</span>
-        </div>
-    )
-}
+import { Tooltip, Tag, Icon, Datepicker } from 'cloud-react';
 
 export default class ToolTipDemo extends React.Component {
 	constructor(props) {
@@ -21,7 +14,9 @@ export default class ToolTipDemo extends React.Component {
 			content: '这是一个toolTip',
 			isBlue: true,
 			tagArr: [
-				{ id: 1, name: 'jsp' }
+				{ id: 1, name: 'Button 1' },
+				{ id: 2, name: 'Button 2' },
+				{ id: 3, name: <span style={{ color: 'red' }}>ReactNode</span> }
 			]
 		};
 	}
@@ -36,17 +31,22 @@ export default class ToolTipDemo extends React.Component {
 		const { tagArr, isBlue } = this.state;
 		return (
 			<div>
-				<Tooltip content={<span>测试jsp</span>}>
-					<Icon type={'config'} style={{ color: isBlue ? 'blue' : 'red' }} onClick={this.changeColor} />
+				<Tooltip content={'Icon'}>
+					<Icon type={'config'} style={{ marginRight: 10, color: isBlue ? 'blue' : 'red' }} onClick={this.changeColor} />
 				</Tooltip>
+
+				<Tooltip content={'Icon'}>
+					<Datepicker />
+				</Tooltip>
+
 				{tagArr.map(item => {
 					return (
-						<Tooltip content={jspTest} key={item.id}>
+						<Tooltip content={item.name} key={item.id}>
 							<Tag>{item.name}</Tag>
 						</Tooltip>
 					);
 				})}
-				<Tooltip content="基础用法">基础用法</Tooltip>
+				<Tooltip content={'TextNode Tips'}>TextNode</Tooltip>
 			</div>
 		);
 	}
