@@ -29,7 +29,6 @@ class Button extends React.PureComponent {
 		loading: PropTypes.bool,
 		target: PropTypes.string,
 		htmlType: PropTypes.string,
-		children: PropTypes.node.isRequired,
 		className: PropTypes.string
 	};
 

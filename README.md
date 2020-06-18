@@ -2,9 +2,10 @@
 
 一套数云风格的 PC 端 React 组件库，服务于数云的的 PC 端 React 开发的产品中。
 
-[![Build Status](https://travis-ci.org/ShuyunFF2E/cloud-react.svg?branch=master)](https://travis-ci.org/ShuyunFF2E/cloud-react)
+[![Build Status](https://travis-ci.com/ShuyunFF2E/cloud-react.svg?branch=master)](https://travis-ci.com/github/ShuyunFF2E/cloud-react)
 [![npm version](https://img.shields.io/npm/v/cloud-react.svg?style=flat-square)](https://www.npmjs.com/package/cloud-react)
 [![npm downloads](https://img.shields.io/npm/dt/cloud-react.svg?style=flat-square)](https://www.npmjs.com/package/cloud-react)
+[![codecov](https://codecov.io/gh/ShuyunFF2E/cloud-react/branch/master/graph/badge.svg)](https://codecov.io/gh/ShuyunFF2E/cloud-react)
 
 <h2 align="center">使用</h2>
 

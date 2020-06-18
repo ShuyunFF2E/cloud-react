@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 
-import { getRootDocument, getRootWindow } from '@utils';
+import { getRootWindow } from '@utils';
 import './index.less';
 import Notification from './modal';
 import Prompt from './prompt';
@@ -21,8 +21,8 @@ class Modal extends Component {
 
 	render() {
 		const { children, ...props } = this.props;
-		const rootDocument = getRootDocument();
 		const rootWindow = getRootWindow();
+		const rootDocument = rootWindow.document;
 
 		return ReactDOM.createPortal(
 			<Context.Provider value={{ rootWindow, rootDocument }}>

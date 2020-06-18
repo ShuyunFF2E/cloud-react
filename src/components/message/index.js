@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 
-import { prefixCls, getRootDocument } from '@utils';
+import { prefixCls, getRootWindow } from '@utils';
 
 import './index.less';
 import Icon from '../icon';
 
-const rootDocument = getRootDocument();
+const rootDocument = getRootWindow().document;
 
 const DEFAULTOPTS = { duration: 3000, contextContainer: rootDocument.body };
 

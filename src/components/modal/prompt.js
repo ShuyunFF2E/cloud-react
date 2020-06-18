@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import { getRootDocument, getRootWindow } from '@utils';
+import { getRootWindow } from '@utils';
 import Icon from '../icon';
 import Notification from './modal';
 import Context from './config-provider';
@@ -70,7 +70,7 @@ class Prompt extends React.Component {
 
 	/* eslint-disable-next-line */
 	get document() {
-		return getRootDocument();
+		return this.window.document;
 	}
 
 	handleKeydown = event => {
@@ -167,7 +167,7 @@ class Prompt extends React.Component {
 
 function prompt({ isShowIcon, type, icon, body, onOk, onCancel, iconStyle, style }) {
 	// 创建一个关联id
-	const rootDocument = getRootDocument();
+	const rootDocument = getRootWindow().document;
 	const id = `prompt${new Date().getTime()}`;
 	const ele = rootDocument.createElement('div');
 

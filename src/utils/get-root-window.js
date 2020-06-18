@@ -3,13 +3,18 @@ export default function getRootWindow(ignoreFrame = true) {
 
 	if (!ignoreFrame) return _win;
 
-	const getDocument = contextWindow => {
+	const getDocument = ({ parent }) => {
 		try {
-			if (_win === contextWindow.parent) {
+			// 不同域，直接返回
+			if (!parent || !parent.document) {
 				return _win;
 			}
 
-			_win = contextWindow.parent;
+			if (_win === parent) {
+				return _win;
+			}
+
+			_win = parent;
 
 			return getDocument(_win);
 		} catch (_) {
