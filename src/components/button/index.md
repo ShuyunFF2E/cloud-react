@@ -23,4 +23,4 @@ subtitle: 按钮
 
 ### Button.Group
 
-跟 `Button` 组件的一直，如果在 `Button.Group` 上设置了，则会覆盖掉子元素上设置的参数
+跟 `Button` 组件的一致，如果在 `Button.Group` 上设置了，则会覆盖掉子元素上设置的参数
