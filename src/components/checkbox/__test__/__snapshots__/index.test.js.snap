@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Checkbox renders correctly 1`] = `
+<label
+  class="cloud-checkbox cloud-checkbox-disabled cloud-checkbox-checked"
+>
+  <span
+    class="cloud-checkbox-wrapper"
+  >
+    <input
+      class="cloud-checkbox-input"
+      disabled=""
+      type="checkbox"
+      value="2"
+    />
+    <span
+      class="cloud-checkbox-inner"
+    />
+  </span>
+  <span
+    class="cloud-checkbox-text"
+  />
+</label>
+`;
