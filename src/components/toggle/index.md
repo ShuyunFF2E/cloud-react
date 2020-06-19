@@ -18,3 +18,4 @@ subtitle: 开关
 | unCheckedText | 未选中时候的文案                    | string                                   |         |
 | disabled      | 是否禁用                            | boolean                                  | false   |
 | onChange      | 切换状态时候的回调                  | Function(checked: boolean, event: Event) |         |
+| onBeforeChange      | 切换状态前的二次确认                 | Function() |         |

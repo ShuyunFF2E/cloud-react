@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import { prefixCls } from '@utils';
+import { prefixCls, noop } from '@utils';
 import './index.less';
 
 const Toggle = props => {
@@ -25,9 +25,7 @@ const Toggle = props => {
 			return;
 		}
 
-		if (onChange) {
-			onChange(!checked, event);
-		}
+		onChange(!checked, event);
 	};
 
 	return (
@@ -43,6 +41,7 @@ Toggle.propTypes = {
 	checkedText: PropTypes.string,
 	unCheckedText: PropTypes.string,
 	disabled: PropTypes.bool,
+	onBeforeChange: PropTypes.func,
 	onChange: PropTypes.func
 };
 
@@ -52,7 +51,8 @@ Toggle.defaultProps = {
 	checkedText: '',
 	unCheckedText: '',
 	disabled: false,
-	onChange: () => {}
+	onBeforeChange: undefined,
+	onChange: noop
 };
 
 export default Toggle;
