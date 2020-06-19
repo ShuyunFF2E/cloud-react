@@ -9,8 +9,8 @@ import React, { useState } from 'react';
 import { Checkbox } from 'cloud-react';
 
 export default function CheckboxDemo() {
-	const handleChange = (value, checked) => {
-		console.log('handleChange', value, checked);
+	const handleChange = (checked, value) => {
+		console.log('handleChange', checked, value);
 	};
 
 	const [checked, setChecked] = useState(false);
