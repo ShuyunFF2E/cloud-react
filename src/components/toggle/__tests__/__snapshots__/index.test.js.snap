@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Toggle renders correctlly 1`] = `
+<button
+  class="cloud-toggle"
+  type="button"
+>
+  <span
+    class="cloud-toggle-inner"
+  />
+</button>
+`;
+
+exports[`Toggle should change big or small set size 1`] = `
+<button
+  class="cloud-toggle cloud-toggle-small"
+  type="button"
+>
+  <span
+    class="cloud-toggle-inner"
+  />
+</button>
+`;
+
+exports[`Toggle should change status by set checked 1`] = `
+<button
+  class="cloud-toggle cloud-toggle-checked"
+  type="button"
+>
+  <span
+    class="cloud-toggle-inner"
+  />
+</button>
+`;
+
+exports[`Toggle should change status by set checked 2`] = `
+<button
+  class="cloud-toggle"
+  type="button"
+>
+  <span
+    class="cloud-toggle-inner"
+  />
+</button>
+`;
+
+exports[`Toggle should render correctlly set checkedText and unCheckedText 1`] = `
+<button
+  class="cloud-toggle"
+  type="button"
+>
+  <span
+    class="cloud-toggle-inner"
+  >
+    off
+  </span>
+</button>
+`;
