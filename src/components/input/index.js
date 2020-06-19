@@ -71,7 +71,7 @@ class Input extends React.Component {
 			Object.keys(this.state)
 				.map(attr => nextState[attr] !== this.state[attr])
 				.find(item => item) ||
-			nextProps.value !== this.inputNode.value
+			String(nextProps.value) !== this.inputNode.value
 		);
 	}
 

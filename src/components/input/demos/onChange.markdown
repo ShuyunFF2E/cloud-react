@@ -17,7 +17,7 @@ export default class InputDemo extends Component {
 		};
 		setTimeout(() => {
 			this.setState({
-				value: '232'
+				value: 232
 			});
 		}, 1000);
 	}
@@ -47,7 +47,6 @@ export default class InputDemo extends Component {
 					maxLength={20}
 					defaultValue={23}
 					value={value}
-					x={<span>22</span>}
 					disabled={disabled}
 					onChange={this.onChange}
 				/>
