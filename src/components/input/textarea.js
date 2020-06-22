@@ -57,9 +57,9 @@ function calcAutoHeight(textareaNode, value, minRows, maxRows) {
 	}
 
 	return {
-		minHeight,
-		height,
-		maxHeight,
+		minHeight: minHeight || minHeight === 0 ? minHeight : 'auto',
+		height: height || height === 0 ? height : 'auto',
+		maxHeight: maxHeight || maxHeight === 0 ? maxHeight : 'auto',
 		overflowY: 'auto'
 	};
 }
@@ -109,6 +109,12 @@ export default class Textarea extends React.PureComponent {
 			return { value };
 		}
 		return null;
+	}
+
+	componentDidUpdate(prevProps) {
+		if (prevProps.value !== this.props.value) {
+			this.calcAutoHeight();
+		}
 	}
 
 	constructor(props) {
@@ -189,7 +195,7 @@ export default class Textarea extends React.PureComponent {
 				/>
 				{hasCounter && maxLength ? (
 					<span className={`${prefixCls}-input-textarea-counter`}>
-						<span>{value.length}</span>/{maxLength}
+						<span>{value ? value.length : 0}</span>/{maxLength}
 					</span>
 				) : null}
 			</div>

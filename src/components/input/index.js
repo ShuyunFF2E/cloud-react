@@ -71,7 +71,7 @@ class Input extends React.Component {
 			Object.keys(this.state)
 				.map(attr => nextState[attr] !== this.state[attr])
 				.find(item => item) ||
-			String(nextProps.value) !== this.inputNode.value
+			(this.inputNode.value && String(nextProps.value) !== this.inputNode.value)
 		);
 	}
 
@@ -84,8 +84,10 @@ class Input extends React.Component {
 		this.setInputValue();
 	}
 
-	componentDidUpdate() {
-		this.setInputValue();
+	componentDidUpdate(prevProps) {
+		if (prevProps.value !== this.inputNode.value) {
+			this.setInputValue();
+		}
 	}
 
 	setInputValue() {
@@ -122,7 +124,7 @@ class Input extends React.Component {
 	};
 
 	onChange = evt => {
-		if (!this.isOnComposition) {
+		if (!this.isOnComposition && !this.props.disabled) {
 			this.props.onChange(evt);
 			this.setCounter();
 		}

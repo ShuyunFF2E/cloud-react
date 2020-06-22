@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TextArea renders correctly 1`] = `
+<div
+  class="cloud-input-textarea-wrapper"
+  style="padding-bottom:"
+>
+  <textarea
+    class="cloud-input-textarea"
+  />
+</div>
+`;
