@@ -10,7 +10,7 @@ const classSelector = `${prefixCls}-checkbox`;
 describe('Checkbox', () => {
 	mountTest(Checkbox);
 
-	const Component = <Checkbox defaultChecked={true} disabled={true} indeterminate={false} value={2} onChange={() => {}} />;
+	const Component = <Checkbox defaultChecked disabled indeterminate={false} value={2} onChange={() => {}} />;
 
 	it('renders correctly', () => {
 		const wrapper = render(Component);
