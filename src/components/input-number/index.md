@@ -19,7 +19,7 @@ subtitle: 数字输入框
 | min          | 最小值                                                    | number                                | `-Infinity` |
 | max          | 最大值                                                    | number                                | `Infinity`  |
 | size         | 设置组件大小，可选值为 `large` `default` `small` 或者不设 | string                                | `default`   |
-| precision    | 精度                                                      | number                                | `0`         |
+| precision    | 精度                                                      | number                                | `undefined` |
 | step         | 每次改变步数                                              | number                                | `1`         |
 | noStep       | 不显示步数器                                              | bool                                  | `false`     |
 | className    | 拓展组件样式的 class                                      | string                                | -           |
