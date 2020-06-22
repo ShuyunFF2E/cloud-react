@@ -5,9 +5,10 @@
         "moduleResolution": "node",
         "baseUrl": ".",
         "paths": {
-            "@utils/*": ["./src/utils/*"]
+            "@utils/*": ["./src/utils/*"],
+            "@tests/*": ["./tests/*"]
         }
     },
-    "include": ["./src/**/*"],
+    "include": ["./src/**/*", "./tests/**/*"],
     "exclude": ["./node_modules", "./dist"]
 }

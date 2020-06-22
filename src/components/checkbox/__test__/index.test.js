@@ -2,7 +2,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import { render, mount } from 'enzyme';
 import { prefixCls } from '@utils';
-import mountTest from '../../../../tests/shared/mountTest';
+import mountTest from '@tests/shared/mountTest';
 import Checkbox from '../index';
 
 const classSelector = `${prefixCls}-checkbox`;
