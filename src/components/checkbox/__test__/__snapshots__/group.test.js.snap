@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CheckboxGroup renders correctly 1`] = `
+<span
+  class="cloud-checkbox-group horizontal"
+>
+  <label
+    class="cloud-checkbox"
+  >
+    <span
+      class="cloud-checkbox-wrapper"
+    >
+      <input
+        class="cloud-checkbox-input"
+        type="checkbox"
+        value="1"
+      />
+      <span
+        class="cloud-checkbox-inner"
+      />
+    </span>
+    <span
+      class="cloud-checkbox-text"
+    >
+      1
+    </span>
+  </label>
+  <label
+    class="cloud-checkbox"
+  >
+    <span
+      class="cloud-checkbox-wrapper"
+    >
+      <input
+        class="cloud-checkbox-input"
+        type="checkbox"
+        value="2"
+      />
+      <span
+        class="cloud-checkbox-inner"
+      />
+    </span>
+    <span
+      class="cloud-checkbox-text"
+    >
+      2
+    </span>
+  </label>
+  <label
+    class="cloud-checkbox"
+  >
+    <span
+      class="cloud-checkbox-wrapper"
+    >
+      <input
+        class="cloud-checkbox-input"
+        type="checkbox"
+        value="3"
+      />
+      <span
+        class="cloud-checkbox-inner"
+      />
+    </span>
+    <span
+      class="cloud-checkbox-text"
+    >
+      3
+    </span>
+  </label>
+</span>
+`;

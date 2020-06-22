@@ -189,7 +189,7 @@ export default class Textarea extends React.PureComponent {
 				/>
 				{hasCounter && maxLength ? (
 					<span className={`${prefixCls}-input-textarea-counter`}>
-						<span>{value.length}</span>/{maxLength}
+						<span>{value ? value.length : 0}</span>/{maxLength}
 					</span>
 				) : null}
 			</div>
