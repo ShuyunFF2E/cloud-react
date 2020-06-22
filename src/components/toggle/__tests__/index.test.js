@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { render, mount } from 'enzyme';
-import mountTest from '../../../../tests/shared/mountTest';
+import mountTest from '@tests/shared/mountTest';
 
 import Toggle from '../index';
 

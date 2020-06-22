@@ -23,11 +23,12 @@ module.exports = ({ mode } = { mode: 'development' }) => {
 			resolve: {
 				alias: {
 					'@utils': resolve('./src/utils/'),
-					'@components': resolve('./src/components'),
+					'@components': resolve('./src/components/'),
+					'@tests': resolve('./tests/'),
 					'@docs': resolve('./docs'),
 					[name]: resolve('./src/components')
 				},
-				modules: [resolve(__dirname, './src'), 'node_modules'],
+				modules: [resolve(__dirname, './src'), resolve(__dirname, './tests'), 'node_modules'],
 				extensions: ['.js']
 			},
 			resolveLoader: {

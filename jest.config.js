@@ -71,8 +71,9 @@ module.exports = {
 
 	// A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
 	moduleNameMapper: {
-		'^@utils$': '<rootDir>/src/utils/',
-		'^@components$': '<rootDir>/src/components/',
+		'^@utils(.*)': '<rootDir>/src/utils/$1',
+		'^@components(.*)': '<rootDir>/src/components/$1',
+		'^@tests(.*)': '<rootDir>/tests/$1',
 		'\\.(css|less|scss|sass)$': 'identity-obj-proxy'
 	},
 
