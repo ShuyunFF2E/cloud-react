@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import renderer from 'react-test-renderer';
 import { render, mount } from 'enzyme';
-import mountTest from '../../../../tests/shared/mountTest';
+import mountTest from '@tests/shared/mountTest';
 
 import Button from '../index';
 
