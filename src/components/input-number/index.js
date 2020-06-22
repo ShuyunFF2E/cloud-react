@@ -5,17 +5,7 @@ import { noop, omit, prefixCls } from '@utils';
 
 import Icon from '../icon';
 
-import {
-	isInvalid,
-	isInvalidNumber,
-	isNotCompleteNumber,
-	fixDoubleOperation,
-	getCurrentValue,
-	getCurrentPrecision,
-	getValueByBlank,
-	getMax,
-	getMin
-} from './util';
+import { isInvalid, isInvalidNumber, isNotCompleteNumber, fixDoubleOperation, getCurrentValue, getCurrentPrecision } from './util';
 
 import './index.less';
 
@@ -38,8 +28,10 @@ class InputNumber extends Component {
 		let _value = value;
 		// 获取默认value
 		const number = parseFloat(defaultValue);
+
 		const defaultNumber = Number.isNaN(number) ? '' : getCurrentValue(number, min, max, getCurrentPrecision(number, precision, step));
-		_value = value !== undefined ? value : defaultNumber;
+
+		_value = value !== undefined ? getCurrentValue(value, min, max, getCurrentPrecision(value, precision, step)) : defaultNumber;
 
 		this.setState({
 			currentValue: _value
@@ -71,8 +63,8 @@ class InputNumber extends Component {
 		const { currentValue } = this.state;
 		const { min, max } = this.props;
 		const isInvalided = isInvalid(currentValue);
-		const isUpEnabled = isInvalided || getMax(currentValue, max).lessMax;
-		const isDownEnabled = isInvalided || getMin(currentValue, min).greaterMin;
+		const isUpEnabled = isInvalided || Number(currentValue) < max;
+		const isDownEnabled = isInvalided || Number(currentValue) > min;
 
 		this.setState({
 			upButtonEnabled: isUpEnabled,
@@ -131,40 +123,20 @@ class InputNumber extends Component {
 	handlePlusMinus(isPlus) {
 		const { min, max, precision, step, onChange } = this.props;
 		const { currentValue } = this.state;
-
 		let val = currentValue;
-		if (this.isControlled) {
-			if (!isInvalid(currentValue)) {
-				// 删除值 & 初始
-				const _val = fixDoubleOperation(Number(currentValue), Number(isPlus ? step : -1 * step));
-				val = getCurrentValue(_val, min, max, getCurrentPrecision(_val, precision, step));
-			} else {
-				val = getValueByBlank(min, max, step);
-			}
-		} else {
-			if (!isInvalid(currentValue)) {
-				// 有value
-				const _val = fixDoubleOperation(Number(currentValue), Number(isPlus ? step : -1 * step));
-				const tempValue = getCurrentValue(_val, min, max, getCurrentPrecision(_val, precision, step));
-				if (isPlus) {
-					// 加
-					if (getMax(currentValue, max).lessEqualMax) {
-						val = tempValue;
-					}
-				} else if (getMin(currentValue, min).greaterEqualMin) {
-					val = tempValue;
-				}
-			} else {
-				val = getValueByBlank(min, max, step);
-			}
 
-			this.setState({
-				currentValue: val
-			});
+		if (isInvalid(currentValue)) {
+			val = min === -Infinity ? 0 : min;
+		} else {
+			const _val = fixDoubleOperation(Number(currentValue), Number(isPlus ? step : -1 * step));
+			val = getCurrentValue(_val, min, max, getCurrentPrecision(_val, precision, step));
 		}
-		if (!isInvalid(val)) {
-			val = Number(val);
-		}
+
+		this.setState({
+			currentValue: val
+		});
+
+		val = Number(val);
 		onChange(val);
 	}
 
