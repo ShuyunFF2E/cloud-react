@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tips renders correctly 1`] = `
+<div
+  class="normal cloud-tips-container"
+>
+  默认提示信息
+</div>
+`;
