@@ -17,6 +17,7 @@ title: Tooltip
 | content         | 内容（可以为任意一段 html 内容）                                                                                                                              | string   |               |
 | theme           | 主题, 可选 `dark` `light` `error`                                                                                                                             | string   | dark          |
 | trigger         | 触发方式 `onMouseEnter` `onClick`                                                                                                                                                     | string   | onMouseEnter         |
+| visible         | 用于手动控制浮层显隐                                                                                                                                          | boolean  | undefined             |
 | container       | <del>渲染节点，默认渲染到 body 上(如果指定容器，将会给指定容器添加 position:relative)，<b style="color: red">已废弃</b></del>                                                             | function | document.body |
 | mouseEnterDelay | 鼠标移入后延时多少才显示 Tooltip，单位：毫秒                                                                                                                  | number   | 1             |
 | mouseLeaveDelay | 鼠标移出后延时多少才隐藏 Tooltip，单位：毫秒                                                                                                                  | number   | 1             |

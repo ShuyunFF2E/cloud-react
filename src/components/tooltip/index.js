@@ -19,6 +19,31 @@ class Tooltip extends Component {
 		visible: false
 	};
 
+	tipRef = React.createRef();
+
+	componentDidMount() {
+		if (this.props.visible) {
+			this.setState({
+				visible: true
+			});
+			this.target = this.tipRef.current.firstElementChild;
+		}
+	}
+
+	componentDidUpdate(prevProps) {
+		const { visible } = this.props;
+		if (prevProps.visible === visible) {
+			return;
+		}
+		if (typeof visible === 'boolean') {
+			if (visible) {
+				this.showTips({ target: this.tipRef.current.firstElementChild });
+			} else {
+				this.closeTips();
+			}
+		}
+	}
+
 	getChildren() {
 		const { children } = this.props;
 		const __children = createElement('span', null, [children]);
@@ -34,9 +59,9 @@ class Tooltip extends Component {
 	}
 
 	showTips = ({ target }) => {
-		const { mouseEnterDelay, content } = this.props;
+		const { mouseEnterDelay, content, visible } = this.props;
 
-		if (!content) {
+		if (!content || (typeof visible === 'boolean' && !visible)) {
 			return;
 		}
 
@@ -48,7 +73,11 @@ class Tooltip extends Component {
 	};
 
 	closeTips = () => {
-		const { mouseLeaveDelay } = this.props;
+		const { mouseLeaveDelay, visible } = this.props;
+
+		if (typeof visible === 'boolean' && visible) {
+			return;
+		}
 
 		setTimeout(() => {
 			this.setState({ visible: false });
@@ -77,7 +106,8 @@ class Tooltip extends Component {
 		const props = {
 			style: { display: 'contents' },
 			onMouseLeave: this.closeTips,
-			[triggerName]: this.showTips
+			[triggerName]: this.showTips,
+			ref: this.tipRef
 		};
 
 		return (
@@ -97,7 +127,7 @@ Tooltip.propTypes = {
 	mouseEnterDelay: PropTypes.number,
 	mouseLeaveDelay: PropTypes.number,
 	trigger: PropTypes.string,
-	clear: PropTypes.bool,
+	visible: PropTypes.bool,
 	placement: PropTypes.oneOf([
 		CONFIG_PLACE.auto,
 		CONFIG_PLACE.top,
@@ -123,7 +153,7 @@ Tooltip.defaultProps = {
 	mouseEnterDelay: 1,
 	mouseLeaveDelay: 1,
 	trigger: 'hover',
-	clear: false,
+	visible: undefined,
 	placement: CONFIG_PLACE.auto,
 	theme: CONFIG_THEME.dark,
 	className: ''
