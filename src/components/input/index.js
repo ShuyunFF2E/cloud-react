@@ -85,7 +85,7 @@ class Input extends React.Component {
 	}
 
 	componentDidUpdate(prevProps) {
-		if (prevProps.value !== this.inputNode.value) {
+		if (prevProps.value !== this.props.value) {
 			this.setInputValue();
 		}
 	}
