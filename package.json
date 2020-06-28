@@ -6,8 +6,8 @@
     "scripts": {
         "precommit": "npm run lint",
         "lint": "eslint src",
-        "prettier": "prettier -c --write '**/*'",
-        "pretty-quick": "pretty-quick",
+        "prettier": "prettier -c --write 'src/**/*.{js,less}'",
+        "pretty-quick": "pretty-quick --pattern 'src/**/*.{js,less}'",
         "webpack": "webpack",
         "webpack-dev-server": "webpack-dev-server",
         "gen-index": "node ./scripts/generate-index.js",

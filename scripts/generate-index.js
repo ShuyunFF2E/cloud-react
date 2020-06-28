@@ -29,7 +29,7 @@ const toComponentsName = text => {
 const description = '/* components/index.js文件 是通过 /script/generate-index.js文件生成的 */';
 const condition = `
 // 检验当前运行环境
-if( typeof window === 'undefined' ) {
+if(typeof window === 'undefined') {
 	console.warn('${name} 仅支持在浏览器环境进行使用!');
 }
 `;
