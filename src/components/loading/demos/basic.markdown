@@ -25,7 +25,7 @@ export default class LoadingDemo extends React.Component {
 			<>
 				Loading state: <Toggle checked={this.state.loading} onChange={this.handleChange} />
 				<div className="item-base">
-					<Loading loading={this.state.loading} />
+					<Loading className="loadingClass" loading={this.state.loading} />
 				</div>
 			</>
 		);
@@ -36,9 +36,15 @@ export default class LoadingDemo extends React.Component {
 ```less
 .item-base {
 	margin-top: 15px;
-	width: 200px;
-	height: 200px;
 	background: black;
+	min-width: 200px;
+	max-width: 300px;
+	min-height: 200px;
 	opacity: 0.5;
+	position: relative;
+}
+
+.loadingClass {
+	position: absolute;
 }
 ```

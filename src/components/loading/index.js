@@ -34,9 +34,9 @@ function SvgLoading(props) {
 }
 
 function Loading(props) {
-	const { loading, delay, layer, size, tip, children } = props;
+	const { loading, delay, layer, size, tip, children, className } = props;
 	const [delayShow, setDelayShow] = useState(delay <= 0);
-	const classes = classNames(selector);
+	const classes = classNames(selector, className);
 
 	useEffect(() => {
 		let timer;
@@ -76,7 +76,8 @@ Loading.propTypes = {
 	layer: PropTypes.bool,
 	size: PropTypes.oneOf(['default', 'small', 'large']),
 	tip: PropTypes.string,
-	delay: PropTypes.number
+	delay: PropTypes.number,
+	className: PropTypes.string
 };
 
 Loading.defaultProps = {
@@ -84,7 +85,8 @@ Loading.defaultProps = {
 	layer: false,
 	size: 'default',
 	tip: '',
-	delay: 0
+	delay: 0,
+	className: ''
 };
 
 export default Loading;
