@@ -10,10 +10,11 @@ subtitle: 加载
 
 ### API
 
-| 属性    | 说明                                            | 类型          | 默认值  |
-| ------- | ----------------------------------------------- | ------------- | ------- |
-| loading | 是否为加载中状态                                | boolean       | true    |
-| size    | loading 大小，可选值：`small` `default` `large` | string        | default |
-| layer   | 是否带背景层                                    | boolean       | false   |
-| tip     | 自定义描述文案                                  | string        | -       |
-| delay   | 延迟显示加载效果的时间（防止闪烁）              | number (毫秒) | -       |
+| 属性      | 说明                                            | 类型          | 默认值  |
+| --------- | ----------------------------------------------- | ------------- | ------- |
+| loading   | 是否为加载中状态                                | boolean       | true    |
+| size      | loading 大小，可选值：`small` `default` `large` | string        | default |
+| layer     | 是否带背景层                                    | boolean       | false   |
+| tip       | 自定义描述文案                                  | string        | -       |
+| delay     | 延迟显示加载效果的时间（防止闪烁）              | number (毫秒) | -       |
+| className | 外部控制样式                                    | string        | -       |
