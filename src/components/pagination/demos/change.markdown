@@ -6,7 +6,7 @@ desc: 改变每页显示条目数
 
 ```javascript
 import React from 'react';
-import { Pagination } from 'cloud-react';
+import Pagination from '../index';
 
 export default class PaginationDemo extends React.Component {
 	state = {
