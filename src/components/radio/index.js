@@ -35,7 +35,8 @@ class Radio extends React.Component {
 	// }
 
 	onChangeAction(evt) {
-		const { value, onChange } = this.props;
+		const { value, onChange, disabled } = this.props;
+		if (disabled) return;
 		onChange(value, evt);
 	}
 
