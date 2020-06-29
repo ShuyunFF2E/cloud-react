@@ -88,9 +88,9 @@ class Pagination extends Component {
 		}
 
 		pages.push(
-			<li key="nextMore" className="ellips" onClick={this.nextMore}>
+			<li key="nextMore" className="ellips">
 				<span className="dot" />
-				<Icon type="double-right" className="moreIcon" />
+				<Icon type="double-right" className="moreIcon" onClick={this.nextMore} />
 			</li>
 		);
 		pages.push(
@@ -110,9 +110,9 @@ class Pagination extends Component {
 			</li>
 		);
 		pages.push(
-			<li key="preMore" className="ellips" onClick={this.preMore}>
+			<li key="preMore" className="ellips">
 				<span className="dot" />
-				<Icon type="double-left" className="moreIcon" />
+				<Icon type="double-left" className="moreIcon" onClick={this.preMore} />
 			</li>
 		);
 
