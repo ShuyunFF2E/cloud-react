@@ -40,9 +40,11 @@ class TablePagination extends Component {
 			pageNum: current
 		};
 
-		if (showPageSizeOptions && pageSizeOptions.indexOf(pageSize) === -1) {
-			pageSizeOptions.push();
-			pageSizeOptions.sort((a, b) => a - b);
+		if (showPageSizeOptions) {
+			if (pageSizeOptions.indexOf(pageSize) === -1) {
+				pageSizeOptions.push(pageSize);
+				pageSizeOptions.sort((a, b) => a - b);
+			}
 			this.state.pageSizeOptions = pageSizeOptions;
 		}
 	}
@@ -82,7 +84,7 @@ class TablePagination extends Component {
 		const { pageSizeOptions } = this.state;
 		return (
 			<div className="change-size">
-				<select name="selectPageSize" value={(this.props.pageSize || pageSizeOptions[0]).toString()} onChange={this.selectPageSize}>
+				<select name="selectPageSize" value={this.props.pageSize.toString()} onChange={this.selectPageSize}>
 					{pageSizeOptions.map(item => {
 						return (
 							<option value={item} key={item}>
@@ -123,7 +125,7 @@ class TablePagination extends Component {
 			return null;
 		}
 
-		if (typeof checkedTotal === 'string' || typeof checkedTotal === 'number') {
+		if (typeof checkedTotal === 'number') {
 			return <div className="checked-info">已选{checkedTotal}条</div>;
 		}
 
