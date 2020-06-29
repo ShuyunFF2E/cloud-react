@@ -2,6 +2,7 @@ import React, { Component, createElement } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import ToolView from './toolView';
+import Modal from '../modal';
 import { CONFIG_PLACE, CONFIG_THEME } from './config';
 import './index.less';
 
@@ -11,6 +12,8 @@ const TRIGGER_MAPPING = {
 };
 
 class Tooltip extends Component {
+	static contextType = Modal.ConfigProvider;
+
 	target = null;
 
 	timestamp = new Date().getTime().toString();
@@ -42,6 +45,11 @@ class Tooltip extends Component {
 				this.closeTips();
 			}
 		}
+	}
+
+	get document() {
+		// 使用 || 来兼容未合并相关代码的情况
+		return this.context.rootDocument || document;
 	}
 
 	getChildren() {
@@ -94,7 +102,7 @@ class Tooltip extends Component {
 					target
 				}}
 			/>,
-			document.body
+			this.document.body
 		);
 	}
 
