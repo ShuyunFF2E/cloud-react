@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { prefixCls } from '@utils';
@@ -33,42 +33,63 @@ function SvgLoading(props) {
 	);
 }
 
-function Loading(props) {
-	const { loading, delay, layer, size, tip, children, className } = props;
-	const [delayShow, setDelayShow] = useState(delay <= 0);
-	const classes = classNames(selector, className);
+class Loading extends Component {
+	timer = null;
 
-	useEffect(() => {
-		let timer;
-		if (delay > 0) {
-			if (loading) {
-				timer = setTimeout(() => {
-					setDelayShow(true);
-				}, delay);
-			} else {
-				setDelayShow(false);
-			}
-		}
-
-		return () => {
-			if (timer) {
-				clearTimeout(timer);
-			}
+	constructor(props) {
+		super(props);
+		this.state = {
+			delayShow: true
 		};
-	}, [delay, loading]);
+	}
 
-	return children ? (
-		<div className={classes}>
-			{children}
-			{loading && delayShow && <SvgLoading size={size} tip={tip} layer={layer} />}
-		</div>
-	) : (
-		loading && delayShow && (
+	updateShowStatus() {
+		const { delay, loading } = this.props;
+		if (loading) {
+			this.timer = setTimeout(() => {
+				this.setState({ delayShow: true });
+			}, delay);
+		} else {
+			this.setState({ delayShow: false });
+		}
+	}
+
+	componentDidMount() {
+		if (this.props.delay > 0) {
+			this.updateShowStatus();
+		}
+	}
+
+	componentDidUpdate(prevProps) {
+		const { delay, loading } = this.props;
+		if (delay > 0 && prevProps.loading !== loading) {
+			this.updateShowStatus();
+		}
+	}
+
+	componentWillUnmount() {
+		clearTimeout(this.timer);
+	}
+
+	render() {
+		const { loading, layer, size, tip, children, className } = this.props;
+		const classes = classNames(selector, className);
+
+		const { delayShow } = this.state;
+
+		return children ? (
 			<div className={classes}>
-				<SvgLoading size={size} tip={tip} layer={layer} />
+				{children}
+				{loading && delayShow && <SvgLoading size={size} tip={tip} layer={layer} />}
 			</div>
-		)
-	);
+		) : (
+			loading && delayShow && (
+				<div className={classes}>
+					<SvgLoading size={size} tip={tip} layer={layer} />
+				</div>
+			)
+		);
+	}
 }
 
 Loading.propTypes = {
