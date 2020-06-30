@@ -1,0 +1,289 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Step renders correctly 1`] = `
+<div
+  class="cloud-step horizontal circle"
+  current="0"
+>
+  <div
+    class="cloud-step-item process"
+  >
+    <div
+      class="cloud-step-icon process"
+    >
+      <span>
+        1
+      </span>
+    </div>
+    <div
+      class="cloud-step-body"
+    >
+      <div
+        class="cloud-step-title"
+      >
+        把冰箱门打开
+      </div>
+    </div>
+  </div>
+  <div
+    class="cloud-step-item wait"
+  >
+    <div
+      class="cloud-step-icon wait"
+    >
+      <span>
+        2
+      </span>
+    </div>
+    <div
+      class="cloud-step-body"
+    >
+      <div
+        class="cloud-step-title"
+      >
+        把大象放进去
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Step renders different direction correctly 1`] = `
+<div
+  class="cloud-step horizontal circle"
+  current="0"
+>
+  <div
+    class="cloud-step-item process"
+  >
+    <div
+      class="cloud-step-icon process"
+    >
+      <span>
+        1
+      </span>
+    </div>
+    <div
+      class="cloud-step-body"
+    >
+      <div
+        class="cloud-step-title"
+      >
+        把冰箱门打开
+      </div>
+    </div>
+  </div>
+  <div
+    class="cloud-step-item wait"
+  >
+    <div
+      class="cloud-step-icon wait"
+    >
+      <span>
+        2
+      </span>
+    </div>
+    <div
+      class="cloud-step-body"
+    >
+      <div
+        class="cloud-step-title"
+      >
+        把大象放进去
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Step renders different direction correctly 2`] = `
+<div
+  class="cloud-step vertical circle"
+  current="0"
+>
+  <div
+    class="cloud-step-item process"
+  >
+    <div
+      class="cloud-step-icon process"
+    >
+      <span>
+        1
+      </span>
+    </div>
+    <div
+      class="cloud-step-body"
+    >
+      <div
+        class="cloud-step-title"
+      >
+        把冰箱门打开
+      </div>
+    </div>
+  </div>
+  <div
+    class="cloud-step-item wait"
+  >
+    <div
+      class="cloud-step-icon wait"
+    >
+      <span>
+        2
+      </span>
+    </div>
+    <div
+      class="cloud-step-body"
+    >
+      <div
+        class="cloud-step-title"
+      >
+        把大象放进去
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Step renders different direction correctly 3`] = `
+<div
+  class="cloud-step inline circle"
+  current="0"
+>
+  <div
+    class="cloud-step-item process"
+  >
+    <div
+      class="cloud-step-icon process"
+    >
+      <span>
+        1
+      </span>
+    </div>
+    <div
+      class="cloud-step-body"
+    >
+      <div
+        class="cloud-step-title"
+      >
+        把冰箱门打开
+      </div>
+    </div>
+  </div>
+  <div
+    class="cloud-step-item wait"
+  >
+    <div
+      class="cloud-step-icon wait"
+    >
+      <span>
+        2
+      </span>
+    </div>
+    <div
+      class="cloud-step-body"
+    >
+      <div
+        class="cloud-step-title"
+      >
+        把大象放进去
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Step renders different type correctly 1`] = `
+<div
+  class="cloud-step horizontal circle"
+  current="0"
+>
+  <div
+    class="cloud-step-item process"
+  >
+    <div
+      class="cloud-step-icon process"
+    >
+      <span>
+        1
+      </span>
+    </div>
+    <div
+      class="cloud-step-body"
+    >
+      <div
+        class="cloud-step-title"
+      >
+        把冰箱门打开
+      </div>
+    </div>
+  </div>
+  <div
+    class="cloud-step-item wait"
+  >
+    <div
+      class="cloud-step-icon wait"
+    >
+      <span>
+        2
+      </span>
+    </div>
+    <div
+      class="cloud-step-body"
+    >
+      <div
+        class="cloud-step-title"
+      >
+        把大象放进去
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Step renders different type correctly 2`] = `
+<div
+  class="cloud-step horizontal dot"
+  current="0"
+>
+  <div
+    class="cloud-step-item process"
+  >
+    <div
+      class="cloud-step-icon process"
+    >
+      <span>
+        1
+      </span>
+    </div>
+    <div
+      class="cloud-step-body"
+    >
+      <div
+        class="cloud-step-title"
+      >
+        把冰箱门打开
+      </div>
+    </div>
+  </div>
+  <div
+    class="cloud-step-item wait"
+  >
+    <div
+      class="cloud-step-icon wait"
+    >
+      <span>
+        2
+      </span>
+    </div>
+    <div
+      class="cloud-step-body"
+    >
+      <div
+        class="cloud-step-title"
+      >
+        把大象放进去
+      </div>
+    </div>
+  </div>
+</div>
+`;
