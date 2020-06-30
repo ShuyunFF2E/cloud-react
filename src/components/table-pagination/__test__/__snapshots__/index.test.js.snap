@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TablePagination renders correctly 1`] = `
+<div
+  class="cloud-table-pagination"
+>
+  <div
+    class="left-tools"
+  />
+  <div
+    class="right-pagination-option"
+  >
+    <div
+      class="action-group"
+    >
+      <div
+        class="icon-group"
+      >
+        <i
+          class="disabled cloud-icon cloud-icon-first-solid"
+        />
+        <i
+          class="disabled cloud-icon cloud-icon-left-solid"
+        />
+      </div>
+      <div
+        class="goto-page"
+      >
+        <input
+          class="gp-input"
+          type="text"
+          value="1"
+        />
+        /共
+        <span>
+          5
+        </span>
+        页
+      </div>
+      <div
+        class="icon-group"
+      >
+        <i
+          class="cloud-icon cloud-icon-right-solid"
+        />
+        <i
+          class="cloud-icon cloud-icon-last-solid"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;

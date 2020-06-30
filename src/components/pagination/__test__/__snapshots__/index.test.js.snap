@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Pagination renders correctly 1`] = `
+<div
+  class="cloud-pagination"
+>
+  <ul>
+    <li
+      class="nomore"
+      role="presentation"
+    >
+      <i
+        class="pg-icon cloud-icon cloud-icon-left"
+      />
+    </li>
+    <li
+      class=""
+      role="presentation"
+    >
+      <i
+        class="pg-icon cloud-icon cloud-icon-right"
+      />
+    </li>
+  </ul>
+</div>
+`;

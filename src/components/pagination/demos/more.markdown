@@ -6,7 +6,7 @@ desc: 更多分页
 
 ```javascript
 import React from 'react';
-import { Pagination } from 'cloud-react';
+import Pagination from '../index';
 
 export default class PaginationDemo extends React.Component {
 	state = {

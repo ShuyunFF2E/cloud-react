@@ -9,7 +9,7 @@ const indexFile = path.resolve(__dirname, '../src/components/index.js');
 const { name } = require('../package.json');
 
 // 忽略列表
-const ignores = ['.DS_Store', 'index.js', 'style'];
+const ignores = ['.DS_Store', 'index.js', 'style', 'pagination'];
 
 // 获取组件列表
 const files = fs.readdirSync(filePath);
@@ -29,7 +29,7 @@ const toComponentsName = text => {
 const description = '/* components/index.js文件 是通过 /script/generate-index.js文件生成的 */';
 const condition = `
 // 检验当前运行环境
-if( typeof window === 'undefined' ) {
+if(typeof window === 'undefined') {
 	console.warn('${name} 仅支持在浏览器环境进行使用!');
 }
 `;
