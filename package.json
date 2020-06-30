@@ -5,7 +5,7 @@
     "main": "cloud-react.js",
     "scripts": {
         "precommit": "npm run lint",
-        "lint": "eslint src",
+        "lint": "eslint src --fix",
         "prettier": "prettier -c --write 'src/**/*.{js,less}'",
         "pretty-quick": "pretty-quick --pattern 'src/**/*.{js,less}'",
         "webpack": "webpack",

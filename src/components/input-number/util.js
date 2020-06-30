@@ -30,41 +30,6 @@ export function getCurrentValue(value, min, max, precision = -1) {
 	return val;
 }
 
-export function getMax(value, max) {
-	const _isInvalid = isInvalid(value);
-	return {
-		lessEqualMax: _isInvalid ? false : Number(value) <= max,
-		lessMax: _isInvalid ? false : Number(value) < max
-	};
-}
-
-export function getMin(value, min) {
-	const _isInvalid = isInvalid(value);
-	return {
-		greaterMin: _isInvalid ? false : Number(value) > min,
-		greaterEqualMin: _isInvalid ? false : Number(value) >= min
-	};
-}
-
-export function getValueByBlank(min, max, step) {
-	if ((min === -Infinity && max === Infinity) || (min === Infinity && max === -Infinity) || (min <= 0 && max >= 0)) {
-		return 0;
-	}
-	if (min === -Infinity && max === -Infinity) {
-		return 0 - step;
-	}
-	if (min === Infinity && max === Infinity) {
-		return 0 + step;
-	}
-	if (min < 0 && max < 0) {
-		return max;
-	}
-	if (min > 0 && max > 0) {
-		return min;
-	}
-	return 0;
-}
-
 /**
  *
  * 解决js精度丢失
@@ -74,23 +39,17 @@ export function getValueByBlank(min, max, step) {
  * @param {string} [type='add'] 运算类型，默认加法(可扩展)
  * @returns
  */
-export function fixDoubleOperation(n1, n2, type = 'add') {
+export function fixDoubleOperation(n1, n2) {
 	const l1 = String(n1).indexOf('.') >= 0 ? String(n1).split('.')[1].length : 0;
 	const l2 = String(n2).indexOf('.') >= 0 ? String(n2).split('.')[1].length : 0;
 	const displacement = 10 ** Math.max(l1, l2);
 	const _n1 = Number((n1 * displacement).toFixed());
 	const _n2 = Number((n2 * displacement).toFixed());
-	switch (type) {
-		case 'add': {
-			return (_n1 + _n2) / displacement;
-		}
-		default: {
-			return (_n1 + _n2) / displacement;
-		}
-	}
+
+	return (_n1 + _n2) / displacement;
 }
 
-export function getCurrentPrecision(value = 0, precision, step) {
+export function getCurrentPrecision(value, precision, step) {
 	// 精度判断
 	let _precision;
 	if (precision === undefined || precision === null) {

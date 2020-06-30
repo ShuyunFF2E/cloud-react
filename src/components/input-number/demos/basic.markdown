@@ -12,13 +12,7 @@ const blank = '\u00A0';
 
 export default class InputNumberDemo extends React.Component {
 	render() {
-		return (
-			<>
-				<div>
-					<InputNumber disabled defaultValue={3} min={-10} max={10} />
-				</div>
-			</>
-		);
+		return <InputNumber defaultValue={1} precison={2} />;
 	}
 }
 ```
