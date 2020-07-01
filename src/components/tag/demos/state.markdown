@@ -16,6 +16,7 @@ export default class TagDemo extends Component {
 				<Tag type="warning"> 进行中 </Tag>
 				<Tag type="default"> 禁用 </Tag>
 				<Tag type="danger"> 错误 </Tag>
+				<Tag type="danger" disabled> 错误 </Tag>
 				<Tag> 默认 </Tag>
 			</>
 		);

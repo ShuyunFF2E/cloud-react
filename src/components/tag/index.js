@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { omit, prefixCls } from '@utils';
+import { omit, prefixCls, noop } from '@utils';
 
 import Icon from '../icon';
 import './index.less';
@@ -30,8 +30,8 @@ export default class Tag extends Component {
 		closable: false,
 		checked: false,
 		disabled: false,
-		onClick: () => {},
-		onClose: () => {}
+		onClick: noop,
+		onClose: noop
 	};
 
 	get classes() {
@@ -46,22 +46,16 @@ export default class Tag extends Component {
 	}
 
 	handleRemove = event => {
-		const { onClose } = this.props;
-
-		if (onClose) {
-			onClose();
-			event.stopPropagation();
-		}
+		this.props.onClose();
+		event.stopPropagation();
 	};
 
-	handleClick = evt => {
+	handleClick = event => {
 		const { disabled, onClick } = this.props;
 
 		if (disabled) return;
 
-		if (onClick) {
-			onClick(evt);
-		}
+		onClick(event);
 	};
 
 	render() {
