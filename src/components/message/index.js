@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
-
 import { prefixCls } from '@utils';
+import Icon from '../icon';
 
 import './index.less';
-import Icon from '../icon';
 
 const DEFAULTOPTS = { duration: 3000, contextContainer: document.body };
 
@@ -75,13 +74,15 @@ class MessageEntity extends Component {
 
 	componentDidMount() {
 		this.startTimer();
-		setTimeout(() => {
+		this.loadTimer = setTimeout(() => {
 			this.noticeRef.current.classList.add('fade-in');
 		}, 100);
 	}
 
 	componentWillUnmount() {
 		this.onHandleClose();
+		clearTimeout(this.loadTimer);
+		clearTimeout(this.closeTimer);
 	}
 
 	/**
@@ -93,7 +94,7 @@ class MessageEntity extends Component {
 		}
 		this.closed = true;
 
-		this.stopTimer();
+		clearTimeout(this.closeTimer);
 
 		const { container, contextContainer } = this.props;
 		const { current: currentNotice } = this.noticeRef;
@@ -102,15 +103,15 @@ class MessageEntity extends Component {
 		currentNotice.classList.add('fade-out');
 
 		// 监听动画完成
-		currentNotice.addEventListener(
-			'webkitTransitionEnd',
-			() => {
-				ReactDOM.unmountComponentAtNode(container);
-				wraper.removeChild(container);
-				removeWraper(contextContainer);
-			},
-			{ once: true, capture: true }
-		);
+		// currentNotice.addEventListener(
+		// 	'webkitTransitionEnd',
+		// 	() => {
+		ReactDOM.unmountComponentAtNode(container);
+		wraper.removeChild(container);
+		removeWraper(contextContainer);
+		// 		},
+		// 		{ once: true, capture: true }
+		// 	);
 	};
 
 	/**
@@ -119,17 +120,10 @@ class MessageEntity extends Component {
 	startTimer() {
 		const { duration } = this.props;
 		if (duration > 0) {
-			this.timer = setTimeout(() => {
+			this.closeTimer = setTimeout(() => {
 				this.onHandleClose();
 			}, duration);
 		}
-	}
-
-	/**
-	 * 清除定时器
-	 */
-	stopTimer() {
-		clearTimeout(this.timer);
 	}
 
 	render() {
