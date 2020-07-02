@@ -70,6 +70,11 @@ class Picker extends Component {
 		return this.context.rootDocument;
 	}
 
+	get portal() {
+		const { getContext } = this.context;
+		return getContext() || this.document.body;
+	}
+
 	handleValueChange = (output = '', isPop = false) => {
 		const value = this.props.formatValue(output);
 		this.setState({
@@ -256,7 +261,7 @@ class Picker extends Component {
 						<div className={`${selectorClass}-popup ${className}`} ref={this.popupRef} style={{ ...style }} onClick={this.popClick}>
 							{this.renderMainPop()}
 						</div>,
-						this.document.body
+						this.portal
 					)}
 			</div>
 		);
