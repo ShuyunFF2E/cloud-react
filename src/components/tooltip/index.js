@@ -48,8 +48,12 @@ class Tooltip extends Component {
 	}
 
 	get document() {
-		// 使用 || 来兼容未合并相关代码的情况
-		return this.context.rootDocument || document;
+		return this.context.rootDocument;
+	}
+
+	get portal() {
+		const { getContext } = this.context;
+		return getContext() || this.document.body;
 	}
 
 	getChildren() {
@@ -102,7 +106,7 @@ class Tooltip extends Component {
 					target
 				}}
 			/>,
-			this.document.body
+			this.portal
 		);
 	}
 

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 
 import { getRootWindow } from '@utils';
+import { sandboxSelector } from './constants';
 import './index.less';
 import Notification from './modal';
 import Prompt from './prompt';
@@ -25,7 +26,12 @@ class Modal extends Component {
 		const rootDocument = rootWindow.document;
 
 		return ReactDOM.createPortal(
-			<Context.Provider value={{ rootWindow, rootDocument }}>
+			<Context.Provider
+				value={{
+					rootWindow,
+					rootDocument,
+					getContext: () => rootDocument.querySelector(`.${sandboxSelector}`) || rootDocument.body
+				}}>
 				<Notification type="modal" {...props}>
 					{children}
 				</Notification>
