@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import { render, mount } from 'enzyme';
 import mountTest from '@tests/shared/mountTest';

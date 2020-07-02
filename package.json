@@ -87,6 +87,7 @@
         "style-loader": "^0.23.1",
         "uglifyjs-webpack-plugin": "^2.2.0",
         "url-loader": "^1.1.2",
+        "loader-utils": "1.4.0",
         "webpack": "^4.29.5",
         "webpack-bundle-analyzer": "^3.8.0",
         "webpack-cli": "^3.2.3",
@@ -95,7 +96,7 @@
     },
     "dependencies": {
         "classnames": "^2.2.6",
-        "gridmanager-react": "0.4.13",
+        "gridmanager-react": "^0.5.1",
         "prop-types": "^15.7.2",
         "react": "^16.8.6",
         "react-dom": "^16.8.6",
