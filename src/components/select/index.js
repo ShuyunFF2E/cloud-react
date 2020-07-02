@@ -123,6 +123,11 @@ class Select extends Component {
 		return this.context.rootDocument;
 	}
 
+	get portal() {
+		const { getContext } = this.context;
+		return getContext() || this.document.body;
+	}
+
 	get defaultSelectValue() {
 		const { value, defaultValue, multiple } = this.props;
 		if (multiple) {
@@ -380,7 +385,7 @@ class Select extends Component {
 		const { width } = this.selectedContainerStyle;
 		const classNames = classnames(`${selector}`, { [`${selector}-open`]: open }, className);
 
-		const containerEle = isAppendToBody ? this.document.body : this.node.current;
+		const containerEle = isAppendToBody ? this.portal : this.node.current;
 
 		return (
 			<div className={`${classNames}`} style={style} ref={this.node}>
