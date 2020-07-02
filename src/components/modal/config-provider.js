@@ -5,6 +5,6 @@ export default createContext({
 	rootWindow: window,
 	rootDocument: document,
 	getContext() {
-		return this.rootDocument.querySelector(`.${sandboxSelector}`) || this.rootDocument.body;
+		return document.querySelector(`.${sandboxSelector}`) || document.body;
 	}
 });
