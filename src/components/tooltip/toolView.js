@@ -1,4 +1,4 @@
-import React, { Component, isValidElement } from 'react';
+import React, { Component } from 'react';
 import classNames from 'classnames';
 import { prefixCls } from '@utils';
 import { CONFIG_PLACE } from './config';
@@ -154,10 +154,10 @@ export default class ToolView extends Component {
 		};
 
 		// 检测到非React节点时，使用html到方式插入
-		if (isValidElement(content)) {
-			return <div {...props}>{content}</div>;
+		if (typeof content !== 'object') {
+			return <div {...props} dangerouslySetInnerHTML={{ __html: content }} />;
 		}
 
-		return <div {...props} dangerouslySetInnerHTML={{ __html: content }} />;
+		return <div {...props}>{content}</div>;
 	}
 }
