@@ -138,9 +138,13 @@ export default class ToolView extends Component {
 					style: getTooltipPositionInBody(tooltip, target, placement),
 					dir: getDirection(tooltip, target, placement).join('-')
 				},
-				() => this.setState({ show: true })
+				() => this.show()
 			);
 		}, 0);
+	}
+
+	show() {
+		setTimeout(() => this.setState({ show: true }), 10);
 	}
 
 	render() {
