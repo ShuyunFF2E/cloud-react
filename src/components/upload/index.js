@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import Message from '../message';
 import Icon from '../icon';
 import Button from '../button';
-
+import Modal from '../modal';
 import UploadList from './list';
 import getUuid from './utils';
 import defaultHttp from './http';
@@ -75,10 +75,10 @@ class Upload extends Component {
 
 		if (number === 0) return;
 
-		this.handleUplaod();
+		this.handleUpload();
 	};
 
-	handleUplaod = () => {
+	handleUpload = () => {
 		const fileList = this.getFileList();
 
 		[...Array.from(fileList)]
@@ -171,7 +171,16 @@ class Upload extends Component {
 		const before = this.handleBeforeUpload(file);
 
 		if (before) {
-			this.post(file);
+			if (!this.props.showBeforeConfirm) {
+				this.post(file);
+				return;
+			}
+			Modal.confirm({
+				body: this.props.beforeConfirmBody,
+				onOk: () => {
+					this.post(file);
+				}
+			});
 		}
 	}
 
@@ -263,6 +272,8 @@ Upload.propTypes = {
 	fileList: PropTypes.array,
 	action: PropTypes.string,
 	multiple: PropTypes.bool,
+	showBeforeConfirm: PropTypes.bool,
+	beforeConfirmBody: PropTypes.node,
 	customRequest: PropTypes.func,
 	onBeforeUpload: PropTypes.func,
 	onProgress: PropTypes.func,
@@ -282,6 +293,8 @@ Upload.defaultProps = {
 	action: '',
 	multiple: false,
 	customRequest: undefined,
+	showBeforeConfirm: false,
+	beforeConfirmBody: '确认上传？',
 	onBeforeUpload: undefined,
 	onProgress: undefined,
 	onSuccess: undefined,
