@@ -94,7 +94,7 @@ class Pagination extends Component {
 			</li>
 		);
 		pages.push(
-			<li role="presentation" key={this.totalPage} className={current === this.totalPage ? 'active' : ''} onClick={() => this.goPage(this.totalPage)}>
+			<li role="presentation" key={this.totalPage} onClick={() => this.goPage(this.totalPage)}>
 				{this.totalPage}
 			</li>
 		);
@@ -105,7 +105,7 @@ class Pagination extends Component {
 	 */
 	renderLeftEllipsePages = (offset, pages, current) => {
 		pages.push(
-			<li role="presentation" key="1" className={current === 1 ? ' active' : ''} onClick={() => this.goPage(1)}>
+			<li role="presentation" key="1" onClick={() => this.goPage(1)}>
 				1
 			</li>
 		);
@@ -140,7 +140,7 @@ class Pagination extends Component {
 	 */
 	renderBothEllipsePages = (offset, pages, current) => {
 		pages.push(
-			<li role="presentation" key="1" className={current === 1 ? ' active' : ''} onClick={() => this.goPage(1)}>
+			<li role="presentation" key="1" onClick={() => this.goPage(1)}>
 				1
 			</li>
 		);
@@ -161,7 +161,7 @@ class Pagination extends Component {
 
 		for (let j = 1; j <= offset / 2; j += 1) {
 			pages.push(
-				<li role="presentation" key={current + j} className={current === current + j ? ' active' : ''} onClick={() => this.goPage(current + j)}>
+				<li role="presentation" key={current + j} onClick={() => this.goPage(current + j)}>
 					{current + j}
 				</li>
 			);
@@ -174,7 +174,7 @@ class Pagination extends Component {
 			</li>
 		);
 		pages.push(
-			<li role="presentation" key={this.totalPage} className={current === this.totalPage ? 'active' : ''} onClick={() => this.goPage(this.totalPage)}>
+			<li role="presentation" key={this.totalPage} onClick={() => this.goPage(this.totalPage)}>
 				{this.totalPage}
 			</li>
 		);
@@ -266,7 +266,7 @@ class Pagination extends Component {
 		if (showPageSizeOptions) {
 			return (
 				<div className="change-size">
-					<select name="pSizeArea" value={(pageSize || pageSizeOptions[0]).toString()} onChange={this.selectPageSize}>
+					<select name="pSizeArea" value={pageSize.toString()} onChange={this.selectPageSize}>
 						{pageSizeOptions.map(item => {
 							return (
 								<option value={item} key={item}>

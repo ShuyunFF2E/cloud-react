@@ -29,8 +29,14 @@ describe('Pagination', () => {
 		const wrapper = mount(<Test />);
 		expect(wrapper.find('li:first-child.nomore')).toHaveLength(1);
 
+		wrapper.find('li:first-child').simulate('click');
+		expect(wrapper.state().current).toBe(1);
+
 		wrapper.setState({ current: 5 });
 		expect(wrapper.find('li:last-child.nomore')).toHaveLength(1);
+
+		wrapper.find('li:last-child').simulate('click');
+		expect(wrapper.state().current).toBe(5);
 
 		wrapper.find('li:first-child').simulate('click');
 		expect(wrapper.state().current).toBe(4);
@@ -79,10 +85,11 @@ describe('Pagination', () => {
 				.getDOMNode()
 				.classList.contains('ellips')
 		).toBeTruthy();
+
 		wrapper.unmount();
 	});
 
-	it('should show left ellipse when pageLength is more than 9 and current is less than (pageLength - 4)', () => {
+	it('should show left ellipse when pageLength is more than 9 and current is less than (pageLength - 3)', () => {
 		const wrapper = mount(<Test total={500} current={48} />);
 		expect(
 			wrapper
@@ -91,17 +98,18 @@ describe('Pagination', () => {
 				.getDOMNode()
 				.classList.contains('ellips')
 		).toBeTruthy();
+
 		wrapper.unmount();
 	});
 
-	it('should show left ellipse and right ellipse when current is more than 4 or current is more than (pageLength - 5)', () => {
+	it('should show left ellipse and right ellipse when current is more than 4 and current is less than (pageLength - 3)', () => {
 		const wrapper = mount(<Test total={500} current={5} />);
 		expect(wrapper.find('li.ellips')).toHaveLength(2);
 		wrapper.unmount();
 	});
 
 	it('should support click when ellipse is shown', () => {
-		[4, 5, 48].forEach(current => {
+		[1, 4, 5, 48, 50].forEach(current => {
 			const wrapper = mount(<Test total={500} current={current} />);
 
 			const lis = wrapper.find('li');
@@ -128,5 +136,71 @@ describe('Pagination', () => {
 
 			wrapper.unmount();
 		});
+	});
+
+	it('pageNum should change when input valid value', () => {
+		const wrapper = mount(<Test showQuickJumper />);
+		const inputWrapper = wrapper.find('.quickJumper input');
+		inputWrapper.getDOMNode().value = '2';
+
+		inputWrapper.simulate('keypress', { nativeEvent: { keyCode: 13 } });
+		expect(inputWrapper.getDOMNode().value).toBe('2');
+
+		inputWrapper.getDOMNode().value = '3';
+		inputWrapper.simulate('keypress', { nativeEvent: { keyCode: 14 } });
+		expect(inputWrapper.getDOMNode().value).toBe('2');
+
+		wrapper.unmount();
+	});
+
+	it('pageNum should not change when input invalid value', () => {
+		['0', '6', 'abc'].forEach(inputPage => {
+			const wrapper = mount(<Test showQuickJumper />);
+			const inputWrapper = wrapper.find('.quickJumper input');
+			inputWrapper.getDOMNode().value = inputPage;
+			inputWrapper.simulate('keypress', { nativeEvent: { keyCode: 13 } });
+			expect(inputWrapper.getDOMNode().value).toBe('1');
+			wrapper.unmount();
+		});
+	});
+
+	it('should trigger input onChange when set pageNum', () => {
+		const wrapper = mount(<Test showQuickJumper />);
+		const inputWrapper = wrapper.find('.quickJumper input');
+		inputWrapper.simulate('change', { target: { value: '2' } });
+		expect(inputWrapper.getDOMNode().value).toBe('2');
+		wrapper.unmount();
+	});
+
+	it('should trigger onChange when change pageSize', () => {
+		const wrapper = mount(<Test current={2} showPageSizeOptions />);
+		wrapper.setProps({ pageSize: 30 });
+		wrapper.find('.change-size select').simulate('change');
+		expect(wrapper.state().current).toBe(1);
+		wrapper.unmount();
+	});
+
+	it('support nextMore', () => {
+		const wrapper = mount(<Test total={500} />);
+		wrapper.find('.ellips .cloud-icon-double-right').simulate('click');
+		expect(wrapper.state().current).toBe(6);
+
+		wrapper.setState({ current: 46 });
+		wrapper.find('.ellips .cloud-icon-double-right').simulate('click');
+		expect(wrapper.state().current).toBe(48);
+
+		wrapper.unmount();
+	});
+
+	it('support preMore', () => {
+		const wrapper = mount(<Test total={500} current={50} />);
+		wrapper.find('.ellips .cloud-icon-double-left').simulate('click');
+		expect(wrapper.state().current).toBe(45);
+		wrapper.unmount();
+
+		const wrapper1 = mount(<Test total={500} current={5} />);
+		wrapper1.find('.ellips .cloud-icon-double-left').simulate('click');
+		expect(wrapper1.state().current).toBe(3);
+		wrapper1.unmount();
 	});
 });
