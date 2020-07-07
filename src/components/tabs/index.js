@@ -73,9 +73,6 @@ export default class Tabs extends PureComponent {
 				childCount: nextChildCount
 			};
 		}
-		if (prevChildCount !== nextChildCount) {
-			return { prevChildCount, childCount: nextChildCount };
-		}
 		return null;
 	}
 
@@ -110,6 +107,14 @@ export default class Tabs extends PureComponent {
 
 	get activeEle() {
 		return this.tabsRef.current.getElementsByClassName(this.props.activeClassName)[0];
+	}
+
+	get activeTabsOffsetLeft() {
+		return this.activeEle.offsetLeft;
+	}
+
+	get activeTabsOffsetWidth() {
+		return this.activeEle.offsetWidth;
 	}
 
 	get tabsOffsetLeft() {
@@ -156,11 +161,10 @@ export default class Tabs extends PureComponent {
 		const { tabsScrollWidth, tabsOffsetWidth } = this;
 		const hasMore = tabsScrollWidth > tabsOffsetWidth;
 		if (hasMore && this.activeEle) {
-			const { offsetWidth, offsetLeft } = this.activeEle;
-			const { tabsOffsetLeft, itemsMaxLeft } = this;
-			if (offsetLeft + offsetWidth >= tabsOffsetWidth - CONTAINER_PADDING * 2 + -tabsOffsetLeft) {
+			const { tabsOffsetLeft, itemsMaxLeft, activeTabsOffsetLeft, activeTabsOffsetWidth } = this;
+			if (activeTabsOffsetLeft + activeTabsOffsetWidth >= tabsOffsetWidth - CONTAINER_PADDING * 2 + -tabsOffsetLeft) {
 				const max = parseFloat(itemsMaxLeft) - CONTAINER_PADDING * 2;
-				const left = offsetLeft > -max ? max : -offsetLeft;
+				const left = activeTabsOffsetLeft > -max ? max : -activeTabsOffsetLeft;
 				this.tabsRef.current.style.left = `${left}px`;
 			}
 		}
@@ -184,10 +188,10 @@ export default class Tabs extends PureComponent {
 	};
 
 	countLineBarStyle = () => {
-		const { offsetWidth, offsetLeft } = this.activeEle;
+		const { activeTabsOffsetLeft, activeTabsOffsetWidth } = this;
 		Object.assign(this.activeBarRef.current.style, {
-			width: `${offsetWidth}px`,
-			left: `${offsetLeft}px`
+			width: `${activeTabsOffsetWidth}px`,
+			left: `${activeTabsOffsetLeft}px`
 		});
 	};
 
