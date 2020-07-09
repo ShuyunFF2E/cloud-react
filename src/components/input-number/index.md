@@ -13,8 +13,8 @@ subtitle: 数字输入框
 | 属性         | 说明                                                      | 类型                                  | 默认值      |
 | ------------ | --------------------------------------------------------- | ------------------------------------- | ----------- |
 | disabled     | 组件失效状态                                              | boolean                               | `false`     |
-| defaultValue | 初始值                                                    | number                                | -           |
-| value        | 当前值                                                    | number                                | -           |
+| defaultValue | 初始值                                                    | number或string                      | -           |
+| value        | 当前值                                                    | number或string                      | -           |
 | placeholder  | 输入框默认提示                                            | string                                | `请输入...` |
 | min          | 最小值                                                    | number                                | `-Infinity` |
 | max          | 最大值                                                    | number                                | `Infinity`  |

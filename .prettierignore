@@ -11,3 +11,5 @@ demos/components/code-box/assets/code.svg
 demos/favicon.ico
 yarn.lock
 package-lock.json
+/src/**/*.md
+/src/**/*.markdown
