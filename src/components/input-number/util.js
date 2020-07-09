@@ -30,6 +30,10 @@ export function getCurrentValue(value, min, max, precision = -1) {
 	return val;
 }
 
+function convertEmptyString2Zero(value) {
+	return String(value).indexOf('.') >= 0 ? String(value).split('.')[1].length : 0;
+}
+
 /**
  *
  * 解决js精度丢失
@@ -40,8 +44,8 @@ export function getCurrentValue(value, min, max, precision = -1) {
  * @returns
  */
 export function fixDoubleOperation(n1, n2) {
-	const l1 = String(n1).indexOf('.') >= 0 ? String(n1).split('.')[1].length : 0;
-	const l2 = String(n2).indexOf('.') >= 0 ? String(n2).split('.')[1].length : 0;
+	const l1 = convertEmptyString2Zero(n1);
+	const l2 = convertEmptyString2Zero(n2);
 	const displacement = 10 ** Math.max(l1, l2);
 	const _n1 = Number((n1 * displacement).toFixed());
 	const _n2 = Number((n2 * displacement).toFixed());
@@ -53,8 +57,8 @@ export function getCurrentPrecision(value, precision, step) {
 	// 精度判断
 	let _precision;
 	if (precision === undefined || precision === null) {
-		const valuePrecision = Number.isInteger(value) ? 0 : value.toString().split('.')[1].length;
-		const stepPrecision = Number.isInteger(step) ? 0 : step.toString().split('.')[1].length;
+		const valuePrecision = Number.isInteger(value) ? 0 : convertEmptyString2Zero(value);
+		const stepPrecision = Number.isInteger(step) ? 0 : convertEmptyString2Zero(step);
 		_precision = valuePrecision >= stepPrecision ? valuePrecision : stepPrecision;
 	} else {
 		_precision = parseInt(precision, 10);
