@@ -2,7 +2,7 @@ import { prefixCls } from '@utils';
 
 export const TYPE = {
 	PICTURE: 'picture',
-	DEFAULT: 'text'
+	DEFAULT: 'button'
 };
 
 export const PREFIX = `${prefixCls}-upload`;
