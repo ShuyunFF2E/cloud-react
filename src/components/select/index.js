@@ -18,14 +18,12 @@ import './index.less';
 
 const getSelected = (data, children) => {
 	const options = Array.isArray(data) ? data : [data];
-	if (options && options.length) {
-		const selected = Children.map(children, child => {
-			const { children: label, value } = child.props;
-			return options.includes(value) ? { label, value } : null;
-		});
-		return selected;
-	}
-	return [];
+	if (!options.length) return [];
+	const selected = Children.map(children, child => {
+		const { children: label, value } = child.props;
+		return options.includes(value) ? { label, value } : null;
+	});
+	return selected;
 };
 
 const getOptions = (dataSource, labelKey, valueKey) => {
@@ -65,10 +63,10 @@ class Select extends Component {
 
 	static getDerivedStateFromProps(props, prevState) {
 		const { prevProps } = prevState;
-		const { value, children, dataSource, multiple } = props;
-		const { value: prevValue, children: prevChildren, dataSource: prevData } = prevProps;
+		const { value, children, dataSource, multiple, open } = props;
+		const { value: prevValue, children: prevChildren, dataSource: prevData, open: prevOpen } = prevProps;
 
-		if (value !== prevValue || Children.count(children) !== Children.count(prevChildren) || !ShuyunUtils.equal(dataSource, prevData)) {
+		if (value !== prevValue || open !== prevOpen || Children.count(children) !== Children.count(prevChildren) || !ShuyunUtils.equal(dataSource, prevData)) {
 			const { labelKey, valueKey, labelInValue } = props;
 			const childs = Array.isArray(children) ? flat(children, Infinity) : Children.toArray(children);
 			const source = childs.length ? childs : getOptions(dataSource, labelKey, valueKey);
@@ -80,7 +78,8 @@ class Select extends Component {
 				prevValue: currentValue,
 				prevResult: labelInValue ? selected : value,
 				selected,
-				prevProps: props
+				prevProps: props,
+				open
 			};
 		}
 
@@ -136,18 +135,6 @@ class Select extends Component {
 		return value !== null ? value : defaultValue;
 	}
 
-	get visible() {
-		const { open: propOpen } = this.props;
-		const { open } = this.state;
-		const visible = propOpen !== null ? propOpen : open;
-
-		return visible;
-	}
-
-	get zIndex() {
-		return this.props.zIndex;
-	}
-
 	get children() {
 		const { children, dataSource, labelKey, valueKey } = this.props;
 		const childs = Array.isArray(children) ? flat(children, Infinity) : Children.toArray(children);
@@ -167,17 +154,8 @@ class Select extends Component {
 
 	get optionsNodeStyle() {
 		const ele = this.optionsNode.current;
-		if (ele) {
-			return ele.getBoundingClientRect();
-		}
-		return {};
-	}
-
-	setDefaultSelected(data) {
-		const { children } = this;
-		const selected = getSelected(data, children);
-
-		this.setState({ selected });
+		if (!ele) return {};
+		return ele.getBoundingClientRect();
 	}
 
 	positionPop = () => {
@@ -243,9 +221,7 @@ class Select extends Component {
 
 	onClickSelected = () => {
 		const { disabled } = this.props;
-		if (disabled) {
-			return;
-		}
+		if (disabled) return;
 
 		this.handleSelect();
 	};
@@ -301,14 +277,15 @@ class Select extends Component {
 			props: { hasConfirmButton, onChange },
 			state: { prevResult }
 		} = this;
+
 		const checkedValue = onMultiOptionChange(data);
 
 		if (!hasConfirmButton) {
 			this.setState({
 				prevResult: checkedValue
 			});
+			onChange(checkedValue, prevResult);
 		}
-		onChange(checkedValue, prevResult);
 	};
 
 	onClearSelected = e => {
@@ -435,9 +412,7 @@ Select.propTypes = {
 	okBtnText: PropTypes.string,
 	cancelBtnText: PropTypes.string,
 	className: PropTypes.string,
-	zIndex: PropTypes.number,
 	children: PropTypes.node,
-	getPopupContainer: PropTypes.func,
 	onChange: PropTypes.func,
 	onSearch: PropTypes.func,
 	onSelectOpen: PropTypes.func,
@@ -456,7 +431,6 @@ Select.defaultProps = {
 	dataSource: [],
 	labelKey: 'label',
 	valueKey: 'value',
-	zIndex: 1050,
 	width: 'auto',
 	searchable: false,
 	emptyRender: '暂时没有数据',
@@ -469,7 +443,6 @@ Select.defaultProps = {
 	cancelBtnText: '取消',
 	className: '',
 	children: [],
-	getPopupContainer: triggerNode => triggerNode.parentElement,
 	onChange: () => {},
 	onSearch: () => {},
 	onSelectOpen: () => {},

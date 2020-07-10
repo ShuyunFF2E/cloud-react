@@ -47,8 +47,8 @@ export default class Selected extends React.Component {
 	}
 
 	onWrapperClick = () => {
-		const { disabled, trigger, onClick } = this.props;
-		if (disabled || trigger !== 'click') return;
+		const { trigger, onClick } = this.props;
+		if (trigger !== 'click') return;
 
 		onClick();
 	};
@@ -68,17 +68,14 @@ export default class Selected extends React.Component {
 	};
 
 	onMouseLeave = () => {
-		const { disabled, allowClear } = this.props;
-		if (!disabled && allowClear) {
-			this.setState({
-				clear: false
-			});
-		}
+		this.setState({
+			clear: false
+		});
 	};
 
 	render() {
 		const {
-			props: { dataSource, disabled, placeholder, open, onClear, showArrow, showSelectStyle },
+			props: { dataSource, disabled, placeholder, open, showArrow, showSelectStyle, onClear },
 			state: { selected, clear },
 			onMouseEnter,
 			onMouseLeave
