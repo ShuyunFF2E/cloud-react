@@ -31,6 +31,7 @@ export default class UploadDemo extends React.Component {
 		const props = {
 			size: 2,
 			multiple: true,
+			isShowIcon: false,
 			labelText: '点击上传',
 			// 此接口调用的 ant-design 的上传的mock服务接口
 			action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',

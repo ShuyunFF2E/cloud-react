@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import Message from '../message';
 import Icon from '../icon';
 import Button from '../button';
-
+import Modal from '../modal';
 import UploadList from './list';
 import getUuid from './utils';
 import defaultHttp from './http';
@@ -15,7 +15,7 @@ import './index.less';
 const Text = props => {
 	return (
 		<Button type="normal" disabled={props.disabled}>
-			<Icon type="upload" style={{ fontSize: '14px', marginRight: '8px' }} />
+			{props.isShowIcon && <Icon type="upload" style={{ fontSize: '14px', marginRight: '8px' }} />}
 			<span>{props.labelText}</span>
 		</Button>
 	);
@@ -75,10 +75,10 @@ class Upload extends Component {
 
 		if (number === 0) return;
 
-		this.handleUplaod();
+		this.handleUpload();
 	};
 
-	handleUplaod = () => {
+	handleUpload = () => {
 		const fileList = this.getFileList();
 
 		[...Array.from(fileList)]
@@ -171,7 +171,16 @@ class Upload extends Component {
 		const before = this.handleBeforeUpload(file);
 
 		if (before) {
-			this.post(file);
+			if (!this.props.showBeforeConfirm) {
+				this.post(file);
+				return;
+			}
+			Modal.confirm({
+				body: this.props.beforeConfirmBody,
+				onOk: () => {
+					this.post(file);
+				}
+			});
 		}
 	}
 
@@ -179,7 +188,6 @@ class Upload extends Component {
 		const { action, headers, withCredentials, customRequest } = this.props;
 		const request = customRequest || defaultHttp;
 		const { id } = file;
-
 		const option = {
 			action,
 			filename: file.name,
@@ -213,7 +221,7 @@ class Upload extends Component {
 	}
 
 	render() {
-		const { type, labelText, accept, disabled, multiple, className } = this.props;
+		const { type, labelText, accept, disabled, multiple, className, isShowIcon } = this.props;
 		const { fileList } = this.state;
 
 		const classes = classNames(
@@ -245,7 +253,7 @@ class Upload extends Component {
 							multiple={multiple}
 							onChange={this.handleChange}
 						/>
-						{type === TYPE.DEFAULT ? <Text labelText={labelText} disabled={disabled} /> : <Picture labelText={labelText} />}
+						{type === TYPE.DEFAULT ? <Text labelText={labelText} disabled={disabled} isShowIcon={isShowIcon} /> : <Picture labelText={labelText} />}
 					</span>
 				</div>
 				<UploadList type={type} fileList={fileList} onRemove={this.handleRemove} />
@@ -263,6 +271,9 @@ Upload.propTypes = {
 	fileList: PropTypes.array,
 	action: PropTypes.string,
 	multiple: PropTypes.bool,
+	isShowIcon: PropTypes.bool,
+	showBeforeConfirm: PropTypes.bool,
+	beforeConfirmBody: PropTypes.node,
 	customRequest: PropTypes.func,
 	onBeforeUpload: PropTypes.func,
 	onProgress: PropTypes.func,
@@ -281,7 +292,10 @@ Upload.defaultProps = {
 	fileList: undefined,
 	action: '',
 	multiple: false,
+	isShowIcon: true,
 	customRequest: undefined,
+	showBeforeConfirm: false,
+	beforeConfirmBody: '确认上传？',
 	onBeforeUpload: undefined,
 	onProgress: undefined,
 	onSuccess: undefined,
