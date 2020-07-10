@@ -1,0 +1,87 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`single-select assign label and value key renders correctly 1`] = `
+<div
+  class="cloud-select"
+>
+  <div
+    class="cloud-select-wrapper empty"
+  >
+    <span
+      class="cloud-select-selected"
+    />
+    <i
+      class="cloud-select-select-icon cloud-select-clear-icon cloud-icon cloud-icon-close-circle-solid"
+    />
+    <i
+      class="cloud-select-select-icon close cloud-icon cloud-icon-down-solid"
+    />
+  </div>
+</div>
+`;
+
+exports[`single-select dataSource renders correctly 1`] = `
+<div
+  class="cloud-select"
+>
+  <div
+    class="cloud-select-wrapper empty"
+  >
+    <span
+      class="cloud-select-selected"
+    >
+      select
+    </span>
+    <i
+      class="cloud-select-select-icon cloud-select-clear-icon cloud-icon cloud-icon-close-circle-solid"
+    />
+    <i
+      class="cloud-select-select-icon close cloud-icon cloud-icon-down-solid"
+    />
+  </div>
+</div>
+`;
+
+exports[`single-select renders correctly 1`] = `
+<div
+  class="cloud-select"
+>
+  <div
+    class="cloud-select-wrapper empty"
+  >
+    <span
+      class="cloud-select-selected"
+    >
+      select
+    </span>
+    <i
+      class="cloud-select-select-icon cloud-select-clear-icon cloud-icon cloud-icon-close-circle-solid"
+    />
+    <i
+      class="cloud-select-select-icon close cloud-icon cloud-icon-down-solid"
+    />
+  </div>
+</div>
+`;
+
+exports[`single-select renders only one option correctly 1`] = `
+<div
+  class="cloud-select"
+>
+  <div
+    class="cloud-select-wrapper empty"
+  >
+    <span
+      class="cloud-select-selected"
+    >
+      select
+    </span>
+    <i
+      class="cloud-select-select-icon cloud-select-clear-icon cloud-icon cloud-icon-close-circle-solid"
+    />
+    <i
+      class="cloud-select-select-icon close cloud-icon cloud-icon-down-solid"
+    />
+  </div>
+</div>
+`;
