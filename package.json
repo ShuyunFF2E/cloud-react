@@ -96,7 +96,7 @@
     },
     "dependencies": {
         "classnames": "^2.2.6",
-        "gridmanager-react": "^0.5.1",
+        "gridmanager-react": "0.5.2",
         "prop-types": "^15.7.2",
         "react": "^16.8.6",
         "react-dom": "^16.8.6",
