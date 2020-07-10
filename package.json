@@ -19,6 +19,7 @@
         "version": "npm run build && npm publish dist",
         "postversion": "git push && git push --tags",
         "test": "jest --coverage || true",
+        "test:watch": "jest --watch --coverage || true",
         "report-coverage": "codecov",
         "new:component": "cp -r tpls/new-component src/components/new-component"
     },
