@@ -15,7 +15,7 @@ import './index.less';
 const Text = props => {
 	return (
 		<Button type="normal" disabled={props.disabled}>
-			<Icon type="upload" style={{ fontSize: '14px', marginRight: '8px' }} />
+			{props.isShowIcon && <Icon type="upload" style={{ fontSize: '14px', marginRight: '8px' }} />}
 			<span>{props.labelText}</span>
 		</Button>
 	);
@@ -188,7 +188,6 @@ class Upload extends Component {
 		const { action, headers, withCredentials, customRequest } = this.props;
 		const request = customRequest || defaultHttp;
 		const { id } = file;
-
 		const option = {
 			action,
 			filename: file.name,
@@ -222,7 +221,7 @@ class Upload extends Component {
 	}
 
 	render() {
-		const { type, labelText, accept, disabled, multiple, className } = this.props;
+		const { type, labelText, accept, disabled, multiple, className, isShowIcon } = this.props;
 		const { fileList } = this.state;
 
 		const classes = classNames(
@@ -254,7 +253,7 @@ class Upload extends Component {
 							multiple={multiple}
 							onChange={this.handleChange}
 						/>
-						{type === TYPE.DEFAULT ? <Text labelText={labelText} disabled={disabled} /> : <Picture labelText={labelText} />}
+						{type === TYPE.DEFAULT ? <Text labelText={labelText} disabled={disabled} isShowIcon={isShowIcon} /> : <Picture labelText={labelText} />}
 					</span>
 				</div>
 				<UploadList type={type} fileList={fileList} onRemove={this.handleRemove} />
@@ -272,6 +271,7 @@ Upload.propTypes = {
 	fileList: PropTypes.array,
 	action: PropTypes.string,
 	multiple: PropTypes.bool,
+	isShowIcon: PropTypes.bool,
 	showBeforeConfirm: PropTypes.bool,
 	beforeConfirmBody: PropTypes.node,
 	customRequest: PropTypes.func,
@@ -292,6 +292,7 @@ Upload.defaultProps = {
 	fileList: undefined,
 	action: '',
 	multiple: false,
+	isShowIcon: true,
 	customRequest: undefined,
 	showBeforeConfirm: false,
 	beforeConfirmBody: '确认上传？',

@@ -42,7 +42,7 @@ export default function http(option) {
 	}
 
 	const formData = new FormData();
-	formData.append(file.name, file);
+	formData.append('file', file, file.name);
 
 	// 为 xhr 添加事件监听
 	xhr.onerror = function error(e) {
