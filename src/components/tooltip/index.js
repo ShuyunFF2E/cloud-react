@@ -1,6 +1,7 @@
 import React, { Component, createElement } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
+import { getRootWindow } from '@utils';
 import ToolView from './toolView';
 import Modal from '../modal';
 import { CONFIG_PLACE, CONFIG_THEME } from './config';
@@ -47,15 +48,6 @@ class Tooltip extends Component {
 		}
 	}
 
-	get document() {
-		return this.context.rootDocument;
-	}
-
-	get portal() {
-		const { getContext } = this.context;
-		return getContext() || this.document.body;
-	}
-
 	getChildren() {
 		const { children } = this.props;
 		const __children = createElement('span', null, [children]);
@@ -81,7 +73,7 @@ class Tooltip extends Component {
 
 		setTimeout(() => {
 			this.setState({ visible: true });
-		}, mouseEnterDelay || 1);
+		}, mouseEnterDelay);
 	};
 
 	closeTips = () => {
@@ -98,6 +90,8 @@ class Tooltip extends Component {
 
 	renderView() {
 		const { target } = this;
+		const rootWindow = getRootWindow();
+		const rootDocument = rootWindow.document;
 
 		return ReactDOM.createPortal(
 			<ToolView
@@ -106,7 +100,7 @@ class Tooltip extends Component {
 					target
 				}}
 			/>,
-			this.portal
+			rootDocument.body
 		);
 	}
 
@@ -157,7 +151,6 @@ Tooltip.propTypes = {
 	]),
 	theme: PropTypes.oneOf([CONFIG_THEME.dark, CONFIG_THEME.light, CONFIG_THEME.error]),
 	className: PropTypes.string
-	// container: PropTypes.func
 };
 
 Tooltip.defaultProps = {
@@ -169,7 +162,6 @@ Tooltip.defaultProps = {
 	placement: CONFIG_PLACE.auto,
 	theme: CONFIG_THEME.dark,
 	className: ''
-	// container: () => document.body
 };
 
 export default Tooltip;
