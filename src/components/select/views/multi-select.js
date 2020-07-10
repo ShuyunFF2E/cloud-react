@@ -56,15 +56,12 @@ export default function MultiSelect(props) {
 
 	const onOptionChange = (checked, val) => {
 		if (checked) {
-			const result = [...values, val];
-			if (!values.includes(val)) onChange(result);
+			onChange([...values, val]);
 		} else {
 			const index = values.findIndex(v => v === val);
-			if (index > -1) {
-				const result = [...values];
-				result.splice(index, 1);
-				onChange(result);
-			}
+			const result = [...values];
+			result.splice(index, 1);
+			onChange(result);
 		}
 	};
 
