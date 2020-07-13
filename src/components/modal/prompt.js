@@ -84,14 +84,12 @@ class Prompt extends React.Component {
 		const { id } = this.props;
 		const ele = containers.get(id);
 
-		if (ele) {
-			// 删除react组件节点
-			ReactDOM.unmountComponentAtNode(ele);
-			// 删除dom节点
-			this.document.body.removeChild(ele);
-			// 从 container 中移除当前销毁的 modal
-			containers.delete(id);
-		}
+		// 删除react组件节点
+		ReactDOM.unmountComponentAtNode(ele);
+		// 删除dom节点
+		document.body.removeChild(ele);
+		// 从 container 中移除当前销毁的 modal
+		containers.delete(id);
 	};
 
 	// 取消
@@ -130,7 +128,7 @@ class Prompt extends React.Component {
 		const promptStyle = {
 			...style,
 			width: style.width || '400px',
-			height: style.height ? style.height : 'auto' || '171px',
+			height: style.height ? style.height : 'auto',
 			minWidth: style.width || '200px',
 			minHeight: style.height || '171px'
 		};
