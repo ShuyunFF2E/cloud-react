@@ -19,6 +19,8 @@
         "version": "npm run build && npm publish dist",
         "postversion": "git push && git push --tags",
         "test": "jest --coverage || true",
+        "test:update": "jest --coverage --no-cache --update-snapshot",
+        "test:debug": "node --inspect --inspect-brk ./node_modules/jest/bin/jest.js --runInBand",
         "report-coverage": "codecov",
         "new:component": "cp -r tpls/new-component src/components/new-component"
     },
