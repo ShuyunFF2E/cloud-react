@@ -44,15 +44,7 @@ const randomId = len => {
 			.toString(36)
 			.substr(2);
 
-	const randomUnit = genUnit();
-	if (len <= 0) return randomUnit;
-	if (len <= 11) return randomUnit.substr(0, len);
-
-	let rs = '';
-	while (rs.length < len) {
-		rs += genUnit();
-	}
-	return rs.substr(0, len);
+	return genUnit().substr(0, len);
 };
 
 Modal.createModal = ModalEntity => {
