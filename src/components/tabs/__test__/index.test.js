@@ -17,12 +17,12 @@ describe('Tabs', () => {
 		};
 
 		jest.spyOn(Tabs.prototype, 'tabsOffsetWidth', 'get').mockImplementation(() => 800);
-		jest.spyOn(Tabs.prototype, 'tabsOffsetLeft', 'get').mockImplementation(function() {
+		jest.spyOn(Tabs.prototype, 'tabsOffsetLeft', 'get').mockImplementation(() => {
 			return configs.tabsOffsetLeft[activeKey];
 		});
 
 		jest.spyOn(Tabs.prototype, 'activeTabsOffsetWidth', 'get').mockImplementation(() => 192);
-		jest.spyOn(Tabs.prototype, 'activeTabsOffsetLeft', 'get').mockImplementation(function() {
+		jest.spyOn(Tabs.prototype, 'activeTabsOffsetLeft', 'get').mockImplementation(() => {
 			return configs.activeTabsOffsetLeft[activeKey];
 		});
 	}
@@ -198,10 +198,11 @@ describe('Tabs', () => {
 	});
 
 	it('renders correctly when activeEle is null', () => {
-		jest.spyOn(Tabs.prototype, 'activeEle', 'get').mockImplementationOnce(function() {
+		jest.spyOn(Tabs.prototype, 'activeEle', 'get').mockImplementationOnce(() => {
 			return null;
 		});
 		mount(<Test />);
+		expect(true).toBeTruthy();
 	});
 
 	it('renders correctly when child is invalid', () => {
@@ -211,6 +212,7 @@ describe('Tabs', () => {
 				<Tabs.Panel tab="tab1">tab1</Tabs.Panel>
 			</Tabs>
 		);
+		expect(true).toBeTruthy();
 	});
 
 	it('onClose is undefined', () => {
