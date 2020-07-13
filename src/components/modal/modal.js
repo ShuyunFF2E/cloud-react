@@ -219,21 +219,19 @@ class Notification extends Component {
 			const { clientWidth, clientHeight } = this.document.documentElement;
 			const modal = this.modalRef;
 
-			if (modal) {
-				modal.style.margin = 0;
+			modal.style.margin = 0;
 
-				// 计算modal坐标的最大值
-				const maxHeight = clientHeight - modal.offsetHeight;
-				const maxWidth = clientWidth - modal.offsetWidth;
+			// 计算modal坐标的最大值
+			const maxHeight = clientHeight - modal.offsetHeight;
+			const maxWidth = clientWidth - modal.offsetWidth;
 
-				// 判断得出modal的最终位置，不得超出浏览器可见窗口
-				// eslint-disable-next-line no-nested-ternary
-				const left = x > 0 ? (x < maxWidth ? x : maxWidth) : 0;
-				// eslint-disable-next-line no-nested-ternary
-				const top = y > 0 ? (y < maxHeight ? y : maxHeight) : 0;
+			// 判断得出modal的最终位置，不得超出浏览器可见窗口
+			// eslint-disable-next-line no-nested-ternary
+			const left = x > 0 ? (x < maxWidth ? x : maxWidth) : 0;
+			// eslint-disable-next-line no-nested-ternary
+			const top = y > 0 ? (y < maxHeight ? y : maxHeight) : 0;
 
-				this.setState({ pageX: left, pageY: top });
-			}
+			this.setState({ pageX: left, pageY: top });
 		});
 
 		// 阻止默认行为(拖动时文字选中)
@@ -356,12 +354,10 @@ function ModalBody({ style, children }) {
 /**
  * @return {null}
  */
-function ModalFooter({ visible, type, footer, okText, cancelText, hasFooter, showConfirmLoading, onCancel, onOk, onReset, disabledOk }) {
+function ModalFooter({ type, footer, okText, cancelText, hasFooter, showConfirmLoading, onCancel, onOk, onReset, disabledOk }) {
 	const ok = () => {
 		onOk();
-		if (!visible) {
-			onReset();
-		}
+		onReset();
 	};
 	const cancel = () => {
 		onReset();
