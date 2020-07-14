@@ -19,7 +19,7 @@ export default class TreeSelectDemo extends React.Component {
 
 	handleSearch = (value, nodes) => {
 		console.log(value, nodes);
-	}
+	};
 
 	render() {
 		const treeData = [
