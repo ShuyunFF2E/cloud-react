@@ -355,10 +355,12 @@ function ModalBody({ style, children }) {
 /**
  * @return {null}
  */
-function ModalFooter({ type, footer, okText, cancelText, hasFooter, showConfirmLoading, onCancel, onOk, onReset, disabledOk }) {
+function ModalFooter({ visible, type, footer, okText, cancelText, hasFooter, showConfirmLoading, onCancel, onOk, onReset, disabledOk }) {
 	const ok = () => {
 		onOk();
-		onReset();
+		if (!visible) {
+			onReset();
+		}
 	};
 	const cancel = () => {
 		onReset();
