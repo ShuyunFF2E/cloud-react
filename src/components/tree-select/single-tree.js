@@ -74,6 +74,7 @@ class SingleTree extends React.Component {
 		this.setState({
 			searchValue: ''
 		});
+		this.props.onSearch('');
 		this.onFilterDataSource('');
 	};
 

@@ -32,7 +32,7 @@ subtitle: 树下拉
 | footerTypes       | 多选时操作按钮类型，可选'ok', 'cancel', 'reset'                                             | array                          | ['ok', 'cancel']                         |
 | dropdownStyle     | 下拉菜单的 style 属性                                                                       | object                         | -                                        |
 | dropdownClassName | 下拉菜单的 className 属性                                                                   | string                         | -                                        |
-| getPopupContainer | 下拉菜单渲染的父节点。如果发现下拉菜单被挡住，可以尝试修改定位父元素，如() => document.body | function(triggerNode)          | triggerNode => triggerNode.parentElement |
+| isAppendToBody    | 下拉菜单渲染到body上  																	| boolean         					| false |
 | containParentNode | 多选时结果是否包含各个父节点                                                                | boolean                        | false                                    |
 | onChange          | 选中 option 变化时回调此函数                                                                | function(node, selectedNodes)  | -                                        |
 | onOk              | 多选时确认操作回调函数                                                                      | function(node, selectedNodes)  | -                                        |
