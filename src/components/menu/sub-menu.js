@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
+import { noop } from '@utils';
 
 import Icon from '../icon';
 
@@ -20,7 +21,7 @@ export default class SubMenu extends PureComponent {
 		path: [],
 		indent: 10,
 		opened: false,
-		onMenuToggle: () => {}
+		onMenuToggle: noop
 	};
 
 	constructor(props) {
