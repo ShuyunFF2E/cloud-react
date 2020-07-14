@@ -17,6 +17,10 @@ export default class TreeSelectDemo extends React.Component {
 		console.log(node);
 	};
 
+	handleSearch = (value, nodes) => {
+		console.log(value, nodes);
+	};
+
 	render() {
 		const treeData = [
 			{
@@ -45,6 +49,7 @@ export default class TreeSelectDemo extends React.Component {
 			<TreeSelect
 				searchable
 				allowClear
+				onSearch={this.handleSearch}
 				value={{
 					label: '荔枝',
 					value: 'litchi'

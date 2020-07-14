@@ -17,18 +17,6 @@ export default class TreeSelectDemo extends React.Component {
 			disableRemove: true,
 			children: [
 				{
-					id: 111,
-					name: '超长的节点超长的节点超长的节点超长的节点超长的节点超长的节点超长的节点超长的节点超长的节点超长的节点超长的节点超长的节点',
-					pId: 11,
-					children: []
-				},
-				{
-					id: 112,
-					name: '删除两个',
-					pId: 11,
-					children: []
-				},
-				{
 					id: 113,
 					name: '删除三个',
 					pId: 11,
@@ -59,104 +47,6 @@ export default class TreeSelectDemo extends React.Component {
 					name: '禁止删除节点4',
 					pId: 11,
 					children: []
-				}
-			]
-		},
-		{
-			id: 12,
-			name: '禁止新增节点',
-			pId: 1,
-			disableAdd: true,
-			children: [
-				{
-					id: 121,
-					name: '禁止新增节点1',
-					pId: 12,
-					children: [
-						{
-							id: 1211,
-							name: '禁止新增节点11',
-							pId: 121,
-							children: []
-						},
-						{
-							id: 1212,
-							name: '禁止新增节点12',
-							pId: 121,
-							children: []
-						},
-						{
-							id: 1213,
-							name: '禁止新增节点13',
-							pId: 121,
-							children: []
-						}
-					]
-				},
-				{
-					id: 122,
-					name: '禁止新增节点2',
-					pId: 12,
-					children: [
-						{
-							id: 1221,
-							name: '禁止新增节点21',
-							pId: 122,
-							children: []
-						},
-						{
-							id: 1222,
-							name: '禁止新增节点22',
-							pId: 122,
-							children: []
-						}
-					]
-				}
-			]
-		},
-		{
-			id: 13,
-			name: '禁止重命名节点',
-			pId: 1,
-			disableRename: true,
-			children: [
-				{
-					id: 131,
-					name: '禁止重命名节点1',
-					pId: 13,
-					children: [
-						{
-							id: 1311,
-							name: '禁止重命名节点11',
-							pId: 131,
-							children: []
-						},
-						{
-							id: 1312,
-							name: '禁止重命名节点12',
-							pId: 131,
-							children: []
-						},
-						{
-							id: 1313,
-							name: '禁止重命名节点13',
-							pId: 131,
-							children: []
-						}
-					]
-				},
-				{
-					id: 132,
-					name: '禁止重命名节点2',
-					pId: 13,
-					children: [
-						{
-							id: 1321,
-							name: '禁止重命名节点21',
-							pId: 132,
-							children: []
-						}
-					]
 				}
 			]
 		},
@@ -236,9 +126,8 @@ export default class TreeSelectDemo extends React.Component {
 				<TreeSelect
 					multiple
 					isUnfold
-					containParentNode
 					allowClear
-					style={{ marginBottom: 20 }}
+					style={{ marginBottom: 20, width: 150 }}
 					placeholder="选择一个选项"
 					dataSource={this.treeData}
 					dropdownStyle={{ color: 'red' }}
@@ -265,6 +154,19 @@ export default class TreeSelectDemo extends React.Component {
 					single
 					isUnfold
 					containParentNode
+					placeholder="选择一个选项"
+					style={{ marginBottom: 20 }}
+					dataSource={this.treeData}
+					value={this.state.singleNodes}
+					onChange={this.onChangeSingle}
+				/>
+
+				<TreeSelect
+					isAppendToBody
+					single
+					isUnfold
+					containParentNode
+					position="auto"
 					placeholder="选择一个选项"
 					dataSource={this.treeData}
 					value={this.state.singleNodes}
