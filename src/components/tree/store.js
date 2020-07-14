@@ -5,7 +5,6 @@
  * 2019-07-22
  */
 import ShuyunUtils from 'shuyun-utils';
-import Message from '../message';
 
 class Store {
 	/**
@@ -21,11 +20,9 @@ class Store {
 		if (!treeData || !treeData.length) {
 			return [];
 		}
-
-		// 处理已选中的节点，treeData中存在selectedValue中的值则选中
 		const cloneData = this.onResetData(ShuyunUtils.clone(treeData));
 
-		// 选中回显值
+		// 处理已选中的节点，treeData中存在selectedValue中的值则选中
 		const activeNode = selectedValue && selectedValue[0];
 		if (activeNode) {
 			this.updateNodeById(cloneData, activeNode.id, { isActive: true });
@@ -33,8 +30,8 @@ class Store {
 
 		// 递归向上查找选择
 		const upFind = currentNode => {
-			Object.assign(currentNode, { indeterminate: true });
 			// 被选节点没有子节点则找到父节点对其进行半选
+			Object.assign(currentNode, { indeterminate: true });
 			const pNode = this.findNodeById(cloneData, currentNode.pId);
 			// 没有父节点则不再查找
 			if (pNode) {
@@ -130,23 +127,23 @@ class Store {
 	 * @returns {{length}|*}
 	 */
 	onResetData = data => {
-		const format = item => {
-			Object.assign(item, { indeterminate: false, checked: false });
-			if (item.children && item.children.length) {
-				item.children.forEach(i => {
-					Object.assign(i, { indeterminate: false, checked: false });
-					format(i);
-				});
+		const format = list => {
+			if (!list.length) {
+				return [];
 			}
-		};
-
-		if (data.length) {
-			data.map(item => {
-				return format(item);
+			return list.map(item => {
+				const newItem = {
+					...item,
+					indeterminate: false,
+					checked: false
+				};
+				if (Array.isArray(item.children)) {
+					newItem.children = format(item.children);
+				}
+				return newItem;
 			});
-		}
-
-		return data;
+		};
+		return format(data);
 	};
 
 	/**
@@ -156,22 +153,23 @@ class Store {
 	 * @returns {Array}
 	 */
 	selectedForRadio = (data, node) => {
-		const selectedList = [];
+		let selectedNode = null;
 
-		function getSelected(nodeList) {
-			nodeList.some(item => {
+		function setSelected(nodeList) {
+			// 使用some可以在匹配成功后中止循环
+			return nodeList.some(item => {
 				if (node.id === item.id) {
-					selectedList.push(item);
+					selectedNode = item;
+					return true;
 				}
 				if (item.children && item.children.length) {
-					return getSelected(item.children);
+					return setSelected(item.children);
 				}
 				return false;
 			});
 		}
 
-		getSelected(data);
-		return selectedList;
+		return setSelected(data) ? [selectedNode] : [];
 	};
 
 	/**
@@ -268,7 +266,7 @@ class Store {
 					node = item;
 					return true;
 				}
-				if (item.children && item.children.length) {
+				if (Array.isArray(item.children)) {
 					return find(item.children);
 				}
 				return false;
@@ -333,42 +331,51 @@ class Store {
 	/**
 	 * 名称重复校验
 	 * @param data
+	 * @param node
 	 * @param name
 	 * @returns {*}
 	 */
-	checkRepeatName(data, name) {
+	checkRepeatName(data, node, name) {
 		const sameNode = this.findNodeByParam(data, 'name', name);
-		// 名称重复检测
-		if (sameNode && sameNode.name === name) {
-			Message.error('该目录名称已存在！');
+		if (!sameNode) {
+			return false;
+		}
+		const { isAdd, id } = node;
+
+		// 当前为新增 且 存在node相同的节点
+		if (isAdd) {
 			return true;
 		}
-		return false;
+
+		// 当前为编辑 且 存在node相同的节点不为当前节点
+		return !isAdd && sameNode.id !== id;
 	}
 
 	/**
 	 * 删除节点
 	 * @param data
 	 * @param node
-	 * @param showErrorMsg
 	 * @returns {*}
 	 */
-	removeChildNode(data, node, showErrorMsg = true) {
+	removeChildNode(data, node) {
 		const parentNode = this.findNodeById(data, node.pId);
 
-		// 存在子节点则不可删除
-		if (!parentNode || node.children.length) {
-			if (showErrorMsg) {
-				Message.error('该目录存在子目录，不可删除!');
-			}
-			return data;
+		// 删除失败: 当前为顶层
+		if (!parentNode) {
+			return false;
 		}
-		parentNode.children.forEach((child, index) => {
-			if (child.name === node.name) {
+
+		// 删除失败: 存在子节点
+		if (Array.isArray(node.children) && node.children.length) {
+			return false;
+		}
+		return parentNode.children.some((child, index) => {
+			if (child.id === node.id) {
 				parentNode.children.splice(index, 1);
+				return true;
 			}
+			return false;
 		});
-		return data;
 	}
 
 	/**
@@ -397,25 +404,25 @@ class Store {
 
 		const search = node => {
 			return node.filter(item => {
-				const tmp = item;
-				tmp.isUnfold = true;
-
+				// 当前节点匹配
 				if (item.name.indexOf(searchText) !== -1) {
-					if (item.children && item.children.length) {
-						const children = search(tmp.children);
+					if (item.children && Array.isArray(item.children) && item.children.length) {
+						const children = search(item.children);
 						if (children.length) {
-							tmp.children = children;
+							Object.assign(item, { children, isUnfold: true });
 						} else {
-							tmp.isUnfold = false;
+							Object.assign(item, { isUnfold: false });
 						}
 					}
-					return item;
+					return true;
 				}
-				if (item.children && item.children.length) {
-					tmp.children = search(tmp.children);
+
+				// 当前节点未匹配: 对子项进行匹配
+				if (Array.isArray(item.children) && item.children.length) {
+					Object.assign(item, { children: search(item.children), isUnfold: true });
 					return item.children.length > 0;
 				}
-				return !item.children.length && item.name.indexOf(searchText) !== -1;
+				return false;
 			});
 		};
 		return search(cloneData);

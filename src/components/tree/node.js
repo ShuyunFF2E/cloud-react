@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import classNames from 'classnames';
 import Icon from '../icon';
 import Message from '../message';
@@ -6,7 +6,12 @@ import Checkbox from '../checkbox';
 import TreeContext from './context';
 import Input from '../input';
 import './index.less';
-
+// 默认菜单类型
+const MENU_TYPE = 'rightMenu';
+const moveIcon =
+	'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/PjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+PHN2ZyB0PSIxNTc3NzU0OTcwOTk4IiBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjE5ODEwIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PC9zdHlsZT48L2RlZnM+PHBhdGggZD0iTTM2NC4zNDM3NSAyMDAuODY3MTg3NW0tNjMuMjgxMjUgMGE2My4yODEyNSA2My4yODEyNSAwIDEgMCAxMjYuNTYyNSAwIDYzLjI4MTI1IDYzLjI4MTI1IDAgMSAwLTEyNi41NjI1IDBaIiBmaWxsPSIjNzA3MDcwIiBwLWlkPSIxOTgxMSI+PC9wYXRoPjxwYXRoIGQ9Ik0zNjQuMzQzNzUgNTM4LjM2NzE4NzVtLTYzLjI4MTI1IDBhNjMuMjgxMjUgNjMuMjgxMjUgMCAxIDAgMTI2LjU2MjUgMCA2My4yODEyNSA2My4yODEyNSAwIDEgMC0xMjYuNTYyNSAwWiIgZmlsbD0iIzcwNzA3MCIgcC1pZD0iMTk4MTIiPjwvcGF0aD48cGF0aCBkPSJNMzY0LjM0Mzc1IDg2NS4zMjAzMTI1bS02My4yODEyNSAwYTYzLjI4MTI1IDYzLjI4MTI1IDAgMSAwIDEyNi41NjI1IDAgNjMuMjgxMjUgNjMuMjgxMjUgMCAxIDAtMTI2LjU2MjUgMFoiIGZpbGw9IiM3MDcwNzAiIHAtaWQ9IjE5ODEzIj48L3BhdGg+PHBhdGggZD0iTTY4MC43NSAyMDYuMTQwNjI1bS02My4yODEyNSAwYTYzLjI4MTI1IDYzLjI4MTI1IDAgMSAwIDEyNi41NjI1IDAgNjMuMjgxMjUgNjMuMjgxMjUgMCAxIDAtMTI2LjU2MjUgMFoiIGZpbGw9IiM3MDcwNzAiIHAtaWQ9IjE5ODE0Ij48L3BhdGg+PHBhdGggZD0iTTY4MC43NSA1NDMuNjQwNjI1bS02My4yODEyNSAwYTYzLjI4MTI1IDYzLjI4MTI1IDAgMSAwIDEyNi41NjI1IDAgNjMuMjgxMjUgNjMuMjgxMjUgMCAxIDAtMTI2LjU2MjUgMFoiIGZpbGw9IiM3MDcwNzAiIHAtaWQ9IjE5ODE1Ij48L3BhdGg+PHBhdGggZD0iTTY4MC43NSA4NjUuMzIwMzEyNW0tNjMuMjgxMjUgMGE2My4yODEyNSA2My4yODEyNSAwIDEgMCAxMjYuNTYyNSAwIDYzLjI4MTI1IDYzLjI4MTI1IDAgMSAwLTEyNi41NjI1IDBaIiBmaWxsPSIjNzA3MDcwIiBwLWlkPSIxOTgxNiI+PC9wYXRoPjwvc3ZnPg==';
+// 双击事件记录器
+let count = 0;
 class Node extends Component {
 	static contextType = TreeContext;
 
@@ -17,20 +22,38 @@ class Node extends Component {
 		};
 	}
 
-	// 打开右键菜单
-	onHandleContextMenu = (e, node, options) => {
+	// 打开菜单
+	onHandleShowMenu = (e, menuTypeNow, node, options) => {
 		// 不使用右键菜单则使用浏览器默认右键菜单
-		if (!this.context.supportMenu) {
+		const { supportMenu, menuType, onShowMenu } = this.context;
+		if (!supportMenu) {
 			return;
 		}
-		e.preventDefault();
-		const menuStyle = {
-			left: `${e.clientX}px`,
-			top: `${e.clientY}px`
-		};
+		let menuStyle = {};
+		// right模式，并且当前正在右键，则禁用右键
+		if (menuType === MENU_TYPE && menuTypeNow === MENU_TYPE) {
+			e.preventDefault();
+			menuStyle = {
+				left: `${e.clientX}px`,
+				top: `${e.clientY}px`
+			};
+		}
+
+		// dialog模式，并且当前正在右键，则正常走浏览器模式
+		if (menuType === 'dialogMenu' && menuTypeNow === MENU_TYPE) {
+			return;
+		}
+
+		// dialog模式，并且点击了菜单区域，则显示菜单
+		if (menuType === 'dialogMenu' && menuTypeNow === 'dialogMenu') {
+			menuStyle = {
+				left: `${e.clientX - 40}px`,
+				top: `${e.clientY + 10}px`
+			};
+		}
 
 		// 将节点信息、点击位置、点击函数传递出去
-		this.context.showMenu(node, menuStyle, options);
+		onShowMenu(node, menuStyle, options);
 	};
 
 	// 显示/隐藏子节点
@@ -39,10 +62,9 @@ class Node extends Component {
 		e.stopPropagation();
 	};
 
+	// 行内菜单输入
 	setInputValue = name => {
-		this.setState({
-			inputValue: name || ''
-		});
+		this.setState({ inputValue: name || '' });
 	};
 
 	// 输入节点名称
@@ -51,17 +73,18 @@ class Node extends Component {
 	};
 
 	// 保存节点信息
-	onSaveClick = (e, data, name) => {
+	onSaveClick = (e, node, name) => {
 		e.stopPropagation();
-		const { id, level } = data;
+		const { id, level } = node;
 		// 输入内容不能为空
 		if (!this.state.inputValue) {
 			Message.error('名称不能为空！');
 			return;
 		}
 
-		const isRepeat = this.context.onCheckRepeatNameAction(name);
+		const isRepeat = this.context.onCheckRepeatNameAction(node, name);
 		if (isRepeat) {
+			Message.error('该目录名称已存在！');
 			return;
 		}
 
@@ -70,9 +93,9 @@ class Node extends Component {
 		});
 
 		// 编辑与新增
-		this.context[!data.isAdd ? 'onRenameAction' : 'onAddAction'](id, name, level);
+		this.context[!node.isAdd ? 'onRenameAction' : 'onAddAction'](id, name, level);
 
-		this.context.onReRenderNode({ currentNode: data });
+		this.context.onReRenderNode({ currentNode: node });
 	};
 
 	// 取消保存
@@ -90,7 +113,15 @@ class Node extends Component {
 		if (this.context.supportCheckbox) {
 			data.checked = checked;
 		}
-		this.context.onSelectedAction(data);
+		count += 1;
+		setTimeout(() => {
+			if (count === 1) {
+				this.context.onSelectedAction(data);
+			} else if (count === 2) {
+				this.context.onDoubleClick(data);
+			}
+			count = 0;
+		}, 300);
 	};
 
 	render() {
@@ -101,17 +132,20 @@ class Node extends Component {
 		const paddingLeft = 14 * data.level;
 
 		return (
-			<Fragment>
+			<>
 				<div className={classNames(`${prefixCls}-list-node-area ${data.children && !data.children.length ? 'child-style' : null}`)}>
 					<div
-						onClick={this.context.supportCheckbox ? () => {} : this.handleSelect}
-						onContextMenu={e => this.onHandleContextMenu(e, data, options)}
-						style={{ minWidth: `calc(100% - ${paddingLeft}px)`, paddingLeft }}
+						onContextMenu={e => this.onHandleShowMenu(e, 'rightMenu', data, options)}
+						style={{ minWidth: `calc(100% - ${paddingLeft}px)`, paddingLeft, cursor: this.context.supportDrag ? 'move' : '' }}
 						className={`node-item-container ${data.isActive ? 'is-active' : null} ${this.context.supportCheckbox ? 'support-checkbox' : ''}`}>
+						{/* 拖拽icon: 根节点不支持拖拽 */}
+						{this.context.supportDrag && (data.pId || data.pId === 0) && <img src={moveIcon} alt="拖拽行调整顺序" className="drag-icon" />}
+
 						{/* 折叠展开icon */}
 						<ToggleFold hasChildren={data.children.length > 0} showChildrenItem={data.isUnfold} toggle={e => this.toggle(e, data)} />
 						<div
-							style={{ width: `calc(100% - ${paddingLeft}px - 8px)` }}
+							onClick={this.context.supportCheckbox ? () => {} : this.handleSelect}
+							style={{ minWidth: `calc(100% - ${paddingLeft}px - 18px)` }}
 							className={`node-item ${data.isEdit && !data.isAdd ? 'hide-node' : null}`}>
 							{/* 节点前面的icon */}
 							<NodeIcon
@@ -135,6 +169,11 @@ class Node extends Component {
 								onHandleSelect={this.handleSelect}
 							/>
 						</div>
+						{this.context.menuType !== MENU_TYPE && (
+							<span className="edit-icon" onClick={e => this.onHandleShowMenu(e, 'dialogMenu', data, options)}>
+								...
+							</span>
+						)}
 
 						<ShowInput
 							isEdit={data.isEdit}
@@ -146,9 +185,9 @@ class Node extends Component {
 							cancelSave={e => this.onClickCancel(e, data)}
 						/>
 					</div>
-					{data.isUnfold && <ul>{children}</ul>}
+					{data.isUnfold && <>{children}</>}
 				</div>
-			</Fragment>
+			</>
 		);
 	}
 }

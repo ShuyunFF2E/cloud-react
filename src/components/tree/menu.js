@@ -60,13 +60,13 @@ class TreeMenu extends Component {
 			this.context.supportMenu && (
 				<ul className={classNames(`${prefixCls}-menu`)} style={menuStyle}>
 					<li role="presentation" className={disableAdd ? 'disabled' : ''} onClick={e => this.addNode(e, nodeData)}>
-						新增
-					</li>
-					<li role="presentation" className={disableRemove ? 'disabled' : ''} onClick={this.deleteNode}>
-						删除
+						新增子目录
 					</li>
 					<li role="presentation" className={disableRename ? 'disabled' : ''} onClick={e => this.renameNode(e, nodeData)}>
 						重命名
+					</li>
+					<li role="presentation" className={disableRemove ? 'disabled' : ''} onClick={this.deleteNode}>
+						删除
 					</li>
 				</ul>
 			)

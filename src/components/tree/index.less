@@ -1,7 +1,6 @@
 @import '../style/index';
 
 @selector: ~'@{prefix}-tree';
-
 @selector-search-icon: #dbdbdb;
 @selector-menu-border: 1px solid #e8e8e8;
 @selector-menu-hover: #e9e9e9;
@@ -12,6 +11,7 @@
 .@{selector} {
 	position: relative;
 	user-select: none;
+
 	.@{prefix}-icon {
 		font-size: 14px;
 	}
@@ -23,6 +23,11 @@
 	li {
 		list-style: none;
 		cursor: pointer;
+	}
+
+	.move-style {
+		background: #409eff;
+		color: white;
 	}
 
 	// 搜索组件
@@ -48,12 +53,49 @@
 		min-width: -moz-min-content;
 
 		&-node-area {
+			min-width: fit-content;
+			min-width: -moz-min-content;
+
 			.@{prefix}-icon {
 				display: @display;
 				height: 26px;
 				color: @color-gray3;
 				vertical-align: top;
 				line-height: 26px;
+			}
+
+			.node-item-container {
+				padding-top: 2px;
+				padding-bottom: 2px;
+				position: relative;
+				&:hover {
+					.drag-icon {
+						display: block;
+						width: 12px;
+						height: 26px;
+						position: absolute;
+						left: 0;
+						cursor: move;
+					}
+
+					.edit-icon {
+						position: absolute;
+						right: 10px;
+						cursor: pointer;
+						display: inline-block;
+						height: 26px;
+						width: 20px;
+						text-align: center;
+						font-weight: 700;
+					}
+					.node-name {
+						padding-right: 30px;
+					}
+				}
+				.drag-icon,
+				.edit-icon {
+					display: none;
+				}
 			}
 
 			.node-item-container:not(.support-checkbox):hover {
@@ -94,7 +136,6 @@
 			.node-name {
 				display: @display;
 				padding-left: 2px;
-				width: inherit;
 			}
 
 			.hot-text {
@@ -109,6 +150,7 @@
 				display: @display;
 				padding-left: 2px;
 			}
+
 			.save-icon {
 				color: #36cb37;
 			}
