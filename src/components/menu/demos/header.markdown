@@ -26,7 +26,7 @@ export default class MenuBasicDemo extends Component {
 	render() {
 		return (
 			<Menu
-				selectedKeys={['/c']}
+				selectedKeys="/c"
 				header={
 					<div className="menu-header-extra">
 						<Icon type="swap" />

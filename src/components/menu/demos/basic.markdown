@@ -11,69 +11,34 @@ import { Menu } from 'cloud-react';
 const { MenuItem, SubMenu } = Menu;
 
 export default class MenuBasicDemo extends Component {
-	state = { key: null, path: null, expanded: null };
 
-	handleSubMenuToggle = (key, path, expanded) => {
-		console.log('激活项目key:', key);
+	handleSubMenuToggle = (openKey, path, expanded) => {
+		console.log('激活项目key:', openKey);
 		console.log('激活项目定位路径:', path);
 		console.log('子菜单是否展开：', expanded);
-
-		this.setState({
-			key,
-			path,
-			expanded
-		});
 	};
 
 	handleMenuItemClick = (key, path) => {
 		console.log('激活项目key:', key);
 		console.log('激活项目定位路径:', path);
-
-		this.setState({
-			key,
-			path,
-			expanded: null
-		});
 	};
 
-	renderMenu() {
+	render() {
 		return (
-			<Menu onSubMenuToggle={this.handleSubMenuToggle} onItemClick={this.handleMenuItemClick} openKeys={['2', '3']} selectedKeys={['21']}>
-				<MenuItem key="1">菜单1</MenuItem>
+			<Menu 
+				onSubMenuToggle={this.handleSubMenuToggle} 
+				onItemClick={this.handleMenuItemClick} >
+				<SubMenu key="1" title="菜单1">
+					<MenuItem key="11">子菜单项11</MenuItem>
+				</SubMenu>
 				<SubMenu key="2" title="子菜单1">
 					<MenuItem key="21">子菜单项1</MenuItem>
 					<MenuItem key="22">子菜单项2</MenuItem>
-					<SubMenu key="3" title="子菜单3">
-						<MenuItem key="31">子菜单项3</MenuItem>
+					<SubMenu key="23" title="子菜单3">
+						<MenuItem key="231">子菜单项3</MenuItem>
 					</SubMenu>
 				</SubMenu>
 			</Menu>
-		);
-	}
-
-	render() {
-		const { key, path, expanded } = this.state;
-		return (
-			<div className="menu-basic">
-				{this.renderMenu()}
-				<div className="menu-basic-content">
-					<header>内容区域</header>
-					<ul>
-						<li>
-							<span className="content-label">激活项目key:</span>
-							{key}
-						</li>
-						<li>
-							<span className="content-label">激活项目传播路径: </span>
-							{path}
-						</li>
-						<li>
-							<span className="content-label">子菜单是否展开: </span>
-							{expanded ? '展开' : '关闭'}
-						</li>
-					</ul>
-				</div>
-			</div>
 		);
 	}
 }

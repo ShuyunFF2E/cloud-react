@@ -1,0 +1,397 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Menu header works correctly 1`] = `
+<Menu
+  header={
+    <span
+      className="my-header"
+      onClick={[MockFunction]}
+    >
+      user header
+    </span>
+  }
+  indent={10}
+  onItemClick={[Function]}
+  onSubMenuToggle={[Function]}
+  openKeys={Array []}
+  selectedKeys={Array []}
+  source={
+    Array [
+      Object {
+        "children": Array [
+          Object {
+            "key": "/beijing/chaoyang",
+            "title": <span
+              style={
+                Object {
+                  "color": "red",
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              朝阳区
+            </span>,
+          },
+          Object {
+            "key": "/beijing/haidian",
+            "title": "海淀区",
+          },
+        ],
+        "key": "/beijing",
+        "title": "北京",
+      },
+      Object {
+        "children": Array [
+          Object {
+            "key": "/shanghai/pudong",
+            "title": "浦东区",
+          },
+          Object {
+            "key": "/shanghai/nanjinglu",
+            "title": "南京路",
+          },
+        ],
+        "key": "/shanghai",
+        "title": "上海",
+      },
+    ]
+  }
+  style={Object {}}
+  type="common"
+>
+  <section
+    className="cloud-menu-container"
+    style={Object {}}
+  >
+    <span
+      className="my-header"
+      onClick={[MockFunction]}
+    >
+      user header
+    </span>
+    <ul
+      className="list"
+    >
+      <SubMenu
+        indent={10}
+        internalKey="/beijing"
+        key="/beijing"
+        onMenuToggle={[Function]}
+        opened={false}
+        path={
+          Array [
+            "/beijing",
+          ]
+        }
+        title="北京"
+      >
+        <li>
+          <div
+            className="group-title"
+            onClick={[Function]}
+            style={
+              Object {
+                "textIndent": 20,
+              }
+            }
+          >
+            北京
+            <Icon
+              className="indicator"
+              style={Object {}}
+              type="down"
+            >
+              <i
+                className="indicator cloud-icon cloud-icon-down"
+                style={Object {}}
+              />
+            </Icon>
+          </div>
+          <ul
+            className="group-sub collapse"
+          >
+            <MenuItem
+              indent={10}
+              internalKey="/beijing/chaoyang"
+              key="/beijing/chaoyang"
+              onClick={[Function]}
+              path={
+                Array [
+                  "/beijing/chaoyang",
+                  "/beijing",
+                ]
+              }
+              selected={false}
+              type="common"
+            >
+              <li
+                className="item"
+                onClick={[Function]}
+                role="menuitem"
+                style={
+                  Object {
+                    "textIndent": 30,
+                  }
+                }
+              >
+                <span
+                  style={
+                    Object {
+                      "color": "red",
+                      "fontWeight": "bold",
+                    }
+                  }
+                >
+                  朝阳区
+                </span>
+              </li>
+            </MenuItem>
+            <MenuItem
+              indent={10}
+              internalKey="/beijing/haidian"
+              key="/beijing/haidian"
+              onClick={[Function]}
+              path={
+                Array [
+                  "/beijing/haidian",
+                  "/beijing",
+                ]
+              }
+              selected={false}
+              type="common"
+            >
+              <li
+                className="item"
+                onClick={[Function]}
+                role="menuitem"
+                style={
+                  Object {
+                    "textIndent": 30,
+                  }
+                }
+              >
+                海淀区
+              </li>
+            </MenuItem>
+          </ul>
+        </li>
+      </SubMenu>
+      <SubMenu
+        indent={10}
+        internalKey="/shanghai"
+        key="/shanghai"
+        onMenuToggle={[Function]}
+        opened={false}
+        path={
+          Array [
+            "/shanghai",
+          ]
+        }
+        title="上海"
+      >
+        <li>
+          <div
+            className="group-title"
+            onClick={[Function]}
+            style={
+              Object {
+                "textIndent": 20,
+              }
+            }
+          >
+            上海
+            <Icon
+              className="indicator"
+              style={Object {}}
+              type="down"
+            >
+              <i
+                className="indicator cloud-icon cloud-icon-down"
+                style={Object {}}
+              />
+            </Icon>
+          </div>
+          <ul
+            className="group-sub collapse"
+          >
+            <MenuItem
+              indent={10}
+              internalKey="/shanghai/pudong"
+              key="/shanghai/pudong"
+              onClick={[Function]}
+              path={
+                Array [
+                  "/shanghai/pudong",
+                  "/shanghai",
+                ]
+              }
+              selected={false}
+              type="common"
+            >
+              <li
+                className="item"
+                onClick={[Function]}
+                role="menuitem"
+                style={
+                  Object {
+                    "textIndent": 30,
+                  }
+                }
+              >
+                浦东区
+              </li>
+            </MenuItem>
+            <MenuItem
+              indent={10}
+              internalKey="/shanghai/nanjinglu"
+              key="/shanghai/nanjinglu"
+              onClick={[Function]}
+              path={
+                Array [
+                  "/shanghai/nanjinglu",
+                  "/shanghai",
+                ]
+              }
+              selected={false}
+              type="common"
+            >
+              <li
+                className="item"
+                onClick={[Function]}
+                role="menuitem"
+                style={
+                  Object {
+                    "textIndent": 30,
+                  }
+                }
+              >
+                南京路
+              </li>
+            </MenuItem>
+          </ul>
+        </li>
+      </SubMenu>
+    </ul>
+  </section>
+</Menu>
+`;
+
+exports[`Menu renders correctly with composition 1`] = `
+<section
+  class="cloud-menu-container"
+>
+  <ul
+    class="list"
+  >
+    <li
+      class="item"
+      role="menuitem"
+      style="text-indent:20px"
+    >
+      menuItem1
+    </li>
+    <li>
+      <div
+        class="group-title"
+        style="text-indent:20px"
+      >
+        subMenu2
+        <i
+          class="indicator cloud-icon cloud-icon-down"
+        />
+      </div>
+      <ul
+        class="group-sub collapse"
+      >
+        <li
+          class="item"
+          role="menuitem"
+          style="text-indent:30px"
+        >
+          menuItem2
+        </li>
+        <li
+          class="item"
+          role="menuitem"
+          style="text-indent:30px"
+        >
+          menuItem3
+        </li>
+      </ul>
+    </li>
+  </ul>
+</section>
+`;
+
+exports[`Menu renders correctly with structual data 1`] = `
+<section
+  class="cloud-menu-container"
+>
+  <ul
+    class="list"
+  >
+    <li>
+      <div
+        class="group-title"
+        style="text-indent:20px"
+      >
+        北京
+        <i
+          class="indicator cloud-icon cloud-icon-down"
+        />
+      </div>
+      <ul
+        class="group-sub collapse"
+      >
+        <li
+          class="item"
+          role="menuitem"
+          style="text-indent:30px"
+        >
+          <span
+            style="color:red;font-weight:bold"
+          >
+            朝阳区
+          </span>
+        </li>
+        <li
+          class="item"
+          role="menuitem"
+          style="text-indent:30px"
+        >
+          海淀区
+        </li>
+      </ul>
+    </li>
+    <li>
+      <div
+        class="group-title"
+        style="text-indent:20px"
+      >
+        上海
+        <i
+          class="indicator cloud-icon cloud-icon-down"
+        />
+      </div>
+      <ul
+        class="group-sub collapse"
+      >
+        <li
+          class="item"
+          role="menuitem"
+          style="text-indent:30px"
+        >
+          浦东区
+        </li>
+        <li
+          class="item"
+          role="menuitem"
+          style="text-indent:30px"
+        >
+          南京路
+        </li>
+      </ul>
+    </li>
+  </ul>
+</section>
+`;
