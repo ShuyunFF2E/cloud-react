@@ -60,8 +60,7 @@ export default class MenuBasicDemo extends Component {
 				onSubMenuToggle={this.handleSubMenuToggle}
 				onItemClick={this.handleMenuItemClick}
 				source={menuSource}
-				openKeys={['/shanghai']}
-				selectedKeys={['/shanghai/pudong']}></Menu>
+				selectedKeys="/shanghai/pudong"></Menu>
 		);
 	}
 }

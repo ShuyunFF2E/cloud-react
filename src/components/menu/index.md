@@ -16,8 +16,8 @@ subtitle: 菜单项
 | --------------- | ------------------------- | -------- | -------- |
 | header          | 菜单的额外头部            | node     | -        |
 | source          | 菜单资源                  | array    | -        |
-| openKey         | 打开的子菜单的 key        | array    | -        |
-| selectedKeys    | 选中的的菜单项的 key      | array    | -        |
+| openKeys         | 打开的子菜单的 key        | array    | -        |
+| selectedKeys    | 选中的的菜单项的 key      | array 或者 string    | -        |
 | type            | 菜单类型 'common', 'link' | string   | 'common' |
 | indent          | 菜单项缩进值 px           | number   | 10       |
 | style           | 根节点样式                | object   | {}       |

@@ -11,6 +11,10 @@ import MenuItem from './menu-item';
 import SubMenu from './sub-menu';
 import './index.less';
 
+function uniSelectedKeys(key) {
+	return Array.isArray(key) ? key : [key];
+}
+
 export default class Menu extends PureComponent {
 	static propTypes = {
 		header: PropTypes.node,
@@ -22,7 +26,7 @@ export default class Menu extends PureComponent {
 			})
 		),
 		openKeys: PropTypes.arrayOf(PropTypes.string),
-		selectedKeys: PropTypes.arrayOf(PropTypes.string),
+		selectedKeys: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.string), PropTypes.string]),
 		type: PropTypes.oneOf([types.LINK, types.COMMON]),
 		indent: PropTypes.number,
 		style: PropTypes.object,
@@ -44,9 +48,9 @@ export default class Menu extends PureComponent {
 
 	constructor(props) {
 		super(props);
-		const { openKeys, selectedKeys } = props;
+		const selectedKeys = uniSelectedKeys(props.selectedKeys);
 		this.state = {
-			openKeys,
+			openKeys: props.openKeys,
 			selectedKeys,
 			prevProps: props
 		};
@@ -57,7 +61,7 @@ export default class Menu extends PureComponent {
 		if (!ShuyunUtils.equal(prevProps.openKeys, nextProps.openKeys) || !ShuyunUtils.equal(prevProps.selectedKeys, nextProps.selectedKeys)) {
 			return {
 				openKeys: nextProps.openKeys,
-				selectedKeys: nextProps.selectedKeys,
+				selectedKeys: uniSelectedKeys(nextProps.selectedKeys),
 				prevProps: nextProps
 			};
 		}
@@ -70,25 +74,25 @@ export default class Menu extends PureComponent {
 		});
 	};
 
+	// 当前子菜单展开的条件： openKeys中或者selectedKeys中，存在以当前key为开头的字段
+	getOpenedStatus(key) {
+		const { openKeys, selectedKeys } = this.state;
+		return !!openKeys.find(openKey => openKey.startsWith(key)) || !!selectedKeys.find(selectKey => selectKey.startsWith(key));
+	}
+
 	renderNodeBySource(source, path = []) {
 		const { onSubMenuToggle, onItemClick, type, indent } = this.props;
-		const { openKeys, selectedKeys } = this.state;
+		const { selectedKeys } = this.state;
 		return source.map(item => {
 			const { title, key, children } = item;
 
 			const hasSubMenu = Array.isArray(children) && children.length;
 			const newPath = [key, ...path]; // 传播路径
+			const opened = this.getOpenedStatus(key);
 
 			if (hasSubMenu) {
 				return (
-					<SubMenu
-						title={title}
-						key={key}
-						internalKey={key}
-						path={newPath}
-						indent={indent}
-						opened={openKeys.includes(key)}
-						onMenuToggle={onSubMenuToggle}>
+					<SubMenu title={title} key={key} internalKey={key} path={newPath} indent={indent} opened={opened} onMenuToggle={onSubMenuToggle}>
 						{this.renderNodeBySource(children, newPath)}
 					</SubMenu>
 				);
@@ -104,13 +108,17 @@ export default class Menu extends PureComponent {
 
 	renderNodeByChildren(children, path = []) {
 		const { onSubMenuToggle, onItemClick, indent, type } = this.props;
-		const { openKeys, selectedKeys } = this.state;
+		const { selectedKeys } = this.state;
+
+		// console.log(openKeys, this.props);
+
 		return React.Children.map(children, child => {
 			const {
 				key,
 				type: { name }
 			} = child;
-			const opened = openKeys.includes(key);
+
+			const opened = this.getOpenedStatus(key);
 			const selected = selectedKeys.includes(key);
 
 			const newPath = [key, ...path];
@@ -138,7 +146,9 @@ export default class Menu extends PureComponent {
 		// 优先使用自定义children组合进行渲染; 未传入自定义组合时，使用source进行渲染
 		if (children) {
 			content = this.renderNodeByChildren(children);
-		} else if (source.length) {
+		}
+
+		if (source.length) {
 			content = this.renderNodeBySource(source);
 		}
 

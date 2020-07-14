@@ -12,11 +12,6 @@ import { Menu } from 'cloud-react';
 const { MenuItem, SubMenu } = Menu;
 
 export default class MenuBasicDemo extends Component {
-	handleSubMenuToggle = (key, path, expanded) => {
-		console.log('激活项目key:', key);
-		console.log('激活项目定位路径:', path);
-		console.log('子菜单是否展开：', expanded);
-	};
 
 	handleMenuItemClick = (key, path) => {
 		console.log('激活项目key:', key);
@@ -26,7 +21,10 @@ export default class MenuBasicDemo extends Component {
 	render() {
 		return (
 			<HashRouter>
-				<Menu type="link" selectedKeys={['/components/button']} onSubMenuToggle={this.handleSubMenuToggle} onItemClick={this.handleMenuItemClick}>
+				<Menu type="link" 
+					selectedKeys="/components/checkbox" 
+					onSubMenuToggle={this.handleSubMenuToggle} 
+					onItemClick={this.handleMenuItemClick}>
 					<MenuItem key="/components/button">Button 按纽</MenuItem>
 					<MenuItem key="/components/checkbox">Checkbox 复选</MenuItem>
 					<MenuItem key="/components/icon">Icon 图标</MenuItem>

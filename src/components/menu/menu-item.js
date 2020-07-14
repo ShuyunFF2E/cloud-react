@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
+import { noop } from '@utils';
 
 import MenuContext, { types } from './context';
 
@@ -22,7 +23,7 @@ export default class MenuItem extends PureComponent {
 		path: [],
 		indent: 10,
 		selected: false,
-		onClick: () => {}
+		onClick: noop
 	};
 
 	handleClick = () => {
@@ -50,14 +51,10 @@ export default class MenuItem extends PureComponent {
 			);
 		}
 
-		if (type === types.COMMON) {
-			return (
-				<li className={className} style={style} onClick={this.handleClick} role="menuitem">
-					{children}
-				</li>
-			);
-		}
-
-		return null;
+		return (
+			<li className={className} style={style} onClick={this.handleClick} role="menuitem">
+				{children}
+			</li>
+		);
 	}
 }
