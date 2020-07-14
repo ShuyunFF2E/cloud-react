@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import { getRootWindow } from '@utils';
+import { getRootWindow, noop } from '@utils';
 import ContextProvider from '@contexts/context-provider';
 import Icon from '../icon';
 import Notification from './modal';
@@ -19,8 +19,8 @@ class Prompt extends React.Component {
 		type: '',
 		icon: '',
 		body: '',
-		onOk: () => {},
-		onCancel: () => {}
+		onOk: noop,
+		onCancel: noop
 	};
 
 	static propTypes = {

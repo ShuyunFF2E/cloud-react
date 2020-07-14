@@ -1,5 +1,3 @@
-import React from 'react';
-import { render } from 'enzyme';
 import Modal from '../index';
 
 describe('Modal.confirm triggers callbacks correctly', () => {
@@ -95,7 +93,7 @@ describe('Modal.confirm triggers callbacks correctly', () => {
 
 	// 回车关闭弹框
 	it('handleKeyDown', () => {
-		let keydownHandler = {};
+		const keydownHandler = {};
 		document.body.addEventListener = jest.fn((event, cb) => {
 			keydownHandler[event] = cb;
 		});
