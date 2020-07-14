@@ -37,13 +37,6 @@ export default class Selected extends React.Component {
 		return null;
 	}
 
-	onWrapperClick = () => {
-		const { disabled, onClick } = this.props;
-		if (disabled) return;
-
-		onClick();
-	};
-
 	onMouseEnter = () => {
 		if (this.props.allowClear) {
 			this.setState({
@@ -62,7 +55,7 @@ export default class Selected extends React.Component {
 
 	render() {
 		const {
-			props: { disabled, placeholder, open, onClear },
+			props: { disabled, placeholder, open, onClear, onClick },
 			state: { selectStr, clear },
 			onMouseEnter,
 			onMouseLeave
@@ -79,7 +72,7 @@ export default class Selected extends React.Component {
 		});
 
 		return (
-			<div ref={this.ref} className={classNames} onClick={this.onWrapperClick} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+			<div ref={this.ref} className={classNames} onClick={onClick} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
 				<span className={`${selector}-selected`}>{selectStr || placeholder}</span>
 				<Icon type="close-circle-solid" className={clearClasses} onClick={onClear} />
 				<Icon type="down-solid" className={iconClasses} />

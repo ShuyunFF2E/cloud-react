@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import ShuyunUtils from 'shuyun-utils';
 
 import { noop } from '@utils';
-
+import ModalConfigContext from '../modal/config-provider';
 import Tree from './tree';
 import Selected from './selected';
 import SingleTree from './single-tree';
@@ -14,6 +14,8 @@ import { selector } from './const';
 import './index.less';
 
 class TreeSelect extends Component {
+	static contextType = ModalConfigContext;
+
 	constructor(props) {
 		super(props);
 
@@ -28,16 +30,18 @@ class TreeSelect extends Component {
 			open: open || defaultOpen,
 			value: values,
 			prevValue: values,
-			prevProps: props
+			prevProps: props,
+			style: {}
 		};
 		this.node = React.createRef();
 		this.selectedNode = React.createRef();
+		this.optionsNode = React.createRef();
 	}
 
 	static getDerivedStateFromProps(props, prevState) {
 		const { prevProps } = prevState;
-		const { value, dataSource } = props;
-		const { value: prevValue, dataSource: prevData } = prevProps;
+		const { value, dataSource, open } = props;
+		const { value: prevValue, dataSource: prevData, open: prevOpen } = prevProps;
 		if (!ShuyunUtils.equal(value, prevValue) || !ShuyunUtils.equal(dataSource, prevData)) {
 			return {
 				value,
@@ -45,60 +49,50 @@ class TreeSelect extends Component {
 				prevProps: props
 			};
 		}
+		if (open !== prevOpen) {
+			return {
+				open,
+				prevProps: props
+			};
+		}
 		return null;
 	}
 
 	componentDidMount() {
-		document.addEventListener('click', this.handleClick);
+		this.document.addEventListener('click', this.handleClick);
 	}
 
 	shouldComponentUpdate(nextProps, nextState) {
 		const { disabled, width, open: propOpen, searchable } = nextProps;
-		const { open, value } = nextState;
+		const { open, value, style } = nextState;
 		const { disabled: prevDisabled, width: prevWidth, open: prevPropOpen, searchable: prevSearchable } = this.props;
-		const { open: prevOpen, value: prevValue } = this.state;
+		const { open: prevOpen, value: prevValue, style: prevStyle } = this.state;
 		return (
 			disabled !== prevDisabled ||
 			width !== prevWidth ||
 			propOpen !== prevPropOpen ||
 			open !== prevOpen ||
 			value !== prevValue ||
-			searchable !== prevSearchable
+			searchable !== prevSearchable ||
+			style !== prevStyle
 		);
 	}
 
-	componentDidUpdate() {
-		const { visible } = this;
-		if (visible) this.getOptionsContainer();
-		if (this.optionsContainer) {
-			if (visible) {
-				ReactDOM.render(this.treeNode, this.optionsContainer);
-			} else {
-				ReactDOM.unmountComponentAtNode(this.optionsContainer);
-			}
-		}
+	componentDidUpdate(_, prevState) {
+		if (this.state.open !== prevState.open && this.state.open) this.positionPop();
 	}
 
 	componentWillUnmount() {
-		document.removeEventListener('click', this.handleClick);
-
-		const { optionsContainer } = this;
-		if (optionsContainer) {
-			const parentEle = optionsContainer.parentElement;
-			ReactDOM.unmountComponentAtNode(optionsContainer);
-			if (parentEle) parentEle.removeChild(optionsContainer);
-		}
+		this.document.removeEventListener('click', this.handleClick);
 	}
 
-	get visible() {
-		const { open: propOpen } = this.props;
-		const { open } = this.state;
-		const visible = propOpen !== null ? propOpen : open;
-		return visible;
+	get document() {
+		return this.context.rootDocument;
 	}
 
-	get zIndex() {
-		return this.props.zIndex;
+	get portal() {
+		const { getContext } = this.context;
+		return getContext() || this.document.body;
 	}
 
 	get isTree() {
@@ -106,60 +100,49 @@ class TreeSelect extends Component {
 		return multiple || single;
 	}
 
-	get treeNode() {
-		if (!this.isTree) {
-			return <SingleTree {...this.props} value={this.state.value} onChange={this.onValueChange} onOk={this.handleOk} onCancel={this.handleCancel} />;
+	get selectedContainerStyle() {
+		const selectNode = this.selectedNode.current;
+		if (selectNode) {
+			return selectNode.ref.current.getBoundingClientRect();
 		}
-		return (
-			<Tree
-				{...this.props}
-				value={this.state.value}
-				onChange={this.onValueChange}
-				onOk={this.handleOk}
-				onCancel={this.handleCancel}
-				onReset={this.handleReset}
-			/>
-		);
+		return {};
 	}
 
-	get selectedContainer() {
-		return this.selectedNode.current.ref.current;
+	get optionsNodeStyle() {
+		return this.optionsNode.current.getBoundingClientRect();
 	}
 
-	get popupContainer() {
-		return this.props.getPopupContainer(this.selectedContainer);
-	}
-
-	getOptionsNodePosition() {
-		const selectedNodePosition = this.selectedContainer.getBoundingClientRect();
-		const { height, width } = selectedNodePosition;
-		if (this.popupContainer === document.body) {
-			const nodePosition = this.node.current.getBoundingClientRect();
-			const { left, top } = nodePosition;
-			return [left, top + height, width];
+	positionPop = () => {
+		const {
+			props: { isAppendToBody, position },
+			selectedContainerStyle: { left, top, bottom, height },
+			optionsNodeStyle: { height: optionsHeight }
+		} = this;
+		const isBottomDistanceEnough = bottom + optionsHeight < this.document.documentElement.clientHeight;
+		const isLocationTop = optionsHeight < top && !isBottomDistanceEnough && position === 'auto';
+		const borderTop = isLocationTop ? '1px solid #d9d9d9' : null;
+		if (isAppendToBody) {
+			this.setState({
+				style: {
+					position: 'fixed',
+					left: `${left}px`,
+					top: isLocationTop ? `${top - optionsHeight}px` : `${bottom}px`,
+					borderTop
+				}
+			});
+		} else {
+			this.setState({
+				style: {
+					top: isLocationTop ? `${-optionsHeight}px` : `${height}px`,
+					borderTop
+				}
+			});
 		}
-		const { offsetLeft, offsetTop } = this.selectedContainer;
-		return [offsetLeft, offsetTop + height, width];
-	}
-
-	getOptionsContainer() {
-		if (!this.optionsContainer) {
-			this.optionsContainer = document.createElement('div');
-			this.popupContainer.appendChild(this.optionsContainer);
-		}
-		const { optionsContainer, zIndex } = this;
-		const [left, top, width] = this.getOptionsNodePosition();
-		optionsContainer.style.position = 'absolute';
-		optionsContainer.style.zIndex = zIndex;
-		optionsContainer.style.top = `${top}px`;
-		optionsContainer.style.left = `${left}px`;
-		optionsContainer.style.minWidth = `${width}px`;
-		return optionsContainer;
-	}
+	};
 
 	handleClick = e => {
 		const { open, prevValue } = this.state;
-		const isClickSelect = this.node.current.contains(e.target) || (this.optionsContainer && this.optionsContainer.contains(e.target));
+		const isClickSelect = this.node.current.contains(e.target) || (this.optionsNode.current && this.optionsNode.current.contains(e.target));
 		if (!isClickSelect && open) {
 			const { onSelectClose, open: propOpen, hasConfirmButton } = this.props;
 			onSelectClose();
@@ -264,10 +247,29 @@ class TreeSelect extends Component {
 		this.props.onReset();
 	};
 
+	renderTreeNode() {
+		if (!this.isTree) {
+			return <SingleTree {...this.props} value={this.state.value} onChange={this.onValueChange} onOk={this.handleOk} onCancel={this.handleCancel} />;
+		}
+		return (
+			<Tree
+				{...this.props}
+				value={this.state.value}
+				onChange={this.onValueChange}
+				onOk={this.handleOk}
+				onCancel={this.handleCancel}
+				onReset={this.handleReset}
+			/>
+		);
+	}
+
 	render() {
-		const { placeholder, disabled, allowClear, style, className } = this.props;
-		const { value, open } = this.state;
+		const { placeholder, disabled, allowClear, style, className, isAppendToBody } = this.props;
+		const { value, open, style: popupStyle } = this.state;
+		const { width } = this.selectedContainerStyle;
+
 		const classNames = classnames(`${selector}`, { [`${selector}-open`]: open }, className);
+		const containerEle = isAppendToBody ? this.portal : this.node.current;
 
 		return (
 			<div className={`${classNames}`} style={style} ref={this.node}>
@@ -282,6 +284,14 @@ class TreeSelect extends Component {
 					dataSource={value}
 					disabled={disabled}
 				/>
+
+				{open &&
+					ReactDOM.createPortal(
+						<div className={`${selector}-container`} ref={this.optionsNode} style={{ ...popupStyle, minWidth: width }}>
+							{this.renderTreeNode()}
+						</div>,
+						containerEle
+					)}
 			</div>
 		);
 	}
@@ -303,8 +313,7 @@ TreeSelect.propTypes = {
 	value: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
 	hasConfirmButton: PropTypes.bool,
 	className: PropTypes.string,
-	zIndex: PropTypes.number,
-	getPopupContainer: PropTypes.func,
+	isAppendToBody: PropTypes.bool,
 	onChange: PropTypes.func,
 	onSelectOpen: PropTypes.func,
 	onSelectClose: PropTypes.func,
@@ -329,8 +338,7 @@ TreeSelect.defaultProps = {
 	value: [],
 	hasConfirmButton: false,
 	className: '',
-	zIndex: 1050,
-	getPopupContainer: triggerNode => triggerNode.parentElement,
+	isAppendToBody: false,
 	onChange: noop,
 	onSelectOpen: noop,
 	onSelectClose: noop,
