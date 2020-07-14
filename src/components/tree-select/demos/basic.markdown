@@ -8,10 +8,30 @@ desc: 基础使用
 import React from 'react';
 import { TreeSelect } from 'cloud-react';
 
-export default class TreeSelectDemo extends React.Component {
-	constructor(props) {
-		super(props);
+const treeData = [
+	{
+		label: '栗子',
+		value: 'apple',
+		children: [
+			{
+				label: '荔枝',
+				value: 'litchi'
+			}
+		]
+	},
+	{
+		label: '草莓',
+		value: 'caomei',
+		children: [
+			{
+				label: '栗子',
+				value: 'lizi'
+			}
+		]
 	}
+];
+
+export default class TreeSelectDemo extends React.Component {
 
 	handleChange = node => {
 		console.log(node);
@@ -19,31 +39,9 @@ export default class TreeSelectDemo extends React.Component {
 
 	handleSearch = (value, nodes) => {
 		console.log(value, nodes);
-	}
+	};
 
 	render() {
-		const treeData = [
-			{
-				label: '栗子',
-				value: 'apple',
-				children: [
-					{
-						label: '荔枝',
-						value: 'litchi'
-					}
-				]
-			},
-			{
-				label: '草莓',
-				value: 'caomei',
-				children: [
-					{
-						label: '栗子',
-						value: 'lizi'
-					}
-				]
-			}
-		];
 
 		return (
 			<TreeSelect

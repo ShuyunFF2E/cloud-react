@@ -273,7 +273,6 @@ class TreeSelect extends Component {
 
 		return (
 			<div className={`${classNames}`} style={style} ref={this.node}>
-				{/* 已选显示区域 */}
 				<Selected
 					ref={this.selectedNode}
 					onClick={this.onClickSelected}
