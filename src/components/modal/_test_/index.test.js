@@ -45,11 +45,19 @@ class ModalTester1 extends React.Component {
 		}
 	};
 
+	onOk = () => {
+		const { onOk } = this.props;
+		this.setState({ visible: false });
+		if (onOk) {
+			onOk();
+		}
+	};
+
 	render() {
 		return (
 			<div>
 				<div ref={this.saveContainer} className="selfContainer" />
-				<Modal {...this.props} visible={this.state.visible} getContainer={this.getContainer} onCancel={this.onCancel}>
+				<Modal {...this.props} visible={this.state.visible} getContainer={this.getContainer} onOk={this.onOk} onCancel={this.onCancel}>
 					Here is content of Modal
 				</Modal>
 			</div>
@@ -135,6 +143,7 @@ describe('Modal', () => {
 
 		component.find('.cloud-icon-close').simulate('click');
 
+		expect(component).toMatchSnapshot();
 		component.unmount();
 	});
 
@@ -303,6 +312,7 @@ describe('Modal', () => {
 		});
 		animationHandler();
 
+		expect(component).toMatchSnapshot();
 		component.unmount();
 	});
 
