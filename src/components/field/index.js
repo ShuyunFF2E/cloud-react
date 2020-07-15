@@ -11,7 +11,7 @@ const DEFAULT_OPTS = {
 	valueName: 'value',
 	checkable: true,
 	rules: [],
-	onChange: () => {}
+	onChange: noop
 };
 
 export default class Field {
@@ -149,7 +149,7 @@ export default class Field {
 	};
 
 	getErrors = (names = Object.keys(this.fieldsMeta)) => {
-		if (!names) {
+		if (names.length === 0) {
 			return {};
 		}
 
