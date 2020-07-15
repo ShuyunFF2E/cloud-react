@@ -30,13 +30,6 @@ export default class FormNexus extends Component {
 		return this.context.field;
 	}
 
-	get fieldsMeta() {
-		if (this.field && this.field.fieldsMeta) {
-			return this.field.fieldsMeta;
-		}
-		return null;
-	}
-
 	get dataFields() {
 		const {
 			field,
