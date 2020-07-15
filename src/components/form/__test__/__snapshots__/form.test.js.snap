@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Form function component 1`] = `
+<form
+  class="cloud-form"
+>
+  <div
+    class="cloud-form-item vertical right"
+  >
+    <label
+      class="cloud-form-item-label has-colon"
+      required=""
+    >
+      用户名
+    </label>
+    <div
+      class="cloud-form-item-wrapper"
+    >
+      <div
+        class="contents"
+      >
+        <input
+          class="cloud-input default"
+          data-field="userName"
+          placeholder="请输入用户名"
+        />
+      </div>
+    </div>
+  </div>
+  <button
+    class="cloud-button normal default"
+    type="button"
+  >
+    重置
+  </button>
+</form>
+`;
+
+exports[`Form should render correctly 1`] = `
+<form
+  class="cloud-form"
+>
+  <div
+    class="cloud-form-item vertical right"
+  >
+    <label
+      class="cloud-form-item-label has-colon"
+    >
+      username
+    </label>
+    <div
+      class="cloud-form-item-wrapper"
+    >
+      <input
+        class="cloud-input default"
+        placeholder="请输入用户名"
+      />
+    </div>
+  </div>
+</form>
+`;
