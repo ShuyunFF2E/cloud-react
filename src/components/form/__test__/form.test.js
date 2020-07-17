@@ -276,9 +276,7 @@ describe('Form', () => {
 			platform: [1]
 		});
 
-		let errors = await field.validate(errs => {
-			return errs;
-		});
+		await field.validate(errs => errs);
 
 		field.setValues({
 			phone: '18612345678',
@@ -288,14 +286,14 @@ describe('Form', () => {
 
 		wrapper.setState({ scrollToFirstError: true });
 
-		errors = await field.validate(errs => {
-			return errs;
-		});
+		await field.validate(errs => errs);
 
 		jest.runAllTimers();
 
 		field.reset();
 		field.clear();
+
+		expect(true).toBeTruthy();
 	});
 
 	it('function component', async () => {
