@@ -1,6 +1,6 @@
 {
     "name": "cloud-react",
-    "version": "0.0.76-7",
+    "version": "0.0.76-8",
     "description": "数据赢家 react 组件",
     "main": "cloud-react.js",
     "scripts": {
