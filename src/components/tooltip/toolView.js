@@ -127,6 +127,7 @@ export default class ToolView extends Component {
 	};
 
 	tipRef = React.createRef();
+	timer = null;
 
 	componentDidMount() {
 		const { placement, target } = this.props;
@@ -141,6 +142,14 @@ export default class ToolView extends Component {
 				() => this.setState({ show: true })
 			);
 		}, 0);
+	}
+
+	componentWillUnmount() {
+		clearTimeout(this.timer);
+	}
+
+	show() {
+		this.timer = setTimeout(() => this.setState({ show: true }), 10);
 	}
 
 	render() {
