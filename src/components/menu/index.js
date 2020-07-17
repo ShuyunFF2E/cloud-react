@@ -11,6 +11,10 @@ import MenuItem from './menu-item';
 import SubMenu from './sub-menu';
 import './index.less';
 
+function uniSelectedKeys(key) {
+	return Array.isArray(key) ? key : [key];
+}
+
 export default class Menu extends PureComponent {
 	static propTypes = {
 		header: PropTypes.node,
@@ -22,7 +26,7 @@ export default class Menu extends PureComponent {
 			})
 		),
 		openKeys: PropTypes.arrayOf(PropTypes.string),
-		selectedKeys: PropTypes.arrayOf(PropTypes.string),
+		selectedKeys: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.string), PropTypes.string]),
 		type: PropTypes.oneOf([types.LINK, types.COMMON]),
 		indent: PropTypes.number,
 		style: PropTypes.object,
@@ -44,9 +48,9 @@ export default class Menu extends PureComponent {
 
 	constructor(props) {
 		super(props);
-		const { openKeys, selectedKeys } = props;
+		const selectedKeys = uniSelectedKeys(props.selectedKeys);
 		this.state = {
-			openKeys,
+			openKeys: props.openKeys,
 			selectedKeys,
 			prevProps: props
 		};
@@ -57,7 +61,7 @@ export default class Menu extends PureComponent {
 		if (!ShuyunUtils.equal(prevProps.openKeys, nextProps.openKeys) || !ShuyunUtils.equal(prevProps.selectedKeys, nextProps.selectedKeys)) {
 			return {
 				openKeys: nextProps.openKeys,
-				selectedKeys: nextProps.selectedKeys,
+				selectedKeys: uniSelectedKeys(nextProps.selectedKeys),
 				prevProps: nextProps
 			};
 		}
@@ -79,16 +83,12 @@ export default class Menu extends PureComponent {
 			const hasSubMenu = Array.isArray(children) && children.length;
 			const newPath = [key, ...path]; // 传播路径
 
+			// 当前子菜单展开的条件： openKeys或者selectedKeys中存在以当前key为开头的字段
+			const opened = !!openKeys.find(openKey => openKey.startsWith(key)) || !!selectedKeys.find(selectKey => selectKey.startsWith(key));
+
 			if (hasSubMenu) {
 				return (
-					<SubMenu
-						title={title}
-						key={key}
-						internalKey={key}
-						path={newPath}
-						indent={indent}
-						opened={openKeys.includes(key)}
-						onMenuToggle={onSubMenuToggle}>
+					<SubMenu title={title} key={key} internalKey={key} path={newPath} indent={indent} opened={opened} onMenuToggle={onSubMenuToggle}>
 						{this.renderNodeBySource(children, newPath)}
 					</SubMenu>
 				);
@@ -110,7 +110,11 @@ export default class Menu extends PureComponent {
 				key,
 				type: { name }
 			} = child;
-			const opened = openKeys.includes(key);
+
+			// 当前子菜单展开的条件： openKeys中或者selectedKeys中，存在以当前key为开头的字段
+			const opened =
+				!!openKeys.find(openKey => openKey && openKey.startsWith(key)) || !!selectedKeys.find(selectKey => selectKey && selectKey.startsWith(key));
+
 			const selected = selectedKeys.includes(key);
 
 			const newPath = [key, ...path];
