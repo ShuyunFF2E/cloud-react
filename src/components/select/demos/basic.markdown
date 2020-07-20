@@ -31,8 +31,8 @@ const dataList = [
 
 export default function SelectDemo() {
 	const [visible, setVisible] = useState(false);
-	const handleChange = value => {
-		console.log('select --- ' + value);
+	const handleChange = (value, prevValue, option) => {
+		console.log(value, prevValue, option);
 	};
 
 	const handleOpen = () => console.log('open');
@@ -45,7 +45,7 @@ export default function SelectDemo() {
 		<div style={{ height: 300 }}>
 			<Select placeholder="请选择..." defaultValue={4} position="auto" onSelectOpen={handleOpen} onSelectClose={handleClose} onChange={handleChange}>
 				{dataList.map((item, index) => (
-					<Option value={item.value} disabled={item.disabled} key={index}>
+					<Option item={{ ...item, index }} value={item.value} disabled={item.disabled} key={index}>
 						{item.label}
 					</Option>
 				))}

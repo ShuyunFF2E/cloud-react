@@ -39,7 +39,7 @@ subtitle: 下拉选择
 | showSelectStyle   | 选择器样式是否显示                                                | boolean                                 | true           |
 | isAppendToBody    | 下拉框是否渲染在 body 上                                          | boolean                                 | false          |  |
 | position          | 下拉框是否启用自动定位，如需使用可设置为`auto`                    | string                                  | -              |
-| onChange          | 选中 option 变化时回调此函数                                      | function(value, oldValue)               | -              |
+| onChange          | 选中 option 变化时回调此函数，普通单选树回调包含第三个参数返回当前点击选项的原始数据，如不使用dataSource生成组件，则需手动指定option的item属性   | function(value, oldValue)               | -              |
 | onOk              | 多选时确认操作回调函数                                            | function(value: array, oldValue: array) | -              |
 | onCancel          | 多选时取消操作回调函数                                            | function                                | -              |
 | onSearch          | 搜索文本框变化时回调此函数                                        | function(value: string)                 | -              |
@@ -54,4 +54,5 @@ subtitle: 下拉选择
 | --------- | -------------------------------------------- | ------------- | ------ |
 | disabled  | 下拉禁用状态                                 | boolean       | false  |
 | value     | 默认使用此属性进行基本操作，选中 option 的值 | string\number | -      |
+| item      | 当前选项的原始属性，包含index值                 | object | -      |
 | className | 该项 option 的类名                           | string        | -      |
