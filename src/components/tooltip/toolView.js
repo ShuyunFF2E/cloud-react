@@ -127,6 +127,7 @@ export default class ToolView extends Component {
 	};
 
 	tipRef = React.createRef();
+
 	timer = null;
 
 	componentDidMount() {
