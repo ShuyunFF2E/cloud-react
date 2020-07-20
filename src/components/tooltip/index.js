@@ -1,7 +1,6 @@
 import React, { Component, createElement } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import { getRootWindow } from '@utils';
 import ToolView from './toolView';
 import Modal from '../modal';
 import { CONFIG_PLACE, CONFIG_THEME } from './config';
@@ -48,6 +47,15 @@ class Tooltip extends Component {
 		}
 	}
 
+	get document() {
+		return this.context.rootDocument;
+	}
+
+	get portal() {
+		const { getContext } = this.context;
+		return getContext() || this.document.body;
+	}
+
 	getChildren() {
 		const { children } = this.props;
 		const __children = createElement('span', null, [children]);
@@ -90,8 +98,6 @@ class Tooltip extends Component {
 
 	renderView() {
 		const { target } = this;
-		const rootWindow = getRootWindow();
-		const rootDocument = rootWindow.document;
 
 		return ReactDOM.createPortal(
 			<ToolView
@@ -100,7 +106,7 @@ class Tooltip extends Component {
 					target
 				}}
 			/>,
-			rootDocument.body
+			this.portal
 		);
 	}
 
