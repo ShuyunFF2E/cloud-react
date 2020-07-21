@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { getRootWindow } from '@utils';
+import ContextProvider from '@contexts/context-provider';
 import Icon from '../icon';
 import Notification from './modal';
-import Context from './config-provider';
 
 import './index.less';
 
@@ -68,7 +68,6 @@ class Prompt extends React.Component {
 		return getRootWindow();
 	}
 
-	/* eslint-disable-next-line */
 	get document() {
 		return this.window.document;
 	}
@@ -138,7 +137,7 @@ class Prompt extends React.Component {
 		};
 
 		return ReactDOM.createPortal(
-			<Context.Provider value={{ rootDocument: this.document, rootWindow: this.window }}>
+			<ContextProvider.Provider value={{ rootDocument: this.document, rootWindow: this.window }}>
 				<Notification
 					visible
 					type={type}
@@ -156,7 +155,7 @@ class Prompt extends React.Component {
 						</header>
 					</div>
 				</Notification>
-			</Context.Provider>,
+			</ContextProvider.Provider>,
 			this.document.body
 		);
 	}

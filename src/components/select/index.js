@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import ShuyunUtils from 'shuyun-utils';
 
 import { flat } from '@utils';
-import ModalConfigContext from '../modal/config-provider';
+import ContextProvider from '@contexts/context-provider';
 import SingleSelect from './views/single-select';
 import MultiSelect from './views/multi-select';
 import Selected from './views/selected';
@@ -37,7 +37,7 @@ const getOptions = (dataSource, labelKey, valueKey) => {
 class Select extends Component {
 	static Option = Option;
 
-	static contextType = ModalConfigContext;
+	static contextType = ContextProvider;
 
 	constructor(props) {
 		super(props);

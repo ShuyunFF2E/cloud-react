@@ -38,6 +38,8 @@ ReactDOM.render(<Button>按钮</Button>, mountNode);
 - 修复bug，基于`master`新建分支，命名为`bugfix/**`，其中`*`为组件的名称。
 
 ### 开发新组件
+> 如果组件比较特殊，使用到了ReactDOM.createPortal API或者存在动态创建节点(组件)的行为，必须使用ContextProvider来修改window、document和body
+> 详情请看 /src/contexts/context-provider.js 文件，有更详细的描述
 
 1、新拉分支。   
 2、执行`npm run new:component` 脚本，会在 src/components 目录生成一个`new-component`目录，里面包含新组件的基础文件和模版。  

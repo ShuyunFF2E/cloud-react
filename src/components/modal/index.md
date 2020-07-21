@@ -31,32 +31,6 @@ subtitle: 弹出框
 | clickMaskCanClose  | 点击遮罩层是否关闭, showMask 必须为 true | boolean             | `true`  |
 | showConfirmLoading | 点击确定是否显示 loading，用于异步关闭   | boolean             | `false` |
 
-### Modal.ConfigProvider
-
-提供`Modal`组件上下文对象给其他组件使用，主要用于`Modal`组件创建在 iframe 之外的窗口时使用
-| 属性 | 说明 | 类型 | 默认值 |
-| ------------------ | ---------------------------------------------------------------------------- | ------------------ | ------- |
-| rootDocument | 获取顶层窗口`document` | DOM Document | `document` |
-| rootWindow | 获取顶层窗口`window` | BOM Window | `window` |
-
-代码示例
-
-```jsx
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Modal } from 'cloud-react';
-
-class ConfigProviderDemo extends React.Component {
-	static contextType = Modal.ConfigProvider;
-
-	render() {
-		const { rootDocument, rootWindow } = this.context;
-
-		return ReactDOM.createPortal(<div>{/* ... */}</div>, rootDocument.body);
-	}
-}
-```
-
 ### Modal.createModal()
 
 通过 createModal 创建弹框，通过 open 方式打开弹框，createModal 参数为一个 modal 实例；

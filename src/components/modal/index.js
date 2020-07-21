@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 
-import { getRootWindow } from '@utils';
-import { sandboxSelector } from './constants';
+import ContextProvider from '@contexts/context-provider';
+import { getRootWindow, sandboxSelector } from '@utils';
 import './index.less';
 import Notification from './modal';
 import Prompt from './prompt';
-import Context from './config-provider';
 
 class Modal extends Component {
 	static propTypes = {
@@ -18,15 +17,13 @@ class Modal extends Component {
 		children: null
 	};
 
-	static ConfigProvider = Context;
-
 	render() {
 		const { children, ...props } = this.props;
 		const rootWindow = getRootWindow();
 		const rootDocument = rootWindow.document;
 
 		return ReactDOM.createPortal(
-			<Context.Provider
+			<ContextProvider.Provider
 				value={{
 					rootWindow,
 					rootDocument,
@@ -35,7 +32,7 @@ class Modal extends Component {
 				<Notification type="modal" {...props}>
 					{children}
 				</Notification>
-			</Context.Provider>,
+			</ContextProvider.Provider>,
 			rootDocument.body
 		);
 	}
