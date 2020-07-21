@@ -1,8 +1,8 @@
 import React, { Component, createElement } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
+import ContextProvider from '@contexts/context-provider';
 import ToolView from './toolView';
-import Modal from '../modal';
 import { CONFIG_PLACE, CONFIG_THEME } from './config';
 import './index.less';
 
@@ -12,7 +12,7 @@ const TRIGGER_MAPPING = {
 };
 
 class Tooltip extends Component {
-	static contextType = Modal.ConfigProvider;
+	static contextType = ContextProvider;
 
 	target = null;
 

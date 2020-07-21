@@ -2,19 +2,19 @@ import React, { createRef, Component } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { noop, omit } from '@utils';
+import ContextProvider from '@contexts/context-provider';
 import Input from '../../input';
 import Icon from '../../icon';
 import Year from '../year/main';
 import YearMonth from '../year-month/main';
 import MonthDay from '../month-day/main';
 import DatePicker from '../date-picker/main';
-import ModalConfigContext from '../../modal/config-provider';
 import { renderDOM, createWrapper, destroyDOM } from './utils';
 import { enumObj, containerClass, selectorClass, wrapperClass } from '../constant';
 import { transformObj, displayNow } from '../utils';
 
 class Picker extends Component {
-	static contextType = ModalConfigContext;
+	static contextType = ContextProvider;
 
 	constructor(props) {
 		super(props);
