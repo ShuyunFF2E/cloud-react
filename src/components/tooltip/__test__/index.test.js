@@ -4,8 +4,55 @@ import mountTest from '@tests/shared/mountTest';
 
 import Tooltip from '../index';
 import Button from '../../button';
+import Select from '../../select';
 
 describe('Tooltip', () => {
+	function setStyle(tooltipStyle = {}, buttonStyle = {}) {
+		const isTooltip = classList => classList.contains('cloud-tooltip');
+		const isButton = classList => classList.contains('cloud-button');
+		const tooltipConfig = {
+			offsetHeight: 26,
+			offsetWidth: 88,
+			...tooltipStyle
+		};
+		const buttonConfig = {
+			offsetHeight: 30,
+			offsetWidth: 132,
+			offsetTop: 57,
+			offsetLeft: 185,
+			...buttonStyle
+		};
+		Object.defineProperties(window.HTMLElement.prototype, {
+			offsetHeight: {
+				get() {
+					if (isTooltip(this.classList)) {
+						return tooltipConfig.offsetHeight;
+					}
+					if (isButton(this.classList)) {
+						return buttonConfig.offsetHeight;
+					}
+					return 0;
+				}
+			},
+			offsetWidth: {
+				get() {
+					if (isTooltip(this.classList)) {
+						return tooltipConfig.offsetWidth;
+					}
+					if (isButton(this.classList)) {
+						return buttonConfig.offsetWidth;
+					}
+					return 0;
+				}
+			},
+			offsetParent: {
+				get() {
+					return this.parentElement;
+				}
+			}
+		});
+	}
+
 	mountTest(Tooltip);
 
 	beforeEach(() => {
@@ -95,6 +142,58 @@ describe('Tooltip', () => {
 			.find('div')
 			.at(0)
 			.simulate('mouseLeave');
+		jest.runAllTimers();
+		expect(wrapper.state('visible')).toBeTruthy();
+	});
+
+	it('should show tips when trigger is onDoubleClick', () => {
+		const wrapper = mount(
+			<Tooltip content="click content" trigger="onDoubleClick">
+				<Button type="normal">双击显示 Tooltip</Button>
+			</Tooltip>
+		);
+		wrapper.find('Button').simulate('dblclick');
+		jest.runAllTimers();
+		expect(wrapper.state('visible')).toBeTruthy();
+	});
+
+	it('support placement', () => {
+		[
+			'auto',
+			'top',
+			'right',
+			'bottom',
+			'left',
+			'top-left',
+			'top-right',
+			'bottom-left',
+			'bottom-right',
+			'left-top',
+			'left-bottom',
+			'right-top',
+			'right-bottom',
+			'auto'
+		].forEach((placement, index) => {
+			setStyle(index === 13 ? {} : { offsetHeight: 0 });
+			const wrapper = mount(
+				<Tooltip content={<span>click content</span>} trigger="click" visible placement={placement}>
+					<Button type="normal">点击显示 Tooltip</Button>
+				</Tooltip>
+			);
+			wrapper.find('Button').simulate('click');
+			jest.runAllTimers();
+			const { top, left } = window.getComputedStyle(document.querySelector('.cloud-tooltip'));
+			expect(top || left).toBeTruthy();
+		});
+	});
+
+	it('when tooltipcontainer is not bind to parent element ', () => {
+		const wrapper = mount(
+			<Tooltip content="click content" trigger="click" visible>
+				<Select />
+			</Tooltip>
+		);
+		wrapper.find('.cloud-select-wrapper').simulate('click');
 		jest.runAllTimers();
 		expect(wrapper.state('visible')).toBeTruthy();
 	});
