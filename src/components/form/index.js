@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import omit from '@utils/omit';
 
 import { prefixCls } from '@utils/config';
-import Modal from '../modal';
+import ContextProvider from '@contexts/context-provider';
 import FormItem from './form-item';
 import Nexus from './form-nexus';
 import FormContext from './context';
@@ -16,7 +16,7 @@ const ERROR_SELECTOR = `.${prefixCls}-form-item-explain.error`;
 const FORM_ITEM_SELECTOR = `${prefixCls}-form-item`;
 
 export default class Form extends Component {
-	static contextType = Modal.ConfigProvider;
+	static contextType = ContextProvider;
 
 	static propTypes = {
 		field: PropTypes.object,

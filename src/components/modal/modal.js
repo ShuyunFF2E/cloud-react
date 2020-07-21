@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { prefixCls, getCssText } from '@utils';
-import { sandboxSelector } from './constants';
+import { prefixCls, getCssText, sandboxSelector } from '@utils';
+import ContextProvider from '@contexts/context-provider';
 import Icon from '../icon';
 import Button from '../button';
-import ModalConfigContext from './config-provider';
 import './index.less';
 
 // 获取当前document下的所有样式创建到顶层doucment上，sandboxSelector是一个简单的隔离方式
@@ -40,7 +39,7 @@ class Notification extends Component {
 		};
 	}
 
-	static contextType = ModalConfigContext;
+	static contextType = ContextProvider;
 
 	static defaultProps = {
 		visible: false,

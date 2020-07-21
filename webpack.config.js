@@ -23,6 +23,7 @@ module.exports = ({ mode } = { mode: 'development' }) => {
 			resolve: {
 				alias: {
 					'@utils': resolve('./src/utils/'),
+					'@contexts': resolve('./src/contexts/'),
 					'@components': resolve('./src/components/'),
 					'@tests': resolve('./tests/'),
 					'@docs': resolve('./docs'),
