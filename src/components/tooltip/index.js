@@ -35,10 +35,7 @@ class Tooltip extends Component {
 
 	componentDidUpdate(prevProps) {
 		const { visible } = this.props;
-		if (prevProps.visible === visible) {
-			return;
-		}
-		if (typeof visible === 'boolean') {
+		if (prevProps.visible !== visible) {
 			if (visible) {
 				this.showTips({ target: this.tipRef.current.firstElementChild });
 			} else {
@@ -73,27 +70,23 @@ class Tooltip extends Component {
 	showTips = ({ target }) => {
 		const { mouseEnterDelay, content, visible } = this.props;
 
-		if (!content || (typeof visible === 'boolean' && !visible)) {
-			return;
+		if (content && (visible || visible === undefined)) {
+			this.target = this.getTooltipParent(target);
+
+			setTimeout(() => {
+				this.setState({ visible: true });
+			}, mouseEnterDelay);
 		}
-
-		this.target = this.getTooltipParent(target);
-
-		setTimeout(() => {
-			this.setState({ visible: true });
-		}, mouseEnterDelay);
 	};
 
 	closeTips = () => {
 		const { mouseLeaveDelay, visible } = this.props;
 
-		if (typeof visible === 'boolean' && visible) {
-			return;
+		if (!visible) {
+			setTimeout(() => {
+				this.setState({ visible: false });
+			}, mouseLeaveDelay);
 		}
-
-		setTimeout(() => {
-			this.setState({ visible: false });
-		}, mouseLeaveDelay);
 	};
 
 	renderView() {
