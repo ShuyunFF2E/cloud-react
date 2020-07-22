@@ -22,6 +22,7 @@ const columnData = [
 		text: '使用说明'
 	}
 ];
+
 // 模拟一个返回promise的请求。settings为当前实例配置对像, params为当前请求参数
 const resouse = (settings, params) => {
 	// 返回一个promise
