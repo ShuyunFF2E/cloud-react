@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import ShuyunUtils from 'shuyun-utils';
-
+import ContextProvider from '@contexts/context-provider';
 import { noop } from '@utils';
-import ModalConfigContext from '../modal/config-provider';
+
 import Tree from './tree';
 import Selected from './selected';
 import SingleTree from './single-tree';
@@ -14,7 +14,7 @@ import { selector, SINGLE, MULTIPLE } from './const';
 import './index.less';
 
 class TreeSelect extends Component {
-	static contextType = ModalConfigContext;
+	static contextType = ContextProvider;
 
 	constructor(props) {
 		super(props);
