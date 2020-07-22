@@ -29,8 +29,9 @@ const columnData = [
 	}
 ];
 
-const topFullColumn = {
-	template: (row, index) => {
+const fullColumn = {
+    interval: 6,
+	topTemplate: (row, index) => {
 		return (
 			<div style={{ padding: '12px', textAlign: 'center' }}>
 				{index} - 快速、灵活的对Table标签进行实例化，让Table标签充满活力。该项目已开源,
@@ -52,7 +53,9 @@ export default class TableDemo extends Component {
 				disableBorder={true}
 				columnData={columnData}
 				supportAjaxPage={true}
-				topFullColumn={topFullColumn}
+                supportAutoOrder={false}
+                supportCheckbox={false}
+				fullColumn={fullColumn}
 			/>
 		);
 	}
