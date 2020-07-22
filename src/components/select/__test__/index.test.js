@@ -105,7 +105,7 @@ describe('single-select', () => {
 			.at(0)
 			.simulate('click');
 		await onBeforeChange();
-		expect(onChange).toHaveBeenCalledWith('apple', null);
+		expect(onChange).toHaveBeenCalledWith('apple', null, { ...dataList[0], index: 0 });
 	});
 
 	it('should not onChange when click same value', async () => {
@@ -171,7 +171,7 @@ describe('single-select', () => {
 			.at(0)
 			.simulate('click');
 		await onBeforeChange();
-		expect(onChange).toHaveBeenCalledWith({ label: '苹果', value: 'apple' }, []);
+		expect(onChange).toHaveBeenCalledWith(dataList[0], [], { ...dataList[0], index: 0 });
 	});
 
 	it('allowClear property allow click delete selected', () => {
