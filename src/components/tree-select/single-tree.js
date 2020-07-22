@@ -2,6 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import ShuyunUtils from 'shuyun-utils';
+import { noop } from '@utils';
 import Icon from '../icon';
 import Input from '../input';
 
@@ -184,8 +185,8 @@ SingleTree.defaultProps = {
 	value: {},
 	dropdownClassName: '',
 	dropdownStyle: {},
-	onChange: () => {},
-	onSearch: () => {}
+	onChange: noop,
+	onSearch: noop
 };
 
 export default SingleTree;

@@ -16,3 +16,7 @@ export const getOpenKeys = (selected, nodes) => {
 	getKeys(nodes);
 	return keys;
 };
+
+export const DEFAULT = 'default';
+export const SINGLE = 'single';
+export const MULTIPLE = 'multiple';

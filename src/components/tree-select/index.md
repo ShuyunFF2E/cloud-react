@@ -12,9 +12,10 @@ subtitle: 树下拉
 
 | 属性              | 说明                                                   | 类型                           | 默认值           |
 | ----------------- | ------------------------------------------------------ | ------------------------------ | ---------------- |
+| type              | 下拉树类型，`default` `single` `multiple`                | string                        | 'default'            |
 | allowClear        | 是否支持一键清除                                       | boolean                        | false            |
-| multiple          | 是否为多选下拉树                                       | boolean                        | false            |
-| single            | 是否为单选下拉树                                       | boolean                        | false            |
+| ~~multiple~~      | ~~是否为多选下拉树~~                                      | ~~boolean~~                        | ~~false~~            |
+| ~~single~~        | ~~是否为单选下拉树~~                                     | ~~boolean~~                        | ~~false~~            |
 | disabled          | 下拉禁用状态                                           | boolean                        | false            |
 | dataSource        | 需要展示的数据，与下拉树类型相关                                     | array                          | []               |
 | defaultOpen       | 默认下拉菜单展开状态                                   | boolean                        | false            |
