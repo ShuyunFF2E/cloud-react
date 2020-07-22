@@ -26,7 +26,7 @@ exports[`Multilayer TreeSelect single tree renders correctly 1`] = `
 <App
   onSearch={[Function]}
   placeholder="选择一个选项"
-  single={true}
+  type="single"
 >
   <TreeSelect
     allowClear={false}
@@ -90,7 +90,6 @@ exports[`Multilayer TreeSelect single tree renders correctly 1`] = `
     emptyRender="暂时没有数据"
     hasConfirmButton={false}
     isAppendToBody={false}
-    multiple={false}
     onCancel={[Function]}
     onChange={[Function]}
     onOk={[Function]}
@@ -101,7 +100,7 @@ exports[`Multilayer TreeSelect single tree renders correctly 1`] = `
     open={null}
     placeholder="选择一个选项"
     searchable={false}
-    single={true}
+    type="single"
     value={Array []}
     width="auto"
   >
@@ -475,7 +474,7 @@ exports[`Multilayer TreeSelect single tree renders correctly 1`] = `
             placeholder="选择一个选项"
             resetBtnText="重置"
             searchable={false}
-            single={true}
+            type="single"
             value={Array []}
             width="auto"
           >
@@ -497,6 +496,7 @@ exports[`Multilayer TreeSelect single tree renders correctly 1`] = `
                 isAppendToBody={false}
                 isUnfold={false}
                 maxLevel={0}
+                multiple={false}
                 nodeNameMaxLength=""
                 okBtnText="确定"
                 onAddNode={[Function]}
@@ -519,7 +519,6 @@ exports[`Multilayer TreeSelect single tree renders correctly 1`] = `
                 searchPlaceholder=""
                 selectedValue={Array []}
                 showIcon={false}
-                single={true}
                 style={Object {}}
                 supportCheckbox={false}
                 supportImmediatelySearch={false}
