@@ -27,8 +27,8 @@ const getSelected = (data, children) => {
 };
 
 const getOptions = (dataSource, labelKey, valueKey) => {
-	return dataSource.map(v => (
-		<Option value={v[valueKey]} disabled={v.disabled} key={Math.random()}>
+	return dataSource.map((v, index) => (
+		<Option item={{ ...v, index }} value={v[valueKey]} disabled={v.disabled} key={Math.random()}>
 			{v[labelKey]}
 		</Option>
 	));
@@ -250,7 +250,7 @@ class Select extends Component {
 			});
 
 			this.handleSelect();
-			onChange(checkedValue, prevResult);
+			onChange(checkedValue, prevResult, data.item);
 		});
 	};
 
