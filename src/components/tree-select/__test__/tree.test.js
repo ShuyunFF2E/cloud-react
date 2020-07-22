@@ -102,7 +102,7 @@ describe('Multilayer TreeSelect', () => {
 	mountTest(TreeSelect);
 
 	it('single tree renders correctly', () => {
-		const wrapper = mount(<App single placeholder="选择一个选项" />);
+		const wrapper = mount(<App type="single" placeholder="选择一个选项" />);
 		wrapper
 			.find(`.${classSelector}-wrapper`)
 			.at(0)
@@ -111,13 +111,13 @@ describe('Multilayer TreeSelect', () => {
 	});
 
 	it('multiple tree renders correctly', () => {
-		const wrapper = render(<App multiple placeholder="选择一个选项" />);
+		const wrapper = render(<App type="multiple" placeholder="选择一个选项" />);
 		expect(wrapper).toMatchSnapshot();
 	});
 
 	it('single tree basic work correctly', () => {
 		const onChange = jest.fn();
-		const wrapper = mount(<App single onChange={onChange} isUnfold />);
+		const wrapper = mount(<App type="single" onChange={onChange} isUnfold />);
 		wrapper
 			.find(`.${classSelector}-wrapper`)
 			.at(0)
@@ -132,7 +132,7 @@ describe('Multilayer TreeSelect', () => {
 
 	it('multiple tree basic work correctly', () => {
 		const onChange = jest.fn();
-		const wrapper = mount(<App multiple onChange={onChange} isUnfold />);
+		const wrapper = mount(<App type="multiple" onChange={onChange} isUnfold />);
 		wrapper
 			.find(`.${classSelector}-wrapper`)
 			.at(0)
@@ -156,7 +156,7 @@ describe('Multilayer TreeSelect', () => {
 
 	it('containParentNode work correctly', () => {
 		const onChange = jest.fn();
-		const wrapper = mount(<App multiple containParentNode onChange={onChange} isUnfold />);
+		const wrapper = mount(<App type="multiple" containParentNode onChange={onChange} isUnfold />);
 		wrapper
 			.find(`.${classSelector}-wrapper`)
 			.at(0)
@@ -173,7 +173,7 @@ describe('Multilayer TreeSelect', () => {
 
 	it('allowClear work correctly', () => {
 		const onChange = jest.fn();
-		const wrapper = mount(<App multiple onChange={onChange} value={[{ id: 114, name: '禁止删除节点4', pId: 11 }]} allowClear />);
+		const wrapper = mount(<App type="multiple" onChange={onChange} value={[{ id: 114, name: '禁止删除节点4', pId: 11 }]} allowClear />);
 		wrapper
 			.find(`.${classSelector}-wrapper`)
 			.at(0)
@@ -186,7 +186,7 @@ describe('Multilayer TreeSelect', () => {
 	});
 
 	it('footerTypes work correctly', () => {
-		const wrapper = mount(<App multiple hasConfirmButton footerTypes={['ok', 'cancel', 'reset']} />);
+		const wrapper = mount(<App type="multiple" hasConfirmButton footerTypes={['ok', 'cancel', 'reset']} />);
 		wrapper
 			.find(`.${classSelector}-wrapper`)
 			.at(0)
@@ -199,7 +199,7 @@ describe('Multilayer TreeSelect', () => {
 		const onCancel = jest.fn();
 		const onReset = jest.fn();
 		const wrapper = mount(
-			<App isUnfold multiple hasConfirmButton footerTypes={['ok', 'cancel', 'reset']} onOk={onOk} onCancel={onCancel} onReset={onReset} />
+			<App isUnfold type="multiple" hasConfirmButton footerTypes={['ok', 'cancel', 'reset']} onOk={onOk} onCancel={onCancel} onReset={onReset} />
 		);
 		wrapper
 			.find(`.${classSelector}-wrapper`)
@@ -241,7 +241,9 @@ describe('Multilayer TreeSelect', () => {
 	});
 
 	it('should work correctly when click outside component', () => {
-		const wrapper = mount(<TreeSelect dataSource={treeData} isUnfold hasConfirmButton multiple value={[{ id: 114, name: '禁止删除节点4', pId: 11 }]} />);
+		const wrapper = mount(
+			<TreeSelect dataSource={treeData} isUnfold hasConfirmButton type="multiple" value={[{ id: 114, name: '禁止删除节点4', pId: 11 }]} />
+		);
 		wrapper
 			.find(`.${classSelector}-wrapper`)
 			.at(0)

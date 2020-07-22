@@ -1,9 +1,11 @@
 import React from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
+import { noop } from '@utils';
+
 import Tree from '../tree';
 import Button from '../button';
-import { selector } from './const';
+import { selector, MULTIPLE } from './const';
 
 import './index.less';
 
@@ -34,7 +36,7 @@ class TreeContainer extends React.Component {
 	};
 
 	render() {
-		const { dataSource, multiple, searchable, value, hasConfirmButton, footerTypes, dropdownClassName, dropdownStyle, style, ...otherProps } = this.props;
+		const { dataSource, type, searchable, value, hasConfirmButton, footerTypes, dropdownClassName, dropdownStyle, style, ...otherProps } = this.props;
 		const classNames = cls(`${selector}-options`, dropdownClassName, {
 			[`${selector}-options-confirm`]: hasConfirmButton
 		});
@@ -46,7 +48,7 @@ class TreeContainer extends React.Component {
 					selectedValue={value}
 					onSelectedNode={this.selectNode}
 					treeData={dataSource}
-					supportCheckbox={multiple}
+					supportCheckbox={type === MULTIPLE}
 				/>
 				{hasConfirmButton && <div className={`${selector}-operate-btn`}>{footerTypes.map(v => this.buttons[v])}</div>}
 			</div>
@@ -80,8 +82,8 @@ TreeContainer.defaultProps = {
 	footerTypes: ['ok', 'cancel'],
 	dropdownClassName: '',
 	dropdownStyle: {},
-	onOk: () => {},
-	onCancel: () => {}
+	onOk: noop,
+	onCancel: noop
 };
 
 export default TreeContainer;
