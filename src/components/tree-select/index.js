@@ -9,7 +9,7 @@ import ContextProvider from '@contexts/context-provider';
 import Tree from './tree';
 import Selected from './selected';
 import SingleTree from './single-tree';
-import { selector } from './const';
+import { selector, SINGLE, MULTIPLE } from './const';
 
 import './index.less';
 
@@ -19,9 +19,9 @@ class TreeSelect extends Component {
 	constructor(props) {
 		super(props);
 
-		const { open, defaultOpen, value, defaultValue, multiple, single } = props;
+		const { open, defaultOpen, value, defaultValue, single, multiple } = props;
 		let values;
-		if (multiple || single) {
+		if (this.isTree) {
 			values = value || defaultValue || [];
 		} else {
 			values = value !== null ? value : defaultValue;
@@ -36,6 +36,10 @@ class TreeSelect extends Component {
 		this.node = React.createRef();
 		this.selectedNode = React.createRef();
 		this.optionsNode = React.createRef();
+
+		if (single || multiple) {
+			console.warn('single/multiple属性将于后续版本中废弃，如需使用可设置type="single || multiple"');
+		}
 	}
 
 	static getDerivedStateFromProps(props, prevState) {
@@ -95,9 +99,16 @@ class TreeSelect extends Component {
 		return getContext() || this.document.body;
 	}
 
+	get type() {
+		const { type, single, multiple } = this.props;
+		if (single) return SINGLE;
+		if (multiple) return MULTIPLE;
+		return type;
+	}
+
 	get isTree() {
-		const { multiple, single } = this.props;
-		return multiple || single;
+		const { type } = this;
+		return type === MULTIPLE || type === SINGLE;
 	}
 
 	get selectedContainerStyle() {
@@ -172,8 +183,7 @@ class TreeSelect extends Component {
 	};
 
 	onValueChange = (node, selectedNodes) => {
-		const { multiple, single } = this.props;
-		if (multiple || single) {
+		if (this.isTree) {
 			this.onTreeOptionChange(node, selectedNodes);
 		} else {
 			this.onSimpleChange(node);
@@ -191,18 +201,21 @@ class TreeSelect extends Component {
 	};
 
 	onTreeOptionChange = (node, selectedNodes) => {
-		const { single, hasConfirmButton, containParentNode, onChange } = this.props;
+		const {
+			type,
+			props: { hasConfirmButton, containParentNode, onChange }
+		} = this;
 		const selectedData = containParentNode ? selectedNodes : selectedNodes.filter(v => !v.children || !v.children.length);
 		this.setState({
 			value: selectedData,
 			node
 		});
-		if (!hasConfirmButton || single) {
+		if (!hasConfirmButton || type === SINGLE) {
 			this.setState({
 				prevValue: selectedData
 			});
 			onChange(node, selectedData);
-			if (single) this.handleSelect();
+			if (type === SINGLE) this.handleSelect();
 		}
 	};
 
@@ -254,6 +267,7 @@ class TreeSelect extends Component {
 		return (
 			<Tree
 				{...this.props}
+				type={this.type}
 				value={this.state.value}
 				onChange={this.onValueChange}
 				onOk={this.handleOk}
@@ -273,7 +287,6 @@ class TreeSelect extends Component {
 
 		return (
 			<div className={`${classNames}`} style={style} ref={this.node}>
-				{/* 已选显示区域 */}
 				<Selected
 					ref={this.selectedNode}
 					onClick={this.onClickSelected}
@@ -298,8 +311,7 @@ class TreeSelect extends Component {
 }
 
 TreeSelect.propTypes = {
-	multiple: PropTypes.bool,
-	single: PropTypes.bool,
+	type: PropTypes.string,
 	allowClear: PropTypes.bool,
 	defaultOpen: PropTypes.bool,
 	open: PropTypes.bool,
@@ -323,8 +335,7 @@ TreeSelect.propTypes = {
 };
 
 TreeSelect.defaultProps = {
-	multiple: false,
-	single: false,
+	type: 'default',
 	allowClear: false,
 	defaultOpen: false,
 	open: null,
