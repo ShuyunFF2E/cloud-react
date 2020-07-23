@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`YearPicker placeholder renders correctly 1`] = `
+<div
+  class="cloud-datepicker-container"
+>
+  <div
+    class="cloud-datepicker-inp-block"
+  >
+    <div
+      class="cloud-input-group cloud-input-affix cloud-datepicker-inp"
+      style="width:230px"
+    >
+      <input
+        class="cloud-input default"
+        height="246"
+        placeholder="年选择器"
+        readonly=""
+      />
+      <div
+        class="cloud-input-suffix"
+      >
+        <i
+          class="cloud-input-clear cloud-icon cloud-icon-close-circle-solid"
+        />
+        <i
+          class="cloud-datepicker-inp-icon cloud-icon cloud-icon-calendar"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`YearPicker renders correctly 1`] = `
+<div
+  class="cloud-datepicker-container"
+>
+  <div
+    class="cloud-datepicker-inp-block"
+  >
+    <div
+      class="cloud-input-group cloud-input-affix cloud-datepicker-inp"
+      style="width:230px"
+    >
+      <input
+        class="cloud-input default"
+        height="246"
+        placeholder="请选择年份"
+        readonly=""
+      />
+      <div
+        class="cloud-input-suffix"
+      >
+        <i
+          class="cloud-input-clear cloud-icon cloud-icon-close-circle-solid"
+        />
+        <i
+          class="cloud-datepicker-inp-icon cloud-icon cloud-icon-calendar"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
