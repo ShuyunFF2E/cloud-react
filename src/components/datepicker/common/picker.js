@@ -28,13 +28,28 @@ class Picker extends Component {
 				.toString()
 				.replace('.', ''),
 			visible: open,
-			style: {}
+			style: {},
+			prevProps: props
 		};
 
 		this.inpRef = createRef();
 		this.popupRef = createRef();
 
 		this.containerRef = createRef();
+	}
+
+	static getDerivedStateFromProps(props, prevState) {
+		const { prevProps } = prevState;
+		const { open } = props;
+		const { open: prevOpen } = prevProps;
+
+		if (open !== prevOpen) {
+			return {
+				visible: open,
+				prevProps: props
+			};
+		}
+		return null;
 	}
 
 	componentDidMount() {
@@ -45,8 +60,8 @@ class Picker extends Component {
 	}
 
 	componentDidUpdate(prevProps) {
-		const { value: prevValue, open: prevOpen } = prevProps;
-		const { value, open } = this.props;
+		const { value: prevValue } = prevProps;
+		const { value } = this.props;
 
 		if (prevValue !== value) {
 			if (value) {
@@ -55,9 +70,6 @@ class Picker extends Component {
 			} else {
 				this.handleChange();
 			}
-		}
-		if (prevOpen !== open) {
-			this.changeVisible(open);
 		}
 	}
 
@@ -115,7 +127,9 @@ class Picker extends Component {
 
 	popClick = evt => {
 		evt.stopPropagation();
-		evt.nativeEvent.stopImmediatePropagation();
+		if (evt.nativeEvent.stopImmediatePropagation) {
+			evt.nativeEvent.stopImmediatePropagation();
+		}
 	};
 
 	handleClick = e => {
@@ -240,20 +254,21 @@ class Picker extends Component {
 
 		return (
 			<div ref={containerRef} className={containerClass}>
-				<Input
-					{...otherProps}
-					style={{ width: `${parseFloat(width)}px` }}
-					readOnly
-					hasClear
-					ref={inpRef}
-					value={currentValue}
-					placeholder={placeholder}
-					onChange={handleChange}
-					disabled={disabled}
-					className={`${selectorClass}-inp`}
-					onClick={onClickInput}
-					suffix={<Icon type="calendar" className={`${selectorClass}-inp-icon`} onClick={onClickInput} />}
-				/>
+				<div className={`${selectorClass}-inp-block`} onClick={onClickInput}>
+					<Input
+						{...otherProps}
+						style={{ width: `${parseFloat(width)}px` }}
+						readOnly
+						hasClear
+						ref={inpRef}
+						value={currentValue}
+						placeholder={placeholder}
+						onChange={handleChange}
+						disabled={disabled}
+						className={`${selectorClass}-inp`}
+						suffix={<Icon type="calendar" className={`${selectorClass}-inp-icon`} onClick={onClickInput} />}
+					/>
+				</div>
 
 				{visible &&
 					isAppendToBody &&

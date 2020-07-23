@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Button from 'cloud-react/button';
+import Button from '../../button';
 import { monthArr, selectorClass } from '../constant';
 
 const currentMonth = new Date().getMonth() + 1;

@@ -9,7 +9,12 @@ export default class YearPicker extends Component {
 	};
 
 	render() {
-		return <Picker {...this.props} integer tempMode={enumObj.YEAR_MODEL} height={246} formatValue={this.formatValue} />;
+		const { value, defaultValue } = this.props;
+		const time = value ? new Date().setFullYear(value) : null;
+		const defaultTime = defaultValue ? new Date().setFullYear(defaultValue) : null;
+		return (
+			<Picker {...this.props} value={time} defaultValue={defaultTime} integer tempMode={enumObj.YEAR_MODEL} height={246} formatValue={this.formatValue} />
+		);
 	}
 }
 
