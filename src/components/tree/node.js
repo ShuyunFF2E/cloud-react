@@ -62,10 +62,9 @@ class Node extends Component {
 		e.stopPropagation();
 	};
 
+	// 行内菜单输入
 	setInputValue = name => {
-		this.setState({
-			inputValue: name || ''
-		});
+		this.setState({ inputValue: name || '' });
 	};
 
 	// 输入节点名称
@@ -119,7 +118,7 @@ class Node extends Component {
 			if (count === 1) {
 				this.context.onSelectedAction(data);
 			} else if (count === 2) {
-				this.context.onDoubleClickAction(data);
+				this.context.onDoubleClick(data);
 			}
 			count = 0;
 		}, 300);

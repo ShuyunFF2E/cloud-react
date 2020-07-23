@@ -38,8 +38,8 @@ subtitle: 树
 | onRemoveNode             | 删除节点事件，需要返回 Promise                                       | Function | -                 |
 | onSelectedNode           | 选中节点事件，返回选中的节点数据                                     | Function | -                 |
 | onSearchNode             | 节点搜索事件，返回搜索后的搜索值与搜索结果，搜索结果为搜索后的树结构 | Function | -                 |
-| onDragMoving             | 拖动过程中调用	    | Function	| -	|
 | onDragBefore             | 拖拽前调用      	    | Function	| -	|
+| onDragMoving             | 拖动过程中调用	    | Function	| -	|
 | onDragAfter              | 拖拽后调用	        | Function	| -	|
  
 ### 数据属性

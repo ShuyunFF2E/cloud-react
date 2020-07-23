@@ -20,11 +20,9 @@ class Store {
 		if (!treeData || !treeData.length) {
 			return [];
 		}
-
-		// 处理已选中的节点，treeData中存在selectedValue中的值则选中
 		const cloneData = this.onResetData(ShuyunUtils.clone(treeData));
 
-		// 选中回显值
+		// 处理已选中的节点，treeData中存在selectedValue中的值则选中
 		const activeNode = selectedValue && selectedValue[0];
 		if (activeNode) {
 			this.updateNodeById(cloneData, activeNode.id, { isActive: true });
@@ -32,8 +30,8 @@ class Store {
 
 		// 递归向上查找选择
 		const upFind = currentNode => {
-			Object.assign(currentNode, { indeterminate: true });
 			// 被选节点没有子节点则找到父节点对其进行半选
+			Object.assign(currentNode, { indeterminate: true });
 			const pNode = this.findNodeById(cloneData, currentNode.pId);
 			// 没有父节点则不再查找
 			if (pNode) {
@@ -408,7 +406,7 @@ class Store {
 			return node.filter(item => {
 				// 当前节点匹配
 				if (item.name.indexOf(searchText) !== -1) {
-					if (item.children && item.children.length) {
+					if (item.children && Array.isArray(item.children) && item.children.length) {
 						const children = search(item.children);
 						if (children.length) {
 							Object.assign(item, { children, isUnfold: true });

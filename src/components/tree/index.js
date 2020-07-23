@@ -13,8 +13,10 @@ import Store from './store';
 import Menu from './menu';
 import './index.less';
 
+// 默认菜单类型，右键打开
 const MENU_TYPE = 'rightMenu';
 const store = new Store();
+// 菜单弹框样式
 const menuModalStyle = {
 	width: 450,
 	height: 240,
@@ -199,6 +201,7 @@ class Tree extends Component {
 		// 多选节点列表
 		const checkboxSelectedList = this.getSelectedMoreList(data, node);
 
+		// 选中结果
 		const selectedResult = supportCheckbox ? checkboxSelectedList : radioSelectedList;
 
 		// 传递到外部
@@ -206,9 +209,9 @@ class Tree extends Component {
 
 		// 更新树列表数据
 		this.setState({
-			treeData: ShuyunUtils.clone(data)
+			treeData: ShuyunUtils.clone(data),
+			preSelectedNode: node
 		});
-		this.setState({ preSelectedNode: node });
 	};
 
 	/**
@@ -262,26 +265,17 @@ class Tree extends Component {
 				const newNode = { id: res.data || res.id, name: value, children: [], pId, level: pLevel + 1, disableAdd: maxLevel - pLevel === 1 };
 				const treeData = store.addChildNode(this.state.treeData, pId, newNode, isAddFront);
 				const allTreeData = store.addChildNode(this.state.allTreeData, pId, newNode, isAddFront);
-				// 新增之后重新init判断层级，不然会出现无层级可继续添加问题
 				this.setState({
 					treeData: ShuyunUtils.clone(treeData),
 					allTreeData: ShuyunUtils.clone(allTreeData)
 				});
 				Message.success('添加成功');
+				// 关闭弹框
+				this.onHideMenuDialog();
 			})
 			.catch(() => {
 				Message.error('添加失败');
 			});
-	};
-
-	/**
-	 * 双击
-	 * @param node
-	 */
-	onDoubleClickAction = node => {
-		if (this.props.onDoubleClick) {
-			this.props.onDoubleClick(node);
-		}
 	};
 
 	/**
@@ -300,6 +294,8 @@ class Tree extends Component {
 					allTreeData: ShuyunUtils.clone(allTreeData)
 				});
 				Message.success('更新成功');
+				// 关闭弹框
+				this.onHideMenuDialog();
 			})
 			.catch(() => {
 				Message.error('更新失败');
@@ -327,7 +323,7 @@ class Tree extends Component {
 			body: '你确定删除此目录吗?',
 			onOk: () => {
 				const { treeData } = this.state;
-				if (!store.removeChildNode(this.state.treeData, node)) {
+				if (!store.removeChildNode(treeData, node)) {
 					Message.error('该目录存在子目录，不可删除!');
 					return;
 				}
@@ -343,8 +339,7 @@ class Tree extends Component {
 					.catch(() => {
 						Message.error('删除失败');
 					});
-			},
-			onCancel: () => {}
+			}
 		});
 	};
 
@@ -480,6 +475,82 @@ class Tree extends Component {
 		});
 	};
 
+	/**
+	 * 隐藏右键菜单
+	 */
+	onHideMenu = () => {
+		if (!this.state.showRightMenu) {
+			return;
+		}
+		this.setState({
+			showRightMenu: false
+		});
+	};
+
+	/**
+	 * 菜单名称输入
+	 * @param value
+	 */
+	onHandleInputNodeName = value => {
+		const tmp = this.state.nodeData;
+		this.setState({
+			nodeData: {
+				...tmp,
+				name: value
+			}
+		});
+	};
+
+	/**
+	 * 弹框菜单保存节点
+	 */
+	onSaveNode = () => {
+		const { id, name, level } = this.state.nodeData;
+		const isNameRepeat = this.onCheckRepeatNameAction(this.state.nodeData, name);
+		if (isNameRepeat) {
+			Message.error('该名称已存在');
+			return;
+		}
+		if (!name) {
+			Message.error('节点名称不能为空');
+			return;
+		}
+
+		if (this.state.isAddMenuOpen) {
+			// 新增
+			this.onAddAction(id, name, level);
+		} else {
+			// 重命名
+			this.onRenameAction(id, name);
+		}
+	};
+
+	/**
+	 * 查找到当前节点的所有父节点名称
+	 * @param currentNode
+	 * @param isAdd
+	 */
+	getCurrentNodeOfParent = (currentNode, isAdd) => {
+		const ancestryNames = [];
+		// 新建情况下需要添加当前节点名称
+		if (isAdd) {
+			ancestryNames.unshift(currentNode.name);
+		}
+		const getNames = pId => {
+			const pNode = store.findNodeById(this.state.treeData, pId);
+			if (!pNode) {
+				return;
+			}
+			ancestryNames.unshift(pNode.name);
+			if (pNode.pId || pNode.pId === 0) {
+				getNames(pNode.pId);
+			}
+		};
+		getNames(currentNode.pId);
+		const reg = new RegExp(',', 'g');
+		return ancestryNames.length > 0 && ancestryNames.join(',').replace(reg, '/');
+	};
+
 	render() {
 		const selector = `${prefixCls}-tree`;
 
@@ -502,22 +573,14 @@ class Tree extends Component {
 			closeIconType,
 			iconColor,
 			selectedValue,
+			onDoubleClick,
 			onDragBefore,
 			onDragMoving,
 			onDragAfter
 		} = this.props;
 
-		const {
-			onDoubleClickAction,
-			onAddAction,
-			onRenameAction,
-			onRemoveAction,
-			onSelectedAction,
-			onFoldNodeAction,
-			onCheckRepeatNameAction,
-			onShowMenu,
-			onReRenderNode
-		} = this;
+		const { onAddAction, onRenameAction, onRemoveAction, onSelectedAction, onFoldNodeAction, onCheckRepeatNameAction, onShowMenu, onReRenderNode } = this;
+
 		const { treeData, searchText, nodeData, menuStyle, menuOptions, showRightMenu, showDialogMenu, parentNodeNames, isAddMenuOpen } = this.state;
 		const { id, name, disableAdd, disableRename, disableRemove } = nodeData;
 
@@ -538,7 +601,7 @@ class Tree extends Component {
 					closeIconType,
 					iconColor,
 					selectedValue,
-					onDoubleClickAction,
+					onDoubleClick,
 					onShowMenu,
 					onAddAction,
 					onRenameAction,
@@ -593,7 +656,7 @@ class Tree extends Component {
 							onOk={this.onSaveNode}
 							onCancel={this.onHideMenuDialog}
 							onClose={this.onHideMenuDialog}>
-							<div style={{ color: '#666666' }}>
+							<div style={{ color: '#666' }}>
 								<p style={{ marginBottom: 20 }}>{parentNodeNames}</p>
 								<span style={{ display: 'inline-block', lineHeight: '30px' }}>文件夹名称：</span>
 								<Input

@@ -47,16 +47,19 @@ class List extends Component {
 		const pNode = node.parentNode;
 		Array.from(pNode.children).forEach(snode => {
 			// eslint-disable-next-line no-param-reassign
-			snode.style.background = 'none';
-			// eslint-disable-next-line no-param-reassign
-			snode.style.color = '';
+			snode.className = '';
 		});
-		const temp = document.createElement('li');
-		// 位置没变则不替换,目标节点的子节点中是否包含当前节点，不包含则不操作
-		if (dropNode && +dropNode.id !== +node.id) {
-			pNode.replaceChild(temp, dropNode);
-			pNode.replaceChild(dropNode, node);
-			pNode.replaceChild(node, temp);
+		if (dropNode) {
+			// 最终切换的节点是临近节点则直接互换
+			if (dropNode.nextSibling === node || dropNode.previousSibling === node) {
+				const temp = document.createElement('li');
+				pNode.replaceChild(temp, dropNode);
+				pNode.replaceChild(dropNode, node);
+				pNode.replaceChild(node, temp);
+			} else {
+				// 否则插入到前面
+				pNode.insertBefore(node, dropNode);
+			}
 		}
 
 		const pData = store.findNodeById(this.context.treeData, data.pId);
@@ -75,8 +78,7 @@ class List extends Component {
 		dropNode = node;
 		endData = data;
 		if (data.pId === startData.pId) {
-			node.style.background = '#409eff';
-			node.style.color = 'white';
+			node.className = 'move-style';
 		} else {
 			dropNode = null;
 			endData = null;
@@ -90,8 +92,7 @@ class List extends Component {
 	onDragNodeLeave = e => {
 		e.stopPropagation();
 		const node = e.currentTarget;
-		node.style.background = 'none';
-		node.style.color = '';
+		node.className = '';
 	};
 
 	render() {
