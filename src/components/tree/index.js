@@ -7,15 +7,27 @@ import TreeContext from './context';
 import Search from './search';
 import TreeList from './list';
 import Message from '../message';
+import Input from '../input';
 import Modal from '../modal';
 import Store from './store';
 import Menu from './menu';
 import './index.less';
 
+const MENU_TYPE = 'rightMenu';
 const store = new Store();
+const menuModalStyle = {
+	width: 450,
+	height: 240,
+	minHeight: 240
+};
+const menuModalBodyStyle = {
+	height: 106,
+	maxHeight: 106,
+	padding: '23px 30px'
+};
 
 class Tree extends Component {
-	// 默认值， 默认类型与值不匹配
+	// 默认值
 	static defaultProps = {
 		style: {},
 		className: '',
@@ -30,15 +42,21 @@ class Tree extends Component {
 		iconColor: '#999',
 		supportCheckbox: false,
 		supportMenu: false,
+		menuType: MENU_TYPE,
 		supportSearch: false,
+		supportDrag: false,
 		supportImmediatelySearch: false,
 		isAddFront: true,
 		selectedValue: [],
+		onDoubleClick: noop,
 		onAddNode: noop,
 		onRenameNode: noop,
 		onRemoveNode: noop,
 		onSelectedNode: noop,
-		onSearchResult: noop
+		onSearchResult: noop,
+		onDragMoving: noop,
+		onDragBefore: noop,
+		onDragAfter: noop
 	};
 
 	static propsTypes = {
@@ -56,15 +74,21 @@ class Tree extends Component {
 		iconColor: PropTypes.string,
 		supportCheckbox: PropTypes.bool,
 		supportMenu: PropTypes.bool,
+		menuType: PropTypes.string,
 		supportSearch: PropTypes.bool,
+		supportDrag: PropTypes.bool,
 		supportImmediatelySearch: PropTypes.bool,
 		isAddFront: PropTypes.bool,
 		selectedValue: PropTypes.array,
+		onDoubleClick: PropTypes.func,
 		onAddNode: PropTypes.func,
 		onRenameNode: PropTypes.func,
 		onRemoveNode: PropTypes.func,
 		onSelectedNode: PropTypes.func,
-		onSearchResult: PropTypes.func
+		onSearchResult: PropTypes.func,
+		onDragMoving: PropTypes.func,
+		onDragBefore: PropTypes.func,
+		onDragAfter: PropTypes.func
 	};
 
 	constructor(props) {
@@ -74,8 +98,11 @@ class Tree extends Component {
 		const treeData = store.initData(props.treeData, props.maxLevel, props.selectedValue, props.isUnfold);
 
 		this.state = {
-			visibleMenu: false,
+			showRightMenu: false,
+			showDialogMenu: false,
 			nodeData: {},
+			isAddMenuOpen: false,
+			parentNodeNames: {},
 			menuStyle: null,
 			menuOptions: null,
 			searchText: '',
@@ -103,13 +130,17 @@ class Tree extends Component {
 	}
 
 	componentDidMount() {
-		document.addEventListener('click', this.hideMenu);
-		document.addEventListener('scroll', this.hideMenu, true);
+		// dialogMenu模式不添加点击隐藏菜单事件
+		document.addEventListener('scroll', this.onHideMenu, true);
+
+		if (this.props.menuType === MENU_TYPE) {
+			document.addEventListener('click', this.onHideMenu);
+		}
 	}
 
 	componentWillUnmount() {
-		document.removeEventListener('click', this.hideMenu);
-		document.removeEventListener('scroll', this.hideMenu, true);
+		document.removeEventListener('click', this.onHideMenu);
+		document.removeEventListener('scroll', this.onHideMenu, true);
 	}
 
 	/**
@@ -119,7 +150,8 @@ class Tree extends Component {
 	 */
 	updateActiveNode = (data, node) => {
 		store.updateNodeById(data, node.id, { isActive: true });
-		if (this.state.preSelectedNode) {
+		// 点击同个节点则状态不变
+		if (this.state.preSelectedNode && this.state.preSelectedNode.id !== node.id) {
 			store.updateNodeById(data, this.state.preSelectedNode.id, { isActive: false });
 		}
 	};
@@ -156,6 +188,7 @@ class Tree extends Component {
 	 * @param node
 	 */
 	onSelectedAction = node => {
+		this.onHideMenu();
 		const data = this.state.treeData;
 		const { supportCheckbox, onSelectedNode } = this.props;
 
@@ -217,7 +250,7 @@ class Tree extends Component {
 	};
 
 	/**
-	 * 新增节点
+	 * 新增节点保存
 	 * @param pId
 	 * @param value
 	 * @param pLevel
@@ -242,7 +275,17 @@ class Tree extends Component {
 	};
 
 	/**
-	 * 重命名节点
+	 * 双击
+	 * @param node
+	 */
+	onDoubleClickAction = node => {
+		if (this.props.onDoubleClick) {
+			this.props.onDoubleClick(node);
+		}
+	};
+
+	/**
+	 * 重命名节点保存
 	 * @param id
 	 * @param newValue
 	 */
@@ -265,10 +308,11 @@ class Tree extends Component {
 
 	/**
 	 * 名称重复校验
+	 * @param node
 	 * @param name
 	 */
-	onCheckRepeatNameAction = name => {
-		return store.checkRepeatName(this.state.treeData, name);
+	onCheckRepeatNameAction = (node, name) => {
+		return store.checkRepeatName(this.state.treeData, node, name);
 	};
 
 	/**
@@ -277,17 +321,23 @@ class Tree extends Component {
 	 */
 	onRemoveAction = node => {
 		const { onRemoveNode } = this.props;
+		this.onHideMenu();
 		Modal.confirm({
 			isShowIcon: false,
 			body: '你确定删除此目录吗?',
 			onOk: () => {
+				const { treeData } = this.state;
+				if (!store.removeChildNode(this.state.treeData, node)) {
+					Message.error('该目录存在子目录，不可删除!');
+					return;
+				}
 				onRemoveNode(node.id, node)
 					.then(() => {
-						const treeData = store.removeChildNode(this.state.treeData, node);
-						const allTreeData = store.removeChildNode(this.state.allTreeData, node, false);
+						store.removeChildNode(treeData, node);
+						// const allTreeData = store.removeChildNode(this.state.allTreeData, node);
 						this.setState({
-							treeData: ShuyunUtils.clone(treeData),
-							allTreeData: ShuyunUtils.clone(allTreeData)
+							treeData,
+							allTreeData: ShuyunUtils.clone(treeData)
 						});
 					})
 					.catch(() => {
@@ -300,12 +350,24 @@ class Tree extends Component {
 
 	onReRenderNode = ({ preNode, currentNode, isEdit = false, isAdd = false, isUnfold }) => {
 		const { treeData } = this.state;
-		const pre = store.findNodeById(treeData, (preNode || {}).id);
-		if (pre) {
-			Object.assign(pre, { isEdit: false, isAdd: false });
+		// 获取上一个节点
+		const previousNode = store.findNodeById(treeData, preNode && preNode.id);
+		if (previousNode) {
+			Object.assign(previousNode, { isEdit: false, isAdd: false });
 		}
 
-		const current = store.findNodeById(treeData, (currentNode || {}).id);
+		if (this.props.menuType === 'dialogMenu') {
+			this.onHideMenu();
+			this.setState({
+				showDialogMenu: true,
+				nodeData: isAdd ? { id: currentNode.id, level: currentNode.level } : currentNode,
+				parentNodeNames: this.getCurrentNodeOfParent(currentNode, isAdd),
+				isAddMenuOpen: isAdd
+			});
+			return;
+		}
+
+		const current = store.findNodeById(treeData, currentNode && currentNode.id);
 		if (current) {
 			Object.assign(current, { isEdit, isAdd });
 			if (isUnfold !== undefined) {
@@ -315,14 +377,14 @@ class Tree extends Component {
 	};
 
 	/**
-	 * 显示菜单
+	 * 显示右键菜单
 	 * @param node
 	 * @param menuStyle
 	 * @param options
 	 */
-	showMenu = (node, menuStyle, options) => {
+	onShowMenu = (node, menuStyle, options) => {
 		this.setState({
-			visibleMenu: true,
+			showRightMenu: true,
 			menuStyle,
 			nodeData: node,
 			menuOptions: options
@@ -330,14 +392,91 @@ class Tree extends Component {
 	};
 
 	/**
-	 * 隐藏菜单
+	 * 隐藏菜单弹出框
 	 */
-	hideMenu = () => {
-		if (!this.state.visibleMenu) {
+	onHideMenuDialog = () => {
+		if (!this.state.showDialogMenu) {
 			return;
 		}
 		this.setState({
-			visibleMenu: false
+			showDialogMenu: false
+		});
+	};
+
+	/**
+	 * 菜单名称输入
+	 * @param value
+	 */
+	onHandleInputNodeName = value => {
+		const tmp = this.state.nodeData;
+		this.setState({
+			nodeData: {
+				...tmp,
+				name: value
+			}
+		});
+	};
+
+	/**
+	 * 弹框菜单保存节点
+	 */
+	onSaveNode = () => {
+		const { id, name, level } = this.state.nodeData;
+		const isNameRepeat = this.onCheckRepeatNameAction(this.state.nodeData, name);
+		if (isNameRepeat) {
+			Message.error('该名称已存在');
+			return;
+		}
+		if (!name) {
+			Message.error('节点名称不能为空');
+			return;
+		}
+		if (this.state.isAddMenuOpen) {
+			// 新增
+			this.onAddAction(id, name, level);
+		} else {
+			// 重命名
+			this.onRenameAction(id, name);
+		}
+
+		// 关闭弹框
+		this.onHideMenuDialog();
+	};
+
+	/**
+	 * 查找到当前节点的所有父节点名称
+	 * @param currentNode
+	 * @param isAdd
+	 */
+	getCurrentNodeOfParent = (currentNode, isAdd) => {
+		const ancestryNames = [];
+		if (isAdd) {
+			ancestryNames.unshift(currentNode.name);
+		}
+		const getNames = pId => {
+			const pNode = store.findNodeById(this.state.treeData, pId);
+			if (!pNode) {
+				return;
+			}
+			ancestryNames.unshift(pNode.name);
+			if (pNode.pId || pNode.pId === 0) {
+				getNames(pNode.pId);
+			}
+		};
+		getNames(currentNode.pId);
+		const reg = new RegExp(',', 'g');
+		return ancestryNames.length > 0 && ancestryNames.join(',').replace(reg, '/');
+	};
+
+	/**
+	 * 隐藏右键菜单
+	 */
+	onHideMenu = () => {
+		if (!this.state.showRightMenu) {
+			return;
+		}
+		this.setState({
+			showRightMenu: false
 		});
 	};
 
@@ -355,16 +494,31 @@ class Tree extends Component {
 			nodeNameMaxLength,
 			supportCheckbox,
 			supportMenu,
+			supportDrag,
+			menuType,
 			isAddFront,
 			showIcon,
 			openIconType,
 			closeIconType,
 			iconColor,
-			selectedValue
+			selectedValue,
+			onDragBefore,
+			onDragMoving,
+			onDragAfter
 		} = this.props;
 
-		const { onAddAction, onRenameAction, onRemoveAction, onSelectedAction, onFoldNodeAction, onCheckRepeatNameAction, showMenu, onReRenderNode } = this;
-		const { treeData, searchText, nodeData, menuStyle, menuOptions, visibleMenu } = this.state;
+		const {
+			onDoubleClickAction,
+			onAddAction,
+			onRenameAction,
+			onRemoveAction,
+			onSelectedAction,
+			onFoldNodeAction,
+			onCheckRepeatNameAction,
+			onShowMenu,
+			onReRenderNode
+		} = this;
+		const { treeData, searchText, nodeData, menuStyle, menuOptions, showRightMenu, showDialogMenu, parentNodeNames, isAddMenuOpen } = this.state;
 		const { id, name, disableAdd, disableRename, disableRemove } = nodeData;
 
 		return (
@@ -375,21 +529,27 @@ class Tree extends Component {
 					searchText,
 					supportCheckbox,
 					supportMenu,
+					supportDrag,
 					isAddFront,
 					nodeNameMaxLength,
 					showIcon,
+					menuType,
 					openIconType,
 					closeIconType,
 					iconColor,
 					selectedValue,
-					showMenu,
+					onDoubleClickAction,
+					onShowMenu,
 					onAddAction,
 					onRenameAction,
 					onRemoveAction,
 					onSelectedAction,
 					onFoldNodeAction,
 					onCheckRepeatNameAction,
-					onReRenderNode
+					onReRenderNode,
+					onDragBefore,
+					onDragMoving,
+					onDragAfter
 				}}>
 				<div className={`${selector} ${className}`} style={style}>
 					<Search
@@ -412,7 +572,7 @@ class Tree extends Component {
 						disableRemove={disableRemove}
 						options={menuOptions}
 						deleteNode={() => this.onRemoveAction(nodeData)}
-						visible={visibleMenu}
+						visible={showRightMenu}
 						onEditNodeBefore={onReRenderNode}
 					/>
 
@@ -423,6 +583,31 @@ class Tree extends Component {
 					)}
 
 					{(!treeData || !treeData.length) && <p>暂无结果</p>}
+
+					{showDialogMenu && (
+						<Modal
+							visible
+							title={isAddMenuOpen ? '新建子目录' : '重命名'}
+							modalStyle={menuModalStyle}
+							bodyStyle={menuModalBodyStyle}
+							onOk={this.onSaveNode}
+							onCancel={this.onHideMenuDialog}
+							onClose={this.onHideMenuDialog}>
+							<div style={{ color: '#666666' }}>
+								<p style={{ marginBottom: 20 }}>{parentNodeNames}</p>
+								<span style={{ display: 'inline-block', lineHeight: '30px' }}>文件夹名称：</span>
+								<Input
+									style={{ width: 300 }}
+									defaultValue={nodeData && nodeData.name}
+									onChange={e => this.onHandleInputNodeName(e.target.value)}
+									placeholder="请输入节点名称"
+									hasClear
+									hasCounter
+									maxLength={nodeNameMaxLength}
+								/>
+							</div>
+						</Modal>
+					)}
 				</div>
 			</TreeContext.Provider>
 		);

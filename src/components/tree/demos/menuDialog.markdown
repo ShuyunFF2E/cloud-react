@@ -1,12 +1,12 @@
 ---
-order: 1
-title: 基础用法
-desc: 支持搜索节点、右键菜单、最大层级为4、节点名称最大长度20、可搜索关键字长度最大为20个字符、新增节点加到当前节点的子节点末尾，展开全部节点
+order: 12
+title: 弹框菜单
+desc: 支持使用弹框类型打开菜单
 ---
 
 ```javascript
 import React from 'react';
-import { Tree, Modal } from 'cloud-react';
+import { Tree } from 'cloud-react';
 
 export default class TreeDemo extends React.Component {
 	constructor(props) {
@@ -15,11 +15,8 @@ export default class TreeDemo extends React.Component {
 		this.state = {
 			searchPlaceholder: '这是最基础的树组件',
 			searchMaxLength: 20,
-			nodeNameMaxLength: 20,
-			maxLevel: 4,
-			supportMenu: true,
-			supportSearch: true,
-			isAddFront: false
+			nodeNameMaxLength: 50,
+			maxLevel: 4
 		};
 	}
 
@@ -51,15 +48,6 @@ export default class TreeDemo extends React.Component {
 		console.info('已选择一个节点，节点信息是：');
 		console.log(node);
 	};
-
-    onDoubleClick = node => {
-        Modal.confirm({
-            body: 'hello, 你双击了我，我会给你我的信息，请点击确定后在控制台查看',
-            onOk: () => {
-                console.log(node);
-            }
-        })
-    };
 
 	render() {
 		const treeData = [
@@ -239,15 +227,13 @@ export default class TreeDemo extends React.Component {
 				searchMaxLength={this.state.searchMaxLength}
 				nodeNameMaxLength={this.state.nodeNameMaxLength}
 				maxLevel={this.state.maxLevel}
-				isUnfold={true}
-				supportMenu={this.state.supportMenu}
-				supportSearch={this.state.supportSearch}
-				isAddFront={this.state.isAddFront}
+				supportMenu
+                isUnfold
+                menuType="dialogMenu"
 				onAddNode={this.addNode}
-				onDoubleClick={this.onDoubleClick}
 				onRenameNode={this.renameNode}
 				onRemoveNode={this.removeNode}
-				onSelectedNode={this.selectedNode}></Tree>
+				onSelectedNode={this.selectedNode}/>
 		);
 	}
 }
