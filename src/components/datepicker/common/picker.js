@@ -10,7 +10,7 @@ import MonthDay from '../month-day/main';
 import DatePicker from '../date-picker/main';
 import ModalConfigContext from '../../modal/config-provider';
 import { renderDOM, createWrapper, destroyDOM } from './utils';
-import { enumObj, containerClass, selectorClass, wrapperClass } from '../constant';
+import { enumObj, containerClass, selectorClass, wrapperClass, FORMAT } from '../constant';
 import { transformObj, displayNow } from '../utils';
 
 class Picker extends Component {
@@ -20,10 +20,10 @@ class Picker extends Component {
 		super(props);
 
 		const { value, defaultValue, open, formatValue } = props;
-		const defaultTime = defaultValue ? formatValue(displayNow(defaultValue)) : undefined;
+		const defaultTime = defaultValue ? formatValue(displayNow(defaultValue), this.format) : undefined;
 
 		this.state = {
-			currentValue: value ? formatValue(displayNow(new Date(value))) : defaultTime,
+			currentValue: value ? formatValue(displayNow(new Date(value)), this.format) : defaultTime,
 			id: Math.random()
 				.toString()
 				.replace('.', ''),
@@ -78,6 +78,10 @@ class Picker extends Component {
 		clearTimeout(this.popupTimeout);
 	}
 
+	get format() {
+		return FORMAT[this.props.tempMode];
+	}
+
 	get document() {
 		return this.context.rootDocument;
 	}
@@ -103,15 +107,16 @@ class Picker extends Component {
 	};
 
 	renderMainPop = () => {
-		const { tempMode } = this.props;
+		const { tempMode, formatValue } = this.props;
 		const { currentValue } = this.state;
+		const checkValue = currentValue ? formatValue(displayNow(new Date(currentValue)), this.format) : '';
 
 		if (tempMode === enumObj.YEAR_MODEL) {
 			return <Year {...this.props} checkValue={currentValue} onChange={this.onPopChange} />;
 		}
 
 		if (tempMode === enumObj.YEAR_MONTH_MODEL) {
-			return <YearMonth {...this.props} checkValue={currentValue} onChange={this.onPopChange} />;
+			return <YearMonth {...this.props} checkValue={checkValue} onChange={this.onPopChange} />;
 		}
 
 		if (tempMode === enumObj.MONTH_DAY_MODEL) {
