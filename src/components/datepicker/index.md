@@ -72,8 +72,8 @@ subtitle: 日期选择框
 | ------------ | --------------------------------- | ----------------------- | -------------- |
 | className    | 日历弹层 class                    | string                  | -              |
 | disabled     | 组件失效状态                      | boolean                 | `false`        |
-| defaultValue | 初始值                            | number/string           | -              |
-| value        | 当前值(手动清空可绑定 state 置空) | number/string           | -              |
+| defaultValue | 初始值                            | string           | -              |
+| value        | 当前值(手动清空可绑定 state 置空) | string           | -              |
 | open         | 控制弹层首次是否展开              | boolean                 | `false`        |
 | placeholder  | 输入框默认提示                    | string                  | `请选择日期`   |
 | min          | 最小值                            | number/string           | -              |

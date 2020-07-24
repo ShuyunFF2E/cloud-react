@@ -65,7 +65,7 @@ describe('YearPicker', () => {
 	it('should year disabled when less than min and more than max', () => {
 		const wrapper = mount(<YearPicker min={2017} max={2025} isAppendToBody open />);
 		wrapper.find('.grid-item').forEach(node => {
-			const year = parseInt(node.text());
+			const year = parseFloat(node.text());
 			if (year < 2017 || year > 2025) {
 				expect(node.hasClass('grid-disabled')).toBeTruthy();
 			}

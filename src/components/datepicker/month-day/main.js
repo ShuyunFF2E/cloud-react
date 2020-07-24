@@ -4,7 +4,7 @@ import Select from '../../select';
 import { ArrowLeft, ArrowRight } from '../common/arrow';
 import { enumObj, monthArr } from '../constant';
 import { formatZero, displayNow } from '../utils';
-import MonthGrid from '../common/month-grid';
+import MonthGrid from '../year-month/grid';
 import Grid from './grid';
 
 class Popup extends Component {

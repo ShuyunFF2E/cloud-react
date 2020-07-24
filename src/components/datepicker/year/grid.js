@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Button from '../../button';
-import { selectorClass } from '../constant';
+import { selectorClass, disClass } from '../constant';
 import { displayNow } from '../utils';
 
 const nowYear = new Date().getFullYear();
-const disClass = 'grid-disabled';
 
 function getClassName(checkValue, current, min, max) {
 	if (current < min || current > max) {
