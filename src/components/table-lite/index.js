@@ -151,10 +151,11 @@ export default class TableLite extends Component {
 	 * @returns {*}
 	 */
 	renderEmptyTemplate() {
-		const { columnData } = this.state;
+		const { columnData, expandable } = this.state;
+		const colspan = columnData.length + (expandable ? 1 : 0);
 		return (
 			<tr className="cloud-table-lite-empty">
-				<td colSpan={columnData.length}>
+				<td colSpan={colspan}>
 					<div>
 						<Icon type="warning-circle-solid" />
 						<span>{this.emptyText}</span>
