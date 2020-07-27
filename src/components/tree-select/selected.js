@@ -1,6 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
+import { noop } from '@utils';
 
 import Icon from '../icon';
 import { selector } from './const';
@@ -38,24 +39,20 @@ export default class Selected extends React.Component {
 	}
 
 	onMouseEnter = () => {
-		if (this.props.allowClear) {
-			this.setState({
-				clear: true
-			});
-		}
+		this.setState({
+			clear: true
+		});
 	};
 
 	onMouseLeave = () => {
-		if (this.props.allowClear) {
-			this.setState({
-				clear: false
-			});
-		}
+		this.setState({
+			clear: false
+		});
 	};
 
 	render() {
 		const {
-			props: { disabled, placeholder, open, onClear, onClick },
+			props: { allowClear, disabled, placeholder, open, onClear, onClick },
 			state: { selectStr, clear },
 			onMouseEnter,
 			onMouseLeave
@@ -72,7 +69,12 @@ export default class Selected extends React.Component {
 		});
 
 		return (
-			<div ref={this.ref} className={classNames} onClick={onClick} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+			<div
+				ref={this.ref}
+				className={classNames}
+				onClick={onClick}
+				onMouseEnter={allowClear ? onMouseEnter : noop}
+				onMouseLeave={allowClear ? onMouseLeave : noop}>
 				<span className={`${selector}-selected`}>{selectStr || placeholder}</span>
 				<Icon type="close-circle-solid" className={clearClasses} onClick={onClear} />
 				<Icon type="down-solid" className={iconClasses} />
@@ -97,6 +99,6 @@ Selected.defaultProps = {
 	open: false,
 	dataSource: [],
 	placeholder: '',
-	onClick: () => {},
-	onClear: () => {}
+	onClick: noop,
+	onClear: noop
 };

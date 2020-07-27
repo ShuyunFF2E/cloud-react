@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { prefixCls, getCssText, sandboxSelector } from '@utils';
+import { prefixCls, getCssText, noop, sandboxSelector } from '@utils';
 import ContextProvider from '@contexts/context-provider';
 import Icon from '../icon';
 import Button from '../button';
@@ -55,9 +55,9 @@ class Notification extends Component {
 		cancelText: '取消',
 		clickMaskCanClose: true,
 		showConfirmLoading: false,
-		onOk: () => {},
-		onCancel: () => {},
-		onClose: () => {}
+		onOk: noop,
+		onCancel: noop,
+		onClose: noop
 	};
 
 	static propTypes = {

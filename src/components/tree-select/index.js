@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import ShuyunUtils from 'shuyun-utils';
-
 import { noop } from '@utils';
 import ContextProvider from '@contexts/context-provider';
 import Tree from './tree';

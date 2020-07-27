@@ -1,6 +1,8 @@
 import React from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
+import { noop } from '@utils';
+
 import Tree from '../tree';
 import Button from '../button';
 import { selector, MULTIPLE } from './const';
@@ -80,8 +82,8 @@ TreeContainer.defaultProps = {
 	footerTypes: ['ok', 'cancel'],
 	dropdownClassName: '',
 	dropdownStyle: {},
-	onOk: () => {},
-	onCancel: () => {}
+	onOk: noop,
+	onCancel: noop
 };
 
 export default TreeContainer;
