@@ -21,6 +21,7 @@ subtitle: 精简表格
 #### columnData
 
 | 属性 | 说明 | 类型 | 默认值 |
+| ----------- | -------------------- | ---------------- | ---------- |
 | text | th 文本 | [string, jsx] | - |
 | template | td 模板 | function | - |
 | width | 列宽 | [string, number] | 'auto' |
@@ -31,6 +32,7 @@ subtitle: 精简表格
 > dataSource 中每一条数据必须包含 id 字段，如 expandable===true，则子数据需存放在 childrenKey 指定的字段下并通过 rowExpandable 对展开状态进行控制。
 
 | 属性 | 说明 | 类型 | 默认值 |
+| ----------- | -------------------- | ---------------- | ---------- |
 | id | 数据唯一 key, 必需存在 | [string, number] | - |
 | children | expandable===true 时，通过该字段显示子数据 | array | - |
 | rowExpandable | expandable===true 时，通过该字段控制展开状态 | boolean | - |
