@@ -66,7 +66,7 @@ class Select extends Component {
 		const { value, children, dataSource, multiple, open } = props;
 		const { value: prevValue, children: prevChildren, dataSource: prevData, open: prevOpen } = prevProps;
 
-		if (value !== prevValue || open !== prevOpen || Children.count(children) !== Children.count(prevChildren) || !ShuyunUtils.equal(dataSource, prevData)) {
+		if (value !== prevValue || Children.count(children) !== Children.count(prevChildren) || !ShuyunUtils.equal(dataSource, prevData)) {
 			const { labelKey, valueKey, labelInValue } = props;
 			const childs = Array.isArray(children) ? flat(children, Infinity) : Children.toArray(children);
 			const source = childs.length ? childs : getOptions(dataSource, labelKey, valueKey);
@@ -78,6 +78,12 @@ class Select extends Component {
 				prevValue: currentValue,
 				prevResult: labelInValue ? selected : value,
 				selected,
+				prevProps: props
+			};
+		}
+
+		if (open !== prevOpen) {
+			return {
 				prevProps: props,
 				open
 			};
