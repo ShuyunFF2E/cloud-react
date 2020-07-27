@@ -5,6 +5,10 @@ import mountTest from '../../../../tests/shared/mountTest';
 import YearMonthPicker from '../year-month/index';
 
 const classSelector = `${prefixCls}-datepicker`;
+const now = new Date();
+const month = now.getMonth() + 1;
+const currentYear = now.getFullYear();
+const currentMonth = month < 10 ? `0${month}` : month;
 
 describe('YearPicker', () => {
 	mountTest(YearMonthPicker);
@@ -52,7 +56,7 @@ describe('YearPicker', () => {
 
 	it('onChange work correctly', () => {
 		const onChange = jest.fn();
-		const wrapper = mount(<YearMonthPicker min="2019/09" max="2024/12" isAppendToBody onChange={onChange} />);
+		const wrapper = mount(<YearMonthPicker isAppendToBody onChange={onChange} />);
 		wrapper
 			.find(`.${classSelector}-inp-block`)
 			.at(0)
@@ -66,7 +70,7 @@ describe('YearPicker', () => {
 			.find('.cloud-button')
 			.at(1)
 			.simulate('click');
-		expect(onChange).toHaveBeenCalledWith('2020/03');
+		expect(onChange).toHaveBeenCalledWith(`${currentYear}/03`);
 
 		wrapper
 			.find(`.${classSelector}-inp-block`)
@@ -81,7 +85,7 @@ describe('YearPicker', () => {
 			.find('.cloud-button')
 			.at(1)
 			.simulate('click');
-		expect(onChange).toHaveBeenCalledWith('2020/11');
+		expect(onChange).toHaveBeenCalledWith(`${currentYear}/11`);
 	});
 
 	it('this month button work correctly', () => {
@@ -95,13 +99,12 @@ describe('YearPicker', () => {
 			.find('.cloud-button')
 			.at(0)
 			.simulate('click');
-		const now = new Date();
-		expect(onChange).toHaveBeenCalledWith(`${now.getFullYear()}/0${now.getMonth() + 1}`);
+		expect(onChange).toHaveBeenCalledWith(`${currentYear}/${currentMonth}`);
 	});
 
 	it('format display value work correctly', () => {
 		const onChange = jest.fn();
-		const wrapper = mount(<YearMonthPicker defaultValue="2020/07" isAppendToBody open format="YYYY-MM" onChange={onChange} />);
+		const wrapper = mount(<YearMonthPicker isAppendToBody open format="YYYY-MM" onChange={onChange} />);
 		wrapper
 			.find('.grid-item')
 			.at(1)
@@ -111,14 +114,14 @@ describe('YearPicker', () => {
 			.find('.cloud-button')
 			.at(1)
 			.simulate('click');
-		expect(onChange).toHaveBeenCalledWith('2020-02');
+		expect(onChange).toHaveBeenCalledWith(`${currentYear}-02`);
 	});
 
 	it('min and max work correctly', () => {
-		const wrapper = mount(<YearMonthPicker min="2020/04" max="2020/09" isAppendToBody open />);
+		const wrapper = mount(<YearMonthPicker min={`${currentYear}/04`} max={`${currentYear}/09`} isAppendToBody open />);
 		wrapper.find('.grid-item').forEach((node, index) => {
-			const month = index + 1;
-			if (month < 4 || month > 9) {
+			const current = index + 1;
+			if (current < 4 || current > 9) {
 				expect(node.hasClass('grid-disabled')).toBeTruthy();
 			}
 		});
@@ -137,17 +140,17 @@ describe('YearPicker', () => {
 	});
 
 	it('default select year equal min year when this year less than min', () => {
-		const wrapper = mount(<YearMonthPicker min="2022/04" isAppendToBody open />);
-		expect(wrapper.find('Popup').state().tempYear).toEqual(2022);
+		const wrapper = mount(<YearMonthPicker min={`${currentYear + 2}/09`} isAppendToBody open />);
+		expect(wrapper.find('Popup').state().tempYear).toEqual(currentYear + 2);
 	});
 
 	it('default select year equal max year when this year more than max', () => {
-		const wrapper = mount(<YearMonthPicker max="2019/04" isAppendToBody open />);
-		expect(wrapper.find('Popup').state().tempYear).toEqual(2019);
+		const wrapper = mount(<YearMonthPicker max={`${currentYear - 1}/04`} isAppendToBody open />);
+		expect(wrapper.find('Popup').state().tempYear).toEqual(currentYear - 1);
 	});
 
 	it('should this month button disabled when this month less than min', () => {
-		const wrapper = mount(<YearMonthPicker min="2021/09" isAppendToBody open />);
+		const wrapper = mount(<YearMonthPicker min={`${currentYear + 1}/09`} isAppendToBody open />);
 		expect(
 			wrapper
 				.find('.cloud-button')
@@ -157,7 +160,10 @@ describe('YearPicker', () => {
 	});
 
 	it('should this month button disabled when this month more than max', () => {
-		const wrapper = mount(<YearMonthPicker max="2020/05" isAppendToBody open />);
+		const max = month === 1 ? 12 : month - 1;
+		const maxMonth = max < 10 ? `0${max}` : max;
+		const maxDate = `${month === 1 ? currentYear - 1 : currentYear}/${maxMonth}`;
+		const wrapper = mount(<YearMonthPicker max={maxDate} isAppendToBody open />);
 		expect(
 			wrapper
 				.find('.cloud-button')

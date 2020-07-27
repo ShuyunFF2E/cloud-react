@@ -120,7 +120,7 @@ class Picker extends Component {
 		}
 
 		if (tempMode === enumObj.MONTH_DAY_MODEL) {
-			return <MonthDay {...this.props} checkValue={currentValue} onChange={this.onPopChange} />;
+			return <MonthDay {...this.props} checkValue={checkValue} onChange={this.onPopChange} />;
 		}
 
 		if (tempMode === enumObj.DATE_MODEL) {

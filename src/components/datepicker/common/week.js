@@ -23,15 +23,18 @@ class Week extends Component {
 		const minDateStamp = new Date(minDate);
 		const maxDateStamp = new Date(maxDate);
 
+		const currentDate = currentTimeStamp.getDate();
+		const currentMonth = currentTimeStamp.getMonth();
+
 		if (minDate && currentTimeStamp.getTime() <= minDateStamp.getTime()) {
-			if (currentTimeStamp.getDate() === minDateStamp.getDate()) {
+			if (currentMonth === minDateStamp.getMonth() && currentDate === minDateStamp.getDate()) {
 				return false;
 			}
 			return true;
 		}
 
 		if (maxDate && currentTimeStamp.getTime() >= maxDateStamp.getTime()) {
-			if (currentTimeStamp.getDate() === maxDateStamp.getDate()) {
+			if (currentMonth === maxDateStamp.getMonth() && currentDate === maxDateStamp.getDate()) {
 				return false;
 			}
 			return true;

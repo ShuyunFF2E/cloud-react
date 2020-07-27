@@ -5,8 +5,9 @@ import { enumObj } from '../constant';
 import Picker from '../common/picker';
 
 class MonthDayPicker extends Component {
-	formatValue = ({ month, day }) => {
-		return convert({ month, day }, this.props.format);
+	formatValue = ({ month, day }, format) => {
+		const rule = format || this.props.format;
+		return convert({ month, day }, rule);
 	};
 
 	render() {

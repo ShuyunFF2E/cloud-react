@@ -47,13 +47,15 @@ class Grid extends Component {
 
 	render() {
 		const {
-			props: { month, minDate, maxDate },
+			props: { month, min, max },
 			state: { tempDay },
 			handleSave
 		} = this;
 
 		const { year, day } = displayNow();
-		const days = refreshDays(year, month || month);
+		const days = refreshDays(year, month);
+		const minDate = min ? new Date(min).setFullYear(year) : undefined;
+		const maxDate = max ? new Date(max).setFullYear(year) : undefined;
 
 		return (
 			<div className="grid">
@@ -63,8 +65,8 @@ class Grid extends Component {
 						month,
 						day: tempDay
 					}}
-					minDate={minDate}
-					maxDate={maxDate}
+					minDate={new Date(minDate)}
+					maxDate={new Date(maxDate)}
 					onPickDate={this.handlePickDate}
 					days={days}
 				/>

@@ -5,6 +5,7 @@ import mountTest from '../../../../tests/shared/mountTest';
 import YearPicker from '../year/index';
 
 const classSelector = `${prefixCls}-datepicker`;
+const currentYear = new Date().getFullYear();
 
 describe('YearPicker', () => {
 	mountTest(YearPicker);
@@ -63,18 +64,22 @@ describe('YearPicker', () => {
 	});
 
 	it('should year disabled when less than min and more than max', () => {
-		const wrapper = mount(<YearPicker min={2017} max={2025} isAppendToBody open />);
+		const minYear = currentYear - 3;
+		const maxYear = currentYear + 3;
+		const wrapper = mount(<YearPicker min={minYear} max={maxYear} isAppendToBody open />);
 		wrapper.find('.grid-item').forEach(node => {
 			const year = parseFloat(node.text());
-			if (year < 2017 || year > 2025) {
+			if (year < minYear || year > maxYear) {
 				expect(node.hasClass('grid-disabled')).toBeTruthy();
 			}
 		});
 	});
 
 	it('onChange work correctly', () => {
+		const minYear = currentYear - 6;
+		const maxYear = currentYear + 14;
 		const onChange = jest.fn();
-		const wrapper = mount(<YearPicker isAppendToBody min={2014} max={2034} onChange={onChange} />);
+		const wrapper = mount(<YearPicker isAppendToBody min={minYear} max={maxYear} onChange={onChange} />);
 		wrapper
 			.find(`.${classSelector}-inp-block`)
 			.at(0)
@@ -127,19 +132,21 @@ describe('YearPicker', () => {
 	});
 
 	it('arrow left and right change region', () => {
-		const wrapper = mount(<YearPicker isAppendToBody open min={2014} max={2034} />);
+		const minYear = currentYear - 6;
+		const maxYear = currentYear + 14;
+		const wrapper = mount(<YearPicker isAppendToBody open min={minYear} max={maxYear} />);
 		wrapper
 			.find('.arrow-right')
 			.at(0)
 			.simulate('click');
-		expect(wrapper.find('Popup').state().region).toEqual([2028, 2042]);
+		expect(wrapper.find('Popup').state().region).toEqual([currentYear + 8, currentYear + 22]);
 		expect(wrapper.find('.arrow-right').hasClass('arrow-disabled')).toBeTruthy();
 
 		wrapper
 			.find('.arrow-left')
 			.at(0)
 			.simulate('click');
-		expect(wrapper.find('Popup').state().region).toEqual([2013, 2027]);
+		expect(wrapper.find('Popup').state().region).toEqual([currentYear - 7, currentYear + 7]);
 		expect(wrapper.find('.arrow-left').hasClass('arrow-disabled')).toBeTruthy();
 	});
 });
