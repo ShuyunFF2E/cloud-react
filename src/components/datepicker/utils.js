@@ -67,9 +67,9 @@ function getMonthData(year, month) {
 	}
 
 	return {
-		prev: prevMonthDays.reverse(),
-		current: curMonthDays,
-		next: nextMonthDays
+		prev: prevMonthDays.reverse() || [],
+		current: curMonthDays || [],
+		next: nextMonthDays || []
 	};
 }
 
@@ -102,21 +102,6 @@ export function convert(date, fmt) {
 	return _fmt;
 }
 
-export function range(from, to) {
-	let _to = null;
-	let _from = null;
-	if (to === undefined) {
-		_to = from;
-		_from = 0;
-	}
-	const arr = [];
-	for (let i = _from; i < _to; ) {
-		arr[i] = i;
-		i += 1;
-	}
-	return arr;
-}
-
 export function formatTime(param, d = '') {
 	if (param === '') {
 		return d;
@@ -141,8 +126,7 @@ const utils = {
 	refreshDays,
 	displayNow,
 	today,
-	transformObj,
-	range
+	transformObj
 };
 
 export default utils;

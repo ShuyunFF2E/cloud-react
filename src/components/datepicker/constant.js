@@ -24,5 +24,6 @@ export const enumObj = {
 
 export const FORMAT = {
 	[enumObj.YEAR_MONTH_MODEL]: 'YYYY/MM',
-	[enumObj.MONTH_DAY_MODEL]: 'MM/DD'
+	[enumObj.MONTH_DAY_MODEL]: 'MM/DD',
+	[enumObj.DATE_MODEL]: 'yyyy/MM/dd'
 };
