@@ -12,11 +12,12 @@ class DatePicker extends Component {
 		this.tempMode = props.showTimePicker ? enumObj.DATE_TIME_MODEL : enumObj.DATE_MODE;
 	}
 
-	formatValue = ({ year, month, day, hour, minute, second }) => {
+	formatValue = ({ year, month, day, hour, minute, second }, formatRule) => {
 		const { showTimePicker, format } = this.props;
+		const rule = formatRule || format;
 
 		const output = showTimePicker ? { year, month, day, hour, minute, second } : { year, month, day };
-		const _format = showTimePicker ? `${format} hh:mm:ss` : format;
+		const _format = showTimePicker ? `${rule} hh:mm:ss` : rule;
 
 		return convert(output, _format);
 	};

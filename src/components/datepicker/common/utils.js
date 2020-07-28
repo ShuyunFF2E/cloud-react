@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom';
-import { wrapperClass, containerClass } from '../constant';
+import { wrapperClass } from '../constant';
 
 const container = {};
 
@@ -34,17 +34,5 @@ export function destroyDOM(id, containerEle, callback) {
 	}
 	if (callback) {
 		callback();
-	}
-}
-
-export function destroyAllDOM() {
-	const ele = document.getElementsByClassName(wrapperClass)[0];
-	const containerList = document.getElementsByClassName(containerClass);
-	const len = containerList.length;
-
-	for (let i = 0; i < len; i += 1) {
-		if (containerList[i].contains(ele)) {
-			destroyDOM(ele.id, containerList[i]);
-		}
 	}
 }
