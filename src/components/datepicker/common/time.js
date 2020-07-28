@@ -206,10 +206,18 @@ class TimePicker extends Component {
 		return (
 			<div className={classes} onBlur={this.handleInpputBlur} style={style}>
 				{type === 'inner' && <label>时间：</label>}
-				<input value={hour} disabled={disabled} onFocus={this.handleHourFocus} maxLength="2" onChange={this.handleHourChange} />
+				<input
+					className="timepicker-hour"
+					value={hour}
+					disabled={disabled}
+					onFocus={this.handleHourFocus}
+					maxLength="2"
+					onChange={this.handleHourChange}
+				/>
 				<label className="colon">:</label>
 				<input
 					ref={this.inpMinuteRef}
+					className="timepicker-minute"
 					value={minute}
 					onFocus={this.handleMinuteFocus}
 					disabled={disabled}
@@ -219,6 +227,7 @@ class TimePicker extends Component {
 				<label className="colon">:</label>
 				<input
 					ref={this.inpSecondRef}
+					className="timepicker-second"
 					value={second}
 					onFocus={this.handleSecondFocus}
 					disabled={disabled}
