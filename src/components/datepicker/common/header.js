@@ -65,11 +65,7 @@ export default class Header extends Component {
 			return _year * 12 + _currentMonth < minYear * 12 + minMonth || _year > this.props.maxYear;
 		}
 
-		if (!max && !min) {
-			return _year < this.props.minYear || _year > this.props.maxYear;
-		}
-
-		return false;
+		return _year < this.props.minYear || _year > this.props.maxYear;
 	};
 
 	getMinYear = () => {
@@ -86,17 +82,16 @@ export default class Header extends Component {
 
 	getDisabledYear = currentYear => {
 		const { min, max } = this.props;
-		let result = false;
 		if (min && max) {
-			result = currentYear < min.year || currentYear > max.year;
-		} else if (max && !min) {
-			result = currentYear > max.year || currentYear < this.getMinYear();
-		} else if (!max && min) {
-			result = currentYear < min.year || currentYear > this.getMaxYear();
-		} else if (!max && !min) {
-			result = currentYear < this.getMinYear() || currentYear > this.getMaxYear();
+			return currentYear < min.year || currentYear > max.year;
 		}
-		return result;
+		if (max && !min) {
+			return currentYear > max.year || currentYear < this.getMinYear();
+		}
+		if (!max && min) {
+			return currentYear < min.year || currentYear > this.getMaxYear();
+		}
+		return currentYear < this.getMinYear() || currentYear > this.getMaxYear();
 	};
 
 	renderMonth() {

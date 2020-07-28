@@ -123,11 +123,7 @@ class Picker extends Component {
 			return <MonthDay {...this.props} checkValue={checkValue} onChange={this.onPopChange} />;
 		}
 
-		if (tempMode === enumObj.DATE_MODEL) {
-			return <DatePicker {...this.props} checkValue={transformObj(currentValue)} onChange={this.onPopChange} />;
-		}
-
-		return null;
+		return <DatePicker {...this.props} checkValue={transformObj(checkValue)} onChange={this.onPopChange} />;
 	};
 
 	popClick = evt => {
