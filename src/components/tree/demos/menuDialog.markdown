@@ -230,6 +230,7 @@ export default class TreeDemo extends React.Component {
 				supportMenu
                 isUnfold
                 menuType="dialogMenu"
+                addMenuName="分类"
 				onAddNode={this.addNode}
 				onRenameNode={this.renameNode}
 				onRemoveNode={this.removeNode}

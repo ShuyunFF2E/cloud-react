@@ -38,7 +38,7 @@ export default class TreeDemo extends React.Component {
 						children: [
 							{
 								id: 111,
-								name: '这里将会是一个超级超级长的节点，这个节点名称也会超级超级长，毕竟是为了测试极端情况下的样式问题',
+								name: '123456789101112312423423',
 								pId: 11,
 								categoryType: 0
 							}
@@ -94,18 +94,17 @@ export default class TreeDemo extends React.Component {
 			}
 		];
 		const style = {
-			color: 'red'
+			color: '#333'
 		};
 
-		return <Tree supportMenu isUnfold treeData={treeData} style={style} className="bg" showIcon={this.state.showIcon} onSelectedNode={this.selectedNode} />;
+		return <Tree supportMenu menuType="dialogMenu" isUnfold treeData={treeData} style={style} className="bg" showIcon={this.state.showIcon} onSelectedNode={this.selectedNode} />;
 	}
 }
 ```
 
 ```less
 .bg {
-	background: #d7e7f3;
-	width: 200px;
+	width: 220px;
 	overflow: auto;
 	height: 300px;
 }

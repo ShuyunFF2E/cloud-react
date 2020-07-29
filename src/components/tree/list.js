@@ -7,6 +7,9 @@ import Store from './store';
 const store = new Store();
 
 let dropNode = null;
+let dragingNodePosition = null;
+let moveType = '';
+let dragingNode = null;
 let startData = null;
 let endData = null;
 
@@ -22,6 +25,11 @@ class List extends Component {
 		e.stopPropagation();
 		// 确定开始节点
 		startData = data;
+		dragingNode = e.currentTarget;
+		// dragingNodeEvent = e;
+		dragingNodePosition = {
+			startY: e.clientY
+		};
 		this.context.onDragBefore(data);
 	};
 
@@ -49,16 +57,14 @@ class List extends Component {
 			// eslint-disable-next-line no-param-reassign
 			snode.className = '';
 		});
+
 		if (dropNode) {
-			// 最终切换的节点是临近节点则直接互换
-			if (dropNode.nextSibling === node || dropNode.previousSibling === node) {
-				const temp = document.createElement('li');
-				pNode.replaceChild(temp, dropNode);
-				pNode.replaceChild(dropNode, node);
-				pNode.replaceChild(node, temp);
-			} else {
-				// 否则插入到前面
+			node.className = 'insert-animation';
+			if (moveType === 'up') {
 				pNode.insertBefore(node, dropNode);
+			} else {
+				pNode.replaceChild(node, dropNode);
+				pNode.insertBefore(dropNode, node);
 			}
 		}
 
@@ -77,8 +83,26 @@ class List extends Component {
 		const node = e.currentTarget;
 		dropNode = node;
 		endData = data;
+		// 鼠标移动的距离
+		const moveRange = dragingNodePosition.startY - e.clientY;
+		// 相对与父级的位置
+		const relativeP = dragingNode.offsetTop - moveRange;
+		// 目标节点高度
+		const nodeHeight = node.offsetHeight;
+		const pNodeHeight = node.parentNode.offsetHeight;
+
 		if (data.pId === startData.pId) {
-			node.className = 'move-style';
+			// 小于0则表示移出了，相对父级的位置如果大于节点的一半则在下，小于则在上
+			moveType = '';
+			node.className = 'move-bottom-style';
+			if (relativeP <= nodeHeight) {
+				node.className = 'move-top-style';
+				moveType = 'up';
+				return;
+			}
+			if (relativeP >= pNodeHeight - nodeHeight) {
+				moveType = 'down';
+			}
 		} else {
 			dropNode = null;
 			endData = null;

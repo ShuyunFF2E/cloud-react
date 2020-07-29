@@ -44,7 +44,9 @@ class Tree extends Component {
 		iconColor: '#999',
 		supportCheckbox: false,
 		supportMenu: false,
+		isShowNameTooltip: false,
 		menuType: MENU_TYPE,
+		addMenuName: '子目录',
 		supportSearch: false,
 		supportDrag: false,
 		supportImmediatelySearch: false,
@@ -76,7 +78,9 @@ class Tree extends Component {
 		iconColor: PropTypes.string,
 		supportCheckbox: PropTypes.bool,
 		supportMenu: PropTypes.bool,
+		isShowNameTooltip: PropTypes.bool,
 		menuType: PropTypes.string,
+		addMenuName: PropTypes.string,
 		supportSearch: PropTypes.bool,
 		supportDrag: PropTypes.bool,
 		supportImmediatelySearch: PropTypes.bool,
@@ -132,12 +136,8 @@ class Tree extends Component {
 	}
 
 	componentDidMount() {
-		// dialogMenu模式不添加点击隐藏菜单事件
 		document.addEventListener('scroll', this.onHideMenu, true);
-
-		if (this.props.menuType === MENU_TYPE) {
-			document.addEventListener('click', this.onHideMenu);
-		}
+		document.addEventListener('click', this.onHideMenu);
 	}
 
 	componentWillUnmount() {
@@ -399,83 +399,6 @@ class Tree extends Component {
 	};
 
 	/**
-	 * 菜单名称输入
-	 * @param value
-	 */
-	onHandleInputNodeName = value => {
-		const tmp = this.state.nodeData;
-		this.setState({
-			nodeData: {
-				...tmp,
-				name: value
-			}
-		});
-	};
-
-	/**
-	 * 弹框菜单保存节点
-	 */
-	onSaveNode = () => {
-		const { id, name, level } = this.state.nodeData;
-		const isNameRepeat = this.onCheckRepeatNameAction(this.state.nodeData, name);
-		if (isNameRepeat) {
-			Message.error('该名称已存在');
-			return;
-		}
-		if (!name) {
-			Message.error('节点名称不能为空');
-			return;
-		}
-		if (this.state.isAddMenuOpen) {
-			// 新增
-			this.onAddAction(id, name, level);
-		} else {
-			// 重命名
-			this.onRenameAction(id, name);
-		}
-
-		// 关闭弹框
-		this.onHideMenuDialog();
-	};
-
-	/**
-	 * 查找到当前节点的所有父节点名称
-	 * @param currentNode
-	 * @param isAdd
-	 */
-	getCurrentNodeOfParent = (currentNode, isAdd) => {
-		const ancestryNames = [];
-		if (isAdd) {
-			ancestryNames.unshift(currentNode.name);
-		}
-		const getNames = pId => {
-			const pNode = store.findNodeById(this.state.treeData, pId);
-			if (!pNode) {
-				return;
-			}
-			ancestryNames.unshift(pNode.name);
-			if (pNode.pId || pNode.pId === 0) {
-				getNames(pNode.pId);
-			}
-		};
-		getNames(currentNode.pId);
-		const reg = new RegExp(',', 'g');
-		return ancestryNames.length > 0 && ancestryNames.join(',').replace(reg, '/');
-	};
-
-	/**
-	 * 隐藏右键菜单
-	 */
-	onHideMenu = () => {
-		if (!this.state.showRightMenu) {
-			return;
-		}
-		this.setState({
-			showRightMenu: false
-		});
-	};
-
-	/**
 	 * 隐藏右键菜单
 	 */
 	onHideMenu = () => {
@@ -566,7 +489,9 @@ class Tree extends Component {
 			supportCheckbox,
 			supportMenu,
 			supportDrag,
+			isShowNameTooltip,
 			menuType,
+			addMenuName,
 			isAddFront,
 			showIcon,
 			openIconType,
@@ -580,7 +505,6 @@ class Tree extends Component {
 		} = this.props;
 
 		const { onAddAction, onRenameAction, onRemoveAction, onSelectedAction, onFoldNodeAction, onCheckRepeatNameAction, onShowMenu, onReRenderNode } = this;
-
 		const { treeData, searchText, nodeData, menuStyle, menuOptions, showRightMenu, showDialogMenu, parentNodeNames, isAddMenuOpen } = this.state;
 		const { id, name, disableAdd, disableRename, disableRemove } = nodeData;
 
@@ -593,10 +517,12 @@ class Tree extends Component {
 					supportCheckbox,
 					supportMenu,
 					supportDrag,
+					isShowNameTooltip,
 					isAddFront,
 					nodeNameMaxLength,
 					showIcon,
 					menuType,
+					addMenuName,
 					openIconType,
 					closeIconType,
 					iconColor,
@@ -650,7 +576,7 @@ class Tree extends Component {
 					{showDialogMenu && (
 						<Modal
 							visible
-							title={isAddMenuOpen ? '新建子目录' : '重命名'}
+							title={isAddMenuOpen ? `新建${addMenuName}` : '重命名'}
 							modalStyle={menuModalStyle}
 							bodyStyle={menuModalBodyStyle}
 							onOk={this.onSaveNode}
@@ -658,12 +584,12 @@ class Tree extends Component {
 							onClose={this.onHideMenuDialog}>
 							<div style={{ color: '#666' }}>
 								<p style={{ marginBottom: 20 }}>{parentNodeNames}</p>
-								<span style={{ display: 'inline-block', lineHeight: '30px' }}>文件夹名称：</span>
+								<span style={{ display: 'inline-block', lineHeight: '30px' }}>{addMenuName}名称：</span>
 								<Input
 									style={{ width: 300 }}
 									defaultValue={nodeData && nodeData.name}
 									onChange={e => this.onHandleInputNodeName(e.target.value)}
-									placeholder="请输入节点名称"
+									placeholder={`请输入${addMenuName}名称`}
 									hasClear
 									hasCounter
 									maxLength={nodeNameMaxLength}

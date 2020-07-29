@@ -5,6 +5,7 @@ import Message from '../message';
 import Checkbox from '../checkbox';
 import TreeContext from './context';
 import Input from '../input';
+import Tooltip from '../tooltip';
 import './index.less';
 // 默认菜单类型
 const MENU_TYPE = 'rightMenu';
@@ -24,6 +25,8 @@ class Node extends Component {
 
 	// 打开菜单
 	onHandleShowMenu = (e, menuTypeNow, node, options) => {
+		e.stopPropagation();
+		e.nativeEvent.stopImmediatePropagation();
 		// 不使用右键菜单则使用浏览器默认右键菜单
 		const { supportMenu, menuType, onShowMenu } = this.context;
 		if (!supportMenu) {
@@ -139,13 +142,17 @@ class Node extends Component {
 						style={{ minWidth: `calc(100% - ${paddingLeft}px)`, paddingLeft, cursor: this.context.supportDrag ? 'move' : '' }}
 						className={`node-item-container ${data.isActive ? 'is-active' : null} ${this.context.supportCheckbox ? 'support-checkbox' : ''}`}>
 						{/* 拖拽icon: 根节点不支持拖拽 */}
-						{this.context.supportDrag && (data.pId || data.pId === 0) && <img src={moveIcon} alt="拖拽行调整顺序" className="drag-icon" />}
+						{this.context.supportDrag && (data.pId || data.pId === 0) && (
+							<Tooltip content="拖拽行调整顺序">
+								<img src={moveIcon} alt="拖拽行调整顺序" className="drag-icon" />
+							</Tooltip>
+						)}
 
 						{/* 折叠展开icon */}
 						<ToggleFold hasChildren={data.children.length > 0} showChildrenItem={data.isUnfold} toggle={e => this.toggle(e, data)} />
 						<div
 							onClick={this.context.supportCheckbox ? () => {} : this.handleSelect}
-							style={{ minWidth: `calc(100% - ${paddingLeft}px - 18px)` }}
+							// style={{ minWidth: `calc(100% - ${paddingLeft}px - 18px)` }}
 							className={`node-item ${data.isEdit && !data.isAdd ? 'hide-node' : null}`}>
 							{/* 节点前面的icon */}
 							<NodeIcon
@@ -165,15 +172,16 @@ class Node extends Component {
 								searchText={this.context.searchText}
 								indeterminate={data.indeterminate}
 								checked={data.checked}
+								isShowNameTooltip={this.context.isShowNameTooltip}
 								supportCheckbox={this.context.supportCheckbox}
 								onHandleSelect={this.handleSelect}
 							/>
+							{this.context.menuType !== MENU_TYPE && (
+								<span className="edit-icon" onClick={e => this.onHandleShowMenu(e, 'dialogMenu', data, options)}>
+									...
+								</span>
+							)}
 						</div>
-						{this.context.menuType !== MENU_TYPE && (
-							<span className="edit-icon" onClick={e => this.onHandleShowMenu(e, 'dialogMenu', data, options)}>
-								...
-							</span>
-						)}
 
 						<ShowInput
 							isEdit={data.isEdit}
@@ -202,7 +210,7 @@ class Node extends Component {
  * @constructor
  */
 function ToggleFold({ hasChildren, showChildrenItem, toggle }) {
-	return hasChildren && <Icon type={!showChildrenItem ? 'right-solid' : 'down-solid'} onClick={toggle} />;
+	return hasChildren && <Icon className="toggle-icon" type={!showChildrenItem ? 'right-solid' : 'down-solid'} onClick={toggle} />;
 }
 
 /**
@@ -238,6 +246,7 @@ function ShowInput({ isEdit, isAdd, maxLength, inputValue, handleInputChange, sa
 /**
  * 显示复选框
  * @param searchText
+ * @param isShowNameTooltip
  * @param indeterminate
  * @param checked
  * @param supportCheckbox
@@ -248,25 +257,29 @@ function ShowInput({ isEdit, isAdd, maxLength, inputValue, handleInputChange, sa
  * @returns {*}
  * @constructor
  */
-function ShowSelection({ searchText, indeterminate, checked, supportCheckbox, id, name, disableSelected, onHandleSelect }) {
+function ShowSelection({ searchText, isShowNameTooltip, indeterminate, checked, supportCheckbox, id, name, disableSelected, onHandleSelect }) {
 	// 处理搜索关键字高亮
 	const re = new RegExp(`(${searchText.replace(/[(){}.+*?^$|\\[\]]/g, '\\$&')})`, 'ig');
 	const tmp = name.replace(re, `<span class="hot-text">${searchText}</span>`);
 	const labelWidth = {
-		width: '100%',
+		width: '94%',
 		zIndex: 0
 	};
+	const noneTipName = <span className={supportCheckbox ? 'check-box-node-name' : 'node-name'} dangerouslySetInnerHTML={{ __html: tmp }} />;
+	const hasTipName = (
+		<Tooltip content={tmp} placement="top-left">
+			{noneTipName}
+		</Tooltip>
+	);
+	const showName = isShowNameTooltip ? hasTipName : noneTipName;
 
-	// 多选类型展示
-	if (supportCheckbox) {
-		return (
-			<Checkbox disabled={disableSelected} indeterminate={indeterminate} checked={checked} value={id} onChange={onHandleSelect} style={labelWidth}>
-				<span dangerouslySetInnerHTML={{ __html: tmp }} />
-			</Checkbox>
-		);
-	}
-
-	return <span className="node-name" dangerouslySetInnerHTML={{ __html: tmp }} />;
+	return supportCheckbox ? (
+		<Checkbox disabled={disableSelected} indeterminate={indeterminate} checked={checked} value={id} onChange={onHandleSelect} style={labelWidth}>
+			{showName}
+		</Checkbox>
+	) : (
+		showName
+	);
 }
 
 /**
