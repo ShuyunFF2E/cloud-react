@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { render, mount } from 'enzyme';
 import mountTest from '@tests/shared/mountTest';
+import { noop } from '@utils';
 
 import Form from '../index';
 import Field, { useField } from '../../field';
@@ -10,7 +11,7 @@ import Radio from '../../radio';
 import Checkbox from '../../checkbox';
 import InputNumber from '../../input-number';
 
-const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+const errorSpy = jest.spyOn(console, 'error').mockImplementation(noop);
 
 const USERNAME_REQUIRED_MESSAGE = '用户名不允许为空';
 

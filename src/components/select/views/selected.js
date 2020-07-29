@@ -1,6 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
+import { noop } from '@utils';
 
 import Icon from '../../icon';
 import { selector } from './common';
@@ -129,6 +130,6 @@ Selected.defaultProps = {
 	showArrow: true,
 	showSelectStyle: true,
 	trigger: 'click',
-	onClick: () => {},
-	onClear: () => {}
+	onClick: noop,
+	onClear: noop
 };

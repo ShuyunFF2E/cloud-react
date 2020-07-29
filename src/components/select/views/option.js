@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
+import { noop } from '@utils';
 import Checkbox from '../../checkbox';
 import { selector } from './common';
 
@@ -40,5 +41,5 @@ Option.defaultProps = {
 	disabled: false,
 	value: '',
 	className: '',
-	onChange: () => {}
+	onChange: noop
 };

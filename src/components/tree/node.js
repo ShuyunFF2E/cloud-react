@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
+import { noop } from '@utils';
 import Icon from '../icon';
 import Message from '../message';
 import Checkbox from '../checkbox';

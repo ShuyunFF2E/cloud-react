@@ -319,7 +319,7 @@ function ModalMask({ onReset, showMask, onClose, clickMaskCanClose }) {
 		onReset();
 		onClose();
 	};
-	return showMask && <div className={classnames(`${prefixCls}-modal-mask`)} onClick={clickMaskCanClose ? close : () => {}} />;
+	return showMask && <div className={classnames(`${prefixCls}-modal-mask`)} onClick={clickMaskCanClose ? close : noop} />;
 }
 
 function ModalHeader({ type, title, onClose, onReset, ...props }) {

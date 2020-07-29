@@ -1,9 +1,10 @@
 import React from 'react';
+import { noop } from '@utils';
 
 const MenuContext = React.createContext({
 	openKeys: [],
 	selectedKeys: [],
-	changeSelectedKeys: () => {}
+	changeSelectedKeys: noop
 });
 
 export const types = {
