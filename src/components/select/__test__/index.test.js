@@ -77,6 +77,11 @@ describe('single-select', () => {
 			.at(0)
 			.simulate('click');
 		expect(wrapper.find(`.${classSelector}-option`)).toHaveLength(3);
+		wrapper
+			.find(`.${classSelector}-wrapper`)
+			.at(0)
+			.simulate('click');
+
 		wrapper.setProps({
 			children: (
 				<Select.Option>
