@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`YearPicker renders correctly 1`] = `
+<div
+  class="cloud-timepicker "
+>
+  <input
+    class="timepicker-hour"
+    maxlength="2"
+    value="00"
+  />
+  <label
+    class="colon"
+  >
+    :
+  </label>
+  <input
+    class="timepicker-minute"
+    maxlength="2"
+    value="00"
+  />
+  <label
+    class="colon"
+  >
+    :
+  </label>
+  <input
+    class="timepicker-second"
+    maxlength="2"
+    value="00"
+  />
+</div>
+`;
