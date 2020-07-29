@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { omit } from '@utils';
+import PropTypes from 'prop-types';
+import { omit, noop } from '@utils';
 
 import DatePicker from '../date-picker';
 
@@ -29,22 +30,11 @@ class DateRange extends Component {
 
 	onChangeStartTime = start => {
 		this.setState({ endOpen: true });
-		this.onChangeTime({ start, end: this.state.end });
+		this.props.onChange({ start, end: this.state.end });
 	};
 
 	onChangeEndTime = end => {
-		this.onChangeTime({ start: this.state.start, end });
-	};
-
-	onChangeTime = (range = {}) => {
-		const { value } = this.props;
-
-		// 非受控组件不触发onChange事件
-		if (value === undefined) {
-			this.setState(range);
-		} else {
-			this.props.onChange(range);
-		}
+		this.props.onChange({ start: this.state.start, end });
 	};
 
 	onEndClose = () => {
@@ -89,5 +79,21 @@ class DateRange extends Component {
 		);
 	}
 }
+
+DateRange.propTypes = {
+	minDate: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.instanceOf(Date)]),
+	maxDate: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.instanceOf(Date)]),
+	value: PropTypes.object,
+	defaultValue: PropTypes.object,
+	onChange: PropTypes.func
+};
+
+DateRange.defaultProps = {
+	minDate: undefined,
+	maxDate: undefined,
+	value: undefined,
+	defaultValue: undefined,
+	onChange: noop
+};
 
 export default DateRange;
