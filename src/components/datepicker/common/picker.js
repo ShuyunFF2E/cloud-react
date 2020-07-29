@@ -60,8 +60,8 @@ class Picker extends Component {
 	}
 
 	componentDidUpdate(prevProps) {
-		const { value: prevValue } = prevProps;
-		const { value } = this.props;
+		const { value: prevValue, open: prevOpen } = prevProps;
+		const { value, open } = this.props;
 
 		if (prevValue !== value) {
 			if (value) {
@@ -70,6 +70,9 @@ class Picker extends Component {
 			} else {
 				this.handleChange();
 			}
+		}
+		if (prevOpen !== open) {
+			this.changeVisible(open);
 		}
 	}
 
