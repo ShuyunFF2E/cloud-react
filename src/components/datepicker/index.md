@@ -47,8 +47,8 @@ subtitle: 日期选择框
 | ------------ | ---------------------------- | ----------------------- | ------- |
 | className    | 日历弹层 class               | string                  | -       |
 | disabled     | 组件失效状态                 | boolean                 | `false` |
-| defaultValue | 初始值                       | number                  | -       |
-| value        | 当前值(手动清空可绑定 state) | number                  | -       |
+| defaultValue | 初始值                       | string                  | -       |
+| value        | 当前值(手动清空可绑定 state) | string                  | -       |
 | onChange     | 选择日期改变                 | Function(value: object) | -       |
 | onBlur       | 失去焦点时触发               | Function(evt)           | -       |
 
