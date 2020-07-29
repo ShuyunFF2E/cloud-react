@@ -38,6 +38,9 @@ class FormTest extends Component {
 		return (
 			<Form field={this.field}>
 				<UserName field={this.field} />
+				<Form.Item>
+					<Button>提交</Button>
+				</Form.Item>
 			</Form>
 		);
 	}
@@ -91,7 +94,7 @@ describe('Form', () => {
 		expect(errors.userName).toEqual([USERNAME_REQUIRED_MESSAGE]);
 		expect(wrapper.find('.has-error')).toHaveLength(1);
 
-		wrapper.instance().field.reset();
+		wrapper.instance().field.reset('userName');
 		wrapper.update();
 		expect(wrapper.find('.has-error')).toHaveLength(0);
 	});
@@ -126,7 +129,7 @@ describe('Form', () => {
 		const wrapper = mount(<FormTest />);
 		const { field } = wrapper.instance();
 
-		field.setError('userName', USERNAME_REQUIRED_MESSAGE);
+		field.setError('userName', [USERNAME_REQUIRED_MESSAGE]);
 		wrapper.update();
 		expect(wrapper.find('.has-error')).toHaveLength(1);
 		expect(field.getError('userName')).toEqual([USERNAME_REQUIRED_MESSAGE]);
@@ -142,7 +145,7 @@ describe('Form', () => {
 
 		field.setErrors('');
 
-		field.clear();
+		field.clear('userName');
 		wrapper.update();
 		expect(wrapper.find('.has-error')).toHaveLength(0);
 	});
@@ -313,6 +316,228 @@ describe('Form', () => {
 		};
 		const wrapper = mount(<FormA />);
 		wrapper.find('Button').simulate('click');
+
+		expect(render(<FormA />)).toMatchSnapshot();
+	});
+
+	it('Form.Nexus', () => {
+		function Password({ field: { init }, isShowPwd }) {
+			return (
+				<Form.Nexus>
+					{isShowPwd && (
+						<div className="password">
+							<Input
+								placeholder="请输入密码"
+								{...init('password', {
+									rules: [{ required: true, message: '密码不允许为空' }]
+								})}
+							/>
+						</div>
+					)}
+					<div className="password">
+						<Input
+							placeholder="请输入验证密码"
+							{...init('password1', {
+								rules: [{ required: true, message: '验证密码不允许为空' }]
+							})}
+						/>
+					</div>
+				</Form.Nexus>
+			);
+		}
+
+		class FormB extends Component {
+			field = new Field(this);
+
+			state = { isShowPwd: true, isShowOthers: true, isShowAll: true };
+
+			onRemovePassword = () => {
+				this.setState({ isShowPwd: false });
+			};
+
+			onRemoveOthers = () => {
+				this.setState({ isShowOthers: false });
+			};
+
+			onRemoveAll = () => {
+				this.setState({ isShowAll: false });
+			};
+
+			render() {
+				const { isShowPwd, isShowOthers, isShowAll } = this.state;
+				const { field } = this;
+
+				return (
+					<div>
+						{isShowAll && (
+							<Form field={field}>
+								<Form.Item>
+									<Password field={field} isShowPwd={isShowPwd} />
+								</Form.Item>
+								{isShowOthers && (
+									<Form.Item>
+										<Form.Nexus>
+											<span className="others">其它</span>
+										</Form.Nexus>
+									</Form.Item>
+								)}
+								<Form.Item>
+									<Button onClick={this.onRemovePassword}>移除密码项</Button>
+								</Form.Item>
+							</Form>
+						)}
+						<Button onClick={this.onRemoveOthers}>移除其它</Button>
+						<Button onClick={this.onRemoveAll}>移除整个表单</Button>
+					</div>
+				);
+			}
+		}
+		const wrapper = mount(<FormB />);
+		expect(wrapper.find('.cloud-form .password')).toHaveLength(2);
+
+		wrapper
+			.find('Button')
+			.at(0)
+			.simulate('click');
+		expect(wrapper.find('.cloud-form .password')).toHaveLength(1);
+
+		expect(wrapper.find('.cloud-form .others')).toHaveLength(1);
+		wrapper
+			.find('Button')
+			.at(1)
+			.simulate('click');
+		expect(wrapper.find('.cloud-form .others')).toHaveLength(0);
+
+		wrapper
+			.find('Button')
+			.at(2)
+			.simulate('click');
+		expect(wrapper.find('.cloud-form')).toHaveLength(0);
+	});
+
+	it('when layout is horizontal, span is equal to 3', () => {
+		const FormA = () => {
+			const field = useField();
+
+			return (
+				<Form field={field} layout="horizontal">
+					<UserName field={field} />
+				</Form>
+			);
+		};
+		const wrapper = mount(<FormA />);
+		expect(wrapper.find('.cloud-form .col-3')).toHaveLength(1);
+	});
+
+	it('should render correctly when data-field is attributed to span', () => {
+		const FormA = () => {
+			const field = useField();
+
+			return (
+				<Form field={field}>
+					<UserName field={field} />
+					<Form.Item>
+						<span data-field="test">test</span>
+					</Form.Item>
+				</Form>
+			);
+		};
+		expect(render(<FormA />)).toMatchSnapshot();
+	});
+
+	it("should render correctly when the type of formItem's children is number", () => {
+		const FormA = () => {
+			return (
+				<Form>
+					<Form.Item>{Number(2)}</Form.Item>
+				</Form>
+			);
+		};
+		expect(render(<FormA />)).toMatchSnapshot();
+	});
+
+	it('should render correctly when getState is undefined or getError is undefined', () => {
+		const FormA = () => {
+			const field = {
+				...useField(),
+				getState: undefined,
+				getError: undefined
+			};
+
+			return (
+				<Form field={field}>
+					<UserName field={field} />
+				</Form>
+			);
+		};
+		expect(render(<FormA />)).toMatchSnapshot();
+	});
+
+	it('scrollToFirstError', async () => {
+		jest.spyOn(Form.prototype, 'document', 'get').mockImplementation(() => {
+			const noop = () => {};
+			return {
+				querySelector: () => ({
+					classList: {
+						contains: () => false
+					},
+					parentNode: {
+						classList: {
+							contains: () => true
+						},
+						scrollIntoView: noop
+					},
+					scrollIntoView: noop
+				})
+			};
+		});
+
+		class FormA extends Component {
+			field = new Field(this);
+
+			render() {
+				return (
+					<div style={{ height: 100, overflow: 'auto' }}>
+						<Form field={this.field} scrollToFirstError>
+							<br />
+							<br />
+							<br />
+							<br />
+							<br />
+							<br />
+							<br />
+							<br />
+							<br />
+							<Form.Item label="邮箱">
+								<Input
+									placeholder="请输入验证邮箱"
+									{...this.field.init('email', {
+										rules: [{ required: true, message: '' }]
+									})}
+								/>
+							</Form.Item>
+							<Form.Item label="确认邮箱">
+								<Input
+									placeholder="请输入确认邮箱"
+									{...this.field.init('email1', {
+										rules: [{ validator: '测试如果 validator 不是函数，程序可以正常执行' }]
+									})}
+								/>
+							</Form.Item>
+							<Form.Item label="这是一个空的 formItem"></Form.Item>
+						</Form>
+					</div>
+				);
+			}
+		}
+		const wrapper = mount(<FormA />);
+		const { field } = wrapper.instance();
+
+		field.setValues();
+		field.setValues({ email1: '482828@qq.com' });
+
+		await field.validate(errs => errs);
+		wrapper.update();
 
 		expect(render(<FormA />)).toMatchSnapshot();
 	});

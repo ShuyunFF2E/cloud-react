@@ -13,7 +13,7 @@ export const LABEL_ALIGN = {
 
 export const DATA_FIELD = 'data-field';
 
-export const findFieldsName = (children = []) => {
+export const findFieldsName = children => {
 	const result = [];
 
 	Children.toArray(children).forEach(child => {
@@ -22,7 +22,7 @@ export const findFieldsName = (children = []) => {
 		if (props) {
 			if (props[DATA_FIELD]) {
 				result.push(props[DATA_FIELD]);
-			} else if (props.children && Children.count(props.children || [])) {
+			} else if (props.children && Children.count(props.children)) {
 				result.push(...findFieldsName(props.children));
 			}
 		}
