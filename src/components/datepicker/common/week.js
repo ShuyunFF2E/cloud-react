@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import { noop } from '@utils';
 import { today } from '../utils';
 
 import '../index.less';
@@ -147,7 +148,7 @@ Week.defaultProps = {
 	currentDateObj: null,
 	minDate: undefined,
 	maxDate: undefined,
-	onPickDate: () => {}
+	onPickDate: noop
 };
 
 export default Week;
