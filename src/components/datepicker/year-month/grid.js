@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { noop } from '@utils';
 import { displayNow } from '../utils';
 import Button from '../../button';
 import { monthArr, selectorClass, disClass } from '../constant';
@@ -144,7 +145,7 @@ MonthGrid.propTypes = {
 
 MonthGrid.defaultProps = {
 	checkValue: '',
-	onChange: () => {}
+	onChange: noop
 };
 
 export default MonthGrid;

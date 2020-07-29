@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { noop } from '@utils';
 import Select from '../../select';
 import { ArrowLeft, ArrowRight } from '../common/arrow';
 import { monthArr } from '../constant';
@@ -103,7 +104,7 @@ Popup.propTypes = {
 
 Popup.defaultProps = {
 	checkValue: '',
-	onChange: () => {}
+	onChange: noop
 };
 
 export default Popup;
