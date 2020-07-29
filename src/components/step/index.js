@@ -1,7 +1,7 @@
 import React, { Children, cloneElement, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { prefixCls } from '@utils';
+import { prefixCls, noop } from '@utils';
 import StepItem from './item';
 
 import { HORIZONTAL, VERTICAL, INLINE, CIRCLE, DOT, PROCESS, WAIT, FINISH } from './constants';
@@ -24,7 +24,7 @@ export default class Step extends PureComponent {
 		type: CIRCLE,
 		children: null,
 		className: '',
-		onClick: () => {}
+		onClick: noop
 	};
 
 	static Item = StepItem;

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { prefixCls } from '@utils';
+import { prefixCls, noop } from '@utils';
 
 import Icon from '../icon';
 
@@ -23,7 +23,7 @@ export default class StepItem extends React.Component {
 		content: null,
 		index: null,
 		className: '',
-		onClick: () => {}
+		onClick: noop
 	};
 
 	render() {

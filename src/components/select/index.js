@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import ShuyunUtils from 'shuyun-utils';
 
-import { flat } from '@utils';
+import { flat, noop } from '@utils';
 import ContextProvider from '@contexts/context-provider';
 import SingleSelect from './views/single-select';
 import MultiSelect from './views/multi-select';
@@ -449,12 +449,12 @@ Select.defaultProps = {
 	cancelBtnText: '取消',
 	className: '',
 	children: [],
-	onChange: () => {},
-	onSearch: () => {},
-	onSelectOpen: () => {},
-	onSelectClose: () => {},
-	onOk: () => {},
-	onCancel: () => {}
+	onChange: noop,
+	onSearch: noop,
+	onSelectOpen: noop,
+	onSelectClose: noop,
+	onOk: noop,
+	onCancel: noop
 };
 
 export default Select;

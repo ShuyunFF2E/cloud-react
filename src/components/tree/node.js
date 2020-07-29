@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import classNames from 'classnames';
+import { noop } from '@utils';
 import Icon from '../icon';
 import Message from '../message';
 import Checkbox from '../checkbox';
@@ -104,7 +105,7 @@ class Node extends Component {
 			<Fragment>
 				<div className={classNames(`${prefixCls}-list-node-area ${data.children && !data.children.length ? 'child-style' : null}`)}>
 					<div
-						onClick={this.context.supportCheckbox ? () => {} : this.handleSelect}
+						onClick={this.context.supportCheckbox ? noop : this.handleSelect}
 						onContextMenu={e => this.onHandleContextMenu(e, data, options)}
 						style={{ minWidth: `calc(100% - ${paddingLeft}px)`, paddingLeft }}
 						className={`node-item-container ${data.isActive ? 'is-active' : null} ${this.context.supportCheckbox ? 'support-checkbox' : ''}`}>

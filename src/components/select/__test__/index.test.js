@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, mount } from 'enzyme';
-import { prefixCls } from '@utils';
+import { prefixCls, noop } from '@utils';
 import mountTest from '../../../../tests/shared/mountTest';
 import Select from '../index';
 
@@ -48,7 +48,7 @@ describe('single-select', () => {
 	});
 
 	it('dataSource renders correctly', () => {
-		const wrapper = render(<Select placeholder="select" dataSource={dataList} onChange={() => {}} />);
+		const wrapper = render(<Select placeholder="select" dataSource={dataList} onChange={noop} />);
 		expect(wrapper).toMatchSnapshot();
 	});
 
