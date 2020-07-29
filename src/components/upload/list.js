@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { noop } from '@utils';
+
 import Icon from '../icon';
 import { TYPE, PREFIX } from './constant';
 
@@ -69,7 +71,7 @@ UploadList.propTypes = {
 UploadList.defaultProps = {
 	fileList: [],
 	type: TYPE.DEFAULT,
-	onRemove: () => {}
+	onRemove: noop
 };
 
 export default UploadList;

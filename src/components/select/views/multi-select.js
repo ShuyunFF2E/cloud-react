@@ -1,6 +1,8 @@
 import React, { Children, cloneElement, useMemo, useState, useEffect } from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
+import { noop } from '@utils';
+
 import Checkbox from '../../checkbox';
 import Button from '../../button';
 import { OptionsEmpty, OptionsSearch, selector } from './common';
@@ -163,8 +165,8 @@ MultiSelect.defaultProps = {
 	okBtnText: '',
 	cancelBtnText: '',
 	className: '',
-	onChange: () => {},
-	onSearch: () => {},
-	onOk: () => {},
-	onCancel: () => {}
+	onChange: noop,
+	onSearch: noop,
+	onOk: noop,
+	onCancel: noop
 };

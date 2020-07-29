@@ -1,6 +1,7 @@
 import React, { Children, cloneElement, useMemo, useState, useEffect } from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
+import { noop } from '@utils';
 
 import { OptionsEmpty, OptionsSearch, selector } from './common';
 import { filterOptions } from '../utils';
@@ -84,6 +85,6 @@ SingleSelect.defaultProps = {
 	searchPlaceholder: '',
 	value: '',
 	className: '',
-	onChange: () => {},
-	onSearch: () => {}
+	onChange: noop,
+	onSearch: noop
 };

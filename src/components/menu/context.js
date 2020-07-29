@@ -1,4 +1,5 @@
 import React from 'react';
+import { noop } from '@utils';
 
 export const types = {
 	// link类型
@@ -10,7 +11,7 @@ export const types = {
 const MenuContext = React.createContext({
 	openKeys: [],
 	selectedKeys: [],
-	changeSelectedKeys: () => {}
+	changeSelectedKeys: noop
 });
 
 export default MenuContext;

@@ -1,7 +1,7 @@
 import React, { PureComponent, Children, isValidElement } from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
-import { prefixCls } from '@utils';
+import { prefixCls, noop } from '@utils';
 
 import IconRaw from '../icon';
 import Tooltip from '../tooltip';
@@ -34,8 +34,8 @@ export default class Tabs extends PureComponent {
 		mode: 'reset',
 		style: {},
 		step: 0,
-		onChange: () => {},
-		onClose: () => {}
+		onChange: noop,
+		onClose: noop
 	};
 
 	constructor(props) {
