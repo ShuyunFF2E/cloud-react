@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { noop } from '@utils';
 import Button from '../../button';
 import { selectorClass, disClass } from '../constant';
 import { displayNow } from '../utils';
@@ -117,7 +118,7 @@ YearGrid.defaultProps = {
 	min: undefined,
 	max: undefined,
 	checkValue: '',
-	onChange: () => {}
+	onChange: noop
 };
 
 export default YearGrid;

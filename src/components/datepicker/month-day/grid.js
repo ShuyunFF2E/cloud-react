@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { noop } from '@utils';
 import Button from '../../button';
 import { selectorClass } from '../constant';
 import { formatZero, refreshDays, displayNow } from '../utils';
@@ -92,7 +93,7 @@ Grid.propTypes = {
 Grid.defaultProps = {
 	month: undefined,
 	day: undefined,
-	onOk: () => {}
+	onOk: noop
 };
 
 export default Grid;
