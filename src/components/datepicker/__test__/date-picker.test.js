@@ -227,15 +227,15 @@ describe('YearPicker', () => {
 
 	it('should has time input when showTimePicker', () => {
 		const wrapper = mount(<DatePicker showTimePicker isAppendToBody open />);
-		expect(wrapper.find('TimePicker')).toHaveLength(1);
+		expect(wrapper.find('Time')).toHaveLength(1);
 	});
 
 	it('defaultTime work correctly', () => {
 		const onChange = jest.fn();
 		const wrapper = mount(<DatePicker showTimePicker isAppendToBody open defaultTime="23:59:59" onChange={onChange} />);
-		expect(wrapper.find('TimePicker').state().hour).toEqual('23');
-		expect(wrapper.find('TimePicker').state().minute).toEqual('59');
-		expect(wrapper.find('TimePicker').state().second).toEqual('59');
+		expect(wrapper.find('Time').state().hour).toEqual('23');
+		expect(wrapper.find('Time').state().minute).toEqual('59');
+		expect(wrapper.find('Time').state().second).toEqual('59');
 		wrapper
 			.find('.grid-day')
 			.filter('.grid-now')
@@ -254,9 +254,9 @@ describe('YearPicker', () => {
 
 	it('should time equal defaultValue when has defaultValue', () => {
 		const wrapper = mount(<DatePicker showTimePicker isAppendToBody open defaultValue="2020/09/03 20:59:59" />);
-		expect(wrapper.find('TimePicker').state().hour).toEqual('20');
-		expect(wrapper.find('TimePicker').state().minute).toEqual('59');
-		expect(wrapper.find('TimePicker').state().second).toEqual('59');
+		expect(wrapper.find('Time').state().hour).toEqual('20');
+		expect(wrapper.find('Time').state().minute).toEqual('59');
+		expect(wrapper.find('Time').state().second).toEqual('59');
 	});
 
 	it('should work correctly when click outside component', () => {
