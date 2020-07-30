@@ -36,6 +36,83 @@ exports[`Form function component 1`] = `
 </form>
 `;
 
+exports[`Form scrollToFirstError 1`] = `
+<div
+  style="height:100px;overflow:auto"
+>
+  <form
+    class="cloud-form"
+  >
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <div
+      class="cloud-form-item vertical right"
+    >
+      <label
+        class="cloud-form-item-label has-colon"
+        required=""
+      >
+        邮箱
+      </label>
+      <div
+        class="cloud-form-item-wrapper"
+      >
+        <div
+          class="contents"
+        >
+          <input
+            class="cloud-input default"
+            data-field="email"
+            placeholder="请输入验证邮箱"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      class="cloud-form-item vertical right"
+    >
+      <label
+        class="cloud-form-item-label has-colon"
+      >
+        确认邮箱
+      </label>
+      <div
+        class="cloud-form-item-wrapper"
+      >
+        <div
+          class="contents"
+        >
+          <input
+            class="cloud-input default"
+            data-field="email1"
+            placeholder="请输入确认邮箱"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      class="cloud-form-item vertical right"
+    >
+      <label
+        class="cloud-form-item-label has-colon"
+      >
+        这是一个空的 formItem
+      </label>
+      <div
+        class="cloud-form-item-wrapper"
+      />
+    </div>
+  </form>
+</div>
+`;
+
 exports[`Form should render correctly 1`] = `
 <form
   class="cloud-form"
@@ -55,6 +132,99 @@ exports[`Form should render correctly 1`] = `
         class="cloud-input default"
         placeholder="请输入用户名"
       />
+    </div>
+  </div>
+</form>
+`;
+
+exports[`Form should render correctly when data-field is attributed to span 1`] = `
+<form
+  class="cloud-form"
+>
+  <div
+    class="cloud-form-item vertical right"
+  >
+    <label
+      class="cloud-form-item-label has-colon"
+      required=""
+    >
+      用户名
+    </label>
+    <div
+      class="cloud-form-item-wrapper"
+    >
+      <div
+        class="contents"
+      >
+        <input
+          class="cloud-input default"
+          data-field="userName"
+          placeholder="请输入用户名"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    class="cloud-form-item vertical right"
+  >
+    <div
+      class="cloud-form-item-wrapper"
+    >
+      <div
+        class="contents"
+      >
+        <span
+          data-field="test"
+        >
+          test
+        </span>
+      </div>
+    </div>
+  </div>
+</form>
+`;
+
+exports[`Form should render correctly when getState is undefined or getError is undefined 1`] = `
+<form
+  class="cloud-form"
+>
+  <div
+    class="cloud-form-item vertical right"
+  >
+    <label
+      class="cloud-form-item-label has-colon"
+      required=""
+    >
+      用户名
+    </label>
+    <div
+      class="cloud-form-item-wrapper"
+    >
+      <div
+        class="contents"
+      >
+        <input
+          class="cloud-input default"
+          data-field="userName"
+          placeholder="请输入用户名"
+        />
+      </div>
+    </div>
+  </div>
+</form>
+`;
+
+exports[`Form should render correctly when the type of formItem's children is number 1`] = `
+<form
+  class="cloud-form"
+>
+  <div
+    class="cloud-form-item vertical right"
+  >
+    <div
+      class="cloud-form-item-wrapper"
+    >
+      2
     </div>
   </div>
 </form>
