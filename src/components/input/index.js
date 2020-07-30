@@ -187,6 +187,7 @@ class Input extends React.Component {
 		const type = 'close-circle-solid';
 		const classNames = classnames(`${prefixCls}-input-clear`, {
 			show: counter,
+			hidden: !counter,
 			'small-size': size === 'small'
 		});
 
