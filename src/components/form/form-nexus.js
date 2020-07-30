@@ -7,16 +7,6 @@ import RenderChildren from './render-children';
 import { findFieldsName } from './constants';
 
 export default class FormNexus extends Component {
-	static contextType = FormContext;
-
-	static propTypes = {
-		children: PropTypes.any
-	};
-
-	static defaultProps = {
-		children: null
-	};
-
 	componentWillUnmount() {
 		const { field, dataFields } = this;
 
@@ -50,3 +40,13 @@ export default class FormNexus extends Component {
 		return <RenderChildren field={this.field}>{children}</RenderChildren>;
 	}
 }
+
+FormNexus.contextType = FormContext;
+
+FormNexus.propTypes = {
+	children: PropTypes.any
+};
+
+FormNexus.defaultProps = {
+	children: null
+};

@@ -16,38 +16,6 @@ const ERROR_SELECTOR = `.${prefixCls}-form-item-explain.error`;
 const FORM_ITEM_SELECTOR = `${prefixCls}-form-item`;
 
 export default class Form extends Component {
-	static contextType = ContextProvider;
-
-	static propTypes = {
-		field: PropTypes.object,
-		colon: PropTypes.bool,
-		className: PropTypes.string,
-		layout: PropTypes.oneOf([LAYOUT_TYPES.HORIZONTAL, LAYOUT_TYPES.VERTICAL, LAYOUT_TYPES.INLINE]),
-		labelAlign: PropTypes.oneOf([LABEL_ALIGN.LEFT, LABEL_ALIGN.RIGHT]),
-		labelCol: PropTypes.shape({
-			span: PropTypes.number,
-			offset: PropTypes.number
-		}),
-		wrapperCol: PropTypes.shape({
-			span: PropTypes.number,
-			offset: PropTypes.number
-		}),
-		scrollToFirstError: PropTypes.bool,
-		children: PropTypes.any
-	};
-
-	static defaultProps = {
-		layout: LAYOUT_TYPES.VERTICAL,
-		labelAlign: LABEL_ALIGN.RIGHT,
-		colon: true,
-		className: '',
-		field: {},
-		labelCol: {},
-		wrapperCol: {},
-		children: null,
-		scrollToFirstError: false
-	};
-
 	static Item = FormItem;
 
 	static Nexus = Nexus;
@@ -93,3 +61,35 @@ export default class Form extends Component {
 		);
 	}
 }
+
+Form.contextType = ContextProvider;
+
+Form.propTypes = {
+	field: PropTypes.object,
+	colon: PropTypes.bool,
+	className: PropTypes.string,
+	layout: PropTypes.oneOf([LAYOUT_TYPES.HORIZONTAL, LAYOUT_TYPES.VERTICAL, LAYOUT_TYPES.INLINE]),
+	labelAlign: PropTypes.oneOf([LABEL_ALIGN.LEFT, LABEL_ALIGN.RIGHT]),
+	labelCol: PropTypes.shape({
+		span: PropTypes.number,
+		offset: PropTypes.number
+	}),
+	wrapperCol: PropTypes.shape({
+		span: PropTypes.number,
+		offset: PropTypes.number
+	}),
+	scrollToFirstError: PropTypes.bool,
+	children: PropTypes.any
+};
+
+Form.defaultProps = {
+	layout: LAYOUT_TYPES.VERTICAL,
+	labelAlign: LABEL_ALIGN.RIGHT,
+	colon: true,
+	className: '',
+	field: {},
+	labelCol: {},
+	wrapperCol: {},
+	children: null,
+	scrollToFirstError: false
+};
