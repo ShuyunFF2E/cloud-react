@@ -178,6 +178,20 @@ describe('InputNumber', () => {
 		expect(handleChange).toHaveBeenCalled();
 	});
 
+	it('should onEnter trigger when press enter', () => {
+		const onEnter = jest.fn();
+		const wrapper = mount(<InputNumber onEnter={onEnter} />);
+		wrapper.find('input').simulate('keydown', { keyCode: 13 });
+		expect(onEnter).toHaveBeenCalled();
+	});
+
+	it('should onKeyDown trigger when press key', () => {
+		const onKeyDown = jest.fn();
+		const wrapper = mount(<InputNumber onKeyDown={onKeyDown} />);
+		wrapper.find('input').simulate('keydown', { keyCode: 3 });
+		expect(onKeyDown).toHaveBeenCalled();
+	});
+
 	it('should render correctly with precison', () => {
 		const wrapper = mount(<InputNumber defaultValue={1} precision={2} />);
 		expect(wrapper.state('currentValue')).toEqual('1.00');
