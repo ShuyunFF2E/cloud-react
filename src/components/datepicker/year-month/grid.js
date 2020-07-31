@@ -71,19 +71,24 @@ class MonthGrid extends Component {
 
 		const maxYear = parseInt(max.split('/')[0], 10);
 		const minYear = parseInt(min.split('/')[0], 10);
+		const maxYearMonth = parseInt(max.split('/')[1], 10);
+		const minYearMonth = parseInt(min.split('/')[1], 10);
 		if (currentYear > maxYear || currentYear < minYear) {
 			return ` ${disClass} `;
 		}
-		if (currentYear === maxYear) {
-			const maxYearMonth = parseInt(max.split('/')[1], 10);
-			const minYearMonth = parseInt(min.split('/')[1], 10);
-
-			if (current > maxYearMonth || current < minYearMonth) {
+		if (selectedYear < currentYear && current < minYearMonth) {
+			return ` ${disClass} `;
+		}
+		if (selectedYear > currentYear && current > maxYearMonth) {
+			return ` ${disClass} `;
+		}
+		if (selectedYear === currentYear) {
+			if ((current < minYearMonth && currentYear === minYear) || (current > maxYearMonth && currentYear === maxYear)) {
 				return ` ${disClass} `;
 			}
-		}
-		if (current === _month && currentYear === selectedYear) {
-			return 'grid-now';
+			if (current === _month) {
+				return 'grid-now';
+			}
 		}
 		return '';
 	};

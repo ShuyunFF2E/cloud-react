@@ -14,7 +14,7 @@ exports[`YearPicker renders correctly 1`] = `
       >
         <input
           class="cloud-input default"
-          height="259"
+          height="289"
           placeholder="请选择日期"
           readonly=""
         />
@@ -48,7 +48,7 @@ exports[`YearPicker renders correctly 1`] = `
       >
         <input
           class="cloud-input default"
-          height="259"
+          height="289"
           placeholder="请选择日期"
           readonly=""
         />
