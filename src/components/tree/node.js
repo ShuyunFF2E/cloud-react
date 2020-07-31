@@ -152,7 +152,7 @@ class Node extends Component {
 						{/* 折叠展开icon */}
 						<ToggleFold hasChildren={data.children.length > 0} showChildrenItem={data.isUnfold} toggle={e => this.toggle(e, data)} />
 						<div
-							onClick={this.context.supportCheckbox ? () => {} : this.handleSelect}
+							onClick={this.context.supportCheckbox ? noop : this.handleSelect}
 							// style={{ minWidth: `calc(100% - ${paddingLeft}px - 18px)` }}
 							className={`node-item ${data.isEdit && !data.isAdd ? 'hide-node' : null}`}>
 							{/* 节点前面的icon */}
