@@ -35,8 +35,8 @@ function getMonthData(year, month) {
 	let _year = year;
 	const dRange = getWeekDisplayRange(year, month);
 	const monthSize = getMonthSize(year, month);
-	const startDay = dRange[0];
-	const endDay = dRange[1];
+	const startDay = dRange[0]; // 开始 周几
+	const endDay = dRange[1]; // 结束 周几
 	const dayBefore = startDay;
 	const dayAfter = 6 - endDay;
 	const prevMonthDays = [];
@@ -64,6 +64,16 @@ function getMonthData(year, month) {
 	for (let k = 0; k < monthSize; ) {
 		curMonthDays.push(k + 1);
 		k += 1;
+	}
+
+	const days = [...prevMonthDays, ...curMonthDays, ...nextMonthDays];
+	if (days.length < 42) {
+		const lastDay = days[days.length - 1];
+		const startNextDay = lastDay === monthSize ? 0 : lastDay;
+		for (let l = 0; l < 7; ) {
+			nextMonthDays.push(startNextDay + l + 1);
+			l += 1;
+		}
 	}
 
 	return {

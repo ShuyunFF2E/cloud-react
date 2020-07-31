@@ -68,6 +68,31 @@ export default class Header extends Component {
 		return _year < this.props.minYear || _year > this.props.maxYear;
 	};
 
+	getArrowDisabled = (currentMonth, type) => {
+		const { min, max, year } = this.props;
+
+		let _year = year;
+		let _currentMonth = currentMonth;
+
+		if (_currentMonth === 13) {
+			_currentMonth = 1;
+			_year += 1;
+		} else if (_currentMonth === 0) {
+			_currentMonth = 12;
+			_year -= 1;
+		}
+
+		if (type === 'left') {
+			if (!min) return false;
+			const { year: minYear, month: minMonth } = min;
+			return _year * 12 + _currentMonth < minYear * 12 + minMonth;
+		}
+
+		if (!max) return false;
+		const { year: maxYear, month: maxMonth } = max;
+		return _year * 12 + _currentMonth > maxYear * 12 + maxMonth;
+	};
+
 	getMinYear = () => {
 		const { min, minYear, year } = this.props;
 		const _minYear = min && min.year < minYear ? min.year : minYear;
@@ -135,10 +160,10 @@ export default class Header extends Component {
 
 		return (
 			<div className="header" style={style}>
-				<ArrowLeft disabled={this.getDisabled(month - 1)} onClick={this.handlePrevClick} />
+				<ArrowLeft disabled={this.getArrowDisabled(month - 1, 'left')} onClick={this.handlePrevClick} />
 				{this.renderMonth()}
 				{this.renderYear()}
-				<ArrowRight disabled={this.getDisabled(month + 1)} onClick={this.handleNextClick} />
+				<ArrowRight disabled={this.getArrowDisabled(month + 1, 'right')} onClick={this.handleNextClick} />
 			</div>
 		);
 	}

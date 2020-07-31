@@ -57,8 +57,12 @@ describe('YearPicker', () => {
 		wrapper
 			.find('.timepicker-hour')
 			.at(0)
+			.simulate('change', { target: { value: '4' } });
+		wrapper
+			.find('.timepicker-hour')
+			.at(0)
 			.simulate('blur');
-		expect(wrapper.find('Time').state().hour).toEqual('22');
+		expect(wrapper.find('Time').state().hour).toEqual('04');
 
 		wrapper
 			.find('.timepicker-minute')

@@ -8,7 +8,7 @@ class DatePicker extends Component {
 	constructor(props) {
 		super(props);
 
-		this.height = props.showTimePicker ? 308 : 259;
+		this.height = props.showTimePicker ? 339 : 289;
 		this.tempMode = props.showTimePicker ? enumObj.DATE_TIME_MODEL : enumObj.DATE_MODE;
 	}
 
