@@ -27,3 +27,4 @@ subtitle: 数字输入框
 | onChange     | 输入改变触发                                              | Function(value: number &#124; string) | -           |
 | onBlur       | 移除焦点                                                  | Function(value: number &#124; string) | -           |
 | onFocus      | 获取焦点                                                  | Function()                            | -           |
+| onEnter      | 按下键盘回车按键的回调                                      | function(event)                          | -         |
