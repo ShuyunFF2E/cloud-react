@@ -10,6 +10,7 @@ import { isInvalid, isInvalidNumber, isNotCompleteNumber, fixDoubleOperation, ge
 import './index.less';
 
 const selector = `${prefixCls}-input-number`;
+const ENTER_KEY_CODE = 13;
 
 class InputNumber extends Component {
 	constructor() {
@@ -120,6 +121,15 @@ class InputNumber extends Component {
 		this.props.onChange(_targetValue);
 	};
 
+	onKeyDown = event => {
+		const { onEnter, onKeyDown } = this.props;
+
+		if (event.keyCode === ENTER_KEY_CODE) {
+			onEnter(event);
+		}
+		onKeyDown(event);
+	};
+
 	handlePlusMinus(isPlus) {
 		const { min, max, precision, step, onChange } = this.props;
 		const { currentValue } = this.state;
@@ -170,7 +180,20 @@ class InputNumber extends Component {
 
 		const { currentValue } = this.state;
 
-		const props = omit(others, ['className', 'defaultValue', 'noStep', 'onBlur', 'onChange', 'onFocus', 'precision', 'size', 'style', 'value']);
+		const props = omit(others, [
+			'className',
+			'defaultValue',
+			'noStep',
+			'onBlur',
+			'onChange',
+			'onFocus',
+			'onKeyDown',
+			'onEnter',
+			'precision',
+			'size',
+			'style',
+			'value'
+		]);
 
 		return (
 			<div className={`${selector}-handler-input`}>
@@ -180,6 +203,7 @@ class InputNumber extends Component {
 					min={min}
 					max={max}
 					step={step}
+					onKeyDown={this.onKeyDown}
 					onFocus={this.handleFocus}
 					onChange={this.handleChange}
 					onBlur={this.handleBlur}
@@ -225,7 +249,9 @@ InputNumber.propTypes = {
 	disabled: PropTypes.bool,
 	onChange: PropTypes.func,
 	onBlur: PropTypes.func,
-	onFocus: PropTypes.func
+	onFocus: PropTypes.func,
+	onEnter: PropTypes.func,
+	onKeyDown: PropTypes.func
 };
 
 InputNumber.defaultProps = {
@@ -243,7 +269,9 @@ InputNumber.defaultProps = {
 	disabled: false,
 	onChange: noop,
 	onBlur: noop,
-	onFocus: noop
+	onFocus: noop,
+	onEnter: noop,
+	onKeyDown: noop
 };
 
 export default InputNumber;
