@@ -139,6 +139,26 @@ describe('YearPicker', () => {
 		).toBeTruthy();
 	});
 
+	it('should min work correctly when selected year less than this year', () => {
+		const wrapper = mount(<YearMonthPicker min={`${currentYear - 1}/04`} value={`${currentYear - 1}/06`} isAppendToBody open />);
+		wrapper.find('.grid-item').forEach((node, index) => {
+			const current = index + 1;
+			if (current < 4) {
+				expect(node.hasClass('grid-disabled')).toBeTruthy();
+			}
+		});
+	});
+
+	it('should max work correctly when selected year more than this year', () => {
+		const wrapper = mount(<YearMonthPicker max={`${currentYear + 1}/06`} value={`${currentYear + 1}/04`} isAppendToBody open />);
+		wrapper.find('.grid-item').forEach((node, index) => {
+			const current = index + 1;
+			if (current > 6) {
+				expect(node.hasClass('grid-disabled')).toBeTruthy();
+			}
+		});
+	});
+
 	it('default select year equal min year when this year less than min', () => {
 		const wrapper = mount(<YearMonthPicker min={`${currentYear + 2}/09`} isAppendToBody open />);
 		expect(wrapper.find('Popup').state().tempYear).toEqual(currentYear + 2);

@@ -32,11 +32,12 @@ class Grid extends Component {
 	}
 
 	updateState() {
-		const { hour, minute, second } = this.props.checkValue;
+		const { hour, minute, second } = this.props.checkValue || {};
+		const _defaultTimes = this.props.defaultTime.split(':');
 		this.setState({
-			tempHour: hour,
-			tempMinute: minute,
-			tempSecond: second
+			tempHour: hour || _defaultTimes[0],
+			tempMinute: minute || _defaultTimes[1],
+			tempSecond: second || _defaultTimes[2]
 		});
 	}
 
