@@ -14,7 +14,8 @@ export default class DatePickerDemo extends React.Component {
 
 		this.state = {
 			visible: false,
-			range: { start: '2020-04-23 00:00:00', end: '2020-06-07 23:59:59' }
+			range: { start: '2020-04-23 00:00:00', end: '2020-06-07 23:59:59' },
+			value: '2020/07/10'
 		};
 	}
 
@@ -22,27 +23,27 @@ export default class DatePickerDemo extends React.Component {
 		this.setState({ range });
 	};
 
+	onChangeDate = date => {
+		console.log(date);
+	}
+
 	render() {
 		return (
 			<div>
 				<Datepicker
 					isAppendToBody
+					value={this.state.value}
 					position="auto"
+					onChange={this.onChangeDate}
 					width="200px"
-					minDate={new Date('2020/05/14 00:00:00')}
-					maxDate={new Date('2020/11/5')}
-					defaultValue={'2020/11/5'}
-					onChange={this.onInpChange}
 					placeholder="年月日"
 				/>
 				<br />
 				<br />
 				<Datepicker
 					position="auto"
-					maxDate={new Date('2024/5/1')}
-					minDate={new Date()}
+					value="2021/01/07"
 					showTimePicker={true}
-					onChange={this.onInpChange}
 					placeholder="年月日 时分秒"
 				/>
 				<br />
@@ -55,6 +56,7 @@ export default class DatePickerDemo extends React.Component {
 					maxDate={new Date('2024/5/1')}
 					onChange={this.onInpChange}
 					showTimePicker
+					isAppendToBody
 				/>
 			</div>
 		);
