@@ -12,7 +12,7 @@ function formatNumber(data) {
 	return { numberValue, stringValue, length: stringValue.length };
 }
 
-class TimePicker extends Component {
+class Time extends Component {
 	constructor(props) {
 		super(props);
 
@@ -42,14 +42,10 @@ class TimePicker extends Component {
 		const { value, defaultValue } = this.props;
 
 		if (typeof value !== 'undefined' && value) {
-			return typeof value === 'string' ? value.split(':') : [value.hour, value.minute, value.second];
+			return value.split(':');
 		}
 
-		if (defaultValue) {
-			return defaultValue.split(':');
-		}
-
-		return ['00', '00', '00'];
+		return defaultValue.split(':');
 	}
 
 	updateState() {
@@ -66,9 +62,9 @@ class TimePicker extends Component {
 		const { hour, minute, second, temp } = this.state;
 
 		this.setState({
-			hour: formatTime(hour, temp || '00'),
-			minute: formatTime(minute, temp || '00'),
-			second: formatTime(second, temp || '00')
+			hour: formatTime(hour, temp),
+			minute: formatTime(minute, temp),
+			second: formatTime(second, temp)
 		});
 	};
 
@@ -142,10 +138,8 @@ class TimePicker extends Component {
 			// 当输入2位并且有效范围内时，跳转到分钟输入框
 			if (numberValue < 60 && length === 2) {
 				const ele = this.inpSecondRef.current;
-				if (ele) {
-					ele.focus();
-					ele.select();
-				}
+				ele.focus();
+				ele.select();
 			}
 		} else {
 			_value = '';
@@ -206,10 +200,18 @@ class TimePicker extends Component {
 		return (
 			<div className={classes} onBlur={this.handleInpputBlur} style={style}>
 				{type === 'inner' && <label>时间：</label>}
-				<input value={hour} disabled={disabled} onFocus={this.handleHourFocus} maxLength="2" onChange={this.handleHourChange} />
+				<input
+					className="timepicker-hour"
+					value={hour}
+					disabled={disabled}
+					onFocus={this.handleHourFocus}
+					maxLength="2"
+					onChange={this.handleHourChange}
+				/>
 				<label className="colon">:</label>
 				<input
 					ref={this.inpMinuteRef}
+					className="timepicker-minute"
 					value={minute}
 					onFocus={this.handleMinuteFocus}
 					disabled={disabled}
@@ -219,6 +221,7 @@ class TimePicker extends Component {
 				<label className="colon">:</label>
 				<input
 					ref={this.inpSecondRef}
+					className="timepicker-second"
 					value={second}
 					onFocus={this.handleSecondFocus}
 					disabled={disabled}
@@ -230,16 +233,16 @@ class TimePicker extends Component {
 	}
 }
 
-TimePicker.propTypes = {
+Time.propTypes = {
 	className: PropTypes.string,
 	style: PropTypes.object,
-	value: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+	value: PropTypes.string,
 	defaultValue: PropTypes.string,
 	type: PropTypes.string,
 	disabled: PropTypes.bool,
 	onChange: PropTypes.func
 };
-TimePicker.defaultProps = {
+Time.defaultProps = {
 	className: '',
 	style: {},
 	value: undefined,
@@ -249,4 +252,4 @@ TimePicker.defaultProps = {
 	onChange: noop
 };
 
-export default TimePicker;
+export default Time;

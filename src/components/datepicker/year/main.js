@@ -19,10 +19,7 @@ export default class Popup extends Component {
 		if (year + 7 <= max || year - 7 >= min) {
 			return [year - 7, year + 7];
 		}
-		if (year + 7 > max) {
-			return [max - 14, max];
-		}
-		return [min, max + 14];
+		return [max - 14, max];
 	};
 
 	handleLeftClick = () => {

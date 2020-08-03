@@ -38,16 +38,8 @@ export default class Header extends Component {
 	getDisabled = (currentMonth, currentYear = this.props.year) => {
 		const { min, max } = this.props;
 
-		let _year = currentYear;
-		let _currentMonth = currentMonth;
-
-		if (_currentMonth === 13) {
-			_currentMonth = 1;
-			_year += 1;
-		} else if (_currentMonth === 0) {
-			_currentMonth = 12;
-			_year -= 1;
-		}
+		const _year = currentYear;
+		const _currentMonth = currentMonth;
 
 		if (max && min) {
 			const { year: maxYear, month: maxMonth } = max;
@@ -65,11 +57,32 @@ export default class Header extends Component {
 			return _year * 12 + _currentMonth < minYear * 12 + minMonth || _year > this.props.maxYear;
 		}
 
-		if (!max && !min) {
-			return _year < this.props.minYear || _year > this.props.maxYear;
+		return _year < this.props.minYear || _year > this.props.maxYear;
+	};
+
+	getArrowDisabled = (currentMonth, type) => {
+		const { min, max, year } = this.props;
+
+		let _year = year;
+		let _currentMonth = currentMonth;
+
+		if (_currentMonth === 13) {
+			_currentMonth = 1;
+			_year += 1;
+		} else if (_currentMonth === 0) {
+			_currentMonth = 12;
+			_year -= 1;
 		}
 
-		return false;
+		if (type === 'left') {
+			if (!min) return false;
+			const { year: minYear, month: minMonth } = min;
+			return _year * 12 + _currentMonth < minYear * 12 + minMonth;
+		}
+
+		if (!max) return false;
+		const { year: maxYear, month: maxMonth } = max;
+		return _year * 12 + _currentMonth > maxYear * 12 + maxMonth;
 	};
 
 	getMinYear = () => {
@@ -86,17 +99,16 @@ export default class Header extends Component {
 
 	getDisabledYear = currentYear => {
 		const { min, max } = this.props;
-		let result = false;
 		if (min && max) {
-			result = currentYear < min.year || currentYear > max.year;
-		} else if (max && !min) {
-			result = currentYear > max.year || currentYear < this.getMinYear();
-		} else if (!max && min) {
-			result = currentYear < min.year || currentYear > this.getMaxYear();
-		} else if (!max && !min) {
-			result = currentYear < this.getMinYear() || currentYear > this.getMaxYear();
+			return currentYear < min.year || currentYear > max.year;
 		}
-		return result;
+		if (max && !min) {
+			return currentYear > max.year || currentYear < this.getMinYear();
+		}
+		if (!max && min) {
+			return currentYear < min.year || currentYear > this.getMaxYear();
+		}
+		return currentYear < this.getMinYear() || currentYear > this.getMaxYear();
 	};
 
 	renderMonth() {
@@ -140,10 +152,10 @@ export default class Header extends Component {
 
 		return (
 			<div className="header" style={style}>
-				<ArrowLeft disabled={this.getDisabled(month - 1)} onClick={this.handlePrevClick} />
+				<ArrowLeft disabled={this.getArrowDisabled(month - 1, 'left')} onClick={this.handlePrevClick} />
 				{this.renderMonth()}
 				{this.renderYear()}
-				<ArrowRight disabled={this.getDisabled(month + 1)} onClick={this.handleNextClick} />
+				<ArrowRight disabled={this.getArrowDisabled(month + 1, 'right')} onClick={this.handleNextClick} />
 			</div>
 		);
 	}

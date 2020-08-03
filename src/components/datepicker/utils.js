@@ -35,8 +35,8 @@ function getMonthData(year, month) {
 	let _year = year;
 	const dRange = getWeekDisplayRange(year, month);
 	const monthSize = getMonthSize(year, month);
-	const startDay = dRange[0];
-	const endDay = dRange[1];
+	const startDay = dRange[0]; // 开始 周几
+	const endDay = dRange[1]; // 结束 周几
 	const dayBefore = startDay;
 	const dayAfter = 6 - endDay;
 	const prevMonthDays = [];
@@ -66,10 +66,20 @@ function getMonthData(year, month) {
 		k += 1;
 	}
 
+	const days = [...prevMonthDays, ...curMonthDays, ...nextMonthDays];
+	if (days.length < 42) {
+		const lastDay = days[days.length - 1];
+		const startNextDay = lastDay === monthSize ? 0 : lastDay;
+		for (let l = 0; l < 7; ) {
+			nextMonthDays.push(startNextDay + l + 1);
+			l += 1;
+		}
+	}
+
 	return {
-		prev: prevMonthDays.reverse(),
-		current: curMonthDays,
-		next: nextMonthDays
+		prev: prevMonthDays.reverse() || [],
+		current: curMonthDays || [],
+		next: nextMonthDays || []
 	};
 }
 
@@ -102,21 +112,6 @@ export function convert(date, fmt) {
 	return _fmt;
 }
 
-export function range(from, to) {
-	let _to = null;
-	let _from = null;
-	if (to === undefined) {
-		_to = from;
-		_from = 0;
-	}
-	const arr = [];
-	for (let i = _from; i < _to; ) {
-		arr[i] = i;
-		i += 1;
-	}
-	return arr;
-}
-
 export function formatTime(param, d = '') {
 	if (param === '') {
 		return d;
@@ -141,8 +136,7 @@ const utils = {
 	refreshDays,
 	displayNow,
 	today,
-	transformObj,
-	range
+	transformObj
 };
 
 export default utils;

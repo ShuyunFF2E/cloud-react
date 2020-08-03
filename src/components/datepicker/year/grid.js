@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Button from 'cloud-react/button';
-import { selectorClass } from '../constant';
+import classNames from 'classnames';
+import { noop } from '@utils';
+import Button from '../../button';
+import { selectorClass, disClass } from '../constant';
 import { displayNow } from '../utils';
 
 const nowYear = new Date().getFullYear();
-const disClass = 'grid-disabled';
 
 function getClassName(checkValue, current, min, max) {
 	if (current < min || current > max) {
@@ -53,9 +54,9 @@ class YearGrid extends Component {
 
 		if (year) {
 			this.props.onChange({ year });
-		} else if (tempYear) {
-			this.props.onChange({ year: tempYear });
+			return;
 		}
+		this.props.onChange({ year: tempYear });
 	};
 
 	render() {
@@ -75,13 +76,13 @@ class YearGrid extends Component {
 							const cls3 = getClassName(tempYear, index3, min, max);
 							return (
 								<tr key={index.toString()}>
-									<td className={cls1}>
+									<td className={classNames('grid-item', cls1)}>
 										<span onClick={() => this.onUpdate(index1, cls1)}>{index1}年</span>
 									</td>
-									<td className={cls2}>
+									<td className={classNames('grid-item', cls2)}>
 										<span onClick={() => this.onUpdate(index2, cls2)}>{index2}年</span>
 									</td>
-									<td className={cls3}>
+									<td className={classNames('grid-item', cls3)}>
 										<span onClick={() => this.onUpdate(index3, cls3)}>{index3}年</span>
 									</td>
 								</tr>
@@ -117,7 +118,7 @@ YearGrid.defaultProps = {
 	min: undefined,
 	max: undefined,
 	checkValue: '',
-	onChange: () => {}
+	onChange: noop
 };
 
 export default YearGrid;

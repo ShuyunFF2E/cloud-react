@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { noop } from '@utils';
 import Select from '../../select';
 import { ArrowLeft, ArrowRight } from '../common/arrow';
-import { enumObj, monthArr } from '../constant';
+import { monthArr } from '../constant';
 import { formatZero, displayNow } from '../utils';
-import MonthGrid from '../common/month-grid';
 import Grid from './grid';
 
 class Popup extends Component {
@@ -14,37 +14,10 @@ class Popup extends Component {
 		const { checkValue } = props;
 
 		this.state = {
-			tempMode: enumObj.MONTH_DAY_MODEL,
 			tempMonth: checkValue ? parseInt(checkValue.split('/')[0], 10) : displayNow().month,
 			tempDay: checkValue ? parseInt(checkValue.split('/')[1], 10) : ''
 		};
 	}
-
-	handleMonthGridChange = m => {
-		this.setState({
-			tempMonth: m,
-			tempMode: enumObj.MONTH_DAY_MODEL
-		});
-	};
-
-	handleHeaderChange = params => {
-		const { tempMonth } = this.state;
-
-		if (params === enumObj.LEFT) {
-			if (tempMonth > 1) {
-				this.setState({
-					tempMonth: tempMonth - 1
-				});
-			}
-		} else if (tempMonth < 12) {
-			this.setState({
-				tempMonth: tempMonth + 1
-			});
-		}
-		this.setState({
-			tempDay: ''
-		});
-	};
 
 	handleLeftClick = () => {
 		const { tempMonth } = this.state;
@@ -100,20 +73,7 @@ class Popup extends Component {
 		});
 	};
 
-	renderMonth() {
-		const { tempMonth } = this.state;
-
-		return (
-			<>
-				<div className="header">
-					<label>选择月份</label>
-				</div>
-				<MonthGrid month={tempMonth} onChange={(m, y) => this.handleMonthGridChange(m, y)} />
-			</>
-		);
-	}
-
-	renderDay() {
+	render() {
 		const { tempMonth, tempDay } = this.state;
 
 		return (
@@ -135,20 +95,6 @@ class Popup extends Component {
 			</>
 		);
 	}
-
-	render() {
-		const { tempMode } = this.state;
-
-		if (tempMode === enumObj.MONTH_MODEL) {
-			return this.renderMonth();
-		}
-
-		if (tempMode === enumObj.MONTH_DAY_MODEL) {
-			return this.renderDay();
-		}
-
-		return null;
-	}
 }
 
 Popup.propTypes = {
@@ -158,7 +104,7 @@ Popup.propTypes = {
 
 Popup.defaultProps = {
 	checkValue: '',
-	onChange: () => {}
+	onChange: noop
 };
 
 export default Popup;

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { noop } from '@utils';
 import Button from '../../button';
 import { selectorClass } from '../constant';
 import { formatZero, refreshDays, displayNow } from '../utils';
@@ -47,13 +48,15 @@ class Grid extends Component {
 
 	render() {
 		const {
-			props: { month, minDate, maxDate },
+			props: { month, min, max },
 			state: { tempDay },
 			handleSave
 		} = this;
 
 		const { year, day } = displayNow();
-		const days = refreshDays(year, month || month);
+		const days = refreshDays(year, month);
+		const minDate = min ? new Date(min).setFullYear(year) : undefined;
+		const maxDate = max ? new Date(max).setFullYear(year) : undefined;
 
 		return (
 			<div className="grid">
@@ -63,8 +66,8 @@ class Grid extends Component {
 						month,
 						day: tempDay
 					}}
-					minDate={minDate}
-					maxDate={maxDate}
+					minDate={new Date(minDate)}
+					maxDate={new Date(maxDate)}
 					onPickDate={this.handlePickDate}
 					days={days}
 				/>
@@ -90,7 +93,7 @@ Grid.propTypes = {
 Grid.defaultProps = {
 	month: undefined,
 	day: undefined,
-	onOk: () => {}
+	onOk: noop
 };
 
 export default Grid;

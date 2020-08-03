@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { displayNow } from '../utils';
 import Select from '../../select';
-import MonthGrid from '../common/month-grid';
+import MonthGrid from './grid';
 
 export default class Popup extends Component {
 	constructor(props) {
@@ -71,7 +71,7 @@ export default class Popup extends Component {
 						{years}
 					</Select>
 				</div>
-				<MonthGrid checkValue={checkValue} max={max} min={min} currentYear={tempYear} onChange={this.handleMonthGridChange} />
+				<MonthGrid checkValue={checkValue} max={max} min={min} selectedYear={tempYear} onChange={this.handleMonthGridChange} />
 			</>
 		);
 	}

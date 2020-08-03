@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Button from 'cloud-react/button';
-import { monthArr, selectorClass } from '../constant';
+import classNames from 'classnames';
+import { noop } from '@utils';
+import { displayNow } from '../utils';
+import Button from '../../button';
+import { monthArr, selectorClass, disClass } from '../constant';
 
 const currentMonth = new Date().getMonth() + 1;
+const currentYear = displayNow().year;
 
 function formatData(value) {
 	return parseInt(value.split('/')[1], 10);
@@ -13,19 +17,15 @@ class MonthGrid extends Component {
 	constructor(props) {
 		super(props);
 
-		const { checkValue, month } = props;
+		const { checkValue } = props;
 
 		this.state = {
-			tempMonth: checkValue ? formatData(checkValue) : parseInt(month, 10)
+			tempMonth: checkValue ? formatData(checkValue) : null
 		};
 	}
 
 	componentDidUpdate(prevProps) {
-		const { month, checkValue } = this.props;
-
-		if (prevProps.month !== month) {
-			this.updateTempMonth(month);
-		}
+		const { checkValue } = this.props;
 
 		if (prevProps.checkValue !== checkValue) {
 			this.updateTempMonth(formatData(checkValue));
@@ -38,16 +38,15 @@ class MonthGrid extends Component {
 		});
 	}
 
-	onUpdate = index => {
+	onUpdate = (index, cls) => {
+		if (cls.indexOf(disClass) > -1) {
+			return;
+		}
 		this.updateTempMonth(index + 1);
 	};
 
 	getMonthDisabled = () => {
-		const { currentYear, month, min, max } = this.props;
-		// 月日 选择器时，不存在最大最小值区间
-		if (month) {
-			return false;
-		}
+		const { min, max } = this.props;
 		const maxYear = parseInt(max.split('/')[0], 10);
 		const minYear = parseInt(min.split('/')[0], 10);
 		if (currentYear > maxYear || currentYear < minYear) {
@@ -55,13 +54,8 @@ class MonthGrid extends Component {
 		}
 		if (currentYear === maxYear) {
 			const maxYearMonth = parseInt(max.split('/')[1], 10);
-			if (currentMonth > maxYearMonth) {
-				return true;
-			}
-		}
-		if (currentYear === minYear) {
 			const minYearMonth = parseInt(min.split('/')[1], 10);
-			if (currentMonth < minYearMonth) {
+			if (currentMonth > maxYearMonth || currentMonth < minYearMonth) {
 				return true;
 			}
 		}
@@ -69,59 +63,44 @@ class MonthGrid extends Component {
 	};
 
 	getClassName = (_tempMonth, current, _month) => {
-		const { currentYear, month, min, max } = this.props;
+		const { selectedYear, min, max } = this.props;
 
-		function simpleCheck() {
-			if (_tempMonth) {
-				if (parseInt(_tempMonth, 10) === current) {
-					return 'grid-check';
-				}
-				if (current === _month) {
-					return 'grid-now';
-				}
-				return '';
-			}
-			return '';
-		}
-
-		// 月日 选择器时，不存在最大最小值区间
-		if (month) {
-			return simpleCheck();
+		if (_tempMonth && parseInt(_tempMonth, 10) === current) {
+			return 'grid-check';
 		}
 
 		const maxYear = parseInt(max.split('/')[0], 10);
 		const minYear = parseInt(min.split('/')[0], 10);
+		const maxYearMonth = parseInt(max.split('/')[1], 10);
+		const minYearMonth = parseInt(min.split('/')[1], 10);
 		if (currentYear > maxYear || currentYear < minYear) {
-			return ' grid-disabled ';
+			return ` ${disClass} `;
 		}
-		if (currentYear === maxYear) {
-			const maxYearMonth = parseInt(max.split('/')[1], 10);
-			if (current > maxYearMonth) {
-				return ' grid-disabled ';
+		if (selectedYear < currentYear && current < minYearMonth) {
+			return ` ${disClass} `;
+		}
+		if (selectedYear > currentYear && current > maxYearMonth) {
+			return ` ${disClass} `;
+		}
+		if (selectedYear === currentYear) {
+			if ((current < minYearMonth && currentYear === minYear) || (current > maxYearMonth && currentYear === maxYear)) {
+				return ` ${disClass} `;
+			}
+			if (current === _month) {
+				return 'grid-now';
 			}
 		}
-		if (currentYear === minYear) {
-			const minYearMonth = parseInt(min.split('/')[1], 10);
-			if (current < minYearMonth) {
-				return ' grid-disabled ';
-			}
-		}
-		return simpleCheck();
+		return '';
 	};
 
 	onSave = value => {
-		const { currentYear, onChange } = this.props;
+		const { selectedYear, onChange } = this.props;
 		const { tempMonth } = this.state;
-
-		if (value) {
-			onChange(value, currentYear);
-		} else if (tempMonth) {
-			onChange(tempMonth, currentYear);
-		}
+		const month = value || tempMonth;
+		onChange(month, selectedYear);
 	};
 
 	render() {
-		const { month } = this.props;
 		const { tempMonth } = this.state;
 
 		return (
@@ -132,16 +111,19 @@ class MonthGrid extends Component {
 							const index1 = index * 3;
 							const index2 = index * 3 + 1;
 							const index3 = index * 3 + 2;
+							const cls1 = this.getClassName(tempMonth, index1 + 1, currentMonth);
+							const cls2 = this.getClassName(tempMonth, index2 + 1, currentMonth);
+							const cls3 = this.getClassName(tempMonth, index3 + 1, currentMonth);
 							return (
 								<tr key={index.toString()}>
-									<td className={this.getClassName(tempMonth, index1 + 1, month)}>
-										<span onClick={() => this.onUpdate(index1)}>{monthArr[index1]}</span>
+									<td className={classNames('grid-item', cls1)}>
+										<span onClick={() => this.onUpdate(index1, cls1)}>{monthArr[index1]}</span>
 									</td>
-									<td className={this.getClassName(tempMonth, index2 + 1, month)}>
-										<span onClick={() => this.onUpdate(index2)}>{monthArr[index2]}</span>
+									<td className={classNames('grid-item', cls2)}>
+										<span onClick={() => this.onUpdate(index2, cls2)}>{monthArr[index2]}</span>
 									</td>
-									<td className={this.getClassName(tempMonth, index3 + 1, month)}>
-										<span onClick={() => this.onUpdate(index3)}>{monthArr[index3]}</span>
+									<td className={classNames('grid-item', cls3)}>
+										<span onClick={() => this.onUpdate(index3, cls3)}>{monthArr[index3]}</span>
 									</td>
 								</tr>
 							);
@@ -163,14 +145,12 @@ class MonthGrid extends Component {
 
 MonthGrid.propTypes = {
 	checkValue: PropTypes.string,
-	month: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 	onChange: PropTypes.func
 };
 
 MonthGrid.defaultProps = {
-	month: undefined,
 	checkValue: '',
-	onChange: () => {}
+	onChange: noop
 };
 
 export default MonthGrid;
