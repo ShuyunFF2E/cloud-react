@@ -27,3 +27,16 @@ export const FORMAT = {
 	[enumObj.MONTH_DAY_MODEL]: 'MM/DD',
 	[enumObj.DATE_MODEL]: 'yyyy/MM/dd'
 };
+
+const now = new Date();
+const month = now.getMonth() + 1;
+const day = now.getDate();
+
+export const currentTime = {
+	currentYear: now.getFullYear(),
+	currentMonth: month < 10 ? `0${month}` : month,
+	currentDate: day < 10 ? `0${day}` : day,
+	month,
+	day,
+	now
+};

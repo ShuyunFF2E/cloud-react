@@ -236,7 +236,7 @@ class Time extends Component {
 Time.propTypes = {
 	className: PropTypes.string,
 	style: PropTypes.object,
-	value: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+	value: PropTypes.string,
 	defaultValue: PropTypes.string,
 	type: PropTypes.string,
 	disabled: PropTypes.bool,
