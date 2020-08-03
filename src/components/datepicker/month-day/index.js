@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { convert } from '../utils';
 import { enumObj } from '../constant';
 import Picker from '../common/picker';
+import { PROPTYPES, DEFAULT_PROPS } from '../proptypes';
 
 class MonthDayPicker extends Component {
 	formatValue = ({ month, day }, format) => {
@@ -16,11 +17,13 @@ class MonthDayPicker extends Component {
 }
 
 MonthDayPicker.propTypes = {
+	...PROPTYPES,
 	format: PropTypes.string,
 	placeholder: PropTypes.string
 };
 
 MonthDayPicker.defaultProps = {
+	...DEFAULT_PROPS,
 	format: 'MM/DD',
 	placeholder: '请选择月日'
 };
