@@ -38,16 +38,8 @@ export default class Header extends Component {
 	getDisabled = (currentMonth, currentYear = this.props.year) => {
 		const { min, max } = this.props;
 
-		let _year = currentYear;
-		let _currentMonth = currentMonth;
-
-		if (_currentMonth === 13) {
-			_currentMonth = 1;
-			_year += 1;
-		} else if (_currentMonth === 0) {
-			_currentMonth = 12;
-			_year -= 1;
-		}
+		const _year = currentYear;
+		const _currentMonth = currentMonth;
 
 		if (max && min) {
 			const { year: maxYear, month: maxMonth } = max;
