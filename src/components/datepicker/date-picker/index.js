@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { convert } from '../utils';
 import { enumObj } from '../constant';
 import Picker from '../common/picker';
+import { PROPTYPES, DEFAULT_PROPS } from '../proptypes';
 
 class DatePicker extends Component {
 	constructor(props) {
@@ -28,6 +29,7 @@ class DatePicker extends Component {
 }
 
 DatePicker.propTypes = {
+	...PROPTYPES,
 	format: PropTypes.string,
 	placeholder: PropTypes.string,
 	maxYear: PropTypes.number,
@@ -37,6 +39,7 @@ DatePicker.propTypes = {
 };
 
 DatePicker.defaultProps = {
+	...DEFAULT_PROPS,
 	format: 'yyyy/MM/dd',
 	placeholder: '请选择日期',
 	minYear: 1980,

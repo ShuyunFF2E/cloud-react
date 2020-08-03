@@ -236,7 +236,7 @@ class Picker extends Component {
 	render() {
 		const { inpRef, containerRef, onClickInput, handleChange } = this;
 		const { currentValue, visible, style } = this.state;
-		const { placeholder, disabled, isAppendToBody, width = 230, className, ...others } = this.props;
+		const { placeholder, disabled, isAppendToBody, width, className, ...others } = this.props;
 		const otherProps = omit(others, [
 			'value',
 			'containerEleClass',

@@ -3,12 +3,10 @@ import { render, mount } from 'enzyme';
 import { prefixCls } from '@utils';
 import mountTest from '../../../../tests/shared/mountTest';
 import YearMonthPicker from '../year-month/index';
+import { currentTime } from '../constant';
 
 const classSelector = `${prefixCls}-datepicker`;
-const now = new Date();
-const month = now.getMonth() + 1;
-const currentYear = now.getFullYear();
-const currentMonth = month < 10 ? `0${month}` : month;
+const { currentYear, currentMonth, month } = currentTime;
 
 describe('YearPicker', () => {
 	mountTest(YearMonthPicker);
