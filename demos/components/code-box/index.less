@@ -1,16 +1,13 @@
-@border-color: #e4eefd;
+@border-color: rgba(20,20,31,.1);
 
 .code-box {
 	position: relative;
 	width: 100%;
-	margin: 0 0 30px;
-	border: 1px solid @border-color;
+	margin: 0 0 35px;
+	box-shadow: 0 0 0 1px rgba(20,20,31,.05), 0 1px 3px 0 rgba(20,20,31,.15);
+	background: #fff;
 	border-radius: 3px;
 	transition: 0.3s;
-
-	&:hover {
-		box-shadow: 0 0 5px #ddd;
-	}
 
 	&-demo {
 		padding: 20px;
@@ -19,31 +16,32 @@
 	}
 
 	&-title {
+		display: flex;
+    	align-items: baseline;
 		position: relative;
-		padding: 10px 20px;
+		padding: 16px 20px;
 		margin: 0 !important;
-		background: rgba(139, 200, 255, 0.1);
-		border-bottom: 1px solid #f5f5f5;
-		color: #333 !important;
+		border-bottom: 1px solid @border-color;
+		color: #536988 !important;
+		line-height: 1;
 		font-weight: 500 !important;
 	}
 
 	&-desc {
-		margin-left: 5px;
+		margin-left: 8px;
 		font-size: 12px;
 		font-weight: 400;
-		color: #888;
+		color: #656d77;
 	}
 
 	&-actions {
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		padding: 10px 0;
+		padding: 14px 0;
 		transition: 0.3s;
 		letter-spacing: 2px;
-		background: rgba(139, 200, 255, 0.05);
-		color: #52a6fa;
+		color: #346cb0;
 		cursor: pointer;
 
 		&.expand .icon {
@@ -71,7 +69,7 @@
 		&-desc {
 			white-space: nowrap;
 			overflow: hidden;
-			font-weight: 300;
+			font-weight: 400;
 		}
 	}
 
