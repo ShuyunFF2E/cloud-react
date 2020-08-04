@@ -475,6 +475,7 @@ describe('Form', () => {
 
 	it('scrollToFirstError', async () => {
 		jest.spyOn(Form.prototype, 'document', 'get').mockImplementation(() => {
+			const noop = () => {};
 			return {
 				querySelector: () => ({
 					classList: {

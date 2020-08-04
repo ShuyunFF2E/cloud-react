@@ -339,7 +339,8 @@ class Tree extends Component {
 					.catch(() => {
 						Message.error('删除失败');
 					});
-			}
+			},
+			onCancel: noop
 		});
 	};
 

@@ -12,36 +12,6 @@ import { LAYOUT_TYPES, findFieldsName, getNamesByNode, findDestroyedFields } fro
 const MAX_COL = 24;
 
 export default class FormItem extends Component {
-	static contextType = FormContext;
-
-	static propTypes = {
-		help: PropTypes.node,
-		label: PropTypes.node,
-		htmlFor: PropTypes.string,
-		required: PropTypes.bool,
-		className: PropTypes.string,
-		labelCol: PropTypes.shape({
-			span: PropTypes.number,
-			offset: PropTypes.number
-		}),
-		wrapperCol: PropTypes.shape({
-			span: PropTypes.number,
-			offset: PropTypes.number
-		}),
-		children: PropTypes.any
-	};
-
-	static defaultProps = {
-		help: null,
-		label: '',
-		className: '',
-		htmlFor: undefined,
-		required: undefined,
-		labelCol: undefined,
-		wrapperCol: undefined,
-		children: null
-	};
-
 	wrapperRef = React.createRef();
 
 	getSnapshotBeforeUpdate() {
@@ -90,13 +60,9 @@ export default class FormItem extends Component {
 	}
 
 	get dataFields() {
-		const {
-			field,
-			props: { children }
-		} = this;
-		const fieldsName = findFieldsName(children);
+		const fieldsName = findFieldsName(this.props.children);
 
-		if (field && field.fieldsMeta && fieldsName.length) {
+		if (this.field && this.field.fieldsMeta && fieldsName.length) {
 			return fieldsName;
 		}
 
@@ -104,11 +70,8 @@ export default class FormItem extends Component {
 	}
 
 	get required() {
-		const {
-			fieldsMeta,
-			dataFields,
-			props: { required }
-		} = this;
+		const { fieldsMeta, dataFields } = this;
+		const { required } = this.props;
 
 		if (required !== undefined) {
 			return required;
@@ -173,9 +136,7 @@ export default class FormItem extends Component {
 
 	render() {
 		const { layout, labelAlign } = this.context;
-		const {
-			props: { className }
-		} = this;
+		const { className } = this.props;
 
 		return (
 			<div className={classnames(`${prefixCls}-form-item`, layout, labelAlign, className)}>
@@ -185,3 +146,33 @@ export default class FormItem extends Component {
 		);
 	}
 }
+
+FormItem.contextType = FormContext;
+
+FormItem.propTypes = {
+	help: PropTypes.node,
+	label: PropTypes.node,
+	htmlFor: PropTypes.string,
+	required: PropTypes.bool,
+	className: PropTypes.string,
+	labelCol: PropTypes.shape({
+		span: PropTypes.number,
+		offset: PropTypes.number
+	}),
+	wrapperCol: PropTypes.shape({
+		span: PropTypes.number,
+		offset: PropTypes.number
+	}),
+	children: PropTypes.any
+};
+
+FormItem.defaultProps = {
+	help: null,
+	label: '',
+	htmlFor: undefined,
+	required: undefined,
+	className: '',
+	labelCol: undefined,
+	wrapperCol: undefined,
+	children: null
+};
