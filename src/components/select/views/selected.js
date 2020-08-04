@@ -8,7 +8,9 @@ import { selector } from './common';
 
 import '../index.less';
 
-const getLables = (dataSource, multiple) => {
+const getLables = props => {
+	const { dataSource, multiple, showSelectAll } = props;
+	if (showSelectAll) return '全选';
 	if (multiple) {
 		return dataSource
 			.map(item => {
@@ -27,7 +29,7 @@ export default class Selected extends React.Component {
 		super(props);
 		this.ref = React.createRef();
 
-		const labels = getLables(props.dataSource, props.multiple);
+		const labels = getLables(props);
 		this.state = {
 			selected: labels || '',
 			clear: false,
@@ -38,7 +40,7 @@ export default class Selected extends React.Component {
 	static getDerivedStateFromProps(props, prevState) {
 		const { prevProps } = prevState;
 		if (props.dataSource !== prevProps.dataSource) {
-			const labels = getLables(props.dataSource, props.multiple);
+			const labels = getLables(props);
 			return {
 				selected: labels || '',
 				prevProps: props
@@ -107,7 +109,6 @@ export default class Selected extends React.Component {
 }
 
 Selected.propTypes = {
-	multiple: PropTypes.bool,
 	disabled: PropTypes.bool,
 	allowClear: PropTypes.bool,
 	open: PropTypes.bool,
@@ -121,7 +122,6 @@ Selected.propTypes = {
 };
 
 Selected.defaultProps = {
-	multiple: false,
 	disabled: false,
 	allowClear: false,
 	open: false,

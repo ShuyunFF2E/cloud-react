@@ -105,7 +105,8 @@ export default function SelectDemo() {
 				multiple
 				searchable
 				hasConfirmButton
-				hasSelectAll>
+				hasSelectAll
+				showSelectAll>
 				{dataList.map((item, index) => (
 					<Option value={item.value} disabled={item.disabled} key={index}>
 						{item.label}
