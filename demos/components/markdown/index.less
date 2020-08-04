@@ -5,8 +5,9 @@
 }
 
 .title {
-	font-size: 1.5em;
+	font-size: 1.75em;
 	margin: 0 0 1.2em;
+	color: #3d5577;
 }
 
 .markdown-body {
@@ -294,6 +295,7 @@
 
 	h3 {
 		font-size: 22px;
+		color: #3d5577;
 	}
 	h4 {
 		font-size: 16px;
@@ -477,7 +479,7 @@
 	pre,
 	table,
 	ul {
-		margin-bottom: 16px;
+		margin-bottom: 20px;
 		margin-top: 0;
 	}
 
@@ -605,7 +607,10 @@
 	table {
 		overflow: auto;
 		width: 100%;
-		color: #666;
+		color: #636b75;
+		box-shadow: 0 0 0 1px rgba(20, 20, 31, 0.05), 0 1px 3px 0 rgba(20, 20, 31, 0.1);
+		border-radius: 4px;
+		overflow: hidden;
 	}
 
 	table tr {
@@ -613,8 +618,8 @@
 	}
 
 	table th {
-		font-weight: 400;
-		background: rgba(139, 200, 255, 0.1);
+		font-weight: 600;
+    	color: #3d5577;
 	}
 
 	table td,
@@ -655,11 +660,12 @@
 	}
 
 	code {
-		background-color: #f2f4f5;
+		background-color: #dfe9f1;
 		border-radius: 3px;
 		font-size: 85%;
-		margin: 0;
+		margin: 0 2px;
 		padding: 0.2em 0.4em;
+		color: #3d5577;
 	}
 
 	pre {
@@ -687,12 +693,13 @@
 
 	.highlight pre,
 	pre {
-		background-color: #f2f4f5;
+		background-color: #e1e5e8;
 		border-radius: 3px;
 		font-size: 85%;
 		line-height: 1.45;
 		overflow: auto;
 		padding: 16px;
+		box-shadow: 0 0 0 1px rgba(20, 20, 31, 0.05), 0 1px 3px 0 rgba(20, 20, 31, 0.1);
 	}
 
 	pre code {

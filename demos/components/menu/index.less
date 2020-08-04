@@ -1,11 +1,10 @@
 .menu {
 	position: fixed;
-	background: #fff;
-	top: 0px;
-	bottom: 0px;
-	margin-top: 20px;
-	width: 240px;
-	overflow: auto;
+    top: 60px;
+    width: 240px;
+    overflow: auto;
+	height: calc(100vh - 70px);
+	border-right: 1px solid rgba(20, 20, 31, 0.06);
 
 	.menu-category {
 		margin: 0 0 1px 0;
@@ -20,7 +19,7 @@
 			margin: 10px 0 0;
 			padding: 0;
 			font-size: 16px;
-			color: #333;
+			color: #3d5677;
 			line-height: 40px;
 			height: 40px;
 			position: relative;
@@ -42,11 +41,11 @@
 	}
 
 	.item {
-		@height: 40px;
+		@height: 38px;
 
 		display: block;
 		height: @height;
-		color: #444;
+		color: #888c9b;
 		line-height: @height;
 		font-size: 14px;
 		overflow: hidden;
@@ -55,17 +54,21 @@
 		text-overflow: ellipsis;
 		font-weight: 400;
 		transition: 0.3s;
+		cursor: pointer;
 
 		> * {
 			pointer-events: none;
 		}
 
-		&:hover {
-			color: #1890ff;
+		&:hover,
+		&.active {
+			color: #346cb0;
 		}
 
 		&.active {
-			color: #1890ff;
+			> *:first-child {
+				font-weight: 600;
+			}
 		}
 
 		.subtitle {
