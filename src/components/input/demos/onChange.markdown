@@ -44,6 +44,7 @@ export default class InputDemo extends Component {
 					placeholder="basic usage"
 					hasClear
 					hasCounter
+                    useComposition
 					maxLength={20}
 					defaultValue={23}
 					value={value}

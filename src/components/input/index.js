@@ -24,6 +24,7 @@ class Input extends React.Component {
 		addonBefore: PropTypes.any,
 		hasCounter: PropTypes.bool,
 		hasClear: PropTypes.bool,
+		useComposition: PropTypes.bool,
 		onChange: PropTypes.func,
 		onFocus: PropTypes.func,
 		onBlur: PropTypes.func,
@@ -43,6 +44,7 @@ class Input extends React.Component {
 		addonBefore: nothing,
 		hasCounter: false,
 		hasClear: false,
+		useComposition: false,
 		onFocus: noop,
 		onBlur: noop,
 		onChange: noop,
@@ -163,6 +165,8 @@ class Input extends React.Component {
 	}
 
 	handleComposition = evt => {
+		if (!this.props.useComposition) return;
+
 		if (evt.type === 'compositionend') {
 			this.isOnComposition = false;
 
@@ -229,7 +233,7 @@ class Input extends React.Component {
 
 		const _className = `${prefixCls}-input`;
 
-		const props = omit(others, ['defaultValue', 'hasCounter', 'hasClear', 'prefix', 'suffix', 'addonAfter', 'addonBefore', 'onEnter']);
+		const props = omit(others, ['defaultValue', 'hasCounter', 'hasClear', 'prefix', 'suffix', 'addonAfter', 'addonBefore', 'onEnter', 'useComposition']);
 		const commonProps = {
 			ref: this.inputRef,
 			onBlur: this.onBlur,
