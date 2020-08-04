@@ -102,6 +102,7 @@ export default class TreeDemo extends React.Component {
 				openIconType={this.state.openIconType}
 				closeIconType={this.state.closeIconType}
 				iconColor={this.state.iconColor}
+				showIcon
 				onSelectedNode={this.selectedNode}
 			/>
 		);

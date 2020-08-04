@@ -23,8 +23,10 @@ class TreeMenu extends Component {
 	};
 
 	deleteNode = e => {
-		const { disableRemove } = this.props;
-		if (disableRemove) {
+		const { disableRemove, nodeData } = this.props;
+		const isDisabledDel = Array.isArray(nodeData.children) && nodeData.children.length;
+
+		if (disableRemove || isDisabledDel) {
 			e.preventDefault();
 			return;
 		}
@@ -55,18 +57,19 @@ class TreeMenu extends Component {
 
 	render() {
 		const { visible, nodeData, disableRemove, disableAdd, disableRename, menuStyle, prefixCls } = this.props;
+		const isDisabledDel = Array.isArray(nodeData.children) && nodeData.children.length;
 		return (
 			visible &&
 			this.context.supportMenu && (
 				<ul className={classNames(`${prefixCls}-menu`)} style={menuStyle}>
 					<li role="presentation" className={disableAdd ? 'disabled' : ''} onClick={e => this.addNode(e, nodeData)}>
-						新增
-					</li>
-					<li role="presentation" className={disableRemove ? 'disabled' : ''} onClick={this.deleteNode}>
-						删除
+						新增{this.context.addMenuName}
 					</li>
 					<li role="presentation" className={disableRename ? 'disabled' : ''} onClick={e => this.renameNode(e, nodeData)}>
 						重命名
+					</li>
+					<li role="presentation" className={disableRemove || isDisabledDel ? 'disabled' : ''} onClick={this.deleteNode}>
+						删除
 					</li>
 				</ul>
 			)
