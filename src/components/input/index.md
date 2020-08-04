@@ -22,6 +22,7 @@ subtitle: 输入框
 | maxLength    | 原生属性，最大输入长度                                      | number            | -         |
 | prefix       | 带有前缀图标的 input                                        | string\|ReactNode | -         |
 | suffix       | 带有后缀图标的 input                                        | string\|ReactNode | -         |
+| useComposition| 中文输入法下是否启用输入过程                       | bool         |false
 | addonAfter   | 带标签的 input，设置后置标签                                | string\|ReactNode | -         |
 | addonBefore  | 带带标签的 input，设置前置标签                              | string\|ReactNode | -         |
 | hasCounter   | 计数器，展示当前字数和最大长度，因此需要`maxLength`配合使用 | boolean           | `false`   |
