@@ -8,8 +8,20 @@ import { selector } from './common';
 
 import '../index.less';
 
-const getLables = (dataSource, multiple) => {
+const getLables = props => {
+	const { dataSource, multiple, showSelectAll, metaData } = props;
 	if (multiple) {
+		if (showSelectAll) {
+			const data = metaData.reduce((acc, v) => {
+				acc.push({
+					...v,
+					isSelected: dataSource.findIndex(i => i.value === v.props.value) > -1
+				});
+				return acc;
+			}, []);
+			const invalidLength = data.filter(v => v.props.disabled && !v.isSelected).length;
+			if (data.length - invalidLength === dataSource.length) return '全选';
+		}
 		return dataSource
 			.map(item => {
 				if (Array.isArray(item.label)) {
@@ -27,7 +39,7 @@ export default class Selected extends React.Component {
 		super(props);
 		this.ref = React.createRef();
 
-		const labels = getLables(props.dataSource, props.multiple);
+		const labels = getLables(props);
 		this.state = {
 			selected: labels || '',
 			clear: false,
@@ -38,7 +50,7 @@ export default class Selected extends React.Component {
 	static getDerivedStateFromProps(props, prevState) {
 		const { prevProps } = prevState;
 		if (props.dataSource !== prevProps.dataSource) {
-			const labels = getLables(props.dataSource, props.multiple);
+			const labels = getLables(props);
 			return {
 				selected: labels || '',
 				prevProps: props
@@ -107,7 +119,6 @@ export default class Selected extends React.Component {
 }
 
 Selected.propTypes = {
-	multiple: PropTypes.bool,
 	disabled: PropTypes.bool,
 	allowClear: PropTypes.bool,
 	open: PropTypes.bool,
@@ -121,7 +132,6 @@ Selected.propTypes = {
 };
 
 Selected.defaultProps = {
-	multiple: false,
 	disabled: false,
 	allowClear: false,
 	open: false,

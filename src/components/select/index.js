@@ -382,6 +382,7 @@ class Select extends Component {
 					allowClear={allowClear}
 					placeholder={placeholder}
 					dataSource={selected}
+					metaData={this.children}
 					disabled={disabled}
 				/>
 
