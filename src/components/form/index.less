@@ -109,12 +109,16 @@
 
 		// 表单校验样式
 		.has-error {
-			.@{prefix}-select-wrapper,
-			.@{prefix}-input-number,
-			.@{prefix}-input-textarea-wrapper,
-			.@{prefix}-input,
-			.@{prefix}-input-affix {
-				border-color: @color-red3;
+			&,
+			.@{prefix}-select,
+			.@{prefix}-datepicker-container {
+				> .@{prefix}-select-wrapper,
+				> .@{prefix}-input-number,
+				> .@{prefix}-input-textarea-wrapper,
+				> .@{prefix}-input,
+				> .@{prefix}-input-affix {
+					border-color: @color-red3;
+				}
 			}
 		}
 	}
