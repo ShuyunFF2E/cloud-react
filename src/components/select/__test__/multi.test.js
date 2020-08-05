@@ -166,6 +166,21 @@ describe('multi-select', () => {
 		expect(onChange).toHaveBeenCalledWith(['litchi'], ['apple', 'cc', 'litchi']);
 	});
 
+	it('should show given text when showSelectAll', () => {
+		const wrapper = mount(<Select multiple dataSource={dataList} hasSelectAll showSelectAll />);
+
+		wrapper
+			.find(`.${classSelector}-wrapper`)
+			.at(0)
+			.simulate('click');
+		wrapper
+			.find('.cloud-checkbox-input')
+			.at(0)
+			.simulate('change');
+
+		expect(wrapper.find(`.${classSelector}-wrapper`).text()).toEqual('全选');
+	});
+
 	it('onOk should return all data when hasSelectAll true', () => {
 		const onChange = jest.fn();
 		const wrapper = mount(<Select multiple hasSelectAll dataSource={dataList} onChange={onChange} />);
