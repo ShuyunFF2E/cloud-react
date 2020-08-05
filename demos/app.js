@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-
+import gitLogo from './assets/images/github.svg';
 import './assets/lib/prism';
 import './assets/lib/prism.less';
 
@@ -65,16 +65,31 @@ function App() {
 	const [first] = menuDataSource;
 
 	return (
-		<section className={classes.app}>
-			<Menu dataSource={menuDataSource} />
+		<>
+			<header className={classes.header}>
+				<div className={classes.nav}>
+					<h1>Cloud React</h1>
 
-			<div className={classes.content}>
-				<Switch>
-					{routeViews}
-					<Redirect to={first.path ? first.path : first.subMenu[0].path} />
-				</Switch>
-			</div>
-		</section>
+					<div className={classes.action}>
+						{/* 先占位 */}
+						<span />
+
+						{/* github入口 */}
+						<a className={classes.github} target="_blank" href="https://github.com/ShuyunFF2E/cloud-react">Github</a>
+					</div>
+				</div>
+			</header>
+			<section className={classes.app}>
+				<Menu dataSource={menuDataSource} />
+
+				<div className={classes.content}>
+					<Switch>
+						{routeViews}
+						<Redirect to={first.path ? first.path : first.subMenu[0].path} />
+					</Switch>
+				</div>
+			</section>
+		</>
 	);
 }
 
