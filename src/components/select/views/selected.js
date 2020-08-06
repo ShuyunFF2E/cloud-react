@@ -9,9 +9,19 @@ import { selector } from './common';
 import '../index.less';
 
 const getLables = props => {
-	const { dataSource, multiple, showSelectAll } = props;
-	if (showSelectAll) return '全选';
+	const { dataSource, multiple, showSelectAll, metaData } = props;
 	if (multiple) {
+		if (showSelectAll) {
+			const data = metaData.reduce((acc, v) => {
+				acc.push({
+					...v,
+					isSelected: dataSource.findIndex(i => i.value === v.props.value) > -1
+				});
+				return acc;
+			}, []);
+			const invalidLength = data.filter(v => v.props.disabled && !v.isSelected).length;
+			if (data.length - invalidLength === dataSource.length) return '全选';
+		}
 		return dataSource
 			.map(item => {
 				if (Array.isArray(item.label)) {
