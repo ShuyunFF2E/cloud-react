@@ -7,9 +7,7 @@ import Icon from '../icon';
 
 import './index.less';
 
-const rootDocument = getRootWindow().document;
-
-const DEFAULTOPTS = { duration: 3000, contextContainer: rootDocument.body };
+const DEFAULT_OPTS = { duration: 3000, contextContainer: document.body };
 
 const MESSAGE_TYPE = {
 	success: {
@@ -34,7 +32,16 @@ function removeWraper(contextContainer) {
 function entity(config) {
 	const { type, msg, options } = config;
 
-	const opts = Object.assign({}, DEFAULTOPTS, options);
+	const rootDocument = getRootWindow().document;
+	const opts = Object.assign(
+		{},
+		DEFAULT_OPTS,
+		{
+			contextContainer: rootDocument.body
+		},
+		options
+	);
+
 	const props = {
 		type,
 		msg,
@@ -62,6 +69,8 @@ function entity(config) {
 	const container = rootDocument.createElement('div');
 
 	wraper.appendChild(container);
+
+	console.log(contextContainer);
 
 	contextContainer.appendChild(wraper);
 
