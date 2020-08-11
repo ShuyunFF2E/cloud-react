@@ -5,6 +5,7 @@ export const timeSelectorClass = `${prefixCls}-timepicker`;
 export const rangeSelectorClass = `${prefixCls}-rangepicker`;
 export const containerClass = `${selectorClass}-container`;
 export const wrapperClass = `${selectorClass}-wrapper`;
+export const disClass = 'grid-disabled';
 
 export const monthArr = ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'];
 
@@ -19,4 +20,23 @@ export const enumObj = {
 
 	DATE_MODEL: 'DATE_MODEL',
 	DATE_TIME_MODEL: 'DATE_TIME_MODEL'
+};
+
+export const FORMAT = {
+	[enumObj.YEAR_MONTH_MODEL]: 'YYYY/MM',
+	[enumObj.MONTH_DAY_MODEL]: 'MM/DD',
+	[enumObj.DATE_MODEL]: 'yyyy/MM/dd'
+};
+
+const now = new Date();
+const month = now.getMonth() + 1;
+const day = now.getDate();
+
+export const currentTime = {
+	currentYear: now.getFullYear(),
+	currentMonth: month < 10 ? `0${month}` : month,
+	currentDate: day < 10 ? `0${day}` : day,
+	month,
+	day,
+	now
 };

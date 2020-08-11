@@ -3,20 +3,22 @@ import PropTypes from 'prop-types';
 import { convert } from '../utils';
 import { enumObj } from '../constant';
 import Picker from '../common/picker';
+import { PROPTYPES, DEFAULT_PROPS } from '../proptypes';
 
 class DatePicker extends Component {
 	constructor(props) {
 		super(props);
 
-		this.height = props.showTimePicker ? 308 : 259;
+		this.height = props.showTimePicker ? 339 : 289;
 		this.tempMode = props.showTimePicker ? enumObj.DATE_TIME_MODEL : enumObj.DATE_MODE;
 	}
 
-	formatValue = ({ year, month, day, hour, minute, second }) => {
+	formatValue = ({ year, month, day, hour, minute, second }, formatRule) => {
 		const { showTimePicker, format } = this.props;
+		const rule = formatRule || format;
 
 		const output = showTimePicker ? { year, month, day, hour, minute, second } : { year, month, day };
-		const _format = showTimePicker ? `${format} hh:mm:ss` : format;
+		const _format = showTimePicker ? `${rule} hh:mm:ss` : rule;
 
 		return convert(output, _format);
 	};
@@ -27,6 +29,7 @@ class DatePicker extends Component {
 }
 
 DatePicker.propTypes = {
+	...PROPTYPES,
 	format: PropTypes.string,
 	placeholder: PropTypes.string,
 	maxYear: PropTypes.number,
@@ -36,6 +39,7 @@ DatePicker.propTypes = {
 };
 
 DatePicker.defaultProps = {
+	...DEFAULT_PROPS,
 	format: 'yyyy/MM/dd',
 	placeholder: '请选择日期',
 	minYear: 1980,

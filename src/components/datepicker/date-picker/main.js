@@ -5,7 +5,7 @@ import Header from '../common/header';
 import Grid from './grid';
 import { displayNow, transformObj } from '../utils';
 
-class DatePicker extends Component {
+class Popup extends Component {
 	constructor(props) {
 		super(props);
 
@@ -18,21 +18,6 @@ class DatePicker extends Component {
 			tempMonth: checkValue ? checkValue.month : now.month,
 			tempDay: checkValue ? checkValue.day : null
 		};
-	}
-
-	componentDidUpdate(prevProps) {
-		if (prevProps.checkDateObj !== this.props.checkDateObj) {
-			this.updateState();
-		}
-	}
-
-	updateState() {
-		const { year, month, day } = this.props;
-		this.setState({
-			tempYear: year,
-			tempMonth: month,
-			tempDay: day
-		});
 	}
 
 	onHeaderChange = (year, month) => {
@@ -82,15 +67,15 @@ class DatePicker extends Component {
 	}
 }
 
-DatePicker.propTypes = {
-	minDate: PropTypes.instanceOf(Date),
-	maxDate: PropTypes.instanceOf(Date),
+Popup.propTypes = {
+	minDate: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
+	maxDate: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
 	checkValue: PropTypes.object,
 	showTimePicker: PropTypes.bool,
 	onChange: PropTypes.func
 };
 
-DatePicker.defaultProps = {
+Popup.defaultProps = {
 	showTimePicker: false,
 	checkValue: undefined,
 	minDate: undefined,
@@ -98,4 +83,4 @@ DatePicker.defaultProps = {
 	onChange: noop
 };
 
-export default DatePicker;
+export default Popup;
