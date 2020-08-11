@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
+import { getTextWidth } from 'shuyun-utils';
 import Icon from '../icon';
 import Message from '../message';
 import Checkbox from '../checkbox';
@@ -8,7 +9,8 @@ import Input from '../input';
 import Tooltip from '../tooltip';
 import './index.less';
 // 默认菜单类型
-const MENU_TYPE = 'rightMenu';
+const RIGHT_MENU = 'rightMenu';
+const DIALOG_MENU = 'dialogMenu';
 // 双击事件记录器
 let count = 0;
 class Node extends Component {
@@ -26,13 +28,16 @@ class Node extends Component {
 		e.stopPropagation();
 		e.nativeEvent.stopImmediatePropagation();
 		// 不使用右键菜单则使用浏览器默认右键菜单
-		const { supportMenu, menuType, onShowMenu } = this.context;
-		if (!supportMenu) {
+		const { menuType, onShowMenu } = this.context;
+		let menuStyle = {};
+
+		// dialog模式，并且当前正在右键，则正常走浏览器的菜单
+		if (menuType === DIALOG_MENU && menuTypeNow === RIGHT_MENU) {
 			return;
 		}
-		let menuStyle = {};
-		// right模式，并且当前正在右键，则禁用右键
-		if (menuType === MENU_TYPE && menuTypeNow === MENU_TYPE) {
+
+		// right模式，并且当前正在右键，则使用右键
+		if (menuType === RIGHT_MENU && menuTypeNow === RIGHT_MENU) {
 			e.preventDefault();
 			menuStyle = {
 				left: `${e.clientX}px`,
@@ -40,15 +45,10 @@ class Node extends Component {
 			};
 		}
 
-		// dialog模式，并且当前正在右键，则正常走浏览器模式
-		if (menuType === 'dialogMenu' && menuTypeNow === MENU_TYPE) {
-			return;
-		}
-
 		// dialog模式，并且点击了菜单区域，则显示菜单
-		if (menuType === 'dialogMenu' && menuTypeNow === 'dialogMenu') {
+		if (menuType === DIALOG_MENU && menuTypeNow === DIALOG_MENU) {
 			menuStyle = {
-				left: `${e.clientX - 40}px`,
+				left: `${e.clientX - 80}px`,
 				top: `${e.clientY + 10}px`
 			};
 		}
@@ -117,8 +117,10 @@ class Node extends Component {
 		count += 1;
 		setTimeout(() => {
 			if (count === 1) {
+				// 单击
 				this.context.onSelectedAction(data);
 			} else if (count === 2) {
+				// 双击
 				this.context.onDoubleClick(data);
 			}
 			count = 0;
@@ -127,36 +129,50 @@ class Node extends Component {
 
 	render() {
 		const { data, children, prefixCls } = this.props;
+		const {
+			supportCheckbox,
+			supportDrag,
+			showIcon,
+			openIconType,
+			closeIconType,
+			iconColor,
+			searchText,
+			menuType,
+			treeWidth,
+			supportMenu,
+			nodeNameMaxLength
+		} = this.context;
 		const { setInputValue, onSaveClick, onClickCancel } = this;
 		// 将三个方法传递出去可以供外部调用
 		const options = { setInputValue, onSaveClick, onClickCancel };
-		const paddingLeft = 14 * data.level;
+		// 根节点不缩进
+		const paddingLeft = 14 * data.level - 14;
 		return (
 			<>
 				<div className={classNames(`${prefixCls}-list-node-area ${data.children && !data.children.length ? 'child-style' : null}`)}>
 					<div
-						onContextMenu={e => this.onHandleShowMenu(e, 'rightMenu', data, options)}
+						onContextMenu={e => supportMenu && this.onHandleShowMenu(e, RIGHT_MENU, data, options)}
 						style={{ minWidth: `calc(100% - ${paddingLeft}px)`, paddingLeft }}
-						className={`node-item-container ${data.isActive ? 'is-active' : null} ${this.context.supportCheckbox ? 'support-checkbox' : ''}`}>
+						className={`node-item-container ${data.isActive ? 'is-active' : null} ${supportCheckbox ? 'support-checkbox' : ''}`}>
 						{/* 拖拽icon: 根节点不支持拖拽 */}
-						{this.context.supportDrag && (data.pId || data.pId === 0) && (
+						{supportDrag && (data.pId || data.pId === 0) && (
 							<Tooltip content="拖拽行调整顺序">
 								<div className="drag-icon" />
 							</Tooltip>
 						)}
 
 						{/* 折叠展开icon */}
-						<ToggleFold hasChildren={data.children.length > 0} showChildrenItem={data.isUnfold} toggle={e => this.toggle(e, data)} />
+						<ToggleFold hasChildren={data?.children.length > 0} showChildrenItem={data.isUnfold} toggle={e => this.toggle(e, data)} />
 						<div
-							onClick={this.context.supportCheckbox ? () => {} : this.handleSelect}
+							onClick={supportCheckbox ? () => {} : this.handleSelect}
 							className={`node-item ${data.isEdit && !data.isAdd ? 'hide-node' : null}`}>
 							{/* 节点前面的icon */}
 							<NodeIcon
-								showIcon={this.context.showIcon}
-								openIconType={this.context.openIconType}
-								closeIconType={this.context.closeIconType}
-								iconColor={this.context.iconColor}
-								hasChildren={data.children.length > 0}
+								showIcon={showIcon}
+								openIconType={openIconType}
+								closeIconType={closeIconType}
+								iconColor={iconColor}
+								hasChildren={data?.children.length > 0}
 								showChildrenItem={data.isUnfold}
 							/>
 
@@ -165,15 +181,19 @@ class Node extends Component {
 								id={data.id}
 								name={data.name}
 								disableSelected={data.disableSelected}
-								searchText={this.context.searchText}
+								searchText={searchText}
+								supportMenu={supportMenu}
 								indeterminate={data.indeterminate}
 								checked={data.checked}
-								isShowNameTooltip={this.context.isShowNameTooltip}
-								supportCheckbox={this.context.supportCheckbox}
+								indentValue={paddingLeft}
+								treeWidth={treeWidth}
+								menuType={menuType}
+								supportCheckbox={supportCheckbox}
 								onHandleSelect={this.handleSelect}
 							/>
-							{this.context.menuType !== MENU_TYPE && (
-								<span className="edit-icon" onClick={e => this.onHandleShowMenu(e, 'dialogMenu', data, options)}>
+							{/* 点击菜单 */}
+							{supportMenu && menuType !== RIGHT_MENU && (
+								<span className="edit-icon" onClick={e => this.onHandleShowMenu(e, DIALOG_MENU, data, options)}>
 									...
 								</span>
 							)}
@@ -183,7 +203,7 @@ class Node extends Component {
 							isEdit={data.isEdit}
 							isAdd={data.isAdd}
 							inputValue={this.state.inputValue}
-							maxLength={this.context.nodeNameMaxLength}
+							maxLength={nodeNameMaxLength}
 							handleInputChange={this.handleInputChange}
 							saveItem={e => this.onSaveClick(e, data, this.state.inputValue)}
 							cancelSave={e => this.onClickCancel(e, data)}
@@ -242,7 +262,9 @@ function ShowInput({ isEdit, isAdd, maxLength, inputValue, handleInputChange, sa
 /**
  * 显示复选框
  * @param searchText
- * @param isShowNameTooltip
+ * @param menuType
+ * @param supportMenu
+ * @param indentValue
  * @param indeterminate
  * @param checked
  * @param supportCheckbox
@@ -253,28 +275,67 @@ function ShowInput({ isEdit, isAdd, maxLength, inputValue, handleInputChange, sa
  * @returns {*}
  * @constructor
  */
-function ShowSelection({ searchText, isShowNameTooltip, indeterminate, checked, supportCheckbox, id, name, disableSelected, onHandleSelect }) {
+function ShowSelection({
+	searchText,
+	menuType,
+	supportMenu,
+	treeWidth,
+	indentValue,
+	indeterminate,
+	checked,
+	supportCheckbox,
+	id,
+	name,
+	disableSelected,
+	onHandleSelect
+}) {
 	// 处理搜索关键字高亮
 	const re = new RegExp(`(${searchText.replace(/[(){}.+*?^$|\\[\]]/g, '\\$&')})`, 'ig');
-	const tmp = name.replace(re, `<span class="hot-text">${searchText}</span>`);
-	const labelWidth = {
-		width: '94%',
-		zIndex: 0
-	};
-	const noneTipName = <span className={supportCheckbox ? 'check-box-node-name' : 'node-name'} dangerouslySetInnerHTML={{ __html: tmp }} />;
-	const hasTipName = (
-		<Tooltip content={tmp} placement="top-left">
-			{noneTipName}
+
+	// 显示形式，有弹框菜单的与没有弹框菜单的，是否需要tooltip的，单选与多选的
+	let nodeClassName = 'node-name';
+	if (supportMenu) {
+		if (menuType === DIALOG_MENU) {
+			nodeClassName = !supportCheckbox ? 'dialog-menu-node-name' : 'dialog-menu-check-node-name';
+		}
+	}
+	let nodeWidth = 0;
+	if (treeWidth > 0) {
+		let correctWidth = 0;
+		if (!supportCheckbox && !supportMenu) {
+			// 单选无菜单
+			correctWidth = 46;
+		}
+		if (!supportCheckbox && supportMenu && menuType === DIALOG_MENU) {
+			// 单选有菜单
+			correctWidth = 71;
+		}
+		if (supportCheckbox && !supportMenu) {
+			// 多选无菜单
+			correctWidth = 72;
+		}
+		if (supportCheckbox && supportMenu) {
+			// 多选有菜单
+			correctWidth = 102;
+		}
+		nodeWidth = treeWidth - indentValue - correctWidth;
+	}
+	const tmp = (
+		<Tooltip content={getTextWidth(name) > nodeWidth ? name : ''} placement="top-left">
+			<span name={id} className={nodeClassName} dangerouslySetInnerHTML={{ __html: name.replace(re, `<span class="hot-text">${searchText}</span>`) }} />
 		</Tooltip>
 	);
-	const showName = isShowNameTooltip ? hasTipName : noneTipName;
+	const labelWidth = {
+		width: supportMenu && menuType === DIALOG_MENU ? 'calc(100% - 30px)' : 'calc(100%)',
+		zIndex: 0
+	};
 
 	return supportCheckbox ? (
 		<Checkbox disabled={disableSelected} indeterminate={indeterminate} checked={checked} value={id} onChange={onHandleSelect} style={labelWidth}>
-			{showName}
+			{tmp}
 		</Checkbox>
 	) : (
-		showName
+		tmp
 	);
 }
 
@@ -286,7 +347,6 @@ function ShowSelection({ searchText, isShowNameTooltip, indeterminate, checked, 
  * @param iconColor
  * @param hasChildren
  * @param showChildrenItem
- * @return {null}
  */
 function NodeIcon({ showIcon, openIconType, closeIconType, iconColor, hasChildren, showChildrenItem }) {
 	if (!showIcon) {
@@ -296,6 +356,6 @@ function NodeIcon({ showIcon, openIconType, closeIconType, iconColor, hasChildre
 		color: iconColor
 	};
 	// 存在子节点,并且要显示子节点
-	return hasChildren && showChildrenItem ? <Icon style={style} type={openIconType} /> : <Icon style={style} type={closeIconType} />;
+	return <Icon style={style} type={hasChildren && showChildrenItem ? openIconType : closeIconType} />;
 }
 export default Node;

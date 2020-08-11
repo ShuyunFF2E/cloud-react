@@ -22,7 +22,6 @@ subtitle: 树
 | maxLevel                 | 树结构最大支持层级，超过该层级则不可新增                             | Number   | -                 |
 | supportCheckbox          | 是否支持多选，false 为单选，true 为多选                              | Boolean  | false             |
 | supportMenu              | 是否支持右键菜单                                                     | Boolean  | true              |
-| isShowNameTooltip        | 是否显示节点名称tooltip                                                     | Boolean  | false              |
 | menuType                 | 菜单类型，支持弹框形式(dialogMenu)与右键菜单(rightMenu)形式，                    | String  | rightMenu              |
 | addMenuName              | 菜单类型为弹框类型时，弹框中显示的新增相关的名称                  | String  | 子目录              |
 | supportDrag              | 是否支持拖拽                                                     | Boolean  | false              |

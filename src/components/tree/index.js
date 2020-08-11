@@ -44,7 +44,6 @@ class Tree extends Component {
 		iconColor: '#999',
 		supportCheckbox: false,
 		supportMenu: false,
-		isShowNameTooltip: false,
 		menuType: MENU_TYPE,
 		addMenuName: '子目录',
 		supportSearch: false,
@@ -78,7 +77,6 @@ class Tree extends Component {
 		iconColor: PropTypes.string,
 		supportCheckbox: PropTypes.bool,
 		supportMenu: PropTypes.bool,
-		isShowNameTooltip: PropTypes.bool,
 		menuType: PropTypes.string,
 		addMenuName: PropTypes.string,
 		supportSearch: PropTypes.bool,
@@ -112,11 +110,14 @@ class Tree extends Component {
 			menuStyle: null,
 			menuOptions: null,
 			searchText: '',
+			treeWidth: 0,
 			treeData: ShuyunUtils.clone(treeData),
 			allTreeData: ShuyunUtils.clone(treeData),
 			prevProps: props,
 			preSelectedNode: props.selectedValue && props.selectedValue[0]
 		};
+
+		this.treeAreaRef = React.createRef();
 	}
 
 	// 监听外部回显数据变化
@@ -138,6 +139,9 @@ class Tree extends Component {
 	componentDidMount() {
 		document.addEventListener('scroll', this.onHideMenu, true);
 		document.addEventListener('click', this.onHideMenu);
+		this.setState({
+			treeWidth: this.treeAreaRef.current.clientWidth
+		});
 	}
 
 	componentWillUnmount() {
@@ -490,7 +494,6 @@ class Tree extends Component {
 			supportCheckbox,
 			supportMenu,
 			supportDrag,
-			isShowNameTooltip,
 			menuType,
 			addMenuName,
 			isAddFront,
@@ -506,7 +509,7 @@ class Tree extends Component {
 		} = this.props;
 
 		const { onAddAction, onRenameAction, onRemoveAction, onSelectedAction, onFoldNodeAction, onCheckRepeatNameAction, onShowMenu, onReRenderNode } = this;
-		const { treeData, searchText, nodeData, menuStyle, menuOptions, showRightMenu, showDialogMenu, parentNodeNames, isAddMenuOpen } = this.state;
+		const { treeData, searchText, treeWidth, nodeData, menuStyle, menuOptions, showRightMenu, showDialogMenu, parentNodeNames, isAddMenuOpen } = this.state;
 		const { id, name, disableAdd, disableRename, disableRemove } = nodeData;
 
 		return (
@@ -518,10 +521,10 @@ class Tree extends Component {
 					supportCheckbox,
 					supportMenu,
 					supportDrag,
-					isShowNameTooltip,
 					isAddFront,
 					nodeNameMaxLength,
 					showIcon,
+					treeWidth,
 					menuType,
 					addMenuName,
 					openIconType,
@@ -567,7 +570,7 @@ class Tree extends Component {
 					/>
 
 					{treeData && treeData.length > 0 && (
-						<div className={classNames(`${selector}-list-container`)}>
+						<div className={classNames(`${selector}-list-container`)} ref={this.treeAreaRef}>
 							<TreeList prefixCls={selector} nodeNameMaxLength={nodeNameMaxLength} data={treeData} />
 						</div>
 					)}
@@ -584,7 +587,7 @@ class Tree extends Component {
 							onCancel={this.onHideMenuDialog}
 							onClose={this.onHideMenuDialog}>
 							<div style={{ color: '#666' }}>
-								<p style={{ marginBottom: 20 }}>{parentNodeNames}</p>
+								<p style={{ marginBottom: 20, lineHeight: '26px', wordBreak: 'break-all' }}>{parentNodeNames}</p>
 								<span style={{ display: 'inline-block', lineHeight: '30px' }}>{addMenuName}名称：</span>
 								<Input
 									style={{ width: 300 }}
