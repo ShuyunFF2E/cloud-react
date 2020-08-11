@@ -27,7 +27,7 @@ export default class TreeDemo extends React.Component {
 		const treeData = [
 			{
 				id: 1,
-				name: '所有',
+				name: '我是根节点',
 				pId: null,
 				children: [
 					{
@@ -46,41 +46,41 @@ export default class TreeDemo extends React.Component {
 					},
 					{
 						id: 12,
-						name: '禁止删除节点',
+						name: '别删除我，你删不掉的',
 						pId: 1,
 						disableRemove: true,
 						children: [
 							{
 								id: 121,
-								name: '禁止重命名节点',
+								name: '说了你还不信',
 								pId: 12,
 								disableRename: true,
 								children: [
 									{
 										id: 1211,
-										name: '2345',
+										name: '我爷爷说了，你试试！',
 										pId: 121
 									}
 								]
 							},
 							{
 								id: 122,
-								name: 'lerous',
+								name: '咳咳咳',
 								pId: 12
 							},
 							{
 								id: 123,
-								name: 'baukh321',
+								name: '哈哈哈',
 								pId: 12
 							},
 							{
 								id: 124,
-								name: 'bauh789',
+								name: '嘿嘿嘿',
 								pId: 12
 							},
 							{
 								id: 125,
-								name: 'baukh',
+								name: '吼吼吼',
 								pId: 12
 							}
 						]
@@ -94,17 +94,42 @@ export default class TreeDemo extends React.Component {
 			}
 		];
 		const style = {
-			color: '#333'
+			color: '#333',
+            width: '200px',
+            background: 'rgb(249,249,249)',
+            border: '1px solid #EEE'
 		};
 
-		return <Tree supportMenu menuType="dialogMenu" isUnfold treeData={treeData} style={style} className="bg" showIcon={this.state.showIcon} onSelectedNode={this.selectedNode} />;
+		return (
+            <>
+                <div className="tree-demo">
+                    <span>单选有弹框菜单</span>
+                    <Tree supportMenu menuType="dialogMenu" isUnfold treeData={treeData} style={style} className="bg" showIcon={this.state.showIcon} onSelectedNode={this.selectedNode} />
+                </div>
+                <div className="tree-demo">
+                    <span>多选右键菜单</span>
+                    <Tree supportCheckbox supportMenu isUnfold treeData={treeData} style={style} className="bg" showIcon={this.state.showIcon} onSelectedNode={this.selectedNode} />
+                </div>
+                <div className="tree-demo">
+                    <span>单选菜单</span>
+                    <Tree isUnfold treeData={treeData} style={style} className="bg" showIcon={this.state.showIcon} onSelectedNode={this.selectedNode} />
+                </div>
+                <div className="tree-demo">
+                    <span>多选有弹框菜单</span>
+                    <Tree supportCheckbox supportMenu menuType="dialogMenu" isUnfold treeData={treeData} style={style} className="bg" showIcon={this.state.showIcon} onSelectedNode={this.selectedNode} />
+                </div>
+            </>
+        );
 	}
 }
 ```
 
 ```less
+.tree-demo {
+  display: inline-block;
+  margin-right: 10px;
+}
 .bg {
-	width: 220px;
 	overflow: auto;
 	height: 300px;
 }

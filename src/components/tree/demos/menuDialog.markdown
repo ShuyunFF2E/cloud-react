@@ -94,7 +94,7 @@ export default class TreeDemo extends React.Component {
 										children: [
 											{
 												id: 11321,
-												name: '禁止删除节点321',
+												name: '禁止删除节点321,测试一下宽度',
 												pId: 1132,
 												children: []
 											}
@@ -123,7 +123,7 @@ export default class TreeDemo extends React.Component {
 								children: [
 									{
 										id: 1211,
-										name: '禁止新增节点11',
+										name: '禁止新增节点11，测试一下宽',
 										pId: 121,
 										children: []
 									},
@@ -135,7 +135,7 @@ export default class TreeDemo extends React.Component {
 									},
 									{
 										id: 1213,
-										name: '禁止新增节点13',
+										name: '禁止新增节点13444444443',
 										pId: 121,
 										children: []
 									}
@@ -148,7 +148,7 @@ export default class TreeDemo extends React.Component {
 								children: [
 									{
 										id: 1221,
-										name: '禁止新增节点21',
+										name: '禁止新增节点214344566554443443',
 										pId: 122,
 										children: []
 									},
@@ -220,6 +220,12 @@ export default class TreeDemo extends React.Component {
 				]
 			}
 		];
+        const style = {
+			color: '#333',
+            width: '300px',
+            background: 'rgb(248 248 249)',
+            border: '1px solid #CCC'
+		};
 		return (
 			<Tree
 				treeData={treeData}
@@ -229,6 +235,8 @@ export default class TreeDemo extends React.Component {
 				maxLevel={this.state.maxLevel}
 				supportMenu
                 isUnfold
+                supportCheckbox
+                style={style}
                 menuType="dialogMenu"
                 addMenuName="分类"
 				onAddNode={this.addNode}
