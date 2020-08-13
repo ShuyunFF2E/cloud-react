@@ -176,9 +176,11 @@ export default class TableLite extends Component {
 						<thead>{theadContent}</thead>
 					</table>
 				</div>
+
 				<div className="cloud-table-lite-main">
-					<table style={{ height: dataSource.length ? 'auto' : '100%' }}>
-						<thead>{theadContent}</thead>
+					{!dataSource.length && <div style={{ height: 40 }}></div>}
+					<table style={{ height: dataSource.length ? 'auto' : 'calc(100% - 40px)' }}>
+						{dataSource.length > 0 && <thead>{theadContent}</thead>}
 						<tbody>{tbodyContent}</tbody>
 					</table>
 				</div>
