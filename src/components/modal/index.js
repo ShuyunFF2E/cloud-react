@@ -17,6 +17,8 @@ class Modal extends Component {
 		children: null
 	};
 
+	static ConfigProvider = ContextProvider;
+
 	render() {
 		const { children, ...props } = this.props;
 		const rootWindow = getRootWindow();
