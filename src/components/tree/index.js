@@ -593,6 +593,7 @@ class Tree extends Component {
 									style={{ width: 300 }}
 									defaultValue={nodeData && nodeData.name}
 									onChange={e => this.onHandleInputNodeName(e.target.value)}
+									onEnter={this.onSaveNode}
 									placeholder={`请输入${addMenuName}名称`}
 									hasClear
 									hasCounter

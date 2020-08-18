@@ -264,6 +264,7 @@ function ShowInput({ isEdit, isAdd, maxLength, inputValue, handleInputChange, sa
  * @param searchText
  * @param menuType
  * @param supportMenu
+ * @param treeWidth
  * @param indentValue
  * @param indeterminate
  * @param checked
@@ -302,20 +303,20 @@ function ShowSelection({
 	let nodeWidth = 0;
 	if (treeWidth > 0) {
 		let correctWidth = 0;
-		if (!supportCheckbox && !supportMenu) {
-			// 单选无菜单
+		if (!supportCheckbox && (!supportMenu || (supportMenu && menuType === RIGHT_MENU))) {
+			// 单选无菜单或有右键菜单
 			correctWidth = 46;
 		}
 		if (!supportCheckbox && supportMenu && menuType === DIALOG_MENU) {
-			// 单选有菜单
+			// 单选有菜单且为弹框菜单
 			correctWidth = 71;
 		}
-		if (supportCheckbox && !supportMenu) {
-			// 多选无菜单
-			correctWidth = 72;
+		if (supportCheckbox && (!supportMenu || (supportMenu && menuType === RIGHT_MENU))) {
+			// 多选无菜单或有右键菜单
+			correctWidth = 66;
 		}
-		if (supportCheckbox && supportMenu) {
-			// 多选有菜单
+		if (supportCheckbox && supportMenu && menuType === DIALOG_MENU) {
+			// 多选有菜单且为弹框菜单
 			correctWidth = 102;
 		}
 		nodeWidth = treeWidth - indentValue - correctWidth;
