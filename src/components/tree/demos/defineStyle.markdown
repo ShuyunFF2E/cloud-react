@@ -46,13 +46,13 @@ export default class TreeDemo extends React.Component {
 					},
 					{
 						id: 12,
-						name: '别删除我，你删不掉的',
+						name: '别删除我，你删不掉11',
 						pId: 1,
 						disableRemove: true,
 						children: [
 							{
 								id: 121,
-								name: '说了你还不信',
+								name: '说了你还不信121',
 								pId: 12,
 								disableRename: true,
 								children: [
@@ -101,34 +101,19 @@ export default class TreeDemo extends React.Component {
 		};
 
 		return (
-            <>
-                <div className="tree-demo">
-                    <span>单选有弹框菜单</span>
-                    <Tree supportMenu menuType="dialogMenu" isUnfold treeData={treeData} style={style} className="bg" showIcon={this.state.showIcon} onSelectedNode={this.selectedNode} />
-                </div>
-                <div className="tree-demo">
-                    <span>多选右键菜单</span>
-                    <Tree supportCheckbox supportMenu isUnfold treeData={treeData} style={style} className="bg" showIcon={this.state.showIcon} onSelectedNode={this.selectedNode} />
-                </div>
-                <div className="tree-demo">
-                    <span>单选菜单</span>
-                    <Tree isUnfold treeData={treeData} style={style} className="bg" showIcon={this.state.showIcon} onSelectedNode={this.selectedNode} />
-                </div>
-                <div className="tree-demo">
-                    <span>多选有弹框菜单</span>
-                    <Tree supportCheckbox supportMenu menuType="dialogMenu" isUnfold treeData={treeData} style={style} className="bg" showIcon={this.state.showIcon} onSelectedNode={this.selectedNode} />
-                </div>
-            </>
+             <Tree  supportMenu
+                    menuType="dialogMenu"
+                    isUnfold
+                    treeData={treeData}
+                    style={style} className="bg"
+                    showIcon={this.state.showIcon}
+                    onSelectedNode={this.selectedNode} />
         );
 	}
 }
 ```
 
 ```less
-.tree-demo {
-  display: inline-block;
-  margin-right: 10px;
-}
 .bg {
 	overflow: auto;
 	height: 300px;
