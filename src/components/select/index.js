@@ -67,16 +67,17 @@ class Select extends Component {
 		const { value: prevValue, children: prevChildren, dataSource: prevData, open: prevOpen } = prevProps;
 
 		if (value !== prevValue || Children.count(children) !== Children.count(prevChildren) || !ShuyunUtils.equal(dataSource, prevData)) {
-			const { labelKey, valueKey, labelInValue } = props;
+			const { labelKey, valueKey, labelInValue, defaultValue } = props;
+			const displayValue = value || defaultValue;
 			const childs = Array.isArray(children) ? flat(children, Infinity) : Children.toArray(children);
 			const source = childs.length ? childs : getOptions(dataSource, labelKey, valueKey);
-			const selected = getSelected(value, source);
-			const defaultValue = multiple ? [] : '';
-			const currentValue = value !== null ? value : defaultValue;
+			const selected = getSelected(displayValue, source);
+			const emptyValue = multiple ? [] : '';
+			const currentValue = displayValue !== null ? displayValue : emptyValue;
 			return {
 				value: currentValue,
 				prevValue: currentValue,
-				prevResult: labelInValue ? selected : value,
+				prevResult: labelInValue ? selected : displayValue,
 				selected,
 				prevProps: props
 			};
@@ -95,6 +96,10 @@ class Select extends Component {
 	componentDidMount() {
 		this.document.addEventListener('click', this.handleClick);
 		this.node.current.addEventListener('mouseleave', this.handleMouseLeave);
+
+		if (!this.props.dataSource.length) {
+			console.warn('请传入dataSource属性，未传入可能导致部分功能不能正常使用');
+		}
 	}
 
 	componentDidUpdate(_, prevState) {
