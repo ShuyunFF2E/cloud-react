@@ -2,6 +2,7 @@
 
 @tooltip-prefix-cls: ~'@{prefix}-tooltip';
 @arrow-size: 3px;
+@transparent-height: 7px;
 @border: @arrow-size solid currentColor;
 
 .left-style(@top) {
@@ -10,12 +11,24 @@
 		right: -6px;
 		border-left: @border;
 	}
+	&:before {
+		right: 0;
+		transform: translate(100%, -4px);
+		width: @transparent-height;
+		height: 100%;
+	}
 }
 .right-style(@top) {
 	&:after {
 		top: @top;
 		left: -6px;
 		border-right: @border;
+	}
+	&:before {
+		left: 0;
+		transform: translate(-100%, -4px);
+		width: @transparent-height;
+		height: 100%;
 	}
 }
 .top-style(@left) {
@@ -24,12 +37,20 @@
 		bottom: -6px;
 		border-top: @border;
 	}
+	&:before {
+		bottom: 0;
+		transform: translate(-8px, 100%);
+	}
 }
 .bottom-style(@left) {
 	&:after {
 		left: @left;
 		top: -6px;
 		border-bottom: @border;
+	}
+	&:before {
+		top: 0;
+		transform: translate(-8px, -100%);
 	}
 }
 
@@ -50,6 +71,14 @@
 
 	&.show {
 		opacity: 1;
+	}
+
+	&:before {
+		content: '';
+		width: 100%;
+		height: @transparent-height;
+		position: absolute;
+		background: transparent;
 	}
 
 	&:after {
