@@ -31,7 +31,7 @@ const getLables = props => {
 			})
 			.join(',');
 	}
-	return dataSource.map(item => item.label).join(',');
+	return dataSource.map(item => item.label);
 };
 
 export default class Selected extends React.Component {
