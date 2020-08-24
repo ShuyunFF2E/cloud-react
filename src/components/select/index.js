@@ -68,7 +68,7 @@ class Select extends Component {
 
 		if (value !== prevValue || Children.count(children) !== Children.count(prevChildren) || !ShuyunUtils.equal(dataSource, prevData)) {
 			const { labelKey, valueKey, labelInValue, defaultValue } = props;
-			const displayValue = value || defaultValue;
+			const displayValue = value !== null ? value : defaultValue;
 			const childs = Array.isArray(children) ? flat(children, Infinity) : Children.toArray(children);
 			const source = childs.length ? childs : getOptions(dataSource, labelKey, valueKey);
 			const selected = getSelected(displayValue, source);
