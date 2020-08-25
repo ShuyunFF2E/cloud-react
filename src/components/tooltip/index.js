@@ -79,9 +79,11 @@ class Tooltip extends Component {
 		}
 	};
 
-	closeTips = () => {
+	closeTips = event => {
 		const { mouseLeaveDelay, visible } = this.props;
-
+		if (event && event.relatedTarget && event.relatedTarget.className.includes('cloud-tooltip')) {
+			return;
+		}
 		if (!visible) {
 			setTimeout(() => {
 				this.setState({ visible: false });
@@ -90,13 +92,14 @@ class Tooltip extends Component {
 	};
 
 	renderView() {
-		const { target } = this;
+		const { target, closeTips } = this;
 
 		return ReactDOM.createPortal(
 			<ToolView
 				{...{
 					...this.props,
-					target
+					target,
+					closeTips
 				}}
 			/>,
 			this.portal
