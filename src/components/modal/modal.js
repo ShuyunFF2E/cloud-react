@@ -345,7 +345,7 @@ function ModalHeader({ type, title, onClose, onReset, ...props }) {
 function ModalBody({ style, children }) {
 	return (
 		<section className={classnames(`${prefixCls}-modal-body`)} style={style}>
-			{children}
+			<div className={classnames(`${prefixCls}-modal-body-content`)}>{children}</div>
 		</section>
 	);
 }
