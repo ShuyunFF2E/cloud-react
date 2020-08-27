@@ -88,10 +88,13 @@
 	&-body {
 		max-height: calc(100vh - 200px);
 		min-height: 80px;
-		color: @color-gray4;
 		padding: 20px;
 		overflow: auto;
 		box-sizing: content-box;
+		&-content {
+			// 暂时先放在这里，后续可能会有其他样式优化
+			color: @color-gray4;
+		}
 	}
 
 	&-footer {

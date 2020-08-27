@@ -34,11 +34,8 @@ export default class ModaliFrameDemo extends React.Component {
 
 	setStyle = () => {
 		const root = this.rootWindow.document.querySelector('#root');
-
-		const [menu, content] = root.children[0].children;
-
-		menu.style.display = 'none';
-		content.style.marginLeft = 0;
+		const [nav] = root.children[0].children;
+		nav.style.display = 'none';
 	};
 
 	render() {
