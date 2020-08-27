@@ -27,7 +27,15 @@ export default function Option(props) {
 		);
 	}
 
-	return useMemo(() => <div {...otherProps} onClick={onOptionClick} className={classNames} />, [isSelected]);
+	const { children, ...others } = otherProps;
+	return useMemo(
+		() => (
+			<div {...others} onClick={onOptionClick} className={classNames}>
+				<span title={children}>{children}</span>
+			</div>
+		),
+		[isSelected]
+	);
 }
 
 Option.propTypes = {
