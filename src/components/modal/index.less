@@ -88,12 +88,13 @@
 	&-body {
 		max-height: calc(100vh - 200px);
 		min-height: 80px;
-		padding: 20px;
+		padding: 20px 20px 0 20px;
 		overflow: auto;
 		box-sizing: content-box;
 		&-content {
-			// 暂时先放在这里，后续可能会有其他样式优化
+			// 解决火狐下上层paddingBottom未生效
 			color: @color-gray4;
+			padding-bottom: 20px;
 		}
 	}
 
