@@ -42,7 +42,7 @@ class Time extends Component {
 		const { value, defaultValue } = this.props;
 
 		if (typeof value !== 'undefined' && value) {
-			return value.split(':');
+			return typeof value === 'string' ? value.split(':') : [value.hour, value.minute, value.second];
 		}
 
 		return defaultValue.split(':');
@@ -103,7 +103,7 @@ class Time extends Component {
 			if (numberValue >= 24) {
 				_value = '23';
 			}
-			if (numberValue < 24 && length === 2) {
+			if (parseFloat(_value) < 24 && length === 2) {
 				// 当输入2位并且有效范围内时，跳转到分钟输入框
 				const ele = this.inpMinuteRef.current;
 				ele.focus();
@@ -136,7 +136,7 @@ class Time extends Component {
 				_value = '59';
 			}
 			// 当输入2位并且有效范围内时，跳转到分钟输入框
-			if (numberValue < 60 && length === 2) {
+			if (parseFloat(_value) < 60 && length === 2) {
 				const ele = this.inpSecondRef.current;
 				ele.focus();
 				ele.select();
@@ -236,7 +236,7 @@ class Time extends Component {
 Time.propTypes = {
 	className: PropTypes.string,
 	style: PropTypes.object,
-	value: PropTypes.string,
+	value: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 	defaultValue: PropTypes.string,
 	type: PropTypes.string,
 	disabled: PropTypes.bool,

@@ -5,7 +5,7 @@ export const PROPTYPES = {
 	className: PropTypes.string,
 	disabled: PropTypes.bool,
 	defaultValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.instanceOf(Date)]),
-	value: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.instanceOf(Date)]),
+	value: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.object, PropTypes.instanceOf(Date)]),
 	open: PropTypes.bool,
 	width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 	isAppendToBody: PropTypes.bool,
