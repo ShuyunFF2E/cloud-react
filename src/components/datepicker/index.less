@@ -3,19 +3,19 @@
 @selector: ~'@{prefix}-datepicker';
 @time: ~'@{prefix}-timepicker';
 
-@placeholder: #c9c9c9;
-@icon: #c2c2c2;
-
-@disabled-color: rgba(0, 0, 0, 0.25);
+@placeholder: var(--time-ph, #c9c9c9);
+@icon: var(--time-icon, #c2c2c2);
+@td-border-font: var(--time-td, @color-blue1);
+@disabled-color: var(--time-disabled, rgba(0, 0, 0, 0.25));
 
 @width: 230px;
 @height: 30px;
 
 @panel-width: 246px;
-@panel-header-bgcolor: #f4f4f4;
+@panel-header-bgcolor: var(--time-panel-header-bg, #f4f4f4);
 
-@grid-day-check-bgcolor: #e5f7ff;
-@grid-day-other-color: #ccc;
+@grid-day-check-bgcolor: var(--time-check-day-bg, #e5f7ff);
+@grid-day-other-color: var(--time-other-day, #ccc);
 
 .@{selector}-container {
 	position: relative;
@@ -25,7 +25,7 @@
 
 .cloud-input-group > .@{selector}-inp,
 .@{selector}-inp {
-	background-color: @color-white;
+	background-color: var(--input-bg, @color-white);
 	text-align: left;
 	width: @width;
 	cursor: pointer;
@@ -84,7 +84,7 @@
 		.arrow-right {
 			cursor: pointer;
 			position: absolute;
-			color: #b5b5b5;
+			color: var(--time-arrow, #b5b5b5);
 		}
 
 		.arrow-left {
@@ -127,17 +127,17 @@
 
 	.grid {
 		border: 1px solid @color-gray5;
+		background: var(--time-grid-bg, @color-white);
 	}
 
 	.grid-table {
 		margin: auto;
 		border-collapse: collapse;
 		width: 100%;
-
 		tbody {
 			font-size: 14px;
-			color: #565656;
-			background: @color-white;
+			color: var(--time-today, #565656);
+			background: var(--time-grid-bg, @color-white);
 		}
 
 		th {
@@ -162,7 +162,7 @@
 				border: 1px solid transparent;
 
 				&:hover {
-					border: 1px solid @color-blue1;
+					border: 1px solid @td-border-font;
 				}
 			}
 		}
@@ -199,7 +199,7 @@
 		width: calc(100% / 7);
 		height: 28px;
 		line-height: 28px;
-		color: #3d3d3d;
+		color: @color-gray4;
 		font-size: 12px;
 		font-weight: bold;
 		text-align: center;
@@ -225,18 +225,18 @@
 			border: 1px solid transparent;
 
 			&:hover {
-				border: 1px solid @color-blue1;
+				border: 1px solid @td-border-font;
 			}
 		}
 	}
 
 	.grid-check span {
 		background-color: @grid-day-check-bgcolor !important;
-		border-color: @color-blue1 !important;
+		border-color: @td-border-font !important;
 	}
 
 	.grid-now span {
-		color: @color-blue1;
+		color: @td-border-font;
 		background-color: transparent;
 	}
 
@@ -277,9 +277,9 @@
 			outline: none;
 			color: @color-gray4;
 			border: 1px solid #d9d9d9;
-			background-color: #fff;
+			background-color: @color-white;
 			&::placeholder {
-				color: #c9c9c9;
+				color: @placeholder;
 			}
 		}
 
@@ -351,7 +351,7 @@
 		}
 		&:focus {
 			color: @color-white;
-			background-color: @color-blue1;
+			background-color: @td-border-font;
 		}
 	}
 }

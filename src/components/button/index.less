@@ -4,14 +4,16 @@
 
 @border-radius: 2px;
 
-@normal-bg: #fafafa;
-@normal-hover-bg: #f0f0f0;
-@normal-active-bg: #e3e3e3;
+@normal-bg: var(--btn-normal-bg, #fafafa);
+@normal-hover-bg: var(--btn-normal-hover-bg, #f0f0f0);
+@normal-active-bg: var(--btn-normal-active-bg, #e3e3e3);
 
-@primary-hover-bg: #43c0f4;
-@primary-active-bg: @color-blue4;
+@primary-hover-bg: var(--btn-primary-hover-bg, #43c0f4);
+@primary-active: var(--btn-primary-active, @color-blue4);
 
-@dashed-color: rgba(0, 0, 0, 0.65);
+@dashed-color: var(--btn-dashed, rgba(0, 0, 0, 0.65));
+
+@font-or-border: var(--btn-primary, @color-blue1);
 
 @large-font-size: 16px;
 @default-font-size: 14px;
@@ -74,7 +76,7 @@
 	/* type */
 	&.normal {
 		border: 1px solid @color-gray5;
-		color: @color-gray2;
+		color: var(--dw-color, @color-gray2);
 		background: @normal-bg;
 
 		&:hover {
@@ -85,8 +87,8 @@
 		}
 	}
 	&.primary {
-		border: 1px solid @color-blue1;
-		background: @color-blue1;
+		border: 1px solid @font-or-border;
+		background: @font-or-border;
 		color: @color-white;
 
 		&:hover {
@@ -94,8 +96,8 @@
 			background: @primary-hover-bg;
 		}
 		&:active {
-			border-color: @primary-active-bg;
-			background: @primary-active-bg;
+			border-color: @primary-active;
+			background: @primary-active;
 		}
 	}
 	&.dashed {
@@ -103,24 +105,24 @@
 		color: @dashed-color;
 
 		&:hover {
-			border-color: @color-blue1;
-			color: @color-blue1;
+			border-color: @font-or-border;
+			color: @font-or-border;
 		}
 		&:active {
-			border-color: @color-blue4;
-			color: @color-blue4;
+			border-color: @primary-active;
+			color: @primary-active;
 		}
 	}
 	&.link {
 		border: none;
 		background: transparent;
-		color: @color-blue3;
+		color: var(--dw-link-color, @color-blue3);
 
 		&:hover {
-			color: @color-blue1;
+			color: @font-or-border;
 		}
 		&:active {
-			color: @color-blue4;
+			color: @primary-active;
 		}
 	}
 

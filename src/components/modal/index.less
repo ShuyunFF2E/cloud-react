@@ -2,19 +2,19 @@
 
 @modal-prefix-cls: ~'@{prefix}-modal';
 
-@header-background: #ededed;
-@close-icon-color: #cecece;
+@header-background: var(--modal-head-bg, #ededed);
+@close-icon-color: var(--modal-close, #cecece);
 
 @body-border-radius: 2px;
 
-@footer-background: #f5f5f5;
-@footer-border: 1px solid #e8e8e8;
+@footer-background: var(--modal-foot-bg, #f5f5f5);
+@footer-border: 1px solid var(--modal-foot-border, #e8e8e8);
 
-@confirm-icon-color: #faad14;
-@info-icon-color: #1890ff;
-@success-icon-color: #52c41a;
-@error-icon-color: #f5222d;
-@warning-icon-color: #faad14;
+@confirm-icon-color: var(--modal-confirm, #faad14);
+@info-icon-color: var(--modal-info, #1890ff);
+@success-icon-color: var(--modal-v, #52c41a);
+@error-icon-color: var(--modal-f, #f5222d);
+@warning-icon-color: var(--modal-warn, #faad14);
 
 @confirm-loading-border: 1px solid #ddd;
 @confirm-loading-border-top: 1px solid @color-white;
@@ -43,7 +43,7 @@
 		margin: 0 auto;
 		position: relative;
 		top: 20%;
-		background: @color-gray1;
+		background: var(--modal-main-bg, @color-gray1);
 		border-radius: @body-border-radius;
 		white-space: normal;
 		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.13);
@@ -75,12 +75,12 @@
 			cursor: pointer;
 
 			&:hover {
-				color: #a5a5a5;
+				color: var(--modal-close-hover, #a5a5a5);
 			}
 		}
 
 		.@{modal-prefix-cls}-title {
-			color: @color-gray2;
+			color: var(--dw-title-color, @color-gray2);
 			cursor: text;
 		}
 	}

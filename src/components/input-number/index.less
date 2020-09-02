@@ -2,9 +2,9 @@
 
 @input-number-prefix-cls: ~'@{prefix}-input-number';
 
-@border-hover-color: #aacbe1;
+@border-hover-color: var(--number-border-hover, #aacbe1);
 
-@color: rgba(0, 0, 0, 0.65);
+@color: var(--input, rgba(0, 0, 0, 0.65));
 
 @large-height: 40px;
 @large-fontSize: 16px;
@@ -33,7 +33,7 @@
 	width: 90px;
 	border: 1px solid @color-gray5;
 	color: @color;
-	background-color: @color-white;
+	background-color: var(--input-bg, @color-white);
 
 	* {
 		box-sizing: border-box;
@@ -53,13 +53,13 @@
 	}
 
 	&-disabled {
-		color: rgba(0, 0, 0, 0.25);
-		background-color: #eeeeee;
+		color: var(--number-disabled, rgba(0, 0, 0, 0.25));
+		background-color: var(--number-disabled-bg, #eeeeee);
 
 		opacity: 1;
 
 		&:hover {
-			border-color: #e6d8d8;
+			border-color: var(@border-hover-color, #e6d8d8);
 			cursor: not-allowed;
 
 			.@{input-number-prefix-cls}-handler-wrap {
@@ -112,12 +112,12 @@
 		justify-content: center;
 		align-items: center;
 		overflow: hidden;
-		color: rgba(0, 0, 0, 0.45);
+		color: var(--number-handler, rgba(0, 0, 0, 0.45));
 		font-weight: bold;
 		transition: all 0.1s linear;
 
 		&:active {
-			background: #f4f4f4;
+			background: var(--number-handler-active-bg, #f4f4f4);
 		}
 	}
 
@@ -128,6 +128,7 @@
 
 	&-handler-up,
 	&-handler-down {
+		background: var(--number-handle-bg, @color-white);
 		&:hover {
 			cursor: pointer;
 			color: @border-hover-color;
@@ -159,6 +160,7 @@
 		font-size: inherit;
 		width: 100%;
 		height: 100%;
+		color: @color;
 		vertical-align: top;
 		text-align: left;
 		background-color: transparent;
@@ -170,7 +172,7 @@
 		}
 
 		&::placeholder {
-			color: #c9c9c9;
+			color: var(--input-ph, #c9c9c9);
 		}
 	}
 }

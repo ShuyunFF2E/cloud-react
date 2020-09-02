@@ -2,12 +2,12 @@
 
 @pagination-prefix-cls: ~'@{prefix}-pagination';
 
-@pagination-item-color: rgba(0, 0, 0, 0.65);
-@pagination-item-border-color: #ddd;
-@pagination-item-hover-color: rgba(0, 170, 241, 1);
-@pagination-item-disabled-color: #b5b5b5;
-@pagination-item-ellips-color: rgba(0, 0, 0, 0.25);
-@pagination-item-active-bg: rgba(229, 247, 255, 1);
+@pagination-item-color: var(--page, rgba(0, 0, 0, 0.65));
+@pagination-item-border-color: var(--page-border, #ddd);
+@pagination-item-hover-color: var(--page-hover, rgba(0, 170, 241, 1));
+@pagination-item-disabled-color: var(--page-disabled, #b5b5b5);
+@pagination-item-ellips-color: var(--page-ellips, rgba(0, 0, 0, 0.25));
+@pagination-item-active-bg: var(--page-active-bg, rgba(229, 247, 255, 1));
 
 .@{pagination-prefix-cls} {
 	display: flex;

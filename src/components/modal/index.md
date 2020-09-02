@@ -55,6 +55,6 @@ subtitle: 弹出框
 | style      | 提示框的样式                                  | object   | `--`   |
 | body       | 提示信息内容, 支持 jsx 语法直接传入 dom 节点  | any      | `--`   |
 | onOk       | 确定按钮回调函数，仅`Modal.confirm()`函数支持 | function | `--`   |
-| onClose    | 取消按钮回调函数                              | function | `--`   |
+| onCancel   | 取消按钮回调函数                              | function | `--`   |
 
 `Modal.confirm()`函数的`onOk`回调函数支持返回`false`阻止关闭弹框，或者返回一个`promise`延迟关闭，具体使用见示例：确认对话框 Demo

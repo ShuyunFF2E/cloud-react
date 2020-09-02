@@ -2,14 +2,14 @@
 
 @tips-prefix-cls: ~'@{prefix}-tips';
 
-@normal-bg: #ecf8fc;
-@normal-border-color: #d2eeff;
+@normal-bg: var(--tip-bg, #ecf8fc);
+@normal-border-color: var(--tip-border, #d2eeff);
 
-@major-bg: #fcf8e2;
-@major-border-color: #faecca;
+@major-bg: var(--tip-major-bg, #fcf8e2);
+@major-border-color: var(--tip-major-border, #faecca);
 
-@warning-bg: #fcf2f0;
-@warning-border-color: #ffdfe0;
+@warning-bg: var(--tip-warn-bg, #fcf2f0);
+@warning-border-color: var(--tip-warn-border, #ffdfe0);
 
 .type-mixin(@bg, @borderColor) {
 	background: @bg;
@@ -22,7 +22,7 @@
 	line-height: 18px;
 	border-radius: 2px;
 	font-size: 12px;
-	color: @color-gray2;
+	color: var(--tip, @color-gray2);
 
 	&.normal {
 		.type-mixin(@normal-bg, @normal-border-color);

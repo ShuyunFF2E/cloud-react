@@ -97,7 +97,7 @@ li {
 /* 自定义滚动条样式 */
 *::-webkit-scrollbar-track {
 	border-radius: 5px;
-	background-color: #f3f3f3;
+	background-color: var(--dw-scroll-bg, #f3f3f3) !important;
 }
 
 *::-webkit-scrollbar-track-piece {
@@ -105,22 +105,26 @@ li {
 }
 
 *::-webkit-scrollbar {
-	background: transparent;
+	background: var(--dw-scroll-bg, transparent) !important;
 	width: 10px;
 	height: 10px;
 }
 
 *::-webkit-scrollbar-thumb {
 	border-radius: 5px;
-	background-color: #e1e1e1;
+	background-color: var(--dw-scroll-color, #e1e1e1) !important;
 	width: 6px;
 	min-height: 50px;
 	border: 2px solid transparent;
 	background-clip: content-box;
 }
 
+::-webkit-scrollbar-corner {
+	background-color: var(--dw-scroll-color, #e1e1e1) !important;
+}
+
 * {
 	// 火狐修改滚动条: 以下为firefox特有属性
 	scrollbar-width: thin;
-	scrollbar-color: #e1e1e1 #f3f3f3;
+	scrollbar-color: var(--dw-scroll-color, #e1e1e1) var(--dw-scroll-bg, #f3f3f3) !important;
 }

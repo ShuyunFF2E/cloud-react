@@ -2,19 +2,19 @@
 
 @message-prefix-cls: ~'@{prefix}-message';
 
-@success-bg: #d8f2d4;
-@success-color: #3a773a;
-@success-border: #c3dabf;
-@success-x-color: #6da89c;
-@success-x-hover-color: #448074;
-@success-icon-color: #42aa31;
+@success-bg: var(--msg-v-bg, #d8f2d4);
+@success-color: var(--msg-v, #3a773a);
+@success-border: var(--msg-v-border, #c3dabf);
+@success-x-color: var(--msg-v-x, #6da89c);
+@success-x-hover-color: var(--msg-v-x-hover, #448074);
+@success-icon-color: var(--msg-v-icon, #42aa31);
 
-@error-bg: #ffdfe0;
-@error-color: #853432;
-@error-border: #fbcdce;
-@error-x-color: #853432;
-@error-x-hover-color: #7b2624;
-@error-icon-color: #ff5243;
+@error-bg: var(--msg-f-bg, #ffdfe0);
+@error-color: var(--msg-f, #853432);
+@error-border: var(--msg-v-border, #fbcdce);
+@error-x-color: var(--msg-v-x, #853432);
+@error-x-hover-color: var(--msg-v-x-hover, #7b2624);
+@error-icon-color: var(--msg-v-icon, #ff5243);
 
 .cloud-message-type(@bg, @bgBorderColor, @msgTextColor, @closeColor, @closeHoverColor, @tagColor) {
 	background: @bg;
