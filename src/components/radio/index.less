@@ -1,12 +1,12 @@
 @import '../style/index';
 
-@raido-prefix-cls: ~'@{prefix}-radio';
+@radio-prefix-cls: ~'@{prefix}-radio';
 
-@radio-disabled-inner-color: #d1d1d1;
+@radio-disabled-inner-color: var(--radio-disabled, #d1d1d1);
 
 @radio-size: 14px;
 
-.@{raido-prefix-cls}-position {
+.@{radio-prefix-cls}-position {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -14,7 +14,7 @@
 	bottom: 0;
 }
 
-.@{raido-prefix-cls} {
+.@{radio-prefix-cls} {
 	display: inline-flex;
 	align-items: center;
 	margin-right: 8px;
@@ -40,7 +40,7 @@
 		margin-right: 5px;
 
 		&:hover {
-			color: @color-blue1;
+			color: var(--radio-checked, @color-blue1);
 		}
 	}
 
@@ -49,8 +49,8 @@
 		opacity: 0;
 		cursor: pointer;
 
-		&:checked + .@{raido-prefix-cls}-inner {
-			color: @color-blue1;
+		&:checked + .@{radio-prefix-cls}-inner {
+			color: var(--radio-checked, @color-blue1);
 
 			&::after:extend(.cloud-radio-position) {
 				content: '';
@@ -67,12 +67,12 @@
 		}
 
 		&:disabled,
-		&:disabled + .@{raido-prefix-cls}-inner {
+		&:disabled + .@{radio-prefix-cls}-inner {
 			.disabled;
 			color: @radio-disabled-inner-color;
 		}
 
-		&[disabled]:not(:checked) + .@{raido-prefix-cls}-inner {
+		&[disabled]:not(:checked) + .@{radio-prefix-cls}-inner {
 			background-color: @color-gray7;
 		}
 	}

@@ -10,22 +10,22 @@
 @border-radius: 0px;
 @default-width: 250px;
 
-@placeholder-color: #c9c9c9;
+@placeholder-color: var(--input-ph, #c9c9c9);
 
-@focus-border-color: #aacbe1;
+@focus-border-color: var(--input-fc-border, #aacbe1);
 
 @large-font-size: 14px;
 @default-font-size: 12px;
 @small-font-size: 12px;
 
 @clear-icon-font-size: 16px;
-@clear-icon-color: #dbdbdb;
-@clear-icon-hover-color: #808080;
+@clear-icon-color: var(--input-cl-icon, #dbdbdb);
+@clear-icon-hover-color: var(--input-cl-icon-hover, #808080);
 
-@addon-background: #fafafa;
+@addon-background: var(--input-addon-bg, #fafafa);
 @addon-font-size: 14px;
 
-@textarea-background: #ffffff;
+@textarea-background: var(--input-ta-bg, #ffffff);
 
 @both-space-size: 8px;
 
@@ -39,8 +39,8 @@
 		display: inline-block;
 		line-height: 1.5;
 		height: auto;
-		background: @color-white;
-		color: @color-gray4;
+		background: var(--input-bg, @color-white) !important;
+		color: var(--input, @color-gray4) !important;
 		transition: border @transition, color @transition;
 		box-sizing: border-box;
 		vertical-align: middle;
@@ -48,7 +48,7 @@
 
 	&,
 	&-textarea {
-		border: 1px solid @color-gray5;
+		border: 1px solid @color-gray5 !important;
 		border-radius: @border-radius;
 		outline: none;
 		width: @default-width;
@@ -211,7 +211,7 @@
 	&-disabled &-affix,
 	&-textarea:disabled,
 	&:disabled {
-		color: @color-gray3;
+		color: var(--input-disabled, @color-gray3);
 		background: @color-gray7;
 		border-color: @color-gray5;
 	}
@@ -221,7 +221,7 @@
 	&-textarea-wrapper {
 		position: relative;
 		width: 100%;
-		border: 1px solid #d9d9d9;
+		border: 1px solid @color-gray5;
 		background: @textarea-background;
 
 		> textarea {

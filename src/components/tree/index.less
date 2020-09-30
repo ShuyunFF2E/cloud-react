@@ -1,11 +1,12 @@
 @import '../style/index';
 
 @selector: ~'@{prefix}-tree';
-@selector-search-icon: #dbdbdb;
-@selector-menu-border: 1px solid #e8e8e8;
-@selector-menu-hover: #f5f5f5;
+@selector-search-icon: var(--tree-search-icon, #dbdbdb);
+@selector-menu-border: 1px solid var(--tree-border, #e8e8e8);
+@selector-menu-hover: var(--tree-hover, #f5f5f5);
 
-@selector-node-active-background: #eaf2fc;
+@selector-node-active-background: var(--tree-active-bg, #eaf2fc);
+
 @display: inline-block;
 @overTowLine: {
 	display: @display;
@@ -91,7 +92,7 @@
 	&-list {
 		white-space: nowrap;
 		width: 100%;
-		color: @color-gray2;
+		color: var(--tree, @color-gray2);
 		&-container {
 			padding: 0 10px;
 		}
@@ -101,7 +102,7 @@
 			.@{prefix}-icon {
 				display: @display;
 				height: 26px;
-				color: @color-gray3;
+				color: var(--tree-node-icon, @color-gray3);
 				vertical-align: top;
 				line-height: 26px;
 			}
@@ -116,7 +117,7 @@
 					.edit-icon {
 						display: block;
 						&:hover {
-							background: #ebebeb;
+							background: var(--tree-toggle-icon-bg, #ebebeb);
 						}
 					}
 				}
@@ -126,7 +127,7 @@
 					border-radius: 2px;
 					text-align: center;
 					&:hover {
-						background: #ebebeb;
+						background: var(--tree-toggle-icon-bg, #ebebeb);
 					}
 				}
 				.drag-icon {
@@ -140,7 +141,7 @@
 					border-right: 2px dotted;
 					vertical-align: middle;
 					top: 8px;
-					color: #999;
+					color: var(--tree-move-icon, #999);
 				}
 				.edit-icon {
 					display: none;
@@ -149,7 +150,7 @@
 					width: 26px;
 					height: 26px;
 					line-height: 22px;
-					color: #999;
+					color: var(--tree-move-icon, #999);
 					cursor: pointer;
 					text-align: center;
 					font-weight: 700;
@@ -208,7 +209,7 @@
 			}
 
 			.hot-text {
-				color: @color-blue1;
+				color: var(--tree-hottext, @color-blue1);
 			}
 
 			.is-add {
@@ -221,6 +222,7 @@
 			}
 
 			.save-icon {
+				cursor: pointer;
 				color: #36cb37;
 			}
 
@@ -229,6 +231,7 @@
 			}
 
 			.is-active:not(.support-checkbox) {
+				color: var(--tree-active, @color-gray2);
 				background: @selector-node-active-background !important;
 			}
 		}
@@ -266,7 +269,7 @@
 
 			&.disabled {
 				cursor: not-allowed;
-				color: #999;
+				color: var(--tree-disabled, #999);
 			}
 		}
 	}

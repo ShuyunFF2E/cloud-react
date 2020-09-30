@@ -1,0 +1,267 @@
+/**
+ * var.less
+ * @author wangbo
+ * @since 2020/9/2
+ */
+body {
+	/*系统消息提示查看更多字体色, 公共链接色*/
+	--dw-link-color: #52a0e7;
+	/*滚动条背景色*/
+	--dw-scroll-bg: #373f75;
+	/*滚动条颜色*/
+	--dw-scroll-color: #2b3059;
+	--dw-light-color: #666;
+	/*公共内容区域背景色*/
+	--dw-bg: #25274d;
+	/*公共标题颜色*/
+	--dw-title-color: #fff;
+	/*公共字体颜色*/
+	--dw-color: #7278b2;
+	/*公共悬浮字体颜色*/
+	--dw-hovre-color: #484f86;
+	/*公共搜索区域背景色*/
+	--dw-query-bg: #333e7f;
+	/*公共区域悬浮背景色*/
+	--dw-query-hover-bg: #414a99;
+	/*公共边框色*/
+	--dw-border-color: #373f75;
+	/*公共悬浮边框色*/
+	--dw-border-hover-color: #717ab4;
+	/*公共激活或选中色*/
+	--dw-active-color: #f8f6f6;
+	/*公共激活或选中背景色*/
+	--dw-active-bg: #2dbefc;
+	/*公共链接悬浮颜色*/
+	--dw-link-hover-color: #0083ba;
+	/*公共禁用颜色*/
+	--dw-disabled-color: #ddd;
+	/*公共禁用背景色*/
+	--dw-disabled-bg: #eee;
+
+	// 组件库公共边框色
+	--com-border-color: #ccc;
+
+	// button组件
+	--btn-normal-bg: var(--dw-query-bg);
+	--btn-normal-hover-bg: var(--dw-query-hover-bg);
+	--btn-normal-active-bg: #1d3557;
+	--btn-primary-hover-bg: #83c5be;
+	--btn-primary-active: #4cd1f1;
+	--btn-dashed: #073b4c;
+	--btn-primary: #37bbe5;
+
+	// checkbox组件
+	--checkoxb-border: var(--dw-border-color);
+	--checkoxb-hover-border: var(--dw-border-hover-color);
+
+	// datepicker组件
+	--time-ph: #dbc7c7;
+	--time-icon: var(--dw-color);
+	--time-disabled: var(--dw-disabled-color);
+	--time-panel-header-bg: var(--dw-bg);
+	--time-check-day-bg: #284965;
+	--time-other-day: #b4c4c2;
+	--time-arrow: #e56b6f;
+	--time-today: #ccdcdb;
+	--time-grid-bg: var(--dw-bg);
+	--time-td: #3c9fe2;
+
+	// form组件
+	--form-warn: red;
+	--form-require: red;
+
+	// input组件
+	--input: var(--dw-color);
+	//placeholder color
+	--input-ph: #adb5bd;
+	--input-bg: var(--dw-bg);
+	//focus border color
+	--input-fc-border: var(--dw-border-hover-color);
+	// clear icon color
+	--input-cl-icon: var(--dw-color);
+	--input-cl-icon-hover: var(--dw-hovre-color);
+	--input-addon-bg: #22333b;
+	// textarea bg
+	--input-ta-bg: var(--dw-query-bg);
+	--input-border: var(--dw-border-color);
+	--input-disabled: var(--dw-disabled-color);
+
+	// input number组件
+	--number-border-hover: var(--dw-border-hover-color);
+	--number-disabled: var(--dw-disabled-color);
+	--number-disabled-bg: var(--dw-disabled-bg);
+	--number-handler: var(--dw-color);
+	--number-handle-bg: var(--dw-hovre-color);
+	--number-handler-active-bg: #5ea9db;
+
+	// loading组件
+	--loading: var(--dw-color);
+	--loading-bg: var(--dw-query-bg);
+
+	// menu组件
+	--menu: var(--dw-color);
+	--menu-hover: var(--dw-hovre-color);
+	--menu-active: #3569a5;
+	--menu-disabled: var(--dw-disabled-color);
+	--menu-bg: var(--dw-query-bg);
+	--menu-indicator: #cbf3f0;
+
+	// message组件
+	--msg-f-bg: #ce4257;
+	--msg-f: #fff;
+	--msg-f-border: #ff7f51;
+	--msg-f-x: #720026;
+	--msg-f-x-hover: #ff206e;
+	--msg-f-icon: #4f000b;
+	--msg-v-bg: #88d498;
+	--msg-v: #fff;
+	--msg-v-border: #008000;
+	--msg-v-x: #118c11;
+	--msg-v-x-hover: #294c60;
+	--msg-v-icon: #1a936f;
+
+	// modal组件
+	--modal-head-bg: #cfd0d0;
+	--modal-close: var(--dw-color);
+	--modal-close-hover: var(--dw-hovre-color);
+	--modal-main-bg: #dfe2e3;
+	--modal-foot-bg: #eaf4f4;
+	--modal-foot-border: #cce3de;
+	--modal-confirm: #f38375;
+	--modal-info: #00a8e8;
+	--modal-v: #52b788;
+	--modal-f: #ff6b6b;
+	--modal-warn: #f94144;
+
+	// pagination组件
+	--page: var(--dw-color);
+	--page-border: var(--dw-border-color);
+	--page-hover: var(--dw-hovre-color);
+	--page-disabled: var(--dw-disabled-color);
+	--page-ellips: #adb5bd;
+	--page-active-bg: var(--dw-active-bg);
+
+	// radio标签
+	--radio-disabled: var(--dw-disabled-color);
+	--radio-checked: var(--dw-color);
+
+	// select组件
+	--select-bg: var(--dw-bg);
+	--select-option-bg: var(--dw-query-bg);
+	--select-option-hover-bg: var(--dw-query-hover-bg);
+	--select-option-disabled-bg: var(--dw-active-bg);
+	--select-dropdown-icon-color: #eaac8b;
+	--select-selected: var(--dw-active-color);
+	--select-selected-bg: var(--dw-active-bg);
+	--select-hover: var(--dw-hovre-color);
+	--select-search-border: #ef476f;
+	--select-search: #073b4c;
+	--select-disabled: var(--dw-disabled-color);
+	--select-empty: #ddd;
+
+	// step组件
+	--step-wait-bg: #aca;
+	--step-finish: #3eb7cb;
+
+	// table pagination组件
+	--grid-page-bg: var(--dw-query-bg);
+	--grid-page-color: var(--dw-color);
+	--grid-page-input-border: var(--dw-border-color);
+	--grid-page-disabled: var(--dw-disabled-color);
+	--grid-page-icon: #335c67;
+
+	// table-lite组件、table组件
+	--grid-border: #3a4078;
+	--grid-high-border: #e2e5e5;
+	--grid-active-border: #e2e5e5;
+	--grid-odd-bg: #3d4680;
+	--grid-bg: #373f75;
+	--grid-high-bg: #7278b2;
+	--grid-hover-bg: #475192;
+	--grid-head-bg: #373f75;
+	--grid-empty: #707478;
+	--grid-remind-bg: #707478;
+	--grid-remind-color: #707478;
+	--grid-remind-icon-color: #707478;
+	--grid: #7278b2;
+	--grid-high: #8188c9;
+	--grid-active: #daa;
+	--grid-sort: #1982c4;
+	--grid-sort-icon: #1982c4;
+	--grid-refresh: #cacfd2;
+
+	// tab组件
+	--tab: #212529;
+	--tab-active: #495057;
+	--tab-disabled: #6c757d;
+	--tab-hover-bg: #adb6c4;
+	--tab-hover: #497ed2;
+	--tab-close: #1b263b;
+	--tab-line: #ce4257;
+	--tab-line-avtive: #720026;
+	--tab-accent-border: #00a8e8;
+	--tab-card-bg: #58a4b0;
+	--tab-card-active-bg: #e8eaea;
+	--tab-more-icon: #ddd;
+
+	// tag组件
+	--tag: var(--dw-color);
+	--tag-default-bg: var(--dw-query-bg);
+	--tag-border: var(--dw-border-color);
+	--tag-hover: var(--dw-hovre-color);
+	--tag-checked: var(--dw-active-color);
+	--tag-checked-bg: var(--dw-active-bg);
+	--tag-hover-border: var(--dw-border-hover-color);
+	--tag-v: #52b788;
+	--tag-danger: #ff6b6b;
+	--tag-warn: #c76c6c;
+
+	// toggle组件
+	--tg-checked-bg: var(--dw-active-bg);
+
+	// tips组件
+	--tip: var(--dw-color);
+	--tip-bg: var(--dw-query-bg);
+	--tip-border: var(--dw-border-color);
+	--tip-major-bg: #48bfe3;
+	--tip-major-border: #80ffdb;
+	--tip-warn-bg: #ef476f;
+	--tip-warn-border: #ef233c;
+
+	// tooltip组件
+	--ttip: var(--dw-color);
+	--ttip-warn: #ea4949;
+	--ttip-dark-bg: var(--dw-query-bg);
+	--ttip-light-bg: #fff;
+
+	// tree组件
+	--tree-search-icon: #06d6a0;
+	--tree-border: var(--dw-border-color);
+	--tree: var(--dw-color);
+	--tree-hover: var(--dw-hovre-color);
+	--tree-active-bg: var(--dw-active-bg);
+	--tree-active: var(--dw-active-color);
+	--tree-toggle-icon-bg: #acd5d2;
+	--tree-move-icon: #e0e1dd;
+	--tree-disabled: var(--dw-disabled-color);
+	--tree-node-icon: #888;
+	--tree-hottext: red;
+
+	// treeSelect组件
+	--treeS-bg: var(--dw-query-bg);
+	--treeS-empty: var(--dw-disabled-bg);
+	--treeS-hover: var(--dw-border-color);
+	--treeS-disabled: var(--dw-disabled-color);
+	--treeS-down-icon: var(--dw-color);
+	--treeS-hover-bg: var(--select-option-hover-bg);
+	--treeS-disabled-bg: var(--dw-disabled-bg);
+	--treeS-search-border: var(--input-border);
+	--treeS-sign: var(--dw-border-color);
+	--treeS-icon: var(--dw-color);
+
+	// upload组件
+	--up-bg: var(--dw-query-bg);
+	--up: var(--dw-color);
+	--up-border: var(--dw-border-color);
+	--up-hovre-border: #ccc;
+}

@@ -1,7 +1,7 @@
 @import '../style/index';
 
 @checkbox-prefix-cls: ~'@{prefix}-checkbox';
-
+@border-color: var(--checkoxb-border, @color-blue3);
 @checkbox-size: 14px;
 
 .@{checkbox-prefix-cls}-checked-inner-after {
@@ -105,10 +105,10 @@
 
 	&.@{checkbox-prefix-cls}-checked {
 		.@{checkbox-prefix-cls}-inner {
-			border: 1px solid @color-blue3;
+			border: 1px solid @border-color;
 
 			&::after:extend(.cloud-checkbox-checked-inner-after) {
-				border-color: @color-blue3;
+				border-color: @border-color;
 			}
 		}
 
@@ -123,10 +123,10 @@
 
 	&.@{checkbox-prefix-cls}-indeterminate {
 		.@{checkbox-prefix-cls}-inner {
-			border-color: @color-blue3;
+			border-color: @border-color;
 
 			&::after:extend(.cloud-checkbox-indeterminate-inner-after) {
-				background: @color-blue3;
+				background: @border-color;
 			}
 		}
 

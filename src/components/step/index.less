@@ -2,7 +2,8 @@
 
 @step-prefix-cls: ~'@{prefix}-step';
 
-@wait-background-color: #dedede;
+@wait-background-color: var(--step-wait-bg, #dedede);
+@finish-color: var(--step-finish, @color-blue1);
 
 // 画图标
 .drawing-icon(@icon-size) {
@@ -230,7 +231,7 @@
 			background: @wait-background-color;
 		}
 		&.finish::before {
-			background: @color-blue1;
+			background: @finish-color;
 		}
 		&.process::before {
 			background: @wait-background-color;
@@ -250,13 +251,13 @@
 		}
 
 		&.finish {
-			color: @color-blue1;
-			border: 1px solid @color-blue1;
+			color: @finish-color;
+			border: 1px solid @finish-color;
 		}
 
 		&.process {
 			color: @color-white;
-			background: @color-blue1;
+			background: @finish-color;
 		}
 	}
 

@@ -4,15 +4,15 @@
 
 @box-sizing: border-box;
 @size-big: 14px;
-@bg-color: #fafafa;
-@border-color: #d9d9d9;
-@border-hover-color: #1890ff;
-
-@color-666: #666;
+@bg-color: var(--up-bg, #fafafa);
+@border-color: @color-gray5;
+@border-hover-color: var(--up-hovre-border, #1890ff);
+@font-color: var(--up, @color-gray2);
+@list-color: rgba(0, 0, 0, 0.65);
 
 .@{upload-prefix-cls} {
 	box-sizing: @box-sizing;
-	color: rgba(0, 0, 0, 0.65);
+	color: @list-color;
 	font-size: @size-big;
 	line-height: 1.5;
 	list-style: none;
@@ -64,14 +64,14 @@
 
 	&-text {
 		margin-top: 8px;
-		color: @color-666;
+		color: @font-color;
 	}
 
 	&-list {
 		box-sizing: @box-sizing;
 		margin: 0;
 		padding: 0;
-		color: rgba(0, 0, 0, 0.65);
+		color: @list-color;
 		font-size: @size-big;
 		line-height: 1.5;
 		zoom: 1;

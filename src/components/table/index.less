@@ -1,18 +1,38 @@
 @import '../style/index';
 
-@sort-action-color: #ccc;
-@pagination-color: #929292;
-@pagination-disabled-color: #d1d1d1;
+@sort-action-color: var(--grid-sort, #ccc);
+@sort-icon-color: var(--grid-sort-icon, @color-blue3);
+@pagination-color: var(--grid-page-color, #929292);
+@pagination-disabled-color: var(--grid-page-disabled, #d1d1d1);
 @loading-stroke-width: 3;
-@pagination-bg: #f2f2f2;
+@pagination-bg: var(--grid-page-bg, #f2f2f2);
+@toolbar-bg: var(--grid-page-bg, #00a1f3);
+@border-color: var(--grid-border, #e8e8e8);
+
 .table-wrap.cloud-react-skin [grid-manager] th[remind] .th-wrap {
 	padding-left: 20px;
 }
 .table-wrap.cloud-react-skin,
 .table-wrap.cloud-react-skin.icon-follow-text {
+	border-color: @border-color;
+	td {
+		color: var(--grid, #666);
+		background: var(--grid-bg, @color-white);
+		border-color: @border-color;
+	}
+	.table-header {
+		background-color: var(--grid-head-bg, #f1f1f1);
+		color: var(--grid, #666);
+		border-color: @border-color;
+	}
+
 	// th区域
 	[grid-manager] th {
 		padding: 0;
+		border-color: @border-color;
+		&:hover {
+			background: var(--grid-hover-bg, #e8e8e8);
+		}
 		.th-wrap {
 			padding: 6px;
 			.sorting-action.sorting-down .sa-up,
@@ -26,15 +46,15 @@
 		}
 		.th-wrap:hover .sorting-action {
 			visibility: visible;
-			color: @color-blue3 !important;
+			color: @sort-icon-color !important;
 		}
 
 		.th-text {
-			color: @color-gray2;
+			color: var(--grid-high, @color-gray2);
 			font-weight: 400;
 			i {
 				font-size: 16px !important;
-				color: @color-blue3;
+				color: @sort-icon-color;
 			}
 		}
 	}
@@ -55,10 +75,22 @@
 				white-space: normal;
 			}
 		}
+
+		// 奇数列高亮色
+		tr:nth-child(odd) td {
+			background: var(--grid-odd-bg, #fafafa);
+		}
+		// 鼠标悬浮
+		tr:hover td {
+			background: var(--grid-hover-bg, #f1f8fb);
+		}
 	}
 
 	// 分页区域
 	.gm-toolbar {
+		background: @toolbar-bg;
+		color: var(--grid, @color-gray2);
+		border-color: @border-color;
 		.change-size {
 			position: absolute;
 			top: 7px;
@@ -78,7 +110,7 @@
 			}
 		}
 		.refresh-action {
-			color: @color-gray2;
+			color: var(--grid-refresh, @color-gray2);
 			padding: 6px;
 			i {
 				vertical-align: -1px;
@@ -89,7 +121,7 @@
 		}
 
 		.pagination {
-			bottom: 6px;
+			bottom: 4px;
 			right: 60px;
 			.goto-page {
 				padding: 1.5px 10px;

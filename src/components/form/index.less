@@ -74,7 +74,7 @@
 				content: '*';
 				display: inline-block;
 				margin-right: 4px;
-				color: @color-red2;
+				color: var(--form-require, @color-red2);
 				font-size: 14px;
 				font-family: SimSun, sans-serif;
 				line-height: 1;
@@ -99,7 +99,7 @@
 			color: @color-gray2;
 
 			&.error {
-				color: @color-red3;
+				color: var(--form-warn, @color-red3);
 			}
 		}
 
@@ -118,7 +118,7 @@
 				> .@{prefix}-input-textarea-wrapper,
 				> .@{prefix}-input,
 				> .@{prefix}-input-affix {
-					border-color: @color-red3;
+					border-color: var(--form-warn, @color-red3);
 				}
 			}
 		}

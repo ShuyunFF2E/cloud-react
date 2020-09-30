@@ -2,7 +2,8 @@
 
 @loading-prefix-cls: ~'@{prefix}-loading';
 
-@backgroundColor: rgba(244, 244, 244, 0.6);
+@backgroundColor: var(--loading-bg, rgba(244, 244, 244, 0.6));
+@color: var(--loading, @color-blue4);
 
 @keyframes rotate {
 	100% {
@@ -54,7 +55,7 @@
 			.path {
 				stroke-width: 3px;
 				stroke-miterlimit: 10;
-				stroke: @color-blue4;
+				stroke: @color;
 				stroke-dasharray: 1, 200;
 				stroke-dashoffset: 0;
 				animation: dash 1.2s linear infinite;
@@ -67,7 +68,7 @@
 		margin-top: -20px;
 	}
 	&-text {
-		color: @color-blue4;
+		color: @color;
 		line-height: 30px;
 		position: absolute;
 		top: calc(50% + 5px);
