@@ -4,15 +4,15 @@
 @time: ~'@{prefix}-timepicker';
 
 @placeholder: var(--time-ph, #c9c9c9);
-@icon: var(--time-icon, #c2c2c2);
+@icon: var(--dw-color, #c2c2c2);
 @td-border-font: var(--time-td, @color-blue1);
-@disabled-color: var(--time-disabled, rgba(0, 0, 0, 0.25));
+@disabled-color: var(--dw-disabled-color, rgba(0, 0, 0, 0.25));
 
 @width: 230px;
 @height: 30px;
 
 @panel-width: 246px;
-@panel-header-bgcolor: var(--time-panel-header-bg, #f4f4f4);
+@panel-header-bgcolor: var(--dw-bg, #f4f4f4);
 
 @grid-day-check-bgcolor: var(--time-check-day-bg, #e5f7ff);
 @grid-day-other-color: var(--time-other-day, #ccc);
@@ -25,7 +25,7 @@
 
 .cloud-input-group > .@{selector}-inp,
 .@{selector}-inp {
-	background-color: var(--input-bg, @color-white);
+	background-color: var(--dw-bg, @color-white);
 	text-align: left;
 	width: @width;
 	cursor: pointer;
@@ -127,7 +127,7 @@
 
 	.grid {
 		border: 1px solid @color-gray5;
-		background: var(--time-grid-bg, @color-white);
+		background: var(--dw-bg, @color-white);
 	}
 
 	.grid-table {
@@ -137,7 +137,7 @@
 		tbody {
 			font-size: 14px;
 			color: var(--time-today, #565656);
-			background: var(--time-grid-bg, @color-white);
+			background: var(--dw-bg, @color-white);
 		}
 
 		th {

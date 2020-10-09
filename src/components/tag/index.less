@@ -2,14 +2,14 @@
 
 @tag-prefix-cls: ~'@{prefix}-tag';
 
-@default-background-color: var(--tag-default-bg, #fdfdfd);
-@default-border: var(--tag-border, #e3e3e3);
-@default-color: var(--tag, #777777);
-@default-hover-color: var(--tag-hover, rgba(119, 119, 119, 0.6));
+@default-background-color: var(--dw-query-bg, #fdfdfd);
+@default-border: var(--dw-border-color, #e3e3e3);
+@default-color: var(--dw-color, #777777);
+@default-hover-color: var(--dw-hover-color, rgba(119, 119, 119, 0.6));
 
 .bordered() {
-	background: var(--tag-checked-bg, #eff7ff);
-	border: 1px solid var(--tag-hover-border, #e7f3ff);
+	background: var(--dw-active-bg, #eff7ff);
+	border: 1px solid var(--dw-border-hover-color, #e7f3ff);
 }
 
 .disabled() {
@@ -50,7 +50,7 @@
 	}
 
 	&.checked {
-		color: var(--tag-checked, #0183ba);
+		color: var(--dw-active-color, #0183ba);
 		.bordered();
 	}
 
@@ -70,7 +70,7 @@
 		.status-style(var(--tag-warn, #fcbb27));
 	}
 	&.default {
-		.status-style(var(--tag-default-bg, @color-gray3));
+		.status-style(var(--dw-query-bg, @color-gray3));
 	}
 	&.danger {
 		.status-style(var(--tag-danger, #ff524f));
