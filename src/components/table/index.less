@@ -6,7 +6,7 @@
 @pagination-disabled-color: var(--grid-page-disabled, #d1d1d1);
 @loading-stroke-width: 3;
 @pagination-bg: var(--grid-page-bg, #f2f2f2);
-@toolbar-bg: var(--grid-page-bg, #00a1f3);
+@toolbar-bg: var(--grid-page-bg, #f2f2f2);
 @border-color: var(--grid-border, #e8e8e8);
 
 .table-wrap.cloud-react-skin [grid-manager] th[remind] .th-wrap {
@@ -14,17 +14,18 @@
 }
 .table-wrap.cloud-react-skin,
 .table-wrap.cloud-react-skin.icon-follow-text {
+	--gm-border: var(--grid-page-bg);
 	border-color: @border-color;
 	td {
 		color: var(--grid, #666);
 		background: var(--grid-bg, @color-white);
 		border-color: @border-color;
 	}
-	.table-header {
-		background-color: var(--grid-head-bg, #f1f1f1);
-		color: var(--grid, #666);
-		border-color: @border-color;
-	}
+	//.table-header {
+	//	background-color: var(--grid-head-bg, #f1f1f1);
+	//	color: var(--grid, #666);
+	//	border-color: @border-color;
+	//}
 
 	// th区域
 	[grid-manager] th {
