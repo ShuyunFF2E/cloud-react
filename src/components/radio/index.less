@@ -2,7 +2,7 @@
 
 @radio-prefix-cls: ~'@{prefix}-radio';
 
-@radio-disabled-inner-color: var(--radio-disabled, #d1d1d1);
+@radio-disabled-inner-color: var(--dw-disabled-color, #d1d1d1);
 
 @radio-size: 14px;
 
@@ -40,7 +40,7 @@
 		margin-right: 5px;
 
 		&:hover {
-			color: var(--radio-checked, @color-blue1);
+			color: var(--dw-color, @color-blue1);
 		}
 	}
 
@@ -50,7 +50,7 @@
 		cursor: pointer;
 
 		&:checked + .@{radio-prefix-cls}-inner {
-			color: var(--radio-checked, @color-blue1);
+			color: var(--dw-color, @color-blue1);
 
 			&::after:extend(.cloud-radio-position) {
 				content: '';

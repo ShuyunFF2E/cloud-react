@@ -12,20 +12,20 @@
 
 @placeholder-color: var(--input-ph, #c9c9c9);
 
-@focus-border-color: var(--input-fc-border, #aacbe1);
+@focus-border-color: var(--dw-border-hover-color, #aacbe1);
 
 @large-font-size: 14px;
 @default-font-size: 12px;
 @small-font-size: 12px;
 
 @clear-icon-font-size: 16px;
-@clear-icon-color: var(--input-cl-icon, #dbdbdb);
-@clear-icon-hover-color: var(--input-cl-icon-hover, #808080);
+@clear-icon-color: var(--dw-color, #dbdbdb);
+@clear-icon-hover-color: var(--dw-color-hover, #808080);
 
 @addon-background: var(--input-addon-bg, #fafafa);
 @addon-font-size: 14px;
 
-@textarea-background: var(--input-ta-bg, #ffffff);
+@textarea-background: var(--dw-query-bg, #ffffff);
 
 @both-space-size: 8px;
 
@@ -39,8 +39,8 @@
 		display: inline-block;
 		line-height: 1.5;
 		height: auto;
-		background: var(--input-bg, @color-white) !important;
-		color: var(--input, @color-gray4) !important;
+		background: var(--dw-bg, @color-white);
+		color: var(--dw-color, @color-gray4);
 		transition: border @transition, color @transition;
 		box-sizing: border-box;
 		vertical-align: middle;
@@ -48,7 +48,7 @@
 
 	&,
 	&-textarea {
-		border: 1px solid @color-gray5 !important;
+		border: 1px solid @color-gray5;
 		border-radius: @border-radius;
 		outline: none;
 		width: @default-width;
@@ -211,7 +211,7 @@
 	&-disabled &-affix,
 	&-textarea:disabled,
 	&:disabled {
-		color: var(--input-disabled, @color-gray3);
+		color: var(--dw-disabled-color, @color-gray3);
 		background: @color-gray7;
 		border-color: @color-gray5;
 	}
