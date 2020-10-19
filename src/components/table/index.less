@@ -2,11 +2,11 @@
 
 @sort-action-color: var(--grid-sort, #ccc);
 @sort-icon-color: var(--grid-sort-icon, @color-blue3);
-@pagination-color: var(--grid-page-color, #929292);
-@pagination-disabled-color: var(--grid-page-disabled, #d1d1d1);
+@pagination-color: var(--dw-color, #929292);
+@pagination-disabled-color: var(--dw-disabled-color, #d1d1d1);
 @loading-stroke-width: 3;
-@pagination-bg: var(--grid-page-bg, #f2f2f2);
-@toolbar-bg: var(--grid-page-bg, #f2f2f2);
+@pagination-bg: var(--dw-query-bg, #f2f2f2);
+@toolbar-bg: var(--dw-query-bg, #f2f2f2);
 @border-color: var(--grid-border, #e8e8e8);
 
 .table-wrap.cloud-react-skin [grid-manager] th[remind] .th-wrap {
@@ -14,7 +14,7 @@
 }
 .table-wrap.cloud-react-skin,
 .table-wrap.cloud-react-skin.icon-follow-text {
-	--gm-border: var(--grid-page-bg);
+	--gm-border: var(--grid-border, 1px solid #e8e8e8);
 	border-color: @border-color;
 	td {
 		color: var(--grid, #666);

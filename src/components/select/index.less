@@ -23,13 +23,12 @@
 
 @select-empty-color: var(--select-empty, #e3e3e3);
 @select-normal-border: 1px solid @color-gray5;
-@select-hover-color: var(--select-hover, #aacbe1);
+@select-hover-color: var(--dw-hover-color, #aacbe1);
 @select-hover-border: 1px solid @select-hover-color;
 @select-disabled-border: 1px solid @color-gray5;
-@select-disabled-color: var(--select-disabled, #999);
+@select-disabled-color: var(--dw-disabled-color, #999);
 @dropdown-icon-color: var(--select-dropdown-icon-color, #c2c2c2);
-@option-hover-background: var(--select-option-hover-bg, #f6f6f6);
-@option-disabled-background: var(--select-option-disabled-bg, #f6f6f6);
+@option-hover-background: var(--dw-query-hover-bg, #f6f6f6);
 @search-border: 1px solid var(--select-search-border, #ededed);
 @sign-color: #dbdbdb;
 
@@ -61,7 +60,7 @@
 	.@{select-prefix-cls}-wrapper {
 		height: @height;
 		line-height: @line-height;
-		background: var(--select-bg, #fff);
+		background: var(--dw-bg, #fff);
 		border: @select-normal-border;
 		display: flex;
 		align-items: center;
@@ -181,7 +180,7 @@
 	min-width: @min-width;
 	width: 100%;
 	border: @select-normal-border;
-	background: var(--select-option-bg, @color-white);
+	background: var(--dw-query-bg, @color-white);
 	cursor: pointer;
 
 	> div {
@@ -207,7 +206,7 @@
 			height: @search-input-height;
 			border: @search-border;
 			color: var(--select-search, #fff);
-			background: var(--select-option-bg, #fff);
+			background: var(--dw-query-bg, #fff);
 			border-radius: @default-border-radius;
 			outline: none;
 			.text-overflow-ellipsis();
@@ -243,9 +242,9 @@
 		}
 
 		&.selected {
-			background: @option-disabled-background;
+			background: var(--dw-active-bg, #f6f6f6);
 			> span {
-				color: var(--select-selected, @color-gray4);
+				color: var(--dw-active-color, @color-gray4);
 			}
 		}
 	}
@@ -278,7 +277,7 @@
 				padding: @default-padding @large-padding;
 
 				&.selected {
-					background: var(--select-selected-bg, @color-white);
+					background: var(--dw-active-bg, @color-white);
 				}
 
 				&:hover {

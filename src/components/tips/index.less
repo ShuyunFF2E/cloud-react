@@ -2,8 +2,8 @@
 
 @tips-prefix-cls: ~'@{prefix}-tips';
 
-@normal-bg: var(--tip-bg, #ecf8fc);
-@normal-border-color: var(--tip-border, #d2eeff);
+@normal-bg: var(----dw-query-bg, #ecf8fc);
+@normal-border-color: var(--dw-border-color, #d2eeff);
 
 @major-bg: var(--tip-major-bg, #fcf8e2);
 @major-border-color: var(--tip-major-border, #faecca);
@@ -22,7 +22,7 @@
 	line-height: 18px;
 	border-radius: 2px;
 	font-size: 12px;
-	color: var(--tip, @color-gray2);
+	color: var(--dw-color, @color-gray2);
 
 	&.normal {
 		.type-mixin(@normal-bg, @normal-border-color);

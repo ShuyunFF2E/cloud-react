@@ -88,7 +88,7 @@ export default class Selected extends React.Component {
 
 	render() {
 		const {
-			props: { dataSource, disabled, placeholder, open, showArrow, showSelectStyle, onClear },
+			props: { dataSource, disabled, isSupportTitle, placeholder, open, showArrow, showSelectStyle, onClear },
 			state: { selected, clear },
 			onMouseEnter,
 			onMouseLeave
@@ -107,10 +107,14 @@ export default class Selected extends React.Component {
 		const clearClasses = classnames(`${selector}-select-icon ${selector}-clear-icon`, {
 			show: clear && selected.length
 		});
+		let title = '';
+		if (isSupportTitle) {
+			title = Array.isArray(selected) ? selected.filter(item => typeof item === 'string').join('') : selected;
+		}
 
 		return (
 			<div ref={this.ref} className={classNames} onClick={this.onWrapperClick} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-				<span className={`${selector}-selected`} title={selected}>
+				<span className={`${selector}-selected`} title={title}>
 					{selected.length ? selected : placeholder}
 				</span>
 				<Icon type="close-circle-solid" className={clearClasses} onClick={onClear} />

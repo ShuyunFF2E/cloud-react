@@ -2,9 +2,9 @@
 
 @input-number-prefix-cls: ~'@{prefix}-input-number';
 
-@border-hover-color: var(--number-border-hover, #aacbe1);
+@border-hover-color: var(--dw-border-hover-color, #aacbe1);
 
-@color: var(--input, rgba(0, 0, 0, 0.65));
+@color: var(--dw-color, rgba(0, 0, 0, 0.65));
 
 @large-height: 40px;
 @large-fontSize: 16px;
@@ -33,7 +33,7 @@
 	width: 90px;
 	border: 1px solid @color-gray5;
 	color: @color;
-	background-color: var(--input-bg, @color-white);
+	background-color: var(--dw-bg, @color-white);
 
 	* {
 		box-sizing: border-box;
@@ -53,8 +53,8 @@
 	}
 
 	&-disabled {
-		color: var(--number-disabled, rgba(0, 0, 0, 0.25));
-		background-color: var(--number-disabled-bg, #eeeeee);
+		color: var(--dw-disabled-color, rgba(0, 0, 0, 0.25));
+		background-color: var(--dw-disabled-bg, #eeeeee);
 
 		opacity: 1;
 
@@ -112,7 +112,7 @@
 		justify-content: center;
 		align-items: center;
 		overflow: hidden;
-		color: var(--number-handler, rgba(0, 0, 0, 0.45));
+		color: var(--dw-color, rgba(0, 0, 0, 0.45));
 		font-weight: bold;
 		transition: all 0.1s linear;
 
@@ -128,7 +128,7 @@
 
 	&-handler-up,
 	&-handler-down {
-		background: var(--number-handle-bg, @color-white);
+		background: var(--dw-hover-color, @color-white);
 		&:hover {
 			cursor: pointer;
 			color: @border-hover-color;

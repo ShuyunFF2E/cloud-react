@@ -43,13 +43,26 @@ export default function SelectDemo() {
 
 	return (
 		<div style={{ height: 300 }}>
-			<Select placeholder="请选择..." defaultValue={4} position="auto" onSelectOpen={handleOpen} onSelectClose={handleClose} onChange={handleChange}>
+			<Select isSupportTitle placeholder="请选择..." defaultValue={4} position="auto" onSelectOpen={handleOpen} onSelectClose={handleClose} onChange={handleChange}>
 				{dataList.map((item, index) => (
-					<Option item={{ ...item, index }} value={item.value} disabled={item.disabled} key={index}>
+					<Option isSupportTitle item={{ ...item, index }} value={item.value} disabled={item.disabled} key={index}>
 						{item.label}
 					</Option>
 				))}
 			</Select>
+            <div style={{ margin: '20px 0' }}>
+                鼠标 hover 选项显示完整内容：
+                <Select
+                    isSupportTitle
+                    placeholder="请选择..." 
+                    defaultValue="apple" 
+                    position="auto" 
+                    dataSource={dataList}
+                    onSelectOpen={handleOpen} 
+                    onSelectClose={handleClose} 
+                    onChange={handleChange}
+                />
+            </div>
 
 			<div style={{ margin: '20px 0' }}>
 				<Button onClick={openModal}>打开弹框</Button>

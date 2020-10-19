@@ -26,9 +26,9 @@ const getSelected = (data, children) => {
 	return selected;
 };
 
-const getOptions = (dataSource, labelKey, valueKey) => {
+const getOptions = (dataSource, labelKey, valueKey, isSupportTitle) => {
 	return dataSource.map((v, index) => (
-		<Option item={{ ...v, index }} value={v[valueKey]} disabled={v.disabled} key={Math.random()}>
+		<Option item={{ ...v, index }} value={v[valueKey]} disabled={v.disabled} isSupportTitle={isSupportTitle} key={Math.random()}>
 			{v[labelKey]}
 		</Option>
 	));
@@ -63,14 +63,14 @@ class Select extends Component {
 
 	static getDerivedStateFromProps(props, prevState) {
 		const { prevProps } = prevState;
-		const { value, children, dataSource, multiple, open } = props;
+		const { value, children, dataSource, multiple, open, isSupportTitle } = props;
 		const { value: prevValue, children: prevChildren, dataSource: prevData, open: prevOpen } = prevProps;
 
 		if (value !== prevValue || Children.count(children) !== Children.count(prevChildren) || !ShuyunUtils.equal(dataSource, prevData)) {
 			const { labelKey, valueKey, labelInValue, defaultValue } = props;
 			const displayValue = value !== null ? value : defaultValue;
 			const childs = Array.isArray(children) ? flat(children, Infinity) : Children.toArray(children);
-			const source = childs.length ? childs : getOptions(dataSource, labelKey, valueKey);
+			const source = childs.length ? childs : getOptions(dataSource, labelKey, valueKey, isSupportTitle);
 			const selected = getSelected(displayValue, source);
 			const emptyValue = multiple ? [] : '';
 			const currentValue = displayValue !== null ? displayValue : emptyValue;
@@ -147,12 +147,12 @@ class Select extends Component {
 	}
 
 	get children() {
-		const { children, dataSource, labelKey, valueKey } = this.props;
+		const { children, dataSource, labelKey, valueKey, isSupportTitle } = this.props;
 		const childs = Array.isArray(children) ? flat(children, Infinity) : Children.toArray(children);
 
 		if (childs.length) return childs;
 
-		return getOptions(dataSource, labelKey, valueKey);
+		return getOptions(dataSource, labelKey, valueKey, isSupportTitle);
 	}
 
 	get selectedContainerStyle() {
@@ -368,7 +368,7 @@ class Select extends Component {
 	}
 
 	render() {
-		const { placeholder, disabled, allowClear, style, className, isAppendToBody, ...otherProps } = this.props;
+		const { placeholder, disabled, allowClear, style, className, isAppendToBody, isSupportTitle, ...otherProps } = this.props;
 		const { selected, open, style: popupStyle } = this.state;
 		const { width } = this.selectedContainerStyle;
 		const classNames = classnames(`${selector}`, { [`${selector}-open`]: open }, className);
@@ -389,6 +389,7 @@ class Select extends Component {
 					dataSource={selected}
 					metaData={this.children}
 					disabled={disabled}
+					isSupportTitle={isSupportTitle}
 				/>
 
 				{open &&
@@ -421,6 +422,7 @@ Select.propTypes = {
 	labelInValue: PropTypes.bool,
 	hasSelectAll: PropTypes.bool,
 	hasConfirmButton: PropTypes.bool,
+	isSupportTitle: PropTypes.bool,
 	okBtnText: PropTypes.string,
 	cancelBtnText: PropTypes.string,
 	className: PropTypes.string,
@@ -451,6 +453,7 @@ Select.defaultProps = {
 	labelInValue: false,
 	hasSelectAll: false,
 	hasConfirmButton: false,
+	isSupportTitle: false,
 	okBtnText: '确认',
 	cancelBtnText: '取消',
 	className: '',
