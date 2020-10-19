@@ -368,7 +368,7 @@ class Select extends Component {
 	}
 
 	render() {
-		const { placeholder, disabled, allowClear, style, className, isAppendToBody, ...otherProps } = this.props;
+		const { placeholder, disabled, allowClear, style, className, isAppendToBody, isSupportTitle, ...otherProps } = this.props;
 		const { selected, open, style: popupStyle } = this.state;
 		const { width } = this.selectedContainerStyle;
 		const classNames = classnames(`${selector}`, { [`${selector}-open`]: open }, className);
@@ -389,6 +389,7 @@ class Select extends Component {
 					dataSource={selected}
 					metaData={this.children}
 					disabled={disabled}
+					isSupportTitle={isSupportTitle}
 				/>
 
 				{open &&
