@@ -8,7 +8,7 @@ import { selector } from './common';
 import '../index.less';
 
 export default function Option(props) {
-	const { disabled, isSelected, multiple, className, onChange, ...otherProps } = props;
+	const { disabled, isSelected, multiple, className, onChange, isSupportTitle, ...otherProps } = props;
 
 	const onOptionClick = () => {
 		if (disabled) return;
@@ -28,10 +28,11 @@ export default function Option(props) {
 	}
 
 	const { children, ...others } = otherProps;
+	const title = Array.isArray(children) ? children.filter(item => typeof item === 'string').join('') : children;
 	return useMemo(
 		() => (
 			<div {...others} onClick={onOptionClick} className={classNames}>
-				<span title={children}>{children}</span>
+				{isSupportTitle ? <span title={title}>{children}</span> : <span>{children}</span>}
 			</div>
 		),
 		[isSelected]
@@ -40,6 +41,7 @@ export default function Option(props) {
 
 Option.propTypes = {
 	disabled: PropTypes.bool,
+	isSupportTitle: PropTypes.bool,
 	value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 	className: PropTypes.string,
 	onChange: PropTypes.func
@@ -47,6 +49,7 @@ Option.propTypes = {
 
 Option.defaultProps = {
 	disabled: false,
+	isSupportTitle: false,
 	value: '',
 	className: '',
 	onChange: noop
