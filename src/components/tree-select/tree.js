@@ -9,6 +9,14 @@ import { selector, MULTIPLE } from './const';
 
 import './index.less';
 
+const OptionsEmpty = ({ emptyRender, ...props }) => {
+	return (
+		<div className={`${selector}-empty-options`} {...props}>
+			{' '}
+			{emptyRender}{' '}
+		</div>
+	);
+};
 class TreeContainer extends React.Component {
 	get buttons() {
 		const { okBtnText, cancelBtnText, resetBtnText, onOk, onCancel, onReset } = this.props;
@@ -36,21 +44,36 @@ class TreeContainer extends React.Component {
 	};
 
 	render() {
-		const { dataSource, type, searchable, value, hasConfirmButton, footerTypes, dropdownClassName, dropdownStyle, style, ...otherProps } = this.props;
+		const {
+			dataSource,
+			type,
+			searchable,
+			value,
+			hasConfirmButton,
+			footerTypes,
+			dropdownClassName,
+			dropdownStyle,
+			style,
+			emptyRender,
+			...otherProps
+		} = this.props;
 		const classNames = cls(`${selector}-options`, dropdownClassName, {
 			[`${selector}-options-confirm`]: hasConfirmButton
 		});
 		return (
 			<div className={classNames} style={dropdownStyle}>
-				<Tree
-					{...otherProps}
-					supportSearch={searchable}
-					selectedValue={value}
-					onSelectedNode={this.selectNode}
-					treeData={dataSource}
-					supportCheckbox={type === MULTIPLE}
-				/>
+				{dataSource.length > 0 && (
+					<Tree
+						{...otherProps}
+						supportSearch={searchable}
+						selectedValue={value}
+						onSelectedNode={this.selectNode}
+						treeData={dataSource}
+						supportCheckbox={type === MULTIPLE}
+					/>
+				)}
 				{hasConfirmButton && <div className={`${selector}-operate-btn`}>{footerTypes.map(v => this.buttons[v])}</div>}
+				{!dataSource.length && <OptionsEmpty emptyRender={emptyRender} />}
 			</div>
 		);
 	}
