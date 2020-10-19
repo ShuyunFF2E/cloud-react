@@ -43,7 +43,7 @@ export default function SelectDemo() {
 
 	return (
 		<div style={{ height: 300 }}>
-			<Select placeholder="请选择..." defaultValue={4} position="auto" onSelectOpen={handleOpen} onSelectClose={handleClose} onChange={handleChange}>
+			<Select isSupportTitle placeholder="请选择..." defaultValue={4} position="auto" onSelectOpen={handleOpen} onSelectClose={handleClose} onChange={handleChange}>
 				{dataList.map((item, index) => (
 					<Option isSupportTitle item={{ ...item, index }} value={item.value} disabled={item.disabled} key={index}>
 						{item.label}
