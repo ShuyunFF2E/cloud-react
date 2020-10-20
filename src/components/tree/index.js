@@ -140,7 +140,7 @@ class Tree extends Component {
 		document.addEventListener('scroll', this.onHideMenu, true);
 		document.addEventListener('click', this.onHideMenu);
 		this.setState({
-			treeWidth: this.treeAreaRef.current.clientWidth
+			treeWidth: this.treeAreaRef?.current?.clientWidth
 		});
 	}
 
