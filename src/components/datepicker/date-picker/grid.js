@@ -32,11 +32,12 @@ class Grid extends Component {
 	}
 
 	updateState() {
-		const { hour, minute, second } = this.props.checkValue;
+		const { hour, minute, second } = this.props.checkValue || {};
+		const _defaultTimes = this.props.defaultTime.split(':');
 		this.setState({
-			tempHour: hour,
-			tempMinute: minute,
-			tempSecond: second
+			tempHour: hour || _defaultTimes[0],
+			tempMinute: minute || _defaultTimes[1],
+			tempSecond: second || _defaultTimes[2]
 		});
 	}
 
@@ -93,23 +94,17 @@ class Grid extends Component {
 	};
 
 	onSave = () => {
-		const nowTime = displayNow();
 		const { year, month, onOK } = this.props;
 		const { tempDay, tempHour, tempMinute, tempSecond } = this.state;
 
-		if (tempDay) {
-			onOK(
-				displayNow(new Date(`${year}/${month}/${tempDay} ${tempHour || nowTime.hour}:${tempMinute || nowTime.minute}:${tempSecond || nowTime.second}`))
-			);
-		}
+		onOK(displayNow(new Date(`${year}/${month}/${tempDay} ${tempHour}:${tempMinute}:${tempSecond}`)));
 	};
 
 	render() {
 		const { year, month, minDate, maxDate, showTimePicker, style, onPickDate } = this.props;
 		const { tempDay, tempHour, tempMinute, tempSecond } = this.state;
 
-		const now = displayNow();
-		const days = year && month ? refreshDays(year, month) : refreshDays(now.year, now.month);
+		const days = refreshDays(year, month);
 
 		return (
 			<div className="grid" style={style}>
@@ -128,14 +123,13 @@ class Grid extends Component {
 				{showTimePicker && <Time type="inner" onChange={this.onTimePickChange} value={`${tempHour}:${tempMinute}:${tempSecond}`} />}
 
 				<div className={`${selectorClass}-popup-btns`}>
-					{!showTimePicker && (
-						<Button size="small" disabled={this.getTodayDisabled()} onClick={this.onToadyClick}>
-							今天
-						</Button>
-					)}
-					{showTimePicker && (
+					{showTimePicker ? (
 						<Button size="small" onClick={this.onToadyClick}>
 							此刻
+						</Button>
+					) : (
+						<Button size="small" disabled={this.getTodayDisabled()} onClick={this.onToadyClick}>
+							今天
 						</Button>
 					)}
 					<Button type="primary" size="small" disabled={!tempDay || this.getOkButtonDisabled()} onClick={this.onSave}>
@@ -155,8 +149,8 @@ Grid.propTypes = {
 	hour: PropTypes.string,
 	minute: PropTypes.string,
 	second: PropTypes.string,
-	maxDate: PropTypes.instanceOf(Date),
-	minDate: PropTypes.instanceOf(Date),
+	maxDate: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
+	minDate: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
 	showTimePicker: PropTypes.bool,
 	onPickDate: PropTypes.func,
 	onOK: PropTypes.func

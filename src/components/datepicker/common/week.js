@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import { noop } from '@utils';
 import { today } from '../utils';
 
 import '../index.less';
@@ -23,15 +24,18 @@ class Week extends Component {
 		const minDateStamp = new Date(minDate);
 		const maxDateStamp = new Date(maxDate);
 
+		const currentDate = currentTimeStamp.getDate();
+		const currentMonth = currentTimeStamp.getMonth();
+
 		if (minDate && currentTimeStamp.getTime() <= minDateStamp.getTime()) {
-			if (currentTimeStamp.getDate() === minDateStamp.getDate()) {
+			if (currentMonth === minDateStamp.getMonth() && currentDate === minDateStamp.getDate()) {
 				return false;
 			}
 			return true;
 		}
 
 		if (maxDate && currentTimeStamp.getTime() >= maxDateStamp.getTime()) {
-			if (currentTimeStamp.getDate() === maxDateStamp.getDate()) {
+			if (currentMonth === maxDateStamp.getMonth() && currentDate === maxDateStamp.getDate()) {
 				return false;
 			}
 			return true;
@@ -110,7 +114,7 @@ class Week extends Component {
 	}
 
 	render() {
-		const { prev = [], current = [], next = [] } = this.props.days;
+		const { prev, current, next } = this.props.days;
 
 		return (
 			<div className="grid-table">
@@ -134,8 +138,8 @@ class Week extends Component {
 Week.propTypes = {
 	days: PropTypes.object,
 	currentDateObj: PropTypes.object,
-	maxDate: PropTypes.instanceOf(Date),
-	minDate: PropTypes.instanceOf(Date),
+	maxDate: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
+	minDate: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
 	onPickDate: PropTypes.func
 };
 
@@ -144,7 +148,7 @@ Week.defaultProps = {
 	currentDateObj: null,
 	minDate: undefined,
 	maxDate: undefined,
-	onPickDate: () => {}
+	onPickDate: noop
 };
 
 export default Week;

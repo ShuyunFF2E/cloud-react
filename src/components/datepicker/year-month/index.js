@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 import Picker from '../common/picker';
 import { convert } from '../utils';
 import { enumObj } from '../constant';
+import { PROPTYPES, DEFAULT_PROPS } from '../proptypes';
 
 export default class YearMonthPicker extends Component {
-	formatValue = ({ year, month }) => {
-		return convert({ year, month }, this.props.format);
+	formatValue = ({ year, month }, format) => {
+		const rule = format || this.props.format;
+		return convert({ year, month }, rule);
 	};
 
 	render() {
@@ -15,6 +17,7 @@ export default class YearMonthPicker extends Component {
 }
 
 YearMonthPicker.propTypes = {
+	...PROPTYPES,
 	min: PropTypes.string,
 	max: PropTypes.string,
 	format: PropTypes.string,
@@ -22,6 +25,7 @@ YearMonthPicker.propTypes = {
 };
 
 YearMonthPicker.defaultProps = {
+	...DEFAULT_PROPS,
 	min: '1900/01',
 	max: '2100/12',
 	format: 'YYYY/MM',

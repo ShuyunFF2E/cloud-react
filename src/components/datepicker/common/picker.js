@@ -10,7 +10,7 @@ import YearMonth from '../year-month/main';
 import MonthDay from '../month-day/main';
 import DatePicker from '../date-picker/main';
 import { renderDOM, createWrapper, destroyDOM } from './utils';
-import { enumObj, containerClass, selectorClass, wrapperClass } from '../constant';
+import { enumObj, containerClass, selectorClass, wrapperClass, FORMAT } from '../constant';
 import { transformObj, displayNow } from '../utils';
 
 class Picker extends Component {
@@ -20,21 +20,36 @@ class Picker extends Component {
 		super(props);
 
 		const { value, defaultValue, open, formatValue } = props;
-		const defaultTime = defaultValue ? formatValue(displayNow(defaultValue)) : undefined;
+		const defaultTime = defaultValue ? formatValue(displayNow(defaultValue), this.format) : undefined;
 
 		this.state = {
-			currentValue: value ? formatValue(displayNow(new Date(value))) : defaultTime,
+			currentValue: value ? formatValue(displayNow(new Date(value)), this.format) : defaultTime,
 			id: Math.random()
 				.toString()
 				.replace('.', ''),
 			visible: open,
-			style: {}
+			style: {},
+			prevProps: props
 		};
 
 		this.inpRef = createRef();
 		this.popupRef = createRef();
 
 		this.containerRef = createRef();
+	}
+
+	static getDerivedStateFromProps(props, prevState) {
+		const { prevProps } = prevState;
+		const { open } = props;
+		const { open: prevOpen } = prevProps;
+
+		if (open !== prevOpen) {
+			return {
+				visible: open,
+				prevProps: props
+			};
+		}
+		return null;
 	}
 
 	componentDidMount() {
@@ -66,6 +81,10 @@ class Picker extends Component {
 		clearTimeout(this.popupTimeout);
 	}
 
+	get format() {
+		return FORMAT[this.props.tempMode];
+	}
+
 	get document() {
 		return this.context.rootDocument;
 	}
@@ -91,31 +110,30 @@ class Picker extends Component {
 	};
 
 	renderMainPop = () => {
-		const { tempMode } = this.props;
+		const { tempMode, formatValue } = this.props;
 		const { currentValue } = this.state;
+		const checkValue = currentValue ? formatValue(displayNow(new Date(currentValue)), this.format) : '';
 
 		if (tempMode === enumObj.YEAR_MODEL) {
 			return <Year {...this.props} checkValue={currentValue} onChange={this.onPopChange} />;
 		}
 
 		if (tempMode === enumObj.YEAR_MONTH_MODEL) {
-			return <YearMonth {...this.props} checkValue={currentValue} onChange={this.onPopChange} />;
+			return <YearMonth {...this.props} checkValue={checkValue} onChange={this.onPopChange} />;
 		}
 
 		if (tempMode === enumObj.MONTH_DAY_MODEL) {
-			return <MonthDay {...this.props} checkValue={currentValue} onChange={this.onPopChange} />;
+			return <MonthDay {...this.props} checkValue={checkValue} onChange={this.onPopChange} />;
 		}
 
-		if (tempMode === enumObj.DATE_MODEL) {
-			return <DatePicker {...this.props} checkValue={transformObj(currentValue)} onChange={this.onPopChange} />;
-		}
-
-		return null;
+		return <DatePicker {...this.props} checkValue={transformObj(checkValue)} onChange={this.onPopChange} />;
 	};
 
 	popClick = evt => {
 		evt.stopPropagation();
-		evt.nativeEvent.stopImmediatePropagation();
+		if (evt.nativeEvent.stopImmediatePropagation) {
+			evt.nativeEvent.stopImmediatePropagation();
+		}
 	};
 
 	handleClick = e => {
@@ -218,7 +236,7 @@ class Picker extends Component {
 	render() {
 		const { inpRef, containerRef, onClickInput, handleChange } = this;
 		const { currentValue, visible, style } = this.state;
-		const { placeholder, disabled, isAppendToBody, width = 230, className, ...others } = this.props;
+		const { placeholder, disabled, isAppendToBody, width, className, ...others } = this.props;
 		const otherProps = omit(others, [
 			'value',
 			'containerEleClass',
@@ -240,20 +258,21 @@ class Picker extends Component {
 
 		return (
 			<div ref={containerRef} className={containerClass}>
-				<Input
-					{...otherProps}
-					style={{ width: `${parseFloat(width)}px` }}
-					readOnly
-					hasClear
-					ref={inpRef}
-					value={currentValue}
-					placeholder={placeholder}
-					onChange={handleChange}
-					disabled={disabled}
-					className={`${selectorClass}-inp`}
-					onClick={onClickInput}
-					suffix={<Icon type="calendar" className={`${selectorClass}-inp-icon`} onClick={onClickInput} />}
-				/>
+				<div className={`${selectorClass}-inp-block`} onClick={onClickInput}>
+					<Input
+						{...otherProps}
+						style={{ width: `${parseFloat(width)}px` }}
+						readOnly
+						hasClear
+						ref={inpRef}
+						value={currentValue}
+						placeholder={placeholder}
+						onChange={handleChange}
+						disabled={disabled}
+						className={`${selectorClass}-inp`}
+						suffix={<Icon type="calendar" className={`${selectorClass}-inp-icon`} onClick={onClickInput} />}
+					/>
+				</div>
 
 				{visible &&
 					isAppendToBody &&
