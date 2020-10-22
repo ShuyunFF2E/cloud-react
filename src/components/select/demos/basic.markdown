@@ -13,11 +13,13 @@ const Option = Select.Option;
 const dataList = [
 	{
 		label: '苹果',
-		value: 'apple'
+		value: 'apple',
+        disabled: true
 	},
 	{
 		label: '草莓',
-		value: 'cc'
+		value: 'cc',
+        disabled: true
 	},
 	{
 		label: '荔枝',
