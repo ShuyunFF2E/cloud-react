@@ -212,7 +212,8 @@ class Picker extends Component {
 		};
 	};
 
-	onClickInput = () => {
+	onClickInput = e => {
+		e.stopPropagation();
 		const { disabled } = this.props;
 		const { visible } = this.state;
 
