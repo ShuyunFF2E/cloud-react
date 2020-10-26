@@ -236,8 +236,10 @@
 		}
 
 		&.disabled {
-			color: @select-disabled-color;
 			cursor: not-allowed;
+			span {
+				color: @select-disabled-color;
+			}
 		}
 
 		&.selected {
