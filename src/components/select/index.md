@@ -32,6 +32,7 @@ subtitle: 下拉选择
 | hasSelectAll      | 多选时是否有全选                                                  | boolean                                 | false          |
 | showSelectAll     | 全选时是否显示为“全选”                                                  | boolean                            | false          |
 | hasConfirmButton  | 多选时是否有确认按钮                                              | boolean                                 | false          |
+| isSupportTitle       | 鼠标 hover 选项是否显示完整内容                                              | boolean                                 | false          |
 | okBtnText         | 多选时确认操作按钮文案                                            | string                                  | '确认'         |
 | cancelBtnText     | 多选时取消操作按钮文案                                            | string                                  | '取消'         |
 | className         | 组件的 className 属性                                             | string                                  | -              |
