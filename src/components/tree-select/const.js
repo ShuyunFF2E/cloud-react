@@ -2,12 +2,12 @@ import { prefixCls } from '@utils';
 
 export const selector = `${prefixCls}-tree-select`;
 
-export const getOpenKeys = (selected, nodes) => {
+export const getOpenKeys = (selected, nodes, isUnfold) => {
 	const keys = [];
 	const getKeys = data => {
 		data.forEach(v => {
 			if (v.children && v.children.length) {
-				const child = v.children.find(i => i.value === selected.value);
+				const child = v.children.find(i => isUnfold || i.value === selected.value);
 				if (child) keys.push(v.value);
 				getKeys(v.children);
 			}

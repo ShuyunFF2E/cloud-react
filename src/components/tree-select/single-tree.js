@@ -37,10 +37,10 @@ class SingleTree extends React.Component {
 	constructor(props) {
 		super(props);
 
-		const { dataSource, value } = props;
+		const { dataSource, value, isUnfold } = props;
 		this.state = {
 			searchValue: '',
-			openKeys: getOpenKeys(value, dataSource),
+			openKeys: getOpenKeys(value, dataSource, isUnfold),
 			dataSource,
 			selected: value,
 			prevProps: props
@@ -49,13 +49,13 @@ class SingleTree extends React.Component {
 
 	static getDerivedStateFromProps(props, prevState) {
 		const { prevProps } = prevState;
-		const { value, dataSource } = props;
+		const { value, dataSource, isUnfold } = props;
 		const { value: prevValue, dataSource: prevData } = prevProps;
 		if (value !== prevValue || !ShuyunUtils.equal(dataSource, prevData)) {
 			return {
 				value,
 				prevValue: value,
-				openKeys: getOpenKeys(value, dataSource),
+				openKeys: getOpenKeys(value, dataSource, isUnfold),
 				prevProps: props
 			};
 		}
@@ -170,6 +170,7 @@ class SingleTree extends React.Component {
 SingleTree.propTypes = {
 	dataSource: PropTypes.array,
 	searchable: PropTypes.bool,
+	isUnfold: PropTypes.bool,
 	searchPlaceholder: PropTypes.string,
 	value: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 	dropdownClassName: PropTypes.string,
@@ -181,6 +182,7 @@ SingleTree.propTypes = {
 SingleTree.defaultProps = {
 	dataSource: [],
 	searchable: false,
+	isUnfold: false,
 	searchPlaceholder: '',
 	value: {},
 	dropdownClassName: '',
