@@ -55,6 +55,8 @@ export default function SelectDemo() {
             <div style={{ margin: '20px 0' }}>
                 鼠标 hover 选项显示完整内容：
                 <Select
+                    defaultOpen
+                    isAppendToBody
                     isSupportTitle
                     placeholder="请选择..." 
                     defaultValue="apple" 

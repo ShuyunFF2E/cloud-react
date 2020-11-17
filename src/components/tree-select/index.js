@@ -64,6 +64,7 @@ class TreeSelect extends Component {
 
 	componentDidMount() {
 		this.document.addEventListener('click', this.handleClick);
+		if (this.state.open) this.positionPop();
 	}
 
 	shouldComponentUpdate(nextProps, nextState) {
@@ -283,7 +284,11 @@ class TreeSelect extends Component {
 		const { width } = this.selectedContainerStyle;
 
 		const classNames = classnames(`${selector}`, { [`${selector}-open`]: open }, className);
-		const containerEle = isAppendToBody ? this.portal : this.node.current;
+		const treeOptionsContainer = (
+			<div className={`${selector}-container`} ref={this.optionsNode} style={{ ...popupStyle, minWidth: width }}>
+				{this.renderTreeNode()}
+			</div>
+		);
 
 		return (
 			<div className={`${classNames}`} style={style} ref={this.node}>
@@ -297,14 +302,7 @@ class TreeSelect extends Component {
 					dataSource={value}
 					disabled={disabled}
 				/>
-
-				{open &&
-					ReactDOM.createPortal(
-						<div className={`${selector}-container`} ref={this.optionsNode} style={{ ...popupStyle, minWidth: width }}>
-							{this.renderTreeNode()}
-						</div>,
-						containerEle
-					)}
+				{isAppendToBody ? open && ReactDOM.createPortal(treeOptionsContainer, this.portal) : open && treeOptionsContainer}
 			</div>
 		);
 	}
