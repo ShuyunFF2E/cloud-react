@@ -96,6 +96,7 @@ class Select extends Component {
 	componentDidMount() {
 		this.document.addEventListener('click', this.handleClick);
 		this.node.current.addEventListener('mouseleave', this.handleMouseLeave);
+		if (this.state.open) this.positionPop();
 
 		if (!this.props.dataSource.length) {
 			console.warn('请传入dataSource属性，未传入可能导致部分功能不能正常使用');
@@ -373,7 +374,11 @@ class Select extends Component {
 		const { width } = this.selectedContainerStyle;
 		const classNames = classnames(`${selector}`, { [`${selector}-open`]: open }, className);
 
-		const containerEle = isAppendToBody ? this.portal : this.node.current;
+		const optionContainer = (
+			<div className={`${selector}-option-container`} ref={this.optionsNode} style={{ ...popupStyle, width: `${width}px` }}>
+				{this.renderOptions()}
+			</div>
+		);
 
 		return (
 			<div className={`${classNames}`} style={style} ref={this.node}>
@@ -392,13 +397,7 @@ class Select extends Component {
 					isSupportTitle={isSupportTitle}
 				/>
 
-				{open &&
-					ReactDOM.createPortal(
-						<div className={`${selector}-option-container`} ref={this.optionsNode} style={{ ...popupStyle, width: `${width}px` }}>
-							{this.renderOptions()}
-						</div>,
-						containerEle
-					)}
+				{isAppendToBody ? open && ReactDOM.createPortal(optionContainer, this.portal) : open && optionContainer}
 			</div>
 		);
 	}

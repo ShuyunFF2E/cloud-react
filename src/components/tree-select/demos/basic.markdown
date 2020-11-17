@@ -47,6 +47,8 @@ export default class TreeSelectDemo extends React.Component {
 			<TreeSelect
 				searchable
 				allowClear
+                defaultOpen
+                isAppendToBody
 				onSearch={this.handleSearch}
 				value={{
 					label: '荔枝',

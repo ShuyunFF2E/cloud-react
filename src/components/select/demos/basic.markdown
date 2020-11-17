@@ -12,23 +12,23 @@ const Option = Select.Option;
 
 const dataList = [
 	{
-		label: '苹果',
-		value: 'apple',
+        label: '苹果',
+        value: 'apple',
         disabled: true
-	},
-	{
-		label: '草莓',
-		value: 'cc',
+    },
+    {
+        label: '草莓',
+        value: 'cc',
         disabled: true
-	},
-	{
-		label: '荔枝',
-		value: 'lizhi'
-	},
-	{
-		label: '特别特别长的选项特别特别长的选项特别特别长的选项特别特别长的选项特别特别长的选项',
-		value: 4
-	}
+    },
+    {
+        label: '荔枝',
+        value: 'lizhi'
+    },
+    {
+        label: '特别特别长的选项特别特别长的选项特别特别长的选项特别特别长的选项特别特别长的选项',
+        value: 4
+    }
 ];
 
 export default function SelectDemo() {
@@ -55,6 +55,8 @@ export default function SelectDemo() {
             <div style={{ margin: '20px 0' }}>
                 鼠标 hover 选项显示完整内容：
                 <Select
+                    defaultOpen
+                    isAppendToBody
                     isSupportTitle
                     placeholder="请选择..." 
                     defaultValue="apple" 
