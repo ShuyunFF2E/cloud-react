@@ -56,7 +56,7 @@ class Tree extends Component {
 		onRenameNode: noop,
 		onRemoveNode: noop,
 		onSelectedNode: noop,
-		onSearchResult: noop,
+		onSearchNode: noop,
 		onDragMoving: noop,
 		onDragBefore: noop,
 		onDragAfter: noop
@@ -89,7 +89,7 @@ class Tree extends Component {
 		onRenameNode: PropTypes.func,
 		onRemoveNode: PropTypes.func,
 		onSelectedNode: PropTypes.func,
-		onSearchResult: PropTypes.func,
+		onSearchNode: PropTypes.func,
 		onDragMoving: PropTypes.func,
 		onDragBefore: PropTypes.func,
 		onDragAfter: PropTypes.func
@@ -127,9 +127,9 @@ class Tree extends Component {
 		if (prevProps.selectedValue !== nextProps.selectedValue) {
 			return {
 				selectedValue: nextProps.selectedValue,
-				preSelectedNode: nextProps.selectedValue && nextProps.selectedValue[0],
+				preSelectedNode: nextProps.selectedValue?.[0],
 				prevProps: nextProps,
-				treeData: store.initData(prevState.treeData, prevProps.maxLevel, nextProps.selectedValue)
+				treeData: store.initData(prevProps.treeData, prevProps.maxLevel, nextProps.selectedValue, prevProps.isUnfold)
 			};
 		}
 
@@ -174,7 +174,6 @@ class Tree extends Component {
 		const { supportSearch, onSearchNode } = this.props;
 
 		const tmp = ShuyunUtils.clone(this.state.allTreeData);
-
 		// 搜索结果数据
 		const backTree = store.searchNode(tmp, searchText);
 
@@ -326,7 +325,7 @@ class Tree extends Component {
 			isShowIcon: false,
 			body: '你确定删除此目录吗?',
 			onOk: () => {
-				const { treeData } = this.state;
+				const { treeData, allTreeData } = this.state;
 				if (!store.removeChildNode(treeData, node)) {
 					Message.error('该目录存在子目录，不可删除!');
 					return;
@@ -334,10 +333,10 @@ class Tree extends Component {
 				onRemoveNode(node.id, node)
 					.then(() => {
 						store.removeChildNode(treeData, node);
-						// const allTreeData = store.removeChildNode(this.state.allTreeData, node);
+						store.removeChildNode(allTreeData, node);
 						this.setState({
-							treeData,
-							allTreeData: ShuyunUtils.clone(treeData)
+							treeData: ShuyunUtils.clone(allTreeData),
+							allTreeData: ShuyunUtils.clone(allTreeData)
 						});
 					})
 					.catch(() => {
@@ -511,7 +510,10 @@ class Tree extends Component {
 		const { onAddAction, onRenameAction, onRemoveAction, onSelectedAction, onFoldNodeAction, onCheckRepeatNameAction, onShowMenu, onReRenderNode } = this;
 		const { treeData, searchText, treeWidth, nodeData, menuStyle, menuOptions, showRightMenu, showDialogMenu, parentNodeNames, isAddMenuOpen } = this.state;
 		const { id, name, disableAdd, disableRename, disableRemove } = nodeData;
-
+		const hasSearchStyle = {
+			height: 'calc(100% - 42px)',
+			overflow: 'auto'
+		};
 		return (
 			<TreeContext.Provider
 				value={{
@@ -570,7 +572,7 @@ class Tree extends Component {
 					/>
 
 					{treeData && treeData.length > 0 && (
-						<div className={classNames(`${selector}-list-container`)} ref={this.treeAreaRef}>
+						<div className={classNames(`${selector}-list-container`)} style={supportSearch ? hasSearchStyle : null} ref={this.treeAreaRef}>
 							<TreeList prefixCls={selector} nodeNameMaxLength={nodeNameMaxLength} data={treeData} />
 						</div>
 					)}

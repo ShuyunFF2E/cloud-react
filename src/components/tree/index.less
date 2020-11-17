@@ -38,13 +38,16 @@
 	.move-bottom-style {
 		border-bottom: 1px solid #409eff;
 	}
+
 	.move-top-style {
 		border-top: 1px solid #409eff;
 	}
+
 	.insert-animation {
 		position: relative;
 		animation: insertAnimation 500ms linear; /*动画渐变变大，linear infinite让动画不断渐变不要停*/
 	}
+
 	@keyframes insertAnimation {
 		0% {
 			top: 0;
@@ -92,12 +95,20 @@
 		white-space: nowrap;
 		width: 100%;
 		color: @color-gray2;
+
 		&-container {
 			padding: 0 10px;
 		}
+
+		.hasSearch {
+			height: calc(100% - 42px);
+			overflow: auto;
+		}
+
 		&-node-area {
 			position: relative;
 			width: 100%;
+
 			.@{prefix}-icon {
 				display: @display;
 				height: 26px;
@@ -108,6 +119,7 @@
 
 			.node-item-container {
 				position: relative;
+
 				&:hover {
 					.drag-icon {
 						display: inline-block;
@@ -115,20 +127,24 @@
 
 					.edit-icon {
 						display: block;
+
 						&:hover {
 							background: #ebebeb;
 						}
 					}
 				}
+
 				.toggle-icon {
 					cursor: pointer;
 					width: 26px;
 					border-radius: 2px;
 					text-align: center;
+
 					&:hover {
 						background: #ebebeb;
 					}
 				}
+
 				.drag-icon {
 					display: none;
 					width: 4px;
@@ -142,6 +158,7 @@
 					top: 8px;
 					color: #999;
 				}
+
 				.edit-icon {
 					display: none;
 					position: absolute;
@@ -170,14 +187,17 @@
 					display: inline-flex;
 					width: 100%;
 					z-index: 10;
+
 					&-text {
 						height: 26px;
 						width: calc(100% - 22px);
+
 						.dialog-menu-check-node-name {
 							@overTowLine();
 							width: 100%;
 						}
 					}
+
 					.@{prefix}-icon-check-circle-solid {
 						padding-right: 4px;
 					}
@@ -202,6 +222,7 @@
 				padding-left: 2px;
 				@overTowLine();
 			}
+
 			.dialog-menu-node-name {
 				@overTowLine();
 				width: calc(100% - 25px);
@@ -260,6 +281,7 @@
 			line-height: 22px;
 			color: @color-gray2;
 			padding: 0 10px;
+
 			&:hover {
 				background: @selector-menu-hover;
 			}
