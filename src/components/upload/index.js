@@ -138,7 +138,7 @@ class Upload extends Component {
 
 	handleError = (error, file) => {
 		const { onError } = this.props;
-
+		this.ref.current.value = '';
 		if (onError) {
 			onError({
 				file,
@@ -158,6 +158,7 @@ class Upload extends Component {
 
 		if (isSizeInvalidate) {
 			Message.error(`文件过大，最大支持 ${size} M 的文件上传！`);
+			this.ref.current.value = '';
 			return false;
 		}
 
