@@ -13,7 +13,7 @@ const Text = props => {
 
 	return list.map(item => {
 		return (
-			<div key={item.id} className={`${prefix}-text`}>
+			<div key={item.name} className={`${prefix}-text`}>
 				<span>{item.name}</span>
 				<Icon
 					type="close"
