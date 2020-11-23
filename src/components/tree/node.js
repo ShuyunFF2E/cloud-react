@@ -124,7 +124,7 @@ class Node extends Component {
 				this.context.onDoubleClick(data);
 			}
 			count = 0;
-		}, 300);
+		}, 200);
 	};
 
 	render() {
