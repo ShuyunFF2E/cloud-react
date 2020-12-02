@@ -1,61 +1,28 @@
 @import '../style/index';
 
-@sort-action-color: var(--grid-sort, #ccc);
-@sort-icon-color: var(--grid-sort-icon, @color-blue3);
-@pagination-color: var(--dw-color, #929292);
-@pagination-disabled-color: var(--dw-disabled-color, #d1d1d1);
+@sort-action-color: #ccc;
+@pagination-color: #929292;
+@pagination-disabled-color: #d1d1d1;
 @loading-stroke-width: 3;
-@pagination-bg: var(--dw-query-bg, #f2f2f2);
-@toolbar-bg: var(--dw-query-bg, #f2f2f2);
-@border-color: var(--grid-border, #e8e8e8);
+@pagination-bg: #f2f2f2;
 
-.table-wrap.cloud-react-skin [grid-manager] th[remind] .th-wrap {
-	padding-left: 20px;
-}
-.table-wrap.cloud-react-skin,
-.table-wrap.cloud-react-skin.icon-follow-text {
-	--gm-border: var(--grid-border, 1px solid #e8e8e8);
-	border-color: @border-color;
-	td {
-		color: var(--grid, #666);
-		background: var(--grid-bg, @color-white);
-		border-color: @border-color;
-	}
-	//.table-header {
-	//	background-color: var(--grid-head-bg, #f1f1f1);
-	//	color: var(--grid, #666);
-	//	border-color: @border-color;
-	//}
-
+.table-wrap.cloud-react-skin {
 	// th区域
 	[grid-manager] th {
 		padding: 0;
-		border-color: @border-color;
-		&:hover {
-			background: var(--grid-hover-bg, #e8e8e8);
-		}
 		.th-wrap {
 			padding: 6px;
-			.sorting-action.sorting-down .sa-up,
-			.sorting-action.sorting-up .sa-down {
-				opacity: 1;
-				color: @sort-action-color;
-			}
 		}
-		.th-wrap .sorting-action {
-			visibility: hidden;
-		}
-		.th-wrap:hover .sorting-action {
-			visibility: visible;
-			color: @sort-icon-color !important;
+		&[remind] .th-wrap {
+			padding-left: 20px;
 		}
 
 		.th-text {
-			color: var(--grid-high, @color-gray2);
+			color: @color-gray2;
 			font-weight: 400;
 			i {
 				font-size: 16px !important;
-				color: @sort-icon-color;
+				color: @color-blue3;
 			}
 		}
 	}
@@ -76,32 +43,20 @@
 				white-space: normal;
 			}
 		}
-
-		// 奇数列高亮色
-		tr:nth-child(odd) td {
-			background: var(--grid-odd-bg, #fafafa);
-		}
-		// 鼠标悬浮
-		tr:hover td {
-			background: var(--grid-hover-bg, #f1f8fb);
-		}
 	}
 
 	// 分页区域
 	.gm-toolbar {
-		background: @toolbar-bg;
-		color: var(--grid, @color-gray2);
-		border-color: @border-color;
 		.change-size {
 			position: absolute;
-			top: 7px;
+			top: 6px;
 			right: 0;
 		}
 		.totals-count {
-			margin-left: 2px;
 			display: inline-block;
 			height: 30px;
 			padding: 6px 7px;
+			margin-left: 2px;
 			vertical-align: middle;
 		}
 		/* 无总页模式不显示总条数 */
@@ -111,7 +66,7 @@
 			}
 		}
 		.refresh-action {
-			color: var(--grid-refresh, @color-gray2);
+			color: @color-gray2;
 			padding: 6px;
 			i {
 				vertical-align: -1px;
@@ -122,11 +77,8 @@
 		}
 
 		.pagination {
-			bottom: 4px;
+			bottom: 5px;
 			right: 60px;
-			.goto-page {
-				padding: 1.5px 10px;
-			}
 			> ul {
 				> li {
 					border: none !important;
