@@ -58,11 +58,19 @@ class Upload extends Component {
 		this.abort();
 	}
 
-	onClick = () => {
+	onClick = e => {
 		const element = this.ref.current;
-		if (!element) return;
-
-		element.click();
+		if (!element || e.target === element) return;
+		if (!this.props.showBeforeConfirm) {
+			element.click();
+			return;
+		}
+		Modal.confirm({
+			body: this.props.beforeConfirmBody,
+			onOk: () => {
+				element.click();
+			}
+		});
 	};
 
 	getFileList() {
@@ -81,16 +89,13 @@ class Upload extends Component {
 	handleUpload = () => {
 		const fileList = this.getFileList();
 
-		[...Array.from(fileList)]
-			.map(file => {
-				// file 为是一个特殊上传 File 对象，此处无法使用结构的方式来处理
-				const item = file;
-				item.id = getUuid();
-				return item;
-			})
-			.forEach(file => {
-				this.upload(file, fileList);
-			});
+		const newFileList = [...Array.from(fileList)].map(file => {
+			// file 为是一个特殊上传 File 对象，此处无法使用结构的方式来处理
+			const item = file;
+			item.id = getUuid();
+			return item;
+		});
+		this.upload(newFileList);
 	};
 
 	handleRemove = file => {
@@ -126,7 +131,7 @@ class Upload extends Component {
 		}
 
 		const { onSuccess } = this.props;
-
+		this.ref.current.value = '';
 		if (onSuccess) {
 			onSuccess({
 				file,
@@ -138,7 +143,7 @@ class Upload extends Component {
 
 	handleError = (error, file) => {
 		const { onError } = this.props;
-
+		this.ref.current.value = '';
 		if (onError) {
 			onError({
 				file,
@@ -158,6 +163,7 @@ class Upload extends Component {
 
 		if (isSizeInvalidate) {
 			Message.error(`文件过大，最大支持 ${size} M 的文件上传！`);
+			this.ref.current.value = '';
 			return false;
 		}
 
@@ -168,24 +174,24 @@ class Upload extends Component {
 	}
 
 	upload(file) {
-		const before = this.handleBeforeUpload(file);
-
-		if (before) {
-			if (!this.props.showBeforeConfirm) {
+		const { unify } = this.props;
+		if (unify) {
+			const sizeValidate = file.filter(item => this.handleBeforeUpload(item));
+			if (file.length === sizeValidate.length) {
 				this.post(file);
-				return;
 			}
-			Modal.confirm({
-				body: this.props.beforeConfirmBody,
-				onOk: () => {
-					this.post(file);
+		} else {
+			file.forEach(fileItem => {
+				const before = this.handleBeforeUpload(fileItem);
+				if (before) {
+					this.post(fileItem);
 				}
 			});
 		}
 	}
 
 	post(file) {
-		const { action, headers, withCredentials, customRequest } = this.props;
+		const { action, headers, withCredentials, customRequest, unify } = this.props;
 		const request = customRequest || defaultHttp;
 		const { id } = file;
 		const option = {
@@ -194,6 +200,7 @@ class Upload extends Component {
 			file,
 			headers,
 			withCredentials,
+			unify,
 			onProgress: event => {
 				this.handleProgress(event, file);
 			},
@@ -280,7 +287,8 @@ Upload.propTypes = {
 	onSuccess: PropTypes.func,
 	onError: PropTypes.func,
 	onRemove: PropTypes.func,
-	className: PropTypes.string
+	className: PropTypes.string,
+	unify: PropTypes.bool
 };
 
 Upload.defaultProps = {
@@ -301,7 +309,8 @@ Upload.defaultProps = {
 	onSuccess: undefined,
 	onError: undefined,
 	onRemove: undefined,
-	className: ''
+	className: '',
+	unify: false
 };
 
 export default Upload;
