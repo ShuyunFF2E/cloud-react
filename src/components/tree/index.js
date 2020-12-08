@@ -39,6 +39,7 @@ class Tree extends Component {
 		maxLevel: 0,
 		isUnfold: false,
 		showIcon: false,
+		showErrMsg: false,
 		openIconType: 'folder-solid-open',
 		closeIconType: 'folder-solid',
 		iconColor: '#999',
@@ -51,6 +52,7 @@ class Tree extends Component {
 		supportImmediatelySearch: false,
 		isAddFront: true,
 		selectedValue: [],
+		breakCheckbox: false,
 		onDoubleClick: noop,
 		onAddNode: noop,
 		onRenameNode: noop,
@@ -72,6 +74,7 @@ class Tree extends Component {
 		maxLevel: PropTypes.number,
 		isUnfold: PropTypes.bool,
 		showIcon: PropTypes.bool,
+		showErrMsg: PropTypes.bool,
 		openIconType: PropTypes.string,
 		closeIconType: PropTypes.string,
 		iconColor: PropTypes.string,
@@ -84,6 +87,7 @@ class Tree extends Component {
 		supportImmediatelySearch: PropTypes.bool,
 		isAddFront: PropTypes.bool,
 		selectedValue: PropTypes.array,
+		breakCheckbox: PropTypes.bool,
 		onDoubleClick: PropTypes.func,
 		onAddNode: PropTypes.func,
 		onRenameNode: PropTypes.func,
@@ -276,8 +280,10 @@ class Tree extends Component {
 				// 关闭弹框
 				this.onHideMenuDialog();
 			})
-			.catch(() => {
-				Message.error('添加失败');
+			.catch(err => {
+				if (this.props.showErrMsg) {
+					Message.error(err || '添加失败');
+				}
 			});
 	};
 
@@ -300,8 +306,10 @@ class Tree extends Component {
 				// 关闭弹框
 				this.onHideMenuDialog();
 			})
-			.catch(() => {
-				Message.error('更新失败');
+			.catch(err => {
+				if (this.props.showErrMsg) {
+					Message.error(err || '更新失败');
+				}
 			});
 	};
 
@@ -326,10 +334,6 @@ class Tree extends Component {
 			body: '你确定删除此目录吗?',
 			onOk: () => {
 				const { treeData, allTreeData } = this.state;
-				if (!store.removeChildNode(treeData, node)) {
-					Message.error('该目录存在子目录，不可删除!');
-					return;
-				}
 				onRemoveNode(node.id, node)
 					.then(() => {
 						store.removeChildNode(treeData, node);
@@ -339,8 +343,10 @@ class Tree extends Component {
 							allTreeData: ShuyunUtils.clone(allTreeData)
 						});
 					})
-					.catch(() => {
-						Message.error('删除失败');
+					.catch(err => {
+						if (this.props.showErrMsg) {
+							Message.error(err || '删除失败');
+						}
 					});
 			},
 			onCancel: noop
@@ -501,6 +507,7 @@ class Tree extends Component {
 			closeIconType,
 			iconColor,
 			selectedValue,
+			breakCheckbox,
 			onDoubleClick,
 			onDragBefore,
 			onDragMoving,
@@ -534,6 +541,7 @@ class Tree extends Component {
 					iconColor,
 					selectedValue,
 					onDoubleClick,
+					breakCheckbox,
 					onShowMenu,
 					onAddAction,
 					onRenameAction,

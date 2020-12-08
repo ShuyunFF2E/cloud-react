@@ -209,7 +209,6 @@
 					padding-left: 4px;
 				}
 			}
-
 			.node-input {
 				width: 152px;
 				height: 26px;
@@ -253,6 +252,17 @@
 			.is-active:not(.support-checkbox) {
 				color: var(--dw-active-color, @color-gray2);
 				background: @selector-node-active-background !important;
+			}
+			.break-checkbox {
+				.cloud-checkbox {
+					width: auto !important;
+					.cloud-checkbox-text {
+						width: inherit;
+					}
+				}
+				.checkbox-label-text {
+					height: 26px;
+				}
 			}
 		}
 
