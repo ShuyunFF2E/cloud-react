@@ -42,8 +42,8 @@ export default class TreeDemo extends React.Component {
 	removeNode = (id, node) => {
 		console.info('向后端发送一条请求，删除一个节点，参数为' + 'id:' + id, node);
 		return new Promise((resolve, reject) => {
-			resolve({ data: '删除成功' });
-			// reject('删除失败');
+			// resolve({ data: '删除成功' });
+			reject('删除失败啦啦啦啦啦啦');
 		});
 	};
 
@@ -80,6 +80,7 @@ export default class TreeDemo extends React.Component {
 								id: 111,
 								name: '删除一个',
 								pId: 11,
+								disableSelected: true,
 								children: []
 							},
 							{
@@ -243,6 +244,7 @@ export default class TreeDemo extends React.Component {
 				supportMenu={this.state.supportMenu}
 				supportSearch={this.state.supportSearch}
 				isAddFront={this.state.isAddFront}
+				supportCheckbox
 				onAddNode={this.addNode}
 				onDoubleClick={this.onDoubleClick}
 				onRenameNode={this.renameNode}
