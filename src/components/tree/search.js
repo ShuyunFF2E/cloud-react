@@ -33,6 +33,7 @@ class Search extends Component {
 			supportSearch && (
 				<div className={classNames(`${prefixCls}-search`)}>
 					<Input
+						size="small"
 						suffix={<Icon type="search" onClick={this.handleSearch} style={{ cursor: 'pointer' }} />}
 						className={classNames(`${prefixCls}-search-input`)}
 						onEnter={this.handleSearch}
