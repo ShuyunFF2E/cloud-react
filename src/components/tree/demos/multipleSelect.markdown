@@ -14,7 +14,7 @@ export default class TreeDemo extends React.Component {
 
 		this.state = {
 			supportMenu: false,
-			supportSearch: false,
+			supportSearch: true,
 			supportCheckbox: true
 		};
 	}
@@ -197,7 +197,7 @@ export default class TreeDemo extends React.Component {
 				]
 			}
 		];
-		return <Tree treeData={treeData} supportCheckbox={this.state.supportCheckbox} onSelectedNode={this.selectedNode}></Tree>;
+		return <Tree treeData={treeData} supportSearch={this.state.supportSearch} supportCheckbox={this.state.supportCheckbox} onSelectedNode={this.selectedNode}></Tree>;
 	}
 }
 ```

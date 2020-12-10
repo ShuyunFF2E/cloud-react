@@ -19,7 +19,8 @@ export default class TreeDemo extends React.Component {
 			maxLevel: 4,
 			supportMenu: true,
 			supportSearch: true,
-			isAddFront: false
+			isAddFront: false,
+            selectedValue: null
 		};
 	}
 
@@ -234,6 +235,7 @@ export default class TreeDemo extends React.Component {
 		];
 		return (
 			<Tree
+                selectedValue = {this.state.selectedValue}
 				treeData={treeData}
 				searchPlaceholder={this.state.searchPlaceholder}
 				searchMaxLength={this.state.searchMaxLength}
@@ -243,6 +245,7 @@ export default class TreeDemo extends React.Component {
 				supportMenu={this.state.supportMenu}
 				supportSearch={this.state.supportSearch}
 				isAddFront={this.state.isAddFront}
+                supportCheckbox={true}
 				onAddNode={this.addNode}
 				onDoubleClick={this.onDoubleClick}
 				onRenameNode={this.renameNode}
