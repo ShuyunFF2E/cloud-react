@@ -33,7 +33,7 @@ class Tree extends Component {
 	static defaultProps = {
 		style: {},
 		className: '',
-		searchPlaceholder: '',
+		searchPlaceholder: '搜索一个选项',
 		searchMaxLength: '',
 		nodeNameMaxLength: '',
 		maxLevel: 0,
@@ -114,7 +114,8 @@ class Tree extends Component {
 			treeData: ShuyunUtils.clone(treeData),
 			allTreeData: ShuyunUtils.clone(treeData),
 			prevProps: props,
-			preSelectedNode: props.selectedValue && props.selectedValue[0]
+			preSelectedNode: props.selectedValue && props.selectedValue[0],
+			preSelectedList: store.getSelectedLowestNodeList(props.selectedValue)
 		};
 
 		this.treeAreaRef = React.createRef();
@@ -129,7 +130,8 @@ class Tree extends Component {
 				selectedValue: nextProps.selectedValue,
 				preSelectedNode: nextProps.selectedValue && nextProps.selectedValue[0],
 				prevProps: nextProps,
-				treeData: store.initData(prevState.treeData, prevProps.maxLevel, nextProps.selectedValue)
+				treeData: store.initData(prevState.treeData, prevProps.maxLevel, nextProps.selectedValue),
+				preSelectedList: store.getSelectedLowestNodeList(nextProps.selectedValue)
 			};
 		}
 
@@ -171,17 +173,27 @@ class Tree extends Component {
 		this.setState({
 			searchText
 		});
-		const { supportSearch, onSearchNode } = this.props;
+		const { supportSearch, supportCheckbox, onSearchNode } = this.props;
 
 		const tmp = ShuyunUtils.clone(this.state.allTreeData);
 
 		// 搜索结果数据
 		const backTree = store.searchNode(tmp, searchText);
 
-		// 是多选并且存在已多选的节点列表才进行合并数据
-		this.setState({
-			treeData: [...backTree]
-		});
+		if (supportSearch && supportCheckbox) {
+			const currentSelectedTemp = this.getSelectedMoreList(this.state.treeData);
+			// eslint-disable-next-line react/no-access-state-in-setstate
+			const allSelectedLowest = store.getSelectedLowestNodeList(this.state.preSelectedList, currentSelectedTemp);
+
+			this.setState({
+				treeData: store.initData([...backTree], null, [...allSelectedLowest], false),
+				preSelectedList: allSelectedLowest
+			});
+		} else {
+			this.setState({
+				treeData: [...backTree]
+			});
+		}
 
 		// 支持搜索则返回搜素结果
 		if (supportSearch && onSearchNode) {
@@ -196,14 +208,23 @@ class Tree extends Component {
 	onSelectedAction = node => {
 		this.onHideMenu();
 		const data = this.state.treeData;
-		const { supportCheckbox, onSelectedNode } = this.props;
+		const { supportSearch, supportCheckbox, onSelectedNode } = this.props;
 
 		// 更新节点选中状态
 		this.updateActiveNode(data, node);
 		// 单选节点列表
 		const radioSelectedList = store.selectedForRadio(data, node);
 		// 多选节点列表
-		const checkboxSelectedList = this.getSelectedMoreList(data, node);
+		let checkboxSelectedList = this.getSelectedMoreList(data, node);
+
+		if (supportCheckbox) {
+			checkboxSelectedList = store.getSelectedLowestNodeList(this.state.preSelectedList, checkboxSelectedList, node);
+			if (supportSearch) {
+				this.setState({
+					preSelectedList: checkboxSelectedList
+				});
+			}
+		}
 
 		// 选中结果
 		const selectedResult = supportCheckbox ? checkboxSelectedList : radioSelectedList;
@@ -226,9 +247,12 @@ class Tree extends Component {
 	 */
 	getSelectedMoreList = (data, node) => {
 		const selectedList = [];
-		this.updateActiveNode(data, node);
-		// 更新checked状态
-		const tmp = store.selectedForCheckbox(data, node);
+		let tmp = data;
+		if (node) {
+			this.updateActiveNode(data, node);
+			// 更新checked状态
+			tmp = store.selectedForCheckbox(data, node);
+		}
 		const filterSelected = selectedData => {
 			selectedData.forEach(item => {
 				if (item.checked) {
@@ -549,7 +573,7 @@ class Tree extends Component {
 						prefixCls={selector}
 						onSearchAction={this.onSearchAction}
 						supportImmediatelySearch={supportImmediatelySearch}
-						supportSearch={supportSearch && !supportCheckbox}
+						supportSearch={supportSearch}
 						searchPlaceholder={searchPlaceholder}
 						searchMaxLength={searchMaxLength}
 					/>

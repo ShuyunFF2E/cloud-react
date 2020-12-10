@@ -252,6 +252,43 @@ class Store {
 	}
 
 	/**
+	 * 获取所有选中数据的最底层节点
+	 * @param preAry 上一次树选中的节点
+	 * @param curAry 当前树选中的节点
+	 * @param node 当前操作的节点
+	 * @returns {*|*[]}
+	 */
+	getSelectedLowestNodeList = (preAry = [], curAry = [], node = null) => {
+		let preAryTemp = preAry;
+		// 首先，判断是选中还是不选中， 选中--则不处理，不选中--移除
+		if (preAryTemp.length && node && !node.checked) {
+			const removeTemp = [];
+			const getRemoveTemp = n => {
+				const { children } = n;
+				if (children && children.length) {
+					children.forEach(c => {
+						getRemoveTemp(c);
+					});
+				} else {
+					removeTemp.push(n);
+				}
+			};
+			getRemoveTemp(node);
+			preAryTemp = preAryTemp.filter(pre => !removeTemp.find(y => y.id === pre.id));
+		}
+		let temp = [...preAryTemp, ...curAry];
+		// 两个数组取并集，且移除掉有children属性的节点
+		temp = temp.reduce((returnData, item) => {
+			const obj = returnData.find(i => i.id === item.id);
+			if (!obj && (!item.children || !item.children.length)) {
+				returnData.push(item);
+			}
+			return returnData;
+		}, []);
+		return temp;
+	};
+
+	/**
 	 * 根据参数获取节点
 	 * @param data
 	 * @param param
