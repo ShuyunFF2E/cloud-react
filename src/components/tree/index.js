@@ -190,7 +190,7 @@ class Tree extends Component {
 			const allSelectedLowest = store.getSelectedLowestNodeList(this.state.preSelectedList, currentSelectedTemp);
 
 			this.setState({
-				treeData: store.initData([...backTree], null, [...allSelectedLowest], false),
+				treeData: store.initData([...backTree], null, [...allSelectedLowest], this.props.isUnfold),
 				preSelectedList: allSelectedLowest
 			});
 		} else {
