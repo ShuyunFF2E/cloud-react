@@ -4,6 +4,7 @@
 	border: 1px solid #e8e8e8;
 	overflow: hidden;
 	position: relative;
+	padding-top: 40px;
 
 	* {
 		box-sizing: border-box;
@@ -42,6 +43,7 @@
 		top: 0;
 		left: 0;
 		z-index: 2;
+		background: #f2f2f2;
 	}
 	.cloud-table-lite-main {
 		height: 100%;
@@ -50,6 +52,9 @@
 		// 火狐修改滚动条: 以下为firefox特有属性
 		scrollbar-width: thin;
 		scrollbar-color: #e1e1e1 #f3f3f3;
+		table {
+			margin-top: -40px;
+		}
 	}
 	table {
 		table-layout: fixed;
