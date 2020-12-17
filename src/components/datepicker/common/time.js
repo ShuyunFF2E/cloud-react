@@ -96,6 +96,7 @@ class Time extends Component {
 	};
 
 	handleHourChange = event => {
+		event.stopPropagation();
 		const { stringValue, numberValue, length } = formatNumber(event.target.value);
 		let _value = stringValue;
 
@@ -128,6 +129,7 @@ class Time extends Component {
 	};
 
 	handleMinuteChange = event => {
+		event.stopPropagation();
 		const { stringValue, numberValue, length } = formatNumber(event.target.value);
 		let _value = stringValue;
 
@@ -160,6 +162,7 @@ class Time extends Component {
 	};
 
 	handleSecondChange = event => {
+		event.stopPropagation();
 		const { stringValue, numberValue } = formatNumber(event.target.value);
 		let _value = stringValue;
 
