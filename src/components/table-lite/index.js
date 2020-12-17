@@ -171,7 +171,17 @@ export default class TableLite extends Component {
 	 * 更新表头区的宽度
 	 */
 	updateHeaderWidth() {
-		this.headerRef.current.style.width = `${this.mainRef.current.offsetWidth}px`;
+		if (!this.siv) {
+			this.siv = setInterval(() => {
+				const width = this.mainRef.current.offsetWidth;
+				if (width === 0) {
+					return;
+				}
+				clearInterval(this.siv);
+				this.siv = null;
+				this.headerRef.current.style.width = `${width}px`;
+			}, 50);
+		}
 	}
 
 	componentDidMount() {
