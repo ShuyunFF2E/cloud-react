@@ -172,6 +172,7 @@ export default class TableLite extends Component {
 	 */
 	updateHeaderWidth() {
 		if (!this.siv) {
+			// 处理当前父容器不可见时
 			this.siv = setInterval(() => {
 				const width = this.mainRef.current.offsetWidth;
 				if (width === 0) {
@@ -190,6 +191,13 @@ export default class TableLite extends Component {
 
 	componentDidUpdate() {
 		this.updateHeaderWidth();
+	}
+
+	componentWillUnmount() {
+		if (this.siv) {
+			clearInterval(this.siv);
+		}
+		this.siv = null;
 	}
 
 	render() {
