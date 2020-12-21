@@ -445,7 +445,7 @@ describe('Form', () => {
 		expect(render(<FormA />)).toMatchSnapshot();
 	});
 
-	it("should render correctly when the type of formItem's children is number", () => {
+	it('should render correctly when the type of formItems children is number', () => {
 		const FormA = () => {
 			return (
 				<Form>
