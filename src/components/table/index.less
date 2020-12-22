@@ -5,28 +5,16 @@
 @pagination-disabled-color: #d1d1d1;
 @loading-stroke-width: 3;
 @pagination-bg: #f2f2f2;
-.table-wrap.cloud-react-skin [grid-manager] th[remind] .th-wrap {
-	padding-left: 20px;
-}
-.table-wrap.cloud-react-skin,
-.table-wrap.cloud-react-skin.icon-follow-text {
+
+.table-wrap.cloud-react-skin {
 	// th区域
 	[grid-manager] th {
 		padding: 0;
 		.th-wrap {
 			padding: 6px;
-			.sorting-action.sorting-down .sa-up,
-			.sorting-action.sorting-up .sa-down {
-				opacity: 1;
-				color: @sort-action-color;
-			}
 		}
-		.th-wrap .sorting-action {
-			visibility: hidden;
-		}
-		.th-wrap:hover .sorting-action {
-			visibility: visible;
-			color: @color-blue3 !important;
+		&[remind] .th-wrap {
+			padding-left: 20px;
 		}
 
 		.th-text {
@@ -61,14 +49,14 @@
 	.gm-toolbar {
 		.change-size {
 			position: absolute;
-			top: 7px;
+			top: 6px;
 			right: 0;
 		}
 		.totals-count {
-			margin-left: 2px;
 			display: inline-block;
 			height: 30px;
 			padding: 6px 7px;
+			margin-left: 2px;
 			vertical-align: middle;
 		}
 		/* 无总页模式不显示总条数 */
@@ -89,11 +77,8 @@
 		}
 
 		.pagination {
-			bottom: 6px;
+			bottom: 5px;
 			right: 60px;
-			.goto-page {
-				padding: 1.5px 10px;
-			}
 			> ul {
 				> li {
 					border: none !important;
