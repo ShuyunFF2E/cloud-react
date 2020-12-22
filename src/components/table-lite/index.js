@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import PropTypes from 'prop-types';
 import ShuyunUtils from 'shuyun-utils';
 import Icon from '../icon';
@@ -37,6 +37,8 @@ export default class TableLite extends Component {
 			preProps: props
 		};
 		this.emptyText = '暂无数据';
+		this.headerRef = createRef();
+		this.mainRef = createRef();
 	}
 
 	static getDerivedStateFromProps(newProps, state) {
@@ -165,6 +167,39 @@ export default class TableLite extends Component {
 		);
 	}
 
+	/**
+	 * 更新表头区的宽度
+	 */
+	updateHeaderWidth() {
+		if (!this.siv) {
+			// 处理当前父容器不可见时
+			this.siv = setInterval(() => {
+				const width = this.mainRef.current.offsetWidth;
+				if (width === 0) {
+					return;
+				}
+				clearInterval(this.siv);
+				this.siv = null;
+				this.headerRef.current.style.width = `${width}px`;
+			}, 50);
+		}
+	}
+
+	componentDidMount() {
+		this.updateHeaderWidth();
+	}
+
+	componentDidUpdate() {
+		this.updateHeaderWidth();
+	}
+
+	componentWillUnmount() {
+		if (this.siv) {
+			clearInterval(this.siv);
+		}
+		this.siv = null;
+	}
+
 	render() {
 		const { height, dataSource, className } = this.state;
 		const theadContent = this.renderTheadContent();
@@ -172,12 +207,12 @@ export default class TableLite extends Component {
 		return (
 			<div className={`cloud-table-lite-warp ${className}`} style={{ height }}>
 				<div className="cloud-table-lite-header">
-					<table>
+					<table ref={this.headerRef}>
 						<thead>{theadContent}</thead>
 					</table>
 				</div>
 				<div className="cloud-table-lite-main">
-					<table style={{ height: dataSource.length ? 'auto' : '100%' }}>
+					<table ref={this.mainRef} style={{ height: dataSource.length ? 'auto' : 'calc(100% + 40px)' }}>
 						<thead>{theadContent}</thead>
 						<tbody>{tbodyContent}</tbody>
 					</table>

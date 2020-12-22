@@ -115,7 +115,7 @@ describe('Menu', () => {
 		).toBeTruthy();
 	});
 
-	it("parent/ancestor SubMenu could be opend, when selectedKeys startsWith parent SubMenu's key", () => {
+	it('parent/ancestor SubMenu could be opend, when selectedKeys startsWith parent SubMenus key', () => {
 		const wrapper = mount(
 			<Menu selectedKeys="abcde">
 				<Menu.SubMenu key="abc" title="第一层">

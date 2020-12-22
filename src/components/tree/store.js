@@ -93,16 +93,18 @@ class Store {
 			}
 
 			// 找到treeData中对应的值进行选中
-			const activeNodeIndex = selectedValue && selectedValue.findIndex(x => x.id === tmp.id);
-			if (activeNodeIndex !== -1) {
-				// 当前节点选中
-				tmp.checked = true;
-				// 被选中的元素有子节点，则子节点全部选中
-				if (tmp.children.length) {
-					downFind(tmp);
+			if (selectedValue) {
+				const activeNodeIndex = selectedValue.findIndex(x => x.id === tmp.id);
+				if (activeNodeIndex !== -1) {
+					// 当前节点选中
+					tmp.checked = true;
+					// 被选中的元素有子节点，则子节点全部选中
+					if (tmp.children.length) {
+						downFind(tmp);
+					}
+					// 寻找父节点
+					upFind(tmp);
 				}
-				// 寻找父节点
-				upFind(tmp);
 			}
 
 			if (!children || !children.length) {
@@ -250,6 +252,44 @@ class Store {
 		changeParent(pId);
 		return data;
 	}
+
+	/**
+	 * 获取所有选中数据的最底层节点
+	 * @param preAry 上一次树选中的节点
+	 * @param curAry 当前树选中的节点
+	 * @param node 当前操作的节点
+	 * @returns {*|*[]}
+	 */
+	getSelectedLowestNodeList = (preAry, curAry, node = null) => {
+		let preAryTemp = preAry || [];
+		const curAryTemp = curAry || [];
+		// 首先，判断是选中还是不选中， 选中--则不处理，不选中--移除
+		if (preAryTemp.length && node && !node.checked) {
+			const removeTemp = [];
+			const getRemoveTemp = n => {
+				const { children } = n;
+				if (children && children.length) {
+					children.forEach(c => {
+						getRemoveTemp(c);
+					});
+				} else {
+					removeTemp.push(n);
+				}
+			};
+			getRemoveTemp(node);
+			preAryTemp = preAryTemp.filter(pre => !removeTemp.find(y => y.id === pre.id));
+		}
+		let temp = [...preAryTemp, ...curAryTemp];
+		// 两个数组取并集，且移除掉有children属性的节点
+		temp = temp.reduce((returnData, item) => {
+			const obj = returnData.find(i => i.id === item.id);
+			if (!obj && (!item.children || !item.children.length)) {
+				returnData.push(item);
+			}
+			return returnData;
+		}, []);
+		return temp;
+	};
 
 	/**
 	 * 根据参数获取节点

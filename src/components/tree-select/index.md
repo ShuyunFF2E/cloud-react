@@ -20,6 +20,7 @@ subtitle: 树下拉
 | dataSource        | 需要展示的数据，与下拉树类型相关                                     | array                          | []               |
 | defaultOpen       | 默认下拉菜单展开状态                                   | boolean                        | false            |
 | open              | 下拉菜单展开状态，当使用此属性时组件本身 open 行为失效 | boolean                        | -                |
+| isUnfold          | 是否展开子节点，默认不展开                 | boolean                        | false                |
 | placeholder       | 选择框默认文案                                         | string                         | -                |
 | emptyRender       | 数据为空时下拉框显示内容                               | string\node                    | '暂时没有数据'   |
 | defaultValue      | 默认选中的项                                           | array                          | -                |

@@ -1,13 +1,16 @@
 function getCssText(customParentSeletor) {
-	const styles = [...document.head.querySelectorAll('link,style')];
+	const styles = [...document.head.querySelectorAll('link[rel="stylesheet"],style')];
 
 	const CSSStyleList = styles
 		.filter(style => {
-			if ((style.tagName === 'LINK' && style.rel !== 'stylesheet') || !style.sheet || !style.sheet.rules.length) {
-				return false;
+			try {
+				if (style.sheet && style.sheet.rules.length) {
+					return true;
+				}
+			} catch (e) {
+				// return false;
 			}
-
-			return true;
+			return false;
 		})
 		.map(style => [...style.sheet.rules]);
 
