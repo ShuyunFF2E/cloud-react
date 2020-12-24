@@ -70,8 +70,6 @@ function entity(config) {
 
 	wraper.appendChild(container);
 
-	console.log(contextContainer);
-
 	contextContainer.appendChild(wraper);
 
 	ReactDOM.render(<MessageEntity {...props} container={container} contextContainer={contextContainer} />, container);

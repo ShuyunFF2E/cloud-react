@@ -61,15 +61,19 @@ class Upload extends Component {
 	onClick = e => {
 		const element = this.ref.current;
 		if (!element || e.target === element) return;
-		if (!this.props.showBeforeConfirm) {
-			element.click();
-			return;
-		}
-		Modal.confirm({
-			body: this.props.beforeConfirmBody,
-			onOk: () => {
+		const { onClick, showBeforeConfirm, beforeConfirmBody } = this.props;
+
+		onClick().then(() => {
+			if (!showBeforeConfirm) {
 				element.click();
+				return;
 			}
+			Modal.confirm({
+				body: beforeConfirmBody,
+				onOk: () => {
+					element.click();
+				}
+			});
 		});
 	};
 
@@ -282,6 +286,7 @@ Upload.propTypes = {
 	showBeforeConfirm: PropTypes.bool,
 	beforeConfirmBody: PropTypes.node,
 	customRequest: PropTypes.func,
+	onClick: PropTypes.func,
 	onBeforeUpload: PropTypes.func,
 	onProgress: PropTypes.func,
 	onSuccess: PropTypes.func,
@@ -304,6 +309,7 @@ Upload.defaultProps = {
 	customRequest: undefined,
 	showBeforeConfirm: false,
 	beforeConfirmBody: '确认上传？',
+	onClick: () => new Promise(resolve => resolve()),
 	onBeforeUpload: undefined,
 	onProgress: undefined,
 	onSuccess: undefined,
