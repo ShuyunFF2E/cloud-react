@@ -39,10 +39,12 @@ class Tree extends Component {
 		maxLevel: 0,
 		isUnfold: false,
 		showIcon: false,
+		showErrMsg: false,
 		openIconType: 'folder-solid-open',
 		closeIconType: 'folder-solid',
 		iconColor: '#999',
 		supportCheckbox: false,
+		breakCheckbox: false,
 		supportMenu: false,
 		menuType: MENU_TYPE,
 		addMenuName: '子目录',
@@ -56,7 +58,7 @@ class Tree extends Component {
 		onRenameNode: noop,
 		onRemoveNode: noop,
 		onSelectedNode: noop,
-		onSearchResult: noop,
+		onSearchNode: noop,
 		onDragMoving: noop,
 		onDragBefore: noop,
 		onDragAfter: noop
@@ -84,12 +86,13 @@ class Tree extends Component {
 		supportImmediatelySearch: PropTypes.bool,
 		isAddFront: PropTypes.bool,
 		selectedValue: PropTypes.array,
+		breakCheckbox: PropTypes.bool,
 		onDoubleClick: PropTypes.func,
 		onAddNode: PropTypes.func,
 		onRenameNode: PropTypes.func,
 		onRemoveNode: PropTypes.func,
 		onSelectedNode: PropTypes.func,
-		onSearchResult: PropTypes.func,
+		onSearchNode: PropTypes.func,
 		onDragMoving: PropTypes.func,
 		onDragBefore: PropTypes.func,
 		onDragAfter: PropTypes.func
@@ -301,8 +304,10 @@ class Tree extends Component {
 				// 关闭弹框
 				this.onHideMenuDialog();
 			})
-			.catch(() => {
-				Message.error('添加失败');
+			.catch(err => {
+				if (this.props.showErrMsg) {
+					Message.error(err || '添加失败');
+				}
 			});
 	};
 
@@ -325,8 +330,10 @@ class Tree extends Component {
 				// 关闭弹框
 				this.onHideMenuDialog();
 			})
-			.catch(() => {
-				Message.error('更新失败');
+			.catch(err => {
+				if (this.props.showErrMsg) {
+					Message.error(err || '更新失败');
+				}
 			});
 	};
 
@@ -364,8 +371,10 @@ class Tree extends Component {
 							allTreeData: ShuyunUtils.clone(treeData)
 						});
 					})
-					.catch(() => {
-						Message.error('删除失败');
+					.catch(err => {
+						if (this.props.showErrMsg) {
+							Message.error(err || '删除失败');
+						}
 					});
 			},
 			onCancel: noop
@@ -516,6 +525,7 @@ class Tree extends Component {
 			supportImmediatelySearch,
 			nodeNameMaxLength,
 			supportCheckbox,
+			breakCheckbox,
 			supportMenu,
 			supportDrag,
 			menuType,
@@ -536,6 +546,11 @@ class Tree extends Component {
 		const { treeData, searchText, treeWidth, nodeData, menuStyle, menuOptions, showRightMenu, showDialogMenu, parentNodeNames, isAddMenuOpen } = this.state;
 		const { id, name, disableAdd, disableRename, disableRemove } = nodeData;
 
+		const hasSearchStyle = {
+			height: 'calc(100% - 42px)',
+			overflow: 'auto'
+		};
+
 		return (
 			<TreeContext.Provider
 				value={{
@@ -543,6 +558,7 @@ class Tree extends Component {
 					isUnfold,
 					searchText,
 					supportCheckbox,
+					breakCheckbox,
 					supportMenu,
 					supportDrag,
 					isAddFront,
@@ -594,7 +610,7 @@ class Tree extends Component {
 					/>
 
 					{treeData && treeData.length > 0 && (
-						<div className={classNames(`${selector}-list-container`)} ref={this.treeAreaRef}>
+						<div className={classNames(`${selector}-list-container`)} style={supportSearch ? hasSearchStyle : null} ref={this.treeAreaRef}>
 							<TreeList prefixCls={selector} nodeNameMaxLength={nodeNameMaxLength} data={treeData} />
 						</div>
 					)}
