@@ -24,7 +24,7 @@ class TreeMenu extends Component {
 
 	deleteNode = e => {
 		const { disableRemove, nodeData } = this.props;
-		const isDisabledDel = Array.isArray(nodeData.children) && nodeData.children.length;
+		const isDisabledDel = !nodeData.pId || (Array.isArray(nodeData.children) && nodeData.children.length);
 
 		if (disableRemove || isDisabledDel) {
 			e.preventDefault();
@@ -57,7 +57,7 @@ class TreeMenu extends Component {
 
 	render() {
 		const { visible, nodeData, disableRemove, disableAdd, disableRename, menuStyle, prefixCls } = this.props;
-		const isDisabledDel = Array.isArray(nodeData.children) && nodeData.children.length;
+		const isDisabledDel = !nodeData.pId || (Array.isArray(nodeData.children) && nodeData.children.length);
 		return (
 			visible &&
 			this.context.supportMenu && (
