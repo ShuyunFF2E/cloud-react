@@ -8,13 +8,11 @@ import TreeContext from './context';
 import Input from '../input';
 import Tooltip from '../tooltip';
 import './index.less';
-
 // 默认菜单类型
 const RIGHT_MENU = 'rightMenu';
 const DIALOG_MENU = 'dialogMenu';
 // 双击事件记录器
 let count = 0;
-
 class Node extends Component {
 	static contextType = TreeContext;
 
@@ -113,21 +111,20 @@ class Node extends Component {
 	// 选中节点
 	handleSelect = checked => {
 		const { data } = this.props;
-		const { supportCheckbox, onSelectedAction, onDoubleClick } = this.context;
-		if (supportCheckbox) {
+		if (this.context.supportCheckbox) {
 			data.checked = checked;
 		}
 		count += 1;
 		setTimeout(() => {
 			if (count === 1) {
 				// 单击
-				onSelectedAction(data);
+				this.context.onSelectedAction(data);
 			} else if (count === 2) {
 				// 双击
-				onDoubleClick(data);
+				this.context.onDoubleClick(data);
 			}
 			count = 0;
-		}, 200);
+		}, 300);
 	};
 
 	render() {
@@ -143,9 +140,7 @@ class Node extends Component {
 			menuType,
 			treeWidth,
 			supportMenu,
-			breakCheckbox,
-			nodeNameMaxLength,
-			onDoubleClick
+			nodeNameMaxLength
 		} = this.context;
 		const { setInputValue, onSaveClick, onClickCancel } = this;
 		// 将三个方法传递出去可以供外部调用
@@ -157,10 +152,7 @@ class Node extends Component {
 				<div className={classNames(`${prefixCls}-list-node-area ${data.children && !data.children.length ? 'child-style' : null}`)}>
 					<div
 						onContextMenu={e => supportMenu && this.onHandleShowMenu(e, RIGHT_MENU, data, options)}
-						style={{
-							minWidth: `calc(100% - ${paddingLeft}px)`,
-							paddingLeft
-						}}
+						style={{ minWidth: `calc(100% - ${paddingLeft}px)`, paddingLeft }}
 						className={`node-item-container ${data.isActive ? 'is-active' : null} ${supportCheckbox ? 'support-checkbox' : ''}`}>
 						{/* 拖拽icon: 根节点不支持拖拽 */}
 						{supportDrag && (data.pId || data.pId === 0) && (
@@ -173,7 +165,7 @@ class Node extends Component {
 						<ToggleFold hasChildren={data?.children.length > 0} showChildrenItem={data.isUnfold} toggle={e => this.toggle(e, data)} />
 						<div
 							onClick={supportCheckbox ? () => {} : this.handleSelect}
-							className={`node-item ${data.isEdit && !data.isAdd ? 'hide-node' : null} ${breakCheckbox ? 'break-checkbox' : ''}`}>
+							className={`node-item ${data.isEdit && !data.isAdd ? 'hide-node' : null}`}>
 							{/* 节点前面的icon */}
 							<NodeIcon
 								showIcon={showIcon}
@@ -196,9 +188,7 @@ class Node extends Component {
 								indentValue={paddingLeft}
 								treeWidth={treeWidth}
 								menuType={menuType}
-								breakCheckbox={breakCheckbox}
 								supportCheckbox={supportCheckbox}
-								onDoubleClick={() => onDoubleClick(data)}
 								onHandleSelect={this.handleSelect}
 							/>
 							{/* 点击菜单 */}
@@ -279,11 +269,9 @@ function ShowInput({ isEdit, isAdd, maxLength, inputValue, handleInputChange, sa
  * @param indeterminate
  * @param checked
  * @param supportCheckbox
- * @param breakCheckbox
  * @param id
  * @param name
  * @param disableSelected
- * @param onDoubleClick
  * @param onHandleSelect
  * @returns {*}
  * @constructor
@@ -297,11 +285,9 @@ function ShowSelection({
 	indeterminate,
 	checked,
 	supportCheckbox,
-	breakCheckbox,
 	id,
 	name,
 	disableSelected,
-	onDoubleClick,
 	onHandleSelect
 }) {
 	// 处理搜索关键字高亮
@@ -345,21 +331,13 @@ function ShowSelection({
 		zIndex: 0
 	};
 
-	if (supportCheckbox) {
-		return (
-			<>
-				<Checkbox disabled={disableSelected} indeterminate={indeterminate} checked={checked} value={id} onChange={onHandleSelect} style={labelWidth}>
-					<>{!breakCheckbox && tmp}</>
-				</Checkbox>
-				{breakCheckbox && (
-					<span className="checkbox-label-text" onDoubleClick={onDoubleClick}>
-						{tmp}
-					</span>
-				)}
-			</>
-		);
-	}
-	return tmp;
+	return supportCheckbox ? (
+		<Checkbox disabled={disableSelected} indeterminate={indeterminate} checked={checked} value={id} onChange={onHandleSelect} style={labelWidth}>
+			{tmp}
+		</Checkbox>
+	) : (
+		tmp
+	);
 }
 
 /**
@@ -381,5 +359,4 @@ function NodeIcon({ showIcon, openIconType, closeIconType, iconColor, hasChildre
 	// 存在子节点,并且要显示子节点
 	return <Icon style={style} type={hasChildren && showChildrenItem ? openIconType : closeIconType} />;
 }
-
 export default Node;
