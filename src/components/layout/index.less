@@ -1,0 +1,81 @@
+@selector: newComponent;
+
+@color: #0083ba;
+
+.@{selector} {
+	height: 30px;
+	line-height: 1;
+
+	&-text {
+		color: @color;
+	}
+}
+
+div[data-rc-hview] {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+div[data-rc-vview] {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: flex-start;
+}
+
+.rc-layout {
+	display: flex;
+	flex: auto;
+	flex-direction: column;
+	min-height: 0;
+	background: #f0f2f5;
+
+	&,
+	* {
+		box-sizing: border-box;
+	}
+
+	&&-has-sider {
+		flex-direction: row;
+	}
+
+	&-header,
+	&-footer {
+		flex: 0 0 auto;
+	}
+
+	&-header {
+		height: 64px;
+		line-height: 64px;
+		color: fade(#000, 65%);
+		padding: 0 50px;
+		background: #f8f8f8;
+	}
+
+	&-content {
+		flex: auto;
+		min-height: 0;
+	}
+
+	&-sider {
+		position: relative;
+
+		min-width: 0;
+		background: #f8f8f8;
+
+		&-children {
+			height: 100%;
+			margin-top: -0.1px;
+			padding-top: 0.1px;
+		}
+	}
+
+	&-footer {
+		padding: 24px 50px;
+		color: fade(#000, 65%);
+		font-size: 14px;
+		background: #f8f8f8;
+	}
+}
