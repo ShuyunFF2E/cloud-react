@@ -104,7 +104,6 @@ export default class TreeDemo extends React.Component {
              <Tree  supportMenu
                     menuType="dialogMenu"
                     isUnfold
-                    supportSearch
                     treeData={treeData}
                     style={style} className="bg"
                     showIcon={this.state.showIcon}

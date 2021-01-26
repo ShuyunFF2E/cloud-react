@@ -1,6 +1,6 @@
 {
     "name": "cloud-react",
-    "version": "0.0.86-1",
+    "version": "0.0.88-0",
     "description": "数据赢家 react 组件",
     "main": "cloud-react.js",
     "scripts": {
@@ -82,6 +82,7 @@
         "lint-staged": "^10.2.10",
         "loader-utils": "^2.0.0",
         "markdown-it": "^8.4.2",
+        "terser-webpack-plugin": "3.0.7",
         "mini-css-extract-plugin": "^0.5.0",
         "mockdate": "^3.0.2",
         "optimize-css-assets-webpack-plugin": "^5.0.1",
@@ -89,7 +90,6 @@
         "pretty-quick": "^2.0.1",
         "react-test-renderer": "^16.13.1",
         "style-loader": "^0.23.1",
-        "uglifyjs-webpack-plugin": "^2.2.0",
         "url-loader": "^1.1.2",
         "webpack": "^4.29.5",
         "webpack-bundle-analyzer": "^3.8.0",
@@ -99,7 +99,7 @@
     },
     "dependencies": {
         "classnames": "2.2.6",
-        "gridmanager-react": "1.7.18",
+        "gridmanager-react": "1.7.19",
         "prop-types": "15.7.2",
         "react": "16.8.6",
         "react-dom": "16.8.6",
