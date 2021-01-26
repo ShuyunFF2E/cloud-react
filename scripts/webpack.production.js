@@ -1,7 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -56,12 +56,16 @@ module.exports = () => ({
 	optimization: {
 		minimizer: [
 			// 压缩js
-			new UglifyJsPlugin({
-				uglifyOptions: {
-					cache: true,
-					parallel: true,
-					sourceMap: true,
-					warnings: false
+			new TerserPlugin({
+				// extractComments: true,
+				cache: true,
+				parallel: true,
+				sourceMap: true,
+				terserOptions: {
+					warnings: false,
+					output: {
+						comments: false
+					}
 				}
 			}),
 			// 压缩css
