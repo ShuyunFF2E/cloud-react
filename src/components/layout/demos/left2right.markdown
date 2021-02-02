@@ -1,7 +1,7 @@
 ---
-order: 1
-title: 上中下结构
-desc: 最基本使用
+order: 3
+title: 左右结构
+desc: 侧边栏在整体左侧
 ---
 
 ```javascript
@@ -16,10 +16,13 @@ export default class LayoutDemo extends Component {
 	render() {
 
 		return (
-			<Layout>
-				<Header>Header</Header>
-				<Content>Content</Content>
-				<Footer>Footer</Footer>
+			<Layout hasSider>
+				<Sider>Sider</Sider>
+				<Layout>
+					<Header>Header</Header>
+					<Content>Content</Content>
+					<Footer>Footer</Footer>
+				</Layout>
 			</Layout>
 		);
 	}
@@ -40,5 +43,11 @@ export default class LayoutDemo extends Component {
 	line-height: 100px;
 	color: #fff;
 	background: #108ee9;
+}
+.cloud-layout-sider {
+	width: 200px;
+	line-height: 100px;
+	color: #fff;
+	background: #3ba0e9;
 }
 ```

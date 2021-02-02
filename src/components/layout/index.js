@@ -1,33 +1,34 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
+import { prefixCls } from '@utils';
 
-const prefix = 'rc';
+import './index.less';
 
 function generator({ suffixCls, tagName }) {
 	return BasicComponent => {
 		return class extends Component {
 			render() {
-				const prefixCls = `${prefix}-${suffixCls}`;
-				return <BasicComponent prefixCls={prefixCls} tagName={tagName} {...this.props} />;
+				const classes = `${prefixCls}-${suffixCls}`;
+				return <BasicComponent prefixClass={classes} tagName={tagName} {...this.props} />;
 			}
 		};
 	};
 }
 
 const Basic = props => {
-	const { prefixCls, className, children, tagName, ...rest } = props;
-	const classes = classNames(prefixCls, className);
+	const { prefixClass, className, children, tagName, ...rest } = props;
+	const classes = classNames(prefixClass, className);
 	return React.createElement(tagName, { className: classes, ...rest }, children);
 };
 
 class BasicLayout extends Component {
 	render() {
-		const { prefixCls, className, children, hasSider, tagName: Tag, ...others } = this.props;
+		const { prefixClass, className, children, hasSider, tagName: Tag, ...others } = this.props;
 
 		const classString = classNames(
-			prefixCls,
+			prefixClass,
 			{
-				[`${prefixCls}-has-sider`]: hasSider
+				[`${prefixClass}-has-sider`]: hasSider
 			},
 			className
 		);

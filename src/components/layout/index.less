@@ -1,31 +1,9 @@
-@selector: newComponent;
+@import '../style/index';
 
-@color: #0083ba;
+@selector: ~'@{prefix}-layout';
+@height: 64px;
 
 .@{selector} {
-	height: 30px;
-	line-height: 1;
-
-	&-text {
-		color: @color;
-	}
-}
-
-div[data-rc-hview] {
-	display: flex;
-	flex-direction: row;
-	justify-content: flex-start;
-	align-items: center;
-}
-
-div[data-rc-vview] {
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-start;
-	align-items: flex-start;
-}
-
-.rc-layout {
 	display: flex;
 	flex: auto;
 	flex-direction: column;
@@ -47,8 +25,8 @@ div[data-rc-vview] {
 	}
 
 	&-header {
-		height: 64px;
-		line-height: 64px;
+		height: @height;
+		line-height: @height;
 		color: fade(#000, 65%);
 		padding: 0 50px;
 		background: #f8f8f8;
