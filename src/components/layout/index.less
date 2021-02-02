@@ -1,0 +1,59 @@
+@import '../style/index';
+
+@selector: ~'@{prefix}-layout';
+@height: 64px;
+
+.@{selector} {
+	display: flex;
+	flex: auto;
+	flex-direction: column;
+	min-height: 0;
+	background: #f0f2f5;
+
+	&,
+	* {
+		box-sizing: border-box;
+	}
+
+	&&-has-sider {
+		flex-direction: row;
+	}
+
+	&-header,
+	&-footer {
+		flex: 0 0 auto;
+	}
+
+	&-header {
+		height: @height;
+		line-height: @height;
+		color: fade(#000, 65%);
+		padding: 0 50px;
+		background: #f8f8f8;
+	}
+
+	&-content {
+		flex: auto;
+		min-height: 0;
+	}
+
+	&-sider {
+		position: relative;
+
+		min-width: 0;
+		background: #f8f8f8;
+
+		&-children {
+			height: 100%;
+			margin-top: -0.1px;
+			padding-top: 0.1px;
+		}
+	}
+
+	&-footer {
+		padding: 24px 50px;
+		color: fade(#000, 65%);
+		font-size: 14px;
+		background: #f8f8f8;
+	}
+}
