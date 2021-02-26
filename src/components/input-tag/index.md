@@ -13,6 +13,8 @@ subtitle: 多文本输入组件
 | 属性       | 说明             | 类型    | 默认值  |
 | ---------- | ---------------- | ------- | ------- |
 | data       | 已存在的数据         | array  | [] |
+| max       | 最大数量限制         | number  | 50 |
+| disabled       | 是否禁用         | boolean  | false |
 | maxWidth | 单个tag的最大宽度，超出省略号 | number | 200   |
 | isConfigSeparator | 是否需要配置分隔符 | boolean | false   |
 | style | 样式 | object | {}   |

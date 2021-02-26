@@ -6,6 +6,7 @@ import Icon from '../icon';
 import Tooltip from '../tooltip';
 import Radio from '../radio';
 import Input from '../input';
+import Message from '../message';
 
 import './index.less';
 
@@ -26,8 +27,10 @@ export default class InputTag extends Component {
 	}
 
 	componentDidMount() {
-		this.computedInputWidth();
-		this.inputRef.current.focus();
+		if (!this.props.disabled) {
+			this.computedInputWidth();
+			this.inputRef.current.focus();
+		}
 	}
 
 	componentDidUpdate() {
@@ -38,16 +41,22 @@ export default class InputTag extends Component {
 		const { value } = event.target;
 		const keyCode = event.key;
 		const { data: tags } = this.state;
-		const { onChange } = this.props;
+		const { max, onChange } = this.props;
 
 		// 按下 enter 键，保存当前input的值
 		if (keyCode === 'Enter' && value.trim().length) {
 			const values = this.sign ? value.split(this.sign).filter(item => item) : value;
 			const result = tags.concat(values);
 
+			if (result.length > max) {
+				result.splice(max);
+				Message.error(`超过最大数量，已截取前${max}个，可删除部分后再重新添加`);
+			}
+
 			this.setState(() => ({
 				data: result
 			}));
+
 			// eslint-disable-next-line
 			event.target.value = '';
 
@@ -82,16 +91,15 @@ export default class InputTag extends Component {
 		this.setState({
 			data: []
 		});
-
 		this.props.onChange([]);
 	};
 
 	handleCopy = () => {
 		const { data } = this.state;
-
 		const text = this.sign ? data.join(this.sign) : data.join(';');
 
 		ShunyunUtils.copyText(text);
+		Message.success('复制成功');
 	};
 
 	// 根据容器和最后一个 tag 的位置计算 input 的宽度
@@ -148,7 +156,7 @@ export default class InputTag extends Component {
 
 	renderTags() {
 		const { data } = this.state;
-		const { maxWidth } = this.props;
+		const { maxWidth, disabled } = this.props;
 
 		return (
 			<>
@@ -160,7 +168,7 @@ export default class InputTag extends Component {
 										{item}
 									</span>
 								</Tooltip>
-								<Icon type="close" onClick={() => this.handleRemove(index)} />
+								{!disabled && <Icon type="close" onClick={() => this.handleRemove(index)} />}
 							</span>
 					  ))
 					: null}
@@ -196,7 +204,7 @@ export default class InputTag extends Component {
 	get placeholder() {
 		const { separator, character } = this.state;
 
-		let placeholder = '请输入字符按回车保存';
+		let placeholder = '按回车保存，可输入多个';
 
 		if (separator && separator !== 'other') {
 			placeholder = `输入字符按回车以${separator}分隔为多段保存`;
@@ -214,23 +222,32 @@ export default class InputTag extends Component {
 		return separator && separator !== 'other' ? separator : character;
 	}
 
+	get count() {
+		return this.state.data.length;
+	}
+
 	render() {
-		const { style } = this.props;
+		const { style, disabled, max } = this.props;
 
 		return (
 			<div ref={this.containerRef} className={selector} style={style}>
-				{this.renderConfig()}
+				{!disabled && this.renderConfig()}
 				<div className={`${selector}-list`}>
 					{this.renderTags()}
-					<input ref={this.inputRef} onKeyUp={this.handleKeyUp} placeholder={this.placeholder} />
+					{!disabled && <input ref={this.inputRef} onKeyUp={this.handleKeyUp} placeholder={this.placeholder} />}
 				</div>
 				<div className={`${selector}-operate`}>
+					<span style={{ color: 'red' }}>
+						{this.count}/{max}
+					</span>
 					<Tooltip content="一键复制，以指定分隔符拼接，默认为英文分号">
 						<Icon type="remark" onClick={this.handleCopy} />
 					</Tooltip>
-					<Tooltip content="一键清空所有内容">
-						<Icon type="close-circle-solid" onClick={this.handleClear} />
-					</Tooltip>
+					{!disabled && (
+						<Tooltip content="一键清空所有内容">
+							<Icon type="close-circle-solid" onClick={this.handleClear} />
+						</Tooltip>
+					)}
 				</div>
 			</div>
 		);
@@ -239,6 +256,8 @@ export default class InputTag extends Component {
 
 InputTag.propTypes = {
 	data: PropTypes.array,
+	disabled: PropTypes.bool,
+	max: PropTypes.number,
 	maxWidth: PropTypes.number,
 	isConfigSeparator: PropTypes.bool,
 	style: PropTypes.object,
@@ -247,6 +266,8 @@ InputTag.propTypes = {
 
 InputTag.defaultProps = {
 	data: [],
+	disabled: false,
+	max: 50,
 	maxWidth: 200,
 	isConfigSeparator: false,
 	style: {},

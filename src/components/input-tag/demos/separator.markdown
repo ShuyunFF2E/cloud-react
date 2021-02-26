@@ -25,7 +25,7 @@ export default class InputTagDemo extends React.Component {
 	render() {
 		const { data } = this.state;
 
-		return <InputTag data={data} isConfigSeparator onChange={this.handleChange} />;
+		return <InputTag data={data} max={2} isConfigSeparator onChange={this.handleChange} />;
 	}
 }
 ```
