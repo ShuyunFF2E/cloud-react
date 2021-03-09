@@ -25,15 +25,19 @@ class DateRange extends Component {
 			const { start, end } = value;
 			return { start, end };
 		}
+		if (value === undefined) {
+			return { start: '', end: '' };
+		}
 		return null;
 	}
 
 	onChangeStartTime = start => {
-		this.setState({ endOpen: true });
+		this.setState({ start, endOpen: true });
 		this.props.onChange({ start, end: this.state.end });
 	};
 
 	onChangeEndTime = end => {
+		this.setState({ end });
 		this.props.onChange({ start: this.state.start, end });
 	};
 
@@ -43,13 +47,14 @@ class DateRange extends Component {
 
 	render() {
 		const { onChangeStartTime, onChangeEndTime, onEndClose } = this;
-		const { minDate, maxDate, width = 480, className, ...others } = this.props;
+		const { minDate, maxDate, width = 480, className, onChange, ...others } = this.props;
+
 		const { start, end, endOpen } = this.state;
 
 		const startValue = start ? new Date(start) : '';
 		const endValue = end ? new Date(end) : '';
 		const props = omit(others, ['value', 'defaultValue', 'data-field']);
-		const wraperProps = omit(props, ['showTimePicker', 'isAppendToBody']);
+		const wraperProps = omit(props, ['showTimePicker', 'isAppendToBody', 'canEdit']);
 		const pickerWidth = (parseFloat(width) - 20) / 2;
 
 		return (
@@ -57,7 +62,7 @@ class DateRange extends Component {
 				<DatePicker
 					{...props}
 					width={`${pickerWidth}px`}
-					value={startValue}
+					value={start}
 					minDate={minDate}
 					maxDate={endValue || maxDate}
 					onChange={onChangeStartTime}
@@ -67,7 +72,7 @@ class DateRange extends Component {
 				<DatePicker
 					{...props}
 					width={`${pickerWidth}px`}
-					value={endValue}
+					value={end}
 					minDate={startValue || minDate}
 					maxDate={maxDate}
 					open={endOpen}
