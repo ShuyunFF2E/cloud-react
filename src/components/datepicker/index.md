@@ -40,6 +40,7 @@ subtitle: 日期选择框
 | containerEleClass | 需要滚动的元素 class 名称                          | string                  | -                 |
 | isAppendToBody    | 日历选择弹框是否渲染在 body 上                     | boolean                 | `false`           |
 | position          | 日历选择框是否启用自动定位，如需使用可设置为`auto` | string                  | -                 |
+| canEdit           | 是否可编辑                                     | boolean                 | `false`           |
 
 ### TimePicker
 
@@ -51,6 +52,7 @@ subtitle: 日期选择框
 | value        | 当前值(手动清空可绑定 state) | string                  | -       |
 | onChange     | 选择日期改变                 | Function(value: object) | -       |
 | onBlur       | 失去焦点时触发               | Function(evt)           | -       |
+| canEdit      | 是否可编辑                   | boolean                 | `false`           |
 
 ### YearPicker
 
@@ -65,6 +67,7 @@ subtitle: 日期选择框
 | min          | 最小值                            | number/string           | -            |
 | max          | 最大值                            | number/string           | -            |
 | onChange     | 选择年份改变                      | Function(value: string) | -            |
+| canEdit      | 是否可编辑                   | boolean                 | `false`           |
 
 ### YearMonthPicker
 
@@ -80,6 +83,7 @@ subtitle: 日期选择框
 | max          | 最大值                            | string           | -              |
 | format       | 格式化输出格式                    | string                  | `默认 YYYY/MM` |
 | onChange     | 选择年月改变                      | Function(value: string) | -              |
+| canEdit      | 是否可编辑                   | boolean                 | `false`           |
 
 ### MonthDayPicker
 
@@ -95,3 +99,4 @@ subtitle: 日期选择框
 | max          | 最大值                            | string           | -            |
 | format       | 格式化输出格式                    | string                  | `默认 MM/DD` |
 | onChange     | 选择月日改变                      | Function(value: string) | -            |
+| canEdit      | 是否可编辑                   | boolean                 | `false`           |

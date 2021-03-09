@@ -31,9 +31,9 @@ class Time extends Component {
 
 	componentDidUpdate(prevProps) {
 		const { value: prevValue } = prevProps;
-		const { value, type } = this.props;
+		const { value } = this.props;
 
-		if (prevValue !== value && type === 'alone') {
+		if (prevValue !== value) {
 			this.updateState();
 		}
 	}
