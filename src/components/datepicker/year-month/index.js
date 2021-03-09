@@ -29,5 +29,5 @@ YearMonthPicker.defaultProps = {
 	min: '1900/01',
 	max: '2100/12',
 	format: 'YYYY/MM',
-	placeholder: '请选择年月'
+	placeholder: 'yyyy/mm'
 };

@@ -10,8 +10,8 @@ import YearMonth from '../year-month/main';
 import MonthDay from '../month-day/main';
 import DatePicker from '../date-picker/main';
 import { renderDOM, createWrapper, destroyDOM } from './utils';
-import { enumObj, containerClass, selectorClass, wrapperClass, FORMAT } from '../constant';
-import { transformObj, displayNow } from '../utils';
+import { enumObj, enumCheck, containerClass, selectorClass, wrapperClass, FORMAT } from '../constant';
+import { transformObj, displayNow, checkFormat } from '../utils';
 
 class Picker extends Component {
 	static contextType = ContextProvider;
@@ -29,13 +29,27 @@ class Picker extends Component {
 				.replace('.', ''),
 			visible: open,
 			style: {},
-			prevProps: props
+			prevProps: props,
+			checkFlag: true // 校验输入的日期格式是否正确
 		};
 
 		this.inpRef = createRef();
 		this.popupRef = createRef();
 
 		this.containerRef = createRef();
+
+		this.setYearChild = ref => {
+			this.yearChild = ref;
+		};
+		this.setYearMonthChild = ref => {
+			this.yearMonthChild = ref;
+		};
+		this.setMonthDayChild = ref => {
+			this.monthDayChild = ref;
+		};
+		this.setDateChild = ref => {
+			this.dateChild = ref;
+		};
 	}
 
 	static getDerivedStateFromProps(props, prevState) {
@@ -62,14 +76,10 @@ class Picker extends Component {
 	componentDidUpdate(prevProps) {
 		const { value: prevValue, open: prevOpen } = prevProps;
 		const { value, open } = this.props;
-
+		const { checkFlag } = this.state;
 		if (prevValue !== value) {
-			if (value) {
-				const date = displayNow(new Date(value));
-				this.handleValueChange(date);
-			} else {
-				this.handleChange();
-			}
+			const date = checkFlag && value ? displayNow(new Date(value)) : value;
+			this.handleValueChange(date, false);
 		}
 		if (prevOpen !== open) {
 			this.changeVisible(open);
@@ -94,39 +104,55 @@ class Picker extends Component {
 		return getContext() || this.document.body;
 	}
 
-	handleValueChange = (output = '', isPop = false) => {
-		const value = this.props.formatValue(output);
+	/**
+	 *
+	 * @param output
+	 * @param isPop
+	 * @param isClickBtn 是否是点击确定
+	 */
+	handleValueChange = (output = '', isPop = false, isClickBtn = false) => {
+		const { checkFlag } = this.state;
+		const value = (output && checkFlag) || isClickBtn ? this.props.formatValue(output) : output || '';
 		this.setState({
-			currentValue: value
+			currentValue: value ? value.toString().replace(/-/g, '/') : '',
+			checkFlag
 		});
 		if (isPop) {
 			this.props.onChange(value);
 		}
 	};
 
-	onPopChange = output => {
-		this.handleValueChange(output, true);
-		this.changeVisible(false);
+	/**
+	 * 值跑出去
+	 * @param output 抛出去的值
+	 * @param isClickBtn 是否是点击确定按钮 -- 确定：true   回车/失去焦点：false
+	 */
+	onPopChange = (output, isClickBtn = true) => {
+		this.handleValueChange(output, true, isClickBtn);
+		this.changeVisible(false); // 关闭日历选择
 	};
 
 	renderMainPop = () => {
-		const { tempMode, formatValue } = this.props;
+		const { tempMode, formatValue, showTimePicker, format } = this.props;
 		const { currentValue } = this.state;
-		const checkValue = currentValue ? formatValue(displayNow(new Date(currentValue)), this.format) : '';
+
+		const checkFlag = checkFormat(currentValue, tempMode, format, showTimePicker);
+
+		const checkValue = checkFlag && currentValue ? formatValue(displayNow(new Date(currentValue)), this.format) : '';
 
 		if (tempMode === enumObj.YEAR_MODEL) {
-			return <Year {...this.props} checkValue={currentValue} onChange={this.onPopChange} />;
+			return <Year ref={this.setYearChild} {...this.props} checkValue={currentValue} onChange={this.onPopChange} />;
 		}
 
 		if (tempMode === enumObj.YEAR_MONTH_MODEL) {
-			return <YearMonth {...this.props} checkValue={checkValue} onChange={this.onPopChange} />;
+			return <YearMonth ref={this.setYearMonthChild} {...this.props} checkValue={checkValue} onChange={this.onPopChange} />;
 		}
 
 		if (tempMode === enumObj.MONTH_DAY_MODEL) {
-			return <MonthDay {...this.props} checkValue={checkValue} onChange={this.onPopChange} />;
+			return <MonthDay ref={this.setMonthDayChild} {...this.props} checkValue={checkValue} onChange={this.onPopChange} />;
 		}
 
-		return <DatePicker {...this.props} checkValue={transformObj(checkValue)} onChange={this.onPopChange} />;
+		return <DatePicker ref={this.setDateChild} {...this.props} checkValue={transformObj(checkValue)} onChange={this.onPopChange} />;
 	};
 
 	popClick = evt => {
@@ -136,11 +162,30 @@ class Picker extends Component {
 		}
 	};
 
+	// 关闭时 校验输入的是否正确
 	handleClick = e => {
 		const isClickPicker = this.containerRef.current.contains(e.target) || (this.popupRef.current && this.popupRef.current.contains(e.target));
+		const { checkFlag, visible, currentValue } = this.state;
+		const { tempMode, formatValue } = this.props;
 
-		if (!isClickPicker && this.state.visible) {
+		// 校验不通过，且有值，直接抛出去，日历选择器关闭
+		if (!isClickPicker && !checkFlag && visible) {
+			this.props.onChange(currentValue);
 			this.changeVisible(false);
+			return;
+		}
+
+		// 校验通过，值为空
+		if (!isClickPicker && visible && !currentValue) {
+			this.onPopChange('', false);
+			return;
+		}
+
+		// 校验通过，正常值
+		if (!isClickPicker && currentValue && visible) {
+			const currentValueTemp =
+				tempMode === enumObj.YEAR_MODEL ? { year: currentValue } : transformObj(formatValue(displayNow(new Date(currentValue)), this.format));
+			this.onPopChange(currentValueTemp, false);
 		}
 	};
 
@@ -160,7 +205,6 @@ class Picker extends Component {
 				this.setState({ style });
 			} else {
 				createWrapper(id, height, style);
-
 				renderDOM(
 					id,
 					containerRef.current,
@@ -226,18 +270,79 @@ class Picker extends Component {
 	};
 
 	handleChange = (evt = '') => {
-		if (!evt || !evt.target.value.trim().length) {
-			this.props.onChange('');
+		const { tempMode, showTimePicker, format } = this.props;
+
+		if (evt.target) {
+			// 点击了清空操作，空值抛出去
+			if (!evt.target.value && evt.type === 'click') {
+				// this.setState({
+				// 	currentValue: ''
+				// });
+				this.onPopChange('', false);
+				return;
+			}
+
+			const { currentValue } = this.state;
+
+			// 可输入长度 可输入斜杠数
+			const { replaceRule, lenRule, backslashRule } = enumCheck[showTimePicker ? 'DATE_TIME_MODEL' : tempMode];
+
+			const currentValueTemp = evt.target.value?.replace(replaceRule, ''); // 根据正则过滤掉符合的输入内容
+			const currentValueFinal =
+				currentValueTemp.length > lenRule || currentValueTemp.split('/').length > backslashRule + 1 ? currentValue.toString() : currentValueTemp;
+
 			this.setState({
-				currentValue: ''
+				currentValue: currentValueFinal
 			});
+
+			// 值改变的时候，日历要显示出来
+			if (!this.state.visible && currentValueFinal) {
+				this.changeVisible(true);
+			}
+
+			// 校验输入的值是否正确
+			const checkFlag = currentValueFinal ? checkFormat(currentValueFinal.trim(), tempMode, format, showTimePicker) : true;
+
+			this.setState({
+				checkFlag
+			});
+
+			// 校验通过 并且有值 日历选择联动
+			if (checkFlag && currentValueFinal) {
+				if (tempMode === enumObj.YEAR_MODEL) {
+					this.yearChild.changeCheckValue(currentValueFinal);
+				} else if (tempMode === enumObj.YEAR_MONTH_MODEL) {
+					this.yearMonthChild.changeCheckValue(currentValueFinal);
+				} else if (tempMode === enumObj.MONTH_DAY_MODEL) {
+					this.monthDayChild.changeCheckValue(currentValueFinal);
+				} else if (this.dateChild) {
+					this.dateChild.changeCheckValue(transformObj(currentValueFinal));
+				}
+			}
 		}
 	};
 
+	handleEnterDown = () => {
+		const { formatValue, tempMode } = this.props;
+		const { checkFlag, currentValue } = this.state;
+
+		// 校验不通过或者为空，直接抛出去
+		if (!checkFlag || !currentValue) {
+			this.props.onChange(currentValue);
+			this.changeVisible(false);
+			return;
+		}
+
+		// 校验通过 数值抛出去
+		const currentValueTemp =
+			tempMode === enumObj.YEAR_MODEL ? { year: currentValue } : transformObj(formatValue(displayNow(new Date(currentValue)), this.format));
+		this.onPopChange(currentValueTemp, false);
+	};
+
 	render() {
-		const { inpRef, containerRef, onClickInput, handleChange } = this;
+		const { inpRef, containerRef, onClickInput, handleChange, handleEnterDown } = this;
 		const { currentValue, visible, style } = this.state;
-		const { placeholder, disabled, isAppendToBody, width, className, ...others } = this.props;
+		const { canEdit, placeholder, disabled, isAppendToBody, width, className, ...others } = this.props;
 		const otherProps = omit(others, [
 			'value',
 			'containerEleClass',
@@ -263,7 +368,7 @@ class Picker extends Component {
 					<Input
 						{...otherProps}
 						style={{ width: `${parseFloat(width)}px` }}
-						readOnly
+						readOnly={!canEdit}
 						hasClear
 						ref={inpRef}
 						value={currentValue}
@@ -271,6 +376,7 @@ class Picker extends Component {
 						onChange={handleChange}
 						disabled={disabled}
 						className={`${selectorClass}-inp`}
+						onEnter={handleEnterDown}
 						suffix={<Icon type="calendar" className={`${selectorClass}-inp-icon`} onClick={onClickInput} />}
 					/>
 				</div>
@@ -298,7 +404,8 @@ Picker.propTypes = {
 	value: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.instanceOf(Date)]),
 	formatValue: PropTypes.func,
 	onChange: PropTypes.func,
-	onClose: PropTypes.func
+	onClose: PropTypes.func,
+	canEdit: PropTypes.bool
 };
 
 Picker.defaultProps = {
@@ -311,7 +418,8 @@ Picker.defaultProps = {
 	value: undefined,
 	formatValue: noop,
 	onChange: noop,
-	onClose: noop
+	onClose: noop,
+	canEdit: false
 };
 
 export default Picker;

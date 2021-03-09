@@ -1,3 +1,23 @@
+import { enumObj } from './constant';
+
+function getMonthMaxDay(year, month) {
+	const dealYear = parseInt(year || new Date().getFullYear(), 10);
+	const dealMonth = parseInt(month, 10);
+	const ary = [1, 3, 5, 7, 8, 10, 12];
+
+	if (dealMonth === 2) {
+		// 年份能被4整除并且不能被100整除，或者能被400整除，则为闰年 29
+		if ((dealYear % 4 === 0 && dealYear % 100 !== 0) || dealYear % 400 === 0) {
+			return 29;
+		}
+		return 28;
+	}
+	if (ary.indexOf(dealMonth)) {
+		return 31;
+	}
+	return 30;
+}
+
 function getMonthSize(year, month) {
 	const now = new Date();
 	return new Date(year || now.getFullYear(), month || now.getMonth() + 1, 0).getDate();
@@ -86,8 +106,8 @@ function getMonthData(year, month) {
 export function refreshDays(year, month) {
 	return getMonthData(year, month);
 }
-// 格式转换format
 
+// 格式转换format
 export function convert(date, fmt) {
 	const { year, month, day, hour, minute, second } = date;
 	const currentDate = new Date(`${year}/${month}/${day} ${hour}:${minute}:${second}`);
@@ -130,13 +150,74 @@ export function formatZero(value) {
 	return parseInt(value, 10) < 10 ? `0${parseInt(value, 10)}` : value;
 }
 
+export function checkFormat(value = '', tempMode, format, showTimePicker) {
+	let flag = true;
+	const regularYear = /^\d{4}$/;
+	const regularMonthDay = /^\d{1,2}$/;
+
+	const splitAry = value.toString().split('/');
+
+	if (tempMode === enumObj.YEAR_MODEL) {
+		return regularYear.test(splitAry[0]);
+	}
+
+	if (tempMode === enumObj.YEAR_MONTH_MODEL) {
+		const [year, month] = splitAry;
+		return splitAry.length === 2 && regularYear.test(year) && regularMonthDay.test(month) && month > 0 && month < 13;
+	}
+
+	if (tempMode === enumObj.MONTH_DAY_MODEL) {
+		const [month, day] = splitAry;
+		return (
+			splitAry.length === 2 &&
+			regularMonthDay.test(month) &&
+			regularMonthDay.test(day) &&
+			month > 0 &&
+			month < 13 &&
+			day > 0 &&
+			day < getMonthMaxDay('', month) + 1
+		);
+	}
+
+	if (tempMode === enumObj.DATE_MODEL) {
+		const values = value.toString().split(' ');
+		const beforeValue = values[0].split('/');
+		const [year, month, day] = beforeValue;
+
+		flag =
+			((showTimePicker && values.length === 2) || (!showTimePicker && values.length === 1)) &&
+			beforeValue.length === 3 &&
+			regularYear.test(year) &&
+			regularMonthDay.test(month) &&
+			regularMonthDay.test(day);
+
+		if (flag && (month < 1 || month > 12 || day < 1 || day > getMonthMaxDay(year, month))) {
+			return false;
+		}
+
+		// 存在时分秒
+		if (showTimePicker) {
+			if (!values[1]) {
+				return false;
+			}
+			const afterValue = values[1].split(':');
+			const [hour, minute, second] = afterValue;
+			if ((afterValue.length === 3 && !hour) || !minute || !second || hour < 0 || hour > 23 || minute < 0 || minute > 59 || second < 0 || second > 59) {
+				return false;
+			}
+		}
+	}
+	return flag;
+}
+
 const utils = {
 	convert,
 	formatTime,
 	refreshDays,
 	displayNow,
 	today,
-	transformObj
+	transformObj,
+	checkFormat
 };
 
 export default utils;
