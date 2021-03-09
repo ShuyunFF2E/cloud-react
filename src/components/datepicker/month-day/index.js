@@ -25,7 +25,7 @@ MonthDayPicker.propTypes = {
 MonthDayPicker.defaultProps = {
 	...DEFAULT_PROPS,
 	format: 'MM/DD',
-	placeholder: '请选择月日'
+	placeholder: 'mm/dd'
 };
 
 export default MonthDayPicker;

@@ -22,7 +22,36 @@ export const enumObj = {
 	DATE_TIME_MODEL: 'DATE_TIME_MODEL'
 };
 
+export const enumCheck = {
+	YEAR_MODEL: {
+		replaceRule: /[^\d]/g,
+		lenRule: 4,
+		backslashRule: 0
+	},
+	YEAR_MONTH_MODEL: {
+		replaceRule: /[^\d/]/g,
+		lenRule: 7,
+		backslashRule: 1
+	},
+	MONTH_DAY_MODEL: {
+		replaceRule: /[^\d/]/g,
+		lenRule: 5,
+		backslashRule: 1
+	},
+	DATE_MODEL: {
+		replaceRule: /[^\d/]/g,
+		lenRule: 10,
+		backslashRule: 2
+	},
+	DATE_TIME_MODEL: {
+		replaceRule: /[^' '\d:/]/g,
+		lenRule: 19,
+		backslashRule: 2
+	}
+};
+
 export const FORMAT = {
+	[enumObj.YEAR_MODEL]: 'YYYY',
 	[enumObj.YEAR_MONTH_MODEL]: 'YYYY/MM',
 	[enumObj.MONTH_DAY_MODEL]: 'MM/DD',
 	[enumObj.DATE_MODEL]: 'yyyy/MM/dd'

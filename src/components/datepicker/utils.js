@@ -1,3 +1,29 @@
+import { enumObj } from './constant';
+
+/**
+ * 获取月份最大的天数
+ * @param year 年，默认是今年
+ * @param month 月份
+ * @returns {number}
+ */
+function getMonthMaxDay(year, month) {
+	const dealYear = parseInt(year || new Date().getFullYear(), 10);
+	const dealMonth = parseInt(month, 10);
+	const ary = [1, 3, 5, 7, 8, 10, 12];
+
+	if (dealMonth === 2) {
+		// 年份能被4整除并且不能被100整除，或者能被400整除，则为闰年 29
+		if ((dealYear % 4 === 0 && dealYear % 100 !== 0) || dealYear % 400 === 0) {
+			return 29;
+		}
+		return 28;
+	}
+	if (ary.indexOf(dealMonth)) {
+		return 31;
+	}
+	return 30;
+}
+
 function getMonthSize(year, month) {
 	const now = new Date();
 	return new Date(year || now.getFullYear(), month || now.getMonth() + 1, 0).getDate();
@@ -86,8 +112,8 @@ function getMonthData(year, month) {
 export function refreshDays(year, month) {
 	return getMonthData(year, month);
 }
-// 格式转换format
 
+// 格式转换format
 export function convert(date, fmt) {
 	const { year, month, day, hour, minute, second } = date;
 	const currentDate = new Date(`${year}/${month}/${day} ${hour}:${minute}:${second}`);
@@ -130,13 +156,84 @@ export function formatZero(value) {
 	return parseInt(value, 10) < 10 ? `0${parseInt(value, 10)}` : value;
 }
 
+/**
+ *
+ * @param value 校验值
+ * @param tempMode 校验类型
+ * @param showTimePicker 是否存在时分秒
+ * @returns {boolean}
+ */
+export function checkFormat(value = '', tempMode, showTimePicker) {
+	let flag = true;
+	const regularYear = /^\d{4}$/;
+	const regularMonthDay = /^\d{1,2}$/;
+
+	const splitAry = value.toString().split('/');
+
+	if (tempMode === enumObj.YEAR_MODEL) {
+		return regularYear.test(splitAry[0]);
+	}
+
+	if (tempMode === enumObj.YEAR_MONTH_MODEL) {
+		const [year, month] = splitAry;
+		return splitAry.length === 2 && regularYear.test(year) && regularMonthDay.test(month) && month > 0 && month < 13;
+	}
+
+	if (tempMode === enumObj.MONTH_DAY_MODEL) {
+		const [month, day] = splitAry;
+		return (
+			splitAry.length === 2 &&
+			regularMonthDay.test(month) &&
+			regularMonthDay.test(day) &&
+			month > 0 &&
+			month < 13 &&
+			day > 0 &&
+			day < getMonthMaxDay('', month) + 1
+		);
+	}
+
+	if (tempMode === enumObj.DATE_MODEL) {
+		const values = value.toString().split(' ');
+		const beforeValue = values[0].split('/');
+		const [year, month, day] = beforeValue;
+
+		// 校验年月日
+		flag = beforeValue.length === 3 && regularYear.test(year) && regularMonthDay.test(month) && regularMonthDay.test(day);
+
+		// 校验正确，判断月份 和 日期是否正确
+		if (flag && (month < 1 || month > 12 || day < 1 || day > getMonthMaxDay(year, month))) {
+			return false;
+		}
+
+		// 存在时分秒
+		if (showTimePicker) {
+			// 年月日校验不正确
+			if (!flag) {
+				return false;
+			}
+			// 年月日校验正确，没有时分秒
+			if (!values[1]) {
+				return true;
+			}
+			// 年月日校验正确，存在时分秒
+			const afterValue = values[1].split(':');
+			const [hour, minute, second] = afterValue;
+			if (afterValue.length !== 3 || !hour || !minute || !second || hour < 0 || hour > 23 || minute < 0 || minute > 59 || second < 0 || second > 59) {
+				return false;
+			}
+		}
+	}
+	return flag;
+}
+
 const utils = {
 	convert,
 	formatTime,
 	refreshDays,
 	displayNow,
 	today,
-	transformObj
+	transformObj,
+	checkFormat
 };
 
 export default utils;

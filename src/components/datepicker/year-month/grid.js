@@ -16,9 +16,7 @@ function formatData(value) {
 class MonthGrid extends Component {
 	constructor(props) {
 		super(props);
-
 		const { checkValue } = props;
-
 		this.state = {
 			tempMonth: checkValue ? formatData(checkValue) : null
 		};
@@ -26,7 +24,6 @@ class MonthGrid extends Component {
 
 	componentDidUpdate(prevProps) {
 		const { checkValue } = this.props;
-
 		if (prevProps.checkValue !== checkValue) {
 			this.updateTempMonth(formatData(checkValue));
 		}
@@ -64,15 +61,16 @@ class MonthGrid extends Component {
 
 	getClassName = (_tempMonth, current, _month) => {
 		const { selectedYear, min, max } = this.props;
+		const { splitStr } = this.state;
 
 		if (_tempMonth && parseInt(_tempMonth, 10) === current) {
 			return 'grid-check';
 		}
 
-		const maxYear = parseInt(max.split('/')[0], 10);
-		const minYear = parseInt(min.split('/')[0], 10);
-		const maxYearMonth = parseInt(max.split('/')[1], 10);
-		const minYearMonth = parseInt(min.split('/')[1], 10);
+		const maxYear = parseInt(max.split(splitStr)[0], 10);
+		const minYear = parseInt(min.split(splitStr)[0], 10);
+		const maxYearMonth = parseInt(max.split(splitStr)[1], 10);
+		const minYearMonth = parseInt(min.split(splitStr)[1], 10);
 		if (currentYear > maxYear || currentYear < minYear) {
 			return ` ${disClass} `;
 		}
