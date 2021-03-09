@@ -33,6 +33,19 @@ class YearGrid extends Component {
 		};
 	}
 
+	componentDidUpdate(prevProps) {
+		const { checkValue } = this.props;
+		if (prevProps.checkValue !== checkValue) {
+			this.updateTempYear(checkValue);
+		}
+	}
+
+	updateTempYear(value) {
+		this.setState({
+			tempYear: value
+		});
+	}
+
 	getDisabledNow = () => {
 		const { min, max } = this.props;
 		const { year } = displayNow();

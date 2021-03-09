@@ -16,25 +16,20 @@ class DateRange extends Component {
 		this.state = {
 			endOpen: false,
 			start,
-			end
+			end,
+			popStart: start,
+			popEnd: end
 		};
 	}
 
-	static getDerivedStateFromProps({ value }) {
-		if (value !== undefined && typeof value === 'object') {
-			const { start, end } = value;
-			return { start, end };
-		}
-		return null;
-	}
-
 	onChangeStartTime = start => {
-		this.setState({ endOpen: true });
-		this.props.onChange({ start, end: this.state.end });
+		this.setState({ popStart: start, endOpen: true });
+		this.props.onChange({ start, end: this.state.popEnd });
 	};
 
 	onChangeEndTime = end => {
-		this.props.onChange({ start: this.state.start, end });
+		this.setState({ popEnd: end });
+		this.props.onChange({ start: this.state.popStart, end });
 	};
 
 	onEndClose = () => {
@@ -43,13 +38,14 @@ class DateRange extends Component {
 
 	render() {
 		const { onChangeStartTime, onChangeEndTime, onEndClose } = this;
-		const { minDate, maxDate, width = 480, className, ...others } = this.props;
+		const { minDate, maxDate, width = 480, className, onChange, ...others } = this.props;
+
 		const { start, end, endOpen } = this.state;
 
 		const startValue = start ? new Date(start) : '';
 		const endValue = end ? new Date(end) : '';
 		const props = omit(others, ['value', 'defaultValue', 'data-field']);
-		const wraperProps = omit(props, ['showTimePicker', 'isAppendToBody']);
+		const wraperProps = omit(props, ['showTimePicker', 'isAppendToBody', 'canEdit']);
 		const pickerWidth = (parseFloat(width) - 20) / 2;
 
 		return (
@@ -57,7 +53,7 @@ class DateRange extends Component {
 				<DatePicker
 					{...props}
 					width={`${pickerWidth}px`}
-					value={startValue}
+					value={start}
 					minDate={minDate}
 					maxDate={endValue || maxDate}
 					onChange={onChangeStartTime}
@@ -67,7 +63,7 @@ class DateRange extends Component {
 				<DatePicker
 					{...props}
 					width={`${pickerWidth}px`}
-					value={endValue}
+					value={end}
 					minDate={startValue || minDate}
 					maxDate={maxDate}
 					open={endOpen}
