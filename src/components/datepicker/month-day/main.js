@@ -7,7 +7,7 @@ import { monthArr } from '../constant';
 import { formatZero, displayNow } from '../utils';
 import Grid from './grid';
 
-class Popup extends Component {
+class MonthDay extends Component {
 	constructor(props) {
 		super(props);
 
@@ -18,6 +18,13 @@ class Popup extends Component {
 			tempDay: checkValue ? parseInt(checkValue.split('/')[1], 10) : ''
 		};
 	}
+
+	changeCheckValue = checkValue => {
+		this.setState({
+			tempMonth: checkValue ? parseInt(checkValue.split('/')[0], 10) : displayNow().month,
+			tempDay: checkValue ? parseInt(checkValue.split('/')[1], 10) : ''
+		});
+	};
 
 	handleLeftClick = () => {
 		const { tempMonth } = this.state;
@@ -97,14 +104,14 @@ class Popup extends Component {
 	}
 }
 
-Popup.propTypes = {
+MonthDay.propTypes = {
 	checkValue: PropTypes.string,
 	onChange: PropTypes.func
 };
 
-Popup.defaultProps = {
+MonthDay.defaultProps = {
 	checkValue: '',
 	onChange: noop
 };
 
-export default Popup;
+export default MonthDay;

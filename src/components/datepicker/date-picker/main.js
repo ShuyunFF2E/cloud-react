@@ -5,7 +5,7 @@ import Header from '../common/header';
 import Grid from './grid';
 import { displayNow, transformObj } from '../utils';
 
-class Popup extends Component {
+class DatePicker extends Component {
 	constructor(props) {
 		super(props);
 
@@ -14,11 +14,22 @@ class Popup extends Component {
 		const now = displayNow();
 
 		this.state = {
+			checkValue,
 			tempYear: checkValue ? checkValue.year : now.year,
 			tempMonth: checkValue ? checkValue.month : now.month,
 			tempDay: checkValue ? checkValue.day : null
 		};
 	}
+
+	changeCheckValue = checkValue => {
+		const now = displayNow();
+		this.setState({
+			checkValue,
+			tempYear: checkValue ? checkValue.year : now.year,
+			tempMonth: checkValue ? checkValue.month : now.month,
+			tempDay: checkValue ? checkValue.day : null
+		});
+	};
 
 	onHeaderChange = (year, month) => {
 		this.setState({
@@ -36,9 +47,8 @@ class Popup extends Component {
 	};
 
 	render() {
-		const { minDate, maxDate, showTimePicker, maxYear, minYear, onChange, checkValue, defaultTime } = this.props;
-		const { tempYear, tempMonth, tempDay } = this.state;
-
+		const { minDate, maxDate, showTimePicker, maxYear, minYear, onChange, defaultTime } = this.props;
+		const { checkValue, tempYear, tempMonth, tempDay } = this.state;
 		return (
 			<>
 				<Header
@@ -67,7 +77,7 @@ class Popup extends Component {
 	}
 }
 
-Popup.propTypes = {
+DatePicker.propTypes = {
 	minDate: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
 	maxDate: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
 	checkValue: PropTypes.object,
@@ -75,7 +85,7 @@ Popup.propTypes = {
 	onChange: PropTypes.func
 };
 
-Popup.defaultProps = {
+DatePicker.defaultProps = {
 	showTimePicker: false,
 	checkValue: undefined,
 	minDate: undefined,
@@ -83,4 +93,4 @@ Popup.defaultProps = {
 	onChange: noop
 };
 
-export default Popup;
+export default DatePicker;

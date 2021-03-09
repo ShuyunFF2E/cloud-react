@@ -6,7 +6,7 @@ desc: 基本用法，日期选择器。
 
 ```javascript
 import React from 'react';
-import { Datepicker } from 'cloud-react';
+import { Datepicker, Button } from 'cloud-react';
 
 export default class DatePickerDemo extends React.Component {
 	constructor(props) {
@@ -14,50 +14,61 @@ export default class DatePickerDemo extends React.Component {
 
 		this.state = {
 			visible: false,
-			range: { start: '2020-04-23 00:00:00', end: '2020-06-07 23:59:59' },
-			value: '2020/07/10'
+			value1: '',
+            value: '1990/07/10',
+            tValue1: '',
+            tValue2: ''
 		};
 	}
 
-	onInpChange = range => {
-		this.setState({ range });
-	};
-
-	onChangeDate = date => {
-		console.log(date);
+	onChangeDate1 = date => {
+        this.setState({value1: date});
+		console.log('最终数值-------------', date);
 	}
+    onChangeDateT = data => {
+		this.setState({tValue2: data});
+		console.log('最终数值-------------', data);
+	}
+
+    reset = () => {
+       this.setState({value1: '2020/07/10'})
+	   console.log('重置');
+    }
 
 	render() {
 		return (
 			<div>
-				<Datepicker
-					isAppendToBody
-					value={this.state.value}
-					position="auto"
-					onChange={this.onChangeDate}
-					width="200px"
-					placeholder="年月日"
-				/>
+                <div>
+                    不可编辑：<Datepicker isAppendToBody
+                         				 value={this.state.value}
+                         				 position="auto"/>
+                    <span style={{paddingLeft: 20}}>可编辑</span>：
+                            <Datepicker isAppendToBody
+                                        canEdit={true}
+                                        minDate={'1990/3/1'}
+                                        maxDate={new Date('2024/5/1')}
+                         				value={this.state.value1}
+                         				position="auto"
+                         				onChange={this.onChangeDate1}/>
+                <Button style={{marginLeft: 20}} onClick={this.reset}> 重置 </Button>
+                </div>
 				<br />
 				<br />
-				<Datepicker
-					position="auto"
-					value="2021/01/07"
-					showTimePicker={true}
-					placeholder="年月日 时分秒"
-				/>
-				<br />
-				<br />
-				<Datepicker.RangePicker
-					width={420}
-					position="auto"
-					value={this.state.range}
-					minDate={new Date('2020/3/1')}
-					maxDate={new Date('2024/5/1')}
-					onChange={this.onInpChange}
-					showTimePicker
-					isAppendToBody
-				/>
+                <div>
+                    不可编辑：<Datepicker isAppendToBody
+                         				 value={this.state.tValue1}
+                                         showTimePicker
+                         				 position="auto"/>
+                    <span style={{paddingLeft: 20}}>可编辑</span>：
+                            <Datepicker isAppendToBody
+                                        canEdit={true}
+                         				value={this.state.tValue2}
+                         				position="auto"
+                                        showTimePicker
+                                        defaultTime="23:59:59"
+                         				onChange={this.onChangeDateT}/>
+                </div>
+
 			</div>
 		);
 	}

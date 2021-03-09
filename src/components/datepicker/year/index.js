@@ -30,5 +30,5 @@ YearPicker.defaultProps = {
 	...DEFAULT_PROPS,
 	min: 1900,
 	max: 2100,
-	placeholder: '请选择年份'
+	placeholder: 'yyyy'
 };

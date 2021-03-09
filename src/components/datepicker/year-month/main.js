@@ -3,7 +3,7 @@ import { displayNow } from '../utils';
 import Select from '../../select';
 import MonthGrid from './grid';
 
-export default class Popup extends Component {
+export default class YearMonth extends Component {
 	constructor(props) {
 		super(props);
 
@@ -12,14 +12,24 @@ export default class Popup extends Component {
 		this.minYear = parseInt(min.split('/')[0], 10);
 		this.maxYear = parseInt(max.split('/')[0], 10);
 
+		const { checkValue } = props;
+
 		this.state = {
-			tempYear: this.getInitTempYear()
+			checkValue,
+			tempYear: this.getInitTempYear(checkValue)
 		};
 	}
 
-	getInitTempYear() {
+	changeCheckValue = checkValue => {
+		this.setState({
+			checkValue,
+			tempYear: this.getInitTempYear(checkValue)
+		});
+	};
+
+	getInitTempYear(checkValue) {
 		const currentYear = displayNow().year;
-		const { checkValue } = this.props;
+
 		const { minYear, maxYear } = this;
 
 		if (checkValue) {
@@ -51,8 +61,8 @@ export default class Popup extends Component {
 	};
 
 	render() {
-		const { tempYear } = this.state;
-		const { checkValue, min, max } = this.props;
+		const { checkValue, tempYear } = this.state;
+		const { min, max, format } = this.props;
 
 		const years = [];
 
@@ -71,7 +81,7 @@ export default class Popup extends Component {
 						{years}
 					</Select>
 				</div>
-				<MonthGrid checkValue={checkValue} max={max} min={min} selectedYear={tempYear} onChange={this.handleMonthGridChange} />
+				<MonthGrid checkValue={checkValue} max={max} min={min} selectedYear={tempYear} format={format} onChange={this.handleMonthGridChange} />
 			</>
 		);
 	}

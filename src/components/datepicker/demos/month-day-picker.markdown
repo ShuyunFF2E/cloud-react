@@ -11,11 +11,12 @@ import { Datepicker } from 'cloud-react';
 export default class DatePickerDemo extends React.Component {
 	onChange = value => console.log(value);
 	render() {
-		return (
-			<div>
-				<Datepicker.MonthDayPicker min="06/10" position="auto" onChange={this.onChange} />
-			</div>
-		);
+        return (
+                <div>
+                    不可编辑：<Datepicker.MonthDayPicker min="01/10" position="auto" onChange={this.onChange} />
+                    <span style={{paddingLeft: 20}}>可编辑</span>：<Datepicker.MonthDayPicker canEdit={true} min="01/10" position="auto" onChange={this.onChange} />
+                </div>
+                )
 	}
 }
 ```
