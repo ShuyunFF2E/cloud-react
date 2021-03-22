@@ -26,13 +26,15 @@ subtitle: 树
 | addMenuName              | 菜单类型为弹框类型时，弹框中显示的新增相关的名称                  | String  | 子目录              |
 | supportDrag              | 是否支持拖拽                                                     | Boolean  | false              |
 | isUnfold                 | 是否展开存在子节点的节点，默认不展开（根节点一直展开）               | Boolean  | false             |
-| showIcon                 | 是否显示节点前面的 icon                                              | Boolean  | false             |
+| showIcon| 是否显示节点前面的 icon                                              | Boolean  | false             |
+| showErrMsg               | 是否显示执行promise后catch中的错误信息                                | Boolean  | false|
 | openIconType             | 节点前面的展开 icon 类型，可在 icon 组件中查看相关类型               | String   | folder-solid-open |
 | closeIconType            | 节点前面的关闭 icon 类型，可在 icon 组件中查看相关类型               | String   | folder-solid      |
 | iconColor                | 节点前面的 icon 颜色                                                 | String   | #999              |
 | supportImmediatelySearch | 是否支持实时搜索, supportSearch 必须为 true                          | Boolean  | false             |
 | supportSearch            | 是否支持搜索                                                         | Boolean  | false             |
 | isAddFront               | 新增节点时是否在当前节点的第一个子节点位置新增，false 则新增到最后面 | Boolean  | true              |
+| breakCheckbox            | 分割复选框中选中框与文字，点击文字与复选框互不影响 | Boolean  | false              |
 | onDoubleClick            | 双击节点事件                                                       | Function | -                 |
 | onAddNode                | 新增节点事件，需要返回 Promise                                       | Function | -                 |
 | onRenameNode             | 重命名节点事件，需要返回 Promise                                     | Function | -                 |
