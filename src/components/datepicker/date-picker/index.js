@@ -8,9 +8,11 @@ import { PROPTYPES, DEFAULT_PROPS } from '../proptypes';
 class DatePicker extends Component {
 	constructor(props) {
 		super(props);
-
-		this.height = props.showTimePicker ? 339 : 289;
-		this.tempMode = props.showTimePicker ? enumObj.DATE_TIME_MODEL : enumObj.DATE_MODE;
+		const { showTimePicker, placeholder } = props;
+		const tempPlaceholder = showTimePicker ? 'yyyy/mm/dd hh:mm:ss' : 'yyyy/mm/dd';
+		this.height = showTimePicker ? 339 : 289;
+		this.tempMode = showTimePicker ? enumObj.DATE_TIME_MODEL : enumObj.DATE_MODEL;
+		this.placeholder = placeholder || tempPlaceholder;
 	}
 
 	formatValue = ({ year, month, day, hour, minute, second }, formatRule) => {
@@ -24,7 +26,8 @@ class DatePicker extends Component {
 	};
 
 	render() {
-		return <Picker {...this.props} tempMode={enumObj.DATE_MODEL} height={this.height} formatValue={this.formatValue} />;
+		const tempProps = { ...this.props, placeholder: this.placeholder };
+		return <Picker {...tempProps} tempMode={enumObj.DATE_MODEL} height={this.height} formatValue={this.formatValue} />;
 	}
 }
 
@@ -41,7 +44,7 @@ DatePicker.propTypes = {
 DatePicker.defaultProps = {
 	...DEFAULT_PROPS,
 	format: 'yyyy/MM/dd',
-	placeholder: '请选择日期',
+	placeholder: '',
 	minYear: 1980,
 	maxYear: 2030,
 	showTimePicker: false,

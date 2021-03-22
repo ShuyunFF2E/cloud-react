@@ -3,17 +3,25 @@ import { ArrowLeft, ArrowRight } from '../common/arrow';
 import { displayNow } from '../utils';
 import YearGrid from './grid';
 
-export default class Popup extends Component {
+export default class Year extends Component {
 	constructor(props) {
 		super(props);
-
+		const { checkValue } = props;
 		this.state = {
-			region: this.getInitRegion()
+			checkValue,
+			region: this.getInitRegion(checkValue)
 		};
 	}
 
-	getInitRegion = () => {
-		const { min, max, checkValue } = this.props;
+	changeCheckValue = checkValue => {
+		this.setState({
+			checkValue,
+			region: this.getInitRegion(checkValue)
+		});
+	};
+
+	getInitRegion = checkValue => {
+		const { min, max } = this.props;
 		const year = checkValue ? parseInt(checkValue, 10) : displayNow().year;
 
 		if (year + 7 <= max || year - 7 >= min) {
@@ -38,8 +46,8 @@ export default class Popup extends Component {
 	};
 
 	render() {
-		const { region } = this.state;
-		const { min, max, checkValue } = this.props;
+		const { region, checkValue } = this.state;
+		const { min, max } = this.props;
 
 		const _checkYear = checkValue ? parseInt(checkValue, 10) : null;
 
