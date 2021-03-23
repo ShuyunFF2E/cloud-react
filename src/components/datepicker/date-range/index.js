@@ -16,20 +16,29 @@ class DateRange extends Component {
 		this.state = {
 			endOpen: false,
 			start,
-			end,
-			popStart: start,
-			popEnd: end
+			end
 		};
 	}
 
+	static getDerivedStateFromProps({ value }) {
+		if (value !== undefined && typeof value === 'object') {
+			const { start, end } = value;
+			return { start, end };
+		}
+		if (value === undefined) {
+			return { start: '', end: '' };
+		}
+		return null;
+	}
+
 	onChangeStartTime = start => {
-		this.setState({ popStart: start, endOpen: true });
-		this.props.onChange({ start, end: this.state.popEnd });
+		this.setState({ start, endOpen: true });
+		this.props.onChange({ start, end: this.state.end });
 	};
 
 	onChangeEndTime = end => {
-		this.setState({ popEnd: end });
-		this.props.onChange({ start: this.state.popStart, end });
+		this.setState({ end });
+		this.props.onChange({ start: this.state.start, end });
 	};
 
 	onEndClose = () => {

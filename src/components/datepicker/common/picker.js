@@ -76,14 +76,10 @@ class Picker extends Component {
 	componentDidUpdate(prevProps) {
 		const { value: prevValue, open: prevOpen } = prevProps;
 		const { value, open } = this.props;
-
+		const { checkFlag } = this.state;
 		if (prevValue !== value) {
-			if (value) {
-				const date = displayNow(new Date(value));
-				this.handleValueChange(date);
-			} else {
-				this.handleChange();
-			}
+			const date = checkFlag && value ? displayNow(new Date(value)) : value;
+			this.handleValueChange(date, false);
 		}
 		if (prevOpen !== open) {
 			this.changeVisible(open);
@@ -108,10 +104,18 @@ class Picker extends Component {
 		return getContext() || this.document.body;
 	}
 
-	handleValueChange = (output = '', isPop = false) => {
-		const value = output ? this.props.formatValue(output) : '';
+	/**
+	 *
+	 * @param output
+	 * @param isPop
+	 * @param isClickBtn 是否是点击确定
+	 */
+	handleValueChange = (output = '', isPop = false, isClickBtn = false) => {
+		const { checkFlag } = this.state;
+		const value = (output && checkFlag) || isClickBtn ? this.props.formatValue(output) : output || '';
 		this.setState({
-			currentValue: value ? value.toString().replace(/-/g, '/') : ''
+			currentValue: value ? value.toString().replace(/-/g, '/') : '',
+			checkFlag
 		});
 		if (isPop) {
 			this.props.onChange(value);
@@ -119,12 +123,13 @@ class Picker extends Component {
 	};
 
 	/**
-	 * 点击确定触发的方法
-	 * @param output
+	 * 值跑出去
+	 * @param output 抛出去的值
+	 * @param isClickBtn 是否是点击确定按钮 -- 确定：true   回车/失去焦点：false
 	 */
-	onPopChange = output => {
-		this.handleValueChange(output, true);
-		this.changeVisible(false);
+	onPopChange = (output, isClickBtn = true) => {
+		this.handleValueChange(output, true, isClickBtn);
+		this.changeVisible(false); // 关闭日历选择
 	};
 
 	renderMainPop = () => {
@@ -163,26 +168,24 @@ class Picker extends Component {
 		const { checkFlag, visible, currentValue } = this.state;
 		const { tempMode, formatValue } = this.props;
 
-		// 校验不通过，且有值
+		// 校验不通过，且有值，直接抛出去，日历选择器关闭
 		if (!isClickPicker && !checkFlag && visible) {
 			this.props.onChange(currentValue);
 			this.changeVisible(false);
 			return;
 		}
 
+		// 校验通过，值为空
 		if (!isClickPicker && visible && !currentValue) {
-			this.setState({
-				currentValue: ''
-			});
-			this.onPopChange('');
+			this.onPopChange('', false);
 			return;
 		}
 
-		// 校验通过 正常数值抛出去
+		// 校验通过，正常值
 		if (!isClickPicker && currentValue && visible) {
 			const currentValueTemp =
 				tempMode === enumObj.YEAR_MODEL ? { year: currentValue } : transformObj(formatValue(displayNow(new Date(currentValue)), this.format));
-			this.onPopChange(currentValueTemp);
+			this.onPopChange(currentValueTemp, false);
 		}
 	};
 
@@ -272,10 +275,10 @@ class Picker extends Component {
 		if (evt.target) {
 			// 点击了清空操作，空值抛出去
 			if (!evt.target.value && evt.type === 'click') {
-				this.setState({
-					currentValue: ''
-				});
-				this.onPopChange('');
+				// this.setState({
+				// 	currentValue: ''
+				// });
+				this.onPopChange('', false);
 				return;
 			}
 
@@ -333,7 +336,7 @@ class Picker extends Component {
 		// 校验通过 数值抛出去
 		const currentValueTemp =
 			tempMode === enumObj.YEAR_MODEL ? { year: currentValue } : transformObj(formatValue(displayNow(new Date(currentValue)), this.format));
-		this.onPopChange(currentValueTemp);
+		this.onPopChange(currentValueTemp, false);
 	};
 
 	render() {

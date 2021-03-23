@@ -6,7 +6,7 @@ desc: 基本用法。
 
 ```javascript
 import React from 'react';
-import { Datepicker } from 'cloud-react';
+import { Datepicker, Button } from 'cloud-react';
 
 export default class DatePickerDemo extends React.Component {
 	constructor(props) {
@@ -26,24 +26,21 @@ export default class DatePickerDemo extends React.Component {
 
 	onInpChange2 = range2 => {
         // console.log(range2);
-        // this.setState({ range2 });
+        this.setState({ range2 });
         console.log(range2, '可编辑区间');
 	}
+
+    reseat = () => {
+        this.setState({
+            range2: { start: '2020/04/20', end: '2020/06/20' }
+        })
+        // console.log('重置', { start: '2020/04/20', end: '2020/06/20' });
+    }
+
 
 	render() {
 		return (
             <>
-            <div>
-               <p style={{marginBottom: 10}}>不可编辑：</p>
-                <Datepicker.RangePicker
-               					position="auto"
-               					value={this.state.range}
-               					minDate={new Date('1998/3/1')}
-               					maxDate={new Date('2024/5/1')}
-               					onChange={this.onInpChange}
-               					isAppendToBody
-               				/>
-			</div>
 			<div>
                <p style={{marginBottom: 10, marginTop: 20}}>可编辑：</p>
                 <Datepicker.RangePicker
@@ -55,6 +52,7 @@ export default class DatePickerDemo extends React.Component {
                					isAppendToBody
                                 canEdit
                				/>
+            <Button onClick={this.reseat}> 重置 </Button>
 			</div>
             </>
 		);
