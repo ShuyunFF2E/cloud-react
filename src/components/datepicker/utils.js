@@ -1,5 +1,11 @@
 import { enumObj } from './constant';
 
+/**
+ * 获取月份最大的天数
+ * @param year 年，默认是今年
+ * @param month 月份
+ * @returns {number}
+ */
 function getMonthMaxDay(year, month) {
 	const dealYear = parseInt(year || new Date().getFullYear(), 10);
 	const dealMonth = parseInt(month, 10);
@@ -150,7 +156,14 @@ export function formatZero(value) {
 	return parseInt(value, 10) < 10 ? `0${parseInt(value, 10)}` : value;
 }
 
-export function checkFormat(value = '', tempMode, format, showTimePicker) {
+/**
+ *
+ * @param value 校验值
+ * @param tempMode 校验类型
+ * @param showTimePicker 是否存在时分秒
+ * @returns {boolean}
+ */
+export function checkFormat(value = '', tempMode, showTimePicker) {
 	let flag = true;
 	const regularYear = /^\d{4}$/;
 	const regularMonthDay = /^\d{1,2}$/;

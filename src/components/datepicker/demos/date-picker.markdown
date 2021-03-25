@@ -14,8 +14,10 @@ export default class DatePickerDemo extends React.Component {
 
 		this.state = {
 			visible: false,
-			value1: '2020/07/10',
+			value1: '',
             value: '1990/07/10',
+            tValue1: '',
+            tValue2: '2020/01/02 12:12:12'
 		};
 	}
 
@@ -23,11 +25,15 @@ export default class DatePickerDemo extends React.Component {
         this.setState({value1: date});
 		console.log('最终数值-------------', date);
 	}
-    reseat = () => {
+    onChangeDateT = data => {
+		this.setState({tValue2: data});
+		console.log('最终数值-------------', data);
+	}
+
+    reset = () => {
        this.setState({value1: '2020/07/10'})
 	   console.log('重置');
     }
-
 
 	render() {
 		return (
@@ -44,10 +50,25 @@ export default class DatePickerDemo extends React.Component {
                          				value={this.state.value1}
                          				position="auto"
                          				onChange={this.onChangeDate1}/>
-                <Button onClick={this.reseat}> 重置 </Button>
+                <Button style={{marginLeft: 20}} onClick={this.reset}> 重置 </Button>
                 </div>
 				<br />
 				<br />
+                <div>
+                    不可编辑：<Datepicker isAppendToBody
+                         				 value={this.state.tValue1}
+                                         showTimePicker
+                         				 position="auto"/>
+                    <span style={{paddingLeft: 20}}>可编辑</span>：
+                            <Datepicker isAppendToBody
+                                        canEdit={true}
+                         				value={this.state.tValue2}
+                         				position="auto"
+                                        showTimePicker
+                                        defaultTime="1:59:59"
+                         				onChange={this.onChangeDateT}/>
+                </div>
+
 			</div>
 		);
 	}

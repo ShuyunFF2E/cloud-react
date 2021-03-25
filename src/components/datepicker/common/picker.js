@@ -114,8 +114,7 @@ class Picker extends Component {
 		const { checkFlag } = this.state;
 		const value = (output && checkFlag) || isClickBtn ? this.props.formatValue(output) : output || '';
 		this.setState({
-			currentValue: value ? value.toString().replace(/-/g, '/') : '',
-			checkFlag
+			currentValue: value ? value.toString().replace(/-/g, '/') : ''
 		});
 		if (isPop) {
 			this.props.onChange(value);
@@ -133,10 +132,10 @@ class Picker extends Component {
 	};
 
 	renderMainPop = () => {
-		const { tempMode, formatValue, showTimePicker, format } = this.props;
+		const { tempMode, formatValue, showTimePicker } = this.props;
 		const { currentValue } = this.state;
 
-		const checkFlag = checkFormat(currentValue, tempMode, format, showTimePicker);
+		const checkFlag = checkFormat(currentValue, tempMode, showTimePicker);
 
 		const checkValue = checkFlag && currentValue ? formatValue(displayNow(new Date(currentValue)), this.format) : '';
 
@@ -170,7 +169,7 @@ class Picker extends Component {
 
 		// 校验不通过，且有值，直接抛出去，日历选择器关闭
 		if (!isClickPicker && !checkFlag && visible) {
-			this.props.onChange(currentValue);
+			this.props.onChange(this.checkTimePicker());
 			this.changeVisible(false);
 			return;
 		}
@@ -270,14 +269,10 @@ class Picker extends Component {
 	};
 
 	handleChange = (evt = '') => {
-		const { tempMode, showTimePicker, format } = this.props;
-
+		const { tempMode, showTimePicker } = this.props;
 		if (evt.target) {
 			// 点击了清空操作，空值抛出去
 			if (!evt.target.value && evt.type === 'click') {
-				// this.setState({
-				// 	currentValue: ''
-				// });
 				this.onPopChange('', false);
 				return;
 			}
@@ -301,7 +296,7 @@ class Picker extends Component {
 			}
 
 			// 校验输入的值是否正确
-			const checkFlag = currentValueFinal ? checkFormat(currentValueFinal.trim(), tempMode, format, showTimePicker) : true;
+			const checkFlag = currentValueFinal ? checkFormat(currentValueFinal.trim(), tempMode, showTimePicker) : true;
 
 			this.setState({
 				checkFlag
@@ -328,7 +323,7 @@ class Picker extends Component {
 
 		// 校验不通过或者为空，直接抛出去
 		if (!checkFlag || !currentValue) {
-			this.props.onChange(currentValue);
+			this.props.onChange(this.checkTimePicker());
 			this.changeVisible(false);
 			return;
 		}
@@ -337,6 +332,29 @@ class Picker extends Component {
 		const currentValueTemp =
 			tempMode === enumObj.YEAR_MODEL ? { year: currentValue } : transformObj(formatValue(displayNow(new Date(currentValue)), this.format));
 		this.onPopChange(currentValueTemp, false);
+	};
+
+	/**
+	 * 显示时分秒的时候，增加自动补全功能
+	 */
+	checkTimePicker = () => {
+		const { currentValue } = this.state;
+		const { defaultTime, showTimePicker, tempMode, formatValue } = this.props;
+		let returnValue = currentValue;
+
+		if (showTimePicker && currentValue) {
+			// 校验年月日格式是否正确，正确 补全 校验设置为true；不正确 不补全
+			const tempFlag = checkFormat(currentValue.trim(), tempMode);
+			if (tempFlag) {
+				returnValue = this.props.formatValue(transformObj(formatValue(displayNow(new Date(`${currentValue.trim()} ${defaultTime}`)), this.format)));
+				this.setState({
+					currentValue: returnValue,
+					checkFlag: true
+				});
+			}
+		}
+
+		return returnValue;
 	};
 
 	render() {
