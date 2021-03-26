@@ -197,22 +197,25 @@ export function checkFormat(value = '', tempMode, showTimePicker) {
 		const beforeValue = values[0].split('/');
 		const [year, month, day] = beforeValue;
 
-		flag =
-			((showTimePicker && values.length === 2) || (!showTimePicker && values.length === 1)) &&
-			beforeValue.length === 3 &&
-			regularYear.test(year) &&
-			regularMonthDay.test(month) &&
-			regularMonthDay.test(day);
+		// 校验年月日
+		flag = beforeValue.length === 3 && regularYear.test(year) && regularMonthDay.test(month) && regularMonthDay.test(day);
 
+		// 校验正确，判断月份 和 日期是否正确
 		if (flag && (month < 1 || month > 12 || day < 1 || day > getMonthMaxDay(year, month))) {
 			return false;
 		}
 
 		// 存在时分秒
 		if (showTimePicker) {
-			if (!values[1]) {
+			// 年月日校验不正确
+			if (!flag) {
 				return false;
 			}
+			// 年月日校验正确，没有时分秒
+			if (!values[1]) {
+				return true;
+			}
+			// 年月日校验正确，存在时分秒
 			const afterValue = values[1].split(':');
 			const [hour, minute, second] = afterValue;
 			if ((afterValue.length === 3 && !hour) || !minute || !second || hour < 0 || hour > 23 || minute < 0 || minute > 59 || second < 0 || second > 59) {
