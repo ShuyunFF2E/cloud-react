@@ -169,7 +169,7 @@ class Picker extends Component {
 
 		// 校验不通过，且有值，直接抛出去，日历选择器关闭
 		if (!isClickPicker && !checkFlag && visible) {
-			this.props.onChange(this.checkTimePicker());
+			this.props.onChange(currentValue);
 			this.changeVisible(false);
 			return;
 		}
@@ -183,7 +183,7 @@ class Picker extends Component {
 		// 校验通过，正常值
 		if (!isClickPicker && currentValue && visible) {
 			const currentValueTemp =
-				tempMode === enumObj.YEAR_MODEL ? { year: currentValue } : transformObj(formatValue(displayNow(new Date(currentValue)), this.format));
+				tempMode === enumObj.YEAR_MODEL ? { year: currentValue } : transformObj(formatValue(displayNow(new Date(this.checkTimePicker())), this.format));
 			this.onPopChange(currentValueTemp, false);
 		}
 	};
@@ -311,7 +311,11 @@ class Picker extends Component {
 				} else if (tempMode === enumObj.MONTH_DAY_MODEL) {
 					this.monthDayChild.changeCheckValue(currentValueFinal);
 				} else if (this.dateChild) {
-					this.dateChild.changeCheckValue(transformObj(currentValueFinal));
+					const afterV = currentValueFinal.trim().split(' ')[1]; // 拿到年月日时分秒的数值
+					const dealData = transformObj(currentValueFinal);
+					// hour: 'other', minute: 'other', second: 'other'  方式時分秒重置，具體看date-picker/grid.js配合使用
+					this.dateChild.changeCheckValue(afterV ? dealData : { ...dealData, hour: 'other', minute: 'other', second: 'other' });
+					// this.dateChild.changeCheckValue( afterV ? dealData : { ...dealData, hour: null, minute: null, second: null } );
 				}
 			}
 		}
@@ -323,14 +327,14 @@ class Picker extends Component {
 
 		// 校验不通过或者为空，直接抛出去
 		if (!checkFlag || !currentValue) {
-			this.props.onChange(this.checkTimePicker());
+			this.props.onChange(currentValue);
 			this.changeVisible(false);
 			return;
 		}
 
 		// 校验通过 数值抛出去
 		const currentValueTemp =
-			tempMode === enumObj.YEAR_MODEL ? { year: currentValue } : transformObj(formatValue(displayNow(new Date(currentValue)), this.format));
+			tempMode === enumObj.YEAR_MODEL ? { year: currentValue } : transformObj(formatValue(displayNow(new Date(this.checkTimePicker())), this.format));
 		this.onPopChange(currentValueTemp, false);
 	};
 
@@ -339,19 +343,15 @@ class Picker extends Component {
 	 */
 	checkTimePicker = () => {
 		const { currentValue } = this.state;
-		const { defaultTime, showTimePicker, tempMode, formatValue } = this.props;
-		let returnValue = currentValue;
-
-		if (showTimePicker && currentValue) {
+		const { defaultTime, showTimePicker, formatValue } = this.props;
+		let returnValue = currentValue.trim();
+		const afterV = returnValue.split(' ')[1];
+		if (showTimePicker && returnValue && !afterV) {
 			// 校验年月日格式是否正确，正确 补全 校验设置为true；不正确 不补全
-			const tempFlag = checkFormat(currentValue.trim(), tempMode);
-			if (tempFlag) {
-				returnValue = this.props.formatValue(transformObj(formatValue(displayNow(new Date(`${currentValue.trim()} ${defaultTime}`)), this.format)));
-				this.setState({
-					currentValue: returnValue,
-					checkFlag: true
-				});
-			}
+			returnValue = this.props.formatValue(transformObj(formatValue(displayNow(new Date(`${currentValue.trim()} ${defaultTime}`)), this.format)));
+			this.setState({
+				currentValue: returnValue
+			});
 		}
 
 		return returnValue;

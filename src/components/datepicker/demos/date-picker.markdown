@@ -17,7 +17,7 @@ export default class DatePickerDemo extends React.Component {
 			value1: '',
             value: '1990/07/10',
             tValue1: '',
-            tValue2: '2020/01/02 12:12:12'
+            tValue2: ''
 		};
 	}
 
@@ -65,7 +65,7 @@ export default class DatePickerDemo extends React.Component {
                          				value={this.state.tValue2}
                          				position="auto"
                                         showTimePicker
-                                        defaultTime="1:59:59"
+                                        defaultTime="23:59:59"
                          				onChange={this.onChangeDateT}/>
                 </div>
 

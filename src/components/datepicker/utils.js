@@ -218,7 +218,7 @@ export function checkFormat(value = '', tempMode, showTimePicker) {
 			// 年月日校验正确，存在时分秒
 			const afterValue = values[1].split(':');
 			const [hour, minute, second] = afterValue;
-			if ((afterValue.length === 3 && !hour) || !minute || !second || hour < 0 || hour > 23 || minute < 0 || minute > 59 || second < 0 || second > 59) {
+			if (afterValue.length !== 3 || !hour || !minute || !second || hour < 0 || hour > 23 || minute < 0 || minute > 59 || second < 0 || second > 59) {
 				return false;
 			}
 		}
