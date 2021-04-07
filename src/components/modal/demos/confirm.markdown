@@ -39,6 +39,14 @@ export default class ModalDemo extends React.Component {
 		});
 	};
 
+	openCustomConfirmModal = () => {
+		Modal.confirm({
+			okText: '好',
+			cancelText: '关闭',
+			body: '按钮的文案修改了'
+		});
+	}
+
 	// 打开确认弹出框
 	openAsyncConfirmModal = () => {
 		Modal.confirm({
@@ -68,6 +76,11 @@ export default class ModalDemo extends React.Component {
 				<Button type="normal" onClick={this.openAsyncConfirmModal}>
 					异步确认对话框
 				</Button>
+				{blank}
+				<Button type="normal" onClick={this.openCustomConfirmModal}>
+					修改按钮文案
+				</Button>
+				{blank}
 				<br />
 				<br />
 				{this.state.content}

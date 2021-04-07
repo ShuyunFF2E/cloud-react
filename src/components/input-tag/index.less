@@ -1,0 +1,79 @@
+@import '../style/index';
+
+@selector: ~'@{prefix}-input-tag';
+
+.@{selector} {
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	gap: 10px;
+	width: 100%;
+	min-height: 40px;
+	height: auto;
+	padding: 7px 10px;
+	overflow: auto;
+	border: 1px solid #e8e8e8;
+
+	&-config {
+		height: 30px;
+		display: flex;
+		align-items: center;
+	}
+
+	&-list {
+		display: flex;
+		flex-wrap: wrap;
+		align-content: flex-start;
+		gap: 10px;
+
+		input {
+			border: none;
+			min-width: 100px;
+			height: 24px;
+			outline: none;
+			&::placeholder {
+				color: #c9c9c9;
+				font-size: 12px;
+			}
+		}
+	}
+
+	&-item {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		padding: 0 5px;
+		max-width: 200px;
+		min-width: 20px;
+		height: 24px;
+		font-size: 12px;
+		box-sizing: border-box;
+		background: #eff7ff;
+		border: 1px solid #ccdceb;
+		border-radius: 2px;
+
+		.text {
+			.text-overflow-ellipsis();
+		}
+	}
+
+	.cloud-icon-close {
+		font-size: 8px;
+		cursor: pointer;
+	}
+
+	&-operate {
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+		gap: 5px;
+		color: #666;
+		font-size: 12px;
+
+		i {
+			color: #00aaf1;
+			cursor: pointer;
+		}
+	}
+}
