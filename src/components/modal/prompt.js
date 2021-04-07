@@ -19,6 +19,8 @@ class Prompt extends React.Component {
 		type: '',
 		icon: '',
 		body: '',
+		okText: '确定',
+		cancelText: '取消',
 		onOk: noop,
 		onCancel: noop
 	};
@@ -30,6 +32,8 @@ class Prompt extends React.Component {
 		icon: PropTypes.string,
 		body: PropTypes.node,
 		onOk: PropTypes.func,
+		okText: PropTypes.string,
+		cancelText: PropTypes.string,
 		onCancel: PropTypes.func
 	};
 
@@ -122,7 +126,7 @@ class Prompt extends React.Component {
 	};
 
 	render() {
-		const { isShowIcon, type, icon, body, iconStyle, style } = this.props;
+		const { isShowIcon, type, icon, body, iconStyle, style, okText, cancelText } = this.props;
 		const promptStyle = {
 			...style,
 			width: style.width || '400px',
@@ -141,6 +145,8 @@ class Prompt extends React.Component {
 				<Notification
 					visible
 					type={type}
+					okText={okText}
+					cancelText={cancelText}
 					onOk={this.handleOk}
 					onCancel={this.handleCancel}
 					bodyStyle={promptBodyStyle}
@@ -161,7 +167,7 @@ class Prompt extends React.Component {
 	}
 }
 
-function prompt({ isShowIcon, type, icon, body, onOk, onCancel, iconStyle, style }) {
+function prompt({ isShowIcon, type, icon, body, onOk, onCancel, iconStyle, style, okText, cancelText }) {
 	// 创建一个关联id
 	const rootDocument = getRootWindow().document;
 	const id = `prompt${new Date().getTime()}`;
@@ -171,7 +177,19 @@ function prompt({ isShowIcon, type, icon, body, onOk, onCancel, iconStyle, style
 	rootDocument.body.appendChild(ele);
 
 	ReactDOM.render(
-		<Prompt id={id} style={style} isShowIcon={isShowIcon} iconStyle={iconStyle} type={type} icon={icon} body={body} onOk={onOk} onCancel={onCancel} />,
+		<Prompt
+			id={id}
+			type={type}
+			icon={icon}
+			body={body}
+			style={style}
+			iconStyle={iconStyle}
+			isShowIcon={isShowIcon}
+			okText={okText}
+			cancelText={cancelText}
+			onOk={onOk}
+			onCancel={onCancel}
+		/>,
 		ele
 	);
 }
