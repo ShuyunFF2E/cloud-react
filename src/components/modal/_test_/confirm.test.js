@@ -59,6 +59,19 @@ describe('Modal.confirm triggers callbacks correctly', () => {
 		document.querySelectorAll('button')[0].click();
 	});
 
+	it('should render button text correctly', () => {
+		Modal.confirm({
+			isShowIcon: false,
+			content: 'some descriptions',
+			okText: 'done',
+			cancelText: 'close'
+		});
+		const btns = document.querySelectorAll('button');
+		expect(btns[0].textContent).toBe('done');
+		expect(btns[1].textContent).toBe('close');
+		btns[1].click();
+	});
+
 	it('should render correctly when onOk return Promise.reject', () => {
 		Modal.confirm({
 			isShowIcon: false,

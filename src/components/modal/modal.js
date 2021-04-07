@@ -378,7 +378,7 @@ function ModalFooter({ visible, type, footer, okText, cancelText, hasFooter, sho
 		return (
 			<footer className={footerClass}>
 				<Button type="primary" onClick={cancel}>
-					知道了
+					{okText || '知道了'}
 				</Button>
 			</footer>
 		);
