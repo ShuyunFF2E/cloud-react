@@ -54,6 +54,8 @@ subtitle: 弹出框
 | iconStyle  | 提示信息前面 icon 的样式                      | object   | `--`   |
 | style      | 提示框的样式                                  | object   | `--`   |
 | body       | 提示信息内容, 支持 jsx 语法直接传入 dom 节点  | any      | `--`   |
+| okText             | 确定按钮自定义文本                       | string              | `确定`  |
+| cancelText         | 取消按钮自定义文本                       | string              | `取消`  |
 | onOk       | 确定按钮回调函数，仅`Modal.confirm()`函数支持 | function | `--`   |
 | onClose    | 取消按钮回调函数                              | function | `--`   |
 
