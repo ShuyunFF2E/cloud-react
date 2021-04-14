@@ -229,3 +229,19 @@ exports[`Form should render correctly when the type of formItem's children is nu
   </div>
 </form>
 `;
+
+exports[`Form should render correctly when the type of formItems children is number 1`] = `
+<form
+  class="cloud-form"
+>
+  <div
+    class="cloud-form-item vertical right"
+  >
+    <div
+      class="cloud-form-item-wrapper"
+    >
+      2
+    </div>
+  </div>
+</form>
+`;
