@@ -56,7 +56,8 @@ const iconList = [
 	'swap',
 	'finish',
 	'folder-solid',
-	'folder-solid-open'
+	'folder-solid-open',
+    'copy'
 ];
 export default class IconDemo extends Component {
 	render() {
