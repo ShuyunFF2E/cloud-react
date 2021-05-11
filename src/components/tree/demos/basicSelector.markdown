@@ -242,8 +242,6 @@ export default class TreeDemo extends React.Component {
 				nodeNameMaxLength={this.state.nodeNameMaxLength}
 				maxLevel={this.state.maxLevel}
 				isUnfold={true}
-				breakCheckbox
-				supportCheckbox
 				supportMenu={this.state.supportMenu}
 				supportSearch={this.state.supportSearch}
 				isAddFront={this.state.isAddFront}

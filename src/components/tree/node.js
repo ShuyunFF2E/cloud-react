@@ -111,21 +111,20 @@ class Node extends Component {
 	// 选中节点
 	handleSelect = checked => {
 		const { data } = this.props;
-		const { supportCheckbox, onSelectedAction, onDoubleClick } = this.context;
-		if (supportCheckbox) {
+		if (this.context.supportCheckbox) {
 			data.checked = checked;
 		}
 		count += 1;
 		setTimeout(() => {
 			if (count === 1) {
 				// 单击
-				onSelectedAction(data);
+				this.context.onSelectedAction(data);
 			} else if (count === 2) {
 				// 双击
-				onDoubleClick(data);
+				this.context.onDoubleClick(data);
 			}
 			count = 0;
-		}, 200);
+		}, 300);
 	};
 
 	render() {
@@ -141,9 +140,7 @@ class Node extends Component {
 			menuType,
 			treeWidth,
 			supportMenu,
-			breakCheckbox,
-			nodeNameMaxLength,
-			onDoubleClick
+			nodeNameMaxLength
 		} = this.context;
 		const { setInputValue, onSaveClick, onClickCancel } = this;
 		// 将三个方法传递出去可以供外部调用
@@ -168,7 +165,7 @@ class Node extends Component {
 						<ToggleFold hasChildren={data?.children.length > 0} showChildrenItem={data.isUnfold} toggle={e => this.toggle(e, data)} />
 						<div
 							onClick={supportCheckbox ? () => {} : this.handleSelect}
-							className={`node-item ${data.isEdit && !data.isAdd ? 'hide-node' : null} ${breakCheckbox ? 'break-checkbox' : ''}`}>
+							className={`node-item ${data.isEdit && !data.isAdd ? 'hide-node' : null}`}>
 							{/* 节点前面的icon */}
 							<NodeIcon
 								showIcon={showIcon}
@@ -191,10 +188,8 @@ class Node extends Component {
 								indentValue={paddingLeft}
 								treeWidth={treeWidth}
 								menuType={menuType}
-								onHandleSelect={this.handleSelect}
-								breakCheckbox={breakCheckbox}
 								supportCheckbox={supportCheckbox}
-								onDoubleClick={() => onDoubleClick(data)}
+								onHandleSelect={this.handleSelect}
 							/>
 							{/* 点击菜单 */}
 							{supportMenu && menuType !== RIGHT_MENU && (
@@ -274,11 +269,9 @@ function ShowInput({ isEdit, isAdd, maxLength, inputValue, handleInputChange, sa
  * @param indeterminate
  * @param checked
  * @param supportCheckbox
- * @param breakCheckbox
  * @param id
  * @param name
  * @param disableSelected
- * @param onDoubleClick
  * @param onHandleSelect
  * @returns {*}
  * @constructor
@@ -292,11 +285,9 @@ function ShowSelection({
 	indeterminate,
 	checked,
 	supportCheckbox,
-	breakCheckbox,
 	id,
 	name,
 	disableSelected,
-	onDoubleClick,
 	onHandleSelect
 }) {
 	// 处理搜索关键字高亮
@@ -340,21 +331,13 @@ function ShowSelection({
 		zIndex: 0
 	};
 
-	if (supportCheckbox) {
-		return (
-			<>
-				<Checkbox disabled={disableSelected} indeterminate={indeterminate} checked={checked} value={id} onChange={onHandleSelect} style={labelWidth}>
-					<>{!breakCheckbox && tmp}</>
-				</Checkbox>
-				{breakCheckbox && (
-					<span className="checkbox-label-text" onDoubleClick={onDoubleClick}>
-						{tmp}
-					</span>
-				)}
-			</>
-		);
-	}
-	return tmp;
+	return supportCheckbox ? (
+		<Checkbox disabled={disableSelected} indeterminate={indeterminate} checked={checked} value={id} onChange={onHandleSelect} style={labelWidth}>
+			{tmp}
+		</Checkbox>
+	) : (
+		tmp
+	);
 }
 
 /**

@@ -1,18 +1,5 @@
 {
-    "presets": [
-      [
-        "@babel/preset-env",
-        {
-          "targets": {
-            "chrome": "56",
-            "firefox": "59"
-          },
-          "useBuiltIns": "entry",
-          "corejs": 3
-        }
-      ],
-      "@babel/preset-react"
-    ],
+    "presets": ["@babel/preset-env", "@babel/preset-react"],
     "plugins": [
         ["@babel/plugin-proposal-decorators", { "legacy": true }],
         "@babel/plugin-proposal-function-sent",
