@@ -26,7 +26,7 @@ function getBody(xhr) {
 export default function http(option) {
 	const xhr = new XMLHttpRequest();
 
-	const { onProgress, file, action, withCredentials, headers = {}, unify } = option;
+	const { onProgress, file, action, withCredentials, headers = {}, unify, params } = option;
 
 	// 上传进度显示
 	if (onProgress && xhr.upload) {
@@ -45,9 +45,15 @@ export default function http(option) {
 	if (unify) {
 		file.forEach(fileItem => {
 			formData.append('file', fileItem, fileItem.name);
+			Object.keys(params).forEach(key => {
+				formData.append(key, params[key]);
+			});
 		});
 	} else {
 		formData.append('file', file, file.name);
+		Object.keys(params).forEach(key => {
+			formData.append(key, params[key]);
+		});
 	}
 
 	// 为 xhr 添加事件监听
