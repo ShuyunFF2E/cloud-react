@@ -14,10 +14,6 @@ const columnData = [
 		width: '200px',
 		text: '参与人',
 		template: (name, rowData) => {
-            setTimeout(() => {
-                console.log('setTimeout');
-                name = 'baukh';
-            }, 3000);
 			return (
 				<a className="demo-github" href={'https://github.com/' + name} target="_black">
 					<img className="demo-pic" src={rowData.pic} />
@@ -124,13 +120,12 @@ export default class IconDemo extends Component {
 	constructor() {
 		super();
 		this.state = {
-			dataSource,
-            columnData
+			dataSource
 		};
 	}
 
 	render() {
-		const { dataSource, columnData } = this.state;
+		const { dataSource } = this.state;
 		return <TableLite height={300} dataSource={dataSource} columnData={columnData} />;
 	}
 }
