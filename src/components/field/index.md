@@ -36,6 +36,7 @@ function Form() {
 | 属性             | 说明                                                     | 类型                  | 默认值 |
 | ---------------- | -------------------------------------------------------- | --------------------- | ------ |
 | options.onChange | 所有控件的`change`都会到达这里（手动调用`setValue`除外） | Function(name, value) | -      |
+| options.forceUpdate | 当手动调用`setValue`方法无法更新组件状态时使用 | boolean | `false`      |
 
 ### API 接口
 

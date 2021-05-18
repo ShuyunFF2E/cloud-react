@@ -19,6 +19,7 @@ export default class Field {
 		this.fieldsMeta = {};
 		this.component = component;
 		this.onChange = opts.onChange || noop;
+		this.isForceUpdate = opts.forceUpdate || false;
 	}
 
 	__fieldsMeta__ = {};
@@ -329,11 +330,14 @@ export default class Field {
 	};
 
 	__render__ = () => {
-		const { component } = this;
+		const { component, isForceUpdate } = this;
 
 		if (component && component.setState) {
 			/* class API : new Filed(this, opts) */
 			component.setState(emptyState);
+
+			/* Fix: When using the State Manager. For example `mobx` */
+			isForceUpdate && component.forceUpdate();
 		} else if (typeof component === 'function') {
 			/* hooks API: useField(opts) */
 			const dispatch = component;
