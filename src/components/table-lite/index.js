@@ -1,6 +1,5 @@
 import React, { Component, createRef } from 'react';
 import PropTypes from 'prop-types';
-import ShuyunUtils from 'shuyun-utils';
 import Icon from '../icon';
 
 import './index.less';
@@ -42,7 +41,9 @@ export default class TableLite extends Component {
 	}
 
 	static getDerivedStateFromProps(newProps, state) {
-		if (ShuyunUtils.equal(newProps, state.preProps)) {
+		const { preProps } = state;
+
+		if (Object.keys(newProps).every(key => newProps[key] === preProps[key])) {
 			return null;
 		}
 		const { height, className, dataSource, columnData, expandable, childrenKey } = newProps;
