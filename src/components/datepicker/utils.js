@@ -18,7 +18,7 @@ function getMonthMaxDay(year, month) {
 		}
 		return 28;
 	}
-	if (ary.indexOf(dealMonth)) {
+	if (ary.indexOf(dealMonth) > -1) {
 		return 31;
 	}
 	return 30;
