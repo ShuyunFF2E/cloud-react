@@ -121,6 +121,7 @@ class Input extends React.Component {
 
 		if (evt.keyCode === ENTER_KEY_CODE) {
 			onEnter(evt);
+			evt.preventDefault();
 		}
 		onKeyDown(evt);
 	};
