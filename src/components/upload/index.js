@@ -195,11 +195,12 @@ class Upload extends Component {
 	}
 
 	post(file) {
-		const { action, headers, withCredentials, customRequest, unify } = this.props;
+		const { action, headers, withCredentials, customRequest, unify, params } = this.props;
 		const request = customRequest || defaultHttp;
 		const { id } = file;
 		const option = {
 			action,
+			params,
 			filename: file.name,
 			file,
 			headers,
@@ -293,7 +294,8 @@ Upload.propTypes = {
 	onError: PropTypes.func,
 	onRemove: PropTypes.func,
 	className: PropTypes.string,
-	unify: PropTypes.bool
+	unify: PropTypes.bool,
+	params: PropTypes.object
 };
 
 Upload.defaultProps = {
@@ -316,7 +318,8 @@ Upload.defaultProps = {
 	onError: undefined,
 	onRemove: undefined,
 	className: '',
-	unify: false
+	unify: false,
+	params: {}
 };
 
 export default Upload;

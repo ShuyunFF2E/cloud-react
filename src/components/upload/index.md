@@ -34,6 +34,7 @@ title: Upload
 | onError           | 上传失败                                                        | func        |                              |
 | onRemove          | 删除已上传列表的文件                                            | func        |                              |
 | className         | 外部控制样式                                                    | string      |                              |
+| params            | FormData 中的额外参数                                                 | object      |    {}                          | 
 
 #### filelist 中的 File 对象
 
