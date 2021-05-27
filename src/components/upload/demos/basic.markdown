@@ -33,6 +33,7 @@ export default class UploadDemo extends React.Component {
 			multiple: true,
 			isShowIcon: false,
             showBeforeConfirm: true,
+            params: {test: 1},
             beforeConfirmBody: (
                 <span>
                     请确定您要上传文件么？
