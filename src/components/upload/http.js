@@ -42,19 +42,13 @@ export default function http(option) {
 	}
 
 	const formData = new FormData();
-	if (unify) {
-		file.forEach(fileItem => {
-			formData.append('file', fileItem, fileItem.name);
-			Object.keys(params).forEach(key => {
-				formData.append(key, params[key]);
-			});
-		});
-	} else {
-		formData.append('file', file, file.name);
+	const fileList = unify ? file : [file];
+	fileList.forEach(fileItem => {
+		formData.append('file', fileItem, fileItem.name);
 		Object.keys(params).forEach(key => {
 			formData.append(key, params[key]);
 		});
-	}
+	});
 
 	// 为 xhr 添加事件监听
 	xhr.onerror = function error(e) {
