@@ -155,11 +155,11 @@ export default class ToolView extends Component {
 
 	render() {
 		const { style, show, dir } = this.state;
-		const { content, theme, className } = this.props;
+		const { content, theme, className, overlayStyle } = this.props;
 
 		const props = {
 			ref: this.tipRef,
-			style,
+			style: { ...style, ...overlayStyle },
 			className: classNames(`${prefixCls}-tooltip`, `is-${theme}`, dir, { show }, className)
 		};
 
