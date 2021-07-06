@@ -79,9 +79,11 @@ class Tooltip extends Component {
 		}
 	};
 
-	closeTips = () => {
+	closeTips = event => {
 		const { mouseLeaveDelay, visible } = this.props;
-
+		if (event && event.relatedTarget && event.relatedTarget.className.includes('cloud-tooltip')) {
+			return;
+		}
 		if (!visible) {
 			setTimeout(() => {
 				this.setState({ visible: false });
@@ -90,13 +92,14 @@ class Tooltip extends Component {
 	};
 
 	renderView() {
-		const { target } = this;
+		const { target, closeTips } = this;
 
 		return ReactDOM.createPortal(
 			<ToolView
 				{...{
 					...this.props,
-					target
+					target,
+					closeTips
 				}}
 			/>,
 			this.portal
@@ -149,7 +152,8 @@ Tooltip.propTypes = {
 		`${CONFIG_PLACE.right}-${CONFIG_PLACE.bottom}`
 	]),
 	theme: PropTypes.oneOf([CONFIG_THEME.dark, CONFIG_THEME.light, CONFIG_THEME.error]),
-	className: PropTypes.string
+	className: PropTypes.string,
+	overlayStyle: PropTypes.object
 };
 
 Tooltip.defaultProps = {
@@ -160,7 +164,8 @@ Tooltip.defaultProps = {
 	visible: undefined,
 	placement: CONFIG_PLACE.auto,
 	theme: CONFIG_THEME.dark,
-	className: ''
+	className: '',
+	overlayStyle: {}
 };
 
 export default Tooltip;

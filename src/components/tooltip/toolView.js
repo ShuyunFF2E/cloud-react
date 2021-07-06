@@ -46,7 +46,7 @@ function getScrollTop(ele) {
 
 // 获取方向
 function getDirection(tooltip, target, placement) {
-	const { top } = getAbsPosition(target);
+	const { top, left } = getAbsPosition(target);
 	const targetRect = target.getBoundingClientRect();
 
 	let main = 'top';
@@ -55,6 +55,9 @@ function getDirection(tooltip, target, placement) {
 	if (placement === 'auto') {
 		if (top - tooltip.offsetHeight < top - targetRect.top) {
 			main = 'bottom';
+		}
+		if (left + tooltip.offsetWidth > document.body.clientWidth) {
+			vice = 'right';
 		}
 	} else if (!/-/.test(placement)) {
 		main = placement;
@@ -153,14 +156,19 @@ export default class ToolView extends Component {
 		this.timer = setTimeout(() => this.setState({ show: true }), 10);
 	}
 
+	closeTips = () => {
+		this.props.closeTips();
+	};
+
 	render() {
 		const { style, show, dir } = this.state;
-		const { content, theme, className } = this.props;
+		const { content, theme, className, overlayStyle } = this.props;
 
 		const props = {
 			ref: this.tipRef,
-			style,
-			className: classNames(`${prefixCls}-tooltip`, `is-${theme}`, dir, { show }, className)
+			style: { ...style, ...overlayStyle },
+			className: classNames(`${prefixCls}-tooltip`, `is-${theme}`, dir, { show }, className),
+			onMouseLeave: this.closeTips
 		};
 
 		// 检测到非React节点时，使用html到方式插入
