@@ -31,17 +31,16 @@ function getAbsPosition(ele) {
 	};
 }
 
-// 获取累计滚动条高度（排除BODY）
-function getScrollTop(ele) {
-	let scrollTop = 0;
+// 获取累计滚动位移（排除BODY）
+function getScrollOffset(ele, type) {
+	let scrollOffset = 0;
 	let _ele = ele.parentNode;
-
-	while (_ele && !Number.isNaN(Number(_ele.scrollTop)) && _ele.tagName !== 'BODY') {
-		scrollTop += _ele.scrollTop;
+	while (_ele && !Number.isNaN(Number(type ? _ele.scrollTop : _ele.scrollLeft)) && _ele.tagName !== 'BODY') {
+		scrollOffset += type ? _ele.scrollTop : _ele.scrollLeft;
 		_ele = _ele.parentNode;
 	}
 
-	return scrollTop;
+	return scrollOffset;
 }
 
 // 获取方向
@@ -118,7 +117,8 @@ function getTooltipPositionInBody(tooltip, target, placement) {
 
 	return {
 		...style,
-		top: style.top - getScrollTop(target)
+		top: style.top - getScrollOffset(target, 'top'),
+		left: style.left - getScrollOffset(target)
 	};
 }
 
