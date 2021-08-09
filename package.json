@@ -107,8 +107,8 @@
         "shuyun-utils": "0.0.3"
     },
     "peerDependencies": {
-      "react": "16.13.1",
-      "react-dom": "16.13.1"
+      "react": "16.8.6",
+      "react-dom": "16.8.6"
     },
     "husky": {
         "hooks": {
