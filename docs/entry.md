@@ -19,6 +19,11 @@ order: 1
 [![npm version](https://img.shields.io/npm/v/cloud-react.svg?style=flat-square)](https://www.npmjs.com/package/cloud-react)
 [![npm downloads](https://img.shields.io/npm/dt/cloud-react.svg?style=flat-square)](https://www.npmjs.com/package/cloud-react)
 
-#### 支持浏览器
+#### 框架依赖版本
+- `react` >= `16.8.6`
+- `react-dom` >= `16.8.6`
+- `react-router-dom` >= `5.0.0`
 
-暂时支持 Chrome 与 firefox
+#### 支持浏览器
+- `chrome` >= `56`
+- `firefox` >= `59`
