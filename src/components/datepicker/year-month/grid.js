@@ -61,7 +61,7 @@ class MonthGrid extends Component {
 
 	getClassName = (_tempMonth, current, _month) => {
 		const { selectedYear, min, max } = this.props;
-		const { splitStr } = this.state;
+		const splitStr = '/';
 
 		if (_tempMonth && parseInt(_tempMonth, 10) === current) {
 			return 'grid-check';
