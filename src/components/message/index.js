@@ -57,14 +57,18 @@ function entity(config) {
 		wraperMap.set(contextContainer, wraper);
 	}
 
-	// 提示信息位置
-	wraper.className = `${prefixCls}-message`;
+	let wraperClassName = `${prefixCls}-message`;
 
 	if (contextContainer.tagName !== 'BODY') {
-		wraper.className = `${prefixCls}-message`;
 		const { top } = contextContainer.getBoundingClientRect();
 		wraper.style.top = `${top}px`;
 	}
+
+	// 验证是否指定了className
+	if (opts.className) {
+		wraperClassName = `${wraperClassName} ${opts.className}`;
+	}
+	wraper.className = wraperClassName;
 
 	const container = rootDocument.createElement('div');
 
