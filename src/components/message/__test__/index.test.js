@@ -34,6 +34,11 @@ describe('Message', () => {
 		expect(document.querySelectorAll(`${selector}-success`)).toHaveLength(0);
 	});
 
+	it('指定success的className', () => {
+		Message.success('sucess info', { className: 'test-name' });
+		expect(document.querySelectorAll('.test-name')).toHaveLength(1);
+	});
+
 	it('should render to verb container', () => {
 		const element = document.createElement('div');
 		element.setAttribute('id', 'container');

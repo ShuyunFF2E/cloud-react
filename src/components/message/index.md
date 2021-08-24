@@ -21,6 +21,7 @@ subtitle: 全局提示
 | ----------------------- | --------------------------------------------- | ----------- | ------------- |
 | options.duration        | 自动关闭的延时，单位毫秒。设为 0 时不自动关闭 | number      | 3000          |
 | option.contextContainer | 指定 message 挂载的 HTML 节点, 默认在 body 上 | HTMLElement | document.body |
+| option.className        | 指定 message 节点上的className | string | '' |
 
 ### message.method()
 
