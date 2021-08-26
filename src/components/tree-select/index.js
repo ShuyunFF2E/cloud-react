@@ -270,6 +270,7 @@ class TreeSelect extends Component {
 				{...this.props}
 				type={this.type}
 				value={this.state.value}
+				supportTooltip={false}
 				onChange={this.onValueChange}
 				onOk={this.handleOk}
 				onCancel={this.handleCancel}
