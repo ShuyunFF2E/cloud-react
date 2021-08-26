@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
 import { getTextWidth } from 'shuyun-utils';
+import { noop } from '@utils';
 import Icon from '../icon';
 import Message from '../message';
 import Checkbox from '../checkbox';
@@ -109,11 +110,17 @@ class Node extends Component {
 	};
 
 	// 选中节点
-	handleSelect = checked => {
+	handleSelect = (checked, isCheckbox) => {
 		const { data } = this.props;
 		const { supportCheckbox, onSelectedAction, onDoubleClick } = this.context;
 		if (supportCheckbox) {
 			data.checked = checked;
+		}
+
+		// 当前未配置双击事件 或 由Checkbox触发: 不再进行双击验证以提升性能
+		if (onDoubleClick === noop || isCheckbox) {
+			onSelectedAction(data);
+			return;
 		}
 		count += 1;
 		setTimeout(() => {
@@ -143,7 +150,8 @@ class Node extends Component {
 			supportMenu,
 			breakCheckbox,
 			nodeNameMaxLength,
-			onDoubleClick
+			onDoubleClick,
+			supportTooltip
 		} = this.context;
 		const { setInputValue, onSaveClick, onClickCancel } = this;
 		// 将三个方法传递出去可以供外部调用
@@ -194,6 +202,7 @@ class Node extends Component {
 								onHandleSelect={this.handleSelect}
 								breakCheckbox={breakCheckbox}
 								supportCheckbox={supportCheckbox}
+								supportTooltip={supportTooltip}
 								onDoubleClick={() => onDoubleClick(data)}
 							/>
 							{/* 点击菜单 */}
@@ -297,11 +306,9 @@ function ShowSelection({
 	name,
 	disableSelected,
 	onDoubleClick,
-	onHandleSelect
+	onHandleSelect,
+	supportTooltip
 }) {
-	// 处理搜索关键字高亮
-	const re = new RegExp(`(${searchText.replace(/[(){}.+*?^$|\\[\]]/g, '\\$&')})`, 'ig');
-
 	// 显示形式，有弹框菜单的与没有弹框菜单的，是否需要tooltip的，单选与多选的
 	let nodeClassName = 'node-name';
 	if (supportMenu) {
@@ -309,32 +316,48 @@ function ShowSelection({
 			nodeClassName = !supportCheckbox ? 'dialog-menu-node-name' : 'dialog-menu-check-node-name';
 		}
 	}
-	let nodeWidth = 0;
-	if (treeWidth > 0) {
-		let correctWidth = 0;
-		if (!supportCheckbox && (!supportMenu || (supportMenu && menuType === RIGHT_MENU))) {
-			// 单选无菜单或有右键菜单
-			correctWidth = 46;
-		}
-		if (!supportCheckbox && supportMenu && menuType === DIALOG_MENU) {
-			// 单选有菜单且为弹框菜单
-			correctWidth = 71;
-		}
-		if (supportCheckbox && (!supportMenu || (supportMenu && menuType === RIGHT_MENU))) {
-			// 多选无菜单或有右键菜单
-			correctWidth = 66;
-		}
-		if (supportCheckbox && supportMenu && menuType === DIALOG_MENU) {
-			// 多选有菜单且为弹框菜单
-			correctWidth = 102;
-		}
-		nodeWidth = treeWidth - indentValue - correctWidth;
+
+	let nodeText = name;
+	// 处理搜索关键字高亮
+	if (searchText) {
+		const re = new RegExp(`(${searchText.replace(/[(){}.+*?^$|\\[\]]/g, '\\$&')})`, 'ig');
+		nodeText = name.replace(re, `<span class="hot-text">${searchText}</span>`);
 	}
-	const tmp = (
-		<Tooltip content={getTextWidth(name) > nodeWidth ? name : ''} placement="top-left">
-			<span name={id} className={nodeClassName} dangerouslySetInnerHTML={{ __html: name.replace(re, `<span class="hot-text">${searchText}</span>`) }} />
-		</Tooltip>
-	);
+	let tmp = <span name={id} className={nodeClassName} dangerouslySetInnerHTML={{ __html: nodeText }} />;
+
+	// 是否启用tooltip，启用后将对超出长度的增加tooltip，但会影响性能
+	if (supportTooltip) {
+		let nodeWidth = 0;
+		if (treeWidth > 0) {
+			let correctWidth = 0;
+			if (!supportCheckbox && (!supportMenu || (supportMenu && menuType === RIGHT_MENU))) {
+				// 单选无菜单或有右键菜单
+				correctWidth = 46;
+			}
+			if (!supportCheckbox && supportMenu && menuType === DIALOG_MENU) {
+				// 单选有菜单且为弹框菜单
+				correctWidth = 71;
+			}
+			if (supportCheckbox && (!supportMenu || (supportMenu && menuType === RIGHT_MENU))) {
+				// 多选无菜单或有右键菜单
+				correctWidth = 66;
+			}
+			if (supportCheckbox && supportMenu && menuType === DIALOG_MENU) {
+				// 多选有菜单且为弹框菜单
+				correctWidth = 102;
+			}
+			nodeWidth = treeWidth - indentValue - correctWidth;
+		}
+
+		// 文本过长的，增加Tooltip
+		if (getTextWidth(name) > nodeWidth) {
+			tmp = (
+				<Tooltip content={name} placement="top-left">
+					{tmp}
+				</Tooltip>
+			);
+		}
+	}
 	const labelWidth = {
 		width: supportMenu && menuType === DIALOG_MENU ? 'calc(100% - 30px)' : 'calc(100%)',
 		zIndex: 0
@@ -343,7 +366,15 @@ function ShowSelection({
 	if (supportCheckbox) {
 		return (
 			<>
-				<Checkbox disabled={disableSelected} indeterminate={indeterminate} checked={checked} value={id} onChange={onHandleSelect} style={labelWidth}>
+				<Checkbox
+					disabled={disableSelected}
+					indeterminate={indeterminate}
+					checked={checked}
+					value={id}
+					onChange={value => {
+						onHandleSelect(value, true);
+					}}
+					style={labelWidth}>
 					<>{!breakCheckbox && tmp}</>
 				</Checkbox>
 				{breakCheckbox && (

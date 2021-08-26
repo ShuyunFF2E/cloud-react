@@ -122,21 +122,24 @@ class List extends Component {
 
 	render() {
 		const { data, prefixCls } = this.props;
+		const { onDragNodeStart, onDragNodeMoving, onDragNodeEnd, onDragNodeOver, onDragNodeLeave } = this;
+		const { supportDrag } = this.context;
 		return !data.length ? null : (
 			<ul className={classNames(`${prefixCls}-list`)}>
 				{data.map(node => {
+					const { id, pId, children } = node;
 					return (
 						<li
-							key={node.id}
-							id={node.id}
-							onDragStart={e => this.onDragNodeStart(e, node)}
-							onDrag={e => this.onDragNodeMoving(e, node)}
-							onDragEnd={e => this.onDragNodeEnd(e, node)}
-							onDragOver={e => this.onDragNodeOver(e, node)}
-							onDragLeave={this.onDragNodeLeave}
-							draggable={(node.pId || node.pId === 0) && this.context.supportDrag}>
+							key={id}
+							id={id}
+							onDragStart={e => onDragNodeStart(e, node)}
+							onDrag={e => onDragNodeMoving(e, node)}
+							onDragEnd={e => onDragNodeEnd(e, node)}
+							onDragOver={e => onDragNodeOver(e, node)}
+							onDragLeave={onDragNodeLeave}
+							draggable={(pId || pId === 0) && supportDrag}>
 							<Node data={node} prefixCls={prefixCls}>
-								<List data={node.children} prefixCls={prefixCls} />
+								{children.length ? <List data={children} prefixCls={prefixCls} /> : null}
 							</Node>
 						</li>
 					);

@@ -28,6 +28,12 @@ const menuModalBodyStyle = {
 	padding: '23px 30px'
 };
 
+// 搜索区域样式
+const hasSearchStyle = {
+	height: 'calc(100% - 42px)',
+	overflow: 'auto'
+};
+
 class Tree extends Component {
 	// 默认值
 	static defaultProps = {
@@ -51,6 +57,7 @@ class Tree extends Component {
 		supportSearch: false,
 		supportDrag: false,
 		supportImmediatelySearch: false,
+		supportTooltip: true,
 		isAddFront: true,
 		selectedValue: [],
 		onDoubleClick: noop,
@@ -84,6 +91,7 @@ class Tree extends Component {
 		supportSearch: PropTypes.bool,
 		supportDrag: PropTypes.bool,
 		supportImmediatelySearch: PropTypes.bool,
+		supportTooltip: PropTypes.bool,
 		isAddFront: PropTypes.bool,
 		selectedValue: PropTypes.array,
 		breakCheckbox: PropTypes.bool,
@@ -215,22 +223,24 @@ class Tree extends Component {
 
 		// 更新节点选中状态
 		this.updateActiveNode(data, node);
-		// 单选节点列表
-		const radioSelectedList = store.selectedForRadio(data, node);
-		// 多选节点列表
-		let checkboxSelectedList = this.getSelectedMoreList(data, node);
-
-		if (supportCheckbox) {
-			checkboxSelectedList = store.getSelectedLowestNodeList(this.state.preSelectedList, checkboxSelectedList, node);
-			if (supportSearch) {
-				this.setState({
-					preSelectedList: checkboxSelectedList
-				});
-			}
-		}
 
 		// 选中结果
-		const selectedResult = supportCheckbox ? checkboxSelectedList : radioSelectedList;
+		let selectedResult = null;
+		const searchMap = {};
+
+		// 单选节点列表
+		if (!supportCheckbox) {
+			selectedResult = store.selectedForRadio(data, node);
+		}
+
+		// 多选节点列表
+		if (supportCheckbox) {
+			selectedResult = this.getSelectedMoreList(data, node);
+			selectedResult = store.getSelectedLowestNodeList(this.state.preSelectedList, selectedResult, node);
+			if (supportSearch) {
+				searchMap.preSelectedList = selectedResult;
+			}
+		}
 
 		// 传递到外部
 		onSelectedNode(node, selectedResult);
@@ -238,7 +248,8 @@ class Tree extends Component {
 		// 更新树列表数据
 		this.setState({
 			treeData: ShuyunUtils.clone(data),
-			preSelectedNode: node
+			preSelectedNode: node,
+			...searchMap
 		});
 	};
 
@@ -513,6 +524,8 @@ class Tree extends Component {
 	};
 
 	render() {
+		const { treeData, searchText, treeWidth, nodeData, menuStyle, menuOptions, showRightMenu, showDialogMenu, parentNodeNames, isAddMenuOpen } = this.state;
+
 		const selector = `${prefixCls}-tree`;
 
 		const {
@@ -528,6 +541,7 @@ class Tree extends Component {
 			breakCheckbox,
 			supportMenu,
 			supportDrag,
+			supportTooltip,
 			menuType,
 			addMenuName,
 			isAddFront,
@@ -543,13 +557,7 @@ class Tree extends Component {
 		} = this.props;
 
 		const { onAddAction, onRenameAction, onRemoveAction, onSelectedAction, onFoldNodeAction, onCheckRepeatNameAction, onShowMenu, onReRenderNode } = this;
-		const { treeData, searchText, treeWidth, nodeData, menuStyle, menuOptions, showRightMenu, showDialogMenu, parentNodeNames, isAddMenuOpen } = this.state;
 		const { id, name, disableAdd, disableRename, disableRemove } = nodeData;
-
-		const hasSearchStyle = {
-			height: 'calc(100% - 42px)',
-			overflow: 'auto'
-		};
 
 		return (
 			<TreeContext.Provider
@@ -561,6 +569,7 @@ class Tree extends Component {
 					breakCheckbox,
 					supportMenu,
 					supportDrag,
+					supportTooltip,
 					isAddFront,
 					nodeNameMaxLength,
 					showIcon,
@@ -611,7 +620,8 @@ class Tree extends Component {
 
 					{treeData && treeData.length > 0 && (
 						<div className={classNames(`${selector}-list-container`)} style={supportSearch ? hasSearchStyle : null} ref={this.treeAreaRef}>
-							<TreeList prefixCls={selector} nodeNameMaxLength={nodeNameMaxLength} data={treeData} />
+							{// componentDidMount 中会更改treeWidth的值，在这里进行验证是为防止无效渲染
+							treeWidth === 0 ? null : <TreeList prefixCls={selector} nodeNameMaxLength={nodeNameMaxLength} data={treeData} />}
 						</div>
 					)}
 
