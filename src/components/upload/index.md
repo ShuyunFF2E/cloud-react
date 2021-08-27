@@ -1,7 +1,12 @@
 ---
-category: Components
-subtitle: 上传组件
-title: Upload
+title: Upload 上传组件
+nav:
+  title: Upload 上传组件
+  path: /cloud-react
+group:
+  order: 3
+  title: 数据
+  path: /data
 ---
 
 ### 何时使用
@@ -108,3 +113,15 @@ title: Upload
     fileList: {}
 }
 ```
+
+ ### 代码演示 
+
+<embed src="@components/upload/demos/basic-upload.md" /> 
+
+<embed src="@components/upload/demos/custom-request.md" /> 
+
+<embed src="@components/upload/demos/file-list-picture.md" /> 
+
+<embed src="@components/upload/demos/file-list-text.md" /> 
+
+<embed src="@components/upload/demos/picture.md" /> 

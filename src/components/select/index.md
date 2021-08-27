@@ -1,7 +1,12 @@
 ---
-category: Components
-title: Select
-subtitle: 下拉选择
+title: Select 下拉选择
+nav:
+  title: Select 下拉选择
+  path: /cloud-react
+group:
+  order: 3
+  title: 数据
+  path: /data
 ---
 
 ### 何时使用
@@ -58,3 +63,31 @@ subtitle: 下拉选择
 | value     | 默认使用此属性进行基本操作，选中 option 的值 | string\number | -      |
 | item      | 当前选项的原始属性，包含index值                 | object | -      |
 | className | 该项 option 的类名                           | string        | -      |
+
+ ### 代码演示 
+
+<embed src="@components/select/demos/allowClear.md" /> 
+
+<embed src="@components/select/demos/basic-select.md" /> 
+
+<embed src="@components/select/demos/customConfirmBtn.md" /> 
+
+<embed src="@components/select/demos/disabled.md" /> 
+
+<embed src="@components/select/demos/emptyRender.md" /> 
+
+<embed src="@components/select/demos/hasConfirmButton.md" /> 
+
+<embed src="@components/select/demos/key.md" /> 
+
+<embed src="@components/select/demos/labelInValue.md" /> 
+
+<embed src="@components/select/demos/multiple.md" /> 
+
+<embed src="@components/select/demos/onBeforeChange.md" /> 
+
+<embed src="@components/select/demos/open.md" /> 
+
+<embed src="@components/select/demos/searchable.md" /> 
+
+<embed src="@components/select/demos/trigger.md" /> 

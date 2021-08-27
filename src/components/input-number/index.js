@@ -107,8 +107,8 @@ class InputNumber extends Component {
 			currentValue: _val
 		});
 
-		onBlur(_val);
 		onChange(_val);
+		onBlur(_val);
 	};
 
 	handleChange = event => {

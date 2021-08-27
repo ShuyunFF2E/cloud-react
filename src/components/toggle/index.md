@@ -1,7 +1,12 @@
 ---
-category: Components
-title: Toggle
-subtitle: 开关
+title: Toggle 开关
+nav:
+  title: Toggle 开关
+  path: /cloud-react
+group:
+  order: 1
+  title: 通用
+  path: /common
 ---
 
 ### 何时使用
@@ -19,3 +24,13 @@ subtitle: 开关
 | disabled      | 是否禁用                            | boolean                                  | false   |
 | onChange      | 切换状态时候的回调                  | Function(checked: boolean, event: Event) |         |
 | onBeforeChange      | 切换状态前的二次确认                 | Function() |         |
+
+ ### 代码演示 
+
+<embed src="@components/toggle/demos/basic-toggle.md" /> 
+
+<embed src="@components/toggle/demos/change.md" /> 
+
+<embed src="@components/toggle/demos/disabled.md" /> 
+
+<embed src="@components/toggle/demos/size.md" /> 

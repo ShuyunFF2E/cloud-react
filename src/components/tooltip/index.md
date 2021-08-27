@@ -1,7 +1,12 @@
 ---
-category: Components
-subtitle: 文字提示
-title: Tooltip
+title: Tooltip 文字提示
+nav:
+  title: Tooltip 文字提示
+  path: /cloud-react
+group:
+  order: 1
+  title: 通用
+  path: /common
 ---
 
 ### 何时使用
@@ -24,3 +29,15 @@ title: Tooltip
 | placement       | 气泡框位置，可选 `auto` `top` `left` `right` `bottom` `top-left` `top-right` `bottom-left` `bottom-right` `left-top` `left-bottom` `right-top` `right-bottom` | string   | auto          |
 | className       | 设置类样式                                                                                                                           | string   | ''            |
 | overlayStyle    | 自定义卡片样式                                                                                                                       | object   | {}            |
+
+ ### 代码演示 
+
+<embed src="@components/tooltip/demos/basic-tooltip.md" /> 
+
+<embed src="@components/tooltip/demos/control.md" /> 
+
+<embed src="@components/tooltip/demos/placement.md" /> 
+
+<embed src="@components/tooltip/demos/theme.md" /> 
+
+<embed src="@components/tooltip/demos/tigger.md" /> 

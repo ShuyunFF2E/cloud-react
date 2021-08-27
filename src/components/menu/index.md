@@ -1,7 +1,12 @@
 ---
-category: Components
-title: Menu
-subtitle: 菜单项
+title: Menu 菜单项
+nav:
+  title: Menu 菜单项
+  path: /cloud-react
+group:
+  order: 4
+  title: 导航
+  path: /nav
 ---
 
 ### 何时使用
@@ -36,3 +41,13 @@ subtitle: 菜单项
 | ----- | ---------------------- | ------ | ------ |
 | key   | 子菜单唯一 key，必填项 | string | -      |
 | title | 子菜单内容             | node   | null   |
+
+ ### 代码演示 
+
+<embed src="@components/menu/demos/basic-menu.md" /> 
+
+<embed src="@components/menu/demos/header.md" /> 
+
+<embed src="@components/menu/demos/link.md" /> 
+
+<embed src="@components/menu/demos/source.md" /> 

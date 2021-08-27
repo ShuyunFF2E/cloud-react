@@ -1,7 +1,12 @@
 ---
-category: Components
-title: Form
-subtitle: 表单
+title: Form 表单
+nav:
+  title: Form 表单
+  path: /cloud-react
+group:
+  order: 3
+  title: 数据
+  path: /data
 ---
 
 ### 何时使用
@@ -94,3 +99,13 @@ function UseNexus() {
 	);
 }
 ```
+
+ ### 代码演示 
+
+<embed src="@components/form/demos/basic-forms.md" /> 
+
+<embed src="@components/form/demos/basic-usage.md" /> 
+
+<embed src="@components/form/demos/horizontal.md" /> 
+
+<embed src="@components/form/demos/inline.md" /> 

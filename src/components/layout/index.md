@@ -1,7 +1,12 @@
 ---
-category: Components
-title: Layout
-subtitle: 布局组件
+title: Layout 布局组件
+nav:
+  title: Layout 布局组件
+  path: /cloud-react
+group:
+  order: 2
+  title: 布局
+  path: /layout
 ---
 
 ### 何时使用
@@ -25,3 +30,11 @@ Footer：底部布局，自带默认样式，其下可嵌套任何元素，只�
 | 属性       | 说明             | 类型    | 默认值  |
 | ---------- | ---------------- | ------- | ------- |
 | hasSider       | 只在Layout上使用，配置是否有侧边栏         | boolean  | false |
+
+ ### 代码演示 
+
+<embed src="@components/layout/demos/basic-layout.md" /> 
+
+<embed src="@components/layout/demos/left2right.md" /> 
+
+<embed src="@components/layout/demos/sider.md" /> 
