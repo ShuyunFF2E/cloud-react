@@ -230,9 +230,15 @@
 		}
 	}
 
-	.grid-check span {
-		background-color: @grid-day-check-bgcolor !important;
-		border-color: @color-blue1 !important;
+	.grid-check {
+		span {
+			background-color: @grid-day-check-bgcolor !important;
+			border-color: @color-blue1 !important;
+		}
+
+		&.grid-disabled span {
+			border-color: transparent !important;
+		}
 	}
 
 	.grid-now span {
