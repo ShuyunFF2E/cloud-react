@@ -10,6 +10,7 @@ const argv = yargs(hideBin(process.argv)).argv;
 
 export default {
   // esm: 'rollup',
+  file: 'cloud-react',
   cjs: {
     type: 'rollup',
     minify: !argv.dev,
