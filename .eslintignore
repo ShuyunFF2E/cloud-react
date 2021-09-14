@@ -1,5 +1,3 @@
 dist/
 docs/
 loader/
-scripts/
-src/components/**/*.test.js

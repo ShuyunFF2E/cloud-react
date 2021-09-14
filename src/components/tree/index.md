@@ -49,6 +49,7 @@ group:
 | onDragBefore             | 拖拽前调用      	    | Function	| -	|
 | onDragMoving             | 拖动过程中调用	    | Function	| -	|
 | onDragAfter              | 拖拽后调用	        | Function	| -	|
+| supportTooltip           | 是否启用tooltip，为true时将根据文本长度自动增加tooltip。如数据超大，建议设置为false以节省性能 | Boolean	| true	|
  
 ### 数据属性
 
