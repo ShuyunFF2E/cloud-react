@@ -7,7 +7,7 @@ import Icon from '../icon';
 import Input from '../input';
 
 import './index.less';
-import { selector, getOpenKeys } from './const';
+import { selector, getOpenKeys, getChildValues } from './const';
 
 const OptionsSearch = ({ searchValue, onOptionsSearch, clearSearch, placeholder }) => {
 	return (
@@ -100,11 +100,16 @@ class SingleTree extends React.Component {
 	};
 
 	onClickOption = data => {
-		if (data.children) {
+		if (data.children && data.children.length) {
 			const { openKeys } = this.state;
 			if (openKeys.includes(data.value)) {
-				const index = openKeys.indexOf(data.value);
-				openKeys.splice(index, 1);
+				const values = getChildValues(data);
+				values.forEach(value => {
+					const index = openKeys.indexOf(value);
+					if (index > -1) {
+						openKeys.splice(index, 1);
+					}
+				});
 				this.setState({ openKeys });
 			} else {
 				this.setState({
@@ -124,30 +129,32 @@ class SingleTree extends React.Component {
 		return label.replace(regx, `<span class="search-text">${searchText}</span>`);
 	};
 
-	renderChildren(dataSource, parentNode = {}) {
-		const { openKeys, selected, searchValue } = this.state;
-		return dataSource.map(v => {
+	renderChildren(dataSource) {
+		const child = ({ node, parentNode = {}, isRoot = false }) => {
+			const { openKeys, selected, searchValue } = this.state;
+			const isShow = isRoot || openKeys.includes(parentNode.value);
 			const classNames = classnames(`${selector}-option`, {
-				[`${selector}-option-show`]: v.children || openKeys.includes(parentNode.value),
+				[`${selector}-option-show`]: isShow,
 				[`${selector}-option-child`]: parentNode.children && parentNode.children.length,
-				selected: v.value === selected.value
+				selected: node.value === selected.value
 			});
-			const isOpen = openKeys.includes(v.value);
+			const isOpen = openKeys.includes(node.value);
 			const iconClassNames = classnames(`${selector}-icon`, {
 				open: isOpen,
 				close: !isOpen
 			});
-			const label = this.getLabel(v.label, searchValue);
+			const label = this.getLabel(node.label, searchValue);
 			return (
-				<div key={v.value} className={`${selector}-option-list`}>
-					<div className={classNames} onClick={this.onClickOption.bind(this, v)}>
-						<span dangerouslySetInnerHTML={{ __html: label }}></span>
-						{v.children && v.children.length ? <Icon type="right" className={iconClassNames} /> : null}
+				<div key={node.value} className={`${selector}-option-list`}>
+					<div className={classNames} style={{ paddingLeft: node.level * 20 }} onClick={this.onClickOption.bind(this, node)}>
+						<span dangerouslySetInnerHTML={{ __html: label }} title={node.label} />
+						{node.children && node.children.length ? <Icon type="right" className={iconClassNames} /> : null}
 					</div>
-					{v.children && v.children.length ? this.renderChildren(v.children, v) : null}
+					{node.children && node.children.length ? node.children.map(cNode => child({ node: cNode, parentNode: node })) : null}
 				</div>
 			);
-		});
+		};
+		return dataSource.map(node => child({ node, isRoot: true }));
 	}
 
 	render() {
