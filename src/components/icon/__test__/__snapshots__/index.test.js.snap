@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Icon renders correctly 1`] = `
+<i
+  class="cloud-icon cloud-icon-config"
+/>
+`;
+
+exports[`Icon should render correctly has style 1`] = `
+<i
+  class="cloud-icon cloud-icon-edit"
+  style="color:#0083BA;font-size:12px"
+/>
+`;
