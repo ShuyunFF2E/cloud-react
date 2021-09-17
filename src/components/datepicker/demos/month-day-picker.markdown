@@ -13,8 +13,8 @@ export default class DatePickerDemo extends React.Component {
 	render() {
         return (
                 <div>
-                    不可编辑：<Datepicker.MonthDayPicker min="01/10" position="auto" onChange={this.onChange} />
-                    <span style={{paddingLeft: 20}}>可编辑</span>：<Datepicker.MonthDayPicker canEdit={true} min="01/10" position="auto" onChange={this.onChange} />
+                    不可编辑：<Datepicker.MonthDayPicker min="09/20" max="12/10" position="auto" onChange={this.onChange} />
+                    <span style={{paddingLeft: 20}}>可编辑</span>：<Datepicker.MonthDayPicker canEdit={true} min="01/20" position="auto" onChange={this.onChange} />
                 </div>
                 )
 	}
