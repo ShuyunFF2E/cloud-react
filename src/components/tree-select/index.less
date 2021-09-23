@@ -7,7 +7,7 @@
 @line-height: 16px;
 @max-height: 220px;
 @min-width: 64px;
-@max-width: 280px;
+@max-width: 400px;
 @text-icon-gap: 20px;
 @search-input-height: 25px;
 
@@ -171,7 +171,6 @@
 	min-width: @min-width;
 	width: 100%;
 	border: @select-normal-border;
-	border-top: none;
 	background: @background-color;
 	cursor: pointer;
 	overflow: auto;
@@ -275,6 +274,7 @@
 
 .@{select-prefix-cls}-single-options {
 	padding: 0;
+	z-index: @z-index-dropdown;
 
 	.@{select-prefix-cls}-option-list {
 		.column-layout;
