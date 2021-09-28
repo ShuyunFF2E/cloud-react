@@ -625,7 +625,7 @@ class Tree extends Component {
 						</div>
 					)}
 
-					{(!treeData || !treeData.length) && <p>暂无结果</p>}
+					{(!treeData || !treeData.length) && <p className="no-data">暂无结果</p>}
 
 					{showDialogMenu && (
 						<Modal
