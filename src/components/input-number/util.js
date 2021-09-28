@@ -3,9 +3,7 @@ export function isInvalid(value) {
 }
 
 function fixedPrecision(value, precision) {
-	const pow = 10 ** precision;
-	return Math.round(value * pow) / pow;
-	// return value.toFixed(Math.abs(parseInt(precision, 10)));
+	return value.toFixed(Math.abs(parseInt(precision, 10)));
 }
 
 /**
