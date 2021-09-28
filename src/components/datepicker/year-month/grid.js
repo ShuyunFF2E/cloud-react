@@ -42,60 +42,76 @@ class MonthGrid extends Component {
 		this.updateTempMonth(index + 1);
 	};
 
-	getMonthDisabled = () => {
+	getYearMonth() {
 		const { min, max } = this.props;
-		const maxYear = parseInt(max.split('/')[0], 10);
-		const minYear = parseInt(min.split('/')[0], 10);
-		if (currentYear > maxYear || currentYear < minYear) {
+		const maxYear = max ? parseInt(max.split('/')[0], 10) : '';
+		const minYear = min ? parseInt(min.split('/')[0], 10) : '';
+		const maxYearMonth = max ? parseInt(max.split('/')[1], 10) : '';
+		const minYearMonth = min ? parseInt(min.split('/')[1], 10) : '';
+		return { maxYear, minYear, maxYearMonth, minYearMonth };
+	}
+
+	getMonthDisabled = () => {
+		const { maxYear, minYear, maxYearMonth, minYearMonth } = this.getYearMonth();
+		const { month: currMonth, year: currYear } = displayNow();
+		if (
+			(maxYear && currYear < minYear) ||
+			(maxYear && currYear > maxYear) ||
+			(currYear === minYear && currMonth < minYearMonth) ||
+			(currYear === maxYear && currMonth > maxYearMonth)
+		) {
 			return true;
-		}
-		if (currentYear === maxYear) {
-			const maxYearMonth = parseInt(max.split('/')[1], 10);
-			const minYearMonth = parseInt(min.split('/')[1], 10);
-			if (currentMonth > maxYearMonth || currentMonth < minYearMonth) {
-				return true;
-			}
 		}
 		return false;
 	};
 
 	getClassName = (_tempMonth, current, _month) => {
-		const { selectedYear, min, max } = this.props;
-		const splitStr = '/';
-
+		const { selectedYear } = this.props;
+		const { maxYear, minYear, maxYearMonth, minYearMonth } = this.getYearMonth();
+		const isDisabled =
+			(maxYear && currentYear > maxYear) ||
+			(minYear && currentYear < minYear) ||
+			(selectedYear === minYear && current < minYearMonth) ||
+			(selectedYear === maxYear && current > maxYearMonth);
+		const classNameArr = [];
 		if (_tempMonth && parseInt(_tempMonth, 10) === current) {
-			return 'grid-check';
+			classNameArr.push('grid-check');
 		}
-
-		const maxYear = parseInt(max.split(splitStr)[0], 10);
-		const minYear = parseInt(min.split(splitStr)[0], 10);
-		const maxYearMonth = parseInt(max.split(splitStr)[1], 10);
-		const minYearMonth = parseInt(min.split(splitStr)[1], 10);
-		if (currentYear > maxYear || currentYear < minYear) {
-			return ` ${disClass} `;
+		if (isDisabled) {
+			classNameArr.push(disClass);
 		}
-		if (selectedYear < currentYear && current < minYearMonth) {
-			return ` ${disClass} `;
+		if (selectedYear === currentYear && current === _month) {
+			classNameArr.push('grid-now');
 		}
-		if (selectedYear > currentYear && current > maxYearMonth) {
-			return ` ${disClass} `;
-		}
-		if (selectedYear === currentYear) {
-			if ((current < minYearMonth && currentYear === minYear) || (current > maxYearMonth && currentYear === maxYear)) {
-				return ` ${disClass} `;
-			}
-			if (current === _month) {
-				return 'grid-now';
-			}
-		}
-		return '';
+		return classNameArr.join(' ');
 	};
 
+	getSaveDisabled() {
+		const { tempMonth: selectedMonth } = this.state;
+		if (!selectedMonth) {
+			return true;
+		}
+		const { selectedYear } = this.props;
+		const { maxYear, minYear, maxYearMonth, minYearMonth } = this.getYearMonth();
+		if ((minYear && selectedYear < minYear) || (maxYear && selectedYear > maxYear)) {
+			return true;
+		}
+		if (selectedYear === minYear && selectedMonth < minYearMonth) {
+			return true;
+		}
+		if (selectedYear === maxYear && selectedMonth > maxYearMonth) {
+			return true;
+		}
+		return false;
+	}
+
 	onSave = value => {
-		const { selectedYear, onChange } = this.props;
-		const { tempMonth } = this.state;
-		const month = value || tempMonth;
-		onChange(month, selectedYear);
+		if (value) {
+			this.props.onChange(value, currentYear);
+		} else {
+			const { selectedYear } = this.props;
+			this.props.onChange(this.state.tempMonth, selectedYear);
+		}
 	};
 
 	render() {
@@ -132,7 +148,7 @@ class MonthGrid extends Component {
 					<Button size="small" disabled={this.getMonthDisabled()} onClick={() => this.onSave(currentMonth)}>
 						当月
 					</Button>
-					<Button type="primary" size="small" disabled={!tempMonth} onClick={() => this.onSave()}>
+					<Button type="primary" size="small" disabled={this.getSaveDisabled()} onClick={() => this.onSave()}>
 						确认
 					</Button>
 				</div>

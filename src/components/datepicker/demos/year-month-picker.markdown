@@ -24,7 +24,7 @@ export default class DatePickerDemo extends React.Component {
 	render() {
 	return (
                 <div>
-                    不可编辑：<Datepicker.YearMonthPicker position="auto" onChange={this.onChange} min="2018/04" max="2022/04"/>
+                    不可编辑：<Datepicker.YearMonthPicker position="auto" onChange={this.onChange} min="2018/12" max="2022/04"/>
                     <span style={{paddingLeft: 20}}>可编辑</span>：
                     <Datepicker.YearMonthPicker value={this.state.value} canEdit={true} position="auto"  max="2022/04" onChange={this.onChange} format={'yyyy-mm'}/>
                 </div>
