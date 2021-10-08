@@ -4,10 +4,10 @@ import { prefixCls } from '@utils';
 import Datepicker  from '../index';
 
 const classSelector = `${prefixCls}-datepicker`;
-describe('YearPicker', () => {
+describe('YearMonthPicker', () => {
 
   it('常规渲染', () => {
-    const wrapper = mount(<Datepicker.YearPicker />);
+    const wrapper = mount(<Datepicker.YearMonthPicker />);
     expect(wrapper.find(`.${classSelector}-popup`)).toHaveLength(0);
     wrapper.find(`.${classSelector}-inp-block`).at(0).simulate('click');
     setTimeout(() => {
@@ -17,7 +17,7 @@ describe('YearPicker', () => {
   });
 
   it('禁用模式', () => {
-    const wrapper = mount(<Datepicker.YearPicker disabled/>);
+    const wrapper = mount(<Datepicker.YearMonthPicker disabled/>);
     expect(wrapper.find('input[disabled].cloud-input')).toHaveLength(1);
 
     expect(wrapper.find(`.${classSelector}-popup`)).toHaveLength(0);
@@ -27,8 +27,8 @@ describe('YearPicker', () => {
   });
 
   it('输入框编辑模式', () => {
-    const wrapper = render(<Datepicker.YearPicker/>);
-    const wrapperEdit = render(<Datepicker.YearPicker canEdit/>);
+    const wrapper = render(<Datepicker.YearMonthPicker/>);
+    const wrapperEdit = render(<Datepicker.YearMonthPicker canEdit/>);
 
     expect(wrapper.find('input[readonly].cloud-input')).toHaveLength(1);
     expect(wrapperEdit.find('input[readonly].cloud-input')).toHaveLength(0);
@@ -37,7 +37,7 @@ describe('YearPicker', () => {
 
   it('className', () => {
     // 不存在className
-    const wrapper = mount(<Datepicker.YearPicker/>);
+    const wrapper = mount(<Datepicker.YearMonthPicker/>);
     wrapper.find(`.${classSelector}-inp-block`).at(0).simulate('click');
     setTimeout(() => {
       expect(wrapper.find('.cloud-datepicker-popup').hasClass('baukh')).toBe(false);
@@ -45,7 +45,7 @@ describe('YearPicker', () => {
     });
 
     // 存在className
-    const wrapper2 = mount(<Datepicker.YearPicker className="baukh"/>);
+    const wrapper2 = mount(<Datepicker.YearMonthPicker className="baukh"/>);
     wrapper2.find(`.${classSelector}-inp-block`).at(0).simulate('click');
     setTimeout(() => {
       expect(wrapper2.find('.cloud-datepicker-popup').hasClass('baukh')).toBe(true);
