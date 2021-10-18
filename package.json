@@ -93,6 +93,7 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.0.6",
     "jest-transform-css": "2.0.0",
+    "jest-environment-jsdom": "^27.0.6",
     "lint-staged": "^10.0.7",
     "markdown-it": "^12.2.0",
     "postcss-font-base64": "^1.0.5",
