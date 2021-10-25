@@ -1,7 +1,7 @@
 ---
 order: 2
 title: 静态数据
-desc: 组件当前维护者信息
+desc: 参与本项目组件开发人员信息
 ---
 
 ```javascript
@@ -11,85 +11,120 @@ import { Table, Button, Message } from 'cloud-react';
 // 唯一标识符，该值不允许重复
 const gridManagerName = 'static-table';
 const response = {
-	data: [
-		{
-			name: 'rookie125',
-			pic: 'https://avatars3.githubusercontent.com/u/11306273?s=60&v=4',
-			components: ['Form', 'Button', 'Input', 'Field', 'Step'],
-			other: ['文档化搭建'],
-			priority: 1
-		},
-		{
-			name: 'silence717',
-			pic: 'https://avatars0.githubusercontent.com/u/8267830?s=60&v=4',
-			components: ['Upload', 'Toggle', 'InputNumber', 'Radio', 'Tag'],
-			other: ['前端架构', '样式整改'],
-			priority: 2
-		},
-		{
-			name: 'baukh789',
-			pic: 'https://avatars3.githubusercontent.com/u/11342827?s=60&v=4',
-			components: ['Icon', 'Table'],
-			other: ['服务器搭建', 'CI'],
-			priority: 3
-		},
-		{
-			name: 'lazyperson',
-			pic: 'https://avatars3.githubusercontent.com/u/18607584?s=460&v=4',
-			other: ['前期InputNumber、DatePicker开发'],
-			priority: 4
-		},
-		{
-			name: 'xtfan21',
-			pic: 'https://avatars3.githubusercontent.com/u/23092282?s=60&v=4',
-			components: ['Message', 'Tips'],
-			priority: 5
-		},
-		{
-			name: 'BoWang816',
-			pic: 'https://avatars0.githubusercontent.com/u/26587649?s=60&v=4',
-			components: ['Modal'],
-			other: ['前期tree开发'],
-			priority: 6
-		},
-		{
-			name: 'heriky',
-			pic: 'https://avatars1.githubusercontent.com/u/12195736?s=460&v=4',
-			components: ['Tabs'],
-			priority: 7
-		},
-		{
-			name: 'runrunlolz',
-			pic: 'https://avatars0.githubusercontent.com/u/20176682?s=60&v=4',
-			components: ['Tooltip'],
-			priority: 8
-		},
-		{
-			name: 'greria',
-			pic: 'https://avatars3.githubusercontent.com/u/16697576?s=400&v=4',
-			components: ['Select', 'DatePicker'],
-			priority: 9
-		},
-		{
-			name: 'liyuan-meng',
-			pic: 'https://avatars1.githubusercontent.com/u/34151318?s=60&v=4',
-			components: ['Checkbox', 'Tree'],
-			priority: 10
-		},
-		{
-			name: 'DongWJ',
-			pic: 'https://avatars0.githubusercontent.com/u/24518633?s=60&v=4',
-			components: ['Loading'],
-			priority: 12
-		},
-		{
-			name: 'jsonliu6',
-			pic: 'https://avatars1.githubusercontent.com/u/15153054?s=460&v=4',
-			components: ['Pagination'],
-			priority: 13
-		}
+	data: [{
+			  "name": "lazyperson",
+			  "pic": "https://avatars3.githubusercontent.com/u/18607584?s=460&v=4",
+			  "like": "打杂",
+			  "github": "https://github.com/lazyperson",
+			  "priority": 1
+		  },
+		  {
+			  "name": "seawind8888",
+			  "pic": "https://avatars.githubusercontent.com/u/16148014?v=4",
+			  "like": "撸猫",
+			  "github": "https://github.com/seawind8888",
+			  "priority": 2
+		  },
+		  {
+			  "name": "xtfan21",
+			  "pic": "https://avatars3.githubusercontent.com/u/23092282?s=60&v=4",
+			  "like": "旅游",
+			  "github": "https://github.com/xtfan21",
+			  "priority": 3
+		  },
+		  {
+			  "name": "heriky",
+			  "pic": "https://avatars1.githubusercontent.com/u/12195736?s=460&v=4",
+			  "like": "Coding",
+			  "github": "https://github.com/heriky",
+			  "priority": 4
+		  },
+		  {
+			  "name": "runrunlolz",
+			  "pic": "https://avatars0.githubusercontent.com/u/20176682?s=60&v=4",
+			  "like": "赚钱",
+			  "github": "https://github.com/runrunlolz",
+			  "priority": 5
+		  },
+		  {
+			  "name": "greria",
+			  "pic": "https://avatars3.githubusercontent.com/u/16697576?s=400&v=4",
+			  "like": "K歌",
+			  "github": "https://github.com/greria",
+			  "priority": 6
+		  },
+		  {
+			  "name": "liyuan-meng",
+			  "pic": "https://avatars1.githubusercontent.com/u/34151318?s=60&v=4",
+			  "like": "K歌",
+			  "github": "https://github.com/liyuan-meng",
+			  "priority": 7
+		  },
+		  {
+			  "name": "zj251",
+			  "pic": "https://avatars.githubusercontent.com/u/41313132?v=4",
+			  "like": "逛街",
+			  "github": "https://github.com/zj251",
+			  "priority": 8
+		  },
+		  {
+			  "name": "lonerhan",
+			  "pic": "https://avatars.githubusercontent.com/u/25861477?v=4",
+			  "like": "Coding",
+			  "github": "https://github.com/lonerhan",
+			  "priority": 9
+		  },
+		  {
+			  "name": "DongWJ",
+			  "pic": "https://avatars0.githubusercontent.com/u/24518633?s=60&v=4",
+			  "like": "做菜",
+			  "github": "https://github.com/DongWJ",
+			  "priority": 10
+		  },
+		  {
+			  "name": "jsonliu6",
+			  "pic": "https://avatars1.githubusercontent.com/u/15153054?s=460&v=4",
+			  "like": "红烧肉",
+			  "github": "https://github.com/jsonliu6",
+			  "priority": 11
+		  },
+		  {
+			  "name": "fengjingxuan8",
+			  "pic": "https://avatars.githubusercontent.com/u/12249595?v=4",
+			  "like": "旅游",
+			  "github": "https://github.com/fengjingxuan8",
+			  "priority": 12
+		  },
+		  {
+			  "name": "rookie125",
+			  "pic": "https://avatars3.githubusercontent.com/u/11306273?s=60&v=4",
+			  "like": "Coding",
+			  "github": "https://github.com/rookie125",
+			  "priority": 13
+		  },
+		  {
+			  "name": "baukh789",
+			  "pic": "https://avatars3.githubusercontent.com/u/11342827?s=60&v=4",
+			  "like": "开车",
+			  "github": "https://github.com/baukh789",
+			  "priority": 14
+		  },
+		  {
+			  "name": "silence717",
+			  "pic": "https://avatars0.githubusercontent.com/u/8267830?s=60&v=4",
+			  "like": "炒饭",
+			  "github": "https://github.com/silence717",
+			  "priority": 15
+		  },
+		  {
+			  "name": "BoWang816",
+			  "pic": "https://avatars0.githubusercontent.com/u/26587649?s=60&v=4",
+			  "like": "Coding",
+			  "github": "https://github.com/BoWang816",
+			  "priority": 16
+		  },
 	],
-	totals: 13
+	totals: 16
 };
 const columnData = [
 	{
@@ -107,21 +142,20 @@ const columnData = [
 		}
 	},
 	{
-		key: 'components',
-		remind: '参与开发的组件',
-		text: '参与组件',
-		template: components => {
-			return components ? components.join(', ') : '--';
-		}
+		key: 'github',
+		text: 'github',
+		template: (name, rowData) => {
+        			return (
+        				<a className="demo-github" href={name} target="_black">
+        					{name}
+        				</a>
+        			);
+        		}
 	},
 	{
-		key: 'other',
-		remind: '参与人对组件库的其它贡献',
-		text: '其它贡献',
-		align: 'center',
-		template: other => {
-			return other ? other.join(', ') : '--';
-		}
+		key: 'like',
+		text: '爱好',
+		align: 'center'
 	}
 ];
 
