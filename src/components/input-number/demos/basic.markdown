@@ -12,7 +12,7 @@ const blank = '\u00A0';
 
 export default class InputNumberDemo extends React.Component {
 	render() {
-		return <InputNumber defaultValue={1} precison={2} />;
+		return <InputNumber defaultValue={1} precision={0} max={365}/>;
 	}
 }
 ```
