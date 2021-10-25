@@ -15,6 +15,7 @@
         "build": "npm run gen-index && cross-env NODE_ENV=production npm run webpack -- --env.mode production --env.domain production",
         "site": "npm run gen-index && npm run webpack -- --env.mode site --env.domain production",
         "debug": "node --inspect --inspect-brk ./node_modules/webpack/bin/webpack.js --env.mode production",
+        "cli-version": "node ./scripts/generate-version.js",
         "preversion": "npm run lint",
         "version": "npm run build && npm publish dist",
         "postversion": "git push && git push --tags",
