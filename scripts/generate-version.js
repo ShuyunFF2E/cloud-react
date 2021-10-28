@@ -41,9 +41,9 @@ const calcNext = (mode) => {
 	if (mode === 'prod') {
 		const r = arr[2].split('-');
 		if (r.length === 1) {
-			return `${arr[0]}.${arr[1]}.${arr[2] + 1}`;
+			return `${arr[0]}.${arr[1]}.${Number(arr[2]) + 1}`;
 		}
-		return `${arr[0]}.${arr[1]}.${r[0] + 1}`;
+		return `${arr[0]}.${arr[1]}.${Number(r[0]) + 1}`;
 	} else {
 		const r = arr[2].split('-');
 		if (r.length === 1) {
@@ -53,8 +53,8 @@ const calcNext = (mode) => {
 	}
 }
 
-
 const package = getPackageJson();
+
 package.version = calcNext(params.mode);
 
 console.log('package.version:', package.version);
