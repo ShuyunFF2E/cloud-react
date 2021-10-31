@@ -20,10 +20,10 @@
     "umi-lint": "umi-lint --eslint.ext='.js,jsx' ./src/components",
     "precommit": "umi-lint --staged --eslint --stylelint --prettier --fix",
     "new:component": "cp -r tpls/new-component src/components/new-component",
-    "cli-version": "node ./scripts/generate-version.js",
+    "cli-version": "node ./scripts/generate-version.js"
   },
   "dumiAssets": "assets.json",
-  "main": "dist/index.js",
+  "main": "dist/cloud-react.js",
   "module": "dist/index.esm.js",
   "typings": "dist/index.d.ts",
   "source": "src/components/index.js",
