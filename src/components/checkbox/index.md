@@ -1,7 +1,12 @@
 ---
-category: Components
-title: Checkbox
-subtitle: 多选按钮
+title: Checkbox 多选按钮
+nav:
+  title: Checkbox 多选按钮
+  path: /cloud-react
+group:
+  order: 3
+  title: 数据
+  path: /data
 ---
 
 ### 何时使用
@@ -29,3 +34,13 @@ subtitle: 多选按钮
 | disabled | 整组禁用                                         | boolean           | --     |
 | layout   | 定义 checkbox 横向布局(h: 横向布局; v: 竖向布局) | string            | 'h'    |
 | onChange | 变化时回调函数                                   | Function(e:Event) | --     |
+
+ ### 代码演示 
+
+<embed src="@components/checkbox/demos/basic-checkbox.md" /> 
+
+<embed src="@components/checkbox/demos/controlled.md" /> 
+
+<embed src="@components/checkbox/demos/group.md" /> 
+
+<embed src="@components/checkbox/demos/layout.md" /> 

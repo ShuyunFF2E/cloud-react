@@ -1,7 +1,11 @@
 ---
-category: 指南
 title: 快速上手
-order: 2
+nav:
+  title: 指南
+  path: /guide
+group:
+  title: 快速上手
+  path: /use
 ---
 
 ### 安装

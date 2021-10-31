@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import './index.less';
+import { noop } from '@utils';
 
 export default function BreadCrumbs(props) {
 	const { className, styles, list, onClick, size } = props;
@@ -24,7 +25,7 @@ BreadCrumbs.propTypes = {
 };
 BreadCrumbs.defaultProps = {
 	list: [],
-	onClick: () => {},
+	onClick: noop,
 	size: 'default',
 	styles: {}
 };

@@ -1,7 +1,12 @@
 ---
-category: Components
-title: Tabs
-subtitle: 选项卡
+title: Tabs 选项卡
+nav:
+  title: Tabs 选项卡
+  path: /cloud-react
+group:
+  order: 4
+  title: 导航
+  path: /nav
 ---
 
 ### 何时使用
@@ -37,3 +42,13 @@ subtitle: 选项卡
 | className   | 设置类样式                                  | string            | ''     |
 | style       | 设置行内样式                                | object            | {}     |
 | tabBarStyle | 设置 tab 的 header                          | object            | {}     |
+
+ ### 代码演示 
+
+<embed src="@components/tabs/demos/basic-tabs.md" /> 
+
+<embed src="@components/tabs/demos/dynamic.md" /> 
+
+<embed src="@components/tabs/demos/fixed.md" /> 
+
+<embed src="@components/tabs/demos/line.md" /> 

@@ -1,7 +1,12 @@
 ---
-category: Components
-subtitle: 上传组件
-title: Upload
+title: Upload 上传组件
+nav:
+  title: Upload 上传组件
+  path: /cloud-react
+group:
+  order: 3
+  title: 数据
+  path: /data
 ---
 
 ### 何时使用
@@ -18,7 +23,7 @@ title: Upload
 | accept            | 接受上传的文件类型                                              | string      |                              |
 | size              | 文件上传的大小(默认单位为`M`)                                   | number      | 1                            |
 | disabled          | 禁用上传                                                        | boolean     | false                        |
-| fileList          | 已上传的文件列表                                                | Array<File> | []                           |
+| fileList          | 已上传的文件列表                                                | Array< File > | []                           |
 | action            | 文件上传的地址                                                  | string      |                              |
 | headers           | 发送 http 请求的头信息,比如 content-type、cookie、accept-xxx 等 | object      | {}                           |
 | withCredentials   | 跨域请求是否允许发送 cookie 认证信息                            | boolean     | false                        |
@@ -108,3 +113,15 @@ title: Upload
     fileList: {}
 }
 ```
+
+ ### 代码演示 
+
+<embed src="@components/upload/demos/basic-upload.md" /> 
+
+<embed src="@components/upload/demos/custom-request.md" /> 
+
+<embed src="@components/upload/demos/file-list-picture.md" /> 
+
+<embed src="@components/upload/demos/file-list-text.md" /> 
+
+<embed src="@components/upload/demos/picture.md" /> 

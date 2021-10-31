@@ -1,7 +1,12 @@
 ---
-category: Components
-title: Field
-subtitle: 表单通用工具
+title: Field 表单通用工具
+nav:
+  title: Field 表单通用工具
+  path: /cloud-react
+group:
+  order: 3
+  title: 数据
+  path: /data
 ---
 
 ### 何时使用
@@ -88,3 +93,11 @@ function Form() {
 | max       | 最大长度                                                             | number                          | -         |
 | message   | 校验文案                                                             | string                          | ReactNode | - |
 | validator | 自定义校验，必须调用`callback`，参数是错误信息，没有错误则什么也不传 | function(name, value, callback) | -         |
+
+ ### 代码演示 
+
+<embed src="@components/field/demos/basic-forms.md" /> 
+
+<embed src="@components/field/demos/test-date.md" /> 
+
+<embed src="@components/field/demos/use.md" /> 

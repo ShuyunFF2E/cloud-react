@@ -1,7 +1,12 @@
 ---
-category: 指南
-title: 组件 demo 文档示例
-order: 3
+title: demo 示例
+nav:
+  title: 指南
+  path: /guide
+group:
+  title: demo 示例
+  path: /demo
+  order: 3
 ---
 
 ### demo 文件目录

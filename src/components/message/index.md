@@ -1,7 +1,12 @@
 ---
-category: Components
-title: Message
-subtitle: 全局提示
+title: Message 全局提示
+nav:
+  title: Message 全局提示
+  path: /cloud-react
+group:
+  order: 5
+  title: 反馈
+  path: /action
 ---
 
 ### 何时使用
@@ -28,3 +33,9 @@ subtitle: 全局提示
 -   message.success(msg, options)
 
 -   message.error(msg, options)
+
+ ### 代码演示 
+
+<embed src="@components/message/demos/basic-message.md" /> 
+
+<embed src="@components/message/demos/contextContainer.md" /> 

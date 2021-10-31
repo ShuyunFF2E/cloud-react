@@ -1,7 +1,12 @@
 ---
-category: 指南
 title: 介绍
-order: 1
+nav:
+  title: 指南
+  path: /guide
+group:
+  title: 介绍
+  path: /introduce
+  order: 1
 ---
 
 ### cloud-react

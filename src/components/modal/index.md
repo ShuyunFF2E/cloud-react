@@ -1,7 +1,12 @@
 ---
-category: Components
-title: Modal
-subtitle: 弹出框
+title: Modal 弹出框
+nav:
+  title: Modal 弹出框
+  path: /cloud-react
+group:
+  order: 5
+  title: 反馈
+  path: /action
 ---
 
 ### 何时使用
@@ -60,3 +65,33 @@ subtitle: 弹出框
 | onClose    | 取消按钮回调函数                              | function | `--`   |
 
 `Modal.confirm()`函数的`onOk`回调函数支持返回`false`阻止关闭弹框，或者返回一个`promise`延迟关闭，具体使用见示例：确认对话框 Demo
+
+ ### 代码演示 
+
+<embed src="@components/modal/demos/async.md" /> 
+
+<embed src="@components/modal/demos/basic-modal.md" /> 
+
+<embed src="@components/modal/demos/callback.md" /> 
+
+<embed src="@components/modal/demos/component.md" /> 
+
+<embed src="@components/modal/demos/confirm.md" /> 
+
+<embed src="@components/modal/demos/conplex.md" /> 
+
+<embed src="@components/modal/demos/defineInfoStyle.md" /> 
+
+<embed src="@components/modal/demos/defineTpl.md" /> 
+
+<embed src="@components/modal/demos/hasFooter.md" /> 
+
+<embed src="@components/modal/demos/iframe.md" /> 
+
+<embed src="@components/modal/demos/info.md" /> 
+
+<embed src="@components/modal/demos/methodModal.md" /> 
+
+<embed src="@components/modal/demos/nest.md" /> 
+
+<embed src="@components/modal/demos/style.md" /> 

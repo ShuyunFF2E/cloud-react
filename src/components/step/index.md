@@ -1,7 +1,12 @@
 ---
-category: Components
-title: Step
-subtitle: 步骤
+title: Step 步骤
+nav:
+  title: Step 步骤
+  path: /cloud-react
+group:
+  order: 4
+  title: 导航
+  path: /nav
 ---
 
 ### 何时使用
@@ -31,3 +36,13 @@ subtitle: 步骤
 | className | 自定义样式名，提供给外部覆盖样式用                                                             | string                        | -      |
 
 -   注意：如果`Step`和`Step.Item`上同时设置了`onClick`事件，会并存，触发顺序为`Step.Item > Step`
+
+ ### 代码演示 
+
+<embed src="@components/step/demos/basic-step.md" /> 
+
+<embed src="@components/step/demos/direction.md" /> 
+
+<embed src="@components/step/demos/inline.md" /> 
+
+<embed src="@components/step/demos/type.md" /> 
