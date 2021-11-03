@@ -9,7 +9,7 @@
 
 # production
 /dist
-/docs-dist
+/cloud-react-site
 
 # misc
 .DS_Store

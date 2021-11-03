@@ -5,6 +5,7 @@ if(typeof window === 'undefined') {
 	console.warn('cloud-react 仅支持在浏览器环境进行使用!');
 }
 
+export const version = '0.1.4';
 
 export { default as BreadCrumbs } from './bread-crumbs';
 

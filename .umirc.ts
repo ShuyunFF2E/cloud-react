@@ -10,7 +10,7 @@ export default defineConfig({
   favicon: 'https://www.shuyun.com/favicon.ico',
   logo: 'https://brand-guide.shuyun.com/IAM/77c28a6547cd.png',
   locales: [['zh-CN', '中文']],
-  outputPath: 'docs-dist',
+  outputPath: 'cloud-react-site',
   resolve: {
     includes: ['docs', 'src/components'],
   },

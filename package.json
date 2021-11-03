@@ -6,7 +6,7 @@
     "gen:index": "node ./scripts/generate-index.js",
     "gen:doc": "node ./scripts/generate-doc.js",
     "start": "rimraf dist/* && father-build --dev && dumi dev",
-    "docs:build": "dumi build",
+    "site": "npm run gen:index && dumi build",
     "docs:deploy": "gh-pages -d docs-dist",
     "build": "rimraf dist/* && father-build",
     "watch": "father-build --watch",
