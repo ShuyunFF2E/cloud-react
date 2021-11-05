@@ -10,7 +10,7 @@ import YearMonth from '../year-month/main';
 import MonthDay from '../month-day/main';
 import DatePicker from '../date-picker/main';
 import { renderDOM, createWrapper, destroyDOM } from './utils';
-import { enumObj, enumCheck, containerClass, selectorClass, wrapperClass, FORMAT, POPUP_WIDTH } from '../constant';
+import { enumObj, enumCheck, containerClass, selectorClass, wrapperClass, FORMAT } from '../constant';
 import { transformObj, displayNow, checkFormat } from '../utils';
 
 class Picker extends Component {
@@ -236,25 +236,21 @@ class Picker extends Component {
 	};
 
 	positionPop = () => {
-		const { left, top, bottom, width, height } = this.containerRef.current.getBoundingClientRect();
+		const { left, top, bottom, height } = this.containerRef.current.getBoundingClientRect();
 		const { isAppendToBody, position, height: popupHeight } = this.props;
 		const isBottomDistanceEnough = bottom + popupHeight < this.document.documentElement.clientHeight;
-		const isRightDistanceEnough = left + POPUP_WIDTH < this.document.documentElement.clientWidth;
 		const isLocationTop = popupHeight < top && !isBottomDistanceEnough && position === 'auto';
-		const isLocationAlignRight = left > POPUP_WIDTH && width < POPUP_WIDTH && !isRightDistanceEnough && position === 'auto';
 		const marginTop = isLocationTop ? '1px' : '-1px';
 		if (isAppendToBody) {
 			return {
 				position: 'fixed',
-				left: isLocationAlignRight ? `${left - (POPUP_WIDTH - width)}px` : `${left}px`,
+				left: `${left}px`,
 				top: isLocationTop ? `${top - popupHeight}px` : `${bottom}px`,
 				marginTop
 			};
 		}
 		return {
 			top: isLocationTop ? `${-popupHeight}px` : `${height}px`,
-			left: isLocationAlignRight ? '' : '0px',
-			right: isLocationAlignRight ? '0px' : '',
 			marginTop
 		};
 	};

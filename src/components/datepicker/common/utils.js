@@ -1,20 +1,19 @@
 import ReactDOM from 'react-dom';
-import { wrapperClass, POPUP_WIDTH } from '../constant';
+import { wrapperClass } from '../constant';
 
 const container = {};
 
 // 根据实例id创建日历面板弹层
 export function createWrapper(id, height, style) {
-	const { top, marginTop, left, right } = style;
+	const { top, marginTop } = style;
 	container[id] = document.createElement('div');
 	container[id].id = id;
 	container[id].className = wrapperClass;
 	container[id].style.position = 'absolute';
-	container[id].style.left = left;
-	container[id].style.right = right;
+	container[id].style.left = 0;
 	container[id].style.top = top || '100%';
 	container[id].style.marginTop = marginTop || '-1px';
-	container[id].style.width = `${POPUP_WIDTH}px`;
+	container[id].style.width = '100%';
 	container[id].style.height = `${height}px`;
 }
 
