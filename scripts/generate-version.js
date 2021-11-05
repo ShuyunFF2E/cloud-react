@@ -3,11 +3,9 @@
  * 配合企业级 devops 流水线
  */
 
-
 const execSync = require('child_process').execSync;
 const path = require('path');
 const fs = require('fs');
-
 
 const args = process.argv.slice(2);
 let params = {};
@@ -20,7 +18,6 @@ if (args.length) {
 } else {
 	throw new Error('命令行参数错误，缺少mode参数');
 }
-
 
 function getPackageJson() {
 	console.log('------ 开始读取package.json -------');
@@ -36,7 +33,7 @@ const currVersion = buffer.toString().replace(/\n/, '');
 
 console.log(`目前npm上cloud-react版本为 ${currVersion}`);
 
-const calcNext = (mode) => {
+const calcNext = mode => {
 	const arr = currVersion.split('.');
 	if (mode === 'prod') {
 		const r = arr[2].split('-');
@@ -51,8 +48,7 @@ const calcNext = (mode) => {
 		}
 		return currVersion.substr(0, currVersion.indexOf('-')) + '-' + (Number(r[1]) + 1);
 	}
-}
-
+};
 
 const package = getPackageJson();
 package.version = calcNext(params.mode);
