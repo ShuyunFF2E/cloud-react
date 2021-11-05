@@ -9,6 +9,9 @@ export const disClass = 'grid-disabled';
 
 export const monthArr = ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'];
 
+// popup固定宽度
+export const POPUP_WIDTH = 246;
+
 export const enumObj = {
 	LEFT: 'LEFT',
 	RIGHT: 'RIGHT',
