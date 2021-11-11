@@ -69,6 +69,6 @@ export default defineConfig({
     .__dumi-default-layout-hero img { margin-top: -50px }
     .__dumi-default-layout-hero h1 { color: white !important }
     .__dumi-default-layout-hero .markdown { color: white !important }
-    `,
+    `, "https://cloud-cdn.shuyun.com/cloud-react/0.0.99/cloud-react.css"
   ],
 });
