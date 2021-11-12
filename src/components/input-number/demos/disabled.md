@@ -26,7 +26,7 @@ export default class InputNumberDemo extends React.Component {
 	};
 	render() {
 		return (
-			<>
+			<React.Fragment>
 				<div>
 					<InputNumber disabled={this.state.disabled} />
 					<br />
@@ -35,7 +35,7 @@ export default class InputNumberDemo extends React.Component {
 						Toggle disabled
 					</Button>
 				</div>
-			</>
+			</React.Fragment>
 		);
 	}
 }

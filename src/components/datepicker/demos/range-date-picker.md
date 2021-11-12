@@ -43,7 +43,7 @@ export default class DatePickerDemo extends React.Component {
 
 	render() {
 		return (
-            <>
+            <React.Fragment>
 		    <div>
                <p style={{marginBottom: 10, marginTop: 20}}>不可编辑：</p>
                 <Datepicker.RangePicker
@@ -65,7 +65,7 @@ export default class DatePickerDemo extends React.Component {
                				/>
             <Button style={{marginTop: 20}} onClick={this.reset}> 重置 </Button>
 			</div>
-            </>
+            </React.Fragment>
 		);
 	}
 }

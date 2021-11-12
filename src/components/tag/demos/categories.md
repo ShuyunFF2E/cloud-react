@@ -45,14 +45,14 @@ export default class TagDemo extends Component {
 		const { tags } = this.state;
 
 		return (
-			<>
+			<React.Fragment>
 				<label>时尚的运动：</label>
 				{tags.map(({ checked, disabled, text }, index) => (
 					<Tag key={index} checked={checked} disabled={disabled} onClick={() => this.handleClick(index)}>
 						{text}
 					</Tag>
 				))}
-			</>
+			</React.Fragment>
 		);
 	}
 }

@@ -181,7 +181,7 @@ export default class TableDemo extends Component {
 	}
 	render() {
 		return (
-			<>
+			<React.Fragment>
 				<Table
 					gridManagerName={gridManagerName}
 					ajaxData={response}
@@ -205,7 +205,7 @@ export default class TableDemo extends Component {
 						获取完整数据
 					</Button>
 				</div>
-			</>
+			</React.Fragment>
 		);
 	}
 }

@@ -18,7 +18,7 @@ const blank = '\u00A0';
 export default class InputNumberDemo extends React.Component {
 	render() {
 		return (
-			<>
+			<React.Fragment>
 				<div>
 					<InputNumber size="large" defaultValue={3} />
 					{blank}
@@ -27,7 +27,7 @@ export default class InputNumberDemo extends React.Component {
 					<InputNumber size="small" defaultValue={3} />
 					{blank}
 				</div>
-			</>
+			</React.Fragment>
 		);
 	}
 }

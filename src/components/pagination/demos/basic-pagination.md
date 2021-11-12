@@ -29,9 +29,9 @@ export default class PaginationDemo extends React.Component {
 
 	render() {
 		return (
-			<>
+			<React.Fragment>
 				<Pagination onChange={this.onChange} total={50} current={this.state.current} pageSize={this.state.pageSize} />
-			</>
+			</React.Fragment>
 		);
 	}
 }

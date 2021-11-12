@@ -18,7 +18,7 @@ const blank = '\u00A0';
 export default class ButtonDemo extends React.Component {
 	render() {
 		return (
-			<>
+			<React.Fragment>
 				<div style={{ marginBottom: 20 }}>
 					<Button.Group size="large" type="primary">
 						<Button>left</Button>
@@ -66,7 +66,7 @@ export default class ButtonDemo extends React.Component {
 						<Button>right</Button>
 					</Button.Group>
 				</div>
-			</>
+			</React.Fragment>
 		);
 	}
 }

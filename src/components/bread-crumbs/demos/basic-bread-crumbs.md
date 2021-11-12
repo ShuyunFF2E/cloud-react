@@ -51,7 +51,7 @@ export default class BreadCrumbsDemo extends React.Component {
         ];
 
 		return (
-			<>
+			<React.Fragment>
                 <div className="basic-action">
                     <Button type={getButtonType('large')} onClick={() => {onChangeSize('large')}}>large</Button>
                     <Button type={getButtonType('default')} onClick={() => {onChangeSize('default')}}>default</Button>
@@ -63,7 +63,7 @@ export default class BreadCrumbsDemo extends React.Component {
                 <div>
                     <BreadCrumbs list={list} size={size} onClick={onClickBreadCrumbs.bind(this)}/>
                 </div>
-            </>
+            </React.Fragment>
 		);
 	}
 }

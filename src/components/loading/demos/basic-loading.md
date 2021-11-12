@@ -27,12 +27,12 @@ export default class LoadingDemo extends React.Component {
 
 	render() {
 		return (
-			<>
+			<React.Fragment>
 				Loading state: <Toggle checked={this.state.loading} onChange={this.handleChange} />
 				<div className="item-base">
 					<Loading className="loadingClass" loading={this.state.loading} />
 				</div>
-			</>
+			</React.Fragment>
 		);
 	}
 }

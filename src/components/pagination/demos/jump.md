@@ -29,7 +29,7 @@ export default class PaginationDemo extends React.Component {
 
 	render() {
 		return (
-			<>
+			<React.Fragment>
 				<Pagination
 					onChange={this.onChange}
 					current={this.state.current}
@@ -39,7 +39,7 @@ export default class PaginationDemo extends React.Component {
 					showPageSizeOptions={true}
 					showQuickJumper={true}
 				/>
-			</>
+			</React.Fragment>
 		);
 	}
 }

@@ -18,7 +18,7 @@ const blank = '\u00A0';
 export default class ButtonDemo extends React.Component {
 	render() {
 		return (
-			<>
+			<React.Fragment>
 				<div>
 					<Button type="primary">primary</Button>
 					{blank}
@@ -28,7 +28,7 @@ export default class ButtonDemo extends React.Component {
 					{blank}
 					<Button type="link">link</Button>
 				</div>
-			</>
+			</React.Fragment>
 		);
 	}
 }
