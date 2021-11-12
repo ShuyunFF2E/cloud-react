@@ -5,8 +5,7 @@ src/
 scripts/
 loader/
 .vscode
-doc/
-config/
+docs/
 .temp/
 .rn_temp/
 .git/
@@ -19,6 +18,11 @@ deploy_versions/
 project.config
 yarn.lock
 tsconfig.json
+.umirc.ts
+.fatherrc.ts
+.github
+cloud-react-site/
+tests/
 
 
 .DS_Store

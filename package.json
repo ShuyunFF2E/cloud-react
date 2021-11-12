@@ -1,6 +1,6 @@
 {
   "name": "cloud-react",
-  "version": "0.1.4",
+  "version": "1.0.0-beta",
   "description": "数据赢家 react 组件",
   "scripts": {
     "gen:index": "node ./scripts/generate-index.js",
