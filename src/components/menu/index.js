@@ -115,8 +115,9 @@ export default class Menu extends PureComponent {
 		return React.Children.map(children, child => {
 			const {
 				key,
-				type: { name = '' } 
+				type: _type = {}
 			} = child;
+			const { name = '' } = _type
 
 			const opened = this.getOpenedStatus(key);
 			const selected = selectedKeys.includes(key);
