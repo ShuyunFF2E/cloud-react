@@ -23,7 +23,7 @@ const title2Style = {
 
 export default function StepDemo() {
 	return (
-		<>
+		<React.Fragment>
 			<h4 style={title1Style}>把大象装进冰箱分几步</h4>
 
 			<Step current={1} direction="inline">
@@ -40,7 +40,7 @@ export default function StepDemo() {
 				<Step.Item title="步骤三" content="把长颈鹿放进去" />
 				<Step.Item title="步骤四" content="把冰箱门关上" />
 			</Step>
-		</>
+		</React.Fragment>
 	);
 }
 ```

@@ -36,7 +36,7 @@ export default class PaginationDemo extends React.Component {
 
 	render() {
 		return (
-			<>
+			<React.Fragment>
 				<TablePagination
 					showRefresh={true}
 					current={this.state.current}
@@ -49,7 +49,7 @@ export default class PaginationDemo extends React.Component {
 					onChange={this.onChange}
 					checkedTotal={1}
 				/>
-			</>
+			</React.Fragment>
 		);
 	}
 }

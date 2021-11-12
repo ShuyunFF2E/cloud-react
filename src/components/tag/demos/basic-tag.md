@@ -16,12 +16,12 @@ import { Tag } from 'cloud-react';
 export default class TagDemo extends Component {
 	render() {
 		return (
-			<>
+			<React.Fragment>
 				<Tag>Tag Demo</Tag>
 				<Tag>
 					<a href="http://www.baidu.com">Link Tag</a>
 				</Tag>
-			</>
+			</React.Fragment>
 		);
 	}
 }

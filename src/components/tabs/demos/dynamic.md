@@ -60,7 +60,7 @@ export default class DynamicTabsDemo extends Component {
 		const { tabList, activeKey, count } = this.state;
 
 		return (
-			<>
+			<React.Fragment>
 				<Button onClick={this.handleAdd} type="primary">
 					添加tab
 				</Button>
@@ -72,7 +72,7 @@ export default class DynamicTabsDemo extends Component {
 						</Tabs.Panel>
 					))}
 				</Tabs>
-			</>
+			</React.Fragment>
 		);
 	}
 }

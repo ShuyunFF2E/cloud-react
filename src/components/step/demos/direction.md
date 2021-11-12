@@ -18,7 +18,7 @@ const title2Style = { marginTop: '50px' };
 
 export default function StepDemo() {
 	return (
-		<>
+		<React.Fragment>
 			<div className="step-demo-direction">
 				<div>
 					<h4 style={title1Style}>把大象装进冰箱分几步</h4>
@@ -64,7 +64,7 @@ export default function StepDemo() {
 					</Step>
 				</div>
 			</div>
-		</>
+		</React.Fragment>
 	);
 }
 ```

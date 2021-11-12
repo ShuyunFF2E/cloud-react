@@ -17,7 +17,7 @@ export default function RadioDemo() {
 	const style = { marginBottom: '10px' };
 
 	return (
-		<>
+		<React.Fragment>
 			<h2>horizontal</h2>
 			<Radio.Group defaultValue={1} horizontal>
 				<Radio value={1}>A</Radio>
@@ -36,7 +36,7 @@ export default function RadioDemo() {
 					CCCC
 				</Radio>
 			</Radio.Group>
-		</>
+		</React.Fragment>
 	);
 }
 ```

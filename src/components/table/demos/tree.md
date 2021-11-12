@@ -121,7 +121,7 @@ export default class TableDemo extends Component {
 			treeKey: 'children'
 		};
 		return (
-			<>
+			<React.Fragment>
 				<Table gridManagerName={gridManagerName} supportTreeData={true} treeConfig={treeConfig} ajaxData={resouse} columnData={columnData} />
 				<div className="table-action">
 					<Button
@@ -137,7 +137,7 @@ export default class TableDemo extends Component {
 						获取选中数据
 					</Button>
 				</div>
-			</>
+			</React.Fragment>
 		);
 	}
 }

@@ -21,7 +21,7 @@ export default class LayoutDemo extends Component {
 	render() {
 
 		return (
-			<>
+			<React.Fragment>
 				<h3>侧边栏在左边</h3>
 				<Layout>
 					<Header>Header</Header>
@@ -40,7 +40,7 @@ export default class LayoutDemo extends Component {
 					</Layout>
 					<Footer>Footer</Footer>
 				</Layout>
-			</>
+			</React.Fragment>
 		);
 	}
 }

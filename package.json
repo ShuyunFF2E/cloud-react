@@ -1,6 +1,6 @@
 {
   "name": "cloud-react",
-  "version": "0.1.4",
+  "version": "1.0.0-15",
   "description": "数据赢家 react 组件",
   "scripts": {
     "gen:index": "node ./scripts/generate-index.js",
@@ -8,7 +8,7 @@
     "start": "rimraf dist/* && father-build --dev && dumi dev",
     "site": "npm run gen:index && npm run build && dumi build",
     "docs:deploy": "gh-pages -d docs-dist",
-    "build": "rimraf dist/* && father-build",
+    "build": "rimraf dist/* && father-build && node ./scripts/pre-publish.js",
     "watch": "father-build --watch",
     "deploy": "npm run docs:build && npm run docs:deploy",
     "release": "npm run build && npm publish",
@@ -24,8 +24,6 @@
   },
   "dumiAssets": "assets.json",
   "main": "dist/cloud-react.js",
-  "module": "dist/index.esm.js",
-  "typings": "dist/index.d.ts",
   "source": "src/components/index.js",
   "gitHooks": {
     "pre-commit": "lint-staged"
@@ -53,13 +51,14 @@
     "prop-types": "^15.7.2",
     "react": "16.12.0",
     "react-dom": "16.12.0",
+    "rollup-plugin-copy": "^3.4.0",
     "rollup-plugin-eslint": "^7.0.0",
     "shuyun-utils": "0.0.3"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.15.0",
     "@babel/cli": "^7.14.8",
     "@babel/core": "^7.15.0",
+    "@babel/eslint-parser": "^7.15.0",
     "@babel/plugin-proposal-class-properties": "^7.14.5",
     "@babel/plugin-proposal-decorators": "^7.14.5",
     "@babel/plugin-proposal-export-namespace-from": "^7.14.5",
@@ -95,8 +94,8 @@
     "glob": "^7.1.7",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.0.6",
-    "jest-transform-css": "2.0.0",
     "jest-environment-jsdom": "^27.0.6",
+    "jest-transform-css": "2.0.0",
     "lint-staged": "^10.0.7",
     "markdown-it": "^12.2.0",
     "postcss-font-base64": "^1.0.5",

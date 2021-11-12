@@ -29,7 +29,7 @@ export default class PaginationDemo extends React.Component {
 
 	render() {
 		return (
-			<>
+			<React.Fragment>
 				<TablePagination
 					total={500}
 					showTotal={true}
@@ -39,7 +39,7 @@ export default class PaginationDemo extends React.Component {
 					pageSize={this.state.pageSize}
 					onChange={this.onChange}
 				/>
-			</>
+			</React.Fragment>
 		);
 	}
 }

@@ -52,7 +52,7 @@ export default class FormHorizontalDemo extends React.Component {
 		const { emailCheckable } = this.state;
 
 		return (
-			<>
+			<React.Fragment>
 				<Form layout="horizontal" labelCol={{ span: 6 }} field={this.field}>
 					<Form.Item label="是否开启邮箱校验">
 						<Radio.Group value={emailCheckable} onChange={this.onChange}>
@@ -179,7 +179,7 @@ export default class FormHorizontalDemo extends React.Component {
 						<Button onClick={this.getValues.bind(this)}>获取所有值</Button>
 					</Form.Item>
 				</Form>
-			</>
+			</React.Fragment>
 		);
 	}
 }

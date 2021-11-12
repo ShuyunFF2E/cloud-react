@@ -31,7 +31,7 @@ export default class ButtonDemo extends React.Component {
 		const { size } = this.state;
 
 		return (
-			<>
+			<React.Fragment>
 				<div style={{ marginBottom: 10 }}>
 					<Button onClick={this.onChangeSize.bind(this, 'large')}>large</Button>
 					{blank}
@@ -61,7 +61,7 @@ export default class ButtonDemo extends React.Component {
 						link
 					</Button>
 				</div>
-			</>
+			</React.Fragment>
 		);
 	}
 }

@@ -18,7 +18,7 @@ const blank = '\u00A0';
 export default class ButtonDemo extends React.Component {
 	render() {
 		return (
-			<>
+			<React.Fragment>
 				<div>
 					<Button type="primary" disabled>
 						primary
@@ -36,7 +36,7 @@ export default class ButtonDemo extends React.Component {
 						link
 					</Button>
 				</div>
-			</>
+			</React.Fragment>
 		);
 	}
 }
