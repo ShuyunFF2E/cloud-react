@@ -115,11 +115,8 @@ export default class Menu extends PureComponent {
 		return React.Children.map(children, child => {
 			const {
 				key,
-				type: _type = {},
-				props = {}
+				type: { name }
 			} = child;
-			const { name = '' } = _type
-			const { _children = {} } = props
 
 			const opened = this.getOpenedStatus(key);
 			const selected = selectedKeys.includes(key);
@@ -136,7 +133,7 @@ export default class Menu extends PureComponent {
 				indent,
 				internalKey: key,
 				path: newPath,
-				children: hasSubMenu ? this.renderNodeByChildren(child.props.children, newPath) : _children
+				children: hasSubMenu ? this.renderNodeByChildren(child.props.children, newPath) : child.props.children
 			});
 		});
 	}
