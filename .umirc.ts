@@ -24,11 +24,19 @@ export default defineConfig({
       path: '/cloud-react',
     },
     {
-      title: '工具库',
+      title: '数云Echarts图表库',
       // 可通过如下形式嵌套二级导航菜单，目前暂不支持更多层级嵌套：
-      children: [
-        { title: 'shuyun-utils', path: 'https://github.com/ShuyunFF2E/shuyun-utils' },
-      ],
+      path: 'https://qa-charts.shuyun.com/'
+    },
+    {
+      title: '数云Taro千牛组件库',
+      // 可通过如下形式嵌套二级导航菜单，目前暂不支持更多层级嵌套：
+      path: 'https://ui.shuyun.com/'
+    },
+    {
+      title: 'utils工具库',
+      // 可通过如下形式嵌套二级导航菜单，目前暂不支持更多层级嵌套：
+      path: 'https://github.com/ShuyunFF2E/shuyun-utils'
     },
   ],
   alias: {
