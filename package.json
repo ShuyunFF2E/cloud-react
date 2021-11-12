@@ -8,7 +8,7 @@
     "start": "rimraf dist/* && father-build --dev && dumi dev",
     "site": "npm run gen:index && npm run build && dumi build",
     "docs:deploy": "gh-pages -d docs-dist",
-    "build": "rimraf dist/* && father-build && node ./scripts/woff-to-base64.js",
+    "build": "rimraf dist/* && father-build && node ./scripts/after-build.js",
     "publish": "npm publish ./dist",
     "watch": "father-build --watch",
     "deploy": "npm run docs:build && npm run docs:deploy",
