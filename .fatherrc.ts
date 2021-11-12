@@ -44,11 +44,11 @@ export default {
     //     //future options will be handled here
     //   })]
     // }),
-    // copy({
-    //   targets: [
-    //     { src: 'src/components/icon/fonts/iconfont.woff', dest: 'dist/font' },
-    //   ]
-    // }),
+    copy({
+      targets: [
+        { src: 'package.json', dest: 'dist' },
+      ]
+    }),
     alias({
       entries: [
         {
