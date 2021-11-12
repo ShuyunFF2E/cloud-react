@@ -24,7 +24,7 @@
     "cli-version": "node ./scripts/generate-version.js"
   },
   "dumiAssets": "assets.json",
-  "main": "cloud-react.js",
+  "main": "dist/cloud-react.js",
   "source": "src/components/index.js",
   "gitHooks": {
     "pre-commit": "lint-staged"
