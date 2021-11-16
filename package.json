@@ -1,6 +1,6 @@
 {
   "name": "cloud-react",
-  "version": "1.0.0-5",
+  "version": "1.0.0-11",
   "description": "数据赢家 react 组件",
   "scripts": {
     "gen:index": "node ./scripts/generate-index.js",
@@ -8,7 +8,7 @@
     "start": "rimraf dist/* && father-build --dev && dumi dev",
     "site": "npm run gen:index && npm run build && dumi build",
     "docs:deploy": "gh-pages -d docs-dist",
-    "build": "rimraf dist/* && father-build",
+    "build": "rimraf dist/* && father-build && node ./scripts/pre-publish.js",
     "watch": "father-build --watch",
     "deploy": "npm run docs:build && npm run docs:deploy",
     "release": "npm run build && npm publish",
