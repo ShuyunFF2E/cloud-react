@@ -6,9 +6,9 @@ const fs = require('fs');
 function start() {
     const distCSSFilePath = path.resolve('dist/cloud-react.css')
     const distPackPath = path.resolve('dist/package.json')
-    const woffFile = fs.readFileSync(path.resolve('src/components/icon/fonts/iconfont.woff'), 'utf-8')
-    const base64 = Buffer.from(woffFile).toString('base64')
-    const _cssFile = fs.readFileSync(distCSSFilePath, 'utf-8').replace('./fonts/iconfont.woff', `data:font/woff;base64,${base64}`)
+    const woffFile = fs.readFileSync(path.resolve('src/components/icon/fonts/iconfont.woff'))
+    const base64 = Buffer.from(woffFile, 'binary').toString('base64')
+    const _cssFile = fs.readFileSync(distCSSFilePath, 'utf-8').replace('url(\'./fonts/iconfont.woff\')', `url(data:font/woff;base64,${base64})`)
     fs.writeFileSync(distCSSFilePath, _cssFile, 'utf-8')
     fs.writeFileSync(distPackPath, fs.readFileSync(distPackPath, 'utf-8').replace('dist/cloud-react.js', 'cloud-react.js'), 'utf-8')
     fs.mkdirSync(path.resolve('dist/dist'))
