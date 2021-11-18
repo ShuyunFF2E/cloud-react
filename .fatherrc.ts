@@ -16,6 +16,7 @@ export default {
   //   minify: !argv.dev,
   // },
   umd: {
+    name: 'cloudReact',
     file: 'cloud-react',
     minFile:!argv.dev,
   },
