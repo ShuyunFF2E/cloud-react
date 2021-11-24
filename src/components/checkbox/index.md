@@ -19,6 +19,8 @@ subtitle: 多选按钮
 | disabled       | 是否禁用                | boolean           | false  |
 | indeterminate  | 设置 indeterminate 状态 | boolean           | false  |
 | value          | 当前 checkbox value     | string            | --     |
+| checkboxStyle  | 复选框样式               | object            | {}     |
+| textStyle      | 复选框后面的内容样式      | object            | {}     |
 | onChange       | 变化时回调函数          | Function(e:Event) | --     |
 
 #### Checkbox.Group
