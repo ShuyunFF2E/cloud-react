@@ -1,7 +1,12 @@
 ---
-category: Components
-title: Form
-subtitle: 表单
+title: Form 表单
+nav:
+  title: Form 表单
+  path: /cloud-react
+group:
+  order: 3
+  title: 数据
+  path: /data
 ---
 
 ### 何时使用
@@ -42,7 +47,7 @@ subtitle: 表单
 
 当你的表单校验场景比较复杂或者将`Form.Item`内容抽离出去的时候就需要使用到`Form.Nexus`组件跟`Form`建立关系了，因为程序无法窥视到自定义组件的内容，添加了该组件并不会在 HTML 结构上破坏你预想的结构
 
-```jsx
+<!-- ```jsx
 import { Form, Field, Input } from 'cloud-react';
 
 // 简单场景
@@ -61,18 +66,19 @@ function FormA() {
 		</Form>
 	);
 }
-
 // 复杂场景，需要使用Nexus组件
 function FormB() {
-	B;
 	const field = Field.useField();
 
 	return (
-		<Form field={field}>
-			<Form.Item>
-				<UseNexus field={field} />
-			</Form.Item>
-		</Form>
+		<>
+			<Form field={field}>
+				<Form.Item>
+					<UseNexus field={field} />
+				</Form.Item>
+			</Form>
+		</>
+		
 	);
 }
 
@@ -93,4 +99,14 @@ function UseNexus() {
 		</Form.Nexus>
 	);
 }
-```
+``` -->
+
+ ### 代码演示 
+
+<embed src="@components/form/demos/basic-forms.md" /> 
+
+<embed src="@components/form/demos/basic-usage.md" /> 
+
+<embed src="@components/form/demos/horizontal.md" /> 
+
+<embed src="@components/form/demos/inline.md" /> 

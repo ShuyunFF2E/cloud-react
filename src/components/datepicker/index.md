@@ -1,7 +1,12 @@
 ---
-category: Components
-title: DatePicker
-subtitle: 日期选择框
+title: DatePicker 日期选择框
+nav:
+  title: DatePicker 日期选择框
+  path: /cloud-react
+group:
+  order: 3
+  title: 数据
+  path: /data
 ---
 
 ### 何时使用
@@ -100,3 +105,21 @@ subtitle: 日期选择框
 | format       | 格式化输出格式                    | string                  | `默认 MM/DD` |
 | onChange     | 选择月日改变                      | Function(value: string) | -            |
 | canEdit      | 是否可编辑                   | boolean                 | `false`           |
+
+ ### 代码演示 
+
+<embed src="@components/datepicker/demos/date-picker.md" /> 
+
+<embed src="@components/datepicker/demos/disabled.md" /> 
+
+<embed src="@components/datepicker/demos/modal.md" /> 
+
+<embed src="@components/datepicker/demos/month-day-picker.md" /> 
+
+<embed src="@components/datepicker/demos/range-date-picker.md" /> 
+
+<embed src="@components/datepicker/demos/time-picker.md" /> 
+
+<embed src="@components/datepicker/demos/year-month-picker.md" /> 
+
+<embed src="@components/datepicker/demos/year-picker.md" /> 

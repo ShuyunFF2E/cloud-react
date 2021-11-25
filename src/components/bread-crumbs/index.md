@@ -1,7 +1,12 @@
 ---
-category: Components
-title: BreadCrumbs
-subtitle: 面包屑
+title: BreadCrumbs 面包屑
+nav:
+  title: BreadCrumbs 面包屑
+  path: /cloud-react
+group:
+  order: 4
+  title: 导航
+  path: /nav
 ---
 
 ### 何时使用
@@ -22,3 +27,7 @@ subtitle: 面包屑
 | ----------- | -------------------- | ---------------- | ---------- |
 | key | 唯一值,可用路由充当key值 | string | - |
 | title | 显示文本 | string | - |
+
+ ### 代码演示 
+
+<embed src="@components/bread-crumbs/demos/basic-bread-crumbs.md" /> 

@@ -1,7 +1,12 @@
 ---
-category: Components
-title: InputTag
-subtitle: 多文本输入组件
+title: InputTag 多文本输入组件
+nav:
+  title: InputTag 多文本输入组件
+  path: /cloud-react
+group:
+  order: 3
+  title: 数据
+  path: /data
 ---
 
 ### 何时使用
@@ -19,3 +24,13 @@ subtitle: 多文本输入组件
 | isConfigSeparator | 是否需要配置分隔符 | boolean | false   |
 | style | 样式 | object | {}   |
 | onChange | 当数据发生变化时 | function(value) | noop   |
+
+ ### 代码演示 
+
+<embed src="@components/input-tag/demos/basic-input-tag.md" /> 
+
+<embed src="@components/input-tag/demos/disabled.md" /> 
+
+<embed src="@components/input-tag/demos/separator.md" /> 
+
+<embed src="@components/input-tag/demos/style.md" /> 

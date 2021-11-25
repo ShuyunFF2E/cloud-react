@@ -1,7 +1,12 @@
 ---
-category: Components
-title: Input
-subtitle: 输入框
+title: Input 输入框
+nav:
+  title: Input 输入框
+  path: /cloud-react
+group:
+  order: 3
+  title: 数据
+  path: /data
 ---
 
 ### 何时使用
@@ -49,3 +54,21 @@ subtitle: 输入框
 | maxLength    | 原生属性，最大输入长度                                      | number          | -          |
 
 `Input.Textarea` 其他属性保持跟原生一致
+
+ ### 代码演示 
+
+<embed src="@components/input/demos/basic-input.md" /> 
+
+<embed src="@components/input/demos/clear.md" /> 
+
+<embed src="@components/input/demos/counter.md" /> 
+
+<embed src="@components/input/demos/disabled.md" /> 
+
+<embed src="@components/input/demos/mix.md" /> 
+
+<embed src="@components/input/demos/onChange.md" /> 
+
+<embed src="@components/input/demos/size.md" /> 
+
+<embed src="@components/input/demos/textarea.md" /> 

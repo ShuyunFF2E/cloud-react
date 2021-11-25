@@ -1,7 +1,12 @@
 ---
-category: Components
-title: Button
-subtitle: 按钮
+title: Button 按钮
+nav:
+  title: Button 按钮
+  path: /cloud-react
+group:
+  order: 1
+  title: 通用
+  path: /common
 ---
 
 ### 何时使用
@@ -24,3 +29,17 @@ subtitle: 按钮
 ### Button.Group
 
 跟 `Button` 组件的一致，如果在 `Button.Group` 上设置了，则会覆盖掉子元素上设置的参数
+
+ ### 代码演示 
+
+<embed src="@components/button/demos/basic-button.md" /> 
+
+<embed src="@components/button/demos/block.md" /> 
+
+<embed src="@components/button/demos/disabled.md" /> 
+
+<embed src="@components/button/demos/group.md" /> 
+
+<embed src="@components/button/demos/loading.md" /> 
+
+<embed src="@components/button/demos/size.md" /> 
