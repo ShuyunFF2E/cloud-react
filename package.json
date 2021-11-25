@@ -5,11 +5,10 @@
   "scripts": {
     "gen:index": "node ./scripts/generate-index.js",
     "gen:doc": "node ./scripts/generate-doc.js",
-    "start": "rimraf dist/* && father-build --dev && dumi dev",
+    "start": "npm run gen:index && dumi dev",
     "site": "npm run gen:index && npm run build && dumi build",
-    "docs:deploy": "gh-pages -d docs-dist",
     "build": "rimraf dist/* && father-build && node ./scripts/pre-publish.js",
-    "watch": "father-build --watch",
+    "watch": "rimraf dist/* && father-build --watch",
     "deploy": "npm run docs:build && npm run docs:deploy",
     "release": "npm run build && npm publish",
     "prettier": "prettier --write \"**/*.{js,jsx,tsx,ts,less,md,json}\"",
