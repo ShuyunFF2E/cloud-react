@@ -30,7 +30,7 @@ export default class ToolTipDemo extends React.Component {
 					<Button type="normal">鼠标移入显示 Tooltip</Button>
 				</Tooltip>
 				{blank}
-				<Tooltip content={clickContent} trigger="click">
+				<Tooltip content={clickContent} trigger="click" theme="light">
 					<Button type="normal">点击显示 Tooltip</Button>
 				</Tooltip>
 			</div>
