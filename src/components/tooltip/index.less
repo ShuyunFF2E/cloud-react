@@ -1,15 +1,21 @@
 @import '../style/index';
 
 @tooltip-prefix-cls: ~'@{prefix}-tooltip';
-@arrow-size: 3px;
+@arrow-size: 6px;
+@left-space-size: 10px;
+@top-space-size: 4px;
+@offset-size: -2px;
+@light-offset-size: -3px;
 @transparent-height: 7px;
 @border: @arrow-size solid currentColor;
 
-.left-style(@top) {
+.left-style(@top, @transform) {
 	&:after {
 		top: @top;
-		right: -6px;
-		border-left: @border;
+		right: @offset-size;
+		border-bottom: none;
+		border-left: none;
+		transform: @transform;
 	}
 	&:before {
 		right: 0;
@@ -17,12 +23,19 @@
 		width: @transparent-height;
 		height: 100%;
 	}
+	&.is-light {
+		&:after {
+			right: @light-offset-size;
+		}
+	}
 }
-.right-style(@top) {
+.right-style(@top, @transform) {
 	&:after {
 		top: @top;
-		left: -6px;
-		border-right: @border;
+		left: @offset-size;
+		border-top: none;
+		border-right: none;
+		transform: @transform;
 	}
 	&:before {
 		left: 0;
@@ -30,27 +43,46 @@
 		width: @transparent-height;
 		height: 100%;
 	}
+	&.is-light {
+		&:after {
+			left: @light-offset-size;
+		}
+	}
 }
-.top-style(@left) {
+.top-style(@left, @transform) {
 	&:after {
 		left: @left;
-		bottom: -6px;
-		border-top: @border;
+		bottom: @offset-size;
+		border-top: none;
+		border-left: none;
+		transform: @transform;
 	}
 	&:before {
 		bottom: 0;
 		transform: translate(-8px, 100%);
 	}
+	&.is-light {
+		&:after {
+			bottom: @light-offset-size;
+		}
+	}
 }
-.bottom-style(@left) {
+.bottom-style(@left, @transform) {
 	&:after {
 		left: @left;
-		top: -6px;
-		border-bottom: @border;
+		top: @offset-size;
+		border-bottom: none;
+		border-right: none;
+		transform: @transform;
 	}
 	&:before {
 		top: 0;
 		transform: translate(-8px, -100%);
+	}
+	&.is-light {
+		&:after {
+			top: @light-offset-size;
+		}
 	}
 }
 
@@ -84,9 +116,9 @@
 	&:after {
 		content: '';
 		position: absolute;
-		width: 0;
-		height: 0;
-		border: @arrow-size solid transparent;
+		width: 4px;
+		height: 4px;
+		border: 1px solid currentColor;
 	}
 
 	&.is-dark {
@@ -94,6 +126,7 @@
 		color: @color-gray1;
 		&:after {
 			color: @color-gray2;
+			background-color: @color-gray2;
 		}
 	}
 
@@ -105,6 +138,7 @@
 
 		&:after {
 			color: @light-color;
+			background-color: @color-white;
 		}
 	}
 
@@ -113,54 +147,55 @@
 		color: @color-gray1;
 		&:after {
 			color: @color-red1;
+			background-color: @color-red1;
 		}
 	}
 
 	&.top-left {
-		.top-style(@arrow-size);
+		.top-style(@left-space-size - @arrow-size, rotate(45deg));
 	}
 
 	&.top-center {
-		.top-style(calc(50% - @arrow-size));
+		.top-style(50%, translate(-50%) rotate(45deg));
 	}
 
 	&.top-right {
-		.top-style(calc(100% - 10px));
+		.top-style(calc(100% - @left-space-size), rotate(45deg));
 	}
 
 	&.right-top {
-		.right-style(@arrow-size);
+		.right-style(@top-space-size, rotate(45deg));
 	}
 
 	&.right-center {
-		.right-style(calc(50% - @arrow-size));
+		.right-style(50%, translate(0, -50%) rotate(45deg));
 	}
 
 	&.right-bottom {
-		.right-style(calc(100% - 10px));
+		.right-style(calc(100% - @top-space-size - @arrow-size), rotate(45deg));
 	}
 
 	&.left-top {
-		.left-style(@arrow-size);
+		.left-style(@top-space-size, rotate(45deg));
 	}
 
 	&.left-center {
-		.left-style(calc(50% - @arrow-size));
+		.left-style(50%, translate(0, -50%) rotate(45deg));
 	}
 
 	&.left-bottom {
-		.left-style(calc(100% - 10px));
+		.left-style(calc(100% - @top-space-size - @arrow-size), rotate(45deg));
 	}
 
 	&.bottom-left {
-		.bottom-style(@arrow-size);
+		.bottom-style(@left-space-size - @arrow-size, rotate(45deg));
 	}
 
 	&.bottom-center {
-		.bottom-style(calc(50% - @arrow-size));
+		.bottom-style(50%, translate(-50%) rotate(45deg));
 	}
 
 	&.bottom-right {
-		.bottom-style(calc(100% - 10px));
+		.bottom-style(calc(100% - @left-space-size), rotate(45deg));
 	}
 }
