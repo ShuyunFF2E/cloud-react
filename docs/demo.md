@@ -1,7 +1,12 @@
 ---
-category: 指南
-title: 组件 demo 文档示例
-order: 3
+title: demo 示例
+nav:
+  title: 指南
+  path: /guide
+group:
+  title: demo 示例
+  path: /demo
+  order: 3
 ---
 
 ### demo 文件目录
@@ -24,14 +29,16 @@ title: 基础用法
 desc: 当您的使用场景比较简单的时候，看看基础用法是否就能满足您的需求了，点击下面"代码"按钮查看代码例子
 ---
 
-```javascript
-import React form 'react';
+
+```jsx
+
 import { Button } from 'cloud-react';
+import React from 'react';
 
 export default class BasicDemo extends React.Component {
 	render() {
 		return (
-			<Button className="btn">普通按钮<Button/>
+			<Button className="btn">普通按钮</Button>
 		)
 	}
 }
@@ -55,4 +62,4 @@ OR
 ```
 ````
 
-输出：该文件的内容会自动被解析和动态引入到 `组件API文档` 的代码演示容器中 `<div id="code-demo">你在这</div>`
+输出：该文件的内容会自动被解析和动态引入到 `组件API文档` 的代码演示容器中 `<div id="code-demo">你在这</div>` -->

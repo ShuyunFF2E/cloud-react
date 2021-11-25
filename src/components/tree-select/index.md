@@ -1,7 +1,12 @@
 ---
-category: Components
-title: TreeSelect
-subtitle: 树下拉
+title: TreeSelect 树下拉
+nav:
+  title: TreeSelect 树下拉
+  path: /cloud-react
+group:
+  order: 3
+  title: 数据
+  path: /data
 ---
 
 ### 何时使用
@@ -56,3 +61,9 @@ subtitle: 树下拉
 
 
 树的更多属性配置可参考 **Tree** 组件
+
+ ### 代码演示 
+
+<embed src="@components/tree-select/demos/basic-tree-select.md" /> 
+
+<embed src="@components/tree-select/demos/multiple.md" /> 

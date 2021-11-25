@@ -1,7 +1,12 @@
 ---
-category: Components
-title: Loading
-subtitle: 加载
+title: Loading 加载
+nav:
+  title: Loading 加载
+  path: /cloud-react
+group:
+  order: 5
+  title: 反馈
+  path: /action
 ---
 
 ### 何时使用
@@ -18,3 +23,17 @@ subtitle: 加载
 | tip       | 自定义描述文案                                  | string        | -       |
 | delay     | 延迟显示加载效果的时间（防止闪烁）              | number (毫秒) | -       |
 | className | 外部控制样式                                    | string        | -       |
+
+ ### 代码演示 
+
+<embed src="@components/loading/demos/basic-loading.md" /> 
+
+<embed src="@components/loading/demos/delay.md" /> 
+
+<embed src="@components/loading/demos/embed.md" /> 
+
+<embed src="@components/loading/demos/layer.md" /> 
+
+<embed src="@components/loading/demos/size.md" /> 
+
+<embed src="@components/loading/demos/tip.md" /> 

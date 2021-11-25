@@ -4,6 +4,7 @@ import classnames from 'classnames';
 import { prefixCls } from '@utils';
 import Icon from '../icon';
 import './index.less';
+import { noop } from '@utils';
 
 const classSelector = `${prefixCls}-breadcrumbs`;
 const SHOW_MORE_NUM = 5;
@@ -63,7 +64,7 @@ BreadCrumbs.propTypes = {
 BreadCrumbs.defaultProps = {
 	split: '/',
 	list: [],
-	onClick: () => {},
+	onClick: noop,
 	size: 'default',
 	styles: {}
 };

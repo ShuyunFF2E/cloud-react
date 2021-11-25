@@ -1,125 +1,55 @@
 import React from 'react';
 import { render, mount } from 'enzyme';
 import { prefixCls } from '@utils';
-import mountTest from '../../../../tests/shared/mountTest';
-import MonthDayPicker from '../month-day/index';
-import { currentTime } from '../constant';
+import Datepicker  from '../index';
 
 const classSelector = `${prefixCls}-datepicker`;
-const { currentMonth, currentDate, month } = currentTime;
+describe('MonthDayPicker', () => {
 
-describe('YearPicker', () => {
-	mountTest(MonthDayPicker);
+  it('常规渲染', () => {
+    const wrapper = mount(<Datepicker.MonthDayPicker />);
+    expect(wrapper.find(`.${classSelector}-popup`)).toHaveLength(0);
+    wrapper.find(`.${classSelector}-inp-block`).at(0).simulate('click');
+    setTimeout(() => {
+      expect(wrapper.find(`.${classSelector}-popup`)).toHaveLength(1);
+      wrapper.unmount();
+    });
+  });
 
-	it('renders correctly', () => {
-		const wrapper = render(<MonthDayPicker />);
-		expect(wrapper).toMatchSnapshot();
-	});
+  it('禁用模式', () => {
+    const wrapper = mount(<Datepicker.MonthDayPicker disabled/>);
+    expect(wrapper.find('input[disabled].cloud-input')).toHaveLength(1);
 
-	it('placeholder renders correctly', () => {
-		const wrapper = render(<MonthDayPicker placeholder="年月选择器" />);
-		expect(wrapper).toMatchSnapshot();
-	});
+    expect(wrapper.find(`.${classSelector}-popup`)).toHaveLength(0);
+    wrapper.find(`.${classSelector}-inp-block`).at(0).simulate('click');
+    expect(wrapper.find(`.${classSelector}-popup`)).toHaveLength(0);
+    wrapper.unmount();
+  });
 
-	it('should can not open picker when disabled', () => {
-		const wrapper = mount(<MonthDayPicker disabled isAppendToBody />);
-		wrapper
-			.find(`.${classSelector}-inp-block`)
-			.at(0)
-			.simulate('click');
-		expect(wrapper.find(`.${classSelector}-popup`)).toHaveLength(0);
-	});
+  it('输入框编辑模式', () => {
+    const wrapper = render(<Datepicker.MonthDayPicker/>);
+    const wrapperEdit = render(<Datepicker.MonthDayPicker canEdit/>);
 
-	it('defaultValue work correctly', () => {
-		const wrapper = mount(<MonthDayPicker defaultValue="06/25" isAppendToBody />);
-		expect(wrapper.find('Picker').state().currentValue).toEqual('06/25');
+    expect(wrapper.find('input[readonly].cloud-input')).toHaveLength(1);
+    expect(wrapperEdit.find('input[readonly].cloud-input')).toHaveLength(0);
+  });
 
-		wrapper
-			.find(`.${classSelector}-inp-block`)
-			.at(0)
-			.simulate('click');
-		expect(wrapper.find('Select').state().value).toEqual(6);
-		expect(wrapper.find('.grid-check').text()).toEqual('25');
-	});
 
-	it('value work correctly', () => {
-		const wrapper = mount(<MonthDayPicker value="06/24" isAppendToBody open />);
-		expect(wrapper.find('Picker').state().currentValue).toEqual('06/24');
+  it('className', () => {
+    // 不存在className
+    const wrapper = mount(<Datepicker.MonthDayPicker/>);
+    wrapper.find(`.${classSelector}-inp-block`).at(0).simulate('click');
+    setTimeout(() => {
+      expect(wrapper.find('.cloud-datepicker-popup').hasClass('baukh')).toBe(false);
+      wrapper.unmount();
+    });
 
-		wrapper.setProps({
-			value: '07/29'
-		});
-		expect(wrapper.find('Picker').state().currentValue).toEqual('07/29');
-	});
-
-	it('onChange work correctly', () => {
-		const onChange = jest.fn();
-		const wrapper = mount(<MonthDayPicker open isAppendToBody onChange={onChange} />);
-		wrapper
-			.find('.grid-day')
-			.filter('.grid-now')
-			.childAt(0)
-			.simulate('click');
-		wrapper
-			.find('.cloud-button')
-			.at(1)
-			.simulate('click');
-		expect(onChange).toHaveBeenCalledWith(`${currentMonth}/${currentDate}`);
-	});
-
-	it('today button work correctly', () => {
-		const onChange = jest.fn();
-		const wrapper = mount(<MonthDayPicker open isAppendToBody onChange={onChange} />);
-		wrapper
-			.find('.cloud-button')
-			.at(0)
-			.simulate('click');
-		expect(onChange).toHaveBeenCalledWith(`${currentMonth}/${currentDate}`);
-	});
-
-	it('format display value work correctly', () => {
-		const onChange = jest.fn();
-		const wrapper = mount(<MonthDayPicker isAppendToBody open format="MM-DD" onChange={onChange} />);
-		wrapper
-			.find('.grid-day')
-			.filter('.grid-now')
-			.childAt(0)
-			.simulate('click');
-		wrapper
-			.find('.cloud-button')
-			.at(1)
-			.simulate('click');
-		expect(onChange).toHaveBeenCalledWith(`${currentMonth}-${currentDate}`);
-	});
-
-	it('min and max work correctly', () => {
-		const min = `${currentMonth}/02`;
-		const max = `${currentMonth}/20`;
-		const wrapper = mount(<MonthDayPicker min={min} max={max} isAppendToBody open />);
-		wrapper.find('.grid-day').forEach(node => {
-			if (!node.hasClass('not-included')) {
-				const day = node.text();
-				if (day < 2 || day > 20) {
-					expect(node.hasClass('day-disabled')).toBeTruthy();
-				}
-			}
-		});
-	});
-
-	it('arrow left and right change region', () => {
-		const max = month < 12 ? month + 1 : month;
-		const maxMonth = max < 10 ? `0${max}` : max;
-		const wrapper = mount(<MonthDayPicker isAppendToBody open min={`${currentMonth}/10`} max={`${maxMonth}/10`} />);
-		wrapper
-			.find('.arrow-right')
-			.at(0)
-			.simulate('click');
-		expect(wrapper.find('Select').state().value).toEqual(max);
-
-		wrapper
-			.find('.arrow-left')
-			.at(0)
-			.simulate('click');
-		expect(wrapper.find('Select').state().value).toEqual(month);
-	});
+    // 存在className
+    const wrapper2 = mount(<Datepicker.MonthDayPicker className="baukh"/>);
+    wrapper2.find(`.${classSelector}-inp-block`).at(0).simulate('click');
+    setTimeout(() => {
+      expect(wrapper2.find('.cloud-datepicker-popup').hasClass('baukh')).toBe(true);
+      wrapper2.unmount();
+    });
+  });
 });

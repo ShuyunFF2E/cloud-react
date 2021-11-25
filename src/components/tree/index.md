@@ -1,7 +1,12 @@
 ---
-category: Components
-title: Tree
-subtitle: 树
+title: Tree 树
+nav:
+  title: Tree 树
+  path: /cloud-react
+group:
+  order: 3
+  title: 数据
+  path: /data
 ---
 
 ### 何时使用
@@ -130,3 +135,29 @@ subtitle: 树
 	}
 ]
 ```
+
+ ### 代码演示 
+
+<embed src="@components/tree/demos/basicSelector.md" /> 
+
+<embed src="@components/tree/demos/changeSelectedValue.md" /> 
+
+<embed src="@components/tree/demos/defineIcon.md" /> 
+
+<embed src="@components/tree/demos/defineStyle.md" /> 
+
+<embed src="@components/tree/demos/drag.md" /> 
+
+<embed src="@components/tree/demos/immediatelySearch.md" /> 
+
+<embed src="@components/tree/demos/menuDialog.md" /> 
+
+<embed src="@components/tree/demos/multipleSelect.md" /> 
+
+<embed src="@components/tree/demos/multiple_menu.md" /> 
+
+<embed src="@components/tree/demos/radio_search_menu.md" /> 
+
+<embed src="@components/tree/demos/selectedValue.md" /> 
+
+<embed src="@components/tree/demos/showIcon.md" /> 

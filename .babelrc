@@ -1,56 +1,57 @@
 {
-  "presets": [
-    [
-      "@babel/preset-env",
-      {
-        "targets": {
-          "chrome": "56",
-          "firefox": "59"
-        },
-        "useBuiltIns": "entry",
-        "corejs": 3
-      }
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "chrome": "56",
+            "firefox": "59"
+          },
+          "useBuiltIns": "entry",
+          "corejs": 3
+        }
+      ],
+      "@babel/preset-react"
     ],
-    "@babel/preset-react"
-  ],
-  "plugins": [
-    [
-      "@babel/plugin-proposal-decorators",
-      {
-        "legacy": true
-      }
-    ],
-    "@babel/plugin-proposal-function-sent",
-    "@babel/plugin-proposal-export-namespace-from",
-    "@babel/plugin-proposal-numeric-separator",
-    "@babel/plugin-proposal-throw-expressions",
-    "@babel/plugin-syntax-dynamic-import",
-    [
-      "@babel/plugin-proposal-class-properties",
-      {
-        "loose": true
-      }
-    ],
-    [
-      "@babel/plugin-transform-runtime",
-      {
-        "helpers": true,
-        "regenerator": true
-      }
-    ]
-  ],
-  "env": {
-    "production": {
-      "plugins":  [
-        [
-          "transform-react-remove-prop-types",
-          {
-            "mode": "remove",
-            "removeImport": true,
-            "ignoreFilenames": ["node_modules"]
-          }
-        ]
+    "plugins": [
+      [
+        "@babel/plugin-proposal-decorators",
+        {
+          "legacy": true
+        }
+      ],
+      "@babel/plugin-proposal-function-sent",
+      "@babel/plugin-proposal-export-namespace-from",
+      "@babel/plugin-proposal-numeric-separator",
+      "@babel/plugin-proposal-throw-expressions",
+      "@babel/plugin-syntax-dynamic-import",
+      [
+        "@babel/plugin-proposal-class-properties",
+        {
+          "loose": true
+        }
+      ],
+      [
+        "@babel/plugin-transform-runtime",
+        {
+          "helpers": true,
+          "regenerator": true
+        }
       ]
+    ],
+    "env": {
+      "production": {
+        "plugins":  [
+          [
+            "transform-react-remove-prop-types",
+            {
+              "mode": "remove",
+              "removeImport": true,
+              "ignoreFilenames": ["node_modules"]
+            }
+          ]
+        ]
+      }
     }
   }
-}
+  
