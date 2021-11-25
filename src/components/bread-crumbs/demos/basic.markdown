@@ -6,13 +6,13 @@ desc: 可切换大小的面包屑
 
 ```javascript
 import React from 'react';
-import { BreadCrumbs, Button } from 'cloud-react';
+import { BreadCrumbs, Button, Icon } from 'cloud-react';
 
 export default class BreadCrumbsDemo extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            size: 'default'
+            size: 'small'
         };
     }
 
@@ -33,11 +33,26 @@ export default class BreadCrumbsDemo extends React.Component {
         const list = [
             {
                 key: 'home',
-                title: '首页'
+                title: '首页',
+                icon: 'search-file'
             },
             {
-                key: 'bread-crumbs',
-                title: '面包屑'
+                key: 'first',
+                title: '一级页面',
+                icon: 'search-file'
+            },
+            {
+                key: 'second',
+                title: '二级页面'
+            },
+            {
+                key: 'third',
+                title: '三级页面'
+            },
+            {
+                key: 'forth',
+                title: '四级页面',
+                iconTpl: <Icon type='search-file' />
             },
             {
                 key: 'a3',

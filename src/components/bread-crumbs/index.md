@@ -16,9 +16,12 @@ subtitle: 面包屑
 | onClick  | 点击事件               | function            |`item => {}`         |
 | size     | 设置按钮大小，可选值为 `large` `default` `small` 或者不设          | string          | `default` |
 | styles      | 样式             | object | `{}`          |
+| split      | 分隔符             | string | /          |
 
 #### list
 | 属性 | 说明 | 类型 | 默认值 |
 | ----------- | -------------------- | ---------------- | ---------- |
 | key | 唯一值,可用路由充当key值 | string | - |
 | title | 显示文本 | string | - |
+| icon | 图标 | string | - |
+| iconTpl | 图标模板 | - | - |
