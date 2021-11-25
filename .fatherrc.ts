@@ -7,6 +7,15 @@ import copy from 'rollup-plugin-copy';
 const yargs = require('yargs/yargs');
 const { hideBin } = require('yargs/helpers');
 const argv = yargs(hideBin(process.argv)).argv;
+const isBuild = !(argv.dev || argv.watch)
+
+const externals = [
+  'react',
+  'react-dom',
+  ...isBuild ? [] : ['gridmanager-react', 'prop-types', 'class']
+
+]
+
 
 export default {
   // esm: 'rollup',
@@ -18,14 +27,11 @@ export default {
   umd: {
     name: 'CloudReact',
     file: 'cloud-react',
-    minFile:!argv.dev,
+    minFile:isBuild,
   },
   entry: 'src/components/index.js',
-  extraExternals: [
-    'react',
-    'react-dom',
-  ],
-  extractCSS: !argv.dev,
+  extraExternals: externals,
+  extractCSS: isBuild,
   // extraPostCSSPlugins: [
   //   require('postcss-font-base64')({
   //         //future options will be handled here
