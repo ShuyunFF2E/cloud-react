@@ -12,11 +12,15 @@ const classSelector = `${prefixCls}-radio`;
 class Radio extends React.Component {
 	static propTypes = {
 		value: PropTypes.node.isRequired,
-		checked: PropTypes.bool
+		checked: PropTypes.bool,
+		radioStyle: PropTypes.object,
+		textStyle: PropTypes.object,
 	};
 
 	static defaultProps = {
-		checked: false
+		checked: false,
+		radioStyle: {},
+		textStyle: {},
 	};
 
 	static Group = Group;
@@ -41,11 +45,11 @@ class Radio extends React.Component {
 	}
 
 	render() {
-		const { checked, children, className = '', style, disabled, ...otherProps } = this.props;
+		const { checked, children, className = '', style, disabled, radioStyle, textStyle, ...otherProps } = this.props;
 
 		return (
 			<label className={classnames(classSelector, className)} style={style}>
-				<span className={`${classSelector}-wrapper`}>
+				<span className={`${classSelector}-wrapper`} style={radioStyle }>
 					<input
 						{...otherProps}
 						type="radio"
@@ -56,7 +60,7 @@ class Radio extends React.Component {
 					/>
 					<span className={`${classSelector}-inner`} />
 				</span>
-				<span className={classnames(`${classSelector}-text`, { disabled })}>{children}</span>
+				<span className={classnames(`${classSelector}-text`, { disabled })} style={textStyle}>{children}</span>
 			</label>
 		);
 	}
