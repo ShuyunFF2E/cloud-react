@@ -2,7 +2,7 @@
 
 @raido-prefix-cls: ~'@{prefix}-radio';
 
-@radio-disabled-inner-color: #d1d1d1;
+@radio-disabled-inner-color: @gray-6;
 
 @radio-size: 14px;
 
@@ -20,7 +20,7 @@
 	margin-right: 8px;
 
 	cursor: pointer;
-	color: @color-gray5;
+	color: @gray-5;
 
 	&-group {
 		display: inline-flex;
@@ -40,7 +40,7 @@
 		margin-right: 5px;
 
 		&:hover {
-			color: @color-blue1;
+			color: @blue-4;
 		}
 	}
 
@@ -50,21 +50,22 @@
 		cursor: pointer;
 
 		&:checked + .@{raido-prefix-cls}-inner {
-			color: @color-blue1;
+			color: @blue-4;
 
 			&::after:extend(.cloud-radio-position) {
 				content: '';
 				background-color: currentColor;
-				width: 10px;
-				height: 10px;
-				margin-left: 1px;
-				margin-top: 1px;
+				width: 6px;
+				height: 6px;
+				margin-left: 3px;
+				margin-top: 3px;
 				border: none;
 				box-shadow: 0 0 5px currentColor;
 				animation: fadeIn 300ms ease-out both;
 				border-radius: 50%;
 			}
 		}
+
 
 		&:disabled,
 		&:disabled + .@{raido-prefix-cls}-inner {
@@ -73,8 +74,18 @@
 		}
 
 		&[disabled]:not(:checked) + .@{raido-prefix-cls}-inner {
-			background-color: @color-gray7;
+			color: @gray-5;
+			background-color: @gray-3;
 		}
+
+		&[checked][disabled]  + .@{raido-prefix-cls}-inner{
+			color: @blue-2;
+			&::after:extend(.cloud-radio-position) {
+				background-color: @blue-2;
+				box-shadow: 0 0 5px @blue-2;
+			}
+		}
+
 	}
 
 	&-inner:extend(.cloud-radio-position) {
@@ -82,15 +93,18 @@
 
 		border-radius: 50%;
 		border: 1px solid currentColor;
-		background-color: @color-white;
+		background-color: @gray-1;
 	}
 
 	&-text {
-		color: @color-gray2;
+		display: inline-flex;
+		align-items: center;
+		color: @gray-9;
 	}
 
 	.disabled {
 		cursor: not-allowed;
+		color: @gray-6;
 	}
 
 	@keyframes fadeIn {

@@ -2,20 +2,11 @@
 
 @input-number-prefix-cls: ~'@{prefix}-input-number';
 
-@border-hover-color: #aacbe1;
-
-@color: rgba(0, 0, 0, 0.65);
-
-@large-height: 40px;
-@large-fontSize: 16px;
-
-@default-height: 30px;
-@default-fontSize: 12px;
-
 @small-height: 24px;
 @small-fontSize: 12px;
 
-.size-mixin(@height, @fontSize, @inputPadding: 0 8px) {
+
+.size-mixin(@height, @fontSize, @inputPadding: 0 12px) {
 	height: @height;
 	line-height: @height;
 	font-size: @fontSize;
@@ -31,37 +22,40 @@
 	box-sizing: border-box;
 	-webkit-text-size-adjust: none;
 	width: 90px;
-	border: 1px solid @color-gray5;
-	color: @color;
-	background-color: @color-white;
+	color: @gray-9;
+	border: 1px solid @gray-4;
+	border-radius: 2px;
+	background-color: @gray-1;
 
 	* {
 		box-sizing: border-box;
 	}
 
 	&:hover {
-		border-color: @border-hover-color;
-
+		border-color: @gray-6;
 		.@{input-number-prefix-cls}-handler-wrap {
 			opacity: 1;
 		}
 	}
 
+	&:active {
+		border-color: @blue-4;
+	}
+
 	&-focused {
-		border-color: @border-hover-color;
+		border-color: @blue-4;
 		outline: 0;
 	}
 
 	&-disabled {
-		color: rgba(0, 0, 0, 0.25);
-		background-color: #eeeeee;
-
+		color: @gray-7;
+		border-color: @gray-4;
+		background-color: @gray-3;
 		opacity: 1;
 
 		&:hover {
-			border-color: #e6d8d8;
 			cursor: not-allowed;
-
+			border-color: @gray-4;
 			.@{input-number-prefix-cls}-handler-wrap {
 				display: none;
 			}
@@ -70,14 +64,17 @@
 				cursor: not-allowed;
 			}
 		}
+		&::placeholder {
+			color: @gray-6;
+		}
 	}
 
 	&.large {
-		.size-mixin(@large-height, @large-fontSize);
+		.size-mixin(@line-height-extra-large, @font-size-medium);
 	}
 
 	&.default {
-		.size-mixin(@default-height, @default-fontSize);
+		.size-mixin(@line-height-large, @font-size-base);
 	}
 
 	&.small {
@@ -96,8 +93,8 @@
 		right: 0;
 		width: 22px;
 		height: 100%;
-		background: @color-white;
-		border-left: 1px solid @color-gray5;
+		background: @gray-1;
+		border-left: 1px solid @gray-5;
 		border-radius: 0 4px 4px 0;
 		opacity: 0;
 		transition: opacity 0.24s linear 0.1s, border-left 0.24s linear 0.1s;
@@ -112,32 +109,29 @@
 		justify-content: center;
 		align-items: center;
 		overflow: hidden;
-		color: rgba(0, 0, 0, 0.45);
+		color: @gray-6;
 		font-weight: bold;
 		transition: all 0.1s linear;
-
-		&:active {
-			background: #f4f4f4;
-		}
 	}
 
 	&-handler-down {
 		top: 0;
-		border-top: 1px solid @color-gray5;
+		border-top: 1px solid @gray-5;
 	}
 
 	&-handler-up,
 	&-handler-down {
 		&:hover {
 			cursor: pointer;
-			color: @border-hover-color;
+			color: @blue-4;
 		}
 	}
+	
 
 	&-handler-disabled {
 		&,
 		&:hover {
-			color: rgba(0, 0, 0, 0.2);
+			color: @gray-6;
 			cursor: not-allowed;
 		}
 	}
@@ -161,16 +155,20 @@
 		height: 100%;
 		vertical-align: top;
 		text-align: left;
+		color: @gray-9;
 		background-color: transparent;
 		border: 0;
 		outline: 0;
 
+		&:disabled {
+			color: @gray-6;
+		}
 		&:focus {
 			border: 0;
 		}
 
 		&::placeholder {
-			color: #c9c9c9;
+			color: @gray-6;
 		}
 	}
 }
