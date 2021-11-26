@@ -65,7 +65,8 @@ class Tooltip extends Component {
 			!evt.path ||
 			!evt.path.find(ele => {
 				return ele.classList && ele.classList.contains && ele.classList.contains(`${prefixCls}-tooltip`);
-			})
+			}) ||
+			this.props.closeTooltipExec(evt.path)
 		) {
 			this.setState({ visible: false });
 		}
@@ -99,7 +100,7 @@ class Tooltip extends Component {
 
 	closeTips = event => {
 		const { mouseLeaveDelay, visible, trigger } = this.props;
-		if ((event && event.relatedTarget && event.relatedTarget.className.includes('cloud-tooltip')) || trigger === 'click') {
+		if ((event && event.relatedTarget && event.relatedTarget.className?.includes('cloud-tooltip')) || trigger === 'click') {
 			return;
 		}
 		if (!visible) {
@@ -171,7 +172,8 @@ Tooltip.propTypes = {
 	]),
 	theme: PropTypes.oneOf([CONFIG_THEME.dark, CONFIG_THEME.light, CONFIG_THEME.error]),
 	className: PropTypes.string,
-	overlayStyle: PropTypes.object
+	overlayStyle: PropTypes.object,
+	closeTooltipExec: PropTypes.func
 };
 
 Tooltip.defaultProps = {
@@ -183,7 +185,8 @@ Tooltip.defaultProps = {
 	placement: CONFIG_PLACE.auto,
 	theme: CONFIG_THEME.dark,
 	className: '',
-	overlayStyle: {}
+	overlayStyle: {},
+	closeTooltipExec: () => false
 };
 
 export default Tooltip;
