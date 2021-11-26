@@ -10,24 +10,24 @@
 @border-radius: 0px;
 @default-width: 250px;
 
-@placeholder-color: #c9c9c9;
+@placeholder-color: @gray-6;
 
-@focus-border-color: #aacbe1;
+@focus-border-color: @blue-4;
 
 @large-font-size: 14px;
 @default-font-size: 12px;
 @small-font-size: 12px;
 
 @clear-icon-font-size: 16px;
-@clear-icon-color: #dbdbdb;
-@clear-icon-hover-color: #808080;
+@clear-icon-color: @gray-6;
+@clear-icon-hover-color: @gray-7;
 
 @addon-background: #fafafa;
 @addon-font-size: 14px;
 
 @textarea-background: #ffffff;
 
-@both-space-size: 8px;
+@both-space-size: 12px;
 
 @transition: 0.3s;
 
@@ -40,7 +40,7 @@
 		line-height: 1.5;
 		height: auto;
 		background: @color-white;
-		color: @color-gray4;
+		color: @gray-9;
 		transition: border @transition, color @transition;
 		box-sizing: border-box;
 		vertical-align: middle;
@@ -48,7 +48,7 @@
 
 	&,
 	&-textarea {
-		border: 1px solid @color-gray5;
+		border: 1px solid @gray-4;
 		border-radius: @border-radius;
 		outline: none;
 		width: @default-width;
@@ -118,7 +118,11 @@
 	}
 
 	&-affix {
-		border: 1px solid @color-gray5;
+		border: 1px solid @gray-4;
+		color: @gray-9;
+		&:hover {
+			border-color: @gray-6
+		}
 	}
 
 	&-counter {
@@ -134,7 +138,7 @@
 		line-height: 1;
 		text-align: center;
 		background-color: @addon-background;
-		border: 1px solid @color-gray5;
+		border: 1px solid @gray-4;
 		transition: @transition;
 
 		width: 1px;
@@ -189,15 +193,18 @@
 	&.large {
 		padding: 8px @both-space-size;
 		font-size: @large-font-size;
+		height: 36px;
 	}
 	&-textarea,
 	&.default {
 		padding: 5px @both-space-size;
 		font-size: @default-font-size;
+		height: 32px;
 	}
 	&.small {
 		padding: 2px @both-space-size;
 		font-size: @small-font-size;
+		height: 28px;
 	}
 
 	&-focus.@{input-prefix-cls}-affix,
@@ -211,9 +218,8 @@
 	&-disabled &-affix,
 	&-textarea:disabled,
 	&:disabled {
-		color: @color-gray3;
-		background: @color-gray7;
-		border-color: @color-gray5;
+		color: @gray-7;
+		background: @gray-3;
 	}
 
 	/* textarea */
