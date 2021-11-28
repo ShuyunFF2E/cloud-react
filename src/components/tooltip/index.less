@@ -7,7 +7,6 @@
 @offset-size: -2px;
 @light-offset-size: -3px;
 @transparent-height: 7px;
-@border: @arrow-size solid currentColor;
 
 .left-style(@top, @transform) {
 	&:after {
@@ -122,22 +121,22 @@
 	}
 
 	&.is-dark {
-		background-color: @color-gray2;
-		color: @color-gray1;
+		background-color: @gray-9;
+		color: @color-white;
 		&:after {
-			color: @color-gray2;
-			background-color: @color-gray2;
+			border-color: @gray-9;
+			background-color: @gray-9;
 		}
 	}
 
 	&.is-light {
 		@light-color: #dddee1;
 		background-color: @color-white;
-		color: @color-gray4;
-		box-shadow: -1px 0 @light-color, 0 -1px @light-color, 1px 0 @light-color, 0 1px @light-color;
+		color: @gray-9;
+		box-shadow: @border-shadow-2;
 
 		&:after {
-			color: @light-color;
+			border-color: @color-white;
 			background-color: @color-white;
 		}
 	}
@@ -146,7 +145,7 @@
 		background-color: @color-red1;
 		color: @color-gray1;
 		&:after {
-			color: @color-red1;
+			border-colorcolor: @color-red1;
 			background-color: @color-red1;
 		}
 	}

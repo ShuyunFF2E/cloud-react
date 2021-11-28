@@ -39,7 +39,7 @@ export default function CheckboxDemo() {
 				indeterminate
 			</Checkbox>
 			<br />
-			<Checkbox disabled></Checkbox>
+			<Checkbox disabled>disabled</Checkbox>
 		</div>
 	);
 }
