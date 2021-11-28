@@ -1,0 +1,63 @@
+@import '../style/index';
+
+@checkbox-prefix-cls: ~'@{prefix}-checkbox';
+
+@composition-checkbox-prefix-cls: ~'@{prefix}-composition';
+
+.@{composition-checkbox-prefix-cls} {
+	height: 24px;
+
+	img[alt='header'] {
+		height: 24px;
+		width: 24px;
+		margin-right: 8px;
+	}
+
+	&-title {
+		color: @gray-9;
+		margin-bottom: 4px;
+	}
+
+	&-content {
+		color: @gray-7;
+	}
+
+	&.@{composition-checkbox-prefix-cls}-overflow-ellipsis {
+		.@{composition-checkbox-prefix-cls}-content {
+			.text-overflow-ellipsis;
+		}
+	}
+
+	// 图片 + title + content
+	&.@{composition-checkbox-prefix-cls}-img {
+		height: auto;
+
+		img[alt='header'] {
+			height: 48px;
+			width: 48px;
+		}
+	}
+
+	// title + content
+	&.@{composition-checkbox-prefix-cls}-title-content {
+		height: auto;
+
+		.@{checkbox-prefix-cls}-text {
+			flex-direction: column;
+			align-items: flex-start;
+		}
+
+		.@{checkbox-prefix-cls}-wrapper {
+			align-self: flex-start;
+		}
+	}
+
+	&-disabled {
+		.@{composition-checkbox-prefix-cls}-title {
+			color: @gray-7;
+		}
+		.@{composition-checkbox-prefix-cls}-content {
+			color: @gray-6;
+		}
+	}
+}
