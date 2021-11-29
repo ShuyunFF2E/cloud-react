@@ -110,11 +110,11 @@ export default class Tabs extends PureComponent {
 	}
 
 	get activeTabsOffsetLeft() {
-		return this.activeEle.offsetLeft;
+		return this.activeEle ? this.activeEle.offsetLeft : 0;
 	}
 
 	get activeTabsOffsetWidth() {
-		return this.activeEle.offsetWidth;
+		return this.activeEle ? this.activeEle.offsetWidth : 0;
 	}
 
 	get tabsOffsetLeft() {
