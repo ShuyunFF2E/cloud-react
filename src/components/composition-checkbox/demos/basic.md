@@ -4,7 +4,7 @@ title: ComplexCheckbox
 desc: 默认样式
 ---
 
-```javascript
+```jsx
 import React, { useState, useEffect } from 'react';
 import { CompositionCheckbox, Checkbox, Button } from 'cloud-react';
 

@@ -4,7 +4,7 @@ title: Popover
 desc: 默认样式
 ---
 
-```javascript
+```jsx
 import React, { useState, useEffect } from 'react';
 import { Button, Popover, Message } from 'cloud-react';
 
