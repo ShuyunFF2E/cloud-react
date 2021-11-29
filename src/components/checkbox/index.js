@@ -63,6 +63,8 @@ Group.defaultProps = {
 class Checkbox extends React.Component {
 	static propTypes = {
 		value: PropTypes.any,
+		checkboxStyle: PropTypes.object,
+		textStyle: PropTypes.object,
 		defaultChecked: PropTypes.bool,
 		checked: PropTypes.bool,
 		indeterminate: PropTypes.bool,
@@ -73,6 +75,8 @@ class Checkbox extends React.Component {
 
 	static defaultProps = {
 		value: undefined,
+		checkboxStyle: {},
+		textStyle: {},
 		defaultChecked: undefined,
 		checked: undefined,
 		indeterminate: false,
@@ -108,7 +112,7 @@ class Checkbox extends React.Component {
 	}
 
 	render() {
-		const { disabled, indeterminate, className = '', value = '', style, children } = this.props;
+		const { disabled, indeterminate, className = '', value = '', style, textStyle, checkboxStyle, children } = this.props;
 		const checked = this.isChecked();
 
 		const classes = classNames(classSelector, className, {
@@ -119,7 +123,7 @@ class Checkbox extends React.Component {
 
 		return (
 			<label className={classes} style={style}>
-				<span className={`${classSelector}-wrapper`}>
+				<span className={`${classSelector}-wrapper`} style={checkboxStyle}>
 					<input
 						type="checkbox"
 						value={value}
@@ -131,7 +135,9 @@ class Checkbox extends React.Component {
 					/>
 					<span className={`${classSelector}-inner`} />
 				</span>
-				<span className={`${classSelector}-text`}>{children}</span>
+				<span className={`${classSelector}-text`} style={textStyle}>
+					{children}
+				</span>
 			</label>
 		);
 	}

@@ -1,7 +1,12 @@
 ---
-category: Components
-title: Icon
-subtitle: 图标
+title: Icon 图标
+nav:
+  title: Icon 图标
+  path: /cloud-react
+group:
+  order: 1
+  title: 通用
+  path: /common
 ---
 
 ### 何时使用
@@ -14,3 +19,7 @@ subtitle: 图标
 | ----- | -------- | ------------- | ------ |
 | type  | 指定图标 | string        | -      |
 | style | 样式     | CSSProperties | -      |
+
+ ### 代码演示 
+
+<embed src="@components/icon/demos/basic-icon.md" /> 

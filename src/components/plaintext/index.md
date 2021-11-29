@@ -1,7 +1,12 @@
 ---
-category: Components
-title: PlainText
-subtitle: 明密文显示
+title: PlainText 明密文显示
+nav:
+  title: PlainText 明密文显示
+  path: /cloud-react
+group:
+  order: 3
+  title: 数据
+  path: /data
 ---
 
 ### 何时使用
@@ -15,3 +20,7 @@ subtitle: 明密文显示
 | isPlain | 是否为明文 | boolean | false   |
 | onViewPlainClick | 点击查看明文 | function | noop   |
 | onViewSecretClick | 点击查看密文 | function | noop   |
+
+ ### 代码演示 
+
+<embed src="@components/plaintext/demos/basic-plaintext.md" /> 

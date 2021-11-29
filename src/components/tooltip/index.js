@@ -2,6 +2,7 @@ import React, { Component, createElement } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import ContextProvider from '@contexts/context-provider';
+import { prefixCls } from '@utils';
 import ToolView from './toolView';
 import { CONFIG_PLACE, CONFIG_THEME } from './config';
 import './index.less';
@@ -31,6 +32,8 @@ class Tooltip extends Component {
 			});
 			this.target = this.tipRef.current.firstElementChild;
 		}
+
+		document.addEventListener('click', this.onClick);
 	}
 
 	componentDidUpdate(prevProps) {
@@ -44,6 +47,10 @@ class Tooltip extends Component {
 		}
 	}
 
+	componentWillUnmount() {
+		document.removeEventListener('click', this.onClick);
+	}
+
 	get document() {
 		return this.context.rootDocument;
 	}
@@ -52,6 +59,18 @@ class Tooltip extends Component {
 		const { getContext } = this.context;
 		return getContext() || this.document.body;
 	}
+
+	onClick = evt => {
+		if (
+			!evt.path ||
+			!evt.path.find(ele => {
+				return ele.classList && ele.classList.contains && ele.classList.contains(`${prefixCls}-tooltip`);
+			}) ||
+			this.props.closeTooltipExec(evt.path)
+		) {
+			this.setState({ visible: false });
+		}
+	};
 
 	getChildren() {
 		const { children } = this.props;
@@ -80,8 +99,8 @@ class Tooltip extends Component {
 	};
 
 	closeTips = event => {
-		const { mouseLeaveDelay, visible } = this.props;
-		if (event && event.relatedTarget && event.relatedTarget.className.includes('cloud-tooltip')) {
+		const { mouseLeaveDelay, visible, trigger } = this.props;
+		if ((event && event.relatedTarget && event.relatedTarget.className?.includes('cloud-tooltip')) || trigger === 'click') {
 			return;
 		}
 		if (!visible) {
@@ -153,7 +172,8 @@ Tooltip.propTypes = {
 	]),
 	theme: PropTypes.oneOf([CONFIG_THEME.dark, CONFIG_THEME.light, CONFIG_THEME.error]),
 	className: PropTypes.string,
-	overlayStyle: PropTypes.object
+	overlayStyle: PropTypes.object,
+	closeTooltipExec: PropTypes.func
 };
 
 Tooltip.defaultProps = {
@@ -165,7 +185,8 @@ Tooltip.defaultProps = {
 	placement: CONFIG_PLACE.auto,
 	theme: CONFIG_THEME.dark,
 	className: '',
-	overlayStyle: {}
+	overlayStyle: {},
+	closeTooltipExec: () => false
 };
 
 export default Tooltip;

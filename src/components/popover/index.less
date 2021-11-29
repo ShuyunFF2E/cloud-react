@@ -1,0 +1,48 @@
+@import '../style/index';
+
+@popover-prefix-cls: ~'@{prefix}-popover';
+
+.@{popover-prefix-cls} {
+	&-content {
+		display: flex;
+		align-content: flex-start;
+
+		> i {
+			align-self: flex-start;
+			height: 22px;
+			line-height: 22px;
+			margin-right: 8px;
+			font-size: 20px;
+
+			&.cloud-icon-warning-circle-solid {
+				color: @orange-5;
+			}
+		}
+	}
+
+	&-main-content {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+
+	&-title {
+		font-size: 14px;
+		color: @gray-9;
+		margin-bottom: 4px;
+	}
+
+	&-desc {
+		font-size: 12px;
+		color: @gray-8;
+	}
+
+	&-btn {
+		float: right;
+
+		> button {
+			margin-top: 16px;
+			margin-left: 8px;
+		}
+	}
+}

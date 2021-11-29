@@ -1,29 +1,60 @@
-.cloud-breadcrumbs {
+@import '../style/index';
+
+@breadcrumbs-prefix-cls: ~'@{prefix}-breadcrumbs';
+
+.@{breadcrumbs-prefix-cls} {
 	margin-bottom: 20px;
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;
-	&.cloud-breadcrumbs-default {
+
+	&-default {
 		font-size: 16px;
+
+		.title > i {
+			font-size: 16px;
+		}
 	}
-	&.cloud-breadcrumbs-large {
-		font-size: 18px;
+
+	&-large {
+		font-size: 20px;
+
+		.title > i {
+			font-size: 20px;
+		}
 	}
-	&.cloud-breadcrumbs-small {
+
+	&-small {
 		font-size: 14px;
+
+		.title > i {
+			font-size: 14px;
+		}
 	}
+
 	li {
-		color: #0083ba;
-		cursor: pointer;
+		color: @gray-7;
+
+		.title:hover,
+		.more:hover {
+			cursor: pointer;
+			color: @blue-4;
+		}
+
+		.title > i {
+			margin-right: 8px;
+		}
+
 		&:last-child {
-			color: #2d2d2d;
+			color: @gray-9;
 			cursor: default;
 			pointer-events: none;
 		}
-		&:not(:last-child):after {
-			content: '/';
-			margin-left: 4px;
-			margin-right: 4px;
+
+		.split {
+			color: @gray-7;
+			margin-left: 8px;
+			margin-right: 8px;
 		}
 	}
 }

@@ -9,6 +9,7 @@ exports[`multi-select renders correctly 1`] = `
   >
     <span
       class="cloud-select-selected"
+      title=""
     />
     <i
       class="cloud-select-select-icon cloud-select-clear-icon cloud-icon cloud-icon-close-circle-solid"
@@ -29,6 +30,7 @@ exports[`multi-select renders custom option correctly 1`] = `
   >
     <span
       class="cloud-select-selected"
+      title=""
     >
       草莓
     </span>

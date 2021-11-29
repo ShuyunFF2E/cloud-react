@@ -1,61 +1,84 @@
 {
-    "extends": ["airbnb", "prettier", "prettier/react", "plugin:jest/recommended"],
-    "plugins": ["prettier", "jest"],
-    "settings": {
-        "import/resolver": {
-            "webpack": {
-                "config": "./webpack.config.js"
-            }
-        }
-    },
-    "rules": {
-        "react/jsx-filename-extension": [
-            1,
-            {
-                "extensions": [".js", ".jsx"]
-            }
+  "extends": ["airbnb", "prettier", "plugin:jest/recommended"],
+  "plugins": ["prettier", "jest"],
+  "settings": {
+    "import/resolver": {
+      "alias": {
+        "map": [
+          ["@utils", "./src/utils"],
+          ["@contexts", "./src/contexts"],
+          ["@components", "./src/components"]
         ],
-        "react/prefer-stateless-function": "off",
-        "react/destructuring-assignment": 0,
-        "react/prop-types": 0,
-        "no-underscore-dangle": 0,
-        "import/imports-first": ["error", "absolute-first"],
-        "import/newline-after-import": "error",
-        "react/forbid-prop-types": "off",
-        "react/no-danger": "off",
-        "no-console": "off",
-        "no-debugger": "off",
-        "jsx-a11y/click-events-have-key-events": 0,
-        "jsx-a11y/no-static-element-interactions": 0,
-        "jsx-a11y/no-noninteractive-element-interactions": "warn",
-        "jsx-a11y/no-interactive-element-to-noninteractive-role": "off",
-        "template-curly-spacing": ["error", "never"],
-        "object-curly-spacing": ["error", "always", { "objectsInObjects": true, "arraysInObjects": true }],
-        "jsx-a11y/label-has-for": 0,
-        "quotes": ["error", "single"],
-        // jsx 中属性全部使用双引
-        "jsx-quotes": ["error", "prefer-double"],
-        "space-infix-ops": ["error"],
-        "react/sort-comp": "off",
-        "jsx-a11y/label-has-associated-control": "off",
-        "jest/no-disabled-tests": "warn",
-        "jest/no-focused-tests": "error",
-        "jest/no-identical-title": "error",
-        "jest/prefer-to-have-length": "warn",
-        "jest/valid-expect": "error"
-    },
-    "globals": {
-        "window": true,
-        "document": true,
-        "localStorage": true,
-        "FormData": true,
-        "FileReader": true,
-        "Blob": true,
-        "XMLHttpRequest": true,
-        "navigator": true
-    },
-    "env": {
-      "jest/globals": true
-    },
-    "parser": "babel-eslint"
+        "extensions": [".js"]
+      }
+    }
+  },
+  "rules": {
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [".js", ".jsx"]
+      }
+    ],
+    "react/state-in-constructor": 0,
+    "max-classes-per-file": 0,
+    "jsx-a11y/control-has-associated-label": 0,
+    "prefer-object-spread": 0,
+    "react/self-closing-comp": 0,
+    "react/jsx-props-no-spreading": 0,
+    "react/prefer-stateless-function": "off",
+    "react/destructuring-assignment": 0,
+    "react/static-property-placement": 0,
+    "import/no-named-as-default": 0,
+    "arrow-body-style": 0,
+    "react/prop-types": 0,
+    "no-underscore-dangle": 0,
+    "import/imports-first": ["error", "absolute-first"],
+    "import/newline-after-import": "error",
+    "react/forbid-prop-types": "off",
+    "react/no-danger": "off",
+    "no-console": "off",
+    "no-debugger": "off",
+    "jsx-a11y/click-events-have-key-events": 0,
+    "jsx-a11y/no-static-element-interactions": 0,
+    "jsx-a11y/no-noninteractive-element-interactions": "warn",
+    "jsx-a11y/no-interactive-element-to-noninteractive-role": "off",
+    "template-curly-spacing": ["error", "never"],
+    "object-curly-spacing": [
+      "error",
+      "always",
+      { "objectsInObjects": true, "arraysInObjects": true }
+    ],
+    "jsx-a11y/label-has-for": 0,
+    "quotes": ["error", "single"],
+    // jsx 中属性全部使用双引
+    "jsx-quotes": ["error", "prefer-double"],
+    "space-infix-ops": ["error"],
+    "react/sort-comp": "off",
+    "jsx-a11y/label-has-associated-control": "off",
+    "jest/no-disabled-tests": "warn",
+    "jest/no-focused-tests": "error",
+    "jest/no-identical-title": "error",
+    "jest/prefer-to-have-length": "warn",
+    "jest/valid-expect": "error"
+  },
+  "globals": {
+    "window": true,
+    "document": true,
+    "localStorage": true,
+    "FormData": true,
+    "FileReader": true,
+    "Blob": true,
+    "XMLHttpRequest": true,
+    "navigator": true
+  },
+  "env": {
+    "jest/globals": true
+  },
+  "parser": "@babel/eslint-parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "legacyDecorators": true
+    }
+  }
 }

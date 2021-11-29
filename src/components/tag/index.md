@@ -1,7 +1,12 @@
 ---
-category: Components
-title: Tag
-subtitle: 标签
+title: Tag 标签
+nav:
+  title: Tag 标签
+  path: /cloud-react
+group:
+  order: 1
+  title: 通用
+  path: /common
 ---
 
 ### 何时使用
@@ -19,3 +24,13 @@ subtitle: 标签
 | disabled | 标签不可用                                             | boolean  | false  |
 | onClick  | 点击标签的回调                                         | function | -      |
 | onClose  | 标记标签被删除后被触发                                 | function | -      |
+
+ ### 代码演示 
+
+<embed src="@components/tag/demos/basic-tag.md" /> 
+
+<embed src="@components/tag/demos/categories.md" /> 
+
+<embed src="@components/tag/demos/closeable.md" /> 
+
+<embed src="@components/tag/demos/state.md" /> 
