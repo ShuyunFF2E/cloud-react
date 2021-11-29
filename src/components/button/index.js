@@ -2,7 +2,7 @@ import React, { Children, cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { prefixCls } from '@utils';
-
+import Icon from '../icon';
 import './index.less';
 
 function ButtonGroup({ block, children, ...props }) {
@@ -56,6 +56,7 @@ class Button extends React.PureComponent {
 			loading,
 			type,
 			block,
+			icon,
 			// html element
 			children,
 			className,
@@ -74,6 +75,14 @@ class Button extends React.PureComponent {
 			className
 		);
 
+		// 针对单按钮情况
+		let content = typeof children === 'string' && children.length === 2 ? children.split('').join(' ') : children;
+
+		// 针对按钮组情况
+		if (children instanceof Array && children.length === 1 && typeof children[0] === 'string' && children[0].length === 2) {
+			content = children[0].split('').join(' ');
+		}
+
 		return (
 			<ElementName
 				type="button"
@@ -86,7 +95,8 @@ class Button extends React.PureComponent {
 					target: href ? target : undefined
 				}}>
 				{loading && <span className={`${prefixCls}-button-loading`} />}
-				{children}
+				{icon && <Icon type={icon} />}
+				{content}
 			</ElementName>
 		);
 	}
