@@ -1,10 +1,10 @@
 ---
-title: CompositionCheckbox 多选按钮
+title: ComplexRadio 复杂radio
 nav:
-  title: CompositionCheckbox 多选按钮
+  title: ComplexRadio 复杂radio
   path: /cloud-react
 group:
-  order: 20
+  order: 22
   title: 数据
   path: /data
 ---
@@ -15,7 +15,7 @@ group:
 
 ### API
 
-#### Checkbox
+#### ComplexRadio
 
 | 属性           | 说明                    | 类型              | 默认值 |
 | -------------- | ----------------------- | ----------------- | ------ |
@@ -27,4 +27,4 @@ group:
 
  ### 代码演示 
 
-<embed src="@components/composition-checkbox/demos/basic.md" /> 
+<embed src="@components/complex-radio/demos/basic.md" /> 
