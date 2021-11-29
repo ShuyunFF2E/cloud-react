@@ -13,6 +13,8 @@ export { default as Button } from './button';
 
 export { default as Checkbox } from './checkbox';
 
+export { default as CompositionCheckbox } from './composition-checkbox';
+
 export { default as Datepicker } from './datepicker';
 
 export { default as Field } from './field';
@@ -40,6 +42,8 @@ export { default as Modal } from './modal';
 export { default as Pagination } from './pagination';
 
 export { default as Plaintext } from './plaintext';
+
+export { default as Popover } from './popover';
 
 export { default as Radio } from './radio';
 

@@ -1,8 +1,14 @@
 ---
-category: Components
-title: Popover
-subtitle: 气泡
+title: Popover 气泡
+nav:
+  title: Popover 气泡
+  path: /cloud-react
+group:
+  order: 21
+  title: 数据
+  path: /data
 ---
+
 
 ### 何时使用
 
@@ -26,4 +32,10 @@ subtitle: 气泡
 | onCancelClick      | 取消按钮回调      | function            | () => {}     |
 | onConfirmClick      | 确认按钮回调      | function            | () => {}     |
 
+ ### 代码演示 
+
+<embed src="@components/popover/demos/basic.md" /> 
+
 #### 支持配置 Tooltip 参数，详细请参考 Tooltip 说明文档
+
+
