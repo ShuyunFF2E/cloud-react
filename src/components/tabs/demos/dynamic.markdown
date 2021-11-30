@@ -9,7 +9,7 @@ import { Button, Tabs } from 'cloud-react';
 
 export default class DynamicTabsDemo extends Component {
 	state = {
-		tabList: [{ title: 'indian mi fans', content: 'are you ok ?', key: 'leijun' }],
+		tabList: [{ title: '选项卡', content: '动态选项卡', key: '0' }],
 		activeKey: ''
 	};
 
@@ -59,8 +59,8 @@ export default class DynamicTabsDemo extends Component {
 				<Button onClick={this.handleAdd} type="primary">
 					添加tab
 				</Button>
-				<div> - </div>
-				<Tabs defaultActiveKey={'leijun'} activeKey={activeKey} onChange={this.handleChange} onClose={this.handleClose}>
+				<div style={{ height: 10 }} />
+				<Tabs defaultActiveKey={'0'} activeKey={activeKey} onChange={this.handleChange} onClose={this.handleClose}>
 					{tabList.map((item, index) => (
 						<Tabs.Panel tab={item.title} closable key={item.key} index={item.index}>
 							{item.content}

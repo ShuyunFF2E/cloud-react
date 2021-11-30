@@ -4,33 +4,84 @@ desc: 页签类型为line的基础Tabs
 ---
 
 ```javascript
-import React, { Component } from 'react';
-import { Tabs } from 'cloud-react';
+import React, { Component, useState } from 'react';
+import { Button, Tabs, Icon, Tooltip } from 'cloud-react';
+
+const linePrefixTpl = <Icon type="search-file"/>;
+
+const lineSuffixTpl = <Icon type="warning-circle-solid" style={{ color: '#E74949' }}/>;
+
+class BasicTabs extends Component {
+    handleChange = key => {
+        console.log('当前激活面板key值为：' + key);
+    };
+    
+    tabList = this.props.tabList || [
+        { tab: '选项卡normal', key: 1, linePrefixTpl, closable: true, disabled: false },
+        { tab: '选项卡active', key: 2, linePrefixTpl, lineSuffixTpl, closable: true, disabled: false },
+        { tab: '选项卡normal', key: 3, linePrefixTpl, closable: true, disabled: false },
+        { tab: '选项卡disabled', key: 4, linePrefixTpl, closable: true, disabled: true },
+        { tab: <span style={{ color: 'red' }}>自定义标题</span>, key: 5, linePrefixTpl, closable: true, disabled: false }
+    ];
+
+    render() {
+        return (
+            <Tabs
+                defaultActiveKey="2"
+                type="line"
+                linePlacement={this.props.linePlacement}
+                lineBgMode={this.props.lineBgMode}
+                onChange={this.handleChange}>
+                {this.tabList.map(item => (
+                    <Tabs.Panel tab={item.tab} key={item.key} linePrefixTpl={item.linePrefixTpl} lineSuffixTpl={item.lineSuffixTpl} closable={item.closable} disabled={item.disabled}>
+                        <div style={{ marginLeft: this.props.linePlacement === 'left' ? 20 : 0 }}>
+                            {item.tab}
+                        </div>
+                    </Tabs.Panel>
+                ))}
+            </Tabs>
+        );
+    }
+}
 
 export default class BasicTabsDemo extends Component {
-	handleChange = key => {
-		console.log('当前激活面板key值为：' + key);
-	};
-
 	render() {
 		return (
-			<Tabs defaultActiveKey="eat" type="line" onChange={this.handleChange}>
-				<Tabs.Panel tab="选项1" key="1">
-					选项1111111111111
-				</Tabs.Panel>
-				<Tabs.Panel tab="吃饭" key="eat">
-					吃饭啊啊啊啊啊
-				</Tabs.Panel>
-				<Tabs.Panel tab="加关闭按钮" key="aaa" closable>
-					为什么要关掉我！
-				</Tabs.Panel>
-				<Tabs.Panel tab="禁用我？？" key="bbb" disabled>
-					试试
-				</Tabs.Panel>
-				<Tabs.Panel tab={<span style={{ color: 'red' }}>自定义标题</span>} key="ccc">
-					测试自定义啊
-				</Tabs.Panel>
-			</Tabs>
+            <div>
+                <h4>横向</h4>
+                <BasicTabs/>
+                <h4>纵向（左）</h4>
+                <BasicTabs linePlacement="left" tabList={[
+                    { tab: '选项卡normal', key: 1, linePrefixTpl, closable: true, disabled: false },
+                    { tab: '选项卡active', key: 2, linePrefixTpl, closable: true, disabled: false },
+                    { tab: '选项卡normal', key: 3, linePrefixTpl, closable: true, disabled: false },
+                    { tab: '选项卡disabled', key: 4, linePrefixTpl, closable: true, disabled: true },
+                    { tab: <span style={{ color: 'red' }}>自定义标题</span>, key: 5, linePrefixTpl, lineSuffixTpl, closable: true, disabled: false }
+                ]}/>
+                <h4>纵向（超长）</h4>
+                <BasicTabs linePlacement="left" tabList={[
+                    { tab: '选项卡normal', key: 1, linePrefixTpl, closable: true, disabled: false },
+                    { tab: '选项卡active', key: 2, linePrefixTpl, closable: true, disabled: false },
+                    { tab: '选项卡normal', key: 3, linePrefixTpl, closable: true, disabled: false },
+                    { tab: '选项卡disabled', key: 4, linePrefixTpl, lineSuffixTpl, closable: true, disabled: true },
+                    { tab: '好长好长好长好长好长好长好长好长好长好长', key: 5, linePrefixTpl, lineSuffixTpl, closable: true, disabled: false }
+                ]}/>
+                <h4>纵向（右）</h4>
+                <BasicTabs linePlacement="right" tabList={[
+                    { tab: '选项卡1', key: 1, linePrefixTpl, lineSuffixTpl, disabled: false },
+                    { tab: '选项卡2', key: 2, linePrefixTpl, lineSuffixTpl, disabled: false },
+                    { tab: '选项卡3', key: 3, linePrefixTpl, lineSuffixTpl, disabled: false },
+                    { tab: '选项卡4', key: 4, linePrefixTpl, lineSuffixTpl, disabled: true },
+                    { tab: <span style={{ color: 'red' }}>自定义标题</span>, key: 5, linePrefixTpl, lineSuffixTpl, disabled: false }
+                ]}/>
+                <h4>纵向（背景色模式）</h4>
+                <BasicTabs linePlacement="left" lineBgMode tabList={[
+                    { tab: '选项卡1', key: 1, linePrefixTpl, lineSuffixTpl, disabled: false },
+                    { tab: '选项卡2', key: 2, linePrefixTpl, lineSuffixTpl, disabled: false },
+                    { tab: '选项卡3', key: 3, linePrefixTpl, lineSuffixTpl, disabled: false },
+                    { tab: '选项卡4', key: 4, linePrefixTpl, lineSuffixTpl, disabled: true }
+                ]}/>
+            </div>
 		);
 	}
 }

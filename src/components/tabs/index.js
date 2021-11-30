@@ -105,16 +105,54 @@ export default class Tabs extends PureComponent {
 		return this.props.type === 'line';
 	}
 
+	get isCapsule() {
+		return this.props.type === 'capsule';
+	}
+
+	get isVerticalLeft() {
+		return this.props.linePlacement === 'left';
+	}
+
+	get isVerticalRight() {
+		return this.props.linePlacement === 'right';
+	}
+
 	get activeEle() {
 		return this.tabsRef.current.getElementsByClassName(this.props.activeClassName)[0];
 	}
 
 	get activeTabsOffsetLeft() {
+		if (this.hasLineBar && this.isVerticalLeft) {
+			return 0;
+		}
+		if (this.hasLineBar && this.isVerticalRight) {
+			return 'auto';
+		}
 		return this.activeEle.offsetLeft;
 	}
 
+	get activeTabsOffsetRight() {
+		if (this.hasLineBar && this.isVerticalLeft) {
+			return 'auto';
+		}
+		if (this.hasLineBar && this.isVerticalRight) {
+			return 0;
+		}
+		return this.activeEle.offsetRight;
+	}
+
 	get activeTabsOffsetWidth() {
+		if (this.hasLineBar && (this.isVerticalLeft || this.isVerticalRight)) {
+			return 2;
+		}
 		return this.activeEle.offsetWidth;
+	}
+
+	get activeTabsOffsetTop() {
+		if (this.hasLineBar && (this.isVerticalLeft || this.isVerticalRight)) {
+			return this.activeEle.offsetTop;
+		}
+		return 'auto';
 	}
 
 	get tabsOffsetLeft() {
@@ -188,10 +226,12 @@ export default class Tabs extends PureComponent {
 	};
 
 	countLineBarStyle = () => {
-		const { activeTabsOffsetLeft, activeTabsOffsetWidth } = this;
+		const { activeTabsOffsetLeft, activeTabsOffsetWidth, activeTabsOffsetRight, activeTabsOffsetTop } = this;
 		Object.assign(this.activeBarRef.current.style, {
 			width: `${activeTabsOffsetWidth}px`,
-			left: `${activeTabsOffsetLeft}px`
+			left: typeof activeTabsOffsetLeft === 'number' ? `${activeTabsOffsetLeft}px` : activeTabsOffsetLeft,
+			right: typeof activeTabsOffsetRight === 'number' ? `${activeTabsOffsetRight}px` : activeTabsOffsetRight,
+			top: typeof activeTabsOffsetTop === 'number' ? `${activeTabsOffsetTop}px` : activeTabsOffsetTop
 		});
 	};
 
@@ -222,28 +262,51 @@ export default class Tabs extends PureComponent {
 
 	renderTabHeader(child, isActived) {
 		const { type, activeClassName } = this.props;
-		const { disabled, closable, tab, tabBarStyle } = child.props;
+		const { disabled, closable, tab, tabBarStyle, lineSuffixTpl, linePrefixTpl } = child.props;
 		const { width } = tabBarStyle;
 		const { key } = child;
 
 		// class & style
 		const className = cls(`${prefixCls}-tabs-item-${type}`, { [activeClassName]: !disabled && isActived, disabled });
 
+		const getTabTpl = () => {
+			if (this.hasLineBar) {
+				return (
+					<span className={`${prefixCls}-tabs-container`}>
+						<span>
+							{linePrefixTpl && <span className="tab-prefix">{linePrefixTpl}</span>}
+							<span className={`${prefixCls}-tab-content`}>{tab}</span>
+						</span>
+						<span>
+							{lineSuffixTpl && <span className="tab-suffix">{lineSuffixTpl}</span>}
+							{closable && <Icon type="close" className="closable" onClick={this.handleClose(key)} />}
+						</span>
+					</span>
+				);
+			}
+
+			return (
+				<>
+					{width && width !== 'auto' ? <Tooltip content={tab}>{tab}</Tooltip> : tab}
+					{closable && (
+						<span className="closable-wrapper">
+							<Icon type="close" className="closable" onClick={this.handleClose(key)} />
+						</span>
+					)}
+				</>
+			);
+		};
+
 		// render
 		return (
 			<span className={className} key={key} style={tabBarStyle} onClick={this.handleChange(key)}>
-				{width && width !== 'auto' ? <Tooltip content={tab}>{tab}</Tooltip> : tab}
-				{isActived && closable && (
-					<span className="closable-wrapper">
-						<Icon type="close" className="closable" onClick={this.handleClose(key)} />
-					</span>
-				)}
+				{getTabTpl()}
 			</span>
 		);
 	}
 
 	renderMoreIcon = () => {
-		if (!this.state.hasMore) return null;
+		if (!this.state.hasMore || (this.hasLineBar && (this.isVerticalRight || this.isVerticalLeft))) return null;
 		const { type } = this.props;
 
 		return (
@@ -259,7 +322,7 @@ export default class Tabs extends PureComponent {
 	};
 
 	render() {
-		const { children, className, mode, type } = this.props;
+		const { children, className, mode, type, linePlacement } = this.props;
 		const { activedKey, hasMore } = this.state;
 
 		const headers = [];
@@ -285,9 +348,17 @@ export default class Tabs extends PureComponent {
 			}
 		});
 
-		const finalClassName = cls(`${prefixCls}-tabs`, className);
+		const isVertical = this.hasLineBar && (this.isVerticalLeft || this.isVerticalRight);
+		const finalClassName = cls(
+			`${prefixCls}-tabs`,
+			{
+				[`${prefixCls}-tabs-${linePlacement}`]: isVertical
+			},
+			className
+		);
 		const headerClassName = cls(`${prefixCls}-tabs-header-${type}`, {
-			[`${prefixCls}-tabs-header-more`]: hasMore
+			[`${prefixCls}-tabs-header-more`]: hasMore,
+			[`${prefixCls}-tabs-bg-mode`]: isVertical && this.props.lineBgMode
 		});
 
 		return (
@@ -326,7 +397,11 @@ Panel.propTypes = {
 	fixed: PropTypes.bool, // eslint-disable-line
 	className: PropTypes.string,
 	style: PropTypes.object,
-	tabBarStyle: PropTypes.object // eslint-disable-line
+	tabBarStyle: PropTypes.object, // eslint-disable-line
+	lineSuffixTpl: PropTypes.any, // eslint-disable-line
+	linePrefixTpl: PropTypes.any, // eslint-disable-line
+	linePlacement: PropTypes.oneOf(['top', 'left', 'right']), // eslint-disable-line
+	lineBgMode: PropTypes.bool // eslint-disable-line
 };
 
 Panel.defaultProps = {
@@ -335,7 +410,11 @@ Panel.defaultProps = {
 	fixed: false,
 	className: '',
 	style: {},
-	tabBarStyle: {}
+	tabBarStyle: {},
+	lineSuffixTpl: '',
+	linePrefixTpl: '',
+	linePlacement: 'top',
+	lineBgMode: false
 };
 
 Tabs.Panel = Panel;

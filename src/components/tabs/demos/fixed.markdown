@@ -9,23 +9,23 @@ import { Tabs } from 'cloud-react';
 
 export default class BasicTabsDemo extends Component {
 	tabList = [
-		{ tab: '固定的tab1', content: '不可以移动', fixed: true },
-		{ tab: '固定的tab2', content: '不可以移动', fixed: true },
-		{ tab: '超长超长超长超长超长超长超长超长超长超长超长超长超长超长超长超长超长超长', content: '超长' },
-		{ tab: '禁用我？？', content: '试试' },
-		{ tab: '选项1', content: '选项1111111111111' },
-		{ tab: '吃饭', content: '吃饭啊啊啊啊啊' },
-		{ tab: '加关闭按钮', content: '为什么要关掉我！' },
-		{ tab: '禁用我？？', content: '试试' },
-		{ tab: '选项1', content: '选项1111111111111' },
-		{ tab: '吃饭', content: '吃饭啊啊啊啊啊' },
-		{ tab: '加关闭按钮', content: '为什么要关掉我！' },
-		{ tab: '吃饭', content: '吃饭啊啊啊啊啊' },
-		{ tab: '加关闭按钮', content: '为什么要关掉我！' },
-		{ tab: '禁用我？？', content: '试试' },
-		{ tab: '选项1', content: '选项1111111111111' },
-		{ tab: '吃饭', content: '吃饭啊啊啊啊啊' },
-		{ tab: '加关闭按钮', content: '为什么要关掉我！' }
+		{ tab: '选项卡一', content: '不可以移动', fixed: true },
+		{ tab: '选项卡二', content: '不可以移动', fixed: true },
+		{ tab: '选项卡三超长超长超长', content: '超长' },
+		{ tab: '选项卡四', content: '4' },
+		{ tab: '选项卡五', content: '5' },
+		{ tab: '选项卡六', content: '6' },
+		{ tab: '选项卡七', content: '7' },
+		{ tab: '选项卡八', content: '8' },
+		{ tab: '选项卡九', content: '9' },
+		{ tab: '选项卡十', content: '10' },
+		{ tab: '选项卡十一', content: '11' },
+		{ tab: '选项卡十二', content: '12' },
+		{ tab: '选项卡十三', content: '13' },
+		{ tab: '选项卡十四', content: '14' },
+		{ tab: '选项卡十五', content: '15' },
+		{ tab: '选项卡十六', content: '16' },
+		{ tab: '选项卡十七', content: '17' }
 	];
 
 	tabBarStyle = { width: '110px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' };
