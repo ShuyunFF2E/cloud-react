@@ -32,8 +32,6 @@ group:
 
  ### 代码演示 
 
-<embed src="@components/tooltip/demos/basic-tooltip.md" /> 
-
 <embed src="@components/tooltip/demos/control.md" /> 
 
 <embed src="@components/tooltip/demos/placement.md" /> 

@@ -75,7 +75,7 @@ export default class BreadCrumbsDemo extends React.Component {
                         current: {size}
                     </Button>
                 </div>
-                <div>
+                <div style={{ marginTop: 20 }}>
                     <BreadCrumbs list={list} size={size} onClick={onClickBreadCrumbs.bind(this)}/>
                 </div>
             </React.Fragment>
