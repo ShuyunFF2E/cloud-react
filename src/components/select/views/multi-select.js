@@ -6,7 +6,7 @@ import { noop } from '@utils';
 import Checkbox from '../../checkbox';
 import Button from '../../button';
 import { OptionsEmpty, OptionsSearch, selector } from './common';
-import { filterOptions } from '../utils';
+import { filterOptions, getSearchTagName } from '../utils';
 
 import '../index.less';
 
@@ -84,7 +84,8 @@ export default function MultiSelect(props) {
 				cloneElement(child, {
 					...child.props,
 					multiple: true,
-					isSelected: values.includes(child.props.value),
+          showText: getSearchTagName(child.props.children, searchValue),
+          isSelected: values.includes(child.props.value),
 					onChange: onOptionChange
 				})
 			),

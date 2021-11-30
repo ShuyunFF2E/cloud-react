@@ -117,8 +117,8 @@ export default class Selected extends React.Component {
 				<span className={`${selector}-selected`} title={title}>
 					{selected.length ? selected : placeholder}
 				</span>
-				<Icon type="close-circle-solid" className={clearClasses} onClick={onClear} />
-				{showArrow && <Icon type="down-solid" className={iconClasses} />}
+        <Icon type="close-circle-solid" className={clearClasses} onClick={onClear} />
+        {showArrow && <Icon type="down" className={iconClasses} />}
 			</div>
 		);
 	}

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { noop } from '@utils';
 
 import { OptionsEmpty, OptionsSearch, selector } from './common';
-import { filterOptions } from '../utils';
+import { filterOptions, getSearchTagName } from '../utils';
 
 import '../index.less';
 
@@ -36,6 +36,7 @@ export default function SingleSelect(props) {
 
 				return cloneElement(child, {
 					...child.props,
+          showText: getSearchTagName(child.props.children, searchValue),
 					isSelected: value === childValue,
 					onChange
 				});

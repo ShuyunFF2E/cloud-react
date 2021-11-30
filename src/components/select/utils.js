@@ -22,3 +22,12 @@ export const filterOptions = (options, filter) => {
 		return acc;
 	}, []);
 };
+
+export const getSearchTagName = (name, searchValue) => {
+  if ([null, undefined, ''].includes(searchValue)) {
+    return name;
+  }
+
+  const reg = new RegExp(searchValue, 'g');
+  return name.replace(reg, `<span style="color: #8FAFFF; padding: 0;">${searchValue}</span>`);
+};
