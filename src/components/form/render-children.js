@@ -32,7 +32,7 @@ export default class RenderChildren extends Component {
 
 			const { props } = child;
 
-			if (!props) return child;
+			if (!props || child?.type?.name === 'FormItem') return child;
 
 			if (props && props[DATA_FIELD]) {
 				const { getState = noop, getError = noop } = this.field;
