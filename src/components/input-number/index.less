@@ -33,13 +33,6 @@
 
 	&:hover {
 		border-color: @gray-6;
-		.@{input-number-prefix-cls}-handler-wrap {
-			opacity: 1;
-		}
-	}
-
-	&:active {
-		border-color: @blue-4;
 	}
 
 	&-focused {
@@ -94,10 +87,8 @@
 		width: 22px;
 		height: 100%;
 		background: @gray-1;
-		border-left: 1px solid @gray-5;
+		border-left: 1px solid @gray-4;
 		border-radius: 0 4px 4px 0;
-		opacity: 0;
-		transition: opacity 0.24s linear 0.1s, border-left 0.24s linear 0.1s;
 	}
 
 	&-handler {

@@ -128,7 +128,7 @@ export default class Tabs extends PureComponent {
 		if (this.hasLineBar && this.isVerticalRight) {
 			return 'auto';
 		}
-		return this.activeEle.offsetLeft;
+		return this.activeEle ? this.activeEle.offsetLeft : 0;
 	}
 
 	get activeTabsOffsetRight() {
@@ -138,19 +138,19 @@ export default class Tabs extends PureComponent {
 		if (this.hasLineBar && this.isVerticalRight) {
 			return 0;
 		}
-		return this.activeEle.offsetRight;
+		return this.activeEle ? this.activeEle.offsetRight : 0;
 	}
 
 	get activeTabsOffsetWidth() {
 		if (this.hasLineBar && (this.isVerticalLeft || this.isVerticalRight)) {
 			return 2;
 		}
-		return this.activeEle.offsetWidth;
+		return this.activeEle ? this.activeEle.offsetWidth : 0;
 	}
 
 	get activeTabsOffsetTop() {
 		if (this.hasLineBar && (this.isVerticalLeft || this.isVerticalRight)) {
-			return this.activeEle.offsetTop;
+			return this.activeEle ? this.activeEle.offsetTop : 0;
 		}
 		return 'auto';
 	}

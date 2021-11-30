@@ -25,25 +25,34 @@ export default function Option(props) {
 	};
 	const classNames = classnames(`${selector}-option`, { disabled, selected: isSelected }, className);
 
-	if (multiple) {
+	const { showText } = otherProps;
+
+  if (multiple) {
 		const { value, children } = otherProps;
-		return (
+    const childrenType = typeof children === 'string';
+    return (
 			<label className={classnames(classNames, `${selector}-multi-option`)}>
 				<Checkbox checked={isSelected} disabled={disabled} value={value} onChange={onChange} />
-				<span title={getTitle(children)}>{children}</span>
+        {
+          childrenType ? <span title={getTitle(children)} dangerouslySetInnerHTML={{ __html: showText }} /> :
+            <span title={getTitle(children)}>{children}</span>
+        }
 			</label>
 		);
 	}
 
 	const { children, ...others } = otherProps;
-
-	return useMemo(
+  const childrenType = typeof children === 'string';
+  return useMemo(
 		() => (
 			<div {...others} onClick={onOptionClick} className={classNames}>
-				<span title={getTitle(children)}>{children}</span>
+        {
+          childrenType ? <span title={getTitle(children)} dangerouslySetInnerHTML={{ __html: showText }}/> :
+            <span title={getTitle(children)}>{children}</span>
+        }
 			</div>
 		),
-		[isSelected]
+		[isSelected, showText]
 	);
 }
 

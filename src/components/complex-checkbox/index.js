@@ -6,9 +6,9 @@ import Checkbox from '../checkbox';
 import Tooltip from '../tooltip';
 import './index.less';
 
-const classSelector = `${prefixCls}-composition`;
+const classSelector = `${prefixCls}-complex`;
 
-export default function CompositionCheckbox(props) {
+export default function ComplexCheckbox(props) {
 	const { imgSrc, title, content, textOverflowEllipsis, contentStyle, ...otherProps } = props;
 
 	const titleContentMode = !!(title && content && !imgSrc);
@@ -43,17 +43,17 @@ export default function CompositionCheckbox(props) {
 	);
 }
 
-CompositionCheckbox.propTypes = {
-	content: PropTypes.string.isRequired,
+ComplexCheckbox.propTypes = {
+	content: PropTypes.oneOfType([PropTypes.string, PropTypes.element]).isRequired,
 	imgSrc: PropTypes.string,
 	title: PropTypes.string,
 	textOverflowEllipsis: PropTypes.bool,
-	contentStyle: PropTypes.object
+	contentStyle: PropTypes.object,
 };
 
-CompositionCheckbox.defaultProps = {
+ComplexCheckbox.defaultProps = {
 	imgSrc: '',
 	title: '',
 	textOverflowEllipsis: false,
-	contentStyle: {}
+	contentStyle: {},
 };

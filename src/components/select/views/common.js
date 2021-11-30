@@ -18,14 +18,20 @@ export const OptionsEmpty = ({ emptyRender, ...props }) => {
 export const OptionsSearch = ({ searchValue, onOptionsSearch, clearSearch, placeholder }) => {
 	return (
 		<div className={`${selector}-search`}>
-			<Input value={searchValue} placeholder={placeholder} onChange={onOptionsSearch} className={`${selector}-search-input`} />
-			<Icon
-				type="close-circle-solid"
-				className={classnames(`${selector}-search-icon`, {
-					show: searchValue
-				})}
-				onClick={clearSearch}
-			/>
+      <Input
+        value={searchValue}
+        placeholder={placeholder}
+        onChange={onOptionsSearch}
+        suffix={searchValue ? <Icon
+            type="close-circle-solid"
+            className={`${selector}-search-icon`}
+            onClick={clearSearch}/>
+          :
+          <Icon type="search" className={`${selector}-search-icon`}
+          />}
+        className={`${selector}-search-input`}
+      />
+
 		</div>
 	);
 };

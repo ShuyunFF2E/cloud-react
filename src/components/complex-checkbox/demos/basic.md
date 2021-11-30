@@ -1,15 +1,26 @@
 ---
 order: 1
-title: ComplexCheckbox
+title: ComplexCheckboxbox
 desc: 默认样式
 ---
 
 ```jsx
 import React, { useState, useEffect } from 'react';
-import { CompositionCheckbox, Checkbox, Button } from 'cloud-react';
+import { ComplexCheckbox, Checkbox, Button } from 'cloud-react';
 
-export default function CompositionCheckboxDemo() {
+export default function ComplexCheckboxDemo() {
     const [disabled, setDisabled] = useState(true);
+     const checkCon = (
+        <>
+            <p>
+                长太息以掩涕兮，哀民生之多艰
+            </p>
+            <p>
+                路漫漫其修远兮，吾将上下而求索
+            </p>
+        </>
+        
+    );
 	return (
         <div>
             <Button type="primary" onClick={() => {
@@ -18,20 +29,35 @@ export default function CompositionCheckboxDemo() {
             <div style={{ height: 10 }}/>
  
             <Checkbox.Group layout="v">
-                <CompositionCheckbox
+                <ComplexCheckbox
                     disabled={disabled}
                     content="长太息以掩涕兮，哀民生之多艰"
                     title="标题"
                 />
                 <div style={{ height: 10 }}/>
-                <CompositionCheckbox
+                <ComplexCheckbox
+                    disabled={disabled}
+                    defaultChecked
+                    content={checkCon}
+                    imgSrc="https://img2.baidu.com/it/u=1429175118,2649084526&fm=26&fmt=auto"
+                />
+                  <div style={{ height: 10 }}/>
+                <ComplexCheckbox
                     disabled={disabled}
                     defaultChecked
                     content="长太息以掩涕兮，哀民生之多艰"
                     imgSrc="https://img2.baidu.com/it/u=1429175118,2649084526&fm=26&fmt=auto"
                 />
                 <div style={{ height: 10 }}/>
-                <CompositionCheckbox
+                <ComplexCheckbox
+                    disabled={disabled}
+                    defaultChecked
+                    content={checkCon}
+                    title="标题"
+                    imgSrc="https://img2.baidu.com/it/u=1429175118,2649084526&fm=26&fmt=auto"
+                />
+                <div style={{ height: 10 }}/>
+                <ComplexCheckbox
                     disabled={disabled}
                     textOverflowEllipsis
                     contentStyle={{ width: 300 }}

@@ -3,19 +3,22 @@
 @select-prefix-cls: ~'@{prefix}-select';
 
 @font-size: 12px;
-@height: 30px;
+@height: 32px;
 @line-height: 16px;
-@max-height: 220px;
-@min-width: 64px;
-@max-width: 280px;
+@max-height: 280px;
+@min-width: 120px;
+@max-width: 400px;
 @text-icon-gap: 20px;
-@search-input-height: 25px;
+@search-input-height: 32px;
 
 @default-padding: 5px;
 @default-margin: 5px;
+@options-padding: 8px;
 @default-border-radius: 2px;
 @large-padding: 10px;
-@item-padding: 5px 8px;
+@item-padding: 7px 12px;
+@options-margin: 4px;
+
 
 @dropdown-icon-size: @font-size;
 
@@ -24,8 +27,8 @@
 @select-empty-color: #e3e3e3;
 @select-normal-border: 1px solid @color-gray5;
 @select-hover-color: #aacbe1;
-@select-hover-border: 1px solid @select-hover-color;
-@select-disabled-border: 1px solid @color-gray5;
+@select-hover-border: 1px solid @blue-4;
+@select-disabled-border: 1px solid @gray-4;
 @select-disabled-color: #999;
 @dropdown-icon-color: #c2c2c2;
 @option-hover-background: #f6f6f6;
@@ -62,23 +65,24 @@
 		height: @height;
 		line-height: @line-height;
 		background: #fff;
-		border: @select-normal-border;
+		border: 1px solid @gray-4;
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
 		cursor: pointer;
+    border-radius: 2px;
 
 		&:hover {
-			border: @select-hover-border;
+			border: 1px solid @gray-6;
 
 			.@{select-prefix-cls}-select-icon {
-				color: @select-hover-color;
+				color: @gray-6;
 			}
 		}
 
 		&.disabled {
 			border: @select-disabled-border;
-			background: @color-gray7;
+			background: @gray-3;
 			cursor: not-allowed;
 
 			&:hover {
@@ -86,8 +90,8 @@
 			}
 
 			.@{select-prefix-cls}-selected {
-				color: @select-disabled-color;
-				background: @color-gray7;
+				color: @gray-6;
+				background: @gray-3;
 				cursor: not-allowed;
 			}
 
@@ -98,7 +102,7 @@
 
 		&.empty {
 			.@{select-prefix-cls}-selected {
-				color: @select-empty-color;
+				color: @gray-6;
 			}
 		}
 
@@ -175,17 +179,17 @@
 }
 
 .@{select-prefix-cls}-select-options {
-	box-sizing: @box-sizing;
-	padding: 0;
-	margin: 0;
+	padding: @options-padding 0;
+	margin: @options-margin 0;
 	min-width: @min-width;
 	width: 100%;
-	border: @select-normal-border;
 	background: @color-white;
 	cursor: pointer;
+  box-sizing: @box-sizing;
+  box-shadow: @border-shadow-3;
 
-	> div {
-		max-height: @max-height;
+  > div {
+		max-height: @max-height - @options-padding * 2;
 		overflow: auto;
 	}
 
@@ -197,53 +201,42 @@
 
 	.@{select-prefix-cls}-search {
 		width: 100%;
-		padding: @default-padding;
+		padding: 0 12px 6px 12px;
 		position: relative;
 
 		.@{select-prefix-cls}-search-input {
 			width: 100%;
-			padding: @default-padding;
-			padding-right: @text-icon-gap;
 			height: @search-input-height;
-			border: @search-border;
-			border-radius: @default-border-radius;
-			outline: none;
 			.text-overflow-ellipsis();
 		}
 
 		.@{select-prefix-cls}-search-icon {
-			color: @sign-color;
-			position: absolute;
-			right: @default-padding * 2;
-			top: @default-padding * 2;
-			display: none;
-
-			&.show {
-				display: block;
-			}
+			color: @gray-6;
 		}
 	}
 
 	.@{select-prefix-cls}-option {
 		height: @height;
 		width: 100%;
-		line-height: @height - @default-padding * 2;
+		line-height: @height - 6 * 2;
 		padding: @item-padding;
-		.text-overflow-ellipsis();
+    color: @gray-9;
+
+    .text-overflow-ellipsis();
 
 		&:hover {
-			background: @option-hover-background;
+			background: @blue-1;
 		}
 
 		&.disabled {
 			cursor: not-allowed;
 			span {
-				color: @select-disabled-color;
+				color: @gray-6;
 			}
 		}
 
 		&.selected {
-			background: @option-disabled-background;
+			background: @blue-2;
 		}
 	}
 
@@ -252,6 +245,7 @@
 		cursor: pointer;
 
 		> span {
+      color: @gray-9;
 			.text-overflow-ellipsis();
 		}
 	}
@@ -272,14 +266,14 @@
 			.column-layout;
 
 			.@{select-prefix-cls}-option {
-				padding: @default-padding @large-padding;
+				padding: 6px 12px;
 
 				&.selected {
 					background: @color-white;
 				}
 
 				&:hover {
-					background: @option-hover-background;
+					background: @blue-1;
 				}
 			}
 		}

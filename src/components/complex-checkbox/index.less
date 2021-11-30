@@ -2,9 +2,9 @@
 
 @checkbox-prefix-cls: ~'@{prefix}-checkbox';
 
-@composition-checkbox-prefix-cls: ~'@{prefix}-composition';
+@complex-checkbox-prefix-cls: ~'@{prefix}-complex';
 
-.@{composition-checkbox-prefix-cls} {
+.@{complex-checkbox-prefix-cls} {
 	height: 24px;
 
 	img[alt='header'] {
@@ -22,14 +22,14 @@
 		color: @gray-7;
 	}
 
-	&.@{composition-checkbox-prefix-cls}-overflow-ellipsis {
-		.@{composition-checkbox-prefix-cls}-content {
+	&.@{complex-checkbox-prefix-cls}-overflow-ellipsis {
+		.@{complex-checkbox-prefix-cls}-content {
 			.text-overflow-ellipsis;
 		}
 	}
 
 	// 图片 + title + content
-	&.@{composition-checkbox-prefix-cls}-img {
+	&.@{complex-checkbox-prefix-cls}-img {
 		height: auto;
 
 		img[alt='header'] {
@@ -39,7 +39,7 @@
 	}
 
 	// title + content
-	&.@{composition-checkbox-prefix-cls}-title-content {
+	&.@{complex-checkbox-prefix-cls}-title-content {
 		height: auto;
 
 		.@{checkbox-prefix-cls}-text {
@@ -53,10 +53,10 @@
 	}
 
 	&-disabled {
-		.@{composition-checkbox-prefix-cls}-title {
+		.@{complex-checkbox-prefix-cls}-title {
 			color: @gray-7;
 		}
-		.@{composition-checkbox-prefix-cls}-content {
+		.@{complex-checkbox-prefix-cls}-content {
 			color: @gray-6;
 		}
 	}

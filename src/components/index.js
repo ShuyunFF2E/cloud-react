@@ -13,7 +13,9 @@ export { default as Button } from './button';
 
 export { default as Checkbox } from './checkbox';
 
-export { default as CompositionCheckbox } from './composition-checkbox';
+export { default as ComplexCheckbox } from './complex-checkbox';
+
+export { default as ComplexRadio } from './complex-radio';
 
 export { default as Datepicker } from './datepicker';
 

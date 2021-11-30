@@ -23,6 +23,8 @@ group:
 | disabled     | 定义内部 radio 是否禁用 | boolean                    | false  |
 | horizontal   | 定义 radio 横向布局     | boolean                    | false  |
 | vertical     | 定义 radio 竖向布局     | boolean                    | false  |
+| textStyle      | 复选框后面的内容样式      | object            | {}     |
+| onChange       | 变化时回调函数          | Function(e:Event) | --     |
 
 ### API Radio
 
