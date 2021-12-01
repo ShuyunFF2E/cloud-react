@@ -8,6 +8,12 @@
 
 @lineTabHeight: 32px; // 类型为 line 的 tab 页高度
 
+.flexCenter {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+}
+
 .@{selector}-header-basic {
 	position: relative;
 	display: flex;
@@ -80,6 +86,15 @@
 
 	&-header-line {
 		&:extend(.cloud-tabs-header-basic all);
+
+		// type === line && linePlacement === 'top';
+		&.@{selector}-line-horizontal {
+			height: @lineTabHeight;
+
+			.@{selector}-more-icon-line {
+				line-height: @lineTabHeight;
+			}
+		}
 	}
 
 	&-more-icon-card {
@@ -112,7 +127,7 @@
 		}
 	}
 
-	// type 为 card，默认类型的 tab
+	// type 为 card
 	&-item-card:extend(.cloud-tabs-item-basic all) {
 		border: 1px solid @gray-4;
 		background-color: @gray-2;
@@ -143,11 +158,12 @@
 		}
 	}
 
-	// type 为 line，横向 tab
+	// type 为 line，横向 tab（linePlacement 为 top）
 	&-item-line:extend(.cloud-tabs-item-basic all) {
 		color: @gray-8;
 		padding: 0 4px;
 		margin: 0 10px;
+		height: @lineTabHeight;
 		line-height: @lineTabHeight;
 
 		&:first-child {
@@ -175,6 +191,7 @@
 		}
 
 		.tab-suffix {
+			.flexCenter;
 			font-size: 16px;
 			margin-left: 8px;
 		}
@@ -202,16 +219,20 @@
 				color: @gray-8;
 			}
 		}
+
+		&.@{selector}-container {
+			.flexCenter;
+
+			> span {
+				.flexCenter;
+			}
+		}
 	}
 
-	// type 为 line，纵向 tab（linePlacement 为 left 或者 top）
+	// type 为 line，纵向 tab（linePlacement 为 left 或者 right）
 	&.@{selector}-left,
 	&.@{selector}-right {
 		display: flex;
-
-		.@{prefix}-tabpanel-container {
-			flex: 1;
-		}
 
 		.@{selector}-header-line {
 			height: auto;
@@ -242,13 +263,14 @@
 				padding: 0;
 				height: @lineTabHeight;
 
-				.@{selector}-container {
+				&.@{selector}-container {
 					display: flex;
 					justify-content: space-between;
 					height: @lineTabHeight;
 
 					> span {
 						height: @lineTabHeight;
+						.flexCenter;
 					}
 				}
 
@@ -271,9 +293,15 @@
 						display: none;
 					}
 				}
+
 				.@{selector}-item-line {
-					.@{selector}-container {
-						margin: 0 10px;
+					&.@{selector}-container {
+						> span:first-child {
+							margin-left: 16px;
+						}
+						> span:last-child {
+							margin-right: 16px;
+						}
 					}
 
 					&:hover {
@@ -290,6 +318,10 @@
 					}
 				}
 			}
+		}
+
+		.@{prefix}-tabpanel-container {
+			flex: 1;
 		}
 	}
 	&.@{selector}-right {
@@ -309,7 +341,7 @@
 		}
 	}
 
-	// type 为 capsule，胶囊类型的 tab
+	// type 为 capsule
 	&-item-capsule:extend(.cloud-tabs-item-basic all),
 	&-item-empty-capsule:extend(.cloud-tabs-item-basic all) {
 		border: 1px solid @gray-4;
@@ -388,7 +420,7 @@
 		}
 	}
 
-	// type 为 slide，滑块类型的 tab
+	// type 为 slide
 	&-item-slide:extend(.cloud-tabs-item-basic all) {
 		position: relative;
 		padding: 0 14px;

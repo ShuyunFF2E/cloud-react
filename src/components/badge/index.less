@@ -1,0 +1,71 @@
+@import '../style/index';
+
+@breadcrumbs-prefix-cls: ~'@{prefix}-badge';
+
+.@{breadcrumbs-prefix-cls} {
+	cursor: pointer;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+
+	&.@{breadcrumbs-prefix-cls}-message {
+		.remark {
+			position: relative;
+			font-size: 16px;
+
+			&:after {
+				position: absolute;
+				top: -1px;
+				right: -3px;
+				display: block;
+				content: '';
+				width: 8px;
+				height: 8px;
+				border-radius: 100%;
+			}
+		}
+	}
+
+	&.@{breadcrumbs-prefix-cls}-number {
+		.number-container {
+			display: inline-block;
+			height: 8px;
+			min-width: 8px;
+			padding: 4px;
+			width: fit-content;
+			line-height: 8px;
+			border-radius: 8px;
+			color: @color-white;
+			text-align: center;
+			font-size: 12px;
+		}
+	}
+
+	&.@{breadcrumbs-prefix-cls}-default {
+		.remark:after,
+		.number-container {
+			background: @blue-4;
+		}
+	}
+
+	&.@{breadcrumbs-prefix-cls}-success {
+		.remark:after,
+		.number-container {
+			background: @green-4;
+		}
+	}
+
+	&.@{breadcrumbs-prefix-cls}-warn {
+		.remark:after,
+		.number-container {
+			background: @orange-4;
+		}
+	}
+
+	&.@{breadcrumbs-prefix-cls}-fail {
+		.remark:after,
+		.number-container {
+			background: @red-4;
+		}
+	}
+}

@@ -10,11 +10,13 @@ desc: 页签类型为line的基础Tabs
              * desc: 页签类型为 line 的基础 Tabs，支持横向、纵向（居左、居右）展示
              */
 import React, { Component, useState } from 'react';
-import { Button, Tabs, Icon, Tooltip } from 'cloud-react';
+import { Badge, Button, Tabs, Icon, Tooltip } from 'cloud-react';
 
 const linePrefixTpl = <Icon type="search-file"/>;
 
-const lineSuffixTpl = <Icon type="warning-circle-solid" style={{ color: '#E74949' }}/>;
+const lineSuffixTpl = <Badge mode="number" number={6} type="fail" onClick={() => {
+    console.log('点击了徽标')
+}}/>;
 
 class BasicTabs extends Component {
     handleChange = key => {
@@ -68,16 +70,16 @@ export default class BasicTabsDemo extends Component {
                     { tab: '选项卡normal', key: 1, linePrefixTpl, closable: true, disabled: false },
                     { tab: '选项卡active', key: 2, linePrefixTpl, closable: true, disabled: false },
                     { tab: '选项卡normal', key: 3, linePrefixTpl, closable: true, disabled: false },
-                    { tab: '选项卡disabled', key: 4, linePrefixTpl, lineSuffixTpl, closable: true, disabled: true },
+                    { tab: '选项卡disabled', key: 4, linePrefixTpl, closable: true, disabled: true },
                     { tab: '好长好长好长好长好长好长好长好长好长好长', key: 5, linePrefixTpl, lineSuffixTpl, closable: true, disabled: false }
                 ]}/>
                 <h4>纵向（右）</h4>
                 <BasicTabs linePlacement="right" tabList={[
-                    { tab: '选项卡1', key: 1, linePrefixTpl, lineSuffixTpl, disabled: false },
-                    { tab: '选项卡2', key: 2, linePrefixTpl, lineSuffixTpl, disabled: false },
-                    { tab: '选项卡3', key: 3, linePrefixTpl, lineSuffixTpl, disabled: false },
-                    { tab: '选项卡4', key: 4, linePrefixTpl, lineSuffixTpl, disabled: true },
-                    { tab: <span style={{ color: 'red' }}>自定义标题</span>, key: 5, linePrefixTpl, lineSuffixTpl, disabled: false }
+                    { tab: '选项卡1', key: 1, linePrefixTpl, disabled: false, closable: true },
+                    { tab: '选项卡2', key: 2, linePrefixTpl, disabled: false, closable: true },
+                    { tab: '选项卡3', key: 3, linePrefixTpl, disabled: false, closable: true },
+                    { tab: '选项卡4', key: 4, linePrefixTpl, disabled: true, closable: true },
+                    { tab: '选项卡5', key: 5, linePrefixTpl, disabled: false, closable: true }
                 ]}/>
                 <h4>纵向（背景色模式）</h4>
                 <BasicTabs linePlacement="left" lineBgMode tabList={[

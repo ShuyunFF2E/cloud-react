@@ -272,7 +272,7 @@ export default class Tabs extends PureComponent {
 		const getTabTpl = () => {
 			if (this.hasLineBar) {
 				return (
-					<span className={`${prefixCls}-tabs-container`}>
+					<>
 						<span>
 							{linePrefixTpl && <span className="tab-prefix">{linePrefixTpl}</span>}
 							<span className={`${prefixCls}-tab-content`}>{tab}</span>
@@ -281,7 +281,7 @@ export default class Tabs extends PureComponent {
 							{lineSuffixTpl && <span className="tab-suffix">{lineSuffixTpl}</span>}
 							{closable && <Icon type="close" className="closable" onClick={this.handleClose(key)} />}
 						</span>
-					</span>
+					</>
 				);
 			}
 
@@ -299,7 +299,7 @@ export default class Tabs extends PureComponent {
 
 		// render
 		return (
-			<span className={className} key={key} style={tabBarStyle} onClick={this.handleChange(key)}>
+			<span className={`${className} ${prefixCls}-tabs-container`} key={key} style={tabBarStyle} onClick={this.handleChange(key)}>
 				{getTabTpl()}
 			</span>
 		);
@@ -349,6 +349,7 @@ export default class Tabs extends PureComponent {
 		});
 
 		const isVertical = this.hasLineBar && (this.isVerticalLeft || this.isVerticalRight);
+		const isHorizontal = this.hasLineBar && !(this.isVerticalLeft || this.isVerticalRight);
 		const finalClassName = cls(
 			`${prefixCls}-tabs`,
 			{
@@ -358,7 +359,8 @@ export default class Tabs extends PureComponent {
 		);
 		const headerClassName = cls(`${prefixCls}-tabs-header-${type}`, {
 			[`${prefixCls}-tabs-header-more`]: hasMore,
-			[`${prefixCls}-tabs-bg-mode`]: isVertical && this.props.lineBgMode
+			[`${prefixCls}-tabs-bg-mode`]: isVertical && this.props.lineBgMode, // 背景色模式
+			[`${prefixCls}-tabs-line-horizontal`]: isHorizontal
 		});
 
 		return (

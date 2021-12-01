@@ -7,6 +7,8 @@ if(typeof window === 'undefined') {
 
 export const version = '1.0.0-17';
 
+export { default as Badge } from './badge';
+
 export { default as BreadCrumbs } from './bread-crumbs';
 
 export { default as Button } from './button';
