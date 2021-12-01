@@ -9,7 +9,7 @@ import React, { useState, useEffect } from 'react';
 import { ComplexCheckbox, Checkbox, Button } from 'cloud-react';
 
 export default function ComplexCheckboxDemo() {
-    const [disabled, setDisabled] = useState(true);
+    const [disabled, setDisabled] = useState(false);
      const checkCon = (
         <>
             <p>
@@ -26,7 +26,7 @@ export default function ComplexCheckboxDemo() {
             <Button type="primary" onClick={() => {
                 setDisabled(!disabled);
             }}>切换禁用状态</Button>
-            <div style={{ height: 10 }}/>
+            <div style={{ height: 20 }}/>
  
             <Checkbox.Group layout="v">
                 <ComplexCheckbox
@@ -34,21 +34,21 @@ export default function ComplexCheckboxDemo() {
                     content="长太息以掩涕兮，哀民生之多艰"
                     title="标题"
                 />
-                <div style={{ height: 10 }}/>
+                <div style={{ height: 20 }}/>
                 <ComplexCheckbox
                     disabled={disabled}
                     defaultChecked
                     content={checkCon}
                     imgSrc="https://img2.baidu.com/it/u=1429175118,2649084526&fm=26&fmt=auto"
                 />
-                  <div style={{ height: 10 }}/>
+                  <div style={{ height: 20 }}/>
                 <ComplexCheckbox
                     disabled={disabled}
                     defaultChecked
                     content="长太息以掩涕兮，哀民生之多艰"
                     imgSrc="https://img2.baidu.com/it/u=1429175118,2649084526&fm=26&fmt=auto"
                 />
-                <div style={{ height: 10 }}/>
+                <div style={{ height: 20 }}/>
                 <ComplexCheckbox
                     disabled={disabled}
                     defaultChecked
@@ -56,7 +56,7 @@ export default function ComplexCheckboxDemo() {
                     title="标题"
                     imgSrc="https://img2.baidu.com/it/u=1429175118,2649084526&fm=26&fmt=auto"
                 />
-                <div style={{ height: 10 }}/>
+                <div style={{ height: 20 }}/>
                 <ComplexCheckbox
                     disabled={disabled}
                     textOverflowEllipsis

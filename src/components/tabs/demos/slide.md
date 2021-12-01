@@ -46,9 +46,7 @@ export default class BasicTabs extends Component {
                     lineBgMode={this.props.lineBgMode}
                     onChange={this.handleChange}>
                     {this.tabList.map(item => (
-                        <Tabs.Panel tab={item.tab} key={item.key} disabled={item.disabled}>
-                            {item.tab}
-                        </Tabs.Panel>
+                        <Tabs.Panel tab={item.tab} key={item.key} disabled={item.disabled}/>
                     ))}
                 </Tabs>
                 <h4>图标</h4>

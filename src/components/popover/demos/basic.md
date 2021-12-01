@@ -29,7 +29,7 @@ export default function PopoverDemo() {
                 trigger={trigger}
                 placement="right"
                 content="这是一段文字描述">
-                <Button>纯文字（click 触发）</Button>
+                <Button>纯文字</Button>
             </Popover>
             {split}
             <Popover
@@ -106,7 +106,7 @@ export default function PopoverDemo() {
                     Message.error('校验不合法，无法关闭弹窗')
                     return a >= 2000;
                 }}>
-                <Button>标题 + Icon + btn（click 触发）</Button>
+                <Button>标题 + Icon + btn</Button>
             </Popover>
         </div>
 	);
