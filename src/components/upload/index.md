@@ -22,6 +22,9 @@ group:
 | labelText         | 上传`label`显示文件                                             | string      | 选择文件                     |
 | accept            | 接受上传的文件类型                                              | string      |                              |
 | size              | 文件上传的大小(默认单位为`M`)                                   | number      | 1                            |
+| limit             | 最多可上传文件个数                                             | number      | null                            |
+| btnOptions        | 上传按钮配置                                                  | object      | {}                            |
+| hasPreview        | 上传的图片是否可预览（仅适用type="pciture"）                     | boolean      | true                           |
 | disabled          | 禁用上传                                                        | boolean     | false                        |
 | fileList          | 已上传的文件列表                                                | Array< File > | []                           |
 | action            | 文件上传的地址                                                  | string      |                              |
@@ -37,6 +40,7 @@ group:
 | onProgress        | 上传过程中                                                      | func        |                              |
 | onSuccess         | 上传成功后                                                      | func        |                              |
 | onError           | 上传失败                                                        | func        |                              |
+| onReUpload        | 重新上传(仅适用type="picture")                                                       | func        |                              |
 | onRemove          | 删除已上传列表的文件                                            | func        |                              |
 | className         | 外部控制样式                                                    | string      |                              |
 | params            | FormData 中的额外参数                                                 | object      |    {}                          | 
@@ -48,6 +52,7 @@ group:
 | id   | 已上传的文件唯一标识 id                 | string | ''     |
 | name | 上传文件的名称                          | string |        |
 | url  | 如果为图片的话展示缩略图需要的 url 地址 | string |        |
+| status  | 上传状态('done','error') | string |        |
 
 #### onProgress
 

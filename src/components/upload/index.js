@@ -1,6 +1,7 @@
 import React, { Component, createRef } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import ShuyunUtils from 'shuyun-utils';
 import Message from '../message';
 import Icon from '../icon';
 import Button from '../button';
@@ -13,19 +14,21 @@ import { TYPE, PREFIX } from './constant';
 import './index.less';
 
 const Text = props => {
+	const { isShowIcon, labelText, disabled, options } = props;
 	return (
-		<Button type="normal" disabled={props.disabled}>
-			{props.isShowIcon && <Icon type="upload" style={{ fontSize: '14px', marginRight: '8px' }} />}
-			<span>{props.labelText}</span>
+		<Button type="primary" disabled={disabled} {...options}>
+			{isShowIcon && <Icon type="upload" style={{ fontSize: '14px', marginRight: '8px' }} />}
+			<span>{labelText}</span>
 		</Button>
 	);
 };
 
 const Picture = props => {
+	const { labelText } = props;
 	return (
 		<div>
-			<Icon type="plus" style={{ fontSize: '24px' }} />
-			<div className={`${PREFIX}-text`}>{props.labelText}</div>
+			<Icon type="plus" style={{ fontSize: '12px' }} />
+			<div className={`${PREFIX}-text`}>{labelText}</div>
 		</div>
 	);
 };
@@ -40,15 +43,21 @@ class Upload extends Component {
 
 		this.ref = createRef();
 
+		const list = props.fileList || this.defaultFileList;
 		this.state = {
-			fileList: props.fileList || this.defaultFileList
+			fileList: [...list],
+			selectPic: {},
+			isShowPreview: false,
+			prevFileList: [...list],
 		};
 	}
 
-	static getDerivedStateFromProps(props, state) {
-		if (props.fileList && props.fileList.length !== state.fileList.length) {
+	static getDerivedStateFromProps(props, prevState) {
+		const { fileList } = props;
+		if (props.fileList && !ShuyunUtils.equal(fileList, prevState.prevFileList)) {
 			return {
-				fileList: props.fileList
+				fileList: [...fileList],
+				prevFileList: [...fileList] 
 			};
 		}
 		return null;
@@ -60,7 +69,7 @@ class Upload extends Component {
 
 	onClick = e => {
 		const element = this.ref.current;
-		if (!element || e.target === element) return;
+		if (!element || e?.target === element) return;
 		const { onClick, showBeforeConfirm, beforeConfirmBody } = this.props;
 
 		onClick().then(() => {
@@ -81,11 +90,24 @@ class Upload extends Component {
 		return this.ref.current.files;
 	}
 
+	handlePreview = (item = {}) => {
+		this.setState({
+			selectPic: item,
+			isShowPreview: !!item.url
+		});
+	}
+
 	handleChange = () => {
 		// 已选择文件数量校验，如果没有选择文件的时候不允许点击上传按钮
 		const number = this.getFileList().length;
+		const { limit } = this.props;
 
 		if (number === 0) return;
+
+		if (limit && limit !== 1 && this.state.fileList.length + number > limit) {
+			Message.error(`最多上传${limit}个`);
+			return;
+		}
 
 		this.handleUpload();
 	};
@@ -101,6 +123,14 @@ class Upload extends Component {
 		});
 		this.upload(newFileList);
 	};
+
+	handleReUpload = item => {
+		this.setState({
+			selectPic: item
+		});
+
+		this.onClick();
+	}
 
 	handleRemove = file => {
 		const { onRemove } = this.props;
@@ -124,6 +154,19 @@ class Upload extends Component {
 		}
 	};
 
+	getStatusFile = (file, status) => {
+		const { selectPic } = this.state;
+		const newFile = [...Array.from([file])].map(file => {
+			const item = file;
+			item.status = status;
+			if (selectPic.url) {
+				item.index = selectPic.index;
+			}
+			return item;
+		});
+		return newFile[0];
+	}
+
 	handleSuccess = (response, file) => {
 		try {
 			if (typeof response === 'string') {
@@ -134,11 +177,22 @@ class Upload extends Component {
 			console.warn(e);
 		}
 
-		const { onSuccess } = this.props;
+		const { onSuccess, onReUpload } = this.props;
+		const { selectPic } = this.state;
 		this.ref.current.value = '';
-		if (onSuccess) {
+		const newFile = this.getStatusFile(file, 'done');
+		if (selectPic.url) {
+			onReUpload({
+				file: newFile,
+				fileList: [...this.state.fileList],
+				response
+			});
+			this.setState({
+				selectPic: {}
+			});
+		} else if (onSuccess) {
 			onSuccess({
-				file,
+				file: newFile,
 				fileList: [...this.state.fileList],
 				response
 			});
@@ -148,9 +202,15 @@ class Upload extends Component {
 	handleError = (error, file) => {
 		const { onError } = this.props;
 		this.ref.current.value = '';
+		const newFile = this.getStatusFile(file, 'error');
+		if (this.state.selectPic.url) {
+			this.setState({
+				selectPic: {}
+			});
+		}
 		if (onError) {
 			onError({
-				file,
+				file: newFile,
 				fileList: [...this.state.fileList],
 				error
 			});
@@ -232,58 +292,122 @@ class Upload extends Component {
 		});
 	}
 
-	render() {
-		const { type, labelText, accept, disabled, multiple, className, isShowIcon } = this.props;
+	renderUpload() {
+		const { type, labelText, accept, disabled, multiple, className, isShowIcon, btnOptions, limit } = this.props;
 		const { fileList } = this.state;
+		const uploadDisabled = disabled || limit && limit > 1 && limit === fileList.length;
 
 		const classes = classNames(
 			PREFIX,
 			{
 				[`${PREFIX}-select`]: true,
 				[`${PREFIX}-select-${type}`]: true,
-				[`${PREFIX}-disabled`]: disabled
+				[`${PREFIX}-disabled`]: uploadDisabled
 			},
 			className
 		);
 
-		const events = disabled
+		const events = uploadDisabled
 			? {}
 			: {
 					onClick: this.onClick
 			  };
 
 		return (
-			<>
-				<div className={classes}>
-					<span className={PREFIX} role="button" {...events}>
-						<input
-							style={{ display: 'none' }}
-							type="file"
-							disabled={disabled}
-							ref={this.ref}
-							accept={accept}
-							multiple={multiple}
-							onChange={this.handleChange}
+			<div className={classes}>
+				<span className={PREFIX} role="button" {...events}>
+					<input
+						style={{ display: 'none' }}
+						type="file"
+						disabled={uploadDisabled}
+						ref={this.ref}
+						accept={accept}
+						multiple={multiple}
+						onChange={this.handleChange}
+					/>
+					{type === TYPE.DEFAULT ? (
+						<Text
+							options={btnOptions}
+							labelText={labelText}
+							disabled={uploadDisabled}
+							isShowIcon={isShowIcon}
 						/>
-						{type === TYPE.DEFAULT ? <Text labelText={labelText} disabled={disabled} isShowIcon={isShowIcon} /> : <Picture labelText={labelText} />}
-					</span>
-				</div>
+					) : (
+						<Picture disabled={uploadDisabled} labelText={labelText} />
+					)}
+				</span>
+			</div>
+		);
+	};
+
+	renderPicture() {
+		const { type, limit, hasPreview } = this.props;
+		const { fileList, selectPic, isShowPreview } = this.state;
+		const showUpload = limit === 1 ? fileList.length < 1 : true;
+		const { name, url } = selectPic;
+
+		return (
+			<>
+				<UploadList
+					type={type}
+					fileList={fileList}
+					hasPreview={hasPreview}
+					onRemove={this.handleRemove}
+					onPreview={this.handlePreview}
+					onReUpload={this.handleReUpload}
+				/>
+				{isShowPreview && (
+					<Modal
+						hasFooter={false}
+						className={`${PREFIX}-pic-preview`}
+						title={name}
+						visible={isShowPreview}
+						onClose={() => this.handlePreview()}
+					>
+						<img src={url} />
+					</Modal>
+				)}
+				{showUpload && this.renderUpload()}
+			</>
+		)
+	}
+
+	renderNormal() {
+		const { type } = this.props;
+		const { fileList } = this.state;
+		return (
+			<>
+				{this.renderUpload()}
 				<UploadList type={type} fileList={fileList} onRemove={this.handleRemove} />
 			</>
+		)
+	}
+
+	render() {
+		const { type } = this.props;
+
+
+		return (
+			<div className={`${PREFIX}-${type}-wrapper`}>
+				{type === TYPE.PICTURE ? this.renderPicture() : this.renderNormal()}
+			</div>
 		);
 	}
 }
 
 Upload.propTypes = {
 	type: PropTypes.oneOf([TYPE.PICTURE, TYPE.DEFAULT]),
+	btnOptions: PropTypes.object,
 	labelText: PropTypes.string,
 	accept: PropTypes.string,
 	size: PropTypes.number,
+	limit: PropTypes.number,
 	disabled: PropTypes.bool,
 	fileList: PropTypes.array,
 	action: PropTypes.string,
 	multiple: PropTypes.bool,
 	isShowIcon: PropTypes.bool,
+	hasPreview: PropTypes.bool,
 	showBeforeConfirm: PropTypes.bool,
 	beforeConfirmBody: PropTypes.node,
 	customRequest: PropTypes.func,
@@ -292,6 +416,7 @@ Upload.propTypes = {
 	onProgress: PropTypes.func,
 	onSuccess: PropTypes.func,
 	onError: PropTypes.func,
+	onReUpload: PropTypes.func,
 	onRemove: PropTypes.func,
 	className: PropTypes.string,
 	unify: PropTypes.bool,
@@ -300,14 +425,17 @@ Upload.propTypes = {
 
 Upload.defaultProps = {
 	type: TYPE.DEFAULT,
+	btnOptions: {},
 	labelText: '选择文件',
 	accept: '*',
 	size: 1,
+	limit: null,
 	disabled: false,
 	fileList: undefined,
 	action: '',
 	multiple: false,
 	isShowIcon: true,
+	hasPreview: true,
 	customRequest: undefined,
 	showBeforeConfirm: false,
 	beforeConfirmBody: '确认上传？',
@@ -316,6 +444,7 @@ Upload.defaultProps = {
 	onProgress: undefined,
 	onSuccess: undefined,
 	onError: undefined,
+	onReUpload: () => {},
 	onRemove: undefined,
 	className: '',
 	unify: false,

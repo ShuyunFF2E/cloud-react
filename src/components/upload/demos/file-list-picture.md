@@ -33,6 +33,12 @@ export default class UploadDemo extends React.Component {
 					id: '-3',
 					name: 'image.png',
 					url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
+				},
+				{
+					id: '-4',
+					status: 'error',
+					name: 'image.png',
+					url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
 				}
 			]
 		};
