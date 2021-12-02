@@ -1,0 +1,103 @@
+@import '../style/index';
+
+@breadcrumbs-prefix-cls: ~'@{prefix}-progress';
+
+@smallHeight: 4px;
+@middleHeight: 6px;
+@largeHeight: 8px;
+
+@smallBorderRadius: 2px;
+@middleBorderRadius: 3px;
+@largeBorderRadius: 4px;
+
+@defaultFontSize: 12px;
+@largeFontSize: 14px;
+
+.progress-line-style(@height, @borderRadius, @infoFontSize: @defaultFontSize, @percentColor: @gray-8) {
+	.@{breadcrumbs-prefix-cls}-line {
+		&-container {
+			display: inline-flex;
+			align-items: center;
+		}
+
+		&-percent-container {
+			width: 200px;
+			height: @height;
+			border-radius: @borderRadius;
+			background: @gray-4;
+		}
+
+		&-percent {
+			height: 100%;
+			border-radius: @borderRadius;
+			background: @blue-4;
+			transition: width 0.6s ease 0s;
+		}
+
+		&-info {
+			font-size: @infoFontSize;
+			margin-left: 8px;
+
+			.percent {
+				color: @percentColor;
+			}
+
+			.icon {
+				color: @blue-4;
+			}
+		}
+	}
+}
+
+.progress-circle-style(@width, @infoFontSize: 14px, @percentColor: @gray-8) {
+	.@{breadcrumbs-prefix-cls}-circle {
+		width: @width;
+		height: @width;
+		position: relative;
+
+		&-track {
+			stroke: @gray-4;
+		}
+
+		&-path {
+			stroke: @blue-4;
+		}
+
+		&-info {
+			font-size: @infoFontSize;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+
+			.percent {
+				color: @percentColor;
+			}
+
+			.icon {
+				color: @blue-4;
+
+				i {
+					font-size: 26px;
+				}
+			}
+		}
+	}
+}
+
+.@{breadcrumbs-prefix-cls} {
+	&-small {
+		.progress-line-style(4px, 2px);
+		.progress-circle-style(20px);
+	}
+
+	&-middle {
+		.progress-line-style(6px, 3px);
+		.progress-circle-style(64px);
+	}
+
+	&-large {
+		.progress-line-style(8px, 4px, 14px, @gray-9);
+		.progress-circle-style(120px, 24px, @gray-9);
+	}
+}
