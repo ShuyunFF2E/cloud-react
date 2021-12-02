@@ -49,6 +49,8 @@ export { default as Plaintext } from './plaintext';
 
 export { default as Popover } from './popover';
 
+export { default as Progress } from './progress';
+
 export { default as Radio } from './radio';
 
 export { default as Select } from './select';

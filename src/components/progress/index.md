@@ -1,7 +1,12 @@
 ---
-category: Components
-title: Progress
-subtitle: 进度条
+title: Progress 进度条
+nav:
+    title: Progress 进度条
+    path: /cloud-react
+group:
+    order: 1
+    title: 通用
+    path: /common
 ---
 
 ### 何时使用
@@ -19,3 +24,4 @@ subtitle: 进度条
 | showPercent      | 是否展示进度值            | boolean | false         |
 | iconTpl      |     图标         | - | ''          |
 
+<embed src="@components/progress/demos/basic.md" /> 
