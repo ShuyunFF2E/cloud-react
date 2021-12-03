@@ -24,9 +24,6 @@
   "dumiAssets": "assets.json",
   "main": "dist/cloud-react.js",
   "source": "src/components/index.js",
-  "gitHooks": {
-    "pre-commit": "lint-staged"
-  },
   "jest": {
     "moduleNameMapper": {
       "^@utils(.*)$": "<rootDir>/src/utils$1",
@@ -34,20 +31,14 @@
       "^@tests(.*)$": "<rootDir>/tests$1"
     }
   },
-  "lint-staged": {
-    "*.{js,jsx,less,md,json}": [
-      "prettier --write"
-    ],
-    "*.ts?(x)": [
-      "prettier --parser=typescript --write"
-    ]
-  },
   "dependencies": {
     "classnames": "^2.3.1",
     "gray-matter": "^4.0.3",
     "gridmanager-react": "1.10.2-0",
     "less": "^3.13.1",
+    "moment": "^2.29.1",
     "prop-types": "^15.7.2",
+    "rc-picker": "^2.5.19",
     "react": "16.12.0",
     "react-dom": "16.12.0",
     "rollup-plugin-copy": "^3.4.0",
