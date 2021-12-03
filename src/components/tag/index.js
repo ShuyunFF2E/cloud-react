@@ -15,10 +15,19 @@ const typeEnum = {
 	DANGER: 'danger'
 };
 
+const sizeEnum = {
+	SMALL: 'small',
+	NORMAL: 'normal',
+};
+
 export default class Tag extends Component {
 	static propTypes = {
 		type: PropTypes.oneOf([typeEnum.NONE, typeEnum.SUCCESS, typeEnum.WARNING, typeEnum.DEFAULT, typeEnum.DANGER]),
+		size: PropTypes.oneOf([sizeEnum.SMALL, sizeEnum.NORMAL]),
+		color: PropTypes.string,
+		rounded: PropTypes.bool,
 		closable: PropTypes.bool,
+		checkable: PropTypes.bool,
 		checked: PropTypes.bool,
 		disabled: PropTypes.bool,
 		onClick: PropTypes.func,
@@ -27,7 +36,11 @@ export default class Tag extends Component {
 
 	static defaultProps = {
 		type: '',
+		size: 'normal',
+		color: '',
+		rounded: false,
 		closable: false,
+		checkable: true,
 		checked: false,
 		disabled: false,
 		onClick: noop,
@@ -35,13 +48,18 @@ export default class Tag extends Component {
 	};
 
 	get classes() {
-		const { checked, closable, type, disabled } = this.props;
+		const { checked, closable, type, size, icon, checkable, color, rounded, disabled } = this.props;
 
 		return classnames(`${prefix}`, {
 			closable,
 			checked,
 			disabled,
-			[`${type}`]: !!type
+			rounded,
+			icon: !!icon,
+			[size]: size,
+			checkable: checkable && !color,
+			[color]: !!color,
+			[type]: !!type,
 		});
 	}
 
@@ -58,14 +76,15 @@ export default class Tag extends Component {
 	};
 
 	render() {
-		const { closable, ...others } = this.props;
+		const { closable, disabled, icon, ...others } = this.props;
 
-		const props = omit(others, ['type', 'checked', 'disabled', 'onClick', 'onClose']);
+		const props = omit(others, ['type', 'size', 'rounded', 'checkable', 'checked', 'color', 'onClick', 'onClose']);
 
 		return (
 			<span className={this.classes} onClick={this.handleClick} {...props}>
+				{icon && <Icon type={icon} className="tag-icon" />}
 				{this.props.children}
-				{closable ? <Icon type="close" onClick={this.handleRemove} className="tag-close-icon" /> : null}
+				{closable && !disabled ? <Icon type="close" onClick={this.handleRemove} className="tag-close-icon" /> : null}
 			</span>
 		);
 	}

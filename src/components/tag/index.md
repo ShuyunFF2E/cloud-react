@@ -19,8 +19,12 @@ group:
 | 属性     | 说明                                                   | 类型     | 默认值 |
 | -------- | ------------------------------------------------------ | -------- | ------ |
 | type     | 标签状态,可选状态值：success、warning、default、danger | string   | -      |
+| size     | 标签大小,可选状态值：normal、small                     | string   | normal      |
+| color     | 标签颜色,可选状态值：green、orange、red、blue、yellow、gray  | string   | -      |
+| icon     | 图标类型，在tag内内置icon可直接传入icon类型              | string   | -      |
 | closable | 标记标签是否可以被删除                                 | boolean  | false  |
-| checked  | 标记标签选中的状态                                     | boolean  | false  |
+| size     | 标签大小,可选状态值：normal、small                     | string   | normal      |
+| checkable | 是否可以被选中，仅适用默认类型                                  | boolean  | true  |
 | disabled | 标签不可用                                             | boolean  | false  |
 | onClick  | 点击标签的回调                                         | function | -      |
 | onClose  | 标记标签被删除后被触发                                 | function | -      |
@@ -34,3 +38,7 @@ group:
 <embed src="@components/tag/demos/closeable.md" /> 
 
 <embed src="@components/tag/demos/state.md" /> 
+
+<embed src="@components/tag/demos/color.md" /> 
+
+<embed src="@components/tag/demos/size.md" /> 
