@@ -18,6 +18,7 @@ export default class TagDemo extends Component {
 		return (
 			<React.Fragment>
 				<Tag>Tag Demo</Tag>
+				<Tag>超级超级长的tag超级超级长的tag超级超级长的tag超级超级长的tag超级超级长的tag超级超级长的tag超级超级长的tag超级超级长的tag超级超级长的tag</Tag>
 				<Tag>
 					<a href="http://www.baidu.com">Link Tag</a>
 				</Tag>
