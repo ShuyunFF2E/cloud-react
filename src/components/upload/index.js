@@ -2,6 +2,7 @@ import React, { Component, createRef } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import ShuyunUtils from 'shuyun-utils';
+import { noop } from '@utils';
 import Message from '../message';
 import Icon from '../icon';
 import Button from '../button';
@@ -135,30 +136,31 @@ class Upload extends Component {
 	handleRemove = file => {
 		const { onRemove } = this.props;
 
-		if (onRemove) {
-			onRemove({
-				file,
-				fileList: [...this.state.fileList]
-			});
-		}
+		onRemove({
+			file,
+			fileList: [...this.state.fileList]
+		});
 	};
 
 	handleProgress = (event, file) => {
 		const { onProgress } = this.props;
+		const newFile = this.getStatusFile(file, 'uploading', event.percent);
 
-		if (onProgress) {
-			onProgress({
-				file,
-				percent: event.percent
-			});
-		}
+		onProgress({
+			file: newFile,
+			fileList: [...this.state.fileList],
+			percent: event.percent
+		});
 	};
 
-	getStatusFile = (file, status) => {
+	getStatusFile = (file, status, percent) => {
 		const { selectPic } = this.state;
 		const newFile = [...Array.from([file])].map(file => {
 			const item = file;
 			item.status = status;
+			if (percent) {
+				item.percent = percent;
+			}
 			if (selectPic.url) {
 				item.index = selectPic.index;
 			}
@@ -190,13 +192,13 @@ class Upload extends Component {
 			this.setState({
 				selectPic: {}
 			});
-		} else if (onSuccess) {
-			onSuccess({
-				file: newFile,
-				fileList: [...this.state.fileList],
-				response
-			});
+			return;
 		}
+		onSuccess({
+			file: newFile,
+			fileList: [...this.state.fileList],
+			response
+		});
 	};
 
 	handleError = (error, file) => {
@@ -208,13 +210,11 @@ class Upload extends Component {
 				selectPic: {}
 			});
 		}
-		if (onError) {
-			onError({
-				file: newFile,
-				fileList: [...this.state.fileList],
-				error
-			});
-		}
+		onError({
+			file: newFile,
+			fileList: [...this.state.fileList],
+			error
+		});
 	};
 
 	/**
@@ -231,10 +231,7 @@ class Upload extends Component {
 			return false;
 		}
 
-		if (this.props.onBeforeUpload) {
-			return this.props.onBeforeUpload(file);
-		}
-		return true;
+		return this.props.onBeforeUpload(file);
 	}
 
 	upload(file) {
@@ -254,7 +251,7 @@ class Upload extends Component {
 		}
 	}
 
-	post(file) {
+	post = file => {
 		const { action, headers, withCredentials, customRequest, unify, params } = this.props;
 		const request = customRequest || defaultHttp;
 		const { id } = file;
@@ -440,12 +437,12 @@ Upload.defaultProps = {
 	showBeforeConfirm: false,
 	beforeConfirmBody: '确认上传？',
 	onClick: () => new Promise(resolve => resolve()),
-	onBeforeUpload: undefined,
-	onProgress: undefined,
-	onSuccess: undefined,
-	onError: undefined,
-	onReUpload: () => {},
-	onRemove: undefined,
+	onBeforeUpload: noop,
+	onProgress: noop,
+	onSuccess: noop,
+	onError: noop,
+	onReUpload: noop,
+	onRemove: noop,
 	className: '',
 	unify: false,
 	params: {}

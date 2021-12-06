@@ -104,15 +104,37 @@
 			flex-direction: row;
 		}
 
+		.@{upload-prefix-cls}-list-delete {
+			position: relative;
+			background: @gray-4;
+			width: 14px;
+			height: 14px;
+			border-radius: 50%;
+			z-index: 15;
+
+			> i {
+				font-size: 12px;
+				color: #979797;
+				transform: scale(0.6);
+				display: block;
+				font-weight: bolder;
+				position: absolute;
+				top: -3px;
+				cursor: pointer;
+			}
+		}
+
 		&-text {
 			display: flex;
 			justify-content: space-between;
+			align-items: center;
 			width: 400px;
 			height: 54px;
 			padding: 16px;
 			margin-top: 4px;
 			font-size: @size-big;
 			box-sizing: border-box;
+			color: @gray-9;
 
 			&:first-child {
 				margin-top: 8px;
@@ -124,6 +146,10 @@
 
 			> i {
 				cursor: pointer;
+			}
+
+			&-error {
+				color: @red-4;
 			}
 		}
 
@@ -160,26 +186,10 @@
 					z-index: 10;
 				}
 
-				.@{upload-prefix-cls}-list-pic-delete {
-					background: @gray-4;
+				.@{upload-prefix-cls}-list-delete {
 					position: absolute;
 					top: -16px;
 					right: -13px;
-					z-index: 15;
-					width: 14px;
-					height: 14px;
-					border-radius: 50%;
-
-					> i {
-						font-size: 12px;
-						color: #979797;
-						transform: scale(0.6);
-						display: block;
-						font-weight: bolder;
-						position: absolute;
-						top: -3px;
-						cursor: pointer;
-					}
 				}
 			}
 
