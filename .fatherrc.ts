@@ -7,15 +7,15 @@ import copy from 'rollup-plugin-copy';
 const yargs = require('yargs/yargs');
 const { hideBin } = require('yargs/helpers');
 const argv = yargs(hideBin(process.argv)).argv;
-const isBuild = !(argv.dev || argv.watch);
+const isBuild = !(argv.dev || argv.watch)
 
 const externals = [
   'react',
   'react-dom',
-  ...(isBuild
-    ? []
-    : ['gridmanager-react', 'prop-types', 'classnames', 'moment']),
-];
+  ...isBuild ? [] : ['gridmanager-react', 'prop-types', 'class']
+
+]
+
 
 export default {
   // esm: 'rollup',
@@ -27,7 +27,7 @@ export default {
   umd: {
     name: 'CloudReact',
     file: 'cloud-react',
-    minFile: isBuild,
+    minFile:isBuild,
   },
   entry: 'src/components/index.js',
   extraExternals: externals,
@@ -43,7 +43,9 @@ export default {
     //   limit: Infinity,
     // }),
     copy({
-      targets: [{ src: 'package.json', dest: 'dist' }],
+      targets: [
+        { src: 'package.json', dest: 'dist' },
+      ]
     }),
     alias({
       entries: [

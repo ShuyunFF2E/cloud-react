@@ -4,11 +4,7 @@
 
 @background-color: rgb(255, 240, 255);
 
-@input-placeholder-color: @gray-6;
-
-@width: 280px;
-
-@panelBodyPaddingHorizon: 20px;
+@input-placeholder-color: hsv(0, 0, 75%);
 
 .placeholder(@color: @input-placeholder-color) {
   // Firefox
@@ -27,43 +23,284 @@
 
 .@{prefix-cls} {
   display: inline-flex;
-  width: @width;
-  height: 32px;
-  background: #ffffff;
-  border-radius: 2px;
-  border: 1px solid @gray-4;
-  box-sizing: border-box;
-  margin: 0;
-  color: @gray-9;
-  font-size: 14px;
-  font-variant: tabular-nums;
-  font-feature-settings: 'tnum';
-  line-height: 1.5715;
-  list-style: none;
-  padding: 6px 12px;
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  background: #fff;
-  border-radius: 2px;
-  transition: border 0.3s, box-shadow 0.3s;
 
-  &:hover {
-    border-color: @gray-6;
+  &-rtl {
+    direction: rtl;
   }
 
   &-focused {
-    &,
-    &:hover {
-      border-color: @blue-4;
+    border: 1px solid blue;
+  }
+
+  &-panel {
+    border: 1px solid #666;
+    background: @background-color;
+    display: inline-block;
+    vertical-align: top;
+
+    &-focused {
+      border-color: blue;
+    }
+
+    &-rtl {
+      direction: rtl;
     }
   }
 
-  &-disabled {
-    background: @gray-3;
-    &,
-    input {
-      cursor: not-allowed;
+  // ===================== Shared Panel =====================
+  &-decade-panel,
+  &-year-panel,
+  &-month-panel,
+  &-week-panel,
+  &-date-panel,
+  &-time-panel {
+    display: flex;
+    flex-direction: column;
+
+    table {
+      text-align: center;
+      border-collapse: collapse;
+    }
+  }
+
+  // Header
+  &-header {
+    display: flex;
+
+    > * {
+      flex: none;
+    }
+
+    &-view {
+      flex: auto;
+      text-align: center;
+
+      > button {
+        border: 0;
+        padding: 0;
+      }
+    }
+  }
+
+  // Content
+  &-cell {
+    color: #aaa;
+
+    &-disabled {
+      opacity: 0.2;
+    }
+
+    &-inner {
+      font-size: 12px;
+      width: 100%;
+      height: 20px;
+      line-height: 20px;
+      display: inline-block;
+      box-sizing: border-box;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      background: transparent;
+      cursor: pointer;
+      outline: none;
+      border: none;
+      transition: background 0.3s, border 0.3s;
+
+      &:hover {
+        background: fade(blue, 30%);
+      }
+    }
+
+    &-in-view {
+      color: #333;
+    }
+
+    &-in-range > &-inner {
+      background: fade(blue, 5%);
+    }
+
+    &-range-hover-start,
+    &-range-hover-end,
+    &-range-hover {
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 3px;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        border: 1px solid green;
+        border-left: 0;
+        border-right: 0;
+        pointer-events: none;
+      }
+    }
+
+    &-range-hover-start::after {
+      border-left: 1px solid green !important;
+    }
+
+    &-range-hover-end::after {
+      border-right: 1px solid green !important;
+    }
+
+    &-today > &-inner {
+      border: 1px solid blue;
+    }
+
+    &-range-start > &-inner,
+    &-range-end > &-inner,
+    &-selected > &-inner {
+      background: fade(blue, 20%);
+    }
+  }
+
+  &-footer,
+  &-picker-footer {
+    background: green;
+  }
+
+  &-ranges {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    list-style: none;
+
+    > li {
+      display: inline-block;
+    }
+  }
+
+  &-ok {
+    float: right;
+  }
+
+  // ================== Year & Month Panel ==================
+  &-year-panel,
+  &-month-panel {
+    .@{prefix-cls}-cell-inner {
+      width: 80px;
+    }
+  }
+
+  // ====================== Week Panel ======================
+  &-week-panel {
+    &-row {
+      &:hover {
+        .@{prefix-cls}-cell {
+          background: red;
+        }
+      }
+
+      &-selected {
+        .@{prefix-cls}-cell {
+          background: rgba(0, 0, 255, 0.3);
+        }
+      }
+    }
+
+    .@{prefix-cls}-cell,
+    .@{prefix-cls}-cell-inner {
+      width: 20px;
+    }
+
+    .@{prefix-cls}-cell-week {
+      font-size: 12px;
+      color: #999;
+      font-weight: bold;
+    }
+
+    .@{prefix-cls}-cell:hover > .@{prefix-cls}-cell-inner,
+    .@{prefix-cls}-cell-selected > .@{prefix-cls}-cell-inner {
+      background: transparent;
+    }
+  }
+
+  // ====================== Date Panel ======================
+  &-date-panel {
+    .@{prefix-cls}-cell-inner {
+      width: 20px;
+    }
+  }
+
+  // ====================== Time Panel ======================
+  &-time-panel {
+    width: auto;
+
+    .@{prefix-cls}-content {
+      display: flex;
+      max-height: 200px;
+    }
+
+    &-column {
+      flex: none;
+      text-align: left;
+      list-style: none;
+      margin: 0;
+      padding: 0 0 180px 0;
+      overflow-y: hidden;
+      overflow-x: hidden;
+      width: 50px;
+      transition: background 0.3s;
+      font-size: 12px;
+
+      &-active {
+        background: rgba(0, 0, 255, 0.1);
+      }
+
+      &:hover {
+        overflow-y: auto;
+      }
+
+      > li {
+        padding: 0;
+        margin: 0;
+        cursor: pointer;
+
+        .@{prefix-cls}-time-panel-cell-inner {
+          color: #333;
+          padding: 0 0 0 12px;
+          margin: 0;
+          height: 20px;
+          line-height: 20px;
+          display: block;
+          width: 100%;
+          text-align: left;
+
+          .@{prefix-cls}-panel-rtl & {
+            padding: 0 12px 0 0;
+            text-align: right;
+          }
+        }
+      }
+    }
+  }
+
+  // ====================== Date Time =======================
+  &-datetime-panel {
+    display: flex;
+
+    .@{prefix-cls}-time-panel {
+      border-left: 1px solid #999;
+    }
+
+    .@{prefix-cls}-date-panel,
+    .@{prefix-cls}-time-panel {
+      transition: opacity 0.3s;
+    }
+
+    // Keyboard
+    &-active {
+      .@{prefix-cls}-date-panel,
+      .@{prefix-cls}-time-panel {
+        opacity: 0.3;
+
+        &-active {
+          opacity: 1;
+        }
+      }
     }
   }
 
@@ -71,7 +308,6 @@
   &-input {
     position: relative;
     display: inline-flex;
-    align-items: center;
     width: 100%;
 
     .@{prefix-cls}-rtl & {
@@ -79,24 +315,7 @@
     }
 
     > input {
-      position: relative;
-      display: inline-block;
       width: 100%;
-      color: @gray-9;
-      font-size: 14px;
-      line-height: 1.5715;
-      background-color: #fff;
-      flex: auto;
-      min-width: 1px;
-      height: auto;
-      padding: 0;
-      background: transparent;
-      border: 0;
-
-      &:focus {
-        outline: none;
-      }
-
       .placeholder();
     }
 
@@ -105,46 +324,32 @@
         color: @input-placeholder-color;
       }
     }
-
-    &:hover .@{prefix-cls}-clear {
-      opacity: 1;
-    }
-  }
-
-  &-suffix {
-    align-self: center;
-    margin-left: 9px;
-    color: @gray-6;
-    line-height: 1;
-    pointer-events: none;
   }
 
   &-clear {
     position: absolute;
-    top: 50%;
-    right: 0;
-    color: @gray-4;
-    line-height: 1;
-    background: #fff;
-    transform: translateY(-50%);
+    right: 4px;
+    top: 0;
     cursor: pointer;
-    opacity: 0;
-    transition: opacity 0.3s, color 0.3s;
+
+    .@{prefix-cls}-rtl & {
+      right: auto;
+      left: 4px;
+    }
+
+    &-btn::after {
+      content: '×';
+    }
   }
 
   // ======================= Dropdown =======================
   &-dropdown {
     position: absolute;
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    color: @gray-9;
-    font-size: 14px;
-    font-variant: tabular-nums;
-    line-height: 1.5715;
-    list-style: none;
-    font-feature-settings: 'tnum';
-    z-index: 9999;
+    box-shadow: 0 0 1px red;
+
+    &-range {
+      padding: 10px 0;
+    }
 
     &-hidden {
       display: none;
@@ -167,54 +372,6 @@
         top: @arrow-size / 2 + 1px;
         transform: rotate(-45deg);
       }
-    }
-
-    &.@{prefix-cls}-slide-up-enter.@{prefix-cls}-slide-up-enter-active,
-    &.@{prefix-cls}-slide-up-appear.@{prefix-cls}-slide-up-appear-active {
-      animation-play-state: running;
-    }
-
-    &.@{prefix-cls}-slide-up-enter,
-    &.@{prefix-cls}-slide-up-appear,
-    &.@{prefix-cls}-slide-up-leave {
-      animation-duration: 0.2s;
-      animation-fill-mode: both;
-      animation-play-state: paused;
-    }
-
-    &.@{prefix-cls}-slide-up-enter,
-    &.@{prefix-cls}-slide-up-appear {
-      opacity: 0;
-      animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
-    }
-
-    &.@{prefix-cls}-slide-up-leave {
-      animation-play-state: running;
-      pointer-events: none;
-    }
-
-    &.@{prefix-cls}-slide-up-enter.@{prefix-cls}-slide-up-enter-active&-placement-topLeft,
-    &.@{prefix-cls}-slide-up-enter.@{prefix-cls}-slide-up-enter-active&-placement-topRight,
-    &.@{prefix-cls}-slide-up-appear.@{prefix-cls}-slide-up-appear-active&-placement-topLeft,
-    &.@{prefix-cls}-slide-up-appear.@{prefix-cls}-slide-up-appear-active&-placement-topRight {
-      animation-name: cloudSlideDownIn;
-    }
-
-    &.@{prefix-cls}-slide-up-enter.@{prefix-cls}-slide-up-enter-active&-placement-bottomLeft,
-    &.@{prefix-cls}-slide-up-enter.@{prefix-cls}-slide-up-enter-active&-placement-bottomRight,
-    &.@{prefix-cls}-slide-up-appear.@{prefix-cls}-slide-up-appear-active&-placement-bottomLeft,
-    &.@{prefix-cls}-slide-up-appear.@{prefix-cls}-slide-up-appear-active&-placement-bottomRight {
-      animation-name: cloudSlideUpIn;
-    }
-
-    &.@{prefix-cls}-slide-up-leave.@{prefix-cls}-slide-up-leave-active&-placement-topLeft,
-    &.@{prefix-cls}-slide-up-leave.@{prefix-cls}-slide-up-leave-active&-placement-topRight {
-      animation-name: cloudSlideDownOut;
-    }
-
-    &.@{prefix-cls}-slide-up-leave.@{prefix-cls}-slide-up-leave-active&-placement-bottomLeft,
-    &.@{prefix-cls}-slide-up-leave.@{prefix-cls}-slide-up-leave-active&-placement-bottomRight {
-      animation-name: cloudSlideUpOut;
     }
 
     .@{prefix-cls}-range-arrow {
@@ -266,478 +423,36 @@
     }
   }
 
-  // ======================= Panel ==========================
-  &-panel-container {
-    overflow: hidden;
-    vertical-align: top;
-    background: #fff;
-    border-radius: 2px;
-    box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.1),
-      0px 2px 8px 0px rgba(0, 0, 0, 0.04);
-    transition: margin 0.3s;
-
-    .@{prefix-cls}-panel {
-      vertical-align: top;
-      background: transparent;
-      border-width: 0;
-      border-radius: 0;
-    }
-  }
-
-  &-panel {
+  // ========================================================
+  // =                     Range Picker                     =
+  // ========================================================
+  &-range {
     display: inline-flex;
-    flex-direction: column;
-    text-align: center;
-    background: #fff;
-    border: 1px solid @gray-6;
-    border-radius: 2px;
-    outline: none;
+    position: relative;
 
-    .@{prefix-cls}-decade-panel,
-    .@{prefix-cls}-year-panel,
-    .@{prefix-cls}-quarter-panel,
-    .@{prefix-cls}-month-panel,
-    .@{prefix-cls}-week-panel,
-    .@{prefix-cls}-date-panel {
+    &-wrapper {
       display: flex;
-      flex-direction: column;
-      width: @width;
     }
 
-    table {
-      text-align: center;
-    }
-  }
-
-  &-datetime-panel {
-    display: flex;
-    .@{prefix-cls}-time-panel {
-      border-left: 1px solid @gray-3;
-    }
-
-    .@{prefix-cls}-date-panel,
-    .@{prefix-cls}-time-panel {
-      transition: opacity 0.3s;
-    }
-
-    // Keyboard
-    &-active {
-      .@{prefix-cls}-date-panel,
-      .@{prefix-cls}-time-panel {
-        opacity: 0.3;
-
-        &-active {
-          opacity: 1;
-        }
-      }
-    }
-  }
-
-  &-time-panel {
-    width: auto;
-    min-width: auto;
-
-    .@{prefix-cls}-content {
-      display: flex;
-      flex: auto;
-      height: 230px;
-    }
-
-    &-column {
-      flex: 1 0 auto;
-      width: 56px;
-      margin: 0;
-      padding: 0;
-      overflow-y: hidden;
-      text-align: left;
-      list-style: none;
-      transition: background-color 0.3s;
-
-      &::after {
-        display: block;
-        height: 196px;
-        content: '';
-
-        .@{prefix-cls}-datetime-panel & {
-          height: 198px;
-        }
-      }
-
-      &:not(:first-child) {
-        border-left: 1px solid @gray-3;
-      }
-
-      &-active {
-        background: @gray-1;
-      }
-
-      &:hover {
-        overflow-y: auto;
-      }
-
-      > li {
-        margin: 0;
-        padding: 0;
-
-        &.@{prefix-cls}-time-panel-cell {
-          .@{prefix-cls}-time-panel-cell-inner {
-            box-sizing: border-box;
-            display: block;
-            width: 100%;
-            height: 32px;
-            margin: 0;
-            padding: 0;
-            padding-left: calc(2em - 10px); // 减去滚动条宽带
-            color: @gray-7;
-            line-height: 32px;
-            border-radius: 0;
-            cursor: pointer;
-            transition: background-color 0.3s;
-
-            &:hover {
-              background: @blue-1;
-            }
-          }
-
-          &-selected {
-            .@{prefix-cls}-time-panel-cell-inner {
-              color: @gray-9;
-              background: @indigo;
-            }
-          }
-
-          &-disabled {
-            .@{prefix-cls}-time-panel-cell-inner {
-              color: @gray-5;
-              background: transparent;
-              cursor: not-allowed;
-            }
-          }
-        }
-      }
-
-      &:first-child {
-        padding-left: 8px;
-
-        .@{prefix-cls}-time-panel-cell .@{prefix-cls}-time-panel-cell-inner {
-          border-top-left-radius: 2px;
-          border-bottom-left-radius: 2px;
-        }
-      }
-
-      &:last-child {
-        padding-right: 8px;
-
-        .@{prefix-cls}-time-panel-cell .@{prefix-cls}-time-panel-cell-inner {
-          border-top-right-radius: 2px;
-          border-bottom-right-radius: 2px;
-        }
-      }
-    }
-  }
-
-  &-header {
-    display: flex;
-    padding: 0 16px;
-    color: @gray-7;
-    border: 0;
-
-    .headerButton {
-      color: inherit;
-      font-weight: inherit;
-      padding: 0;
-      color: @gray-7;
-      line-height: 40px;
-      background: transparent;
-      border: 0;
-      cursor: pointer;
-      transition: color 0.3s;
-      &:focus {
-        outline: none !important;
-      }
-    }
-
-    > button {
-      font-size: 12px;
-      .headerButton();
-
-      .@{prefix}-icon {
-        font-size: inherit;
-      }
-
-      &:hover {
-        color: @gray-9;
-      }
-    }
-
-    &-view {
-      flex: auto;
-      font-weight: 500;
-      line-height: 40px;
-
-      > button {
-        color: inherit;
-        font-size: 14px;
-        font-weight: inherit;
-        .headerButton();
-
-        &:not(:first-child) {
-          margin-left: 8px;
-        }
-
-        &:hover {
-          color: @blue-4;
-        }
-      }
-    }
-  }
-
-  &-body {
-    padding: 10px @panelBodyPaddingHorizon;
-    padding-top: 0;
-  }
-
-  &-footer {
-    width: min-content;
-    min-width: 100%;
-    line-height: 38px;
-    text-align: center;
-    border-bottom: 1px solid transparent;
-
-    .@{prefix-cls}-panel & {
-      border-top: 1px solid @gray-1;
-    }
-
-    &-extra {
-      padding: 0 12px;
-      line-height: 38px;
-      text-align: left;
-
-      &:not(:last-child) {
-        border-bottom: 1px solid @gray-1;
-      }
-    }
-  }
-
-  &-content {
-    width: 100%;
-    table-layout: fixed;
-    border-collapse: collapse;
-
-    th,
-    td {
-      position: relative;
-      min-width: 24px;
-      font-weight: 400;
-    }
-    th {
-      padding: 0;
-      height: 40px;
-      color: @gray-7;
-      line-height: 40px;
-    }
-  }
-
-  &-now {
-    text-align: left;
-  }
-
-  &-today-btn,
-  &-now-btn {
-    color: @blue-4;
-
-    &:hover {
-      color: @blue-3;
-    }
-
-    &:active {
-      color: @blue-5;
-    }
-
-    &&-disabled {
-      color: @gray-6;
-      cursor: not-allowed;
-    }
-  }
-
-  &-cell {
-    padding: 3px 0;
-    color: @gray-7;
-    cursor: pointer;
-
-    &:before {
-      position: absolute;
-      top: 50%;
-      right: 0;
-      left: 0;
-      z-index: 1;
-      height: 24px;
-      transform: translateY(-50%);
+    .@{prefix-cls}-active-bar {
+      background: green;
+      bottom: 0;
+      height: 3px;
+      pointer-events: none;
       transition: all 0.3s;
-      content: '';
+      opacity: 0;
     }
 
-    &-in-view {
-      color: @gray-9;
-    }
-
-    &-inner {
-      position: relative;
-      z-index: 2;
-      display: inline-block;
-      min-width: 24px;
-      height: 24px;
-      line-height: 24px;
-      border-radius: 2px;
-      transition: background-color 0.3s, border 0.3s;
-    }
-
-    &:hover:not(&-in-view) &-inner,
-    &:hover:not(&-selected):not(&-range-start):not(&-range-end):not(&-range-hover-start):not(&-range-hover-end)
-      &-inner {
-      background-color: @blue-1;
-    }
-
-    &-selected &-inner,
-    &-range-start &-inner,
-    &-range-end &-inner {
-      color: #fff;
-      background-color: @blue-4;
-    }
-
-    // &:not(&-in-view) {
-    //   visibility: hidden;
-    //   pointer-events: none;
-    // }
-
-    &-today &-inner {
-      background-color: @blue-1;
-      color: @blue-4;
-    }
-
-    &-week {
-      display: none;
-    }
-  }
-
-  &-ranges {
-    margin-bottom: 0;
-    padding: 4px 12px;
-    overflow: hidden;
-    line-height: 32px;
-    text-align: left;
-    list-style: none;
-
-    > li {
-      display: inline-block;
-    }
-
-    // .@{prefix-cls}-preset>.@{prefix}-tag-blue {
-    //   color: @primary-color;
-    //   background: @primary-1;
-    //   border-color: @primary-3;
-    //   cursor: pointer;
-    // }
-
-    .@{prefix-cls}-ok {
-      float: right;
-      margin-left: 8px;
-    }
-  }
-
-  // &-range-wrapper {
-  //   display: flex;
-  // }
-
-  // &-range-arrow {
-  //   position: absolute;
-  //   z-index: 1;
-  //   display: none;
-  //   width: @arrow-size;
-  //   height: @arrow-size;
-  //   margin-left: @input-padding-horizontal-base * 1.5;
-  //   box-shadow: 2px -2px 6px fade(@black, 6%);
-  //   transition: left @animation-duration-slow ease-out;
-
-  //   &::after {
-  //     position: absolute;
-  //     top: @border-width-base;
-  //     right: @border-width-base;
-  //     width: @arrow-size;
-  //     height: @arrow-size;
-  //     border: (@arrow-size / 2) solid @border-color-split;
-  //     border-color: @calendar-bg @calendar-bg transparent transparent;
-  //     content: '';
-  //   }
-  // }
-
-  &-decade-panel,
-  &-month-panel,
-  &-year-panel {
-    .@{prefix-cls}-content {
-      height: 200px;
-    }
-  }
-
-  &-week-panel {
-    .@{prefix-cls}-content {
-      th[aria-label~='empty'],
-      th[aria-label~='cell'],
-      th:first-child {
-        display: none;
-      }
-    }
-    &-row {
-      &:hover .@{prefix-cls}-cell::before {
-        background: @blue-1;
-      }
-      &-selected {
-        .@{prefix-cls}-cell {
-          &:hover,
-          &-today,
-          &-selected {
-            .@{prefix-cls}-cell-inner {
-              background: none !important;
-            }
-          }
-          &-selected:not(:nth-child(2)):not(:last-of-type) {
-            .@{prefix-cls}-cell-inner {
-              color: @gray-7;
-            }
-            &.@{prefix-cls}-cell-in-view .@{prefix-cls}-cell-inner {
-              color: @gray-9;
-            }
-          }
-        }
-        .@{prefix-cls}-cell:not(.@{prefix-cls}-cell-week) {
-          &::before {
-            background: @blue-2;
-          }
-          &:nth-child(2),
-          &:last-of-type {
-            &::before {
-              background: @blue-4;
-            }
-            .@{prefix-cls}-cell-inner {
-              color: #fff;
-            }
-          }
-        }
+    &.@{prefix-cls}-focused {
+      .@{prefix-cls}-active-bar {
+        opacity: 1;
       }
     }
   }
 
-  &-month-panel,
-  &-year-panel,
-  &-quarter-panel {
-    .@{prefix-cls}-cell-inner {
-      width: 48px;
-      height: 28px;
-      line-height: 28px;
-      color: @gray-9;
-    }
-    .@{prefix-cls}-cell-selected .@{prefix-cls}-cell-inner {
-      color: #fff;
-    }
+  &-panel-container {
+    display: inline-block;
+    vertical-align: top;
+    transition: margin 0.3s;
   }
 }
