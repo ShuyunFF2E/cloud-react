@@ -107,6 +107,7 @@
         "classnames": "2.2.6",
         "gridmanager-react": "1.9.2",
         "prop-types": "15.7.2",
+        "rc-table": "^7.21.0",
         "shuyun-utils": "0.0.3"
     },
     "peerDependencies": {
