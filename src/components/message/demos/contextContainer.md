@@ -11,6 +11,7 @@ desc: 指定 message 挂载的 HTML 节点
              */
 import React, { Component } from 'react';
 import { Button, Message, Modal } from 'cloud-react';
+import './styles/contextContainer.less';
 
 export default class MessageDemo extends Component {
 	constructor(props) {

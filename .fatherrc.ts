@@ -32,11 +32,6 @@ export default {
   entry: 'src/components/index.js',
   extraExternals: externals,
   extractCSS: isBuild,
-  // extraPostCSSPlugins: [
-  //   require('postcss-font-base64')({
-  //         //future options will be handled here
-  //       })
-  // ],
   extraRollupPlugins: [
     eslint({
       throwOnError: true,
@@ -47,14 +42,9 @@ export default {
     //   include: ['**/*.woff', '**/*.woff2'],
     //   limit: Infinity,
     // }),
-    // postcss({
-    //   plugins: [require('postcss-font-base64')({
-    //     //future options will be handled here
-    //   })]
-    // }),
     copy({
       targets: [
-        { src: 'package.json', dest: 'dist' },
+        { src: 'package.json', dest: 'dist' }
       ]
     }),
     alias({

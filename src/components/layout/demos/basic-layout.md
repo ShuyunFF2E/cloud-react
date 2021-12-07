@@ -12,6 +12,7 @@ desc: 最基本使用
              */
 import React, { Component } from 'react';
 import { Layout } from 'cloud-react';
+import './styles/basic-layout.less'
 
 
 const { Header, Sider, Content, Footer } = Layout;

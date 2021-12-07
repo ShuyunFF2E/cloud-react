@@ -12,6 +12,7 @@ desc: 纵向方向的步骤
              */
 import React from 'react';
 import { Step } from 'cloud-react';
+import './styles/direction.less'
 
 const title1Style = {};
 const title2Style = { marginTop: '50px' };

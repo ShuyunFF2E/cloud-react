@@ -12,6 +12,7 @@ desc: 最基本的一个输入框
              */
 import React from 'react';
 import { Input } from 'cloud-react';
+import './styles/basic.less'
 
 export default function InputDemo() {
 	return <Input placeholder="basic usage" />;

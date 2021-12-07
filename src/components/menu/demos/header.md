@@ -13,6 +13,7 @@ order: 4
 import React, { Component } from 'react';
 import { Menu, Icon } from 'cloud-react';
 import { HashRouter } from 'react-router-dom';
+import './styles/header.less';
 
 const { MenuItem, SubMenu } = Menu;
 

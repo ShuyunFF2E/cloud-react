@@ -12,6 +12,7 @@ order: 1
              */
 import React, { Component } from 'react';
 import { Menu } from 'cloud-react';
+import './styles/basic.less';
 
 const { MenuItem, SubMenu } = Menu;
 

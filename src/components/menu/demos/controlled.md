@@ -7,6 +7,7 @@ order: 1
 ```jsx
 import React, { Component } from 'react';
 import { Menu } from 'cloud-react';
+import './styles/controlled.less';
 
 const { MenuItem, SubMenu } = Menu;
 

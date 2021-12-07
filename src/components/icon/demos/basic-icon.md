@@ -12,6 +12,7 @@ desc: 将type值复制进行使用
 import React, { Component } from 'react';
 import ShunyunUtils from 'shuyun-utils';
 import { Icon, Message } from 'cloud-react';
+import './styles/basic-icon.less'
 
 const iconList = [
 	'remark',
@@ -90,4 +91,5 @@ export default class IconDemo extends Component {
 	}
 }
 ```
+
 

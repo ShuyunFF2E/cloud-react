@@ -12,6 +12,7 @@ desc: 侧边栏包含在中间
              */
 import React, { Component } from 'react';
 import { Layout } from 'cloud-react';
+import './styles/sider.less'
 
 
 const { Header, Sider, Content, Footer } = Layout;

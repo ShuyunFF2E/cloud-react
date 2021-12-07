@@ -12,6 +12,7 @@ desc: checked 使用
              */
 import React from 'react';
 import { Toggle } from 'cloud-react';
+import './styles/basic-toggle.less';
 
 export default class ToggleDemo extends React.Component {
 	constructor(props) {

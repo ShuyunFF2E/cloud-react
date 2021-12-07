@@ -12,6 +12,7 @@ desc: 侧边栏在整体左侧
              */
 import React, { Component } from 'react';
 import { Layout } from 'cloud-react';
+import './styles/left2right.less'
 
 
 const { Header, Sider, Content, Footer } = Layout;

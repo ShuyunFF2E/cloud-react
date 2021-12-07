@@ -12,6 +12,7 @@ desc: 可切换大小的面包屑
              */
 import React from 'react';
 import { BreadCrumbs, Button, Icon } from 'cloud-react';
+import './styles/basic-bread-crumbs.less'
 
 export default class BreadCrumbsDemo extends React.Component {
     constructor(props) {

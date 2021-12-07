@@ -12,6 +12,7 @@ order: 1
              */
 import React from 'react';
 import { Tips } from 'cloud-react';
+import './styles/basic-tips.less';
 
 export default class TipsDemo extends React.Component {
 	render() {
