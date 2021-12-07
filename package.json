@@ -36,7 +36,6 @@
     "gray-matter": "^4.0.3",
     "gridmanager-react": "1.10.2-0",
     "less": "^3.13.1",
-    "moment": "^2.29.1",
     "prop-types": "^15.7.2",
     "rc-picker": "^2.5.19",
     "react": "16.12.0",
