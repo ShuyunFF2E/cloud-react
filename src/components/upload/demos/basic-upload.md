@@ -58,7 +58,7 @@ export default class UploadDemo extends React.Component {
 
 	render() {
 		const props = {
-			type: 'picture',
+			// type: 'picture',
 			size: 2,
 			multiple: true,
 			isShowIcon: false,

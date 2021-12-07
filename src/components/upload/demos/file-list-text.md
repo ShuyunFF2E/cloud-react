@@ -29,7 +29,8 @@ export default class UploadDemo extends React.Component {
 			{
 				id: '3',
 				name: 'zzz.png',
-				url: 'http://www.baidu.com/zzz.png'
+				url: 'http://www.baidu.com/zzz.png',
+				status: 'error'
 			}
 		]
 	};

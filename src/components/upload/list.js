@@ -13,18 +13,26 @@ const Text = props => {
 	const { list, onRemove } = props;
 
 	return list.map(item => {
+		const { name, status } = item;
+		const content = status === 'error' ? '上传失败' : '';
 		return (
-			<div key={item.name} className={`${prefix}-text`}>
-				<span>{item.name}</span>
-				<Icon
-					type="delete"
-					style={{ fontSize: '14px' }}
-					onClick={() => {
-						onRemove(item);
-					}}
-				/>
-			</div>
-		);
+			<Tooltip content={content} key={item.id}>
+				<div key={name} className={`${prefix}-text`}>
+					<span className={`${prefix}-text-${status}`}>{name}</span>
+					<div className={`${prefix}-text-actions`}>
+						<div className={`${prefix}-delete`}>
+							<Icon
+								type="close"
+								style={{ fontSize: '14px' }}
+								onClick={() => {
+									onRemove(item);
+								}}
+							/>
+						</div>
+					</div>
+				</div>
+			</Tooltip>
+		)
 	});
 };
 
@@ -41,7 +49,7 @@ const Picture = props => {
 					<div className={classes}>
 						<img src={item.url} alt={item.name} />
 						<div className={`${prefix}-pic-icons`}>
-							<div className={`${prefix}-pic-delete`}>
+							<div className={`${prefix}-delete`}>
 								<Icon
 									type="close"
 									style={{ fontSize: '14px' }}
@@ -75,7 +83,7 @@ const Picture = props => {
 							onReUpload({...item, index});
 						}}
 					/>
-					<div className={`${prefix}-pic-delete`}>
+					<div className={`${prefix}-delete`}>
 						<Icon
 							type="close"
 							style={{ fontSize: '14px' }}
