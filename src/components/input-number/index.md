@@ -27,6 +27,7 @@ group:
 | precision    | 精度                                                      | number                                | `undefined` |
 | step         | 每次改变步数                                              | number                                | `1`         |
 | noStep       | 不显示步数器                                              | bool                                  | `false`     |
+| stepType    |  步数器类型                                               |  string                             | `topBottom/leftRight`   
 | className    | 拓展组件样式的 class                                      | string                                | -           |
 | style        | 拓展组件样式的 style                                      | object                                | -           |
 | onChange     | 输入改变触发                                              | Function(value: number &#124; string) | -           |
@@ -43,3 +44,5 @@ group:
 <embed src="@components/input-number/demos/precision.md" /> 
 
 <embed src="@components/input-number/demos/size.md" /> 
+
+<embed src="@components/input-number/demos/step-type.md" />

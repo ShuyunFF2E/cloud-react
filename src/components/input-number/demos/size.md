@@ -20,9 +20,9 @@ export default class InputNumberDemo extends React.Component {
 		return (
 			<React.Fragment>
 				<div>
-					<InputNumber size="large" defaultValue={3} />
+					<InputNumber size="large" defaultValue={3}/>
 					{blank}
-					<InputNumber size="default" defaultValue={3} />
+					<InputNumber size="default" defaultValue={3}/>
 					{blank}
 					<InputNumber size="small" defaultValue={3} />
 					{blank}
