@@ -18,17 +18,17 @@ const externals = [
 ];
 
 export default {
-  // esm: 'rollup',
+  esm: isBuild ? false : 'rollup',
   file: 'cloud-react',
   // cjs: {
   //   type: 'rollup',
   //   minify: !argv.dev,
   // },
-  umd: {
+  umd: isBuild ? {
     name: 'CloudReact',
     file: 'cloud-react',
     minFile: isBuild,
-  },
+  }: false,
   entry: 'src/components/index.js',
   extraExternals: externals,
   extractCSS: isBuild,

@@ -23,6 +23,7 @@
   },
   "dumiAssets": "assets.json",
   "main": "dist/cloud-react.js",
+  "module": "dist/cloud-react.esm.js",
   "source": "src/components/index.js",
   "jest": {
     "moduleNameMapper": {

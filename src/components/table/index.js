@@ -1,5 +1,5 @@
 import React from 'react';
-import Table, { $gridManager } from 'gridmanager-react';
+import GTable, { $gridManager } from 'gridmanager-react';
 import 'gridmanager-react/css/gm-react.css';
 import Icon from '../icon';
 import './index.less';
@@ -76,4 +76,4 @@ const defaultOption = {
 
 $gridManager.defaultOption = defaultOption;
 
-export default Table;
+export default GTable;
