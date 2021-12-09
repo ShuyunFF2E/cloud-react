@@ -5,161 +5,217 @@
 @small-height: 24px;
 @small-fontSize: 12px;
 
-
 .size-mixin(@height, @fontSize, @inputPadding: 0 12px) {
-	height: @height;
-	line-height: @height;
-	font-size: @fontSize;
+  height: @height;
+  line-height: @height;
+  font-size: @fontSize;
 
-	input {
-		padding: @inputPadding;
-	}
+  input {
+    padding: @inputPadding;
+  }
 }
 
 .@{input-number-prefix-cls} {
-	position: relative;
-	display: inline-block;
-	box-sizing: border-box;
-	-webkit-text-size-adjust: none;
-	width: 90px;
-	color: @gray-9;
-	border: 1px solid @gray-4;
-	border-radius: 2px;
-	background-color: @gray-1;
+  position: relative;
+  display: inline-block;
+  box-sizing: border-box;
+  -webkit-text-size-adjust: none;
+  width: 150px;
+  color: @gray-9;
+  border: 1px solid @gray-4;
+  border-radius: 2px;
+  background-color: @gray-1;
 
-	* {
-		box-sizing: border-box;
-	}
+  * {
+    box-sizing: border-box;
+  }
 
-	&:hover {
-		border-color: @gray-6;
-	}
+  &:hover {
+    border-color: @gray-6;
+  }
 
-	&-focused {
-		border-color: @blue-4;
-		outline: 0;
-	}
+  &-focused {
+    border-color: @blue-4;
+    outline: 0;
+  }
 
-	&-disabled {
-		color: @gray-7;
-		border-color: @gray-4;
-		background-color: @gray-3;
-		opacity: 1;
+  &-disabled {
+    color: @gray-7;
+    border-color: @gray-4;
+    background-color: @gray-3;
+    opacity: 1;
+    cursor: not-allowed;
+    .@{input-number-prefix-cls}-handler-wrap {
+      display: none;
+    }
+    .@{input-number-prefix-cls}-handle {
+      pointer-events: none;
+      &:hover {
+        color: @gray-5;
+      }
+    }
+    &:hover {
+      border-color: @gray-4;
+    }
+    &::placeholder {
+      color: @gray-6;
+    }
+  }
 
-		&:hover {
-			cursor: not-allowed;
-			border-color: @gray-4;
-			.@{input-number-prefix-cls}-handler-wrap {
-				display: none;
-			}
+  &-handle {
+    width: 30px;
+    display: inline-block;
+    position: absolute;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+  }
 
-			.@{input-number-prefix-cls}-input {
-				cursor: not-allowed;
-			}
-		}
-		&::placeholder {
-			color: @gray-6;
-		}
-	}
+  &-handler-plus {
+    border-left: 1px solid @gray-4;
+    right: 0;
+  }
 
-	&.large {
-		.size-mixin(@line-height-extra-large, @font-size-medium);
-	}
+  &-handler-sub {
+    border-right: 1px solid @gray-4;
+    left: 0;
+  }
 
-	&.default {
-		.size-mixin(@line-height-large, @font-size-base);
-	}
+  &-handler-plus-icon,
+  &-handler-sub-icon {
+    color: @gray-5;
+    font-size: @font-size-medium;
+    &:hover {
+      color: @blue-4;
+    }
+  }
 
-	&.small {
-		.size-mixin(@small-height, @small-fontSize, 0 7px);
+  &.large {
+    .size-mixin(@line-height-extra-large, @font-size-medium);
+    .@{input-number-prefix-cls}-handler-plus,
+    .@{input-number-prefix-cls}-handler-sub {
+      height: calc(@line-height-extra-large - 2px);
+      font-size: @font-size-medium;
+    }
+    .@{input-number-prefix-cls}-handle {
+      width: calc(@line-height-extra-large - 2px);
+    }
+  }
 
-		.@{input-number-prefix-cls}-handler-down-icon,
-		.@{input-number-prefix-cls}-handler-up-icon {
-			transform: scale(0.6);
-			display: block;
-		}
-	}
+  &.default {
+    .size-mixin(@line-height-large, @font-size-base);
+    .@{input-number-prefix-cls}-handler-plus,
+    .@{input-number-prefix-cls}-handler-sub {
+      height: calc(@line-height-large - 2px);
+      font-size: @font-size-base;
+    }
+    .@{input-number-prefix-cls}-handle {
+      width: calc(@line-height-large - 2px);
+    }
+  }
 
-	&-handler-wrap {
-		position: absolute;
-		top: 0;
-		right: 0;
-		width: 22px;
-		height: 100%;
-		background: @gray-1;
-		border-left: 1px solid @gray-4;
-		border-radius: 0 4px 4px 0;
-	}
+  &.small {
+    .size-mixin(@small-height, @small-fontSize, 0 7px);
+    .@{input-number-prefix-cls}-handler-plus,
+    .@{input-number-prefix-cls}-handler-sub {
+      height: calc(@small-height - 2px);
+    }
+    .@{input-number-prefix-cls}-handler-down-icon,
+    .@{input-number-prefix-cls}-handler-up-icon {
+      transform: scale(0.8);
+      display: block;
+    }
+    .@{input-number-prefix-cls}-handle {
+      width: calc(@small-height - 2px);
+    }
+  }
 
-	&-handler {
-		position: relative;
-		display: flex;
-		width: 100%;
-		height: 50%;
-		line-height: 50%;
-		justify-content: center;
-		align-items: center;
-		overflow: hidden;
-		color: @gray-6;
-		font-weight: bold;
-		transition: all 0.1s linear;
-	}
+  &-handler-wrap {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 22px;
+    height: 100%;
+    background: @gray-1;
+    border-left: 1px solid @gray-4;
+    border-radius: 0 4px 4px 0;
+  }
 
-	&-handler-down {
-		top: 0;
-		border-top: 1px solid @gray-5;
-	}
+  &-handler {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 50%;
+    line-height: 50%;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    color: @gray-6;
+    font-weight: bold;
+    transition: all 0.1s linear;
+  }
 
-	&-handler-up,
-	&-handler-down {
-		&:hover {
-			cursor: pointer;
-			color: @blue-4;
-		}
-	}
-	
+  &-handler-down {
+    top: 0;
+    border-top: 1px solid @gray-5;
+  }
 
-	&-handler-disabled {
-		&,
-		&:hover {
-			color: @gray-6;
-			cursor: not-allowed;
-		}
-	}
+  &-handler-up,
+  &-handler-down {
+    &:hover {
+      cursor: pointer;
+      color: @blue-4;
+    }
+  }
 
-	&-handler-down-icon,
-	&-handler-up-icon {
-		// font-size: 8px;
+  &-handler-disabled {
+    &,
+    &:hover {
+      color: @gray-6;
+      cursor: not-allowed;
+    }
+  }
 
-		// PC上主流浏览器只能识别最小为12px的字体
-		font-size: 12px;
-		transform: scale(0.7);
-	}
+  &-handler-down-icon,
+  &-handler-up-icon {
+    // font-size: 8px;
 
-	&-handler-input {
-		height: 100%;
-	}
+    // PC上主流浏览器只能识别最小为12px的字体
+    font-size: 12px;
+    transform: scale(0.7);
+  }
 
-	.@{input-number-prefix-cls}-input {
-		font-size: inherit;
-		width: 100%;
-		height: 100%;
-		vertical-align: top;
-		text-align: left;
-		color: @gray-9;
-		background-color: transparent;
-		border: 0;
-		outline: 0;
+  &-handler-input {
+    height: 100%;
+  }
 
-		&:disabled {
-			color: @gray-6;
-		}
-		&:focus {
-			border: 0;
-		}
+  &-handler-input-left-right {
+    height: 100%;
+    position: absolute;
+    left: 30px;
+    display: inline-block;
+  }
 
-		&::placeholder {
-			color: @gray-6;
-		}
-	}
+  .@{input-number-prefix-cls}-input {
+    font-size: inherit;
+    width: 100%;
+    height: 100%;
+    vertical-align: top;
+    text-align: left;
+    color: @gray-9;
+    background-color: transparent;
+    border: 0;
+    outline: 0;
+
+    &:disabled {
+      color: @gray-6;
+    }
+    &:focus {
+      border: 0;
+    }
+
+    &::placeholder {
+      color: @gray-6;
+    }
+  }
 }
