@@ -31,7 +31,7 @@ export default class StepItem extends React.Component {
 		const iconNumber = index + 1;
 
 		return (
-			<div className={classnames(`${prefixCls}-step-item`, status, className)}>
+			<div className={classnames(`${prefixCls}-step-item`, status, className, { hasContent: content })}>
 				<div className={classnames(`${prefixCls}-step-icon`, status)} onClick={onClick}>
 					{status === FINISH ? <Icon type="finish" /> : <span>{iconNumber}</span>}
 				</div>

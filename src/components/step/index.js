@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { prefixCls, noop } from '@utils';
 import StepItem from './item';
 
-import { HORIZONTAL, VERTICAL, INLINE, CIRCLE, DOT, PROCESS, WAIT, FINISH } from './constants';
+import { HORIZONTAL, VERTICAL, INLINE, CIRCLE, DOT, PROCESS, WAIT, FINISH, DEFAULT, SMALL } from './constants';
 
 import './index.less';
 
@@ -13,6 +13,7 @@ export default class Step extends PureComponent {
 		current: PropTypes.number,
 		direction: PropTypes.oneOf([HORIZONTAL, VERTICAL, INLINE]),
 		type: PropTypes.oneOf([CIRCLE, DOT]),
+		size: PropTypes.oneOf([DEFAULT, SMALL]),
 		children: PropTypes.any,
 		onClick: PropTypes.func,
 		className: PropTypes.string
@@ -44,8 +45,8 @@ export default class Step extends PureComponent {
 	}
 
 	render() {
-		const { direction, type, children, className, onClick: rootClick, ...stepProps } = this.props;
-		const classNames = classnames(`${prefixCls}-step`, direction, type, className);
+		const { direction, type, size, children, className, onClick: rootClick, ...stepProps } = this.props;
+		const classNames = classnames(`${prefixCls}-step`, direction, type, className, size);
 		const elements = Children.map(children, (Child, index) => {
 			const { status, content, onClick, ...props } = Child.props;
 

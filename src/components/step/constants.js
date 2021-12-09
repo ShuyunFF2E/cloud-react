@@ -11,3 +11,7 @@ export const INLINE = 'inline';
 // type
 export const CIRCLE = 'circle';
 export const DOT = 'dot';
+
+// size
+export const DEFAULT = 'default';
+export const SMALL = 'small';

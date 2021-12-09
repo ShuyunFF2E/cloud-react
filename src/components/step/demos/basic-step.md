@@ -40,6 +40,15 @@ export default function StepDemo() {
 				<Step.Item title="把长颈鹿放进去" />
 				<Step.Item title="把冰箱门关上" />
 			</Step>
+
+			<h4 style={title2Style}>把大象装进冰箱分几步-小尺寸</h4>
+
+			<Step current={2} size="small">
+				<Step.Item title="把冰箱门打开" />
+				<Step.Item title="把大象拿出来" />
+				<Step.Item title="把长颈鹿放进去" />
+				<Step.Item title="把冰箱门关上" />
+			</Step>
 		</React.Fragment>
 	);
 }

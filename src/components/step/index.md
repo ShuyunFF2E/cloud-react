@@ -20,8 +20,9 @@ group:
 | 属性      | 说明                                  | 类型                          | 默认值       |
 | --------- | ------------------------------------- | ----------------------------- | ------------ |
 | current   | 当前步骤，从`0`开始                   | number                        | `0`          |
-| direction | 方向，可设置：`horizontal` `vertical` | string                        | `horizontal` |
+| direction | 方向，可设置：`horizontal` `vertical` `inline` | string                        | `horizontal` |
 | type      | 类型，可设置：`circle` `dot`          | string                        | `circle`     |
+| size      | 方向，可设置：`default` `small`       | string                        | `default` |
 | onClick   | 步骤节点（图标）的 click 回调         | function(currentStep: number) | -            |
 | className | 自定义样式名，提供给外部覆盖样式用    | string                        | -            |
 
