@@ -292,7 +292,7 @@ class Notification extends Component {
 					<div ref={this.ref} style={style} className={classnames(`${prefixCls}-modal-container`, className)}>
 						<ModalHeader type={type} onReset={this.onReset} onMouseDown={this.onMouseDown} onClose={onClose} title={title} />
 
-						<ModalBody style={{ ...bodyStyle }}>{children}</ModalBody>
+						<ModalBody type={type} style={{ ...bodyStyle }}>{children}</ModalBody>
 
 						<ModalFooter
 							visible={visible}
@@ -342,9 +342,9 @@ function ModalHeader({ type, title, onClose, onReset, ...props }) {
 	);
 }
 
-function ModalBody({ style, children }) {
+function ModalBody({ type, style, children }) {
 	return (
-		<section className={classnames(`${prefixCls}-modal-body`)} style={style}>
+		<section className={classnames(`${prefixCls}-modal-body ${type === 'modal' ? `${prefixCls}-modal-size` : `${prefixCls}-modal-confirm-size`}`)} style={style}>
 			{children}
 		</section>
 	);
@@ -364,34 +364,34 @@ function ModalFooter({ visible, type, footer, okText, cancelText, hasFooter, sho
 		onReset();
 		onCancel();
 	};
-	const footerClass = classnames(`${prefixCls}-modal-footer`);
+	const footerClass = classnames(`${prefixCls}-modal-footer ${type !== 'modal' && `${prefixCls}-modal-border` }`);
 	const confirmClass = classnames(`${prefixCls}-modal-confirm-btn`);
-	if (!hasFooter) {
+  if (!hasFooter) {
 		return null;
 	}
 
-	if (hasFooter && footer) {
-		return <footer className={footerClass}>{footer}</footer>;
+  if (hasFooter && footer) {
+    return <footer className={footerClass}>{footer}</footer>;
 	}
 
 	if (hasFooter && type !== 'modal' && type !== 'confirm') {
-		return (
+    return (
 			<footer className={footerClass}>
-				<Button type="primary" onClick={cancel}>
-					{okText || '知道了'}
+				<Button type="primary" size="large" onClick={cancel}>
+					知道了
 				</Button>
 			</footer>
 		);
 	}
 
-	return (
+  return (
 		<footer className={footerClass}>
-			<Button type="primary" className={confirmClass} disabled={showConfirmLoading || disabledOk} onClick={ok} loading={showConfirmLoading}>
-				{okText}
-			</Button>
-			<Button type="normal" disabled={showConfirmLoading} onClick={cancel}>
+			<Button type="normal" size="large" disabled={showConfirmLoading} onClick={cancel}>
 				{cancelText}
 			</Button>
+      <Button type="primary" size="large" className={confirmClass} disabled={showConfirmLoading || disabledOk} onClick={ok} loading={showConfirmLoading}>
+        {okText}
+      </Button>
 		</footer>
 	);
 }

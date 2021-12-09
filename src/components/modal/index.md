@@ -56,6 +56,7 @@ group:
 | ---------- | --------------------------------------------- | -------- | ------ |
 | isShowIcon | 是否显示提示信息前面的 icon                   | boolean  | `true` |
 | icon       | 提示信息前面 icon, 即 icon 组件中的 type 名称 | string   | `--`   |
+| title      | 提示信息标题                                | string   | `title`   |
 | iconStyle  | 提示信息前面 icon 的样式                      | object   | `--`   |
 | style      | 提示框的样式                                  | object   | `--`   |
 | body       | 提示信息内容, 支持 jsx 语法直接传入 dom 节点  | any      | `--`   |

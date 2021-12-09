@@ -104,7 +104,10 @@ Modal.info = props => {
 	const config = {
 		...props,
 		type: 'info',
-		icon: props.icon || 'info-circle'
+		icon: props.icon || 'info_1',
+    iconStyle: {
+      color: '#5280FF'
+    }
 	};
 	return Prompt(config);
 };
@@ -114,7 +117,10 @@ Modal.success = props => {
 	const config = {
 		...props,
 		type: 'success',
-		icon: props.icon || 'check-circle-solid'
+		icon: props.icon || 'success-fill',
+    iconStyle: {
+		  color: '#00B33C'
+    }
 	};
 	return Prompt(config);
 };
@@ -124,7 +130,10 @@ Modal.error = props => {
 	const config = {
 		...props,
 		type: 'error',
-		icon: props.icon || 'close-circle-solid'
+		icon: props.icon || 'close-fill-1',
+    iconStyle: {
+      color: '#E74949'
+    }
 	};
 	return Prompt(config);
 };
@@ -134,7 +143,10 @@ Modal.warning = props => {
 	const config = {
 		...props,
 		type: 'warning',
-		icon: props.icon || 'warning-circle-solid'
+		icon: props.icon || 'info_2',
+    iconStyle: {
+      color: '#FD830A'
+    }
 	};
 	return Prompt(config);
 };
