@@ -32,7 +32,7 @@ export default class ModalDemo extends React.Component {
 	openConfirmModal = () => {
 		Modal.confirm({
 			isShowIcon: false,
-			body: 'something you can write here',
+			body: 'something you can write here something you can write here something you can write here something you can write here something you can write here something you can write here',
 			onOk: () => {
 				this.handleOk();
 			},
@@ -43,6 +43,27 @@ export default class ModalDemo extends React.Component {
 			}
 		});
 	};
+
+    openCustomerIconConfirmModal = () => {
+            Modal.confirm({
+                isShowIcon: true,
+                icon: 'warning-circle-solid',
+                iconStyle: {
+                    color: '#ffcf33'
+                },           
+                title: '确认要删除吗？',
+                body: '确认要删除该条目？',
+                onOk: () => {
+                    this.handleOk();
+                },
+                onCancel: () => {
+                    this.setState({
+                        content: 'it is cancel'
+                    });
+                }
+            });
+        };
+
 
 	openCustomConfirmModal = () => {
 		Modal.confirm({
@@ -75,7 +96,11 @@ export default class ModalDemo extends React.Component {
 		return (
 			<div>
 				<Button type="primary" onClick={this.openConfirmModal}>
-					确认对话框
+					基础确认对话框
+				</Button>
+				{blank}
+                <Button type="primary" onClick={this.openCustomerIconConfirmModal}>
+					自定义图标确认对话框
 				</Button>
 				{blank}
 				<Button type="normal" onClick={this.openAsyncConfirmModal}>

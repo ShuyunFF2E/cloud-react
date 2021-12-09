@@ -64,7 +64,12 @@ const iconList = [
 	'finish',
 	'folder-solid',
 	'folder-solid-open',
-    'copy'
+    'copy',
+    'info-circle1',
+    'info_2',
+    'success-fill',
+    'info_1',
+    'close-fill-1'
 ];
 export default class IconDemo extends Component {
 	render() {
@@ -81,7 +86,7 @@ export default class IconDemo extends Component {
 					return (
 						<li key={index} className="icon-li" onClick={onClickHandler}>
 							<div className="icon-area">
-								<Icon type={type} style={iconStyle}></Icon>
+								<Icon type={type} style={iconStyle}/>
 							</div>
 							<div className="text-area">{type}</div>
 						</li>

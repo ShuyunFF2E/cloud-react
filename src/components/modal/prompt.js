@@ -13,11 +13,13 @@ const containers = new Map();
 const ENTER_KEY_CODE = 13;
 
 class Prompt extends React.Component {
+
 	static defaultProps = {
 		isShowIcon: true,
 		style: {},
 		type: '',
 		icon: '',
+    title: 'title',
 		body: '',
 		okText: '确定',
 		cancelText: '取消',
@@ -29,6 +31,7 @@ class Prompt extends React.Component {
 		isShowIcon: PropTypes.bool,
 		style: PropTypes.object,
 		type: PropTypes.string,
+		title: PropTypes.string,
 		icon: PropTypes.string,
 		body: PropTypes.node,
 		onOk: PropTypes.func,
@@ -126,10 +129,10 @@ class Prompt extends React.Component {
 	};
 
 	render() {
-		const { isShowIcon, type, icon, body, iconStyle, style, okText, cancelText } = this.props;
+		const { isShowIcon, type, icon, body, iconStyle, style, okText, cancelText, title } = this.props;
 		const promptStyle = {
 			...style,
-			width: style.width || '400px',
+			width: style.width || '440px',
 			height: style.height ? style.height : 'auto',
 			minWidth: style.width || '200px',
 			minHeight: style.height || '171px'
@@ -155,9 +158,20 @@ class Prompt extends React.Component {
 					<div>
 						<header className="info-area">
 							{isShowIcon && <Icon type={icon} className={`icon-style ${type}-style`} style={iconStyle} />}
-							<section className="more-info" style={{ ...style }}>
-								{body}
-							</section>
+
+							<div className="info-area-content">
+                <div className={`info-area-header ${isShowIcon && 'info-area-line-height'}`}>
+                  <p className="info-area-title">{title}</p>
+                  {
+                    type === 'confirm' && <Icon type="close" className="info-area-close-icon" onClick={this.handleCancel} />
+                  }
+                </div>
+
+                <section className="more-info" style={{ ...style }}>
+                  {body}
+                </section>
+              </div>
+
 						</header>
 					</div>
 				</Notification>
@@ -167,7 +181,7 @@ class Prompt extends React.Component {
 	}
 }
 
-function prompt({ isShowIcon, type, icon, body, onOk, onCancel, iconStyle, style, okText, cancelText }) {
+function prompt({ isShowIcon, type, icon, body, onOk, onCancel, iconStyle, style, okText, cancelText, title }) {
 	// 创建一个关联id
 	const rootDocument = getRootWindow().document;
 	const id = `prompt${new Date().getTime()}`;
@@ -181,7 +195,8 @@ function prompt({ isShowIcon, type, icon, body, onOk, onCancel, iconStyle, style
 			id={id}
 			type={type}
 			icon={icon}
-			body={body}
+      title={title}
+      body={body}
 			style={style}
 			iconStyle={iconStyle}
 			isShowIcon={isShowIcon}
