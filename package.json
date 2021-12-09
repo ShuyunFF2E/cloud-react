@@ -17,7 +17,7 @@
     "postversion": "dumi assets",
     "lint": "eslint ./src/components --ext .js,.jsx",
     "umi-lint": "umi-lint --eslint.ext='.js,jsx' ./src/components",
-    "precommit": "umi-lint --staged --eslint --prettier --fix",
+    "precommit": "umi-lint --staged --eslint --stylelint --prettier --fix",
     "new:component": "cp -r tpls/new-component src/components/new-component",
     "cli-version": "node ./scripts/generate-version.js"
   },
