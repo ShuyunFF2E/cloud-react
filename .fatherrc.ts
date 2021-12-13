@@ -12,7 +12,7 @@ const isBuild = !(argv.dev || argv.watch)
 const externals = [
   'react',
   'react-dom',
-  ...isBuild ? [] : ['gridmanager-react', 'prop-types', 'class']
+  ...isBuild ? [] : ['gridmanager-react', 'prop-types', 'classnames']
 
 ]
 
@@ -27,7 +27,7 @@ export default {
   umd: isBuild ? {
     name: 'CloudReact',
     file: 'cloud-react',
-    minFile: isBuild,
+    minFile: true,
   }: false,
   entry: 'src/components/index.js',
   extraExternals: externals,

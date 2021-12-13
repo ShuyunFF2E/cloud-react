@@ -235,6 +235,12 @@ export default class Tabs extends PureComponent {
 		});
 	};
 
+	keyFilter = key => {
+		// 使用form key会变为 0.$XXXX
+		const [, k = ''] = key.split('.$')
+		return k
+	}
+
 	handleChange = key => () => {
 		const { activedKey } = this.state;
 		if (key === activedKey) {
@@ -245,11 +251,11 @@ export default class Tabs extends PureComponent {
 			activedKey: key
 		});
 
-		this.props.onChange(key);
+		this.props.onChange(this.keyFilter(key));
 	};
 
 	handleClose = key => () => {
-		this.props.onClose(key);
+		this.props.onClose(this.keyFilter(key));
 	};
 
 	handleTabsPrev = () => {
