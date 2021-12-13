@@ -59,6 +59,7 @@ export default class UploadDemo extends React.Component {
 	render() {
 		const props = {
 			// type: 'picture',
+			limit: 1,
 			size: 2,
 			multiple: true,
 			isShowIcon: false,
@@ -71,8 +72,8 @@ export default class UploadDemo extends React.Component {
                 </span>
             ),
 			labelText: '点击上传1',
-			headers: { 'x-token': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRJZCI6InF5d3hfc3l5al93dzljNjE2MDc1MjMzMGNiYzQiLCJ1c2VySWQiOjExODQ5NzY3LCJ1c2VyVHlwZSI6InF5d3giLCJ1c2VyTmFtZSI6Ik11TXVNdS4uLiIsImV4dCI6MTYzODI4MzE2MzM2NSwiaWF0IjoxNjM4MjM5OTYzMzY1LCJjb3JwSWQiOiJ3dzljNjE2MDc1MjMzMGNiYzQiLCJidXNpbmVzc1VzZXJJZCI6Ik11TXVNdS4uLiJ9.uElbqOFLBFtDIrMrVWeW5f6vnQ-RNv-O3-y53Cf4O0Y' },
-			action: 'https://qa-ual.shuyun.com/pcrm-account/1.0/file/uploadImageFile',
+			headers: {},
+			action: '/upload',
 			onBeforeUpload(file) {
 				return true;
 			},

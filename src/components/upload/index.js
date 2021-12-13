@@ -221,12 +221,20 @@ class Upload extends Component {
 	 * 文件上传之前校验大小是否符合
 	 */
 	handleBeforeUpload(file) {
-		const { size } = this.props;
+		const { size, unit } = this.props;
 
-		const isSizeInvalidate = file.size / 1024 / 1024 > size;
+		let isSizeInvalidate;
+
+		if (unit === 'M') {
+			isSizeInvalidate = file.size / 1024 / 1024 > size;
+		}
+
+		if (unit === 'KB') {
+			isSizeInvalidate = file.size / 1024 > size;
+		}
 
 		if (isSizeInvalidate) {
-			Message.error(`文件过大，最大支持 ${size} M 的文件上传！`);
+			Message.error(`文件过大，最大支持 ${size} ${unit} 的文件上传！`);
 			this.ref.current.value = '';
 			return false;
 		}
@@ -310,6 +318,20 @@ class Upload extends Component {
 					onClick: this.onClick
 			  };
 
+		if (limit === 1 && fileList.length) {
+			return (
+				<input
+					style={{ display: 'none' }}
+					type="file"
+					disabled={uploadDisabled}
+					ref={this.ref}
+					accept={accept}
+					multiple={multiple}
+					onChange={this.handleChange}
+				/>
+			)
+		}
+
 		return (
 			<div className={classes}>
 				<span className={PREFIX} role="button" {...events}>
@@ -338,9 +360,8 @@ class Upload extends Component {
 	};
 
 	renderPicture() {
-		const { type, limit, hasPreview } = this.props;
+		const { type, hasPreview } = this.props;
 		const { fileList, selectPic, isShowPreview } = this.state;
-		const showUpload = limit === 1 ? fileList.length < 1 : true;
 		const { name, url } = selectPic;
 
 		return (
@@ -364,7 +385,7 @@ class Upload extends Component {
 						<img src={url} />
 					</Modal>
 				)}
-				{showUpload && this.renderUpload()}
+				{this.renderUpload()}
 			</>
 		)
 	}
@@ -398,6 +419,7 @@ Upload.propTypes = {
 	labelText: PropTypes.string,
 	accept: PropTypes.string,
 	size: PropTypes.number,
+	unit: PropTypes.string,
 	limit: PropTypes.number,
 	disabled: PropTypes.bool,
 	fileList: PropTypes.array,
@@ -426,6 +448,7 @@ Upload.defaultProps = {
 	labelText: '选择文件',
 	accept: '*',
 	size: 1,
+	unit: 'M',
 	limit: null,
 	disabled: false,
 	fileList: undefined,

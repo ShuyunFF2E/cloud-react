@@ -22,6 +22,7 @@ group:
 | labelText         | 上传`label`显示文件                                             | string      | 选择文件                     |
 | accept            | 接受上传的文件类型                                              | string      |                              |
 | size              | 文件上传的大小(默认单位为`M`)                                   | number      | 1                            |
+| unit              | 文件上传的大小限制单位(`M` `KB`)                             | string      | 'M'                            |
 | limit             | 最多可上传文件个数                                             | number      | null                            |
 | btnOptions        | 上传按钮配置                                                  | object      | {}                            |
 | hasPreview        | 上传的图片是否可预览（仅适用type="pciture"）                     | boolean      | true                           |
