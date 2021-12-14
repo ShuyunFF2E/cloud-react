@@ -1,0 +1,124 @@
+@import './const.less';
+
+.@{prefix-cls} {
+  display: inline-flex;
+  // width: @width;
+  height: 32px;
+  background: #ffffff;
+  border-radius: 2px;
+  border: 1px solid @gray-4;
+  box-sizing: border-box;
+  margin: 0;
+  color: @gray-9;
+  font-size: 14px;
+  font-variant: tabular-nums;
+  font-feature-settings: 'tnum';
+  line-height: 1.5715;
+  list-style: none;
+  padding: 6px 12px;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 2px;
+  transition: border 0.3s, box-shadow 0.3s;
+
+  &:hover {
+    border-color: @gray-6;
+  }
+
+  &-focused {
+    &,
+    &:hover {
+      border-color: @blue-4;
+    }
+  }
+
+  &-disabled {
+    background: @gray-3;
+
+    &,
+    input {
+      cursor: not-allowed;
+    }
+  }
+
+  &-input {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    width: 100%;
+
+    .@{prefix-cls}-rtl & {
+      text-align: right;
+    }
+
+    > input {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+      color: @gray-9;
+      font-size: 14px;
+      line-height: 1.5715;
+      background-color: #fff;
+      flex: auto;
+      min-width: 1px;
+      height: auto;
+      padding: 0;
+      background: transparent;
+      border: 0;
+
+      &:focus {
+        outline: none;
+      }
+
+      .placeholder();
+    }
+
+    &-placeholder {
+      > input {
+        color: @input-placeholder-color;
+      }
+    }
+
+    &:hover .@{prefix-cls}-clear {
+      opacity: 1;
+    }
+  }
+
+  &-suffix {
+    align-self: center;
+    margin-left: 9px;
+    color: @gray-6;
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  &-clear {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    color: @gray-4;
+    line-height: 1;
+    background: #fff;
+    transform: translateY(-50%);
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s, color 0.3s;
+  }
+}
+
+.placeholder(@color: @input-placeholder-color) {
+  // Firefox
+  &::-moz-placeholder {
+    opacity: 1; // Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526
+  }
+
+  &::placeholder {
+    color: @color;
+  }
+
+  &:placeholder-shown {
+    text-overflow: ellipsis;
+  }
+}
