@@ -237,8 +237,8 @@ export default class Tabs extends PureComponent {
 
 	keyFilter = key => {
 		// 使用form key会变为 0.$XXXX
-		const [, k = ''] = key.split('.$')
-		return k
+		const [k1 = '', k2 = ''] = key.split('.$')
+		return k2 || k1
 	}
 
 	handleChange = key => () => {
