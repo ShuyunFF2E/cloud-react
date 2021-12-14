@@ -23,7 +23,7 @@ export const OptionsSearch = ({ searchValue, onOptionsSearch, clearSearch, place
         placeholder={placeholder}
         onChange={onOptionsSearch}
         suffix={searchValue ? <Icon
-            type="close-circle-solid"
+            type="close-fill-1"
             className={`${selector}-search-icon`}
             onClick={clearSearch}/>
           :
