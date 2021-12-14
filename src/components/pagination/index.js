@@ -4,6 +4,8 @@ import classNames from 'classnames';
 import { noop, prefixCls } from '@utils';
 
 import Icon from '../icon';
+import Input from '../input';
+import Select from '../select';
 
 import './index.less';
 
@@ -15,7 +17,8 @@ class Pagination extends Component {
 		total: PropTypes.number,
 		onChange: PropTypes.func,
 		showPageSizeOptions: PropTypes.bool,
-		showQuickJumper: PropTypes.bool
+		showQuickJumper: PropTypes.bool,
+		type: PropTypes.oneOf(['default', 'simple'])
 	};
 
 	static defaultProps = {
@@ -25,7 +28,8 @@ class Pagination extends Component {
 		total: 0,
 		onChange: noop,
 		showPageSizeOptions: false,
-		showQuickJumper: false
+		showQuickJumper: false,
+		type: 'default'
 	};
 
 	constructor(props) {
@@ -44,7 +48,10 @@ class Pagination extends Component {
 				pageSizeOptions.push(pageSize);
 				pageSizeOptions.sort((a, b) => a - b);
 			}
-			this.state.pageSizeOptions = pageSizeOptions;
+			this.state.pageSizeOptions = pageSizeOptions.map(item => ({
+				label: `${item}条/页`,
+				value: item
+			}));
 		}
 	}
 
@@ -89,7 +96,7 @@ class Pagination extends Component {
 
 		pages.push(
 			<li role="presentation" key="nextMore" className="ellips" onClick={this.nextMore}>
-				<span className="dot" />
+				<span className="dot" onClick={this.nextMore} />
 				<Icon type="double-right" className="moreIcon" onClick={this.nextMore} />
 			</li>
 		);
@@ -111,7 +118,7 @@ class Pagination extends Component {
 		);
 		pages.push(
 			<li role="presentation" key="preMore" className="ellips" onClick={this.preMore}>
-				<span className="dot" />
+				<span className="dot" onClick={this.preMore} />
 				<Icon type="double-left" className="moreIcon" onClick={this.preMore} />
 			</li>
 		);
@@ -146,7 +153,7 @@ class Pagination extends Component {
 		);
 		pages.push(
 			<li key="preMore" className="ellips">
-				<span className="dot" />
+				<span className="dot" onClick={this.preMore} />
 				<Icon type="double-left" className="moreIcon" onClick={this.preMore} />
 			</li>
 		);
@@ -169,7 +176,7 @@ class Pagination extends Component {
 
 		pages.push(
 			<li key="nextMore" className="ellips">
-				<span className="dot" />
+				<span className="dot" onClick={this.nextMore} />
 				<Icon type="double-right" className="moreIcon" onClick={this.nextMore} />
 			</li>
 		);
@@ -247,16 +254,16 @@ class Pagination extends Component {
 		if (this.props.showQuickJumper) {
 			return (
 				<div className="quickJumper">
-					跳转到
-					<input type="text" onKeyPress={this.handlePage} onChange={this.changeInput} value={this.state.pageNum} />页
+					前往
+					<Input onKeyDown={this.handlePage} onChange={this.changeInput} value={this.state.pageNum} />页
 				</div>
 			);
 		}
 		return null;
 	};
 
-	selectPageSize = event => {
-		this.props.onChange(1, parseInt(event.target.value, 10));
+	selectPageSize = value => {
+		this.props.onChange(1, parseInt(value, 10));
 	};
 
 	getSelectJumper = () => {
@@ -266,15 +273,7 @@ class Pagination extends Component {
 		if (showPageSizeOptions) {
 			return (
 				<div className="change-size">
-					<select name="pSizeArea" value={pageSize.toString()} onChange={this.selectPageSize}>
-						{pageSizeOptions.map(item => {
-							return (
-								<option value={item} key={item}>
-									{item}
-								</option>
-							);
-						})}
-					</select>
+					<Select className="change-size-select" value={pageSize} dataSource={pageSizeOptions} onChange={this.selectPageSize} />
 				</div>
 			);
 		}
@@ -312,7 +311,7 @@ class Pagination extends Component {
 	};
 
 	render() {
-		const classes = classNames(`${prefixCls}-pagination`);
+		const classes = classNames(`${prefixCls}-pagination`, `${prefixCls}-pagination-${this.props.type}`);
 
 		return (
 			<div className={classes} style={this.props.style}>
@@ -325,8 +324,8 @@ class Pagination extends Component {
 						<Icon type="right" className="pg-icon"></Icon>
 					</li>
 				</ul>
-				{this.getJumper()}
 				{this.getSelectJumper()}
+				{this.getJumper()}
 			</div>
 		);
 	}
