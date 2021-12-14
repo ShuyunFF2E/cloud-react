@@ -84,9 +84,10 @@ export default class Tag extends Component {
       color,
       rounded,
       disabled,
+	  className
     } = this.props;
 
-    return classnames(`${prefix}`, {
+    return classnames(`${prefix}`, className, {
       closable,
       checkable: checkable && !color,
       checked,
@@ -117,6 +118,7 @@ export default class Tag extends Component {
     const props = omit(others, [
       'type',
       'size',
+	  'className',
       'rounded',
       'checkable',
       'checked',
@@ -135,11 +137,13 @@ export default class Tag extends Component {
         {icon && <Icon type={icon} className="tag-icon" />}
         {this.props.children}
         {closable && !disabled ? (
-          <Icon
-            type="close"
-            onClick={this.handleRemove}
-            className="tag-close-icon"
-          />
+          <div className="tag-close-wrapper">
+            <Icon
+              type="close"
+              onClick={this.handleRemove}
+              className="tag-close-icon"
+            />
+		      </div>
         ) : null}
       </span>
     );
