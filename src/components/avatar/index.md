@@ -6,7 +6,7 @@ nav:
 group:
   order: 4
   title: 导航
-  path: /nav
+  path: /data
 ---
 
 ### 何时使用
@@ -21,8 +21,10 @@ group:
 | size      | 头像的大小             | string | default     | `number` `large` `small` `default`|
 | src      | 图片类头像的资源地址或者图片元素   | string  ReactNode | -        ||
 
- ### 代码演示 
+ ### 基础
 
 <embed src="@components/avatar/demos/basic-avatar.md" /> 
+
+ ### 类型
 
 <embed src="@components/avatar/demos/group-avatar.md" /> 
