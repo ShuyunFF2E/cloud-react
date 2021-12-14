@@ -68,9 +68,15 @@
 
   &.closable {
     padding-right: 28px;
-    .tag-close-icon {
+    .tag-close-wrapper {
+      display: flex;
+      align-items: center;
+      height: 100%;
       position: absolute;
       right: 8px;
+      top: 0;
+    }
+    .tag-close-icon {
       color: @gray-6;
       font-size: 16px;
       cursor: pointer;

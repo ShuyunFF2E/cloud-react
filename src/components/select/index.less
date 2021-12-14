@@ -238,7 +238,23 @@
 		&.selected {
 			background: @blue-2;
 		}
+
+    &-single {
+      display: flex;
+      justify-content: space-between;
+      justify-items: center;
+
+      &-text {
+        width: 344px;
+        .text-overflow-ellipsis()
+      }
+    }
 	}
+
+  .@{select-prefix-cls}-single-selected-icon {
+    font-size: @font-size-medium;
+    color: @blue-4;
+  }
 
 	.@{select-prefix-cls}-multi-option {
 		display: flex;

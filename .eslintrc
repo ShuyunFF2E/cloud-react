@@ -35,6 +35,7 @@
     "no-underscore-dangle": 0,
     "import/imports-first": ["error", "absolute-first"],
     "import/newline-after-import": "error",
+    "import/prefer-default-export": 0,
     "react/forbid-prop-types": "off",
     "react/no-danger": "off",
     "no-console": "off",

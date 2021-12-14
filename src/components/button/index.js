@@ -26,6 +26,8 @@ class Button extends React.PureComponent {
 		size: PropTypes.string,
 		href: PropTypes.string,
 		block: PropTypes.bool,
+		colorType:PropTypes.string,
+		icon: PropTypes.string,
 		loading: PropTypes.bool,
 		target: PropTypes.string,
 		htmlType: PropTypes.string,
@@ -36,6 +38,8 @@ class Button extends React.PureComponent {
 		size: 'default',
 		type: 'normal',
 		href: '',
+		colorType: '',
+		icon: '',
 		block: false,
 		loading: false,
 		target: '',
@@ -55,6 +59,7 @@ class Button extends React.PureComponent {
 			disabled,
 			loading,
 			type,
+			colorType,
 			block,
 			icon,
 			// html element
@@ -70,6 +75,7 @@ class Button extends React.PureComponent {
 			{
 				[type]: true,
 				[size]: true,
+				[colorType]: true,
 				block
 			},
 			className
