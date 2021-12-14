@@ -8,7 +8,7 @@ desc: 可切换大小的面包屑
 
             /**
              * title: 基础
-             * desc: 头像有六总尺寸，两种形态
+             * desc: 头像有六种尺寸，两种形态
              */
 import React from 'react';
 import { Avatar, Icon } from 'cloud-react';
