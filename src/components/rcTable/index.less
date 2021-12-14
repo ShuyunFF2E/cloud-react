@@ -21,18 +21,18 @@
 .@{tableContainerPrefixCls} {
 	position: relative;
 
+	&::before {
+		content: '';
+		position: absolute;
+		bottom: 0;
+		height: 1px;
+		width: 100%;
+		background: @gray-4;
+		z-index: 2;
+	}
+
 	// 带边框表格
 	&.@{tablePrefixCls}-bordered {
-		&::before {
-			content: '';
-			position: absolute;
-			bottom: 0;
-			height: 1px;
-			width: 100%;
-			background: @gray-4;
-			z-index: 2;
-		}
-
 		.@{tablePrefixCls} {
 			&-header {
 				border-top: @border;
@@ -43,6 +43,11 @@
 			&-body {
 				border-right: @border;
 				border-left: @border;
+			}
+
+			th:not(:last-child),
+			td:not(:last-child) {
+				border-right: @border;
 			}
 		}
 	}
@@ -59,13 +64,27 @@
 				padding: @small-cell-padding;
 			}
 
-			&-footer {
-				padding: @small-cell-padding;
-			}
-
 			&-fixed {
 				padding: @small-cell-padding;
 			}
+		}
+	}
+
+	// 加载中
+	&.@{tablePrefixCls}-loading {
+		position: relative;
+
+		.@{tablePrefixCls}-loading-layer {
+			display: block;
+			position: absolute;
+			content: '';
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background: @color-white;
+			opacity: 0.9;
+			z-index: 3;
 		}
 	}
 }
@@ -90,6 +109,7 @@
 
 	// ================= Global =================
 	table {
+		position: relative;
 		width: 100%;
 		border-spacing: 0;
 	}
@@ -108,6 +128,11 @@
 			border-right: 0;
 			border-left: @border;
 		}
+	}
+
+	tr:not(.@{tablePrefixCls}-expanded-row):hover td {
+		background: @blue-1;
+		transition: all 0.3s;
 	}
 
 	// ================== Cell ==================
@@ -152,6 +177,7 @@
 		&-fix-right-first,
 		&-fix-right-last {
 			box-shadow: -1px 0 0 @border-color;
+			right: 0 !important;
 
 			.@{tablePrefixCls}-rtl & {
 				box-shadow: none;
@@ -188,10 +214,6 @@
 				}
 			}
 		}
-
-		&&-row-hover {
-			background: @blue-1;
-		}
 	}
 
 	&-ping-left {
@@ -210,7 +232,7 @@
 
 	// ================= Expand =================
 	&-expand-icon-col {
-		width: 60px;
+		width: 40px;
 	}
 
 	&-row-expand-icon-cell {
@@ -252,6 +274,16 @@
 		text-align: center;
 	}
 
+	&-empty {
+		table {
+			height: 100%;
+
+			tr:not(.@{tablePrefixCls}-expanded-row):hover td {
+				background: transparent;
+			}
+		}
+	}
+
 	// ================== Body ==================
 	tbody {
 		tr {
@@ -268,9 +300,11 @@
 		border-radius: 5px 0 0 0;
 	}
 
+	//noinspection CssInvalidPropertyValue
 	&-body {
 		flex: 1;
 		overflow: auto auto !important;
+		overflow: overlay overlay !important;
 	}
 
 	&-fixed-column &-body::after {
@@ -286,6 +320,8 @@
 	// ================= Expand =================
 	&-expanded-row {
 		.@{tablePrefixCls}-cell {
+			padding: 24px 12px;
+			background: @gray-2;
 			box-shadow: @border-shadow-bottom;
 		}
 
@@ -301,15 +337,27 @@
 				right: 1px;
 				bottom: 0;
 				width: 0;
-				border-right: @border;
+				//border-right: @border;
 				content: '';
 			}
 		}
 	}
 
 	&-expend-icon {
+		display: inline-flex;
+		padding-right: 10px;
 		font-size: 12px;
 		color: @gray-7;
+		cursor: pointer;
+		transition: all 0.3s;
+
+		&-hide {
+			visibility: hidden;
+		}
+
+		&-expended {
+			transform: translate(-5px, 5px) rotate(90deg);
+		}
 	}
 
 	// ================= Title ==================
@@ -321,9 +369,32 @@
 
 	// ================= Footer =================
 	&-footer {
-		padding: @cell-padding;
-		border: @border;
-		border-top: 0;
+		padding-top: 16px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+
+		&-statistics {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: @gray-9;
+		}
+
+		&-total {
+			margin-right: 25px;
+		}
+
+		&-refresh {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			cursor: pointer;
+
+			> i {
+				margin-right: 6px;
+			}
+		}
 	}
 
 	tfoot {

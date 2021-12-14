@@ -1,7 +1,7 @@
 ---
-order: 1
+order: 7
 title: RcTable
-desc: 基础表格
+desc: 多选
 ---
 
 ```javascript
@@ -17,17 +17,25 @@ const data = [
 ];
 
 const columns = [
-    { title: '活动ID', dataIndex: 'id' },
-    { title: '活动名称', dataIndex: 'name' },
-    { title: '创建时间', dataIndex: 'createTime' },
-    { title: '创建人', dataIndex: 'creator' }
+    { title: '活动ID', dataIndex: 'id', align: 'left' },
+    { title: '活动名称', dataIndex: 'name', align: 'left' },
+    { title: '创建时间', dataIndex: 'createTime', align: 'left' },
+    { title: '创建人', dataIndex: 'creator', align: 'left' }
 ];
 
 export default function RcTableDemo() {
 	return (
         <RcTable
+            supportCheckbox
             columnData={columns}
             ajaxData={{ totals: data.length, data }}
+            checkedData={data.slice(1, 4)}
+            onCheckedAfter={checkedList => {
+                console.log('已选列表:', checkedList);
+            }}
+            onCheckedAllAfter={checkedList => {
+                console.log('已选列表:', checkedList);
+            }}
         />
 	);
 }
