@@ -14,7 +14,7 @@ const DatePicker = ({
   disabled,
   defaultValue: _defaultValue,
   value: _value,
-  open: _open,
+  open,
   onOpenChange, // New
   format: _format,
   placeholder: _placeholder,
@@ -31,7 +31,7 @@ const DatePicker = ({
   isAppendToBody,
   // position,
   dropdownAlign, // New
-  canEdit,
+  canEdit = true,
   style,
   showToday,
   showNow,
@@ -59,17 +59,15 @@ const DatePicker = ({
   //   popupTimeout: 0
   // });
   const [value, setValue] = useState();
-  const [open, setOpen] = useState();
   const format = _format || (showTimePicker ? dateTimeFormat : dateFormat);
   const placeholder = _placeholder || format;
 
   useEffect(() => {
     setValue(transformString2Moment(_value, format));
-    setOpen(_open);
     // return () => {
     //   clearTimeout(_this.popupTimeout);
     // }
-  }, [_value, _open]);
+  }, [_value]);
 
   // useEffect(() => {
   //   if (containerEleClass && open) {
@@ -99,17 +97,6 @@ const DatePicker = ({
       }
     },
     [onChange],
-  );
-
-  const handleOpenChange = useCallback(
-    (b) => {
-      if (onOpenChange) {
-        onOpenChange(b);
-      } else {
-        setOpen(b);
-      }
-    },
-    [onOpenChange],
   );
 
   const getPopupContainer = useMemo(() => {
@@ -154,8 +141,7 @@ const DatePicker = ({
         }
       }
       onChange={handleChange}
-      onOpenChange={handleOpenChange}
-      inputReadOnly={canEdit}
+      inputReadOnly={!canEdit}
       getPopupContainer={getPopupContainer}
       disabledDate={_disabledDate || getDisabledDate}
       {...{
@@ -165,8 +151,7 @@ const DatePicker = ({
         open,
         placeholder,
         dropdownAlign,
-        showToday,
-        showNow,
+        showToday: showToday || showNow,
         disabledTime,
         dateRender,
         monthCellRender,
@@ -175,6 +160,7 @@ const DatePicker = ({
         allowClear,
         onFocus,
         onBlur,
+        onOpenChange,
         onMouseDown,
         onMouseUp,
         onMouseEnter,

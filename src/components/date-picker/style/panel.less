@@ -84,6 +84,11 @@
     }
   }
 
+  &-panels {
+    display: flex;
+    justify-content: center;
+  }
+
   &-panel {
     display: inline-flex;
     flex-direction: column;
@@ -141,7 +146,8 @@
     .@{prefix-cls}-content {
       display: flex;
       flex: auto;
-      height: 230px;
+      height: 220px;
+      padding-top: 10px;
     }
 
     &-column {
@@ -304,11 +310,8 @@
     min-width: 100%;
     line-height: 38px;
     text-align: center;
+    border-top: 1px solid @gray-3;
     border-bottom: 1px solid transparent;
-
-    .@{prefix-cls}-panel & {
-      border-top: 1px solid @gray-1;
-    }
 
     &-extra {
       padding: 0 12px;

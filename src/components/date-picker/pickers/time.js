@@ -13,7 +13,7 @@ const TimePicker = ({
   disabled,
   defaultValue: _defaultValue,
   value: _value,
-  open: _open,
+  open,
   onOpenChange, // New
   placeholder: _placeholder,
   width,
@@ -23,7 +23,7 @@ const TimePicker = ({
   isAppendToBody,
   // position,
   dropdownAlign, // New
-  canEdit,
+  canEdit = true,
   style,
   showToday,
   showNow,
@@ -45,14 +45,12 @@ const TimePicker = ({
   onOk,
 }) => {
   const [value, setValue] = useState();
-  const [open, setOpen] = useState();
   const format = timeFormat;
   const placeholder = _placeholder || format;
 
   useEffect(() => {
     setValue(transformString2Moment(_value, format));
-    setOpen(_open);
-  }, [_value, _open]);
+  }, [_value]);
 
   const handleChange = useCallback(
     (m, v) => {
@@ -63,17 +61,6 @@ const TimePicker = ({
       }
     },
     [onChange],
-  );
-
-  const handleOpenChange = useCallback(
-    (b) => {
-      if (onOpenChange) {
-        onOpenChange(b);
-      } else {
-        setOpen(b);
-      }
-    },
-    [onOpenChange],
   );
 
   const getPopupContainer = useMemo(() => {
@@ -96,8 +83,7 @@ const TimePicker = ({
       className={inputClassName}
       defaultValue={_defaultValue && moment(_defaultValue)}
       onChange={handleChange}
-      onOpenChange={handleOpenChange}
-      inputReadOnly={canEdit}
+      inputReadOnly={!canEdit}
       getPopupContainer={getPopupContainer}
       {...{
         format,
@@ -106,13 +92,13 @@ const TimePicker = ({
         open,
         placeholder,
         dropdownAlign,
-        showToday,
-        showNow,
+        showToday: showToday || showNow,
         renderExtraFooter,
         autoFocus,
         allowClear,
         onFocus,
         onBlur,
+        onOpenChange,
         onMouseDown,
         onMouseUp,
         onMouseEnter,

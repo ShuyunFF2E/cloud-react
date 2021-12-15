@@ -13,7 +13,7 @@ const TimeRangePicker = ({
   disabled,
   defaultValue: _defaultValue,
   value: _value,
-  open: _open,
+  open,
   onOpenChange, // New
   placeholder: _placeholder,
   width,
@@ -23,7 +23,9 @@ const TimeRangePicker = ({
   isAppendToBody,
   // position,
   dropdownAlign, // New
-  canEdit,
+  canEdit = true,
+  selectable,
+  allowEmpty,
   style,
   showToday,
   showNow,
@@ -45,14 +47,12 @@ const TimeRangePicker = ({
   onOk,
 }) => {
   const [value, setValue] = useState();
-  const [open, setOpen] = useState();
   const format = timeFormat;
   const placeholder = _placeholder || [format, format];
 
   useEffect(() => {
     setValue(transformString2Moment(_value, format));
-    setOpen(_open);
-  }, [_value, _open]);
+  }, [_value]);
 
   const handleChange = useCallback(
     (m, v) => {
@@ -63,17 +63,6 @@ const TimeRangePicker = ({
       }
     },
     [onChange],
-  );
-
-  const handleOpenChange = useCallback(
-    (b) => {
-      if (onOpenChange) {
-        onOpenChange(b);
-      } else {
-        setOpen(b);
-      }
-    },
-    [onOpenChange],
   );
 
   const getPopupContainer = useMemo(() => {
@@ -98,8 +87,7 @@ const TimeRangePicker = ({
         _defaultValue && _defaultValue.map((v) => v && moment(v, format))
       }
       onChange={handleChange}
-      onOpenChange={handleOpenChange}
-      inputReadOnly={canEdit}
+      inputReadOnly={!canEdit}
       getPopupContainer={getPopupContainer}
       {...{
         format,
@@ -108,13 +96,15 @@ const TimeRangePicker = ({
         open,
         placeholder,
         dropdownAlign,
-        showToday,
-        showNow,
+        showToday: showToday || showNow,
         renderExtraFooter,
         autoFocus,
         allowClear,
+        selectable,
+        allowEmpty,
         onFocus,
         onBlur,
+        onOpenChange,
         onMouseDown,
         onMouseUp,
         onMouseEnter,

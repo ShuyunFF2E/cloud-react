@@ -66,7 +66,7 @@ export default function generateSinglePicker(generateConfig) {
             }
             suffixIcon={
               mergedPicker === 'time' ? (
-                <Icon type="close" /> // TODO: 换成秒表图标
+                <Icon type="calendar" /> // TODO: 换成秒表图标
               ) : (
                 <Icon type="calendar" />
               )
@@ -76,7 +76,6 @@ export default function generateSinglePicker(generateConfig) {
             nextIcon={<Icon type="right" />}
             superPrevIcon={<Icon type="double-left" />}
             superNextIcon={<Icon type="double-right" />}
-            allowClear
             transitionName={`${prefixCls}-slide-up`}
             {...restProps}
             {...additionalOverrideProps}

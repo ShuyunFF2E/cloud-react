@@ -29,7 +29,7 @@ export default function generateRangePicker(generateConfig) {
           className,
           size,
           bordered = true,
-          placeholder,
+          placeholder: _placeholder,
           ...restProps
         } = this.props;
         const { format, showTime } = this.props;
@@ -48,11 +48,16 @@ export default function generateRangePicker(generateConfig) {
             : {}),
         };
 
+        const placeholder =
+          typeof _placeholder === 'string'
+            ? [_placeholder, _placeholder]
+            : _placeholder;
+
         return (
           <RCRangePicker
             separator={
               <span aria-label="to" className={`${prefixCls}-separator`}>
-                ~
+                <Icon type="subtract" />
               </span>
             }
             ref={this.pickerRef}
@@ -67,7 +72,7 @@ export default function generateRangePicker(generateConfig) {
             }
             suffixIcon={
               picker === 'time' ? (
-                <Icon type="close" /> // TODO: 换成秒表图标
+                <Icon type="calendar" /> // TODO: 换成秒表图标
               ) : (
                 <Icon type="calendar" />
               )
@@ -77,7 +82,6 @@ export default function generateRangePicker(generateConfig) {
             nextIcon={<Icon type="right" />}
             superPrevIcon={<Icon type="double-left" />}
             superNextIcon={<Icon type="double-right" />}
-            allowClear
             transitionName={`${prefixCls}-slide-up`}
             {...restProps}
             {...additionalOverrideProps}

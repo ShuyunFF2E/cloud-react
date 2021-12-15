@@ -13,7 +13,8 @@ desc: 基本用法，日期选择器。
 import React from 'react';
 import { 
 	DatePicker,
-	Form
+	Form,
+	Toggle
 } from 'cloud-react';
 
 
@@ -42,12 +43,20 @@ export default class DatePickerDemo extends React.Component {
 	}
 
 	render() {
-		const { value, time } = this.state;
-		const disabled = false;
+		const { value, time, disabled } = this.state;
 		return (
-			<Form layout="horizontal">
+			<Form layout="horizontal" labelAlign="left" labelCol={{ span: 8 }}>
+				<Form.Item label="是否可用">
+					<Toggle checked={!disabled} onChange={b => this.setState({ disabled: !b })} />
+				</Form.Item>
 				<Form.Item label="日期选择器">
 					<DatePicker value={value} onChange={this.onChange} showToday disabled={disabled} />
+				</Form.Item>
+				<Form.Item label="日期选择器（可清除）">
+					<DatePicker value={value} onChange={this.onChange} allowClear disabled={disabled} />
+				</Form.Item>
+				<Form.Item label="日期选择器（不可输入修改）">
+					<DatePicker value={value} onChange={this.onChange} canEdit={false} disabled={disabled} />
 				</Form.Item>
 				<Form.Item label="日期选择器（带时间）">
 					<DatePicker value={value} onChange={this.onChange} showToday showTimePicker disabled={disabled} />
@@ -55,23 +64,6 @@ export default class DatePickerDemo extends React.Component {
 				<Form.Item label="时间选择器">
 					<TimePicker value={time} onChange={this.onTimeChange} disabled={disabled} />
 				</Form.Item>
-				{/*
-				<Form.Item label="周选择器">
-					<WeekPicker onChange={this.onChange} disabled={disabled} />
-				</Form.Item>
-				<Form.Item label="年月选择器">
-					<MonthPicker onChange={this.onChange} disabled={disabled} />
-				</Form.Item>
-				<Form.Item label="月日选择器">
-					<DatePicker format="MM/DD" onChange={this.onChange} disabled={disabled} />
-				</Form.Item>
-				<Form.Item label="年份选择器">
-					<YearPicker onChange={this.onChange} disabled={disabled} />
-				</Form.Item>
-				<Form.Item label="季度选择器">
-					<QuarterPicker onChange={this.onChange} disabled={disabled} />
-				</Form.Item>
-				*/}
 			</Form>
 		);
 	}

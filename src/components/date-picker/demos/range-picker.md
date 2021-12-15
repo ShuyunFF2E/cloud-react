@@ -11,9 +11,11 @@ desc: 基本用法，日期选择器。
  * desc: 基本用法，日期选择器。
  */
 import React from 'react';
+import moment from 'moment';
 import { 
 	DatePicker,
-	Form
+	Form,
+	Toggle
 } from 'cloud-react';
 
 
@@ -26,7 +28,7 @@ export default class RangePickerDemo extends React.Component {
 	}
 
 	onChange = values => {
-		console.log('values:', values);
+
 		this.setState({ values });
 	}
 
@@ -36,19 +38,65 @@ export default class RangePickerDemo extends React.Component {
 	}
 
 	render() {
-		const { values, times } = this.state;
-		const disabled = false;
+		const { values, times, disabled } = this.state;
 		return (
-			<Form layout="horizontal">
+			<Form layout="horizontal" labelAlign="left" labelCol={{ span: 10 }}>
+
+				<Form.Item label="是否可用">
+					<Toggle checked={!disabled} onChange={b => this.setState({ disabled: !b })} />
+				</Form.Item>
+
 				<Form.Item label="日期范围选择器">
-					<RangePicker value={values} onChange={this.onChange} disabled={disabled} />
+					<RangePicker value={values} onChange={this.onChange} showToday disabled={disabled} />
 				</Form.Item>
+
+				<Form.Item label="日期范围选择器（可清除）">
+					<RangePicker value={values} onChange={this.onChange} allowClear disabled={disabled} />
+				</Form.Item>
+
 				<Form.Item label="日期范围选择器（带时间）">
-					<RangePicker value={values} onChange={this.onChange} onOK={this.onOK} showTimePicker showNow disabled={disabled} />
+					<RangePicker
+						value={values}
+						onChange={this.onChange}
+						onOK={this.onOK}
+						showTimePicker
+						showNow
+						disabled={disabled} 
+					/>
 				</Form.Item>
+
+				<Form.Item label="日期范围选择器（固定开始时间）">
+					<RangePicker
+						value={values}
+						onChange={this.onChange}
+						onOK={this.onOK}
+						selectable={[false, true]}
+						disabled={disabled} 
+					/>
+				</Form.Item>
+
+				<Form.Item label="日期范围选择器（开始结束可为空）">
+					<RangePicker
+						onOK={this.onOK}
+						allowEmpty={[true, true]}
+						disabled={disabled} 
+					/>
+				</Form.Item>
+
 				<Form.Item label="时间范围选择器">
 					<TimeRangePicker value={times} onChange={this.onTimeChange} showNow disabled={disabled} />
 				</Form.Item>
+
+				<h4>自定义</h4>
+
+				<RangePicker
+					placeholder="请选择时间范围"
+					width={380}
+					showTimePicker
+					minDate={new Date()}
+					format={'yyyy年MM月DD日 HH:mm'}
+				/>
+
 			</Form>
 		);
 	}

@@ -14,7 +14,7 @@ const DateRangePicker = ({
   disabled,
   defaultValue: _defaultValue,
   value: _value,
-  open: _open,
+  open,
   onOpenChange, // New
   format: _format,
   placeholder: _placeholder,
@@ -31,7 +31,9 @@ const DateRangePicker = ({
   isAppendToBody,
   // position,
   dropdownAlign, // New
-  canEdit,
+  canEdit = true,
+  selectable,
+  allowEmpty,
   style,
   showToday,
   showNow,
@@ -59,17 +61,16 @@ const DateRangePicker = ({
   //   popupTimeout: 0
   // });
   const [value, setValue] = useState();
-  const [open, setOpen] = useState();
   const format = _format || (showTimePicker ? dateTimeFormat : dateFormat);
   const placeholder = _placeholder || [format, format];
 
   useEffect(() => {
+    console.log(_value);
     setValue(transformString2Moment(_value, format));
-    setOpen(_open);
     // return () => {
     //   clearTimeout(_this.popupTimeout);
     // }
-  }, [_value, _open]);
+  }, [_value]);
 
   // useEffect(() => {
   //   if (containerEleClass && open) {
@@ -99,17 +100,6 @@ const DateRangePicker = ({
       }
     },
     [onChange],
-  );
-
-  const handleOpenChange = useCallback(
-    (b) => {
-      if (onOpenChange) {
-        onOpenChange(b);
-      } else {
-        setOpen(b);
-      }
-    },
-    [onOpenChange],
   );
 
   const getPopupContainer = useMemo(() => {
@@ -151,14 +141,16 @@ const DateRangePicker = ({
         _defaultValue && _defaultValue.map((v) => v && moment(v, format))
       }
       showTime={
-        showTimePicker && {
-          defaultValue:
-            defaultTime && defaultTime.map((v) => v && moment(v, timeFormat)),
-        }
+        showTimePicker instanceof Object
+          ? {
+              defaultValue:
+                defaultTime &&
+                defaultTime.map((v) => v && moment(v, timeFormat)),
+            }
+          : showTimePicker
       }
       onChange={handleChange}
-      onOpenChange={handleOpenChange}
-      inputReadOnly={canEdit}
+      inputReadOnly={!canEdit}
       getPopupContainer={getPopupContainer}
       disabledDate={_disabledDate || getDisabledDate}
       {...{
@@ -168,16 +160,18 @@ const DateRangePicker = ({
         open,
         placeholder,
         dropdownAlign,
-        showToday,
-        showNow,
+        showToday: showToday || showNow,
         disabledTime,
         dateRender,
         monthCellRender,
         renderExtraFooter,
         autoFocus,
         allowClear,
+        selectable,
+        allowEmpty,
         onFocus,
         onBlur,
+        onOpenChange,
         onMouseDown,
         onMouseUp,
         onMouseEnter,
