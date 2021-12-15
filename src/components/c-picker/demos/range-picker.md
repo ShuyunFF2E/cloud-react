@@ -70,7 +70,9 @@ export default class RangePickerDemo extends React.Component {
 						value={values}
 						onChange={this.onChange}
 						onOK={this.onOK}
+						allowClear
 						disabled={[false, true]}
+						allowEmpty={[true, false]}
 					/>
 				</Form.Item>
 
