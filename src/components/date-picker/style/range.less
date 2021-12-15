@@ -1,6 +1,14 @@
 @import './const.less';
 
 .@{prefix-cls}-range {
+  .@{prefix-cls}-clear {
+    right: 12px;
+  }
+
+  &:hover .@{prefix-cls}-clear {
+    opacity: 1;
+  }
+
   &-wrapper {
     .@{prefix-cls}-panel .@{prefix-cls}-date-panel {
       .@{prefix-cls}-cell.@{prefix-cls}-cell-in-view {

@@ -32,7 +32,6 @@ const DateRangePicker = ({
   // position,
   dropdownAlign, // New
   canEdit = true,
-  selectable,
   allowEmpty,
   style,
   showToday,
@@ -94,7 +93,14 @@ const DateRangePicker = ({
   const handleChange = useCallback(
     (m, v) => {
       if (onChange) {
-        onChange(v);
+        onChange(
+          v.reduce((pre, cur, index) => {
+            if (index === 0) {
+              return { start: cur };
+            }
+            return { ...pre, end: cur };
+          }, {}),
+        );
       } else {
         setValue(m);
       }
@@ -167,7 +173,6 @@ const DateRangePicker = ({
         renderExtraFooter,
         autoFocus,
         allowClear,
-        selectable,
         allowEmpty,
         onFocus,
         onBlur,

@@ -23,8 +23,8 @@ const { RangePicker, TimeRangePicker } = DatePicker;
 
 export default class RangePickerDemo extends React.Component {
 	state = {
-		values: ['2021/12/1 16:05:33', '2021/12/2 12:40:15'],
-		times: ['09:00:00', '17:58:58']
+		values: { start: '2021/12/1 16:05:33', end: '2021/12/2 12:40:15' },
+		times: { start: '09:00:00', end: '17:58:58' }
 	}
 
 	onChange = values => {
@@ -70,8 +70,7 @@ export default class RangePickerDemo extends React.Component {
 						value={values}
 						onChange={this.onChange}
 						onOK={this.onOK}
-						selectable={[false, true]}
-						disabled={disabled} 
+						disabled={[false, true]}
 					/>
 				</Form.Item>
 
@@ -79,7 +78,7 @@ export default class RangePickerDemo extends React.Component {
 					<RangePicker
 						onOK={this.onOK}
 						allowEmpty={[true, true]}
-						disabled={disabled} 
+						disabled={disabled}
 					/>
 				</Form.Item>
 

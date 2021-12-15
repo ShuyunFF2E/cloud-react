@@ -24,7 +24,6 @@ const TimeRangePicker = ({
   // position,
   dropdownAlign, // New
   canEdit = true,
-  selectable,
   allowEmpty,
   style,
   showToday,
@@ -57,7 +56,14 @@ const TimeRangePicker = ({
   const handleChange = useCallback(
     (m, v) => {
       if (onChange) {
-        onChange(v);
+        onChange(
+          v.reduce((pre, cur, index) => {
+            if (index === 0) {
+              return { start: cur };
+            }
+            return { ...pre, end: cur };
+          }, {}),
+        );
       } else {
         setValue(m);
       }
@@ -100,7 +106,6 @@ const TimeRangePicker = ({
         renderExtraFooter,
         autoFocus,
         allowClear,
-        selectable,
         allowEmpty,
         onFocus,
         onBlur,
