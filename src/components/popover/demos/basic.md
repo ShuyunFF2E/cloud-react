@@ -26,6 +26,7 @@ export default function PopoverDemo() {
             }}>{isClick ? '通过 hover 触发' : '通过 click 触发'}</Button>
             {split}
             <Popover
+                size="mini"
                 trigger={trigger}
                 placement="right"
                 content="这是一段文字描述">
@@ -33,6 +34,7 @@ export default function PopoverDemo() {
             </Popover>
             {split}
             <Popover
+                size="small"
                 trigger={trigger}
                 placement="right"
                 content="这是一段文字描述"
@@ -42,6 +44,7 @@ export default function PopoverDemo() {
             </Popover>
             {split}
             <Popover
+                size="small"
                 trigger={trigger}
                 content="这是一段文字描述"
                 showIcon >
@@ -108,6 +111,16 @@ export default function PopoverDemo() {
                 }}>
                 <Button>标题 + Icon + btn</Button>
             </Popover>
+          {split}
+          <Popover
+            trigger={trigger}
+            title="标题"
+            content="正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容"
+            showIcon
+            showCancelBtn
+            showConfirmBtn>
+            <Button>超长</Button>
+          </Popover>
         </div>
 	);
 }
