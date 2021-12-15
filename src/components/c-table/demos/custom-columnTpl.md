@@ -10,7 +10,7 @@ desc: 自定义列模板
  * title: 自定义表格列模板
  * desc: 自定义表格列模板
  */
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import RcTable from '../index';
 import Input from '../../input/index';
 import Tooltip from '../../tooltip/index';

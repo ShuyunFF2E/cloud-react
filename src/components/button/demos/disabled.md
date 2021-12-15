@@ -35,6 +35,10 @@ export default class ButtonDemo extends React.Component {
 					<Button type="link" disabled>
 						link
 					</Button>
+					{blank}
+					<Button type="text" disabled>
+						text
+					</Button>
 				</div>
 			</React.Fragment>
 		);

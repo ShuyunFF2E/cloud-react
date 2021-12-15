@@ -7,6 +7,8 @@
 @line-height: 1.5;
 @table-border-color: @gray-4;
 @table-head-background-color: @gray-2;
+@large-vertical-padding: 16px;
+@large-horizontal-padding: 16px;
 @vertical-padding: 12px;
 @horizontal-padding: 12px;
 @small-vertical-padding: 8px;
@@ -15,428 +17,415 @@
 @border-color: @gray-4;
 @border: @border-width solid @border-color;
 @cell-padding: @vertical-padding @horizontal-padding;
+@large-cell-padding: @large-vertical-padding @large-horizontal-padding;
 @small-cell-padding: @small-vertical-padding @small-horizontal-padding;
 @cell-margin: -@vertical-padding -@horizontal-padding;
 
 .@{tableContainerPrefixCls} {
-	position: relative;
+  position: relative;
 
-	&::before {
-		content: '';
-		position: absolute;
-		bottom: 0;
-		height: 1px;
-		width: 100%;
-		background: @gray-4;
-		z-index: 2;
-	}
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    height: 1px;
+    width: 100%;
+    background: @gray-4;
+    z-index: 2;
+  }
 
-	// 带边框表格
-	&.@{tablePrefixCls}-bordered {
-		.@{tablePrefixCls} {
-			&-header {
-				border-top: @border;
-				border-right: @border;
-				border-left: @border;
-			}
+  // 带边框表格
+  &.@{tablePrefixCls}-bordered {
+    .@{tablePrefixCls} {
+      &-header {
+        border-top: @border;
+        border-right: @border;
+        border-left: @border;
+      }
 
-			&-body {
-				border-right: @border;
-				border-left: @border;
-			}
+      &-body {
+        border-right: @border;
+        border-left: @border;
+      }
 
-			th:not(:last-child),
-			td:not(:last-child) {
-				border-right: @border;
-			}
-		}
-	}
+      th:not(:last-child),
+      td:not(:last-child) {
+        border-right: @border;
+      }
+    }
+  }
 
-	// 紧凑型表格
-	&.@{tablePrefixCls}-small {
-		.@{tablePrefixCls} {
-			&-cell {
-				padding: @small-cell-padding;
-			}
+  // 紧凑型表格
+  &.@{tablePrefixCls}-small {
+    .@{tablePrefixCls} {
+      &-cell {
+        padding: @small-cell-padding;
+      }
 
-			th,
-			td {
-				padding: @small-cell-padding;
-			}
+      th,
+      td {
+        padding: @small-cell-padding;
+      }
 
-			&-fixed {
-				padding: @small-cell-padding;
-			}
-		}
-	}
+      &-fixed {
+        padding: @small-cell-padding;
+      }
+    }
+  }
 
-	// 加载中
-	&.@{tablePrefixCls}-loading {
-		position: relative;
+  // 舒适型表格
+  &.@{tablePrefixCls}-large {
+    .@{tablePrefixCls} {
+      &-cell {
+        padding: @large-cell-padding;
+      }
 
-		.@{tablePrefixCls}-loading-layer {
-			display: block;
-			position: absolute;
-			content: '';
-			top: 0;
-			left: 0;
-			right: 0;
-			bottom: 0;
-			background: @color-white;
-			opacity: 0.9;
-			z-index: 3;
-		}
-	}
+      th,
+      td {
+        padding: @large-cell-padding;
+      }
+
+      &-fixed {
+        padding: @large-cell-padding;
+      }
+    }
+  }
+
+  // 加载中
+  &.@{tablePrefixCls}-loading {
+    position: relative;
+
+    .@{tablePrefixCls}-loading-layer {
+      display: block;
+      position: absolute;
+      content: '';
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: @color-white;
+      opacity: 0.9;
+      z-index: 3;
+    }
+  }
 }
 
 .@{tablePrefixCls} {
-	height: 100%;
-	position: relative;
-	box-sizing: border-box;
-	color: @text-color;
-	font-size: @font-size-base;
-	line-height: @line-height;
+  height: 100%;
+  position: relative;
+  box-sizing: border-box;
+  color: @text-color;
+  font-size: @font-size-base;
+  line-height: @line-height;
 
-	&-rtl {
-		direction: rtl;
-	}
+  &-rtl {
+    direction: rtl;
+  }
 
-	&-container {
-		height: 100%;
-		display: flex;
-		flex-direction: column;
-	}
+  &-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
 
-	// ================= Global =================
-	table {
-		position: relative;
-		width: 100%;
-		border-spacing: 0;
-	}
+  // ================= Global =================
+  table {
+    position: relative;
+    width: 100%;
+    border-spacing: 0;
+  }
 
-	th,
-	td {
-		position: relative;
-		box-sizing: border-box;
-		padding: @cell-padding;
-		white-space: normal;
-		word-break: break-word;
-		border-bottom: @border;
-		transition: box-shadow 0.3s;
+  th,
+  td {
+    position: relative;
+    box-sizing: border-box;
+    padding: @cell-padding;
+    white-space: normal;
+    word-break: break-word;
+    border-bottom: @border;
+    transition: box-shadow 0.3s;
 
-		.@{tablePrefixCls}-rtl& {
-			border-right: 0;
-			border-left: @border;
-		}
-	}
+    .@{tablePrefixCls}-rtl& {
+      border-right: 0;
+      border-left: @border;
+    }
+  }
 
-	tr:not(.@{tablePrefixCls}-expanded-row):hover td {
-		background: @blue-1;
-		transition: all 0.3s;
-	}
+  tr:not(.@{tablePrefixCls}-expanded-row):hover td {
+    background: @blue-1;
+    transition: all 0.3s;
+  }
 
-	// ================== Cell ==================
-	&-cell {
-		&-fix-left,
-		&-fix-right {
-			z-index: 1;
-		}
+  // ================== Cell ==================
+  &-cell {
+    &-fix-left,
+    &-fix-right {
+      z-index: 1;
+    }
 
-		&-fix-right:last-child:not(&-fix-sticky) {
-			border-right-color: transparent;
-		}
+    &-fix-right:last-child:not(&-fix-sticky) {
+      border-right-color: transparent;
+    }
 
-		.@{tablePrefixCls}-rtl & {
-			&-fix-right:last-child {
-				border-right-color: @border-color;
-			}
-			&-fix-left:last-child {
-				border-left-color: transparent;
-			}
-		}
+    .@{tablePrefixCls}-rtl & {
+      &-fix-right:last-child {
+        border-right-color: @border-color;
+      }
+      &-fix-left:last-child {
+        border-left-color: transparent;
+      }
+    }
 
-		&-fix-left-first {
-			.@{tablePrefixCls}-rtl & {
-				box-shadow: 1px 0 0 @border-color;
-			}
-		}
+    &-fix-left-first {
+      .@{tablePrefixCls}-rtl & {
+        box-shadow: 1px 0 0 @border-color;
+      }
+    }
 
-		&-fix-left-first::after,
-		&-fix-left-last::after {
-			position: absolute;
-			top: 0;
-			right: -1px;
-			bottom: -1px;
-			width: 20px;
-			transform: translateX(100%);
-			transition: box-shadow 0.3s;
-			content: '';
-			pointer-events: none;
-		}
+    &-fix-left-first::after,
+    &-fix-left-last::after {
+      position: absolute;
+      top: 0;
+      right: -1px;
+      bottom: -1px;
+      width: 20px;
+      transform: translateX(100%);
+      transition: box-shadow 0.3s;
+      content: '';
+      pointer-events: none;
+    }
 
-		&-fix-right-first,
-		&-fix-right-last {
-			box-shadow: -1px 0 0 @border-color;
-			right: 0 !important;
+    &-fix-right-first,
+    &-fix-right-last {
+      //box-shadow: -1px 0 0 @border-color;
+      right: 0 !important;
 
-			.@{tablePrefixCls}-rtl & {
-				box-shadow: none;
-			}
+      .@{tablePrefixCls}-rtl & {
+        box-shadow: none;
+      }
 
-			&::after {
-				position: absolute;
-				top: 0;
-				bottom: -1px;
-				left: -1px;
-				width: 20px;
-				transform: translateX(-100%);
-				transition: box-shadow 0.3s;
-				content: '';
-				pointer-events: none;
-			}
-		}
+      &::after {
+        position: absolute;
+        top: 0;
+        bottom: -1px;
+        left: -1px;
+        width: 20px;
+        transform: translateX(-100%);
+        transition: box-shadow 0.3s;
+        content: '';
+        pointer-events: none;
+      }
+    }
 
-		&&-ellipsis {
-			overflow: hidden;
-			white-space: nowrap;
-			text-overflow: ellipsis;
+    &&-ellipsis {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
 
-			// Fixed first or last should special process
-			&.@{tablePrefixCls}-cell-fix-left-first,
-			&.@{tablePrefixCls}-cell-fix-left-last,
-			&.@{tablePrefixCls}-cell-fix-right-first &.@{tablePrefixCls}-cell-fix-right-last {
-				overflow: visible;
+      // Fixed first or last should special process
+      &.@{tablePrefixCls}-cell-fix-left-first,
+      &.@{tablePrefixCls}-cell-fix-left-last,
+      &.@{tablePrefixCls}-cell-fix-right-first
+        &.@{tablePrefixCls}-cell-fix-right-last {
+        overflow: visible;
 
-				.@{tablePrefixCls}-cell-content {
-					display: block;
-					overflow: hidden;
-					text-overflow: ellipsis;
-				}
-			}
-		}
-	}
+        .@{tablePrefixCls}-cell-content {
+          display: block;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+    }
+  }
 
-	&-ping-left {
-		.@{tablePrefixCls}-cell-fix-left-first::after,
-		.@{tablePrefixCls}-cell-fix-left-last::after {
-			box-shadow: @border-shadow-left;
-		}
-	}
+  &-ping-left {
+    .@{tablePrefixCls}-cell-fix-left-first::after,
+    .@{tablePrefixCls}-cell-fix-left-last::after {
+      box-shadow: @border-shadow-left;
+    }
+  }
 
-	&-ping-right {
-		.@{tablePrefixCls}-cell-fix-right-first::after,
-		.@{tablePrefixCls}-cell-fix-right-last::after {
-			box-shadow: @border-shadow-right;
-		}
-	}
+  &-ping-right {
+    .@{tablePrefixCls}-cell-fix-right-first::after,
+    .@{tablePrefixCls}-cell-fix-right-last::after {
+      box-shadow: @border-shadow-right;
+    }
+  }
 
-	// ================= Expand =================
-	&-expand-icon-col {
-		width: 40px;
-	}
+  // ================= Expand =================
+  &-expand-icon-col {
+    width: 40px;
+  }
 
-	&-row-expand-icon-cell {
-		text-align: center;
-	}
+  &-row-expand-icon-cell {
+    text-align: center;
+  }
 
-	// ================= Header =================
-	thead {
-		td,
-		th {
-			text-align: center;
-			background: @table-head-background-color;
-			color: @gray-7;
-			font-weight: normal;
-			font-size: 14px;
-		}
+  // ================= Header =================
+  thead {
+    td,
+    th {
+      text-align: center;
+      background: @table-head-background-color;
+      color: @gray-7;
+      font-weight: normal;
+      font-size: 14px;
+    }
 
-		.@{tablePrefixCls}-cell-scrollbar::after {
-			position: absolute;
-			top: 0;
-			bottom: 0;
-			left: -1px;
-			width: 1px;
-			background: @table-head-background-color;
-			content: '';
+    .@{tablePrefixCls}-cell-scrollbar::after {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: -1px;
+      width: 1px;
+      background: @table-head-background-color;
+      content: '';
 
-			.@{tablePrefixCls}-rtl& {
-				right: -1px;
-				left: auto;
-			}
-		}
-	}
+      .@{tablePrefixCls}-rtl& {
+        right: -1px;
+        left: auto;
+      }
+    }
+  }
 
-	&-header {
-	}
+  &-header {
+  }
 
-	// ================= Empty ==================
-	&-placeholder {
-		text-align: center;
-	}
+  // ================= Empty ==================
+  &-placeholder {
+    text-align: center;
+  }
 
-	&-empty {
-		table {
-			height: 100%;
+  &-empty {
+    table {
+      height: 100%;
 
-			tr:not(.@{tablePrefixCls}-expanded-row):hover td {
-				background: transparent;
-			}
-		}
-	}
+      tr:not(.@{tablePrefixCls}-expanded-row):hover td {
+        background: transparent;
+      }
+    }
+  }
 
-	// ================== Body ==================
-	tbody {
-		tr {
-			td,
-			th {
-				background: @color-white;
-			}
-		}
-	}
+  // ================== Body ==================
+  tbody {
+    tr {
+      td,
+      th {
+        background: @color-white;
+      }
+    }
+  }
 
-	&-content {
-		border-left: @border;
-		border-top: @border;
-		border-radius: 5px 0 0 0;
-	}
+  &-content {
+    border-left: @border;
+    border-top: @border;
+    border-radius: 5px 0 0 0;
+  }
 
-	//noinspection CssInvalidPropertyValue
-	&-body {
-		flex: 1;
-		overflow: auto auto !important;
-		overflow: overlay overlay !important;
-	}
+  //noinspection CssInvalidPropertyValue
+  &-body {
+    flex: 1;
+    overflow: auto auto !important;
+    overflow: overlay overlay !important;
+  }
 
-	&-fixed-column &-body::after {
-		position: absolute;
-		top: 0;
-		right: 0;
-		bottom: 0;
-		z-index: 1;
-		border-right: @border;
-		content: '';
-	}
+  &-fixed-column &-body::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    //border-right: @border;
+    content: '';
+  }
 
-	// ================= Expand =================
-	&-expanded-row {
-		.@{tablePrefixCls}-cell {
-			padding: 24px 12px;
-			background: @gray-2;
-			box-shadow: @border-shadow-bottom;
-		}
+  // ================= Expand =================
+  &-expanded-row {
+    .@{tablePrefixCls}-cell {
+      padding: 24px 12px;
+      background: @gray-2;
+      box-shadow: @border-shadow-bottom;
+    }
 
-		&-fixed {
-			box-sizing: border-box;
-			margin: @cell-margin;
-			margin-right: -@horizontal-padding - 2 * @border-width;
-			padding: @cell-padding;
+    &-fixed {
+      box-sizing: border-box;
+      margin: @cell-margin;
+      margin-right: -@horizontal-padding - 2 * @border-width;
+      padding: @cell-padding;
 
-			&::after {
-				position: absolute;
-				top: 0;
-				right: 1px;
-				bottom: 0;
-				width: 0;
-				//border-right: @border;
-				content: '';
-			}
-		}
-	}
+      &::after {
+        position: absolute;
+        top: 0;
+        right: 1px;
+        bottom: 0;
+        width: 0;
+        //border-right: @border;
+        content: '';
+      }
+    }
+  }
 
-	&-expend-icon {
-		display: inline-flex;
-		padding-right: 10px;
-		font-size: 12px;
-		color: @gray-7;
-		cursor: pointer;
-		transition: all 0.3s;
+  &-expend-icon {
+    display: inline-flex;
+    font-size: 16px;
+    color: @gray-7;
+    cursor: pointer;
+    transition: all 0.3s;
 
-		&-hide {
-			visibility: hidden;
-		}
+    &-hide {
+      visibility: hidden;
+    }
 
-		&-expended {
-			transform: translate(-5px, 5px) rotate(90deg);
-		}
-	}
+    &-expended {
+      transform: translate(-5px, 5px) rotate(90deg);
+    }
+  }
 
-	// ================= Title ==================
-	&-title {
-		padding: @cell-padding;
-		border: @border;
-		border-bottom: 0;
-	}
+  // ================= Title ==================
+  &-title {
+    padding: @cell-padding;
+    border: @border;
+    border-bottom: 0;
+  }
 
-	// ================= Footer =================
-	&-footer {
-		padding-top: 16px;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
+  // ================= Footer =================
+  &-footer {
+    padding-top: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-		&-statistics {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			color: @gray-9;
-		}
+    &-statistics {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: @gray-9;
+    }
 
-		&-total {
-			margin-right: 25px;
-		}
+    &-total {
+      margin-right: 25px;
+    }
 
-		&-refresh {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			cursor: pointer;
+    &-refresh {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
 
-			> i {
-				margin-right: 6px;
-			}
-		}
-	}
+      > i {
+        margin-right: 6px;
+      }
+    }
+  }
 
-	tfoot {
-		td {
-			background: @color-white;
-		}
-	}
+  tfoot {
+    td {
+      background: @color-white;
+    }
+  }
 
-	&-summary {
-		border-top: @border;
-		border-left: @border;
-	}
-
-	&-sticky {
-		&-holder {
-			position: sticky;
-			z-index: 2;
-		}
-		&-scroll {
-			position: sticky;
-			bottom: 0;
-			z-index: 2;
-			display: flex;
-			align-items: center;
-			border-top: 1px solid #f3f3f3;
-			opacity: 0.6;
-			transition: transform 0.1s ease-in 0s;
-			&:hover {
-				transform: scaleY(1.2);
-				transform-origin: center bottom;
-			}
-			&-bar {
-				height: 8px;
-				background-color: #bbb;
-				border-radius: 4px;
-				&:hover {
-					background-color: #999;
-				}
-				&-active {
-					background-color: #999;
-				}
-			}
-		}
-	}
+  &-summary {
+    border-top: @border;
+    border-left: @border;
+  }
 }

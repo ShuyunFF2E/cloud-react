@@ -1,14 +1,14 @@
 ---
 order: 1
 title: 按钮类型
-desc: 按钮四种类型：主按钮、次按钮、虚线按钮、连接按钮
+desc: 按钮五种类型：主按钮、次按钮、链接按钮、文字按钮、虚线按钮
 ---
 
 ```jsx
 
             /**
              * title: 按钮类型
-             * desc: 按钮四种类型：主按钮、次按钮、虚线按钮、连接按钮
+             * desc: 按钮五种类型：主按钮、次按钮、链接按钮、文字按钮、虚线按钮
              */
 import React from 'react';
 import { Button, InputNumber } from 'cloud-react';
@@ -27,6 +27,8 @@ export default class ButtonDemo extends React.Component {
 					<Button type="dashed">dashed</Button>
 					{blank}
 					<Button type="link">link</Button>
+					{blank}
+					<Button type="text">text</Button>
 				</div>
 			</React.Fragment>
 		);

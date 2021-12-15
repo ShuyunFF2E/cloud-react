@@ -35,6 +35,10 @@ export default class ButtonDemo extends React.Component {
 					<Button block type="link">
 						link
 					</Button>
+					{blank}
+					<Button block type="text">
+						text
+					</Button>
 				</div>
 			</React.Fragment>
 		);
