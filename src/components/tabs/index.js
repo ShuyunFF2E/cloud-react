@@ -415,7 +415,8 @@ export default class Tabs extends PureComponent {
     Children.forEach(children, (child) => {
       if (!isValidElement(child)) return;
 
-      const isActived = this.keyFilter(child.key) === activedKey;
+      const isActived =
+        this.keyFilter(child.key) === this.keyFilter(activedKey);
       headers.push(this.renderTabHeader(child, isActived));
 
       if (type === 'card' && child.props.fixed) {
