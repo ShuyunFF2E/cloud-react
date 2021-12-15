@@ -14,7 +14,7 @@ export default function Avatar(props) {
 		setIsImgExist(true);
 	  }, [props.src]);
 
-	const { className, size, shape, icon, src, srcSet, crossOrigin, group, children } = props;
+	const { className, size, shape, icon, src, srcSet, group, children } = props;
 	let { style = {}, alt } = props;
 	alt = group ? 'group-fill' : 'user-fill';
 	if (typeof size === 'number') {
@@ -39,7 +39,6 @@ export default function Avatar(props) {
 			  srcSet={srcSet}
 			  onError={handleImgLoadError}
 			  alt={alt}
-			  crossOrigin={crossOrigin}
 			/>
 		  );
 	} else if(hasImageElement){
@@ -60,7 +59,6 @@ export default function Avatar(props) {
 				style={style}
 				>
 				{renderChildren}
-			
 		</span>
 	);
 }
@@ -72,8 +70,7 @@ Avatar.propTypes = {
 	shape: PropTypes.oneOf(['circle', 'square']),
 	size: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.oneOf(['large', 'small', 'default'])]),
 	src: PropTypes.string,
-	srcSet: PropTypes.string,
-	crossOrigin: PropTypes.string
+	srcSet: PropTypes.string
 };
 Avatar.defaultProps = {
 	alt: 'user-fill',
@@ -82,6 +79,5 @@ Avatar.defaultProps = {
 	shape: 'circle',
 	size: 'default',
 	src: '',
-	srcSet: '',
-	crossOrigin: '' | 'anonymous' | 'use-credentials'
+	srcSet: ''
 };

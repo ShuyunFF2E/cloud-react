@@ -37,3 +37,5 @@ group:
 <embed src="@components/pagination/demos/jump.md" /> 
 
 <embed src="@components/pagination/demos/more.md" /> 
+
+<embed src="@components/pagination/demos/simple.md" /> 

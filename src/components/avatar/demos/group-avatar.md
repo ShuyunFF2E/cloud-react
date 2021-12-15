@@ -8,7 +8,7 @@ desc: 可切换大小的面包屑
 
             /**
              * title: 类型
-             * desc: 支持两种人像， 图片、Icon、字符（其中图标和字符可自定义图标颜色以及背景）
+             * desc: 支持Icon、 图片、字符（其中图标和字符可自定义图标颜色以及背景）
              */
 import React from 'react';
 import { Avatar, Icon } from 'cloud-react';

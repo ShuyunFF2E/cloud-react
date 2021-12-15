@@ -81,14 +81,57 @@
 		border: 1px solid @blue-2;
 		color: @blue-4;
 		background: @gray-1;
+			&.tips{
+				border: 1px solid @orange-2;
+				color:@orange-4
+			}
+
+			&.danger{
+				border: 1px solid @red-2;
+				color: @red-4;
+			}
+			&.success{
+				border: 1px solid @green-2;
+				color: @green-4;
+			}
 
 		&:hover {
 			background: @blue-1;
+			&.tips{
+				border: 1px solid @orange-2;
+				background:@orange-1;
+			}
+
+			&.danger{
+				border: 1px solid @red-2;
+				background:@red-1;
+			}
+			&.success{
+				border: 1px solid @green-2;
+				background: @green-1;
+			}
+
 		}
 		&:active {
 			color: @blue-5;
 			border: 1px solid @blue-3;
 			background: @blue-2;
+			&.tips{
+				border: 1px solid @orange-3;
+				color:@orange-5;
+				background:@orange-2;
+			}
+
+			&.danger{
+				border: 1px solid @red-3;
+				color:@red-5;
+				background:@red-2;
+			}
+			&.success{
+				border: 1px solid @green-3;
+				color:@green-5;
+				background: @green-2;
+			}
 		}
 	}
 	&.primary {
@@ -96,13 +139,50 @@
 		background: @blue-4;
 		color: @gray-1;
 
+		&.tips{
+			border: 1px solid @orange-4;
+			background: @orange-4;
+		}
+		&.danger{
+			border: 1px solid @red-4;
+			background: @red-4;
+		}
+		&.success{
+			border: 1px solid @green-4;
+			background: @green-4;
+		}
+
 		&:hover {
 			border-color: @primary-hover-bg;
 			background: @primary-hover-bg;
+			&.tips{
+				border: 1px solid @orange-5;
+				background: @orange-5;
+			}
+			&.danger{
+				border: 1px solid @red-5;
+				background: @red-5;
+			}
+			&.success{
+				border: 1px solid @green-5;
+				background: @green-5;
+			}
 		}
 		&:active {
 			border-color: @primary-active-bg;
 			background: @primary-active-bg;
+			&.tips{
+				border: 1px solid @orange-6;
+				background: @orange-6;
+			}
+			&.danger{
+				border: 1px solid @red-6;
+				background: @red-6;
+			}
+			&.success{
+				border: 1px solid @green-6;
+				background: @green-6;
+			}
 		}
 	}
 	&.dashed {
@@ -122,8 +202,30 @@
 		border: none;
 		color: @blue-4;
 		background: transparent;
+		&.tips{
+			color: @orange-4;
+		}
+		&.danger{
+			color: @red-4;
+		}
+		&.success{
+			color: @green-4;
+		}
+		&:hover {
+			background:@gray-2;
+		}
 		&:active {
 			color: @blue-5;
+			background:@gray-2;
+			&.tips{
+				color: @orange-5;
+			}
+			&.danger{
+				color: @red-5;
+			}
+			&.success{
+				color: @green-5;
+			}
 		}
 	}
 
@@ -173,6 +275,20 @@
 				background: @primary-disabled-bg;
 				background-clip: padding-box;
 				cursor: not-allowed;
+
+				&.tips{
+					border: 1px solid @orange-2;
+					background: @orange-2;
+				}
+
+				&.danger{
+					border: 1px solid @red-2;
+					background: @red-2;
+				}
+				&.success{
+					border: 1px solid @green-2;
+					background: @green-2;
+				}
 			}
 		}
 
@@ -184,6 +300,22 @@
 				border: 1px solid @gray-4;
 				background-color: @gray-3;
 				cursor: not-allowed;
+				&.tips{
+					border: 1px solid @orange-2;
+					background:transparent;
+					color: @orange-2
+				}
+	
+				&.danger{
+					border: 1px solid @red-2;
+					background:transparent;
+					color: @red-2
+				}
+				&.success{
+					border: 1px solid @green-2;
+					background: transparent;
+					color: @green-2
+				}
 			}
 		}
 
@@ -204,6 +336,16 @@
 			&:active {
 				color: @gray-6;
 				cursor: not-allowed;
+				background: transparent;
+				&.tips{
+					color: @orange-2;
+				}
+				&.danger{
+					color: @red-2;
+				}
+				&.success{
+					color: @green-2;
+				}
 			}
 		}
 	}
