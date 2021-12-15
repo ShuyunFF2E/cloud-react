@@ -131,3 +131,5 @@ group:
 <embed src="@components/upload/demos/file-list-text.md" /> 
 
 <embed src="@components/upload/demos/picture.md" /> 
+
+<embed src="@components/upload/demos/custom-upload.md" /> 
