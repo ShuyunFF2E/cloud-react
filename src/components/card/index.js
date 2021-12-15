@@ -8,14 +8,14 @@ import './index.less';
 const classSelector = `${prefixCls}-card`;
 
 export default function Card(props) {
-	const { className, style, children, title, extra, action, cover } = props;
+	const { className, style, children, title, extra, action, cover, coverShape } = props;
 
 	const renderHeader = () => {
 		if (!title && !extra && !cover) {
 			return null;
 		}
 		if (cover) {
-			return <div className={`${classSelector}-cover`}>
+			return <div className={`${classSelector}-cover ${classSelector}-${coverShape}`}>
 				{cover}
 			</div>
 		}
@@ -41,11 +41,13 @@ Card.propTypes = {
 	title: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
 	extra: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
 	cover: PropTypes.element,
-	action: PropTypes.element
+	action: PropTypes.element,
+	coverShape: PropTypes.string
 };
 Card.defaultProps = {
 	title: null,
 	extra: null,
 	cover: null,
-	action: null
+	action: null,
+	coverShape: 'rectangle'
 };

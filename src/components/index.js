@@ -61,8 +61,6 @@ export { default as Progress } from './progress';
 
 export { default as Radio } from './radio';
 
-export { default as RcTable } from './rcTable';
-
 export { default as Select } from './select';
 
 export { default as Step } from './step';
