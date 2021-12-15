@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unused-prop-types */
 import React, { Component, createRef } from 'react';
 import PropTypes from 'prop-types';
-import Table from 'rc-table';
+import RcTable from 'rc-table';
 import classnames from 'classnames';
 import { noop } from '@utils';
 import { getDataSource, isSomeChecked, isEveryChecked, traverseTree, getLeafNodes } from './util';
@@ -13,7 +13,7 @@ import Icon from '../icon';
 import Loading from '../loading';
 import './index.less';
 
-class RcTable extends Component {
+class CTable extends Component {
 	ref = createRef();
 
 	defaultPageOpts = {
@@ -306,7 +306,7 @@ class RcTable extends Component {
 					})}
 					style={style}
 					ref={ref}>
-					<Table
+					<RcTable
 						prefixCls={tablePrefixCls}
 						columns={columnData}
 						data={data}
@@ -351,9 +351,9 @@ class RcTable extends Component {
 	}
 }
 
-export default RcTable;
+export default CTable;
 
-RcTable.propTypes = {
+CTable.propTypes = {
 	ajaxData: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
 	columnData: PropTypes.array.isRequired,
 	keyField: PropTypes.string,
@@ -375,7 +375,7 @@ RcTable.propTypes = {
 	checkedData: PropTypes.array
 };
 
-RcTable.defaultProps = {
+CTable.defaultProps = {
 	keyField: '',
 	bordered: false,
 	size: 'default',

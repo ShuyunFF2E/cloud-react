@@ -1,7 +1,7 @@
 ---
 order: 1
-title: RcTable
-desc: 基础表格
+title: CTable
+desc: 默认表格
 ---
 
 ```jsx
@@ -11,7 +11,7 @@ desc: 基础表格
  * desc: 基础表格
  */
 import React from 'react';
-import RcTable from '../index';
+import { CTable } from 'cloud-react';
 
 const data = [
     { id: '121410327', name: '手机号优先继续发送1', createTime: '2021/12/14 10:19:02', creator: 'liyuan.meng' },
@@ -30,7 +30,7 @@ const columns = [
 
 export default function RcTableDemo() {
 	return (
-        <RcTable
+        <CTable
             columnData={columns}
             ajaxData={{ totals: data.length, data }}
         />
