@@ -22,7 +22,7 @@ group:
 | target   | 设置 `a` 链接的 `target` 属性，`href` 存在时生效                   | string          | -         |
 | htmlType | 设置 `button` 原生属性 `type`                                      | string          | `button`  |
 | size     | 设置按钮大小，可选值为 `large` `default` `small` 或者不设          | string          | `default` |
-| type     | 设置按钮类型，可选值为 `primary` `dashed` `link` `normal` 或者不设 | string          | `normal`  |
+| type     | 设置按钮类型，可选值为 `primary` `dashed` `link` `text` `normal` 或者不设 | string          | `normal`  |
 | colorType| 设置按钮颜色类型，可选值为 `tips` `danger` `success` 或者不设       | string          | -  |
 | icon     | 按钮文字前添加图标，可选值为组件库内所有Icon图标对应的字符（例如：remark）， 或者不设     | string          | -  |
 | block    | 将按钮宽度调整为其父宽度的选项                                     | boolean         | `false`   |
