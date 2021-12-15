@@ -10,7 +10,7 @@ desc: 固定表头
  * title: 固定表头
  * desc: 固定表头
  */
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import RcTable from '../index';
 
 const data = [

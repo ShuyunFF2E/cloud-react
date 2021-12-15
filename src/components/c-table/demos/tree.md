@@ -10,7 +10,7 @@ desc: 树状表格
  * title: 树状表格
  * desc: 树状表格
  */
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import RcTable from '../index';
 
 const data = [
@@ -135,6 +135,7 @@ export default function RcTableDemo() {
             supportTree
             supportCheckbox
             keyField="key"
+            checkedData={[data[0].children[0], data[1]]}
             columnData={columns}
             ajaxData={{ totals: data.length, data }}
             onCheckedAfter={checkedList => {

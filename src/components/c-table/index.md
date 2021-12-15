@@ -84,3 +84,5 @@ https://table-react-component.vercel.app/
 <embed src="@components/c-table/demos/small.md" /> 
 
 <embed src="@components/c-table/demos/tree.md" /> 
+
+<embed src="@components/c-table/demos/large.md" /> 

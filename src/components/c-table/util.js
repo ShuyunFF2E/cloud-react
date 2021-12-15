@@ -5,10 +5,10 @@
  * @returns {*[]|*}
  */
 export function getDataSource(ajaxData, params) {
-	if (typeof ajaxData === 'function') {
-		return ajaxData(params);
-	}
-	return ajaxData;
+  if (typeof ajaxData === 'function') {
+    return ajaxData(params);
+  }
+  return ajaxData;
 }
 
 /**
@@ -17,7 +17,7 @@ export function getDataSource(ajaxData, params) {
  * @returns {*}
  */
 export function isEveryChecked(data) {
-	return (data || []).length && data.every(item => item.checked);
+  return (data || []).length && data.every((item) => item.checked);
 }
 
 /**
@@ -26,7 +26,7 @@ export function isEveryChecked(data) {
  * @returns {*}
  */
 export function isSomeChecked(data) {
-	return (data || []).length && data.some(item => item.checked);
+  return (data || []).length && data.some((item) => item.checked);
 }
 
 /**
@@ -35,7 +35,7 @@ export function isSomeChecked(data) {
  * @returns {boolean}
  */
 export function isLeaf(node) {
-	return !node.children || !node.children.length;
+  return !node.children || !node.children.length;
 }
 
 /**
@@ -44,16 +44,16 @@ export function isLeaf(node) {
  * @returns {*[]}
  */
 export function getLeafNodes(node) {
-	const leafNodes = [];
-	const fn = n => {
-		if (n.children && n.children.length) {
-			n.children.forEach(fn);
-		} else {
-			leafNodes.push(n);
-		}
-	};
-	fn(node);
-	return leafNodes;
+  const leafNodes = [];
+  const fn = (n) => {
+    if (n.children && n.children.length) {
+      n.children.forEach(fn);
+    } else {
+      leafNodes.push(n);
+    }
+  };
+  fn(node);
+  return leafNodes;
 }
 
 /**
@@ -62,11 +62,11 @@ export function getLeafNodes(node) {
  * @param callback
  */
 export function traverseTree(tree, callback) {
-	const fn = node => {
-		if (node.children && node.children.length) {
-			node.children.forEach(fn);
-		}
-		callback(node);
-	};
-	tree.forEach(fn);
+  const fn = (node, parentNode) => {
+    if (node.children && node.children.length) {
+      node.children.forEach((n) => fn(n, node));
+    }
+    callback(node, parentNode);
+  };
+  tree.forEach((node) => fn(node));
 }

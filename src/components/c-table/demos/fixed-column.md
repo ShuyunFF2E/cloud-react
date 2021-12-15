@@ -10,7 +10,7 @@ desc: 固定列
  * title: 固定列
  * desc: 固定列
  */
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import RcTable from '../index';
 import Button from '../../button/index';
 
