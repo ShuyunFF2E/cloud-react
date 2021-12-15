@@ -108,18 +108,18 @@ group:
 
  ### 代码演示 
 
-<embed src="@components/old-date-picker/demos/date-picker.md" /> 
+<embed src="@components/datepicker/demos/date-picker.md" /> 
 
-<embed src="@components/old-date-picker/demos/disabled.md" /> 
+<embed src="@components/datepicker/demos/disabled.md" /> 
 
-<embed src="@components/old-date-picker/demos/modal.md" /> 
+<embed src="@components/datepicker/demos/modal.md" /> 
 
-<embed src="@components/old-date-picker/demos/month-day-picker.md" /> 
+<embed src="@components/datepicker/demos/month-day-picker.md" /> 
 
-<embed src="@components/old-date-picker/demos/range-date-picker.md" /> 
+<embed src="@components/datepicker/demos/range-date-picker.md" /> 
 
-<embed src="@components/old-date-picker/demos/time-picker.md" /> 
+<embed src="@components/datepicker/demos/time-picker.md" /> 
 
-<embed src="@components/old-date-picker/demos/year-month-picker.md" /> 
+<embed src="@components/datepicker/demos/year-month-picker.md" /> 
 
-<embed src="@components/old-date-picker/demos/year-picker.md" /> 
+<embed src="@components/datepicker/demos/year-picker.md" /> 

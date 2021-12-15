@@ -11,9 +11,9 @@ desc: 基本用法，时间选择器。
              * desc: 基本用法，时间选择器。
              */
 import React from 'react';
-import { OldDatePicker, Button } from 'cloud-react';
+import { Datepicker, Button } from 'cloud-react';
 
-export default class OldDatePickerDemo extends React.Component {
+export default class DatepickerDemo extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -41,10 +41,10 @@ export default class OldDatePickerDemo extends React.Component {
 	render() {
 		return (
 			<div>
-				<OldDatePicker.TimePicker onChange={this.handleChange} />
+				<Datepicker.TimePicker onChange={this.handleChange} />
 				<br />
 				<br />
-				<OldDatePicker.TimePicker value={this.state.value} onChange={this.onChange} />
+				<Datepicker.TimePicker value={this.state.value} onChange={this.onChange} />
 				<Button onClick={this.setValue}>设置时间</Button>
 			</div>
 		);

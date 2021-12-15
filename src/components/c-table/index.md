@@ -1,7 +1,7 @@
 ---
-title: cTable 新表格
+title: CTable 新表格
 nav:
-    title: cTable 新表格
+    title: CTable 新表格
     path: /cloud-react
 group:
     order: 14
@@ -14,7 +14,7 @@ group:
 
 ### API
 
-#### RcTable
+#### CTable
 
 | 属性           | 说明                    | 类型              | 默认值 
 | -------------- | ---------------------- | ----------------- | ------ |
@@ -65,22 +65,22 @@ https://table-react-component.vercel.app/
 
 ### 代码演示
 
-<embed src="@components/cTable/demos/basic.md" /> 
+<embed src="@components/c-table/demos/basic.md" /> 
 
-<embed src="@components/cTable/demos/bordered.md" /> 
+<embed src="@components/c-table/demos/bordered.md" /> 
 
-<embed src="@components/cTable/demos/checkbox.md" /> 
+<embed src="@components/c-table/demos/checkbox.md" /> 
 
-<embed src="@components/cTable/demos/custom-columnTpl.md" /> 
+<embed src="@components/c-table/demos/custom-columnTpl.md" /> 
 
-<embed src="@components/cTable/demos/expand-row.md" /> 
+<embed src="@components/c-table/demos/expand-row.md" /> 
 
-<embed src="@components/cTable/demos/fixed-column.md" /> 
+<embed src="@components/c-table/demos/fixed-column.md" /> 
 
-<embed src="@components/cTable/demos/fixed-header.md" /> 
+<embed src="@components/c-table/demos/fixed-header.md" /> 
 
-<embed src="@components/cTable/demos/page.md" /> 
+<embed src="@components/c-table/demos/page.md" /> 
 
-<embed src="@components/cTable/demos/small.md" /> 
+<embed src="@components/c-table/demos/small.md" /> 
 
-<embed src="@components/cTable/demos/tree.md" /> 
+<embed src="@components/c-table/demos/tree.md" /> 

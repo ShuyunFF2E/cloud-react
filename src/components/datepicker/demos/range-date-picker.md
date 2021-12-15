@@ -11,9 +11,9 @@ desc: 基本用法。
              * desc: 基本用法。
              */
 import React from 'react';
-import { OldDatePicker, Button } from 'cloud-react';
+import { Datepicker, Button } from 'cloud-react';
 
-export default class OldDatePickerDemo extends React.Component {
+export default class DatepickerDemo extends React.Component {
 	constructor(props) {
 		super(props);
 
@@ -46,7 +46,7 @@ export default class OldDatePickerDemo extends React.Component {
             <React.Fragment>
 		    <div>
                <p style={{marginBottom: 10, marginTop: 20}}>不可编辑：</p>
-                <OldDatePicker.RangePicker
+                <Datepicker.RangePicker
                					position="auto"
                					value={this.state.range1}
                					onChange={this.onInpChange1}
@@ -55,7 +55,7 @@ export default class OldDatePickerDemo extends React.Component {
 			</div>
 			<div>
                <p style={{marginBottom: 10, marginTop: 20}}>可编辑：</p>
-                <OldDatePicker.RangePicker
+                <Datepicker.RangePicker
                					position="auto"
                					value={this.state.range2}
                					onChange={this.onInpChange2}

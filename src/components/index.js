@@ -1,8 +1,8 @@
 /* components/index.js文件 是通过 /script/generate-index.js文件生成的 */
 
 // 检验当前运行环境
-if(typeof window === 'undefined') {
-	console.warn('cloud-react 仅支持在浏览器环境进行使用!');
+if (typeof window === 'undefined') {
+  console.warn('cloud-react 仅支持在浏览器环境进行使用!');
 }
 
 export const version = '1.0.0-17';
@@ -15,7 +15,9 @@ export { default as BreadCrumbs } from './bread-crumbs';
 
 export { default as Button } from './button';
 
-export { default as CTable } from './cTable';
+export { default as CPicker } from './c-picker';
+
+export { default as CTable } from './c-table';
 
 export { default as Card } from './card';
 
@@ -25,7 +27,7 @@ export { default as ComplexCheckbox } from './complex-checkbox';
 
 export { default as ComplexRadio } from './complex-radio';
 
-export { default as DatePicker } from './date-picker';
+export { default as Datepicker } from './datepicker';
 
 export { default as Field } from './field';
 
@@ -48,8 +50,6 @@ export { default as Menu } from './menu';
 export { default as Message } from './message';
 
 export { default as Modal } from './modal';
-
-export { default as OldDatePicker } from './old-date-picker';
 
 export { default as Pagination } from './pagination';
 
@@ -86,4 +86,3 @@ export { default as Tree } from './tree';
 export { default as TreeSelect } from './tree-select';
 
 export { default as Upload } from './upload';
-

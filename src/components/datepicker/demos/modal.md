@@ -11,9 +11,9 @@ desc: modal弹框里面使用datepicker自适应位置
              * desc: modal弹框里面使用datepicker自适应位置
              */
 import React from 'react';
-import { Button, OldDatePicker, Modal } from 'cloud-react';
+import { Button, Datepicker, Modal } from 'cloud-react';
 
-export default class OldDatePickerDemo extends React.Component {
+export default class DatepickerDemo extends React.Component {
 	onInpChange = value => console.log(value);
 
 	constructor(props) {
@@ -45,7 +45,7 @@ export default class OldDatePickerDemo extends React.Component {
 				</Button>
 
 				<Modal className="test" title="basic title" visible={this.state.visible} showMask onCancel={this.handleCancel}>
-					<OldDatePicker
+					<Datepicker
 						maxYear={2023}
 						showTimePicker={true}
 						onChange={this.onInpChange}
@@ -64,7 +64,7 @@ export default class OldDatePickerDemo extends React.Component {
 					<br />
 					<br />
 
-					<OldDatePicker
+					<Datepicker
 						maxYear={2023}
 						showTimePicker={true}
 						onChange={this.onInpChange}
@@ -83,7 +83,7 @@ export default class OldDatePickerDemo extends React.Component {
 					<br />
 					<br />
 
-					<OldDatePicker
+					<Datepicker
 						containerEleClass="cloud-modal-body"
 						maxYear={2023}
 						showTimePicker={true}

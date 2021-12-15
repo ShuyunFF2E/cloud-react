@@ -11,9 +11,9 @@ desc: 基本用法，日期选择器。
              * desc: 基本用法，日期选择器。
              */
 import React from 'react';
-import { OldDatePicker, Button } from 'cloud-react';
+import { Datepicker, Button } from 'cloud-react';
 
-export default class OldDatePickerDemo extends React.Component {
+export default class DatepickerDemo extends React.Component {
 	constructor(props) {
 		super(props);
 
@@ -44,11 +44,11 @@ export default class OldDatePickerDemo extends React.Component {
 		return (
 			<div>
                 <div>
-                    不可编辑：<OldDatePicker isAppendToBody
+                    不可编辑：<Datepicker isAppendToBody
                          				 value={this.state.value}
                          				 position="auto"/>
                     <span style={{paddingLeft: 20}}>可编辑</span>：
-                            <OldDatePicker isAppendToBody
+                            <Datepicker isAppendToBody
                                         canEdit={true}
                                         minDate={'1990/3/1'}
                                         maxDate={new Date('2024/5/1')}
@@ -60,12 +60,12 @@ export default class OldDatePickerDemo extends React.Component {
 				<br />
 				<br />
                 <div>
-                    不可编辑：<OldDatePicker isAppendToBody
+                    不可编辑：<Datepicker isAppendToBody
                          				 value={this.state.tValue1}
                                          showTimePicker
                          				 position="auto"/>
                     <span style={{paddingLeft: 20}}>可编辑</span>：
-                            <OldDatePicker isAppendToBody
+                            <Datepicker isAppendToBody
                                         canEdit={true}
                          				value={this.state.tValue2}
                          				position="auto"

@@ -4,10 +4,10 @@ import DateRangePicker from './pickers/date-range';
 import TimeRangePicker from './pickers/time-range';
 import './index.less';
 
-const Picker = DatePicker;
+const CPicker = DatePicker;
 
-Picker.TimePicker = TimePicker;
-Picker.RangePicker = DateRangePicker;
-Picker.TimeRangePicker = TimeRangePicker;
+CPicker.TimePicker = TimePicker;
+CPicker.RangePicker = DateRangePicker;
+CPicker.TimeRangePicker = TimeRangePicker;
 
-export default Picker;
+export default CPicker;

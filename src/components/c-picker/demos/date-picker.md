@@ -12,7 +12,7 @@ desc: 基本用法，日期选择器。
  */
 import React from 'react';
 import { 
-	DatePicker,
+	CPicker as DatePicker,
 	Form,
 	Toggle
 } from 'cloud-react';
