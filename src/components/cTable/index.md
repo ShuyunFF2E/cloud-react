@@ -1,7 +1,7 @@
 ---
-title: RcTable 表格
+title: cTable 新表格
 nav:
-    title: RcTable 表格
+    title: cTable 新表格
     path: /cloud-react
 group:
     order: 14
@@ -65,22 +65,22 @@ https://table-react-component.vercel.app/
 
 ### 代码演示
 
-<embed src="@components/rcTable/demos/basic.md" /> 
+<embed src="@components/cTable/demos/basic.md" /> 
 
-<embed src="@components/rcTable/demos/bordered.md" /> 
+<embed src="@components/cTable/demos/bordered.md" /> 
 
-<embed src="@components/rcTable/demos/checkbox.md" /> 
+<embed src="@components/cTable/demos/checkbox.md" /> 
 
-<embed src="@components/rcTable/demos/custom-columnTpl.md" /> 
+<embed src="@components/cTable/demos/custom-columnTpl.md" /> 
 
-<embed src="@components/rcTable/demos/expand-row.md" /> 
+<embed src="@components/cTable/demos/expand-row.md" /> 
 
-<embed src="@components/rcTable/demos/fixed-column.md" /> 
+<embed src="@components/cTable/demos/fixed-column.md" /> 
 
-<embed src="@components/rcTable/demos/fixed-header.md" /> 
+<embed src="@components/cTable/demos/fixed-header.md" /> 
 
-<embed src="@components/rcTable/demos/page.md" /> 
+<embed src="@components/cTable/demos/page.md" /> 
 
-<embed src="@components/rcTable/demos/small.md" /> 
+<embed src="@components/cTable/demos/small.md" /> 
 
-<embed src="@components/rcTable/demos/tree.md" /> 
+<embed src="@components/cTable/demos/tree.md" /> 

@@ -239,7 +239,11 @@ class Upload extends Component {
 			return false;
 		}
 
-		return this.props.onBeforeUpload(file);
+		if (this.props.onBeforeUpload) {
+			this.props.onBeforeUpload(file);
+		}
+
+		return true;
 	}
 
 	upload(file) {
@@ -297,8 +301,26 @@ class Upload extends Component {
 		});
 	}
 
+	renderUploadShow() {
+		const { type, children, labelText, isShowIcon, btnOptions, uploadDisabled } = this.props;
+
+		if (children) return children;
+
+		if (type === TYPE.DEFAULT) {
+			return (
+				<Text
+					options={btnOptions}
+					labelText={labelText}
+					disabled={uploadDisabled}
+					isShowIcon={isShowIcon}
+				/>
+			);
+		}
+		return <Picture disabled={uploadDisabled} labelText={labelText} />;
+	}
+
 	renderUpload() {
-		const { type, labelText, accept, disabled, multiple, className, isShowIcon, btnOptions, limit } = this.props;
+		const { type, accept, disabled, multiple, className, limit } = this.props;
 		const { fileList } = this.state;
 		const uploadDisabled = disabled || limit && limit > 1 && limit === fileList.length;
 
@@ -344,16 +366,7 @@ class Upload extends Component {
 						multiple={multiple}
 						onChange={this.handleChange}
 					/>
-					{type === TYPE.DEFAULT ? (
-						<Text
-							options={btnOptions}
-							labelText={labelText}
-							disabled={uploadDisabled}
-							isShowIcon={isShowIcon}
-						/>
-					) : (
-						<Picture disabled={uploadDisabled} labelText={labelText} />
-					)}
+					{this.renderUploadShow()}
 				</span>
 			</div>
 		);
@@ -402,8 +415,15 @@ class Upload extends Component {
 	}
 
 	render() {
-		const { type } = this.props;
+		const { type, children } = this.props;
 
+		if (children) {
+			return (
+				<div className={`${PREFIX}-${type}-wrapper`}>
+					{this.renderUpload()}
+				</div>
+			); 
+		}
 
 		return (
 			<div className={`${PREFIX}-${type}-wrapper`}>
