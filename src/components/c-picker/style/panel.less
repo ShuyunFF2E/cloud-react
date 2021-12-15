@@ -179,7 +179,12 @@
       }
 
       &:hover {
+        overflow-y: -moz-scrollbars-none;
         overflow-y: auto;
+        &::-webkit-scrollbar {
+          width: 0 !important;
+        }
+        -ms-overflow-style: none;
       }
 
       > li {
@@ -282,12 +287,14 @@
       flex: auto;
       font-weight: 500;
       line-height: 40px;
+      color: @gray-9;
 
       > button {
         color: inherit;
         font-size: 14px;
         font-weight: inherit;
         .headerButton();
+        color: @gray-9;
 
         &:not(:first-child) {
           margin-left: 8px;
