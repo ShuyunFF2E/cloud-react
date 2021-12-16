@@ -24,6 +24,12 @@ function insertRootDocumentStyleRule(doc) {
 	doc.head.appendChild(style);
 }
 
+function removeRootDocumentStyleRule(doc) {
+	const style = doc.querySelector(`[data-name="${sandboxSelector}"]`);
+
+	if (!style) return;
+	doc.head.removeChild(style);
+}
 class Notification extends Component {
 	constructor(props) {
 		super(props);
@@ -106,6 +112,7 @@ class Notification extends Component {
 
 	componentWillUnmount() {
 		this.window.removeEventListener('resize', this.screenChange);
+		this.removeRootDocumentStyleRule();
 	}
 
 	get window() {
@@ -141,6 +148,12 @@ class Notification extends Component {
 	insertRootDocumentStyleRule() {
 		if (window !== this.window) {
 			insertRootDocumentStyleRule(this.document);
+		}
+	}
+
+	removeRootDocumentStyleRule() {
+		if (window !== this.window) {
+			removeRootDocumentStyleRule(this.document);
 		}
 	}
 
