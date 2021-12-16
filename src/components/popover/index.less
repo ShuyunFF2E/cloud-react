@@ -44,24 +44,36 @@
       margin-left: 8px;
     }
   }
+}
 
-  &-tooltip-mini {
+.@{popover-prefix-cls}-tooltip {
+  &-mini {
     width: 200px;
     min-width: 200px;
   }
 
-  &-tooltip-small {
+  &-small {
     width: 240px;
     min-width: 240px;
   }
 
-  &-tooltip-default {
+  &-default {
     width: 320px;
     min-width: 320px;
   }
 
-  &-tooltip-large {
+  &-large {
     width: 400px;
     min-width: 400px;
+  }
+}
+
+.@{popover-prefix-cls}-remind {
+  display: flex;
+
+  &-close {
+    margin-left: 10px;
+    margin-top: -3px;
+    cursor: pointer;
   }
 }

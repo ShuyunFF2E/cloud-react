@@ -5,8 +5,8 @@ nav:
   path: /cloud-react
 group:
   order: 21
-  title: 数据
-  path: /data
+  title: 通用
+  path: /common
 ---
 
 
