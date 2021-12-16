@@ -9,7 +9,7 @@ const { TimePicker: Picker } = generatePicker(momentGenerateConfig);
 
 const TimePicker = ({
   className,
-  inputClassName, // New
+  dropdownClassName, // New
   disabled,
   defaultValue: _defaultValue,
   value: _value,
@@ -18,16 +18,12 @@ const TimePicker = ({
   placeholder: _placeholder,
   width,
   onChange,
-  // containerEleClass,
   getPopupContainer: _getPopupContainer, // New
   isAppendToBody,
-  // position,
-  dropdownAlign, // New
   canEdit = true,
   style,
   showToday,
   showNow,
-  // disabledTime,
   renderExtraFooter,
   autoFocus,
   allowClear,
@@ -40,8 +36,6 @@ const TimePicker = ({
   onClick,
   onContextMenu,
   onKeyDown,
-  onSelect,
-  onPanelChange,
   onOk,
 }) => {
   const [value, setValue] = useState();
@@ -63,35 +57,41 @@ const TimePicker = ({
     [onChange],
   );
 
+  const handleOk = useCallback(
+    (m) => {
+      if (onOk) {
+        onOk(m && m.format(format));
+      }
+    },
+    [onOk, format],
+  );
+
   const getPopupContainer = useMemo(() => {
     if (_getPopupContainer) {
       return _getPopupContainer;
     }
     if (!isAppendToBody) {
-      return (trigger) => {
-        console.log(trigger);
-        return document.body;
-      };
+      return () => document.body;
     }
     return undefined;
   }, [_getPopupContainer, isAppendToBody]);
 
   return (
     <Picker
-      dropdownClassName={className}
       style={{ ...style, width }}
-      className={inputClassName}
       defaultValue={_defaultValue && moment(_defaultValue)}
       onChange={handleChange}
+      onOk={handleOk}
       inputReadOnly={!canEdit}
       getPopupContainer={getPopupContainer}
       {...{
+        className,
+        dropdownClassName,
         format,
         value,
         disabled,
         open,
         placeholder,
-        dropdownAlign,
         showToday: showToday || showNow,
         renderExtraFooter,
         autoFocus,
@@ -106,9 +106,6 @@ const TimePicker = ({
         onClick,
         onContextMenu,
         onKeyDown,
-        onSelect,
-        onPanelChange,
-        onOk,
       }}
     />
   );

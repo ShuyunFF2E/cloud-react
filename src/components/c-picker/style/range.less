@@ -38,8 +38,24 @@
     }
   }
 
+  .has-error & {
+    .@{prefix-cls}-input,
+    .@{prefix-cls}-range-separator,
+    .@{prefix-cls}-suffix {
+      border-color: @red-4 !important;
+    }
+  }
+
+  &:hover {
+    .@{prefix-cls}-input,
+    .@{prefix-cls}-range-separator,
+    .@{prefix-cls}-suffix {
+      border-color: @gray-6;
+    }
+  }
+
   &.@{prefix-cls}-focused .@{prefix-cls}-input-active {
-    border-color: @blue-4;
+    border-color: @blue-4 !important;
     &::after {
       background-color: @blue-4;
     }

@@ -44,8 +44,6 @@ export default function generateSinglePicker(generateConfig) {
         }
         const mergedPicker = picker || this.props.picker;
 
-        console.log(restProps.allowClear);
-
         additionalOverrideProps = {
           ...additionalOverrideProps,
           ...(showTime
@@ -68,7 +66,7 @@ export default function generateSinglePicker(generateConfig) {
             }
             suffixIcon={
               mergedPicker === 'time' ? (
-                <Icon type="time" /> // TODO: 换成秒表图标
+                <Icon type="time" />
               ) : (
                 <Icon type="calendar" />
               )
