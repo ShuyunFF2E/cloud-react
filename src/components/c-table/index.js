@@ -346,7 +346,8 @@ class CTable extends Component {
   };
 
   render() {
-    const { ref, onPageChange, onRefresh } = this;
+    const { ref, selectedNodeMap, onPageChange, onRefresh, getKeyFieldVal } =
+      this;
     const {
       style,
       bordered,
@@ -367,6 +368,7 @@ class CTable extends Component {
       isLoading,
     } = this.state;
     const { pageNum, pageSize, totals } = pageOpts;
+    const fixed = !!(columnData.find((item) => item.fixed) || style.height);
 
     return (
       <div>
@@ -385,10 +387,17 @@ class CTable extends Component {
             columns={columnData}
             data={data}
             expandIconColumnIndex={expandIconColumnIndex}
-            scroll={{ x: '100%', y: `calc(100% - ${headerHeight}px)` }}
+            scroll={
+              fixed ? { x: '100%', y: `calc(100% - ${headerHeight}px)` } : {}
+            }
             expandable={getExpandableConfig({ ...this.props })}
             emptyText={emptyTpl()}
             rowKey={rowKey}
+            rowClassName={(row) => {
+              return selectedNodeMap[getKeyFieldVal(row)]
+                ? `${tablePrefixCls}-row-select`
+                : '';
+            }}
             // summary={() => (
             //     <Table.Summary fixed={scrollY}>
             //         <Table.Summary.Row>

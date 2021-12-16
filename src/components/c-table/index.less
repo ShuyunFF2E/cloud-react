@@ -20,6 +20,7 @@
 @large-cell-padding: @large-vertical-padding @large-horizontal-padding;
 @small-cell-padding: @small-vertical-padding @small-horizontal-padding;
 @cell-margin: -@vertical-padding -@horizontal-padding;
+@border-radius: 2px;
 
 .@{tableContainerPrefixCls} {
   position: relative;
@@ -50,6 +51,12 @@
 
       th:not(:last-child),
       td:not(:last-child) {
+        border-right: @border;
+      }
+
+      &-container {
+        border-left: @border;
+        border-top: @border;
         border-right: @border;
       }
     }
@@ -126,6 +133,21 @@
     height: 100%;
     display: flex;
     flex-direction: column;
+    border-radius: @border-radius @border-radius 0 0;
+
+    th:first-child {
+      border-top-left-radius: @border-radius;
+    }
+
+    th:last-child {
+      border-top-right-radius: @border-radius;
+    }
+  }
+
+  &-fixed-header {
+    .@{tablePrefixCls}-header {
+      border-top-right-radius: @border-radius;
+    }
   }
 
   // ================= Global =================
@@ -143,6 +165,8 @@
     white-space: normal;
     word-break: break-word;
     border-bottom: @border;
+    font-size: 14px;
+    color: @gray-9;
     transition: box-shadow 0.3s;
 
     .@{tablePrefixCls}-rtl& {
@@ -152,7 +176,7 @@
   }
 
   tr:not(.@{tablePrefixCls}-expanded-row):hover td {
-    background: @blue-1;
+    background: @gray-2;
     transition: all 0.3s;
   }
 
@@ -197,7 +221,6 @@
 
     &-fix-right-first,
     &-fix-right-last {
-      //box-shadow: -1px 0 0 @border-color;
       right: 0 !important;
 
       .@{tablePrefixCls}-rtl & {
@@ -317,16 +340,21 @@
   }
 
   &-content {
-    border-left: @border;
-    border-top: @border;
-    border-radius: 5px 0 0 0;
+    border-radius: @border-radius 0 0 0;
   }
 
   //noinspection CssInvalidPropertyValue
+  &-tbody,
   &-body {
     flex: 1;
     overflow: auto auto !important;
     overflow: overlay overlay !important;
+
+    tr.@{tablePrefixCls}-row-select {
+      td {
+        background: @blue-1;
+      }
+    }
   }
 
   &-fixed-column &-body::after {
@@ -367,11 +395,11 @@
 
   &-expend-icon {
     display: inline-flex;
-    font-size: 16px;
+    padding-right: 10px;
+    font-size: 12px;
     color: @gray-7;
     cursor: pointer;
     transition: all 0.3s;
-    padding-right: 8px;
 
     &-hide {
       visibility: hidden;
