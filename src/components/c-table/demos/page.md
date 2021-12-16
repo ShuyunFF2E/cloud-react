@@ -10,7 +10,7 @@ desc: 分页
  * title: 表格带分页
  * desc: 表格带分页
  */
-import React, { useState } from 'react';
+import React from 'react';
 import RcTable from '../index';
 
 const data = [
@@ -34,8 +34,6 @@ const columns = [
 ];
 
 export default function RcTableDemo() {
-    const [checkedData] = useState([data[1], data[4], data[9]]);
-
 	return (
         <RcTable
             style={{ width: '100%', height: 260 }}
@@ -43,8 +41,8 @@ export default function RcTableDemo() {
             supportTree
             supportCheckbox
             supportPage
-            keyField="id"
-            checkedData={checkedData}
+            rowKey="id"
+            checkedData={[data[1], data[4], data[9]]}
             pageOpts={{ pageSize: 6 }}
             columnData={columns}
             ajaxData={(params) => {

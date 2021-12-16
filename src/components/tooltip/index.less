@@ -9,192 +9,202 @@
 @transparent-height: 7px;
 
 .left-style(@top, @transform) {
-	&:after {
-		top: @top;
-		right: @offset-size;
-		border-bottom: none;
-		border-left: none;
-		transform: @transform;
-	}
-	&:before {
-		right: 0;
-		transform: translate(100%, -4px);
-		width: @transparent-height;
-		height: 100%;
-	}
-	&.is-light {
-		&:after {
-			right: @light-offset-size;
-		}
-	}
+  &:after {
+    top: @top;
+    right: @offset-size;
+    border-bottom: none;
+    border-left: none;
+    transform: @transform;
+  }
+  &:before {
+    right: 0;
+    transform: translate(100%, -4px);
+    width: @transparent-height;
+    height: 100%;
+  }
+  &.is-light {
+    &:after {
+      right: @light-offset-size;
+    }
+  }
 }
 .right-style(@top, @transform) {
-	&:after {
-		top: @top;
-		left: @offset-size;
-		border-top: none;
-		border-right: none;
-		transform: @transform;
-	}
-	&:before {
-		left: 0;
-		transform: translate(-100%, -4px);
-		width: @transparent-height;
-		height: 100%;
-	}
-	&.is-light {
-		&:after {
-			left: @light-offset-size;
-		}
-	}
+  &:after {
+    top: @top;
+    left: @offset-size;
+    border-top: none;
+    border-right: none;
+    transform: @transform;
+  }
+  &:before {
+    left: 0;
+    transform: translate(-100%, -4px);
+    width: @transparent-height;
+    height: 100%;
+  }
+  &.is-light {
+    &:after {
+      left: @light-offset-size;
+    }
+  }
 }
 .top-style(@left, @transform) {
-	&:after {
-		left: @left;
-		bottom: @offset-size;
-		border-top: none;
-		border-left: none;
-		transform: @transform;
-	}
-	&:before {
-		bottom: 0;
-		transform: translate(-8px, 100%);
-	}
-	&.is-light {
-		&:after {
-			bottom: @light-offset-size;
-		}
-	}
+  &:after {
+    left: @left;
+    bottom: @offset-size;
+    border-top: none;
+    border-left: none;
+    transform: @transform;
+  }
+  &:before {
+    bottom: 0;
+    transform: translate(-8px, 100%);
+  }
+  &.is-light {
+    &:after {
+      bottom: @light-offset-size;
+    }
+  }
 }
 .bottom-style(@left, @transform) {
-	&:after {
-		left: @left;
-		top: @offset-size;
-		border-bottom: none;
-		border-right: none;
-		transform: @transform;
-	}
-	&:before {
-		top: 0;
-		transform: translate(-8px, -100%);
-	}
-	&.is-light {
-		&:after {
-			top: @light-offset-size;
-		}
-	}
+  &:after {
+    left: @left;
+    top: @offset-size;
+    border-bottom: none;
+    border-right: none;
+    transform: @transform;
+  }
+  &:before {
+    top: 0;
+    transform: translate(-8px, -100%);
+  }
+  &.is-light {
+    &:after {
+      top: @light-offset-size;
+    }
+  }
 }
 
 .@{tooltip-prefix-cls} {
-	position: absolute;
-	font-size: 12px;
-	min-height: 26px;
-	max-width: 250px;
-	line-height: 1.5;
-	padding: 8px 12px;
-	border-radius: 4px;
-	box-sizing: border-box;
-	z-index: @z-index-tooltip;
-	word-break: break-all;
-	top: 0;
-	left: 0;
-	opacity: 0;
+  position: absolute;
+  font-size: 12px;
+  min-height: 26px;
+  max-width: 320px;
+  min-width: 72px;
+  line-height: 1.5;
+  padding: 8px 12px;
+  border-radius: 4px;
+  box-sizing: border-box;
+  z-index: @z-index-tooltip;
+  word-break: break-all;
+  top: 0;
+  left: 0;
+  opacity: 0;
 
-	&.show {
-		opacity: 1;
-	}
+  &.show {
+    opacity: 1;
+  }
 
-	&:before {
-		content: '';
-		width: 100%;
-		height: @transparent-height;
-		position: absolute;
-		background: transparent;
-	}
+  &:before {
+    content: '';
+    width: 100%;
+    height: @transparent-height;
+    position: absolute;
+    background: transparent;
+  }
 
-	&:after {
-		content: '';
-		position: absolute;
-		width: 4px;
-		height: 4px;
-		border: 1px solid currentColor;
-	}
+  &:after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border: 1px solid currentColor;
+  }
 
-	&.is-dark {
-		background-color: @gray-9;
-		color: @color-white;
-		&:after {
-			border-color: @gray-9;
-			background-color: @gray-9;
-		}
-	}
+  &.is-dark {
+    background-color: @gray-9;
+    color: @color-white;
+    &:after {
+      border-color: @gray-9;
+      background-color: @gray-9;
+    }
+  }
 
-	&.is-light {
-		@light-color: #dddee1;
-		background-color: @color-white;
-		color: @gray-9;
-		box-shadow: @border-shadow-2;
+  &.is-light {
+    @light-color: #dddee1;
+    background-color: @color-white;
+    color: @gray-9;
+    box-shadow: @border-shadow-2;
 
-		&:after {
-			border-color: @color-white;
-			background-color: @color-white;
-		}
-	}
+    &:after {
+      border-color: @color-white;
+      background-color: @color-white;
+    }
+  }
 
-	&.is-error {
-		background-color: @color-red1;
-		color: @color-gray1;
-		&:after {
-			border-color: @color-red1;
-			background-color: @color-red1;
-		}
-	}
+  &.is-error {
+    background-color: @color-red1;
+    color: @color-gray1;
+    &:after {
+      border-color: @color-red1;
+      background-color: @color-red1;
+    }
+  }
 
-	&.top-left {
-		.top-style(@left-space-size - @arrow-size, rotate(45deg));
-	}
+  &.is-remind {
+    background-color: @blue-4;
+    color: @color-white;
+    &:after {
+      border-color: @blue-4;
+      background-color: @blue-4;
+    }
+  }
 
-	&.top-center {
-		.top-style(50%, translate(-50%) rotate(45deg));
-	}
+  &.top-left {
+    .top-style(@left-space-size - @arrow-size, rotate(45deg));
+  }
 
-	&.top-right {
-		.top-style(calc(100% - @left-space-size), rotate(45deg));
-	}
+  &.top-center {
+    .top-style(50%, translate(-50%) rotate(45deg));
+  }
 
-	&.right-top {
-		.right-style(@top-space-size, rotate(45deg));
-	}
+  &.top-right {
+    .top-style(calc(100% - @left-space-size), rotate(45deg));
+  }
 
-	&.right-center {
-		.right-style(50%, translate(0, -50%) rotate(45deg));
-	}
+  &.right-top {
+    .right-style(@top-space-size, rotate(45deg));
+  }
 
-	&.right-bottom {
-		.right-style(calc(100% - @top-space-size - @arrow-size), rotate(45deg));
-	}
+  &.right-center {
+    .right-style(50%, translate(0, -50%) rotate(45deg));
+  }
 
-	&.left-top {
-		.left-style(@top-space-size, rotate(45deg));
-	}
+  &.right-bottom {
+    .right-style(calc(100% - @top-space-size - @arrow-size), rotate(45deg));
+  }
 
-	&.left-center {
-		.left-style(50%, translate(0, -50%) rotate(45deg));
-	}
+  &.left-top {
+    .left-style(@top-space-size, rotate(45deg));
+  }
 
-	&.left-bottom {
-		.left-style(calc(100% - @top-space-size - @arrow-size), rotate(45deg));
-	}
+  &.left-center {
+    .left-style(50%, translate(0, -50%) rotate(45deg));
+  }
 
-	&.bottom-left {
-		.bottom-style(@left-space-size - @arrow-size, rotate(45deg));
-	}
+  &.left-bottom {
+    .left-style(calc(100% - @top-space-size - @arrow-size), rotate(45deg));
+  }
 
-	&.bottom-center {
-		.bottom-style(50%, translate(-50%) rotate(45deg));
-	}
+  &.bottom-left {
+    .bottom-style(@left-space-size - @arrow-size, rotate(45deg));
+  }
 
-	&.bottom-right {
-		.bottom-style(calc(100% - @left-space-size), rotate(45deg));
-	}
+  &.bottom-center {
+    .bottom-style(50%, translate(-50%) rotate(45deg));
+  }
+
+  &.bottom-right {
+    .bottom-style(calc(100% - @left-space-size), rotate(45deg));
+  }
 }

@@ -1,14 +1,14 @@
 ---
-order: 10
+order: 11
 title: RcTable
-desc: 紧凑型
+desc: 舒适型
 ---
 
 ```jsx
 
 /**
- * title: 紧凑型表格
- * desc: 紧凑型表格
+ * title: 舒适型表格
+ * desc: 舒适型表格
  */
 import React from 'react';
 import RcTable from '../index';
@@ -31,7 +31,7 @@ const columns = [
 export default function RcTableDemo() {
 	return (
         <RcTable
-            size="small"
+            size="large"
             columnData={columns}
             ajaxData={{ totals: data.length, data }}
         />

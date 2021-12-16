@@ -128,23 +128,23 @@ export default class Tabs extends PureComponent {
   }
 
   get activeTabsOffsetLeft() {
-    if (this.hasLineBar && this.isVerticalLeft) {
-      return 0;
-    }
     if (this.hasLineBar && this.isVerticalRight) {
+      return -2;
+    }
+    if (this.hasLineBar && this.isVerticalLeft) {
       return 'auto';
     }
-    return this.activeEle ? this.activeEle.offsetLeft : 0;
+    return this.activeEle.offsetLeft;
   }
 
   get activeTabsOffsetRight() {
-    if (this.hasLineBar && this.isVerticalLeft) {
+    if (this.hasLineBar && this.isVerticalRight) {
       return 'auto';
     }
-    if (this.hasLineBar && this.isVerticalRight) {
-      return 0;
+    if (this.hasLineBar && this.isVerticalLeft) {
+      return -2;
     }
-    return this.activeEle ? this.activeEle.offsetRight : 0;
+    return this.activeEle.offsetRight;
   }
 
   get activeTabsOffsetWidth() {
@@ -415,7 +415,8 @@ export default class Tabs extends PureComponent {
     Children.forEach(children, (child) => {
       if (!isValidElement(child)) return;
 
-      const isActived = this.keyFilter(child.key) === activedKey;
+      const isActived =
+        this.keyFilter(child.key) === this.keyFilter(activedKey);
       headers.push(this.renderTabHeader(child, isActived));
 
       if (type === 'card' && child.props.fixed) {
