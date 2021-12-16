@@ -20,7 +20,7 @@ group:
 | -------------- | ---------------------- | ----------------- | ------ |
 | ajaxData | 表格数据源    | function/array   |   -   | |
 | columnData | 表格列描述，具体详见下表 **columnData**   | array   |   -   | |
-| keyField | 表格数据的唯一标识    | string   |   -   | |
+| rowKey | 表格数据的唯一标识    | string   |   'id'   | |
 | bordered | 是否展示表格边框   | boolean   |   false   | |
 | size | 表格大小，可选 `default` `small`     | string   |   `default`   | |
 | supportExpend | 是否支持展开    | boolean   |   false   | |

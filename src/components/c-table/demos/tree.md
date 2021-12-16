@@ -134,7 +134,7 @@ export default function RcTableDemo() {
             supportExpend
             supportTree
             supportCheckbox
-            keyField="key"
+            rowKey="key"
             checkedData={[data[0].children[0], data[1]]}
             columnData={columns}
             ajaxData={{ totals: data.length, data }}

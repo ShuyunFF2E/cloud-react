@@ -41,7 +41,7 @@ export default function RcTableDemo() {
             supportTree
             supportCheckbox
             supportPage
-            keyField="id"
+            rowKey="id"
             checkedData={[data[1], data[4], data[9]]}
             pageOpts={{ pageSize: 6 }}
             columnData={columns}

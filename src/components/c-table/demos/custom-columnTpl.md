@@ -21,7 +21,7 @@ export default function RcTableDemo() {
     const data = [
         { id: '121410327', name: '手机号优先继续发送1手机号优先继续发送1手机号优先继续发送1手机号优先继续发送1', createTime: '2021/12/14 10:19:02', creator: 'liyuan.meng' },
         { id: '121410328', name: 'ouid疲劳度3', createTime: '2021/12/13 15:47:33	', creator: 'jiaojiao.diao' },
-        { id: '121410328', name: '继续发送手机1', createTime: '2021/12/13 15:36:42', creator: 'nan.run' },
+        { id: '121410329', name: '继续发送手机1', createTime: '2021/12/13 15:36:42', creator: 'nan.run' },
         { id: '121408294', name: '继续发送手机2', createTime: '2021/12/13 11:14:40', creator: 'xiaotong.fan' },
         { id: '121407191', name: '继续发送手机3', createTime: '2021/12/13 11:03:05', creator: 'zhenxiao.guo' },
     ];

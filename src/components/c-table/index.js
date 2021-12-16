@@ -45,6 +45,12 @@ class CTable extends Component {
   selectedNodeMap = {};
 
   componentDidMount() {
+    if (
+      (this.props.supportExpend || this.props.supportTree) &&
+      !this.props.rowKey
+    ) {
+      console.warn('使用展开行功能或者树状表格功能请指定 rowKey');
+    }
     this.init();
   }
 
@@ -72,14 +78,14 @@ class CTable extends Component {
   };
 
   /**
-   * 获取 leafNodesMap 的 key 值（如果是 tree，需要指定 keyField）
+   * 获取 leafNodesMap 的 key 值（如果是 tree，需要指定 rowKey）
    * @param node
    * @returns {string|*}
    */
   getKeyFieldVal = (node) => {
     if (node) {
       const { checked, ...props } = node;
-      return node[this.props.keyField] || JSON.stringify(props);
+      return node[this.props.rowKey] || JSON.stringify(props);
     }
     return null;
   };
@@ -349,6 +355,7 @@ class CTable extends Component {
       footerTpl,
       emptyTpl,
       supportCheckbox,
+      rowKey,
     } = this.props;
     const {
       data,
@@ -381,6 +388,7 @@ class CTable extends Component {
             scroll={{ x: '100%', y: `calc(100% - ${headerHeight}px)` }}
             expandable={getExpandableConfig({ ...this.props })}
             emptyText={emptyTpl()}
+            rowKey={rowKey}
             // summary={() => (
             //     <Table.Summary fixed={scrollY}>
             //         <Table.Summary.Row>
@@ -439,7 +447,7 @@ export default CTable;
 CTable.propTypes = {
   ajaxData: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   columnData: PropTypes.array.isRequired,
-  keyField: PropTypes.string,
+  rowKey: PropTypes.string,
   bordered: PropTypes.bool,
   size: PropTypes.oneOf(['default', 'small', 'large']),
   style: PropTypes.object,
@@ -459,7 +467,7 @@ CTable.propTypes = {
 };
 
 CTable.defaultProps = {
-  keyField: '',
+  rowKey: 'id',
   bordered: false,
   size: 'default',
   style: {},
