@@ -9,13 +9,13 @@ import './index.less';
 
 // 获取当前document下的所有样式创建到顶层doucment上，sandboxSelector是一个简单的隔离方式
 function insertRootDocumentStyleRule(doc) {
-	let style = doc.querySelector(`[data-name="${sandboxSelector}"]`);
+	// let style = doc.querySelector(`[data-name="${sandboxSelector}"]`);
 
-	if (style) return;
+	// if (style) return;
 
 	const cssText = getCssText(`.${sandboxSelector}`);
 
-	style = document.createElement('style');
+	const style = document.createElement('style');
 
 	style.setAttribute('data-name', sandboxSelector);
 	style.setAttribute('type', 'text/css');
@@ -25,10 +25,10 @@ function insertRootDocumentStyleRule(doc) {
 }
 
 function removeRootDocumentStyleRule(doc) {
-	const style = doc.querySelector(`[data-name="${sandboxSelector}"]`);
-
-	if (!style) return;
-	doc.head.removeChild(style);
+	const styles = Array.from(doc.querySelector(`[data-name="${sandboxSelector}"]`));
+	if (styles.length > 0) {
+		doc.head.removeChild(styles.pop());
+	}
 }
 class Notification extends Component {
 	constructor(props) {
