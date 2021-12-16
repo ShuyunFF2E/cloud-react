@@ -3,46 +3,77 @@
 @popover-prefix-cls: ~'@{prefix}-popover';
 
 .@{popover-prefix-cls} {
-	&-content {
-		display: flex;
-		align-content: flex-start;
+  &-content {
+    display: flex;
+    align-content: flex-start;
 
-		> i {
-			align-self: flex-start;
-			height: 22px;
-			line-height: 22px;
-			margin-right: 8px;
-			font-size: 20px;
+    .popover-warn-icon {
+      align-self: flex-start;
+      height: 22px;
+      line-height: 22px;
+      margin-right: 8px;
+      font-size: 20px;
+      color: @orange-5;
+    }
+  }
 
-			&.cloud-icon-warning-circle-solid {
-				color: @orange-5;
-			}
-		}
-	}
+  &-main-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 
-	&-main-content {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-	}
+  &-title {
+    font-size: 14px;
+    color: @gray-9;
+    margin-bottom: 4px;
+  }
 
-	&-title {
-		font-size: 14px;
-		color: @gray-9;
-		margin-bottom: 4px;
-	}
+  &-desc {
+    font-size: 12px;
+    color: @gray-8;
+    max-height: 190px;
+    overflow-y: auto;
+  }
 
-	&-desc {
-		font-size: 12px;
-		color: @gray-8;
-	}
+  &-btn {
+    float: right;
 
-	&-btn {
-		float: right;
+    > button {
+      margin-top: 16px;
+      margin-left: 8px;
+    }
+  }
+}
 
-		> button {
-			margin-top: 16px;
-			margin-left: 8px;
-		}
-	}
+.@{popover-prefix-cls}-tooltip {
+  &-mini {
+    width: 200px;
+    min-width: 200px;
+  }
+
+  &-small {
+    width: 240px;
+    min-width: 240px;
+  }
+
+  &-default {
+    width: 320px;
+    min-width: 320px;
+  }
+
+  &-large {
+    width: 400px;
+    min-width: 400px;
+  }
+}
+
+.@{popover-prefix-cls}-remind {
+  display: flex;
+
+  &-close {
+    margin-left: 10px;
+    margin-top: -3px;
+    cursor: pointer;
+  }
 }

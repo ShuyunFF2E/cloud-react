@@ -7,6 +7,8 @@
 @line-height: 1.5;
 @table-border-color: @gray-4;
 @table-head-background-color: @gray-2;
+@large-vertical-padding: 16px;
+@large-horizontal-padding: 16px;
 @vertical-padding: 12px;
 @horizontal-padding: 12px;
 @small-vertical-padding: 8px;
@@ -15,428 +17,444 @@
 @border-color: @gray-4;
 @border: @border-width solid @border-color;
 @cell-padding: @vertical-padding @horizontal-padding;
+@large-cell-padding: @large-vertical-padding @large-horizontal-padding;
 @small-cell-padding: @small-vertical-padding @small-horizontal-padding;
 @cell-margin: -@vertical-padding -@horizontal-padding;
+@border-radius: 2px;
 
 .@{tableContainerPrefixCls} {
-	position: relative;
+  position: relative;
 
-	&::before {
-		content: '';
-		position: absolute;
-		bottom: 0;
-		height: 1px;
-		width: 100%;
-		background: @gray-4;
-		z-index: 2;
-	}
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    height: 1px;
+    width: 100%;
+    background: @gray-4;
+    z-index: 2;
+  }
 
-	// 带边框表格
-	&.@{tablePrefixCls}-bordered {
-		.@{tablePrefixCls} {
-			&-header {
-				border-top: @border;
-				border-right: @border;
-				border-left: @border;
-			}
+  // 带边框表格
+  &.@{tablePrefixCls}-bordered {
+    .@{tablePrefixCls} {
+      &-header {
+        border-top: @border;
+        border-right: @border;
+        border-left: @border;
+      }
 
-			&-body {
-				border-right: @border;
-				border-left: @border;
-			}
+      &-body {
+        border-right: @border;
+        border-left: @border;
+      }
 
-			th:not(:last-child),
-			td:not(:last-child) {
-				border-right: @border;
-			}
-		}
-	}
+      th:not(:last-child),
+      td:not(:last-child) {
+        border-right: @border;
+      }
 
-	// 紧凑型表格
-	&.@{tablePrefixCls}-small {
-		.@{tablePrefixCls} {
-			&-cell {
-				padding: @small-cell-padding;
-			}
+      &-container {
+        border-left: @border;
+        border-top: @border;
+        border-right: @border;
+      }
+    }
+  }
 
-			th,
-			td {
-				padding: @small-cell-padding;
-			}
+  // 紧凑型表格
+  &.@{tablePrefixCls}-small {
+    .@{tablePrefixCls} {
+      &-cell {
+        padding: @small-cell-padding;
+      }
 
-			&-fixed {
-				padding: @small-cell-padding;
-			}
-		}
-	}
+      th,
+      td {
+        padding: @small-cell-padding;
+      }
 
-	// 加载中
-	&.@{tablePrefixCls}-loading {
-		position: relative;
+      &-fixed {
+        padding: @small-cell-padding;
+      }
+    }
+  }
 
-		.@{tablePrefixCls}-loading-layer {
-			display: block;
-			position: absolute;
-			content: '';
-			top: 0;
-			left: 0;
-			right: 0;
-			bottom: 0;
-			background: @color-white;
-			opacity: 0.9;
-			z-index: 3;
-		}
-	}
+  // 舒适型表格
+  &.@{tablePrefixCls}-large {
+    .@{tablePrefixCls} {
+      &-cell {
+        padding: @large-cell-padding;
+      }
+
+      th,
+      td {
+        padding: @large-cell-padding;
+      }
+
+      &-fixed {
+        padding: @large-cell-padding;
+      }
+    }
+  }
+
+  // 加载中
+  &.@{tablePrefixCls}-loading {
+    position: relative;
+
+    .@{tablePrefixCls}-loading-layer {
+      display: block;
+      position: absolute;
+      content: '';
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: @color-white;
+      opacity: 0.9;
+      z-index: 3;
+    }
+  }
 }
 
 .@{tablePrefixCls} {
-	height: 100%;
-	position: relative;
-	box-sizing: border-box;
-	color: @text-color;
-	font-size: @font-size-base;
-	line-height: @line-height;
+  height: 100%;
+  position: relative;
+  box-sizing: border-box;
+  color: @text-color;
+  font-size: @font-size-base;
+  line-height: @line-height;
 
-	&-rtl {
-		direction: rtl;
-	}
+  &-rtl {
+    direction: rtl;
+  }
 
-	&-container {
-		height: 100%;
-		display: flex;
-		flex-direction: column;
-	}
+  &-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border-radius: @border-radius @border-radius 0 0;
 
-	// ================= Global =================
-	table {
-		position: relative;
-		width: 100%;
-		border-spacing: 0;
-	}
+    th:first-child {
+      border-top-left-radius: @border-radius;
+    }
 
-	th,
-	td {
-		position: relative;
-		box-sizing: border-box;
-		padding: @cell-padding;
-		white-space: normal;
-		word-break: break-word;
-		border-bottom: @border;
-		transition: box-shadow 0.3s;
+    th:last-child {
+      border-top-right-radius: @border-radius;
+    }
+  }
 
-		.@{tablePrefixCls}-rtl& {
-			border-right: 0;
-			border-left: @border;
-		}
-	}
+  &-fixed-header {
+    .@{tablePrefixCls}-header {
+      border-top-right-radius: @border-radius;
+    }
+  }
 
-	tr:not(.@{tablePrefixCls}-expanded-row):hover td {
-		background: @blue-1;
-		transition: all 0.3s;
-	}
+  // ================= Global =================
+  table {
+    position: relative;
+    width: 100%;
+    border-spacing: 0;
+  }
 
-	// ================== Cell ==================
-	&-cell {
-		&-fix-left,
-		&-fix-right {
-			z-index: 1;
-		}
+  th,
+  td {
+    position: relative;
+    box-sizing: border-box;
+    padding: @cell-padding;
+    white-space: normal;
+    word-break: break-word;
+    border-bottom: @border;
+    font-size: 14px;
+    color: @gray-9;
+    transition: box-shadow 0.3s;
 
-		&-fix-right:last-child:not(&-fix-sticky) {
-			border-right-color: transparent;
-		}
+    .@{tablePrefixCls}-rtl& {
+      border-right: 0;
+      border-left: @border;
+    }
+  }
 
-		.@{tablePrefixCls}-rtl & {
-			&-fix-right:last-child {
-				border-right-color: @border-color;
-			}
-			&-fix-left:last-child {
-				border-left-color: transparent;
-			}
-		}
+  tr:not(.@{tablePrefixCls}-expanded-row):hover td {
+    background: @gray-2;
+    transition: all 0.3s;
+  }
 
-		&-fix-left-first {
-			.@{tablePrefixCls}-rtl & {
-				box-shadow: 1px 0 0 @border-color;
-			}
-		}
+  // ================== Cell ==================
+  &-cell {
+    &-fix-left,
+    &-fix-right {
+      z-index: 1;
+    }
 
-		&-fix-left-first::after,
-		&-fix-left-last::after {
-			position: absolute;
-			top: 0;
-			right: -1px;
-			bottom: -1px;
-			width: 20px;
-			transform: translateX(100%);
-			transition: box-shadow 0.3s;
-			content: '';
-			pointer-events: none;
-		}
+    &-fix-right:last-child:not(&-fix-sticky) {
+      border-right-color: transparent;
+    }
 
-		&-fix-right-first,
-		&-fix-right-last {
-			box-shadow: -1px 0 0 @border-color;
-			right: 0 !important;
+    .@{tablePrefixCls}-rtl & {
+      &-fix-right:last-child {
+        border-right-color: @border-color;
+      }
+      &-fix-left:last-child {
+        border-left-color: transparent;
+      }
+    }
 
-			.@{tablePrefixCls}-rtl & {
-				box-shadow: none;
-			}
+    &-fix-left-first {
+      .@{tablePrefixCls}-rtl & {
+        box-shadow: 1px 0 0 @border-color;
+      }
+    }
 
-			&::after {
-				position: absolute;
-				top: 0;
-				bottom: -1px;
-				left: -1px;
-				width: 20px;
-				transform: translateX(-100%);
-				transition: box-shadow 0.3s;
-				content: '';
-				pointer-events: none;
-			}
-		}
+    &-fix-left-first::after,
+    &-fix-left-last::after {
+      position: absolute;
+      top: 0;
+      right: -1px;
+      bottom: -1px;
+      width: 20px;
+      transform: translateX(100%);
+      transition: box-shadow 0.3s;
+      content: '';
+      pointer-events: none;
+    }
 
-		&&-ellipsis {
-			overflow: hidden;
-			white-space: nowrap;
-			text-overflow: ellipsis;
+    &-fix-right-first,
+    &-fix-right-last {
+      right: 0 !important;
 
-			// Fixed first or last should special process
-			&.@{tablePrefixCls}-cell-fix-left-first,
-			&.@{tablePrefixCls}-cell-fix-left-last,
-			&.@{tablePrefixCls}-cell-fix-right-first &.@{tablePrefixCls}-cell-fix-right-last {
-				overflow: visible;
+      .@{tablePrefixCls}-rtl & {
+        box-shadow: none;
+      }
 
-				.@{tablePrefixCls}-cell-content {
-					display: block;
-					overflow: hidden;
-					text-overflow: ellipsis;
-				}
-			}
-		}
-	}
+      &::after {
+        position: absolute;
+        top: 0;
+        bottom: -1px;
+        left: -1px;
+        width: 20px;
+        transform: translateX(-100%);
+        transition: box-shadow 0.3s;
+        content: '';
+        pointer-events: none;
+      }
+    }
 
-	&-ping-left {
-		.@{tablePrefixCls}-cell-fix-left-first::after,
-		.@{tablePrefixCls}-cell-fix-left-last::after {
-			box-shadow: @border-shadow-left;
-		}
-	}
+    &&-ellipsis {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
 
-	&-ping-right {
-		.@{tablePrefixCls}-cell-fix-right-first::after,
-		.@{tablePrefixCls}-cell-fix-right-last::after {
-			box-shadow: @border-shadow-right;
-		}
-	}
+      // Fixed first or last should special process
+      &.@{tablePrefixCls}-cell-fix-left-first,
+      &.@{tablePrefixCls}-cell-fix-left-last,
+      &.@{tablePrefixCls}-cell-fix-right-first
+        &.@{tablePrefixCls}-cell-fix-right-last {
+        overflow: visible;
 
-	// ================= Expand =================
-	&-expand-icon-col {
-		width: 40px;
-	}
+        .@{tablePrefixCls}-cell-content {
+          display: block;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+    }
+  }
 
-	&-row-expand-icon-cell {
-		text-align: center;
-	}
+  &-ping-left {
+    .@{tablePrefixCls}-cell-fix-left-first::after,
+    .@{tablePrefixCls}-cell-fix-left-last::after {
+      box-shadow: @border-shadow-left;
+    }
+  }
 
-	// ================= Header =================
-	thead {
-		td,
-		th {
-			text-align: center;
-			background: @table-head-background-color;
-			color: @gray-7;
-			font-weight: normal;
-			font-size: 14px;
-		}
+  &-ping-right {
+    .@{tablePrefixCls}-cell-fix-right-first::after,
+    .@{tablePrefixCls}-cell-fix-right-last::after {
+      box-shadow: @border-shadow-right;
+    }
+  }
 
-		.@{tablePrefixCls}-cell-scrollbar::after {
-			position: absolute;
-			top: 0;
-			bottom: 0;
-			left: -1px;
-			width: 1px;
-			background: @table-head-background-color;
-			content: '';
+  // ================= Expand =================
+  &-expand-icon-col {
+    width: 40px;
+  }
 
-			.@{tablePrefixCls}-rtl& {
-				right: -1px;
-				left: auto;
-			}
-		}
-	}
+  &-row-expand-icon-cell {
+    text-align: center;
+  }
 
-	&-header {
-	}
+  // ================= Header =================
+  thead {
+    td,
+    th {
+      text-align: center;
+      background: @table-head-background-color;
+      color: @gray-7;
+      font-weight: normal;
+      font-size: 14px;
+    }
 
-	// ================= Empty ==================
-	&-placeholder {
-		text-align: center;
-	}
+    .@{tablePrefixCls}-cell-scrollbar::after {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: -1px;
+      width: 1px;
+      background: @table-head-background-color;
+      content: '';
 
-	&-empty {
-		table {
-			height: 100%;
+      .@{tablePrefixCls}-rtl& {
+        right: -1px;
+        left: auto;
+      }
+    }
+  }
 
-			tr:not(.@{tablePrefixCls}-expanded-row):hover td {
-				background: transparent;
-			}
-		}
-	}
+  &-header {
+  }
 
-	// ================== Body ==================
-	tbody {
-		tr {
-			td,
-			th {
-				background: @color-white;
-			}
-		}
-	}
+  // ================= Empty ==================
+  &-placeholder {
+    text-align: center;
+  }
 
-	&-content {
-		border-left: @border;
-		border-top: @border;
-		border-radius: 5px 0 0 0;
-	}
+  &-empty {
+    table {
+      height: 100%;
 
-	//noinspection CssInvalidPropertyValue
-	&-body {
-		flex: 1;
-		overflow: auto auto !important;
-		overflow: overlay overlay !important;
-	}
+      tr:not(.@{tablePrefixCls}-expanded-row):hover td {
+        background: transparent;
+      }
+    }
+  }
 
-	&-fixed-column &-body::after {
-		position: absolute;
-		top: 0;
-		right: 0;
-		bottom: 0;
-		z-index: 1;
-		border-right: @border;
-		content: '';
-	}
+  // ================== Body ==================
+  tbody {
+    tr {
+      td,
+      th {
+        background: @color-white;
+      }
+    }
+  }
 
-	// ================= Expand =================
-	&-expanded-row {
-		.@{tablePrefixCls}-cell {
-			padding: 24px 12px;
-			background: @gray-2;
-			box-shadow: @border-shadow-bottom;
-		}
+  &-content {
+    border-radius: @border-radius 0 0 0;
+  }
 
-		&-fixed {
-			box-sizing: border-box;
-			margin: @cell-margin;
-			margin-right: -@horizontal-padding - 2 * @border-width;
-			padding: @cell-padding;
+  //noinspection CssInvalidPropertyValue
+  &-tbody,
+  &-body {
+    flex: 1;
+    overflow: auto auto !important;
+    overflow: overlay overlay !important;
 
-			&::after {
-				position: absolute;
-				top: 0;
-				right: 1px;
-				bottom: 0;
-				width: 0;
-				//border-right: @border;
-				content: '';
-			}
-		}
-	}
+    tr.@{tablePrefixCls}-row-select {
+      td {
+        background: @blue-1;
+      }
+    }
+  }
 
-	&-expend-icon {
-		display: inline-flex;
-		padding-right: 10px;
-		font-size: 12px;
-		color: @gray-7;
-		cursor: pointer;
-		transition: all 0.3s;
+  &-fixed-column &-body::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    //border-right: @border;
+    content: '';
+  }
 
-		&-hide {
-			visibility: hidden;
-		}
+  // ================= Expand =================
+  &-expanded-row {
+    .@{tablePrefixCls}-cell {
+      padding: 24px 12px;
+      background: @gray-2;
+      box-shadow: @border-shadow-bottom;
+    }
 
-		&-expended {
-			transform: translate(-5px, 5px) rotate(90deg);
-		}
-	}
+    &-fixed {
+      box-sizing: border-box;
+      margin: @cell-margin;
+      margin-right: -@horizontal-padding - 2 * @border-width;
+      padding: @cell-padding;
 
-	// ================= Title ==================
-	&-title {
-		padding: @cell-padding;
-		border: @border;
-		border-bottom: 0;
-	}
+      &::after {
+        position: absolute;
+        top: 0;
+        right: 1px;
+        bottom: 0;
+        width: 0;
+        //border-right: @border;
+        content: '';
+      }
+    }
+  }
 
-	// ================= Footer =================
-	&-footer {
-		padding-top: 16px;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
+  &-expend-icon {
+    display: inline-flex;
+    padding-right: 10px;
+    font-size: 12px;
+    color: @gray-7;
+    cursor: pointer;
+    transition: all 0.3s;
 
-		&-statistics {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			color: @gray-9;
-		}
+    &-hide {
+      visibility: hidden;
+    }
 
-		&-total {
-			margin-right: 25px;
-		}
+    &-expended {
+      transform: translate(-5px, 5px) rotate(90deg);
+    }
+  }
 
-		&-refresh {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			cursor: pointer;
+  // ================= Title ==================
+  &-title {
+    padding: @cell-padding;
+    border: @border;
+    border-bottom: 0;
+  }
 
-			> i {
-				margin-right: 6px;
-			}
-		}
-	}
+  // ================= Footer =================
+  &-footer {
+    padding-top: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-	tfoot {
-		td {
-			background: @color-white;
-		}
-	}
+    &-statistics {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: @gray-9;
+    }
 
-	&-summary {
-		border-top: @border;
-		border-left: @border;
-	}
+    &-total {
+      margin-right: 25px;
+    }
 
-	&-sticky {
-		&-holder {
-			position: sticky;
-			z-index: 2;
-		}
-		&-scroll {
-			position: sticky;
-			bottom: 0;
-			z-index: 2;
-			display: flex;
-			align-items: center;
-			border-top: 1px solid #f3f3f3;
-			opacity: 0.6;
-			transition: transform 0.1s ease-in 0s;
-			&:hover {
-				transform: scaleY(1.2);
-				transform-origin: center bottom;
-			}
-			&-bar {
-				height: 8px;
-				background-color: #bbb;
-				border-radius: 4px;
-				&:hover {
-					background-color: #999;
-				}
-				&-active {
-					background-color: #999;
-				}
-			}
-		}
-	}
+    &-refresh {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+
+      > i {
+        margin-right: 6px;
+      }
+    }
+  }
+
+  tfoot {
+    td {
+      background: @color-white;
+    }
+  }
+
+  &-summary {
+    border-top: @border;
+    border-left: @border;
+  }
 }

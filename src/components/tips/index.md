@@ -18,7 +18,8 @@ group:
 | 属性  | 说明                                              | 类型              | 默认值 |
 | ----- | ------------------------------------------------- | ----------------- | ------ |
 | msg   | 提示内容                                          | ReactNode、string | -      |
-| type  | 指定提示的样式, 有三种选择 normal、warning、major | string            | normal |
+| type  | 指定提示的样式,包括 normal、warning、major、success | string            | normal |
+| isShowIcon  | 是否显示指定类型的icon                       | boolean               | false
 | style | 样式                                              | CSSProperties     | -      |
 
  ### 代码演示 

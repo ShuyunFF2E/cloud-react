@@ -6,446 +6,445 @@
 @defaultHeight: 40px; // tab 页默认高度
 @defaultLineHeight: 38px;
 
-@lineTabHeight: 32px; // 类型为 line 的 tab 页高度
+@lineTabHeight: 40px; // 类型为 line 的 tab 页高度
 
 .flexCenter {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .@{selector}-header-basic {
-	position: relative;
-	display: flex;
-	overflow: hidden;
-	white-space: nowrap;
-	height: @defaultHeight;
-	margin-bottom: 10px;
-	&::before {
-		content: '';
-		position: absolute;
-		left: 0;
-		bottom: 0;
-		width: 100%;
-	}
-	&.@{selector}-header-more {
-		padding: 0 30px;
-	}
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  white-space: nowrap;
+  height: @defaultHeight;
+  margin-bottom: 10px;
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+  }
+  &.@{selector}-header-more {
+    padding: 0 30px;
+  }
 }
 
 .@{selector}-more-icon-basic {
-	position: absolute;
-	line-height: @defaultLineHeight;
-	width: 20px;
-	text-align: center;
-	color: @gray-6;
-	cursor: pointer;
+  position: absolute;
+  line-height: @defaultLineHeight;
+  width: 20px;
+  text-align: center;
+  color: @gray-6;
+  cursor: pointer;
 
-	&.before {
-		left: 0;
-	}
+  &.before {
+    left: 0;
+  }
 
-	&.after {
-		right: 0;
-	}
+  &.after {
+    right: 0;
+  }
 
-	.icon {
-		font-size: 14px;
-	}
+  .icon {
+    font-size: 14px;
+  }
 }
 
 .@{subSelector}-basic {
-	position: relative;
-	display: inline-block;
-	line-height: @defaultLineHeight;
-	font-size: 14px;
-	color: @gray-8;
-	text-align: center;
-	cursor: pointer;
-	padding: 0 40px;
-	transition: 0.3s;
-	&.disabled {
-		color: @gray-6 !important;
-		cursor: not-allowed !important;
-		user-select: none;
-		pointer-events: none;
-	}
-	&:hover {
-		color: @blue-4;
-	}
+  position: relative;
+  display: inline-block;
+  line-height: @defaultLineHeight;
+  font-size: 14px;
+  color: @gray-8;
+  text-align: center;
+  cursor: pointer;
+  padding: 0 40px;
+  transition: 0.3s;
+  &.disabled {
+    color: @gray-6 !important;
+    cursor: not-allowed !important;
+    user-select: none;
+    pointer-events: none;
+  }
+  &:hover {
+    color: @blue-4;
+  }
 }
 
 .@{selector} {
-	width: 100%;
-	box-sizing: border-box;
-	&-header-card:extend(.cloud-tabs-header-basic all) {
-		&::before {
-			border-bottom: 1px solid @gray-4;
-		}
-	}
-
-	&-header-line {
-		&:extend(.cloud-tabs-header-basic all);
-
-		// type === line && linePlacement === 'top';
-		&.@{selector}-line-horizontal {
-			height: @lineTabHeight;
-
-			.@{selector}-more-icon-line {
-				line-height: @lineTabHeight;
-			}
-		}
-	}
-
-	&-more-icon-card {
-		&:extend(.cloud-tabs-more-icon-basic all);
-	}
-
-	&-more-icon-line {
-		&:extend(.cloud-tabs-more-icon-basic all);
-	}
-
-	&-items {
-		width: 100%;
-		overflow: hidden;
-
-		&-scroll {
-			position: relative;
-			left: 0;
-			transition: left 0.3s;
-		}
-
-		&-fixed {
-			z-index: 3;
-			position: absolute;
-			top: 0;
-			left: 0;
-
-			&.fixed-has-more-icon {
-				left: 30px;
-			}
-		}
-	}
-
-	// type 为 card
-	&-item-card:extend(.cloud-tabs-item-basic all) {
-		border: 1px solid @gray-4;
-		background-color: @gray-2;
-
-		&.active {
-			background: @color-white;
-			border-bottom-color: @color-white;
-			color: @blue-4;
-		}
-
-		&:not(:first-child) {
-			border-left: none;
-		}
-
-		&:first-child {
-			border-top-left-radius: 4px;
-		}
-
-		&:last-child {
-			border-top-right-radius: 4px;
-		}
-
-		&.active,
-		&:hover {
-			.closable-wrapper .closable {
-				display: inline-block;
-			}
-		}
-	}
-
-	// type 为 line，横向 tab（linePlacement 为 top）
-	&-item-line:extend(.cloud-tabs-item-basic all) {
-		color: @gray-8;
-		padding: 0 4px;
-		margin: 0 10px;
-		height: @lineTabHeight;
-		line-height: @lineTabHeight;
-
-		&:first-child {
-			margin-left: 0;
-			padding-left: 0;
-		}
-
-		&:last-child {
-			margin-right: 0;
-			padding-right: 0;
-		}
-
-		.closable {
-			display: inline-block;
-			font-size: 16px;
-			color: @gray-6;
-			transition: 0.1s;
-			margin-left: 8px;
-		}
-
-		.tab-prefix {
-			font-size: 16px;
-			margin-right: 10px;
-			color: @gray-7;
-		}
-
-		.tab-suffix {
-			.flexCenter;
-			font-size: 16px;
-			margin-left: 8px;
-		}
-
-		&:hover {
-			background: none;
-
-			.closable {
-				color: @gray-7;
-			}
-
-			.tab-prefix {
-				color: @blue-4;
-			}
-		}
-
-		&.active {
-			color: @blue-4;
-
-			.tab-prefix {
-				color: @blue-4;
-			}
-
-			.closable {
-				color: @gray-8;
-			}
-		}
-
-		&.@{selector}-container {
-			.flexCenter;
-
-			> span {
-				.flexCenter;
-			}
-		}
-	}
-
-	// type 为 line，纵向 tab（linePlacement 为 left 或者 right）
-	&.@{selector}-left,
-	&.@{selector}-right {
-		display: flex;
-
-		.@{selector}-header-line {
-			height: auto;
-			overflow: inherit;
-			padding: 0;
-
-			.@{selector}-items {
-				overflow: inherit;
-				border-right: 2px solid @gray-4;
-
-				&-scroll {
-					display: flex;
-					flex-direction: column;
-					align-items: flex-start;
-					padding-left: 22px;
-					padding-right: 10px;
-				}
-
-				.@{selector}-item-bar {
-					height: @lineTabHeight;
-					transition: top 0.3s;
-				}
-			}
-
-			.@{selector}-item-line {
-				width: 100%;
-				margin: 0;
-				padding: 0;
-				height: @lineTabHeight;
-
-				&.@{selector}-container {
-					display: flex;
-					justify-content: space-between;
-					height: @lineTabHeight;
-
-					> span {
-						height: @lineTabHeight;
-						.flexCenter;
-					}
-				}
-
-				.@{prefix}-tab-content {
-					display: inline-flex;
-					min-width: 120px;
-				}
-			}
-
-			// 带背景色模式（lineBgMode 为 true）
-			&.@{prefix}-tabs-bg-mode {
-				.@{selector}-items {
-					border: none;
-
-					&-scroll {
-						padding: 0;
-					}
-
-					.@{selector}-item-bar {
-						display: none;
-					}
-				}
-
-				.@{selector}-item-line {
-					&.@{selector}-container {
-						> span:first-child {
-							margin-left: 16px;
-						}
-						> span:last-child {
-							margin-right: 16px;
-						}
-					}
-
-					&:hover {
-						color: currentColor;
-						background: @blue-1;
-
-						.tab-prefix {
-							color: @gray-7;
-						}
-					}
-
-					&.active {
-						background: @blue-1;
-					}
-				}
-			}
-		}
-
-		.@{prefix}-tabpanel-container {
-			flex: 1;
-		}
-	}
-	&.@{selector}-right {
-		display: flex;
-		flex-direction: row-reverse;
-
-		.@{selector}-header-line {
-			.@{selector}-items {
-				border-right: none;
-				border-left: 2px solid @gray-4;
-
-				&-scroll {
-					padding-left: 10px;
-					padding-right: 22px;
-				}
-			}
-		}
-	}
-
-	// type 为 capsule
-	&-item-capsule:extend(.cloud-tabs-item-basic all),
-	&-item-empty-capsule:extend(.cloud-tabs-item-basic all) {
-		border: 1px solid @gray-4;
-		background-color: @color-white;
-		padding: 0 16px;
-
-		&.active {
-			background: @blue-4;
-			border-color: @blue-4;
-			color: @color-white;
-
-			&:not(:first-child) {
-				box-shadow: -1px 0 @blue-4;
-			}
-		}
-
-		&:not(:first-child) {
-			border-left: none;
-		}
-
-		&:first-child {
-			border-top-left-radius: 4px;
-			border-bottom-left-radius: 4px;
-		}
-
-		&:last-child {
-			border-top-right-radius: 4px;
-			border-bottom-right-radius: 4px;
-		}
-
-		&.active,
-		&:hover {
-			.closable-wrapper .closable {
-				display: inline-block;
-			}
-		}
-	}
-
-	&-item-empty-capsule {
-		&.active {
-			background: none;
-			border-color: @blue-4;
-			color: @blue-4;
-		}
-	}
-
-	&-item-bar {
-		transition: left 0.3s;
-		position: absolute;
-		bottom: 1px;
-		left: 0;
-		height: 2px;
-		z-index: 1;
-		box-sizing: border-box;
-		background: @blue-4;
-	}
-
-	.closable-wrapper {
-		box-sizing: border-box;
-		height: 12px;
-		width: 12px;
-		line-height: 1;
-		border-radius: 50%;
-		position: absolute;
-		top: calc(50% - 2px);
-		right: 10px;
-		transform: translate(0, -50%);
-		text-align: center;
-		transition: 0.1s;
-
-		.closable {
-			display: none;
-			font-size: 16px;
-			color: @gray-6;
-			transition: 0.1s;
-		}
-	}
-
-	// type 为 slide
-	&-item-slide:extend(.cloud-tabs-item-basic all) {
-		position: relative;
-		padding: 0 14px;
-
-		&:first-child {
-			padding-left: 0;
-		}
-
-		&:last-child {
-			padding-right: 0;
-		}
-
-		&.active {
-			color: @blue-4;
-		}
-
-		&:not(:first-child):after {
-			position: absolute;
-			top: 12px;
-			left: 0;
-			display: block;
-			content: '';
-			width: 1px;
-			height: 12px;
-			background: @gray-4;
-		}
-	}
+  width: 100%;
+  box-sizing: border-box;
+  &-header-card:extend(.cloud-tabs-header-basic all) {
+    &::before {
+      border-bottom: 1px solid @gray-4;
+    }
+  }
+
+  &-header-line {
+    &:extend(.cloud-tabs-header-basic all);
+
+    // type === line && linePlacement === 'top';
+    &.@{selector}-line-horizontal {
+      height: @lineTabHeight;
+
+      .@{selector}-more-icon-line {
+        line-height: @lineTabHeight;
+      }
+    }
+  }
+
+  &-more-icon-card {
+    &:extend(.cloud-tabs-more-icon-basic all);
+  }
+
+  &-more-icon-line {
+    &:extend(.cloud-tabs-more-icon-basic all);
+  }
+
+  &-items {
+    width: 100%;
+    overflow: hidden;
+
+    &-scroll {
+      position: relative;
+      left: 0;
+      transition: left 0.3s;
+    }
+
+    &-fixed {
+      z-index: 3;
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      &.fixed-has-more-icon {
+        left: 30px;
+      }
+    }
+  }
+
+  // type 为 card
+  &-item-card:extend(.cloud-tabs-item-basic all) {
+    border: 1px solid @gray-4;
+    background-color: @gray-2;
+
+    &.active {
+      background: @color-white;
+      border-bottom-color: @color-white;
+      color: @blue-4;
+    }
+
+    &:not(:first-child) {
+      border-left: none;
+    }
+
+    &:first-child {
+      border-top-left-radius: 4px;
+    }
+
+    &:last-child {
+      border-top-right-radius: 4px;
+    }
+
+    &.active,
+    &:hover {
+      .closable-wrapper .closable {
+        display: inline-block;
+      }
+    }
+  }
+
+  // type 为 line，横向 tab（linePlacement 为 top）
+  &-item-line:extend(.cloud-tabs-item-basic all) {
+    color: @gray-8;
+    padding: 0 4px;
+    margin: 0 10px;
+    height: @lineTabHeight;
+    line-height: @lineTabHeight;
+
+    &:first-child {
+      margin-left: 0;
+      padding-left: 0;
+    }
+
+    &:last-child {
+      margin-right: 0;
+      padding-right: 0;
+    }
+
+    .closable {
+      display: inline-block;
+      font-size: 16px;
+      color: @gray-6;
+      transition: 0.1s;
+      margin-left: 8px;
+    }
+
+    .tab-prefix {
+      font-size: 16px;
+      margin-right: 10px;
+      color: @gray-7;
+    }
+
+    .tab-suffix {
+      .flexCenter;
+      font-size: 16px;
+      margin-left: 8px;
+    }
+
+    &:hover {
+      background: none;
+
+      .closable {
+        color: @gray-7;
+      }
+
+      .tab-prefix {
+        color: @blue-4;
+      }
+    }
+
+    &.active {
+      color: @blue-4;
+
+      .tab-prefix {
+        color: @blue-4;
+      }
+
+      .closable {
+        color: @gray-8;
+      }
+    }
+
+    &.@{selector}-container {
+      .flexCenter;
+
+      > span {
+        .flexCenter;
+      }
+    }
+  }
+
+  // type 为 line，纵向 tab（linePlacement 为 left 或者 right）
+  &.@{selector}-left,
+  &.@{selector}-right {
+    display: flex;
+
+    .@{selector}-header-line {
+      height: auto;
+      overflow: inherit;
+      padding: 0;
+
+      .@{selector}-items {
+        overflow: inherit;
+        border-right: 2px solid @gray-4;
+
+        &-scroll {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          padding-right: 10px;
+        }
+
+        .@{selector}-item-bar {
+          height: @lineTabHeight;
+          transition: top 0.3s;
+        }
+      }
+
+      .@{selector}-item-line {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        height: @lineTabHeight;
+
+        &.@{selector}-container {
+          display: flex;
+          justify-content: space-between;
+          height: @lineTabHeight;
+
+          > span {
+            height: @lineTabHeight;
+            .flexCenter;
+          }
+        }
+
+        .@{prefix}-tab-content {
+          display: inline-flex;
+          min-width: 120px;
+        }
+      }
+
+      // 带背景色模式（lineBgMode 为 true）
+      &.@{prefix}-tabs-bg-mode {
+        .@{selector}-items {
+          border: none;
+
+          &-scroll {
+            padding: 0;
+          }
+
+          .@{selector}-item-bar {
+            display: none;
+          }
+        }
+
+        .@{selector}-item-line {
+          &.@{selector}-container {
+            > span:first-child {
+              margin-left: 16px;
+            }
+            > span:last-child {
+              margin-right: 16px;
+            }
+          }
+
+          &:hover {
+            color: currentColor;
+            background: @blue-1;
+
+            .tab-prefix {
+              color: @gray-7;
+            }
+          }
+
+          &.active {
+            background: @blue-1;
+          }
+        }
+      }
+    }
+
+    .@{prefix}-tabpanel-container {
+      flex: 1;
+    }
+  }
+  &.@{selector}-right {
+    display: flex;
+    flex-direction: row-reverse;
+
+    .@{selector}-header-line {
+      .@{selector}-items {
+        border-right: none;
+        border-left: 2px solid @gray-4;
+
+        &-scroll {
+          padding-left: 10px;
+          padding-right: 0;
+        }
+      }
+    }
+  }
+
+  // type 为 capsule
+  &-item-capsule:extend(.cloud-tabs-item-basic all),
+  &-item-empty-capsule:extend(.cloud-tabs-item-basic all) {
+    border: 1px solid @gray-4;
+    background-color: @color-white;
+    padding: 0 16px;
+
+    &.active {
+      background: @blue-4;
+      border-color: @blue-4;
+      color: @color-white;
+
+      &:not(:first-child) {
+        box-shadow: -1px 0 @blue-4;
+      }
+    }
+
+    &:not(:first-child) {
+      border-left: none;
+    }
+
+    &:first-child {
+      border-top-left-radius: 4px;
+      border-bottom-left-radius: 4px;
+    }
+
+    &:last-child {
+      border-top-right-radius: 4px;
+      border-bottom-right-radius: 4px;
+    }
+
+    &.active,
+    &:hover {
+      .closable-wrapper .closable {
+        display: inline-block;
+      }
+    }
+  }
+
+  &-item-empty-capsule {
+    &.active {
+      background: none;
+      border-color: @blue-4;
+      color: @blue-4;
+    }
+  }
+
+  &-item-bar {
+    transition: left 0.3s;
+    position: absolute;
+    bottom: 1px;
+    left: 0;
+    height: 2px;
+    z-index: 1;
+    box-sizing: border-box;
+    background: @blue-4;
+  }
+
+  .closable-wrapper {
+    box-sizing: border-box;
+    height: 12px;
+    width: 12px;
+    line-height: 1;
+    border-radius: 50%;
+    position: absolute;
+    top: calc(50% - 2px);
+    right: 10px;
+    transform: translate(0, -50%);
+    text-align: center;
+    transition: 0.1s;
+
+    .closable {
+      display: none;
+      font-size: 16px;
+      color: @gray-6;
+      transition: 0.1s;
+    }
+  }
+
+  // type 为 slide
+  &-item-slide:extend(.cloud-tabs-item-basic all) {
+    position: relative;
+    padding: 0 14px;
+
+    &:first-child {
+      padding-left: 0;
+    }
+
+    &:last-child {
+      padding-right: 0;
+    }
+
+    &.active {
+      color: @blue-4;
+    }
+
+    &:not(:first-child):after {
+      position: absolute;
+      top: 12px;
+      left: 0;
+      display: block;
+      content: '';
+      width: 1px;
+      height: 12px;
+      background: @gray-4;
+    }
+  }
 }

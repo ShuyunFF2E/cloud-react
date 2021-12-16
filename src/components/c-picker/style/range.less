@@ -1,6 +1,95 @@
 @import './const.less';
 
 .@{prefix-cls}-range {
+  display: inline-flex;
+  align-items: stretch;
+  border: none;
+  padding: 0;
+  border-radius: 0;
+
+  .@{prefix-cls}-input {
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+    padding: 6px 12px;
+    padding-right: 1px;
+    border: 1px solid @gray-4;
+    border-right: none;
+    transition: border-color 0.3s;
+    &:not(:first-child) {
+      border-left: none;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+    &::before,
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      height: 100%;
+      width: 1px;
+      background-color: transparent;
+      transition: background-color 0.3s;
+    }
+    &::before {
+      left: 0;
+    }
+    &::after {
+      right: 0;
+    }
+  }
+
+  .has-error & {
+    .@{prefix-cls}-input,
+    .@{prefix-cls}-range-separator,
+    .@{prefix-cls}-suffix {
+      border-color: @red-4 !important;
+    }
+  }
+
+  &:hover {
+    .@{prefix-cls}-input,
+    .@{prefix-cls}-range-separator,
+    .@{prefix-cls}-suffix {
+      border-color: @gray-6;
+    }
+  }
+
+  &.@{prefix-cls}-focused .@{prefix-cls}-input-active {
+    border-color: @blue-4 !important;
+    &::after {
+      background-color: @blue-4;
+    }
+    &:not(:first-child)::before {
+      background-color: @blue-4;
+    }
+  }
+
+  .@{prefix-cls}-range-separator {
+    border-top: 1px solid @gray-4;
+    border-bottom: 1px solid @gray-4;
+    transition: border-color 0.3s;
+    .@{prefix-cls}-separator {
+      color: @gray-6;
+      line-height: 2;
+      padding: 0 4px;
+    }
+  }
+
+  .@{prefix-cls}-suffix {
+    display: flex;
+    height: 100%;
+    box-sizing: border-box;
+    margin-left: 0;
+    padding-left: 4px;
+    padding-right: 11px;
+    align-items: center;
+    border: 1px solid @gray-4;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+    border-left: none;
+    transition: border-color 0.3s;
+  }
+
   .@{prefix-cls}-clear {
     right: 12px;
   }
@@ -85,12 +174,6 @@
         }
       }
     }
-  }
-
-  &-separator .@{prefix-cls}-separator {
-    padding-right: 8px;
-    color: @gray-6;
-    line-height: 2;
   }
 
   &-range-wrapper {

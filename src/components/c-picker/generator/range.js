@@ -57,7 +57,7 @@ export default function generateRangePicker(generateConfig) {
           <RCRangePicker
             separator={
               <span aria-label="to" className={`${prefixCls}-separator`}>
-                <Icon type="subtract" />
+                ~
               </span>
             }
             ref={this.pickerRef}
@@ -72,12 +72,12 @@ export default function generateRangePicker(generateConfig) {
             }
             suffixIcon={
               picker === 'time' ? (
-                <Icon type="time" /> // TODO: 换成秒表图标
+                <Icon type="time" />
               ) : (
                 <Icon type="calendar" />
               )
             }
-            clearIcon={<Icon type="close-fill-1" />}
+            clearIcon={<Icon type="close-fill" />}
             prevIcon={<Icon type="left" />}
             nextIcon={<Icon type="right" />}
             superPrevIcon={<Icon type="double-left" />}

@@ -6,7 +6,7 @@
 
 @primary-hover-bg: @blue-5;
 @primary-active-bg: @blue-6;
-@primary-disabled-bg: @gray-6;
+@primary-disabled-bg: @gray-5;
 
 @dashed-color: rgba(0, 0, 0, 0.65);
 
@@ -15,9 +15,12 @@
 @small-font-size: 14px;
 
 @large-padding: 10px 15px;
+@large-text-padding: 0;
 @default-padding: 8px 11px;
-@default-link-padding: 5px 8px;
+@default-link-padding: 6px 12px;
+@default-text-padding: 0;
 @small-padding: 6px 11px;
+@small-text-padding: 0;
 
 @large-icon-margin: 6px;
 @default-icon-margin: 6px;
@@ -202,6 +205,7 @@
 		border: none;
 		color: @blue-4;
 		background: transparent;
+		line-height: 20px;
 		&.tips{
 			color: @orange-4;
 		}
@@ -229,6 +233,33 @@
 		}
 	}
 
+	&.text {
+		border: none;
+		color: @blue-4;
+		background: transparent;
+		&.tips{
+			color: @orange-4;
+		}
+		&.danger{
+			color: @red-4;
+		}
+		&.success{
+			color: @green-4;
+		}
+		&:active {
+			color: @blue-5;
+			&.tips{
+				color: @orange-5;
+			}
+			&.danger{
+				color: @red-5;
+			}
+			&.success{
+				color: @green-5;
+			}
+		}
+	}
+
 	/* size */
 	&.large {
 		padding: @large-padding;
@@ -237,12 +268,22 @@
 		.cloud-icon {
 			margin-right: @large-icon-margin;
 		}
+
+		// 纯文字按钮单独设置
+		&.text{
+			padding: @large-text-padding;
+		}
 	}
 	&.default {
 		padding: @default-padding;
 		font-size: @default-font-size;
 		&.link {
 			padding: @default-link-padding;
+		}
+
+		// 纯文字按钮单独设置
+		&.text {
+			padding: @default-text-padding;
 		}
 
 		/* icon */
@@ -257,6 +298,11 @@
 		/* icon */
 		.cloud-icon {
 			margin-right: @small-icon-margin;
+		}
+        
+		// 纯文字按钮单独设置
+		&.text{
+			padding: @large-text-padding;
 		}
 	}
 
@@ -276,19 +322,19 @@
 				background-clip: padding-box;
 				cursor: not-allowed;
 
-				&.tips{
-					border: 1px solid @orange-2;
-					background: @orange-2;
-				}
+				// &.tips{
+				// 	border: 1px solid @orange-2;
+				// 	background: @orange-2;
+				// }
 
-				&.danger{
-					border: 1px solid @red-2;
-					background: @red-2;
-				}
-				&.success{
-					border: 1px solid @green-2;
-					background: @green-2;
-				}
+				// &.danger{
+				// 	border: 1px solid @red-2;
+				// 	background: @red-2;
+				// }
+				// &.success{
+				// 	border: 1px solid @green-2;
+				// 	background: @green-2;
+				// }
 			}
 		}
 
@@ -300,22 +346,22 @@
 				border: 1px solid @gray-4;
 				background-color: @gray-3;
 				cursor: not-allowed;
-				&.tips{
-					border: 1px solid @orange-2;
-					background:transparent;
-					color: @orange-2
-				}
+				// &.tips{
+				// 	border: 1px solid @orange-2;
+				// 	background:transparent;
+				// 	color: @orange-2
+				// }
 	
-				&.danger{
-					border: 1px solid @red-2;
-					background:transparent;
-					color: @red-2
-				}
-				&.success{
-					border: 1px solid @green-2;
-					background: transparent;
-					color: @green-2
-				}
+				// &.danger{
+				// 	border: 1px solid @red-2;
+				// 	background:transparent;
+				// 	color: @red-2
+				// }
+				// &.success{
+				// 	border: 1px solid @green-2;
+				// 	background: transparent;
+				// 	color: @green-2
+				// }
 			}
 		}
 
@@ -337,15 +383,24 @@
 				color: @gray-6;
 				cursor: not-allowed;
 				background: transparent;
-				&.tips{
-					color: @orange-2;
-				}
-				&.danger{
-					color: @red-2;
-				}
-				&.success{
-					color: @green-2;
-				}
+				// &.tips{
+				// 	color: @orange-2;
+				// }
+				// &.danger{
+				// 	color: @red-2;
+				// }
+				// &.success{
+				// 	color: @green-2;
+				// }
+			}
+		}
+
+		&.text {
+			&,
+			&:hover,
+			&:active {
+				color: @gray-6;
+				cursor: not-allowed;
 			}
 		}
 	}

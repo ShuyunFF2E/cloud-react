@@ -80,12 +80,12 @@ class Button extends React.PureComponent {
 			},
 			className
 		);
-
+        
 		// 针对单按钮情况
-		let content = typeof children === 'string' && children.length === 2 ? children.split('').join(' ') : children;
+		let content = type !== 'link' && type !== 'text' && typeof children === 'string' && children.length === 2 ? children.split('').join(' ') : children;
 
 		// 针对按钮组情况
-		if (children instanceof Array && children.length === 1 && typeof children[0] === 'string' && children[0].length === 2) {
+		if (children instanceof Array && children.length === 1 && typeof children[0] === 'string' && children[0].length === 2 && type !== 'link' && type !== 'text') {
 			content = children[0].split('').join(' ');
 		}
 

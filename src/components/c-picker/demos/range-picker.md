@@ -12,9 +12,10 @@ desc: 基本用法，日期选择器。
  */
 import React from 'react';
 import moment from 'moment';
-import { 
+import {
 	CPicker as DatePicker,
 	Form,
+	Field,
 	Toggle
 } from 'cloud-react';
 
@@ -22,13 +23,17 @@ import {
 const { RangePicker, TimeRangePicker } = DatePicker;
 
 export default class RangePickerDemo extends React.Component {
+	field = new Field(this)
 	state = {
-		values: { start: '2021/12/1 16:05:33', end: '2021/12/2 12:40:15' },
+		values: {
+			start: moment('2021/12/10 16:05:33', 'yyyy/MM/DD HH:mm:ss').toDate(),
+			end: moment('2021/12/12 08:37:21', 'yyyy/MM/DD HH:mm:ss').toDate()
+		},
 		times: { start: '09:00:00', end: '17:58:58' }
 	}
 
 	onChange = values => {
-
+		console.log('values:', values);
 		this.setState({ values });
 	}
 
@@ -39,29 +44,41 @@ export default class RangePickerDemo extends React.Component {
 
 	render() {
 		const { values, times, disabled } = this.state;
+		const { init } = this.field;
 		return (
-			<Form layout="horizontal" labelAlign="left" labelCol={{ span: 10 }}>
+			<Form field={this.field} layout="horizontal" labelAlign="left" labelCol={{ span: 10 }}>
 
 				<Form.Item label="是否可用">
 					<Toggle checked={!disabled} onChange={b => this.setState({ disabled: !b })} />
 				</Form.Item>
 
 				<Form.Item label="日期范围选择器">
-					<RangePicker value={values} onChange={this.onChange} showToday disabled={disabled} />
+					<RangePicker value={values} onChange={this.onChange} disabled={disabled} />
 				</Form.Item>
 
 				<Form.Item label="日期范围选择器（可清除）">
-					<RangePicker value={values} onChange={this.onChange} allowClear disabled={disabled} />
+					<RangePicker
+						{...init('date', {
+							rules: [{
+								required: true, message: '请输入时间'
+							}],
+							onChange: v => {
+								console.log(v)
+							}
+						})}
+						allowClear
+						showToday
+						disabled={disabled}
+					/>
 				</Form.Item>
 
 				<Form.Item label="日期范围选择器（带时间）">
 					<RangePicker
 						value={values}
 						onChange={this.onChange}
-						onOK={this.onOK}
 						showTimePicker
-						showNow
-						disabled={disabled} 
+						showToday
+						disabled={disabled}
 					/>
 				</Form.Item>
 
@@ -70,7 +87,9 @@ export default class RangePickerDemo extends React.Component {
 						value={values}
 						onChange={this.onChange}
 						onOK={this.onOK}
+						allowClear
 						disabled={[false, true]}
+						allowEmpty={[true, false]}
 					/>
 				</Form.Item>
 
@@ -92,8 +111,10 @@ export default class RangePickerDemo extends React.Component {
 					placeholder="请选择时间范围"
 					width={380}
 					showTimePicker
-					minDate={new Date()}
 					format={'yyyy年MM月DD日 HH:mm'}
+					onChange={this.onChange}
+					minYear={2021}
+					maxYear={2023}
 				/>
 
 			</Form>

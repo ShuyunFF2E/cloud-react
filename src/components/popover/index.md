@@ -5,8 +5,8 @@ nav:
   path: /cloud-react
 group:
   order: 21
-  title: 数据
-  path: /data
+  title: 通用
+  path: /common
 ---
 
 
@@ -20,8 +20,9 @@ group:
 
 | 属性           | 说明                    | 类型              | 默认值 |
 | -------------- | ----------------------- | ----------------- | ------ |
-| width | 宽度        | string ｜ number           | 245px / 245     |
+| width | 宽度        | string ｜ number           | -     |
 | title | 标题        | string           | ''     |
+| size | 气泡尺寸 `mini` `small` `defult` `large`        | string           | `default`     |
 | content        | 内容     | string           | ''     |
 | showIcon       | 是否展示图标           | boolean           | false  |
 | iconTpl  | 自定义图标 | Element           | ''  |

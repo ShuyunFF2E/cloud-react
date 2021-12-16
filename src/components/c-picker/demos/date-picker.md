@@ -11,9 +11,11 @@ desc: 基本用法，日期选择器。
  * desc: 基本用法，日期选择器。
  */
 import React from 'react';
+import moment from 'moment';
 import { 
 	CPicker as DatePicker,
 	Form,
+	Field,
 	Toggle
 } from 'cloud-react';
 
@@ -27,8 +29,9 @@ const {
 } = DatePicker;
 
 export default class DatePickerDemo extends React.Component {
+	field = new Field(this)
 	state = {
-		value: '2021/12/1 16:05:33',
+		value: moment('2021/12/01 16:05:33', 'yyyy/MM/DD HH:mm:ss').toDate(),
 		time: '17:58:58'
 	}
 
@@ -44,16 +47,24 @@ export default class DatePickerDemo extends React.Component {
 
 	render() {
 		const { value, time, disabled } = this.state;
+		const { init } = this.field;
 		return (
-			<Form layout="horizontal" labelAlign="left" labelCol={{ span: 8 }}>
+			<Form field={this.field} layout="horizontal" labelAlign="left" labelCol={{ span: 8 }}>
 				<Form.Item label="是否可用">
 					<Toggle checked={!disabled} onChange={b => this.setState({ disabled: !b })} />
 				</Form.Item>
 				<Form.Item label="日期选择器">
-					<DatePicker value={value} onChange={this.onChange} showToday disabled={disabled} />
+					<DatePicker value={value} onChange={this.onChange} disabled={disabled} />
 				</Form.Item>
 				<Form.Item label="日期选择器（可清除）">
-					<DatePicker value={value} onChange={this.onChange} allowClear disabled={disabled} />
+					<DatePicker
+						{...init('date', {
+							rules: [{
+								required: true, message: '请输入时间',
+							}]
+						})}
+						showToday disabled={disabled} autoFocus allowClear
+				 	/>
 				</Form.Item>
 				<Form.Item label="日期选择器（不可输入修改）">
 					<DatePicker value={value} onChange={this.onChange} canEdit={false} disabled={disabled} />
