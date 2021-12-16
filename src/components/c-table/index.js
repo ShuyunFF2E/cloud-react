@@ -291,7 +291,7 @@ class CTable extends Component {
 
 	render() {
 		const { ref, onPageChange, onRefresh } = this;
-		const { style, bordered, size, supportPage, footerTpl, emptyTpl, supportCheckbox } = this.props;
+		const { style, bordered, size, supportPage, footerTpl, emptyTpl, supportCheckbox, className } = this.props;
 		const { data, columnData, expandIconColumnIndex, headerHeight, pageOpts, selectedNodeList, isLoading } = this.state;
 		const { pageNum, pageSize, totals } = pageOpts;
 
@@ -303,7 +303,7 @@ class CTable extends Component {
 						[`${tablePrefixCls}-bordered`]: bordered,
 						[`${tablePrefixCls}-loading`]: isLoading,
 						[`${tablePrefixCls}-empty`]: !data.length
-					})}
+					}, className)}
 					style={style}
 					ref={ref}>
 					<RcTable
@@ -372,7 +372,8 @@ CTable.propTypes = {
 	onCheckedAfter: PropTypes.func,
 	onCheckedAllAfter: PropTypes.func,
 	emptyTpl: PropTypes.any,
-	checkedData: PropTypes.array
+	checkedData: PropTypes.array,
+	className: PropTypes.string
 };
 
 CTable.defaultProps = {
@@ -392,5 +393,6 @@ CTable.defaultProps = {
 	onCheckedAfter: () => {},
 	onCheckedAllAfter: () => {},
 	emptyTpl: () => '暂无数据',
-	checkedData: []
+	checkedData: [],
+	className: ''
 };
