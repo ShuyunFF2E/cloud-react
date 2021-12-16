@@ -34,11 +34,8 @@
     }
   }
 
-  .has-error {
-    &,
-    &:hover {
-      border-color: @red-4;
-    }
+  .has-error & {
+    border-color: @red-4 !important;
   }
 
   &-disabled {
