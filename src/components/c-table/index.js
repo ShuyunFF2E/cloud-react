@@ -15,6 +15,7 @@ import { tablePrefixCls } from './constant';
 import getExpandableConfig from './expend';
 import Checkbox from '../checkbox';
 import Pagination from '../pagination';
+import Radio from '../radio';
 import Icon from '../icon';
 import Loading from '../loading';
 import './index.less';
@@ -119,71 +120,112 @@ class CTable extends Component {
   };
 
   /**
+   * 多选列模板
+   * @param isFirstColumnFixed
+   * @returns {{dataIndex: string, width: number, fixed, title: JSX.Element, render: (function(*, *=)), key: string}}
+   */
+  getCheckboxColumn = (isFirstColumnFixed) => {
+    const { leafNodesMap, onAllCheckedChange, onNodeCheckedChange } = this;
+
+    const currentLeafNodes = Object.keys(leafNodesMap).reduce(
+      (nodeList, key) => {
+        if (this.isInCurrentPage(key)) {
+          nodeList.push(...leafNodesMap[key]);
+        }
+        return nodeList;
+      },
+      [],
+    );
+    const isCheckedAll = !!isEveryChecked(currentLeafNodes);
+    const isIndeterminateAll = !isCheckedAll && isSomeChecked(currentLeafNodes);
+
+    return {
+      title: (
+        <Checkbox
+          checked={isCheckedAll}
+          indeterminate={isIndeterminateAll}
+          onChange={(checked) => onAllCheckedChange(checked)}
+        />
+      ),
+      dataIndex: 'checkbox',
+      key: 'checkbox',
+      width: 40,
+      fixed: isFirstColumnFixed,
+      render: (value, row) => {
+        const isChecked = !!isEveryChecked(
+          leafNodesMap[this.getKeyFieldVal(row)],
+        );
+        const isIndeterminate =
+          !isChecked && isSomeChecked(leafNodesMap[this.getKeyFieldVal(row)]);
+        return (
+          <Checkbox
+            checked={isChecked}
+            indeterminate={isIndeterminate}
+            onChange={(checked) => onNodeCheckedChange(checked, row)}
+          />
+        );
+      },
+    };
+  };
+
+  /**
+   * 单选列模板
+   * @param isFirstColumnFixed
+   * @returns {{dataIndex: string, width: number, fixed, title: string, render: (function(*, *=)), key: string}}
+   */
+  getRadioColumn = (isFirstColumnFixed) => {
+    const { leafNodesMap, onNodeRadioChange } = this;
+    return {
+      title: '',
+      dataIndex: 'radio',
+      key: 'radio',
+      width: 40,
+      fixed: isFirstColumnFixed,
+      render: (value, row) => {
+        const radioVal = this.getKeyFieldVal(row);
+        return (
+          <Radio
+            value={radioVal}
+            checked={!!isEveryChecked(leafNodesMap[this.getKeyFieldVal(row)])}
+            onChange={() => onNodeRadioChange(row)}
+          />
+        );
+      },
+    };
+  };
+
+  /**
    * 设置表格列
    */
   setColumnData = () => {
-    const { supportCheckbox, columnData } = this.props;
-    const { leafNodesMap, onAllCheckedChange, onNodeCheckedChange } = this;
-
-    const setDefaultColumnProps = () => {
-      return columnData.map((item) => ({
-        ...item,
-        align: item.align || 'left',
-        width: item.width || (columnData[0].fixed ? 150 : ''),
-      }));
-    };
+    const { supportCheckbox, supportRadio, columnData } = this.props;
+    const defaultColumnData = columnData.map((item) => ({
+      ...item,
+      align: item.align || 'left',
+      width: item.width || (columnData.find((c) => c.fixed) ? 150 : ''),
+    }));
+    const isFirstColumnFixed = columnData[0].fixed;
 
     if (supportCheckbox) {
-      const currentLeafNodes = Object.keys(leafNodesMap).reduce(
-        (nodeList, key) => {
-          if (this.isInCurrentPage(key)) {
-            nodeList.push(...leafNodesMap[key]);
-          }
-          return nodeList;
-        },
-        [],
-      );
-      const isCheckedAll = !!isEveryChecked(currentLeafNodes);
-      const isIndeterminateAll =
-        !isCheckedAll && isSomeChecked(currentLeafNodes);
-
-      const checkboxColumn = {
-        title: (
-          <Checkbox
-            checked={isCheckedAll}
-            indeterminate={isIndeterminateAll}
-            onChange={(checked) => onAllCheckedChange(checked)}
-          />
-        ),
-        dataIndex: 'checkbox',
-        key: 'checkbox',
-        width: 40,
-        fixed: columnData[0].fixed,
-        render: (value, row) => {
-          const isChecked = !!isEveryChecked(
-            leafNodesMap[this.getKeyFieldVal(row)],
-          );
-          const isIndeterminate =
-            !isChecked && isSomeChecked(leafNodesMap[this.getKeyFieldVal(row)]);
-          return (
-            <Checkbox
-              checked={isChecked}
-              indeterminate={isIndeterminate}
-              onChange={(checked) => onNodeCheckedChange(checked, row)}
-            />
-          );
-        },
-      };
+      const checkboxColumn = this.getCheckboxColumn(isFirstColumnFixed);
       this.setState({
         expandIconColumnIndex: 1,
-        columnData: [checkboxColumn, ...setDefaultColumnProps()],
+        columnData: [checkboxColumn, ...defaultColumnData],
       });
-    } else {
-      this.setState({
-        expandIconColumnIndex: 0,
-        columnData: setDefaultColumnProps(),
-      });
+      return;
     }
+    if (supportRadio) {
+      const radioColumn = this.getRadioColumn(isFirstColumnFixed);
+      this.setState({
+        expandIconColumnIndex: 1,
+        columnData: [radioColumn, ...defaultColumnData],
+      });
+      return;
+    }
+    this.setState({
+      expandIconColumnIndex: 0,
+      columnData: defaultColumnData,
+    });
   };
 
   /**
@@ -257,7 +299,7 @@ class CTable extends Component {
   };
 
   /**
-   * 选中当前行
+   * 选中当前行（多选）
    * @param checked
    * @param row
    */
@@ -267,6 +309,28 @@ class CTable extends Component {
       Object.assign(node, { checked });
     });
     this.setColumnData();
+    this.updateSelectedNodes(() => {
+      this.props.onCheckedAfter(this.state.selectedNodeList);
+    });
+  };
+
+  /**
+   * 选中当前行（单选）
+   * @param row
+   */
+  onNodeRadioChange = (row) => {
+    // 更新叶子节点 leafNodesMap 的选中状态
+    Object.keys(this.leafNodesMap).forEach((key) => {
+      this.leafNodesMap[key].forEach((node) => {
+        Object.assign(node, {
+          checked: this.getKeyFieldVal(node) === this.getKeyFieldVal(row),
+        });
+      });
+    });
+    this.setColumnData();
+
+    // 更新已选节点列表前，重置 selectedNodeMap
+    this.selectedNodeMap = {};
     this.updateSelectedNodes(() => {
       this.props.onCheckedAfter(this.state.selectedNodeList);
     });
@@ -357,6 +421,7 @@ class CTable extends Component {
       footerTpl,
       emptyTpl,
       supportCheckbox,
+      supportRadio,
       rowKey,
       showTotal,
       showRefresh,
@@ -420,7 +485,7 @@ class CTable extends Component {
         {supportPage && (
           <div className={classnames(`${tablePrefixCls}-footer`)}>
             <div className={classnames(`${tablePrefixCls}-footer-statistics`)}>
-              {supportCheckbox && (
+              {(supportCheckbox || supportRadio) && (
                 <span className={classnames(`${tablePrefixCls}-footer-select`)}>
                   已选 {selectedNodeList.length} 条
                 </span>
@@ -485,6 +550,7 @@ CTable.propTypes = {
   rowClassName: PropTypes.func,
   headerBordered: PropTypes.bool,
   className: PropTypes.string,
+  supportRadio: PropTypes.bool,
 };
 
 CTable.defaultProps = {
@@ -511,4 +577,5 @@ CTable.defaultProps = {
   rowClassName: () => '',
   headerBordered: false,
   className: '',
+  supportRadio: false,
 };

@@ -40,6 +40,7 @@ group:
 | showRefresh | 显示刷新按钮   | boolean   |   true   | |
 | lightCheckedRow | 选中行高亮   | boolean   |   false   | |
 | rowClassName | 自定义行类名   | function   |   -   | |
+| supportRadio | 是否支持单选   | boolean   |   false   | |
 
 #### columnData
 | 属性                | 说明                                         | 类型                        | 默认值           |
@@ -102,3 +103,5 @@ https://table-react-component.vercel.app/
 <embed src="@components/c-table/demos/header-bordered.md" /> 
 
 <embed src="@components/c-table/demos/light-row.md" /> 
+
+<embed src="@components/c-table/demos/radio.md" /> 
