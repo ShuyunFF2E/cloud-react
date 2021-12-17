@@ -25,7 +25,7 @@ group:
 * ~~`YearMonthPicker`~~（原 `Datepicker` 中组件，`CPicker` 中由 `MonthPicker` 替代）
 * ~~`MonthDayPicker`~~（原 `Datepicker` 中组件，`CPicker` 中删除，因为单独选择月与日无法在不知道年份的情况下确定月的天数，实现类似的需求请使用级联选择器）
 
-> YearPicker、QuarterPicker、MonthPicker、WeekPicker 尚在调试中
+> QuarterPicker、MonthPicker、WeekPicker 尚在调试中
 
 > 目前暂未开放自定义选择面板对时、分、秒的可选性，正在持续开发中
 
@@ -38,6 +38,9 @@ group:
 
 #### 范围选择器
 <embed src="@components/c-picker/demos/range-picker.md" />
+
+#### 其他种类选择器
+<embed src="@components/c-picker/demos/more-picker.md" />
 
 
 ### API
@@ -62,8 +65,8 @@ group:
 | showNow           | 指示是否显示『此刻』按钮                             | boolean              | `false` |
 | allowClear        | 指示是否可以清除值                              | boolean              | `false` |
 | autoFocus         | 指示是否自动获得焦点                             | boolean              | `false` |
-| minDate           | 最小值                                             | string / Date             | -  |
-| maxDate           | 最大值                                             | string / Date             | -  |
+| minDate           | 最小值（除年份选择器外）                               | string / Date             | -  |
+| maxDate           | 最大值（除年份选择器外）                               | string / Date             | -  |
 | minYear           | 最小年份                                           | number                  |                   |
 | maxYear           | 最大年份                                           | number                  | -                 |
 | disabledDate      | 筛选不可选择的日期（设置此项将覆盖以上 4 个属性的作用）        | (date: string) => boolean     | -                 |
@@ -105,6 +108,18 @@ group:
 | disabled         | 指示组件是否可用 | boolean | `true` |
 | onChange         | 组件值改变事件处理函数 | (value: string) => void | - |
 | onOk             | 确定按钮点击事件处理函数 | (value: string) => void | - |
+
+#### YearPicker
+
+| 属性              | 说明                                               | 类型                    | 默认值            |
+| ----------------- | -------------------------------------------------- | ----------------------- | ----------------- |
+| value            | 组件值 | number | - |
+| defaultValue     | 组件默认值 | number | - |
+| placeholder      | 输入框占位符 | string | `"yyyy 年"` |
+| disabled         | 指示组件是否可用 | boolean | `true` |
+| onChange         | 组件值改变事件处理函数 | (value: string) => void | - |
+| onSelect         | 弹层中选择事件处理函数 | (value: number) => void | - |
+| onPanelChange    | 弹层中日历切换事件处理函数 | (value: number, type: string) => void | - |
 
 #### RangePicker
 

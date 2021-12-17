@@ -20,13 +20,7 @@ import {
 } from 'cloud-react';
 
 
-const {
-	TimePicker,
-	WeekPicker,
-	MonthPicker,
-	YearPicker,
-	QuarterPicker
-} = DatePicker;
+const { TimePicker } = DatePicker;
 
 export default class DatePickerDemo extends React.Component {
 	field = new Field(this)
