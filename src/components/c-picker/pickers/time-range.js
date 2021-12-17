@@ -9,7 +9,7 @@ const { TimeRangePicker: Picker } = generatePicker(momentGenerateConfig);
 
 const TimeRangePicker = ({
   className,
-  inputClassName, // New
+  dropdownClassName, // New
   disabled,
   defaultValue: _defaultValue,
   value: _value,
@@ -18,17 +18,13 @@ const TimeRangePicker = ({
   placeholder: _placeholder,
   width,
   onChange,
-  // containerEleClass,
   getPopupContainer: _getPopupContainer, // New
   isAppendToBody,
-  // position,
-  dropdownAlign, // New
   canEdit = true,
   allowEmpty,
   style,
   showToday,
   showNow,
-  // disabledTime,
   renderExtraFooter,
   autoFocus,
   allowClear,
@@ -41,8 +37,6 @@ const TimeRangePicker = ({
   onClick,
   onContextMenu,
   onKeyDown,
-  onSelect,
-  onPanelChange,
   onOk,
 }) => {
   const [value, setValue] = useState();
@@ -57,12 +51,13 @@ const TimeRangePicker = ({
     (m, v) => {
       if (onChange) {
         onChange(
-          v.reduce((pre, cur, index) => {
-            if (index === 0) {
-              return { start: cur };
-            }
-            return { ...pre, end: cur };
-          }, {}),
+          v &&
+            v.reduce((pre, cur, index) => {
+              if (index === 0) {
+                return { start: cur };
+              }
+              return { ...pre, end: cur };
+            }, {}),
         );
       } else {
         setValue(m);
@@ -71,37 +66,54 @@ const TimeRangePicker = ({
     [onChange],
   );
 
+  const handleOk = useCallback(
+    (m) => {
+      if (onOk) {
+        onOk(
+          m &&
+            m.reduce((pre, cur, index) => {
+              if (index === 0) {
+                return { start: cur && cur.format(format) };
+              }
+              return { ...pre, end: cur && cur.format(format) };
+            }, {}),
+        );
+      }
+    },
+    [onOk, format],
+  );
+
   const getPopupContainer = useMemo(() => {
     if (_getPopupContainer) {
       return _getPopupContainer;
     }
     if (!isAppendToBody) {
-      return (trigger) => {
-        console.log(trigger);
-        return document.body;
-      };
+      return () => document.body;
     }
     return undefined;
   }, [_getPopupContainer, isAppendToBody]);
 
   return (
     <Picker
-      dropdownClassName={className}
-      style={{ ...style, width }}
-      className={inputClassName}
+      style={{ width, ...style }}
       defaultValue={
-        _defaultValue && _defaultValue.map((v) => v && moment(v, format))
+        _defaultValue && [
+          _defaultValue.start && moment(_defaultValue.start, format),
+          _defaultValue.end && moment(_defaultValue.end, format),
+        ]
       }
       onChange={handleChange}
+      onOk={handleOk}
       inputReadOnly={!canEdit}
       getPopupContainer={getPopupContainer}
       {...{
+        className,
+        dropdownClassName,
         format,
         value,
         disabled,
         open,
         placeholder,
-        dropdownAlign,
         showToday: showToday || showNow,
         renderExtraFooter,
         autoFocus,
@@ -117,9 +129,6 @@ const TimeRangePicker = ({
         onClick,
         onContextMenu,
         onKeyDown,
-        onSelect,
-        onPanelChange,
-        onOk,
       }}
     />
   );

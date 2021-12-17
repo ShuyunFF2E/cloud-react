@@ -72,7 +72,7 @@ export default function generateRangePicker(generateConfig) {
             }
             suffixIcon={
               picker === 'time' ? (
-                <Icon type="time" /> // TODO: 换成秒表图标
+                <Icon type="time" />
               ) : (
                 <Icon type="calendar" />
               )

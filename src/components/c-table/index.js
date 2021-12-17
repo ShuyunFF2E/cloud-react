@@ -362,6 +362,7 @@ class CTable extends Component {
       showRefresh,
       lightCheckedRow,
       rowClassName,
+      className,
     } = this.props;
     const {
       data,
@@ -378,13 +379,18 @@ class CTable extends Component {
     return (
       <div>
         <div
-          className={classnames(`${tablePrefixCls}-box`, {
-            [`${tablePrefixCls}-${size}`]: true,
-            [`${tablePrefixCls}-bordered`]: bordered,
-            [`${tablePrefixCls}-header-bordered`]: !bordered && headerBordered,
-            [`${tablePrefixCls}-loading`]: isLoading,
-            [`${tablePrefixCls}-empty`]: !data.length,
-          })}
+          className={classnames(
+            `${tablePrefixCls}-box`,
+            {
+              [`${tablePrefixCls}-${size}`]: true,
+              [`${tablePrefixCls}-bordered`]: bordered,
+              [`${tablePrefixCls}-header-bordered`]:
+                !bordered && headerBordered,
+              [`${tablePrefixCls}-loading`]: isLoading,
+              [`${tablePrefixCls}-empty`]: !data.length,
+            },
+            className,
+          )}
           style={style}
           ref={ref}
         >
@@ -478,6 +484,7 @@ CTable.propTypes = {
   lightCheckedRow: PropTypes.bool,
   rowClassName: PropTypes.func,
   headerBordered: PropTypes.bool,
+  className: PropTypes.string,
 };
 
 CTable.defaultProps = {
@@ -503,4 +510,5 @@ CTable.defaultProps = {
   lightCheckedRow: false,
   rowClassName: () => '',
   headerBordered: false,
+  className: '',
 };
