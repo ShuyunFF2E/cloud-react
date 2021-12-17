@@ -6,7 +6,7 @@ desc: 默认样式
 
 ```jsx
 import React, { useState, useEffect } from 'react';
-import { Button, Popover, Message } from 'cloud-react';
+import { Button, Popover, Message, Checkbox } from 'cloud-react';
 
 export default function PopoverDemo() {
 	const [isClick, setIsClick] = useState(false);
@@ -20,16 +20,15 @@ export default function PopoverDemo() {
 
 	return (
       <div>
-        触发方式：
-        <Button type="primary" onClick={() => {
+        <Checkbox checked={isClick} onChange={() => {
           setIsClick(!isClick);
-        }}>{isClick ? '通过 hover 触发' : '通过 click 触发'}</Button>
+        }}>通过 click 触发</Checkbox>
         {split}
         <Popover
           trigger={trigger}
           placement="right"
           content="这是一段文字描述">
-          <Button>纯文字（click 触发）</Button>
+          <Button>纯文字</Button>
         </Popover>
         {split}
         <Popover
@@ -116,7 +115,7 @@ export default function PopoverDemo() {
         <Popover
           trigger={trigger}
           title="标题"
-          content="正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容"
+          content="正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容"
           showIcon
           showCancelBtn
           showConfirmBtn>

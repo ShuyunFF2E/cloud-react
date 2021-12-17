@@ -30,10 +30,15 @@
   }
 
   &-desc {
-    font-size: 12px;
-    color: @gray-8;
+    font-size: 14px;
+    color: @gray-9;
     max-height: 190px;
     overflow-y: auto;
+
+    &.@{popover-prefix-cls}-has-title {
+      font-size: 12px;
+      color: @gray-8;
+    }
   }
 
   &-btn {
@@ -42,6 +47,7 @@
     > button {
       margin-top: 16px;
       margin-left: 8px;
+      margin-bottom: 4px;
     }
   }
 }

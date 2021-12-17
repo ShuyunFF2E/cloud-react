@@ -78,7 +78,15 @@ function Popover(props) {
 
           <div className={`${classSelector}-main-content`}>
             {title && <p className={`${classSelector}-title`}>{title}</p>}
-            {content && <p className={`${classSelector}-desc`}>{content}</p>}
+            {content && (
+              <p
+                className={`${classSelector}-desc ${
+                  title ? `${classSelector}-has-title` : ''
+                }`}
+              >
+                {content}
+              </p>
+            )}
           </div>
         </section>
 
