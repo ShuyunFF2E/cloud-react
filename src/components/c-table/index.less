@@ -62,6 +62,25 @@
     }
   }
 
+  // 表头带线条
+  &.@{tablePrefixCls}-header-bordered {
+    th:not(:last-child) {
+      position: relative;
+
+      &:after {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translate(0, -50%);
+        content: '';
+        display: block;
+        width: 1px;
+        height: 24px;
+        background: @gray-5;
+      }
+    }
+  }
+
   // 紧凑型表格
   &.@{tablePrefixCls}-small {
     .@{tablePrefixCls} {
@@ -355,6 +374,12 @@
         background: @blue-1;
       }
     }
+
+    tr.@{tablePrefixCls}-row-lighted {
+      td {
+        background: @yellow-1;
+      }
+    }
   }
 
   &-fixed-column &-body::after {
@@ -372,7 +397,6 @@
     .@{tablePrefixCls}-cell {
       padding: 24px 12px;
       background: @gray-2;
-      box-shadow: @border-shadow-bottom;
     }
 
     &-fixed {
@@ -431,7 +455,7 @@
       color: @gray-9;
     }
 
-    &-total {
+    &-select {
       margin-right: 25px;
     }
 
@@ -444,6 +468,16 @@
       > i {
         margin-right: 6px;
       }
+    }
+
+    &-page {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &-total {
+      margin-right: 16px;
     }
   }
 

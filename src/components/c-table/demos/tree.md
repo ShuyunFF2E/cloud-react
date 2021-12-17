@@ -1,6 +1,6 @@
 ---
 order: 8
-title: RcTable
+title: CTable
 desc: 树状表格
 ---
 
@@ -11,7 +11,7 @@ desc: 树状表格
  * desc: 树状表格
  */
 import React from 'react';
-import RcTable from '../index';
+import { CTable } from 'cloud-react';
 
 const data = [
     {
@@ -121,16 +121,11 @@ const columns = [
         dataIndex: 'address',
         align: 'left',
     },
-    {
-        title: 'Operations',
-        dataIndex: 'operation',
-        align: 'left',
-    },
 ];
 
-export default function RcTableDemo() {
+export default function CTableDemo() {
 	return (
-        <RcTable
+        <CTable
             supportExpend
             supportTree
             supportCheckbox
