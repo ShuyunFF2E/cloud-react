@@ -9,27 +9,21 @@ import './index.less';
 
 // 获取当前document下的所有样式创建到顶层doucment上，sandboxSelector是一个简单的隔离方式
 function insertRootDocumentStyleRule(doc) {
-	// let style = doc.querySelector(`[data-name="${sandboxSelector}"]`);
+	let style = doc.querySelector(`[data-name="${sandboxSelector}-frame"]`);
 
-	// if (style) return;
+	if (style) return;
 
-	const cssText = getCssText(`.${sandboxSelector}`);
+	const cssText = getCssText(`.${sandboxSelector}-frame`);
 
-	const style = document.createElement('style');
+	style = document.createElement('style');
 
-	style.setAttribute('data-name', sandboxSelector);
+	style.setAttribute('data-name', `${sandboxSelector}-frame`);
 	style.setAttribute('type', 'text/css');
 
 	style.innerHTML = cssText.join('');
 	doc.head.appendChild(style);
 }
 
-function removeRootDocumentStyleRule(doc) {
-	const styles = Array.from(doc.querySelectorAll(`[data-name="${sandboxSelector}"]`));
-	if (styles.length > 0) {
-		doc.head.removeChild(styles.pop());
-	}
-}
 class Notification extends Component {
 	constructor(props) {
 		super(props);
@@ -112,7 +106,6 @@ class Notification extends Component {
 
 	componentWillUnmount() {
 		this.window.removeEventListener('resize', this.screenChange);
-		this.removeRootDocumentStyleRule();
 	}
 
 	get window() {
@@ -148,12 +141,6 @@ class Notification extends Component {
 	insertRootDocumentStyleRule() {
 		if (window !== this.window) {
 			insertRootDocumentStyleRule(this.document);
-		}
-	}
-
-	removeRootDocumentStyleRule() {
-		if (window !== this.window) {
-			removeRootDocumentStyleRule(this.document);
 		}
 	}
 
@@ -288,10 +275,11 @@ class Notification extends Component {
 			top: pageY,
 			pointerEvents: 'auto'
 		};
+		const isFrame = this.window !== window;
 
 		// 不要删除最外层的节点，虽然看似多余，但在iframe场景下至关重要
 		return (
-			<div className={sandboxSelector}>
+			<div className={classnames(sandboxSelector, isFrame ? `${sandboxSelector}-frame` : '')}>
 				<div
 					id="mask"
 					ref={this.maskRef}
