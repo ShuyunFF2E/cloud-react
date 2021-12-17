@@ -36,6 +36,10 @@ group:
 | onCheckedAfter | 选中行回调，需要设置 supportCheckbox 为 true    | function   |   -   | |
 | onCheckedAllAfter | 选中当页回调，需要设置 supportCheckbox 为 true    | function   |   -   | |
 | emptyTpl | 自定义数据为空模板   | function   |   -   | |
+| showTotal | 显示总条数   | boolean   |   false   | |
+| showRefresh | 显示刷新按钮   | boolean   |   true   | |
+| lightCheckedRow | 选中行高亮   | boolean   |   false   | |
+| rowClassName | 自定义行类名   | function   |   -   | |
 
 #### columnData
 | 属性                | 说明                                         | 类型                        | 默认值           |
@@ -69,20 +73,32 @@ https://table-react-component.vercel.app/
 
 <embed src="@components/c-table/demos/bordered.md" /> 
 
-<embed src="@components/c-table/demos/checkbox.md" /> 
-
-<embed src="@components/c-table/demos/custom-columnTpl.md" /> 
-
-<embed src="@components/c-table/demos/expand-row.md" /> 
+<embed src="@components/c-table/demos/fixed-header.md" /> 
 
 <embed src="@components/c-table/demos/fixed-column.md" /> 
 
-<embed src="@components/c-table/demos/fixed-header.md" /> 
+<embed src="@components/c-table/demos/custom-column.md" /> 
+
+<embed src="@components/c-table/demos/custom-column-icon.md" /> 
+
+<embed src="@components/c-table/demos/custom-column-icon-link.md" /> 
+
+<embed src="@components/c-table/demos/custom-column-operate.md" /> 
+
+<embed src="@components/c-table/demos/custom-column-tag.md" /> 
+
+<embed src="@components/c-table/demos/expand-row.md" /> 
+
+<embed src="@components/c-table/demos/checkbox.md" /> 
+
+<embed src="@components/c-table/demos/tree.md" /> 
 
 <embed src="@components/c-table/demos/page.md" /> 
 
 <embed src="@components/c-table/demos/small.md" /> 
 
-<embed src="@components/c-table/demos/tree.md" /> 
-
 <embed src="@components/c-table/demos/large.md" /> 
+
+<embed src="@components/c-table/demos/header-bordered.md" /> 
+
+<embed src="@components/c-table/demos/light-row.md" /> 

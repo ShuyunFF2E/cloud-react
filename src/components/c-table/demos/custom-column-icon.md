@@ -1,14 +1,14 @@
 ---
-order: 1
+order: 5
 title: CTable
-desc: 默认表格
+desc: 自定义列模板
 ---
 
 ```jsx
 
 /**
- * title: 基础表格
- * desc: 基础表格
+ * title: 自定义表格列模板
+ * desc: 自定义表格列模板（图标）
  */
 import React from 'react';
 import { CTable } from 'cloud-react';
@@ -22,19 +22,28 @@ const data = [
 ];
 
 const columns = [
+  {
+    title: '活动名称',
+    dataIndex: 'name',
+    render: (value) => (
+      <div style={{ display: 'flex' }}>
+        <img style={{ width: 24, height: 24, borderRadius: '100%', marginRight: 8 }} src="https://img2.baidu.com/it/u=1429175118,2649084526&fm=26&fmt=auto" />
+        <span>{value}</span>
+      </div>
+    )
+  },
   { title: '活动ID', dataIndex: 'id' },
-  { title: '活动名称', dataIndex: 'name' },
   { title: '创建时间', dataIndex: 'createTime' },
   { title: '人数', dataIndex: 'num', align: 'right' },
   { title: '创建人', dataIndex: 'creator' }
 ];
 
 export default function CTableDemo() {
-	return (
-        <CTable
-            columnData={columns}
-            ajaxData={{ totals: data.length, data }}
-        />
-	);
+  return (
+    <CTable
+      columnData={columns}
+      ajaxData={{ totals: data.length, data }}
+    />
+  );
 }
 ```

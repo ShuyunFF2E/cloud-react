@@ -1,6 +1,6 @@
 ---
 order: 5
-title: RcTable
+title: CTable
 desc: 自定义列模板
 ---
 
@@ -8,14 +8,12 @@ desc: 自定义列模板
 
 /**
  * title: 自定义表格列模板
- * desc: 自定义表格列模板
+ * desc: 自定义表格列模板（操作图标）
  */
 import React, { useState } from 'react';
-import RcTable from '../index';
-import Input from '../../input/index';
-import Tooltip from '../../tooltip/index';
+import { CTable, Icon, Tooltip } from 'cloud-react';
 
-export default function RcTableDemo() {
+export default function CTableDemo() {
     const [creator, setCreator] = useState('');
 
     const data = [
@@ -56,18 +54,23 @@ export default function RcTableDemo() {
             align: 'left',
             width: 200,
             render: () => {
-                return <Input
-                    style={{ width: 140 }}
-                    value={creator}
-                    onChange={evt => {
-                        setCreator(evt.target.value)
-                    }}
-                />
-            }
+              const iconStyle = {
+                paddingRight: 16,
+                cursor: 'pointer'
+              };
+              return (
+                <div className="custom-operate" style={{ display: 'flex', color: 'rgba(0, 0, 0, 0.45)' }}>
+                  <Icon style={iconStyle} type="export" />
+                  <Icon style={iconStyle} type="config" />
+                  <Icon style={iconStyle} type="copy" />
+                  <Icon style={iconStyle} type="delete" />
+                </div>
+              )
+            },
         }
     ];
 	return (
-        <RcTable
+        <CTable
             columnData={columns}
             ajaxData={{ totals: data.length, data }}
         />

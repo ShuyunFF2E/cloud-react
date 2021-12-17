@@ -1,6 +1,6 @@
 ---
 order: 3
-title: RcTable
+title: CTable
 desc: 固定表头
 ---
 
@@ -11,7 +11,7 @@ desc: 固定表头
  * desc: 固定表头
  */
 import React from 'react';
-import RcTable from '../index';
+import { CTable } from 'cloud-react';
 
 const data = [
     { id: '121410327', name: '手机号优先继续发送1', createTime: '2021/12/14 10:19:02', creator: 'liyuan.meng' },
@@ -33,9 +33,9 @@ const columns = [
     { title: '创建人', dataIndex: 'creator', align: 'left' }
 ];
 
-export default function RcTableDemo() {
+export default function CTableDemo() {
 	return (
-        <RcTable
+        <CTable
             style={{ width: '100%', height: 260 }}
             columnData={columns}
             ajaxData={{ totals: data.length, data }}

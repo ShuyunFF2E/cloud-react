@@ -1,6 +1,6 @@
 ---
 order: 11
-title: RcTable
+title: CTable
 desc: 舒适型
 ---
 
@@ -11,7 +11,7 @@ desc: 舒适型
  * desc: 舒适型表格
  */
 import React from 'react';
-import RcTable from '../index';
+import { CTable } from 'cloud-react';
 
 const data = [
     { id: '121410327', name: '手机号优先继续发送1', createTime: '2021/12/14 10:19:02', creator: 'liyuan.meng', key: '121410327' },
@@ -28,9 +28,9 @@ const columns = [
     { title: '创建人', dataIndex: 'creator', align: 'left' }
 ];
 
-export default function RcTableDemo() {
+export default function CTableDemo() {
 	return (
-        <RcTable
+        <CTable
             size="large"
             columnData={columns}
             ajaxData={{ totals: data.length, data }}

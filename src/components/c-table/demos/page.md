@@ -1,6 +1,6 @@
 ---
 order: 9
-title: RcTable
+title: CTable
 desc: 分页
 ---
 
@@ -10,8 +10,8 @@ desc: 分页
  * title: 表格带分页
  * desc: 表格带分页
  */
-import React from 'react';
-import RcTable from '../index';
+import React, { useState } from 'react';
+import { CTable, Checkbox } from 'cloud-react';
 
 const data = [
     { id: '121410327', name: '手机号优先继续发送1', createTime: '2021/12/14 10:19:02', creator: 'liyuan.meng' },
@@ -33,26 +33,40 @@ const columns = [
     { title: '创建人', dataIndex: 'creator', align: 'left' }
 ];
 
-export default function RcTableDemo() {
-	return (
-        <RcTable
-            style={{ width: '100%', height: 260 }}
-            supportExpend
-            supportTree
-            supportCheckbox
-            supportPage
-            rowKey="id"
-            checkedData={[data[1], data[4], data[9]]}
-            pageOpts={{ pageSize: 6 }}
-            columnData={columns}
-            ajaxData={(params) => {
-                return new Promise(resolve => {
-                    setTimeout(() => {
-                        resolve({ totals: data.length, data: JSON.parse(JSON.stringify(data.slice(params.pageSize * (params.pageNum - 1), params.pageSize * params.pageNum))) });
-                    }, 500)
-                })
-            }}
-        />
-	);
+export default function CTableDemo() {
+  const [showRefresh, setShowRefresh] = useState(true);
+  const [showTotal, setShowTotal] = useState(true);
+  return (
+    <div>
+      <div style={{ marginBottom: 20 }}>
+        <Checkbox style={{ marginLeft: 15 }} checked={showRefresh} onChange={checked => {
+          setShowRefresh(checked);
+        }}>显示刷新按钮</Checkbox>
+        <Checkbox style={{ marginLeft: 15 }} checked={showTotal} onChange={checked => {
+          setShowTotal(checked);
+        }}>显示总条数</Checkbox>
+      </div>
+      <CTable
+        style={{ width: '100%', height: 260 }}
+        supportExpend
+        supportTree
+        supportCheckbox
+        supportPage
+        rowKey="id"
+        showRefresh={showRefresh}
+        showTotal={showTotal}
+        checkedData={[data[1], data[4], data[9]]}
+        pageOpts={{ pageSize: 6 }}
+        columnData={columns}
+        ajaxData={(params) => {
+          return new Promise(resolve => {
+            setTimeout(() => {
+              resolve({ totals: data.length, data: JSON.parse(JSON.stringify(data.slice(params.pageSize * (params.pageNum - 1), params.pageSize * params.pageNum))) });
+            }, 500)
+          })
+        }}
+      />
+    </div>
+  );
 }
 ```

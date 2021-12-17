@@ -1,14 +1,14 @@
 ---
-order: 2
+order: 1
 title: CTable
-desc: 带边框表格
+desc: 自定义表格行背景色
 ---
 
 ```jsx
 
 /**
- * title: 带边框表格
- * desc: 带边框表格
+ * title: 自定义表格行背景色
+ * desc: 自定义表格行背景色
  */
 import React from 'react';
 import { CTable } from 'cloud-react';
@@ -22,16 +22,22 @@ const data = [
 ];
 
 const columns = [
-    { title: '活动ID', dataIndex: 'id', align: 'left' },
-    { title: '活动名称', dataIndex: 'name', align: 'left' },
-    { title: '创建时间', dataIndex: 'createTime', align: 'left' },
-    { title: '创建人', dataIndex: 'creator', align: 'left' }
+    { title: '活动ID', dataIndex: 'id' },
+    { title: '活动名称', dataIndex: 'name' },
+    { title: '创建时间', dataIndex: 'createTime' },
+    { title: '创建人', dataIndex: 'creator' }
 ];
 
 export default function CTableDemo() {
 	return (
         <CTable
-            bordered
+            rowClassName={(row) => {
+                if (row.id === '121410328') {
+                    // 可以自定义类，在业务中自定义色值
+                    return "cloud-table-row-lighted";
+                }
+                return '';
+            }}
             columnData={columns}
             ajaxData={{ totals: data.length, data }}
         />

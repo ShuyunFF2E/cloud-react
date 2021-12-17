@@ -351,13 +351,18 @@ class CTable extends Component {
     const {
       style,
       bordered,
+      headerBordered,
       size,
       supportPage,
       footerTpl,
       emptyTpl,
       supportCheckbox,
       rowKey,
-	  className
+      showTotal,
+      showRefresh,
+      lightCheckedRow,
+      rowClassName,
+      className,
     } = this.props;
     const {
       data,
@@ -374,12 +379,18 @@ class CTable extends Component {
     return (
       <div>
         <div
-          className={classnames(`${tablePrefixCls}-box`, {
-            [`${tablePrefixCls}-${size}`]: true,
-            [`${tablePrefixCls}-bordered`]: bordered,
-            [`${tablePrefixCls}-loading`]: isLoading,
-            [`${tablePrefixCls}-empty`]: !data.length,
-          },className)}
+          className={classnames(
+            `${tablePrefixCls}-box`,
+            {
+              [`${tablePrefixCls}-${size}`]: true,
+              [`${tablePrefixCls}-bordered`]: bordered,
+              [`${tablePrefixCls}-header-bordered`]:
+                !bordered && headerBordered,
+              [`${tablePrefixCls}-loading`]: isLoading,
+              [`${tablePrefixCls}-empty`]: !data.length,
+            },
+            className,
+          )}
           style={style}
           ref={ref}
         >
@@ -395,26 +406,11 @@ class CTable extends Component {
             emptyText={emptyTpl()}
             rowKey={rowKey}
             rowClassName={(row) => {
-              return selectedNodeMap[getKeyFieldVal(row)]
-                ? `${tablePrefixCls}-row-select`
-                : '';
+              if (lightCheckedRow && selectedNodeMap[getKeyFieldVal(row)]) {
+                return `${tablePrefixCls}-row-select ${rowClassName(row)}`;
+              }
+              return rowClassName(row);
             }}
-            // summary={() => (
-            //     <Table.Summary fixed={scrollY}>
-            //         <Table.Summary.Row>
-            //             <Table.Summary.Cell index={0} />
-            //             <Table.Summary.Cell index={1} colSpan={2}>
-            //                 Summary
-            //             </Table.Summary.Cell>
-            //             <Table.Summary.Cell index={3} colSpan={8}>
-            //                 Content
-            //             </Table.Summary.Cell>
-            //             <Table.Summary.Cell index={11} colSpan={2}>
-            //                 Right
-            //             </Table.Summary.Cell>
-            //         </Table.Summary.Row>
-            //     </Table.Summary>
-            // )}
           />
           <Loading
             className={`${tablePrefixCls}-loading-layer`}
@@ -425,25 +421,34 @@ class CTable extends Component {
           <div className={classnames(`${tablePrefixCls}-footer`)}>
             <div className={classnames(`${tablePrefixCls}-footer-statistics`)}>
               {supportCheckbox && (
-                <span className={classnames(`${tablePrefixCls}-footer-total`)}>
+                <span className={classnames(`${tablePrefixCls}-footer-select`)}>
                   已选 {selectedNodeList.length} 条
                 </span>
               )}
-              <span
-                className={classnames(`${tablePrefixCls}-footer-refresh`)}
-                onClick={onRefresh}
-              >
-                <Icon type="refresh" />
-                刷新
-              </span>
+              {showRefresh && (
+                <span
+                  className={classnames(`${tablePrefixCls}-footer-refresh`)}
+                  onClick={onRefresh}
+                >
+                  <Icon type="refresh" />
+                  刷新
+                </span>
+              )}
             </div>
-            <Pagination
-              {...pageOpts}
-              current={pageNum}
-              pageSize={pageSize}
-              total={totals}
-              onChange={onPageChange}
-            />
+            <div className={classnames(`${tablePrefixCls}-footer-page`)}>
+              {showTotal && (
+                <span className={classnames(`${tablePrefixCls}-footer-total`)}>
+                  共 {totals} 条
+                </span>
+              )}
+              <Pagination
+                {...pageOpts}
+                current={pageNum}
+                pageSize={pageSize}
+                total={totals}
+                onChange={onPageChange}
+              />
+            </div>
           </div>
         )}
         {footerTpl()}
@@ -474,7 +479,12 @@ CTable.propTypes = {
   onCheckedAllAfter: PropTypes.func,
   emptyTpl: PropTypes.any,
   checkedData: PropTypes.array,
-  className: PropTypes.string
+  showTotal: PropTypes.bool,
+  showRefresh: PropTypes.bool,
+  lightCheckedRow: PropTypes.bool,
+  rowClassName: PropTypes.func,
+  headerBordered: PropTypes.bool,
+  className: PropTypes.string,
 };
 
 CTable.defaultProps = {
@@ -495,5 +505,10 @@ CTable.defaultProps = {
   onCheckedAllAfter: () => {},
   emptyTpl: () => '暂无数据',
   checkedData: [],
-  className: ''
+  showTotal: false,
+  showRefresh: true,
+  lightCheckedRow: false,
+  rowClassName: () => '',
+  headerBordered: false,
+  className: '',
 };

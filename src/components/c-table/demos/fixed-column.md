@@ -1,6 +1,6 @@
 ---
 order: 4
-title: RcTable
+title: CTable
 desc: 固定列
 ---
 
@@ -11,8 +11,7 @@ desc: 固定列
  * desc: 固定列
  */
 import React from 'react';
-import RcTable from '../index';
-import Button from '../../button/index';
+import { CTable, Button } from 'cloud-react';
 
 const data = [
     { id: '121410327', name: '手机号优先继续发送1', createTime: '2021/12/14 10:19:02', creator: 'liyuan.meng', approver: 'admin', status: '执行完成' },
@@ -32,7 +31,7 @@ const columns = [
     { title: '活动名称', dataIndex: 'name', align: 'left', width: 200 },
     { title: '创建时间', dataIndex: 'createTime', align: 'left', width: 200 },
     { title: '创建人', dataIndex: 'creator', align: 'left', width: 200 },
-    { title: '审批人', dataIndex: 'approver', align: 'left', width: 300 },
+    { title: '审批人', dataIndex: 'approver', align: 'left', width: 270 },
     { title: '活动状态', dataIndex: 'status', align: 'left' },
     { 
         title: '操作',
@@ -40,8 +39,8 @@ const columns = [
         render: () => (
             <div>
                 <Button type="link" size="small">编辑</Button>
-                <Button type="link" size="small">删除</Button>
                 <Button type="link" size="small">查看报告</Button>
+                <Button type="link" size="small" colorType="danger">删除</Button>
             </div>
         ),
         width: 300,
@@ -49,9 +48,9 @@ const columns = [
     }
 ];
 
-export default function RcTableDemo() {
+export default function CTableDemo() {
 	return (
-        <RcTable
+        <CTable
             style={{ width: '100%', height: 260 }}
             columnData={columns}
             ajaxData={{ totals: data.length, data }}

@@ -1,6 +1,6 @@
 ---
 order: 7
-title: RcTable
+title: CTable
 desc: 多选
 ---
 
@@ -10,8 +10,8 @@ desc: 多选
  * title: 多选表格
  * desc: 多选表格
  */
-import React from 'react';
-import RcTable from '../index';
+import React, { useState } from 'react';
+import { CTable, Checkbox } from 'cloud-react';
 
 const data = [
     { id: '121410327', name: '手机号优先继续发送1', createTime: '2021/12/14 10:19:02', creator: 'liyuan.meng' },
@@ -29,19 +29,28 @@ const columns = [
 ];
 
 export default function RcTableDemo() {
-	return (
-        <RcTable
-            supportCheckbox
-            columnData={columns}
-            ajaxData={{ totals: data.length, data }}
-            checkedData={data.slice(1, 4)}
-            onCheckedAfter={checkedList => {
-                console.log('已选列表:', checkedList);
-            }}
-            onCheckedAllAfter={checkedList => {
-                console.log('已选列表:', checkedList);
-            }}
-        />
-	);
+  const [lightCheckedRow, setLightCheckedRow] = useState(false);
+  return (
+    <div>
+      <div style={{ marginBottom: 20 }}>
+        <Checkbox checked={lightCheckedRow} onChange={checked => {
+          setLightCheckedRow(checked);
+        }}>选中行高亮</Checkbox>
+      </div>
+      <CTable
+        supportCheckbox
+        lightCheckedRow={lightCheckedRow}
+        columnData={columns}
+        ajaxData={{ totals: data.length, data }}
+        checkedData={data.slice(1, 4)}
+        onCheckedAfter={checkedList => {
+          console.log('已选列表:', checkedList);
+        }}
+        onCheckedAllAfter={checkedList => {
+          console.log('已选列表:', checkedList);
+        }}
+      />
+    </div>
+  );
 }
 ```
