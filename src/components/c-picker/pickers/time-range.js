@@ -95,7 +95,7 @@ const TimeRangePicker = ({
 
   return (
     <Picker
-      style={{ ...style, width }}
+      style={{ width, ...style }}
       defaultValue={
         _defaultValue && [
           _defaultValue.start && moment(_defaultValue.start, format),

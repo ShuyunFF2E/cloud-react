@@ -78,7 +78,7 @@ const TimePicker = ({
 
   return (
     <Picker
-      style={{ ...style, width }}
+      style={{ width, ...style }}
       defaultValue={_defaultValue && moment(_defaultValue)}
       onChange={handleChange}
       onOk={handleOk}

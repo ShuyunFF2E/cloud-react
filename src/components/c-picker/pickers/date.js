@@ -167,7 +167,7 @@ const DatePicker = ({
 
   return (
     <Picker
-      style={{ ...style, width }}
+      style={{ width, ...style }}
       defaultValue={_defaultValue && moment(_defaultValue, format)}
       showTime={
         showTimePicker && {

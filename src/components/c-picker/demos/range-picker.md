@@ -109,7 +109,7 @@ export default class RangePickerDemo extends React.Component {
 
 				<RangePicker
 					placeholder="请选择时间范围"
-					width={380}
+					style={{ width: 380 }}
 					showTimePicker
 					format={'yyyy年MM月DD日 HH:mm'}
 					onChange={this.onChange}
