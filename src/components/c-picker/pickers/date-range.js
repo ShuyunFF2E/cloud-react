@@ -59,14 +59,17 @@ const DateRangePicker = ({
   });
   const [value, setValue] = useState();
   const format = _format || (showTimePicker ? dateTimeFormat : dateFormat);
-  const placeholder = _placeholder || [format, format];
+  let placeholder = _placeholder || [format, format];
+  if (typeof placeholder === 'string') {
+    placeholder = [placeholder, placeholder];
+  }
 
   useEffect(() => {
     if (_defaultValue && _defaultValue.start instanceof Date) {
       _this.formatType = OBJ;
     }
     setValue(transformString2Moment(_value, format, _this));
-  }, [_value, _defaultValue]);
+  }, [_value, _defaultValue, format]);
 
   const handleChange = useCallback(
     (m, v) => {

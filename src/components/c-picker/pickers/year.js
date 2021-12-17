@@ -2,12 +2,11 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import moment from 'moment';
 import momentGenerateConfig from 'rc-picker/lib/generate/moment';
 import generatePicker from '../generator';
-import { timeFormat } from '../formats';
-import { transformString2Moment } from '../utils';
+import { yearFormat } from '../formats';
 
-const { TimeRangePicker: Picker } = generatePicker(momentGenerateConfig);
+const { YearPicker: Picker } = generatePicker(momentGenerateConfig);
 
-const TimeRangePicker = ({
+const YearPicker = ({
   className,
   dropdownClassName, // New
   disabled,
@@ -17,14 +16,16 @@ const TimeRangePicker = ({
   onOpenChange, // New
   placeholder: _placeholder,
   width,
+  min: minYear,
+  max: maxYear,
+  format: _format,
   onChange,
   getPopupContainer: _getPopupContainer, // New
   isAppendToBody,
   canEdit = true,
-  allowEmpty,
   style,
   showToday,
-  showNow,
+  disabledDate: _disabledDate,
   renderExtraFooter,
   autoFocus,
   allowClear,
@@ -37,31 +38,21 @@ const TimeRangePicker = ({
   onClick,
   onContextMenu,
   onKeyDown,
-  onOk,
+  onSelect,
+  onPanelChange,
 }) => {
   const [value, setValue] = useState();
-  const format = timeFormat;
-  let placeholder = _placeholder || [format, format];
-  if (typeof placeholder === 'string') {
-    placeholder = [placeholder, placeholder];
-  }
+  const format = _format || yearFormat;
+  const placeholder = _placeholder || format;
 
   useEffect(() => {
-    setValue(transformString2Moment(_value, format));
+    setValue(_value && moment().year(Number(_value)));
   }, [_value]);
 
   const handleChange = useCallback(
-    (m, v) => {
+    (m) => {
       if (onChange) {
-        onChange(
-          v &&
-            v.reduce((pre, cur, index) => {
-              if (index === 0) {
-                return { start: cur };
-              }
-              return { ...pre, end: cur };
-            }, {}),
-        );
+        onChange(m && m.clone().year());
       } else {
         setValue(m);
       }
@@ -69,21 +60,22 @@ const TimeRangePicker = ({
     [onChange],
   );
 
-  const handleOk = useCallback(
+  const handleSelect = useCallback(
     (m) => {
-      if (onOk) {
-        onOk(
-          m &&
-            m.reduce((pre, cur, index) => {
-              if (index === 0) {
-                return { start: cur && cur.format(format) };
-              }
-              return { ...pre, end: cur && cur.format(format) };
-            }, {}),
-        );
+      if (onSelect) {
+        onSelect(m && m.clone().year());
       }
     },
-    [onOk, format],
+    [onSelect],
+  );
+
+  const handlePanelChange = useCallback(
+    (val, mode) => {
+      if (onPanelChange) {
+        onPanelChange(val && val.clone().year(), mode);
+      }
+    },
+    [onPanelChange],
   );
 
   const getPopupContainer = useMemo(() => {
@@ -96,19 +88,37 @@ const TimeRangePicker = ({
     return undefined;
   }, [_getPopupContainer, isAppendToBody]);
 
+  const getDisabledDate = useCallback(
+    (d) => {
+      const current = d.clone();
+      return (
+        (minYear && current.year() < minYear) ||
+        (maxYear && current.year() > maxYear)
+      );
+    },
+    [format, minYear, maxYear],
+  );
+
+  const handleGetDisabledDate = useCallback(
+    (m) => {
+      if (_disabledDate) {
+        return _disabledDate(m && m.clone().year());
+      }
+      return getDisabledDate(m);
+    },
+    [_disabledDate, getDisabledDate, format],
+  );
+
   return (
     <Picker
       style={{ width, ...style }}
-      defaultValue={
-        _defaultValue && [
-          _defaultValue.start && moment(_defaultValue.start, format),
-          _defaultValue.end && moment(_defaultValue.end, format),
-        ]
-      }
+      defaultValue={_defaultValue && moment().year(Number(_defaultValue))}
       onChange={handleChange}
-      onOk={handleOk}
+      onSelect={handleSelect}
+      onPanelChange={handlePanelChange}
       inputReadOnly={!canEdit}
       getPopupContainer={getPopupContainer}
+      disabledDate={handleGetDisabledDate}
       {...{
         className,
         dropdownClassName,
@@ -117,11 +127,10 @@ const TimeRangePicker = ({
         disabled,
         open,
         placeholder,
-        showToday: showToday || showNow,
+        showToday,
         renderExtraFooter,
         autoFocus,
         allowClear,
-        allowEmpty,
         onFocus,
         onBlur,
         onOpenChange,
@@ -137,4 +146,4 @@ const TimeRangePicker = ({
   );
 };
 
-export default TimeRangePicker;
+export default YearPicker;

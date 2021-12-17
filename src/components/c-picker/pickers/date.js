@@ -67,7 +67,7 @@ const DatePicker = ({
       _this.formatType = OBJ;
     }
     setValue(transformString2Moment(_value, format, _this));
-  }, [_value, _defaultValue]);
+  }, [_value, _defaultValue, format]);
 
   const handleChange = useCallback(
     (m, v) => {
