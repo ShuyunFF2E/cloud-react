@@ -25,7 +25,7 @@ class BasicTabs extends Component {
     
     tabList = this.props.tabList || [
         { tab: '选项卡normal', key: 1, linePrefixTpl, closable: true, disabled: false },
-        { tab: '选项卡active', key: 2, linePrefixTpl, lineSuffixTpl, closable: true, disabled: false },
+        { tab: '选项卡active', key: 2, linePrefixTpl, lineSuffixTpl, closable: false, disabled: false },
         { tab: '选项卡normal', key: 3, linePrefixTpl, closable: true, disabled: false },
         { tab: '选项卡disabled', key: 4, linePrefixTpl, closable: true, disabled: true },
         { tab: <span style={{ color: 'red' }}>自定义标题</span>, key: 5, linePrefixTpl, closable: true, disabled: false }
@@ -56,6 +56,12 @@ export default class BasicTabsDemo extends Component {
 		return (
             <div>
                 <h4>横向</h4>
+                <BasicTabs tabList={[
+                  { tab: '选项卡1', key: 1 },
+                  { tab: '选项卡2', key: 2 },
+                  { tab: '选项卡3', key: 3 },
+                  { tab: '选项卡4', key: 4 }
+                ]}/>
                 <BasicTabs/>
                 <h4>纵向（左）</h4>
                 <BasicTabs linePlacement="left" tabList={[
