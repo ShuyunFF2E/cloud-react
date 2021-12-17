@@ -25,7 +25,7 @@ function insertRootDocumentStyleRule(doc) {
 }
 
 function removeRootDocumentStyleRule(doc) {
-	const styles = Array.from(doc.querySelector(`[data-name="${sandboxSelector}"]`));
+	const styles = Array.from(doc.querySelectorAll(`[data-name="${sandboxSelector}"]`));
 	if (styles.length > 0) {
 		doc.head.removeChild(styles.pop());
 	}
