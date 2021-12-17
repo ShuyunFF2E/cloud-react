@@ -357,6 +357,7 @@ class CTable extends Component {
       emptyTpl,
       supportCheckbox,
       rowKey,
+	  className
     } = this.props;
     const {
       data,
@@ -378,7 +379,7 @@ class CTable extends Component {
             [`${tablePrefixCls}-bordered`]: bordered,
             [`${tablePrefixCls}-loading`]: isLoading,
             [`${tablePrefixCls}-empty`]: !data.length,
-          })}
+          },className)}
           style={style}
           ref={ref}
         >
@@ -473,6 +474,7 @@ CTable.propTypes = {
   onCheckedAllAfter: PropTypes.func,
   emptyTpl: PropTypes.any,
   checkedData: PropTypes.array,
+  className: PropTypes.string
 };
 
 CTable.defaultProps = {
@@ -493,4 +495,5 @@ CTable.defaultProps = {
   onCheckedAllAfter: () => {},
   emptyTpl: () => '暂无数据',
   checkedData: [],
+  className: ''
 };
