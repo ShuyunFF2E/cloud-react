@@ -28,6 +28,9 @@ group:
 | option.contextContainer | 指定 message 挂载的 HTML 节点, 默认在 body 上 | HTMLElement | document.body |
 | option.className        | 指定 message 节点上的className | string | '' |
 | option.showClose        | 是否显示关闭Icon | bool | true |
+| option.title            | 文本标题 | node | - |
+| option.operate          | 操作文案 | node | - |
+| option.onOperate        | 操作区点击事件 | func | - |
 
 ### message.method()
 
@@ -35,7 +38,7 @@ group:
 
 -   message.error(msg, options)
 
--   message.warn(msg, options)
+-   message.warning(msg, options)
 
 -   message.info(msg, options)
 

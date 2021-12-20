@@ -35,7 +35,10 @@
 	background: @bg;
 	border: 1px solid @bgBorderColor;
 	.msg-text {
-		color: @msgTextColor;
+		flex: 1;	
+		.msg-text-title {
+			color: @msgTextColor;
+		}
 	}
 	.close-icon {
 		color: @closeColor;
@@ -43,6 +46,10 @@
 		&:hover {
 			color: @closeHoverColor;
 		}
+	}
+	.msg-operate {
+		cursor: pointer;
+		color: @tagColor;
 	}
 	.tag-icon {
 		color: @tagColor;
@@ -73,9 +80,6 @@
 		transform: translateY(-35%);
 		opacity: 0;
 		transition: 0.5s;
-		div {
-			margin: 0 19px 0 6px;
-		}
 	}
 	.fade-in {
 		opacity: 1;
@@ -87,18 +91,24 @@
 	}
 	.tag-icon {
 		font-size: 14px;
+		margin-right: 10px;
 	}
 	.msg-text {
 		font-size: 14px;
 		line-height: 20px;
+		color: @gray-8;
+		margin-right: 8px;
+	}
+	.msg-operate {
+		line-height: 20px;
+		margin-right: 10px;
+		font-size: 14px;
 	}
 	.close-icon {
-		position: absolute;
-		right: 10px;
+		align-items: flex-end;
 		font-size: 16px;
 		cursor: pointer;
 		opacity: 0.6;
-		margin-left: 20px;
 	}
 	&-success {
 		.cloud-message-type(@success-bg, @success-border, @success-color, @success-x-color, @success-x-hover-color, @success-icon-color);
