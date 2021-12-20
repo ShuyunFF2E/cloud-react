@@ -1,20 +1,35 @@
 @import '../style/index';
 
 @message-prefix-cls: ~'@{prefix}-message';
+@text-color: @gray-9;
 
-@success-bg: #d8f2d4;
-@success-color: #3a773a;
-@success-border: #c3dabf;
-@success-x-color: #6da89c;
-@success-x-hover-color: #448074;
-@success-icon-color: #42aa31;
+@success-bg: @green-1;
+@success-color: @text-color;
+@success-border: @green-2;
+@success-x-color: @green-3;
+@success-x-hover-color: @green-3;
+@success-icon-color: @green-4;
 
-@error-bg: #ffdfe0;
-@error-color: #853432;
-@error-border: #fbcdce;
-@error-x-color: #853432;
-@error-x-hover-color: #7b2624;
-@error-icon-color: #ff5243;
+@error-bg: @red-1;
+@error-color: @text-color;
+@error-border: @red-2;
+@error-x-color: @red-3;
+@error-x-hover-color: @red-3;
+@error-icon-color: @red-4;
+
+@info-bg: @blue-1;
+@info-color: @text-color;
+@info-border: @blue-2;
+@info-x-color: @blue-3;
+@info-x-hover-color: @blue-3;
+@info-icon-color: @blue-4;
+
+@warn-bg: @orange-1;
+@warn-color: @text-color;
+@warn-border: @orange-2;
+@warn-x-color: @orange-3;
+@warn-x-hover-color: @orange-3;
+@warn-icon-color: @orange-4;
 
 .cloud-message-type(@bg, @bgBorderColor, @msgTextColor, @closeColor, @closeHoverColor, @tagColor) {
 	background: @bg;
@@ -24,12 +39,14 @@
 	}
 	.close-icon {
 		color: @closeColor;
+		margin-top: 1px;
 		&:hover {
 			color: @closeHoverColor;
 		}
 	}
 	.tag-icon {
 		color: @tagColor;
+		margin-top: 1px;
 	}
 }
 
@@ -43,12 +60,14 @@
 	transform: translateX(-50%);
 	.notice {
 		display: inline-flex;
-		width: 450px;
+		align-items: flex-start;
+		width: 400px;
+		min-height: 36px;
 		line-height: 18px;
 		border-radius: 2px;
 		overflow: hidden;
 		font-size: 12px;
-		padding: 8px 14px 7px 20px;
+		padding: 8px 9px 8px 9px;
 		margin-top: 1px;
 		box-sizing: border-box;
 		transform: translateY(-35%);
@@ -66,10 +85,17 @@
 		opacity: 0;
 		transform: scale(0.95);
 	}
+	.tag-icon {
+		font-size: 14px;
+	}
+	.msg-text {
+		font-size: 14px;
+		line-height: 20px;
+	}
 	.close-icon {
 		position: absolute;
 		right: 10px;
-		font-size: 12px;
+		font-size: 16px;
 		cursor: pointer;
 		opacity: 0.6;
 		margin-left: 20px;
@@ -80,5 +106,11 @@
 
 	&-error {
 		.cloud-message-type(@error-bg, @error-border, @error-color, @error-x-color, @error-x-hover-color, @error-icon-color);
+	}
+	&-info {
+		.cloud-message-type(@info-bg, @info-border, @info-color, @info-x-color, @info-x-hover-color, @info-icon-color);
+	}
+	&-warn {
+		.cloud-message-type(@warn-bg, @warn-border, @warn-color, @warn-x-color, @warn-x-hover-color, @warn-icon-color);
 	}
 }

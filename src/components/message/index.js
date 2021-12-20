@@ -7,15 +7,21 @@ import Icon from '../icon';
 
 import './index.less';
 
-const DEFAULT_OPTS = { duration: 3000, contextContainer: document.body };
+const DEFAULT_OPTS = { duration: 3000, contextContainer: document.body, showClose: true };
 
 const MESSAGE_TYPE = {
-  success: {
-    icon: 'check-circle-solid',
-  },
-  error: {
-    icon: 'warning-circle-solid',
-  },
+	success: {
+		icon: 'success-fill'
+	},
+	error: {
+		icon: 'close-fill'
+	},
+	info: {
+		icon: 'info_1'
+	},
+	warn: {
+		icon: 'info_2'
+	}
 };
 
 const wraperMap = new Map();
@@ -47,6 +53,7 @@ function entity(config) {
     msg,
     duration: opts.duration,
     contextContainer: opts.contextContainer,
+    showClose: opts.showClose,
   };
 
   const { contextContainer } = props;
@@ -148,7 +155,7 @@ class MessageEntity extends Component {
   }
 
   render() {
-    const { type, msg } = this.props;
+    const { type, msg, showClose } = this.props;
 
     return (
       <div
@@ -157,36 +164,54 @@ class MessageEntity extends Component {
       >
         <Icon type={`${MESSAGE_TYPE[type].icon}`} className="tag-icon"></Icon>
         <div className="msg-text">{msg}</div>
-        <Icon
+        {showClose ? <Icon
           type="close"
           onClick={this.onHandleClose}
           className="close-icon"
-        ></Icon>
+        /> : null} 
       </div>
     );
   }
 }
 
 const Message = {
-  error(msg, options) {
+	error(msg, options) {
+		entity({
+			type: 'error',
+			msg,
+			options
+		});
+	},
+	success(msg, options) {
+		entity({
+			type: 'success',
+			msg,
+			options
+		});
+	},
+	info(msg, options) {
+		entity({
+			type: 'info',
+			msg,
+			options
+		});
+	},
+  warning(msg, options) {
     entity({
-      type: 'error',
+      type: 'warn',
       msg,
-      options,
-    });
-  },
-  success(msg, options) {
-    entity({
-      type: 'success',
-      msg,
-      options,
-    });
-  },
+      options
+    })
+  }
 };
 
 MessageEntity.propTypes = {
   msg: PropTypes.node.isRequired,
   duration: PropTypes.number.isRequired,
+  showClose: PropTypes.bool
 };
+MessageEntity.defaultProps = {
+  showClose: true
+}
 
 export default Message;
