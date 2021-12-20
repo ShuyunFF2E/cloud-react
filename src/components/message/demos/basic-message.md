@@ -17,18 +17,22 @@ const blank = '\u00A0';
 export default class MessageDemo extends Component {
 	onSuccessClick() {
 		Message.success(
-			'成功内容很多成功内容很多成功内容很多成功内容很多成功内容很多成功内容很多成功内容很多成功内容很多',
-			{ duration: 0 }
+			'文字描述',
+			{ duration: 0, title: '提醒文字', operate: '操作按钮' }
 		);
 	}
 	onErrorClick() {
 		Message.error('更新失败', { showClose: false });
 	}
 	onInfoClick() {
-		Message.info('提示信息')
+		Message.info('提示信息', {
+			duration: 10 * 1000,
+			operate: '点击',
+			onOperate: console.log
+		 });
 	}
 	onWarnClick() {
-		Message.warning('警告信息')
+		Message.warning('警告信息很长警告信息很长警告信息很长警告信息很长警告信息很长警告信息很长')
 	}
 
 	render() {
@@ -45,7 +49,7 @@ export default class MessageDemo extends Component {
 					info
 				</Button>
 				<Button type="normal" onClick={this.onWarnClick}>
-					warn
+					warning
 				</Button>
 			</div>
 		);

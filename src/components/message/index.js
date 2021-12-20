@@ -2,12 +2,19 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 
-import { prefixCls, getRootWindow } from '@utils';
+import { prefixCls, getRootWindow, noop } from '@utils';
 import Icon from '../icon';
 
 import './index.less';
 
-const DEFAULT_OPTS = { duration: 3000, contextContainer: document.body, showClose: true };
+const DEFAULT_OPTS = {
+  duration: 3000,
+  contextContainer: document.body,
+  showClose: true,
+  title: null,
+  operate: null,
+  onOperate: noop
+};
 
 const MESSAGE_TYPE = {
 	success: {
@@ -54,6 +61,9 @@ function entity(config) {
     duration: opts.duration,
     contextContainer: opts.contextContainer,
     showClose: opts.showClose,
+    title: opts.title,
+    operate: opts.operate,
+    onOperate: opts.onOperate,
   };
 
   const { contextContainer } = props;
@@ -155,7 +165,7 @@ class MessageEntity extends Component {
   }
 
   render() {
-    const { type, msg, showClose } = this.props;
+    const { type, msg, showClose, operate, title, onOperate = noop } = this.props;
 
     return (
       <div
@@ -163,7 +173,13 @@ class MessageEntity extends Component {
         ref={this.noticeRef}
       >
         <Icon type={`${MESSAGE_TYPE[type].icon}`} className="tag-icon"></Icon>
-        <div className="msg-text">{msg}</div>
+        <div className="msg-text">
+          {title ? <div className="msg-text-title">{title}</div> : null}
+          {msg}
+        </div>
+        {
+          operate ? <div className="msg-operate" onClick={onOperate}>{operate}</div> : null
+        }
         {showClose ? <Icon
           type="close"
           onClick={this.onHandleClose}
@@ -208,10 +224,14 @@ const Message = {
 MessageEntity.propTypes = {
   msg: PropTypes.node.isRequired,
   duration: PropTypes.number.isRequired,
-  showClose: PropTypes.bool
+  showClose: PropTypes.bool,
+  title: PropTypes.node,
+  operate: PropTypes.node
 };
 MessageEntity.defaultProps = {
-  showClose: true
+  showClose: true,
+  title: null,
+  operate: null
 }
 
 export default Message;
