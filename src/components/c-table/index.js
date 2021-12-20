@@ -57,8 +57,9 @@ class CTable extends Component {
 
   componentDidUpdate(prevProps) {
     if (
+      typeof prevProps.ajaxData === 'object' && (
       this.props.ajaxData !== prevProps.ajaxData ||
-      this.props.columnData !== prevProps.columnData
+      this.props.columnData !== prevProps.columnData)
     ) {
       this.init();
     }
@@ -66,10 +67,10 @@ class CTable extends Component {
 
   init = async () => {
     const { pageOpts } = this.state;
-    const { ajaxData } = this.props;
+    const { ajaxData, pageOpts : propsPageOpts } = this.props;
     const { totals, data } = await getDataSource(ajaxData, pageOpts);
 
-    this.setState({ data, pageOpts: { ...pageOpts, totals } });
+    this.setState({ data, pageOpts: { ...pageOpts, ...propsPageOpts, totals } });
     this.leafNodesMap = this.getLeafNodesMap(data);
 
     this.setCheckedData();
@@ -399,6 +400,11 @@ class CTable extends Component {
    * @param pageSize
    */
   onPageChange = (pageNum, pageSize) => {
+    const { ajaxData } = this.props;
+    if(typeof ajaxData === 'object') {
+      this.props.pageOpts.onChange({ pageNum, pageSize })
+      return
+    }
     this.refreshGrid(pageNum, pageSize);
   };
 
