@@ -14,7 +14,7 @@ export default defineConfig({
   resolve: {
     includes: ['docs', 'src/components'],
   },
-  mfsu: {},
+  // mfsu: {},
   navs: [
     {
       title: '指南',
