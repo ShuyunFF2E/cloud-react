@@ -76,9 +76,9 @@ class CTable extends Component {
     });
     this.leafNodesMap = this.getLeafNodesMap(data);
 
+    this.setCheckedData();
     this.setColumnData(this.setCheckboxColumn);
 
-    this.setColumnData();
     this.setHeaderHeight();
   };
 
