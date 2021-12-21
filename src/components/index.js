@@ -21,6 +21,8 @@ export { default as CTable } from './c-table';
 
 export { default as Card } from './card';
 
+export { default as Cascader } from './cascader';
+
 export { default as Checkbox } from './checkbox';
 
 export { default as ComplexCheckbox } from './complex-checkbox';
