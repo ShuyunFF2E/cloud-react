@@ -57,9 +57,9 @@ class CTable extends Component {
 
   componentDidUpdate(prevProps) {
     if (
-      typeof prevProps.ajaxData === 'object' && (
-      this.props.ajaxData !== prevProps.ajaxData ||
-      this.props.columnData !== prevProps.columnData)
+      typeof prevProps.ajaxData === 'object' &&
+      (this.props.ajaxData !== prevProps.ajaxData ||
+        this.props.columnData !== prevProps.columnData)
     ) {
       this.init();
     }
@@ -67,13 +67,16 @@ class CTable extends Component {
 
   init = async () => {
     const { pageOpts } = this.state;
-    const { ajaxData, pageOpts : propsPageOpts } = this.props;
+    const { ajaxData, pageOpts: propsPageOpts } = this.props;
     const { totals, data } = await getDataSource(ajaxData, pageOpts);
 
-    this.setState({ data, pageOpts: { ...pageOpts, ...propsPageOpts, totals } });
+    this.setState({
+      data,
+      pageOpts: { ...pageOpts, ...propsPageOpts, totals },
+    });
     this.leafNodesMap = this.getLeafNodesMap(data);
 
-    this.setCheckedData();
+    this.setColumnData(this.setCheckboxColumn);
 
     this.setColumnData();
     this.setHeaderHeight();
@@ -197,21 +200,56 @@ class CTable extends Component {
 
   /**
    * 设置表格列
+   * @param callback
    */
-  setColumnData = () => {
-    const { supportCheckbox, supportRadio, columnData } = this.props;
-    const defaultColumnData = columnData.map((item) => ({
-      ...item,
-      align: item.align || 'left',
-      width: item.width || (columnData.find((c) => c.fixed) ? 150 : ''),
-    }));
+  setColumnData = (callback) => {
+    const { columnData } = this.state;
+    this.setState(
+      {
+        columnData: columnData.map((item) => {
+          const sortBy = item.sortable ? item.sortBy : '';
+          const resolveColumnItem = {
+            ...item,
+            title: item.sortable ? (
+              <span className="title-container">
+                {item.title}
+                <span
+                  className={`sort-icon-container ${
+                    item.align === 'right' && 'cell-align-right'
+                  } ${sortBy && `sort-${sortBy.toLowerCase()}`}`}
+                  onClick={() => this.onSort(resolveColumnItem)}
+                >
+                  <Icon className="sort-up-icon" type="up-solid" />
+                  <Icon className="sort-down-icon" type="down-solid" />
+                </span>
+              </span>
+            ) : (
+              item.title
+            ),
+            sortBy,
+            align: item.align || 'left',
+            width: item.width || (columnData.find((c) => c.fixed) ? 150 : ''),
+          };
+          return resolveColumnItem;
+        }),
+      },
+      callback,
+    );
+  };
+
+  /**
+   * 更新 多选/单选 表格列
+   */
+  setCheckboxColumn = () => {
+    const { supportCheckbox, supportRadio } = this.props;
+    const { columnData } = this.state;
     const isFirstColumnFixed = columnData[0].fixed;
 
     if (supportCheckbox) {
       const checkboxColumn = this.getCheckboxColumn(isFirstColumnFixed);
       this.setState({
         expandIconColumnIndex: 1,
-        columnData: [checkboxColumn, ...defaultColumnData],
+        columnData: [checkboxColumn, ...columnData.slice(1)],
       });
       return;
     }
@@ -219,13 +257,12 @@ class CTable extends Component {
       const radioColumn = this.getRadioColumn(isFirstColumnFixed);
       this.setState({
         expandIconColumnIndex: 1,
-        columnData: [radioColumn, ...defaultColumnData],
+        columnData: [radioColumn, ...columnData.slice(1)],
       });
       return;
     }
     this.setState({
       expandIconColumnIndex: 0,
-      columnData: defaultColumnData,
     });
   };
 
@@ -293,7 +330,7 @@ class CTable extends Component {
         });
       }
     });
-    this.setColumnData();
+    this.setCheckboxColumn();
     this.updateSelectedNodes(() => {
       this.props.onCheckedAllAfter(this.state.selectedNodeList);
     });
@@ -309,7 +346,7 @@ class CTable extends Component {
     this.leafNodesMap[this.getKeyFieldVal(row)].forEach((node) => {
       Object.assign(node, { checked });
     });
-    this.setColumnData();
+    this.setCheckboxColumn();
     this.updateSelectedNodes(() => {
       this.props.onCheckedAfter(this.state.selectedNodeList);
     });
@@ -328,7 +365,7 @@ class CTable extends Component {
         });
       });
     });
-    this.setColumnData();
+    this.setCheckboxColumn();
 
     // 更新已选节点列表前，重置 selectedNodeMap
     this.selectedNodeMap = {};
@@ -359,9 +396,14 @@ class CTable extends Component {
    * 表格刷新
    * @param pageNum
    * @param pageSize
+   * @param sortParams
+   * @param onRefreshAfter
    * @returns {Promise<void>}
    */
-  refreshGrid = async (pageNum, pageSize) => {
+  refreshGrid = async (
+    { pageNum, pageSize, sortParams = {} } = {},
+    onRefreshAfter = noop,
+  ) => {
     this.setState({ isLoading: true }, async () => {
       const { pageOpts } = this.state;
       const _pageOpts = {
@@ -369,13 +411,23 @@ class CTable extends Component {
         pageNum: pageNum || pageOpts.pageNum,
         pageSize: pageSize || pageOpts.pageSize,
       };
+      const queryParams = {
+        ..._pageOpts,
+        sortParams: { ...sortParams, sortBy: sortParams.sortBy || 'DESC' },
+      };
       const { totals, data } = await getDataSource(
         this.props.ajaxData,
-        _pageOpts,
+        queryParams,
       );
+      let resolvedData = data;
+      if (sortParams.sortable && sortParams.sorter) {
+        resolvedData = data
+          .sort((rowA, rowB) => sortParams.sorter(rowA, rowB, sortParams))
+          .concat([]);
+      }
 
       // 更新叶子节点 leafNodesMap 的选中状态
-      const _leafNodesMap = this.getLeafNodesMap(data);
+      const _leafNodesMap = this.getLeafNodesMap(resolvedData);
       Object.keys(_leafNodesMap).forEach((key) => {
         _leafNodesMap[key].forEach((node) => {
           Object.assign(node, { checked: !!this.selectedNodeMap[key] });
@@ -386,10 +438,13 @@ class CTable extends Component {
       this.setState(
         {
           pageOpts: { ..._pageOpts, totals },
-          data,
+          data: resolvedData,
           isLoading: false,
         },
-        this.setColumnData,
+        () => {
+          this.setCheckboxColumn();
+          onRefreshAfter();
+        },
       );
     });
   };
@@ -401,18 +456,46 @@ class CTable extends Component {
    */
   onPageChange = (pageNum, pageSize) => {
     const { ajaxData } = this.props;
-    if(typeof ajaxData === 'object') {
-      this.props.pageOpts.onChange({ pageNum, pageSize })
-      return
+    if (typeof ajaxData === 'object') {
+      this.props.pageOpts.onChange({ pageNum, pageSize });
+      return;
     }
-    this.refreshGrid(pageNum, pageSize);
+    this.refreshGrid({ pageNum, pageSize });
   };
 
   /**
    * 刷新表格
    */
-  onRefresh = async () => {
+  onRefresh = () => {
     this.refreshGrid();
+  };
+
+  /**
+   * 表格排序
+   * @param columnItem
+   */
+  onSort = (columnItem) => {
+    this.refreshGrid({ sortParams: columnItem }, () => {
+      // 更新 columnData 的 sortBy 字段
+      const { columnData } = this.state;
+      this.setState(
+        {
+          columnData: columnData.map((item) => {
+            if (item.dataIndex === columnItem.dataIndex) {
+              return {
+                ...item,
+                sortBy: item.sortBy === 'ASC' ? 'DESC' : 'ASC',
+              };
+            }
+            return {
+              ...item,
+              sortBy: '',
+            };
+          }),
+        },
+        this.setColumnData,
+      );
+    });
   };
 
   render() {
