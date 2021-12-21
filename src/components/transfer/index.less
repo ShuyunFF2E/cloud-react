@@ -12,7 +12,6 @@
 }
 .@{transfer-prefix-cls} {
   &-panel {
-
     .type-mixin();
     &-header {
       position: relative;
@@ -39,18 +38,21 @@
       }
     }
     &-search {
-      width: 88%;
-      margin: 0 12px 9px 12px;
+      width: 100%;
+      margin-bottom: 8px;
     }
-    &-content {
+    &-container {
       padding: 0 12px;
       height: calc(100% - 55px);
+    }
+    &-content {
+      height: 100%;
       overflow-y: auto;
       label {
         margin: 5px 0;
       }
       &.filterable {
-        height: calc(100% - 94px);
+        height: calc(100% - 40px);
       }
     }
   }

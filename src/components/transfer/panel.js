@@ -78,12 +78,13 @@ class TransferPanel extends Component {
 
   renderSearch() {
     const { filterable } = this.props;
+    const { searchValue } = this.state;
     if (filterable) {
       return (
         <Input className={`${classSelector}-panel-search`}
                placeholder="请输入"
                size="small"
-               value={this.state.searchValue}
+               value={searchValue}
                onEnter={this.onSearch}
                onChange={this.onSearch}
                suffix={<Icon style={{ color: 'rgba(0, 0, 0, 0.25)' }} type="search" onClick={this.onSearch}/>} />
@@ -93,21 +94,20 @@ class TransferPanel extends Component {
   }
 
   render() {
-    const { handleGroupChange, filteredData } = this;
-    const { checked, filterable } = this.props;
+    const { handleGroupChange, filteredData, labelProp, disabledProp, keyProp } = this;
+    const { checked, filterable, style } = this.props;
     return (
-      <div className={`${classSelector}-panel`}>
+      <div className={`${classSelector}-panel`} style={style}>
         {this.renderHeader()}
-        {this.renderSearch()}
-        <div className={classNames(`${classSelector}-panel-content`, filterable && 'filterable')}>
-          <Checkbox.Group value={checked} onChange={handleGroupChange}>
-            {filteredData.map((item, index) => (
-              <Checkbox key={index}
-                        label={item[this.labelProp]}
-                        disabled={item[this.disabledProp]}
-                        value={item[this.keyProp]}>{item.label}</Checkbox>))
-            }
-          </Checkbox.Group>
+        <div className={`${classSelector}-panel-container`}>
+          {this.renderSearch()}
+          <div className={classNames(`${classSelector}-panel-content`, filterable && 'filterable')}>
+            <Checkbox.Group value={checked} onChange={handleGroupChange} layout={'v'}>
+              {filteredData.map((item, index) => (
+                <Checkbox key={index} disabled={item[disabledProp]} value={item[keyProp]}>{item[labelProp]}</Checkbox>))
+              }
+            </Checkbox.Group>
+          </div>
         </div>
       </div>
     )
@@ -120,6 +120,7 @@ TransferPanel.propTypes = {
   titles: PropTypes.string,
   checked: PropTypes.array,
   propsAlias: PropTypes.object,
+  style: PropTypes.object,
   filterable: PropTypes.bool,
   onChange: PropTypes.func
 }
@@ -133,6 +134,7 @@ TransferPanel.defaultProps = {
     key: 'key',
     disabled: 'disabled'
   },
+  style: {},
   filterable: false,
   onChange() {}
 }

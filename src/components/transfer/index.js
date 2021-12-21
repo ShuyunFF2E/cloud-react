@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { prefixCls } from '@utils';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import Icon from '../icon';
 import TransferPanel from './panel';
-import classNames from 'classnames';
 import './index.less';
 
 const classSelector = `${prefixCls}-transfer`;
@@ -33,8 +33,6 @@ class Transfer extends Component {
 
   get targetData() {
     const { data, value, propsAlias } = this.props;
-    const a = data.filter(item => value.includes(item[propsAlias.key]));
-    console.log(a);
     return data.filter(item => value.includes(item[propsAlias.key]));
   }
 
@@ -76,28 +74,30 @@ class Transfer extends Component {
 
   render() {
     const { leftChecked, rightChecked } = this.state;
-    const { sourceData, targetData } = this;
-    const { propsAlias, titles, filterable } = this.props;
+    const { sourceData, targetData, onSourceCheckedChange, onTargetCheckedChange, addToLeft, addToRight } = this;
+    const { propsAlias, titles, filterable, style } = this.props;
     return (
       <div className={classSelector}>
-        <TransferPanel data={sourceData}
+        <TransferPanel style={style}
+                       data={sourceData}
                        type="source"
                        filterable={filterable}
                        titles={titles[0]}
                        propsAlias={propsAlias}
                        checked={leftChecked}
-                       onChange={this.onSourceCheckedChange}/>
+                       onChange={onSourceCheckedChange}/>
         <div className={`${classSelector}-button`}>
-          <div className={classNames(`${classSelector}-button-text`, rightChecked.length && 'active')} onClick={this.addToLeft}><Icon type="left"/></div>
-          <div className={classNames(`${classSelector}-button-text`, leftChecked.length && 'active')} onClick={this.addToRight}><Icon type="right"/></div>
+          <div className={classNames(`${classSelector}-button-text`, rightChecked.length && 'active')} onClick={addToLeft}><Icon type="left"/></div>
+          <div className={classNames(`${classSelector}-button-text`, leftChecked.length && 'active')} onClick={addToRight}><Icon type="right"/></div>
         </div>
-        <TransferPanel data={targetData}
+        <TransferPanel style={style}
+                       data={targetData}
                        type="target"
                        filterable={filterable}
                        titles={titles[1]}
                        propsAlias={propsAlias}
                        checked={rightChecked}
-                       onChange={this.onTargetCheckedChange}/>
+                       onChange={onTargetCheckedChange}/>
       </div>
     );
   }
@@ -110,6 +110,7 @@ Transfer.propTypes = {
   leftDefaultChecked: PropTypes.array,
   rightDefaultChecked: PropTypes.array,
   value: PropTypes.array,
+  style: PropTypes.object,
   propsAlias: PropTypes.object,
   onChange: PropTypes.func,
   filterable: PropTypes.bool,
@@ -121,6 +122,7 @@ Transfer.defaultProps = {
   leftDefaultChecked: [],
   rightDefaultChecked: [],
   value: [],
+  style: {},
   propsAlias: {
     label: 'label',
     key: 'key',

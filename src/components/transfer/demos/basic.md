@@ -27,30 +27,27 @@ export default class TransferDemo extends React.Component {
     for (let i = 1; i <= 15; i++) {
       data.push({
         key: i,
-        label: `备选项 ${i}`,
-        disabled: i % 4 === 0
+        label: `内容${i}`,
+        disabled: i === 2
       });
     }
     return data;
   }
 
-  handleChange(value, a, b) {
+  handleChange(value, a, currentValue) {
+    console.log(value, a, currentValue, '----');
     this.setState({ value })
   }
 
   render() {
-    const titles = ['列表1', '列表2'];
+    const titles = ['标题1', '标题2'];
     return (
-      <div>
-        <Transfer name="11"
-                  data={this.data}
-                  filterable={false}
+        <Transfer data={this.data}
                   titles={titles}
                   leftDefaultChecked={[1,3]}
                   rightDefaultChecked={[5]}
                   value={this.state.value}
                   onChange={this._handleChange} />
-      </div>
     )
   }
 }
