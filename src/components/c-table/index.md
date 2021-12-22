@@ -41,6 +41,7 @@ group:
 | lightCheckedRow | 选中行高亮   | boolean   |   false   | |
 | rowClassName | 自定义行类名   | function   |   -   | |
 | supportRadio | 是否支持单选   | boolean   |   false   | |
+| queryParams | 表格筛选项   | object   |   {}   | |
 
 #### columnData
 | 属性                | 说明                                         | 类型                        | 默认值           |
@@ -52,7 +53,8 @@ group:
 | fixed     | 是否固定列                       | boolean                   |false |
 | ellipsis | 文字超出显示省略号                  | boolean                     | false            |
 | render     | 自定义列模板                                     | function                      | -               |
-
+| sortable     | 是否支持排序                                     | boolean                      | false               |
+| sorter     | 自定义列排序规则                                     | function                      | -               |
 
 #### pageOpts
 | 属性                | 说明                                         | 类型                        | 默认值           |
@@ -105,3 +107,11 @@ https://table-react-component.vercel.app/
 <embed src="@components/c-table/demos/light-row.md" /> 
 
 <embed src="@components/c-table/demos/radio.md" /> 
+
+<embed src="@components/c-table/demos/sort-no-page.md" /> 
+
+<embed src="@components/c-table/demos/sort-with-page.md" /> 
+
+<embed src="@components/c-table/demos/sort-front.md" /> 
+
+<embed src="@components/c-table/demos/query-params.md" /> 

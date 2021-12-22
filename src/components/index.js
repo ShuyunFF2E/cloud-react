@@ -21,6 +21,8 @@ export { default as CTable } from './c-table';
 
 export { default as Card } from './card';
 
+export { default as Cascader } from './cascader';
+
 export { default as Checkbox } from './checkbox';
 
 export { default as ComplexCheckbox } from './complex-checkbox';
@@ -80,6 +82,8 @@ export { default as Tips } from './tips';
 export { default as Toggle } from './toggle';
 
 export { default as Tooltip } from './tooltip';
+
+export { default as Transfer } from './transfer';
 
 export { default as Tree } from './tree';
 
