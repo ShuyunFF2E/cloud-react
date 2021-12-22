@@ -69,7 +69,7 @@ class CTable extends Component {
   init = async () => {
     this.loadGrid();
     this.setCheckedData();
-    this.setColumnData(this.setCheckboxColumn);
+    this.setColumnData(() => this.setCheckboxColumn(true));
     this.setHeaderHeight();
   };
 
@@ -231,7 +231,7 @@ class CTable extends Component {
   /**
    * 更新 多选/单选 表格列
    */
-  setCheckboxColumn = () => {
+  setCheckboxColumn = (isInit) => {
     const { supportCheckbox, supportRadio } = this.props;
     const { columnData } = this.state;
     const isFirstColumnFixed = columnData[0].fixed;
@@ -240,7 +240,9 @@ class CTable extends Component {
       const checkboxColumn = this.getCheckboxColumn(isFirstColumnFixed);
       this.setState({
         expandIconColumnIndex: 1,
-        columnData: [checkboxColumn, ...columnData.slice(1)],
+        columnData: isInit
+          ? [checkboxColumn, ...columnData]
+          : [checkboxColumn, ...columnData.slice(1)],
       });
       return;
     }
@@ -248,7 +250,9 @@ class CTable extends Component {
       const radioColumn = this.getRadioColumn(isFirstColumnFixed);
       this.setState({
         expandIconColumnIndex: 1,
-        columnData: [radioColumn, ...columnData.slice(1)],
+        columnData: isInit
+          ? [radioColumn, ...columnData]
+          : [radioColumn, ...columnData.slice(1)],
       });
       return;
     }
