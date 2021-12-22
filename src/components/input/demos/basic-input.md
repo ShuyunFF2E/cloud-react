@@ -15,7 +15,7 @@ import { Input } from 'cloud-react';
 import './styles/basic.less'
 
 export default function InputDemo() {
-	return <Input placeholder="basic usage" />;
+	return <Input hasClear placeholder="basic usage" />;
 }
 ```
 
