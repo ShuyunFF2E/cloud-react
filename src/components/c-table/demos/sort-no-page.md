@@ -8,7 +8,7 @@ desc: 表格排序
 
 /**
  * title: 表格排序
- * desc: 表格排序（表格不分页，自定义排序规则）
+ * desc: 表格排序（自定义表格列排序规则）
  */
 import React from 'react';
 import { CTable } from 'cloud-react';

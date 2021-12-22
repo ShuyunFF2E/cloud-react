@@ -57,28 +57,19 @@ class CTable extends Component {
 
   componentDidUpdate(prevProps) {
     if (
-      typeof prevProps.ajaxData === 'object' &&
-      (this.props.ajaxData !== prevProps.ajaxData ||
-        this.props.columnData !== prevProps.columnData)
+      (typeof prevProps.ajaxData === 'object' &&
+        (this.props.ajaxData !== prevProps.ajaxData ||
+          this.props.columnData !== prevProps.columnData)) ||
+      this.props.queryParams !== prevProps.queryParams
     ) {
       this.init();
     }
   }
 
   init = async () => {
-    const { pageOpts } = this.state;
-    const { ajaxData, pageOpts: propsPageOpts } = this.props;
-    const { totals, data } = await getDataSource(ajaxData, pageOpts);
-
-    this.setState({
-      data,
-      pageOpts: { ...pageOpts, ...propsPageOpts, totals },
-    });
-    this.leafNodesMap = this.getLeafNodesMap(data);
-
+    this.loadGrid();
     this.setCheckedData();
     this.setColumnData(this.setCheckboxColumn);
-
     this.setHeaderHeight();
   };
 
@@ -393,32 +384,32 @@ class CTable extends Component {
   };
 
   /**
-   * 表格刷新
+   * 加载表格
    * @param pageNum
    * @param pageSize
    * @param sortParams
    * @param onRefreshAfter
    * @returns {Promise<void>}
    */
-  refreshGrid = async (
+  loadGrid = async (
     { pageNum, pageSize, sortParams = {} } = {},
     onRefreshAfter = noop,
   ) => {
     this.setState({ isLoading: true }, async () => {
       const { pageOpts } = this.state;
+      const { pageOpts: propsPageOpts, queryParams } = this.props;
       const _pageOpts = {
         ...pageOpts,
+        ...propsPageOpts,
         pageNum: pageNum || pageOpts.pageNum,
         pageSize: pageSize || pageOpts.pageSize,
       };
-      const queryParams = {
+      const params = {
         ..._pageOpts,
         sortParams: { ...sortParams, sortBy: sortParams.sortBy || 'DESC' },
-      };
-      const { totals, data } = await getDataSource(
-        this.props.ajaxData,
         queryParams,
-      );
+      };
+      const { totals, data } = await getDataSource(this.props.ajaxData, params);
       let resolvedData = data;
       if (sortParams.sortable && sortParams.sorter) {
         resolvedData = data
@@ -460,14 +451,14 @@ class CTable extends Component {
       this.props.pageOpts.onChange({ pageNum, pageSize });
       return;
     }
-    this.refreshGrid({ pageNum, pageSize });
+    this.loadGrid({ pageNum, pageSize });
   };
 
   /**
    * 刷新表格
    */
   onRefresh = () => {
-    this.refreshGrid();
+    this.loadGrid();
   };
 
   /**
@@ -475,7 +466,7 @@ class CTable extends Component {
    * @param columnItem
    */
   onSort = (columnItem) => {
-    this.refreshGrid({ sortParams: columnItem }, () => {
+    this.loadGrid({ sortParams: columnItem }, () => {
       // 更新 columnData 的 sortBy 字段
       const { columnData } = this.state;
       this.setState(
@@ -640,6 +631,7 @@ CTable.propTypes = {
   headerBordered: PropTypes.bool,
   className: PropTypes.string,
   supportRadio: PropTypes.bool,
+  queryParams: PropTypes.object,
 };
 
 CTable.defaultProps = {
@@ -667,4 +659,5 @@ CTable.defaultProps = {
   headerBordered: false,
   className: '',
   supportRadio: false,
+  queryParams: {},
 };
