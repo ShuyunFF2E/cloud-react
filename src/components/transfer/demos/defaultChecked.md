@@ -1,14 +1,14 @@
 ---
-order: 1
-title: Transfer
-desc: 默认样式
+order: 3
+title: 默认选中
+desc: 默认左侧和右侧数据选中，进行数据穿梭
 ---
 
 ```jsx
 
 /**
- * title: 基础用法
- * desc: 数据穿梭选择
+ title: 默认选中及指定禁选
+ desc: 默认左侧和右侧数据选中
  */
 import React from 'react';
 import { Transfer } from 'cloud-react';
@@ -17,7 +17,7 @@ export default class TransferDemo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        value: []
+        value: [1, 5]
     }
     this._handleChange = this.handleChange.bind(this);
   }
@@ -28,13 +28,14 @@ export default class TransferDemo extends React.Component {
       data.push({
         key: i,
         label: `内容${i}`,
-        disabled: false
+        disabled: i === 3
       });
     }
     return data;
   }
 
   handleChange(value, a, currentValue) {
+    console.log(value, a, currentValue, '----');
     this.setState({ value })
   }
 
@@ -43,6 +44,9 @@ export default class TransferDemo extends React.Component {
     return (
         <Transfer data={this.data}
                   titles={titles}
+                  filterable
+                  leftDefaultChecked={[4, 6]}
+                  rightDefaultChecked={[5]}
                   value={this.state.value}
                   onChange={this._handleChange} />
     )

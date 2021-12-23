@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { prefixCls } from '@utils';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import Checkbox from '../checkbox';
 import Input from '../input';
 import Icon from '../icon';
-import classNames from 'classnames';
 
 const classSelector = `${prefixCls}-transfer`;
 class TransferPanel extends Component {
@@ -16,10 +16,7 @@ class TransferPanel extends Component {
   }
 
   get filteredData() {
-    return this.props.data.filter(item => {
-      const label = item[this.labelProp] || item[this.keyProp].toString();
-      return label.includes(this.state.searchValue);
-    })
+    return this.props.data.filter(item => item[this.labelProp].includes(this.state.searchValue))
   }
 
   get labelProp() {
@@ -40,7 +37,8 @@ class TransferPanel extends Component {
 
   handleAllChange = (isChecked) => {
       const checked = isChecked ? this.checkableData.map(item => item[this.keyProp]) : [];
-      this.props.onChange(checked);
+    console.log(checked, this.props.checked, '--');
+    this.props.onChange(checked);
   }
 
   handleGroupChange = (val) => {
@@ -81,34 +79,41 @@ class TransferPanel extends Component {
     const { searchValue } = this.state;
     if (filterable) {
       return (
-        <Input className={`${classSelector}-panel-search`}
-               placeholder="请输入"
-               size="small"
-               value={searchValue}
-               onEnter={this.onSearch}
-               onChange={this.onSearch}
-               suffix={<Icon style={{ color: 'rgba(0, 0, 0, 0.25)' }} type="search" onClick={this.onSearch}/>} />
+        <div className={`${classSelector}-panel-search`}>
+          <Input className={`${classSelector}-panel-search-input`}
+                 placeholder="请输入"
+                 size="small"
+                 value={searchValue}
+                 onEnter={this.onSearch}
+                 onChange={this.onSearch}
+                 suffix={<Icon style={{ color: 'rgba(0, 0, 0, 0.25)' }} type="search" onClick={this.onSearch}/>} />
+        </div>
       )
     }
     return null
   }
 
-  render() {
+  renderContent() {
     const { handleGroupChange, filteredData, labelProp, disabledProp, keyProp } = this;
-    const { checked, filterable, style } = this.props;
+    const { checked, filterable } = this.props;
+    return (
+      <div className={classNames(`${classSelector}-panel-content`, filterable && 'filterable')}>
+        <Checkbox.Group value={checked} onChange={handleGroupChange} layout={'v'}>
+          {filteredData.map((item, index) => (
+            <Checkbox key={index} disabled={item[disabledProp]} value={item[keyProp]}>{item[labelProp]}</Checkbox>))
+          }
+        </Checkbox.Group>
+      </div>
+    )
+  }
+
+  render() {
+    const { style } = this.props;
     return (
       <div className={`${classSelector}-panel`} style={style}>
         {this.renderHeader()}
-        <div className={`${classSelector}-panel-container`}>
-          {this.renderSearch()}
-          <div className={classNames(`${classSelector}-panel-content`, filterable && 'filterable')}>
-            <Checkbox.Group value={checked} onChange={handleGroupChange} layout={'v'}>
-              {filteredData.map((item, index) => (
-                <Checkbox key={index} disabled={item[disabledProp]} value={item[keyProp]}>{item[labelProp]}</Checkbox>))
-              }
-            </Checkbox.Group>
-          </div>
-        </div>
+        {this.renderSearch()}
+        {this.renderContent()}
       </div>
     )
   }
