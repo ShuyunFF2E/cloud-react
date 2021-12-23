@@ -1,14 +1,14 @@
 ---
-order: 1
-title: Transfer
-desc: 默认样式
+order: 2
+title: 支持实时搜索
+desc: 支持实时搜索，在搜索框输入内容时进行搜索
 ---
 
 ```jsx
 
 /**
- * title: 基础用法
- * desc: 数据穿梭选择
+ title: 支持实时搜索
+ desc: 支持实时搜索，在搜索框输入内容时进行搜索
  */
 import React from 'react';
 import { Transfer } from 'cloud-react';
@@ -24,7 +24,7 @@ export default class TransferDemo extends React.Component {
 
   get data() {
     const data = [];
-    for (let i = 1; i <= 10; i++) {
+    for (let i = 1; i <= 5; i++) {
       data.push({
         key: i,
         label: `内容${i}`,
@@ -43,6 +43,7 @@ export default class TransferDemo extends React.Component {
     return (
         <Transfer data={this.data}
                   titles={titles}
+                  filterable
                   value={this.state.value}
                   onChange={this._handleChange} />
     )
