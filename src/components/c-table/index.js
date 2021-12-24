@@ -29,7 +29,7 @@ class CTable extends Component {
     showQuickJumper: true,
     showPageSizeOptions: true,
     pageSizeOptions: [10, 20, 50, 100],
-    isAppendToBody: true
+    isAppendToBody: true,
   };
 
   state = {
@@ -43,8 +43,6 @@ class CTable extends Component {
   };
 
   leafNodesMap = {};
-
-  selectedNodeMap = {};
 
   componentDidMount() {
     if (
@@ -61,16 +59,31 @@ class CTable extends Component {
       (typeof prevProps.ajaxData === 'object' &&
         (this.props.ajaxData !== prevProps.ajaxData ||
           this.props.columnData !== prevProps.columnData)) ||
-      this.props.queryParams !== prevProps.queryParams
+      this.props.queryParams !== prevProps.queryParams ||
+      this.props.checkedData !== prevProps.checkedData
     ) {
       this.init();
     }
   }
 
   init = async () => {
-    this.loadGrid();
+    const { pageOpts } = this.state;
+    const { ajaxData, pageOpts: propsPageOpts, queryParams } = this.props;
+    const { totals, data } = await getDataSource(ajaxData, {
+      ...pageOpts,
+      queryParams,
+    });
+
+    this.setState({
+      data,
+      pageOpts: { ...pageOpts, ...propsPageOpts, totals },
+    });
+
+    this.leafNodesMap = this.getLeafNodesMap(data);
     this.setCheckedData();
-    this.setColumnData(() => this.setCheckboxColumn(true));
+    this.updateSelectedNodes();
+
+    this.setColumnData(this.setCheckboxColumn);
     this.setHeaderHeight();
   };
 
@@ -89,13 +102,13 @@ class CTable extends Component {
 
   /**
    * 判断数据是否在当前页
-   * @param targetKey
+   * @param targetVal
    * @returns {*}
    */
-  isInCurrentPage = (targetKey) => {
+  isInCurrentPage = (targetVal) => {
     let isInCurrentPage = false;
     traverseTree(this.state.data, (node) => {
-      if (String(this.getKeyFieldVal(node)) === targetKey) {
+      if (String(this.getKeyFieldVal(node)) === String(targetVal)) {
         isInCurrentPage = true;
       }
     });
@@ -109,8 +122,12 @@ class CTable extends Component {
    */
   getLeafNodesMap = (tree) => {
     const LeafNodesMap = {};
-    traverseTree(tree, (node) => {
-      LeafNodesMap[this.getKeyFieldVal(node)] = getLeafNodes(node);
+    traverseTree(tree, (node, parentNode) => {
+      LeafNodesMap[this.getKeyFieldVal(node)] = {
+        parentNode, // 父节点
+        node, // 当前节点
+        childNodes: getLeafNodes(node), // 所有叶子节点
+      };
     });
     return LeafNodesMap;
   };
@@ -126,7 +143,7 @@ class CTable extends Component {
     const currentLeafNodes = Object.keys(leafNodesMap).reduce(
       (nodeList, key) => {
         if (this.isInCurrentPage(key)) {
-          nodeList.push(...leafNodesMap[key]);
+          nodeList.push(...leafNodesMap[key].childNodes);
         }
         return nodeList;
       },
@@ -149,10 +166,11 @@ class CTable extends Component {
       fixed: isFirstColumnFixed,
       render: (value, row) => {
         const isChecked = !!isEveryChecked(
-          leafNodesMap[this.getKeyFieldVal(row)],
+          leafNodesMap[this.getKeyFieldVal(row)].childNodes,
         );
         const isIndeterminate =
-          !isChecked && isSomeChecked(leafNodesMap[this.getKeyFieldVal(row)]);
+          !isChecked &&
+          isSomeChecked(leafNodesMap[this.getKeyFieldVal(row)].childNodes);
         return (
           <Checkbox
             checked={isChecked}
@@ -182,7 +200,11 @@ class CTable extends Component {
         return (
           <Radio
             value={radioVal}
-            checked={!!isEveryChecked(leafNodesMap[this.getKeyFieldVal(row)])}
+            checked={
+              !!isEveryChecked(
+                leafNodesMap[this.getKeyFieldVal(row)].childNodes,
+              )
+            }
             onChange={() => onNodeRadioChange(row)}
           />
         );
@@ -232,7 +254,7 @@ class CTable extends Component {
   /**
    * 更新 多选/单选 表格列
    */
-  setCheckboxColumn = (isInit) => {
+  setCheckboxColumn = () => {
     const { supportCheckbox, supportRadio } = this.props;
     const { columnData } = this.state;
     const isFirstColumnFixed = columnData[0].fixed;
@@ -241,9 +263,10 @@ class CTable extends Component {
       const checkboxColumn = this.getCheckboxColumn(isFirstColumnFixed);
       this.setState({
         expandIconColumnIndex: 1,
-        columnData: isInit
-          ? [checkboxColumn, ...columnData]
-          : [checkboxColumn, ...columnData.slice(1)],
+        columnData:
+          columnData[0].dataIndex === 'checkbox'
+            ? [checkboxColumn, ...columnData.slice(1)]
+            : [checkboxColumn, ...columnData],
       });
       return;
     }
@@ -251,9 +274,10 @@ class CTable extends Component {
       const radioColumn = this.getRadioColumn(isFirstColumnFixed);
       this.setState({
         expandIconColumnIndex: 1,
-        columnData: isInit
-          ? [radioColumn, ...columnData]
-          : [radioColumn, ...columnData.slice(1)],
+        columnData:
+          columnData[0].dataIndex === 'radio'
+            ? [radioColumn, ...columnData.slice(1)]
+            : [radioColumn, ...columnData],
       });
       return;
     }
@@ -281,35 +305,28 @@ class CTable extends Component {
    * @param callback
    */
   updateSelectedNodes = (callback = () => {}) => {
-    const childParentMapping = {}; // 子节点key值 和 父节点key值 的映射关系
-
-    // 根据 leafNodesMap 更新 selectedNodeMap（selectedNodeMap 内部使用，使用对象形式，索引更快）
-    traverseTree(
-      [...this.state.data, ...this.props.checkedData],
-      (node, parentNode) => {
-        const childValue = this.getKeyFieldVal(node);
-        const leafNodes = this.leafNodesMap[childValue];
-        Object.assign(this.selectedNodeMap, {
-          [childValue]: leafNodes.every((lNode) => lNode.checked) ? node : null,
-        });
-
-        const parentValue = this.getKeyFieldVal(parentNode);
-        Object.assign(childParentMapping, { [childValue]: parentValue });
-      },
-    );
-
-    // 根据 selectedNodeMap 更新 selectedNodeList（selectedNodeList 给到外部使用）
-    const selectedNodeList = Object.keys(this.selectedNodeMap).reduce(
-      (list, key) => {
-        const node = this.selectedNodeMap[key];
-        const parentNode = this.selectedNodeMap[childParentMapping[key]];
-        if (node && !parentNode) {
-          list.push(node);
+    const selectedNodeList = [];
+    const { leafNodesMap } = this;
+    Object.keys(leafNodesMap).forEach((key) => {
+      if (typeof leafNodesMap[key] === 'object') {
+        const parentKey = this.getKeyFieldVal(leafNodesMap[key].parentNode);
+        // 如果节点的所有子节点选中 并且 节点的父节点的所=所有子节点没有全部选中
+        if (
+          isEveryChecked(leafNodesMap[key].childNodes) &&
+          (!parentKey || !isEveryChecked(leafNodesMap[parentKey].childNodes))
+        ) {
+          selectedNodeList.push(leafNodesMap[key].node);
         }
-        return list;
-      },
-      [],
-    );
+      } else {
+        // 叶子节点无法获取到的情况（可能已选节点不在当前页）
+        const checkedData = this.props.checkedData.find(
+          (node) => this.getKeyFieldVal(node) === leafNodesMap[key],
+        );
+        if (checkedData) {
+          selectedNodeList.push(checkedData);
+        }
+      }
+    });
     this.setState({ selectedNodeList }, callback);
   };
 
@@ -321,7 +338,7 @@ class CTable extends Component {
     // 更新叶子节点 leafNodesMap 的选中状态
     Object.keys(this.leafNodesMap).forEach((key) => {
       if (this.isInCurrentPage(key)) {
-        this.leafNodesMap[key].forEach((node) => {
+        this.leafNodesMap[key].childNodes.forEach((node) => {
           Object.assign(node, { checked });
         });
       }
@@ -339,7 +356,7 @@ class CTable extends Component {
    */
   onNodeCheckedChange = (checked, row) => {
     // 更新叶子节点 leafNodesMap 的选中状态
-    this.leafNodesMap[this.getKeyFieldVal(row)].forEach((node) => {
+    this.leafNodesMap[this.getKeyFieldVal(row)].childNodes.forEach((node) => {
       Object.assign(node, { checked });
     });
     this.setCheckboxColumn();
@@ -355,16 +372,13 @@ class CTable extends Component {
   onNodeRadioChange = (row) => {
     // 更新叶子节点 leafNodesMap 的选中状态
     Object.keys(this.leafNodesMap).forEach((key) => {
-      this.leafNodesMap[key].forEach((node) => {
+      this.leafNodesMap[key].childNodes.forEach((node) => {
         Object.assign(node, {
           checked: this.getKeyFieldVal(node) === this.getKeyFieldVal(row),
         });
       });
     });
     this.setCheckboxColumn();
-
-    // 更新已选节点列表前，重置 selectedNodeMap
-    this.selectedNodeMap = {};
     this.updateSelectedNodes(() => {
       this.props.onCheckedAfter(this.state.selectedNodeList);
     });
@@ -378,14 +392,17 @@ class CTable extends Component {
       return;
     }
     // 更新叶子节点 leafNodesMap 的选中状态
-    const _leafNodesMap = this.getLeafNodesMap(this.props.checkedData);
-    Object.keys(_leafNodesMap).forEach((key) => {
-      _leafNodesMap[key].forEach((node) => {
-        Object.assign(node, { checked: true });
-      });
+    this.props.checkedData.forEach((cNode) => {
+      const cNodeVal = this.getKeyFieldVal(cNode);
+      if (this.leafNodesMap[cNodeVal]) {
+        this.leafNodesMap[cNodeVal].childNodes.forEach((node) => {
+          Object.assign(node, { checked: true });
+        });
+      } else {
+        // 叶子节点无法获取到的情况（可能已选节点不在当前页），直接赋值，这种情况 this.leafNodesMap[cNodeVal] 不是 object
+        this.leafNodesMap[cNodeVal] = cNodeVal;
+      }
     });
-    Object.assign(this.leafNodesMap, _leafNodesMap);
-    this.updateSelectedNodes();
   };
 
   /**
@@ -402,16 +419,15 @@ class CTable extends Component {
   ) => {
     this.setState({ isLoading: true }, async () => {
       const { pageOpts } = this.state;
-      const { pageOpts: propsPageOpts, queryParams } = this.props;
+      const { queryParams } = this.props;
       const _pageOpts = {
         ...pageOpts,
-        ...propsPageOpts,
         pageNum: pageNum || pageOpts.pageNum,
         pageSize: pageSize || pageOpts.pageSize,
       };
       const params = {
         ..._pageOpts,
-        sortParams: { ...sortParams, sortBy: sortParams.sortBy || 'DESC' },
+        sortParams,
         queryParams,
       };
       const { totals, data } = await getDataSource(this.props.ajaxData, params);
@@ -423,13 +439,19 @@ class CTable extends Component {
       }
 
       // 更新叶子节点 leafNodesMap 的选中状态
-      const _leafNodesMap = this.getLeafNodesMap(resolvedData);
-      Object.keys(_leafNodesMap).forEach((key) => {
-        _leafNodesMap[key].forEach((node) => {
-          Object.assign(node, { checked: !!this.selectedNodeMap[key] });
-        });
+      const currentLeafNodesMap = this.getLeafNodesMap(resolvedData);
+      Object.keys(currentLeafNodesMap).forEach((key) => {
+        if (this.leafNodesMap[key]) {
+          if (typeof this.leafNodesMap[key] !== 'object') {
+            currentLeafNodesMap[key].childNodes.forEach((item) => {
+              Object.assign(item, { checked: true });
+            });
+            this.leafNodesMap[key] = currentLeafNodesMap[key];
+          }
+        } else {
+          this.leafNodesMap[key] = currentLeafNodesMap[key];
+        }
       });
-      Object.assign(this.leafNodesMap, _leafNodesMap);
 
       this.setState(
         {
@@ -495,8 +517,7 @@ class CTable extends Component {
   };
 
   render() {
-    const { ref, selectedNodeMap, onPageChange, onRefresh, getKeyFieldVal } =
-      this;
+    const { ref, leafNodesMap, onPageChange, onRefresh, getKeyFieldVal } = this;
     const {
       style,
       bordered,
@@ -556,7 +577,12 @@ class CTable extends Component {
             emptyText={emptyTpl()}
             rowKey={rowKey}
             rowClassName={(row) => {
-              if (lightCheckedRow && selectedNodeMap[getKeyFieldVal(row)]) {
+              const rowKeyVal = getKeyFieldVal(row);
+              if (
+                lightCheckedRow &&
+                leafNodesMap[rowKeyVal] &&
+                isEveryChecked(leafNodesMap[rowKeyVal].childNodes)
+              ) {
                 return `${tablePrefixCls}-row-select ${rowClassName(row)}`;
               }
               return rowClassName(row);
