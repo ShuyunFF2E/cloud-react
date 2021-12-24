@@ -427,7 +427,7 @@ class CTable extends Component {
       };
       const params = {
         ..._pageOpts,
-        sortParams,
+        sortParams: { ...sortParams, sortBy: sortParams.sortBy || 'DESC' },
         queryParams,
       };
       const { totals, data } = await getDataSource(this.props.ajaxData, params);
