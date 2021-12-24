@@ -2,17 +2,17 @@
 
 @transfer-prefix-cls: ~'@{prefix}-transfer';
 
-.type-mixin {
-  display: inline-block;
-  vertical-align: middle;
-  width: 200px;
-  height: 300px;
-  border-radius: 2px;
-  box-shadow: @border-shadow-3;
-}
 .@{transfer-prefix-cls} {
   &-panel {
-    .type-mixin();
+      display: inline-block;
+      vertical-align: middle;
+      width: 200px;
+      height: 300px;
+      border-radius: 2px;
+      box-shadow: @border-shadow-3;
+    .cloud-checkbox-text {
+      font-size: 14px;
+    }
     &-header {
       position: relative;
       height: 35px;
@@ -38,21 +38,26 @@
       }
     }
     &-search {
-      width: 100%;
-      margin-bottom: 8px;
-    }
-    &-container {
       padding: 0 12px;
-      height: calc(100% - 55px);
+      &-input {
+        width: 100%;
+        margin-bottom: 8px;
+      }
     }
     &-content {
-      height: 100%;
+      height: calc(100% - 51px);
       overflow-y: auto;
       label {
-        margin: 5px 0;
+        padding: 5px 12px;
+        &:hover {
+          background: @blue-1;
+        }
       }
       &.filterable {
-        height: calc(100% - 40px);
+        height: calc(100% - 90px);
+      }
+      .cloud-checkbox-group {
+        width: 100%;
       }
     }
   }

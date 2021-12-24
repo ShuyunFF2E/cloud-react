@@ -7,7 +7,7 @@
 
 @input-prefix-cls: ~'@{prefix}-input';
 
-@border-radius: 0px;
+@border-radius: 2px;
 @default-width: 250px;
 
 @placeholder-color: @gray-6;
@@ -70,6 +70,7 @@
 
 	/* group */
 	&-group {
+		
 		&,
 		.@{input-prefix-cls}-group {
 			display: inline-flex;
@@ -79,6 +80,7 @@
 		width: @default-width;
 
 		.@{input-prefix-cls}-group {
+			
 			width: 100%;
 		}
 
@@ -101,6 +103,22 @@
 				display: none;
 			}
 		}
+		&.large {
+			padding: 8px @both-space-size;
+			font-size: @large-font-size;
+			height: 36px;
+		}
+		&-textarea,
+		&.default {
+			padding: 5px @both-space-size;
+			font-size: @default-font-size;
+			height: 32px;
+		}
+		&.small {
+			padding: 2px @both-space-size;
+			font-size: @small-font-size;
+			height: 28px;
+		}
 	}
 
 	&-prefix,
@@ -110,15 +128,17 @@
 	}
 
 	&-prefix {
-		margin-left: 8px;
+		margin-left: 0;
+		margin-right: 8px;
 	}
 
 	&-suffix {
-		margin-right: 8px;
+		// margin-right: 8px;
 	}
 
 	&-affix {
 		border: 1px solid @gray-4;
+		padding: 5px @both-space-size;
 		color: @gray-9;
 		&:hover {
 			border-color: @gray-6
@@ -186,6 +206,7 @@
 	/* input placeholder css */
 	&-textarea::placeholder,
 	&::placeholder {
+		font-size: 14px;
 		color: @placeholder-color;
 	}
 

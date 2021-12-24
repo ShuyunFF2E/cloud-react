@@ -189,7 +189,7 @@ class Input extends React.Component {
 		const { counter } = this.state;
 		const { size } = this.props;
 
-		const type = 'close-circle-solid';
+		const type = 'close-fill';
 		const classNames = classnames(`${prefixCls}-input-clear`, {
 			show: counter,
 			hidden: !counter,
@@ -262,11 +262,11 @@ class Input extends React.Component {
 				addonAfter={addonAfter}
 				addonBefore={addonBefore}
 				style={style}
-				className={classnames(className, {
+				className={classnames(className, size, {
 					[`${_className}-focus`]: focused,
 					[`${_className}-disabled`]: props.disabled
 				})}>
-				<input {...props} {...commonProps} className={classnames(_className, size)} />
+				<input {...props} {...commonProps} style={{ padding:0, height: 'auto' }} className={classnames(_className, size)} />
 			</InputWrapper>
 		);
 	}
