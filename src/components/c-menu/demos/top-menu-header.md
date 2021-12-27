@@ -1,17 +1,18 @@
 ---
-order: 1
-title: 面包屑
-desc: 可切换大小的面包屑
+order: 2
+title: CMenu
+desc: 新导航
 ---
 
 ```jsx
 /**
- * title: 竖直导航
- * desc: 子菜单不出现在主菜单内
+ * title: 顶部导航
+ * desc: 带logo的顶部导航
  */
 
 import React from 'react';
-import Menu from '../index.js';
+// import Menu from '../index.js';
+import { CMenu as Menu, Icon } from 'cloud-react';
 
 const { SubMenu, Item } = Menu;
 
@@ -31,19 +32,21 @@ class App extends React.Component {
 			<Menu
 				onClick={this.handleClick}
 				selectedKeys={[current]}
-				mode="vertical"
-                onOpenChange={this.onOpenChange}
-                >
-				<Item key="2">一级菜单</Item>
+				mode="horizontal"
+                header={<img src="https://qa-pcrm.shuyun.com/pcrm/202102/e2f5f56627cbabf6e6790fe70503cefe/173253_54091_banner_syyj.jpg" />}
+				>
+				<Item key="2" icon={<Icon type="mail"/>}>一级菜单</Item>
 
-				<SubMenu title="二级菜单" key="1">
-					<Item key="1-1">0111</Item>
-					<Item key="1-2">0-2</Item>
+				<SubMenu title="二级菜单" key="1" icon={<Icon type="mail"/>}>
+					<Item key="1-1">二级菜单1</Item>
+					<Item key="1-2">二级菜单2</Item>
 				</SubMenu>
 
 				<SubMenu
 					title="四级菜单"
-					key="4">
+					key="4"
+					icon={<Icon type="mail"/>}
+					>
 					<Item key="4-1">inner inner</Item>
 
 					<SubMenu key="4-2" title="sub menu 1">

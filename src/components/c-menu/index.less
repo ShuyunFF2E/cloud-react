@@ -14,9 +14,107 @@
   background: red;
   margin-bottom: 4px;
 }
+.rc-menu-submenu {
+    .rc-menu-item-selected {
+      background-color: #D4E1FF !important;
+      color: #000;
+    }
+}
+.rc-menu {
+  font-size: 14px;
+  line-height: 20px;
+  color: #000000;
+  .rc-menu-item.rc-menu-item-disabled {
+    color: rgba(0, 0, 0, 0.45) !important;
+    cursor: not-allowed;
+  }
+  // rc-menu-submenu-active {
+  //   background-color: red;
+  // }
+  &.rc-menu-sub.rc-menu-vertical {
+    .rc-menu-submenu-selected, rc-menu-item-selected {
+      background-color: #D4E1FF;
+      color: #000;
+    }
+    .rc-menu-item-active {
+      background-color: #F5F8FF;
+    }
+    .rc-menu-submenu-active {
+      .rc-menu-submenu-title {
+        background-color: #F5F8FF;
+      }
+    }
+    .rc-menu-submenu-selected {
+      .rc-menu-submenu-title {
+        background-color: #D4E1FF;
+      }
+    }
+  }
+}
 .rc-menu-inline {
   width: 230px;
 }
 .rc-menu-vertical {
   width: 230px;
 }
+.rc-menu-submenu-hidden {
+  display: none;
+}
+.rc-menu-submenu-selected {
+  background-color: #fff;
+  color: #5280FF;
+}
+.rc-menu-item-selected {
+  background-color: #fff;
+  color: #5280FF;
+}
+.rc-menu-horizontal {
+  background-color: #fff;
+
+  & > .rc-menu-item-active,  & > .rc-menu-submenu-active{
+    background-color: #fff;
+    color: #5280FF;
+    border-bottom-color: #5280FF;
+    & > .rc-menu-submenu-title {
+      background-color: #fff;
+    }
+  }
+  & > .rc-menu-submenu {
+    margin-right: 32px;
+    & > .rc-menu-submenu-title {
+    padding: 20px 2px;
+    // margin-right: 20px;
+  }
+  }
+  & > .rc-menu-item {
+    padding: 20px 2px;
+    margin-right: 32px;
+}
+// & > .rc-menu-submenu > .rc-menu-submenu-title {
+//   padding: 15px 2px;
+//   margin-right: 20px;
+// }
+  .cloud-icon {
+    margin-right: 9px;
+  }
+
+}
+.rc-menu-vertical{
+  &.rc-menu-sub {
+    min-width: 120px;
+    padding: 8px 0;
+    width: 100%;
+  }
+  & > .rc-menu-item {
+    padding: 6px 12px;
+    line-height: 20px;
+  }
+  & > .rc-menu-submenu {
+    & > .rc-menu-submenu-title{
+      padding: 6px 38px 6px 12px;
+    }
+  }
+}
+// .rc-menu-item-disabled {
+  
+// }

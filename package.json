@@ -39,7 +39,7 @@
     "less": "^3.13.1",
     "moment": "^2.29.1",
     "prop-types": "^15.7.2",
-    "rc-menu": "^7.5.5",
+    "rc-menu": "^9.0.12",
     "rc-picker": "^2.5.19",
     "rc-table": "^7.21.0",
     "rc-trigger": "^5.2.10",

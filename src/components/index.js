@@ -15,6 +15,8 @@ export { default as BreadCrumbs } from './bread-crumbs';
 
 export { default as Button } from './button';
 
+export { default as CMenu } from './c-menu';
+
 export { default as CPicker } from './c-picker';
 
 export { default as CTable } from './c-table';
@@ -22,8 +24,6 @@ export { default as CTable } from './c-table';
 export { default as Card } from './card';
 
 export { default as Cascader } from './cascader';
-
-export { default as CMenu } from './c-menu';
 
 export { default as Checkbox } from './checkbox';
 

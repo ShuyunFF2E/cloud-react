@@ -9,7 +9,8 @@ import { isValidElement, cloneElement } from './reactNode';
 function SubMenu(props) {
     const { icon, title } = props;
     let titleNode;
-    if (!icon) {
+    console.log(icon, 'icon');
+    // if (!icon) {
         titleNode =
         title && typeof title === 'string' ? (
             <div>{title.charAt(0)}</div>
@@ -27,7 +28,7 @@ function SubMenu(props) {
         {titleIsSpan ? title : <span>{title}</span>}
     </>
     );
-}
+// }
 
     return (
         <RcSubMenu

@@ -1,7 +1,7 @@
 ---
 order: 1
-title: 面包屑
-desc: 可切换大小的面包屑
+title: CMenu
+desc: 新导航
 ---
 
 ```jsx
@@ -32,17 +32,20 @@ class App extends React.Component {
 			<Menu
 				onClick={this.handleClick}
 				selectedKeys={[current]}
-				mode="horizontal">
-				<Item key="2" icon={<Icon type="plus-solid"/>}>一级菜单</Item>
+				mode="horizontal"
+				>
+				<Item key="2" icon={<Icon type="mail"/>}>一级菜单</Item>
 
-				<SubMenu title={<span className="submenu-title-wrapper">sub menu 1</span>} key="1">
-					<Item key="1-1">0111</Item>
-					<Item key="1-2">0-2</Item>
+				<SubMenu title="二级菜单" key="1" icon={<Icon type="mail"/>}>
+					<Item key="1-1">二级菜单1</Item>
+					<Item key="1-2">二级菜单2</Item>
 				</SubMenu>
 
 				<SubMenu
 					title="四级菜单"
-					key="4">
+					key="4"
+					icon={<Icon type="mail"/>}
+					>
 					<Item key="4-1">inner inner</Item>
 
 					<SubMenu key="4-2" title="sub menu 1">

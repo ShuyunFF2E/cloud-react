@@ -9,7 +9,7 @@ import { cloneElement } from './reactNode';
 import './index.less';
 // import MenuContext, { MenuTheme } from './MenuContext';
 
-export { MenuItemGroupProps } from 'rc-menu';
+// export { MenuItemGroupProps } from 'rc-menu';
 
 class InternalMenu extends React.Component{
   static defaultProps = {
