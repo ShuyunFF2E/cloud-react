@@ -59,7 +59,6 @@ class CTable extends Component {
       (typeof prevProps.ajaxData === 'object' &&
         (this.props.ajaxData !== prevProps.ajaxData ||
           this.props.columnData !== prevProps.columnData)) ||
-      this.props.queryParams !== prevProps.queryParams ||
       this.props.checkedData !== prevProps.checkedData
     ) {
       this.init();
@@ -68,10 +67,9 @@ class CTable extends Component {
 
   init = async () => {
     const { pageOpts } = this.state;
-    const { ajaxData, pageOpts: propsPageOpts, queryParams } = this.props;
+    const { ajaxData, pageOpts: propsPageOpts } = this.props;
     const { totals, data } = await getDataSource(ajaxData, {
       ...pageOpts,
-      queryParams,
     });
 
     this.setState({
@@ -451,7 +449,6 @@ class CTable extends Component {
   ) => {
     this.setState({ isLoading: true }, async () => {
       const { pageOpts } = this.state;
-      const { queryParams } = this.props;
       const _pageOpts = {
         ...pageOpts,
         pageNum: pageNum || pageOpts.pageNum,
@@ -460,7 +457,6 @@ class CTable extends Component {
       const params = {
         ..._pageOpts,
         sortParams: { ...sortParams, sortBy: sortParams.sortBy || 'DESC' },
-        queryParams,
       };
       const { totals, data } = await getDataSource(this.props.ajaxData, params);
       let resolvedData = data;
@@ -546,6 +542,10 @@ class CTable extends Component {
         this.setColumnData,
       );
     });
+  };
+
+  refreshTable = (params) => {
+    this.loadGrid(params);
   };
 
   render() {
@@ -694,7 +694,6 @@ CTable.propTypes = {
   headerBordered: PropTypes.bool,
   className: PropTypes.string,
   supportRadio: PropTypes.bool,
-  queryParams: PropTypes.object,
   disabledData: PropTypes.array,
 };
 
@@ -723,6 +722,5 @@ CTable.defaultProps = {
   headerBordered: false,
   className: '',
   supportRadio: false,
-  queryParams: {},
   disabledData: [],
 };

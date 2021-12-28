@@ -41,8 +41,9 @@ group:
 | lightCheckedRow | 选中行高亮   | boolean   |   false   | |
 | rowClassName | 自定义行类名   | function   |   -   | |
 | supportRadio | 是否支持单选   | boolean   |   false   | |
-| queryParams | 表格筛选项   | object   |   {}   | |
 | disabledData | 禁用行（也可以通过给 data 设置 disabled: true 来实现禁用行）   | array   |   []   | |
+
+手动刷新表格：this.tableRef.refreshTable(params?);
 
 #### columnData
 | 属性                | 说明                                         | 类型                        | 默认值           |
@@ -115,7 +116,7 @@ https://table-react-component.vercel.app/
 
 <embed src="@components/c-table/demos/sort-front.md" /> 
 
-<embed src="@components/c-table/demos/query-params.md" /> 
+<embed src="@components/c-table/demos/refresh-table.md" /> 
 
 <embed src="@components/c-table/demos/disabled.md" /> 
 
