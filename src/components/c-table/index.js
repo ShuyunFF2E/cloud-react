@@ -116,6 +116,16 @@ class CTable extends Component {
   };
 
   /**
+   * 当前行是否被禁用
+   * @param row
+   * @returns {boolean}
+   */
+  isRowDisabled = (row) => {
+    const key = this.getKeyFieldVal(row);
+    return row.disabled || this.props.disabledData.includes(key);
+  };
+
+  /**
    * 获取节点和叶子节点的映射关系
    * @param tree
    * @returns {{}}
@@ -149,7 +159,9 @@ class CTable extends Component {
       },
       [],
     );
-    const isCheckedAll = !!isEveryChecked(currentLeafNodes);
+    const isCheckedAll = !!isEveryChecked(
+      currentLeafNodes.filter((node) => !this.isRowDisabled(node)),
+    );
     const isIndeterminateAll = !isCheckedAll && isSomeChecked(currentLeafNodes);
 
     return {
@@ -165,16 +177,16 @@ class CTable extends Component {
       width: 40,
       fixed: isFirstColumnFixed,
       render: (value, row) => {
-        const isChecked = !!isEveryChecked(
-          leafNodesMap[this.getKeyFieldVal(row)].childNodes,
-        );
+        const targetNode = leafNodesMap[this.getKeyFieldVal(row)] || {};
+        const isChecked = !!isEveryChecked(targetNode.childNodes);
         const isIndeterminate =
-          !isChecked &&
-          isSomeChecked(leafNodesMap[this.getKeyFieldVal(row)].childNodes);
+          !isChecked && isSomeChecked((targetNode || {}).childNodes);
+        const isDisabled = this.isRowDisabled(row);
         return (
           <Checkbox
             checked={isChecked}
             indeterminate={isIndeterminate}
+            disabled={isDisabled}
             onChange={(checked) => onNodeCheckedChange(checked, row)}
           />
         );
@@ -197,14 +209,13 @@ class CTable extends Component {
       fixed: isFirstColumnFixed,
       render: (value, row) => {
         const radioVal = this.getKeyFieldVal(row);
+        const targetNode = leafNodesMap[radioVal] || {};
+        const isDisabled = this.isRowDisabled(row);
         return (
           <Radio
+            disabled={isDisabled}
             value={radioVal}
-            checked={
-              !!isEveryChecked(
-                leafNodesMap[this.getKeyFieldVal(row)].childNodes,
-              )
-            }
+            checked={!!isEveryChecked(targetNode.childNodes)}
             onChange={() => onNodeRadioChange(row)}
           />
         );
@@ -339,7 +350,9 @@ class CTable extends Component {
     Object.keys(this.leafNodesMap).forEach((key) => {
       if (this.isInCurrentPage(key)) {
         this.leafNodesMap[key].childNodes.forEach((node) => {
-          Object.assign(node, { checked });
+          if (!this.isRowDisabled(node)) {
+            Object.assign(node, { checked });
+          }
         });
       }
     });
@@ -357,7 +370,9 @@ class CTable extends Component {
   onNodeCheckedChange = (checked, row) => {
     // 更新叶子节点 leafNodesMap 的选中状态
     this.leafNodesMap[this.getKeyFieldVal(row)].childNodes.forEach((node) => {
-      Object.assign(node, { checked });
+      if (!this.isRowDisabled(node)) {
+        Object.assign(node, { checked });
+      }
     });
     this.setCheckboxColumn();
     this.updateSelectedNodes(() => {
@@ -578,11 +593,11 @@ class CTable extends Component {
             rowKey={rowKey}
             rowClassName={(row) => {
               const rowKeyVal = getKeyFieldVal(row);
-              if (
-                lightCheckedRow &&
-                leafNodesMap[rowKeyVal] &&
-                isEveryChecked(leafNodesMap[rowKeyVal].childNodes)
-              ) {
+              const targetNode = leafNodesMap[rowKeyVal] || {};
+              if (this.isRowDisabled(row)) {
+                return `${tablePrefixCls}-row-disabled ${rowClassName(row)}`;
+              }
+              if (lightCheckedRow && isEveryChecked(targetNode.childNodes)) {
                 return `${tablePrefixCls}-row-select ${rowClassName(row)}`;
               }
               return rowClassName(row);
@@ -663,6 +678,7 @@ CTable.propTypes = {
   className: PropTypes.string,
   supportRadio: PropTypes.bool,
   queryParams: PropTypes.object,
+  disabledData: PropTypes.array,
 };
 
 CTable.defaultProps = {
@@ -691,4 +707,5 @@ CTable.defaultProps = {
   className: '',
   supportRadio: false,
   queryParams: {},
+  disabledData: [],
 };

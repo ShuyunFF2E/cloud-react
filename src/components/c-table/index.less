@@ -386,6 +386,13 @@
         background: @yellow-1;
       }
     }
+
+    tr.@{tablePrefixCls}-row-disabled {
+      td {
+        color: @gray-6;
+        cursor: not-allowed;
+      }
+    }
   }
 
   &-fixed-column &-body::after {
