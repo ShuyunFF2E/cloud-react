@@ -29,13 +29,13 @@ class CTable extends Component {
     showQuickJumper: true,
     showPageSizeOptions: true,
     pageSizeOptions: [10, 20, 50, 100],
-    isAppendToBody: true,
   };
 
   state = {
     data: [],
     columnData: this.props.columnData,
     headerHeight: 0,
+    footerHeight: 0,
     expandIconColumnIndex: 0,
     pageOpts: { ...this.defaultPageOpts, ...this.props.pageOpts },
     selectedNodeList: this.props.checkedData,
@@ -85,6 +85,7 @@ class CTable extends Component {
 
     this.setColumnData(this.setCheckboxColumn);
     this.setHeaderHeight();
+    this.setFooterHeight();
   };
 
   /**
@@ -308,6 +309,22 @@ class CTable extends Component {
       this.setState({
         headerHeight: headerEle.offsetHeight,
       });
+    }
+  };
+
+  /**
+   * 设置 footer 高度
+   */
+  setFooterHeight = () => {
+    if (this.ref.current && this.ref.current.querySelector) {
+      const footerEle = this.ref.current.querySelector(
+        `.${tablePrefixCls}-footer`,
+      );
+      if (footerEle) {
+        this.setState({
+          footerHeight: footerEle.offsetHeight,
+        });
+      }
     }
   };
 
@@ -555,6 +572,7 @@ class CTable extends Component {
       columnData,
       expandIconColumnIndex,
       headerHeight,
+      footerHeight,
       pageOpts,
       selectedNodeList,
       isLoading,
@@ -563,7 +581,7 @@ class CTable extends Component {
     const fixed = !!(columnData.find((item) => item.fixed) || style.height);
 
     return (
-      <div>
+      <div className={`${tablePrefixCls}-container`} style={style} ref={ref}>
         <div
           className={classnames(
             `${tablePrefixCls}-box`,
@@ -577,8 +595,7 @@ class CTable extends Component {
             },
             className,
           )}
-          style={style}
-          ref={ref}
+          style={{ height: `calc(100% - ${footerHeight}px)` }}
         >
           <RcTable
             prefixCls={tablePrefixCls}

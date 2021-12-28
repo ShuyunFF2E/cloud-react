@@ -2,6 +2,7 @@
 
 @tablePrefixCls: ~'@{prefix}-table';
 @tableContainerPrefixCls: ~'@{prefix}-table-box';
+@containerPrefixCls: ~'@{prefix}-container';
 @text-color: @gray-9;
 @font-size-base: 12px;
 @line-height: 1.5;
@@ -22,8 +23,15 @@
 @cell-margin: -@vertical-padding -@horizontal-padding;
 @border-radius: 2px;
 
+.@{containerPrefixCls} {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
 .@{tableContainerPrefixCls} {
   position: relative;
+  width: 100%;
 
   &::before {
     content: '';

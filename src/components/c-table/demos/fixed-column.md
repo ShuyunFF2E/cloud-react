@@ -1,16 +1,16 @@
 ---
 order: 4
 title: CTable
-desc: 固定列
+desc: 动态设置表格尺寸
 ---
 
 ```jsx
 
 /**
- * title: 固定列
- * desc: 固定列
+ * title: 动态设置表格尺寸
+ * desc: 动态设置表格尺寸
  */
-import React from 'react';
+import React, { useState } from 'react';
 import { CTable, Button } from 'cloud-react';
 
 const data = [
@@ -49,12 +49,23 @@ const columns = [
 ];
 
 export default function CTableDemo() {
+  const btnHeight = 47;
+    const [style, setStyle] = useState({ width: '100%', height: `calc(100% - ${btnHeight}px)` });
 	return (
-        <CTable
-            style={{ width: '100%', height: 260 }}
+        <div style={{ height: 500 }}>
+          <Button style={{ marginRight: 15 }} onClick={() => {
+            setStyle({ width: 'calc(100% - 30px)', height: `calc(100% - ${btnHeight}px - 30px)` })
+          }}>改变表格尺寸</Button>
+          <Button onClick={() => {
+            setStyle({ width: '100%', height: `calc(100% - ${btnHeight}px)` })
+          }}>重置表格尺寸</Button>
+          <CTable
+            style={{ ...style, marginTop: 15 }}
+            supportPage
             columnData={columns}
             ajaxData={{ totals: data.length, data }}
-        />
+          />
+        </div>
 	);
 }
 ```
