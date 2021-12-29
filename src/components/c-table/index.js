@@ -66,24 +66,27 @@ class CTable extends Component {
   }
 
   init = async () => {
-    const { pageOpts } = this.state;
-    const { ajaxData, pageOpts: propsPageOpts } = this.props;
-    const { totals, data } = await getDataSource(ajaxData, {
-      ...pageOpts,
+    this.setState({ isLoading: true }, async () => {
+      const { pageOpts } = this.state;
+      const { ajaxData, pageOpts: propsPageOpts } = this.props;
+      const { totals, data } = await getDataSource(ajaxData, {
+        ...pageOpts,
+      });
+
+      this.setState({
+        data,
+        pageOpts: { ...pageOpts, ...propsPageOpts, totals },
+        isLoading: false,
+      });
+
+      this.leafNodesMap = this.getLeafNodesMap(data);
+      this.setCheckedData();
+      this.updateSelectedNodes();
+
+      this.setColumnData(this.setCheckboxColumn);
+      this.setHeaderHeight();
+      this.setFooterHeight();
     });
-
-    this.setState({
-      data,
-      pageOpts: { ...pageOpts, ...propsPageOpts, totals },
-    });
-
-    this.leafNodesMap = this.getLeafNodesMap(data);
-    this.setCheckedData();
-    this.updateSelectedNodes();
-
-    this.setColumnData(this.setCheckboxColumn);
-    this.setHeaderHeight();
-    this.setFooterHeight();
   };
 
   /**
