@@ -42,6 +42,8 @@ group:
 | rowClassName | 自定义行类名   | function   |   -   | |
 | supportRadio | 是否支持单选   | boolean   |   false   | |
 | disabledData | 禁用行（也可以通过给 data 设置 disabled: true 来实现禁用行）   | array   |   []   | |
+| totalsKey | total 映射字段   | string   |   'totals'   | |
+| dataKey | data 映射字段   | string   |   'data'   | |
 
 手动刷新表格：this.tableRef.refreshTable(params?);
 

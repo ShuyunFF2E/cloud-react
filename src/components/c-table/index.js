@@ -68,18 +68,23 @@ class CTable extends Component {
   init = async () => {
     this.setState({ isLoading: true }, async () => {
       const { pageOpts } = this.state;
-      const { ajaxData, pageOpts: propsPageOpts } = this.props;
-      const { totals, data } = await getDataSource(ajaxData, {
+      const {
+        ajaxData,
+        pageOpts: propsPageOpts,
+        totalsKey,
+        dataKey,
+      } = this.props;
+      const res = await getDataSource(ajaxData, {
         ...pageOpts,
       });
 
       this.setState({
-        data,
-        pageOpts: { ...pageOpts, ...propsPageOpts, totals },
+        data: res[dataKey],
+        pageOpts: { ...pageOpts, ...propsPageOpts, totals: res[totalsKey] },
         isLoading: false,
       });
 
-      this.leafNodesMap = this.getLeafNodesMap(data);
+      this.leafNodesMap = this.getLeafNodesMap(res[dataKey]);
       this.setCheckedData();
       this.updateSelectedNodes();
 
@@ -461,10 +466,10 @@ class CTable extends Component {
         ..._pageOpts,
         sortParams: { ...sortParams, sortBy: sortParams.sortBy || 'DESC' },
       };
-      const { totals, data } = await getDataSource(this.props.ajaxData, params);
-      let resolvedData = data;
+      const res = await getDataSource(this.props.ajaxData, params);
+      let resolvedData = res[this.props.dataKey];
       if (sortParams.sortable && sortParams.sorter) {
-        resolvedData = data
+        resolvedData = resolvedData
           .sort((rowA, rowB) => sortParams.sorter(rowA, rowB, sortParams))
           .concat([]);
       }
@@ -486,7 +491,7 @@ class CTable extends Component {
 
       this.setState(
         {
-          pageOpts: { ..._pageOpts, totals },
+          pageOpts: { ..._pageOpts, totals: res[this.props.totalsKey] },
           data: resolvedData,
           isLoading: false,
         },
@@ -698,6 +703,8 @@ CTable.propTypes = {
   className: PropTypes.string,
   supportRadio: PropTypes.bool,
   disabledData: PropTypes.array,
+  totalsKey: PropTypes.string,
+  dataKey: PropTypes.string,
 };
 
 CTable.defaultProps = {
@@ -726,4 +733,6 @@ CTable.defaultProps = {
   className: '',
   supportRadio: false,
   disabledData: [],
+  totalsKey: 'totals',
+  dataKey: 'data',
 };

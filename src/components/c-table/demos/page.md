@@ -53,6 +53,8 @@ export default function CTableDemo() {
         supportCheckbox
         supportPage
         rowKey="id"
+        dataKey="list"
+        totalsKey="total"
         showRefresh={showRefresh}
         showTotal={showTotal}
         checkedData={[data[1], data[4], data[9]]}
@@ -61,7 +63,7 @@ export default function CTableDemo() {
         ajaxData={(params) => {
           return new Promise(resolve => {
             setTimeout(() => {
-              resolve({ totals: data.length, data: JSON.parse(JSON.stringify(data.slice(params.pageSize * (params.pageNum - 1), params.pageSize * params.pageNum))) });
+              resolve({ total: data.length, list: JSON.parse(JSON.stringify(data.slice(params.pageSize * (params.pageNum - 1), params.pageSize * params.pageNum))) });
             }, 500)
           })
         }}
