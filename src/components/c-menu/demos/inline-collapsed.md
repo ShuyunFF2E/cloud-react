@@ -1,0 +1,80 @@
+---
+order: 1
+title: 面包屑
+desc: 可切换大小的面包屑
+---
+
+```jsx
+/**
+ * title: 竖直导航
+ * desc: 导航栏可收缩
+ */
+
+import React from 'react';
+import Menu from '../index.js';
+import { Button, Icon } from 'cloud-react';
+
+const { SubMenu, Item } = Menu;
+
+class App extends React.Component {
+	state = {
+    current: '1',
+  };
+
+	handleClick = e => {
+		console.log('click ', e);
+		this.setState({ current: e.key });
+	};
+	
+
+	render() {
+		const { current, collapsed } = this.state;
+		return ( 
+		    <div>
+          <Menu
+            onClick={this.handleClick}
+            selectedKeys={[current]}
+            mode="inline"
+            onOpenChange={this.onOpenChange}
+            inlineCollapsed
+          >
+            <Item icon={<Icon type="mail"/>} key="2">一级菜单</Item>
+            
+            <SubMenu title={<span className="submenu-title-wrapper">sub menu 1</span>} key="1" icon={<Icon type="mail"/>}> 
+              <Item key="1-1">0111</Item>
+              <Item key="1-2">0-2</Item>
+            </SubMenu>
+            
+            <SubMenu
+              icon={<Icon type="mail"/>}
+              title="四级菜单"
+              key="4">
+              <Item key="4-1">inner inner</Item>
+            
+              <SubMenu key="4-2" title="sub menu 1">
+                <SubMenu title="sub 4-2-0" key="4-2-0">
+                  <Item key="4-2-0-1">inner inner</Item>
+                  <Item key="4-2-0-2">inner inner2</Item>
+                </SubMenu>
+                <Item key="4-2-1">inn</Item>
+                <SubMenu title="sub menu 4" key="4-2-2">
+                  <Item key="4-2-2-1">inner inner</Item>
+                  <Item key="4-2-2-2">inner inner2</Item>
+                </SubMenu>
+                <SubMenu title="sub menu 3" key="4-2-3">
+                  <Item key="4-2-3-1">inner inner</Item>
+                  <Item key="4-2-3-2">inner inner2</Item>
+                </SubMenu>
+              </SubMenu>
+            </SubMenu>
+
+            <Item key="5">禁用菜单</Item>
+          </Menu>
+        </div>
+		);
+	}
+}
+
+export default App;
+
+```

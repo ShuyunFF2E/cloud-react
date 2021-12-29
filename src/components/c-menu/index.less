@@ -1,29 +1,26 @@
 @import '../style/index';
 
 @menu: ~'@{prefix}-menu';
-@menuItem: ~'@{prefix}-menuItem';
+@menuCollapsed: ~'@{prefix}-menu-collapsed';
+@inlineCollapsed: ~'@{prefix}-menu-inlineCollapsed';
 
+// 最外层盒子，用于menu和收起栏上下两端布局
 .@{menu} {
-  background: #FFFFFF;
-  border: 1px solid black;
-  width: 208px;
+  position: relative;
+  display: inline-block;
+  height: 100%;
 }
 
-.@{menuItem}{
-  height: 40px;
-  background: red;
-  margin-bottom: 4px;
+// menu
+.rc-menu-root{
+  //box-shadow: none;
+  border: none;
 }
-.rc-menu-submenu {
-    .rc-menu-item-selected {
-      background-color: #D4E1FF !important;
-      color: #000;
-    }
-}
+
 .rc-menu {
   font-size: 14px;
-  line-height: 20px;
-  color: #000000;
+  line-height: 18px;
+  color: rgba(0, 0, 0, 0.65);
   .rc-menu-item.rc-menu-item-disabled {
     color: rgba(0, 0, 0, 0.45) !important;
     cursor: not-allowed;
@@ -31,31 +28,33 @@
   // rc-menu-submenu-active {
   //   background-color: red;
   // }
-  &.rc-menu-sub.rc-menu-vertical {
-    .rc-menu-submenu-selected, rc-menu-item-selected {
-      background-color: #D4E1FF;
-      color: #000;
-    }
-    .rc-menu-item-active {
-      background-color: #F5F8FF;
-    }
-    .rc-menu-submenu-active {
-      .rc-menu-submenu-title {
-        background-color: #F5F8FF;
-      }
-    }
-    .rc-menu-submenu-selected {
-      .rc-menu-submenu-title {
-        background-color: #D4E1FF;
-      }
-    }
+  //&.rc-menu-sub.rc-menu-vertical {
+    //.rc-menu-submenu-selected, rc-menu-item-selected {
+    //  background-color: #D4E1FF;
+    //  color: #000;
+    //}
+    //.rc-menu-item-active {
+    //  background-color: #F5F8FF;
+    //}
+    //.rc-menu-submenu-active {
+    //  .rc-menu-submenu-title {
+    //    background-color: #F5F8FF;
+    //  }
+    //}
+    //.rc-menu-submenu-selected {
+    //  .rc-menu-submenu-title {
+    //    background-color: #D4E1FF;
+    //  }
+    //}
+  //}
+}
+
+// submenu
+.rc-menu-submenu {
+  .rc-menu-item-selected {
+    background-color: #D4E1FF !important;
+    color: #000;
   }
-}
-.rc-menu-inline {
-  width: 230px;
-}
-.rc-menu-vertical {
-  width: 230px;
 }
 .rc-menu-submenu-hidden {
   display: none;
@@ -68,6 +67,13 @@
   background-color: #fff;
   color: #5280FF;
 }
+
+// menuItem
+[role="menuitem"]{
+  cursor: pointer;
+}
+
+// mode === horizontal
 .rc-menu-horizontal {
   background-color: #fff;
 
@@ -82,24 +88,53 @@
   & > .rc-menu-submenu {
     margin-right: 32px;
     & > .rc-menu-submenu-title {
-    padding: 20px 2px;
-    // margin-right: 20px;
-  }
+      padding: 20px 2px;
+      // margin-right: 20px;
+    }
   }
   & > .rc-menu-item {
     padding: 20px 2px;
     margin-right: 32px;
-}
-// & > .rc-menu-submenu > .rc-menu-submenu-title {
-//   padding: 15px 2px;
-//   margin-right: 20px;
-// }
+  }
+  // & > .rc-menu-submenu > .rc-menu-submenu-title {
+  //   padding: 15px 2px;
+  //   margin-right: 20px;
+  // }
   .cloud-icon {
     margin-right: 9px;
   }
-
 }
-.rc-menu-vertical{
+
+// mode === inline / vertical
+.rc-menu-inline,
+.rc-menu-vertical {
+  padding: 16px 8px 16px;
+  width: 230px;
+  transition: 0.5s;
+  -moz-transition: 0.5s; /* Firefox 4 */
+  -webkit-transition: 0.5s; /* Safari 和 Chrome */
+  -o-transition: 0.5s; /* Opera */
+
+  .rc-menu-item-active,
+  .rc-menu-submenu-active {
+    background: #F5F8FF;
+  }
+
+  [role="menuitem"]{
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    line-height: 20px !important;
+    height: 20px !important;
+    margin-bottom: 4px;
+  }
+
+  .cloud-icon {
+    margin-right: 9px;
+  }
+}
+
+// mode === vertical
+.rc-menu-vertical {
   &.rc-menu-sub {
     min-width: 120px;
     padding: 8px 0;
@@ -115,6 +150,68 @@
     }
   }
 }
-// .rc-menu-item-disabled {
-  
-// }
+
+// 收起状态下menu
+.rc-menu-inline-collapsed{
+  width: 64px;
+  transition: 0.5s;
+  -moz-transition: 0.5s; /* Firefox 4 */
+  -webkit-transition: 0.5s; /* Safari 和 Chrome */
+  -o-transition: 0.5s; /* Opera */
+
+  .rc-menu-item span,
+  .rc-menu-submenu .rc-menu-submenu-title .rc-menu-submenu-arrow,
+  .rc-menu-submenu .rc-menu-submenu-title span{
+    display: none;
+  }
+
+  .rc-menu-item,
+  .rc-menu-submenu .rc-menu-submenu-title{
+    padding-left: 24px;
+
+    i:first-child{
+      margin-right: 0;
+    }
+  }
+}
+
+// 收起按钮
+.@{inlineCollapsed}{
+  position: absolute;
+  bottom: 0;
+  padding: 0 0 25px 32px;
+  cursor: pointer;
+  overflow: hidden;
+  white-space: nowrap;
+
+  // 收起图标
+  i{
+    width: 14px;
+    height: 14px;
+    &:hover{
+      color: #5280FF;
+    }
+  }
+
+  // 收起文字
+  .text{
+    overflow: hidden;
+    margin-left: 13px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.85);
+    font-weight: 500;
+  }
+}
+
+// 收起时menu布局
+.@{menuCollapsed}{
+  .rc-menu-root.rc-menu-inline,
+  .rc-menu-root.rc-menu-vertical{
+    height: calc(100% - 100px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-bottom: 60px;
+  }
+}

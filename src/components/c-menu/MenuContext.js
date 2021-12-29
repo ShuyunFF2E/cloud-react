@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 
-export type MenuTheme = 'light' | 'dark';
+// export type MenuTheme = 'light' | 'dark';
 
 const MenuContext = createContext({
   prefixCls: '',

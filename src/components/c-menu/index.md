@@ -26,5 +26,5 @@ group:
 <embed src="@components/c-menu/demos/top-menu-header.md" />
 <embed src="@components/c-menu/demos/inline-menu.md" />
 <embed src="@components/c-menu/demos/vertical-menu.md" />
-
+<embed src="@components/c-menu/demos/inline-collapsed.md" />
 
