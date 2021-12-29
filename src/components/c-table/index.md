@@ -42,13 +42,16 @@ group:
 | rowClassName | 自定义行类名   | function   |   -   | |
 | supportRadio | 是否支持单选   | boolean   |   false   | |
 | disabledData | 禁用行（也可以通过给 data 设置 disabled: true 来实现禁用行）   | array   |   []   | |
+| totalsKey | total 映射字段   | string   |   'totals'   | |
+| dataKey | data 映射字段   | string   |   'data'   | |
+| isDelay | 刷新表格时，是否延迟loading，一般在纯前端表格中使用   | boolean   |   false   | |
 
 手动刷新表格：this.tableRef.refreshTable(params?);
 
 #### columnData
 | 属性                | 说明                                         | 类型                        | 默认值           |
 | ------------------- | -------------------------------------------- | --------------------------- | ---------------- |
-| title             | 表头                                     | string                      | -                |
+| title             | 表头                                     | string/function                    | -                |
 | dataIndex            | 列对应的唯一标识                                     | string                      | -               |
 | align     | 对齐方式 `left` `right` `center`                       | string                     | `left`            |
 | width     | 列宽                       | string/number                   | - |

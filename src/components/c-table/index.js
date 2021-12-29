@@ -6,6 +6,7 @@ import classnames from 'classnames';
 import { noop } from '@utils';
 import {
   getDataSource,
+  getDataSourceWithDelay,
   isSomeChecked,
   isEveryChecked,
   traverseTree,
@@ -44,6 +45,8 @@ class CTable extends Component {
 
   leafNodesMap = {};
 
+  getDataSource = this.props.isDelay ? getDataSourceWithDelay : getDataSource;
+
   componentDidMount() {
     if (
       (this.props.supportExpend || this.props.supportTree) &&
@@ -66,24 +69,32 @@ class CTable extends Component {
   }
 
   init = async () => {
-    const { pageOpts } = this.state;
-    const { ajaxData, pageOpts: propsPageOpts } = this.props;
-    const { totals, data } = await getDataSource(ajaxData, {
-      ...pageOpts,
+    this.setState({ isLoading: true }, async () => {
+      const { pageOpts } = this.state;
+      const {
+        ajaxData,
+        pageOpts: propsPageOpts,
+        totalsKey,
+        dataKey,
+      } = this.props;
+      const res = await this.getDataSource(ajaxData, {
+        ...pageOpts,
+      });
+
+      this.setState({
+        data: res[dataKey],
+        pageOpts: { ...pageOpts, ...propsPageOpts, totals: res[totalsKey] },
+        isLoading: false,
+      });
+
+      this.leafNodesMap = this.getLeafNodesMap(res[dataKey]);
+      this.setCheckedData();
+      this.updateSelectedNodes();
+
+      this.setColumnData(this.setCheckboxColumn);
+      this.setHeaderHeight();
+      this.setFooterHeight();
     });
-
-    this.setState({
-      data,
-      pageOpts: { ...pageOpts, ...propsPageOpts, totals },
-    });
-
-    this.leafNodesMap = this.getLeafNodesMap(data);
-    this.setCheckedData();
-    this.updateSelectedNodes();
-
-    this.setColumnData(this.setCheckboxColumn);
-    this.setHeaderHeight();
-    this.setFooterHeight();
   };
 
   /**
@@ -234,9 +245,12 @@ class CTable extends Component {
           const sortBy = item.sortable ? item.sortBy : '';
           const resolveColumnItem = {
             ...item,
+            // eslint-disable-next-line no-nested-ternary
             title: item.sortable ? (
               <span className="title-container">
-                {item.title}
+                {typeof item.title === 'function'
+                  ? item.title(item)
+                  : item.title}
                 <span
                   className={`sort-icon-container ${
                     item.align === 'right' && 'cell-align-right'
@@ -247,6 +261,8 @@ class CTable extends Component {
                   <Icon className="sort-down-icon" type="down-solid" />
                 </span>
               </span>
+            ) : typeof item.title === 'function' ? (
+              item.title(item)
             ) : (
               item.title
             ),
@@ -458,10 +474,10 @@ class CTable extends Component {
         ..._pageOpts,
         sortParams: { ...sortParams, sortBy: sortParams.sortBy || 'DESC' },
       };
-      const { totals, data } = await getDataSource(this.props.ajaxData, params);
-      let resolvedData = data;
+      const res = await this.getDataSource(this.props.ajaxData, params);
+      let resolvedData = res[this.props.dataKey];
       if (sortParams.sortable && sortParams.sorter) {
-        resolvedData = data
+        resolvedData = resolvedData
           .sort((rowA, rowB) => sortParams.sorter(rowA, rowB, sortParams))
           .concat([]);
       }
@@ -483,7 +499,7 @@ class CTable extends Component {
 
       this.setState(
         {
-          pageOpts: { ..._pageOpts, totals },
+          pageOpts: { ..._pageOpts, totals: res[this.props.totalsKey] },
           data: resolvedData,
           isLoading: false,
         },
@@ -544,8 +560,13 @@ class CTable extends Component {
     });
   };
 
-  refreshTable = (params) => {
-    this.loadGrid(params);
+  /**
+   * 外部调用此函数，手动刷新表格
+   * @param gotoFirstPage：表格刷新后，是否跳转到第一页
+   * @param params
+   */
+  refreshTable = (gotoFirstPage = true, params = {}) => {
+    this.loadGrid({ ...params, pageNum: gotoFirstPage ? 1 : params.pageNum });
   };
 
   render() {
@@ -695,6 +716,9 @@ CTable.propTypes = {
   className: PropTypes.string,
   supportRadio: PropTypes.bool,
   disabledData: PropTypes.array,
+  totalsKey: PropTypes.string,
+  dataKey: PropTypes.string,
+  isDelay: PropTypes.bool,
 };
 
 CTable.defaultProps = {
@@ -723,4 +747,7 @@ CTable.defaultProps = {
   className: '',
   supportRadio: false,
   disabledData: [],
+  totalsKey: 'totals',
+  dataKey: 'data',
+  isDelay: false,
 };

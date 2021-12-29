@@ -11,6 +11,22 @@ export function getDataSource(ajaxData, params) {
   return ajaxData;
 }
 
+const DELAY_TIME = 300;
+export function getDataSourceWithDelay(ajaxData, params) {
+  if (typeof ajaxData === 'function') {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(ajaxData(params));
+      }, DELAY_TIME);
+    });
+  }
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(ajaxData);
+    }, DELAY_TIME);
+  });
+}
+
 /**
  * 全部选中
  * @param data
