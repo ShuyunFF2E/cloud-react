@@ -6,6 +6,7 @@ import classnames from 'classnames';
 import { noop } from '@utils';
 import {
   getDataSource,
+  getDataSourceWithDelay,
   isSomeChecked,
   isEveryChecked,
   traverseTree,
@@ -44,6 +45,8 @@ class CTable extends Component {
 
   leafNodesMap = {};
 
+  getDataSource = this.props.isDelay ? getDataSourceWithDelay : getDataSource;
+
   componentDidMount() {
     if (
       (this.props.supportExpend || this.props.supportTree) &&
@@ -74,7 +77,7 @@ class CTable extends Component {
         totalsKey,
         dataKey,
       } = this.props;
-      const res = await getDataSource(ajaxData, {
+      const res = await this.getDataSource(ajaxData, {
         ...pageOpts,
       });
 
@@ -466,7 +469,7 @@ class CTable extends Component {
         ..._pageOpts,
         sortParams: { ...sortParams, sortBy: sortParams.sortBy || 'DESC' },
       };
-      const res = await getDataSource(this.props.ajaxData, params);
+      const res = await this.getDataSource(this.props.ajaxData, params);
       let resolvedData = res[this.props.dataKey];
       if (sortParams.sortable && sortParams.sorter) {
         resolvedData = resolvedData
@@ -705,6 +708,7 @@ CTable.propTypes = {
   disabledData: PropTypes.array,
   totalsKey: PropTypes.string,
   dataKey: PropTypes.string,
+  isDelay: PropTypes.bool,
 };
 
 CTable.defaultProps = {
@@ -735,4 +739,5 @@ CTable.defaultProps = {
   disabledData: [],
   totalsKey: 'totals',
   dataKey: 'data',
+  isDelay: false,
 };

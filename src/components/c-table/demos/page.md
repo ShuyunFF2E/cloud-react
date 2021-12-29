@@ -13,18 +13,10 @@ desc: 分页
 import React, { useState } from 'react';
 import { CTable, Checkbox } from 'cloud-react';
 
-const data = [
-    { id: '121410327', name: '手机号优先继续发送1', createTime: '2021/12/14 10:19:02', creator: 'liyuan.meng' },
-    { id: '121410328', name: 'ouid疲劳度3', createTime: '2021/12/13 15:47:33	', creator: 'jiaojiao.diao' },
-    { id: '121410329', name: '继续发送手机1', createTime: '2021/12/13 15:36:42', creator: 'nan.run' },
-    { id: '121408294', name: '继续发送手机2', createTime: '2021/12/13 11:14:40', creator: 'xiaotong.fan' },
-    { id: '121407191', name: '继续发送手机3', createTime: '2021/12/13 11:03:05', creator: 'zhenxiao.guo' },
-    { id: '121407192', name: '继续发送手机4', createTime: '2021/12/13 11:03:07', creator: 'han.wu' },
-    { id: '121407193', name: '继续发送手机5', createTime: '2021/12/13 11:03:34', creator: 'yue.ren' },
-    { id: '121407194', name: '继续发送手机6', createTime: '2021/12/13 11:03:05', creator: 'wanjuan.dong' },
-    { id: '121407195', name: '继续发送手机7', createTime: '2021/12/13 11:03:55', creator: 'ying.yan' },
-    { id: '121407196', name: '继续发送手机8', createTime: '2021/12/13 11:03:23', creator: 'xian.yong' },
-];
+
+const data = new Array(100).fill(1).map((item, index) => (
+  { id: 121410327 + index, name: '手机号优先继续发送1', createTime: '2021/12/14 10:19:02', creator: 'liyuan.meng' }
+))
 
 const columns = [
     { title: '活动ID', dataIndex: 'id', align: 'left' },
@@ -47,7 +39,7 @@ export default function CTableDemo() {
         }}>显示总条数</Checkbox>
       </div>
       <CTable
-        style={{ width: '100%', height: 260 }}
+        style={{ width: '100%', height: 500 }}
         supportExpend
         supportTree
         supportCheckbox
@@ -55,17 +47,13 @@ export default function CTableDemo() {
         rowKey="id"
         dataKey="list"
         totalsKey="total"
+        isDelay
         showRefresh={showRefresh}
         showTotal={showTotal}
         checkedData={[data[1], data[4], data[9]]}
-        pageOpts={{ pageSize: 6 }}
         columnData={columns}
         ajaxData={(params) => {
-          return new Promise(resolve => {
-            setTimeout(() => {
-              resolve({ total: data.length, list: JSON.parse(JSON.stringify(data.slice(params.pageSize * (params.pageNum - 1), params.pageSize * params.pageNum))) });
-            }, 500)
-          })
+            return { total: data.length, list: JSON.parse(JSON.stringify(data.slice(params.pageSize * (params.pageNum - 1), params.pageSize * params.pageNum))) };
         }}
       />
     </div>
