@@ -25,7 +25,7 @@ group:
 * ~~`YearMonthPicker`~~（原 `Datepicker` 中组件，`CPicker` 中由 `MonthPicker` 替代）
 * ~~`MonthDayPicker`~~（原 `Datepicker` 中组件，`CPicker` 中删除，因为单独选择月与日无法在不知道年份的情况下确定月的天数，实现类似的需求请使用级联选择器）
 
-> QuarterPicker、MonthPicker、WeekPicker 尚在调试中
+> QuarterPicker、WeekPicker 暂未开放，若有同学用到请联系我
 
 > 目前暂未开放自定义选择面板对时、分、秒的可选性，正在持续开发中
 
@@ -117,9 +117,23 @@ group:
 | defaultValue     | 组件默认值 | number | - |
 | placeholder      | 输入框占位符 | string | `"yyyy 年"` |
 | disabled         | 指示组件是否可用 | boolean | `true` |
-| onChange         | 组件值改变事件处理函数 | (value: string) => void | - |
+| onChange         | 组件值改变事件处理函数 | (value: number) => void | - |
 | onSelect         | 弹层中选择事件处理函数 | (value: number) => void | - |
 | onPanelChange    | 弹层中日历切换事件处理函数 | (value: number, type: string) => void | - |
+
+#### MonthPicker
+
+| 属性              | 说明                                               | 类型                    | 默认值            |
+| ----------------- | -------------------------------------------------- | ----------------------- | ----------------- |
+| value            | 组件值 | string | - |
+| defaultValue     | 组件默认值 | string | - |
+| placeholder      | 输入框占位符 | string | `"yyyy/MM"` |
+| disabled         | 指示组件是否可用 | boolean | `true` |
+| minMonth         | 最小月份 | number | - |
+| maxMonth         | 最大月份 | number | - |
+| onChange         | 组件值改变事件处理函数 | (value: string) => void | - |
+| onSelect         | 弹层中选择事件处理函数 | (value: string) => void | - |
+| onPanelChange    | 弹层中日历切换事件处理函数 | (value: string, type: string) => void | - |
 
 #### RangePicker
 
