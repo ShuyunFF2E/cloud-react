@@ -21,7 +21,7 @@ group:
 | selectedKeys      |默认选中的菜单             | - | -         |
 
  ### 代码演示 
-
+<!-- <embed src="@components/c-menu/demos/top-menu-simple.md" /> -->
 <embed src="@components/c-menu/demos/top-menu.md" />
 <embed src="@components/c-menu/demos/top-menu-header.md" />
 <embed src="@components/c-menu/demos/inline-menu.md" />

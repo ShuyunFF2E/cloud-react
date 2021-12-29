@@ -4,6 +4,7 @@ import RcMenu, { Divider, ItemGroup } from 'rc-menu';
 import 'rc-menu/assets/index.css';
 import classNames from 'classnames';
 import { omit } from '@utils';
+// import classNames from 'classnames';
 import SubMenu from './SubMenu';
 import Item from './MenuItem';
 import { cloneElement } from './reactNode';
@@ -45,6 +46,8 @@ class InternalMenu extends React.Component {
       className,
       theme,
       expandIcon,
+      // overflowedIndicator =  <Icon type="down" />,
+      header,
       ...restProps
     } = this.props;
 
@@ -68,11 +71,15 @@ class InternalMenu extends React.Component {
       <div
         className={classNames(`${prefixCls}-menu`, {
           [`${prefixCls}-menu-collapsed`]: this.props.inlineCollapsed,
+          [`${prefixCls}-menu-horizontal-header`]:
+          this.props.mode === 'horizontal'
         })}
       >
+        {header && <span className={`${prefixCls}-menu-header`}>{header}</span>}
+      {/* <div className="menu-containner"> */}
         <RcMenu
           // getPopupContainer={getPopupContainer}
-          // overflowedIndicator={<EllipsisOutlined />}
+          overflowedIndicator={<Icon type="down" />}
           // overflowedIndicatorPopupClassName={`${prefixCls}-${theme}`}
           {...passedProps}
           inlineCollapsed={this.state.collapsed} // 收缩
@@ -81,6 +88,7 @@ class InternalMenu extends React.Component {
           // direction={direction}
           // defaultMotions={defaultMotions}
           expandIcon={cloneElement(expandIcon)}
+          // overflowedIndicator
         />
         {this.props.inlineCollapsed && (
           <div className={`${prefixCls}-menu-inlineCollapsed`}>
@@ -107,10 +115,7 @@ class InternalMenu extends React.Component {
 }
 
 // We should keep this as ref-able
-class CMenu extends React.Component {
-  // componentDidMount() {
-  //   console.log(<InternalMenu />, 'ppp');
-  // }
+class CMenu extends React.Component{
 
   static Divider = Divider;
 

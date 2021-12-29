@@ -36,7 +36,7 @@ class App extends React.Component {
                 >
 				<Item key="2">一级菜单</Item>
 
-				<SubMenu title={<span className="submenu-title-wrapper">sub menu 1</span>} key="1">
+				<SubMenu title="二级菜单" key="1">
 					<Item key="1-1">0111</Item>
 					<Item key="1-2">0-2</Item>
 				</SubMenu>

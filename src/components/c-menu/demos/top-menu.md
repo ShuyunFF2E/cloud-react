@@ -1,13 +1,13 @@
 ---
 order: 1
-title: CMenu
-desc: 新导航
+title: 面包屑
+desc: 可切换大小的面包屑
 ---
 
 ```jsx
 /**
  * title: 顶部导航
- * desc: 水平的顶部导航菜单
+ * desc: 水平的顶部导航菜单带icon
  */
 
 import React from 'react';
@@ -32,19 +32,18 @@ class App extends React.Component {
 			<Menu
 				onClick={this.handleClick}
 				selectedKeys={[current]}
-				mode="horizontal"
-				>
-				<Item key="2" icon={<Icon type="mail"/>}>一级菜单</Item>
+				mode="horizontal">
+				<Item key="2" icon={<Icon type="plus-solid"/>}>一级菜单</Item>
 
-				<SubMenu title="二级菜单" key="1" icon={<Icon type="mail"/>}>
-					<Item key="1-1">二级菜单1</Item>
-					<Item key="1-2">二级菜单2</Item>
+				<SubMenu title="二级菜单" key="1" icon={<Icon type="plus-solid"/>}>
+					<Item key="1-1">0111</Item>
+					<Item key="1-2">0-2</Item>
 				</SubMenu>
 
 				<SubMenu
 					title="四级菜单"
 					key="4"
-					icon={<Icon type="mail"/>}
+					icon={<Icon type="plus-solid"/>}
 					>
 					<Item key="4-1">inner inner</Item>
 
