@@ -245,9 +245,12 @@ class CTable extends Component {
           const sortBy = item.sortable ? item.sortBy : '';
           const resolveColumnItem = {
             ...item,
+            // eslint-disable-next-line no-nested-ternary
             title: item.sortable ? (
               <span className="title-container">
-                {item.title}
+                {typeof item.title === 'function'
+                  ? item.title(item)
+                  : item.title}
                 <span
                   className={`sort-icon-container ${
                     item.align === 'right' && 'cell-align-right'
@@ -258,6 +261,8 @@ class CTable extends Component {
                   <Icon className="sort-down-icon" type="down-solid" />
                 </span>
               </span>
+            ) : typeof item.title === 'function' ? (
+              item.title(item)
             ) : (
               item.title
             ),
@@ -555,8 +560,13 @@ class CTable extends Component {
     });
   };
 
-  refreshTable = (params) => {
-    this.loadGrid(params);
+  /**
+   * 外部调用此函数，手动刷新表格
+   * @param gotoFirstPage：表格刷新后，是否跳转到第一页
+   * @param params
+   */
+  refreshTable = (gotoFirstPage = true, params = {}) => {
+    this.loadGrid({ ...params, pageNum: gotoFirstPage ? 1 : params.pageNum });
   };
 
   render() {

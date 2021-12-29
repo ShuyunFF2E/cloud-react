@@ -11,7 +11,7 @@ desc: 分页
  * desc: 表格带分页
  */
 import React, { useState } from 'react';
-import { CTable, Checkbox } from 'cloud-react';
+import { CTable, Checkbox, Tooltip, Icon } from 'cloud-react';
 
 
 const data = new Array(100).fill(1).map((item, index) => (
@@ -19,7 +19,16 @@ const data = new Array(100).fill(1).map((item, index) => (
 ))
 
 const columns = [
-    { title: '活动ID', dataIndex: 'id', align: 'left' },
+  {
+    title: item => {
+      return <span>
+                <span style={{ marginRight: 5 }}>活动ID</span>
+                <Tooltip content="lalallalla"><Icon type="question-circle-solid"/></Tooltip>
+            </span>;
+    },
+    dataIndex: 'id',
+    align: 'left'
+  },
     { title: '活动名称', dataIndex: 'name', align: 'left' },
     { title: '创建时间', dataIndex: 'createTime', align: 'left' },
     { title: '创建人', dataIndex: 'creator', align: 'left' }

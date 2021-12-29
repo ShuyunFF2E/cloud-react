@@ -51,7 +51,7 @@ group:
 #### columnData
 | 属性                | 说明                                         | 类型                        | 默认值           |
 | ------------------- | -------------------------------------------- | --------------------------- | ---------------- |
-| title             | 表头                                     | string                      | -                |
+| title             | 表头                                     | string/function                    | -                |
 | dataIndex            | 列对应的唯一标识                                     | string                      | -               |
 | align     | 对齐方式 `left` `right` `center`                       | string                     | `left`            |
 | width     | 列宽                       | string/number                   | - |
