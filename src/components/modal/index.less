@@ -18,102 +18,102 @@
 @confirm-loading-border-top: 1px solid @color-white;
 
 .@{modal-prefix-cls} {
-	font-family: Tahoma, 'Microsoft Yahei', sans-serif;
-	position: fixed;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	z-index: @z-index-modal-mask;
-	&-mask {
-		position: fixed;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		background: @gray-7;
-	}
+  font-family: Tahoma, 'Microsoft Yahei', sans-serif;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: @z-index-modal-mask;
+  &-mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: @gray-7;
+  }
 
-	&-container {
-		min-height: 160px;
-		min-width: 400px;
-		max-width: 50%;
-		margin: 0 auto;
-		position: relative;
-		top: 20%;
+  &-container {
+    min-height: 160px;
+    min-width: 400px;
+    max-width: 50%;
+    margin: 0 auto;
+    position: relative;
+    top: 20%;
     background: @gray-1;
-		border-radius: @body-border-radius;
-		white-space: normal;
-		box-shadow: @border-shadow-3;
-		opacity: 0;
+    border-radius: @body-border-radius;
+    white-space: normal;
+    box-shadow: @border-shadow-3;
+    opacity: 0;
 
-		&.transition {
-			transition: 0.3s cubic-bezier(0, 0.71, 0.77, 1);
-		}
-	}
+    &.transition {
+      transition: 0.3s cubic-bezier(0, 0.71, 0.77, 1);
+    }
+  }
 
-	&-header {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		height: 56px;
-		border-radius: 2px;
-		padding: 0 16px;
+  &-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+    border-radius: 2px;
+    padding: 0 16px;
     color: @gray-0;
-		font-size: @font-size-medium;
+    font-size: @font-size-medium;
     font-weight: 500;
-		background: @gray-2;
+    background: @gray-2;
     line-height: @line-height-medium;
     border-bottom: @border-color;
 
-		&:active {
-			cursor: move;
-		}
+    &:active {
+      cursor: move;
+    }
 
-		.close-icon {
-			position: relative;
-			color: @gray-7;
+    .close-icon {
+      position: relative;
+      color: @gray-7;
       font-size: @font-size-medium;
-			cursor: pointer;
+      cursor: pointer;
 
-			&:hover {
-				color: #a5a5a5;
-			}
-		}
+      &:hover {
+        color: #a5a5a5;
+      }
+    }
 
-		.@{modal-prefix-cls}-title {
-			color: @gray-9;
-			cursor: text;
-		}
-	}
+    .@{modal-prefix-cls}-title {
+      color: @gray-9;
+      cursor: text;
+    }
+  }
 
-	&-body {
-		max-height: calc(100vh - 200px);
-		color: @color-gray4;
-		padding: 16px;
-		overflow: auto;
-		box-sizing: content-box;
-	}
+  &-body {
+    max-height: calc(100vh - 200px);
+    color: @color-gray4;
+    padding: 16px;
+    overflow: auto;
+    box-sizing: content-box;
+  }
 
   &-confirm-size {
     min-height: 40px;
   }
 
   &-size {
-    min-height: 170px;
+    //min-height: 170px;
   }
 
-	&-footer {
-		padding: 12px 16px;
+  &-footer {
+    padding: 12px 16px;
     background: @gray-1;
-		text-align: right;
-		border-radius: 0 0 4px 4px;
+    text-align: right;
+    border-radius: 0 0 4px 4px;
     border-top: @border-color;
 
     .@{modal-prefix-cls}-confirm-btn {
-			margin-left: 16px;
-		}
-	}
+      margin-left: 16px;
+    }
+  }
 
   &-border {
     padding: 16px 24px 24px 24px;
@@ -124,7 +124,7 @@
 .info-area {
   display: flex;
   justify-content: flex-start;
-	white-space: normal;
+  white-space: normal;
   padding: 8px;
 
   &-content {
@@ -151,41 +151,41 @@
     cursor: pointer;
   }
 
-	.icon-style {
-		font-size: @font-size-large;
-		vertical-align: text-top;
+  .icon-style {
+    font-size: @font-size-large;
+    vertical-align: text-top;
     margin-right: 8px;
-	}
+  }
 
-	.confirm-style {
-		color: @confirm-icon-color;
-	}
+  .confirm-style {
+    color: @confirm-icon-color;
+  }
 
-	.info-style {
-		color: @info-icon-color;
-	}
+  .info-style {
+    color: @info-icon-color;
+  }
 
-	.success-style {
-		color: @success-icon-color;
-	}
+  .success-style {
+    color: @success-icon-color;
+  }
 
-	.error-style {
-		color: @error-icon-color;
-	}
+  .error-style {
+    color: @error-icon-color;
+  }
 
-	.warning-style {
-		color: @warning-icon-color;
-	}
+  .warning-style {
+    color: @warning-icon-color;
+  }
 
-	.more-info {
-		display: inline;
-		font-size: @font-size-base;
-		color: @gray-8;
-		vertical-align: text-top;
-		line-height: 20px;
-	}
+  .more-info {
+    display: inline;
+    font-size: @font-size-base;
+    color: @gray-8;
+    vertical-align: text-top;
+    line-height: 20px;
+  }
 }
 
 .other-area-can-click {
-	pointer-events: none;
+  pointer-events: none;
 }
