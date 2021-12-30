@@ -1,7 +1,7 @@
 ---
-order: 1
-title: 面包屑
-desc: 可切换大小的面包屑
+order: 4
+title: 导航
+desc: 基础的垂直内嵌菜单
 ---
 
 ```jsx
@@ -24,6 +24,10 @@ class App extends React.Component {
 		console.log('click ', e);
 		this.setState({ current: e.key });
 	};
+
+	onOpenChange = e => {
+		console.log('收缩、展开');
+	}
 
 	render() {
 		const { current } = this.state;

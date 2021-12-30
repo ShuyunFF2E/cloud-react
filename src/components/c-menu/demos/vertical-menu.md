@@ -1,7 +1,7 @@
 ---
-order: 1
-title: 面包屑
-desc: 可切换大小的面包屑
+order: 8
+title: 导航
+desc: 子菜单不出现在主菜单内
 ---
 
 ```jsx
@@ -32,7 +32,6 @@ class App extends React.Component {
 				onClick={this.handleClick}
 				selectedKeys={[current]}
 				mode="vertical"
-                onOpenChange={this.onOpenChange}
                 >
 				<Item key="2">一级菜单</Item>
 

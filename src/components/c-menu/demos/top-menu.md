@@ -1,7 +1,7 @@
 ---
-order: 1
-title: 面包屑
-desc: 可切换大小的面包屑
+order: 2
+title: 导航
+desc: 水平的顶部导航菜单带icon
 ---
 
 ```jsx

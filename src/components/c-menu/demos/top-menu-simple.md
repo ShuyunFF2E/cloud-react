@@ -1,7 +1,7 @@
 ---
 order: 1
-title: 面包屑
-desc: 可切换大小的面包屑
+title: 导航
+desc: 简单基础的水平顶部导航菜单
 ---
 
 ```jsx
@@ -33,8 +33,6 @@ class App extends React.Component {
 				onClick={this.handleClick}
 				selectedKeys={[current]}
 				mode="horizontal"
-				// theme="dark"
-                // triggerSubMenuAction="click"
                 >
 				<Item key="2">一级菜单</Item>
 

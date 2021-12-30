@@ -1,7 +1,7 @@
 ---
-order: 1
-title: 面包屑
-desc: 可切换大小的面包屑
+order: 7
+title: 导航
+desc: 导航栏可收缩
 ---
 
 ```jsx
@@ -28,16 +28,13 @@ class App extends React.Component {
 
 	render() {
 		const { current, collapsed } = this.state;
-		return ( 
+		return (
 		    <div>
           <Menu
             onClick={this.handleClick}
             selectedKeys={[current]}
             mode="inline"
-            onOpenChange={this.onOpenChange}
             inlineCollapsed
-            theme="dark"
-            // triggerSubMenuAction="click"
           >
             <Item icon={<Icon type="mail"/>} key="2">一级菜单</Item>
             

@@ -4,7 +4,6 @@ import RcMenu, { Divider, ItemGroup } from 'rc-menu';
 import 'rc-menu/assets/index.css';
 import classNames from 'classnames';
 import { omit } from '@utils';
-// import classNames from 'classnames';
 import SubMenu from './SubMenu';
 import Item from './MenuItem';
 import { cloneElement } from './reactNode';
@@ -12,9 +11,6 @@ import './index.less';
 import { Icon, Tooltip } from 'cloud-react';
 import { prefixCls } from '@utils';
 import MenuContext, { MenuTheme } from './MenuContext';
-
-// export { MenuItemGroupProps } from 'rc-menu';
-
 class InternalMenu extends React.Component {
   static defaultProps = {
     theme: 'light', // or dark
@@ -50,7 +46,6 @@ class InternalMenu extends React.Component {
       header,
       ...restProps
     } = this.props;
-    console.log(theme, 'theme');
 
     const passedProps = omit(restProps, ['siderCollapsed', 'collapsedWidth']);
     // const inlineCollapsed = this.getInlineCollapsed();

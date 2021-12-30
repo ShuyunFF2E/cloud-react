@@ -1,7 +1,7 @@
 ---
-order: 1
-title: 面包屑
-desc: 可切换大小的面包屑
+order: 5
+title: 导航
+desc: 带logo的垂直内嵌菜单
 ---
 
 ```jsx
@@ -32,7 +32,6 @@ class App extends React.Component {
 				onClick={this.handleClick}
 				selectedKeys={[current]}
 				mode="inline"
-                onOpenChange={this.onOpenChange}
                 // header={<img src="https://qa-pcrm.shuyun.com/pcrm/202102/e2f5f56627cbabf6e6790fe70503cefe/173253_54091_banner_syyj.jpg" />}
                 >
 				<Item key="2">一级菜单</Item>

@@ -1,7 +1,7 @@
 ---
-order: 2
-title: CMenu
-desc: 新导航
+order: 3
+title: 导航
+desc: 带logo的顶部导航
 ---
 
 ```jsx
