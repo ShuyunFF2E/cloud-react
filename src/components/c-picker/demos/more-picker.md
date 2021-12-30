@@ -30,8 +30,8 @@ const {
 export default class DatePickerDemo extends React.Component {
 	field = new Field(this)
 	state = {
-		// value: moment('2021/12/01 16:05:33', 'yyyy/MM/DD HH:mm:ss').toDate(),
-		year: 2021
+		year: 2021,
+		month: '2021/07'
 	}
 
 	onYearChange = year => {
@@ -39,8 +39,13 @@ export default class DatePickerDemo extends React.Component {
 		this.setState({ year });
 	}
 
+	onMonthChange = month => {
+		console.log('month:', month);
+		this.setState({ month });
+	}
+
 	render() {
-		const { year, disabled } = this.state;
+		const { year, month, disabled } = this.state;
 		const { init } = this.field;
 		return (
 			<Form field={this.field} layout="horizontal" labelAlign="left" labelCol={{ span: 8 }}>
@@ -56,6 +61,19 @@ export default class DatePickerDemo extends React.Component {
 						format="yyyy"
 						minYear={2020}
 						maxYear={2025}
+					/>
+				</Form.Item>
+				<Form.Item label="年月选择器">
+					<MonthPicker
+						value={month}
+						onChange={this.onMonthChange}
+						disabled={disabled}
+						allowClear
+						format="yyyy/MM"
+						minYear={2020}
+						maxYear={2025}
+						minMonth={3}
+						maxMonth={10}
 					/>
 				</Form.Item>
 			</Form>
