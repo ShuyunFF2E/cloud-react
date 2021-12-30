@@ -50,6 +50,7 @@ class InternalMenu extends React.Component {
       header,
       ...restProps
     } = this.props;
+    console.log(theme, 'theme');
 
     const passedProps = omit(restProps, ['siderCollapsed', 'collapsedWidth']);
     // const inlineCollapsed = this.getInlineCollapsed();
@@ -70,19 +71,17 @@ class InternalMenu extends React.Component {
         }}
       >
         <div
-          className={classNames(`${prefixCls}-menu`, {
-            [`${prefixCls}-menu-collapsed`]: this.props.inlineCollapsed,
-            [`${prefixCls}-menu-horizontal-header`]:
-              this.props.mode === 'horizontal',
-          })}
+         className={classNames(`${prefixCls}-menu`, {
+          [`${prefixCls}-menu-collapsed`]: this.props.inlineCollapsed,
+          [`${prefixCls}-menu-horizontal-header`]:this.props.mode === 'horizontal'
+        }, `${prefixCls}-menu-${theme}`)}
         >
           {header && (
             <span className={`${prefixCls}-menu-header`}>{header}</span>
           )}
           {/* <div className="menu-containner"> */}
           <RcMenu
-            // getPopupContainer={getPopupContainer}
-            overflowedIndicator={<Icon type="down" />}
+           getPopupContainer={triggerNode =>triggerNode.parentNode}
             // overflowedIndicatorPopupClassName={`${prefixCls}-${theme}`}
             {...passedProps}
             inlineCollapsed={this.state.collapsed} // 收缩

@@ -16,15 +16,18 @@ group:
 | 属性        | 说明                 | 类型             | 默认值     |
 | ----------- | -------------------- | ---------------- | ---------- |
 | mode  | 菜单类型，现在支持垂直 vertical、水平 horizontal         | string  `vertical`、`horizontal`            | `vertical`      |
+| theme      |菜单主题             | string  `light`、`dark` |    `light`, horizontal暂不支持主题设置     |
 | triggerSubMenuAction  | 如何触发菜单选中事件               | click、hover |horizontal下默认hover,vertical下默认click        |
 | onClick  | 菜单点击事件               | - |-        |
 | selectedKeys      |默认选中的菜单             | - | -         |
 
  ### 代码演示 
-<!-- <embed src="@components/c-menu/demos/top-menu-simple.md" /> -->
+<embed src="@components/c-menu/demos/top-menu-simple.md" />
 <embed src="@components/c-menu/demos/top-menu.md" />
 <embed src="@components/c-menu/demos/top-menu-header.md" />
 <embed src="@components/c-menu/demos/inline-menu.md" />
+<embed src="@components/c-menu/demos/inline-menu-header.md" />
+<embed src="@components/c-menu/demos/inline-menu-theme.md" />
 <embed src="@components/c-menu/demos/vertical-menu.md" />
 <embed src="@components/c-menu/demos/inline-collapsed.md" />
 

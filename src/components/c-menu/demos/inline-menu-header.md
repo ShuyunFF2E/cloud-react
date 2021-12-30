@@ -6,8 +6,8 @@ desc: 可切换大小的面包屑
 
 ```jsx
 /**
- * title: 竖直导航
- * desc: 子菜单不出现在主菜单内
+ * title: 内嵌导航
+ * desc: 带logo的垂直内嵌菜单
  */
 
 import React from 'react';
@@ -31,8 +31,9 @@ class App extends React.Component {
 			<Menu
 				onClick={this.handleClick}
 				selectedKeys={[current]}
-				mode="vertical"
+				mode="inline"
                 onOpenChange={this.onOpenChange}
+                // header={<img src="https://qa-pcrm.shuyun.com/pcrm/202102/e2f5f56627cbabf6e6790fe70503cefe/173253_54091_banner_syyj.jpg" />}
                 >
 				<Item key="2">一级菜单</Item>
 

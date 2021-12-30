@@ -11,8 +11,7 @@ desc: 可切换大小的面包屑
  */
 
 import React from 'react';
-import Menu from '../index.js';
-import { Button, Icon } from 'cloud-react';
+import {  CMenu as Menu, Button, Icon } from 'cloud-react';
 
 const { SubMenu, Item } = Menu;
 
@@ -37,6 +36,8 @@ class App extends React.Component {
             mode="inline"
             onOpenChange={this.onOpenChange}
             inlineCollapsed
+            theme="dark"
+            // triggerSubMenuAction="click"
           >
             <Item icon={<Icon type="mail"/>} key="2">一级菜单</Item>
             
@@ -68,7 +69,7 @@ class App extends React.Component {
               </SubMenu>
             </SubMenu>
 
-            <Item key="5">禁用菜单</Item>
+            <Item key="5" disabled>禁用菜单</Item>
           </Menu>
         </div>
 		);

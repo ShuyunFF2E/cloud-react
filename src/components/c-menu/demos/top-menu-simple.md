@@ -6,11 +6,12 @@ desc: 可切换大小的面包屑
 
 ```jsx
 /**
- * title: 竖直导航
- * desc: 子菜单不出现在主菜单内
+ * title: 顶部导航
+ * desc: 简单基础的水平顶部导航菜单
  */
 
 import React from 'react';
+// import Menu from '../index.js';
 import { CMenu as Menu } from 'cloud-react';
 
 const { SubMenu, Item } = Menu;
@@ -31,8 +32,9 @@ class App extends React.Component {
 			<Menu
 				onClick={this.handleClick}
 				selectedKeys={[current]}
-				mode="vertical"
-                onOpenChange={this.onOpenChange}
+				mode="horizontal"
+				// theme="dark"
+                // triggerSubMenuAction="click"
                 >
 				<Item key="2">一级菜单</Item>
 
@@ -43,7 +45,8 @@ class App extends React.Component {
 
 				<SubMenu
 					title="四级菜单"
-					key="4">
+					key="4"
+					>
 					<Item key="4-1">inner inner</Item>
 
 					<SubMenu key="4-2" title="sub menu 1">

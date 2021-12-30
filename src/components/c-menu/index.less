@@ -1,10 +1,47 @@
 @import '../style/index';
 
 @menu: ~'@{prefix}-menu';
+@menuDark: ~'@{prefix}-menu-dark';
+@menuLight: ~'@{prefix}-menu-light';
 @menuCollapsed: ~'@{prefix}-menu-collapsed';
 @inlineCollapsed: ~'@{prefix}-menu-inlineCollapsed';
 @header: ~'@{prefix}-menu-header';
 @horizontalHeader: ~'@{prefix}-menu-horizontal-header';
+@lightDisabled: rgba(0, 0, 0, 0.5);
+@darkDisabled: rgba(255, 255, 255, 0.5);
+@lightSelectedBg: #D4E1FF;
+@lightSelectedColor: #5280FF;
+@lightColor: #fff;
+@darkColor: #000B52;
+@darkActive: rgba(255, 255, 255, 0.1);
+
+
+  // 通用全局样式
+  .rc-menu-submenu-arrow {
+    font-family: 'icon' !important;
+    &::before {
+      content: '\e624' !important;
+    }
+  }
+  .rc-menu-submenu-hidden {
+    display: none;
+  }
+  .rc-menu-item-selected {
+    background-color: @lightSelectedBg !important;
+  }
+  .rc-menu-submenu-popup {
+    z-index: 10;
+  }
+.rc-menu-inline-collapsed .rc-menu-submenu-popup {
+  .rc-menu-submenu .rc-menu-submenu-title {
+    span,  .rc-menu-submenu-arrow{
+      display: inline-block;
+    }
+  }
+  .rc-menu-item span {
+    display: block;
+  }
+}
 
 // 最外层盒子，用于menu和收起栏上下两端布局
 .@{menu} {
@@ -12,6 +49,7 @@
   display: inline-block;
   height: 100%;
   overflow: visible;
+  width: 100%;
   // display: flex;
   &.@{horizontalHeader} {
     display: flex;
@@ -32,30 +70,19 @@
 
 // menu
 .rc-menu-root{
-  //box-shadow: none;
   border: none;
 }
 
-.rc-menu {
+.rc-menu{
   font-size: 14px;
   line-height: 20px;
-  color: rgba(0, 0, 0, 0.65);
   .rc-menu-item.rc-menu-item-disabled {
-    color: rgba(0, 0, 0, 0.45) !important;
     cursor: not-allowed;
   }
 }
 
 .rc-menu-submenu-hidden {
   display: none;
-}
-
-// submenu
-.rc-menu-submenu {
-  .rc-menu-item-selected {
-    background-color: #D4E1FF !important;
-    color: #000;
-  }
 }
 
 // menuItem
@@ -65,30 +92,13 @@
 
 // mode === horizontal
 .rc-menu-horizontal {
-  background-color: #fff;
   border-bottom: none;
-
-  .rc-menu-submenu-selected {
-    background-color: #fff;
-    color: #5280FF;
-  }
-  .rc-menu-item-selected {
-    background-color: #fff;
-    color: #5280FF;
-  }
-
- .rc-menu-item-active, .rc-menu-submenu-active{
-    background-color: #fff;
-    color: #5280FF;
-    border-bottom-color: #5280FF;
-    & > .rc-menu-submenu-title {
-      background-color: #fff;
-    }
-  }
+  width: 100%;
   & > .rc-menu-submenu {
     margin-right: 32px;
     & > .rc-menu-submenu-title {
-    padding: 20px 2px;
+    padding: 20px 25px 20px 2px;
+    margin-bottom: 0px;
   }
   }
   & > .rc-menu-item {
@@ -98,11 +108,62 @@
   .cloud-icon {
     margin-right: 9px;
   }
+
+  .rc-menu-overflow-item {
+    & > .rc-menu-submenu-title {
+      & > .rc-menu-submenu-arrow {
+        font-style: initial;
+        position: absolute;
+        transform: rotate(90deg);
+        margin-left: 12px;
+      }
+    }
+  }
 }
 
+// ------------horizontal theme---------------
+.@{menuLight} .rc-menu-horizontal {
+  background-color: @lightColor;
+  .rc-menu-submenu-selected {
+    background-color: @lightColor;
+    color: @lightSelectedColor;
+  }
+
+ .rc-menu-item-active, .rc-menu-submenu-active{
+    color: @lightSelectedColor;
+    border-bottom-color: @lightSelectedColor;
+    & > .rc-menu-submenu-title {
+      background-color: @lightColor;
+    }
+  }
+  .rc-menu-item.rc-menu-item-disabled {
+    color: @lightDisabled !important;
+  }
+}
+.@{menuDark} .rc-menu-horizontal {
+  background-color: @darkColor;
+  color: @lightColor;
+  .rc-menu-submenu-selected, .rc-menu-item-selected  {
+    background-color: @darkColor !important;
+    color: @lightSelectedColor;
+  }
+ .rc-menu-item-active, .rc-menu-submenu-active{
+    color: @lightColor;
+    border-bottom-color: @lightSelectedColor;
+    background-color: @darkActive;
+    & > .rc-menu-submenu-title {
+    background-color: @darkActive;
+    }
+  }
+  .rc-menu-item.rc-menu-item-disabled {
+    color: @darkDisabled !important;
+  }
+}
+
+
+
 // mode === inline / vertical
-.rc-menu-inline,
-.rc-menu-vertical {
+.rc-menu-inline {
   width: 208px;
   padding: 16px 8px;
   transition: 0.5s;
@@ -113,10 +174,9 @@
   .rc-menu-submenu-selected {
     background-color: #fff;
   }
+
   .rc-menu-submenu-title {
-    // height: 40px;
     line-height: 20px;
-    // padding: 10px 0 10px 24px;
     padding-top: 10px !important;
     padding-bottom: 10px !important;
     margin-bottom: 4px;
@@ -128,26 +188,6 @@
   }
   li {
     margin-bottom: 4px;
-  }
-  .rc-menu-submenu-selected {
-    & > .rc-menu-submenu-title {
-      background-color: #F5F8FF !important;
-      color: #5280FF;
-    }
-  }
-  .rc-menu-submenu-active {
-    & > .rc-menu-submenu-title {
-      background-color: #fff;
-      color: #5280FF;
-    }
-  }
-  .rc-menu-item-active {
-    background-color: #fff;
-    color: #5280FF;
-  }
-  .rc-menu-item-selected {
-    background-color: #F5F8FF !important;
-    color: #5280FF;
   }
 
   [role="menuitem"]{
@@ -165,6 +205,8 @@
 
 // mode === vertical
 .rc-menu-vertical {
+  .rc-menu-inline;
+  font-size: 14px;
   width: 208px;
   &.rc-menu-sub {
     min-width: 120px;
@@ -179,6 +221,65 @@
     & > .rc-menu-submenu-title{
       padding: 6px 38px 6px 12px;
     }
+  }
+}
+
+// ------------inline、vertical  theme---------------
+.@{menuLight} .rc-menu-inline, .@{menuLight} .rc-menu-vertical{
+  // width: 208px;
+  background-color: @lightColor;
+  .rc-menu-submenu-selected {
+    background-color: @lightColor;
+  }
+  .rc-menu-submenu-selected {
+    & > .rc-menu-submenu-title {
+      color: @lightSelectedColor;
+    }
+  }
+  .rc-menu-submenu-active {
+    & > .rc-menu-submenu-title {
+      background-color: @lightColor;
+      color: @lightSelectedColor;
+    }
+  }
+  .rc-menu-item-active {
+    background-color: @lightColor;
+    color: @lightSelectedColor;
+  }
+  .rc-menu-item-selected {
+    color: @lightSelectedColor;
+  }
+}
+.@{menuDark} .rc-menu-inline, .@{menuDark} .rc-menu-vertical{
+  // width: 208px;
+  color: @lightColor;
+  background-color: @darkColor;
+
+  .rc-menu-submenu-selected {
+    background-color: @darkActive;
+  }
+  .rc-menu-submenu-selected {
+    & > .rc-menu-submenu-title {
+      color: @lightColor;
+    }
+  }
+  .rc-menu-submenu-active {
+    & > .rc-menu-submenu-title {
+    background-color: @darkActive;
+      color: @lightColor;
+    }
+  }
+  .rc-menu-item-active {
+    background-color: @darkActive;
+    color: @lightColor;
+  }
+  .rc-menu-item-selected {
+    color: @lightColor;
+    background-color: @lightSelectedColor !important;
+  }
+  .rc-menu-item.rc-menu-item-disabled {
+    color: @darkDisabled !important;
+    cursor: not-allowed;
   }
 }
 
@@ -217,9 +318,6 @@
   i{
     width: 14px;
     height: 14px;
-    &:hover{
-      color: #5280FF;
-    }
   }
 
   // 收起文字
@@ -229,9 +327,34 @@
     height: 20px;
     line-height: 20px;
     font-size: 14px;
-    color: rgba(0, 0, 0, 0.85);
     font-weight: 500;
   }
+}
+
+.@{menuLight} .@{inlineCollapsed} {
+  i{
+    color: rgba(0, 0, 0, 0.45);
+    &:hover{
+      color: @lightSelectedColor;
+    }
+  }
+  .text{ 
+    color: rgba(0, 0, 0, 0.85);
+  }
+
+}
+
+.@{menuDark} .@{inlineCollapsed} {
+  i{
+    color: @lightColor;
+    &:hover{
+      color: @lightSelectedColor;
+    }
+  }
+  .text{ 
+    color: @lightColor;
+  }
+
 }
 
 // 收起时menu布局
