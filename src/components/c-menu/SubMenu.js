@@ -1,6 +1,6 @@
 /* eslint-disable */
 import React, { useContext } from 'react';
-import { SubMenu as RcSubMenu } from 'rc-menu';
+import { SubMenu as RcSubMenu, useFullPath } from 'rc-menu';
 import classNames from 'classnames';
 import 'rc-menu/assets/index.css';
 import { omit } from '@utils';
@@ -11,20 +11,20 @@ function SubMenu(props) {
   const { icon, title } = props;
   const context = useContext(MenuContext);
   const { inlineCollapsed } = context;
-
-  console.log(icon, '[icon]');
+  const parentPath = useFullPath();
 
   let titleNode;
   if (!icon) {
-    titleNode =
+    if (
       inlineCollapsed &&
-      // !parentPath.length &&
+      !parentPath.length &&
       title &&
-      typeof title === 'string' ? (
-        <span>{title.charAt(0)}</span>
-      ) : (
-        <span>{title}</span>
-      );
+      typeof title === 'string'
+    ) {
+      titleNode = <span>{title[0]}</span>;
+    } else {
+      titleNode = <span>{title}</span>;
+    }
   } else {
     const titleIsSpan = isValidElement(title) && title.type === 'span';
     titleNode = (
@@ -34,14 +34,21 @@ function SubMenu(props) {
             isValidElement(icon) ? icon.props?.className : '',
           ),
         })}
-        {titleIsSpan ? title : <span>{title}</span>}
+        {!inlineCollapsed ? titleIsSpan ? title : <span>{title}</span> : ''}
       </>
     );
   }
 
-  console.log(titleNode, '[titleNode]');
-
-  return <RcSubMenu {...omit(props, ['icon'])} title={titleNode} />;
+  return (
+    <MenuContext.Provider
+      value={{
+        ...context,
+        firstLevel: false,
+      }}
+    >
+      <RcSubMenu {...omit(props, ['icon'])} title={titleNode} />
+    </MenuContext.Provider>
+  );
 }
 
 export default SubMenu;

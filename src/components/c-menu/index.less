@@ -44,9 +44,10 @@
     color: rgba(0, 0, 0, 0.45) !important;
     cursor: not-allowed;
   }
-  .rc-menu-submenu-hidden {
-    display: none;
-  }
+}
+
+.rc-menu-submenu-hidden {
+  display: none;
 }
 
 // submenu
@@ -102,14 +103,13 @@
 // mode === inline / vertical
 .rc-menu-inline,
 .rc-menu-vertical {
-  padding: 16px 8px 16px;
+  width: 208px;
+  padding: 16px 8px;
   transition: 0.5s;
   -moz-transition: 0.5s; /* Firefox 4 */
   -webkit-transition: 0.5s; /* Safari 和 Chrome */
   -o-transition: 0.5s; /* Opera */
 
-  width: 208px;
-  padding: 16px 8px;
   .rc-menu-submenu-selected {
     background-color: #fff;
   }
@@ -190,9 +190,7 @@
   -webkit-transition: 0.5s; /* Safari 和 Chrome */
   -o-transition: 0.5s; /* Opera */
 
-  .rc-menu-item span,
-  .rc-menu-submenu .rc-menu-submenu-title .rc-menu-submenu-arrow,
-  .rc-menu-submenu .rc-menu-submenu-title span{
+  .rc-menu-submenu .rc-menu-submenu-title .rc-menu-submenu-arrow{
     display: none;
   }
 
@@ -244,5 +242,9 @@
     overflow-y: auto;
     overflow-x: hidden;
     padding-bottom: 60px;
+  }
+  .rc-menu-item span,
+  .rc-menu-submenu .rc-menu-submenu-title span{
+    padding: 1px;
   }
 }

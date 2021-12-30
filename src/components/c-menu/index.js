@@ -11,7 +11,7 @@ import { cloneElement } from './reactNode';
 import './index.less';
 import { Icon, Tooltip } from 'cloud-react';
 import { prefixCls } from '@utils';
-// import MenuContext, { MenuTheme } from './MenuContext';
+import MenuContext, { MenuTheme } from './MenuContext';
 
 // export { MenuItemGroupProps } from 'rc-menu';
 
@@ -63,49 +63,52 @@ class InternalMenu extends React.Component {
     // const prefixCls = getPrefixCls('menu', customizePrefixCls);
     // const menuClassName = classNames(`${prefixCls}-${theme}`, className);
     return (
-      // <MenuContext.provider
-      //   value={{
-      //     inlineCollapsed: inlineCollapsed || false,
-      //   }}
-      // >
-      <div
-        className={classNames(`${prefixCls}-menu`, {
-          [`${prefixCls}-menu-collapsed`]: this.props.inlineCollapsed,
-          [`${prefixCls}-menu-horizontal-header`]:
-          this.props.mode === 'horizontal'
-        })}
+      <MenuContext.Provider
+        value={{
+          inlineCollapsed: this.state.collapsed || false,
+          firstLevel: true,
+        }}
       >
-        {header && <span className={`${prefixCls}-menu-header`}>{header}</span>}
-      {/* <div className="menu-containner"> */}
-        <RcMenu
-          // getPopupContainer={getPopupContainer}
-          overflowedIndicator={<Icon type="down" />}
-          // overflowedIndicatorPopupClassName={`${prefixCls}-${theme}`}
-          {...passedProps}
-          inlineCollapsed={this.state.collapsed} // 收缩
-          // className={menuClassName}
-          // prefixCls={prefixCls}
-          // direction={direction}
-          // defaultMotions={defaultMotions}
-          expandIcon={cloneElement(expandIcon)}
-          // overflowedIndicator
-        />
-        {this.props.inlineCollapsed && (
-          <div className={`${prefixCls}-menu-inlineCollapsed`}>
-            {this.state.collapsed ? (
-              <Tooltip placement="right" content="展开导航栏">
-                <Icon type="menu" onClick={this.toggleCollapsed}></Icon>
-              </Tooltip>
-            ) : (
-              <div onClick={this.toggleCollapsed}>
-                <Icon type="menu"></Icon>
-                <span className="text">收起导航栏</span>
-              </div>
-            )}
-          </div>
-        )}
-      </div>
-      // </MenuContext.provider>
+        <div
+          className={classNames(`${prefixCls}-menu`, {
+            [`${prefixCls}-menu-collapsed`]: this.props.inlineCollapsed,
+            [`${prefixCls}-menu-horizontal-header`]:
+              this.props.mode === 'horizontal',
+          })}
+        >
+          {header && (
+            <span className={`${prefixCls}-menu-header`}>{header}</span>
+          )}
+          {/* <div className="menu-containner"> */}
+          <RcMenu
+            // getPopupContainer={getPopupContainer}
+            overflowedIndicator={<Icon type="down" />}
+            // overflowedIndicatorPopupClassName={`${prefixCls}-${theme}`}
+            {...passedProps}
+            inlineCollapsed={this.state.collapsed} // 收缩
+            // className={menuClassName}
+            // prefixCls={prefixCls}
+            // direction={direction}
+            // defaultMotions={defaultMotions}
+            expandIcon={cloneElement(expandIcon)}
+            // overflowedIndicator
+          />
+          {this.props.inlineCollapsed && (
+            <div className={`${prefixCls}-menu-inlineCollapsed`}>
+              {this.state.collapsed ? (
+                <Tooltip placement="right" content="展开导航栏">
+                  <Icon type="menu" onClick={this.toggleCollapsed} />
+                </Tooltip>
+              ) : (
+                <div onClick={this.toggleCollapsed}>
+                  <Icon type="menu" />
+                  <span className="text">收起导航栏</span>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      </MenuContext.Provider>
     );
   };
 
