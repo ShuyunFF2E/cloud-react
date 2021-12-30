@@ -35,7 +35,6 @@ class CTable extends Component {
   state = {
     data: [],
     columnData: this.props.columnData,
-    headerHeight: 0,
     footerHeight: 0,
     expandIconColumnIndex: 0,
     pageOpts: { ...this.defaultPageOpts, ...this.props.pageOpts },
@@ -54,47 +53,58 @@ class CTable extends Component {
     ) {
       console.warn('使用展开行功能或者树状表格功能请指定 rowKey');
     }
-    this.init();
+    this.loadData(this.init);
   }
 
   componentDidUpdate(prevProps) {
     if (
-      (typeof prevProps.ajaxData === 'object' &&
-        (this.props.ajaxData !== prevProps.ajaxData ||
-          this.props.columnData !== prevProps.columnData)) ||
-      this.props.checkedData !== prevProps.checkedData
+      typeof prevProps.ajaxData === 'object' &&
+      (this.props.ajaxData !== prevProps.ajaxData ||
+        this.props.columnData !== prevProps.columnData)
     ) {
+      this.loadData();
+    }
+    if (this.props.checkedData !== prevProps.checkedData) {
       this.init();
     }
   }
 
-  init = async () => {
+  /**
+   * 加载表格数据
+   * @param callback
+   */
+  loadData = (callback = () => {}) => {
+    const { pageOpts } = this.state;
+    const {
+      ajaxData,
+      pageOpts: propsPageOpts,
+      totalsKey,
+      dataKey,
+    } = this.props;
     this.setState({ isLoading: true }, async () => {
-      const { pageOpts } = this.state;
-      const {
-        ajaxData,
-        pageOpts: propsPageOpts,
-        totalsKey,
-        dataKey,
-      } = this.props;
-      const res = await this.getDataSource(ajaxData, {
-        ...pageOpts,
-      });
+      const res = await this.getDataSource(ajaxData, { ...pageOpts });
 
-      this.setState({
-        data: res[dataKey],
-        pageOpts: { ...pageOpts, ...propsPageOpts, totals: res[totalsKey] },
-        isLoading: false,
-      });
-
-      this.leafNodesMap = this.getLeafNodesMap(res[dataKey]);
-      this.setCheckedData();
-      this.updateSelectedNodes();
-
-      this.setColumnData(this.setCheckboxColumn);
-      this.setHeaderHeight();
-      this.setFooterHeight();
+      this.setState(
+        {
+          data: res[dataKey],
+          pageOpts: { ...pageOpts, ...propsPageOpts, totals: res[totalsKey] },
+          isLoading: false,
+        },
+        callback,
+      );
     });
+  };
+
+  /**
+   * 初始化已选数据、高度等
+   */
+  init = () => {
+    this.leafNodesMap = this.getLeafNodesMap(this.state.data);
+    this.setCheckedData();
+    this.updateSelectedNodes();
+
+    this.setColumnData(this.setCheckboxColumn);
+    this.setFooterHeight();
   };
 
   /**
@@ -313,20 +323,6 @@ class CTable extends Component {
   };
 
   /**
-   * 设置表头高度
-   */
-  setHeaderHeight = () => {
-    if (this.ref.current && this.ref.current.querySelector) {
-      const headerEle = this.ref.current.querySelector(
-        `.${tablePrefixCls}-thead`,
-      );
-      this.setState({
-        headerHeight: headerEle.offsetHeight,
-      });
-    }
-  };
-
-  /**
    * 设置 footer 高度
    */
   setFooterHeight = () => {
@@ -434,9 +430,6 @@ class CTable extends Component {
    * 已选数据回显
    */
   setCheckedData = () => {
-    if (!this.props.checkedData.length) {
-      return;
-    }
     // 更新叶子节点 leafNodesMap 的选中状态
     this.props.checkedData.forEach((cNode) => {
       const cNodeVal = this.getKeyFieldVal(cNode);
@@ -447,6 +440,26 @@ class CTable extends Component {
       } else {
         // 叶子节点无法获取到的情况（可能已选节点不在当前页），直接赋值，这种情况 this.leafNodesMap[cNodeVal] 不是 object
         this.leafNodesMap[cNodeVal] = cNodeVal;
+      }
+    });
+    const leafNodeKeys = Object.keys(this.leafNodesMap);
+    leafNodeKeys.forEach((key) => {
+      const isCheckedNode = !!this.props.checkedData.find(
+        (node) => String(this.getKeyFieldVal(node)) === String(key),
+      );
+      // 不是已选节点 && （没有子节点被选中 或者 全部子节点都被选中）
+      if (
+        !isCheckedNode &&
+        (!isSomeChecked(this.leafNodesMap[key].childNodes) ||
+          isEveryChecked(this.leafNodesMap[key].childNodes))
+      ) {
+        if (typeof this.leafNodesMap[key] === 'object') {
+          this.leafNodesMap[key].childNodes.forEach((node) => {
+            Object.assign(node, { checked: false });
+          });
+        } else {
+          delete this.leafNodesMap[key];
+        }
       }
     });
   };
@@ -592,7 +605,6 @@ class CTable extends Component {
       data,
       columnData,
       expandIconColumnIndex,
-      headerHeight,
       footerHeight,
       pageOpts,
       selectedNodeList,
@@ -623,9 +635,7 @@ class CTable extends Component {
             columns={columnData}
             data={data}
             expandIconColumnIndex={expandIconColumnIndex}
-            scroll={
-              fixed ? { x: '100%', y: `calc(100% - ${headerHeight}px)` } : {}
-            }
+            scroll={fixed ? { x: '100%', y: '100%' } : {}}
             expandable={getExpandableConfig({ ...this.props })}
             emptyText={emptyTpl()}
             rowKey={rowKey}

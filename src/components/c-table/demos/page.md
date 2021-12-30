@@ -11,7 +11,7 @@ desc: 分页
  * desc: 表格带分页
  */
 import React, { useState } from 'react';
-import { CTable, Checkbox, Tooltip, Icon } from 'cloud-react';
+import { CTable, Checkbox, Tooltip, Icon, Button } from 'cloud-react';
 
 
 const data = new Array(100).fill(1).map((item, index) => (
@@ -37,6 +37,7 @@ const columns = [
 export default function CTableDemo() {
   const [showRefresh, setShowRefresh] = useState(true);
   const [showTotal, setShowTotal] = useState(true);
+  const [checkedData, setCheckedData] = useState([data[1], data[4], data[15]]);
   return (
     <div>
       <div style={{ marginBottom: 20 }}>
@@ -46,6 +47,12 @@ export default function CTableDemo() {
         <Checkbox style={{ marginLeft: 15 }} checked={showTotal} onChange={checked => {
           setShowTotal(checked);
         }}>显示总条数</Checkbox>
+        <Button style={{ marginLeft: 15 }} onClick={() => {
+          setCheckedData([]);
+        }}>清空已选</Button>
+        <Button style={{ marginLeft: 15 }} onClick={() => {
+          setCheckedData([data[0], data[1]]);
+        }}>选中前两条</Button>
       </div>
       <CTable
         style={{ width: '100%', height: 500 }}
@@ -59,10 +66,13 @@ export default function CTableDemo() {
         isDelay
         showRefresh={showRefresh}
         showTotal={showTotal}
-        checkedData={[data[1], data[4], data[9]]}
+        checkedData={checkedData}
         columnData={columns}
         ajaxData={(params) => {
             return { total: data.length, list: JSON.parse(JSON.stringify(data.slice(params.pageSize * (params.pageNum - 1), params.pageSize * params.pageNum))) };
+        }}
+        onCheckedAfter={checkedData => {
+            setCheckedData(checkedData);
         }}
       />
     </div>
