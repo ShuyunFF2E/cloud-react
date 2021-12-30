@@ -420,6 +420,7 @@ class Tree extends Component {
     this.onHideMenu();
     Modal.confirm({
       isShowIcon: false,
+      title: '删除',
       body: '你确定删除此目录吗?',
       onOk: () => {
         const { treeData } = this.state;

@@ -160,8 +160,9 @@ class Node extends Component {
     const { setInputValue, onSaveClick, onClickCancel } = this;
     // 将三个方法传递出去可以供外部调用
     const options = { setInputValue, onSaveClick, onClickCancel };
-    // 根节点不缩进
-    const paddingLeft = 14 * data.level - 14;
+    // 无拖拽时根节点不缩进
+    const paddingLeft = supportDrag ? 18 * data.level : 18 * data.level - 18;
+    //
     return (
       <>
         <div
@@ -271,7 +272,7 @@ function ToggleFold({ hasChildren, showChildrenItem, toggle }) {
     hasChildren && (
       <Icon
         className="toggle-icon"
-        type={!showChildrenItem ? 'right-solid' : 'down-solid'}
+        type={!showChildrenItem ? 'up' : 'down'}
         onClick={toggle}
       />
     )
@@ -310,8 +311,8 @@ function ShowInput({
         maxLength={maxLength}
         placeholder={`最多可输入${maxLength}个字符`}
       />
-      <Icon type="finish" className="save-icon" onClick={saveItem} />
-      <Icon type="close" className="cancel-icon" onClick={cancelSave} />
+      <Icon type="success-line" className="save-icon" onClick={saveItem} />
+      <Icon type="close-line" className="cancel-icon" onClick={cancelSave} />
     </div>
   ) : null;
 }
@@ -374,7 +375,9 @@ function ShowSelection({
   let tmp = (
     <span
       name={id}
-      className={nodeClassName}
+      className={`${nodeClassName} ${
+        disableSelected ? 'disabled-node-name' : ''
+      }`}
       dangerouslySetInnerHTML={{ __html: nodeText }}
     />
   );
@@ -424,6 +427,7 @@ function ShowSelection({
         ? 'calc(100% - 30px)'
         : 'calc(100%)',
     zIndex: 0,
+    marginTop: '6px',
   };
 
   if (supportCheckbox) {
@@ -474,6 +478,8 @@ function NodeIcon({
   }
   const style = {
     color: iconColor,
+    fontSize: '16px',
+    margin: '0 8px 0 0',
   };
   // 存在子节点,并且要显示子节点
   return (
