@@ -1,19 +1,18 @@
-/* eslint-disable */
 import * as React from 'react';
-import RcMenu, { Divider, ItemGroup } from 'rc-menu';
+import RcMenu from 'rc-menu';
 import 'rc-menu/assets/index.css';
+import { Icon, Tooltip } from 'cloud-react';
 import classNames from 'classnames';
-import { omit } from '@utils';
+import { omit, prefixCls } from '@utils';
 import SubMenu from './SubMenu';
 import Item from './MenuItem';
 import { cloneElement } from './reactNode';
 import './index.less';
-import { Icon, Tooltip } from 'cloud-react';
-import { prefixCls } from '@utils';
-import MenuContext, { MenuTheme } from './MenuContext';
+import MenuContext from './MenuContext';
+
 class InternalMenu extends React.Component {
   static defaultProps = {
-    theme: 'light', // or dark
+    theme: 'light',
   };
 
   state = {
@@ -26,38 +25,16 @@ class InternalMenu extends React.Component {
     });
   };
 
-  // getInlineCollapsed() {
-  // const { inlineCollapsed, siderCollapsed } = this.props;
-  // if (siderCollapsed !== undefined) {
-  //   return siderCollapsed;
-  // }
-  // return inlineCollapsed;
-  // }
-
   renderMenu = () => {
-    // const rootPrefixCls = getPrefixCls();
-
     const {
       prefixCls: customizePrefixCls,
       className,
       theme,
       expandIcon,
-      // overflowedIndicator =  <Icon type="down" />,
       header,
       ...restProps
     } = this.props;
-
     const passedProps = omit(restProps, ['siderCollapsed', 'collapsedWidth']);
-    // const inlineCollapsed = this.getInlineCollapsed();
-
-    // const defaultMotions = {
-    //   horizontal: { motionName: `${rootPrefixCls}-slide-up` },
-    //   inline: collapseMotion,
-    //   other: { motionName: `${rootPrefixCls}-zoom-big` },
-    // };
-
-    // const prefixCls = getPrefixCls('menu', customizePrefixCls);
-    // const menuClassName = classNames(`${prefixCls}-${theme}`, className);
     return (
       <MenuContext.Provider
         value={{
@@ -75,18 +52,11 @@ class InternalMenu extends React.Component {
           {header && !this.state.collapsed && (
             <span className={`${prefixCls}-menu-header`}>{header}</span>
           )}
-          {/* <div className="menu-containner"> */}
           <RcMenu
-           getPopupContainer={triggerNode =>triggerNode.parentNode}
-            // overflowedIndicatorPopupClassName={`${prefixCls}-${theme}`}
+            getPopupContainer={(triggerNode) => triggerNode.parentNode}
             {...passedProps}
-            inlineCollapsed={this.state.collapsed} // 收缩
-            // className={menuClassName}
-            // prefixCls={prefixCls}
-            // direction={direction}
-            // defaultMotions={defaultMotions}
+            inlineCollapsed={this.state.collapsed}
             expandIcon={cloneElement(expandIcon)}
-            // overflowedIndicator
           />
           {this.props.inlineCollapsed && (
             <div className={`${prefixCls}-menu-inlineCollapsed`}>
@@ -112,22 +82,13 @@ class InternalMenu extends React.Component {
   }
 }
 
-// We should keep this as ref-able
-class CMenu extends React.Component{
-
-  static Divider = Divider;
-
+class CMenu extends React.Component {
   static Item = Item;
-
   static SubMenu = SubMenu;
-
-  static ItemGroup = ItemGroup;
 
   render() {
     return <InternalMenu {...this.props} />;
   }
 }
-
-// export { SubMenuProps, MenuItemProps };
 
 export default CMenu;

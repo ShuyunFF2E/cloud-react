@@ -43,7 +43,6 @@
   }
 }
 
-// 最外层盒子，用于menu和收起栏上下两端布局
 .@{menu} {
   position: relative;
   display: inline-block;
@@ -73,6 +72,15 @@
       top: 0;
     }
   }
+  &.@{menuCollapsed}{
+    .rc-menu-root.rc-menu-inline,
+    .rc-menu-root.rc-menu-vertical{
+      height: calc(100% - 100px);
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding-bottom: 60px;
+    }
+  }
   img {
     width: 100%;
     height: 100%;
@@ -80,8 +88,8 @@
   }
 }
 
-// menu
 .rc-menu-root{
+  //box-shadow: none;
   border: none;
 }
 
@@ -97,7 +105,6 @@
   display: none;
 }
 
-// menuItem
 [role="menuitem"]{
   cursor: pointer;
 }
@@ -110,7 +117,7 @@
     margin-right: 32px;
     & > .rc-menu-submenu-title {
     padding: 20px 25px 20px 2px;
-    margin-bottom: 0px;
+    margin-bottom: 0;
   }
   }
   & > .rc-menu-item {
@@ -131,6 +138,16 @@
       }
     }
   }
+  .rc-menu-submenu {
+    .rc-menu-vertical {
+      margin-top: 2px;
+      margin-left: -13px;
+    }
+  }
+  & > .rc-menu-item-selected {
+    background-color: @lightColor !important;
+    color: @lightSelectedColor;
+  }
 }
 
 // ------------horizontal theme---------------
@@ -144,6 +161,7 @@
  .rc-menu-item-active, .rc-menu-submenu-active{
     color: @lightSelectedColor;
     border-bottom-color: @lightSelectedColor;
+    background-color: @lightColor;
     & > .rc-menu-submenu-title {
       background-color: @lightColor;
     }
@@ -328,14 +346,10 @@
       color: @lightSelectedColor;
     }
   }
-
-  // 收起图标
   i{
     width: 14px;
     height: 14px;
   }
-
-  // 收起文字
   .text{
     overflow: hidden;
     margin-left: 13px;
@@ -366,17 +380,5 @@
   }
   .text{
     color: @lightColor;
-  }
-
-}
-
-// 收起时menu布局
-.@{menuCollapsed}{
-  .rc-menu-root.rc-menu-inline,
-  .rc-menu-root.rc-menu-vertical{
-    height: calc(100% - 100px);
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding-bottom: 60px;
   }
 }

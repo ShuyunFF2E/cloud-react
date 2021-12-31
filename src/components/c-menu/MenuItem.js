@@ -1,8 +1,6 @@
-/* eslint-disable */
 import React from 'react';
-// import PropTypes from 'prop-types';
-import { Tooltip } from 'cloud-react';
 import { Item } from 'rc-menu';
+import { Tooltip } from 'cloud-react';
 import classNames from 'classnames';
 import { isValidElement, cloneElement } from './reactNode';
 import MenuContext from './MenuContext';
@@ -39,10 +37,10 @@ export default class MenuItem extends React.Component {
   }
 
   render() {
-    const { title, children, ...rest } = this.props;
+    const { children, ...rest } = this.props;
     const { inlineCollapsed, firstLevel } = this.context;
     return (
-      <Item {...rest} title={typeof title === 'string' ? title : undefined}>
+      <Item {...rest}>
         {inlineCollapsed && firstLevel ? (
           <Tooltip placement="right" content={children}>
             {this.renderIcon()}

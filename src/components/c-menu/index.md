@@ -15,7 +15,7 @@ group:
 
 | 属性        | 说明                 | 类型             | 默认值     |
 | ----------- | -------------------- | ---------------- | ---------- |
-| className      |menu类名             | String |      |
+| className      |menu类名             | string |      |-
 | mode  | 菜单类型，现在支持垂直vertical、水平horizontal         | string  `vertical`、`horizontal`            | `vertical`      |
 | theme      |菜单主题             | string  `light`、`dark` |`light`|
 | triggerSubMenuAction  | 如何触发菜单选中事件               | click、hover |horizontal下默认hover,vertical下默认click        |
@@ -28,7 +28,7 @@ group:
 | 属性 | 说明                   | 类型   | 默认值 |
 | ---- | ---------------------- | ------ | ------ |
 | key  | 菜单项唯一 key，必填项 | string | -      |
-| className      |Item类名             | String |  -    |
+| className      |Item类名             | string |  -    |
 | disabled      |是否禁用菜单             | boolean |   false   |
 | icon      |菜单前的图标             | ReactNode | (props: MenuItemProps) => ReactNode |   -   |
 
@@ -38,7 +38,7 @@ group:
 | 属性 | 说明                   | 类型   | 默认值 |
 | ---- | ---------------------- | ------ | ------ |
 | key  | 菜单项唯一 key，必填项 | string | -      |
-| className      |SubMenu类名             | String |    -  |
+| className      |SubMenu类名             | string |    -  |
 | disabled      |是否禁用菜单             | boolean |   false   |
 | icon      |菜单前的图标             | ReactNode | (props: MenuItemProps) => ReactNode |   -   |
 

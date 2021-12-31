@@ -2,13 +2,7 @@ import * as React from 'react';
 
 export const { isValidElement } = React;
 
-
-
-export function replaceElement(
-  element,
-  replacement,
-  props,
-) {
+export function replaceElement(element, replacement, props) {
   if (!isValidElement(element)) return replacement;
 
   return React.cloneElement(
@@ -17,6 +11,6 @@ export function replaceElement(
   );
 }
 
-export function cloneElement(element, props){
+export function cloneElement(element, props) {
   return replaceElement(element, element, props);
 }

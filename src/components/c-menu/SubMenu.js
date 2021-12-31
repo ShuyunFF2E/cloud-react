@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { useContext } from 'react';
 import { SubMenu as RcSubMenu, useFullPath } from 'rc-menu';
 import classNames from 'classnames';
@@ -12,7 +11,6 @@ function SubMenu(props) {
   const context = useContext(MenuContext);
   const { inlineCollapsed } = context;
   const parentPath = useFullPath();
-
 
   let titleNode;
   if (!icon) {
@@ -35,7 +33,7 @@ function SubMenu(props) {
             isValidElement(icon) ? icon.props?.className : '',
           ),
         })}
-        {!inlineCollapsed ? titleIsSpan ? title : <span>{title}</span> : ''}
+        {!inlineCollapsed && (titleIsSpan ? title : <span>{title}</span>)}
       </>
     );
   }
@@ -47,7 +45,11 @@ function SubMenu(props) {
         firstLevel: false,
       }}
     >
-      <RcSubMenu {...omit(props, ['icon'])} title={titleNode} popupOffset={!parentPath.length && [12,0]}/>
+      <RcSubMenu
+        {...omit(props, ['icon'])}
+        title={titleNode}
+        popupOffset={!parentPath.length && [12, 0]}
+      />
     </MenuContext.Provider>
   );
 }
