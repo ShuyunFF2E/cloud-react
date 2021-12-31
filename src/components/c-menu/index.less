@@ -1,0 +1,384 @@
+@import '../style/index';
+
+@menu: ~'@{prefix}-menu';
+@menuDark: ~'@{prefix}-menu-dark';
+@menuLight: ~'@{prefix}-menu-light';
+@menuCollapsed: ~'@{prefix}-menu-collapsed';
+@inlineCollapsed: ~'@{prefix}-menu-inlineCollapsed';
+@header: ~'@{prefix}-menu-header';
+@horizontalHeader: ~'@{prefix}-menu-horizontal-header';
+@verticalHeader: ~'@{prefix}-menu-vertical-header';
+@lightDisabled: rgba(0, 0, 0, 0.5);
+@darkDisabled: rgba(255, 255, 255, 0.5);
+@lightSelectedBg: #D4E1FF;
+@lightSelectedColor: #5280FF;
+@lightColor: #fff;
+@darkColor: #000B52;
+@darkActive: rgba(255, 255, 255, 0.1);
+
+  // 通用全局样式
+  .rc-menu-submenu-arrow {
+    font-family: 'icon' !important;
+    &::before {
+      content: '\e624' !important;
+    }
+  }
+  .rc-menu-submenu-hidden {
+    display: none;
+  }
+  .rc-menu-item-selected {
+    background-color: @lightSelectedBg !important;
+  }
+  .rc-menu-submenu-popup {
+    z-index: 10;
+  }
+.rc-menu-inline-collapsed .rc-menu-submenu-popup {
+  .rc-menu-submenu .rc-menu-submenu-title {
+    span,  .rc-menu-submenu-arrow{
+      display: inline-block;
+    }
+  }
+  .rc-menu-item span {
+    display: block;
+  }
+}
+
+.@{menu} {
+  position: relative;
+  display: inline-block;
+  height: 100%;
+  overflow: visible;
+  width: 100%;
+  &.@{horizontalHeader} {
+    display: flex;
+    .@{header} {
+      display: inline-block;
+      padding: 20px 16px;
+      width: 208px;
+      height: 62px;
+      box-sizing: border-box;
+    }
+  }
+  &.@{verticalHeader}{
+    .rc-menu-root.rc-menu-inline,
+    .rc-menu-root.rc-menu-vertical{
+      height: calc(100% - 100px);
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding-top: 80px;
+    }
+    .@{header} {
+      position: absolute;
+      top: 0;
+    }
+  }
+  &.@{menuCollapsed}{
+    .rc-menu-root.rc-menu-inline,
+    .rc-menu-root.rc-menu-vertical{
+      height: calc(100% - 100px);
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding-bottom: 60px;
+    }
+  }
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+
+.rc-menu-root{
+  //box-shadow: none;
+  border: none;
+}
+
+.rc-menu{
+  font-size: 14px;
+  line-height: 20px;
+  .rc-menu-item.rc-menu-item-disabled {
+    cursor: not-allowed;
+  }
+}
+
+.rc-menu-submenu-hidden {
+  display: none;
+}
+
+[role="menuitem"]{
+  cursor: pointer;
+}
+
+// mode === horizontal
+.rc-menu-horizontal {
+  border-bottom: none;
+  width: 100%;
+  & > .rc-menu-submenu {
+    margin-right: 32px;
+    & > .rc-menu-submenu-title {
+    padding: 20px 25px 20px 2px;
+    margin-bottom: 0;
+  }
+  }
+  & > .rc-menu-item {
+    padding: 20px 2px;
+    margin-right: 32px;
+}
+  .cloud-icon {
+    margin-right: 9px;
+  }
+
+  .rc-menu-overflow-item {
+    & > .rc-menu-submenu-title {
+      & > .rc-menu-submenu-arrow {
+        font-style: initial;
+        position: absolute;
+        transform: rotate(90deg);
+        margin-left: 12px;
+      }
+    }
+  }
+  .rc-menu-submenu {
+    .rc-menu-vertical {
+      margin-top: 2px;
+      margin-left: -13px;
+    }
+  }
+  & > .rc-menu-item-selected {
+    background-color: @lightColor !important;
+    color: @lightSelectedColor;
+  }
+}
+
+// ------------horizontal theme---------------
+.@{menuLight} .rc-menu-horizontal {
+  background-color: @lightColor;
+  .rc-menu-submenu-selected {
+    background-color: @lightColor;
+    color: @lightSelectedColor;
+  }
+
+ .rc-menu-item-active, .rc-menu-submenu-active{
+    color: @lightSelectedColor;
+    border-bottom-color: @lightSelectedColor;
+    background-color: @lightColor;
+    & > .rc-menu-submenu-title {
+      background-color: @lightColor;
+    }
+  }
+  .rc-menu-item.rc-menu-item-disabled {
+    color: @lightDisabled !important;
+  }
+}
+.@{menuDark} .rc-menu-horizontal {
+  background-color: @darkColor;
+  color: @lightColor;
+  .rc-menu-submenu-selected, .rc-menu-item-selected  {
+    background-color: @darkColor !important;
+    color: @lightSelectedColor;
+  }
+ .rc-menu-item-active, .rc-menu-submenu-active{
+    color: @lightColor;
+    border-bottom-color: @lightSelectedColor;
+    background-color: @darkActive;
+    & > .rc-menu-submenu-title {
+    background-color: @darkActive;
+    }
+  }
+  .rc-menu-item.rc-menu-item-disabled {
+    color: @darkDisabled !important;
+  }
+}
+
+// mode === inline / vertical
+.rc-menu-inline {
+  width: 208px;
+  padding: 16px 8px;
+  transition: 0.5s;
+  -moz-transition: 0.5s; /* Firefox 4 */
+  -webkit-transition: 0.5s; /* Safari 和 Chrome */
+  -o-transition: 0.5s; /* Opera */
+
+  .rc-menu-submenu-selected {
+    background-color: #fff;
+  }
+
+  .rc-menu-submenu-title {
+    line-height: 20px;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    margin-bottom: 4px;
+  }
+  & > .rc-menu-item {
+    line-height: 20px;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+  }
+  li {
+    margin-bottom: 4px;
+  }
+
+  [role="menuitem"]{
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    line-height: 20px !important;
+    height: 20px !important;
+    margin-bottom: 4px;
+  }
+
+  .cloud-icon {
+    margin-right: 9px;
+  }
+}
+
+// mode === vertical
+.rc-menu-vertical {
+  .rc-menu-inline;
+  font-size: 14px;
+  width: 208px;
+  &.rc-menu-sub {
+    min-width: 120px;
+    padding: 8px 0;
+    width: 100%;
+  }
+  & > .rc-menu-item {
+    padding: 6px 12px;
+    line-height: 20px;
+  }
+  & > .rc-menu-submenu {
+    & > .rc-menu-submenu-title{
+      padding: 6px 38px 6px 12px;
+    }
+  }
+}
+
+// ------------inline、vertical  theme---------------
+.@{menuLight} .rc-menu-inline, .@{menuLight} .rc-menu-vertical{
+  // width: 208px;
+  background-color: @lightColor;
+  .rc-menu-submenu-selected {
+    background-color: @lightColor;
+  }
+  .rc-menu-submenu-selected {
+    & > .rc-menu-submenu-title {
+      color: @lightSelectedColor;
+    }
+  }
+  .rc-menu-submenu-active {
+    & > .rc-menu-submenu-title {
+      background-color: @lightColor;
+      color: @lightSelectedColor;
+    }
+  }
+  .rc-menu-item-active {
+    background-color: @lightColor;
+    color: @lightSelectedColor;
+  }
+  .rc-menu-item-selected {
+    color: @lightSelectedColor;
+  }
+}
+.@{menuDark} .rc-menu-inline, .@{menuDark} .rc-menu-vertical{
+  // width: 208px;
+  color: @lightColor;
+  background-color: @darkColor;
+
+  .rc-menu-submenu-selected {
+    background-color: @darkActive;
+  }
+  .rc-menu-submenu-selected {
+    & > .rc-menu-submenu-title {
+      color: @lightColor;
+    }
+  }
+  .rc-menu-submenu-active {
+    & > .rc-menu-submenu-title {
+    background-color: @darkActive;
+      color: @lightColor;
+    }
+  }
+  .rc-menu-item-active {
+    background-color: @darkActive;
+    color: @lightColor;
+  }
+  .rc-menu-item-selected {
+    color: @lightColor;
+    background-color: @lightSelectedColor !important;
+  }
+  .rc-menu-item.rc-menu-item-disabled {
+    color: @darkDisabled !important;
+    cursor: not-allowed;
+  }
+}
+
+// 收起状态下menu
+.rc-menu-inline-collapsed{
+  width: 64px;
+  transition: 0.5s;
+  -moz-transition: 0.5s; /* Firefox 4 */
+  -webkit-transition: 0.5s; /* Safari 和 Chrome */
+  -o-transition: 0.5s; /* Opera */
+
+  .rc-menu-submenu .rc-menu-submenu-title .rc-menu-submenu-arrow{
+    display: none;
+  }
+
+  .rc-menu-item,
+  .rc-menu-submenu .rc-menu-submenu-title{
+    padding-left: 24px;
+
+    i:first-child{
+      margin-right: 0;
+    }
+  }
+}
+
+// 收起按钮
+.@{inlineCollapsed}{
+  position: absolute;
+  bottom: 0;
+  padding: 0 0 25px 32px;
+  cursor: pointer;
+  overflow: hidden;
+  white-space: nowrap;
+  &:hover{
+    i, .text{
+      color: @lightSelectedColor;
+    }
+  }
+  i{
+    width: 14px;
+    height: 14px;
+  }
+  .text{
+    overflow: hidden;
+    margin-left: 13px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+}
+
+// ------------Collapsed  theme---------------
+.@{menuLight} .@{inlineCollapsed} {
+  i{
+    color: rgba(0, 0, 0, 0.45);
+    &:hover{
+      color: @lightSelectedColor;
+    }
+  }
+  .text{
+    color: rgba(0, 0, 0, 0.85);
+  }
+
+}
+.@{menuDark} .@{inlineCollapsed} {
+  i{
+    color: @lightColor;
+    &:hover{
+      color: @lightSelectedColor;
+    }
+  }
+  .text{
+    color: @lightColor;
+  }
+}
