@@ -47,7 +47,7 @@ function SubMenu(props) {
         firstLevel: false,
       }}
     >
-      <RcSubMenu {...omit(props, ['icon'])} title={titleNode} />
+      <RcSubMenu {...omit(props, ['icon'])} title={titleNode} popupOffset={!parentPath.length && [12,0]}/>
     </MenuContext.Provider>
   );
 }

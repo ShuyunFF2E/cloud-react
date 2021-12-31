@@ -32,7 +32,10 @@ class App extends React.Component {
 				onClick={this.handleClick}
 				selectedKeys={[current]}
 				mode="inline"
-                // header={<img src="https://qa-pcrm.shuyun.com/pcrm/202102/e2f5f56627cbabf6e6790fe70503cefe/173253_54091_banner_syyj.jpg" />}
+                header={<img 
+                  style={{ height:'24px', width:'136px', padding:'20px' }}
+                  src="https://qa-pcrm.shuyun.com/pcrm/202102/e2f5f56627cbabf6e6790fe70503cefe/173253_54091_banner_syyj.jpg" />}
+                inlineCollapsed
                 >
 				<Item key="2">一级菜单</Item>
 

@@ -7,6 +7,7 @@
 @inlineCollapsed: ~'@{prefix}-menu-inlineCollapsed';
 @header: ~'@{prefix}-menu-header';
 @horizontalHeader: ~'@{prefix}-menu-horizontal-header';
+@verticalHeader: ~'@{prefix}-menu-vertical-header';
 @lightDisabled: rgba(0, 0, 0, 0.5);
 @darkDisabled: rgba(255, 255, 255, 0.5);
 @lightSelectedBg: #D4E1FF;
@@ -49,21 +50,33 @@
   height: 100%;
   overflow: visible;
   width: 100%;
-  // display: flex;
   &.@{horizontalHeader} {
     display: flex;
+    .@{header} {
+      display: inline-block;
+      padding: 20px 16px;
+      width: 208px;
+      height: 62px;
+      box-sizing: border-box;
+    }
+  }
+  &.@{verticalHeader}{
+    .rc-menu-root.rc-menu-inline,
+    .rc-menu-root.rc-menu-vertical{
+      height: calc(100% - 100px);
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding-top: 80px;
+    }
+    .@{header} {
+      position: absolute;
+      top: 0;
+    }
   }
   img {
     width: 100%;
     height: 100%;
     object-fit: contain;
-  }
-    .@{header} {
-    display: inline-block;
-    padding: 20px 16px;
-    width: 208px;
-    height: 62px;
-    box-sizing: border-box;
   }
 }
 
@@ -310,6 +323,11 @@
   cursor: pointer;
   overflow: hidden;
   white-space: nowrap;
+  &:hover{
+    i, .text{
+      color: @lightSelectedColor;
+    }
+  }
 
   // 收起图标
   i{
@@ -321,8 +339,6 @@
   .text{
     overflow: hidden;
     margin-left: 13px;
-    height: 20px;
-    line-height: 20px;
     font-size: 14px;
     font-weight: 500;
   }
@@ -336,7 +352,7 @@
       color: @lightSelectedColor;
     }
   }
-  .text{ 
+  .text{
     color: rgba(0, 0, 0, 0.85);
   }
 
@@ -348,7 +364,7 @@
       color: @lightSelectedColor;
     }
   }
-  .text{ 
+  .text{
     color: @lightColor;
   }
 
@@ -362,9 +378,5 @@
     overflow-y: auto;
     overflow-x: hidden;
     padding-bottom: 60px;
-  }
-  .rc-menu-item span,
-  .rc-menu-submenu .rc-menu-submenu-title span{
-    padding: 1px;
   }
 }
