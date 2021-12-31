@@ -40,6 +40,7 @@ class InternalMenu extends React.Component {
         value={{
           inlineCollapsed: this.state.collapsed || false,
           firstLevel: true,
+          mode: this.props.mode || '',
         }}
       >
         <div

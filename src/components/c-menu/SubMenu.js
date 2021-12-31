@@ -9,7 +9,7 @@ import MenuContext from './MenuContext';
 function SubMenu(props) {
   const { icon, title } = props;
   const context = useContext(MenuContext);
-  const { inlineCollapsed } = context;
+  const { inlineCollapsed, mode } = context;
   const parentPath = useFullPath();
 
   let titleNode;
@@ -48,7 +48,7 @@ function SubMenu(props) {
       <RcSubMenu
         {...omit(props, ['icon'])}
         title={titleNode}
-        popupOffset={!parentPath.length && [12, 0]}
+        popupOffset={mode === 'vertical' && !parentPath.length && [12, 0]}
       />
     </MenuContext.Provider>
   );
