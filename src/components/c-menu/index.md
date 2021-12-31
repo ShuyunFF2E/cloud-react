@@ -15,7 +15,7 @@ group:
 
 | 属性        | 说明                 | 类型             | 默认值     |
 | ----------- | -------------------- | ---------------- | ---------- |
-| className      |menu类名             | string |      |-
+| className      |menu类名             | string |-      |
 | mode  | 菜单类型，现在支持垂直vertical、水平horizontal         | string  `vertical`、`horizontal`            | `vertical`      |
 | theme      |菜单主题             | string  `light`、`dark` |`light`|
 | triggerSubMenuAction  | 如何触发菜单选中事件               | click、hover |horizontal下默认hover,vertical下默认click        |
