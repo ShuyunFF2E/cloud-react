@@ -114,7 +114,7 @@ class CTable extends Component {
    */
   getKeyFieldVal = (node) => {
     if (node) {
-      const { checked, ...props } = node;
+      const { checked, disabled, ...props } = node;
       return node[this.props.rowKey] || JSON.stringify(props);
     }
     return null;
@@ -142,7 +142,22 @@ class CTable extends Component {
    */
   isRowDisabled = (row) => {
     const key = this.getKeyFieldVal(row);
-    return row.disabled || this.props.disabledData.includes(key);
+    if (row.disabled) {
+      return true;
+    }
+    if (!this.props.disabledData.length) {
+      return false;
+    }
+
+    // disabledData 是整个行对象的数组
+    if (typeof this.props.disabledData[0] === 'object') {
+      return !!this.props.disabledData.find(
+        (node) => this.getKeyFieldVal(node) === key,
+      );
+    }
+
+    // disabledData 是 rowKey 数组
+    return !!this.props.disabledData.includes(key);
   };
 
   /**

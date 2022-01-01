@@ -121,6 +121,6 @@ https://table-react-component.vercel.app/
 
 <embed src="@components/c-table/demos/refresh-table.md" /> 
 
-<embed src="@components/c-table/demos/disabled.md" /> 
+<embed src="@components/c-table/demos/disabled0.md" /> 
 
 <embed src="@components/c-table/demos/disabled1.md" /> 
