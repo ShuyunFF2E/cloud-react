@@ -13,124 +13,125 @@
 @pagination-item-active-color: @color-white;
 
 .@{pagination-prefix-cls} {
-	display: flex;
-	align-items: center;
+  display: flex;
+  align-items: center;
 
-	ul {
-		display: flex;
-		padding-inline-start: 0;
-		li {
-			width: 30px;
-			height: 30px;
-			line-height: 30px;
-			margin-right: 8px;
-			border-radius: 3px;
-			border: 1px solid @pagination-item-border-color;
-			text-align: center;
-			color: @pagination-item-color;
-			cursor: pointer;
+  ul {
+    display: flex;
+    padding-inline-start: 0;
+    li {
+      min-width: 22px;
+      height: 30px;
+      padding: 0 4px;
+      line-height: 30px;
+      margin-right: 8px;
+      border-radius: 3px;
+      border: 1px solid @pagination-item-border-color;
+      text-align: center;
+      color: @pagination-item-color;
+      cursor: pointer;
 
-			&:hover {
-				//border-color: @pagination-item-hover-bg;
-				background-color: @pagination-item-hover-bg;
-				color: @pagination-item-hover-color;
-			}
+      &:hover {
+        //border-color: @pagination-item-hover-bg;
+        background-color: @pagination-item-hover-bg;
+        color: @pagination-item-hover-color;
+      }
 
-			.pg-icon {
-				font-size: 12px;
-			}
-		}
+      .pg-icon {
+        font-size: 12px;
+      }
+    }
 
-		.nomore {
-			cursor: not-allowed;
-			background-color: @pagination-item-disabled-bg;
-			color: @pagination-item-disabled-color;
+    .nomore {
+      cursor: not-allowed;
+      background-color: @pagination-item-disabled-bg;
+      color: @pagination-item-disabled-color;
 
-			&,
-			&:hover {
-				background-color: @pagination-item-disabled-bg;
-				color: @pagination-item-disabled-color;
-			}
-		}
+      &,
+      &:hover {
+        background-color: @pagination-item-disabled-bg;
+        color: @pagination-item-disabled-color;
+      }
+    }
 
-		.ellips {
-			border: none;
-			position: relative;
-			text-align: center;
-			line-height: 30px;
+    .ellips {
+      border: none;
+      position: relative;
+      text-align: center;
+      line-height: 30px;
 
-			.dot {
-				display: block;
+      .dot {
+        display: block;
 
-				&:after {
-					content: '\2022\2022\2022';
-					display: block;
-					letter-spacing: 2px;
-					color: @pagination-item-ellips-color;
-					font-size: 12px;
-					margin-top: 1px;
-				}
-			}
+        &:after {
+          content: '\2022\2022\2022';
+          display: block;
+          letter-spacing: 2px;
+          color: @pagination-item-ellips-color;
+          font-size: 12px;
+          margin-top: 1px;
+        }
+      }
 
-			.moreIcon {
-				font-size: 12px;
-				display: none;
-			}
+      .moreIcon {
+        font-size: 12px;
+        display: none;
+      }
 
-			&:hover {
-				background: none;
+      &:hover {
+        background: none;
 
-				.dot:after {
-					color: @blue-4;
-				}
-			}
-		}
+        .dot:after {
+          color: @blue-4;
+        }
+      }
+    }
 
-		.active {
-			background: @pagination-item-active-bg;
-			border: 1px solid @pagination-item-hover-color;
-			color: @pagination-item-active-color;
-		}
-	}
+    .active {
+      background: @pagination-item-active-bg;
+      border: 1px solid @pagination-item-hover-color;
+      color: @pagination-item-active-color;
+    }
+  }
 
-	.quickJumper {
-		display: flex;
-		align-items: center;
-		height: 30px;
-		margin-left: 8px;
+  .quickJumper {
+    display: flex;
+    align-items: center;
+    height: 30px;
+    margin-left: 8px;
 
-		> input {
-			position: relative;
-			display: inline-block;
-			outline: none;
-			height: 32px;
-			line-height: 32px;
-			width: 48px;
-			padding: 2px 8px;
-			font-size: 14px;
-			text-align: center;
-			background-image: none;
-			border: 1px solid @pagination-item-disabled-color;
-			border-radius: 3px;
-			-webkit-transition: all 0.2s;
-			transition: all 0.2s;
-			margin: 0 8px;
-		}
-	}
+    > input {
+      position: relative;
+      display: inline-block;
+      outline: none;
+      height: 32px;
+      line-height: 32px;
+      width: 48px;
+      padding: 2px 8px;
+      font-size: 14px;
+      text-align: center;
+      background-image: none;
+      border: 1px solid @pagination-item-disabled-color;
+      border-radius: 3px;
+      -webkit-transition: all 0.2s;
+      transition: all 0.2s;
+      margin: 0 8px;
+    }
+  }
 
-	.change-size {
-		.change-size-select {
-			width: 106px;
-		}
-	}
+  .change-size {
+    .change-size-select {
+      width: 106px;
+    }
+  }
 
-	&.@{pagination-prefix-cls}-simple {
-		ul {
-			li:first-child,
-			li:last-child {
-				background: none;
-				border: none;
-			}
-		}
-	}
+  &.@{pagination-prefix-cls}-simple {
+    ul {
+      li:first-child,
+      li:last-child {
+        background: none;
+        border: none;
+      }
+    }
+  }
 }
