@@ -76,7 +76,7 @@ export default function CTableDemo() {
       </div>
       <CTable
         ref={tableRef}
-        style={{ width: '100%', height: 260 }}
+        style={{ width: '100%', height: 400 }}
         columnData={columns}
         pageOpts={{ pageSize: 6 }}
         supportPage

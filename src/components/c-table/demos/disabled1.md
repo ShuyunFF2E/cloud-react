@@ -36,12 +36,12 @@ const columns = [
 export default function CTableDemo() {
   return (
     <CTable
-      style={{ width: '100%', height: 260 }}
+      style={{ width: '100%', height: 360 }}
       supportCheckbox
       supportPage
-      rowKey="id"
-      checkedData={[data[1]]}
+      rowKey="id" // rowKey 设置为 ""，disabledData 可以传递整行数据，例如：rowKey="" disabledData={[data[0], data[8]]}
       disabledData={[data[0].id, data[8].id]}
+      checkedData={[data[1]]}
       pageOpts={{ pageSize: 6 }}
       columnData={columns}
       ajaxData={(params) => {
