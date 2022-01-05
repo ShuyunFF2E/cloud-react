@@ -11,7 +11,6 @@ desc: 水平的顶部导航菜单带icon
  */
 
 import React from 'react';
-// import Menu from '../index.js';
 import { CMenu as Menu, Icon } from 'cloud-react';
 
 const { SubMenu, Item } = Menu;

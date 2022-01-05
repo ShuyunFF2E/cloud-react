@@ -11,7 +11,6 @@ desc: 带logo的顶部导航
  */
 
 import React from 'react';
-// import Menu from '../index.js';
 import { CMenu as Menu, Icon } from 'cloud-react';
 
 const { SubMenu, Item } = Menu;

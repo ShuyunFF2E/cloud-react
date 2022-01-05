@@ -40,7 +40,8 @@ group:
 | key  | 菜单项唯一 key，必填项 | string | -      |
 | className      |SubMenu类名             | string |    -  |
 | disabled      |是否禁用菜单             | boolean |   false   |
-| icon      |菜单前的图标             | ReactNode | (props: MenuItemProps) => ReactNode |   -   |
+| icon      |菜单前的图标             | ReactNode | (props: MenuItemProps) => ReactNode |
+| title      |菜单名称             | string | - | 
 
  ### 代码演示 
 <embed src="@components/c-menu/demos/top-menu-simple.md" />
