@@ -2,6 +2,7 @@
 
 import React, { Component, cloneElement } from 'react';
 import  CascaderMenu from './cascader'
+import Icon from '../icon';
 import  Input from '../input'
 import PropTypes from 'prop-types';
 
@@ -40,12 +41,13 @@ Cascader.defaultProps = {
 	onPopupVisibleChange() {},
 	disabled: false,
 	transitionName: '',
+	defaultValue:[],
 	prefixCls: 'cloud-cascader',
 	popupClassName: '',
 	popupPlacement: 'bottomLeft',
 	expandTrigger: 'click',
 	fieldNames: { label: 'label', value: 'value', children: 'children' },
-	expandIcon: '>',
+	expandIcon: <Icon type="right" style={{fontSize:'12px'}}/>,
 	splitInput:'/'
 };
 
