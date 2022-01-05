@@ -32,7 +32,7 @@ group:
 
 <embed src="@components/loading/demos/embed.md" /> 
 
-<embed src="@components/loading/demos/layer.md" /> 
+[comment]: <> (<embed src="@components/loading/demos/layer.md" /> )
 
 <embed src="@components/loading/demos/size.md" /> 
 
