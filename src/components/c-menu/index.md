@@ -21,7 +21,10 @@ group:
 | triggerSubMenuAction  | 如何触发菜单选中事件               | click、hover |horizontal下默认hover,vertical下默认click        |
 | onClick  | 菜单点击事件   | function({key:String, item:ReactComponent, domEvent:Event, keyPath: String[]}) |-        |
 | onOpenChange  | 菜单展开收缩回调              | (openKeys:String[]) => void |-        |
-| selectedKeys      |默认选中的菜单             | Array[] | []       |
+| selectedKeys      |选中的菜单             | String[] | []       |
+| defaultSelectedKeys      |默认选中的菜单             |  String[]  | []       |
+| openKeys      |展开的菜单             |  String[]  | []       |
+| defaultOpenKeys      |默认展开的菜单             |  String[]  | []       |
 
 ### Menu.Item
 
