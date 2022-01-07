@@ -15,6 +15,7 @@ import { Icon, Message } from 'cloud-react';
 import './styles/basic-icon.less'
 
 const iconList = [
+	'lock',
 	'user-fill',
 	'group-fill',
 	'close-fill',
