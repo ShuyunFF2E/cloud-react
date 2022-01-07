@@ -67,6 +67,11 @@ class CTable extends Component {
     if (this.props.checkedData !== prevProps.checkedData) {
       this.init();
     }
+    if (this.props.isDelay !== prevProps.isDelay) {
+      this.getDataSource = this.props.isDelay
+        ? getDataSourceWithDelay
+        : getDataSource;
+    }
   }
 
   /**
