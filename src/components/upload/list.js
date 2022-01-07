@@ -10,7 +10,7 @@ import { TYPE, PREFIX } from './constant';
 const prefix = `${PREFIX}-list`;
 
 const Text = props => {
-	const { list, onRemove } = props;
+	const { list, disabled, onRemove } = props;
 
 	return list.map(item => {
 		const { name, status } = item;
@@ -19,36 +19,8 @@ const Text = props => {
 			<Tooltip content={content} key={item.id}>
 				<div key={name} className={`${prefix}-text`}>
 					<span className={`${prefix}-text-${status}`}>{name}</span>
-					<div className={`${prefix}-text-actions`}>
-						<div className={`${prefix}-delete`}>
-							<Icon
-								type="close"
-								style={{ fontSize: '14px' }}
-								onClick={() => {
-									onRemove(item);
-								}}
-							/>
-						</div>
-					</div>
-				</div>
-			</Tooltip>
-		)
-	});
-};
-
-const Picture = props => {
-	const { list, hasPreview, onRemove, onPreview, onReUpload } = props;
-
-	return list.map((item, index) => {
-		const classes = classNames(`${prefix}-pic`, {
-			[`${prefix}-pic-${item.status}`]: true
-		});
-		if (item.status === 'error') {
-			return (
-				<Tooltip content="上传失败" key={item.id}>
-					<div className={classes}>
-						<img src={item.url} alt={item.name} />
-						<div className={`${prefix}-pic-icons`}>
+					{!disabled && (
+						<div className={`${prefix}-text-actions`}>
 							<div className={`${prefix}-delete`}>
 								<Icon
 									type="close"
@@ -59,6 +31,38 @@ const Picture = props => {
 								/>
 							</div>
 						</div>
+					)}
+				</div>
+			</Tooltip>
+		)
+	});
+};
+
+const Picture = props => {
+	const { list, hasPreview, disabled, onRemove, onPreview, onReUpload } = props;
+
+	return list.map((item, index) => {
+		const classes = classNames(`${prefix}-pic`, {
+			[`${prefix}-pic-${item.status}`]: true
+		});
+		if (item.status === 'error') {
+			return (
+				<Tooltip content="上传失败" key={item.id}>
+					<div className={classes}>
+						<img src={item.url} alt={item.name} />
+						{!disabled && (
+							<div className={`${prefix}-pic-icons`}>
+							<div className={`${prefix}-delete`}>
+								<Icon
+									type="close"
+									style={{ fontSize: '14px' }}
+									onClick={() => {
+										onRemove(item);
+									}}
+								/>
+							</div>
+						</div>
+						)}
 					</div>
 				</Tooltip>
 			)
@@ -70,28 +74,32 @@ const Picture = props => {
 					{hasPreview && (
 						<Icon
 							type="view"
-							style={{ fontSize: '17px', marginRight: 18 }}
+							style={{ fontSize: '17px', marginRight: disabled ? 0 : 18 }}
 							onClick={() => {
 								onPreview(item);
 							}}
 						/>
 					)}
-					<Icon
-						type="edit"
-						style={{ fontSize: '14px' }}
-						onClick={() => {
-							onReUpload({...item, index});
-						}}
-					/>
-					<div className={`${prefix}-delete`}>
-						<Icon
-							type="close"
-							style={{ fontSize: '14px' }}
-							onClick={() => {
-								onRemove(item);
-							}}
-						/>
-					</div>
+					{!disabled && (
+						<>
+							<Icon
+								type="edit"
+								style={{ fontSize: '14px' }}
+								onClick={() => {
+									onReUpload({...item, index});
+								}}
+							/>
+							<div className={`${prefix}-delete`}>
+								<Icon
+									type="close"
+									style={{ fontSize: '14px' }}
+									onClick={() => {
+										onRemove(item);
+									}}
+								/>
+							</div>
+						</>
+					)}
 				</div>
 			</div>
 		);
@@ -100,7 +108,7 @@ const Picture = props => {
 
 class UploadList extends Component {
 	render() {
-		const { fileList, type, hasPreview, onRemove, onPreview, onReUpload } = this.props;
+		const { fileList, type, hasPreview, disabled, onRemove, onPreview, onReUpload } = this.props;
 
 		const classes = classNames(`${prefix}`, {
 			[`${prefix}-${type}`]: type === TYPE.PICTURE
@@ -109,9 +117,10 @@ class UploadList extends Component {
 		return (
 			<div className={classes}>
 				{type === TYPE.DEFAULT ? (
-					<Text list={fileList} onRemove={onRemove} />
+					<Text disabled={disabled} list={fileList} onRemove={onRemove} />
 				) : (
 					<Picture
+						disabled={disabled}
 						list={fileList}
 						hasPreview={hasPreview}
 						onRemove={onRemove}
