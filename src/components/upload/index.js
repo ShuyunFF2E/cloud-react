@@ -240,7 +240,7 @@ class Upload extends Component {
 		}
 
 		if (this.props.onBeforeUpload) {
-			this.props.onBeforeUpload(file);
+			return this.props.onBeforeUpload(file);
 		}
 
 		return true;
@@ -302,7 +302,7 @@ class Upload extends Component {
 	}
 
 	renderUploadShow() {
-		const { type, children, labelText, isShowIcon, btnOptions, uploadDisabled } = this.props;
+		const { type, children, labelText, isShowIcon, btnOptions, disabled } = this.props;
 
 		if (children) return children;
 
@@ -311,12 +311,12 @@ class Upload extends Component {
 				<Text
 					options={btnOptions}
 					labelText={labelText}
-					disabled={uploadDisabled}
+					disabled={disabled}
 					isShowIcon={isShowIcon}
 				/>
 			);
 		}
-		return <Picture disabled={uploadDisabled} labelText={labelText} />;
+		return <Picture disabled={disabled} labelText={labelText} />;
 	}
 
 	renderUpload() {
@@ -373,13 +373,14 @@ class Upload extends Component {
 	};
 
 	renderPicture() {
-		const { type, hasPreview } = this.props;
+		const { type, hasPreview, disabled } = this.props;
 		const { fileList, selectPic, isShowPreview } = this.state;
 		const { name, url } = selectPic;
 
 		return (
 			<>
 				<UploadList
+					disabled={disabled}
 					type={type}
 					fileList={fileList}
 					hasPreview={hasPreview}
@@ -404,12 +405,12 @@ class Upload extends Component {
 	}
 
 	renderNormal() {
-		const { type } = this.props;
+		const { type, disabled } = this.props;
 		const { fileList } = this.state;
 		return (
 			<>
 				{this.renderUpload()}
-				<UploadList type={type} fileList={fileList} onRemove={this.handleRemove} />
+				<UploadList disabled={disabled} type={type} fileList={fileList} onRemove={this.handleRemove} />
 			</>
 		)
 	}
@@ -480,7 +481,7 @@ Upload.defaultProps = {
 	showBeforeConfirm: false,
 	beforeConfirmBody: '确认上传？',
 	onClick: () => new Promise(resolve => resolve()),
-	onBeforeUpload: noop,
+	onBeforeUpload: undefined,
 	onProgress: noop,
 	onSuccess: noop,
 	onError: noop,

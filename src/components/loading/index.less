@@ -2,74 +2,123 @@
 
 @loading-prefix-cls: ~'@{prefix}-loading';
 
-@backgroundColor: rgba(244, 244, 244, 0.6);
+//@backgroundColor: rgba(244, 244, 244, 0.6);
+@backgroundColor: rgba(255, 255, 255, 0.9);
 
-@keyframes rotate {
-	100% {
-		transform: rotate(360deg);
-	}
+// 圆环动画
+//@keyframes rotate {
+//  100% {
+//    transform: rotate(360deg);
+//  }
+//}
+//@keyframes dash {
+//  0% {
+//    stroke-dasharray: 1, 200;
+//    stroke-dashoffset: 0;
+//  }
+//  50% {
+//    stroke-dasharray: 89, 200;
+//    stroke-dashoffset: -35px;
+//  }
+//  100% {
+//    stroke-dasharray: 89, 200;
+//    stroke-dashoffset: -124px;
+//  }
+//}
+
+// 脉冲动画
+@keyframes impulseSmall{
+  0%,100%{ height: 10px }
+  50%{height: 20px; margin: -4px 0;}
 }
-@keyframes dash {
-	0% {
-		stroke-dasharray: 1, 200;
-		stroke-dashoffset: 0;
-	}
-	50% {
-		stroke-dasharray: 89, 200;
-		stroke-dashoffset: -35px;
-	}
-	100% {
-		stroke-dasharray: 89, 200;
-		stroke-dashoffset: -124px;
-	}
+@keyframes impulseDefault{
+  0%,100%{ height: 16px }
+  50%{height: 30px; margin: -6px 0;}
+}
+@keyframes impulseLarge{
+  0%,100%{ height: 22px }
+  50%{height: 40px; margin: -10px 0;}
 }
 
 .@{loading-prefix-cls} {
-	position: relative;
-	min-height: 70px;
-	height: 100%;
-	width: 100%;
-	&-container {
-		height: 100%;
-		width: 100%;
-		overflow: hidden;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		position: absolute;
-		top: 0;
-	}
-	&-layer {
-		background: @backgroundColor;
-	}
-	&-animation {
-		width: 40px;
-		&:before {
-			content: '';
-			display: block;
-		}
-		.circular {
-			animation: rotate 2.9s linear infinite;
-			transform-origin: center center;
-			.path {
-				stroke-width: 3px;
-				stroke-miterlimit: 10;
-				stroke: @color-blue4;
-				stroke-dasharray: 1, 200;
-				stroke-dashoffset: 0;
-				animation: dash 1.2s linear infinite;
-				stroke-linecap: round;
-				fill: none;
-			}
-		}
-	}
-	&-tip-animation {
-		margin-top: -20px;
-	}
-	&-text {
-		color: @color-blue4;
-		line-height: 30px;
-		position: absolute;
-		top: calc(50% + 5px);
-	}
+  position: relative;
+  min-height: 70px;
+  height: 100%;
+  width: 100%;
+  &-container {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+  }
+  &-layer {
+    background: @backgroundColor;
+  }
+
+  // 圆环
+  //&-animation {
+  //  width: 40px;
+  //  &:before {
+  //    content: '';
+  //    display: block;
+  //  }
+  //  .circular {
+  //    animation: rotate 2.9s linear infinite;
+  //    transform-origin: center center;
+  //    .path {
+  //      stroke-width: 3px;
+  //      stroke-miterlimit: 10;
+  //      stroke: @color-blue4;
+  //      stroke-dasharray: 1, 200;
+  //      stroke-dashoffset: 0;
+  //      animation: dash 1.2s linear infinite;
+  //      stroke-linecap: round;
+  //      fill: none;
+  //    }
+  //  }
+  //}
+
+  // 脉冲
+  &-animation {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    span{
+      display: inline-block;
+      width: 3px;
+      height: 100%;
+      background: @blue-4;
+    }
+     span:nth-child(2){
+      -webkit-animation-delay:0.14s;
+    }
+     span:nth-child(3){
+      -webkit-animation-delay:0.28s;
+    }
+  }
+  &-animation-small span{
+    animation: impulseSmall 1s ease infinite;
+  }
+  &-animation-default span{
+    animation: impulseDefault 1s ease infinite;
+  }
+  &-animation-large span{
+    animation: impulseLarge 1s ease infinite;
+  }
+
+  &-tip-animation {
+    margin-top: -20px;
+  }
+  &-text {
+    position: absolute;
+    top: calc(50% + 12px);
+    font-size: 14px;
+    line-height: 20px;
+    height: 20px;
+    color: @blue-4;
+  }
 }

@@ -11,7 +11,6 @@ desc: 简单基础的水平顶部导航菜单
  */
 
 import React from 'react';
-// import Menu from '../index.js';
 import { CMenu as Menu } from 'cloud-react';
 
 const { SubMenu, Item } = Menu;

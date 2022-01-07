@@ -6,8 +6,8 @@ desc: 导航栏可收缩
 
 ```jsx
 /**
- * title: 竖直导航
- * desc: 导航栏可收缩
+ * title: 可收缩导航
+ * desc: 当inlineCollapsed = true时，菜单栏可收起/展开。
  */
 
 import React from 'react';

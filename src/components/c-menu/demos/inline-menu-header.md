@@ -1,13 +1,13 @@
 ---
 order: 5
 title: 导航
-desc: 带logo的垂直内嵌菜单
+desc: 带logo的竖直菜单
 ---
 
 ```jsx
 /**
- * title: 内嵌导航
- * desc: 带logo的垂直内嵌菜单
+ * title: 竖直导航
+ * desc: 带logo的竖直菜单
  */
 
 import React from 'react';
@@ -31,8 +31,8 @@ class App extends React.Component {
 			<Menu
 				onClick={this.handleClick}
 				selectedKeys={[current]}
-				mode="inline"
-                header={<img 
+				mode="vertical"
+                header={<img
                   style={{ height:'24px', width:'136px', padding:'20px' }}
                   src="https://qa-pcrm.shuyun.com/pcrm/202102/e2f5f56627cbabf6e6790fe70503cefe/173253_54091_banner_syyj.jpg" />}
                 inlineCollapsed

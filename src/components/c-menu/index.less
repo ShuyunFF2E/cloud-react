@@ -10,7 +10,7 @@
 @verticalHeader: ~'@{prefix}-menu-vertical-header';
 @lightDisabled: rgba(0, 0, 0, 0.5);
 @darkDisabled: rgba(255, 255, 255, 0.5);
-@lightSelectedBg: #D4E1FF;
+@lightSelectedBg: rgba(245, 248, 255, 1);
 @lightSelectedColor: #5280FF;
 @lightColor: #fff;
 @darkColor: #000B52;
@@ -124,7 +124,7 @@
     padding: 20px 2px;
     margin-right: 32px;
 }
-  .cloud-icon {
+  i {
     margin-right: 9px;
   }
 
@@ -146,6 +146,16 @@
   & > .rc-menu-item-selected {
     background-color: @lightColor !important;
     color: @lightSelectedColor;
+  }
+  .rc-menu-vertical {
+    & > .rc-menu-item {
+      padding: 6px 12px;
+    }
+    & > .rc-menu-submenu {
+      & > .rc-menu-submenu-title{
+        padding: 6px 38px 6px 12px;
+      }
+    }
   }
 }
 
@@ -197,7 +207,8 @@
   -moz-transition: 0.5s; /* Firefox 4 */
   -webkit-transition: 0.5s; /* Safari 和 Chrome */
   -o-transition: 0.5s; /* Opera */
-
+  overflow-y: auto;
+  overflow-x: hidden;
   .rc-menu-submenu-selected {
     background-color: #fff;
   }
@@ -221,11 +232,10 @@
     padding-top: 10px !important;
     padding-bottom: 10px !important;
     line-height: 20px !important;
-    height: 20px !important;
     margin-bottom: 4px;
   }
 
-  .cloud-icon {
+  i {
     margin-right: 9px;
   }
 }
@@ -247,6 +257,15 @@
   & > .rc-menu-submenu {
     & > .rc-menu-submenu-title{
       padding: 6px 38px 6px 12px;
+    }
+  }
+  & > .rc-menu-item {
+    padding: 6px 12px 6px 24px;
+    line-height: 20px;
+  }
+  & > .rc-menu-submenu {
+    & > .rc-menu-submenu-title{
+      padding: 6px 38px 6px 24px;
     }
   }
 }

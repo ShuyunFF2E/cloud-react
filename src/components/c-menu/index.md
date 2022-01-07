@@ -21,7 +21,10 @@ group:
 | triggerSubMenuAction  | 如何触发菜单选中事件               | click、hover |horizontal下默认hover,vertical下默认click        |
 | onClick  | 菜单点击事件   | function({key:String, item:ReactComponent, domEvent:Event, keyPath: String[]}) |-        |
 | onOpenChange  | 菜单展开收缩回调              | (openKeys:String[]) => void |-        |
-| selectedKeys      |默认选中的菜单             | Array[] | []       |
+| selectedKeys      |选中的菜单             | String[] | []       |
+| defaultSelectedKeys      |默认选中的菜单             |  String[]  | []       |
+| openKeys      |展开的菜单             |  String[]  | []       |
+| defaultOpenKeys      |默认展开的菜单             |  String[]  | []       |
 
 ### Menu.Item
 
@@ -40,7 +43,8 @@ group:
 | key  | 菜单项唯一 key，必填项 | string | -      |
 | className      |SubMenu类名             | string |    -  |
 | disabled      |是否禁用菜单             | boolean |   false   |
-| icon      |菜单前的图标             | ReactNode | (props: MenuItemProps) => ReactNode |   -   |
+| icon      |菜单前的图标             | ReactNode | (props: MenuItemProps) => ReactNode |
+| title      |菜单名称             | string | - | 
 
  ### 代码演示 
 <embed src="@components/c-menu/demos/top-menu-simple.md" />

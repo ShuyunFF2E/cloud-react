@@ -7,8 +7,9 @@ desc: 可以直接把内容内嵌到 Loading 中，将现有容器变为加载�
 ```jsx
 
             /**
-             * title: 卡片加载中
-             * desc: 可以直接把内容内嵌到 Loading 中，将现有容器变为加载状态。
+             * title: 卡片加载中及背景
+             * desc: 可以直接把内容内嵌到 Loading 中，将现有容器变为加载状态；
+             *       默认无背景，layer = true 时有背景，为白色透明。
              */
 import React from 'react';
 import { Loading, Toggle } from 'cloud-react';
