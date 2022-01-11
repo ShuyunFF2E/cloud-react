@@ -18,7 +18,36 @@ export default class BreadCrumbsDemo extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            size: 'small'
+            size: 'small',
+          list: [
+            {
+              key: 'home',
+              title: '首页',
+              icon: 'search-file'
+            },
+            {
+              key: 'first',
+              title: '一级页面',
+              icon: 'search-file'
+            },
+            {
+              key: 'second',
+              title: '二级页面'
+            },
+            {
+              key: 'third',
+              title: '三级页面'
+            },
+            {
+              key: 'forth',
+              title: '四级页面',
+              iconTpl: <Icon type='search-file' />
+            },
+            {
+              key: 'a3',
+              title: '查看详情'
+            }
+          ]
         };
     }
 
@@ -28,6 +57,8 @@ export default class BreadCrumbsDemo extends React.Component {
 
     onClickBreadCrumbs = item => {
         console.log(item);
+        const targetIndex = this.state.list.findIndex(i => i.key === item.key);
+        this.setState({ list: this.state.list.slice(0, targetIndex + 1) });
     };
 
     getButtonType = size => {
@@ -36,35 +67,6 @@ export default class BreadCrumbsDemo extends React.Component {
     render() {
         const { size } = this.state;
         const { onChangeSize, onClickBreadCrumbs, getButtonType } = this;
-        const list = [
-            {
-                key: 'home',
-                title: '首页',
-                icon: 'search-file'
-            },
-            {
-                key: 'first',
-                title: '一级页面',
-                icon: 'search-file'
-            },
-            {
-                key: 'second',
-                title: '二级页面'
-            },
-            {
-                key: 'third',
-                title: '三级页面'
-            },
-            {
-                key: 'forth',
-                title: '四级页面',
-                iconTpl: <Icon type='search-file' />
-            },
-            {
-                key: 'a3',
-                title: '查看详情'
-            }
-        ];
 
 		return (
 			<React.Fragment>
@@ -77,7 +79,7 @@ export default class BreadCrumbsDemo extends React.Component {
                     </Button>
                 </div>
                 <div style={{ marginTop: 20 }}>
-                    <BreadCrumbs list={list} size={size} onClick={onClickBreadCrumbs.bind(this)}/>
+                    <BreadCrumbs list={this.state.list} size={size} onClick={onClickBreadCrumbs.bind(this)}/>
                 </div>
             </React.Fragment>
 		);
