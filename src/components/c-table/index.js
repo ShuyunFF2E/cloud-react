@@ -550,10 +550,9 @@ class CTable extends Component {
    * @param pageSize
    */
   onPageChange = (pageNum, pageSize) => {
-    const { ajaxData } = this.props;
-    if (typeof ajaxData === 'object') {
-      this.props.pageOpts.onChange({ pageNum, pageSize });
-      return;
+    const { pageOpts } = this.props;
+    if (pageOpts && pageOpts.onChange) {
+      pageOpts.onChange({ pageNum, pageSize });
     }
     this.loadGrid({ pageNum, pageSize });
   };
