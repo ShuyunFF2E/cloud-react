@@ -62,8 +62,12 @@ export default function CTableDemo() {
           <CTable
             style={{ ...style, marginTop: 15 }}
             supportPage
+            isDelay
             columnData={columns}
             ajaxData={{ totals: data.length, data }}
+            pageOpts={{ onChange: () => {
+                console.log(11);
+              } }}
           />
         </div>
 	);
