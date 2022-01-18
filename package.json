@@ -6,7 +6,7 @@
     "gen:index": "node ./scripts/generate-index.js",
     "gen:doc": "node ./scripts/generate-doc.js",
     "start": "npm run gen:index && dumi dev",
-    "site": "npm run gen:index && npm run build && dumi build",
+    "site": "npm run gen:index && father-build --dev && dumi build",
     "build": "rimraf dist/* && father-build && node ./scripts/pre-publish.js",
     "watch": "rimraf dist/* && father-build --watch",
     "deploy": "npm run docs:build && npm run docs:deploy",
