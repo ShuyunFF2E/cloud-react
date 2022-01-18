@@ -5,7 +5,7 @@ if(typeof window === 'undefined') {
 	console.warn('cloud-react 仅支持在浏览器环境进行使用!');
 }
 
-export const version = '1.0.0-17';
+export const version = '1.0.4-3';
 
 export { default as Avatar } from './avatar';
 

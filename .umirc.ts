@@ -14,6 +14,9 @@ export default defineConfig({
   resolve: {
     includes: ['docs', 'src/components'],
   },
+  history: {
+    type: 'hash'
+  },
   // mfsu: {},
   navs: [
     {
