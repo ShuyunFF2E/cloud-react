@@ -32,6 +32,12 @@ export default class BadgeDemos extends React.Component {
                 <Badge mode="number" number={66} type="success" onClick={onClick} style={{ marginRight: 10 }}/>
                 <Badge mode="number" number={66} type="warn" onClick={onClick} style={{ marginRight: 10 }}/>
                 <Badge mode="number" number={66} type="fail" onClick={onClick}/>
+                <h4>dot 模式</h4>
+                <Badge mode="dot" text="default" style={{ marginRight: 10 }}/>
+                <Badge mode="dot" type="success" text="success" style={{ marginRight: 10 }}/>
+                <Badge mode="dot" type="warn" text="warn" style={{ marginRight: 10 }}/>
+                <Badge mode="dot" type="fail" text="fail" style={{ marginRight: 10 }}/>
+                <Badge mode="dot" type="finish" text="finish" />
             </React.Fragment>
 		);
 	}
