@@ -3,136 +3,137 @@
 @form-prefix-cls: ~'@{prefix}-form';
 
 .@{form-prefix-cls} {
-	line-height: 1.3;
+  line-height: 1.3;
 
-	/* .form-item */
-	&-item {
-		margin-bottom: 12px;
+  /* .form-item */
+  &-item {
+    margin-bottom: 12px;
 
-		/* layout */
-		&.horizontal & {
-			/* .form-item.horizontal .form-item-wrapper */
-			&-label {
-				line-height: @content-line-height;
-			}
+    /* layout */
+    &.horizontal & {
+      /* .form-item.horizontal .form-item-wrapper */
+      &-label {
+        line-height: @content-line-height;
+      }
 
-			&-wrapper {
-				display: inline-block;
-			}
-		}
+      &-wrapper {
+        display: inline-block;
+      }
+    }
 
-		&.vertical & {
-			&-label {
-				margin-bottom: 4px;
-			}
-			&-wrapper {
-				display: block;
-			}
-		}
+    &.vertical & {
+      &-label {
+        margin-bottom: 4px;
+      }
+      &-wrapper {
+        display: block;
+      }
+    }
 
-		&.inline {
-			display: inline-block;
-			margin-right: 12px;
-		}
+    &.inline {
+      display: inline-block;
+      margin-right: 12px;
+    }
 
-		&.inline & {
-			&-label,
-			&-wrapper {
-				line-height: @content-line-height;
-				vertical-align: top;
-			}
-			&-wrapper {
-				display: inline-block;
-			}
-		}
+    &.inline & {
+      &-label,
+      &-wrapper {
+        line-height: @content-line-height;
+        vertical-align: top;
+      }
+      &-wrapper {
+        display: inline-block;
+      }
+    }
 
-		/* align */
-		&.left & {
-			&-label {
-				text-align: left;
-			}
-		}
-		&.right & {
-			&-label {
-				text-align: right;
-			}
-		}
+    /* align */
+    &.left & {
+      &-label {
+        text-align: left;
+      }
+    }
+    &.right & {
+      &-label {
+        text-align: right;
+      }
+    }
 
-		/* others */
-		@content-line-height: 30px;
+    /* others */
+    @content-line-height: 30px;
 
-		&-label {
-			display: inline-block;
-			vertical-align: top;
-			padding-right: 8px;
-			line-height: 1;
-			min-height: 20px;
-			color: @color-gray2;
-			box-sizing: border-box;
+    &-label {
+      display: inline-block;
+      vertical-align: top;
+      padding-right: 8px;
+      line-height: 1;
+      min-height: 20px;
+      color: @color-gray2;
+      box-sizing: border-box;
+      white-space: nowrap;
 
-			&[required]::before {
-				content: '*';
-				display: inline-block;
-				margin-right: 4px;
-				color: @red-4;
-				font-size: 14px;
-				font-family: SimSun, sans-serif;
-				line-height: 1;
-			}
+      &[required]::before {
+        content: '*';
+        display: inline-block;
+        margin-right: 4px;
+        color: @red-4;
+        font-size: 14px;
+        font-family: SimSun, sans-serif;
+        line-height: 1;
+      }
 
-			&.has-colon::after {
-				content: ':';
-				position: relative;
-				top: -1px;
-				margin-left: 2px;
-			}
-		}
+      &.has-colon::after {
+        content: ':';
+        position: relative;
+        top: -1px;
+        margin-left: 2px;
+      }
+    }
 
-		&-wrapper {
-			line-height: @content-line-height;
-		}
+    &-wrapper {
+      line-height: @content-line-height;
+    }
 
-		&-explain {
-			margin-top: 8px;
-			font-size: 12px;
-			line-height: 1.42;
-			color: @color-gray2;
-			&.error {
-				color: @red-4;
-			}
-		}
+    &-explain {
+      margin-top: 8px;
+      font-size: 12px;
+      line-height: 1.42;
+      color: @color-gray2;
+      &.error {
+        color: @red-4;
+      }
+    }
 
-		.contents {
-			display: contents;
-		}
+    .contents {
+      display: contents;
+    }
 
-		// 表单校验样式
-		.has-error {
-			&,
-			> .@{prefix}-select,
-			.@{prefix}-datepicker-inp-block,
-			.@{prefix}-datepicker-container {
-				> .@{prefix}-select-wrapper,
-				> .@{prefix}-input-number,
-				> .@{prefix}-input-textarea-wrapper,
-				> .@{prefix}-input,
-				> .@{prefix}-input-affix {
-					border-color: @red-4;
-				}
-			}
-		}
-	}
+    // 表单校验样式
+    .has-error {
+      &,
+      > .@{prefix}-select,
+      .@{prefix}-datepicker-inp-block,
+      .@{prefix}-datepicker-container {
+        > .@{prefix}-select-wrapper,
+        > .@{prefix}-input-number,
+        > .@{prefix}-input-textarea-wrapper,
+        > .@{prefix}-input,
+        > .@{prefix}-input-affix {
+          border-color: @red-4;
+        }
+      }
+    }
+  }
 
-	.loop(@counter) when (@counter <= 24) {
-		.col-@{counter} {
-			@ret: 100 / 24 * @counter;
-			width: ~'@{ret}%';
-		}
-		.col-offset-@{counter} {
-			@ret: 100 / 24 * @counter;
-			margin-left: ~'@{ret}%';
-		}
-		.loop(@counter+1);
-	}
-	.loop(1);
+  .loop(@counter) when (@counter <= 24) {
+    .col-@{counter} {
+      @ret: 100 / 24 * @counter;
+      width: ~'@{ret}%';
+    }
+    .col-offset-@{counter} {
+      @ret: 100 / 24 * @counter;
+      margin-left: ~'@{ret}%';
+    }
+    .loop(@counter+1);
+  }
+  .loop(1);
 }
