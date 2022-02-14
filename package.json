@@ -1,6 +1,6 @@
 {
   "name": "cloud-react",
-  "version": "1.0.4-6",
+  "version": "1.0.4-7",
   "description": "数据赢家 react 组件",
   "scripts": {
     "gen:index": "node ./scripts/generate-index.js",
@@ -10,7 +10,7 @@
     "build": "rimraf dist/* && father-build && node ./scripts/pre-publish.js",
     "watch": "rimraf dist/* && father-build --watch",
     "deploy": "npm run docs:build && npm run docs:deploy",
-    "release": "npm run build && npm publish",
+    "release": "npm run build && npm publish dist",
     "prettier": "prettier --write \"**/*.{js,jsx,tsx,ts,less,md,json}\"",
     "test": "umi-test",
     "test:coverage": "umi-test --coverage",
