@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Layout basic layout should render correctly 1`] = `
+<section
+  class="cloud-layout"
+>
+  <header
+    class="cloud-layout-header"
+  >
+    header
+  </header>
+  <main
+    class="cloud-layout-content"
+  >
+    content
+  </main>
+  <footer
+    class="cloud-layout-footer"
+  >
+    footer
+  </footer>
+</section>
+`;
+
+exports[`Layout left to right layout should render correctly 1`] = `
+<section
+  class="cloud-layout cloud-layout-has-sider"
+>
+  <aside
+    class="cloud-layout-sider"
+  >
+    Sider
+  </aside>
+  <section
+    class="cloud-layout"
+  >
+    <header
+      class="cloud-layout-header"
+    >
+      Header
+    </header>
+    <main
+      class="cloud-layout-content"
+    >
+      Content
+    </main>
+    <footer
+      class="cloud-layout-footer"
+    >
+      Footer
+    </footer>
+  </section>
+</section>
+`;

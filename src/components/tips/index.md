@@ -1,7 +1,12 @@
 ---
-category: Components
-title: Tips
-subtitle: 提示信息
+title: Tips 提示信息
+nav:
+  title: Tips 提示信息
+  path: /cloud-react
+group:
+  order: 1
+  title: 通用
+  path: /common
 ---
 
 ### 何时使用
@@ -15,3 +20,7 @@ subtitle: 提示信息
 | msg   | 提示内容                                          | ReactNode、string | -      |
 | type  | 指定提示的样式, 有三种选择 normal、warning、major | string            | normal |
 | style | 样式                                              | CSSProperties     | -      |
+
+ ### 代码演示 
+
+<embed src="@components/tips/demos/basic-tips.md" /> 

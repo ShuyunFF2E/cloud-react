@@ -1,7 +1,12 @@
 ---
-category: Components
-title: Pagination
-subtitle: 分页
+title: Pagination 分页
+nav:
+  title: Pagination 分页
+  path: /cloud-react
+group:
+  order: 4
+  title: 导航
+  path: /nav
 ---
 
 当数据量过多时，采用分页的形式分隔数据，每次只加载显示一部分数据。
@@ -22,3 +27,13 @@ subtitle: 分页
 | showPageSizeOptions | 显示下拉选择每页显示多少条                   | boolean                     | false            |
 | total               | 数据总数                                     | number                      | 0                |
 | onChange            | 页码改变的回调，参数是改变后的页码及每页条数 | Function(current, pageSize) | noop             |
+
+ ### 代码演示 
+
+<embed src="@components/pagination/demos/basic-pagination.md" /> 
+
+<embed src="@components/pagination/demos/change.md" /> 
+
+<embed src="@components/pagination/demos/jump.md" /> 
+
+<embed src="@components/pagination/demos/more.md" /> 

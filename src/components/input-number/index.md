@@ -1,7 +1,12 @@
 ---
-category: Components
-title: InputNumber
-subtitle: 数字输入框
+title: InputNumber 数字输入框
+nav:
+  title: InputNumber 数字输入框
+  path: /cloud-react
+group:
+  order: 3
+  title: 数据
+  path: /data
 ---
 
 ### 何时使用
@@ -28,3 +33,13 @@ subtitle: 数字输入框
 | onBlur       | 移除焦点                                                  | Function(value: number &#124; string) | -           |
 | onFocus      | 获取焦点                                                  | Function()                            | -           |
 | onEnter      | 按下键盘回车按键的回调                                      | function(event)                          | -         |
+
+ ### 代码演示 
+
+<embed src="@components/input-number/demos/basic-input-number.md" /> 
+
+<embed src="@components/input-number/demos/disabled.md" /> 
+
+<embed src="@components/input-number/demos/precision.md" /> 
+
+<embed src="@components/input-number/demos/size.md" /> 

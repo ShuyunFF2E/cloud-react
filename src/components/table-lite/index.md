@@ -1,7 +1,12 @@
 ---
-category: Components
-title: TableLite
-subtitle: 精简表格
+title: TableLite 精简表格
+nav:
+  title: TableLite 精简表格
+  path: /cloud-react
+group:
+  order: 3
+  title: 数据
+  path: /data
 ---
 
 ### 何时使用
@@ -36,3 +41,9 @@ subtitle: 精简表格
 | id | 数据唯一 key, 必需存在 | [string, number] | - |
 | children | expandable===true 时，通过该字段显示子数据 | array | - |
 | rowExpandable | expandable===true 时，通过该字段控制展开状态 | boolean | - |
+
+ ### 代码演示 
+
+<embed src="@components/table-lite/demos/basic-table-lite.md" /> 
+
+<embed src="@components/table-lite/demos/tree.md" /> 

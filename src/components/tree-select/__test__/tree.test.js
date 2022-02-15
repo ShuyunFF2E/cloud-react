@@ -99,10 +99,16 @@ class App extends Component {
 }
 
 describe('Multilayer TreeSelect', () => {
+	beforeEach(() => {
+		// eslint-disable-next-line no-undef
+		jest.spyOn(Element.prototype, 'clientWidth', 'get')
+			.mockImplementation(() => 210);
+	});
+
 	mountTest(TreeSelect);
 
 	it('single tree renders correctly', () => {
-		const wrapper = mount(<App type="single" placeholder="选择一个选项" />);
+		const wrapper = mount(<App type="single" open placeholder="选择一个选项" />);
 		wrapper
 			.find(`.${classSelector}-wrapper`)
 			.at(0)
@@ -112,6 +118,29 @@ describe('Multilayer TreeSelect', () => {
 
 	it('multiple tree renders correctly', () => {
 		const wrapper = render(<App type="multiple" placeholder="选择一个选项" />);
+		expect(wrapper).toMatchSnapshot();
+	});
+
+	it('older single tree renders correctly', () => {
+		const wrapper = render(<App single />);
+		expect(wrapper).toMatchSnapshot();
+	});
+
+	it('older multiple tree renders correctly', () => {
+		const wrapper = render(<App multiple />);
+		expect(wrapper).toMatchSnapshot();
+	});
+
+	it('single tree should word correctly when value is null or defaultValue is null', () => {
+		const wrapper = render(<App type="single" value={null} defaultValue={null} />);
+		expect(wrapper).toMatchSnapshot();
+
+		const wrapper1 = render(<App value={null} />);
+		expect(wrapper1).toMatchSnapshot();
+	});
+
+	it('tree should word correctly when datasource is an empty array', () => {
+		const wrapper = render(<TreeSelect type="single" dataSource={[]} emptyRender="暂无数据" defaultOpen />);
 		expect(wrapper).toMatchSnapshot();
 	});
 
@@ -166,7 +195,6 @@ describe('Multilayer TreeSelect', () => {
 			.at(3)
 			.simulate('change');
 		expect(onChange).toHaveBeenCalledWith({ id: 1132, pId: 113 }, [
-			{ id: 1132, pId: 113 },
 			{ id: 11321, pId: 1132 }
 		]);
 	});

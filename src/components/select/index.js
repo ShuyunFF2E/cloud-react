@@ -17,452 +17,524 @@ import { formatOptionSource } from './utils';
 import './index.less';
 
 const getSelected = (data, children) => {
-	const options = Array.isArray(data) ? data : [data];
-	if (!options.length) return [];
-	const selected = Children.map(children, child => {
-		const { children: label, value } = child.props;
-		return options.includes(value) ? { label, value } : null;
-	});
-	return selected;
+  const options = Array.isArray(data) ? data : [data];
+  if (!options.length) return [];
+  const selected = Children.map(children, (child) => {
+    const { children: label, value } = child.props;
+    return options.includes(value) ? { label, value } : null;
+  });
+  return selected;
 };
 
 const getOptions = (dataSource, labelKey, valueKey, isSupportTitle) => {
-	return dataSource.map((v, index) => (
-		<Option item={{ ...v, index }} value={v[valueKey]} disabled={v.disabled} isSupportTitle={isSupportTitle} key={Math.random()}>
-			{v[labelKey]}
-		</Option>
-	));
+  return dataSource.map((v, index) => (
+    <Option
+      item={{ ...v, index }}
+      value={v[valueKey]}
+      disabled={v.disabled}
+      isSupportTitle={isSupportTitle}
+      key={Math.random()}
+    >
+      {v[labelKey]}
+    </Option>
+  ));
 };
 
 class Select extends Component {
-	static Option = Option;
+  static Option = Option;
 
-	static contextType = ContextProvider;
+  static contextType = ContextProvider;
 
-	constructor(props) {
-		super(props);
+  constructor(props) {
+    super(props);
 
-		const { open, defaultOpen, labelInValue } = props;
-		const { defaultSelectValue, children } = this;
+    const { open, defaultOpen, labelInValue } = props;
+    const { defaultSelectValue, children } = this;
 
-		const selected = getSelected(defaultSelectValue, children);
+    const selected = getSelected(defaultSelectValue, children);
 
-		this.state = {
-			open: open || defaultOpen,
-			value: defaultSelectValue,
-			prevValue: defaultSelectValue,
-			prevResult: labelInValue ? selected : defaultSelectValue,
-			selected,
-			prevProps: props,
-			style: {}
-		};
-		this.node = React.createRef();
-		this.optionsNode = React.createRef();
-		this.selectedNode = React.createRef();
-	}
+    this.state = {
+      open: open || defaultOpen,
+      value: defaultSelectValue,
+      prevValue: defaultSelectValue,
+      prevResult: labelInValue ? selected : defaultSelectValue,
+      selected,
+      prevProps: props,
+      style: {},
+    };
+    this.node = React.createRef();
+    this.optionsNode = React.createRef();
+    this.selectedNode = React.createRef();
+  }
 
-	static getDerivedStateFromProps(props, prevState) {
-		const { prevProps } = prevState;
-		const { value, children, dataSource, multiple, open, isSupportTitle } = props;
-		const { value: prevValue, children: prevChildren, dataSource: prevData, open: prevOpen } = prevProps;
+  static getDerivedStateFromProps(props, prevState) {
+    const { prevProps } = prevState;
+    const { value, children, dataSource, multiple, open, isSupportTitle } =
+      props;
+    const {
+      value: prevValue,
+      children: prevChildren,
+      dataSource: prevData,
+      open: prevOpen,
+    } = prevProps;
 
-		if (value !== prevValue || Children.count(children) !== Children.count(prevChildren) || !ShuyunUtils.equal(dataSource, prevData)) {
-			const { labelKey, valueKey, labelInValue, defaultValue } = props;
-			const displayValue = value !== null ? value : defaultValue;
-			const childs = Array.isArray(children) ? flat(children, Infinity) : Children.toArray(children);
-			const source = childs.length ? childs : getOptions(dataSource, labelKey, valueKey, isSupportTitle);
-			const selected = getSelected(displayValue, source);
-			const emptyValue = multiple ? [] : '';
-			const currentValue = displayValue !== null ? displayValue : emptyValue;
-			return {
-				value: currentValue,
-				prevValue: currentValue,
-				prevResult: labelInValue ? selected : displayValue,
-				selected,
-				prevProps: props
-			};
-		}
+    if (
+      value !== prevValue ||
+      Children.count(children) !== Children.count(prevChildren) ||
+      !ShuyunUtils.equal(dataSource, prevData)
+    ) {
+      const { labelKey, valueKey, labelInValue, defaultValue } = props;
+      const displayValue = value !== null ? value : defaultValue;
+      const childs = Array.isArray(children)
+        ? flat(children, Infinity)
+        : Children.toArray(children);
+      const source = childs.length
+        ? childs
+        : getOptions(dataSource, labelKey, valueKey, isSupportTitle);
+      const selected = getSelected(displayValue, source);
+      const emptyValue = multiple ? [] : '';
+      const currentValue = displayValue !== null ? displayValue : emptyValue;
+      return {
+        value: currentValue,
+        prevValue: currentValue,
+        prevResult: labelInValue ? selected : displayValue,
+        selected,
+        prevProps: props,
+      };
+    }
 
-		if (open !== prevOpen) {
-			return {
-				prevProps: props,
-				open
-			};
-		}
+    if (open !== prevOpen) {
+      return {
+        prevProps: props,
+        open,
+      };
+    }
 
-		return null;
-	}
+    return null;
+  }
 
-	componentDidMount() {
-		this.document.addEventListener('click', this.handleClick);
-		this.node.current.addEventListener('mouseleave', this.handleMouseLeave);
-		if (this.state.open) this.positionPop();
+  componentDidMount() {
+    this.document.addEventListener('click', this.handleClick);
+    this.node.current.addEventListener('mouseleave', this.handleMouseLeave);
+    if (this.state.open) this.positionPop();
 
-		if (!this.props.dataSource.length) {
-			console.warn('请传入dataSource属性，未传入可能导致部分功能不能正常使用');
-		}
-	}
+    if (!this.props.dataSource.length) {
+      // console.warn('请传入dataSource属性，未传入可能导致部分功能不能正常使用');
+    }
+  }
 
-	componentDidUpdate(_, prevState) {
-		if (this.state.open !== prevState.open && this.state.open) this.positionPop();
-	}
+  componentDidUpdate(_, prevState) {
+    if (this.state.open !== prevState.open && this.state.open)
+      this.positionPop();
+  }
 
-	shouldComponentUpdate(nextProps, nextState) {
-		const { disabled, width, open: propOpen, searchable } = nextProps;
-		const { open, value, selected, style } = nextState;
-		const { disabled: prevDisabled, width: prevWidth, open: prevPropOpen, searchable: prevSearchable } = this.props;
-		const { open: prevOpen, value: prevValue, selected: prevSelected, style: prevStyle } = this.state;
+  shouldComponentUpdate(nextProps, nextState) {
+    const { disabled, width, open: propOpen, searchable } = nextProps;
+    const { open, value, selected, style } = nextState;
+    const {
+      disabled: prevDisabled,
+      width: prevWidth,
+      open: prevPropOpen,
+      searchable: prevSearchable,
+    } = this.props;
+    const {
+      open: prevOpen,
+      value: prevValue,
+      selected: prevSelected,
+      style: prevStyle,
+    } = this.state;
 
-		return (
-			disabled !== prevDisabled ||
-			width !== prevWidth ||
-			propOpen !== prevPropOpen ||
-			open !== prevOpen ||
-			value !== prevValue ||
-			selected !== prevSelected ||
-			searchable !== prevSearchable ||
-			style !== prevStyle
-		);
-	}
+    return (
+      disabled !== prevDisabled ||
+      width !== prevWidth ||
+      propOpen !== prevPropOpen ||
+      open !== prevOpen ||
+      value !== prevValue ||
+      selected !== prevSelected ||
+      searchable !== prevSearchable ||
+      style !== prevStyle
+    );
+  }
 
-	componentWillUnmount() {
-		this.document.removeEventListener('click', this.handleClick);
-		this.node.current.removeEventListener('mouseleave', this.handleMouseLeave);
-	}
+  componentWillUnmount() {
+    this.document.removeEventListener('click', this.handleClick);
+    this.node.current.removeEventListener('mouseleave', this.handleMouseLeave);
+  }
 
-	get document() {
-		return this.context.rootDocument;
-	}
+  get document() {
+    return this.context.rootDocument;
+  }
 
-	get portal() {
-		const { getContext } = this.context;
-		return getContext() || this.document.body;
-	}
+  get portal() {
+    const { getContext } = this.context;
+    return getContext() || this.document.body;
+  }
 
-	get defaultSelectValue() {
-		const { value, defaultValue, multiple } = this.props;
-		if (multiple) {
-			return value || defaultValue || [];
-		}
-		return value !== null ? value : defaultValue;
-	}
+  get defaultSelectValue() {
+    const { value, defaultValue, multiple } = this.props;
+    if (multiple) {
+      return value || defaultValue || [];
+    }
+    return value !== null ? value : defaultValue;
+  }
 
-	get children() {
-		const { children, dataSource, labelKey, valueKey, isSupportTitle } = this.props;
-		const childs = Array.isArray(children) ? flat(children, Infinity) : Children.toArray(children);
+  get children() {
+    const { children, dataSource, labelKey, valueKey, isSupportTitle } =
+      this.props;
+    const childs = Array.isArray(children)
+      ? flat(children, Infinity)
+      : Children.toArray(children);
 
-		if (childs.length) return childs;
+    if (childs.length) return childs;
 
-		return getOptions(dataSource, labelKey, valueKey, isSupportTitle);
-	}
+    return getOptions(dataSource, labelKey, valueKey, isSupportTitle);
+  }
 
-	get selectedContainerStyle() {
-		const selectNode = this.selectedNode.current;
-		if (selectNode) {
-			return selectNode.ref.current.getBoundingClientRect();
-		}
-		return {};
-	}
+  get selectedContainerStyle() {
+    const selectNode = this.selectedNode.current;
+    if (selectNode) {
+      return selectNode.ref.current.getBoundingClientRect();
+    }
+    return {};
+  }
 
-	get optionsNodeStyle() {
-		const ele = this.optionsNode.current;
-		if (!ele) return {};
-		return ele.getBoundingClientRect();
-	}
+  get optionsNodeStyle() {
+    const ele = this.optionsNode.current;
+    if (!ele) return {};
+    return ele.getBoundingClientRect();
+  }
 
-	positionPop = () => {
-		const {
-			props: { isAppendToBody, position },
-			selectedContainerStyle: { left, top, bottom, height },
-			optionsNodeStyle: { height: optionsHeight }
-		} = this;
-		const isBottomDistanceEnough = bottom + optionsHeight < this.document.documentElement.clientHeight;
-		const isLocationTop = optionsHeight < top && !isBottomDistanceEnough && position === 'auto';
-		if (isAppendToBody) {
-			this.setState({
-				style: {
-					position: 'fixed',
-					left: `${left}px`,
-					top: isLocationTop ? `${top - optionsHeight}px` : `${bottom}px`
-				}
-			});
-		} else {
-			this.setState({
-				style: {
-					top: isLocationTop ? `${-optionsHeight}px` : `${height}px`
-				}
-			});
-		}
-	};
+  positionPop = () => {
+    const {
+      props: { isAppendToBody, position },
+      selectedContainerStyle: { left, top, bottom, height },
+      optionsNodeStyle: { height: optionsHeight },
+    } = this;
+    const isBottomDistanceEnough =
+      bottom + optionsHeight < this.document.documentElement.clientHeight;
+    const isLocationTop =
+      optionsHeight < top && !isBottomDistanceEnough && position === 'auto';
+    if (isAppendToBody) {
+      this.setState({
+        style: {
+          position: 'fixed',
+          left: `${left}px`,
+          top: isLocationTop ? `${top - optionsHeight}px` : `${bottom}px`,
+        },
+      });
+    } else {
+      this.setState({
+        style: {
+          top: isLocationTop ? `${-optionsHeight}px` : `${height}px`,
+        },
+      });
+    }
+  };
 
-	handleMouseLeave = () => {
-		const {
-			props: { trigger },
-			state: { open },
-			handleSelect
-		} = this;
-		if (trigger === 'hover' && open) {
-			handleSelect();
-		}
-	};
+  handleMouseLeave = () => {
+    const {
+      props: { trigger },
+      state: { open },
+      handleSelect,
+    } = this;
+    if (trigger === 'hover' && open) {
+      handleSelect();
+    }
+  };
 
-	handleClick = e => {
-		const { open, prevValue } = this.state;
-		const isClickSelect = this.node.current.contains(e.target) || (this.optionsNode.current && this.optionsNode.current.contains(e.target));
+  handleClick = (e) => {
+    const { open, prevValue } = this.state;
+    const isClickSelect =
+      this.node.current.contains(e.target) ||
+      (this.optionsNode.current && this.optionsNode.current.contains(e.target));
 
-		if (!isClickSelect && open) {
-			const { onSelectClose, open: propOpen, hasConfirmButton } = this.props;
-			onSelectClose();
-			if (hasConfirmButton) this.onMultiOptionChange(prevValue);
-			if (propOpen === null) this.setState({ open: false });
-		}
-	};
+    if (!isClickSelect && open) {
+      const { onSelectClose, open: propOpen, hasConfirmButton } = this.props;
+      onSelectClose();
+      if (hasConfirmButton) this.onMultiOptionChange(prevValue);
+      if (propOpen === null) this.setState({ open: false });
+    }
+  };
 
-	handleSelect = () => {
-		const { open } = this.state;
-		const { onSelectOpen, onSelectClose, open: propOpen } = this.props;
+  handleSelect = () => {
+    const { open } = this.state;
+    const { onSelectOpen, onSelectClose, open: propOpen } = this.props;
 
-		if (open) {
-			onSelectClose();
-		} else {
-			onSelectOpen();
-		}
+    if (open) {
+      onSelectClose();
+    } else {
+      onSelectOpen();
+    }
 
-		if (propOpen === null) this.setState({ open: !open });
-	};
+    if (propOpen === null) this.setState({ open: !open });
+  };
 
-	onClickSelected = () => {
-		const { disabled } = this.props;
-		if (disabled) return;
+  onClickSelected = () => {
+    const { disabled } = this.props;
+    if (disabled) return;
 
-		this.handleSelect();
-	};
+    this.handleSelect();
+  };
 
-	onSimpleOptionChange = data => {
-		const { labelInValue, onChange, onBeforeChange } = this.props;
-		const { prevValue, prevResult } = this.state;
+  onSimpleOptionChange = (data) => {
+    const { labelInValue, onChange, onBeforeChange } = this.props;
+    const { prevValue, prevResult } = this.state;
 
-		if (data.value === prevValue) {
-			this.handleSelect();
-			return;
-		}
+    if (data.value === prevValue) {
+      this.handleSelect();
+      return;
+    }
 
-		const option = formatOptionSource(data);
-		const selectValue = option[0].value;
-		const checkedValue = labelInValue ? option[0] : selectValue;
+    const option = formatOptionSource(data);
+    const selectValue = option[0].value;
+    const checkedValue = labelInValue ? option[0] : selectValue;
 
-		const onBeforeSelectChange = onBeforeChange || (() => Promise.resolve());
+    const onBeforeSelectChange = onBeforeChange || (() => Promise.resolve());
 
-		onBeforeSelectChange(checkedValue).then(() => {
-			this.setState({
-				selected: option,
-				value: selectValue,
-				prevValue: selectValue,
-				prevResult: checkedValue
-			});
+    onBeforeSelectChange(checkedValue).then(() => {
+      this.setState({
+        selected: option,
+        value: selectValue,
+        prevValue: selectValue,
+        prevResult: checkedValue,
+      });
 
-			this.handleSelect();
-			onChange(checkedValue, prevResult, data.item);
-		});
-	};
+      this.handleSelect();
+      onChange(checkedValue, prevResult, data.item);
+    });
+  };
 
-	onMultiOptionChange = data => {
-		const { children } = this;
-		const { labelInValue } = this.props;
-		const options = Children.map(children, child => {
-			const { children: label, value } = child.props;
-			return data.includes(value) ? { label, value } : null;
-		});
-		const values = options.map(v => v.value);
+  onMultiOptionChange = (data) => {
+    const { children } = this;
+    const { labelInValue } = this.props;
+    const options = Children.map(children, (child) => {
+      const { children: label, value } = child.props;
+      return data.includes(value) ? { label, value } : null;
+    });
+    const values = options.map((v) => v.value);
 
-		this.setState({
-			selected: options,
-			value: values
-		});
+    this.setState({
+      selected: options,
+      value: values,
+    });
 
-		return labelInValue ? options : values;
-	};
+    return labelInValue ? options : values;
+  };
 
-	onMultiSelectValueChange = data => {
-		const {
-			onMultiOptionChange,
-			props: { hasConfirmButton, onChange },
-			state: { prevResult }
-		} = this;
+  onMultiSelectValueChange = (data) => {
+    const {
+      onMultiOptionChange,
+      props: { hasConfirmButton, onChange },
+      state: { prevResult },
+    } = this;
 
-		const checkedValue = onMultiOptionChange(data);
+    const checkedValue = onMultiOptionChange(data);
 
-		if (!hasConfirmButton) {
-			this.setState({
-				prevResult: checkedValue
-			});
-			onChange(checkedValue, prevResult);
-		}
-	};
+    if (!hasConfirmButton) {
+      this.setState({
+        prevResult: checkedValue,
+      });
+      onChange(checkedValue, prevResult);
+    }
+  };
 
-	onClearSelected = e => {
-		e.preventDefault();
-		e.stopPropagation();
+  onClearSelected = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
 
-		const { multiple } = this.props;
-		const value = multiple ? [] : '';
-		const { prevResult } = this.state;
+    const { multiple } = this.props;
+    const value = multiple ? [] : '';
+    const { prevResult } = this.state;
 
-		this.setState({
-			selected: [],
-			value,
-			prevValue: value,
-			prevResult: value
-		});
-		this.props.onChange(value, prevResult);
-	};
+    this.setState({
+      selected: [],
+      value,
+      prevValue: value,
+      prevResult: value,
+    });
+    this.props.onChange(value, prevResult);
+  };
 
-	handleOk = () => {
-		const {
-			handleSelect,
-			props: { labelInValue, onOk },
-			state: { selected, value, prevResult }
-		} = this;
-		const result = labelInValue ? selected : value;
+  handleOk = () => {
+    const {
+      handleSelect,
+      props: { labelInValue, onOk },
+      state: { selected, value, prevResult },
+    } = this;
+    const result = labelInValue ? selected : value;
 
-		this.setState({
-			prevValue: value,
-			prevResult: result
-		});
+    this.setState({
+      prevValue: value,
+      prevResult: result,
+    });
 
-		onOk(result, prevResult);
-		handleSelect();
-	};
+    onOk(result, prevResult);
+    handleSelect();
+  };
 
-	handleCancel = () => {
-		const {
-			onMultiOptionChange,
-			handleSelect,
-			props: { onCancel },
-			state: { prevValue }
-		} = this;
+  handleCancel = () => {
+    const {
+      onMultiOptionChange,
+      handleSelect,
+      props: { onCancel },
+      state: { prevValue },
+    } = this;
 
-		onMultiOptionChange(prevValue);
-		onCancel();
-		handleSelect();
-	};
+    onMultiOptionChange(prevValue);
+    onCancel();
+    handleSelect();
+  };
 
-	renderOptions() {
-		const { multiple, confirmTemplate } = this.props;
-		const { value } = this.state;
+  renderOptions() {
+    const { multiple, confirmTemplate } = this.props;
+    const { value } = this.state;
 
-		if (multiple) {
-			return (
-				<MultiSelect
-					{...this.props}
-					value={value}
-					dataSource={this.children}
-					onOk={this.handleOk}
-					onCancel={this.handleCancel}
-					confirmTemplate={confirmTemplate}
-					onChange={this.onMultiSelectValueChange}
-				/>
-			);
-		}
+    if (multiple) {
+      return (
+        <MultiSelect
+          {...this.props}
+          value={value}
+          dataSource={this.children}
+          onOk={this.handleOk}
+          onCancel={this.handleCancel}
+          confirmTemplate={confirmTemplate}
+          onChange={this.onMultiSelectValueChange}
+        />
+      );
+    }
 
-		return <SingleSelect {...this.props} value={value} dataSource={this.children} onChange={this.onSimpleOptionChange} />;
-	}
+    return (
+      <SingleSelect
+        {...this.props}
+        value={value}
+        dataSource={this.children}
+        onChange={this.onSimpleOptionChange}
+      />
+    );
+  }
 
-	render() {
-		const { placeholder, disabled, allowClear, style, className, isAppendToBody, isSupportTitle, ...otherProps } = this.props;
-		const { selected, open, style: popupStyle } = this.state;
-		const { width } = this.selectedContainerStyle;
-		const classNames = classnames(`${selector}`, { [`${selector}-open`]: open }, className);
+  render() {
+    const {
+      placeholder,
+      disabled,
+      allowClear,
+      style,
+      className,
+      isAppendToBody,
+      isSupportTitle,
+      ...otherProps
+    } = this.props;
+    const { selected, open, style: popupStyle } = this.state;
+    const { width } = this.selectedContainerStyle;
+    const classNames = classnames(
+      `${selector}`,
+      { [`${selector}-open`]: open },
+      className,
+    );
 
-		const optionContainer = (
-			<div className={`${selector}-option-container`} ref={this.optionsNode} style={{ ...popupStyle, width: `${width}px` }}>
-				{this.renderOptions()}
-			</div>
-		);
+    const optionContainer = (
+      <div
+        className={`${selector}-option-container`}
+        ref={this.optionsNode}
+        style={{ ...popupStyle, width: `${width}px` }}
+      >
+        {this.renderOptions()}
+      </div>
+    );
 
-		return (
-			<div className={`${classNames}`} style={style} ref={this.node}>
-				{/* 已选显示区域 */}
-				<Selected
-					{...otherProps}
-					ref={this.selectedNode}
-					onClick={this.onClickSelected}
-					onClear={this.onClearSelected}
-					open={open}
-					allowClear={allowClear}
-					placeholder={placeholder}
-					dataSource={selected}
-					metaData={this.children}
-					disabled={disabled}
-					isSupportTitle={isSupportTitle}
-				/>
+    return (
+      <div className={`${classNames}`} style={style} ref={this.node}>
+        {/* 已选显示区域 */}
+        <Selected
+          {...otherProps}
+          ref={this.selectedNode}
+          onClick={this.onClickSelected}
+          onClear={this.onClearSelected}
+          open={open}
+          allowClear={allowClear}
+          placeholder={placeholder}
+          dataSource={selected}
+          metaData={this.children}
+          disabled={disabled}
+          isSupportTitle={isSupportTitle}
+        />
 
-				{isAppendToBody ? open && ReactDOM.createPortal(optionContainer, this.portal) : open && optionContainer}
-			</div>
-		);
-	}
+        {isAppendToBody
+          ? open && ReactDOM.createPortal(optionContainer, this.portal)
+          : open && optionContainer}
+      </div>
+    );
+  }
 }
 
 Select.propTypes = {
-	multiple: PropTypes.bool,
-	allowClear: PropTypes.bool,
-	defaultOpen: PropTypes.bool,
-	open: PropTypes.bool,
-	disabled: PropTypes.bool,
-	placeholder: PropTypes.string,
-	dataSource: PropTypes.array,
-	labelKey: PropTypes.string,
-	valueKey: PropTypes.string,
-	width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-	searchable: PropTypes.bool,
-	emptyRender: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
-	defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array]),
-	value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array]),
-	labelInValue: PropTypes.bool,
-	hasSelectAll: PropTypes.bool,
-	hasConfirmButton: PropTypes.bool,
-	isSupportTitle: PropTypes.bool,
-	okBtnText: PropTypes.string,
-	cancelBtnText: PropTypes.string,
-	className: PropTypes.string,
-	children: PropTypes.node,
-	onChange: PropTypes.func,
-	onSearch: PropTypes.func,
-	onSelectOpen: PropTypes.func,
-	onSelectClose: PropTypes.func,
-	onOk: PropTypes.func,
-	onCancel: PropTypes.func
+  multiple: PropTypes.bool,
+  allowClear: PropTypes.bool,
+  defaultOpen: PropTypes.bool,
+  open: PropTypes.bool,
+  disabled: PropTypes.bool,
+  placeholder: PropTypes.string,
+  dataSource: PropTypes.array,
+  labelKey: PropTypes.string,
+  valueKey: PropTypes.string,
+  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  searchable: PropTypes.bool,
+  emptyRender: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+  defaultValue: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.array,
+  ]),
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.array,
+  ]),
+  labelInValue: PropTypes.bool,
+  hasSelectAll: PropTypes.bool,
+  hasConfirmButton: PropTypes.bool,
+  isSupportTitle: PropTypes.bool,
+  okBtnText: PropTypes.string,
+  cancelBtnText: PropTypes.string,
+  className: PropTypes.string,
+  children: PropTypes.node,
+  onChange: PropTypes.func,
+  onSearch: PropTypes.func,
+  onSelectOpen: PropTypes.func,
+  onSelectClose: PropTypes.func,
+  onOk: PropTypes.func,
+  onCancel: PropTypes.func,
 };
 
 Select.defaultProps = {
-	multiple: false,
-	allowClear: false,
-	defaultOpen: false,
-	open: null,
-	disabled: false,
-	placeholder: '',
-	dataSource: [],
-	labelKey: 'label',
-	valueKey: 'value',
-	width: 'auto',
-	searchable: false,
-	emptyRender: '暂时没有数据',
-	defaultValue: null,
-	value: null,
-	labelInValue: false,
-	hasSelectAll: false,
-	hasConfirmButton: false,
-	isSupportTitle: false,
-	okBtnText: '确认',
-	cancelBtnText: '取消',
-	className: '',
-	children: [],
-	onChange: noop,
-	onSearch: noop,
-	onSelectOpen: noop,
-	onSelectClose: noop,
-	onOk: noop,
-	onCancel: noop
+  multiple: false,
+  allowClear: false,
+  defaultOpen: false,
+  open: null,
+  disabled: false,
+  placeholder: '',
+  dataSource: [],
+  labelKey: 'label',
+  valueKey: 'value',
+  width: 'auto',
+  searchable: false,
+  emptyRender: '暂时没有数据',
+  defaultValue: null,
+  value: null,
+  labelInValue: false,
+  hasSelectAll: false,
+  hasConfirmButton: false,
+  isSupportTitle: false,
+  okBtnText: '确认',
+  cancelBtnText: '取消',
+  className: '',
+  children: [],
+  onChange: noop,
+  onSearch: noop,
+  onSelectOpen: noop,
+  onSelectClose: noop,
+  onOk: noop,
+  onCancel: noop,
 };
 
 export default Select;

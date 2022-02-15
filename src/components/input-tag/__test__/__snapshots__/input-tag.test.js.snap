@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InputTag renders correctly 1`] = `
+<div
+  class="cloud-input-tag"
+>
+  <div
+    class="cloud-input-tag-list"
+  >
+    <input
+      placeholder="按回车保存，可输入多个"
+    />
+  </div>
+  <div
+    class="cloud-input-tag-operate"
+  >
+    <span
+      style="color:red"
+    >
+      0/50
+    </span>
+    <div
+      style="display:contents"
+      tooltipcontainer="1631956582015"
+    >
+      <i
+        class="cloud-icon cloud-icon-remark"
+      />
+    </div>
+    <div
+      style="display:contents"
+      tooltipcontainer="1631956582015"
+    >
+      <i
+        class="cloud-icon cloud-icon-close-circle-solid"
+      />
+    </div>
+  </div>
+</div>
+`;

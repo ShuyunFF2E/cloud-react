@@ -1,7 +1,12 @@
 ---
-category: Components
-title: Table
-subtitle: 表格
+title: Table 表格
+nav:
+  title: Table 表格
+  path: /cloud-react
+group:
+  order: 3
+  title: 数据
+  path: /data
 ---
 
 ### 何时使用
@@ -43,3 +48,21 @@ subtitle: 表格
 | pageSize         | 配置初次进入时每页的显示条数，需要与 sizeData 中的值匹配                                                                                          | number                                     | 20                |
 
 更多 API 请参考: [GridManager API](http://gridmanager.lovejavascript.com/api/index.html)
+
+ ### 代码演示 
+
+<embed src="@components/table/demos/ajax-page.md" /> 
+
+<embed src="@components/table/demos/basic-table.md" /> 
+
+<embed src="@components/table/demos/col-fixed.md" /> 
+
+<embed src="@components/table/demos/customize.md" /> 
+
+<embed src="@components/table/demos/sort.md" /> 
+
+<embed src="@components/table/demos/static.md" /> 
+
+<embed src="@components/table/demos/top-full.md" /> 
+
+<embed src="@components/table/demos/tree.md" /> 

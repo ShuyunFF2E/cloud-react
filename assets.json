@@ -1,0 +1,132 @@
+{
+  "name": " ",
+  "package": "cloud-react",
+  "logo": "https://brand-guide.shuyun.com/IAM/77c28a6547cd.png",
+  "assets": {
+    "atoms": [],
+    "examples": [
+      {
+        "type": "BLOCK",
+        "identifier": "basic-demo",
+        "dependencies": {
+          "react": {
+            "type": "NPM",
+            "value": "16.14.0"
+          },
+          "cloud-react": {
+            "type": "NPM",
+            "value": "0.0.98"
+          },
+          "index.jsx": {
+            "type": "FILE",
+            "value": "/**\n+  * title: cloud-bread-crumbs\n+  */\n\n\n\nimport React from 'react';\nimport { BreadCrumbs, Button } from 'cloud-react';\n\nexport default class BreadCrumbsDemo extends React.Component {\n    constructor(props) {\n        super(props);\n        this.state = {\n            size: 'default'\n        };\n    }\n\n    onChangeSize = size => {\n        this.setState({ size });\n    }\n\n    onClickBreadCrumbs = item => {\n        console.log(item);\n    };\n\n    getButtonType = size => {\n        return this.state.size === size ? 'primary' : 'normal';\n    }\n    render() {\n        const { size } = this.state;\n        const { onChangeSize, onClickBreadCrumbs, getButtonType } = this;\n        const list = [\n            {\n                key: 'home',\n                title: '首页'\n            },\n            {\n                key: 'bread-crumbs',\n                title: '面包屑'\n            },\n            {\n                key: 'a3',\n                title: '查看详情'\n            }\n        ];\n\n\t\treturn (\n\t\t\t<>\n                <div className=\"basic-action\">\n                    <Button type={getButtonType('large')} onClick={() => {onChangeSize('large')}}>large</Button>\n                    <Button type={getButtonType('default')} onClick={() => {onChangeSize('default')}}>default</Button>\n                    <Button type={getButtonType('small')} onClick={() => {onChangeSize('small')}}>small</Button>\n                    <Button type=\"link\" disabled>\n                        current: {size}\n                    </Button>\n                </div>\n                <div>\n                    <BreadCrumbs list={list} size={size} onClick={onClickBreadCrumbs.bind(this)}/>\n                </div>\n            </>\n\t\t);\n\t}\n}"
+          }
+        }
+      },
+      {
+        "type": "BLOCK",
+        "identifier": "basic-demo",
+        "dependencies": {
+          "react": {
+            "type": "NPM",
+            "value": "16.14.0"
+          },
+          "cloud-react": {
+            "type": "NPM",
+            "value": "0.0.98"
+          },
+          "index.jsx": {
+            "type": "FILE",
+            "value": "/**\n+  * title: cloud-bread-crumbs\n+  */\n\n\n\nimport React from 'react';\nimport { BreadCrumbs, Button } from 'cloud-react';\n\nexport default class BreadCrumbsDemo extends React.Component {\n    constructor(props) {\n        super(props);\n        this.state = {\n            size: 'default'\n        };\n    }\n\n    onChangeSize = size => {\n        this.setState({ size });\n    }\n\n    onClickBreadCrumbs = item => {\n        console.log(item);\n    };\n\n    getButtonType = size => {\n        return this.state.size === size ? 'primary' : 'normal';\n    }\n    render() {\n        const { size } = this.state;\n        const { onChangeSize, onClickBreadCrumbs, getButtonType } = this;\n        const list = [\n            {\n                key: 'home',\n                title: '首页'\n            },\n            {\n                key: 'bread-crumbs',\n                title: '面包屑'\n            },\n            {\n                key: 'a3',\n                title: '查看详情'\n            }\n        ];\n\n\t\treturn (\n\t\t\t<>\n                <div className=\"basic-action\">\n                    <Button type={getButtonType('large')} onClick={() => {onChangeSize('large')}}>large</Button>\n                    <Button type={getButtonType('default')} onClick={() => {onChangeSize('default')}}>default</Button>\n                    <Button type={getButtonType('small')} onClick={() => {onChangeSize('small')}}>small</Button>\n                    <Button type=\"link\" disabled>\n                        current: {size}\n                    </Button>\n                </div>\n                <div>\n                    <BreadCrumbs list={list} size={size} onClick={onClickBreadCrumbs.bind(this)}/>\n                </div>\n            </>\n\t\t);\n\t}\n}"
+          }
+        }
+      },
+      {
+        "type": "BLOCK",
+        "identifier": "basic-demo",
+        "dependencies": {
+          "react": {
+            "type": "NPM",
+            "value": "16.14.0"
+          },
+          "cloud-react": {
+            "type": "NPM",
+            "value": "0.0.98"
+          },
+          "index.jsx": {
+            "type": "FILE",
+            "value": "import React from 'react';\nimport { Button, InputNumber } from 'cloud-react';\n\nconst blank = '\\u00A0';\n\nexport default class ButtonDemo extends React.Component {\n\trender() {\n\t\treturn (\n\t\t\t<>\n\t\t\t\t<div>\n\t\t\t\t\t<Button type=\"primary\">primary</Button>\n\t\t\t\t\t{blank}\n\t\t\t\t\t<Button type=\"normal\">normal</Button>\n\t\t\t\t\t{blank}\n\t\t\t\t\t<Button type=\"dashed\">dashed</Button>\n\t\t\t\t\t{blank}\n\t\t\t\t\t<Button type=\"link\">link</Button>\n\t\t\t\t</div>\n\t\t\t</>\n\t\t);\n\t}\n}"
+          }
+        }
+      },
+      {
+        "type": "BLOCK",
+        "identifier": "block-demo",
+        "dependencies": {
+          "react": {
+            "type": "NPM",
+            "value": "16.14.0"
+          },
+          "cloud-react": {
+            "type": "NPM",
+            "value": "0.0.98"
+          },
+          "index.jsx": {
+            "type": "FILE",
+            "value": "import React from 'react';\nimport { Button } from 'cloud-react';\n\nconst blank = '\\u00A0';\n\nexport default class ButtonDemo extends React.Component {\n\trender() {\n\t\treturn (\n\t\t\t<>\n\t\t\t\t<div>\n\t\t\t\t\t<Button block type=\"primary\">\n\t\t\t\t\t\tprimary\n\t\t\t\t\t</Button>\n\t\t\t\t\t{blank}\n\t\t\t\t\t<Button block type=\"normal\">\n\t\t\t\t\t\tnormal\n\t\t\t\t\t</Button>\n\t\t\t\t\t{blank}\n\t\t\t\t\t<Button block type=\"dashed\">\n\t\t\t\t\t\tdashed\n\t\t\t\t\t</Button>\n\t\t\t\t\t{blank}\n\t\t\t\t\t<Button block type=\"link\">\n\t\t\t\t\t\tlink\n\t\t\t\t\t</Button>\n\t\t\t\t</div>\n\t\t\t</>\n\t\t);\n\t}\n}"
+          }
+        }
+      },
+      {
+        "type": "BLOCK",
+        "identifier": "basic-demo",
+        "dependencies": {
+          "react": {
+            "type": "NPM",
+            "value": "16.14.0"
+          },
+          "cloud-react": {
+            "type": "NPM",
+            "value": "0.0.98"
+          },
+          "index.jsx": {
+            "type": "FILE",
+            "value": "import React from 'react';\nimport { Button, InputNumber } from 'cloud-react';\n\nconst blank = '\\u00A0';\n\nexport default class ButtonDemo extends React.Component {\n\trender() {\n\t\treturn (\n\t\t\t<>\n\t\t\t\t<div>\n\t\t\t\t\t<Button type=\"primary\">primary</Button>\n\t\t\t\t\t{blank}\n\t\t\t\t\t<Button type=\"normal\">normal</Button>\n\t\t\t\t\t{blank}\n\t\t\t\t\t<Button type=\"dashed\">dashed</Button>\n\t\t\t\t\t{blank}\n\t\t\t\t\t<Button type=\"link\">link</Button>\n\t\t\t\t</div>\n\t\t\t</>\n\t\t);\n\t}\n}"
+          }
+        }
+      },
+      {
+        "type": "BLOCK",
+        "identifier": "block-demo",
+        "dependencies": {
+          "react": {
+            "type": "NPM",
+            "value": "16.14.0"
+          },
+          "cloud-react": {
+            "type": "NPM",
+            "value": "0.0.98"
+          },
+          "index.jsx": {
+            "type": "FILE",
+            "value": "import React from 'react';\nimport { Button } from 'cloud-react';\n\nconst blank = '\\u00A0';\n\nexport default class ButtonDemo extends React.Component {\n\trender() {\n\t\treturn (\n\t\t\t<>\n\t\t\t\t<div>\n\t\t\t\t\t<Button block type=\"primary\">\n\t\t\t\t\t\tprimary\n\t\t\t\t\t</Button>\n\t\t\t\t\t{blank}\n\t\t\t\t\t<Button block type=\"normal\">\n\t\t\t\t\t\tnormal\n\t\t\t\t\t</Button>\n\t\t\t\t\t{blank}\n\t\t\t\t\t<Button block type=\"dashed\">\n\t\t\t\t\t\tdashed\n\t\t\t\t\t</Button>\n\t\t\t\t\t{blank}\n\t\t\t\t\t<Button block type=\"link\">\n\t\t\t\t\t\tlink\n\t\t\t\t\t</Button>\n\t\t\t\t</div>\n\t\t\t</>\n\t\t);\n\t}\n}"
+          }
+        }
+      },
+      {
+        "type": "BLOCK",
+        "identifier": "form-demo",
+        "dependencies": {
+          "cloud-react": {
+            "type": "NPM",
+            "value": "0.0.98"
+          },
+          "index.jsx": {
+            "type": "FILE",
+            "value": "import { Form, Field, Input } from 'cloud-react';\n\n// 简单场景\nfunction FormA() {\n\tconst field = Field.useField();\n\n\treturn (\n\t\t<Form field={field}>\n\t\t\t<Form.Item>\n\t\t\t\t<Input\n\t\t\t\t\t{...field.init('name', {\n\t\t\t\t\t\trules: [{ required: true, message: '用户名必须填写' }]\n\t\t\t\t\t})}\n\t\t\t\t/>\n\t\t\t</Form.Item>\n\t\t</Form>\n\t);\n}\n\n// 复杂场景，需要使用Nexus组件\nfunction FormB() {\n\tB;\n\tconst field = Field.useField();\n\n\treturn (\n\t\t<Form field={field}>\n\t\t\t<Form.Item>\n\t\t\t\t<UseNexus field={field} />\n\t\t\t</Form.Item>\n\t\t</Form>\n\t);\n}\n\nfunction UseNexus() {\n\treturn (\n\t\t<Form.Nexus>\n\t\t\t<Input\n\t\t\t\t{...field.init('firstName', {\n\t\t\t\t\trules: [{ required: true, message: '名字必须填写' }]\n\t\t\t\t})}\n\t\t\t/>\n\n\t\t\t<Input\n\t\t\t\t{...field.init('lastName', {\n\t\t\t\t\trules: [{ required: true, message: '姓氏必须填写' }]\n\t\t\t\t})}\n\t\t\t/>\n\t\t</Form.Nexus>\n\t);\n}"
+          }
+        }
+      }
+    ]
+  }
+}

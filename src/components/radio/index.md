@@ -1,7 +1,12 @@
 ---
-category: Components
-title: Radio
-subtitle: 单选按钮
+title: Radio 单选按钮
+nav:
+  title: Radio 单选按钮
+  path: /cloud-react
+group:
+  order: 3
+  title: 数据
+  path: /data
 ---
 
 ### 何时使用
@@ -26,3 +31,15 @@ subtitle: 单选按钮
 | value    | 当前 radio 对应的值     | any     | --     |
 | checked  | 指定当前 radio 是否选中 | boolean | false  |
 | disabled | 是否禁用                | boolean | false  |
+
+ ### 代码演示 
+
+<embed src="@components/radio/demos/basic-radio.md" /> 
+
+<embed src="@components/radio/demos/complex.md" /> 
+
+<embed src="@components/radio/demos/disabled.md" /> 
+
+<embed src="@components/radio/demos/group.md" /> 
+
+<embed src="@components/radio/demos/layout.md" /> 
