@@ -72,7 +72,7 @@ export default defineConfig({
     //       })
   // },
   styles: [
-    ` .__dumi-default-layout-hero { height: 420px; box-sizing: border-box; padding: 120px 0 100px !important; background: url(https://www.shuyun.com/template/default/images/page_f.jpg) 100% !important; }
+    ` .__dumi-default-layout-hero { height: 420px; box-sizing: border-box; padding: 120px 0 100px !important; background: url(https://brand-guide.shuyun.com/IAM/2487d4cef63a.jpg) 100% !important; }
     .__dumi-default-navbar-logo { transform: scale(1.5) }
     .__dumi-default-layout-hero img { margin-top: -50px }
     .__dumi-default-layout-hero h1 { color: white !important }
