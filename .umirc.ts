@@ -76,7 +76,7 @@ export default defineConfig({
     //       })
   // },
   styles: [
-    ` .__dumi-default-layout-hero { height: 420px; box-sizing: border-box; padding: 120px 0 100px !important; background: url(https://s2.loli.net/2021/12/17/4YaGXuRMpySf1Br.jpg) 100% !important; }
+    ` .__dumi-default-layout-hero { height: 420px; box-sizing: border-box; padding: 120px 0 100px !important; background: url(https://brand-guide.shuyun.com/IAM/77c28a6547cd.png) 100% !important; }
     .__dumi-default-navbar-logo { transform: scale(1.5) }
     .__dumi-default-layout-hero img { margin-top: -50px }
     .__dumi-default-layout-hero h1 { color: white !important }
