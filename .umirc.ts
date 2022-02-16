@@ -13,6 +13,7 @@ export default defineConfig({
   outputPath: 'cloud-react-site',
   publicPath: '/v2/',
   base: '/v2/',
+  hash: true,
   resolve: {
     includes: ['docs', 'src/components'],
   },
