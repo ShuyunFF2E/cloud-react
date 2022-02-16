@@ -24,6 +24,10 @@ export default defineConfig({
       path: '/cloud-react',
     },
     {
+      title: '组件(V2版)',
+      path: 'https://cloud-react.shuyun.com/v2/cloud-react',
+    },
+    {
       title: '数云Echarts图表库',
       // 可通过如下形式嵌套二级导航菜单，目前暂不支持更多层级嵌套：
       path: 'https://qa-charts.shuyun.com/'
