@@ -11,6 +11,7 @@ export default defineConfig({
   logo: 'https://brand-guide.shuyun.com/IAM/77c28a6547cd.png',
   locales: [['zh-CN', '中文']],
   outputPath: 'cloud-react-site',
+  hash: true,
   resolve: {
     includes: ['docs', 'src/components'],
   },
