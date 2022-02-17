@@ -88,7 +88,7 @@ export default class Selected extends React.Component {
 
 	render() {
 		const {
-			props: { dataSource, disabled, isSupportTitle, placeholder, open, showArrow, showSelectStyle, onClear },
+			props: { dataSource, disabled, isSupportTitle, placeholder, open, showArrow, showSelectStyle, onClear, size },
 			state: { selected, clear },
 			onMouseEnter,
 			onMouseLeave
@@ -97,8 +97,8 @@ export default class Selected extends React.Component {
 		const classNames = classnames(`${selector}-wrapper`, {
 			disabled,
 			empty: !dataSource.length,
-			hidden: !showSelectStyle
-		});
+			hidden: !showSelectStyle,
+		}, `${size}`);
 		const iconClasses = classnames(`${selector}-select-icon`, {
 			open,
 			close: !open,

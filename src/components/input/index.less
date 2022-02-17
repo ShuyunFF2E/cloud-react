@@ -15,8 +15,8 @@
 @focus-border-color: @blue-4;
 
 @large-font-size: 14px;
-@default-font-size: 12px;
-@small-font-size: 12px;
+@default-font-size: 14px;
+@small-font-size: 14px;
 
 @clear-icon-font-size: 16px;
 @clear-icon-color: @gray-6;
@@ -44,6 +44,7 @@
 		transition: border @transition, color @transition;
 		box-sizing: border-box;
 		vertical-align: middle;
+		border-radius: @border-radius;
 	}
 
 	&,
@@ -248,7 +249,7 @@
 	&-textarea-wrapper {
 		position: relative;
 		width: 100%;
-		border: 1px solid #d9d9d9;
+		border: 1px solid @gray-4;
 		background: @textarea-background;
 
 		> textarea {

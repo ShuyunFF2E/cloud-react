@@ -8,7 +8,7 @@ import Radio from './index';
 const classSelector = `${prefixCls}-radio`;
 
 export default function Group(props) {
-	const { children, defaultValue, value, onChange, disabled, horizontal, vertical } = props;
+	const { children, defaultValue, value, onChange, disabled, horizontal,vertical } = props;
 	const [currentValue, setCurrentValue] = useState(defaultValue);
 
 	useEffect(() => {
@@ -41,19 +41,21 @@ export default function Group(props) {
 
 	const radios = useMemo(() => renderChild(children), [currentValue, disabled, children]);
 
-	return <span className={classnames(`${classSelector}-group`, { horizontal, vertical })}>{radios}</span>;
+	return <span className={classnames(`${classSelector}-group`, { horizontal, vertical })} >{radios}</span>;
 }
 
 Group.propTypes = {
 	defaultValue: PropTypes.node,
 	value: PropTypes.node,
 	onChange: PropTypes.func,
-	disabled: PropTypes.bool
+	disabled: PropTypes.bool,
+	groupStyle: PropTypes.object
 };
 
 Group.defaultProps = {
 	defaultValue: undefined,
 	value: undefined,
 	onChange: noop,
-	disabled: false
+	disabled: false,
+	groupStyle: {}
 };
