@@ -41,7 +41,26 @@
 		}
 	}
 
+  &.@{breadcrumbs-prefix-cls}-dot {
+    cursor: auto;
+    .text {
+      font-size: 14px;
+
+      &:before {
+        content: '';
+        display: inline-block;
+        position: relative;
+        top: -1px;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        margin-right: 7px;
+      }
+    }
+  }
+
 	&.@{breadcrumbs-prefix-cls}-default {
+    .text:before,
 		.remark:after,
 		.number-container {
 			background: @blue-4;
@@ -49,6 +68,7 @@
 	}
 
 	&.@{breadcrumbs-prefix-cls}-success {
+    .text:before,
 		.remark:after,
 		.number-container {
 			background: @green-4;
@@ -56,6 +76,7 @@
 	}
 
 	&.@{breadcrumbs-prefix-cls}-warn {
+    .text:before,
 		.remark:after,
 		.number-container {
 			background: @orange-4;
@@ -63,9 +84,18 @@
 	}
 
 	&.@{breadcrumbs-prefix-cls}-fail {
+    .text:before,
 		.remark:after,
 		.number-container {
 			background: @red-4;
 		}
 	}
+
+  &.@{breadcrumbs-prefix-cls}-finish {
+    .text:before,
+    .remark:after,
+    .number-container {
+      background: @gray-6;
+    }
+  }
 }
