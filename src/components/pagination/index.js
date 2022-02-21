@@ -19,6 +19,7 @@ class Pagination extends Component {
     showPageSizeOptions: PropTypes.bool,
     showQuickJumper: PropTypes.bool,
     type: PropTypes.oneOf(['default', 'simple']),
+    isAppendToBody: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -30,6 +31,7 @@ class Pagination extends Component {
     showPageSizeOptions: false,
     showQuickJumper: false,
     type: 'default',
+    isAppendToBody: false,
   };
 
   constructor(props) {
@@ -323,7 +325,7 @@ class Pagination extends Component {
   };
 
   getSelectJumper = () => {
-    const { showPageSizeOptions, pageSize } = this.props;
+    const { showPageSizeOptions, pageSize, isAppendToBody } = this.props;
     const { pageSizeOptions } = this.state;
 
     if (showPageSizeOptions) {
@@ -332,6 +334,7 @@ class Pagination extends Component {
           <Select
             className="change-size-select"
             position="auto"
+            isAppendToBody={isAppendToBody}
             value={pageSize}
             dataSource={pageSizeOptions}
             onChange={this.selectPageSize}

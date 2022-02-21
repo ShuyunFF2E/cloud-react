@@ -536,9 +536,10 @@ class CTable extends Component {
           data: resolvedData,
           isLoading: false,
         },
-        () => {
+        async () => {
           this.setCheckboxColumn();
-          onRefreshAfter();
+          await onRefreshAfter();
+          this.props.onLoadGridAfter();
         },
       );
     });
@@ -748,6 +749,7 @@ CTable.propTypes = {
   totalsKey: PropTypes.string,
   dataKey: PropTypes.string,
   isDelay: PropTypes.bool,
+  onLoadGridAfter: PropTypes.func,
 };
 
 CTable.defaultProps = {
@@ -779,4 +781,5 @@ CTable.defaultProps = {
   totalsKey: 'totals',
   dataKey: 'data',
   isDelay: false,
+  onLoadGridAfter: PropTypes.func,
 };
