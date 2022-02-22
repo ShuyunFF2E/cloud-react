@@ -33,6 +33,7 @@ group:
 | value    | 当前 radio 对应的值     | any     | --     |
 | checked  | 指定当前 radio 是否选中 | boolean | false  |
 | disabled | 是否禁用                | boolean | false  |
+| desc       | 单选提示         | string 或 React.node  | null    |
 
  ### 代码演示 
 

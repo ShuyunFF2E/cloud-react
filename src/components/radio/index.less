@@ -17,7 +17,7 @@
 .@{raido-prefix-cls} {
 	display: inline-flex;
 	align-items: center;
-	margin-right: 8px;
+	margin-right: 24px;
 
 	cursor: pointer;
 	color: @gray-5;
@@ -26,9 +26,20 @@
 		display: inline-flex;
 		&.vertical {
 			flex-direction: column;
+			gap: 16px
 		}
 		&.horizontal {
 			flex-direction: row;
+		}
+	}
+
+	&-container {
+		display: flex;
+		flex-direction: column;
+		&-text {
+			color: @gray-7;
+			margin-left: 22px;
+			line-height: 20px;
 		}
 	}
 
@@ -37,7 +48,7 @@
 		width: @radio-size;
 		height: @radio-size;
 
-		margin-right: 5px;
+		margin-right: 8px;
 
 		&:hover {
 			color: @blue-4;
@@ -60,7 +71,7 @@
 				margin-left: 3px;
 				margin-top: 3px;
 				border: none;
-				box-shadow: 0 0 5px currentColor;
+				// box-shadow: 0 0 5px currentColor;
 				animation: fadeIn 300ms ease-out both;
 				border-radius: 50%;
 			}
@@ -99,6 +110,7 @@
 	&-text {
 		display: inline-flex;
 		align-items: center;
+		line-height: 30px;
 		color: @gray-9;
 	}
 

@@ -21,6 +21,7 @@ group:
 | ----------------- | ----------------------------------------------------------------- | --------------------------------------- | -------------- |
 | allowClear        | 是否支持一键清除                                                  | boolean                                 | false          |
 | multiple          | 是否为多选                                                        | boolean                                 | false          |
+| size              | 输入框大小，可选值为 `large` `default` `small`                    | string                                    | `default` |
 | disabled          | 下拉禁用状态                                                      | boolean                                 | false          |
 | dataSource        | 需要展示的数据，dataSource 和 children 同时存在时以 children 为准 | array                                   | []             |
 | labelKey          | 指定使用的 label 键值，仅在使用 dataSource 生成组件时生效         | string                                  | 'label'        |
@@ -54,6 +55,7 @@ group:
 | onSelectClose     | 下拉选择框关闭的时候回调此函数                                    | function                                | -              |
 | onBeforeChange    | 确认选择值之前回调此函数，仅支持单选                              | function(value)                         | -              |
 | confirmTemplate   | 自定义确认取消按钮模板(适用于多选下拉)                            | function:({ onOk, onCancel })           | 组件默认模板   |
+
 
 ### Option
 

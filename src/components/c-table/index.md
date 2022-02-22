@@ -45,6 +45,7 @@ group:
 | totalsKey | total 映射字段   | string   |   'totals'   | |
 | dataKey | data 映射字段   | string   |   'data'   | |
 | isDelay | 刷新表格时，是否延迟loading，一般在纯前端表格中使用   | boolean   |   false   | |
+| onLoadGridAfter | 表格刷新后回调   | function   |   () => {}   | |
 
 手动刷新表格：this.tableRef.refreshTable(params?);
 
@@ -70,7 +71,7 @@ group:
 | pageSizeOptions     | 指定每页可以显示多少条                       | number[]                    | [10, 20, 50, 100] |
 | showPageSizeOptions | 显示下拉选择每页显示多少条                   | boolean                     | false            |
 | total               | 数据总数                                     | number                      | 0                |
-| onChange            | 页码改变的回调，参数是改变后的页码及每页条数 | Function(current, pageSize) | noop             |
+| isAppendToBody      | 分页下拉框是否渲染在 body 上	          | boolean                      | false                |
 
 #### expandable
 https://table-react-component.vercel.app/
