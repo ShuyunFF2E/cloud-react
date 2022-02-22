@@ -26,6 +26,7 @@ group:
 | wrapperCol | 需要为输入控件设置布局样式时，使用该属性，用法同 `labelCol`           | string              | -          |
 | onSubmit   | form 内有`htmlType="submit"`的元素的时候会触发                        | Function(evt:Event) | -          |
 | colon      | 配合`label`属性使用，表示是否显示`label`后面的冒号                    | boolean             | `true`     |
+| labelWrap  | 配合`label`属性使用，表示`label`是否在超宽时换行                    | boolean             | `false`     |
 | className  | Form 的 className 属性                                                | string              | -          |
 | scrollToFirstError | 提交失败自动滚动到第一个错误字段，`field`字段不存在时无效			| boolean              | `false`     |
 

@@ -71,6 +71,10 @@
       box-sizing: border-box;
       white-space: nowrap;
 
+      &.label-wrap {
+        white-space: unset;
+      }
+
       &[required]::before {
         content: '*';
         display: inline-block;
