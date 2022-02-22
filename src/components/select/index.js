@@ -504,7 +504,7 @@ Select.propTypes = {
   onSelectClose: PropTypes.func,
   onOk: PropTypes.func,
   onCancel: PropTypes.func,
-  size: PropTypes.string
+  size: PropTypes.string,
 };
 
 Select.defaultProps = {
@@ -536,7 +536,7 @@ Select.defaultProps = {
   onSelectClose: noop,
   onOk: noop,
   onCancel: noop,
-  size: 'default'
+  size: undefined,
 };
 
 export default Select;

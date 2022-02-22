@@ -1,56 +1,62 @@
 import { Children } from 'react';
 
 export const LAYOUT_TYPES = {
-	HORIZONTAL: 'horizontal',
-	VERTICAL: 'vertical',
-	INLINE: 'inline'
+  HORIZONTAL: 'horizontal',
+  VERTICAL: 'vertical',
+  INLINE: 'inline',
+};
+
+export const FORM_SIZE_TYPES = {
+  SMALL: 'small',
+  DEFAULT: 'default',
+  LARGE: 'large',
 };
 
 export const LABEL_ALIGN = {
-	LEFT: 'left',
-	RIGHT: 'right'
+  LEFT: 'left',
+  RIGHT: 'right',
 };
 
 export const DATA_FIELD = 'data-field';
 
-export const findFieldsName = children => {
-	const result = [];
+export const findFieldsName = (children) => {
+  const result = [];
 
-	Children.toArray(children).forEach(child => {
-		const { props } = child;
+  Children.toArray(children).forEach((child) => {
+    const { props } = child;
 
-		if (props) {
-			if (props[DATA_FIELD]) {
-				result.push(props[DATA_FIELD]);
-			} else if (props.children && Children.count(props.children)) {
-				result.push(...findFieldsName(props.children));
-			}
-		}
-	});
+    if (props) {
+      if (props[DATA_FIELD]) {
+        result.push(props[DATA_FIELD]);
+      } else if (props.children && Children.count(props.children)) {
+        result.push(...findFieldsName(props.children));
+      }
+    }
+  });
 
-	return result;
+  return result;
 };
 
-export const getNamesByNode = parentNode => {
-	const children = parentNode.querySelectorAll(`[${DATA_FIELD}]`);
+export const getNamesByNode = (parentNode) => {
+  const children = parentNode.querySelectorAll(`[${DATA_FIELD}]`);
 
-	return [...children].map(child => child.getAttribute(DATA_FIELD));
+  return [...children].map((child) => child.getAttribute(DATA_FIELD));
 };
 
 export const findDestroyedFields = (prevNames, names) => {
-	return prevNames.reduce((acc, n) => {
-		if (!names.includes(n)) acc.push(n);
+  return prevNames.reduce((acc, n) => {
+    if (!names.includes(n)) acc.push(n);
 
-		return acc;
-	}, []);
+    return acc;
+  }, []);
 };
 
 export const getParentFormClassName = (ele, className) => {
-	if (!ele) return null;
+  if (!ele) return null;
 
-	if (ele.classList.contains(className)) {
-		return ele;
-	}
+  if (ele.classList.contains(className)) {
+    return ele;
+  }
 
-	return getParentFormClassName(ele.parentNode, className);
+  return getParentFormClassName(ele.parentNode, className);
 };

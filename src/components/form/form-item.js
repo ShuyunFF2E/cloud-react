@@ -50,7 +50,6 @@ export default class FormItem extends Component {
     const { labelCol = formLabelCol } = this.props;
     const { span = layout === LAYOUT_TYPES.HORIZONTAL ? 3 : undefined } =
       labelCol;
-
     return span;
   }
 
@@ -113,7 +112,7 @@ export default class FormItem extends Component {
         'has-colon': colon,
         'label-wrap': labelWrap,
         [`col-${labelColSpan}`]:
-          labelColSpan !== undefined && layout !== LAYOUT_TYPES.VERTICAL,
+          labelColSpan !== undefined && layout === LAYOUT_TYPES.HORIZONTAL,
         [`col-offset-${offset}`]: offset !== undefined,
       }),
     };
@@ -146,7 +145,7 @@ export default class FormItem extends Component {
   }
 
   render() {
-    const { layout, labelAlign } = this.context;
+    const { layout, labelAlign, size } = this.context;
     const { className } = this.props;
 
     return (
@@ -154,7 +153,8 @@ export default class FormItem extends Component {
         className={classnames(
           `${prefixCls}-form-item`,
           layout,
-          labelAlign,
+          size,
+          layout === LAYOUT_TYPES.HORIZONTAL ? labelAlign : undefined,
           className,
         )}
       >

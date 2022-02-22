@@ -4,122 +4,123 @@
 @toogle-prefix-cls-checked: ~'@{prefix}-toggle-checked';
 
 .@{toogle-prefix-cls} {
-	// normal
-	box-sizing: border-box;
-	display: inline-block;
-	position: relative;
+  // normal
+  box-sizing: border-box;
+  display: inline-block;
+  position: relative;
 
-	border: 1px solid transparent;
-	border-radius: 11px;
-	outline: none;
+  border: 1px solid transparent;
+  border-radius: 11px;
+  outline: none;
 
-	min-width: 38px;
-	height: 22px;
-	line-height: 1;
-	color: @color-white;
-	font-size: 14px;
-	vertical-align: middle;
-	background-color: @gray-6;
-	transition: 0.3s;
-	// hover
-	&:hover{
-		background-color: @gray-7;
-	}
+  min-width: 38px;
+  height: 22px;
+  line-height: 1;
+  color: @color-white;
+  font-size: 14px;
+  vertical-align: middle;
+  background-color: @gray-6;
+  transition: 0.3s;
+  // hover
+  &:hover {
+    background-color: @gray-7;
+  }
 
-	// active
-	&:active{
-		background-color: @gray-8;
-	}
-	cursor: pointer;
-	transition: all 0.36s;
-	user-select: none;
+  // active
+  &:active {
+    background-color: @gray-8;
+  }
+  cursor: pointer;
+  transition: all 0.36s;
+  user-select: none;
 
-	&-inner {
-		display: block;
-		color: @color-white;
-		font-size: 12px;
-		padding-left: 16px;
-		padding-right: 0;
-	}
+  &-inner {
+    display: block;
+    color: @color-white;
+    font-size: 12px;
+    padding-left: 16px;
+    padding-right: 0;
+  }
 
-	&::after {
-		position: absolute;
-		top: 2px;
-		left: 2px;
-		width: 16px;
-		height: 16px;
-		background-color: @color-white;
-		border-radius: 16px;
-		transition: all 0.36s cubic-bezier(0.78, 0.14, 0.15, 0.86);
-		content: ' ';
-	}
+  &::after {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 16px;
+    height: 16px;
+    background-color: @color-white;
+    border-radius: 16px;
+    transition: all 0.36s cubic-bezier(0.78, 0.14, 0.15, 0.86);
+    content: ' ';
+  }
 
-	// 被选中
-	&-checked {
-		// 正常开
-		background-color: @blue-4;
+  // 被选中
+  &-checked {
+    // 正常开
+    background-color: @blue-4;
 
-		// hover
-		&:hover{
-			background-color: @blue-5;
-		}
+    // hover
+    &:hover {
+      background-color: @blue-5;
+    }
 
-		// active
-		&:active{
-			background-color: @blue-6;
-		}
-		&&::after {
-			left: 98%;
-			margin-left: -1px;
-			transform: translateX(-100%);
-		}
-	}
+    // active
+    &:active {
+      background-color: @blue-6;
+    }
+    &&::after {
+      left: 98%;
+      margin-left: -1px;
+      transform: translateX(-100%);
+    }
+  }
 
-	&-checked &-inner {
-		padding-left: 0;
-		padding-right: 16px;
-	}
+  &-checked &-inner {
+    padding-left: 0;
+    padding-right: 16px;
+  }
 
-	// 禁选状态
-	&-disabled {
-		cursor: not-allowed;
-		opacity: 0.4;
-		&,
-		&:hover,
-		&:active{
-		  background-color: @gray-4;
-		}
-		&.@{toogle-prefix-cls-checked}{
-			&,
-			&:hover,
-			&:active{
-				background-color: @blue-2;
-			}
-		}
-	}
+  // 禁选状态
+  &-disabled {
+    cursor: not-allowed;
+    opacity: 0.4;
+    &,
+    &:hover,
+    &:active {
+      background-color: @gray-4;
+    }
+    &.@{toogle-prefix-cls-checked} {
+      &,
+      &:hover,
+      &:active {
+        background-color: @blue-2;
+      }
+    }
+  }
 
-	/* size */
+  /* size */
 
-	&-small {
-		min-width: 28px;
-		font-size: 12px;
-		height: 16px;
+  &.small {
+    min-width: 28px;
+    font-size: 12px;
+    height: 16px;
+    vertical-align: text-bottom;
 
-		&::after {
-			// 按理来讲也应该是2但是实际上1的时候更偏下
-			top: 1px;
-			width: 12px;
-			height: 12px;
-		}
+    &::after {
+      // 按理来讲也应该是2但是实际上1的时候更偏下
+      top: 1px;
+      width: 12px;
+      height: 12px;
+    }
 
-		.cloud-toggle-inner {
-			padding-left: 12px;
-			padding-right: 0;
-		}
+    .cloud-toggle-inner {
+      padding-left: 12px;
+      padding-right: 0;
+    }
 
-		&.cloud-toggle-checked .cloud-toggle-inner {
-			padding-left: 0;
-			padding-right: 12px;
-		}
-	}
+    &.cloud-toggle-checked .cloud-toggle-inner {
+      padding-left: 0;
+      padding-right: 12px;
+    }
+  }
 }

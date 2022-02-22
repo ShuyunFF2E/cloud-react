@@ -8,7 +8,12 @@ import ContextProvider from '@contexts/context-provider';
 import FormItem from './form-item';
 import Nexus from './form-nexus';
 import FormContext from './context';
-import { LAYOUT_TYPES, LABEL_ALIGN, getParentFormClassName } from './constants';
+import {
+  LAYOUT_TYPES,
+  FORM_SIZE_TYPES,
+  LABEL_ALIGN,
+  getParentFormClassName,
+} from './constants';
 
 import './index.less';
 
@@ -56,6 +61,7 @@ export default class Form extends Component {
       colon,
       field,
       layout,
+      size,
       labelCol,
       wrapperCol,
       labelAlign,
@@ -72,6 +78,7 @@ export default class Form extends Component {
           colon,
           field,
           layout,
+          size,
           labelAlign,
           labelCol,
           wrapperCol,
@@ -98,6 +105,11 @@ Form.propTypes = {
     LAYOUT_TYPES.VERTICAL,
     LAYOUT_TYPES.INLINE,
   ]),
+  size: PropTypes.oneOf([
+    FORM_SIZE_TYPES.SMALL,
+    FORM_SIZE_TYPES.DEFAULT,
+    FORM_SIZE_TYPES.LARGE,
+  ]),
   labelAlign: PropTypes.oneOf([LABEL_ALIGN.LEFT, LABEL_ALIGN.RIGHT]),
   labelCol: PropTypes.shape({
     span: PropTypes.number,
@@ -113,6 +125,7 @@ Form.propTypes = {
 
 Form.defaultProps = {
   layout: LAYOUT_TYPES.VERTICAL,
+  size: LAYOUT_TYPES.DEFAULT,
   labelAlign: LABEL_ALIGN.RIGHT,
   colon: true,
   labelWrap: false,

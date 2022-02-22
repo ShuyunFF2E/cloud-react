@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { noop, omit, prefixCls } from '@utils';
+import FormContext from '../form/context';
 
 import Icon from '../icon';
 
@@ -30,6 +31,8 @@ class InputNumber extends Component {
       focused: false,
     };
   }
+
+  static contextType = FormContext;
 
   componentDidMount() {
     const { min, max, value, defaultValue, precision, step } = this.props;
@@ -296,10 +299,11 @@ class InputNumber extends Component {
 
   render() {
     const { size, disabled, className, style, stepType } = this.props;
-
     const { focused } = this.state;
+    const { size: formSize } = this.context;
+    const mergedSize = size || formSize || 'default';
 
-    const compClass = classnames(`${selector} ${size} ${className}`, {
+    const compClass = classnames(`${selector} ${mergedSize} ${className}`, {
       [`${selector}-disabled`]: disabled,
       [`${selector}-focused`]: focused,
     });
@@ -344,7 +348,7 @@ InputNumber.defaultProps = {
   className: '',
   min: -Infinity,
   max: Infinity,
-  size: 'default',
+  size: undefined,
   placeholder: '请输入...',
   step: 1,
   noStep: false,
