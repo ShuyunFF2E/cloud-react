@@ -221,7 +221,7 @@ class CTable extends Component {
       dataIndex: 'checkbox',
       key: 'checkbox',
       width: 40,
-      fixed: isFirstColumnFixed,
+      fixed: isFirstColumnFixed || this.props.isCheckboxFixed,
       render: (value, row) => {
         const targetNode = leafNodesMap[this.getKeyFieldVal(row)] || {};
         const isChecked = !!isEveryChecked(targetNode.childNodes);
@@ -252,7 +252,7 @@ class CTable extends Component {
       dataIndex: 'radio',
       key: 'radio',
       width: 40,
-      fixed: isFirstColumnFixed,
+      fixed: isFirstColumnFixed || this.props.isCheckboxFixed,
       render: (value, row) => {
         const radioVal = this.getKeyFieldVal(row);
         const targetNode = leafNodesMap[radioVal] || {};
@@ -761,6 +761,7 @@ CTable.propTypes = {
   onLoadGridAfter: PropTypes.func,
   onRow: PropTypes.func,
   onLoadGridBefore: PropTypes.func,
+  isCheckboxFixed: PropTypes.bool,
 };
 
 CTable.defaultProps = {
@@ -795,4 +796,5 @@ CTable.defaultProps = {
   onLoadGridAfter: () => {},
   onRow: () => {},
   onLoadGridBefore: () => {},
+  isCheckboxFixed: PropTypes.bool,
 };
