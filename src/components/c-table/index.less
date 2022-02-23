@@ -387,6 +387,14 @@
     flex: 1;
     overflow: auto auto !important;
     overflow: overlay overlay !important;
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--dw-scroll-color, rgba(0, 0, 0, 0)) !important;
+    }
+    &:hover {
+      &::-webkit-scrollbar-thumb {
+        background-color: var(--dw-scroll-color, rgba(0, 0, 0, 0.25)) !important;
+      }
+    }
 
     tr.@{tablePrefixCls}-row-select {
       td {
