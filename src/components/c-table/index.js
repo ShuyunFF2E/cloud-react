@@ -53,7 +53,11 @@ class CTable extends Component {
     ) {
       console.warn('使用展开行功能或者树状表格功能请指定 rowKey');
     }
-    this.loadData(this.init);
+    this.props.onLoadGridBefore(this.state.pageOpts);
+    this.loadData((res) => {
+      this.init();
+      this.props.onLoadGridAfter(res);
+    });
   }
 
   componentDidUpdate(prevProps) {
@@ -95,7 +99,9 @@ class CTable extends Component {
           pageOpts: { ...pageOpts, ...propsPageOpts, totals: res[totalsKey] },
           isLoading: false,
         },
-        callback,
+        () => {
+          callback(res);
+        },
       );
     });
   };
@@ -496,6 +502,7 @@ class CTable extends Component {
     { pageNum, pageSize, sortParams = {} } = {},
     onRefreshAfter = noop,
   ) => {
+    this.props.onLoadGridBefore({ pageNum, pageSize });
     this.setState({ isLoading: true }, async () => {
       const { pageOpts } = this.state;
       const _pageOpts = {
@@ -539,7 +546,7 @@ class CTable extends Component {
         async () => {
           this.setCheckboxColumn();
           await onRefreshAfter();
-          this.props.onLoadGridAfter();
+          this.props.onLoadGridAfter(res);
         },
       );
     });
@@ -620,6 +627,7 @@ class CTable extends Component {
       lightCheckedRow,
       rowClassName,
       className,
+      onRow,
     } = this.props;
     const {
       data,
@@ -670,6 +678,7 @@ class CTable extends Component {
               }
               return rowClassName(row);
             }}
+            onRow={onRow}
           />
           <Loading
             className={`${tablePrefixCls}-loading-layer`}
@@ -750,6 +759,8 @@ CTable.propTypes = {
   dataKey: PropTypes.string,
   isDelay: PropTypes.bool,
   onLoadGridAfter: PropTypes.func,
+  onRow: PropTypes.func,
+  onLoadGridBefore: PropTypes.func,
 };
 
 CTable.defaultProps = {
@@ -781,5 +792,7 @@ CTable.defaultProps = {
   totalsKey: 'totals',
   dataKey: 'data',
   isDelay: false,
-  onLoadGridAfter: PropTypes.func,
+  onLoadGridAfter: () => {},
+  onRow: () => {},
+  onLoadGridBefore: () => {},
 };

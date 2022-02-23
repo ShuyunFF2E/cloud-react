@@ -45,7 +45,9 @@ group:
 | totalsKey | total 映射字段   | string   |   'totals'   | |
 | dataKey | data 映射字段   | string   |   'data'   | |
 | isDelay | 刷新表格时，是否延迟loading，一般在纯前端表格中使用   | boolean   |   false   | |
-| onLoadGridAfter | 表格刷新后回调   | function   |   () => {}   | |
+| onLoadGridAfter | 表格刷新后回调，Function(res)   | function   |   () => {}   | |
+| onLoadGridBefore | 表格刷新前回调，Function(params)   | function   |   () => {}   | |
+| onRow | 表格刷新后回调   | 设置自定义 row 属性，Function(record, index)	   |   () => {}   | |
 
 手动刷新表格：this.tableRef.refreshTable(params?);
 
