@@ -19,6 +19,7 @@ import Pagination from '../pagination';
 import Radio from '../radio';
 import Icon from '../icon';
 import Loading from '../loading';
+import Tooltip from '../tooltip';
 import './index.less';
 
 class CTable extends Component {
@@ -34,7 +35,11 @@ class CTable extends Component {
 
   state = {
     data: [],
-    columnData: this.props.columnData,
+    columnData: this.props.columnData.map((item) => ({ ...item, show: true })),
+    originColumnData: this.props.columnData.map((item) => ({
+      ...item,
+      show: true,
+    })),
     footerHeight: 0,
     expandIconColumnIndex: 0,
     pageOpts: { ...this.defaultPageOpts, ...this.props.pageOpts },
@@ -115,7 +120,41 @@ class CTable extends Component {
     this.updateSelectedNodes();
 
     this.setColumnData(this.setCheckboxColumn);
+
+    setTimeout(this.setHeaderStyle);
     this.setFooterHeight();
+  };
+
+  /**
+   * 手动计算 右侧固定列 表头的样式（由于自定义滚动条占据宽度导致，rcTable 并不兼容这种情况）
+   */
+  setHeaderStyle = () => {
+    const fixedColumn = this.state.columnData
+      .filter((item) => item.fixed === 'right')
+      .reverse();
+    if (!fixedColumn.length) {
+      return;
+    }
+    const fixedEles = Array.from(
+      document.querySelectorAll('th.cloud-table-cell-fix-right'),
+    );
+    if (fixedEles.length) {
+      fixedEles.pop();
+      fixedEles.reverse().forEach((ele, index) => {
+        if (index === 0) {
+          Object.assign(ele.style, { right: 0 });
+        } else {
+          const right = fixedColumn.slice(0, index).reduce((sum, item) => {
+            // eslint-disable-next-line no-param-reassign
+            sum += item.width;
+            return sum;
+          }, 0);
+          Object.assign(ele.style, {
+            right: `${right}px`,
+          });
+        }
+      });
+    }
   };
 
   /**
@@ -213,6 +252,7 @@ class CTable extends Component {
     return {
       title: (
         <Checkbox
+          style={{ float: 'left' }}
           checked={isCheckedAll}
           indeterminate={isIndeterminateAll}
           onChange={(checked) => onAllCheckedChange(checked)}
@@ -269,48 +309,99 @@ class CTable extends Component {
     };
   };
 
+  renderConfig = () => {
+    const { originColumnData } = this.state;
+    return (
+      <ul className={`${tablePrefixCls}-tooltip-content`}>
+        {originColumnData.map((item) => {
+          return (
+            <li>
+              <Checkbox
+                disabled={
+                  item.show &&
+                  originColumnData.filter((i) => i.show).length === 1
+                }
+                checked={item.show}
+                onChange={(checked) => {
+                  Object.assign(item, { show: !!checked });
+                  this.setColumnData(this.setCheckboxColumn);
+                  setTimeout(this.setHeaderStyle, 150);
+                }}
+              >
+                {typeof item.title === 'function'
+                  ? item.title(item)
+                  : item.title}
+              </Checkbox>
+            </li>
+          );
+        })}
+      </ul>
+    );
+  };
+
   /**
    * 设置表格列
    * @param callback
    */
   setColumnData = (callback) => {
-    const { columnData } = this.state;
-    this.setState(
-      {
-        columnData: columnData.map((item) => {
-          const sortBy = item.sortable ? item.sortBy : '';
-          const resolveColumnItem = {
-            ...item,
-            // eslint-disable-next-line no-nested-ternary
-            title: item.sortable ? (
-              <span className="title-container">
-                {typeof item.title === 'function'
-                  ? item.title(item)
-                  : item.title}
-                <span
-                  className={`sort-icon-container ${
-                    item.align === 'right' && 'cell-align-right'
-                  } ${sortBy && `sort-${sortBy.toLowerCase()}`}`}
-                  onClick={() => this.onSort(resolveColumnItem)}
-                >
-                  <Icon className="sort-up-icon" type="up-solid" />
-                  <Icon className="sort-down-icon" type="down-solid" />
-                </span>
-              </span>
-            ) : typeof item.title === 'function' ? (
-              item.title(item)
-            ) : (
-              item.title
-            ),
-            sortBy,
-            align: item.align || 'left',
-            width: item.width || (columnData.find((c) => c.fixed) ? 150 : ''),
-          };
-          return resolveColumnItem;
-        }),
-      },
-      callback,
-    );
+    const { originColumnData } = this.state;
+    const isLastColumnFixed =
+      originColumnData[originColumnData.length - 1].fixed;
+    const columnData = originColumnData.reduce((arr, item) => {
+      if (!item.show) {
+        return arr;
+      }
+      const sortBy = item.sortable ? item.sortBy : '';
+      const resolveColumnItem = {
+        ...item,
+        // eslint-disable-next-line no-nested-ternary
+        title: item.sortable ? (
+          <span className="title-container">
+            {typeof item.title === 'function' ? item.title(item) : item.title}
+            <span
+              className={`sort-icon-container ${
+                item.align === 'right' && 'cell-align-right'
+              } ${sortBy && `sort-${sortBy.toLowerCase()}`}`}
+              onClick={() => this.onSort(resolveColumnItem)}
+            >
+              <Icon className="sort-up-icon" type="up-solid" />
+              <Icon className="sort-down-icon" type="down-solid" />
+            </span>
+          </span>
+        ) : typeof item.title === 'function' ? (
+          item.title(item)
+        ) : (
+          item.title
+        ),
+        sortBy,
+        align: item.align || 'left',
+        width: item.width || (originColumnData.find((c) => c.fixed) ? 150 : ''),
+      };
+      arr.push(resolveColumnItem);
+      return arr;
+    }, []);
+
+    // 支持配置列的显示和隐藏
+    if (this.props.supportConfigColumn) {
+      columnData.push({
+        title: (
+          <Tooltip
+            trigger="click"
+            theme="light"
+            placement="bottom-right"
+            className={`${tablePrefixCls}-tooltip`}
+            content={this.renderConfig()}
+          >
+            <Icon style={{ cursor: 'pointer', float: 'right' }} type="config" />
+          </Tooltip>
+        ),
+        dataIndex: 'cTableConfig',
+        render: () => '',
+        width: 40,
+        fixed: isLastColumnFixed,
+      });
+    }
+    this.setState({ columnData }, callback);
   };
 
   /**
@@ -762,6 +853,7 @@ CTable.propTypes = {
   onRow: PropTypes.func,
   onLoadGridBefore: PropTypes.func,
   isCheckboxFixed: PropTypes.bool,
+  supportConfigColumn: PropTypes.bool,
 };
 
 CTable.defaultProps = {
@@ -796,5 +888,6 @@ CTable.defaultProps = {
   onLoadGridAfter: () => {},
   onRow: () => {},
   onLoadGridBefore: () => {},
-  isCheckboxFixed: PropTypes.bool,
+  isCheckboxFixed: false,
+  supportConfigColumn: false,
 };

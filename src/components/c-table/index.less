@@ -259,8 +259,6 @@
 
     &-fix-right-first,
     &-fix-right-last {
-      right: 0 !important;
-
       .@{tablePrefixCls}-rtl & {
         box-shadow: none;
       }
@@ -324,6 +322,8 @@
 
   // ================= Header =================
   thead {
+    background: @table-head-background-color;
+
     td,
     th {
       text-align: center;
@@ -575,6 +575,21 @@
 
     .sort-down-icon {
       top: 18px;
+    }
+  }
+}
+
+.@{tablePrefixCls}-tooltip {
+  max-width: 300px;
+
+  &-content {
+    display: flex;
+    flex-wrap: wrap;
+
+    > li {
+      width: 114px;
+      padding: 4px 10px;
+      .text-overflow-ellipsis;
     }
   }
 }
