@@ -14,7 +14,7 @@ const MonthPicker = ({
   value: _value,
   open,
   onOpenChange, // New
-  placeholder: _placeholder,
+  placeholder,
   width,
   minYear,
   maxYear,
@@ -45,7 +45,6 @@ const MonthPicker = ({
 }) => {
   const [value, setValue] = useState();
   const format = _format || monthFormat;
-  const placeholder = _placeholder || format;
   const minMonth = _minMonth - 1;
   const maxMonth = _maxMonth - 1;
 

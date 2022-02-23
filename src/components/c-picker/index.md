@@ -90,7 +90,7 @@ group:
 | format           | 格式化输出格式 | string | `"yyyy/MM/DD"` / `"yyyy/MM/DD HH:mm:ss"` |
 | value            | 组件值 | string / Date | - |
 | defaultValue     | 组件默认值 | string / Date | - |
-| placeholder      | 输入框占位符 | string | 默认为设置的 `format` 值 |
+| placeholder      | 输入框占位符 | string | `"请选择日期"` |
 | disabled         | 指示组件是否可用 | boolean | `true` |
 | defaultTime      | 时间选择框的默认值，当组件设置了 `showTimePicker` 时，此属性生效 | string | - |
 | onChange         | 组件值改变事件处理函数 | (value: string / Date) => void | - |
@@ -104,7 +104,7 @@ group:
 | ----------------- | -------------------------------------------------- | ----------------------- | ----------------- |
 | value            | 组件值 | string | - |
 | defaultValue     | 组件默认值 | string | - |
-| placeholder      | 输入框占位符 | string | `"HH:mm:ss"` |
+| placeholder      | 输入框占位符 | string | `"请选择时间"` |
 | disabled         | 指示组件是否可用 | boolean | `true` |
 | onChange         | 组件值改变事件处理函数 | (value: string) => void | - |
 | onOk             | 确定按钮点击事件处理函数 | (value: string) => void | - |
@@ -115,7 +115,7 @@ group:
 | ----------------- | -------------------------------------------------- | ----------------------- | ----------------- |
 | value            | 组件值 | number | - |
 | defaultValue     | 组件默认值 | number | - |
-| placeholder      | 输入框占位符 | string | `"yyyy 年"` |
+| placeholder      | 输入框占位符 | string | `"请选择年份"` |
 | disabled         | 指示组件是否可用 | boolean | `true` |
 | onChange         | 组件值改变事件处理函数 | (value: number) => void | - |
 | onSelect         | 弹层中选择事件处理函数 | (value: number) => void | - |
@@ -127,7 +127,7 @@ group:
 | ----------------- | -------------------------------------------------- | ----------------------- | ----------------- |
 | value            | 组件值 | string | - |
 | defaultValue     | 组件默认值 | string | - |
-| placeholder      | 输入框占位符 | string | `"yyyy/MM"` |
+| placeholder      | 输入框占位符 | string | `"请选择年月"` |
 | disabled         | 指示组件是否可用 | boolean | `true` |
 | minMonth         | 最小月份 | number | - |
 | maxMonth         | 最大月份 | number | - |
@@ -142,7 +142,7 @@ group:
 | format           | 格式化输出格式 | string | `"yyyy/MM/DD"` / `"yyyy/MM/DD HH:mm:ss"` |
 | value            | 组件值 | string[] / Date[] | - |
 | defaultValue     | 组件默认值 | string[] / Date[] | - |
-| placeholder      | 输入框占位符，可分开设置 | string / string[] | 默认为设置的 `format` 值 |
+| placeholder      | 输入框占位符，可分开设置 | string / string[] | `"开始日期"` 和 `"结束日期"` |
 | disabled         | 指示组件是否可用，可分开设置。当开始、结束其中一项不可用时，若要清楚组件值，需与 `allowEmpty` 配合使用 | boolean / boolean[] | `true` |
 | allowEmpty       | 允许开始或结束为空，需分开设置 | boolean[] | `[false, false]` |
 | defaultTime      | 时间选择框的默认值，当组件设置了 `showTimePicker` 时，此属性生效 | string | - |
@@ -156,7 +156,7 @@ group:
 | ----------------- | -------------------------------------------------- | ----------------------- | ----------------- |
 | value            | 组件值 | string[] | - |
 | defaultValue     | 组件默认值 | string[] | - |
-| placeholder      | 输入框占位符，可分开设置 | string / string[] | `"HH:mm:ss"` |
+| placeholder      | 输入框占位符，可分开设置 | string / string[] | `"开始时间"` 和 `"结束时间"` |
 | disabled         | 指示组件是否可用，可分开设置。当开始、结束其中一项不可用时，若要清楚组件值，需与 `allowEmpty` 配合使用 | boolean / boolean[] | `true` |
 | allowEmpty       | 允许开始或结束为空，需分开设置 | boolean[] | `[false, false]` |
 | onChange         | 组件值改变事件处理函数 | (value: string[]) => void | - |

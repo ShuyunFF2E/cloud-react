@@ -15,7 +15,7 @@ const TimePicker = ({
   value: _value,
   open,
   onOpenChange, // New
-  placeholder: _placeholder,
+  placeholder,
   width,
   onChange,
   getPopupContainer: _getPopupContainer, // New
@@ -40,7 +40,6 @@ const TimePicker = ({
 }) => {
   const [value, setValue] = useState();
   const format = timeFormat;
-  const placeholder = _placeholder || format;
 
   useEffect(() => {
     setValue(transformString2Moment(_value, format));

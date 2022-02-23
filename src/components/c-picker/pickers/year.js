@@ -14,7 +14,7 @@ const YearPicker = ({
   value: _value,
   open,
   onOpenChange, // New
-  placeholder: _placeholder,
+  placeholder,
   width,
   min: minYear,
   max: maxYear,
@@ -43,7 +43,6 @@ const YearPicker = ({
 }) => {
   const [value, setValue] = useState();
   const format = _format || yearFormat;
-  const placeholder = _placeholder || format;
 
   useEffect(() => {
     setValue(_value && moment().year(Number(_value)));
