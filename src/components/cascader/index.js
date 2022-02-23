@@ -5,10 +5,12 @@ import  CascaderMenu from './cascader'
 import Icon from '../icon';
 import  Input from '../input'
 import PropTypes from 'prop-types';
+import './index.less';
 
 class Cascader extends Component {
 	state = {
     inputValue: '',
+		open: false,
   }
 	constructor(props) {
 		super(props);
@@ -27,18 +29,23 @@ class Cascader extends Component {
 			value, selectedOptions
 		);
   }
+	onPopupVisibleChange =(visible) => {
+		this.setState({
+      open: visible
+    });
+	}
 	render() {
 		const {splitInput,onChange,...props} = this.props
+		const iconClasses =this.state.open ? 'open' : 'close'
     return (
-      <CascaderMenu {...props} onChange={this.onChange}>
-        <Input value={this.state.inputValue} readOnly disabled={this.props.disabled}/>
+      <CascaderMenu {...props} onChange={this.onChange} onPopupVisibleChange={this.onPopupVisibleChange} className={iconClasses}>
+        <Input value={this.state.inputValue} readOnly disabled={this.props.disabled} suffix={<Icon type="down" style={{	cursor: 'pointer',fontSize:'14px'}} />}/>
       </CascaderMenu>
     );
   }
 }
 Cascader.defaultProps = {
 	onChange() {},
-	onPopupVisibleChange() {},
 	disabled: false,
 	transitionName: '',
 	defaultValue:[],
@@ -47,7 +54,7 @@ Cascader.defaultProps = {
 	popupPlacement: 'bottomLeft',
 	expandTrigger: 'click',
 	fieldNames: { label: 'label', value: 'value', children: 'children' },
-	expandIcon: <Icon type="right" style={{fontSize:'12px'}}/>,
+	expandIcon: <Icon type="right" style={{fontSize:'14px'}}/>,
 	splitInput:'/'
 };
 

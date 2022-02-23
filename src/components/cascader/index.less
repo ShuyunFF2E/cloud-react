@@ -4,7 +4,23 @@
   animation-fill-mode: both;
   transform-origin: 0 0;
 }
-
+.open{
+	.cloud-icon-down{
+		transition: transform 0.3s;
+		transform: rotate(180deg);
+		color: #aacbe1;
+	}
+	
+}
+.close{
+	.cloud-icon-down{
+		transition: transform 0.3s;
+		transform: rotate(0);
+	}
+}
+.cloud-input.default{
+	cursor: pointer;
+}
 .cloud-cascader {
   font-size: @font-size-base;
 	color: rgba(0, 0, 0, 0.85);
