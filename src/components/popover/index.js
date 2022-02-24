@@ -28,6 +28,8 @@ function Popover(props) {
     size,
     className,
     type,
+    cancelBtnOpts,
+    confirmBtnOpts,
     ...otherProps
   } = props;
 
@@ -92,7 +94,7 @@ function Popover(props) {
 
         <section className={`${classSelector}-btn`} ref={ref}>
           {showCancelBtn && (
-            <Button onClick={handleCancelClick} className={cancelBtnClass}>
+            <Button onClick={handleCancelClick} className={cancelBtnClass} {...cancelBtnOpts}>
               {cancelBtnText}
             </Button>
           )}
@@ -101,6 +103,7 @@ function Popover(props) {
               type="primary"
               onClick={handleConfirmClick}
               className={confirmBtnClass}
+              {...confirmBtnOpts}
             >
               {confirmText}
             </Button>
@@ -128,7 +131,7 @@ function Popover(props) {
       theme={tooltipTheme}
       className={classnames(className, {
         [`${classSelector}-tooltip-${size}`]:
-          title || showCancelBtn || showConfirmBtn,
+        title || showCancelBtn || showConfirmBtn,
       })}
       overlayStyle={{ width, maxWidth: width }}
       {...otherProps}
@@ -152,6 +155,8 @@ Popover.propTypes = {
   type: PropTypes.oneOf(['default', 'remind']),
   onCancelClick: PropTypes.func,
   onConfirmClick: PropTypes.func,
+  cancelBtnOpts: PropTypes.object,
+  confirmBtnOpts: PropTypes.object
 };
 
 Popover.defaultProps = {
@@ -168,6 +173,8 @@ Popover.defaultProps = {
   type: 'default',
   onCancelClick: noop,
   onConfirmClick: noop,
+  cancelBtnOpts: {},
+  confirmBtnOpts: {}
 };
 
 export default Popover;

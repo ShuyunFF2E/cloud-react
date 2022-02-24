@@ -68,7 +68,7 @@ export default class Tag extends Component {
     if (this.ref.current) {
       const { width } = this.ref.current.getBoundingClientRect();
       this.setState({
-        hasTooltip: width >= 200,
+        hasTooltip: width >= this.props.maxWidth || 200,
       });
     }
   }
@@ -84,7 +84,7 @@ export default class Tag extends Component {
       color,
       rounded,
       disabled,
-	  className
+      className,
     } = this.props;
 
     return classnames(`${prefix}`, className, {
@@ -113,12 +113,12 @@ export default class Tag extends Component {
   };
 
   renderContent() {
-    const { closable, disabled, icon, ...others } = this.props;
+    const { closable, disabled, icon, maxWidth, ...others } = this.props;
 
     const props = omit(others, [
       'type',
       'size',
-	  'className',
+      'className',
       'rounded',
       'checkable',
       'checked',
@@ -130,6 +130,7 @@ export default class Tag extends Component {
     return (
       <span
         className={this.classes}
+        style={{ maxWidth: maxWidth || 200 }}
         onClick={this.handleClick}
         ref={this.ref}
         {...props}
@@ -143,7 +144,7 @@ export default class Tag extends Component {
               onClick={this.handleRemove}
               className="tag-close-icon"
             />
-		      </div>
+          </div>
         ) : null}
       </span>
     );
