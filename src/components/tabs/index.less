@@ -6,7 +6,7 @@
 @defaultHeight: 40px; // tab 页默认高度
 @defaultLineHeight: 38px;
 
-@lineTabHeight: 40px; // 类型为 line 的 tab 页高度
+@lineTabHeight: 48px; // 类型为 line 的 tab 页高度
 
 .flexCenter {
   display: inline-flex;
@@ -27,9 +27,6 @@
     left: 0;
     bottom: 0;
     width: 100%;
-  }
-  &.@{selector}-header-more {
-    padding: 0 30px;
   }
 }
 
@@ -90,10 +87,15 @@
     // type === line && linePlacement === 'top';
     &.@{selector}-line-horizontal {
       height: @lineTabHeight;
+      padding: 0 20px;
+      border-bottom: 1px solid @gray-4;
 
       .@{selector}-more-icon-line {
         line-height: @lineTabHeight;
       }
+    }
+    &.@{selector}-header-more {
+      padding: 0 30px;
     }
   }
 
@@ -161,8 +163,8 @@
   // type 为 line，横向 tab（linePlacement 为 top）
   &-item-line:extend(.cloud-tabs-item-basic all) {
     color: @gray-8;
-    padding: 0 4px;
-    margin: 0 10px;
+    padding: 0;
+    margin: 0 12px;
     height: @lineTabHeight;
     line-height: @lineTabHeight;
 
