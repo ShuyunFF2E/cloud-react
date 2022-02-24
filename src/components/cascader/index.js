@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import './index.less';
 
 class Cascader extends Component {
+	wrapperRef = React.createRef();
 	state = {
     inputValue: '',
 		open: false,
@@ -34,12 +35,18 @@ class Cascader extends Component {
       open: visible
     });
 	}
+	iconClick = () => {
+		this.wrapperRef.current.onFocus()
+	}
 	render() {
 		const {splitInput,onChange,...props} = this.props
-		const iconClasses =this.state.open ? 'open' : 'close'
+		const iconClasses =this.state.open ? `${props.prefixCls}-open` : `${props.prefixCls}-close`
+		const iconClass = `${props.prefixCls}-select-icon`
     return (
       <CascaderMenu {...props} onChange={this.onChange} onPopupVisibleChange={this.onPopupVisibleChange} className={iconClasses}>
-        <Input value={this.state.inputValue} readOnly disabled={this.props.disabled} suffix={<Icon type="down" style={{	cursor: 'pointer',fontSize:'14px'}} />}/>
+        <span>
+					<Input value={this.state.inputValue}  ref={this.wrapperRef} readOnly disabled={this.props.disabled} suffix={<Icon type="down" style={{	cursor: 'pointer',fontSize:'14px'}} className={iconClass} onClick={this.iconClick}/>}/>
+				</span>
       </CascaderMenu>
     );
   }
