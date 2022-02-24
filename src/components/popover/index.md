@@ -32,6 +32,8 @@ group:
 | confirmText      | 确认按钮自定义文本      | string            | '确认'     |
 | onCancelClick      | 取消按钮回调      | function            | () => {}     |
 | onConfirmClick      | 确认按钮回调      | function            | () => {}     |
+| cancelBtnOpts      | 取消按钮配置项      | object            | {}     |
+| confirmBtnOpts      | 确认按钮配置项      | object            | {}     |
 
  ### 代码演示 
 
