@@ -1,0 +1,20 @@
+name: Sync Github Repos To Gitee
+
+on: [ push, delete, create ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Sync Github Repos To Gitee
+        uses: Yikun/hub-mirror-action@master
+        with:
+          src: github/ShuyunFF2E
+          dst: gitee/shuyunff2e
+          dst_key: ${{ secrets.GITEE_PRIVATE_KEY }}
+          dst_token: ${{ secrets.GITEE_TOKEN }}
+          static_list: "cloud-react"
+          debug: true
+          force_update: true
+          timeout: '600s'

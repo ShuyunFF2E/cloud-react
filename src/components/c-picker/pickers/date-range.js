@@ -59,7 +59,7 @@ const DateRangePicker = ({
   });
   const [value, setValue] = useState();
   const format = _format || (showTimePicker ? dateTimeFormat : dateFormat);
-  let placeholder = _placeholder || [format, format];
+  let placeholder = _placeholder;
   if (typeof placeholder === 'string') {
     placeholder = [placeholder, placeholder];
   }

@@ -25,12 +25,13 @@
   border: 1px solid @gray-4;
   border-radius: 2px;
   background-color: @gray-1;
+  transition: border-color 0.3s;
 
   * {
     box-sizing: border-box;
   }
 
-  &:hover {
+  &:not(&-focused):hover {
     border-color: @gray-6;
   }
 

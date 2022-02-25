@@ -3,6 +3,7 @@ import moment from 'moment';
 import momentGenerateConfig from 'rc-picker/lib/generate/moment';
 import generatePicker from '../generator';
 import { timeFormat } from '../formats';
+// import { timePlaceholder } from '../locales/zh_CN';
 import { transformString2Moment } from '../utils';
 
 const { TimeRangePicker: Picker } = generatePicker(momentGenerateConfig);
@@ -41,7 +42,7 @@ const TimeRangePicker = ({
 }) => {
   const [value, setValue] = useState();
   const format = timeFormat;
-  let placeholder = _placeholder || [format, format];
+  let placeholder = _placeholder;
   if (typeof placeholder === 'string') {
     placeholder = [placeholder, placeholder];
   }

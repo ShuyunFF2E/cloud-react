@@ -22,7 +22,7 @@ const DatePicker = ({
   open,
   onOpenChange, // New
   format: _format,
-  placeholder: _placeholder,
+  placeholder,
   width,
   minDate,
   maxDate,
@@ -60,7 +60,6 @@ const DatePicker = ({
   });
   const [value, setValue] = useState();
   const format = _format || (showTimePicker ? dateTimeFormat : dateFormat);
-  const placeholder = _placeholder || format;
 
   useEffect(() => {
     if (_defaultValue instanceof Date) {

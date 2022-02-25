@@ -2,110 +2,128 @@ import React, { Children, cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { prefixCls } from '@utils';
+import FormContext from '../form/context';
 import Icon from '../icon';
 import './index.less';
 
 function ButtonGroup({ block, children, ...props }) {
-	const classes = classnames(`${prefixCls}-button-group`);
+  const classes = classnames(`${prefixCls}-button-group`);
 
-	return (
-		<div className={classes}>
-			{Children.map(children, child =>
-				cloneElement(child, {
-					...child.props,
-					...props
-				})
-			)}
-		</div>
-	);
+  return (
+    <div className={classes}>
+      {Children.map(children, (child) =>
+        cloneElement(child, {
+          ...child.props,
+          ...props,
+        }),
+      )}
+    </div>
+  );
 }
 
 class Button extends React.PureComponent {
-	static propTypes = {
-		type: PropTypes.string,
-		size: PropTypes.string,
-		href: PropTypes.string,
-		block: PropTypes.bool,
-		colorType:PropTypes.string,
-		icon: PropTypes.string,
-		loading: PropTypes.bool,
-		target: PropTypes.string,
-		htmlType: PropTypes.string,
-		className: PropTypes.string
-	};
+  static contextType = FormContext;
 
-	static defaultProps = {
-		size: 'default',
-		type: 'normal',
-		href: '',
-		colorType: '',
-		icon: '',
-		block: false,
-		loading: false,
-		target: '',
-		className: '',
-		htmlType: 'button'
-	};
+  static propTypes = {
+    type: PropTypes.string,
+    size: PropTypes.string,
+    href: PropTypes.string,
+    block: PropTypes.bool,
+    colorType: PropTypes.string,
+    icon: PropTypes.string,
+    loading: PropTypes.bool,
+    target: PropTypes.string,
+    htmlType: PropTypes.string,
+    className: PropTypes.string,
+  };
 
-	static Group = ButtonGroup;
+  static defaultProps = {
+    size: undefined,
+    type: 'normal',
+    href: '',
+    colorType: '',
+    icon: '',
+    block: false,
+    loading: false,
+    target: '',
+    className: '',
+    htmlType: 'button',
+  };
 
-	render() {
-		const {
-			// a link
-			href,
-			target,
-			// custom attr
-			size,
-			disabled,
-			loading,
-			type,
-			colorType,
-			block,
-			icon,
-			// html element
-			children,
-			className,
-			htmlType,
-			...others
-		} = this.props;
+  static Group = ButtonGroup;
 
-		const ElementName = href ? 'a' : 'button';
-		const classNames = classnames(
-			`${prefixCls}-button`,
-			{
-				[type]: true,
-				[size]: true,
-				[colorType]: true,
-				block
-			},
-			className
-		);
-        
-		// 针对单按钮情况
-		let content = type !== 'link' && type !== 'text' && typeof children === 'string' && children.length === 2 ? children.split('').join(' ') : children;
+  render() {
+    const { size: formSize } = this.context;
+    const {
+      // a link
+      href,
+      target,
+      // custom attr
+      size,
+      disabled,
+      loading,
+      type,
+      colorType,
+      block,
+      icon,
+      // html element
+      children,
+      className,
+      htmlType,
+      ...others
+    } = this.props;
 
-		// 针对按钮组情况
-		if (children instanceof Array && children.length === 1 && typeof children[0] === 'string' && children[0].length === 2 && type !== 'link' && type !== 'text') {
-			content = children[0].split('').join(' ');
-		}
+    const ElementName = href ? 'a' : 'button';
+    const classNames = classnames(
+      `${prefixCls}-button`,
+      {
+        [type]: true,
+        [size || formSize || 'default']: true,
+        [colorType]: true,
+        block,
+      },
+      className,
+    );
 
-		return (
-			<ElementName
-				type="button"
-				className={classNames}
-				disabled={disabled || loading}
-				{...{
-					...others,
-					href: href || undefined,
-					type: href ? undefined : htmlType,
-					target: href ? target : undefined
-				}}>
-				{loading && <span className={`${prefixCls}-button-loading`} />}
-				{icon && <Icon type={icon} />}
-				{content}
-			</ElementName>
-		);
-	}
+    // 针对单按钮情况
+    let content =
+      type !== 'link' &&
+      type !== 'text' &&
+      typeof children === 'string' &&
+      children.length === 2
+        ? children.split('').join(' ')
+        : children;
+
+    // 针对按钮组情况
+    if (
+      children instanceof Array &&
+      children.length === 1 &&
+      typeof children[0] === 'string' &&
+      children[0].length === 2 &&
+      type !== 'link' &&
+      type !== 'text'
+    ) {
+      content = children[0].split('').join(' ');
+    }
+
+    return (
+      <ElementName
+        type="button"
+        className={classNames}
+        disabled={disabled || loading}
+        {...{
+          ...others,
+          href: href || undefined,
+          type: href ? undefined : htmlType,
+          target: href ? target : undefined,
+        }}
+      >
+        {loading && <span className={`${prefixCls}-button-loading`} />}
+        {icon && <Icon type={icon} />}
+        {content}
+      </ElementName>
+    );
+  }
 }
 
 export default Button;

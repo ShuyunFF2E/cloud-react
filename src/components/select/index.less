@@ -50,16 +50,6 @@
     box-sizing: @box-sizing;
   }
 
-  &:hover {
-    .@{select-prefix-cls}-selected {
-      border: @select-hover-border;
-
-      .@{select-prefix-cls}-select-icon {
-        color: @select-hover-color;
-      }
-    }
-  }
-
   .@{select-prefix-cls}-wrapper {
     height: @height;
     line-height: @line-height;
@@ -70,6 +60,7 @@
     justify-content: space-between;
     cursor: pointer;
     border-radius: 2px;
+    transition: border-color 0.3s;
 
     &:hover {
       border: 1px solid @gray-6;
@@ -163,8 +154,9 @@
   }
 }
 
-.@{select-prefix-cls}-open {
-  .@{select-prefix-cls}-wrapper {
+.@{select-prefix-cls}.@{select-prefix-cls}-open {
+  .@{select-prefix-cls}-wrapper,
+  .@{select-prefix-cls}-wrapper:hover {
     border: @select-hover-border;
 
     &.hidden {

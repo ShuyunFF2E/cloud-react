@@ -12,6 +12,8 @@
 
 @placeholder-color: @gray-6;
 
+@hover-border-color: @gray-6;
+
 @focus-border-color: @blue-4;
 
 @large-font-size: 14px;
@@ -32,245 +34,251 @@
 @transition: 0.3s;
 
 .@{input-prefix-cls} {
-	&,
-	&-textarea,
-	&-group {
-		position: relative;
-		display: inline-block;
-		line-height: 1.5;
-		height: auto;
-		background: @color-white;
-		color: @gray-9;
-		transition: border @transition, color @transition;
-		box-sizing: border-box;
-		vertical-align: middle;
-		border-radius: @border-radius;
-	}
+  &,
+  &-textarea,
+  &-group {
+    position: relative;
+    display: inline-block;
+    line-height: 1.5;
+    height: auto;
+    background: @color-white;
+    color: @gray-9;
+    transition: border @transition, color @transition;
+    box-sizing: border-box;
+    vertical-align: middle;
+    border-radius: @border-radius;
+  }
 
-	&,
-	&-textarea {
-		border: 1px solid @gray-4;
-		border-radius: @border-radius;
-		outline: none;
-		width: @default-width;
-		vertical-align: top;
-	}
+  &,
+  &-textarea {
+    border: 1px solid @gray-4;
+    border-radius: @border-radius;
+    outline: none;
+    width: @default-width;
+    vertical-align: top;
+  }
 
-	&-wrapper {
-		> .@{input-prefix-cls}-group {
-			display: table;
-			width: 100%;
+  &-wrapper {
+    > .@{input-prefix-cls}-group {
+      display: table;
+      width: 100%;
 
-			> * {
-				display: table-cell;
-				white-space: nowrap;
-				vertical-align: middle;
-			}
-		}
-	}
+      > * {
+        display: table-cell;
+        white-space: nowrap;
+        vertical-align: middle;
+      }
+    }
+  }
 
-	/* group */
-	&-group {
-		
-		&,
-		.@{input-prefix-cls}-group {
-			display: inline-flex;
-			align-items: center;
-		}
+  /* group */
+  &-group {
+    &,
+    .@{input-prefix-cls}-group {
+      display: inline-flex;
+      align-items: center;
+    }
 
-		width: @default-width;
+    width: @default-width;
 
-		.@{input-prefix-cls}-group {
-			
-			width: 100%;
-		}
+    .@{input-prefix-cls}-group {
+      width: 100%;
+    }
 
-		input {
-			width: 100%;
-			height: auto;
+    input {
+      width: 100%;
+      height: auto;
 
-			&,
-			&:focus,
-			&:disabled {
-				border: none !important;
-			}
-		}
-		&:hover {
-			.@{input-prefix-cls}-clear {
-				display: block;
-			}
+      &,
+      &:focus,
+      &:disabled {
+        border: none !important;
+      }
+    }
+    &:hover {
+      .@{input-prefix-cls}-clear {
+        display: block;
+      }
 
-			.hidden {
-				display: none;
-			}
-		}
-		&.large {
-			padding: 8px @both-space-size;
-			font-size: @large-font-size;
-			height: 36px;
-		}
-		&-textarea,
-		&.default {
-			padding: 5px @both-space-size;
-			font-size: @default-font-size;
-			height: 32px;
-		}
-		&.small {
-			padding: 2px @both-space-size;
-			font-size: @small-font-size;
-			height: 28px;
-		}
-	}
+      .hidden {
+        display: none;
+      }
+    }
+    &.large {
+      padding: 8px @both-space-size;
+      font-size: @large-font-size;
+      height: 36px;
+    }
+    &-textarea,
+    &.default {
+      padding: 5px @both-space-size;
+      font-size: @default-font-size;
+      height: 32px;
+    }
+    &.small {
+      padding: 2px @both-space-size;
+      font-size: @small-font-size;
+      height: 28px;
+    }
+  }
 
-	&-prefix,
-	&-suffix {
-		display: inline-flex;
-		align-items: center;
-	}
+  &-prefix,
+  &-suffix {
+    display: inline-flex;
+    align-items: center;
+  }
 
-	&-prefix {
-		margin-left: 0;
-		margin-right: 8px;
-	}
+  &-prefix {
+    margin-left: 0;
+    margin-right: 8px;
+  }
 
-	&-suffix {
-		// margin-right: 8px;
-	}
+  &-suffix {
+    // margin-right: 8px;
+  }
 
-	&-affix {
-		border: 1px solid @gray-4;
-		padding: 5px @both-space-size;
-		color: @gray-9;
-		&:hover {
-			border-color: @gray-6
-		}
-	}
+  &-affix {
+    border: 1px solid @gray-4;
+    padding: 5px @both-space-size;
+    color: @gray-9;
+    &:hover {
+      border-color: @gray-6;
+    }
+  }
 
-	&-counter {
-		font-size: 12px;
-		color: #c9c9c9;
-	}
+  &-counter {
+    font-size: 12px;
+    color: #c9c9c9;
+  }
 
-	&-addon {
-		position: relative;
-		padding: 0 8px;
-		color: @color-gray2;
-		font-size: @addon-font-size;
-		line-height: 1;
-		text-align: center;
-		background-color: @addon-background;
-		border: 1px solid @gray-4;
-		transition: @transition;
+  &-addon {
+    position: relative;
+    padding: 0 8px;
+    color: @color-gray2;
+    font-size: @addon-font-size;
+    line-height: 1;
+    text-align: center;
+    background-color: @addon-background;
+    border: 1px solid @gray-4;
+    transition: @transition;
 
-		width: 1px;
-		white-space: nowrap;
-		vertical-align: middle;
+    width: 1px;
+    white-space: nowrap;
+    vertical-align: middle;
 
-		&:not(:first-child) {
-			border-left: none;
-		}
+    &:not(:first-child) {
+      border-left: none;
+    }
 
-		&:not(:last-child) {
-			border-right: none;
-		}
-	}
+    &:not(:last-child) {
+      border-right: none;
+    }
+  }
 
-	/* clear-icon */
-	&-clear {
-		font-size: @clear-icon-font-size;
-		color: @clear-icon-color;
-		transition: @transition;
-		pointer-events: none;
-		cursor: pointer;
-		opacity: 0;
-		display: none;
+  /* clear-icon */
+  &-clear {
+    font-size: @clear-icon-font-size;
+    color: @clear-icon-color;
+    transition: @transition;
+    pointer-events: none;
+    cursor: pointer;
+    opacity: 0;
+    display: none;
 
-		~ * {
-			margin-left: 4px;
-		}
+    ~ * {
+      margin-left: 4px;
+    }
 
-		&.show {
-			opacity: 1;
-			pointer-events: auto;
-		}
+    &.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
 
-		&.small-size {
-			height: 22px;
-			line-height: 22px;
-		}
+    &.small-size {
+      height: 22px;
+      line-height: 22px;
+    }
 
-		&:hover {
-			color: @clear-icon-hover-color;
-		}
-	}
+    &:hover {
+      color: @clear-icon-hover-color;
+    }
+  }
 
-	/* input placeholder css */
-	&-textarea::placeholder,
-	&::placeholder {
-		font-size: 14px;
-		color: @placeholder-color;
-	}
+  /* input placeholder css */
+  &-textarea::placeholder,
+  &::placeholder {
+    font-size: 14px;
+    color: @placeholder-color;
+  }
 
-	/* input size */
-	&.large {
-		padding: 8px @both-space-size;
-		font-size: @large-font-size;
-		height: 36px;
-	}
-	&-textarea,
-	&.default {
-		padding: 5px @both-space-size;
-		font-size: @default-font-size;
-		height: 32px;
-	}
-	&.small {
-		padding: 2px @both-space-size;
-		font-size: @small-font-size;
-		height: 28px;
-	}
+  /* input size */
+  &.large {
+    padding: 8px @both-space-size;
+    font-size: @large-font-size;
+    height: 36px;
+  }
+  &-textarea,
+  &.default {
+    padding: 5px @both-space-size;
+    font-size: @default-font-size;
+    height: 32px;
+  }
+  &.small {
+    padding: 2px @both-space-size;
+    font-size: @small-font-size;
+    height: 28px;
+  }
 
-	&-focus.@{input-prefix-cls}-affix,
-	&-focus &-affix,
-	&-textarea:focus,
-	&:focus {
-		border-color: @focus-border-color;
-	}
+  &-textarea:hover,
+  &:hover {
+    border-color: @hover-border-color;
+  }
 
-	&-disabled.@{input-prefix-cls}-affix,
-	&-disabled &-affix,
-	&-textarea:disabled,
-	&:disabled {
-		color: @gray-7;
-		background: @gray-3;
-	}
+  &-focus.@{input-prefix-cls}-affix,
+  &-focus &-affix,
+  &-textarea:focus,
+  &:focus {
+    border-color: @focus-border-color;
+  }
 
-	/* textarea */
+  &-disabled.@{input-prefix-cls}-affix,
+  &-disabled &-affix,
+  &-textarea:disabled,
+  &:disabled {
+    color: @gray-7;
+    background: @gray-3;
+  }
 
-	&-textarea-wrapper {
-		position: relative;
-		width: 100%;
-		border: 1px solid @gray-4;
-		background: @textarea-background;
+  /* textarea */
 
-		> textarea {
-			width: 100%;
-			height: 100%;
-		}
-	}
+  &-textarea-wrapper {
+    position: relative;
 
-	&-textarea {
-		font-family: inherit;
-		width: 100%;
-		resize: none;
-		border: none;
-	}
+    > textarea {
+      width: 100%;
+      height: 100%;
+      border: 1px solid @gray-4;
+      background: @textarea-background;
+      border-radius: 2px;
+    }
+  }
 
-	&-textarea-counter {
-		position: absolute;
-		right: 5px;
-		bottom: 2px;
-		font-size: 12px;
-		color: #c9c9c9;
-		line-height: initial;
-	}
+  &-textarea {
+    font-family: inherit;
+    width: 100%;
+    resize: none;
+    border: none;
+    &.has-counter {
+      padding-bottom: 25px;
+    }
+  }
+
+  &-textarea-counter {
+    position: absolute;
+    right: 12px;
+    bottom: 1px;
+    font-size: 14px;
+    color: @gray-6;
+    line-height: 24px;
+  }
 }

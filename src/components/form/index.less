@@ -2,48 +2,59 @@
 
 @form-prefix-cls: ~'@{prefix}-form';
 
+@content-line-height: 32px;
+@content-line-height-small: 24px;
+@content-line-height-large: 36px;
+
 .@{form-prefix-cls} {
   line-height: 1.3;
 
   /* .form-item */
   &-item {
-    margin-bottom: 12px;
+    display: flex;
+    margin-bottom: 24px;
 
-    /* layout */
-    &.horizontal & {
-      /* .form-item.horizontal .form-item-wrapper */
-      &-label {
-        line-height: @content-line-height;
+    &-label,
+    &-wrapper {
+      display: block;
+      min-height: @content-line-height;
+      line-height: @content-line-height;
+    }
+
+    &.small &-label,
+    &.small &-wrapper {
+      min-height: @content-line-height-small;
+      line-height: @content-line-height-small;
+      &.has-colon::after {
+        height: @content-line-height-small;
+        line-height: @content-line-height-small;
       }
-
-      &-wrapper {
-        display: inline-block;
+    }
+    &.large &-label,
+    &.large &-wrapper {
+      min-height: @content-line-height-large;
+      line-height: @content-line-height-large;
+      &.has-colon::after {
+        height: @content-line-height-large;
+        line-height: @content-line-height-large;
       }
     }
 
+    /* layout */
+    &.vertical {
+      flex-direction: column;
+    }
     &.vertical & {
       &-label {
+        text-align: left !important;
         margin-bottom: 4px;
-      }
-      &-wrapper {
-        display: block;
       }
     }
 
     &.inline {
-      display: inline-block;
-      margin-right: 12px;
-    }
-
-    &.inline & {
-      &-label,
-      &-wrapper {
-        line-height: @content-line-height;
-        vertical-align: top;
-      }
-      &-wrapper {
-        display: inline-block;
-      }
+      display: inline-flex;
+      margin-right: 24px;
+      margin-bottom: 16px;
     }
 
     /* align */
@@ -59,17 +70,16 @@
     }
 
     /* others */
-    @content-line-height: 30px;
 
     &-label {
-      display: inline-block;
-      vertical-align: top;
-      padding-right: 8px;
-      line-height: 1;
-      min-height: 20px;
+      position: relative;
       color: @color-gray2;
       box-sizing: border-box;
       white-space: nowrap;
+
+      &.label-wrap {
+        white-space: unset;
+      }
 
       &[required]::before {
         content: '*';
@@ -82,21 +92,15 @@
       }
 
       &.has-colon::after {
-        content: ':';
-        position: relative;
-        top: -1px;
-        margin-left: 2px;
+        content: '：';
+        line-height: @content-line-height;
       }
     }
 
-    &-wrapper {
-      line-height: @content-line-height;
-    }
-
     &-explain {
-      margin-top: 8px;
+      margin-top: 4px;
       font-size: 12px;
-      line-height: 1.42;
+      line-height: 12px;
       color: @color-gray2;
       &.error {
         color: @red-4;
@@ -107,6 +111,26 @@
       display: contents;
     }
 
+    &.small {
+      .@{prefix}-radio-text {
+        line-height: @content-line-height-small;
+      }
+      .@{prefix}-picker,
+      .@{prefix}-picker-range {
+        height: @content-line-height-small;
+      }
+    }
+
+    &.large {
+      .@{prefix}-radio-text {
+        line-height: @content-line-height-large;
+      }
+      .@{prefix}-picker,
+      .@{prefix}-picker-range {
+        height: @content-line-height-large;
+      }
+    }
+
     // 表单校验样式
     .has-error {
       &,
@@ -115,10 +139,13 @@
       .@{prefix}-datepicker-container {
         > .@{prefix}-select-wrapper,
         > .@{prefix}-input-number,
-        > .@{prefix}-input-textarea-wrapper,
+        > .@{prefix}-input-textarea,
         > .@{prefix}-input,
         > .@{prefix}-input-affix {
-          border-color: @red-4;
+          &,
+          &:hover {
+            border-color: @red-4;
+          }
         }
       }
     }

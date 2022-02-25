@@ -1,4 +1,4 @@
-# dumi-demo
+# cloud-react
 
 ## Getting Started
 

@@ -96,13 +96,13 @@ class Loading extends Component {
   }
 
   render() {
-    const { loading, layer, size, tip, children, className } = this.props;
+    const { loading, layer, size, tip, children, className, style } = this.props;
     const classes = classNames(selector, className);
 
     const { delayShow } = this.state;
 
     return children ? (
-      <div className={classes}>
+      <div className={classes} style={style}>
         {children}
         {loading && delayShow && (
           <SvgLoading size={size} tip={tip} layer={layer} />
@@ -110,7 +110,7 @@ class Loading extends Component {
       </div>
     ) : (
       loading && delayShow && (
-        <div className={classes}>
+        <div className={classes} style={style}>
           <SvgLoading size={size} tip={tip} layer={layer} />
         </div>
       )
@@ -125,6 +125,7 @@ Loading.propTypes = {
   tip: PropTypes.string,
   delay: PropTypes.number,
   className: PropTypes.string,
+  style: PropTypes.object
 };
 
 Loading.defaultProps = {
@@ -134,6 +135,7 @@ Loading.defaultProps = {
   tip: '',
   delay: 0,
   className: '',
+  style: {}
 };
 
 export default Loading;

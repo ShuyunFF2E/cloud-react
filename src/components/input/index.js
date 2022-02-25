@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { noop, omit, prefixCls } from '@utils';
 
+import FormContext from '../form/context';
 import Icon from '../icon';
 import Textarea from './textarea';
 
@@ -12,342 +13,447 @@ const nothing = undefined;
 const ENTER_KEY_CODE = 13;
 
 class Input extends React.Component {
-	static propTypes = {
-		size: PropTypes.oneOf(['large', 'default', 'small']),
-		style: PropTypes.object,
-		value: PropTypes.any,
-		defaultValue: PropTypes.any,
-		className: PropTypes.string,
-		prefix: PropTypes.any,
-		suffix: PropTypes.any,
-		addonAfter: PropTypes.any,
-		addonBefore: PropTypes.any,
-		hasCounter: PropTypes.bool,
-		hasClear: PropTypes.bool,
-		useComposition: PropTypes.bool,
-		onChange: PropTypes.func,
-		onFocus: PropTypes.func,
-		onBlur: PropTypes.func,
-		onKeyDown: PropTypes.func,
-		onEnter: PropTypes.func
-	};
+  static contextType = FormContext;
 
-	static defaultProps = {
-		size: 'default',
-		style: {},
-		value: nothing,
-		defaultValue: nothing,
-		className: '',
-		prefix: nothing,
-		suffix: nothing,
-		addonAfter: nothing,
-		addonBefore: nothing,
-		hasCounter: false,
-		hasClear: false,
-		useComposition: false,
-		onFocus: noop,
-		onBlur: noop,
-		onChange: noop,
-		onKeyDown: noop,
-		onEnter: noop
-	};
+  static propTypes = {
+    size: PropTypes.oneOf(['large', 'default', 'small']),
+    style: PropTypes.object,
+    value: PropTypes.any,
+    defaultValue: PropTypes.any,
+    className: PropTypes.string,
+    prefix: PropTypes.any,
+    suffix: PropTypes.any,
+    addonAfter: PropTypes.any,
+    addonBefore: PropTypes.any,
+    hasCounter: PropTypes.bool,
+    hasClear: PropTypes.bool,
+    useComposition: PropTypes.bool,
+    onChange: PropTypes.func,
+    onFocus: PropTypes.func,
+    onBlur: PropTypes.func,
+    onKeyDown: PropTypes.func,
+    onEnter: PropTypes.func,
+  };
 
-	static Textarea = Textarea;
+  static defaultProps = {
+    size: nothing,
+    style: {},
+    value: nothing,
+    defaultValue: nothing,
+    className: '',
+    prefix: nothing,
+    suffix: nothing,
+    addonAfter: nothing,
+    addonBefore: nothing,
+    hasCounter: false,
+    hasClear: false,
+    useComposition: false,
+    onFocus: noop,
+    onBlur: noop,
+    onChange: noop,
+    onKeyDown: noop,
+    onEnter: noop,
+  };
 
-	isOnComposition = false;
+  static Textarea = Textarea;
 
-	constructor(props) {
-		super(props);
-		this.state = {
-			focused: false,
-			counter: 0
-		};
-		this.inputRef = React.createRef();
-	}
+  isOnComposition = false;
 
-	shouldComponentUpdate(nextProps, nextState) {
-		const observableProps = ['size', 'value', 'defaultValue', 'className', 'hasCounter', 'hasClear', 'disabled', 'placeholder', 'maxLength'];
-		return (
-			observableProps.map(attr => nextProps[attr] !== this.props[attr]).find(item => item) ||
-			JSON.stringify(nextProps.style) !== JSON.stringify(this.props.style) ||
-			Object.keys(this.state)
-				.map(attr => nextState[attr] !== this.state[attr])
-				.find(item => item) ||
-			(this.inputNode.value && String(nextProps.value) !== this.inputNode.value)
-		);
-	}
+  constructor(props) {
+    super(props);
+    this.state = {
+      focused: false,
+      counter: 0,
+    };
+    this.inputRef = React.createRef();
+  }
 
-	componentDidMount() {
-		const { defaultValue } = this.props;
-		if (defaultValue !== nothing) {
-			this.inputNode.value = defaultValue;
-			this.setCounter();
-		}
-		this.setInputValue();
-	}
+  shouldComponentUpdate(nextProps, nextState) {
+    const observableProps = [
+      'size',
+      'value',
+      'defaultValue',
+      'className',
+      'hasCounter',
+      'hasClear',
+      'disabled',
+      'placeholder',
+      'maxLength',
+    ];
+    return (
+      observableProps
+        .map((attr) => nextProps[attr] !== this.props[attr])
+        .find((item) => item) ||
+      JSON.stringify(nextProps.style) !== JSON.stringify(this.props.style) ||
+      Object.keys(this.state)
+        .map((attr) => nextState[attr] !== this.state[attr])
+        .find((item) => item) ||
+      (this.inputNode.value && String(nextProps.value) !== this.inputNode.value)
+    );
+  }
 
-	componentDidUpdate(prevProps) {
-		if (prevProps.value !== this.props.value || (this.inputNode.value && String(this.props.value) !== this.inputNode.value)) {
-			this.setInputValue();
-		}
-	}
+  componentDidMount() {
+    const { defaultValue } = this.props;
+    if (defaultValue !== nothing) {
+      this.inputNode.value = defaultValue;
+      this.setCounter();
+    }
+    this.setInputValue();
+  }
 
-	setInputValue() {
-		const { value } = this.props;
-		if (value !== undefined) {
-			this.inputNode.value = value || '';
-			this.setCounter();
-		}
-	}
+  componentDidUpdate(prevProps) {
+    if (
+      prevProps.value !== this.props.value ||
+      (this.inputNode.value &&
+        String(this.props.value) !== this.inputNode.value)
+    ) {
+      this.setInputValue();
+    }
+  }
 
-	setCounter() {
-		this.setState({
-			counter: this.inputNode.value.length
-		});
-	}
+  setInputValue() {
+    const { value } = this.props;
+    if (value !== undefined) {
+      this.inputNode.value = value || '';
+      this.setCounter();
+    }
+  }
 
-	get isPure() {
-		const { hasCounter, hasClear, hasLimtHint, prefix, suffix, addonBefore, addonAfter } = this.props;
+  setCounter() {
+    this.setState({
+      counter: this.inputNode.value.length,
+    });
+  }
 
-		return !hasCounter && !hasClear && !hasLimtHint && !prefix && !suffix && !addonBefore && !addonAfter;
-	}
+  get isPure() {
+    const {
+      hasCounter,
+      hasClear,
+      hasLimtHint,
+      prefix,
+      suffix,
+      addonBefore,
+      addonAfter,
+    } = this.props;
 
-	get inputNode() {
-		return this.inputRef.current || document.createElement('input');
-	}
+    return (
+      !hasCounter &&
+      !hasClear &&
+      !hasLimtHint &&
+      !prefix &&
+      !suffix &&
+      !addonBefore &&
+      !addonAfter
+    );
+  }
 
-	onKeyDown = evt => {
-		const { onEnter, onKeyDown } = this.props;
+  get inputNode() {
+    return this.inputRef.current || document.createElement('input');
+  }
 
-		if (evt.keyCode === ENTER_KEY_CODE) {
-			onEnter(evt);
-			evt.preventDefault();
-		}
-		onKeyDown(evt);
-	};
+  onKeyDown = (evt) => {
+    const { onEnter, onKeyDown } = this.props;
 
-	onChange = evt => {
-		if (!this.isOnComposition && !this.props.disabled) {
-			this.props.onChange(evt);
-			this.setCounter();
-		}
-	};
+    if (evt.keyCode === ENTER_KEY_CODE) {
+      onEnter(evt);
+      evt.preventDefault();
+    }
+    onKeyDown(evt);
+  };
 
-	onFocus = evt => {
-		this.setState({ focused: true }, () => this.props.onFocus(evt));
-	};
+  onChange = (evt) => {
+    if (!this.isOnComposition && !this.props.disabled) {
+      this.props.onChange(evt);
+      this.setCounter();
+    }
+  };
 
-	onBlur = evt => {
-		this.setState({ focused: false }, () => this.props.onBlur(evt));
-	};
+  onFocus = (evt) => {
+    this.setState({ focused: true }, () => this.props.onFocus(evt));
+  };
 
-	onClearValue = evt => {
-		this.setValue('', evt, () => this.inputNode.focus());
-		evt.stopPropagation();
-	};
+  onBlur = (evt) => {
+    this.setState({ focused: false }, () => this.props.onBlur(evt));
+  };
 
-	setValue(value, evt, callback = noop) {
-		let keyboardEvent = evt;
+  onClearValue = (evt) => {
+    this.setValue('', evt, () => this.inputNode.focus());
+    evt.stopPropagation();
+  };
 
-		// click the clear button
-		// handle consistent events
-		if (evt.type === 'click') {
-			keyboardEvent = Object.assign({}, evt, {
-				target: this.inputNode,
-				currentTarget: this.inputNode
-			});
-			this.inputNode.value = '';
-			this.setCounter();
-		}
+  setValue(value, evt, callback = noop) {
+    let keyboardEvent = evt;
 
-		this.props.onChange(keyboardEvent);
+    // click the clear button
+    // handle consistent events
+    if (evt.type === 'click') {
+      keyboardEvent = Object.assign({}, evt, {
+        target: this.inputNode,
+        currentTarget: this.inputNode,
+      });
+      this.inputNode.value = '';
+      this.setCounter();
+    }
 
-		callback();
-	}
+    this.props.onChange(keyboardEvent);
 
-	handleComposition = evt => {
-		if (!this.props.useComposition) return;
+    callback();
+  }
 
-		if (evt.type === 'compositionend') {
-			this.isOnComposition = false;
+  handleComposition = (evt) => {
+    if (!this.props.useComposition) return;
 
-			// 谷歌浏览器：compositionstart onChange compositionend
-			// 火狐浏览器：compositionstart compositionend onChange
-			if (navigator.userAgent.indexOf('Chrome') > -1) {
-				this.onChange(evt);
-			}
+    if (evt.type === 'compositionend') {
+      this.isOnComposition = false;
 
-			return;
-		}
+      // 谷歌浏览器：compositionstart onChange compositionend
+      // 火狐浏览器：compositionstart compositionend onChange
+      if (navigator.userAgent.indexOf('Chrome') > -1) {
+        this.onChange(evt);
+      }
 
-		this.isOnComposition = true;
-	};
+      return;
+    }
 
-	renderClearIcon() {
-		if (this.props.disabled) return null;
+    this.isOnComposition = true;
+  };
 
-		const { counter } = this.state;
-		const { size } = this.props;
+  renderClearIcon() {
+    if (this.props.disabled) return null;
 
-		const type = 'close-fill';
-		const classNames = classnames(`${prefixCls}-input-clear`, {
-			show: counter,
-			hidden: !counter,
-			'small-size': size === 'small'
-		});
+    const { counter } = this.state;
+    const { size } = this.props;
+    const { size: formSize } = this.context;
+    const mergedSize = size || formSize || 'default';
 
-		return <Icon type={type} className={classNames} onClick={this.onClearValue} />;
-	}
+    const type = 'close-fill';
+    const classNames = classnames(`${prefixCls}-input-clear`, {
+      show: counter,
+      hidden: !counter,
+      'small-size': mergedSize === 'small',
+    });
 
-	renderCounter() {
-		const { hasCounter, maxLength } = this.props;
-		const { counter } = this.state;
+    return (
+      <Icon type={type} className={classNames} onClick={this.onClearValue} />
+    );
+  }
 
-		return hasCounter && maxLength ? (
-			<span className={classnames(`${prefixCls}-input-counter`)}>
-				<span>{counter}</span>/{maxLength}
-			</span>
-		) : null;
-	}
+  renderCounter() {
+    const { hasCounter, maxLength } = this.props;
+    const { counter } = this.state;
 
-	renderSuffix() {
-		const { hasClear, suffix } = this.props;
+    return hasCounter && maxLength ? (
+      <span className={classnames(`${prefixCls}-input-counter`)}>
+        <span>{counter}</span>/{maxLength}
+      </span>
+    ) : null;
+  }
 
-		return hasClear ? (
-			<>
-				{this.renderClearIcon()}
-				{this.renderCounter()}
-				{suffix}
-			</>
-		) : (
-			<>
-				{this.renderCounter()}
-				{suffix}
-			</>
-		);
-	}
+  renderSuffix() {
+    const { hasClear, suffix } = this.props;
 
-	render() {
-		const { isPure } = this;
-		const { focused } = this.state;
-		const { size, className, style, hasClear, hasCounter, addonAfter, addonBefore, prefix, suffix, value, ...others } = this.props;
+    return hasClear ? (
+      <>
+        {this.renderClearIcon()}
+        {this.renderCounter()}
+        {suffix}
+      </>
+    ) : (
+      <>
+        {this.renderCounter()}
+        {suffix}
+      </>
+    );
+  }
 
-		const _className = `${prefixCls}-input`;
+  render() {
+    const { isPure } = this;
+    const { focused } = this.state;
+    const {
+      size,
+      className,
+      style,
+      hasClear,
+      hasCounter,
+      addonAfter,
+      addonBefore,
+      prefix,
+      suffix,
+      value,
+      ...others
+    } = this.props;
+    const { size: formSize } = this.context;
+    const mergedSize = size || formSize || 'default';
 
-		const props = omit(others, ['defaultValue', 'hasCounter', 'hasClear', 'prefix', 'suffix', 'addonAfter', 'addonBefore', 'onEnter', 'useComposition']);
-		const commonProps = {
-			ref: this.inputRef,
-			onBlur: this.onBlur,
-			onFocus: this.onFocus,
-			onChange: this.onChange,
-			onKeyDown: this.onKeyDown,
-			onCompositionStart: this.handleComposition,
-			onCompositionUpdate: this.handleComposition,
-			onCompositionEnd: this.handleComposition
-		};
+    const _className = `${prefixCls}-input`;
 
-		// basic input
-		if (isPure) {
-			return <input {...props} {...commonProps} style={isPure ? style : {}} className={classnames(_className, className, size)} />;
-		}
+    const props = omit(others, [
+      'defaultValue',
+      'hasCounter',
+      'hasClear',
+      'prefix',
+      'suffix',
+      'addonAfter',
+      'addonBefore',
+      'onEnter',
+      'useComposition',
+    ]);
+    const commonProps = {
+      ref: this.inputRef,
+      onBlur: this.onBlur,
+      onFocus: this.onFocus,
+      onChange: this.onChange,
+      onKeyDown: this.onKeyDown,
+      onCompositionStart: this.handleComposition,
+      onCompositionUpdate: this.handleComposition,
+      onCompositionEnd: this.handleComposition,
+    };
 
-		// merge clearIcon & suffix
-		const _suffix = this.renderSuffix();
+    // basic input
+    if (isPure) {
+      return (
+        <input
+          {...props}
+          {...commonProps}
+          style={isPure ? style : {}}
+          className={classnames(_className, className, mergedSize)}
+        />
+      );
+    }
 
-		// has addon content
-		return (
-			<InputWrapper
-				prefix={prefix}
-				suffix={_suffix}
-				addonAfter={addonAfter}
-				addonBefore={addonBefore}
-				style={style}
-				className={classnames(className, size, {
-					[`${_className}-focus`]: focused,
-					[`${_className}-disabled`]: props.disabled
-				})}>
-				<input {...props} {...commonProps} style={{ padding:0, height: 'auto' }} className={classnames(_className, size)} />
-			</InputWrapper>
-		);
-	}
+    // merge clearIcon & suffix
+    const _suffix = this.renderSuffix();
+
+    // has addon content
+    return (
+      <InputWrapper
+        prefix={prefix}
+        suffix={_suffix}
+        addonAfter={addonAfter}
+        addonBefore={addonBefore}
+        style={style}
+        className={classnames(className, mergedSize, {
+          [`${_className}-focus`]: focused,
+          [`${_className}-disabled`]: props.disabled,
+        })}
+      >
+        <input
+          {...props}
+          {...commonProps}
+          style={{ padding: 0, height: 'auto' }}
+          className={classnames(_className, size)}
+        />
+      </InputWrapper>
+    );
+  }
 }
 
 // InputWrapper
-function InputWrapper({ prefix, suffix, addonBefore, addonAfter, className, style, children }) {
-	const both = prefix || suffix;
-	const addon = addonBefore || addonAfter;
+function InputWrapper({
+  prefix,
+  suffix,
+  addonBefore,
+  addonAfter,
+  className,
+  style,
+  children,
+}) {
+  const both = prefix || suffix;
+  const addon = addonBefore || addonAfter;
 
-	// complex types
-	if (both && addon) {
-		return (
-			<InputWrapper addonBefore={addonBefore} addonAfter={addonAfter} className={className} style={style}>
-				<InputWrapper prefix={prefix} suffix={suffix}>
-					{children}
-				</InputWrapper>
-			</InputWrapper>
-		);
-	}
+  // complex types
+  if (both && addon) {
+    return (
+      <InputWrapper
+        addonBefore={addonBefore}
+        addonAfter={addonAfter}
+        className={className}
+        style={style}
+      >
+        <InputWrapper prefix={prefix} suffix={suffix}>
+          {children}
+        </InputWrapper>
+      </InputWrapper>
+    );
+  }
 
-	if (both && !addon) {
-		return (
-			<InputWrapper className={classnames(`${prefixCls}-input-affix`, className)} style={style}>
-				<Addon className={classnames(`${prefixCls}-input-prefix`)}>{prefix}</Addon>
-				{children}
-				<Addon className={classnames(`${prefixCls}-input-suffix`)}>{suffix}</Addon>
-			</InputWrapper>
-		);
-	}
+  if (both && !addon) {
+    return (
+      <InputWrapper
+        className={classnames(`${prefixCls}-input-affix`, className)}
+        style={style}
+      >
+        <Addon className={classnames(`${prefixCls}-input-prefix`)}>
+          {prefix}
+        </Addon>
+        {children}
+        <Addon className={classnames(`${prefixCls}-input-suffix`)}>
+          {suffix}
+        </Addon>
+      </InputWrapper>
+    );
+  }
 
-	if (!both && addon) {
-		return (
-			<div className={classnames(`${prefixCls}-input-wrapper`, className)} style={style}>
-				<InputWrapper>
-					<Addon className={classnames(`${prefixCls}-input-addon`)}>{addonBefore}</Addon>
-					{children}
-					<Addon className={classnames(`${prefixCls}-input-addon`)}>{addonAfter}</Addon>
-				</InputWrapper>
-			</div>
-		);
-	}
+  if (!both && addon) {
+    return (
+      <div
+        className={classnames(`${prefixCls}-input-wrapper`, className)}
+        style={style}
+      >
+        <InputWrapper>
+          <Addon className={classnames(`${prefixCls}-input-addon`)}>
+            {addonBefore}
+          </Addon>
+          {children}
+          <Addon className={classnames(`${prefixCls}-input-addon`)}>
+            {addonAfter}
+          </Addon>
+        </InputWrapper>
+      </div>
+    );
+  }
 
-	return (
-		<div className={classnames(`${prefixCls}-input-group`, className)} style={style}>
-			{children}
-		</div>
-	);
+  return (
+    <div
+      className={classnames(`${prefixCls}-input-group`, className)}
+      style={style}
+    >
+      {children}
+    </div>
+  );
 }
 
 InputWrapper.propTypes = {
-	prefix: PropTypes.any,
-	suffix: PropTypes.any,
-	addonAfter: PropTypes.any,
-	addonBefore: PropTypes.any,
-	children: PropTypes.any,
-	className: PropTypes.string
+  prefix: PropTypes.any,
+  suffix: PropTypes.any,
+  addonAfter: PropTypes.any,
+  addonBefore: PropTypes.any,
+  children: PropTypes.any,
+  className: PropTypes.string,
 };
 
 InputWrapper.defaultProps = {
-	prefix: null,
-	suffix: null,
-	addonAfter: null,
-	addonBefore: null,
-	children: null,
-	className: ''
+  prefix: null,
+  suffix: null,
+  addonAfter: null,
+  addonBefore: null,
+  children: null,
+  className: '',
 };
 
 // Addon
 function Addon({ className, children }) {
-	return !children ? null : <div className={className}>{children}</div>;
+  return !children ? null : <div className={className}>{children}</div>;
 }
 
 Addon.propTypes = {
-	className: PropTypes.string,
-	children: PropTypes.any
+  className: PropTypes.string,
+  children: PropTypes.any,
 };
 
 Addon.defaultProps = {
-	className: '',
-	children: null
+  className: '',
+  children: null,
 };
 
 export default Input;

@@ -20,12 +20,14 @@ group:
 | 属性       | 说明                                                                  | 类型                | 默认值     |
 | ---------- | --------------------------------------------------------------------- | ------------------- | ---------- |
 | field      | `new Field(this)`之后的实例，用到表单校验则时此项必填                 | object              | -          |
+| size       | 表单的尺寸，可设置`small` `default` `large`，设置此项后表单内的数据获取类组件的尺寸会自动联动  | string     | `default` |
 | layout     | 表单展示方向，可设置`horizontal` `vertical` `inline`                  | string              | `vertical` |
 | labelAlign | 标签的对齐位置，可设置`left` `right`                                  | string              | `right`    |
 | labelCol   | `label` 标签布局，设置 `span` `offset` 值，如 `{span: 3, offset: 12}` | string              | -          |
 | wrapperCol | 需要为输入控件设置布局样式时，使用该属性，用法同 `labelCol`           | string              | -          |
 | onSubmit   | form 内有`htmlType="submit"`的元素的时候会触发                        | Function(evt:Event) | -          |
 | colon      | 配合`label`属性使用，表示是否显示`label`后面的冒号                    | boolean             | `true`     |
+| labelWrap  | 配合`label`属性使用，表示`label`是否在超宽时换行                    | boolean             | `false`     |
 | className  | Form 的 className 属性                                                | string              | -          |
 | scrollToFirstError | 提交失败自动滚动到第一个错误字段，`field`字段不存在时无效			| boolean              | `false`     |
 

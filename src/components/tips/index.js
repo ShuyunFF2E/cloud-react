@@ -6,7 +6,7 @@ import Icon from '../icon';
 import './index.less';
 
 const IconTypes = {
-  normal: 'info-circle1',
+  normal: 'info_1',
   warning: 'close-fill-1',
   major: 'info_2',
   success: 'success-fill',
