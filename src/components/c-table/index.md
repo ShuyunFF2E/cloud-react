@@ -50,6 +50,7 @@ group:
 | onRow | 表格刷新后回调   | 设置自定义 row 属性，Function(record, index)	   |   () => {}   | |
 | isCheckboxFixed | 是否固定多选框列或单选框列  | boolean	   |   false   | |
 | supportConfigColumn | 是否支持配置列的隐藏和展示  | boolean	   |   false   | |
+| supportResizeColumn | 是否支持配置列的拉伸 | boolean	   |   false   | |
 
 手动刷新表格：this.tableRef.refreshTable(params?);
 

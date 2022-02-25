@@ -210,6 +210,7 @@
   // ================== Cell ==================
   &-cell {
     position: relative;
+    min-width: 100px;
 
     &:hover {
       //background: @gray-3;
@@ -294,6 +295,12 @@
           text-overflow: ellipsis;
         }
       }
+    }
+  }
+
+  &-support-config {
+    .@{tablePrefixCls}-cell:last-of-type {
+      min-width: auto;
     }
   }
 
@@ -591,5 +598,20 @@
       padding: 4px 10px;
       .text-overflow-ellipsis;
     }
+  }
+}
+
+.@{tablePrefixCls}-resizeable {
+  .react-resizable-handle {
+    height: 100%;
+    cursor: ew-resize;
+    background-image: initial;
+    width: 30px;
+    right: -15px;
+    z-index: 10;
+  }
+
+  &:hover {
+    background: @gray-3;
   }
 }

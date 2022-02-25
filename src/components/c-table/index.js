@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import RcTable from 'rc-table';
 import classnames from 'classnames';
 import { noop } from '@utils';
+import 'react-resizable/css/styles.css';
 import {
   getDataSource,
   getDataSourceWithDelay,
@@ -14,6 +15,7 @@ import {
 } from './util';
 import { tablePrefixCls } from './constant';
 import getExpandableConfig from './expend';
+import ResizableTitle from './resizableTitle';
 import Checkbox from '../checkbox';
 import Pagination from '../pagination';
 import Radio from '../radio';
@@ -119,7 +121,7 @@ class CTable extends Component {
     this.setCheckedData();
     this.updateSelectedNodes();
 
-    this.setColumnData(this.setCheckboxColumn);
+    this.setColumnData();
 
     setTimeout(this.setHeaderStyle);
     this.setFooterHeight();
@@ -136,7 +138,7 @@ class CTable extends Component {
       return;
     }
     const fixedEles = Array.from(
-      document.querySelectorAll('th.cloud-table-cell-fix-right'),
+      this.ref.current.querySelectorAll('th.cloud-table-cell-fix-right'),
     );
     if (fixedEles.length) {
       fixedEles.pop();
@@ -324,7 +326,7 @@ class CTable extends Component {
                 checked={item.show}
                 onChange={(checked) => {
                   Object.assign(item, { show: !!checked });
-                  this.setColumnData(this.setCheckboxColumn);
+                  this.setColumnData();
                   setTimeout(this.setHeaderStyle, 150);
                 }}
               >
@@ -340,14 +342,35 @@ class CTable extends Component {
   };
 
   /**
-   * 设置表格列
-   * @param callback
+   * 表格列拉伸
+   * @param index
+   * @returns {(function(*, {size: *}): void)|*}
    */
-  setColumnData = (callback) => {
+  handleResize = (index) => {
+    return (e, { size }) => {
+      this.setState(({ columnData }) => {
+        const nextColumns = [...columnData];
+        nextColumns[index] = {
+          ...nextColumns[index],
+          width: size.width,
+        };
+        return { columnData: nextColumns };
+      });
+    };
+  };
+
+  /**
+   * 设置表格列
+   */
+  setColumnData = () => {
     const { originColumnData } = this.state;
+    const { supportCheckbox, supportRadio } = this.props;
     const isLastColumnFixed =
       originColumnData[originColumnData.length - 1].fixed;
-    const columnData = originColumnData.reduce((arr, item) => {
+    const isFirstColumnFixed = originColumnData[0].fixed;
+
+    const resolvedColumnData = originColumnData.reduce((arr, item) => {
+      // 判断当前列展示还是隐藏，默认为 true
       if (!item.show) {
         return arr;
       }
@@ -381,9 +404,21 @@ class CTable extends Component {
       return arr;
     }, []);
 
+    // 多选列
+    if (supportCheckbox) {
+      const checkboxColumn = this.getCheckboxColumn(isFirstColumnFixed);
+      resolvedColumnData.unshift(checkboxColumn);
+    }
+
+    // 单选列
+    if (supportRadio) {
+      const radioColumn = this.getRadioColumn(isFirstColumnFixed);
+      resolvedColumnData.unshift(radioColumn);
+    }
+
     // 支持配置列的显示和隐藏
     if (this.props.supportConfigColumn) {
-      columnData.push({
+      resolvedColumnData.push({
         title: (
           <Tooltip
             trigger="click"
@@ -401,7 +436,37 @@ class CTable extends Component {
         fixed: isLastColumnFixed,
       });
     }
-    this.setState({ columnData }, callback);
+
+    // 支持配置表格列拉伸
+    if (this.props.supportResizeColumn) {
+      resolvedColumnData.forEach((item, index) => {
+        if (!item.fixed) {
+          Object.assign(item, {
+            onHeaderCell: (column) => {
+              const thArr =
+                this.ref.current.querySelectorAll('th.react-resizable');
+              return {
+                width:
+                  column.width || thArr[index]?.getBoundingClientRect().width,
+                onResize: this.handleResize(index),
+              };
+            },
+          });
+        }
+      });
+    }
+
+    if (supportCheckbox || supportRadio) {
+      this.setState({
+        expandIconColumnIndex: 1,
+        columnData: resolvedColumnData,
+      });
+      return;
+    }
+    this.setState({
+      columnData: resolvedColumnData,
+      expandIconColumnIndex: 0,
+    });
   };
 
   /**
@@ -457,9 +522,9 @@ class CTable extends Component {
 
   /**
    * 更新已选数据列表
-   * @param callback
+   * @param onCheckedAfter
    */
-  updateSelectedNodes = (callback = () => {}) => {
+  updateSelectedNodes = (onCheckedAfter = () => {}) => {
     const selectedNodeList = [];
     const { leafNodesMap } = this;
     Object.keys(leafNodesMap).forEach((key) => {
@@ -482,7 +547,7 @@ class CTable extends Component {
         }
       }
     });
-    this.setState({ selectedNodeList }, callback);
+    this.setState({ selectedNodeList }, onCheckedAfter);
   };
 
   /**
@@ -673,7 +738,7 @@ class CTable extends Component {
       const { columnData } = this.state;
       this.setState(
         {
-          columnData: columnData.map((item) => {
+          originColumnData: columnData.map((item) => {
             if (item.dataIndex === columnItem.dataIndex) {
               return {
                 ...item,
@@ -719,6 +784,8 @@ class CTable extends Component {
       rowClassName,
       className,
       onRow,
+      supportResizeColumn,
+      supportConfigColumn,
     } = this.props;
     const {
       data,
@@ -744,6 +811,7 @@ class CTable extends Component {
                 !bordered && headerBordered,
               [`${tablePrefixCls}-loading`]: isLoading,
               [`${tablePrefixCls}-empty`]: !data.length,
+              [`${tablePrefixCls}-support-config`]: supportConfigColumn,
             },
             className,
           )}
@@ -770,6 +838,15 @@ class CTable extends Component {
               return rowClassName(row);
             }}
             onRow={onRow}
+            components={
+              supportResizeColumn
+                ? {
+                    header: {
+                      cell: ResizableTitle,
+                    },
+                  }
+                : undefined
+            }
           />
           <Loading
             className={`${tablePrefixCls}-loading-layer`}
@@ -854,6 +931,7 @@ CTable.propTypes = {
   onLoadGridBefore: PropTypes.func,
   isCheckboxFixed: PropTypes.bool,
   supportConfigColumn: PropTypes.bool,
+  supportResizeColumn: PropTypes.bool,
 };
 
 CTable.defaultProps = {
@@ -890,4 +968,5 @@ CTable.defaultProps = {
   onLoadGridBefore: () => {},
   isCheckboxFixed: false,
   supportConfigColumn: false,
+  supportResizeColumn: false,
 };
