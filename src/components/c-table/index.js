@@ -22,6 +22,7 @@ import Radio from '../radio';
 import Icon from '../icon';
 import Loading from '../loading';
 import Tooltip from '../tooltip';
+import emptyImg from './empty.png';
 import './index.less';
 
 class CTable extends Component {
@@ -765,8 +766,31 @@ class CTable extends Component {
     this.loadGrid({ ...params, pageNum: gotoFirstPage ? 1 : params.pageNum });
   };
 
+  /**
+   * 表格数据为空模板
+   * @returns {*}
+   */
+  emptyTpl = () => {
+    if (this.props.emptyTpl()) {
+      return this.props.emptyTpl();
+    }
+    return (
+      <div className={`${tablePrefixCls}-no-data`}>
+        <img src={emptyImg} height={90} alt="暂无数据" />
+        <p style={{ marginTop: 4 }}>暂无数据</p>
+      </div>
+    );
+  };
+
   render() {
-    const { ref, leafNodesMap, onPageChange, onRefresh, getKeyFieldVal } = this;
+    const {
+      ref,
+      leafNodesMap,
+      onPageChange,
+      onRefresh,
+      getKeyFieldVal,
+      emptyTpl,
+    } = this;
     const {
       style,
       bordered,
@@ -774,7 +798,6 @@ class CTable extends Component {
       size,
       supportPage,
       footerTpl,
-      emptyTpl,
       supportCheckbox,
       supportRadio,
       rowKey,
@@ -950,7 +973,7 @@ CTable.defaultProps = {
   pageOpts: {},
   onCheckedAfter: () => {},
   onCheckedAllAfter: () => {},
-  emptyTpl: () => '暂无数据',
+  emptyTpl: () => '',
   checkedData: [],
   showTotal: false,
   showRefresh: true,
