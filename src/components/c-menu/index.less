@@ -40,6 +40,9 @@
     display: block;
   }
 }
+.rc-menu-submenu .rc-menu-sub {
+  transition: 0.3s all;
+}
 
 .@{menu} {
   position: relative;
@@ -205,12 +208,17 @@
   -moz-transition: 0.5s; /* Firefox 4 */
   -webkit-transition: 0.5s; /* Safari 和 Chrome */
   -o-transition: 0.5s; /* Opera */
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
+
   .rc-menu-submenu-selected {
     background-color: #fff;
   }
   .rc-menu-submenu-arrow {
     right: 8px !important;
+  }
+  &.rc-menu-sub {
+    overflow: hidden;
   }
 
   .rc-menu-submenu-title {
