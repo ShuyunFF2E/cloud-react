@@ -18,13 +18,11 @@
 
   // 通用全局样式
   .rc-menu-submenu-arrow {
+    // right: 8px !important;
     font-family: 'icon' !important;
     &::before {
       content: '\e624' !important;
     }
-  }
-  .rc-menu-submenu-hidden {
-    display: none;
   }
   .rc-menu-item-selected {
     background-color: @lightSelectedBg !important;
@@ -207,10 +205,12 @@
   -moz-transition: 0.5s; /* Firefox 4 */
   -webkit-transition: 0.5s; /* Safari 和 Chrome */
   -o-transition: 0.5s; /* Opera */
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow: hidden;
   .rc-menu-submenu-selected {
     background-color: #fff;
+  }
+  .rc-menu-submenu-arrow {
+    right: 8px !important;
   }
 
   .rc-menu-submenu-title {

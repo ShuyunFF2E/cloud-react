@@ -4,11 +4,17 @@ import 'rc-menu/assets/index.css';
 import { Icon, Tooltip } from 'cloud-react';
 import classNames from 'classnames';
 import { omit, prefixCls } from '@utils';
+import collapseMotion from '@utils/motion';
+
 import SubMenu from './SubMenu';
 import Item from './MenuItem';
 import { cloneElement } from './reactNode';
 import './index.less';
 import MenuContext from './MenuContext';
+
+const defaultMotions = {
+  inline: collapseMotion,
+};
 
 class InternalMenu extends React.Component {
   static defaultProps = {
@@ -58,6 +64,7 @@ class InternalMenu extends React.Component {
             {...passedProps}
             inlineCollapsed={this.state.collapsed}
             expandIcon={cloneElement(expandIcon)}
+            defaultMotions={defaultMotions}
           />
           {this.props.inlineCollapsed && (
             <div className={`${prefixCls}-menu-inlineCollapsed`}>
@@ -85,6 +92,7 @@ class InternalMenu extends React.Component {
 
 class CMenu extends React.Component {
   static Item = Item;
+
   static SubMenu = SubMenu;
 
   render() {
