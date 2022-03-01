@@ -775,7 +775,7 @@ class CTable extends Component {
       return this.props.emptyTpl();
     }
     return (
-      <div className={`${tablePrefixCls}-no-data`}>
+      <div className={`${tablePrefixCls}-no-data`} style={this.props.emptyStyle} >
         <img src={emptyImg} height={90} alt="暂无数据" />
         <p style={{ marginTop: 4 }}>暂无数据</p>
       </div>
@@ -955,6 +955,7 @@ CTable.propTypes = {
   isCheckboxFixed: PropTypes.bool,
   supportConfigColumn: PropTypes.bool,
   supportResizeColumn: PropTypes.bool,
+  emptyStyle: PropTypes.object,
 };
 
 CTable.defaultProps = {
@@ -992,4 +993,5 @@ CTable.defaultProps = {
   isCheckboxFixed: false,
   supportConfigColumn: false,
   supportResizeColumn: false,
+  emptyStyle: {},
 };

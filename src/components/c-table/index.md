@@ -77,6 +77,7 @@ group:
 | showPageSizeOptions | 显示下拉选择每页显示多少条                   | boolean                     | false            |
 | total               | 数据总数                                     | number                      | 0                |
 | isAppendToBody      | 分页下拉框是否渲染在 body 上	          | boolean                      | false                |
+| emptyStyle | 数据为空默认模板的样式 | object     |   {}   | |
 
 #### expandable
 https://table-react-component.vercel.app/
