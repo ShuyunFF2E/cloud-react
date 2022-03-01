@@ -586,7 +586,7 @@ class CTable extends Component {
     });
     this.setCheckboxColumn();
     this.updateSelectedNodes(() => {
-      this.props.onCheckedAfter(this.state.selectedNodeList);
+      this.props.onCheckedAfter(this.state.selectedNodeList, row);
     });
   };
 
@@ -605,7 +605,7 @@ class CTable extends Component {
     });
     this.setCheckboxColumn();
     this.updateSelectedNodes(() => {
-      this.props.onCheckedAfter(this.state.selectedNodeList);
+      this.props.onCheckedAfter(this.state.selectedNodeList, row);
     });
   };
 
@@ -775,7 +775,10 @@ class CTable extends Component {
       return this.props.emptyTpl();
     }
     return (
-      <div className={`${tablePrefixCls}-no-data`} style={this.props.emptyStyle} >
+      <div
+        className={`${tablePrefixCls}-no-data`}
+        style={this.props.emptyStyle}
+      >
         <img src={emptyImg} height={90} alt="暂无数据" />
         <p style={{ marginTop: 4 }}>暂无数据</p>
       </div>

@@ -33,8 +33,8 @@ group:
 | pageOpts | 分页信息，详细见下表 **pageOpts**    | object   |   -   | |
 | supportCheckbox | 是否支持多选    | boolean   |   false   | |
 | checkedData | 已选数据    | array   |   []   | |
-| onCheckedAfter | 选中行回调，需要设置 supportCheckbox 为 true    | function   |   -   | |
-| onCheckedAllAfter | 选中当页回调，需要设置 supportCheckbox 为 true    | function   |   -   | |
+| onCheckedAfter | 选中行回调，需要设置 supportCheckbox 为 true，Function(checkedList, checkedRow)    | function   |   -   | | 
+| onCheckedAllAfter | 选中当页回调，需要设置 supportCheckbox 为 true，Function(checkedList)   | function   |   -   | | 
 | emptyTpl | 自定义数据为空模板   | function   |   -   | |
 | showTotal | 显示总条数   | boolean   |   false   | |
 | showRefresh | 显示刷新按钮   | boolean   |   true   | |
