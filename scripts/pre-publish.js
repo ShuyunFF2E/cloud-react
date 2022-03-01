@@ -22,40 +22,40 @@ function start() {
     'utf-8',
   );
 
-  const norContent = fs
-    .readFileSync(path.join('src/components/style/core/normalize.less'))
-    .toString()
-    .replace(/(\/\*([\s\S]*?)\*\/|([^:]|^)\/\/(.*)$)/gm, '');
-  const aniContent = fs
-    .readFileSync(path.join('src/components/style/mixins/animation.less'))
-    .toString()
-    .replace(/(\/\*([\s\S]*?)\*\/|([^:]|^)\/\/(.*)$)/gm, '');
-  const cloudContent = fs
-    .readFileSync(path.resolve('dist/cloud-react.css'))
-    .toString();
-  fs.writeFileSync(
-    path.resolve('dist/cloud-react.css'),
-    norContent + aniContent + cloudContent,
-    'utf-8',
-  );
-  const cloudContentMin = fs
-    .readFileSync(path.resolve('dist/cloud-react.min.css'))
-    .toString();
-  const norContentMin = norContent
-    .replace(/\n\n/g, '')
-    .replace(/\r\n/g, '')
-    .replace(/\n/g, '')
-    .replace(/\s/g, '');
-  const aniContentMin = aniContent
-    .replace(/\n\n/g, '')
-    .replace(/\r\n/g, '')
-    .replace(/\n/g, '')
-    .replace(/\s/g, '');
-  fs.writeFileSync(
-    path.resolve('dist/cloud-react.min.css'),
-    norContentMin + aniContentMin + cloudContentMin,
-    'utf-8',
-  );
+  // const norContent = fs
+  //   .readFileSync(path.join('src/components/style/core/normalize.less'))
+  //   .toString()
+  //   .replace(/(\/\*([\s\S]*?)\*\/|([^:]|^)\/\/(.*)$)/gm, '');
+  // const aniContent = fs
+  //   .readFileSync(path.join('src/components/style/mixins/animation.less'))
+  //   .toString()
+  //   .replace(/(\/\*([\s\S]*?)\*\/|([^:]|^)\/\/(.*)$)/gm, '');
+  // const cloudContent = fs
+  //   .readFileSync(path.resolve('dist/cloud-react.css'))
+  //   .toString();
+  // fs.writeFileSync(
+  //   path.resolve('dist/cloud-react.css'),
+  //   norContent + aniContent + cloudContent,
+  //   'utf-8',
+  // );
+  // const cloudContentMin = fs
+  //   .readFileSync(path.resolve('dist/cloud-react.min.css'))
+  //   .toString();
+  // const norContentMin = norContent
+  //   .replace(/\n\n/g, '')
+  //   .replace(/\r\n/g, '')
+  //   .replace(/\n/g, '')
+  //   .replace(/\s/g, '');
+  // const aniContentMin = aniContent
+  //   .replace(/\n\n/g, '')
+  //   .replace(/\r\n/g, '')
+  //   .replace(/\n/g, '')
+  //   .replace(/\s/g, '');
+  // fs.writeFileSync(
+  //   path.resolve('dist/cloud-react.min.css'),
+  //   norContentMin + aniContentMin + cloudContentMin,
+  //   'utf-8',
+  // );
 }
 
 start();
