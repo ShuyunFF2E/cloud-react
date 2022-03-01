@@ -26,7 +26,7 @@ export default defineConfig({
     },
     {
       title: '组件(v1版)',
-      path: 'https://cloud-react.shuyun.com/v2/cloud-react',
+      path: 'https://cloud-react.shuyun.com/v1/cloud-react',
     },
     {
       title: '数云Echarts图表库',
