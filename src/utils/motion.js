@@ -1,6 +1,6 @@
 const getCollapsedHeight = () => ({ height: 0, opacity: 0, marginTop: '-4px' });
-const getRealHeight = node => { console.log(node.scrollHeight, 'node.scrollHeight');return ({ height: node.scrollHeight, opacity: 1 })};
-const getCurrentHeight = node => { console.log(node.offsetHeight, 'node'); return ({ height: (node.offsetHeight + 20) })};
+const getRealHeight = node => ({ height: node.scrollHeight, opacity: 1 });
+const getCurrentHeight = node => ({ height: node.offsetHeight });
 const skipOpacityTransition = (_, event) =>
   event?.deadline === true || (event).propertyName === 'height';
 
