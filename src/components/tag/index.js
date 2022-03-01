@@ -68,7 +68,7 @@ export default class Tag extends Component {
     if (this.ref.current) {
       const { width } = this.ref.current.getBoundingClientRect();
       this.setState({
-        hasTooltip: width >= this.props.maxWidth || 200,
+        hasTooltip: width >= (this.props.maxWidth || 200),
       });
     }
   }
