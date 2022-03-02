@@ -16,7 +16,7 @@ group:
 | 属性        | 说明                 | 类型             | 默认值     |
 | ----------- | -------------------- | ---------------- | ---------- |
 | className      |menu类名             | string |-      |
-| mode  | 菜单类型，现在支持垂直vertical、水平horizontal         | string  `vertical`、`horizontal`            | `vertical`      |
+| mode  | 菜单类型，支持垂直vertical、内嵌inline、水平horizontal         | string  `vertical`、`inline`、`horizontal`            | `vertical`      |
 | theme      |菜单主题             | string  `light`、`dark` |`light`|
 | triggerSubMenuAction  | 如何触发菜单选中事件               | click、hover |horizontal下默认hover,vertical下默认click        |
 | onClick  | 菜单点击事件   | function({key:String, item:ReactComponent, domEvent:Event, keyPath: String[]}) |-        |
@@ -25,6 +25,7 @@ group:
 | defaultSelectedKeys      |默认选中的菜单             |  String[]  | []       |
 | openKeys      |展开的菜单             |  String[]  | []       |
 | defaultOpenKeys      |默认展开的菜单             |  String[]  | []       |
+| inlineCollapsed      |是否支持收缩导航栏(仅在inline与vertical下生效)            |  boolean  | false      |
 
 ### Menu.Item
 
