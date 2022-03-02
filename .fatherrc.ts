@@ -43,7 +43,10 @@ export default {
     //   limit: Infinity,
     // }),
     copy({
-      targets: [{ src: 'package.json', dest: 'dist' }],
+      targets: [
+        { src: 'package.json', dest: 'dist' },
+        { src: 'src/locale', dest: 'dist' },
+      ],
     }),
     alias({
       entries: [

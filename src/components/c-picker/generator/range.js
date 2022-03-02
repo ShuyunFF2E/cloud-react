@@ -1,9 +1,9 @@
 import * as React from 'react';
 import classNames from 'classnames';
 import { RangePicker as RCRangePicker } from 'rc-picker';
+import defaultLocale from '../../../locale/zh_CN';
 import { prefixCls as rootPrefixCls } from '../../../utils';
 import Icon from '../../icon';
-import defaultLocale from '../locales/zh_CN';
 import components from './components';
 import { getTimeProps } from './utils';
 
