@@ -1,8 +1,9 @@
-// import TimePickerLocale from '../../time-picker/locale/zh_CN';
+import CalendarLocale from 'rc-picker/lib/locale/zh_CN';
 
 // 统一合并为完整的 Locale
 const locale = {
   lang: {
+    ...CalendarLocale,
     locale: 'zh_CN',
     today: '今天',
     now: '此刻',
@@ -14,6 +15,7 @@ const locale = {
     clear: '清除',
     month: '月',
     year: '年',
+    shortWeekDays: ['日', '一', '二', '三', '四', '五', '六'],
     previousMonth: '上个月',
     nextMonth: '下个月',
     monthSelect: '选择月份',
@@ -51,6 +53,7 @@ const locale = {
   yearFormat: 'YYYY年',
   dateTimeFormat: 'YYYY/MM/DD HH:mm:ss',
   timeFormat: 'HH:mm:ss',
+  shortWeekDays: ['日', '一', '二', '三', '四', '五', '六'],
 };
 
 locale.lang.ok = '确 定';
