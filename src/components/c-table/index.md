@@ -66,6 +66,7 @@ group:
 | render     | 自定义列模板                                     | function                      | -               |
 | sortable     | 是否支持排序                                     | boolean                      | false               |
 | sorter     | 自定义列排序规则                                     | function                      | -               |
+| onCell     | 为每个单元格设置自定义参数 Function(record, index)                                   | function                      | -               |
 
 #### pageOpts
 | 属性                | 说明                                         | 类型                        | 默认值           |
@@ -133,3 +134,5 @@ https://table-react-component.vercel.app/
 <embed src="@components/c-table/demos/disabled1.md" /> 
 
 <embed src="@components/c-table/demos/edit.md" /> 
+
+<embed src="@components/c-table/demos/row-col-span.md" /> 
