@@ -12,7 +12,7 @@ export default class MenuItem extends React.Component {
   renderItemChildren() {
     const { icon, children } = this.props;
     const { firstLevel, inlineCollapsed } = this.context;
-    const wrapNode = <span>{children}</span>;
+    const wrapNode = <>{children}</>;
     if (icon && inlineCollapsed) {
       return '';
     }
