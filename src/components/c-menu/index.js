@@ -1,16 +1,17 @@
 import * as React from 'react';
 import RcMenu from 'rc-menu';
-import 'rc-menu/assets/index.css';
-import { Icon, Tooltip } from 'cloud-react';
-import classNames from 'classnames';
 import { omit, prefixCls } from '@utils';
 import collapseMotion from '@utils/motion';
+import classNames from 'classnames';
+import 'rc-menu/assets/index.css';
 
+import { cloneElement } from './reactNode';
+import Icon from '../icon';
+import Tooltip from '../tooltip';
+import MenuContext from './MenuContext';
 import SubMenu from './SubMenu';
 import Item from './MenuItem';
-import { cloneElement } from './reactNode';
 import './index.less';
-import MenuContext from './MenuContext';
 
 const defaultMotions = {
   inline: collapseMotion,
