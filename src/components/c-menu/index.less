@@ -2,6 +2,7 @@
 @import '../style/core/index.less';
 
 @menu: ~'@{prefix}-menu';
+@menuLink: ~'@{prefix}-inc-link';
 @menuDark: ~'@{prefix}-menu-dark';
 @menuLight: ~'@{prefix}-menu-light';
 @menuCollapsed: ~'@{prefix}-menu-collapsed';
@@ -106,6 +107,13 @@
 }
 .rc-menu-submenu .rc-menu-sub {
   transition: 0.3s all;
+}
+
+.@{menuLink} {
+  position: absolute;
+  left: 0;
+  opacity: 0;
+  width: 100%;
 }
 
 .@{menu} {
