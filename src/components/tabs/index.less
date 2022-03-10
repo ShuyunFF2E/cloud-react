@@ -79,6 +79,10 @@
     &::before {
       border-bottom: 1px solid @gray-4;
     }
+
+    &.@{selector}-header-more {
+      padding: 0 30px;
+    }
   }
 
   &-header-line {
@@ -391,7 +395,7 @@
   &-item-bar {
     transition: left 0.3s;
     position: absolute;
-    bottom: 1px;
+    bottom: 0;
     left: 0;
     height: 2px;
     z-index: 1;
