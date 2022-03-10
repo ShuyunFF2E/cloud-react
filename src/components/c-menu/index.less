@@ -1,4 +1,5 @@
 @import '../style/index';
+@import '../style/core/index.less';
 
 @menu: ~'@{prefix}-menu';
 @menuDark: ~'@{prefix}-menu-dark';
@@ -10,13 +11,73 @@
 @verticalHeader: ~'@{prefix}-menu-vertical-header';
 @lightDisabled: rgba(0, 0, 0, 0.5);
 @darkDisabled: rgba(255, 255, 255, 0.5);
-@lightSelectedBg: rgba(245, 248, 255, 1);
-@lightSelectedColor: #5280FF;
+@lightSelectedBg: @blue-1;
+@lightSelectedColor: @blue-4;
 @lightColor: #fff;
-@darkColor: #000B52;
+@darkColor: @blue-7;
 @darkActive: rgba(255, 255, 255, 0.1);
 
   // 通用全局样式
+  .rc-menu-root{
+    box-shadow: none;
+    border: none;
+    height: 100%;
+  }
+
+  .rc-menu{
+    font-size: 14px;
+    line-height: 20px;
+    box-shadow: none;
+    user-select: none;
+    .rc-menu-item.rc-menu-item-disabled {
+      cursor: not-allowed;
+    }
+    a {
+		color: inherit;
+		display: inline-block;
+		width: 100%;
+		height: 100%;
+    &:link {
+      text-decoration: none;
+    }
+    &:visited {
+      text-decoration: none;
+    }
+    &:hover {
+        color: inherit;
+        text-decoration: none;
+    }
+    &:active {
+        text-decoration: none;
+    }
+  }}
+
+  // .rc-menu-item {
+  //     position: relative;
+  //     height: 40px;
+  //     & > span {
+  //       padding-left: inherit;
+  //       & > span {
+  //         padding-left: inherit;
+  //       }
+  //     }
+  //     a {
+  //       position: absolute;
+  //       top: 0;
+  //       left: 0;
+  //       display: block;
+  //       padding: 10px 0;
+  //       padding-left: inherit;
+  //     }
+  //   }
+
+  .rc-menu-submenu-hidden {
+    display: none;
+  }
+
+  [role="menuitem"]{
+    cursor: pointer;
+  }
   .rc-menu-submenu-arrow {
     // right: 8px !important;
     font-family: 'icon' !important;
@@ -26,6 +87,9 @@
   }
   .rc-menu-item-selected {
     background-color: @lightSelectedBg !important;
+    a {
+      color: @lightSelectedColor;
+    }
   }
   .rc-menu-submenu-popup {
     z-index: 10;
@@ -89,27 +153,6 @@
   }
 }
 
-.rc-menu-root{
-  //box-shadow: none;
-  border: none;
-}
-
-.rc-menu{
-  font-size: 14px;
-  line-height: 20px;
-  .rc-menu-item.rc-menu-item-disabled {
-    cursor: not-allowed;
-  }
-  user-select: none;
-}
-
-.rc-menu-submenu-hidden {
-  display: none;
-}
-
-[role="menuitem"]{
-  cursor: pointer;
-}
 
 // mode === horizontal
 .rc-menu-horizontal {
@@ -175,6 +218,9 @@
     background-color: @lightColor;
     & > .rc-menu-submenu-title {
       background-color: @lightColor;
+    }
+    a:hover {
+      color: @lightSelectedColor !important;
     }
   }
   .rc-menu-item.rc-menu-item-disabled {

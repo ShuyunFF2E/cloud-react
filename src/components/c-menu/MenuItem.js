@@ -1,8 +1,9 @@
 import React from 'react';
 import { Item } from 'rc-menu';
-import { Tooltip } from 'cloud-react';
 import classNames from 'classnames';
+
 import { isValidElement, cloneElement } from './reactNode';
+import Tooltip from '../tooltip';
 import MenuContext from './MenuContext';
 
 export default class MenuItem extends React.Component {
@@ -11,8 +12,7 @@ export default class MenuItem extends React.Component {
   renderItemChildren() {
     const { icon, children } = this.props;
     const { firstLevel, inlineCollapsed } = this.context;
-
-    const wrapNode = <span>{children}</span>;
+    const wrapNode = <>{children}</>;
     if (icon && inlineCollapsed) {
       return '';
     }
