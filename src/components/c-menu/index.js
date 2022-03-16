@@ -71,11 +71,11 @@ class InternalMenu extends React.Component {
             <div className={`${prefixCls}-menu-inlineCollapsed`}>
               {this.state.collapsed ? (
                 <Tooltip placement="right" content="展开导航栏">
-                  <Icon type="menu" onClick={this.toggleCollapsed} />
+                  <Icon type="group-fill1" onClick={this.toggleCollapsed} />
                 </Tooltip>
               ) : (
                 <div onClick={this.toggleCollapsed}>
-                  <Icon type="menu" />
+                  <Icon type="group-fill1" />
                   <span className="text">收起导航栏</span>
                 </div>
               )}
