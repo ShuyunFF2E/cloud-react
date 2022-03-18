@@ -23,6 +23,7 @@ group:
 | rowKey | 表格数据的唯一标识    | string   |   'id'   | |
 | bordered | 是否展示表格边框   | boolean   |   false   | |
 | size | 表格大小，可选 `default` `small`     | string   |   `default`   | |
+| maxHeight | tbody最大高度    | string/number |   -   |
 | supportExpend | 是否支持展开    | boolean   |   false   | |
 | onExpand | 表格展开的回调函数，需要设置 supportExpend 为 true    | function   |   -   | |
 | expandedRowRender | 表格展开区域的内容    | function   |   -  | |
