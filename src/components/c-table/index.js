@@ -838,6 +838,7 @@ class CTable extends Component {
               [`${tablePrefixCls}-loading`]: isLoading,
               [`${tablePrefixCls}-empty`]: !data.length,
               [`${tablePrefixCls}-support-config`]: supportConfigColumn,
+              [`${tablePrefixCls}-support-checkbox`]: supportCheckbox,
             },
             className,
           )}
