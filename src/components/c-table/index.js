@@ -812,6 +812,7 @@ class CTable extends Component {
       onRow,
       supportResizeColumn,
       supportConfigColumn,
+      maxHeight,
     } = this.props;
     const {
       data,
@@ -823,7 +824,11 @@ class CTable extends Component {
       isLoading,
     } = this.state;
     const { pageNum, pageSize, totals } = pageOpts;
-    const fixed = !!(columnData.find((item) => item.fixed) || style.height);
+    const fixed = !!(
+      columnData.find((item) => item.fixed) ||
+      style.height ||
+      maxHeight
+    );
 
     return (
       <div className={`${tablePrefixCls}-container`} style={style} ref={ref}>
@@ -849,7 +854,7 @@ class CTable extends Component {
             columns={columnData}
             data={data}
             expandIconColumnIndex={expandIconColumnIndex}
-            scroll={fixed ? { x: '100%', y: '100%' } : {}}
+            scroll={fixed ? { x: '100%', y: maxHeight || '100%' } : {}}
             expandable={getExpandableConfig({ ...this.props })}
             emptyText={emptyTpl()}
             rowKey={rowKey}
@@ -960,6 +965,7 @@ CTable.propTypes = {
   supportConfigColumn: PropTypes.bool,
   supportResizeColumn: PropTypes.bool,
   emptyStyle: PropTypes.object,
+  maxHeight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 CTable.defaultProps = {
@@ -998,4 +1004,5 @@ CTable.defaultProps = {
   supportConfigColumn: false,
   supportResizeColumn: false,
   emptyStyle: {},
+  maxHeight: '',
 };

@@ -20,6 +20,7 @@ class Pagination extends Component {
     showQuickJumper: PropTypes.bool,
     type: PropTypes.oneOf(['default', 'simple']),
     isAppendToBody: PropTypes.bool,
+    className: PropTypes.string,
   };
 
   static defaultProps = {
@@ -32,6 +33,7 @@ class Pagination extends Component {
     showQuickJumper: false,
     type: 'default',
     isAppendToBody: false,
+    className: '',
   };
 
   constructor(props) {
@@ -379,6 +381,7 @@ class Pagination extends Component {
     const classes = classNames(
       `${prefixCls}-pagination`,
       `${prefixCls}-pagination-${this.props.type}`,
+      this.props.className,
     );
 
     return (

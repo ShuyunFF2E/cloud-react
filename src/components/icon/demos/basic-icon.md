@@ -95,7 +95,8 @@ const iconList = [
 	'close',
 	'checkbox',
 	'checkbox-indeterminate',
-	'checkbox-blank'
+	'checkbox-blank',
+	'group-fill1',
 ];
 export default class IconDemo extends Component {
 	render() {
