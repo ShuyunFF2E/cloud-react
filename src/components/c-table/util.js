@@ -1,3 +1,5 @@
+import { tablePrefixCls } from './constant';
+
 /**
  * 如果 ajaxData 是数组，则返回 ajaxData；如果 ajaxData 是函数，则返回 ajaxData() 执行后的结果
  * @param ajaxData
@@ -86,3 +88,29 @@ export function traverseTree(tree, callback) {
   };
   tree.forEach((node) => fn(node));
 }
+
+function getConfigKey(tableName) {
+  const { pathname, hash } = window.location;
+  return `${pathname}${hash}${tablePrefixCls}-config-${tableName}`;
+}
+
+export const setConfig = (data, tableName) => {
+  if (!tableName) {
+    return;
+  }
+  window.sessionStorage.setItem(getConfigKey(tableName), JSON.stringify(data));
+};
+
+export const getConfig = (tableName) => {
+  if (!tableName) {
+    return '';
+  }
+  return JSON.parse(window.sessionStorage.getItem(getConfigKey(tableName)));
+};
+
+export const removeConfig = (tableName) => {
+  if (!tableName) {
+    return;
+  }
+  window.sessionStorage.removeItem(getConfigKey(tableName));
+};

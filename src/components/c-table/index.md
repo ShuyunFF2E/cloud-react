@@ -52,6 +52,8 @@ group:
 | isCheckboxFixed | 是否固定多选框列或单选框列  | boolean	   |   false   | |
 | supportConfigColumn | 是否支持配置列的隐藏和展示  | boolean	   |   false   | |
 | supportResizeColumn | 是否支持配置列的拉伸 | boolean	   |   false   | |
+| supportMemory | 是否开启表格记忆功能 | boolean     |   false   | | 
+| tableId | 表格ID。supportMemory 为 true 的时候，需要设置 tableId；其他场景无需设置 | string     |   ''   | | 
 
 手动刷新表格：this.tableRef.refreshTable(params?);
 
