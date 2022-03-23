@@ -54,6 +54,7 @@ group:
 | supportResizeColumn | 是否支持配置列的拉伸 | boolean	   |   false   | |
 | supportMemory | 是否开启表格记忆功能 | boolean     |   false   | | 
 | tableId | 表格ID。supportMemory 为 true 的时候，需要设置 tableId；其他场景无需设置 | string     |   ''   | | 
+| expandIconColumnIndex | 展开行图标将插入哪一列的索引 | 	number   |   0   | |
 
 手动刷新表格：this.tableRef.refreshTable(params?);
 

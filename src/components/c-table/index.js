@@ -48,7 +48,7 @@ class CTable extends Component {
         show: true,
       })),
     footerHeight: 0,
-    expandIconColumnIndex: 0,
+    expandIconColumnIndex: this.props.expandIconColumnIndex,
     pageOpts: { ...this.defaultPageOpts, ...this.props.pageOpts },
     selectedNodeList: this.props.checkedData,
     isLoading: false,
@@ -469,14 +469,14 @@ class CTable extends Component {
 
     if (supportCheckbox || supportRadio) {
       this.setState({
-        expandIconColumnIndex: 1,
+        expandIconColumnIndex: this.props.expandIconColumnIndex + 1,
         columnData: resolvedColumnData,
       });
       return;
     }
     this.setState({
       columnData: resolvedColumnData,
-      expandIconColumnIndex: 0,
+      expandIconColumnIndex: this.props.expandIconColumnIndex,
     });
   };
 
@@ -491,7 +491,7 @@ class CTable extends Component {
     if (supportCheckbox) {
       const checkboxColumn = this.getCheckboxColumn(isFirstColumnFixed);
       this.setState({
-        expandIconColumnIndex: 1,
+        expandIconColumnIndex: this.props.expandIconColumnIndex + 1,
         columnData:
           columnData[0].dataIndex === 'checkbox'
             ? [checkboxColumn, ...columnData.slice(1)]
@@ -502,7 +502,7 @@ class CTable extends Component {
     if (supportRadio) {
       const radioColumn = this.getRadioColumn(isFirstColumnFixed);
       this.setState({
-        expandIconColumnIndex: 1,
+        expandIconColumnIndex: this.props.expandIconColumnIndex + 1,
         columnData:
           columnData[0].dataIndex === 'radio'
             ? [radioColumn, ...columnData.slice(1)]
@@ -511,7 +511,7 @@ class CTable extends Component {
       return;
     }
     this.setState({
-      expandIconColumnIndex: 0,
+      expandIconColumnIndex: this.props.expandIconColumnIndex,
     });
   };
 
