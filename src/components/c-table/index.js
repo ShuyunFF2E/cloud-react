@@ -146,10 +146,11 @@ class CTable extends Component {
       return;
     }
     const fixedEles = Array.from(
-      this.ref.current.querySelectorAll('th.cloud-table-cell-fix-right'),
+      this.ref.current.querySelectorAll(
+        'th.cloud-table-cell-fix-right:not(.cloud-table-cell-scrollbar)',
+      ),
     );
     if (fixedEles.length) {
-      fixedEles.pop();
       fixedEles.reverse().forEach((ele, index) => {
         if (index === 0) {
           Object.assign(ele.style, { right: 0 });
