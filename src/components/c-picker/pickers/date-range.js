@@ -14,6 +14,7 @@ import { STR, OBJ, transformString2Moment } from '../utils';
 const { DateRangePicker: Picker } = generatePicker(momentGenerateConfig);
 
 const DateRangePicker = ({
+  size,
   className,
   dropdownClassName, // New
   disabled,
@@ -206,6 +207,7 @@ const DateRangePicker = ({
 
   return (
     <Picker
+      size={size}
       style={{ width, ...style }}
       defaultValue={
         _defaultValue && [

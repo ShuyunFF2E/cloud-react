@@ -8,6 +8,7 @@ import { transformString2Moment } from '../utils';
 const { TimePicker: Picker } = generatePicker(momentGenerateConfig);
 
 const TimePicker = ({
+  size,
   className,
   dropdownClassName, // New
   disabled,
@@ -77,6 +78,7 @@ const TimePicker = ({
 
   return (
     <Picker
+      size={size}
       style={{ width, ...style }}
       defaultValue={_defaultValue && moment(_defaultValue)}
       onChange={handleChange}

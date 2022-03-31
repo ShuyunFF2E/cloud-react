@@ -56,6 +56,7 @@ group:
 | className         | 输入框弹层 className                                 | string                  | -                 |
 | dropdownClassName | 日历弹层 className                                 | string                  | -                 |
 | open              | 指示日历弹层打开状态（可用于使组件完全受控）                  | boolean                 | `false`           |
+| size              | 输入框大小，可选值为`large` `default` ` small`，默认高度32px  | string                  | -                 |
 | width             | 输入框宽度（兼容老版本，与原生 style 传值相同，新代码建议使用 style 属性即可）    | number / string        | -           |
 | style             | 输入框样式                                        | CSSProperties                    | -                 |
 | isAppendToBody    | 指示弹层是否渲染在body上（兼容老版本，新代码请使用 getPopupContainer 属性）           | boolean     | `true`        |

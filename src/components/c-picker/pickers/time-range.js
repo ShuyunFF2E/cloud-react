@@ -8,6 +8,7 @@ import { transformString2Moment } from '../utils';
 const { TimeRangePicker: Picker } = generatePicker(momentGenerateConfig);
 
 const TimeRangePicker = ({
+  size,
   className,
   dropdownClassName, // New
   disabled,
@@ -98,6 +99,7 @@ const TimeRangePicker = ({
 
   return (
     <Picker
+      size={size}
       style={{ width, ...style }}
       defaultValue={
         _defaultValue && [

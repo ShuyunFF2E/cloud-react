@@ -7,6 +7,7 @@ import { monthFormat } from '../formats';
 const { MonthPicker: Picker } = generatePicker(momentGenerateConfig);
 
 const MonthPicker = ({
+  size,
   className,
   dropdownClassName, // New
   disabled,
@@ -116,6 +117,7 @@ const MonthPicker = ({
 
   return (
     <Picker
+      size={size}
       style={{ width, ...style }}
       defaultValue={_defaultValue && moment().year(Number(_defaultValue))}
       onChange={handleChange}

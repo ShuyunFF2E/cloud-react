@@ -7,6 +7,7 @@ import { yearFormat } from '../formats';
 const { YearPicker: Picker } = generatePicker(momentGenerateConfig);
 
 const YearPicker = ({
+  size,
   className,
   dropdownClassName, // New
   disabled,
@@ -110,6 +111,7 @@ const YearPicker = ({
 
   return (
     <Picker
+      size={size}
       style={{ width, ...style }}
       defaultValue={_defaultValue && moment().year(Number(_defaultValue))}
       onChange={handleChange}
