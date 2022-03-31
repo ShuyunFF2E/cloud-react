@@ -17,7 +17,7 @@
 .@{selector}-header-basic {
   position: relative;
   display: flex;
-  overflow: hidden;
+  // overflow: hidden;
   white-space: nowrap;
   height: @defaultHeight;
   margin-bottom: 10px;
@@ -113,7 +113,7 @@
 
   &-items {
     width: 100%;
-    overflow: hidden;
+    overflow-x: clip;
 
     &-scroll {
       position: relative;
@@ -395,10 +395,10 @@
   &-item-bar {
     transition: left 0.3s;
     position: absolute;
-    bottom: 0;
+    bottom: -1px;
     left: 0;
     height: 2px;
-    z-index: 1;
+    z-index: 10;
     box-sizing: border-box;
     background: @blue-4;
   }
