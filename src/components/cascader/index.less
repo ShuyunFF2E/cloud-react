@@ -1,46 +1,50 @@
 @import '../style/index';
 .effect() {
-  animation-duration: .3s;
+  animation-duration: 0.3s;
   animation-fill-mode: both;
   transform-origin: 0 0;
 }
-.cloud-cascader-open{
-	.icon-down{
-		transition: transform 0.3s;
-		transform: rotate(180deg);
-		color: #aacbe1;
-	}
-	
+.cloud-cascader-open {
+  .icon-down {
+    transition: transform 0.3s;
+    transform: rotate(180deg);
+    color: #aacbe1;
+  }
+  .cloud-input {
+    cursor: pointer;
+  }
 }
-.cloud-cascader-close{
-	.icon-down{
-		transition: transform 0.3s;
-		transform: rotate(0);
-	}
+.cloud-cascader-close {
+  .icon-down {
+    transition: transform 0.3s;
+    transform: rotate(0);
+  }
+  .cloud-input {
+    cursor: pointer;
+  }
 }
-.cloud-cascader-select-icon{
-	color: #c2c2c2;
+.cloud-cascader-select-icon {
+  color: #c2c2c2;
 }
-.cloud-input{
-	cursor: pointer;
-}
+
 .cloud-cascader {
   font-size: @font-size-base;
-	color: rgba(0, 0, 0, 0.85);
+  color: rgba(0, 0, 0, 0.85);
   &-menus {
     font-size: @font-size-base;
     overflow: hidden;
     background: #fff;
     position: absolute;
-   	box-shadow: @border-shadow-3;
-		border-radius: 2px;
+    box-shadow: @border-shadow-3;
+    border-radius: 2px;
     white-space: nowrap;
 
     &-hidden {
       display: none;
     }
 
-    &.slide-up-enter, &.slide-up-appear {
+    &.slide-up-enter,
+    &.slide-up-appear {
       .effect();
       opacity: 0;
       animation-timing-function: cubic-bezier(0.08, 0.82, 0.17, 1);
@@ -126,7 +130,7 @@
       position: relative;
       &-icon {
         font-size: 12px;
-				color: rgba(0, 0, 0, 0.45);
+        color: rgba(0, 0, 0, 0.45);
         position: absolute;
         right: 18px;
         line-height: 32px;
@@ -139,7 +143,7 @@
   0% {
     opacity: 0;
     transform-origin: 0% 0%;
-    transform: scaleY(.8);
+    transform: scaleY(0.8);
   }
   100% {
     opacity: 1;
