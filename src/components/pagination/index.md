@@ -28,6 +28,7 @@ group:
 | showPageSizeOptions | 显示下拉选择每页显示多少条                   | boolean                     | false            |
 | total               | 数据总数                                     | number                      | 0                |
 | onChange            | 页码改变的回调，参数是改变后的页码及每页条数 | Function(current, pageSize) | noop             |
+| isAppendToBody      | 分页下拉框是否渲染在 body 上	          | boolean                      | true                |
 
  ### 代码演示 
 

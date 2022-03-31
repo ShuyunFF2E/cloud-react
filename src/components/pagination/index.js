@@ -32,7 +32,7 @@ class Pagination extends Component {
     showPageSizeOptions: false,
     showQuickJumper: false,
     type: 'default',
-    isAppendToBody: false,
+    isAppendToBody: true,
     className: '',
   };
 

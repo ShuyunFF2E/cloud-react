@@ -78,7 +78,7 @@ group:
 | pageSizeOptions     | 指定每页可以显示多少条                       | number[]                    | [10, 20, 50, 100] |
 | showPageSizeOptions | 显示下拉选择每页显示多少条                   | boolean                     | false            |
 | total               | 数据总数                                     | number                      | 0                |
-| isAppendToBody      | 分页下拉框是否渲染在 body 上	          | boolean                      | false                |
+| isAppendToBody      | 分页下拉框是否渲染在 body 上	          | boolean                      | true                |
 | emptyStyle | 数据为空默认模板的样式 | object     |   {}   | |
 
 #### expandable

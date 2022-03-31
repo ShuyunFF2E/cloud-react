@@ -116,8 +116,9 @@ class Select extends Component {
   componentDidMount() {
     this.document.addEventListener('click', this.handleClick);
     this.node.current.addEventListener('mouseleave', this.handleMouseLeave);
-    if (this.state.open) this.positionPop();
-
+    // if (this.state.open) {
+    this.positionPop();
+    // }
     if (!this.props.dataSource.length) {
       // console.warn('请传入dataSource属性，未传入可能导致部分功能不能正常使用');
     }
@@ -505,6 +506,7 @@ Select.propTypes = {
   onOk: PropTypes.func,
   onCancel: PropTypes.func,
   size: PropTypes.string,
+  isAppendToBody: PropTypes.bool,
 };
 
 Select.defaultProps = {
@@ -537,6 +539,7 @@ Select.defaultProps = {
   onOk: noop,
   onCancel: noop,
   size: undefined,
+  isAppendToBody: true,
 };
 
 export default Select;
