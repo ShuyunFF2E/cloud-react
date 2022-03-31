@@ -12,6 +12,8 @@ import {
   isEveryChecked,
   traverseTree,
   getLeafNodes,
+  setConfig,
+  getConfig,
 } from './util';
 import { tablePrefixCls } from './constant';
 import getExpandableConfig from './expend';
@@ -39,12 +41,14 @@ class CTable extends Component {
   state = {
     data: [],
     columnData: this.props.columnData.map((item) => ({ ...item, show: true })),
-    originColumnData: this.props.columnData.map((item) => ({
-      ...item,
-      show: true,
-    })),
+    originColumnData:
+      (this.props.supportMemory && getConfig(this.props.tableId)) ||
+      this.props.columnData.map((item) => ({
+        ...item,
+        show: true,
+      })),
     footerHeight: 0,
-    expandIconColumnIndex: 0,
+    expandIconColumnIndex: this.props.expandIconColumnIndex,
     pageOpts: { ...this.defaultPageOpts, ...this.props.pageOpts },
     selectedNodeList: this.props.checkedData,
     isLoading: false,
@@ -60,6 +64,9 @@ class CTable extends Component {
       !this.props.rowKey
     ) {
       console.warn('使用展开行功能或者树状表格功能请指定 rowKey');
+    }
+    if (this.props.supportMemory && !this.props.tableId) {
+      console.warn('请设置 tableId');
     }
     this.props.onLoadGridBefore(this.state.pageOpts);
     this.loadData((res) => {
@@ -139,10 +146,11 @@ class CTable extends Component {
       return;
     }
     const fixedEles = Array.from(
-      this.ref.current.querySelectorAll('th.cloud-table-cell-fix-right'),
+      this.ref.current.querySelectorAll(
+        'th.cloud-table-cell-fix-right:not(.cloud-table-cell-scrollbar)',
+      ),
     );
     if (fixedEles.length) {
-      fixedEles.pop();
       fixedEles.reverse().forEach((ele, index) => {
         if (index === 0) {
           Object.assign(ele.style, { right: 0 });
@@ -327,6 +335,9 @@ class CTable extends Component {
                 checked={item.show}
                 onChange={(checked) => {
                   Object.assign(item, { show: !!checked });
+                  if (this.props.supportMemory) {
+                    setConfig(this.state.originColumnData, this.props.tableId);
+                  }
                   this.setColumnData();
                   setTimeout(this.setHeaderStyle, 150);
                 }}
@@ -459,14 +470,14 @@ class CTable extends Component {
 
     if (supportCheckbox || supportRadio) {
       this.setState({
-        expandIconColumnIndex: 1,
+        expandIconColumnIndex: this.props.expandIconColumnIndex + 1,
         columnData: resolvedColumnData,
       });
       return;
     }
     this.setState({
       columnData: resolvedColumnData,
-      expandIconColumnIndex: 0,
+      expandIconColumnIndex: this.props.expandIconColumnIndex,
     });
   };
 
@@ -481,7 +492,7 @@ class CTable extends Component {
     if (supportCheckbox) {
       const checkboxColumn = this.getCheckboxColumn(isFirstColumnFixed);
       this.setState({
-        expandIconColumnIndex: 1,
+        expandIconColumnIndex: this.props.expandIconColumnIndex + 1,
         columnData:
           columnData[0].dataIndex === 'checkbox'
             ? [checkboxColumn, ...columnData.slice(1)]
@@ -492,7 +503,7 @@ class CTable extends Component {
     if (supportRadio) {
       const radioColumn = this.getRadioColumn(isFirstColumnFixed);
       this.setState({
-        expandIconColumnIndex: 1,
+        expandIconColumnIndex: this.props.expandIconColumnIndex + 1,
         columnData:
           columnData[0].dataIndex === 'radio'
             ? [radioColumn, ...columnData.slice(1)]
@@ -501,7 +512,7 @@ class CTable extends Component {
       return;
     }
     this.setState({
-      expandIconColumnIndex: 0,
+      expandIconColumnIndex: this.props.expandIconColumnIndex,
     });
   };
 
@@ -843,6 +854,7 @@ class CTable extends Component {
               [`${tablePrefixCls}-loading`]: isLoading,
               [`${tablePrefixCls}-empty`]: !data.length,
               [`${tablePrefixCls}-support-config`]: supportConfigColumn,
+              [`${tablePrefixCls}-support-checkbox`]: supportCheckbox,
             },
             className,
           )}
@@ -965,6 +977,8 @@ CTable.propTypes = {
   supportResizeColumn: PropTypes.bool,
   emptyStyle: PropTypes.object,
   maxHeight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  supportMemory: PropTypes.bool,
+  tableId: PropTypes.string,
 };
 
 CTable.defaultProps = {
@@ -1004,4 +1018,6 @@ CTable.defaultProps = {
   supportResizeColumn: false,
   emptyStyle: {},
   maxHeight: '',
+  supportMemory: false,
+  tableId: '',
 };

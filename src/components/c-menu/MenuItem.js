@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import { Item } from 'rc-menu';
 import classNames from 'classnames';
@@ -33,12 +34,16 @@ export default class MenuItem extends React.Component {
 
   renderIcon() {
     const { icon } = this.props;
-    return cloneElement(icon, {
-      className: classNames(isValidElement(icon) ? icon.props?.className : ''),
-    });
+    return (
+      isValidElement(icon) ? <span className={`${prefixCls}-menu-title-icon`}>
+        { cloneElement(icon, {
+        className: classNames(icon.props?.className),
+      })}
+      </span>
+        : ''
+    )
   }
 
-  // eslint-disable-next-line class-methods-use-this
   transformLink(children) {
     if ((children.type === 'a' || children.type?.displayName === 'Link') && this.context.firstLevel) {
       return children.props.children
@@ -47,21 +52,23 @@ export default class MenuItem extends React.Component {
   }
 
   render() {
-    const { children, ...rest } = this.props;
+    const { children, className, ...rest } = this.props;
     const { inlineCollapsed, firstLevel } = this.context;
     this.transformLink(children);
     return (
-      <Item {...rest}>
+      <Item
+        {...rest}
+        className={classNames({ [`${prefixCls}-menu-title`]: firstLevel && !this.props.disabled }, className)}>
         {inlineCollapsed && firstLevel ? (
           <Tooltip placement="right" content={this.transformLink(children)}>
             {this.renderIcon()}
             {this.renderItemChildren()}
           </Tooltip>
         ) : (
-          <span>
-            {this.renderIcon()}
-            {this.renderItemChildren()}
-          </span>
+          <>
+              {this.renderIcon()}
+              {this.renderItemChildren()}
+          </>
         )}
       </Item>
     );

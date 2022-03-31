@@ -5,6 +5,8 @@
 @menuLink: ~'@{prefix}-inc-link';
 @menuDark: ~'@{prefix}-menu-dark';
 @menuLight: ~'@{prefix}-menu-light';
+@menuTitle: ~'@{prefix}-menu-title';
+@menuTitleIcon: ~'@{prefix}-menu-title-icon';
 @menuCollapsed: ~'@{prefix}-menu-collapsed';
 @inlineCollapsed: ~'@{prefix}-menu-inlineCollapsed';
 @header: ~'@{prefix}-menu-header';
@@ -17,6 +19,7 @@
 @lightColor: #fff;
 @darkColor: @blue-7;
 @darkActive: rgba(255, 255, 255, 0.1);
+@titleBold: rgba(0, 0, 0, 0.85);
 
   // 通用全局样式
   .rc-menu-root{
@@ -41,6 +44,7 @@
 		height: 100%;
     &:link {
       text-decoration: none;
+      font-weight: normal;
     }
     &:visited {
       text-decoration: none;
@@ -90,7 +94,12 @@
   .rc-menu-item-selected {
     background-color: @lightSelectedBg !important;
     a {
-      color: @lightSelectedColor;
+      color: @lightSelectedColor !important;
+    }
+  }
+  .rc-menu-item-active {
+    a {
+      color: @lightSelectedColor !important;
     }
   }
   .rc-menu-submenu-popup {
@@ -115,6 +124,7 @@
   left: 0;
   opacity: 0;
   width: 100%;
+  font-weight: 0;
 }
 
 .@{menu} {
@@ -258,7 +268,7 @@
 
 // mode === inline / vertical
 .rc-menu-inline {
-  width: 208px;
+  // width: 208px;
   padding: 16px 8px;
   transition: 0.5s;
   -moz-transition: 0.5s; /* Firefox 4 */
@@ -266,6 +276,11 @@
   -o-transition: 0.5s; /* Opera */
   overflow-x: hidden;
   overflow-y: auto;
+
+    &.rc-menu-root {
+      width: 208px;
+    }
+
   .rc-menu-submenu-arrow {
     transform: rotate(-270deg);
   }
@@ -304,6 +319,15 @@
   i {
     margin-right: 9px;
   }
+
+  .@{menuTitle},
+  .@{menuTitle} .@{menuTitleIcon} + span > a {
+    color: @titleBold;
+    font-weight: 500;
+    .@{menuTitleIcon} {
+      color: #666;
+    }
+  }
 }
 
 // mode === vertical
@@ -340,9 +364,12 @@
 }
 
 // ------------inline、vertical  theme---------------
+// ------------light------------
 .@{menuLight} .rc-menu-inline, .@{menuLight} .rc-menu-vertical{
   // width: 208px;
   background-color: @lightColor;
+  font-weight: normal;
+
   .rc-menu-submenu-selected {
     background-color: @lightColor;
   }
@@ -350,30 +377,43 @@
     & > .rc-menu-submenu-title {
       color: @lightSelectedColor;
     }
+    .@{menuTitleIcon} {
+      color: @lightSelectedColor;
+    }
+
   }
   .rc-menu-submenu-active {
     & > .rc-menu-submenu-title {
       background-color: @lightColor;
       color: @lightSelectedColor;
     }
+    .@{menuTitleIcon} {
+      color: @lightSelectedColor;
+    }
   }
   .rc-menu-item-active {
     background-color: @lightColor;
     color: @lightSelectedColor;
+    .@{menuTitleIcon} {
+      color: @lightSelectedColor;
+    }
   }
   .rc-menu-item-selected {
     color: @lightSelectedColor;
+    .@{menuTitleIcon} {
+      color: @lightSelectedColor;
+    }
   }
 }
+// ------------dark------------
 .@{menuDark} .rc-menu-inline, .@{menuDark} .rc-menu-vertical{
   // width: 208px;
   color: @lightColor;
   background-color: @darkColor;
+  font-weight: normal;
 
   .rc-menu-submenu-selected {
     background-color: @darkActive;
-  }
-  .rc-menu-submenu-selected {
     & > .rc-menu-submenu-title {
       color: @lightColor;
     }
@@ -387,14 +427,28 @@
   .rc-menu-item-active {
     background-color: @darkActive;
     color: @lightColor;
+    a {
+      color: @lightColor !important;
+    }
   }
   .rc-menu-item-selected {
     color: @lightColor;
     background-color: @lightSelectedColor !important;
+    a {
+      color: @lightColor !important;
+    }
   }
   .rc-menu-item.rc-menu-item-disabled {
     color: @darkDisabled !important;
     cursor: not-allowed;
+  }
+  .@{menuTitle},
+  .@{menuTitle} .@{menuTitleIcon} + span > a {
+    color: @lightColor !important;
+    font-weight: 500;
+    .@{menuTitleIcon} {
+      color: @lightColor;
+    }
   }
 }
 
@@ -405,6 +459,10 @@
   -moz-transition: 0.5s; /* Firefox 4 */
   -webkit-transition: 0.5s; /* Safari 和 Chrome */
   -o-transition: 0.5s; /* Opera */
+
+  &.rc-menu-root {
+    width: 64px;
+  }
 
   .rc-menu-submenu .rc-menu-submenu-title .rc-menu-submenu-arrow{
     display: none;

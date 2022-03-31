@@ -32,8 +32,12 @@ const columns = [
 export default function CTableDemo() {
 	return (
         <CTable
-            columnData={columns}
-            ajaxData={{ totals: data.length, data }}
+           supportMemory
+           tableId="basicGird"
+           supportResizeColumn
+           supportConfigColumn
+           columnData={columns}
+           ajaxData={{ totals: data.length, data }}
         />
 	);
 }

@@ -1,6 +1,7 @@
+/* eslint-disable no-unused-vars */
 import React, { useContext } from 'react';
 import { SubMenu as RcSubMenu, useFullPath } from 'rc-menu';
-import { omit } from '@utils';
+import { omit, prefixCls } from '@utils';
 import classNames from 'classnames';
 import 'rc-menu/assets/index.css';
 
@@ -8,7 +9,7 @@ import { isValidElement, cloneElement } from './reactNode';
 import MenuContext from './MenuContext';
 
 function SubMenu(props) {
-  const { icon, title } = props;
+  const { icon, title, disabled, className } = props;
   const context = useContext(MenuContext);
   const { inlineCollapsed, mode } = context;
   const parentPath = useFullPath();
@@ -29,11 +30,12 @@ function SubMenu(props) {
     const titleIsSpan = isValidElement(title) && title.type === 'span';
     titleNode = (
       <>
-        {cloneElement(icon, {
-          className: classNames(
-            isValidElement(icon) ? icon.props?.className : '',
-          ),
+        { isValidElement(icon) ? <span className={`${prefixCls}-menu-title-icon`}>
+          { cloneElement(icon, {
+        className: classNames(icon.props?.className),
         })}
+      </span>
+        : ''}
         {!inlineCollapsed && (titleIsSpan ? title : <span>{title}</span>)}
       </>
     );
@@ -50,6 +52,7 @@ function SubMenu(props) {
         {...omit(props, ['icon'])}
         title={titleNode}
         popupOffset={mode === 'vertical' && !parentPath.length && [12, 0]}
+        className={classNames({ [`${prefixCls}-menu-title`]: context.firstLevel && !disabled }, className)}
       />
     </MenuContext.Provider>
   );
