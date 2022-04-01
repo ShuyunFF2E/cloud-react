@@ -3,7 +3,6 @@ import React, { useContext } from 'react';
 import { SubMenu as RcSubMenu, useFullPath } from 'rc-menu';
 import { omit, prefixCls } from '@utils';
 import classNames from 'classnames';
-import 'rc-menu/assets/index.css';
 
 import { isValidElement, cloneElement } from './reactNode';
 import MenuContext from './MenuContext';

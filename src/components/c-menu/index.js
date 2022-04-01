@@ -63,6 +63,7 @@ class InternalMenu extends React.Component {
           <RcMenu
             getPopupContainer={(triggerNode) => triggerNode.parentNode}
             {...passedProps}
+            prefixCls={`${prefixCls}-cmenu`}
             inlineCollapsed={this.state.collapsed}
             expandIcon={cloneElement(expandIcon)}
             defaultMotions={defaultMotions}

@@ -22,19 +22,26 @@
 @titleBold: rgba(0, 0, 0, 0.85);
 
   // 通用全局样式
-  .rc-menu-root{
+  .@{prefix}-menu-root{
     box-shadow: none;
     border: none;
     height: 100%;
   }
 
-  .rc-menu{
+  .@{prefix}-cmenu{
     font-size: 14px;
     line-height: 20px;
     box-shadow: none;
     user-select: none;
+    outline: none;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    list-style: none;
+    color: rgba(0, 0, 0, 0.65);
     border-radius: 0;
-    .rc-menu-item.rc-menu-item-disabled {
+
+    .@{prefix}-cmenu-item.@{prefix}-cmenu-item-disabled {
       cursor: not-allowed;
     }
     a {
@@ -58,7 +65,7 @@
     }
   }}
 
-  // .rc-menu-item {
+  // .@{prefix}-cmenu-item {
   //     position: relative;
   //     height: 40px;
   //     & > span {
@@ -77,47 +84,72 @@
   //     }
   //   }
 
-  .rc-menu-submenu-hidden {
+  .@{prefix}-cmenu-submenu-hidden {
     display: none;
+  }
+
+  .@{prefix}-cmenu-hidden {
+    display: none;
+  }
+
+  .@{prefix}-cmenu-submenu-popup {
+    position: absolute;
   }
 
   [role="menuitem"]{
     cursor: pointer;
   }
-  .rc-menu-submenu-arrow {
+  .@{prefix}-cmenu-submenu-arrow {
     // right: 8px !important;
     font-family: 'icon' !important;
     &::before {
       content: '\e624' !important;
     }
   }
-  .rc-menu-item-selected {
+  .@{prefix}-cmenu-item-selected {
     background-color: @lightSelectedBg !important;
     a {
       color: @lightSelectedColor !important;
     }
   }
-  .rc-menu-item-active {
+  .@{prefix}-cmenu-item-active {
     a {
       color: @lightSelectedColor !important;
     }
   }
-  .rc-menu-submenu-popup {
+  .@{prefix}-cmenu-submenu-popup {
     z-index: 10;
   }
-.rc-menu-inline-collapsed .rc-menu-submenu-popup {
-  .rc-menu-submenu .rc-menu-submenu-title {
-    span,  .rc-menu-submenu-arrow{
+.@{prefix}-cmenu-inline-collapsed .@{prefix}-cmenu-submenu-popup {
+  .@{prefix}-cmenu-submenu .@{prefix}-cmenu-submenu-title {
+    span,  .@{prefix}-cmenu-submenu-arrow{
       display: inline-block;
     }
   }
-  .rc-menu-item span {
+  .@{prefix}-cmenu-item span {
     display: block;
   }
 }
-.rc-menu-submenu .rc-menu-sub {
+.@{prefix}-cmenu-submenu .@{prefix}-cmenu-sub {
   transition: 0.3s all;
 }
+
+.@{prefix}-cmenu-item,
+.@{prefix}-cmenu-submenu-title {
+  margin: 0;
+  position: relative;
+  display: block;
+  white-space: nowrap;
+}
+
+.@{prefix}-cmenu-sub.@{prefix}-cmenu-inline {
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+
 
 .@{menuLink} {
   position: absolute;
@@ -144,8 +176,8 @@
     }
   }
   &.@{verticalHeader}{
-    .rc-menu-root.rc-menu-inline,
-    .rc-menu-root.rc-menu-vertical{
+    .@{prefix}-cmenu-root.@{prefix}-cmenu-inline,
+    .@{prefix}-cmenu-root.@{prefix}-cmenu-vertical{
       height: calc(100% - 100px);
       overflow-y: auto;
       overflow-x: hidden;
@@ -157,8 +189,8 @@
     }
   }
   &.@{menuCollapsed}{
-    .rc-menu-root.rc-menu-inline,
-    .rc-menu-root.rc-menu-vertical{
+    .@{prefix}-cmenu-root.@{prefix}-cmenu-inline,
+    .@{prefix}-cmenu-root.@{prefix}-cmenu-vertical{
       height: calc(100% - 100px);
       overflow-y: auto;
       overflow-x: hidden;
@@ -174,17 +206,27 @@
 
 
 // mode === horizontal
-.rc-menu-horizontal {
-  border-bottom: none;
+.@{prefix}-cmenu-horizontal {
   width: 100%;
-  & > .rc-menu-submenu {
+  box-shadow: none;
+  white-space: nowrap;
+  overflow: hidden;
+
+  & > .@{prefix}-cmenu-submenu,
+  & > .@{prefix}-cmenu-item {
+    border-bottom: 2px solid transparent;
+    display: inline-block;
+    vertical-align: bottom;
+  }
+
+  & > .@{prefix}-cmenu-submenu {
     margin-right: 32px;
-    & > .rc-menu-submenu-title {
+    & > .@{prefix}-cmenu-submenu-title {
     padding: 20px 25px 20px 2px;
     margin-bottom: 0;
   }
   }
-  & > .rc-menu-item {
+  & > .@{prefix}-cmenu-item {
     padding: 20px 2px;
     margin-right: 32px;
 }
@@ -192,9 +234,9 @@
     margin-right: 9px;
   }
 
-  .rc-menu-overflow-item {
-    & > .rc-menu-submenu-title {
-      & > .rc-menu-submenu-arrow {
+  .@{prefix}-cmenu-overflow-item {
+    & > .@{prefix}-cmenu-submenu-title {
+      & > .@{prefix}-cmenu-submenu-arrow {
         font-style: initial;
         position: absolute;
         transform: rotate(90deg);
@@ -202,21 +244,21 @@
       }
     }
   }
-  .rc-menu-submenu {
-    .rc-menu-vertical {
+  .@{prefix}-cmenu-submenu {
+    .@{prefix}-cmenu-vertical {
       margin-top: -5px;
     }
   }
-  & > .rc-menu-item-selected {
+  & > .@{prefix}-cmenu-item-selected {
     background-color: @lightColor !important;
     color: @lightSelectedColor;
   }
-  .rc-menu-vertical {
-    & > .rc-menu-item {
+  .@{prefix}-cmenu-vertical {
+    & > .@{prefix}-cmenu-item {
       padding: 6px 12px;
     }
-    & > .rc-menu-submenu {
-      & > .rc-menu-submenu-title{
+    & > .@{prefix}-cmenu-submenu {
+      & > .@{prefix}-cmenu-submenu-title{
         padding: 6px 38px 6px 12px;
       }
     }
@@ -224,50 +266,50 @@
 }
 
 // ------------horizontal theme---------------
-.@{menuLight} .rc-menu-horizontal {
+.@{menuLight} .@{prefix}-cmenu-horizontal {
   background-color: @lightColor;
-  .rc-menu-submenu-selected {
+  .@{prefix}-cmenu-submenu-selected {
     background-color: @lightColor;
     color: @lightSelectedColor;
   }
 
- .rc-menu-item-active, .rc-menu-submenu-active{
+ .@{prefix}-cmenu-item-active, .@{prefix}-cmenu-submenu-active{
     color: @lightSelectedColor;
     border-bottom-color: @lightSelectedColor;
     background-color: @lightColor;
-    & > .rc-menu-submenu-title {
+    & > .@{prefix}-cmenu-submenu-title {
       background-color: @lightColor;
     }
     a:hover {
       color: @lightSelectedColor !important;
     }
   }
-  .rc-menu-item.rc-menu-item-disabled {
+  .@{prefix}-cmenu-item.@{prefix}-cmenu-item-disabled {
     color: @lightDisabled !important;
   }
 }
-.@{menuDark} .rc-menu-horizontal {
+.@{menuDark} .@{prefix}-cmenu-horizontal {
   background-color: @darkColor;
   color: @lightColor;
-  .rc-menu-submenu-selected, .rc-menu-item-selected  {
+  .@{prefix}-cmenu-submenu-selected, .@{prefix}-cmenu-item-selected  {
     background-color: @darkColor !important;
     color: @lightSelectedColor;
   }
- .rc-menu-item-active, .rc-menu-submenu-active{
+ .@{prefix}-cmenu-item-active, .@{prefix}-cmenu-submenu-active{
     color: @lightColor;
     border-bottom-color: @lightSelectedColor;
     background-color: @darkActive;
-    & > .rc-menu-submenu-title {
+    & > .@{prefix}-cmenu-submenu-title {
     background-color: @darkActive;
     }
   }
-  .rc-menu-item.rc-menu-item-disabled {
+  .@{prefix}-cmenu-item.@{prefix}-cmenu-item-disabled {
     color: @darkDisabled !important;
   }
 }
 
 // mode === inline / vertical
-.rc-menu-inline {
+.@{prefix}-cmenu-inline {
   // width: 208px;
   padding: 16px 8px;
   transition: 0.5s;
@@ -277,30 +319,47 @@
   overflow-x: hidden;
   overflow-y: auto;
 
-    &.rc-menu-root {
-      width: 208px;
-    }
-
-  .rc-menu-submenu-arrow {
-    transform: rotate(-270deg);
+  &.@{prefix}-cmenu-root {
+    width: 208px;
   }
-  .rc-menu-submenu-selected {
+
+
+  
+  .@{prefix}-cmenu-submenu-arrow {
+    transform: rotate(-270deg);
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    vertical-align: baseline;
+    text-align: center;
+    text-transform: none;
+    text-rendering: auto;
+    position: absolute;
+    right: 16px;
+    line-height: 1.5em;
+    transition: transform 0.3s;
+
+    .@{prefix}-cmenu-submenu-open > .@{prefix}-cmenu-submenu-title .@{prefix}-cmenu-submenu-arrow {
+      transform: rotate(-90deg);
+    }
+  }
+  .@{prefix}-cmenu-submenu-selected {
     background-color: #fff;
   }
-  .rc-menu-submenu-arrow {
+  .@{prefix}-cmenu-submenu-arrow {
     right: 8px !important;
   }
-  &.rc-menu-sub {
+  &.@{prefix}-cmenu-sub {
     overflow: hidden;
   }
 
-  .rc-menu-submenu-title {
+  .@{prefix}-cmenu-submenu-title {
     line-height: 20px;
     padding-top: 10px !important;
     padding-bottom: 10px !important;
     margin-bottom: 4px;
   }
-  & > .rc-menu-item {
+  & > .@{prefix}-cmenu-item {
     line-height: 20px;
     padding-top: 10px !important;
     padding-bottom: 10px !important;
@@ -331,33 +390,36 @@
 }
 
 // mode === vertical
-.rc-menu-vertical {
-  .rc-menu-inline;
+.@{prefix}-cmenu-vertical {
+  .cloud-cmenu-inline;
   font-size: 14px;
   width: 208px;
-  .rc-menu-submenu-arrow {
+
+  .@{prefix}-cmenu-submenu-arrow {
     transform: rotate(0deg) !important;
 }
-  &.rc-menu-sub {
+  &.@{prefix}-cmenu-sub {
     min-width: 120px;
     padding: 8px 0;
     width: 100%;
+    margin-top: 0;
+    border: 1px solid #d9d9d9;
   }
-  & > .rc-menu-item {
+  & > .@{prefix}-cmenu-item {
     padding: 6px 12px;
     line-height: 20px;
   }
-  & > .rc-menu-submenu {
-    & > .rc-menu-submenu-title{
+  & > .@{prefix}-cmenu-submenu {
+    & > .@{prefix}-cmenu-submenu-title{
       padding: 6px 38px 6px 12px;
     }
   }
-  & > .rc-menu-item {
+  & > .@{prefix}-cmenu-item {
     padding: 6px 12px 6px 24px;
     line-height: 20px;
   }
-  & > .rc-menu-submenu {
-    & > .rc-menu-submenu-title{
+  & > .@{prefix}-cmenu-submenu {
+    & > .@{prefix}-cmenu-submenu-title{
       padding: 6px 38px 6px 24px;
     }
   }
@@ -365,16 +427,16 @@
 
 // ------------inline、vertical  theme---------------
 // ------------light------------
-.@{menuLight} .rc-menu-inline, .@{menuLight} .rc-menu-vertical{
+.@{menuLight} .@{prefix}-cmenu-inline, .@{menuLight} .@{prefix}-cmenu-vertical{
   // width: 208px;
   background-color: @lightColor;
   font-weight: normal;
 
-  .rc-menu-submenu-selected {
+  .@{prefix}-cmenu-submenu-selected {
     background-color: @lightColor;
   }
-  .rc-menu-submenu-selected {
-    & > .rc-menu-submenu-title {
+  .@{prefix}-cmenu-submenu-selected {
+    & > .@{prefix}-cmenu-submenu-title {
       color: @lightSelectedColor;
     }
     .@{menuTitleIcon} {
@@ -382,8 +444,8 @@
     }
 
   }
-  .rc-menu-submenu-active {
-    & > .rc-menu-submenu-title {
+  .@{prefix}-cmenu-submenu-active {
+    & > .@{prefix}-cmenu-submenu-title {
       background-color: @lightColor;
       color: @lightSelectedColor;
     }
@@ -391,14 +453,14 @@
       color: @lightSelectedColor;
     }
   }
-  .rc-menu-item-active {
+  .@{prefix}-cmenu-item-active {
     background-color: @lightColor;
     color: @lightSelectedColor;
     .@{menuTitleIcon} {
       color: @lightSelectedColor;
     }
   }
-  .rc-menu-item-selected {
+  .@{prefix}-cmenu-item-selected {
     color: @lightSelectedColor;
     .@{menuTitleIcon} {
       color: @lightSelectedColor;
@@ -406,39 +468,39 @@
   }
 }
 // ------------dark------------
-.@{menuDark} .rc-menu-inline, .@{menuDark} .rc-menu-vertical{
+.@{menuDark} .@{prefix}-cmenu-inline, .@{menuDark} .@{prefix}-cmenu-vertical{
   // width: 208px;
   color: @lightColor;
   background-color: @darkColor;
   font-weight: normal;
 
-  .rc-menu-submenu-selected {
+  .@{prefix}-cmenu-submenu-selected {
     background-color: @darkActive;
-    & > .rc-menu-submenu-title {
+    & > .@{prefix}-cmenu-submenu-title {
       color: @lightColor;
     }
   }
-  .rc-menu-submenu-active {
-    & > .rc-menu-submenu-title {
+  .@{prefix}-cmenu-submenu-active {
+    & > .@{prefix}-cmenu-submenu-title {
     background-color: @darkActive;
       color: @lightColor;
     }
   }
-  .rc-menu-item-active {
+  .@{prefix}-cmenu-item-active {
     background-color: @darkActive;
     color: @lightColor;
     a {
       color: @lightColor !important;
     }
   }
-  .rc-menu-item-selected {
+  .@{prefix}-cmenu-item-selected {
     color: @lightColor;
     background-color: @lightSelectedColor !important;
     a {
       color: @lightColor !important;
     }
   }
-  .rc-menu-item.rc-menu-item-disabled {
+  .@{prefix}-cmenu-item.@{prefix}-cmenu-item-disabled {
     color: @darkDisabled !important;
     cursor: not-allowed;
   }
@@ -453,23 +515,23 @@
 }
 
 // 收起状态下menu
-.rc-menu-inline-collapsed{
+.@{prefix}-cmenu-inline-collapsed{
   width: 64px;
   transition: 0.5s;
   -moz-transition: 0.5s; /* Firefox 4 */
   -webkit-transition: 0.5s; /* Safari 和 Chrome */
   -o-transition: 0.5s; /* Opera */
 
-  &.rc-menu-root {
+  &.@{prefix}-cmenu-root {
     width: 64px;
   }
 
-  .rc-menu-submenu .rc-menu-submenu-title .rc-menu-submenu-arrow{
+  .@{prefix}-cmenu-submenu .@{prefix}-cmenu-submenu-title .@{prefix}-cmenu-submenu-arrow{
     display: none;
   }
 
-  .rc-menu-item,
-  .rc-menu-submenu .rc-menu-submenu-title{
+  .@{prefix}-cmenu-item,
+  .@{prefix}-cmenu-submenu .@{prefix}-cmenu-submenu-title{
     padding-left: 24px;
 
     i:first-child{

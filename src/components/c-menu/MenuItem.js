@@ -7,7 +7,6 @@ import { prefixCls } from '@utils';
 import { isValidElement, cloneElement } from './reactNode';
 import Tooltip from '../tooltip';
 import MenuContext from './MenuContext';
-import './index.less';
 
 export default class MenuItem extends React.Component {
   static contextType = MenuContext;
