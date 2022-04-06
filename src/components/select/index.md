@@ -45,7 +45,7 @@ group:
 | trigger           | 下拉触发方式，支持 click 和 hover                                 | string                                  | 'click'        |
 | showArrow         | 下拉 icon 是否显示                                                | boolean                                 | true           |
 | showSelectStyle   | 选择器样式是否显示                                                | boolean                                 | true           |
-| isAppendToBody    | 下拉框是否渲染在 body 上                                          | boolean                                 | true          |  |
+| isAppendToBody    | 下拉框是否渲染在 body 上                                          | boolean                                 | false          |  |
 | position          | 下拉框是否启用自动定位，如需使用可设置为`auto`                    | string                                  | -              |
 | onChange          | 选中 option 变化时回调此函数，普通单选树回调包含第三个参数返回当前点击选项的原始数据，如不使用dataSource生成组件，则需手动指定option的item属性   | function(value, oldValue)               | -              |
 | onOk              | 多选时确认操作回调函数                                            | function(value: array, oldValue: array) | -              |
