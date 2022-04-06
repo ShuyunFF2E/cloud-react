@@ -539,7 +539,7 @@ Select.defaultProps = {
   onOk: noop,
   onCancel: noop,
   size: undefined,
-  isAppendToBody: true,
+  isAppendToBody: false,
 };
 
 export default Select;
