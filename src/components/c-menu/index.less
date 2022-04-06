@@ -94,6 +94,7 @@
 
   .@{prefix}-cmenu-submenu-popup {
     position: absolute;
+    z-index: 10000;
   }
 
   [role="menuitem"]{
@@ -116,9 +117,6 @@
     a {
       color: @lightSelectedColor !important;
     }
-  }
-  .@{prefix}-cmenu-submenu-popup {
-    z-index: 10;
   }
 .@{prefix}-cmenu-inline-collapsed .@{prefix}-cmenu-submenu-popup {
   .@{prefix}-cmenu-submenu .@{prefix}-cmenu-submenu-title {
