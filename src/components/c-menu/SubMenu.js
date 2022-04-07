@@ -29,12 +29,15 @@ function SubMenu(props) {
     const titleIsSpan = isValidElement(title) && title.type === 'span';
     titleNode = (
       <>
-        { isValidElement(icon) ? <span className={`${prefixCls}-menu-title-icon`}>
-          { cloneElement(icon, {
-        className: classNames(icon.props?.className),
-        })}
-      </span>
-        : ''}
+        {isValidElement(icon) ? (
+          <span className={`${prefixCls}-menu-title-icon`}>
+            {cloneElement(icon, {
+              className: classNames(icon.props?.className),
+            })}
+          </span>
+        ) : (
+          ''
+        )}
         {!inlineCollapsed && (titleIsSpan ? title : <span>{title}</span>)}
       </>
     );
@@ -50,8 +53,13 @@ function SubMenu(props) {
       <RcSubMenu
         {...omit(props, ['icon'])}
         title={titleNode}
-        popupOffset={(mode === 'horizontal' && !parentPath.length) ? [0, 1] : [12, 0]}
-        className={classNames({ [`${prefixCls}-menu-title`]: context.firstLevel && !disabled }, className)}
+        popupOffset={
+          mode === 'horizontal' && !parentPath.length ? [0, 2] : [12, 0]
+        }
+        className={classNames(
+          { [`${prefixCls}-menu-title`]: context.firstLevel && !disabled },
+          className,
+        )}
       />
     </MenuContext.Provider>
   );
