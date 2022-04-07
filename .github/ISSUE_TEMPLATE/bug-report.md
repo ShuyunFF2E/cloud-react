@@ -1,19 +1,19 @@
 ---
-name: Bug report
+name: Bug Report
 about: 使用过程中遇到的问题
 title: "[组件名称] 核心问题描述"
 labels: bug
-assignees: silence717
+assignees: lazyperson
 
 ---
 
 **如何复现**
----**描述一下问题**
-清晰描述下当前 bug 的问题、现象。
+
+清晰描述下当前 bug 的问题、现象，请先在右侧选择使用的版本标签(Lables)。
 
 复现步骤：
 
-1. 创建 demo，建议贴出源代码
+1. 创建 demo，建议在 https://codesandbox.io/ 中贴出复现代码
 2. 做什么样的操作
 3. 查看错误
 
