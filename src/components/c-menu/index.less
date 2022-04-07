@@ -22,7 +22,7 @@
 @titleBold: rgba(0, 0, 0, 0.85);
 
   // 通用全局样式
-  .@{prefix}-menu-root{
+  .@{prefix}-cmenu-root{
     box-shadow: none;
     border: none;
     height: 100%;
@@ -65,25 +65,6 @@
     }
   }}
 
-  // .@{prefix}-cmenu-item {
-  //     position: relative;
-  //     height: 40px;
-  //     & > span {
-  //       padding-left: inherit;
-  //       & > span {
-  //         padding-left: inherit;
-  //       }
-  //     }
-  //     a {
-  //       position: absolute;
-  //       top: 0;
-  //       left: 0;
-  //       display: block;
-  //       padding: 10px 0;
-  //       padding-left: inherit;
-  //     }
-  //   }
-
   .@{prefix}-cmenu-submenu-hidden {
     display: none;
   }
@@ -101,7 +82,6 @@
     cursor: pointer;
   }
   .@{prefix}-cmenu-submenu-arrow {
-    // right: 8px !important;
     font-family: 'icon' !important;
     &::before {
       content: '\e624' !important;
@@ -146,7 +126,6 @@
   border-radius: 0;
   box-shadow: none;
 }
-
 
 
 .@{menuLink} {
@@ -240,11 +219,6 @@
         transform: rotate(90deg);
         margin-left: 12px;
       }
-    }
-  }
-  .@{prefix}-cmenu-submenu {
-    .@{prefix}-cmenu-vertical {
-      margin-top: -5px;
     }
   }
   & > .@{prefix}-cmenu-item-selected {
@@ -399,10 +373,11 @@
 }
   &.@{prefix}-cmenu-sub {
     min-width: 120px;
-    padding: 8px 0;
+    padding: 8px;
     width: 100%;
     margin-top: 0;
     border: 1px solid #d9d9d9;
+    box-sizing: border-box;
   }
   & > .@{prefix}-cmenu-item {
     padding: 6px 12px;

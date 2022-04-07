@@ -3,7 +3,7 @@ import RcMenu from 'rc-menu';
 import { omit, prefixCls } from '@utils';
 import collapseMotion from '@utils/motion';
 import classNames from 'classnames';
-import 'rc-menu/assets/index.css';
+// import 'rc-menu/assets/index.css';
 
 import { cloneElement } from './reactNode';
 import Icon from '../icon';
@@ -28,6 +28,7 @@ class InternalMenu extends React.Component {
 
   toggleCollapsed = () => {
     this.setState({
+      // eslint-disable-next-line react/no-access-state-in-setstate
       collapsed: !this.state.collapsed,
     });
   };
@@ -51,10 +52,10 @@ class InternalMenu extends React.Component {
         }}
       >
         <div
-         className={classNames(`${prefixCls}-menu`, className, {
+          className={classNames(`${prefixCls}-menu`, className, {
           [`${prefixCls}-menu-collapsed`]: this.props.inlineCollapsed,
           [`${prefixCls}-menu-horizontal-header`]:this.props.mode === 'horizontal',
-           [`${prefixCls}-menu-vertical-header`]: (this.props.mode === 'vertical' || this.props.mode === 'inline') && header && !this.state.collapsed,
+          [`${prefixCls}-menu-vertical-header`]: (this.props.mode === 'vertical' || this.props.mode === 'inline') && header && !this.state.collapsed,
         }, `${prefixCls}-menu-${theme}`)}
         >
           {header && !this.state.collapsed && (

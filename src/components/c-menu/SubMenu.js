@@ -50,7 +50,7 @@ function SubMenu(props) {
       <RcSubMenu
         {...omit(props, ['icon'])}
         title={titleNode}
-        popupOffset={mode === 'vertical' && !parentPath.length && [12, 0]}
+        popupOffset={(mode === 'horizontal' && !parentPath.length) ? [0, 1] : [12, 0]}
         className={classNames({ [`${prefixCls}-menu-title`]: context.firstLevel && !disabled }, className)}
       />
     </MenuContext.Provider>
