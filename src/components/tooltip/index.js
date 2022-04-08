@@ -27,9 +27,14 @@ class Tooltip extends Component {
 
   componentDidMount() {
     if (this.props.visible) {
-      this.setState({
-        visible: true,
-      });
+      this.setState(
+        {
+          visible: true,
+        },
+        () => {
+          this.props.onVisibleChange(this.state.visible);
+        },
+      );
       this.target = this.tipRef.current.firstElementChild;
     }
 
@@ -72,7 +77,9 @@ class Tooltip extends Component {
       }) ||
       this.props.closeTooltipExec(evt.path)
     ) {
-      this.setState({ visible: false });
+      this.setState({ visible: false }, () => {
+        this.props.onVisibleChange(this.state.visible);
+      });
     }
   };
 
@@ -97,7 +104,9 @@ class Tooltip extends Component {
       this.target = this.getTooltipParent(target);
 
       setTimeout(() => {
-        this.setState({ visible: true });
+        this.setState({ visible: true }, () => {
+          this.props.onVisibleChange(this.state.visible);
+        });
       }, mouseEnterDelay);
     }
   };
@@ -114,7 +123,9 @@ class Tooltip extends Component {
     }
     if (!visible) {
       setTimeout(() => {
-        this.setState({ visible: false });
+        this.setState({ visible: false }, () => {
+          this.props.onVisibleChange(this.state.visible);
+        });
       }, mouseLeaveDelay);
     }
   };
@@ -192,6 +203,7 @@ Tooltip.propTypes = {
   className: PropTypes.string,
   overlayStyle: PropTypes.object,
   closeTooltipExec: PropTypes.func,
+  onVisibleChange: PropTypes.func,
 };
 
 Tooltip.defaultProps = {
@@ -205,6 +217,7 @@ Tooltip.defaultProps = {
   className: '',
   overlayStyle: {},
   closeTooltipExec: () => false,
+  onVisibleChange: () => {},
 };
 
 export default Tooltip;
