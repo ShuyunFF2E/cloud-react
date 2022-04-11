@@ -7,7 +7,7 @@ desc: 默认样式
 ```jsx
 
 import React from 'react';
-import { Cascader } from 'cloud-react';
+import { CCascader } from 'cloud-react';
 const addressOptions = [{
   label: '福建',
   value: 'fj',
@@ -83,7 +83,7 @@ onChange(value) {
 
     return (
 			<>
-			  <Cascader options={addressOptions} onChange={this.onChange} placeholder="Please select"  multiple      showSearch={{ filter:this.filter }}
+			  <CCascader options={addressOptions} onChange={this.onChange} placeholder="Please select"  multiple      showSearch={{ filter:this.filter }}
 />
 
 			</>

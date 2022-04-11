@@ -52,9 +52,6 @@ const defaultSearchRender = (inputValue, path, prefixCls, fieldNames) => {
     }
 
     let label = node[fieldNames.label];
-    console.log('====================================');
-    console.log(label);
-    console.log('====================================');
     const type = typeof label;
     if (type === 'string' || type === 'number') {
       label = highlightKeyword(String(label), lower, prefixCls);
@@ -79,14 +76,6 @@ class Cascader extends Component {
         .join(this.props.splitInput),
     });
   }
-  onChange = (value, selectedOptions) => {
-    this.setState({
-      inputValue: selectedOptions
-        .map((o) => o.label)
-        .join(this.props.splitInput),
-    });
-    this.props.onChange(value, selectedOptions);
-  };
   onPopupVisibleChange = (visible) => {
     this.setState({
       open: visible,
@@ -94,8 +83,7 @@ class Cascader extends Component {
   };
 
   render() {
-    const { splitInput, onChange, multiple, showSearch, ...props } = this.props;
-
+    const { splitInput, multiple, showSearch, ...props } = this.props;
     const iconClasses = this.state.open ? 'open' : 'close';
     const checkable = multiple ? (
       <div className={`${this.props.prefixCls}-checkbox-inner`}></div>
@@ -138,7 +126,7 @@ Cascader.defaultProps = {
   transitionName: '',
   defaultValue: [],
   inputIcon: <Icon type="down" style={{ fontSize: '12px' }} />,
-  prefixCls: 'cloud-cascader',
+  prefixCls: 'cloud-ccascader',
   popupClassName: '',
   popupPlacement: 'bottomLeft',
   showArrow: true,

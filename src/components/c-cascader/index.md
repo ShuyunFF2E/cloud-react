@@ -28,5 +28,5 @@ group:
 
  ### 代码演示 
 
-<embed src="@components/cascader/demos/basic.md" /> 
-<embed src="@components/cascader/demos/disable.md" /> 
+<embed src="@components/c-cascader/demos/basic.md" /> 
+<embed src="@components/c-cascader/demos/disable.md" /> 
