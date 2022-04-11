@@ -76,14 +76,6 @@ class Cascader extends Component {
         .join(this.props.splitInput),
     });
   }
-  onChange = (value, selectedOptions) => {
-    this.setState({
-      inputValue: selectedOptions
-        .map((o) => o.label)
-        .join(this.props.splitInput),
-    });
-    this.props.onChange(value, selectedOptions);
-  };
   onPopupVisibleChange = (visible) => {
     this.setState({
       open: visible,
@@ -91,8 +83,7 @@ class Cascader extends Component {
   };
 
   render() {
-    const { splitInput, onChange, multiple, showSearch, ...props } = this.props;
-
+    const { splitInput, multiple, showSearch, ...props } = this.props;
     const iconClasses = this.state.open ? 'open' : 'close';
     const checkable = multiple ? (
       <div className={`${this.props.prefixCls}-checkbox-inner`}></div>
