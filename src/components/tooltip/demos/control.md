@@ -25,16 +25,21 @@ export default class ToolTipDemo extends React.Component {
 		this.setState({ show: !this.state.show });
 	};
 
+	onStatusChange = show => {
+		console.log(show)
+		this.setState({ show });
+	};
+
 	render() {
 		const { content, show } = this.state;
 		const style = { marginRight: '10px' };
 		return (
 			<div id="wrap" className="wrapClass">
 				<Button style={style} onClick={this.onChangeStatus}>
-					{show ? 'close' : 'show'} tooltip
+					{show ? 'Close' : 'Show'} tooltip
 				</Button>
-				<Tooltip content={content} placement="top" visible={show}>
-					<span>Click button {show ? 'close' : 'show'} toolTip.</span>
+				<Tooltip content={content} placement="top" visible={show} onVisibleChange={this.onStatusChange}>
+					<span>Click button to {show ? 'close' : 'show'} toolTip.</span>
 				</Tooltip>
 			</div>
 		);

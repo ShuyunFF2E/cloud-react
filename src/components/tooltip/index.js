@@ -43,7 +43,7 @@ class Tooltip extends Component {
 
   componentDidUpdate(prevProps) {
     const { visible } = this.props;
-    if (prevProps.visible !== visible) {
+    if (prevProps.visible !== visible && visible !== this.state.visible) {
       if (visible) {
         this.showTips({ target: this.tipRef.current.firstElementChild });
       } else {
@@ -99,6 +99,11 @@ class Tooltip extends Component {
 
   showTips = ({ target }) => {
     const { mouseEnterDelay, content, visible } = this.props;
+
+    if (this.state.visible) {
+      this.closeTips();
+      return;
+    }
 
     if (content && (visible || visible === undefined)) {
       this.target = this.getTooltipParent(target);

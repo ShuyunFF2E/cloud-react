@@ -18,6 +18,8 @@ export { default as BreadCrumbs } from './bread-crumbs';
 
 export { default as Button } from './button';
 
+export { default as CCascader } from './c-cascader';
+
 export { default as CMenu } from './c-menu';
 
 export { default as CPicker } from './c-picker';
