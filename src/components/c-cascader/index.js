@@ -52,9 +52,6 @@ const defaultSearchRender = (inputValue, path, prefixCls, fieldNames) => {
     }
 
     let label = node[fieldNames.label];
-    console.log('====================================');
-    console.log(label);
-    console.log('====================================');
     const type = typeof label;
     if (type === 'string' || type === 'number') {
       label = highlightKeyword(String(label), lower, prefixCls);
@@ -138,7 +135,7 @@ Cascader.defaultProps = {
   transitionName: '',
   defaultValue: [],
   inputIcon: <Icon type="down" style={{ fontSize: '12px' }} />,
-  prefixCls: 'cloud-cascader',
+  prefixCls: 'cloud-ccascader',
   popupClassName: '',
   popupPlacement: 'bottomLeft',
   showArrow: true,

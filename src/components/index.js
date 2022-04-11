@@ -4,8 +4,8 @@ import './style/core/normalize.less';
 import './style/mixins/animation.less';
 
 // 检验当前运行环境
-if (typeof window === 'undefined') {
-  console.warn('cloud-react 仅支持在浏览器环境进行使用!');
+if(typeof window === 'undefined') {
+	console.warn('cloud-react 仅支持在浏览器环境进行使用!');
 }
 
 export const version = '1.0.4-14';
@@ -99,3 +99,4 @@ export { default as Tree } from './tree';
 export { default as TreeSelect } from './tree-select';
 
 export { default as Upload } from './upload';
+
