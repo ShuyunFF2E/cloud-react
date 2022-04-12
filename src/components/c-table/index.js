@@ -30,6 +30,8 @@ import './index.less';
 class CTable extends Component {
   ref = createRef();
 
+  tableRef = createRef();
+
   defaultPageOpts = {
     pageNum: 1,
     pageSize: 10,
@@ -131,7 +133,7 @@ class CTable extends Component {
 
     this.setColumnData();
 
-    setTimeout(this.setHeaderStyle);
+    this.setHeaderStyle();
     this.setFooterHeight();
   };
 
@@ -139,32 +141,29 @@ class CTable extends Component {
    * 手动计算 右侧固定列 表头的样式（由于自定义滚动条占据宽度导致，rcTable 并不兼容这种情况）
    */
   setHeaderStyle = () => {
-    const fixedColumn = this.state.columnData
-      .filter((item) => item.fixed === 'right')
-      .reverse();
-    if (!fixedColumn.length) {
-      return;
-    }
-    const fixedEles = Array.from(
-      this.ref.current.querySelectorAll(
-        'th.cloud-table-cell-fix-right:not(.cloud-table-cell-scrollbar)',
-      ),
-    );
-    if (fixedEles.length) {
-      fixedEles.reverse().forEach((ele, index) => {
-        if (index === 0) {
-          Object.assign(ele.style, { right: 0 });
-        } else {
-          const right = fixedColumn.slice(0, index).reduce((sum, item) => {
-            // eslint-disable-next-line no-param-reassign
-            sum += item.width;
-            return sum;
-          }, 0);
-          Object.assign(ele.style, {
-            right: `${right}px`,
-          });
+    if (this.props.useCustomScroll) {
+      setTimeout(() => {
+        if (this.ref.current) {
+          // 有滚动条
+          const tableEle = this.ref.current.querySelector(
+            '.cloud-table-body table',
+          );
+          const bodyEle = this.ref.current.querySelector('.cloud-table-body');
+          if (tableEle && tableEle.clientHeight > bodyEle.clientHeight) {
+            return;
+          }
+          // 没有滚动条
+          if (bodyEle) {
+            bodyEle.style.paddingRight = 0;
+            bodyEle.parentElement.querySelector(
+              '.cloud-table-cell-scrollbar',
+            ).style.display = 'none';
+            bodyEle.parentElement.querySelector(
+              '.cloud-table-header colgroup col:last-child',
+            ).style.width = 0;
+          }
         }
-      });
+      }, 1000);
     }
   };
 
@@ -339,7 +338,7 @@ class CTable extends Component {
                     setConfig(this.state.originColumnData, this.props.tableId);
                   }
                   this.setColumnData();
-                  setTimeout(this.setHeaderStyle, 150);
+                  this.setHeaderStyle();
                 }}
               >
                 {typeof item.title === 'function'
@@ -799,6 +798,7 @@ class CTable extends Component {
   render() {
     const {
       ref,
+      tableRef,
       leafNodesMap,
       onPageChange,
       onRefresh,
@@ -824,6 +824,7 @@ class CTable extends Component {
       supportResizeColumn,
       supportConfigColumn,
       maxHeight,
+      useCustomScroll,
     } = this.props;
     const {
       data,
@@ -855,12 +856,14 @@ class CTable extends Component {
               [`${tablePrefixCls}-empty`]: !data.length,
               [`${tablePrefixCls}-support-config`]: supportConfigColumn,
               [`${tablePrefixCls}-support-checkbox`]: supportCheckbox,
+              [`${tablePrefixCls}-use-custom-scroll`]: useCustomScroll,
             },
             className,
           )}
           style={{ height: `calc(100% - ${footerHeight}px)` }}
         >
           <RcTable
+            ref={tableRef}
             prefixCls={tablePrefixCls}
             columns={columnData}
             data={data}
@@ -979,6 +982,7 @@ CTable.propTypes = {
   maxHeight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   supportMemory: PropTypes.bool,
   tableId: PropTypes.string,
+  useCustomScroll: PropTypes.bool,
 };
 
 CTable.defaultProps = {
@@ -1020,4 +1024,5 @@ CTable.defaultProps = {
   maxHeight: '',
   supportMemory: false,
   tableId: '',
+  useCustomScroll: true,
 };

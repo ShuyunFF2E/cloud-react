@@ -642,3 +642,14 @@
     background: @gray-3;
   }
 }
+
+.@{tablePrefixCls}-use-custom-scroll {
+  thead {
+    .@{tablePrefixCls}-cell-scrollbar::after {
+      width: 10px;
+    }
+  }
+  .@{tablePrefixCls}-body {
+    padding: 0 10px 10px 0;
+  }
+}
