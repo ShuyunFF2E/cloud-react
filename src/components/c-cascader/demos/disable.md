@@ -78,10 +78,6 @@ onChange(value) {
  filter(inputValue, path) {
   return path.some(option => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1);
 }
-text(text){
-	console.log(text)
-	return text?.length ?`+ ${text.length}`:'';
-}
   render() {
     const defaultValue = defaultOptions.map(o => o.value);
 
