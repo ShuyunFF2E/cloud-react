@@ -46,8 +46,9 @@ files.forEach((item) => {
   const fileName = toComponentsName(item);
   fileCode += `export { default as ${fileName} } from './${item}';\n\n`;
 });
-
-const indexCode = `${description}\n${condition}\n${fileCode}`;
+const setThemeCode = 
+'const bodys = document.getElementsByTagName(\'body\')[0];\nconst colors = [1,2,3,4,5,6,7];\nfor(let i = 0; i < colors.length; i += 1){\nconst color = window.localStorage.getItem(`--shuyunBlue${i + 1}`)\nif(color){\nbodys.style.setProperty(`--shuyunBlue${i + 1}`,color)\n}\n}\n';
+const indexCode = `${description}\n${condition}\n${setThemeCode}\n${fileCode}\n`;
 fs.writeFile(indexFile, indexCode, (err) => {
   if (err) throw err;
 });
