@@ -40,6 +40,7 @@
     "moment": "^2.29.1",
     "prop-types": "^15.7.2",
     "rc-cascader": "^3.4.2",
+    "rc-color-picker": "^1.2.6",
     "rc-menu": "^9.0.12",
     "rc-picker": "^2.5.19",
     "rc-table": "^7.24.1",

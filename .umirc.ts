@@ -49,6 +49,10 @@ export default defineConfig({
       // 可通过如下形式嵌套二级导航菜单，目前暂不支持更多层级嵌套：
       path: 'https://github.com/ShuyunFF2E/shuyun-utils',
     },
+		{
+			title: '主题',
+			path: '/theme',
+		}
   ],
   alias: {
     '@utils': path.resolve(__dirname, 'src/utils'),
