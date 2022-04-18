@@ -26,8 +26,8 @@ export default class RangePickerDemo extends React.Component {
 	field = new Field(this)
 	state = {
 		values: {
-			start: moment('2021/12/10 16:05:33', 'yyyy/MM/DD HH:mm:ss').toDate(),
-			end: moment('2021/12/12 08:37:21', 'yyyy/MM/DD HH:mm:ss').toDate()
+			start: moment('2022/8/10 16:05:33', 'yyyy/MM/DD HH:mm:ss').toDate(),
+			end: moment('2022/8/12 08:37:21', 'yyyy/MM/DD HH:mm:ss').toDate()
 		},
 		times: { start: '09:00:00', end: '17:58:58' }
 	}
@@ -53,7 +53,7 @@ export default class RangePickerDemo extends React.Component {
 				</Form.Item>
 
 				<Form.Item label="日期范围选择器">
-					<RangePicker value={values} onChange={this.onChange} disabled={disabled} />
+					<RangePicker value={values} onChange={this.onChange} disabled={disabled} minDate={new Date()} />
 				</Form.Item>
 
 				<Form.Item label="日期范围选择器（可清除）">
@@ -78,6 +78,7 @@ export default class RangePickerDemo extends React.Component {
 						onChange={this.onChange}
 						showTimePicker
 						showToday
+						minDate={new Date()}
 						disabled={disabled}
 					/>
 				</Form.Item>
