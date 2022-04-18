@@ -1059,5 +1059,5 @@ CTable.defaultProps = {
   maxHeight: '',
   supportMemory: false,
   tableId: '',
-  useCustomScroll: false,
+  useCustomScroll: true,
 };
