@@ -14,6 +14,7 @@ import {
   getLeafNodes,
   setConfig,
   getConfig,
+  isFirefox,
 } from './util';
 import { tablePrefixCls } from './constant';
 import getExpandableConfig from './expend';
@@ -95,6 +96,10 @@ class CTable extends Component {
     }
   }
 
+  componentWillUnmount() {
+    // clearInterval(this.timer);
+  }
+
   /**
    * 加载表格数据
    * @param callback
@@ -134,36 +139,62 @@ class CTable extends Component {
     this.setColumnData();
 
     this.setHeaderStyle();
+    this.setFixedStyle();
     this.setFooterHeight();
+  };
+
+  /**
+   * 解决表头滚动问题（rcTable bug）
+   */
+  setHeaderStyle = () => {
+    if (isFirefox() || !this.props.useCustomScroll) {
+      return;
+    }
+    setTimeout(() => {
+      if (this.ref.current) {
+        const bodyEle = this.ref.current.querySelector('.cloud-table-body');
+        if (bodyEle) {
+          bodyEle.style.paddingRight = 0;
+          bodyEle.parentElement.querySelector(
+            '.cloud-table-header colgroup col:last-child',
+          ).style.width = 0;
+        }
+      }
+    }, 200);
   };
 
   /**
    * 手动计算 右侧固定列 表头的样式（由于自定义滚动条占据宽度导致，rcTable 并不兼容这种情况）
    */
-  setHeaderStyle = () => {
-    if (this.props.useCustomScroll) {
-      setTimeout(() => {
-        if (this.ref.current) {
-          // 有滚动条
-          const tableEle = this.ref.current.querySelector(
-            '.cloud-table-body table',
-          );
-          const bodyEle = this.ref.current.querySelector('.cloud-table-body');
-          if (tableEle && tableEle.clientHeight > bodyEle.clientHeight) {
-            return;
-          }
-          // 没有滚动条
-          if (bodyEle) {
-            bodyEle.style.paddingRight = 0;
-            bodyEle.parentElement.querySelector(
-              '.cloud-table-cell-scrollbar',
-            ).style.display = 'none';
-            bodyEle.parentElement.querySelector(
-              '.cloud-table-header colgroup col:last-child',
-            ).style.width = 0;
-          }
+  setFixedStyle = () => {
+    if (isFirefox() || !this.props.useCustomScroll) {
+      return;
+    }
+    const fixedColumn = this.state.columnData
+      .filter((item) => item.fixed === 'right')
+      .reverse();
+    if (!fixedColumn.length) {
+      return;
+    }
+    const fixedEles = Array.from(
+      this.ref.current.querySelectorAll('th.cloud-table-cell-fix-right'),
+    );
+    if (fixedEles.length) {
+      fixedEles.pop();
+      fixedEles.reverse().forEach((ele, index) => {
+        if (index === 0) {
+          Object.assign(ele.style, { right: 0 });
+        } else {
+          const right = fixedColumn.slice(0, index).reduce((sum, item) => {
+            // eslint-disable-next-line no-param-reassign
+            sum += item.width;
+            return sum;
+          }, 0);
+          Object.assign(ele.style, {
+            right: `${right}px`,
+          });
         }
-      }, 1000);
+      }, 500);
     }
   };
 
@@ -339,6 +370,7 @@ class CTable extends Component {
                   }
                   this.setColumnData();
                   this.setHeaderStyle();
+                  this.setFixedStyle();
                 }}
               >
                 {typeof item.title === 'function'
@@ -713,6 +745,8 @@ class CTable extends Component {
         async () => {
           this.setCheckboxColumn();
           await onRefreshAfter();
+          this.setHeaderStyle();
+          this.setFixedStyle();
           this.props.onLoadGridAfter(res);
         },
       );
@@ -856,7 +890,8 @@ class CTable extends Component {
               [`${tablePrefixCls}-empty`]: !data.length,
               [`${tablePrefixCls}-support-config`]: supportConfigColumn,
               [`${tablePrefixCls}-support-checkbox`]: supportCheckbox,
-              [`${tablePrefixCls}-use-custom-scroll`]: useCustomScroll,
+              [`${tablePrefixCls}-use-custom-scroll`]:
+                useCustomScroll && !isFirefox(),
             },
             className,
           )}
@@ -1024,5 +1059,5 @@ CTable.defaultProps = {
   maxHeight: '',
   supportMemory: false,
   tableId: '',
-  useCustomScroll: true,
+  useCustomScroll: false,
 };

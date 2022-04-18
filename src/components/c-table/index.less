@@ -643,13 +643,14 @@
   }
 }
 
+//解决表头滚动问题（rcTable bug）
 .@{tablePrefixCls}-use-custom-scroll {
-  thead {
-    .@{tablePrefixCls}-cell-scrollbar::after {
-      width: 10px;
+  .@{tablePrefixCls}-thead {
+    th:last-of-type {
+      &.@{tablePrefixCls}-cell-fix-right,
+      &.@{tablePrefixCls}-cell-scrollbar {
+        display: none !important;
+      }
     }
-  }
-  .@{tablePrefixCls}-body {
-    padding: 0 10px 10px 0;
   }
 }
