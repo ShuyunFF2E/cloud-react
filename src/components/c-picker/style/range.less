@@ -116,10 +116,10 @@
         &.@{prefix-cls}-cell-range-hover-start:not(.@{prefix-cls}-cell-range-start),
         &.@{prefix-cls}-cell-range-hover-end {
           &::before {
-            background-color: @indigo-1;
+            background-color: @blue-1;
           }
           .@{prefix-cls}-cell-inner {
-            background-color: @indigo-2;
+            background-color: @blue-2;
           }
         }
         &.@{prefix-cls}-cell-range-end .@{prefix-cls}-cell-inner {
@@ -130,7 +130,7 @@
         &.@{prefix-cls}-cell-range-end,
         &.@{prefix-cls}-cell-in-range {
           &::before {
-            background-color: @indigo-1;
+            background-color: @blue-1;
           }
         }
 
@@ -141,17 +141,17 @@
 
         &.@{prefix-cls}-cell-range-start {
           &.@{prefix-cls}-cell-range-hover-start::before {
-            background-color: @indigo-1;
+            background-color: @blue-1;
           }
           &.@{prefix-cls}-cell-range-start-single:not(.@{prefix-cls}-cell-range-hover-start)::before {
             background-color: transparent;
           }
         }
         &.@{prefix-cls}-cell-range-hover:not(.@{prefix-cls}-cell-range-start):not(.@{prefix-cls}-cell-range-end):not(.@{prefix-cls}-cell-in-range)::before {
-          background-color: @indigo-1;
+          background-color: @blue-1;
         }
         &.@{prefix-cls}-cell-range-hover.@{prefix-cls}-cell-in-range::before {
-          background-color: @indigo-1;
+          background-color: @blue-1;
         }
         &.@{prefix-cls}-cell-range-start-near-hover::after,
         &.@{prefix-cls}-cell-range-end-near-hover::after {
@@ -164,7 +164,7 @@
           transform: translateY(-50%);
           transition: all 0.3s;
           content: '';
-          background-color: @indigo-1;
+          background-color: @blue-1;
         }
         &.@{prefix-cls}-cell-range-start-near-hover::after {
           left: 8px;
