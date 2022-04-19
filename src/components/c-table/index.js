@@ -96,10 +96,6 @@ class CTable extends Component {
     }
   }
 
-  componentWillUnmount() {
-    // clearInterval(this.timer);
-  }
-
   /**
    * 加载表格数据
    * @param callback
@@ -195,6 +191,24 @@ class CTable extends Component {
           });
         }
       }, 500);
+    }
+  };
+
+  /**
+   * 表格翻页后，滚动到顶部
+   */
+  scrollIntoView = () => {
+    if (this.props.scrollIntoTop) {
+      const trEle = this.ref.current?.querySelector(
+        'tr.cloud-table-row:nth-child(2)',
+      );
+      if (trEle) {
+        trEle.scrollIntoView({
+          inline: 'nearest',
+          block: 'nearest',
+          behavior: 'smooth',
+        });
+      }
     }
   };
 
@@ -747,6 +761,7 @@ class CTable extends Component {
           await onRefreshAfter();
           this.setHeaderStyle();
           this.setFixedStyle();
+          this.scrollIntoView();
           this.props.onLoadGridAfter(res);
         },
       );
@@ -1018,6 +1033,7 @@ CTable.propTypes = {
   supportMemory: PropTypes.bool,
   tableId: PropTypes.string,
   useCustomScroll: PropTypes.bool,
+  scrollIntoTop: PropTypes.bool,
 };
 
 CTable.defaultProps = {
@@ -1060,4 +1076,5 @@ CTable.defaultProps = {
   supportMemory: false,
   tableId: '',
   useCustomScroll: true,
+  scrollIntoTop: true,
 };
