@@ -171,8 +171,8 @@ const DateRangePicker = ({
 
   const handleChange = useCallback(
     (m, v) => {
-      const val = m.map((x) => (handleGetDisabledDate(x) ? undefined : x));
-      const vVal = val.map((y, i) => (y ? v[i] : undefined));
+      const val = m && m.map((x) => (handleGetDisabledDate(x) ? undefined : x));
+      const vVal = val && val.map((y, i) => (y ? v[i] : undefined));
       if (onChange) {
         if (_this.formatType === OBJ) {
           onChange(
