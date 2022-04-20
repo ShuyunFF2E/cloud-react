@@ -16,7 +16,7 @@ class Input extends React.Component {
   static contextType = FormContext;
 
   static propTypes = {
-    size: PropTypes.oneOf(['large', 'default', 'small']),
+    size: PropTypes.oneOf([ 'large', 'default', 'small' ]),
     style: PropTypes.object,
     value: PropTypes.any,
     defaultValue: PropTypes.any,
@@ -273,13 +273,9 @@ class Input extends React.Component {
       size,
       className,
       style,
-      hasClear,
-      hasCounter,
       addonAfter,
       addonBefore,
       prefix,
-      suffix,
-      value,
       ...others
     } = this.props;
     const { size: formSize } = this.context;
@@ -316,7 +312,7 @@ class Input extends React.Component {
           {...props}
           {...commonProps}
           style={isPure ? style : {}}
-          className={classnames(_className, className, mergedSize)}
+          className={classnames(_className, className, mergedSize, { [`${_className}-disabled`]: props.disabled })}
         />
       );
     }
@@ -349,15 +345,16 @@ class Input extends React.Component {
 }
 
 // InputWrapper
-function InputWrapper({
-  prefix,
-  suffix,
-  addonBefore,
-  addonAfter,
-  className,
-  style,
-  children,
-}) {
+function InputWrapper(props) {
+  const {
+    prefix,
+    suffix,
+    addonBefore,
+    addonAfter,
+    className,
+    style,
+    children,
+  } = props;
   const both = prefix || suffix;
   const addon = addonBefore || addonAfter;
 
@@ -412,7 +409,6 @@ function InputWrapper({
       </div>
     );
   }
-
   return (
     <div
       className={classnames(`${prefixCls}-input-group`, className)}

@@ -6,10 +6,10 @@ desc: 统计当前输入字数
 
 ```jsx
 
-            /**
-             * title: 计数器
-             * desc: 统计当前输入字数
-             */
+/**
+ * title: 计数器
+ * desc: 统计当前输入字数
+ */
 import React from 'react';
 import { Input, Icon } from 'cloud-react';
 

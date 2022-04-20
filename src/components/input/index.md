@@ -55,20 +55,20 @@ group:
 
 `Input.Textarea` 其他属性保持跟原生一致
 
- ### 代码演示 
+ ### 代码演示
 
-<embed src="@components/input/demos/basic-input.md" /> 
+<embed src="@components/input/demos/basic-input.md" />
 
-<embed src="@components/input/demos/clear.md" /> 
+<embed src="@components/input/demos/clear.md" />
 
-<embed src="@components/input/demos/counter.md" /> 
+<embed src="@components/input/demos/counter.md" />
 
-<embed src="@components/input/demos/disabled.md" /> 
+<embed src="@components/input/demos/disabled.md" />
 
-<embed src="@components/input/demos/mix.md" /> 
+<embed src="@components/input/demos/mix.md" />
 
-<embed src="@components/input/demos/onChange.md" /> 
+<embed src="@components/input/demos/onChange.md" />
 
-<embed src="@components/input/demos/size.md" /> 
+<embed src="@components/input/demos/size.md" />
 
-<embed src="@components/input/demos/textarea.md" /> 
+<embed src="@components/input/demos/textarea.md" />

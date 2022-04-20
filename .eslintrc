@@ -14,12 +14,6 @@
     }
   },
   "rules": {
-    "react/jsx-filename-extension": [
-      1,
-      {
-        "extensions": [".js", ".jsx"]
-      }
-    ],
     "react/state-in-constructor": 0,
     "max-classes-per-file": 0,
     "jsx-a11y/control-has-associated-label": 0,
@@ -45,23 +39,52 @@
     "jsx-a11y/no-noninteractive-element-interactions": "warn",
     "jsx-a11y/no-interactive-element-to-noninteractive-role": "off",
     "template-curly-spacing": ["error", "never"],
-    "object-curly-spacing": [
-      "error",
-      "always",
-      { "objectsInObjects": true, "arraysInObjects": true }
-    ],
     "jsx-a11y/label-has-for": 0,
     "quotes": ["error", "single"],
     // jsx 中属性全部使用双引
     "jsx-quotes": ["error", "prefer-double"],
     "space-infix-ops": ["error"],
-    "react/sort-comp": "off",
     "jsx-a11y/label-has-associated-control": "off",
     "jest/no-disabled-tests": "warn",
     "jest/no-focused-tests": "error",
     "jest/no-identical-title": "error",
     "jest/prefer-to-have-length": "warn",
-    "jest/valid-expect": "error"
+    "jest/valid-expect": "error",
+
+    "semi":[2, "always"],
+    "no-unused-vars": ["error", { "vars": "all", "varsIgnorePattern": "Taro" }],
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".tsx"] }],
+    "react/jsx-no-duplicate-props": [2, { "ignoreCase": true }],
+    "indent": ["error", 2, { "SwitchCase": 1 }],
+    "space-before-function-paren": [2, { "asyncArrow": "always", "anonymous": "never", "named": "never" }],
+    "spaced-comment": ["error", "always"],
+    "no-multi-spaces": "error",
+    "no-unused-expressions": [2, { "allowShortCircuit": true, "allowTernary": true }],
+    "array-bracket-spacing": [2, "always"],
+    "arrow-parens": "off",
+    "no-param-reassign": 0,
+    "no-mixed-operators": "off",
+    "no-return-assign": 0,
+    "max-len": [2, 200],
+    "eqeqeq": [2, "smart"],
+    "new-cap": 0,
+    "camelcase": 0,
+    "no-else-return": 0,
+    "no-confusing-arrow": 0,
+    "react/jsx-quotes": 0,
+    "react/jsx-indent-props": 0,
+    "react/jsx-indent": 0,
+    "react/require-default-props": 0,
+    "react/jsx-first-prop-new-line": "off",
+    "react/jsx-pascal-case": 0,
+    "react/sort-comp": "off",
+    "react/no-string-refs": 0,
+    "generator-star-spacing": 0, // Disable for now, there is still issue of this rule in eslint
+    "import/extensions": "off", // import/resolver负责
+    "object-curly-spacing": ["error", "always", { "arraysInObjects": true }],
+    "comma-spacing": ["error", { "before": false, "after": true }],
+    "react/forbid-elements": [1, { "forbid": [] }],
+    "arrow-spacing": ["error", { "before": true, "after": true }]
   },
   "globals": {
     "window": true,
