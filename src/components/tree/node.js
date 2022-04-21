@@ -272,7 +272,7 @@ function ToggleFold({ hasChildren, showChildrenItem, toggle }) {
     hasChildren && (
       <Icon
         className="toggle-icon"
-        type={!showChildrenItem ? 'up' : 'down'}
+        type={!showChildrenItem ? 'down' : 'up'}
         onClick={toggle}
       />
     )
