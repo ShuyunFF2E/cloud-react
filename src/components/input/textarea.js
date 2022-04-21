@@ -51,11 +51,9 @@ function calcAutoHeight(textareaNode, value, minRows, maxRows) {
   hiddenTextarea.value = value;
   Object.assign(hiddenTextarea.style, twinStyle, ADDON_STYLE);
 
-  const borderSize =
-    parseInt(style['border-top-width'], 10) +
-    parseInt(style['border-bottom-width'], 10);
-  const paddingSize =
-    parseInt(style['padding-top'], 10) + parseInt(style['padding-bottom'], 10);
+  const borderSize = parseInt(style['border-top-width'], 10)
+    + parseInt(style['border-bottom-width'], 10);
+  const paddingSize = parseInt(style['padding-top'], 10) + parseInt(style['padding-bottom'], 10);
   const lineHeight = parseInt(style['line-height'], 10);
   const boxSizing = style['box-sizing'];
 
@@ -183,7 +181,9 @@ export default class Textarea extends React.PureComponent {
 
   render() {
     const { value, autoSizeStyle } = this.state;
-    const { className, style, hasCounter, maxLength, ...others } = this.props;
+    const {
+      className, style, hasCounter, maxLength, ...others
+    } = this.props;
 
     const classNames = classnames(`${prefixCls}-input-textarea`, className, {
       'has-counter': hasCounter,
@@ -219,7 +219,9 @@ export default class Textarea extends React.PureComponent {
         />
         {hasCounter && maxLength ? (
           <span className={`${prefixCls}-input-textarea-counter`}>
-            <span>{value ? value.length : 0}</span>/{maxLength}
+            <span>{value ? value.length : 0}</span>
+            /
+            {maxLength}
           </span>
         ) : null}
       </div>

@@ -83,12 +83,12 @@ class Input extends React.Component {
     return (
       observableProps
         .map((attr) => nextProps[attr] !== this.props[attr])
-        .find((item) => item) ||
-      JSON.stringify(nextProps.style) !== JSON.stringify(this.props.style) ||
-      Object.keys(this.state)
+        .find((item) => item)
+      || JSON.stringify(nextProps.style) !== JSON.stringify(this.props.style)
+      || Object.keys(this.state)
         .map((attr) => nextState[attr] !== this.state[attr])
-        .find((item) => item) ||
-      (this.inputNode.value && String(nextProps.value) !== this.inputNode.value)
+        .find((item) => item)
+      || (this.inputNode.value && String(nextProps.value) !== this.inputNode.value)
     );
   }
 
@@ -102,11 +102,7 @@ class Input extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (
-      prevProps.value !== this.props.value ||
-      (this.inputNode.value &&
-        String(this.props.value) !== this.inputNode.value)
-    ) {
+    if (prevProps.value !== this.props.value || (this.inputNode.value && String(this.props.value) !== this.inputNode.value)) {
       this.setInputValue();
     }
   }
@@ -137,13 +133,13 @@ class Input extends React.Component {
     } = this.props;
 
     return (
-      !hasCounter &&
-      !hasClear &&
-      !hasLimtHint &&
-      !prefix &&
-      !suffix &&
-      !addonBefore &&
-      !addonAfter
+      !hasCounter
+      && !hasClear
+      && !hasLimtHint
+      && !prefix
+      && !suffix
+      && !addonBefore
+      && !addonAfter
     );
   }
 
@@ -244,7 +240,9 @@ class Input extends React.Component {
 
     return hasCounter && maxLength ? (
       <span className={classnames(`${prefixCls}-input-counter`)}>
-        <span>{counter}</span>/{maxLength}
+        <span>{counter}</span>
+        /
+        {maxLength}
       </span>
     ) : null;
   }
