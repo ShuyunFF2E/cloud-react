@@ -72,35 +72,41 @@ const DateRangePicker = ({
     setValue(transformString2Moment(_value, format, _this));
   }, [_value, _defaultValue, format]);
 
-  const handleChange = useCallback(
-    (m, v) => {
-      if (onChange) {
-        if (_this.formatType === OBJ) {
-          onChange(
-            m &&
-              m.reduce((pre, cur, index) => {
-                if (index === 0) {
-                  return { start: cur && cur.clone().toDate() };
-                }
-                return { ...pre, end: cur && cur.clone().toDate() };
-              }, {}),
-          );
-          return;
-        }
-        onChange(
-          v &&
-            v.reduce((pre, cur, index) => {
-              if (index === 0) {
-                return { start: cur };
-              }
-              return { ...pre, end: cur };
-            }, {}),
-        );
-      } else {
-        setValue(m);
-      }
+  const getDisabledDate = useCallback(
+    (d) => {
+      const target = d.clone();
+      const min =
+        minDate &&
+        (minDate instanceof Date
+          ? moment(moment(minDate).format(format), format)
+          : moment(minDate, format));
+      const max =
+        maxDate &&
+        (maxDate instanceof Date
+          ? moment(moment(maxDate).format(format), format)
+          : moment(maxDate, format));
+      return (
+        (min && target.isBefore(min)) ||
+        (max && target.isAfter(max)) ||
+        (minYear && target.year() < minYear) ||
+        (maxYear && target.year() > maxYear)
+      );
     },
-    [onChange],
+    [format, minDate, maxDate, minYear, maxYear],
+  );
+
+  const handleGetDisabledDate = useCallback(
+    (target) => {
+      const m = moment(target.format(format));
+      if (_disabledDate) {
+        if (_this.formatType === OBJ) {
+          return _disabledDate(m && m.clone().toDate());
+        }
+        return _disabledDate(m && m.format(format));
+      }
+      return getDisabledDate(m);
+    },
+    [_disabledDate, getDisabledDate, format],
   );
 
   const handleOk = useCallback(
@@ -129,7 +135,7 @@ const DateRangePicker = ({
         );
       }
     },
-    [onOk, format],
+    [onOk, format, handleGetDisabledDate],
   );
 
   const handlePanelChange = useCallback(
@@ -163,6 +169,41 @@ const DateRangePicker = ({
     [onPanelChange, format],
   );
 
+  const handleChange = useCallback(
+    (m, v) => {
+      const val = m && m.map((x) => (handleGetDisabledDate(x) ? undefined : x));
+      const vVal = val && val.map((y, i) => (y ? v[i] : undefined));
+      if (onChange) {
+        if (_this.formatType === OBJ) {
+          onChange(
+            val
+              ? val.reduce((pre, cur, index) => {
+                  if (index === 0) {
+                    return { start: cur && cur.clone().toDate() };
+                  }
+                  return { ...pre, end: cur && cur.clone().toDate() };
+                }, {})
+              : { start: undefined, end: undefined },
+          );
+          return;
+        }
+        onChange(
+          vVal
+            ? vVal.reduce((pre, cur, index) => {
+                if (index === 0) {
+                  return { start: cur };
+                }
+                return { ...pre, end: cur };
+              }, {})
+            : { start: undefined, end: undefined },
+        );
+      } else {
+        setValue(val || { start: undefined, end: undefined });
+      }
+    },
+    [onChange],
+  );
+
   const getPopupContainer = useMemo(() => {
     if (_getPopupContainer) {
       return _getPopupContainer;
@@ -172,38 +213,6 @@ const DateRangePicker = ({
     }
     return undefined;
   }, [_getPopupContainer, isAppendToBody]);
-
-  const getDisabledDate = useCallback(
-    (d) => {
-      const current = d.clone();
-      const min =
-        minDate &&
-        (minDate instanceof Date ? moment(minDate) : moment(minDate, format));
-      const max =
-        maxDate &&
-        (maxDate instanceof Date ? moment(maxDate) : moment(maxDate, format));
-      return (
-        (min && current.isBefore(min)) ||
-        (max && current.isAfter(max)) ||
-        (minYear && current.year() < minYear) ||
-        (maxYear && current.year() > maxYear)
-      );
-    },
-    [format, minDate, maxDate, minYear, maxYear],
-  );
-
-  const handleGetDisabledDate = useCallback(
-    (m) => {
-      if (_disabledDate) {
-        if (_this.formatType === OBJ) {
-          return _disabledDate(m && m.clone().toDate());
-        }
-        return _disabledDate(m && m.format(format));
-      }
-      return getDisabledDate(m);
-    },
-    [_disabledDate, getDisabledDate, format],
-  );
 
   return (
     <Picker

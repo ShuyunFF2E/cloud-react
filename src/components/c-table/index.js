@@ -14,6 +14,7 @@ import {
   getLeafNodes,
   setConfig,
   getConfig,
+  isFirefox,
 } from './util';
 import { tablePrefixCls } from './constant';
 import getExpandableConfig from './expend';
@@ -29,6 +30,8 @@ import './index.less';
 
 class CTable extends Component {
   ref = createRef();
+
+  tableRef = createRef();
 
   defaultPageOpts = {
     pageNum: 1,
@@ -131,14 +134,38 @@ class CTable extends Component {
 
     this.setColumnData();
 
-    setTimeout(this.setHeaderStyle);
+    this.setHeaderStyle();
+    this.setFixedStyle();
     this.setFooterHeight();
+  };
+
+  /**
+   * 解决表头滚动问题（rcTable bug）
+   */
+  setHeaderStyle = () => {
+    if (isFirefox() || !this.props.useCustomScroll) {
+      return;
+    }
+    setTimeout(() => {
+      if (this.ref.current) {
+        const bodyEle = this.ref.current.querySelector('.cloud-table-body');
+        if (bodyEle) {
+          bodyEle.style.paddingRight = 0;
+          bodyEle.parentElement.querySelector(
+            '.cloud-table-header colgroup col:last-child',
+          ).style.width = 0;
+        }
+      }
+    }, 200);
   };
 
   /**
    * 手动计算 右侧固定列 表头的样式（由于自定义滚动条占据宽度导致，rcTable 并不兼容这种情况）
    */
-  setHeaderStyle = () => {
+  setFixedStyle = () => {
+    if (isFirefox() || !this.props.useCustomScroll) {
+      return;
+    }
     const fixedColumn = this.state.columnData
       .filter((item) => item.fixed === 'right')
       .reverse();
@@ -146,11 +173,10 @@ class CTable extends Component {
       return;
     }
     const fixedEles = Array.from(
-      this.ref.current.querySelectorAll(
-        'th.cloud-table-cell-fix-right:not(.cloud-table-cell-scrollbar)',
-      ),
+      this.ref.current.querySelectorAll('th.cloud-table-cell-fix-right'),
     );
     if (fixedEles.length) {
+      fixedEles.pop();
       fixedEles.reverse().forEach((ele, index) => {
         if (index === 0) {
           Object.assign(ele.style, { right: 0 });
@@ -164,7 +190,25 @@ class CTable extends Component {
             right: `${right}px`,
           });
         }
-      });
+      }, 500);
+    }
+  };
+
+  /**
+   * 表格翻页后，滚动到顶部
+   */
+  scrollIntoView = () => {
+    if (this.props.scrollIntoTop) {
+      const trEle = this.ref.current?.querySelector(
+        'tr.cloud-table-row:nth-child(2)',
+      );
+      if (trEle) {
+        trEle.scrollIntoView({
+          inline: 'nearest',
+          block: 'nearest',
+          behavior: 'smooth',
+        });
+      }
     }
   };
 
@@ -339,7 +383,8 @@ class CTable extends Component {
                     setConfig(this.state.originColumnData, this.props.tableId);
                   }
                   this.setColumnData();
-                  setTimeout(this.setHeaderStyle, 150);
+                  this.setHeaderStyle();
+                  this.setFixedStyle();
                 }}
               >
                 {typeof item.title === 'function'
@@ -714,6 +759,9 @@ class CTable extends Component {
         async () => {
           this.setCheckboxColumn();
           await onRefreshAfter();
+          this.setHeaderStyle();
+          this.setFixedStyle();
+          this.scrollIntoView();
           this.props.onLoadGridAfter(res);
         },
       );
@@ -799,6 +847,7 @@ class CTable extends Component {
   render() {
     const {
       ref,
+      tableRef,
       leafNodesMap,
       onPageChange,
       onRefresh,
@@ -824,6 +873,7 @@ class CTable extends Component {
       supportResizeColumn,
       supportConfigColumn,
       maxHeight,
+      useCustomScroll,
     } = this.props;
     const {
       data,
@@ -855,12 +905,15 @@ class CTable extends Component {
               [`${tablePrefixCls}-empty`]: !data.length,
               [`${tablePrefixCls}-support-config`]: supportConfigColumn,
               [`${tablePrefixCls}-support-checkbox`]: supportCheckbox,
+              [`${tablePrefixCls}-use-custom-scroll`]:
+                useCustomScroll && !isFirefox(),
             },
             className,
           )}
           style={{ height: `calc(100% - ${footerHeight}px)` }}
         >
           <RcTable
+            ref={tableRef}
             prefixCls={tablePrefixCls}
             columns={columnData}
             data={data}
@@ -979,6 +1032,8 @@ CTable.propTypes = {
   maxHeight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   supportMemory: PropTypes.bool,
   tableId: PropTypes.string,
+  useCustomScroll: PropTypes.bool,
+  scrollIntoTop: PropTypes.bool,
 };
 
 CTable.defaultProps = {
@@ -1020,4 +1075,6 @@ CTable.defaultProps = {
   maxHeight: '',
   supportMemory: false,
   tableId: '',
+  useCustomScroll: true,
+  scrollIntoTop: true,
 };
