@@ -20,6 +20,7 @@ group:
 | treeData                 | 树结构数据                                                           | Array    | -                 |
 | className                | class 名称方式设置 treeList 样式                                     | String   | -                 |
 | style                    | 对象方式设置 treeList 样式                                           | Object   | -                 |
+| disabled                 | 是否全局禁用所有操作                                           | Boolean   | false                 |
 | selectedValue            | 被选中数据，需要回显的数据，仅支持多选类型                           | Array    | -                 |
 | searchPlaceholder        | 搜索框默认 placeholder 信息                                          | String   | -                 |
 | searchMaxLength          | 搜索框搜索关键字最大支持长度                                         | Number   | -                 |
