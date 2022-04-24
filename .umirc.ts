@@ -35,12 +35,12 @@ export default defineConfig({
       path: '/cloud-react',
     },
     {
-      title: '数云Echarts图表库',
+      title: '图表库',
       // 可通过如下形式嵌套二级导航菜单，目前暂不支持更多层级嵌套：
       path: 'https://qa-charts.shuyun.com/',
     },
     {
-      title: '数云Taro千牛组件库',
+      title: '千牛UI',
       // 可通过如下形式嵌套二级导航菜单，目前暂不支持更多层级嵌套：
       path: 'https://ui.shuyun.com/',
     },
@@ -49,10 +49,10 @@ export default defineConfig({
       // 可通过如下形式嵌套二级导航菜单，目前暂不支持更多层级嵌套：
       path: 'https://github.com/ShuyunFF2E/shuyun-utils',
     },
-		{
-			title: '主题',
-			path: '/theme',
-		}
+    {
+      title: '主题',
+      path: '/theme',
+    },
   ],
   alias: {
     '@utils': path.resolve(__dirname, 'src/utils'),
