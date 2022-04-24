@@ -20,12 +20,10 @@ features:
     title: 提供丰富组件
     desc: 丰富强大的组件支持，快速化解页面开发的需求。
 
-
 footer: Open-source MIT Licensed | Copyright © 2021-present<br />Powered by 数云前端团队
 ---
 
 ## 轻松上手
-
 
 ```bash
 npm i cloud-react -S
