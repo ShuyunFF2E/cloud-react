@@ -29,27 +29,22 @@ title: 基础用法
 desc: 当您的使用场景比较简单的时候，看看基础用法是否就能满足您的需求了，点击下面"代码"按钮查看代码例子
 ---
 
-
 ```jsx
-
 import { Button } from 'cloud-react';
 import React from 'react';
 
 export default class BasicDemo extends React.Component {
-	render() {
-		return (
-			<Button className="btn">普通按钮</Button>
-		)
-	}
+  render() {
+    return <Button className="btn">普通按钮</Button>;
+  }
 }
-
 ```
 
 ```less
 .btn {
-	a {
-		color: red;
-	}
+  a {
+    color: red;
+  }
 }
 ```
 
@@ -57,7 +52,7 @@ OR
 
 ```css
 .btn a {
-	color: red;
+  color: red;
 }
 ```
 ````
