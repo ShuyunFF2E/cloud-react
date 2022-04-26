@@ -262,7 +262,9 @@ class Node extends Component {
               cancelSave={(e) => this.onClickCancel(e, data)}
             />
           </div>
-          {data.isUnfold && <>{children}</>}
+          <div className={`node-children ${data.isUnfold ? 'node-children-visible' : 'node-children-hidden'}`}>
+            {children}
+          </div>
         </div>
       </>
     );
@@ -283,7 +285,9 @@ function ToggleFold({ hasChildren, showChildrenItem, toggle }) {
     hasChildren && (
       <Icon
         className="toggle-icon"
-        type={!showChildrenItem ? 'down' : 'up'}
+        // type={!showChildrenItem ? 'down' : 'up'}
+        type="up"
+        style={{ transform: showChildrenItem ? 'rotate(0)' : 'rotate(-180deg)' }}
         onClick={toggle}
       />
     )

@@ -141,6 +141,7 @@
           text-align: center;
           color: @gray-7;
           margin: 0 8px;
+          transition: all 0.1s;
 
           &:hover {
             color: @gray-6;
@@ -178,6 +179,31 @@
 
       .node-item-container:not(.support-checkbox):hover {
         background: @blue-1;
+      }
+
+      .node-children {
+
+        &-visible .node-item-container {
+          height: 32px;
+          opacity: 1;
+        }
+
+        &-hidden {
+          .node-item-container {
+            height: 0;
+            opacity: 0;
+          }
+
+          li {
+            border: none;
+          }
+        }
+
+        .node-item-container {
+          transition: all 0.1s;
+        }
+
+        overflow: hidden;
       }
 
       .node-item {
