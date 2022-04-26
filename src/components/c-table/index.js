@@ -624,7 +624,11 @@ class CTable extends Component {
     });
     this.setCheckboxColumn();
     this.updateSelectedNodes(() => {
-      this.props.onCheckedAllAfter(this.state.selectedNodeList);
+      this.props.onCheckedAllAfter(
+        this.state.selectedNodeList,
+        this.state.data,
+        checked,
+      );
     });
   };
 
@@ -642,7 +646,7 @@ class CTable extends Component {
     });
     this.setCheckboxColumn();
     this.updateSelectedNodes(() => {
-      this.props.onCheckedAfter(this.state.selectedNodeList, row);
+      this.props.onCheckedAfter(this.state.selectedNodeList, row, checked);
     });
   };
 
@@ -661,7 +665,7 @@ class CTable extends Component {
     });
     this.setCheckboxColumn();
     this.updateSelectedNodes(() => {
-      this.props.onCheckedAfter(this.state.selectedNodeList, row);
+      this.props.onCheckedAfter(this.state.selectedNodeList, row, true);
     });
   };
 
