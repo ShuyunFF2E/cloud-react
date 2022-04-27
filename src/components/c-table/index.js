@@ -587,7 +587,7 @@ class CTable extends Component {
     Object.keys(leafNodesMap).forEach((key) => {
       if (typeof leafNodesMap[key] === 'object') {
         const parentKey = this.getKeyFieldVal(leafNodesMap[key].parentNode);
-        // 如果节点的所有子节点选中 并且 节点的父节点的所=所有子节点没有全部选中
+        // 如果节点的所有子节点选中 并且 节点的父节点的所有子节点没有全部选中
         if (
           isEveryChecked(leafNodesMap[key].childNodes) &&
           (!parentKey || !isEveryChecked(leafNodesMap[parentKey].childNodes))
@@ -655,6 +655,12 @@ class CTable extends Component {
    * @param row
    */
   onNodeRadioChange = (row) => {
+    // 如果默认传入的已选数据不在当前页，则删除（checkedData = [{ id: 'test' }]）
+    Object.keys(this.leafNodesMap).forEach((key) => {
+      if (!Array.isArray(this.leafNodesMap[key].childNodes)) {
+        delete this.leafNodesMap[key];
+      }
+    });
     // 更新叶子节点 leafNodesMap 的选中状态
     Object.keys(this.leafNodesMap).forEach((key) => {
       this.leafNodesMap[key].childNodes.forEach((node) => {
