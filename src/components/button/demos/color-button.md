@@ -24,21 +24,29 @@ export default class ButtonDemo extends React.Component {
 					{blank}
 					<Button type="normal" colorType="tips">normal-tips</Button>
 					{blank}
+					<Button type="dashed" colorType="tips" >dashed-tips</Button>
+					{blank}
 					<Button type="link" colorType="tips" >link-tips</Button>
 					{blank}
 					<Button type="text" colorType="tips" >text-tips</Button>
+
 					<div style={{ marginTop:10 }}/>
 					<Button type="primary" colorType="danger">primary-danger</Button>
 					{blank}
 					<Button type="normal" colorType="danger">normal-danger</Button>
 					{blank}
+					<Button type="dashed" colorType="danger">dashed-danger</Button>
+					{blank}
 					<Button type="link" colorType="danger">link-danger</Button>
 					{blank}
 					<Button type="text" colorType="danger">text-danger</Button>
+
 					<div style={{ marginTop:10 }}/>
 					<Button type="primary" colorType="success">primary-success</Button>
 					{blank}
 					<Button type="normal" colorType="success">normal-success</Button>
+					{blank}
+					<Button type="dashed" colorType="success">dashed-success</Button>
 					{blank}
 					<Button type="link" colorType="success">link-success</Button>
 					{blank}
