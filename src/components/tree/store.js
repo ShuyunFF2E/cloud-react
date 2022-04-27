@@ -15,7 +15,7 @@ class Store {
 	 * @param isUnfold
 	 * @returns {*}
 	 */
-	initData = (treeData, maxLevel, selectedValue, isUnfold) => {
+	initData = ({ treeData, maxLevel, selectedValue, isUnfold, disabled }) => {
 		// 数据不存在或无数据使时
 		if (!treeData || !treeData.length) {
 			return [];
@@ -63,6 +63,15 @@ class Store {
 			const tmp = node;
 			// 增加层级
 			tmp.level = level;
+
+			// 禁用增加数据标识
+			if (disabled) {
+				tmp.disableAdd = true;
+				tmp.disableRename = true;
+				tmp.disableRemove = true;
+				tmp.disableSelected = true;
+			}
+
 			// 增加是否展开标志
 			if (isUnfold !== undefined) {
 				tmp.isUnfold = isUnfold;
