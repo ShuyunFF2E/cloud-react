@@ -22,405 +22,391 @@
 @small-padding: 6px 11px;
 @small-text-padding: 0;
 
-@large-icon-margin: 6px;
-@default-icon-margin: 6px;
-@small-icon-margin: 0px;
+@icon-margin: 6px;
 
 @translate: 1px;
 
 /* group */
 .@{button-prefix-cls}-group {
-	padding-left: @translate;
-	display: inline-block;
+  padding-left: @translate;
+  display: inline-block;
 }
 
 .@{button-prefix-cls} {
-	display: inline-flex;
-	justify-content: center;
-	align-items: center;
-	border-radius: @border-radius;
-	box-sizing: border-box;
-	outline: none;
-	line-height: 1;
-	cursor: pointer;
-	transition: 0.3s;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: @border-radius;
+  box-sizing: border-box;
+  outline: none;
+  line-height: 1;
+  cursor: pointer;
+  transition: 0.3s;
 
-	/* group */
-	&-group & {
-		position: relative;
-		border-radius: 0;
-		z-index: 1;
-		margin-left: -@translate;
+  /* group */
+  &-group & {
+    position: relative;
+    border-radius: 0;
+    z-index: 1;
+    margin-left: -@translate;
 
-		&:first-child {
-			border-top-left-radius: @border-radius;
-			border-bottom-left-radius: @border-radius;
-		}
+    &:first-child {
+      border-top-left-radius: @border-radius;
+      border-bottom-left-radius: @border-radius;
+    }
 
-		&:last-child {
-			border-top-right-radius: @border-radius;
-			border-bottom-right-radius: @border-radius;
-		}
+    &:last-child {
+      border-top-right-radius: @border-radius;
+      border-bottom-right-radius: @border-radius;
+    }
 
-		&[disabled]:not(:first-child)::after,
-		&.primary:not(:first-child)::after {
-			content: '';
-			position: absolute;
-			top: -1px;
-			left: -1px;
-			width: 1px;
-			background: currentColor;
-			opacity: 0.1;
-			height: 104%;
-		}
+    &[disabled]:not(:first-child)::after,
+    &.primary:not(:first-child)::after {
+      content: '';
+      position: absolute;
+      top: -1px;
+      left: -1px;
+      width: 1px;
+      background: currentColor;
+      opacity: 0.1;
+      height: 104%;
+    }
 
-		&:hover {
-			z-index: 2;
-		}
-	}
+    &:hover {
+      z-index: 2;
+    }
+  }
 
-	/* type */
-	&.normal {
-		border: 1px solid @blue-2;
-		color: @blue-4;
-		background: @gray-1;
-			&.tips{
-				border: 1px solid @orange-2;
-				color:@orange-4
-			}
+  /* type */
+  &.normal {
+    border: 1px solid @blue-2;
+    color: @blue-4;
+    background: @gray-1;
+    &.tips {
+      border: 1px solid @orange-2;
+      color: @orange-4;
+    }
 
-			&.danger{
-				border: 1px solid @red-2;
-				color: @red-4;
-			}
-			&.success{
-				border: 1px solid @green-2;
-				color: @green-4;
-			}
+    &.danger {
+      border: 1px solid @red-2;
+      color: @red-4;
+    }
+    &.success {
+      border: 1px solid @green-2;
+      color: @green-4;
+    }
 
-		&:hover {
-			background: @blue-1;
-			&.tips{
-				border: 1px solid @orange-2;
-				background:@orange-1;
-			}
+    &:hover {
+      background: @blue-1;
+      &.tips {
+        border: 1px solid @orange-2;
+        background: @orange-1;
+      }
 
-			&.danger{
-				border: 1px solid @red-2;
-				background:@red-1;
-			}
-			&.success{
-				border: 1px solid @green-2;
-				background: @green-1;
-			}
+      &.danger {
+        border: 1px solid @red-2;
+        background: @red-1;
+      }
+      &.success {
+        border: 1px solid @green-2;
+        background: @green-1;
+      }
+    }
+    &:active {
+      color: @blue-5;
+      border: 1px solid @blue-3;
+      background: @blue-2;
+      &.tips {
+        border: 1px solid @orange-3;
+        color: @orange-5;
+        background: @orange-2;
+      }
 
-		}
-		&:active {
-			color: @blue-5;
-			border: 1px solid @blue-3;
-			background: @blue-2;
-			&.tips{
-				border: 1px solid @orange-3;
-				color:@orange-5;
-				background:@orange-2;
-			}
+      &.danger {
+        border: 1px solid @red-3;
+        color: @red-5;
+        background: @red-2;
+      }
+      &.success {
+        border: 1px solid @green-3;
+        color: @green-5;
+        background: @green-2;
+      }
+    }
+  }
+  &.primary {
+    border: 1px solid @blue-4;
+    background: @blue-4;
+    color: @gray-1;
 
-			&.danger{
-				border: 1px solid @red-3;
-				color:@red-5;
-				background:@red-2;
-			}
-			&.success{
-				border: 1px solid @green-3;
-				color:@green-5;
-				background: @green-2;
-			}
-		}
-	}
-	&.primary {
-		border: 1px solid @blue-4;
-		background: @blue-4;
-		color: @gray-1;
+    &.tips {
+      border: 1px solid @orange-4;
+      background: @orange-4;
+    }
+    &.danger {
+      border: 1px solid @red-4;
+      background: @red-4;
+    }
+    &.success {
+      border: 1px solid @green-4;
+      background: @green-4;
+    }
 
-		&.tips{
-			border: 1px solid @orange-4;
-			background: @orange-4;
-		}
-		&.danger{
-			border: 1px solid @red-4;
-			background: @red-4;
-		}
-		&.success{
-			border: 1px solid @green-4;
-			background: @green-4;
-		}
+    &:hover {
+      border-color: @primary-hover-bg;
+      background: @primary-hover-bg;
+      &.tips {
+        border: 1px solid @orange-5;
+        background: @orange-5;
+      }
+      &.danger {
+        border: 1px solid @red-5;
+        background: @red-5;
+      }
+      &.success {
+        border: 1px solid @green-5;
+        background: @green-5;
+      }
+    }
+    &:active {
+      border-color: @primary-active-bg;
+      background: @primary-active-bg;
+      &.tips {
+        border: 1px solid @orange-6;
+        background: @orange-6;
+      }
+      &.danger {
+        border: 1px solid @red-6;
+        background: @red-6;
+      }
+      &.success {
+        border: 1px solid @green-6;
+        background: @green-6;
+      }
+    }
+  }
+  &.dashed {
+    border: 1px dashed @color-gray5;
+    color: @dashed-color;
 
-		&:hover {
-			border-color: @primary-hover-bg;
-			background: @primary-hover-bg;
-			&.tips{
-				border: 1px solid @orange-5;
-				background: @orange-5;
-			}
-			&.danger{
-				border: 1px solid @red-5;
-				background: @red-5;
-			}
-			&.success{
-				border: 1px solid @green-5;
-				background: @green-5;
-			}
-		}
-		&:active {
-			border-color: @primary-active-bg;
-			background: @primary-active-bg;
-			&.tips{
-				border: 1px solid @orange-6;
-				background: @orange-6;
-			}
-			&.danger{
-				border: 1px solid @red-6;
-				background: @red-6;
-			}
-			&.success{
-				border: 1px solid @green-6;
-				background: @green-6;
-			}
-		}
-	}
-	&.dashed {
-		border: 1px dashed @color-gray5;
-		color: @dashed-color;
+    &:hover {
+      border-color: @color-blue1;
+      color: @color-blue1;
+    }
+    &:active {
+      border-color: @color-blue4;
+      color: @color-blue4;
+    }
+  }
+  &.link {
+    border: none;
+    color: @blue-4;
+    background: transparent;
+    line-height: 20px;
+    &.tips {
+      color: @orange-4;
+    }
+    &.danger {
+      color: @red-4;
+    }
+    &.success {
+      color: @green-4;
+    }
+    &:hover {
+      background: @gray-2;
+    }
+    &:active {
+      color: @blue-5;
+      background: @gray-2;
+      &.tips {
+        color: @orange-5;
+      }
+      &.danger {
+        color: @red-5;
+      }
+      &.success {
+        color: @green-5;
+      }
+    }
+  }
 
-		&:hover {
-			border-color: @color-blue1;
-			color: @color-blue1;
-		}
-		&:active {
-			border-color: @color-blue4;
-			color: @color-blue4;
-		}
-	}
-	&.link {
-		border: none;
-		color: @blue-4;
-		background: transparent;
-		line-height: 20px;
-		&.tips{
-			color: @orange-4;
-		}
-		&.danger{
-			color: @red-4;
-		}
-		&.success{
-			color: @green-4;
-		}
-		&:hover {
-			background:@gray-2;
-		}
-		&:active {
-			color: @blue-5;
-			background:@gray-2;
-			&.tips{
-				color: @orange-5;
-			}
-			&.danger{
-				color: @red-5;
-			}
-			&.success{
-				color: @green-5;
-			}
-		}
-	}
+  &.text {
+    border: none;
+    color: @blue-4;
+    background: transparent;
+    &.tips {
+      color: @orange-4;
+    }
+    &.danger {
+      color: @red-4;
+    }
+    &.success {
+      color: @green-4;
+    }
+    &:active {
+      color: @blue-5;
+      &.tips {
+        color: @orange-5;
+      }
+      &.danger {
+        color: @red-5;
+      }
+      &.success {
+        color: @green-5;
+      }
+    }
+  }
 
-	&.text {
-		border: none;
-		color: @blue-4;
-		background: transparent;
-		&.tips{
-			color: @orange-4;
-		}
-		&.danger{
-			color: @red-4;
-		}
-		&.success{
-			color: @green-4;
-		}
-		&:active {
-			color: @blue-5;
-			&.tips{
-				color: @orange-5;
-			}
-			&.danger{
-				color: @red-5;
-			}
-			&.success{
-				color: @green-5;
-			}
-		}
-	}
+  .cloud-icon {
+    font-size: 14px;
+    margin-right: @icon-margin;
+  }
 
-	/* size */
-	&.large {
-		padding: @large-padding;
-		font-size: @large-font-size;
-		/* icon */
-		.cloud-icon {
-			margin-right: @large-icon-margin;
-		}
+  /* size */
+  &.large {
+    padding: @large-padding;
+    font-size: @large-font-size;
+    // 纯文字按钮单独设置
+    &.text {
+      padding: @large-text-padding;
+    }
+  }
+  &.default {
+    padding: @default-padding;
+    font-size: @default-font-size;
+    &.link {
+      padding: @default-link-padding;
+    }
+    // 纯文字按钮单独设置
+    &.text {
+      padding: @default-text-padding;
+    }
+  }
+  &.small {
+    padding: @small-padding;
+    font-size: @small-font-size;
 
-		// 纯文字按钮单独设置
-		&.text{
-			padding: @large-text-padding;
-		}
-	}
-	&.default {
-		padding: @default-padding;
-		font-size: @default-font-size;
-		&.link {
-			padding: @default-link-padding;
-		}
+    // 纯文字按钮单独设置
+    &.text {
+      padding: @large-text-padding;
+    }
+  }
 
-		// 纯文字按钮单独设置
-		&.text {
-			padding: @default-text-padding;
-		}
+  /* block */
+  &.block {
+    width: 100%;
+  }
 
-		/* icon */
-		.cloud-icon {
-			margin-right: @default-icon-margin;
-		}
-	}
-	&.small {
-		padding: @small-padding;
-		font-size: @small-font-size;
+  /* disabled */
+  &[disabled] {
+    &.primary {
+      &,
+      &:hover,
+      &:active {
+        border: 1px solid @primary-disabled-bg;
+        background: @primary-disabled-bg;
+        background-clip: padding-box;
+        cursor: not-allowed;
 
-		/* icon */
-		.cloud-icon {
-			margin-right: @small-icon-margin;
-		}
-        
-		// 纯文字按钮单独设置
-		&.text{
-			padding: @large-text-padding;
-		}
-	}
+        // &.tips{
+        // 	border: 1px solid @orange-2;
+        // 	background: @orange-2;
+        // }
 
-	/* block */
-	&.block {
-		width: 100%;
-	}
+        // &.danger{
+        // 	border: 1px solid @red-2;
+        // 	background: @red-2;
+        // }
+        // &.success{
+        // 	border: 1px solid @green-2;
+        // 	background: @green-2;
+        // }
+      }
+    }
 
-	/* disabled */
-	&[disabled] {
-		&.primary {
-			&,
-			&:hover,
-			&:active {
-				border: 1px solid @primary-disabled-bg;
-				background: @primary-disabled-bg;
-				background-clip: padding-box;
-				cursor: not-allowed;
+    &.normal {
+      &,
+      &:hover,
+      &:active {
+        color: @gray-6;
+        border: 1px solid @gray-4;
+        background-color: @gray-3;
+        cursor: not-allowed;
+        // &.tips{
+        // 	border: 1px solid @orange-2;
+        // 	background:transparent;
+        // 	color: @orange-2
+        // }
 
-				// &.tips{
-				// 	border: 1px solid @orange-2;
-				// 	background: @orange-2;
-				// }
+        // &.danger{
+        // 	border: 1px solid @red-2;
+        // 	background:transparent;
+        // 	color: @red-2
+        // }
+        // &.success{
+        // 	border: 1px solid @green-2;
+        // 	background: transparent;
+        // 	color: @green-2
+        // }
+      }
+    }
 
-				// &.danger{
-				// 	border: 1px solid @red-2;
-				// 	background: @red-2;
-				// }
-				// &.success{
-				// 	border: 1px solid @green-2;
-				// 	background: @green-2;
-				// }
-			}
-		}
+    &.dashed {
+      &,
+      &:hover,
+      &:active {
+        color: @color-white;
+        background: @color-gray6;
+        border: 1px solid @color-gray6;
+        cursor: not-allowed;
+      }
+    }
 
-		&.normal {
-			&,
-			&:hover,
-			&:active {
-				color: @gray-6;
-				border: 1px solid @gray-4;
-				background-color: @gray-3;
-				cursor: not-allowed;
-				// &.tips{
-				// 	border: 1px solid @orange-2;
-				// 	background:transparent;
-				// 	color: @orange-2
-				// }
-	
-				// &.danger{
-				// 	border: 1px solid @red-2;
-				// 	background:transparent;
-				// 	color: @red-2
-				// }
-				// &.success{
-				// 	border: 1px solid @green-2;
-				// 	background: transparent;
-				// 	color: @green-2
-				// }
-			}
-		}
+    &.link {
+      &,
+      &:hover,
+      &:active {
+        color: @gray-6;
+        cursor: not-allowed;
+        background: transparent;
+        // &.tips{
+        // 	color: @orange-2;
+        // }
+        // &.danger{
+        // 	color: @red-2;
+        // }
+        // &.success{
+        // 	color: @green-2;
+        // }
+      }
+    }
 
-		&.dashed {
-			&,
-			&:hover,
-			&:active {
-				color: @color-white;
-				background: @color-gray6;
-				border: 1px solid @color-gray6;
-				cursor: not-allowed;
-			}
-		}
+    &.text {
+      &,
+      &:hover,
+      &:active {
+        color: @gray-6;
+        cursor: not-allowed;
+      }
+    }
+  }
 
-		&.link {
-			&,
-			&:hover,
-			&:active {
-				color: @gray-6;
-				cursor: not-allowed;
-				background: transparent;
-				// &.tips{
-				// 	color: @orange-2;
-				// }
-				// &.danger{
-				// 	color: @red-2;
-				// }
-				// &.success{
-				// 	color: @green-2;
-				// }
-			}
-		}
-
-		&.text {
-			&,
-			&:hover,
-			&:active {
-				color: @gray-6;
-				cursor: not-allowed;
-			}
-		}
-	}
-
-	&-loading {
-		display: inline-block;
-		width: 10px;
-		height: 10px;
-		border-radius: 50%;
-		animation: load 1.5s infinite linear;
-		margin-right: 10px;
-		border: 1px solid @color-gray6;
-		border-top: 1px solid @color-white;
-		@keyframes load {
-			from {
-				transform: rotate(0deg);
-			}
-			to {
-				transform: rotate(360deg);
-			}
-		}
-	}
+  &-loading {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    animation: load 1.5s infinite linear;
+    margin-right: 10px;
+    border: 1px solid @color-gray6;
+    border-top: 1px solid @color-white;
+    @keyframes load {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  }
 }
