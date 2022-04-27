@@ -45,6 +45,7 @@ export default class ButtonDemo extends React.Component {
 				</div>
 
 				<div>
+					<h4>无图标</h4>
 					<Button type="primary" size={size}>
 						primary
 					</Button>
@@ -62,6 +63,28 @@ export default class ButtonDemo extends React.Component {
 					</Button>
 					{blank}
 					<Button type="text" size={size}>
+						text
+					</Button>
+				</div>
+				<div>
+					<h4>有图标</h4>
+					<Button type="primary" icon="plus-solid" size={size}>
+						primary
+					</Button>
+					{blank}
+					<Button type="normal" icon="plus-solid" size={size}>
+						normal
+					</Button>
+					{blank}
+					<Button type="dashed" icon="plus-solid" size={size}>
+						dashed
+					</Button>
+					{blank}
+					<Button type="link" icon="plus-solid" size={size}>
+						link
+					</Button>
+					{blank}
+					<Button type="text" icon="plus-solid" size={size}>
 						text
 					</Button>
 				</div>
