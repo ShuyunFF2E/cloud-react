@@ -190,7 +190,7 @@ class CTable extends Component {
             right: `${right}px`,
           });
         }
-      }, 500);
+      });
     }
   };
 

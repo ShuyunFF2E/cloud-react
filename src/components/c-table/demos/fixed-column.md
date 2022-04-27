@@ -61,6 +61,7 @@ export default function CTableDemo() {
           }}>重置表格尺寸</Button>
           <CTable
             style={{ ...style, marginTop: 15 }}
+            useCustomScroll={false}
             supportPage
             isDelay
             columnData={columns}

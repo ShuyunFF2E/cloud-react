@@ -56,6 +56,7 @@ export default function CTableDemo() {
       </div>
       <CTable
         style={{ width: '100%', height: 500 }}
+        useCustomScroll={false}
         supportExpend
         supportTree
         supportCheckbox

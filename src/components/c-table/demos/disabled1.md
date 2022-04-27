@@ -39,6 +39,7 @@ export default function CTableDemo() {
       style={{ width: '100%', height: 360 }}
       supportCheckbox
       supportPage
+      useCustomScroll={false}
       rowKey="id" // rowKey 设置为 ""，disabledData 可以传递整行数据，例如：rowKey="" disabledData={[data[0], data[8]]}
       disabledData={[data[0].id, data[8].id]}
       checkedData={[data[1]]}

@@ -79,6 +79,7 @@ export default function CTableDemo() {
         style={{ width: '100%', height: 400 }}
         columnData={columns}
         pageOpts={{ pageSize: 6 }}
+        useCustomScroll={false}
         supportPage
         ajaxData={(params) => {
           return new Promise(resolve => {
