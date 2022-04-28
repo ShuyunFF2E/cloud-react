@@ -40,6 +40,7 @@ class Tree extends Component {
   static defaultProps = {
     style: {},
     className: '',
+    disabled: false,
     searchPlaceholder: '搜索一个选项',
     searchMaxLength: '',
     nodeNameMaxLength: '',
@@ -75,6 +76,7 @@ class Tree extends Component {
   static propsTypes = {
     style: PropTypes.object,
     className: PropTypes.string,
+    disabled: PropTypes.bool,
     treeData: PropTypes.array,
     searchPlaceholder: PropTypes.string,
     searchMaxLength: PropTypes.number,
@@ -111,12 +113,9 @@ class Tree extends Component {
     // 从外部接收到的数据存放到state中，便于子组件对其树数据进行修改
     super(props);
 
-    const treeData = store.initData(
-      props.treeData,
-      props.maxLevel,
-      props.selectedValue,
-      props.isUnfold,
-    );
+    const { treeData, maxLevel, selectedValue, isUnfold, disabled } = props;
+
+    const _treeData = store.initData({ treeData, maxLevel, selectedValue, isUnfold, disabled });
 
     this.state = {
       showRightMenu: false,
@@ -128,11 +127,11 @@ class Tree extends Component {
       menuOptions: null,
       searchText: '',
       treeWidth: 0,
-      treeData: ShuyunUtils.clone(treeData),
-      allTreeData: ShuyunUtils.clone(treeData),
+      treeData: ShuyunUtils.clone(_treeData),
+      allTreeData: ShuyunUtils.clone(_treeData),
       prevProps: props,
-      preSelectedNode: props.selectedValue && props.selectedValue[0],
-      preSelectedList: store.getSelectedLowestNodeList(props.selectedValue),
+      preSelectedNode: selectedValue && selectedValue[0],
+      preSelectedList: store.getSelectedLowestNodeList(selectedValue),
     };
 
     this.treeAreaRef = React.createRef();
@@ -147,11 +146,12 @@ class Tree extends Component {
         selectedValue: nextProps.selectedValue,
         preSelectedNode: nextProps.selectedValue && nextProps.selectedValue[0],
         prevProps: nextProps,
-        treeData: store.initData(
-          prevState.treeData,
-          prevProps.maxLevel,
-          nextProps.selectedValue,
-        ),
+        treeData: store.initData({
+          treeData: prevState.treeData,
+          maxLevel: prevProps.maxLevel,
+          selectedValue: nextProps.selectedValue,
+          disabled: nextProps.disabled
+        }),
         preSelectedList: store.getSelectedLowestNodeList(
           nextProps.selectedValue,
         ),
@@ -201,7 +201,7 @@ class Tree extends Component {
     this.setState({
       searchText,
     });
-    const { supportSearch, supportCheckbox, onSearchNode } = this.props;
+    const { disabled,isUnfold, supportSearch, supportCheckbox, onSearchNode } = this.props;
 
     const tmp = ShuyunUtils.clone(this.state.allTreeData);
 
@@ -217,13 +217,14 @@ class Tree extends Component {
       );
 
       this.setState({
-        treeData: store.initData(
-          [...backTree],
-          null,
-          [...allSelectedLowest],
-          this.props.isUnfold,
-        ),
-        preSelectedList: allSelectedLowest,
+        treeData: store.initData({
+          treeData: [...backTree],
+          maxLevel: null,
+          selectedValue: [...allSelectedLowest],
+          isUnfold,
+          disabled
+        }),
+        preSelectedList: allSelectedLowest
       });
     } else {
       this.setState({
@@ -610,6 +611,7 @@ class Tree extends Component {
     const {
       style,
       className,
+      disabled,
       isUnfold,
       searchPlaceholder,
       searchMaxLength,
@@ -652,6 +654,7 @@ class Tree extends Component {
         value={{
           treeData,
           isUnfold,
+          disabled,
           searchText,
           supportCheckbox,
           breakCheckbox,

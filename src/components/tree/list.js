@@ -132,7 +132,7 @@ class List extends Component {
       onDragNodeOver,
       onDragNodeLeave,
     } = this;
-    const { supportDrag } = this.context;
+    const { supportDrag, disabled } = this.context;
     return !data.length ? null : (
       <ul className={classNames(`${prefixCls}-list`)}>
         {data.map((node) => {
@@ -146,7 +146,7 @@ class List extends Component {
               onDragEnd={(e) => onDragNodeEnd(e, node)}
               onDragOver={(e) => onDragNodeOver(e, node)}
               onDragLeave={onDragNodeLeave}
-              draggable={(pId || pId === 0) && supportDrag}
+              draggable={(pId || pId === 0) && supportDrag && !disabled}
             >
               <Node data={node} prefixCls={prefixCls}>
                 {children.length ? (

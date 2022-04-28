@@ -29,8 +29,13 @@ class Node extends Component {
     e.stopPropagation();
     e.nativeEvent.stopImmediatePropagation();
     // 不使用右键菜单则使用浏览器默认右键菜单
-    const { menuType, onShowMenu } = this.context;
+    const { menuType, onShowMenu, disabled } = this.context;
     let menuStyle = {};
+
+    // 全局禁用正常走浏览器菜单
+    if (disabled) {
+      return;
+    }
 
     // dialog模式，并且当前正在右键，则正常走浏览器的菜单
     if (menuType === DIALOG_MENU && menuTypeNow === RIGHT_MENU) {
@@ -116,7 +121,12 @@ class Node extends Component {
   // 选中节点
   handleSelect = (checked, isCheckbox) => {
     const { data } = this.props;
-    const { supportCheckbox, onSelectedAction, onDoubleClick } = this.context;
+    const { disabled, supportCheckbox, onSelectedAction, onDoubleClick } = this.context;
+
+    if (disabled) {
+      return;
+    }
+
     if (supportCheckbox) {
       data.checked = checked;
     }
@@ -142,6 +152,7 @@ class Node extends Component {
   render() {
     const { data, children, prefixCls } = this.props;
     const {
+      disabled,
       supportCheckbox,
       supportDrag,
       showIcon,
@@ -182,7 +193,7 @@ class Node extends Component {
             } ${supportCheckbox ? 'support-checkbox' : ''}`}
           >
             {/* 拖拽icon: 根节点不支持拖拽 */}
-            {supportDrag && (data.pId || data.pId === 0) && (
+            {supportDrag && (data.pId || data.pId === 0) && !disabled && (
               <Tooltip content="拖拽行调整顺序">
                 <div className="drag-icon" />
               </Tooltip>
@@ -229,7 +240,7 @@ class Node extends Component {
                 onDoubleClick={() => onDoubleClick(data)}
               />
               {/* 点击菜单 */}
-              {supportMenu && menuType !== RIGHT_MENU && (
+              {supportMenu && menuType !== RIGHT_MENU && !disabled && (
                 <span
                   className="edit-icon"
                   onClick={(e) =>
@@ -251,7 +262,9 @@ class Node extends Component {
               cancelSave={(e) => this.onClickCancel(e, data)}
             />
           </div>
-          {data.isUnfold && <>{children}</>}
+          <div className={`node-children ${data.isUnfold ? 'node-children-visible' : 'node-children-hidden'}`}>
+            {children}
+          </div>
         </div>
       </>
     );
@@ -272,7 +285,9 @@ function ToggleFold({ hasChildren, showChildrenItem, toggle }) {
     hasChildren && (
       <Icon
         className="toggle-icon"
-        type={!showChildrenItem ? 'up' : 'down'}
+        // type={!showChildrenItem ? 'down' : 'up'}
+        type="up"
+        style={{ transform: showChildrenItem ? 'rotate(0)' : 'rotate(-180deg)' }}
         onClick={toggle}
       />
     )
