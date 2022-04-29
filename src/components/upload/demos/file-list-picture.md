@@ -6,10 +6,10 @@ desc: 使用 fileList 设置已上传的图片列表进行控制。
 
 ```jsx
 
-            /**
-             * title: 图片形式已上传列表
-             * desc: 使用 fileList 设置已上传的图片列表进行控制。
-             */
+/**
+ * title: 图片形式已上传列表
+ * desc: 使用 fileList 设置已上传的图片列表进行控制。
+ */
 import React from 'react';
 import { Upload } from 'cloud-react';
 

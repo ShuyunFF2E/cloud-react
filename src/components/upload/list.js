@@ -108,10 +108,11 @@ const Picture = props => {
 
 class UploadList extends Component {
 	render() {
-		const { fileList, type, hasPreview, disabled, onRemove, onPreview, onReUpload } = this.props;
+		const { fileList = [], type, hasPreview, disabled, onRemove, onPreview, onReUpload } = this.props;
 
 		const classes = classNames(`${prefix}`, {
-			[`${prefix}-${type}`]: type === TYPE.PICTURE
+			[`${prefix}-${type}`]: type === TYPE.PICTURE,
+			[`${prefix}-${type}-multiple`]: fileList.length > 1,
 		});
 
 		return (

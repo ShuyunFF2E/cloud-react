@@ -396,7 +396,7 @@ class Upload extends Component {
 						visible={isShowPreview}
 						onClose={() => this.handlePreview()}
 					>
-						<img src={url} />
+						<img src={url} alt="" />
 					</Modal>
 				)}
 				{this.renderUpload()}
