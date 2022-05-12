@@ -10,13 +10,13 @@ import { Button, Popover, Message, Checkbox } from 'cloud-react';
 
 export default function PopoverDemo() {
 	const [isClick, setIsClick] = useState(false);
-    const [trigger, setTrigger] = useState('hover');
-    
-    useEffect(() => {
-        setTrigger(isClick ? 'click' : 'hover');
-    }, [isClick]);
-    
-    const split = <p style={{ height: 10 }} />
+  const [trigger, setTrigger] = useState('hover');
+
+  useEffect(() => {
+      setTrigger(isClick ? 'click' : 'hover');
+  }, [isClick]);
+
+  const split = <p style={{ height: 10 }} />
 
 	return (
       <div>

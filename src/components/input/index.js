@@ -16,7 +16,7 @@ class Input extends React.Component {
   static contextType = FormContext;
 
   static propTypes = {
-    size: PropTypes.oneOf(['large', 'default', 'small']),
+    size: PropTypes.oneOf([ 'large', 'default', 'small' ]),
     style: PropTypes.object,
     value: PropTypes.any,
     defaultValue: PropTypes.any,
@@ -83,12 +83,12 @@ class Input extends React.Component {
     return (
       observableProps
         .map((attr) => nextProps[attr] !== this.props[attr])
-        .find((item) => item) ||
-      JSON.stringify(nextProps.style) !== JSON.stringify(this.props.style) ||
-      Object.keys(this.state)
+        .find((item) => item)
+      || JSON.stringify(nextProps.style) !== JSON.stringify(this.props.style)
+      || Object.keys(this.state)
         .map((attr) => nextState[attr] !== this.state[attr])
-        .find((item) => item) ||
-      (this.inputNode.value && String(nextProps.value) !== this.inputNode.value)
+        .find((item) => item)
+      || (this.inputNode.value && String(nextProps.value) !== this.inputNode.value)
     );
   }
 
@@ -102,11 +102,7 @@ class Input extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (
-      prevProps.value !== this.props.value ||
-      (this.inputNode.value &&
-        String(this.props.value) !== this.inputNode.value)
-    ) {
+    if (prevProps.value !== this.props.value || (this.inputNode.value && String(this.props.value) !== this.inputNode.value)) {
       this.setInputValue();
     }
   }
@@ -137,13 +133,13 @@ class Input extends React.Component {
     } = this.props;
 
     return (
-      !hasCounter &&
-      !hasClear &&
-      !hasLimtHint &&
-      !prefix &&
-      !suffix &&
-      !addonBefore &&
-      !addonAfter
+      !hasCounter
+      && !hasClear
+      && !hasLimtHint
+      && !prefix
+      && !suffix
+      && !addonBefore
+      && !addonAfter
     );
   }
 
@@ -244,7 +240,9 @@ class Input extends React.Component {
 
     return hasCounter && maxLength ? (
       <span className={classnames(`${prefixCls}-input-counter`)}>
-        <span>{counter}</span>/{maxLength}
+        <span>{counter}</span>
+        /
+        {maxLength}
       </span>
     ) : null;
   }
@@ -273,13 +271,9 @@ class Input extends React.Component {
       size,
       className,
       style,
-      hasClear,
-      hasCounter,
       addonAfter,
       addonBefore,
       prefix,
-      suffix,
-      value,
       ...others
     } = this.props;
     const { size: formSize } = this.context;
@@ -316,7 +310,7 @@ class Input extends React.Component {
           {...props}
           {...commonProps}
           style={isPure ? style : {}}
-          className={classnames(_className, className, mergedSize)}
+          className={classnames(_className, className, mergedSize, { [`${_className}-disabled`]: props.disabled })}
         />
       );
     }
@@ -349,15 +343,16 @@ class Input extends React.Component {
 }
 
 // InputWrapper
-function InputWrapper({
-  prefix,
-  suffix,
-  addonBefore,
-  addonAfter,
-  className,
-  style,
-  children,
-}) {
+function InputWrapper(props) {
+  const {
+    prefix,
+    suffix,
+    addonBefore,
+    addonAfter,
+    className,
+    style,
+    children,
+  } = props;
   const both = prefix || suffix;
   const addon = addonBefore || addonAfter;
 
@@ -412,7 +407,6 @@ function InputWrapper({
       </div>
     );
   }
-
   return (
     <div
       className={classnames(`${prefixCls}-input-group`, className)}

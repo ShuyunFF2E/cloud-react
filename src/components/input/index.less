@@ -34,6 +34,7 @@
 @transition: 0.3s;
 
 .@{input-prefix-cls} {
+  font-size: inherit;
   &,
   &-textarea,
   &-group {
@@ -120,6 +121,17 @@
       font-size: @small-font-size;
       height: 28px;
     }
+
+    .@{input-prefix-cls}-affix {
+      &:not(:first-child) {
+        border-top-left-radius: 0px;
+        border-bottom-left-radius: 0px;
+      }
+      &:not(:last-child) {
+        border-top-right-radius: 0px;
+        border-bottom-right-radius: 0px;
+      }
+    }
   }
 
   &-prefix,
@@ -149,6 +161,7 @@
   &-counter {
     font-size: 12px;
     color: #c9c9c9;
+    word-break: keep-all;
   }
 
   &-addon {
@@ -247,6 +260,10 @@
   &:disabled {
     color: @gray-7;
     background: @gray-3;
+    cursor: not-allowed;
+    &:hover {
+      border-color: @gray-4;
+    }
   }
 
   /* textarea */
