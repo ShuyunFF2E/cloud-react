@@ -10,120 +10,124 @@
 @table-refresh-icon-color: #929292;
 
 .@{table-pagination-prefix-cls} {
-	background: @table-pagination-bg;
-	background-image: none;
-	width: 100%;
-	height: 40px;
-	position: relative;
-	display: flex;
-	font-size: 12px;
-	padding: 5px 0;
-	color: @table-pagination-color;
-	box-sizing: border-box;
-	> * {
-		box-sizing: border-box;
-	}
+  background: @table-pagination-bg;
+  background-image: none;
+  width: 100%;
+  height: 40px;
+  position: relative;
+  display: flex;
+  font-size: 12px;
+  padding: 5px 0;
+  color: @table-pagination-color;
+  box-sizing: border-box;
+  > * {
+    box-sizing: border-box;
+  }
 
-	.left-tools {
-		display: flex;
-		height: 30px;
-		align-items: center;
-		color: @table-pagination-color;
-		.total-count {
-			padding-left: 6px;
-			display: inline-block;
-			vertical-align: middle;
-		}
-		.checked-info {
-			margin-right: 9px;
-			padding-left: 6px;
-		}
-		.refresh-action {
-			padding-left: 6px;
-			display: inline-block;
-			vertical-align: middle;
-			cursor: pointer;
-			text-align: center;
-			margin-right: 9px;
-			.icon-refresh {
-				vertical-align: -1px;
-				width: 16px;
-				display: inline-block;
-				height: 16px;
-				color: @table-refresh-icon-color;
-			}
-			.refresh-label {
-				margin-left: 3px;
-			}
-		}
-	}
+  .left-tools {
+    display: flex;
+    height: 30px;
+    align-items: center;
+    color: @table-pagination-color;
+    .total-count {
+      padding-left: 6px;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .checked-info {
+      margin-right: 9px;
+      padding-left: 6px;
+    }
+    .refresh-action {
+      padding-left: 6px;
+      display: inline-block;
+      vertical-align: middle;
+      cursor: pointer;
+      text-align: center;
+      margin-right: 9px;
+      .icon-refresh {
+        vertical-align: -1px;
+        width: 16px;
+        display: inline-block;
+        height: 16px;
+        color: @table-refresh-icon-color;
+      }
+      .refresh-label {
+        margin-left: 3px;
+      }
+    }
+  }
 
-	.right-pagination-option {
-		display: flex;
-		flex: 1;
-		height: 30px;
-		align-items: center;
-		.change-size {
-			display: inline-block;
-			padding: 2.5px 10px;
-			vertical-align: middle;
-			select {
-				width: auto;
-				height: 25px;
-				padding: 0 2px;
-				color: @table-pagination-color;
-				display: block;
-			}
-		}
-		.action-group {
-			display: flex;
-			box-sizing: border-box;
-			justify-content: flex-end;
-			flex: 1;
-			.iconfont {
-				font-family: 'iconfont';
-				font-size: 16px;
-				&:hover {
-					color: inherit;
-				}
-			}
-			.goto-page {
-				display: inline-block;
-				vertical-align: middle;
-				.gp-input {
-					width: 35px;
-					height: 25px;
-					border: 1px solid @table-pagination-input-border;
-					margin: 0 5px;
-					text-align: center;
-					outline: none;
-				}
-			}
-			.icon-group {
-				height: 28px;
-				display: block;
-				box-sizing: border-box;
-				> i {
-					line-height: 18px;
-					border: none;
-					background: @table-pagination-bg;
-					padding: 5px 10px;
-					list-style-type: none;
-					display: block;
-					float: left;
-					position: relative;
-					text-align: center;
-					&.shuyunicon {
-						font-size: 16px;
-						cursor: pointer;
-						color: @table-pagination-icon-color;
-					}
-					&.disabled {
-						color: @table-pagination-disabled-color;
-						cursor: not-allowed;
-					}
-				}
-			}
-		}
-	}
+  .right-pagination-option {
+    display: flex;
+    flex: 1;
+    height: 30px;
+    align-items: center;
+    .change-size {
+      display: inline-block;
+      padding: 2.5px 10px;
+      vertical-align: middle;
+      select {
+        width: auto;
+        height: 25px;
+        padding: 0 2px;
+        color: @table-pagination-color;
+        display: block;
+      }
+    }
+    .action-group {
+      display: flex;
+      box-sizing: border-box;
+      justify-content: flex-end;
+      flex: 1;
+      .iconfont {
+        font-family: 'iconfont';
+        font-size: 16px;
+        &:hover {
+          color: inherit;
+        }
+      }
+      .goto-page {
+        display: inline-block;
+        vertical-align: middle;
+        .gp-input {
+          width: 35px;
+          height: 25px;
+          border: 1px solid @table-pagination-input-border;
+          margin: 0 5px;
+          text-align: center;
+          outline: none;
+        }
+      }
+      .icon-group {
+        height: 28px;
+        display: block;
+        box-sizing: border-box;
+        > i {
+          line-height: 18px;
+          border: none;
+          background: @table-pagination-bg;
+          padding: 5px 10px;
+          list-style-type: none;
+          display: block;
+          float: left;
+          position: relative;
+          text-align: center;
+          &.shuyunicon {
+            font-size: 16px;
+            cursor: pointer;
+            color: @table-pagination-icon-color;
+          }
+          &.disabled {
+            color: @table-pagination-disabled-color;
+            cursor: not-allowed;
+          }
+        }
+
+        &:before {
+          display: none;
+        }
+      }
+    }
+  }
 }
