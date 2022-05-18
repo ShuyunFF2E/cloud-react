@@ -903,97 +903,103 @@ class CTable extends Component {
 
     return (
       <div className={`${tablePrefixCls}-container`} style={style} ref={ref}>
-        <div
-          className={classnames(
-            `${tablePrefixCls}-box`,
-            {
-              [`${tablePrefixCls}-${size}`]: true,
-              [`${tablePrefixCls}-bordered`]: bordered,
-              [`${tablePrefixCls}-header-bordered`]:
-                !bordered && headerBordered,
-              [`${tablePrefixCls}-loading`]: isLoading,
-              [`${tablePrefixCls}-empty`]: !data.length,
-              [`${tablePrefixCls}-support-config`]: supportConfigColumn,
-              [`${tablePrefixCls}-support-checkbox`]: supportCheckbox,
-              [`${tablePrefixCls}-use-custom-scroll`]:
-                useCustomScroll && !isFirefox(),
-            },
-            className,
-          )}
-          style={{ height: `calc(100% - ${footerHeight}px)` }}
+        <Loading
+          className={`${tablePrefixCls}-loading-layer`}
+          loading={isLoading}
         >
-          <RcTable
-            ref={tableRef}
-            prefixCls={tablePrefixCls}
-            columns={columnData}
-            data={data}
-            expandIconColumnIndex={expandIconColumnIndex}
-            scroll={fixed ? { x: '100%', y: maxHeight || '100%' } : {}}
-            expandable={getExpandableConfig({ ...this.props })}
-            emptyText={emptyTpl()}
-            rowKey={rowKey}
-            rowClassName={(row) => {
-              const rowKeyVal = getKeyFieldVal(row);
-              const targetNode = leafNodesMap[rowKeyVal] || {};
-              if (this.isRowDisabled(row)) {
-                return `${tablePrefixCls}-row-disabled ${rowClassName(row)}`;
+          <div
+            className={classnames(
+              `${tablePrefixCls}-box`,
+              {
+                [`${tablePrefixCls}-${size}`]: true,
+                [`${tablePrefixCls}-bordered`]: bordered,
+                [`${tablePrefixCls}-header-bordered`]:
+                  !bordered && headerBordered,
+                [`${tablePrefixCls}-empty`]: !data.length,
+                [`${tablePrefixCls}-support-config`]: supportConfigColumn,
+                [`${tablePrefixCls}-support-checkbox`]: supportCheckbox,
+                [`${tablePrefixCls}-use-custom-scroll`]:
+                  useCustomScroll && !isFirefox(),
+              },
+              className,
+            )}
+            style={{ height: `calc(100% - ${footerHeight}px)` }}
+          >
+            <RcTable
+              ref={tableRef}
+              prefixCls={tablePrefixCls}
+              columns={columnData}
+              data={data}
+              expandIconColumnIndex={expandIconColumnIndex}
+              scroll={fixed ? { x: '100%', y: maxHeight || '100%' } : {}}
+              expandable={getExpandableConfig({ ...this.props })}
+              emptyText={emptyTpl()}
+              rowKey={rowKey}
+              rowClassName={(row) => {
+                const rowKeyVal = getKeyFieldVal(row);
+                const targetNode = leafNodesMap[rowKeyVal] || {};
+                if (this.isRowDisabled(row)) {
+                  return `${tablePrefixCls}-row-disabled ${rowClassName(row)}`;
+                }
+                if (lightCheckedRow && isEveryChecked(targetNode.childNodes)) {
+                  return `${tablePrefixCls}-row-select ${rowClassName(row)}`;
+                }
+                return rowClassName(row);
+              }}
+              onRow={onRow}
+              components={
+                supportResizeColumn
+                  ? {
+                      header: {
+                        cell: ResizableTitle,
+                      },
+                    }
+                  : undefined
               }
-              if (lightCheckedRow && isEveryChecked(targetNode.childNodes)) {
-                return `${tablePrefixCls}-row-select ${rowClassName(row)}`;
-              }
-              return rowClassName(row);
-            }}
-            onRow={onRow}
-            components={
-              supportResizeColumn
-                ? {
-                    header: {
-                      cell: ResizableTitle,
-                    },
-                  }
-                : undefined
-            }
-          />
-          <Loading
-            className={`${tablePrefixCls}-loading-layer`}
-            loading={isLoading}
-          />
-        </div>
-        {supportPage && (
-          <div className={classnames(`${tablePrefixCls}-footer`)}>
-            <div className={classnames(`${tablePrefixCls}-footer-statistics`)}>
-              {(supportCheckbox || supportRadio) && (
-                <span className={classnames(`${tablePrefixCls}-footer-select`)}>
-                  已选 {selectedNodeList.length} 条
-                </span>
-              )}
-              {showRefresh && (
-                <span
-                  className={classnames(`${tablePrefixCls}-footer-refresh`)}
-                  onClick={onRefresh}
-                >
-                  <Icon type="refresh" />
-                  刷新
-                </span>
-              )}
-            </div>
-            <div className={classnames(`${tablePrefixCls}-footer-page`)}>
-              {showTotal && (
-                <span className={classnames(`${tablePrefixCls}-footer-total`)}>
-                  共 {totals} 条
-                </span>
-              )}
-              <Pagination
-                {...pageOpts}
-                current={pageNum}
-                pageSize={pageSize}
-                total={totals}
-                onChange={onPageChange}
-              />
-            </div>
+            />
           </div>
-        )}
-        {footerTpl()}
+          {supportPage && (
+            <div className={classnames(`${tablePrefixCls}-footer`)}>
+              <div
+                className={classnames(`${tablePrefixCls}-footer-statistics`)}
+              >
+                {(supportCheckbox || supportRadio) && (
+                  <span
+                    className={classnames(`${tablePrefixCls}-footer-select`)}
+                  >
+                    已选 {selectedNodeList.length} 条
+                  </span>
+                )}
+                {showRefresh && (
+                  <span
+                    className={classnames(`${tablePrefixCls}-footer-refresh`)}
+                    onClick={onRefresh}
+                  >
+                    <Icon type="refresh" />
+                    刷新
+                  </span>
+                )}
+              </div>
+              <div className={classnames(`${tablePrefixCls}-footer-page`)}>
+                {showTotal && (
+                  <span
+                    className={classnames(`${tablePrefixCls}-footer-total`)}
+                  >
+                    共 {totals} 条
+                  </span>
+                )}
+                <Pagination
+                  {...pageOpts}
+                  current={pageNum}
+                  pageSize={pageSize}
+                  total={totals}
+                  onChange={onPageChange}
+                />
+              </div>
+            </div>
+          )}
+          {footerTpl()}
+        </Loading>
       </div>
     );
   }
