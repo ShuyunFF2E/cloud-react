@@ -49,7 +49,7 @@ const Picture = props => {
 			return (
 				<Tooltip content="上传失败" key={item.id}>
 					<div className={classes}>
-						<img src={item.url} alt={item.name} />
+						<div style={{ backgroundImage: `url(${item.url})` }} className={`${prefix}-pic-image`} />
 						{!disabled && (
 							<div className={`${prefix}-pic-icons`}>
 							<div className={`${prefix}-delete`}>
@@ -69,7 +69,7 @@ const Picture = props => {
 		}
 		return (
 			<div key={item.id} className={classes}>
-				<img src={item.url} alt={item.name} />
+				<div style={{ backgroundImage: `url(${item.url})` }} className={`${prefix}-pic-image`} />
 				<div className={`${prefix}-pic-icons`}>
 					{hasPreview && (
 						<Icon
@@ -108,10 +108,11 @@ const Picture = props => {
 
 class UploadList extends Component {
 	render() {
-		const { fileList, type, hasPreview, disabled, onRemove, onPreview, onReUpload } = this.props;
+		const { fileList = [], type, hasPreview, disabled, onRemove, onPreview, onReUpload } = this.props;
 
 		const classes = classNames(`${prefix}`, {
-			[`${prefix}-${type}`]: type === TYPE.PICTURE
+			[`${prefix}-${type}`]: type === TYPE.PICTURE,
+			[`${prefix}-${type}-multiple`]: fileList.length > 1,
 		});
 
 		return (

@@ -28,7 +28,7 @@ const Picture = props => {
 	const { labelText } = props;
 	return (
 		<div>
-			<Icon type="plus" style={{ fontSize: '12px' }} />
+			<Icon type="plus" style={{ fontSize: '16px' }} />
 			<div className={`${PREFIX}-text`}>{labelText}</div>
 		</div>
 	);
@@ -396,7 +396,7 @@ class Upload extends Component {
 						visible={isShowPreview}
 						onClose={() => this.handlePreview()}
 					>
-						<img src={url} />
+						<img src={url} alt="" />
 					</Modal>
 				)}
 				{this.renderUpload()}

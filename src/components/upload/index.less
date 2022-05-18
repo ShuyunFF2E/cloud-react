@@ -55,7 +55,6 @@
 			display: table-cell;
 			width: 100%;
 			height: 100%;
-			padding: 8px;
 			text-align: center;
 			vertical-align: middle;
 		}
@@ -89,7 +88,7 @@
 	}
 
 	&-text {
-		margin-top: 8px;
+		margin-top: 5px;
 		color: @gray-9;
 	}
 
@@ -97,7 +96,7 @@
 		box-sizing: @box-sizing;
 		margin: 0;
 		padding: 0;
-		color: rgba(0, 0, 0, 0.65);
+		color: rgba(119, 107, 107, 0.65);
 		font-size: @size-big;
 		line-height: 1.5;
 		zoom: 1;
@@ -106,6 +105,10 @@
 
 		&&-picture {
 			flex-direction: row;
+
+			&&-multiple {
+				margin-right: 12px;
+			}
 		}
 
 		.@{upload-prefix-cls}-list-delete {
@@ -165,11 +168,17 @@
 			padding: 8px;
 			border: 1px solid @border-color;
 			border-radius: 2px;
-			margin: 0 12px 8px 0;
 
-			> img {
+			&:not(:last-child) {
+				margin: 0 12px 8px 0;
+			}
+
+			&-image {
 				width: 78px;
 				height: 78px;
+				background-size: contain;
+				background-repeat: no-repeat;
+				background-position: center;
 			}
 
 			&-icons {
