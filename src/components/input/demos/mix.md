@@ -6,10 +6,10 @@ desc: 可前置或后置元素，一般为标签或按钮
 
 ```jsx
 
-            /**
-             * title: 复合型输入框
-             * desc: 可前置或后置元素，一般为标签或按钮
-             */
+/**
+ * title: 复合型输入框
+ * desc: 可前置或后置元素，一般为标签或按钮
+ */
 import React from 'react';
 import { Input, Icon } from 'cloud-react';
 import './styles/mix.less'
@@ -32,4 +32,3 @@ export default function InputDemo() {
 	);
 }
 ```
-

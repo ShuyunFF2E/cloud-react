@@ -142,7 +142,7 @@ function Popover(props) {
 }
 
 Popover.propTypes = {
-  width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  width: PropTypes.oneOfType([ PropTypes.number, PropTypes.string ]),
   title: PropTypes.string,
   content: PropTypes.any,
   showIcon: PropTypes.bool,
@@ -151,8 +151,8 @@ Popover.propTypes = {
   showConfirmBtn: PropTypes.bool,
   cancelBtnText: PropTypes.string,
   confirmText: PropTypes.string,
-  size: PropTypes.oneOf(['mini', 'small', 'default', 'large']),
-  type: PropTypes.oneOf(['default', 'remind']),
+  size: PropTypes.oneOf([ 'mini', 'small', 'default', 'large' ]),
+  type: PropTypes.oneOf([ 'default', 'remind' ]),
   onCancelClick: PropTypes.func,
   onConfirmClick: PropTypes.func,
   cancelBtnOpts: PropTypes.object,
