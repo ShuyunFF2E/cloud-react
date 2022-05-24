@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unused-prop-types */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
@@ -10,25 +11,25 @@ import './index.less';
 const DEFAULT_OPTS = {
   duration: 3000,
   contextContainer: document.body,
-  showClose: true,
-  title: null,
-  operate: null,
-  onOperate: noop
+  showIcon: true,
+  showClose: false,
+  isDeepen: false,
+  onClose: noop,
 };
 
 const MESSAGE_TYPE = {
-	success: {
-		icon: 'success-fill'
-	},
-	error: {
-		icon: 'close-fill'
-	},
-	info: {
-		icon: 'info_1'
-	},
-	warn: {
-		icon: 'info_2'
-	}
+  success: {
+    icon: 'success-fill',
+  },
+  error: {
+    icon: 'close-fill',
+  },
+  info: {
+    icon: 'info_1',
+  },
+  warn: {
+    icon: 'info_2',
+  },
 };
 
 const wraperMap = new Map();
@@ -55,18 +56,21 @@ function entity(config) {
     options,
   );
 
+  const {
+    duration, contextContainer, isDeepen, showClose, showIcon, onClose,
+  } = opts;
+
   const props = {
     type,
     msg,
-    duration: opts.duration,
-    contextContainer: opts.contextContainer,
-    showClose: opts.showClose,
-    title: opts.title,
-    operate: opts.operate,
-    onOperate: opts.onOperate,
+    duration,
+    contextContainer,
+    isDeepen,
+    showClose,
+    showIcon,
+    onClose,
   };
 
-  const { contextContainer } = props;
   wraper = wraperMap.get(contextContainer);
 
   if (!wraper) {
@@ -74,7 +78,9 @@ function entity(config) {
     wraperMap.set(contextContainer, wraper);
   }
 
-  let wraperClassName = `${prefixCls}-message`;
+  let wraperClassName = isDeepen
+    ? `${prefixCls}-message ${prefixCls}-message-deepen`
+    : `${prefixCls}-message`;
 
   if (contextContainer.tagName !== 'BODY') {
     const { top } = contextContainer.getBoundingClientRect();
@@ -88,6 +94,7 @@ function entity(config) {
   wraper.className = wraperClassName;
 
   const container = rootDocument.createElement('div');
+  container.style.marginTop = '24px';
 
   wraper.appendChild(container);
 
@@ -139,17 +146,11 @@ class MessageEntity extends Component {
     wraper = wraperMap.get(contextContainer);
 
     currentNotice.classList.add('fade-out');
-
-    // 监听动画完成
-    // currentNotice.addEventListener(
-    // 	'webkitTransitionEnd',
-    // 	() => {
     ReactDOM.unmountComponentAtNode(container);
     wraper.removeChild(container);
     removeWraper(contextContainer);
-    // 		},
-    // 		{ once: true, capture: true }
-    // 	);
+
+    this.props.onClose();
   };
 
   /**
@@ -165,73 +166,69 @@ class MessageEntity extends Component {
   }
 
   render() {
-    const { type, msg, showClose, operate, title, onOperate = noop } = this.props;
-
+    const {
+      type, msg, showClose, showIcon,
+    } = this.props;
     return (
       <div
-        className={`${prefixCls}-message-${type} notice`}
+        className={`${prefixCls}-message-${type} ${prefixCls}-message-content`}
         ref={this.noticeRef}
       >
-        <Icon type={`${MESSAGE_TYPE[type].icon}`} className="tag-icon"></Icon>
-        <div className="msg-text">
-          {title ? <div className="msg-text-title">{title}</div> : null}
-          {msg}
-        </div>
-        {
-          operate ? <div className="msg-operate" onClick={onOperate}>{operate}</div> : null
-        }
-        {showClose ? <Icon
-          type="close"
-          onClick={this.onHandleClose}
-          className="close-icon"
-        /> : null} 
+        {showIcon && (
+          <Icon type={`${MESSAGE_TYPE[type].icon}`} className="tag-icon" />
+        )}
+        <div className="msg-text">{msg}</div>
+        {showClose ? (
+          <Icon
+            type="close"
+            onClick={this.onHandleClose}
+            className="close-icon"
+          />
+        ) : null}
       </div>
     );
   }
 }
 
+MessageEntity.propTypes = {
+  msg: PropTypes.node.isRequired,
+  duration: PropTypes.number.isRequired,
+  showIcon: PropTypes.bool,
+  showClose: PropTypes.bool,
+  isDeepen: PropTypes.bool,
+  className: PropTypes.string,
+  onClose: PropTypes.func,
+};
+
 const Message = {
-	error(msg, options) {
-		entity({
-			type: 'error',
-			msg,
-			options
-		});
-	},
-	success(msg, options) {
-		entity({
-			type: 'success',
-			msg,
-			options
-		});
-	},
-	info(msg, options) {
-		entity({
-			type: 'info',
-			msg,
-			options
-		});
-	},
+  error(msg, options) {
+    entity({
+      type: 'error',
+      msg,
+      options,
+    });
+  },
+  success(msg, options) {
+    entity({
+      type: 'success',
+      msg,
+      options,
+    });
+  },
+  info(msg, options) {
+    entity({
+      type: 'info',
+      msg,
+      options,
+    });
+  },
   warning(msg, options) {
     entity({
       type: 'warn',
       msg,
-      options
-    })
-  }
+      options,
+    });
+  },
 };
-
-MessageEntity.propTypes = {
-  msg: PropTypes.node.isRequired,
-  duration: PropTypes.number.isRequired,
-  showClose: PropTypes.bool,
-  title: PropTypes.node,
-  operate: PropTypes.node
-};
-MessageEntity.defaultProps = {
-  showClose: true,
-  title: null,
-  operate: null
-}
 
 export default Message;
