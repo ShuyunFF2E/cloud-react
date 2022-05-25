@@ -3,7 +3,7 @@
 @message-prefix-cls: ~'@{prefix}-message';
 @text-color: @gray-9;
 
-@bg: white;
+@bg: @color-white;
 @border-color: @gray-6;
 @close-x-color: @gray-6;
 @close-x-hover-color: @gray-7;
@@ -37,12 +37,13 @@
     color: @msgTextColor;
     a,
     a:link,
-    a:visited,
+    a:hover,
     a:visited {
-      color: #5280ff;
+      color: @color-blue5;
       cursor: pointer;
     }
-    a:hover {
+    a:active {
+      color: @color-blue6;
     }
   }
   .close-icon {
@@ -62,7 +63,6 @@
 .@{message-prefix-cls} {
   position: fixed;
   max-height: 100%;
-  //overflow-y: auto;
   z-index: @z-index-message;
   top: 0;
   left: 50%;
@@ -93,17 +93,17 @@
     transform: scale(0.95);
   }
   .tag-icon {
-    font-size: 14px;
+    font-size: 16px;
     margin-right: 8px;
   }
   .msg-text {
     font-size: 14px;
     line-height: 20px;
     color: @gray-8;
-    margin-right: 8px;
   }
   .close-icon {
     align-items: flex-end;
+    margin-left: 12px;
     font-size: 16px;
     cursor: pointer;
     opacity: 0.6;
@@ -124,15 +124,15 @@
 
 .@{message-prefix-cls}-deepen {
   .@{message-prefix-cls}-success {
-    .cloud-message-type(@success-bg, @success-border, white, white);
+    .cloud-message-type(@success-bg, @success-border, @color-white, @color-white);
   }
   .@{message-prefix-cls}-error {
-    .cloud-message-type(@error-bg, @error-border, white, white);
+    .cloud-message-type(@error-bg, @error-border, @color-white, @color-white);
   }
   .@{message-prefix-cls}-info {
-    .cloud-message-type(@info-bg, @info-border, white, white);
+    .cloud-message-type(@info-bg, @info-border, @color-white, @color-white);
   }
   .@{message-prefix-cls}-warn {
-    .cloud-message-type(@warn-bg, @warn-border, white, white);
+    .cloud-message-type(@warn-bg, @warn-border, @color-white, @color-white);
   }
 }
