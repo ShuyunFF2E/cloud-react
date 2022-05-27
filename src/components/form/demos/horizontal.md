@@ -20,12 +20,12 @@ export default function FormHorizontalDemo() {
 				<div>固定名称</div>
 			</Form.Item>
 
-			<Form.Item label="密码" required help="一些提示信息...">
-				<Input style={{ width: '70%' }} type="password" placeholder="请输入密码..." />
+			<Form.Item label="密码" required>
+				<Input style={{ width: '70%' }} type="password" placeholder="请输入密码" />
 			</Form.Item>
 
 			<Form.Item label="备注">
-				<Input.Textarea style={{ width: '70%' }} autoSize minRows={2} placeholder="备注信息..." />
+				<Input.Textarea style={{ width: '70%' }} autoSize minRows={2} placeholder="备注信息" />
 			</Form.Item>
 
 			<Form.Item wrapperCol={{ offset: 6 }}>

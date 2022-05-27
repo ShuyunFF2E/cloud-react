@@ -18,15 +18,13 @@ export default function InputDemo() {
 	return (
 		<div className="input-demo-mix-box">
 			<div className="input-demo-box">
-				<Input size="large" hasClear prefix={<Icon className='input-prefix-icon' type="rmb" />} addonBefore={<span>http://</span>} addonAfter=".com" />
-				<Input hasClear size="default" addonBefore={<span>http://</span>} addonAfter=".com" />
-				<Input hasClear size="small" addonBefore={<span>http://</span>} addonAfter=".com" />
+				<Input size="large" hasClear addonBefore={<span>http://</span>} addonAfter=".com" placeholder="请输入" />
+				<Input hasClear size="default" addonBefore={<span>http://</span>} addonAfter=".com" placeholder="请输入" />
 			</div>
       <br />
 			<div className="input-demo-box">
-				<Input hasClear size="large" prefix={<Icon className='input-prefix-icon' type="rmb" />} /><br />
-				<Input suffix={<Icon className='input-prefix-icon' type="search" />} /><br />
-				<Input prefix={<Icon className='input-prefix-icon' type="rmb" />} suffix="RMB" />
+				<Input suffix={<Icon className='input-prefix-icon' type="search" />} placeholder="请输入" /><br />
+				<Input prefix={<Icon className='input-prefix-icon' type="people" />} placeholder="请输入" suffix="RMB" />
 			</div>
 		</div>
 	);
