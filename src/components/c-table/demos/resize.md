@@ -7,8 +7,8 @@ desc: 默认表格
 ```jsx
 
 /**
- * title: 基础表格
- * desc: 基础表格
+ * title: 拉伸列
+ * desc: 拉伸列
  */
 import React from 'react';
 import { CTable } from 'cloud-react';
@@ -32,6 +32,10 @@ const columns = [
 export default function CTableDemo() {
 	return (
         <CTable
+           supportMemory
+           tableId="basicGird"
+           supportResizeColumn
+           supportConfigColumn
            columnData={columns}
            ajaxData={{ totals: data.length, data }}
         />

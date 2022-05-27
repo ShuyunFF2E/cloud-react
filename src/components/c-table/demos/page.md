@@ -23,7 +23,7 @@ const columns = [
     title: item => {
       return <span>
                 <span style={{ marginRight: 5 }}>活动ID</span>
-                <Tooltip content="lalallalla"><Icon type="question-circle-solid"/></Tooltip>
+                <Tooltip content="说明说明"><Icon type="question-circle-solid"/></Tooltip>
             </span>;
     },
     dataIndex: 'id',

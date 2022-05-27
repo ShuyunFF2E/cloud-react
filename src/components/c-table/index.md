@@ -51,11 +51,13 @@ group:
 | onRow | 表格刷新后回调   | 设置自定义 row 属性，Function(record, index)	   |   () => {}   | |
 | isCheckboxFixed | 是否固定多选框列或单选框列  | boolean	   |   false   | |
 | supportConfigColumn | 是否支持配置列的隐藏和展示  | boolean	   |   false   | |
-| supportResizeColumn | 是否支持配置列的拉伸 | boolean	   |   false   | |
-| supportMemory | 是否开启表格记忆功能 | boolean     |   false   | | 
-| tableId | 表格ID。supportMemory 为 true 的时候，需要设置 tableId；其他场景无需设置 | string     |   ''   | | 
+| supportResizeColumn | 是否支持配置列的拉伸（开发中）  | boolean	   |   false   | |
+| supportMemory | 是否开启表格记忆功能（开发中）  | boolean     |   false   | | 
+| tableId | 表格ID。supportMemory 为 true 的时候，需要设置 tableId；其他场景无需设置（开发中）  | string     |   ''   | | 
 | expandIconColumnIndex | 展开行图标将插入哪一列的索引 | 	number   |   0   | |
 | useCustomScroll | 业务中是否使用自定义滚动条() | 	boolean   |   true   | |
+| isExpendAloneColumn | 树状表格的展开图标是否单独占据一列（只有两级的树状表格需要设置该属性） | 	boolean   |   false   | |
+| supportGroup | 表格分组 | 	boolean   |   false   | |
 
 手动刷新表格：this.tableRef.refreshTable(params?);
 
@@ -92,13 +94,21 @@ https://table-react-component.vercel.app/
 
 <embed src="@components/c-table/demos/basic.md" /> 
 
+<embed src="@components/c-table/demos/header-bordered.md" /> 
+
 <embed src="@components/c-table/demos/bordered.md" /> 
 
-<embed src="@components/c-table/demos/fixed-header.md" /> 
+<embed src="@components/c-table/demos/checkbox.md" /> 
 
-<embed src="@components/c-table/demos/fixed-column.md" /> 
+<embed src="@components/c-table/demos/radio.md" /> 
 
-<embed src="@components/c-table/demos/custom-column.md" /> 
+<embed src="@components/c-table/demos/tree.md" /> 
+
+<embed src="@components/c-table/demos/tree1.md" /> 
+
+<embed src="@components/c-table/demos/edit.md" /> 
+
+<embed src="@components/c-table/demos/expand-row.md" /> 
 
 <embed src="@components/c-table/demos/custom-column-icon.md" /> 
 
@@ -108,11 +118,11 @@ https://table-react-component.vercel.app/
 
 <embed src="@components/c-table/demos/custom-column-tag.md" /> 
 
-<embed src="@components/c-table/demos/expand-row.md" /> 
+<embed src="@components/c-table/demos/fixed-column.md" /> 
 
-<embed src="@components/c-table/demos/checkbox.md" /> 
+<embed src="@components/c-table/demos/fixed-header.md" /> 
 
-<embed src="@components/c-table/demos/tree.md" /> 
+<embed src="@components/c-table/demos/tree2.md" /> 
 
 <embed src="@components/c-table/demos/page.md" /> 
 
@@ -120,11 +130,9 @@ https://table-react-component.vercel.app/
 
 <embed src="@components/c-table/demos/large.md" /> 
 
-<embed src="@components/c-table/demos/header-bordered.md" /> 
+<embed src="@components/c-table/demos/row-col-span.md" /> 
 
 <embed src="@components/c-table/demos/light-row.md" /> 
-
-<embed src="@components/c-table/demos/radio.md" /> 
 
 <embed src="@components/c-table/demos/sort-no-page.md" /> 
 
@@ -138,6 +146,4 @@ https://table-react-component.vercel.app/
 
 <embed src="@components/c-table/demos/disabled1.md" /> 
 
-<embed src="@components/c-table/demos/edit.md" /> 
-
-<embed src="@components/c-table/demos/row-col-span.md" /> 
+[comment]: <> (<embed src="@components/c-table/demos/resize.md" /> )

@@ -26,7 +26,8 @@ import Icon from '../icon';
 import Loading from '../loading';
 import Tooltip from '../tooltip';
 import emptyImg from './empty.png';
-import './index.less';
+import './css/basic.less';
+import './css/index.less';
 
 class CTable extends Component {
   ref = createRef();
@@ -313,6 +314,7 @@ class CTable extends Component {
           onChange={(checked) => onAllCheckedChange(checked)}
         />
       ),
+      className: `${tablePrefixCls}-checkbox-column`,
       dataIndex: 'checkbox',
       key: 'checkbox',
       width: 40,
@@ -421,7 +423,7 @@ class CTable extends Component {
    */
   setColumnData = () => {
     const { originColumnData } = this.state;
-    const { supportCheckbox, supportRadio } = this.props;
+    const { supportCheckbox, supportRadio, isExpendAloneColumn } = this.props;
     const isLastColumnFixed =
       originColumnData[originColumnData.length - 1].fixed;
     const isFirstColumnFixed = originColumnData[0].fixed;
@@ -461,6 +463,21 @@ class CTable extends Component {
       return arr;
     }, []);
 
+    // 只有两级的树状表格，展开图标单独占据一列
+    if (isExpendAloneColumn) {
+      resolvedColumnData.unshift({
+        dataIndex: 'cTableExpand',
+        key: 'cTableExpand',
+        width: 36,
+        align: 'center',
+        className: `${tablePrefixCls}-row-expand-column`,
+        fixed: isFirstColumnFixed || this.props.isCheckboxFixed,
+        render: () => {
+          return '';
+        },
+      });
+    }
+
     // 多选列
     if (supportCheckbox) {
       const checkboxColumn = this.getCheckboxColumn(isFirstColumnFixed);
@@ -488,6 +505,7 @@ class CTable extends Component {
           </Tooltip>
         ),
         dataIndex: 'cTableConfig',
+        className: `${tablePrefixCls}-config-column`,
         render: () => '',
         width: 40,
         fixed: isLastColumnFixed,
@@ -881,9 +899,12 @@ class CTable extends Component {
       className,
       onRow,
       supportResizeColumn,
-      supportConfigColumn,
       maxHeight,
       useCustomScroll,
+      isExpendAloneColumn,
+      supportExpend,
+      supportTree,
+      supportGroup,
     } = this.props;
     const {
       data,
@@ -913,10 +934,14 @@ class CTable extends Component {
                 !bordered && headerBordered,
               [`${tablePrefixCls}-loading`]: isLoading,
               [`${tablePrefixCls}-empty`]: !data.length,
-              [`${tablePrefixCls}-support-config`]: supportConfigColumn,
-              [`${tablePrefixCls}-support-checkbox`]: supportCheckbox,
               [`${tablePrefixCls}-use-custom-scroll`]:
                 useCustomScroll && !isFirefox(),
+              [`${tablePrefixCls}-two-level-tree`]: isExpendAloneColumn, // 两级树
+              [`${tablePrefixCls}-support-tree`]:
+                supportTree && !isExpendAloneColumn, // 多级树
+              [`${tablePrefixCls}-expand-details`]:
+                supportExpend && !supportTree, // 行展开
+              [`${tablePrefixCls}-support-group`]: supportGroup, // 表格分组
             },
             className,
           )}
@@ -935,13 +960,15 @@ class CTable extends Component {
             rowClassName={(row) => {
               const rowKeyVal = getKeyFieldVal(row);
               const targetNode = leafNodesMap[rowKeyVal] || {};
+              const classNames = [];
+
               if (this.isRowDisabled(row)) {
-                return `${tablePrefixCls}-row-disabled ${rowClassName(row)}`;
+                classNames.push(`${tablePrefixCls}-row-disabled`);
               }
               if (lightCheckedRow && isEveryChecked(targetNode.childNodes)) {
-                return `${tablePrefixCls}-row-select ${rowClassName(row)}`;
+                classNames.push(`${tablePrefixCls}-row-select`);
               }
-              return rowClassName(row);
+              return `${classNames.join(' ')} ${rowClassName(row)}`;
             }}
             onRow={onRow}
             components={
@@ -1044,6 +1071,9 @@ CTable.propTypes = {
   tableId: PropTypes.string,
   useCustomScroll: PropTypes.bool,
   scrollIntoTop: PropTypes.bool,
+  expandIconColumnIndex: PropTypes.number,
+  isExpendAloneColumn: PropTypes.bool,
+  supportGroup: PropTypes.bool,
 };
 
 CTable.defaultProps = {
@@ -1087,4 +1117,7 @@ CTable.defaultProps = {
   tableId: '',
   useCustomScroll: true,
   scrollIntoTop: true,
+  expandIconColumnIndex: 0,
+  isExpendAloneColumn: false,
+  supportGroup: false,
 };
