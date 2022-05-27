@@ -6,10 +6,10 @@ desc: 受控的输入框
 
 ```jsx
 
-            /**
-             * title: 受控的输入框
-             * desc: 受控的输入框
-             */
+/**
+ * title: 受控的输入框
+ * desc: 受控的输入框
+ */
 import React, { Component } from 'react';
 import { Button, Input } from 'cloud-react';
 
@@ -46,10 +46,10 @@ export default class InputDemo extends Component {
 		return (
 			<div>
 				<Input
-					placeholder="basic usage"
+					placeholder="请输入"
 					hasClear
 					hasCounter
-                    useComposition
+          useComposition
 					maxLength={20}
 					defaultValue={23}
 					value={value}

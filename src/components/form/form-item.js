@@ -112,7 +112,7 @@ export default class FormItem extends Component {
         'has-colon': colon,
         'label-wrap': labelWrap,
         [`col-${labelColSpan}`]:
-          labelColSpan !== undefined && layout === LAYOUT_TYPES.HORIZONTAL,
+          labelColSpan !== undefined && [ LAYOUT_TYPES.HORIZONTAL, LAYOUT_TYPES.INLINE ].includes(layout),
         [`col-offset-${offset}`]: offset !== undefined,
       }),
     };
