@@ -17,6 +17,7 @@ group:
 | ----------- | -------------------- | ---------------- | ---------- |---------- |
 | alt  | 图像无法显示时的替代文本         | string            | -      ||
 | icon  | 设置头像的自定义图标               | ReactNode            |-         ||
+| group  | 设置头像组图标               | boolean            | false       ||
 | shape      | 指定头像的形状            | string | circle        | `circle` `square`|
 | size      | 头像的大小             | string | default     | `number` `large` `small` `default`|
 | src      | 图片类头像的资源地址或者图片元素   | string  ReactNode | -        ||
