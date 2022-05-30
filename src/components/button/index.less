@@ -28,7 +28,7 @@
 /* group */
 .@{button-prefix-cls}-group {
   padding-left: @translate;
-  display: inline-block;
+  display: inline-flex;
 }
 
 .@{button-prefix-cls} {
@@ -57,6 +57,10 @@
     &:last-child {
       border-top-right-radius: @border-radius;
       border-bottom-right-radius: @border-radius;
+    }
+
+    &.text:not(:last-child) {
+      margin-right: 8px;
     }
 
     &[disabled]:not(:first-child)::after,
