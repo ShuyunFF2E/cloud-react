@@ -32,7 +32,7 @@
 }
 
 // vertical body
-@body-padding-left: 18px;
+@body-padding-left: 8px;
 @circle-icon-size: 32px;
 @circle-small-icon-size: 24px;
 @circle-both-margin: 8px;
@@ -223,7 +223,6 @@
 		.@{title-selector} {
 			display: inline-block;
 			padding-right: 8px;
-			background: #fff;
 		}
 	}
 
@@ -250,6 +249,20 @@
 				font-size: 16px;
 			}
 		}
+
+    &.horizontal,
+    &.inline {
+      &.circle {
+        .drawing-horizontal-line(@circle-small-icon-size, @circle-vertical-both-margin);
+  
+        &.inline {
+          .@{item-selector}:not(:last-child)::before {
+            width: calc(~'100% - @{circle-small-icon-size} - @{circle-vertical-both-margin} * 2');
+            left: calc(~'@{circle-small-icon-size} + @{circle-vertical-both-margin}');
+          }
+        }
+      }
+    }
 	}
 
 	// 每一个item的样式

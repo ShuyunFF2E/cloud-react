@@ -34,3 +34,4 @@ group:
  ### 代码演示 
 
 <embed src="@components/bread-crumbs/demos/basic-bread-crumbs.md" /> 
+<embed src="@components/bread-crumbs/demos/custom-split-crumbs.md" /> 

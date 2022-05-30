@@ -9,7 +9,7 @@ const classSelector = `${prefixCls}-page-header`;
 export default function PageHeader(props) {
 	const { title, subTitle, className, size, style, onBack, breadcrumb } = props;
 	const hasBreadCrumbElement = React.isValidElement(breadcrumb);
-	const splitWrap = <span className="split"> | </span>;
+	const splitWrap = <span className="split">|</span>;
 
 	return (
 		<div>
