@@ -36,12 +36,12 @@ export default class AvatarDemos extends React.Component {
                     <div><Avatar size={60}/></div>
                   </div>
                   <div>
-                    <div><Avatar size={16} shape="square"/></div>
-                    <div><Avatar size={24} shape="square"/></div>
-                    <div><Avatar size={32} shape="square"/></div>
-                    <div><Avatar size={40} shape="square"/></div>
-                    <div><Avatar size={48} shape="square"/></div>
-                    <div><Avatar size={60} shape="square"/></div>
+                    <div><Avatar size={16} group shape="square"/></div>
+                    <div><Avatar size={24} group shape="square"/></div>
+                    <div><Avatar size={32} group shape="square"/></div>
+                    <div><Avatar size={40} group shape="square"/></div>
+                    <div><Avatar size={48} group shape="square"/></div>
+                    <div><Avatar size={60} group shape="square"/></div>
                   </div>
                   <div>
                     <div><Avatar size="small" shape="square"/></div>
