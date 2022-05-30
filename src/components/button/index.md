@@ -34,18 +34,11 @@ group:
 
  ### 代码演示 
 
-<embed src="@components/button/demos/basic-button.md" /> 
-
-<embed src="@components/button/demos/color-button.md" /> 
-
-<embed src="@components/button/demos/icon-button.md" /> 
-
-<embed src="@components/button/demos/block.md" /> 
-
-<embed src="@components/button/demos/disabled.md" /> 
-
-<embed src="@components/button/demos/group.md" /> 
-
-<embed src="@components/button/demos/loading.md" /> 
-
-<embed src="@components/button/demos/size.md" /> 
+<embed src="@components/button/demos/basic-button.md" />
+<embed src="@components/button/demos/size.md" />
+<embed src="@components/button/demos/disabled.md" />
+<embed src="@components/button/demos/icon-button.md" />
+<embed src="@components/button/demos/loading.md" />
+<embed src="@components/button/demos/block.md" />
+<embed src="@components/button/demos/color-button.md" />
+<embed src="@components/button/demos/group.md" />

@@ -21,23 +21,23 @@ export default class ButtonDemo extends React.Component {
 			<React.Fragment>
 				<div>
 					<Button type="primary" disabled>
-						primary
+						主要
 					</Button>
 					{blank}
 					<Button type="normal" disabled>
-						normal
+						普通
 					</Button>
 					{blank}
 					<Button type="dashed" disabled>
-						dashed
+						幽灵
 					</Button>
 					{blank}
 					<Button type="link" disabled>
-						link
+						链接
 					</Button>
 					{blank}
 					<Button type="text" disabled>
-						text
+						文字
 					</Button>
 				</div>
 			</React.Fragment>

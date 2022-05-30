@@ -19,7 +19,7 @@ export default class ButtonDemo extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-			size: 'large'
+			size: 'default'
 		};
 	}
 
@@ -32,39 +32,42 @@ export default class ButtonDemo extends React.Component {
 
 		return (
 			<React.Fragment>
+				<h4>切换尺寸</h4>
 				<div style={{ marginBottom: 10 }}>
-					<Button onClick={this.onChangeSize.bind(this, 'large')}>large</Button>
+					<Button onClick={() => this.onChangeSize('large')}>大尺寸</Button>
 					{blank}
-					<Button onClick={this.onChangeSize.bind(this, 'default')}>default</Button>
+					<Button onClick={() => this.onChangeSize('default')}>默认</Button>
 					{blank}
-					<Button onClick={this.onChangeSize.bind(this, 'small')}>small</Button>
+					<Button onClick={() => this.onChangeSize('small')}>小尺寸</Button>
 					{blank}
 					<Button type="link" disabled>
 						current: {size}
 					</Button>
 				</div>
 
+				<h4>无图标</h4>
 				<div>
-					<h4>无图标</h4>
-					<Button type="primary" size={size}>
-						primary
-					</Button>
+					<Button type="primary" size={size}>主要</Button>
 					{blank}
-					<Button type="normal" size={size}>
-						normal
-					</Button>
+					<Button type="normal" size={size}>普通</Button>
 					{blank}
-					<Button type="dashed" size={size}>
-						dashed
-					</Button>
+					<Button type="dashed" size={size}>幽灵</Button>
 					{blank}
-					<Button type="link" size={size}>
-						link
-					</Button>
+					<Button type="link" size={size}>链接</Button>
 					{blank}
-					<Button type="text" size={size}>
-						text
-					</Button>
+					<Button type="text" size={size}>文字</Button>
+				</div>
+				<div>
+					<h4>有图标</h4>
+					<Button type="primary" icon="plus-solid" size={size}>主要</Button>
+					{blank}
+					<Button type="normal" icon="plus-solid" size={size}>普通</Button>
+					{blank}
+					<Button type="dashed" icon="plus-solid" size={size}>幽灵</Button>
+					{blank}
+					<Button type="link" icon="plus-solid" size={size}>链接</Button>
+					{blank}
+					<Button type="text" icon="plus-solid" size={size}>文字</Button>
 				</div>
 				<div>
 					<h4>有图标</h4>
