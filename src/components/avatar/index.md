@@ -20,6 +20,7 @@ group:
 | shape      | 指定头像的形状            | string | circle        | `circle` `square`|
 | size      | 头像的大小             | string | default     | `number` `large` `small` `default`|
 | src      | 图片类头像的资源地址或者图片元素   | string  ReactNode | -        ||
+| srcSet   | 图片元素的原生srcset属性   | string | -        ||
 
  ### 基础
 
