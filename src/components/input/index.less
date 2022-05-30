@@ -78,7 +78,7 @@
           height: 26px;
         }
         > .@{input-prefix-cls}-group {
-          padding: 2.5px 12px;
+          padding: 3px 12px;
         }
       }
     }
@@ -171,15 +171,17 @@
   }
 
   &-counter {
-    font-size: 12px;
-    color: #c9c9c9;
+    font-size: 14px;
+    color: @gray-6;
     word-break: keep-all;
+    height: 20px;
+    line-height: 20px;
   }
 
   &-addon {
     position: relative;
     padding: 0 8px;
-    color: @color-gray2;
+    color: @gray-8;
     font-size: @addon-font-size;
     line-height: 1;
     text-align: center;
@@ -209,6 +211,8 @@
     cursor: pointer;
     opacity: 0;
     display: none;
+    height: 20px;
+    line-height: 20px;
 
     ~ * {
       margin-left: 4px;
@@ -219,10 +223,10 @@
       pointer-events: auto;
     }
 
-    &.small-size {
-      height: 22px;
-      line-height: 22px;
-    }
+    // &.small-size {
+    //   height: 20px;
+    //   line-height: 20px;
+    // }
 
     &:hover {
       color: @clear-icon-hover-color;
