@@ -46,12 +46,6 @@
       td:not(:last-child) {
         border-right: @border;
       }
-
-      &-container {
-        border-left: @border;
-        border-top: @border;
-        border-right: @border;
-      }
     }
   }
 
@@ -165,6 +159,16 @@
       .@{tablePrefixCls}-row-indent,
       .@{tablePrefixCls}-expend-icon {
         display: none;
+      }
+    }
+  }
+
+  // 表尾合计
+  &.@{tablePrefixCls}-support-summary {
+    &.@{tablePrefixCls}-bordered {
+      .@{tablePrefixCls}-summary {
+        border-right: @border;
+        border-left: @border;
       }
     }
   }

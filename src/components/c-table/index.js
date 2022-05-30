@@ -905,6 +905,7 @@ class CTable extends Component {
       supportExpend,
       supportTree,
       supportGroup,
+      summaryData,
     } = this.props;
     const {
       data,
@@ -942,6 +943,8 @@ class CTable extends Component {
               [`${tablePrefixCls}-expand-details`]:
                 supportExpend && !supportTree, // 行展开
               [`${tablePrefixCls}-support-group`]: supportGroup, // 表格分组
+              [`${tablePrefixCls}-support-summary`]:
+                summaryData && summaryData.length, // 表尾合计
             },
             className,
           )}
@@ -980,6 +983,17 @@ class CTable extends Component {
                   }
                 : undefined
             }
+            summary={() => (
+              <RcTable.Summary fixed>
+                <RcTable.Summary.Row>
+                  {summaryData.map((item) => (
+                    <RcTable.Summary.Cell {...item}>
+                      {item.content || null}
+                    </RcTable.Summary.Cell>
+                  ))}
+                </RcTable.Summary.Row>
+              </RcTable.Summary>
+            )}
           />
           <Loading
             className={`${tablePrefixCls}-loading-layer`}
@@ -1074,6 +1088,7 @@ CTable.propTypes = {
   expandIconColumnIndex: PropTypes.number,
   isExpendAloneColumn: PropTypes.bool,
   supportGroup: PropTypes.bool,
+  summaryData: PropTypes.array,
 };
 
 CTable.defaultProps = {
@@ -1120,4 +1135,5 @@ CTable.defaultProps = {
   expandIconColumnIndex: 0,
   isExpendAloneColumn: false,
   supportGroup: false,
+  summaryData: [],
 };

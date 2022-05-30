@@ -58,6 +58,7 @@ group:
 | useCustomScroll | 业务中是否使用自定义滚动条() | 	boolean   |   true   | |
 | isExpendAloneColumn | 树状表格的展开图标是否单独占据一列（只有两级的树状表格需要设置该属性） | 	boolean   |   false   | |
 | supportGroup | 表格分组 | 	boolean   |   false   | |
+| summaryData | 表格合计（API 同 columnData） | 	array   |   []   | |
 
 手动刷新表格：this.tableRef.refreshTable(params?);
 
@@ -87,8 +88,10 @@ group:
 | isAppendToBody      | 分页下拉框是否渲染在 body 上	          | boolean                      | true                |
 | emptyStyle | 数据为空默认模板的样式 | object     |   {}   | |
 
-#### expandable
-https://table-react-component.vercel.app/
+#### rcTable expandable
+> https://table-react-component.vercel.app/
+
+> https://table-react-component.vercel.app/#api
 
 ### 代码演示
 
@@ -123,6 +126,8 @@ https://table-react-component.vercel.app/
 <embed src="@components/c-table/demos/fixed-header.md" /> 
 
 <embed src="@components/c-table/demos/tree2.md" /> 
+
+<embed src="@components/c-table/demos/summary.md" /> 
 
 <embed src="@components/c-table/demos/page.md" /> 
 
