@@ -21,6 +21,7 @@
     "react/forbid-prop-types": "off",
     // jsx 中属性全部使用双引
     "jsx-a11y/label-has-associated-control": "off",
+    "jsx-a11y/click-events-have-key-events": "off",
     "jest/no-disabled-tests": "warn",
     "jest/no-focused-tests": "error",
     "jest/no-identical-title": "error",

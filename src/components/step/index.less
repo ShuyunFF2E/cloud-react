@@ -66,8 +66,7 @@
 	&.dot {
 		.@{icon-selector} {
 			&.wait {
-				border: 1px solid @gray-4;
-				background: none;
+				background: @gray-4;
 			}
 
 			> * {
@@ -209,6 +208,9 @@
 
 			&:last-child {
 				flex: none;
+        .@{title-selector} {
+          background: none;
+        }
 			}
 		}
 
@@ -223,6 +225,7 @@
 		.@{title-selector} {
 			display: inline-block;
 			padding-right: 8px;
+      background: #fff;
 		}
 	}
 
@@ -262,6 +265,9 @@
           }
         }
       }
+    }	// 标题的样式
+    .@{title-selector} {
+      font-size: 14px;
     }
 	}
 
@@ -354,5 +360,6 @@
 		word-break: break-all;
 		line-height: 1.4;
 		color: @gray-7;
+    font-size: 14px;
 	}
 }
