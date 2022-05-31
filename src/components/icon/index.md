@@ -20,6 +20,8 @@ group:
 | type  | 指定图标 | string        | -      |
 | style | 样式     | CSSProperties | -      |
 
- ### 代码演示 
+`Icon.ColorIcon` API 与 `Icon` 一致
 
-<embed src="@components/icon/demos/basic-icon.md" /> 
+ ### 图标列表 
+
+<embed src="@components/icon/demos/icon-list.md" />
