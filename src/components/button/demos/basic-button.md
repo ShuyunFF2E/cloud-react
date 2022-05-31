@@ -26,7 +26,7 @@ export default class ButtonDemo extends React.Component {
 					{blank}
 					<Button type="dashed">幽灵</Button>
 					{blank}
-					<Button type="link">链接</Button>
+					<Button href="https://www.baidu.com/" target="_blank" title="百度一下，你就知道" type="link">链接</Button>
 					{blank}
 					<Button type="text">文字</Button>
 				</div>
