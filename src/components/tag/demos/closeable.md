@@ -54,7 +54,7 @@ export default class TagDemo extends Component {
 		return (
 			<React.Fragment>
 				{tagList.map((item, index) => (
-					<Tag key={index} closable checked={item.checked} onClose={() => this.handleRemove(index)} onClick={() => this.handleClick(index)}>
+					<Tag key={index} closable onClose={() => this.handleRemove(index)} onClick={() => this.handleClick(index)}>
 						{item.text}
 					</Tag>
 				))}
