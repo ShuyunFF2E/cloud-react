@@ -30,22 +30,19 @@ function Popover(props) {
     type,
     cancelBtnOpts,
     confirmBtnOpts,
+    onVisibleChange,
     ...otherProps
   } = props;
 
   const ref = createRef();
 
-  const closeTooltipExec = (evtPath) => {
-    return evtPath.find((ele) => {
-      return (
-        ele.classList &&
-        ele.classList.contains &&
-        (ele.classList.contains(cancelBtnClass) ||
-          ele.classList.contains(confirmBtnClass) ||
-          ele.classList.contains(closeIconClass))
-      );
-    });
-  };
+  const closeTooltipExec = (evtPath) => evtPath.find((ele) => (
+    ele.classList
+        && ele.classList.contains
+        && (ele.classList.contains(cancelBtnClass)
+          || ele.classList.contains(confirmBtnClass)
+          || ele.classList.contains(closeIconClass))
+  ));
 
   const handleCancelClick = () => {
     props.onCancelClick();
@@ -60,7 +57,13 @@ function Popover(props) {
     };
 
     try {
-      const isInvalidate = await props.onConfirmClick();
+      let isInvalidate = props.onConfirmClick();
+      if (isInvalidate && isInvalidate.then) {
+        isInvalidate = await props.onConfirmClick();
+      } else {
+        isInvalidate = props.onConfirmClick();
+      }
+
       if (isInvalidate) {
         removeClass();
       }
@@ -76,7 +79,7 @@ function Popover(props) {
     popoverContent = (
       <div className={classSelector}>
         <section className={`${classSelector}-content`}>
-          {showIcon && (iconTpl || <Icon type="warning-circle-solid" />)}
+          {showIcon && (iconTpl || <Icon className={`${classSelector}-icon`} type="info_1" />)}
 
           <div className={`${classSelector}-main-content`}>
             {title && <p className={`${classSelector}-title`}>{title}</p>}
@@ -129,6 +132,7 @@ function Popover(props) {
       closeTooltipExec={closeTooltipExec}
       content={popoverContent}
       theme={tooltipTheme}
+      onVisibleChange={onVisibleChange}
       className={classnames(className, {
         [`${classSelector}-tooltip-${size}`]:
         title || showCancelBtn || showConfirmBtn,
@@ -156,7 +160,8 @@ Popover.propTypes = {
   onCancelClick: PropTypes.func,
   onConfirmClick: PropTypes.func,
   cancelBtnOpts: PropTypes.object,
-  confirmBtnOpts: PropTypes.object
+  confirmBtnOpts: PropTypes.object,
+  onVisibleChange: PropTypes.func,
 };
 
 Popover.defaultProps = {
@@ -174,7 +179,8 @@ Popover.defaultProps = {
   onCancelClick: noop,
   onConfirmClick: noop,
   cancelBtnOpts: {},
-  confirmBtnOpts: {}
+  confirmBtnOpts: {},
+  onVisibleChange: () => {},
 };
 
 export default Popover;

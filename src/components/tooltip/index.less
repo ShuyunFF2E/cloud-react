@@ -2,9 +2,9 @@
 
 @tooltip-prefix-cls: ~'@{prefix}-tooltip';
 @arrow-size: 6px;
-@left-space-size: 10px;
-@top-space-size: 4px;
-@offset-size: -2px;
+@left-space-size: 20px;
+@top-space-size: 8px;
+@offset-size: -3px;
 @light-offset-size: -3px;
 @transparent-height: 7px;
 
@@ -92,8 +92,8 @@
   max-width: 320px;
   min-width: 72px;
   line-height: 1.5;
-  padding: 8px 12px;
-  border-radius: 4px;
+  padding: 6px 12px 8px;
+  border-radius: 2px;
   box-sizing: border-box;
   z-index: @z-index-tooltip;
   word-break: break-all;
@@ -116,9 +116,9 @@
   &:after {
     content: '';
     position: absolute;
-    width: 4px;
-    height: 4px;
-    border: 1px solid currentColor;
+    width: 7px;
+    height: 7px;
+    // border: 1px solid currentColor;
   }
 
   &.is-dark {

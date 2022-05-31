@@ -20,6 +20,7 @@ group:
 | -------- | ------------------------------------------------------ | -------- | ------ |
 | type     | 标签状态,可选状态值：success、warning、default、danger | string   | -      |
 | size     | 标签大小,可选状态值：normal、small                     | string   | normal      |
+| rounded     | 圆形标签                  | bool   | false      |
 | maxWidth  | 标签最大宽度，超过则显示省略号及Tooltip                    | number   | 200  |
 | color     | 标签颜色,可选状态值：green、orange、red、blue、yellow、gray  | string   | -      |
 | icon     | 图标类型，在tag内内置icon可直接传入icon类型              | string   | -      |
