@@ -15,6 +15,13 @@ import { Icon, Message } from 'cloud-react';
 import './styles/basic-icon.less'
 
 const iconList = [
+	'group-fill1',
+	'shop-fill',
+	'shop-line',
+	'thumb-up-fill',
+	'thumb-up-line',
+	'pause',
+	'begin',
 	'lock',
 	'user-fill',
 	'group-fill',
@@ -26,7 +33,6 @@ const iconList = [
 	'success-line',
 	'success-fill',
 	'info_2',
-	'shop',
 	'flag-solid',
 	'folder-solid',
 	'folder-solid-open',
@@ -96,7 +102,6 @@ const iconList = [
 	'checkbox',
 	'checkbox-indeterminate',
 	'checkbox-blank',
-	'group-fill1',
 ];
 export default class IconDemo extends Component {
 	render() {

@@ -1,21 +1,25 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import './index.less';
 
-class Icon extends Component {
-	render() {
-		const { type, style, className, ...restProps } = this.props;
-		return <i className={classNames(className, `cloud-icon icon-${type}`)} style={style} {...restProps} />;
-	}
-}
+const Icon = ({
+  type, style, className, ...restProps
+}) => (
+  <i
+    className={classNames(className, `cloud-icon icon-${type}`)}
+    style={style}
+    {...restProps}
+  />
+);
+
 Icon.propTypes = {
-	type: PropTypes.string.isRequired,
-	style: PropTypes.object
+  type: PropTypes.string.isRequired,
+  style: PropTypes.object,
 };
 
 Icon.defaultProps = {
-	style: {}
+  style: {},
 };
 
 export default Icon;
