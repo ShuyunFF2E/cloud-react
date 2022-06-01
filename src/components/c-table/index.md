@@ -14,7 +14,7 @@ group:
 
 ### API
 
-#### CTable
+#### CTable 基础配置项
 
 | 属性           | 说明                    | 类型              | 默认值 
 | -------------- | ---------------------- | ----------------- | ------ |
@@ -24,45 +24,76 @@ group:
 | bordered | 是否展示表格边框   | boolean   |   false   | |
 | size | 表格大小，可选 `default` `small`     | string   |   `default`   | |
 | maxHeight | tbody最大高度    | string/number |   -   |
+| onLoadGridAfter | 表格刷新后回调，Function(res)   | function   |   () => {}   | |
+| onLoadGridBefore | 表格刷新前回调，Function(params)   | function   |   () => {}   | |
+| onRow | 表格刷新后回调   | 设置自定义 row 属性，Function(record, index)	   |   () => {}   | |
+
+#### CTable 手动刷新表格
+this.tableRef.refreshTable(params?);
+
+#### CTable 字段映射
+| 属性           | 说明                    | 类型              | 默认值
+| -------------- | ---------------------- | ----------------- | ------ |
+| totalsKey | total 映射字段   | string   |   'totals'   | |
+| dataKey | data 映射字段   | string   |   'data'   | |
+| childrenKey | children 映射字段   | string   |   'children'   | |
+
+#### CTable 分页相关配置
+| 属性           | 说明                    | 类型              | 默认值
+| -------------- | ---------------------- | ----------------- | ------ |
+| supportPage | 是否支持分页    | boolean   |   false   | |
+| pageOpts | 分页信息，详细见下表 **pageOpts**    | object   |   -   | |
+| showTotal | 显示总条数   | boolean   |   false   | |
+| showRefresh | 显示刷新按钮   | boolean   |   true   | |
+
+#### CTable 多级表格配置（树、展开行）
+| 属性           | 说明                    | 类型              | 默认值
+| -------------- | ---------------------- | ----------------- | ------ |
+| supportTree | 是否支持树状表格    | boolean   |   false   | |
 | supportExpend | 是否支持展开    | boolean   |   false   | |
 | onExpand | 表格展开的回调函数，需要设置 supportExpend 为 true    | function   |   -   | |
 | expandedRowRender | 表格展开区域的内容    | function   |   -  | |
 | expandable | 表格展开功能的额外配置，详细见下表 **expandable**    | object   |   {}   | |
-| supportTree | 是否支持树状表格    | boolean   |   false   | |
-| supportPage | 是否支持分页    | boolean   |   false   | |
-| footerTpl | 自定义 footer    | function   |   -   | |
-| pageOpts | 分页信息，详细见下表 **pageOpts**    | object   |   -   | |
+| expandIconColumnIndex | 展开行图标将插入哪一列的索引 | 	number   |   0   | |
+| isExpendAloneColumn | 树状表格的展开图标是否单独占据一列（只有两级的树状表格需要设置该属性） | 	boolean   |   false   | |
+
+#### CTable 多选/单选配置
+| 属性           | 说明                    | 类型              | 默认值
+| -------------- | ---------------------- | ----------------- | ------ |
 | supportCheckbox | 是否支持多选    | boolean   |   false   | |
 | checkedData | 已选数据    | array   |   []   | |
-| onCheckedAfter | 选中行回调，需要设置 supportCheckbox 为 true，Function(checkedList, checkedRow)    | function   |   -   | | 
-| onCheckedAllAfter | 选中当页回调，需要设置 supportCheckbox 为 true，Function(checkedList)   | function   |   -   | | 
-| emptyTpl | 自定义数据为空模板   | function   |   -   | |
-| showTotal | 显示总条数   | boolean   |   false   | |
-| showRefresh | 显示刷新按钮   | boolean   |   true   | |
-| lightCheckedRow | 选中行高亮   | boolean   |   false   | |
-| rowClassName | 自定义行类名   | function   |   -   | |
 | supportRadio | 是否支持单选   | boolean   |   false   | |
+| onCheckedAfter | 选中行回调，需要设置 supportCheckbox 为 true，Function(checkedList, checkedRow)    | function   |   -   | | 
+| onCheckedAllAfter | 选中当页回调，需要设置 supportCheckbox 为 true，Function(checkedList)   | function   |   -   | |
+
+#### CTable 自定义模板配置
+| 属性           | 说明                    | 类型              | 默认值
+| -------------- | ---------------------- | ----------------- | ------ |
+| footerTpl | 自定义 footer    | function   |   -   | |
+| emptyTpl | 自定义数据为空模板   | function   |   -   | |
+| rowClassName | 自定义行类名   | function   |   -   | |
+| lightCheckedRow | 选中行高亮   | boolean   |   false   | |
 | disabledData | 禁用行（也可以通过给 data 设置 disabled: true 来实现禁用行）   | array   |   []   | |
-| totalsKey | total 映射字段   | string   |   'totals'   | |
-| dataKey | data 映射字段   | string   |   'data'   | |
+
+#### CTable 业务相关配置
+| 属性           | 说明                    | 类型              | 默认值
+| -------------- | ---------------------- | ----------------- | ------ |
 | isDelay | 刷新表格时，是否延迟loading，一般在纯前端表格中使用   | boolean   |   false   | |
-| onLoadGridAfter | 表格刷新后回调，Function(res)   | function   |   () => {}   | |
-| onLoadGridBefore | 表格刷新前回调，Function(params)   | function   |   () => {}   | |
-| onRow | 表格刷新后回调   | 设置自定义 row 属性，Function(record, index)	   |   () => {}   | |
 | isCheckboxFixed | 是否固定多选框列或单选框列  | boolean	   |   false   | |
+| useCustomScroll | 业务中是否使用自定义滚动条 | 	boolean   |   true   | |
+| scrollIntoTop | 翻页后表格自动滚到顶部 | 	boolean   |   true   | |
+
+#### CTable 其他功能配置
+| 属性           | 说明                    | 类型              | 默认值
+| -------------- | ---------------------- | ----------------- | ------ |
 | supportConfigColumn | 是否支持配置列的隐藏和展示  | boolean	   |   false   | |
 | supportResizeColumn | 是否支持配置列的拉伸（开发中）  | boolean	   |   false   | |
 | supportMemory | 是否开启表格记忆功能（开发中）  | boolean     |   false   | | 
 | tableId | 表格ID。supportMemory 为 true 的时候，需要设置 tableId；其他场景无需设置（开发中）  | string     |   ''   | | 
-| expandIconColumnIndex | 展开行图标将插入哪一列的索引 | 	number   |   0   | |
-| useCustomScroll | 业务中是否使用自定义滚动条() | 	boolean   |   true   | |
-| isExpendAloneColumn | 树状表格的展开图标是否单独占据一列（只有两级的树状表格需要设置该属性） | 	boolean   |   false   | |
 | supportGroup | 表格分组 | 	boolean   |   false   | |
 | summaryData | 表格合计（API 同 columnData） | 	array   |   []   | |
 
-手动刷新表格：this.tableRef.refreshTable(params?);
-
-#### columnData
+#### CTable columnData
 | 属性                | 说明                                         | 类型                        | 默认值           |
 | ------------------- | -------------------------------------------- | --------------------------- | ---------------- |
 | title             | 表头                                     | string/function                    | -                |
@@ -76,7 +107,7 @@ group:
 | sorter     | 自定义列排序规则                                     | function                      | -               |
 | onCell     | 为每个单元格设置自定义参数 Function(record, index)                                   | function                      | -               |
 
-#### pageOpts
+#### CTable pageOpts
 | 属性                | 说明                                         | 类型                        | 默认值           |
 | ------------------- | -------------------------------------------- | --------------------------- | ---------------- |
 | pageNum             | 当前页数                                     | number                      | 1                |

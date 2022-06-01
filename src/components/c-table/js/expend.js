@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
-import Icon from '../icon';
-import { tablePrefixCls } from './constant';
+import Icon from '../../icon';
+import { tablePrefixCls } from '../constant';
 
 /**
  * 自定义展开按钮

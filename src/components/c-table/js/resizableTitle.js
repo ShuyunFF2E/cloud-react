@@ -1,6 +1,6 @@
 import React from 'react';
 import { Resizable } from 'react-resizable';
-import { tablePrefixCls } from './constant';
+import { tablePrefixCls } from '../constant';
 
 export default function ResizableTitle(props) {
   const { onResize, width, ...resetProps } = props;

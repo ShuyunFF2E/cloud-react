@@ -19,7 +19,7 @@ const data = [
         name: '一级条目1',
         id: 123456,
         details: '一级条目1详情',
-        children: [
+        skus: [
             {
                 key: 11,
                 name: '二级条目11',
@@ -31,7 +31,7 @@ const data = [
                 name: '二级条目12',
                 id: 123458,
                 details: '二级条目12详情',
-                children: [
+                skus: [
                     {
                         key: 121,
                         name: '三级条目131',
@@ -45,13 +45,13 @@ const data = [
                 name: '二级条目13',
                 id: 123460,
                 details: '二级条目13详情',
-                children: [
+                skus: [
                     {
                         key: 131,
                         name: '三级条目131',
                         id: 123461,
                         details: '三级条目131详情',
-                        children: [
+                        skus: [
                             {
                                 key: 1311,
                                 name: '四级条目1311',
@@ -81,7 +81,7 @@ const data = [
         name: '一级条目3',
         id: 123465,
         details: '一级条目3详情',
-        children: [
+        skus: [
             {
                 key: 31,
                 name: '二级条目31',
@@ -95,7 +95,7 @@ const data = [
         name: '一级条目4',
         id: 123467,
         details: '一级条目4详情',
-        children: [
+        skus: [
             {
                 key: 41,
                 name: '二级条目42',
@@ -130,7 +130,8 @@ export default function CTableDemo() {
             supportTree
             supportCheckbox
             rowKey="key"
-            checkedData={[data[0].children[0], data[1]]}
+            childrenKey="skus"
+            checkedData={[data[0].skus[0], data[1]]}
             columnData={columns}
             ajaxData={{ totals: data.length, data }}
             onCheckedAfter={checkedList => {
