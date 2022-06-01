@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { prefixCls } from '@utils';
+import cls from 'classnames';
 import Icon from '../icon';
-
 import './index.less';
 
 const IconTypes = {
@@ -13,36 +13,181 @@ const IconTypes = {
 };
 
 class Tips extends Component {
-  render() {
-    const { msg, type, style, className, isShowIcon } = this.props;
+  componentDidMount() {
+    const { mode, collapsible } = this.props;
+    if (mode === 'banner') {
+      this.expandBannerSection();
+    }
+    if (mode === 'default' && collapsible) {
+      this.handleShowArrow();
+    }
+  }
 
+  state = {
+    visible: true, // 控制提示关闭
+    showArrow: false, // 是否显示展开/收起箭头
+    isArrowUp: false, // 箭头是否为向上展开状态
+  };
+
+  ref = React.createRef();
+
+  onClose = () => {
+    this.setState({
+      visible: false,
+    });
+    this.props.onClose();
+  };
+
+  // 高度展开效果
+  expandBannerSection = () => {
+    const element = this.ref.current;
+    window.requestAnimationFrame(() => {
+      element.style.height = '0px';
+      window.requestAnimationFrame(() => {
+        element.style.height = `${element.scrollHeight}px`;
+        // element.style.height = 'auto';
+      });
+    });
+  };
+
+  handleShowArrow = () => {
+    const _height = this.ref.current.clientHeight;
+    this.setState({
+      showArrow: _height >= (this.props.description ? 120 : 96),
+    });
+  };
+
+  onArrowClick = () => {
+    const { isArrowUp } = this.state;
+    this.setState({
+      isArrowUp: !isArrowUp,
+    });
+  };
+
+  handleContent = (content) => {
+    if (Array.isArray(content)) {
+      return content.length > 0 && <ul>{content.map(tip => <li key={tip}>{tip}</li>)}</ul>;
+    }
+    if (typeof content !== 'object') {
+      return <div dangerouslySetInnerHTML={{ __html: content }} />;
+    }
+    return content;
+  };
+
+  renderBannerTips = () => {
+    const { msg, closable, closeText, closeIcon } = this.props;
+    const isClosable = closeText || closeIcon ? true : closable;
     return (
-      <div
-        className={`${type} ${prefixCls}-tips-container ${className} ${
-          isShowIcon ? 'has-icon' : ''
-        }`}
-        style={style}
-      >
-        {isShowIcon && <Icon type={IconTypes[type]} className="tip-icon" />}
-        {msg}
-      </div>
+      <>
+        <div className="content">{this.handleContent(msg)}</div>
+        {isClosable && (
+          <div className="close-icon" onClick={this.onClose}>
+            {closeText || <Icon type={closeIcon || 'close'} />}
+          </div>
+        )}
+      </>
+    );
+  };
+
+  renderInlineTips = () => {
+    const { msg, type, icon } = this.props;
+    return (
+      <>
+        <Icon type={icon || IconTypes[type]} className="tip-icon" />
+        <div className="content">{this.handleContent(msg)}</div>
+      </>
+    );
+  };
+
+  renderDefaultTips = () => {
+    const { msg, description, type, icon, isShowIcon, closable, closeText, closeIcon, action, collapsible } = this.props;
+    const { showArrow, isArrowUp } = this.state;
+    const isClosable = closeText || closeIcon ? true : closable;
+    const showIcon = icon ? true : isShowIcon;
+    const isShowAll = showArrow && isArrowUp;
+    const isShowOperation = action || isClosable || showArrow;
+    return (
+      <>
+        {showIcon && <Icon type={icon || IconTypes[type]} className="tip-icon" />}
+
+        <div className={cls('content', { collapsible: collapsible && !isShowAll })}>
+          <div className={cls('msg', { hasDesc: description })}>{this.handleContent(msg)}</div>
+          {description && <div className="description">{this.handleContent(description)}</div>}
+        </div>
+
+        {isShowOperation && (
+          <div className="operation">
+            <div className="operation-top">
+              {action && <div className="action-icon">{action}</div>}
+              {isClosable && (
+                <div className="close-icon" onClick={this.onClose}>
+                  {closeText || <Icon type={closeIcon || 'close'} />}
+                </div>
+              )}
+            </div>
+            {showArrow && <Icon type={isArrowUp ? 'up' : 'down'} onClick={this.onArrowClick} className="action-icon" />}
+          </div>
+        )}
+      </>
+    );
+  };
+
+  render() {
+    const { type, mode, style, className } = this.props;
+    const { visible } = this.state;
+    return (
+      visible && (
+        <div className={cls(`${prefixCls}-tips`, mode, type, className)} style={style} ref={this.ref}>
+          <div className={cls(`${prefixCls}-tips-container`, `${mode}-container`)}>
+            {mode === 'default' && this.renderDefaultTips()}
+            {mode === 'banner' && this.renderBannerTips()}
+            {mode === 'inline' && this.renderInlineTips()}
+          </div>
+        </div>
+      )
     );
   }
 }
 
-Tips.defaultProps = {
-  type: 'normal',
-  style: {},
-  className: '',
-  isShowIcon: false,
-};
-
 Tips.propTypes = {
-  msg: PropTypes.oneOfType([PropTypes.string, PropTypes.element]).isRequired,
-  type: PropTypes.oneOf(['normal', 'warning', 'major', 'success']),
   style: PropTypes.object,
   className: PropTypes.string,
+  type: PropTypes.oneOf(['normal', 'warning', 'major', 'success']),
+  mode: PropTypes.oneOf(['default', 'banner', 'inline']),
   isShowIcon: PropTypes.bool,
+  icon: PropTypes.string,
+  msg: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.element,
+    PropTypes.array,
+  ]).isRequired,
+  description: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.element,
+    PropTypes.array,
+  ]),
+  action: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+  closable: PropTypes.bool,
+  closeText: PropTypes.string,
+  closeIcon: PropTypes.string,
+  onClose: PropTypes.func,
+  collapsible: PropTypes.bool,
+};
+
+Tips.defaultProps = {
+  style: {},
+  className: '',
+  type: 'normal',
+  mode: 'default',
+  isShowIcon: false,
+  icon: '',
+  description: '',
+  action: '',
+  closable: false,
+  closeText: '',
+  closeIcon: '',
+  onClose: () => {},
+  collapsible: false,
 };
 
 export default Tips;
