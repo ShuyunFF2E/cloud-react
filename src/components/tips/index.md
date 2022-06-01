@@ -15,13 +15,20 @@ group:
 
 ### API
 
-| 属性  | 说明                                              | 类型              | 默认值 |
-| ----- | ------------------------------------------------- | ----------------- | ------ |
-| msg   | 提示内容                                          | ReactNode、string | -      |
-| type  | 指定提示的样式,包括 normal、warning、major、success | string            | normal |
-| isShowIcon  | 是否显示指定类型的icon                       | boolean               | false
-| style | 样式                                              | CSSProperties     | -      |
+| 属性       | 说明                                                | 类型              | 默认值 |
+| ---------- | --------------------------------------------------- | ----------------- | ------ |
+| msg        | 提示内容                                            | ReactNode、string | -      |
+| type       | 指定提示的样式,包括 normal、warning、major、success | string            | normal |
+| isShowIcon | 是否显示指定类型的 icon                             | boolean           | false  |
+| style      | 样式                                                | CSSProperties     | -      |
 
- ### 代码演示 
+### 代码演示
 
-<embed src="@components/tips/demos/basic-tips.md" /> 
+<embed src="@components/tips/demos/type.md" />
+<embed src="@components/tips/demos/icon.md" />
+<embed src="@components/tips/demos/closable.md" />
+<embed src="@components/tips/demos/description.md" />
+<embed src="@components/tips/demos/action.md" />
+<embed src="@components/tips/demos/collapse.md" />
+<embed src="@components/tips/demos/banner.md" />
+<embed src="@components/tips/demos/inline.md" />
