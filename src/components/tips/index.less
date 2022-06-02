@@ -2,27 +2,6 @@
 
 @tips-prefix-cls: ~'@{prefix}-tips';
 
-@normal-bg: @blue-1;
-@normal-border-color: @indigo-2;
-@normal-btn-color: #8fafff;
-
-@major-bg: @orange-1;
-@major-border-color: #fdcd8e;
-@major-btn-color: #fda33d;
-
-@warning-bg: @red-1;
-@warning-border-color: @red-2;
-@warning-btn-color: #f07878;
-
-@success-bg: #ecffeb;
-@success-border-color: #bcf7c0;
-@success-btn-color: #59cc74;
-
-.type-mixin(@bg, @borderColor) {
-  background: @bg;
-  border: 1px solid @borderColor;
-}
-
 .text-overflow-ellipsis(@line) {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -31,49 +10,40 @@
   -webkit-box-orient: vertical;
 }
 
+.type-mixin(@bg, @border, @close, @action, @hover, @active) {
+  background: @bg;
+  border: 1px solid @border;
+  .close-icon {
+    color: @close;
+  }
+  .action-icon, .tip-icon {
+    color: @action;
+  }
+  .close-icon, .action-icon, .tip-icon {
+    &:hover {
+      color: @hover;
+    }
+    &:active {
+      color: @active;
+    }
+  }
+}
+
 .@{tips-prefix-cls}{
   &.normal {
-    .type-mixin(@normal-bg, @normal-border-color);
-    .close-icon {
-      color: @normal-btn-color;
-    }
-    .action-icon,
-    .tip-icon {
-      color: @blue-4;
-    }
+    .type-mixin(@blue-1, @blue-2, @blue-3, @blue-4, @blue-5, @blue-6);
   }
 
   &.major {
-    .type-mixin(@major-bg, @major-border-color);
-    .close-icon {
-      color: @major-btn-color;
-    }
-    .action-icon,
-    .tip-icon {
-      color: @orange-4;
-    }
+    .type-mixin(@orange-1, @orange-2, @orange-3, @orange-4, @orange-5, @orange-6);
   }
 
   &.warning {
-    .type-mixin(@warning-bg, @warning-border-color);
-    .close-icon {
-      color: @warning-btn-color;
-    }
-    .action-icon,
-    .tip-icon {
-      color: @red-4;
-    }
+    .type-mixin(@red-1, @red-2, @red-3, @red-4, @red-5, @red-6);
   }
 
   &.success {
-    .type-mixin(@success-bg, @success-border-color);
-    .close-icon {
-      color: @success-btn-color;
-    }
-    .action-icon,
-    .tip-icon {
-      color: @green-4;
-    }
+    .type-mixin(@green-1, @green-2, @green-3, @green-4, @green-5, @green-6);
   }
 
   &.banner {
