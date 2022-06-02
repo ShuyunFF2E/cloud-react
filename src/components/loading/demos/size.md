@@ -1,34 +1,26 @@
 ---
-order: 2
+order: 4
 title: 各种大小
-desc: 'size,默认default，可设置为small、large'
+desc: 三种大小 `small`、`default`、`large`，默认为 `defalut`
 ---
 
 ```jsx
-
-            /**
-             * title: 各种大小
-             * desc: size,默认default，可设置为small、large
-             */
+/**
+ * title: 各种大小
+ * desc: 三种大小 `small`、`default`、`large`，默认为 `defalut`
+ */
 import React from 'react';
 import { Loading } from 'cloud-react';
 
 export default class LoadingDemo extends React.Component {
-	render() {
-		return (
-			<section className="item-size">
-				<div>
-					<Loading size="small" />
-				</div>
-				<div>
-					<Loading />
-				</div>
-				<div>
-					<Loading size="large" />
-				</div>
-			</section>
-		);
-	}
+  render() {
+    return (
+      <div>
+        <Loading size="small" />
+        <Loading />
+        <Loading size="large" />
+      </div>
+    );
+  }
 }
 ```
-
