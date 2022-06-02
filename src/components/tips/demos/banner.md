@@ -1,12 +1,12 @@
 ---
-title: 通栏提示
+title: banner 通栏提示
 desc: 文字居中，可关闭，伴随展开效果出现
 order: 7
 ---
 
 ```jsx
 /**
- * title: 通栏提示
+ * title: banner 通栏提示
  * desc: 文字居中，可关闭，伴随展开效果出现
  */
 

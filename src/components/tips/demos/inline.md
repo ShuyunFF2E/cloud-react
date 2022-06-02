@@ -1,13 +1,13 @@
 ---
-title: 行内提示
-desc: 即时提醒
+title: inline 行内提示
+desc: 即时提醒，由icon和文本组成
 order: 8
 ---
 
 ```jsx
 /**
- * title: 行内提示
- * desc: 即时提醒
+ * title: inline 行内提示
+ * desc: 即时提醒，由icon和文本组成
  */
 import React from 'react';
 import { Tips } from 'cloud-react';
