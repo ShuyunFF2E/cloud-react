@@ -66,6 +66,14 @@ this.tableRef.refreshTable(params?);
 | onCheckedAfter | 选中行回调，需要设置 supportCheckbox 为 true，Function(checkedList, checkedRow)    | function   |   -   | | 
 | onCheckedAllAfter | 选中当页回调，需要设置 supportCheckbox 为 true，Function(checkedList)   | function   |   -   | |
 
+#### CTable 表格拖拽配置
+| 属性           | 说明                    | 类型              | 默认值
+| -------------- | ---------------------- | ----------------- | ------ |
+| supportDrag | 是否支持表格拖拽行 | 	bool   |   false   | |
+| showDragIcon | 是否展示拖拽手柄 | 	bool   |   false   | |
+| onDragAfter | 表格拖拽行回调 | 	function   |   -   | |
+| dragSelector | 指定表格拖拽的选择器 | 	string   |   ''   | |
+
 #### CTable 自定义模板配置
 | 属性           | 说明                    | 类型              | 默认值
 | -------------- | ---------------------- | ----------------- | ------ |
@@ -181,5 +189,9 @@ this.tableRef.refreshTable(params?);
 <embed src="@components/c-table/demos/disabled0.md" /> 
 
 <embed src="@components/c-table/demos/disabled1.md" /> 
+
+<embed src="@components/c-table/demos/drag.md" /> 
+
+<embed src="@components/c-table/demos/drag1.md" />
 
 [comment]: <> (<embed src="@components/c-table/demos/resize.md" /> )

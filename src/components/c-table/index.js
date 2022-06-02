@@ -2,6 +2,7 @@
 import React, { Component, createRef } from 'react';
 import RcTable from 'rc-table';
 import classnames from 'classnames';
+import ReactDragListView from 'react-drag-listview';
 import { noop } from '@utils';
 import 'react-resizable/css/styles.css';
 import {
@@ -14,7 +15,7 @@ import {
   getConfig,
   isFirefox,
 } from './util';
-import { tablePrefixCls } from './constant';
+import { DRAG_ICON_SELECTOR, DRAG_SELECTOR, tablePrefixCls } from './constant';
 import getExpandableConfig from './js/expend';
 import ResizableTitle from './js/resizableTitle';
 import Pagination from '../pagination';
@@ -512,6 +513,29 @@ class CTable extends Component {
   };
 
   /**
+   * 拖拽回调
+   * @param fromIndex
+   * @param toIndex
+   */
+  onDragEnd = (fromIndex, toIndex) => {
+    if (!this.props.supportDrag) {
+      return;
+    }
+    const { data } = this.state;
+    const dataCopy = [...data];
+    const item = dataCopy.splice(fromIndex, 1)[0];
+    dataCopy.splice(toIndex, 0, item);
+    this.setState(
+      {
+        data: dataCopy,
+      },
+      () => {
+        this.props.onDragAfter(data[fromIndex], data[toIndex]);
+      },
+    );
+  };
+
+  /**
    * 表格数据为空模板
    * @returns {*}
    */
@@ -530,7 +554,7 @@ class CTable extends Component {
     );
   };
 
-  render() {
+  renderTable() {
     const {
       ref,
       tableRef,
@@ -564,6 +588,8 @@ class CTable extends Component {
       supportTree,
       supportGroup,
       summaryData,
+      supportDrag,
+      showDragIcon,
     } = this.props;
     const {
       data,
@@ -603,6 +629,7 @@ class CTable extends Component {
               [`${tablePrefixCls}-support-group`]: supportGroup, // 表格分组
               [`${tablePrefixCls}-support-summary`]:
                 summaryData && summaryData.length, // 表尾合计
+              [`${tablePrefixCls}-support-drag`]: supportDrag && !showDragIcon, // 拖拽行
             },
             className,
           )}
@@ -696,6 +723,24 @@ class CTable extends Component {
         {footerTpl()}
       </div>
     );
+  }
+
+  render() {
+    const { dragSelector, showDragIcon, supportDrag } = this.props;
+    if (supportDrag) {
+      return (
+        <ReactDragListView
+          lineClassName={`${tablePrefixCls}-drag-line`}
+          onDragEnd={this.onDragEnd}
+          handleSelector={
+            dragSelector || (showDragIcon ? DRAG_ICON_SELECTOR : DRAG_SELECTOR)
+          }
+        >
+          {this.renderTable()}
+        </ReactDragListView>
+      );
+    }
+    return this.renderTable();
   }
 }
 

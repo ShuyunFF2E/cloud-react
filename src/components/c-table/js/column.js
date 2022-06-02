@@ -55,7 +55,8 @@ export default class Column {
   setColumnData = () => {
     const { _this } = this;
     const { originColumnData } = _this.state;
-    const { supportCheckbox, supportRadio, isExpendAloneColumn } = _this.props;
+    const { supportCheckbox, supportRadio, isExpendAloneColumn, showDragIcon } =
+      _this.props;
     const isLastColumnFixed =
       originColumnData[originColumnData.length - 1].fixed;
     const isFirstColumnFixed = originColumnData[0].fixed;
@@ -120,6 +121,20 @@ export default class Column {
     if (supportRadio) {
       const radioColumn = this.getRadioColumn(isFirstColumnFixed);
       resolvedColumnData.unshift(radioColumn);
+    }
+
+    // 拖拽手柄
+    if (showDragIcon) {
+      resolvedColumnData.unshift({
+        title: '',
+        dataIndex: 'cTableDrag',
+        key: 'cTableDrag',
+        className: `${tablePrefixCls}-drag-column`,
+        width: 40,
+        render: () => {
+          return <Icon type="move" />;
+        },
+      });
     }
 
     // 支持配置列的显示和隐藏
@@ -234,6 +249,19 @@ export default class Column {
         };
         return { columnData: nextColumns };
       });
+    };
+  };
+
+  getDragColumn = () => {
+    return {
+      title: '',
+      dataIndex: 'cTableDrag',
+      key: 'cTableDrag',
+      className: `${tablePrefixCls}-drag-column`,
+      width: 40,
+      render: () => {
+        return <Icon type="move" />;
+      },
     };
   };
 

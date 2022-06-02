@@ -179,6 +179,13 @@
     }
   }
 
+  // 拖拽行
+  &.@{tablePrefixCls}-support-drag {
+    .@{tablePrefixCls}-row {
+      cursor: move;
+    }
+  }
+
   // 加载中
   &.@{tablePrefixCls}-loading {
     position: relative;
@@ -239,4 +246,8 @@
   &:hover {
     background: @gray-3;
   }
+}
+
+.@{tablePrefixCls}-drag-line {
+  border: 1px solid @blue-4!important;
 }

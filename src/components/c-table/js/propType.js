@@ -49,6 +49,10 @@ export const propTypes = {
   isExpendAloneColumn: PropTypes.bool,
   supportGroup: PropTypes.bool,
   summaryData: PropTypes.array,
+  supportDrag: PropTypes.bool,
+  dragSelector: PropTypes.string,
+  onDragAfter: PropTypes.func,
+  showDragIcon: PropTypes.bool,
 };
 
 export const defaultProps = {
@@ -97,4 +101,8 @@ export const defaultProps = {
   isExpendAloneColumn: false,
   supportGroup: false,
   summaryData: [],
+  supportDrag: false,
+  dragSelector: '',
+  onDragAfter: noop,
+  showDragIcon: false,
 };
