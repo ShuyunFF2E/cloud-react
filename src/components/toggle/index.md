@@ -15,22 +15,20 @@ group:
 
 ### API
 
-| 属性          | 说明                                | 类型                                     | 默认值  |
-| ------------- | ----------------------------------- | ---------------------------------------- | ------- |
-| size          | 开关大小，可选值：`default` `small` | string                                   | default |
-| checked       | 指定当前是否选中                    | boolean                                  | false   |
-| checkedText   | 选中时候的文案                      | string                                   |         |
-| unCheckedText | 未选中时候的文案                    | string                                   |         |
-| disabled      | 是否禁用                            | boolean                                  | false   |
-| onChange      | 切换状态时候的回调                  | Function(checked: boolean, event: Event) |         |
-| onBeforeChange      | 切换状态前的二次确认                 | Function() |         |
+| 属性           | 说明                              | 类型                                     | 默认值    |
+| -------------- | --------------------------------- | ---------------------------------------- | --------- |
+| checked        | 指定当前是否选中                  | boolean                                  | false     |
+| disabled       | 是否禁用                          | boolean                                  | false     |
+| size           | 开关大小，包括 `default`、`small` | string                                   | `default` |
+| checkedText    | 选中时候的文案                    | string                                   | ''        |
+| unCheckedText  | 未选中时候的文案                  | string                                   | ''        |
+| onChange       | 切换状态时候的回调                | Function(checked: boolean, event: Event) | -         |
+| onBeforeChange | 切换状态前的二次确认              | Function()                               | -         |
 
- ### 代码演示 
+### 代码演示
 
-<embed src="@components/toggle/demos/basic-toggle.md" /> 
-
-<embed src="@components/toggle/demos/change.md" /> 
-
-<embed src="@components/toggle/demos/disabled.md" /> 
-
-<embed src="@components/toggle/demos/size.md" /> 
+<embed src="@components/toggle/demos/basic-toggle.md" />
+<embed src="@components/toggle/demos/change.md" />
+<embed src="@components/toggle/demos/disabled.md" />
+<embed src="@components/toggle/demos/size.md" />
+<embed src="@components/toggle/demos/text.md" />
