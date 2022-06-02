@@ -46,6 +46,7 @@ class Tree extends Component {
     nodeNameMaxLength: '',
     maxLevel: 0,
     isUnfold: false,
+    isRootUnfold: true,
     showIcon: false,
     showErrMsg: false,
     openIconType: 'folder-solid-open',
@@ -83,6 +84,7 @@ class Tree extends Component {
     nodeNameMaxLength: PropTypes.number,
     maxLevel: PropTypes.number,
     isUnfold: PropTypes.bool,
+    isRootUnfold: PropTypes.bool,
     showIcon: PropTypes.bool,
     openIconType: PropTypes.string,
     closeIconType: PropTypes.string,
@@ -113,9 +115,9 @@ class Tree extends Component {
     // 从外部接收到的数据存放到state中，便于子组件对其树数据进行修改
     super(props);
 
-    const { treeData, maxLevel, selectedValue, isUnfold, disabled } = props;
+    const { treeData, maxLevel, selectedValue, isUnfold, disabled, isRootUnfold } = props;
 
-    const _treeData = store.initData({ treeData, maxLevel, selectedValue, isUnfold, disabled });
+    const _treeData = store.initData({ treeData, maxLevel, selectedValue, isUnfold, disabled, isRootUnfold });
 
     this.state = {
       showRightMenu: false,
@@ -201,7 +203,7 @@ class Tree extends Component {
     this.setState({
       searchText,
     });
-    const { disabled,isUnfold, supportSearch, supportCheckbox, onSearchNode } = this.props;
+    const { disabled, supportSearch, supportCheckbox, onSearchNode } = this.props;
 
     const tmp = ShuyunUtils.clone(this.state.allTreeData);
 
@@ -221,8 +223,7 @@ class Tree extends Component {
           treeData: [...backTree],
           maxLevel: null,
           selectedValue: [...allSelectedLowest],
-          isUnfold,
-          disabled
+          disabled,
         }),
         preSelectedList: allSelectedLowest
       });
@@ -613,6 +614,7 @@ class Tree extends Component {
       className,
       disabled,
       isUnfold,
+      isRootUnfold,
       searchPlaceholder,
       searchMaxLength,
       supportSearch,
@@ -654,6 +656,7 @@ class Tree extends Component {
         value={{
           treeData,
           isUnfold,
+          isRootUnfold,
           disabled,
           searchText,
           supportCheckbox,

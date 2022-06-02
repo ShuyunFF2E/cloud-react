@@ -25,27 +25,6 @@ export default class TreeSelectDemo extends React.Component {
 					id: 113,
 					name: '删除三个',
 					pId: 11,
-					children: [
-						{
-							id: 1131,
-							name: '禁止删除节点31',
-							pId: 113,
-							children: []
-						},
-						{
-							id: 1132,
-							name: '禁止删除节点32',
-							pId: 113,
-							children: [
-								{
-									id: 11321,
-									name: '禁止删除节点321',
-									pId: 1132,
-									children: []
-								}
-							]
-						}
-					]
 				},
 				{
 					id: 114,
@@ -54,15 +33,6 @@ export default class TreeSelectDemo extends React.Component {
 					children: []
 				}
 			]
-		},
-		{
-			id: 14,
-			name: '未分类',
-			pId: 1,
-			disableRemove: true,
-			disableAdd: true,
-			disableRename: true,
-			children: []
 		}
 	];
 
@@ -191,12 +161,12 @@ export default class TreeSelectDemo extends React.Component {
 				<TreeSelect
 					isAppendToBody
 					type="single"
-					isUnfold
+					// isUnfold
 					containParentNode
 					position="auto"
 					placeholder="选择一个选项"
 					dataSource={this.treeData}
-					value={this.state.singleNodes}
+					// value={this.state.singleNodes}
 					onChange={this.onChangeSingle}
 				/>
 			</div>
