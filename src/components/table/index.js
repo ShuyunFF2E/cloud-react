@@ -21,10 +21,10 @@ const ajaxPageTemplate = `
 	<div class="pagination">
 		<ul pagination-before>
 			<li class="first-page">
-				<i class="cloud-icon cloud-icon-first-solid"></i>
+				<i class="cloud-icon icon-first-solid"></i>
 			</li>
 			<li class="previous-page">
-				<i class="cloud-icon cloud-icon-left-solid"></i>
+				<i class="cloud-icon icon-left-solid"></i>
 			</li>
 		</ul>
 
@@ -33,45 +33,47 @@ const ajaxPageTemplate = `
 		</div>
 		<ul pagination-after>
 			<li class="next-page">
-				<i class="cloud-icon cloud-icon-right-solid"></i>
+				<i class="cloud-icon icon-right-solid"></i>
 			</li>
 			<li class="last-page">
-				<i class="cloud-icon cloud-icon-last-solid"></i>
+				<i class="cloud-icon icon-last-solid"></i>
 			</li>
 		</ul>
 	</div>
 </div>`;
 
 const voidStyle = {
-	textAlign: 'center'
+  textAlign: 'center',
 };
 
 const voidIconStyle = {
-	color: '#ddd',
-	fontSize: '40px',
-	verticalAlign: 'middle',
-	marginRight: '10px'
+  color: '#ddd',
+  fontSize: '40px',
+  verticalAlign: 'middle',
+  marginRight: '10px',
 };
 const voidMsgStyle = {
-	display: 'inline-block',
-	fontSize: '14px',
-	color: '#999',
-	verticalAlign: 'middle'
+  display: 'inline-block',
+  fontSize: '14px',
+  color: '#999',
+  verticalAlign: 'middle',
 };
-const emptyTemplate = settings => {
-	const text = window.jTool.isEmptyObject(settings.query) ? '暂无数据' : '搜索为空';
-	return (
-		<div style={voidStyle}>
-			<Icon type="warning-circle-solid" style={voidIconStyle} />
-			<span style={voidMsgStyle}>{text}</span>
-		</div>
-	);
+const emptyTemplate = (settings) => {
+  const text = window.jTool.isEmptyObject(settings.query)
+    ? '暂无数据'
+    : '搜索为空';
+  return (
+    <div style={voidStyle}>
+      <Icon type="warning-circle-solid" style={voidIconStyle} />
+      <span style={voidMsgStyle}>{text}</span>
+    </div>
+  );
 };
 
 const defaultOption = {
-	skinClassName: 'cloud-react-skin', // 页样式名称
-	emptyTemplate,
-	ajaxPageTemplate
+  skinClassName: 'cloud-react-skin', // 页样式名称
+  emptyTemplate,
+  ajaxPageTemplate,
 };
 
 $gridManager.defaultOption = defaultOption;

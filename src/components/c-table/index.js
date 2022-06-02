@@ -687,6 +687,7 @@ class CTable extends Component {
                 current={pageNum}
                 pageSize={pageSize}
                 total={totals}
+                disabled={isLoading}
                 onChange={onPageChange}
               />
             </div>

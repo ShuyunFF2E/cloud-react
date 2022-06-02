@@ -11,7 +11,7 @@ desc: 快速跳转到某一页
              * desc: 快速跳转到某一页
              */
 import React from 'react';
-import Pagination from '../index';
+import { Pagination } from 'cloud-react';
 
 export default class PaginationDemo extends React.Component {
 	state = {
@@ -29,17 +29,15 @@ export default class PaginationDemo extends React.Component {
 
 	render() {
 		return (
-			<React.Fragment>
-				<Pagination
-					onChange={this.onChange}
-					current={this.state.current}
-					total={500}
-					pageSize={this.state.pageSize}
-					pageSizeOptions={[100, 200, 300]}
-					showPageSizeOptions={true}
-					showQuickJumper={true}
-				/>
-			</React.Fragment>
+          <Pagination
+            onChange={this.onChange}
+            current={this.state.current}
+            total={500}
+            pageSize={this.state.pageSize}
+            pageSizeOptions={[100, 200, 300]}
+            showPageSizeOptions={true}
+            showQuickJumper={true}
+          />
 		);
 	}
 }
