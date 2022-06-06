@@ -47,29 +47,24 @@ function Popover(props) {
   const handleCancelClick = () => {
     props.onCancelClick();
   };
+  const removeClass = (isValid = false) => {
+    const ele = ref.current.querySelector(`#${confirmBtnClass}`);
+    if (ele) {
+      if (isValid) {
+        ele.classList.remove(confirmBtnClass);
+      } else {
+        ele.classList.add(confirmBtnClass);
+      }
+    }
+  };
 
   const handleConfirmClick = async () => {
-    const removeClass = () => {
-      const ele = ref.current.querySelector(`.${classSelector}-confirm`);
-      if (ele) {
-        ele.classList.remove(confirmBtnClass);
-      }
-    };
-
-    try {
-      let isInvalidate = props.onConfirmClick();
-      if (isInvalidate && isInvalidate.then) {
-        isInvalidate = await props.onConfirmClick();
-      } else {
-        isInvalidate = props.onConfirmClick();
-      }
-
-      if (isInvalidate) {
-        removeClass();
-      }
-    } catch {
-      removeClass();
+    const isInvalidate = props.onConfirmClick();
+    if (isInvalidate && isInvalidate.then) {
+      isInvalidate.then((res) => { removeClass(res); }).catch(() => { removeClass(true); });
+      return;
     }
+    removeClass(isInvalidate);
   };
 
   let popoverContent;
@@ -85,8 +80,7 @@ function Popover(props) {
             {title && <p className={`${classSelector}-title`}>{title}</p>}
             {content && (
               <p
-                className={`${classSelector}-desc ${
-                  title ? `${classSelector}-has-title` : ''
+                className={`${classSelector}-desc ${title ? `${classSelector}-has-title` : ''
                 }`}
               >
                 {content}
@@ -104,6 +98,7 @@ function Popover(props) {
           {showConfirmBtn && (
             <Button
               type="primary"
+              id={`${confirmBtnClass}`}
               onClick={handleConfirmClick}
               className={confirmBtnClass}
               {...confirmBtnOpts}
