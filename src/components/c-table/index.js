@@ -23,7 +23,7 @@ import Icon from '../icon';
 import Loading from '../loading';
 import emptyImg from './empty.png';
 import './css/basic.less';
-import './css/index.less';
+import './css/business.less';
 import Column from './js/column';
 import { defaultProps, propTypes } from './js/propType';
 
@@ -158,7 +158,11 @@ class CTable extends Component {
    * 解决表头滚动问题（rcTable bug）
    */
   setHeaderStyle = () => {
-    if (isFirefox() || !this.props.useCustomScroll) {
+    if (
+      isFirefox() ||
+      !this.props.useCustomScroll ||
+      this.props.supportResizeColumn
+    ) {
       return;
     }
     setTimeout(() => {
@@ -604,6 +608,7 @@ class CTable extends Component {
     const fixed = !!(
       columnData.find((item) => item.fixed) ||
       style.height ||
+      supportResizeColumn ||
       maxHeight
     );
 
@@ -630,6 +635,7 @@ class CTable extends Component {
               [`${tablePrefixCls}-support-summary`]:
                 summaryData && summaryData.length, // 表尾合计
               [`${tablePrefixCls}-support-drag`]: supportDrag && !showDragIcon, // 拖拽行
+              [`${tablePrefixCls}-support-resize`]: supportResizeColumn, // 表格列拉伸
             },
             className,
           )}
@@ -668,17 +674,21 @@ class CTable extends Component {
                   }
                 : undefined
             }
-            summary={() => (
-              <RcTable.Summary fixed>
-                <RcTable.Summary.Row>
-                  {summaryData.map((item) => (
-                    <RcTable.Summary.Cell {...item}>
-                      {item.content || null}
-                    </RcTable.Summary.Cell>
-                  ))}
-                </RcTable.Summary.Row>
-              </RcTable.Summary>
-            )}
+            summary={
+              summaryData && summaryData.length
+                ? () => (
+                    <RcTable.Summary fixed>
+                      <RcTable.Summary.Row>
+                        {summaryData.map((item) => (
+                          <RcTable.Summary.Cell {...item}>
+                            {item.content || null}
+                          </RcTable.Summary.Cell>
+                        ))}
+                      </RcTable.Summary.Row>
+                    </RcTable.Summary>
+                  )
+                : undefined
+            }
           />
           <Loading
             className={`${tablePrefixCls}-loading-layer`}

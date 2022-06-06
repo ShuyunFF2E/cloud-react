@@ -52,6 +52,14 @@
         border-top: @border;
         border-right: @border;
       }
+
+      &-resizeable {
+        &:not(:last-of-type):hover {
+          background: @indigo-1;
+          box-shadow: inset 0 0 0 1px @blue-4;
+          z-index: 1;
+        }
+      }
     }
   }
 
@@ -70,6 +78,26 @@
         width: 1px;
         height: 24px;
         background: @gray-5;
+      }
+    }
+
+    .@{tablePrefixCls}-resizeable {
+      &:not(:last-of-type):hover {
+        position: relative;
+        background: @indigo-1;
+        z-index: 1;
+
+        &::before {
+          position: absolute;
+          top: 0;
+          right: 0;
+          content: '';
+          display: block;
+          width: 1px;
+          height: 100%;
+          z-index: 1;
+          background: @blue-4;
+        }
       }
     }
   }
@@ -186,6 +214,30 @@
     }
   }
 
+  // 表格列拉伸
+  &.@{tablePrefixCls}-support-resize {
+    .@{tablePrefixCls}-resizeable {
+      .react-resizable-handle {
+        height: 100%;
+        cursor: col-resize;
+        background-image: initial;
+        width: 30px;
+        right: -15px;
+        z-index: 10;
+      }
+
+      &:last-of-type {
+        .react-resizable-handle-se {
+          display: none;
+        }
+      }
+    }
+
+    &.@{tablePrefixCls}-bordered .@{tablePrefixCls}-container {
+      border: none;
+    }
+  }
+
   // 加载中
   &.@{tablePrefixCls}-loading {
     position: relative;
@@ -229,22 +281,6 @@
       padding: 4px 10px;
       .text-overflow-ellipsis;
     }
-  }
-}
-
-// 表格列拉伸
-.@{tablePrefixCls}-resizeable {
-  .react-resizable-handle {
-    height: 100%;
-    cursor: ew-resize;
-    background-image: initial;
-    width: 30px;
-    right: -15px;
-    z-index: 10;
-  }
-
-  &:hover {
-    background: @gray-3;
   }
 }
 

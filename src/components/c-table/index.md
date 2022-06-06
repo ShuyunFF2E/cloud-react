@@ -22,6 +22,7 @@ group:
 | columnData | 表格列描述，具体详见下表 **columnData**   | array   |   -   | |
 | rowKey | 表格数据的唯一标识    | string   |   'id'   | |
 | bordered | 是否展示表格边框   | boolean   |   false   | |
+| headerBordered | 表头带线条   | boolean   |   false   | |
 | size | 表格大小，可选 `default` `small`     | string   |   `default`   | |
 | maxHeight | tbody最大高度    | string/number |   -   |
 | onLoadGridAfter | 表格刷新后回调，Function(res)   | function   |   () => {}   | |
@@ -94,12 +95,15 @@ this.tableRef.refreshTable(params?);
 #### CTable 其他功能配置
 | 属性           | 说明                    | 类型              | 默认值
 | -------------- | ---------------------- | ----------------- | ------ |
-| supportConfigColumn | 是否支持配置列的隐藏和展示  | boolean	   |   false   | |
-| supportResizeColumn | 是否支持配置列的拉伸（开发中）  | boolean	   |   false   | |
-| supportMemory | 是否开启表格记忆功能（开发中）  | boolean     |   false   | | 
-| tableId | 表格ID。supportMemory 为 true 的时候，需要设置 tableId；其他场景无需设置（开发中）  | string     |   ''   | | 
+| supportResizeColumn | 是否支持配置列的拉伸  | boolean	   |   false   | |
 | supportGroup | 表格分组 | 	boolean   |   false   | |
 | summaryData | 表格合计（API 同 columnData） | 	array   |   []   | |
+
+[comment]: <> (| supportConfigColumn | 是否支持配置列的隐藏和展示  | boolean	   |   false   | |)
+
+[comment]: <> (| supportMemory | 是否开启表格记忆功能（开发中）  | boolean     |   false   | | )
+
+[comment]: <> (| tableId | 表格ID。supportMemory 为 true 的时候，需要设置 tableId；其他场景无需设置（开发中）  | string     |   ''   | | )
 
 #### CTable columnData
 | 属性                | 说明                                         | 类型                        | 默认值           |
@@ -114,6 +118,7 @@ this.tableRef.refreshTable(params?);
 | sortable     | 是否支持排序                                     | boolean                      | false               |
 | sorter     | 自定义列排序规则                                     | function                      | -               |
 | onCell     | 为每个单元格设置自定义参数 Function(record, index)                                   | function                      | -               |
+| minWidth     | 列拉伸的最小宽                       | number                   | - |
 
 #### CTable pageOpts
 | 属性                | 说明                                         | 类型                        | 默认值           |
@@ -194,4 +199,6 @@ this.tableRef.refreshTable(params?);
 
 <embed src="@components/c-table/demos/drag1.md" />
 
-[comment]: <> (<embed src="@components/c-table/demos/resize.md" /> )
+<embed src="@components/c-table/demos/resize.md" />
+
+<embed src="@components/c-table/demos/resize1.md" />

@@ -243,10 +243,18 @@ export default class Column {
     return (e, { size }) => {
       _this.setState(({ columnData }) => {
         const nextColumns = [...columnData];
-        nextColumns[index] = {
-          ...nextColumns[index],
-          width: size.width,
-        };
+        const minWidth = nextColumns[index].minWidth || 106;
+        Object.assign(nextColumns[index], {
+          width: size.width > minWidth ? size.width : minWidth,
+        });
+        const thArr = _this.ref.current.querySelectorAll('th.react-resizable');
+        nextColumns.forEach((col, i) => {
+          if (i !== index) {
+            Object.assign(col, {
+              width: thArr[i]?.getBoundingClientRect().width,
+            });
+          }
+        });
         return { columnData: nextColumns };
       });
     };
