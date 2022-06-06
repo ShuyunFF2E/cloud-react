@@ -11,7 +11,7 @@ group:
 
 ### 何时使用
 
-类似 Select 的选择控件，可选择的数据结构是一个树形层级结构，支持单选、多选、查询、新增、删除、重命名节点等功能；
+选择控件，可选择的数据结构是一个树形层级结构，支持单选、多选、查询、新增、删除、重命名节点等功能；
 
 ### API
 
@@ -32,6 +32,7 @@ group:
 | addMenuName              | 菜单类型为弹框类型时，弹框中显示的新增相关的名称                  | String  | 子目录              |
 | supportDrag              | 是否支持拖拽                                                     | Boolean  | false              |
 | isUnfold                 | 是否展开存在子节点的节点，默认不展开（根节点一直展开）               | Boolean  | false             |
+| isRootUnfold             | 是否展开根节点，默认展开						               | Boolean  | true             |
 | showIcon| 是否显示节点前面的 icon                                              | Boolean  | false             |
 | showErrMsg               | 是否显示执行promise后catch中的错误信息                                | Boolean  | false|
 | openIconType             | 节点前面的展开 icon 类型，可在 icon 组件中查看相关类型               | String   | folder-solid-open |
@@ -162,3 +163,5 @@ group:
 <embed src="@components/tree/demos/selectedValue.md" /> 
 
 <embed src="@components/tree/demos/showIcon.md" /> 
+
+<embed src="@components/tree/demos/isRootUnfold.md" /> 
