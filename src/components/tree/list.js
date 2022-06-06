@@ -26,7 +26,6 @@ class List extends Component {
     // 确定开始节点
     startData = data;
     dragingNode = e.currentTarget;
-    dragingNode.style.backgroundColor = '#f5f8ff';
     dragingNodePosition = {
       startY: e.clientY,
     };
@@ -41,7 +40,6 @@ class List extends Component {
   onDragNodeMoving = (e, data) => {
     e.stopPropagation();
     e.target.style.cursor = 'move';
-    e.target.style.backgroundColor = '#f5f8ff';
     this.context.onDragMoving(data, endData);
   };
 
@@ -56,7 +54,6 @@ class List extends Component {
     const node = e.currentTarget;
     const pNode = node.parentNode;
     e.target.style.cursor = 'default';
-    e.target.style.backgroundColor = 'transparent';
     Array.from(pNode.children).forEach((snode) => {
       // eslint-disable-next-line no-param-reassign
       snode.className = '';

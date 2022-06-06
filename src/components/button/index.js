@@ -6,17 +6,16 @@ import FormContext from '../form/context';
 import Icon from '../icon';
 import './index.less';
 
-function ButtonGroup({ block, children, ...props }) {
+function ButtonGroup({ children, ...props }) {
   const classes = classnames(`${prefixCls}-button-group`);
 
   return (
     <div className={classes}>
-      {Children.map(children, (child) =>
-        cloneElement(child, {
-          ...child.props,
-          ...props,
-        }),
-      )}
+      {Children.map(children, (child) => cloneElement(child, {
+        ...child.props,
+        ...props,
+        block: false,
+      }))}
     </div>
   );
 }
@@ -81,27 +80,27 @@ class Button extends React.PureComponent {
         [size || formSize || 'default']: true,
         [colorType]: true,
         block,
+        loading,
       },
       className,
     );
 
     // 针对单按钮情况
-    let content =
-      type !== 'link' &&
-      type !== 'text' &&
-      typeof children === 'string' &&
-      children.length === 2
-        ? children.split('').join(' ')
-        : children;
+    let content = type !== 'link'
+      && type !== 'text'
+      && typeof children === 'string'
+      && children.length === 2
+      ? children.split('').join(' ')
+      : children;
 
     // 针对按钮组情况
     if (
-      children instanceof Array &&
-      children.length === 1 &&
-      typeof children[0] === 'string' &&
-      children[0].length === 2 &&
-      type !== 'link' &&
-      type !== 'text'
+      children instanceof Array
+      && children.length === 1
+      && typeof children[0] === 'string'
+      && children[0].length === 2
+      && type !== 'link'
+      && type !== 'text'
     ) {
       content = children[0].split('').join(' ');
     }
@@ -118,7 +117,7 @@ class Button extends React.PureComponent {
           target: href ? target : undefined,
         }}
       >
-        {loading && <span className={`${prefixCls}-button-loading`} />}
+        {loading && <span className={`${prefixCls}-button-loading-spin`} />}
         {icon && <Icon type={icon} />}
         {content}
       </ElementName>

@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
-
+import classNames from 'classnames';
 import { prefixCls, getRootWindow, noop } from '@utils';
 import Icon from '../icon';
 
@@ -78,9 +78,7 @@ function entity(config) {
     wraperMap.set(contextContainer, wraper);
   }
 
-  let wraperClassName = isDeepen
-    ? `${prefixCls}-message ${prefixCls}-message-deepen`
-    : `${prefixCls}-message`;
+  let wraperClassName = `${prefixCls}-message`;
 
   if (contextContainer.tagName !== 'BODY') {
     const { top } = contextContainer.getBoundingClientRect();
@@ -167,13 +165,15 @@ class MessageEntity extends Component {
 
   render() {
     const {
-      type, msg, showClose, showIcon,
+      type, msg, showClose, showIcon, isDeepen,
     } = this.props;
+    const cls = classNames(
+      `${prefixCls}-message-${type}`,
+      `${prefixCls}-message-content`,
+      { [`${prefixCls}-message-deepen`]: isDeepen },
+    );
     return (
-      <div
-        className={`${prefixCls}-message-${type} ${prefixCls}-message-content`}
-        ref={this.noticeRef}
-      >
+      <div className={cls} ref={this.noticeRef}>
         {showIcon && (
           <Icon type={`${MESSAGE_TYPE[type].icon}`} className="tag-icon" />
         )}

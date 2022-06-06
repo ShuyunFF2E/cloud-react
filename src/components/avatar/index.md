@@ -15,7 +15,7 @@ group:
 
 | 属性        | 说明                 | 类型             | 默认值     | 可选值     |
 | ----------- | -------------------- | ---------------- | ---------- |---------- |
-| alt  | 图像无法显示时的替代文本         | string            | -      ||
+| alt  | 图像无法显示时的替代文本         | string            | user-fill      ||
 | icon  | 设置头像的自定义图标               | ReactNode            |-         ||
 | group  | 设置头像组图标               | boolean            | false       ||
 | shape      | 指定头像的形状            | string | circle        | `circle` `square`|
