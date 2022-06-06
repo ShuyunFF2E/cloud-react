@@ -13,15 +13,11 @@ const IconTypes = {
 };
 
 class Tips extends Component {
-  componentDidMount() {
-    const { mode, collapsible } = this.props;
-    if (mode === 'banner') {
-      this.expandBannerSection();
-    }
-    if (mode === 'default' && collapsible) {
-      this.handleShowArrow();
-    }
-  }
+  wrapperRef = React.createRef();
+
+  msgRef = React.createRef();
+
+  descriptionRef = React.createRef();
 
   state = {
     visible: true, // 控制提示关闭
@@ -29,7 +25,33 @@ class Tips extends Component {
     isArrowUp: false, // 箭头是否为向上展开状态
   };
 
-  ref = React.createRef();
+  componentDidMount() {
+    const { mode, collapsible } = this.props;
+    if (mode === 'banner') {
+      this.expandBannerSection();
+      window.addEventListener('resize', this.onWindowResize);
+    }
+    if (mode === 'default' && collapsible) {
+      this.handleShowArrow();
+      window.addEventListener('resize', this.onWindowResize);
+    }
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.onWindowResize);
+  }
+
+  onWindowResize = () => {
+    const { mode, collapsible } = this.props;
+    const element = this.wrapperRef.current;
+    if (!element) return;
+    if (mode === 'banner') {
+      element.style.height = 'auto';
+    }
+    if (mode === 'default' && collapsible) {
+      this.handleShowArrow();
+    }
+  };
 
   onClose = () => {
     this.setState({
@@ -40,21 +62,30 @@ class Tips extends Component {
 
   // 高度展开效果
   expandBannerSection = () => {
-    const element = this.ref.current;
+    const element = this.wrapperRef.current;
     window.requestAnimationFrame(() => {
       element.style.height = '0px';
       window.requestAnimationFrame(() => {
         element.style.height = `${element.scrollHeight}px`;
-        // element.style.height = 'auto';
       });
     });
   };
 
   handleShowArrow = () => {
-    const _height = this.ref.current.clientHeight;
+    const msgHeight = this.msgRef.current?.clientHeight;
+    const descriptionHeight = this.descriptionRef.current?.clientHeight;
     this.setState({
-      showArrow: _height >= (this.props.description ? 120 : 96),
-    });
+      showArrow: false,
+    })
+    if(this.props.description) {
+      this.setState({
+        showArrow: descriptionHeight > 80 || msgHeight > 20,
+      });
+    } else {
+      this.setState({
+        showArrow: msgHeight > 80,
+      });
+    }
   };
 
   onArrowClick = () => {
@@ -104,15 +135,14 @@ class Tips extends Component {
     const { showArrow, isArrowUp } = this.state;
     const isClosable = closeText || closeIcon ? true : closable;
     const showIcon = icon ? true : isShowIcon;
-    const isShowAll = showArrow && isArrowUp;
     const isShowOperation = action || isClosable || showArrow;
     return (
       <>
         {showIcon && <Icon type={icon || IconTypes[type]} className="tip-icon" />}
 
-        <div className={cls('content', { collapsible: collapsible && !isShowAll })}>
-          <div className={cls('msg', { hasDesc: description })}>{this.handleContent(msg)}</div>
-          {description && <div className="description">{this.handleContent(description)}</div>}
+        <div className={cls('content', { collapsible: collapsible && showArrow && !isArrowUp })}>
+          <div className={cls('msg', { hasDesc: description })} ref={this.msgRef}>{this.handleContent(msg)}</div>
+          {description && <div className="description" ref={this.descriptionRef}>{this.handleContent(description)}</div>}
         </div>
 
         {isShowOperation && (
@@ -137,7 +167,7 @@ class Tips extends Component {
     const { visible } = this.state;
     return (
       visible && (
-        <div className={cls(`${prefixCls}-tips`, mode, type, className)} style={style} ref={this.ref}>
+        <div className={cls(`${prefixCls}-tips`, mode, type, className)} style={style} ref={this.wrapperRef}>
           <div className={cls(`${prefixCls}-tips-container`, `${mode}-container`)}>
             {mode === 'default' && this.renderDefaultTips()}
             {mode === 'banner' && this.renderBannerTips()}
