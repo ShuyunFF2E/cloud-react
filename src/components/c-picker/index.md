@@ -17,30 +17,12 @@ group:
 * `DatePicker` 日期选择
 * `TimePicker` 时间选择
 * `YearPicker` 年份选择
-* `QuarterPicker` 季度选择
 * `MonthPicker` 年月选择
 * `WeekPicker` 周选择
 * `RangePicker` 日期范围选择
 * `TimeRangePicker` 时间范围选择
 * ~~`YearMonthPicker`~~（原 `Datepicker` 中组件，`CPicker` 中由 `MonthPicker` 替代）
-* ~~`MonthDayPicker`~~（原 `Datepicker` 中组件，`CPicker` 中删除，因为单独选择月与日无法在不知道年份的情况下确定月的天数，实现类似的需求请使用级联选择器）
-
-> QuarterPicker、WeekPicker 暂未开放，若有同学用到请联系我
-
-> 目前暂未开放自定义选择面板对时、分、秒的可选性，正在持续开发中
-
-> 以上问题将会在未来版本更新中解决，有需求的朋友请联系我 @pengbo.zhang
-
-### 代码演示
-
-#### 单个选择器
-<embed src="@components/c-picker/demos/date-picker.md" />
-
-#### 范围选择器
-<embed src="@components/c-picker/demos/range-picker.md" />
-
-#### 其他种类选择器
-<embed src="@components/c-picker/demos/more-picker.md" />
+* ~~`MonthDayPicker`~~（原 `Datepicker` 中组件，`CPicker` 中删除，因为每月的天数与年份相关。若要实现类似需求，请参考下方【其他种类选择器】中的例子，直接传入不包含年份的 `format`，或使用级联选择器模拟）
 
 
 ### API
@@ -162,3 +144,14 @@ group:
 | allowEmpty       | 允许开始或结束为空，需分开设置 | boolean[] | `[false, false]` |
 | onChange         | 组件值改变事件处理函数 | (value: string[]) => void | - |
 | onOk             | 确定按钮点击事件处理函数 | (value: string[]) => void | - |
+
+### 代码演示
+
+#### 单个选择器
+<embed src="@components/c-picker/demos/date-picker.md" />
+
+#### 范围选择器
+<embed src="@components/c-picker/demos/range-picker.md" />
+
+#### 其他种类选择器
+<embed src="@components/c-picker/demos/more-picker.md" />
