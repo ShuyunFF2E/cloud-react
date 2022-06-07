@@ -44,7 +44,6 @@ class CTable extends Component {
   state = {
     data: [],
     columnData: this.props.columnData.map((item) => ({ ...item, show: true })),
-    // eslint-disable-next-line react/no-unused-state
     originColumnData:
       (this.props.supportMemory && getConfig(this.props.tableId)) ||
       this.props.columnData.map((item) => ({
@@ -56,6 +55,7 @@ class CTable extends Component {
     pageOpts: { ...this.defaultPageOpts, ...this.props.pageOpts },
     selectedNodeList: this.props.checkedData,
     isLoading: false,
+    filterValue: [],
   };
 
   leafNodesMap = {};
@@ -107,7 +107,7 @@ class CTable extends Component {
    * @param callback
    */
   loadData = (callback = () => {}) => {
-    const { pageOpts } = this.state;
+    const { pageOpts, filterValue } = this.state;
     const {
       ajaxData,
       pageOpts: propsPageOpts,
@@ -116,7 +116,10 @@ class CTable extends Component {
       childrenKey,
     } = this.props;
     this.setState({ isLoading: true }, async () => {
-      const res = await this.getDataSource(ajaxData, { ...pageOpts });
+      const res = await this.getDataSource(ajaxData, {
+        ...pageOpts,
+        filterValue,
+      });
       if (childrenKey !== 'children') {
         traverseTree(
           res[dataKey],
@@ -401,7 +404,7 @@ class CTable extends Component {
   ) => {
     this.props.onLoadGridBefore({ pageNum, pageSize });
     this.setState({ isLoading: true }, async () => {
-      const { pageOpts } = this.state;
+      const { pageOpts, filterValue } = this.state;
       const _pageOpts = {
         ...pageOpts,
         pageNum: pageNum || pageOpts.pageNum,
@@ -410,6 +413,7 @@ class CTable extends Component {
       const params = {
         ..._pageOpts,
         sortParams: { ...sortParams, sortBy: sortParams.sortBy || 'DESC' },
+        filterValue,
       };
 
       const { ajaxData, dataKey, childrenKey } = this.props;
@@ -478,35 +482,6 @@ class CTable extends Component {
    */
   onRefresh = () => {
     this.loadGrid();
-  };
-
-  /**
-   * 表格排序
-   * @param columnItem
-   */
-  onSort = (columnItem) => {
-    this.loadGrid({ sortParams: columnItem }, () => {
-      // 更新 columnData 的 sortBy 字段
-      const { columnData } = this.state;
-      this.setState(
-        {
-          // eslint-disable-next-line react/no-unused-state
-          originColumnData: columnData.map((item) => {
-            if (item.dataIndex === columnItem.dataIndex) {
-              return {
-                ...item,
-                sortBy: item.sortBy === 'ASC' ? 'DESC' : 'ASC',
-              };
-            }
-            return {
-              ...item,
-              sortBy: '',
-            };
-          }),
-        },
-        this.column.setColumnData,
-      );
-    });
   };
 
   /**

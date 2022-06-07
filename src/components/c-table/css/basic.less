@@ -426,63 +426,107 @@
     }
   }
 
-  .sort-icon-container {
-    display: inline-flex;
-    flex-direction: column;
-    align-items: center;
-    cursor: pointer;
+  .title-container {
+    // 排序
+    .sort-icon-container {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
 
-    &:hover {
-      &:not(.cell-align-right):after {
-        position: absolute;
-        top: 15px;
-        right: 11px;
-        content: '';
-        display: inline-block;
-        width: 16px;
-        height: 16px;
-        background: @gray-4;
-        z-index: 0;
+      &:hover {
+        &:not(.cell-align-right):after {
+          position: absolute;
+          top: 15px;
+          right: 11px;
+          content: '';
+          display: inline-block;
+          width: 16px;
+          height: 16px;
+          background: @gray-4;
+          z-index: 0;
+        }
       }
-    }
 
-    &.cell-align-right {
+      &.cell-align-right {
+        .sort-up-icon,
+        .sort-down-icon {
+          right: 0;
+        }
+      }
+
+      &.sort-asc {
+        .sort-up-icon {
+          color: @blue-4;
+        }
+      }
+
+      &.sort-desc {
+        .sort-down-icon {
+          color: @blue-4;
+        }
+      }
+
       .sort-up-icon,
       .sort-down-icon {
-        right: 0;
+        position: absolute;
+        right: 12px;
+        font-size: 14px;
+        // todo@liyuan 透明色值bug
+        color: #898989;
+        display: inline-block;
+        transform: scale(0.9);
+        z-index: 1;
       }
-    }
 
-    &.sort-asc {
       .sort-up-icon {
-        color: @blue-4;
+        top: 9px;
       }
-    }
 
-    &.sort-desc {
       .sort-down-icon {
-        color: @blue-4;
+        top: 16px;
       }
     }
 
-    .sort-up-icon,
-    .sort-down-icon {
+    // 筛选
+    &.filter-container {
+      .sort-icon-container {
+        &:hover {
+          &:not(.cell-align-right):after {
+            right: 35px;
+          }
+        }
+        .sort-up-icon,
+        .sort-down-icon {
+          right: 36px;
+        }
+      }
+    }
+
+    .filter-icon {
       position: absolute;
-      right: 12px;
-      font-size: 14px;
-      // todo@liyuan 透明色值bug
-      color: #898989;
-      display: inline-block;
-      transform: scale(0.9);
-      z-index: 1;
+      right: 14px;
+      cursor: pointer;
     }
+  }
+}
 
-    .sort-up-icon {
-      top: 9px;
-    }
+// 筛选
+.@{tablePrefixCls}-filter-content {
+  //.cloud-button {
+  //  height: 28px!important;
+  //  font-size: 12px!important;
+  //
+  //  &.normal {
+  //    margin-left: 0;
+  //  }
+  //}
 
-    .sort-down-icon {
-      top: 16px;
-    }
+  .cloud-checkbox {
+    margin-top: 8px;
+  }
+
+  &.cloud-popover-tooltip-mini {
+    min-width: 135px;
   }
 }

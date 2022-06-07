@@ -119,6 +119,7 @@ this.tableRef.refreshTable(params?);
 | sorter     | 自定义列排序规则                                     | function                      | -               |
 | onCell     | 为每个单元格设置自定义参数 Function(record, index)                                   | function                      | -               |
 | minWidth     | 列拉伸的最小宽                       | number                   | - |
+| filters     | 配置表格列筛选项 [{ text: '男', value: 'male' }, { text: '女', value: 'female' }]                      | array                   | [] |
 
 #### CTable pageOpts
 | 属性                | 说明                                         | 类型                        | 默认值           |
@@ -188,6 +189,8 @@ this.tableRef.refreshTable(params?);
 <embed src="@components/c-table/demos/sort-with-page.md" /> 
 
 <embed src="@components/c-table/demos/sort-front.md" /> 
+
+<embed src="@components/c-table/demos/filter.md" />
 
 <embed src="@components/c-table/demos/refresh-table.md" /> 
 

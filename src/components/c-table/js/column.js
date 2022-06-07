@@ -1,8 +1,10 @@
 import React from 'react';
+import classnames from 'classnames';
 import Icon from '../../icon';
 import Tooltip from '../../tooltip';
 import Checkbox from '../../checkbox';
 import Radio from '../../radio';
+import Popover from '../../popover';
 import { isEveryChecked, isSomeChecked, setConfig } from '../util';
 import { tablePrefixCls } from '../constant';
 
@@ -69,30 +71,14 @@ export default class Column {
       const sortBy = item.sortable ? item.sortBy : '';
       const resolveColumnItem = {
         ...item,
-        // eslint-disable-next-line no-nested-ternary
-        title: item.sortable ? (
-          <span className="title-container">
-            {typeof item.title === 'function' ? item.title(item) : item.title}
-            <span
-              className={`sort-icon-container ${
-                item.align === 'right' && 'cell-align-right'
-              } ${sortBy && `sort-${sortBy.toLowerCase()}`}`}
-              onClick={() => _this.onSort(resolveColumnItem)}
-            >
-              <Icon className="sort-up-icon" type="up-solid" />
-              <Icon className="sort-down-icon" type="down-solid" />
-            </span>
-          </span>
-        ) : typeof item.title === 'function' ? (
-          item.title(item)
-        ) : (
-          item.title
-        ),
         sortBy,
         align: item.align || 'left',
         width: item.width || (originColumnData.find((c) => c.fixed) ? 150 : ''),
       };
-      arr.push(resolveColumnItem);
+      arr.push({
+        ...resolveColumnItem,
+        title: this.renderBasicTitle(item, sortBy, resolveColumnItem),
+      });
       return arr;
     }, []);
 
@@ -184,6 +170,66 @@ export default class Column {
       columnData: resolvedColumnData,
       expandIconColumnIndex: _this.props.expandIconColumnIndex,
     });
+  };
+
+  renderBasicTitle = (item, sortBy, resolveColumnItem) => {
+    const { _this } = this;
+    const hasFilter = item.filters && item.filters.length;
+
+    if (item.sortable || hasFilter) {
+      return (
+        <span
+          className={classnames('title-container', {
+            'filter-container': hasFilter,
+          })}
+        >
+          {typeof item.title === 'function' ? item.title(item) : item.title}
+          <span
+            className={classnames('sort-icon-container', {
+              'cell-align-right': item.align === 'right',
+              [`sort-${sortBy?.toLowerCase()}`]: !!sortBy,
+            })}
+            onClick={() => this.onSort(resolveColumnItem)}
+          >
+            <Icon className="sort-up-icon" type="up-solid" />
+            <Icon className="sort-down-icon" type="down-solid" />
+          </span>
+          {hasFilter && (
+            <Popover
+              trigger="click"
+              size="mini"
+              // showCancelBtn
+              // showConfirmBtn
+              cancelBtnText="重置"
+              width={135}
+              placement="bottom-center"
+              className={`${tablePrefixCls}-filter-content`}
+              content={
+                <Checkbox.Group
+                  layout="v"
+                  value={_this.state.filterValue}
+                  onChange={this.onFilterChange}
+                >
+                  {item.filters.map((f) => (
+                    <Checkbox key={f.value} value={f.value}>
+                      {f.text}
+                    </Checkbox>
+                  ))}
+                </Checkbox.Group>
+              }
+              // onCancelClick={this.onFilterReset}
+              // onConfirmClick={this.onFilterConfirm}
+            >
+              <Icon className="filter-icon" type="filter" />
+            </Popover>
+          )}
+        </span>
+      );
+    }
+    if (typeof item.title === 'function') {
+      return item.title(item);
+    }
+    return item.title;
   };
 
   /**
@@ -416,4 +462,50 @@ export default class Column {
       _this.props.onCheckedAfter(_this.state.selectedNodeList, row, true);
     });
   };
+
+  /**
+   * 表格排序
+   * @param columnItem
+   */
+  onSort = (columnItem) => {
+    const { _this } = this;
+    _this.loadGrid({ sortParams: columnItem }, () => {
+      // 更新 columnData 的 sortBy 字段
+      const { columnData } = _this.state;
+      _this.setState(
+        {
+          // eslint-disable-next-line react/no-unused-state
+          originColumnData: columnData.map((item) => {
+            if (item.dataIndex === columnItem.dataIndex) {
+              return {
+                ...item,
+                sortBy: item.sortBy === 'ASC' ? 'DESC' : 'ASC',
+              };
+            }
+            return {
+              ...item,
+              sortBy: '',
+            };
+          }),
+        },
+        _this.column.setColumnData,
+      );
+    });
+  };
+
+  onFilterChange = (value) => {
+    const { _this } = this;
+    _this.setState({ filterValue: value }, () => {
+      this.setColumnData();
+      _this.loadGrid();
+    });
+  };
+
+  // onFilterReset = () => {
+  //   const { _this } = this;
+  //   _this.setState({ filterValue: [] }, this.setColumnData);
+  // }
+  //
+  // onFilterConfirm = () => {
+  // }
 }

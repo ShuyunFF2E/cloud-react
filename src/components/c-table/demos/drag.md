@@ -8,7 +8,7 @@ desc: 拖拽
 
 /**
  * title: 拖拽行
- * desc: 表格拖拽
+ * desc: 表格拖拽行
  */
 import React from 'react';
 import { CTable } from 'cloud-react';
@@ -34,6 +34,7 @@ export default function CTableDemo() {
         <CTable
            supportCheckbox
            supportDrag
+           checkedData={[data[1], data[2]]}
            columnData={columns}
            ajaxData={{ totals: data.length, data }}
            onDragAfter={(from, to) => {
