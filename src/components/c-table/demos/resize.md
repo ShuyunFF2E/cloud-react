@@ -23,8 +23,8 @@ const data = [
 
 const columns = [
   { title: '活动ID', dataIndex: 'id' },
-  { title: '活动名称', dataIndex: 'name', width: 300, ellipsis: true, minWidth: 300 },
-  { title: '创建时间', dataIndex: 'createTime', minWidth: 170 },
+  { title: '活动名称', dataIndex: 'name', width: 200, minWidth: 180, ellipsis: true },
+  { title: '创建时间', dataIndex: 'createTime', width: 200, minWidth: 170 },
   { title: '人数', dataIndex: 'num', align: 'right' },
   { title: '创建人', dataIndex: 'creator' }
 ];

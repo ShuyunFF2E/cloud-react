@@ -8,7 +8,7 @@ desc: 拖拽
 
 /**
  * title: 拖拽行
- * desc: 表格拖拽
+ * desc: 表格拖拽行带手柄
  */
 import React from 'react';
 import { CTable } from 'cloud-react';
