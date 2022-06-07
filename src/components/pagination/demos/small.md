@@ -1,14 +1,14 @@
 ---
 order: 5
-title: 简易模式
-desc: 分页简易模式用法
+title: 迷你模式
+desc: 分页迷你模式用法
 ---
 
 ```jsx
 
 /**
- * title: 简易模式
- * desc: 分页简易模式用法
+ * title: 迷你模式
+ * desc: 分页迷你模式用法
  */
 import React from 'react';
 import { Pagination, Checkbox } from 'cloud-react';
@@ -31,7 +31,7 @@ export default class PaginationDemo extends React.Component {
 		return (
           <>
             <Pagination
-              type="simple"
+              type="small"
               showQuickJumper
               showPageSizeOptions
               pageSizeOptions={[10, 20]}
@@ -43,7 +43,7 @@ export default class PaginationDemo extends React.Component {
             <Pagination
               style={{ marginTop: 20 }}
               disabled
-              type="simple"
+              type="small"
               showQuickJumper
               showPageSizeOptions
               pageSizeOptions={[10, 20]}

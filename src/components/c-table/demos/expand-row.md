@@ -22,8 +22,14 @@ const data = [
 ];
 
 const columns = [
+    { title: '活动名称', dataIndex: 'name', align: 'left', render: (value) => (
+        <div style={{ display: 'flex' }}>
+          <img style={{ width: 24, height: 24, borderRadius: '100%', marginRight: 8 }} src="https://img2.baidu.com/it/u=1429175118,2649084526&fm=26&fmt=auto" />
+          <span>{value}</span>
+        </div>
+      )
+    },
     { title: '活动ID', dataIndex: 'id', align: 'left' },
-    { title: '活动名称', dataIndex: 'name', align: 'left' },
     { title: '创建时间', dataIndex: 'createTime', align: 'left' },
     { title: '创建人', dataIndex: 'creator', align: 'left' }
 ];
@@ -43,14 +49,14 @@ export default function CTableDemo() {
               };
                 return (
                     <ul>
-                        <li style={liStyle}><span style={labelStyle}>活动ID：</span>{row.id}</li>
-                        <li style={liStyle}><span style={labelStyle}>活动名称：</span>{row.name}</li>
-                        <li style={liStyle}><span style={labelStyle}>创建时间：</span>{row.createTime}</li>
+                        <li style={liStyle}><span style={labelStyle}>活动ID</span>{row.id}</li>
+                        <li style={liStyle}><span style={labelStyle}>活动名称</span>{row.name}</li>
+                        <li style={liStyle}><span style={labelStyle}>创建时间</span>{row.createTime}</li>
                         <li style={liStyle}>
                           <span style={labelStyle}>活动分类</span>
                           <span style={{ width: 72, padding: '4px 8px', background: '#FFF5E6', color: '#D66A04', borderRadius: 2 }}>大促预热</span>
                         </li>
-                        <li><span style={labelStyle}>创建人：</span>{row.creator}</li>
+                        <li><span style={labelStyle}>创建人</span>{row.creator}</li>
                     </ul>
                 )
             }}

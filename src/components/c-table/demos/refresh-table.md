@@ -43,6 +43,7 @@ export default function CTableDemo() {
         <Button
           type="link"
           size="small"
+          colorType="danger"
           onClick={() => {
             console.log(value, row);
             tableRef.current.refreshTable(false);

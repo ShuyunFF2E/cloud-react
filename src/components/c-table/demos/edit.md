@@ -18,7 +18,7 @@ const data = [
   { id: '121410328', name: 'click me2', createTime: '2021/12/13 15:47:33	', creator: 'jiaojiao.diao', num: '198' },
   { id: '121410329', name: 'click me3', createTime: '2021/12/13 15:36:42', creator: 'nan.run', num: '1,232' },
   { id: '121408294', name: 'click me4', createTime: '2021/12/13 11:14:40', creator: 'xiaotong.fan', num: '12,122,112' },
-  { id: '121407191', name: 'click me5click me5click me5click me5click me5click me5click me5', createTime: '2021/12/13 11:03:05', creator: 'zhenxiao.guo', num: '1000,000' },
+  { id: '121407191', name: 'click me5', createTime: '2021/12/13 11:03:05', creator: 'zhenxiao.guo', num: '1000,000' },
 ];
 
 export default class RcTableDemo extends Component {
@@ -37,10 +37,11 @@ export default class RcTableDemo extends Component {
       width: 300,
       render: (value, row) => {
         return (
-          <div style={{ height: 40, display: 'flex', alignItems: 'center' }}>
+          <div style={{ height: 28, width: 206, display: 'flex', alignItems: 'center' }}>
             {row.id === this.state.editId ? (
               <Input
                 ref={this.ref}
+                size="small"
                 style={{ width: '100%' }}
                 defaultValue={row.name}
                 onBlur={evt => {
@@ -72,7 +73,6 @@ export default class RcTableDemo extends Component {
   render() {
     return (
       <CTable
-        size="large"
         columnData={this.columns}
         ajaxData={this.state.ajaxData}
       />

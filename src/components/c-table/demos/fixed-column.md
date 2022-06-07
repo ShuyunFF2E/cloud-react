@@ -1,14 +1,14 @@
 ---
 order: 4
 title: CTable
-desc: 动态设置表格尺寸
+desc: 固定列
 ---
 
 ```jsx
 
 /**
- * title: 动态设置表格尺寸
- * desc: 动态设置表格尺寸
+ * title: 固定列
+ * desc: 固定列
  */
 import React, { useState } from 'react';
 import { CTable, Button } from 'cloud-react';
@@ -36,11 +36,11 @@ const columns = [
     { 
         title: '操作',
         dataIndex: 'operator',
-        render: () => (
+        render: (v, row) => (
             <div>
-                <Button type="link" size="small">编辑</Button>
+                <Button disabled={row.id === '121410327'} type="link" size="small">编辑</Button>
                 <Button type="link" size="small">查看报告</Button>
-                <Button type="link" size="small" colorType="danger">删除</Button>
+                <Button disabled={row.id === '121410327'} type="link" size="small" colorType="danger">删除</Button>
             </div>
         ),
         width: 300,
