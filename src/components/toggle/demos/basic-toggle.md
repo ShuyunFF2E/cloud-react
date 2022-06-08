@@ -1,54 +1,54 @@
 ---
 order: 1
 title: 基础用法
-desc: checked 使用
+desc:
 ---
 
 ```jsx
-
-            /**
-             * title: 基础用法
-             * desc: checked 使用
-             */
+/**
+ * title: 基础用法
+ * desc:
+ */
 import React from 'react';
 import { Toggle } from 'cloud-react';
-import './styles/basic-toggle.less';
 
 export default class ToggleDemo extends React.Component {
-	constructor(props) {
-		super(props);
+  constructor(props) {
+    super(props);
+    this.state = {
+      checked: true,
+    };
+  }
 
-		this.state = {
-			checked: true
-		};
-	}
+  handleChange = (checked) => {
+    this.setState({ checked });
+  };
 
-	handleChange = checked => {
-		this.setState({ checked });
-	};
+  render() {
+    const { checked } = this.state;
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+        <div>
+          不添加checked状态：
+          <Toggle />
+        </div>
 
-	render() {
-		const { checked } = this.state;
+        <div>
+          checked初始值为true：
+          <Toggle checked={checked} onChange={this.handleChange} />
+        </div>
 
-		return (
-			<div>
-				<div>
-					不添加checked状态：
-					<Toggle />
-				</div>
-
-				<div className="item">
-					设置checked为true：
-					<Toggle checked={checked} onChange={this.handleChange} />
-				</div>
-
-				<div>
-					设置开关的文案显示：
-					<Toggle checked={checked} checkedText="这里是开" unCheckedText="这里是关" onChange={this.handleChange} />
-				</div>
-			</div>
-		);
-	}
+        {/*<div>*/}
+        {/*  设置开关的文案显示：*/}
+        {/*  <Toggle*/}
+        {/*    checked={checked}*/}
+        {/*    checkedText="这里是开"*/}
+        {/*    unCheckedText="这里是关"*/}
+        {/*    onChange={this.handleChange}*/}
+        {/*  />*/}
+        {/*</div>*/}
+      </div>
+    );
+  }
 }
 ```
-

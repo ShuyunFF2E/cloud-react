@@ -13,13 +13,16 @@ group:
 
 ### API
 
-| 属性        | 说明                 | 类型             | 默认值     |
-| ----------- | -------------------- | ---------------- | ---------- |
-| mode  | 徽标展示模式         | string  `message` `number`            | `message`      |
-| type  | 徽标类型               | string `default` `success` `fail` `warn`            |`default`         |
-| number      | mode 为 `number` 时，需要设置 number 值             | number | 0          |
-| onClick      | 点击徽标回调事件             | function | () => {}          |
+| 属性      | 说明                                                          | 类型          | 默认值    |
+| --------- | ------------------------------------------------------------- | ------------- | --------- |
+| mode      | 徽标模式，包含 `message`、`number`、`dot`                     | string        | `message` |
+| type      | 徽标类型，包含 `default`、`success`、`fail`、`warn`、`finish` | string        | `default` |
+| number    | mode 为 number 时，需要设置 number 值                         | number        | 0         |
+| text      | mode 为 dot 时，需要设置 text 值                              | string        | ''        |
+| onClick   | 点击徽标回调事件                                              | function      | () => {}  |
+| style     | 设置最外层样式                                                | CSSProperties | {}        |
+| className | 设置最外层类样式                                              | string        | ''        |
 
- ### 代码演示 
+### 代码演示
 
-<embed src="@components/badge/demos/basic-badge.md" /> 
+<embed src="@components/badge/demos/basic-badge.md" />
