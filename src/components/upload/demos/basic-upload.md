@@ -59,21 +59,22 @@ export default class UploadDemo extends React.Component {
 	render() {
 		const props = {
 			// type: 'picture',
-			limit: 1,
+			// limit: 1,
 			size: 2,
 			multiple: true,
 			isShowIcon: false,
 			hasPreview: false,
             showBeforeConfirm: true,
             params: {test: 1},
+			// style: { width: 66, height: 66 },
             beforeConfirmBody: (
                 <span>
                     请确定您要上传文件么？
                 </span>
             ),
 			labelText: '点击上传1',
-			headers: {},
-			action: '/upload',
+			headers: { 'x-token': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRJZCI6InF5d3hfc3l5al93cG5UcndFQUFBV082cmtsWWVmUzBvc0VEenFSMTBQQSIsInVzZXJJZCI6MTE4NTA0NTIsInVzZXJUeXBlIjoicXl3eCIsInVzZXJOYW1lIjoid29uVHJ3RUFBQTFUZm9oRGFUajFhOVJZZlFtMnZFRFEiLCJleHQiOjE2NTIzNjI2NzMxMjAsImlhdCI6MTY1MjMxOTQ3MzEyMCwiY29ycElkIjoid3BuVHJ3RUFBQVdPNnJrbFllZlMwb3NFRHpxUjEwUEEiLCJidXNpbmVzc1VzZXJJZCI6IndvblRyd0VBQUExVGZvaERhVGoxYTlSWWZRbTJ2RURRIn0.ET-FRmvCgDGquMi_DnuRL4C56C58qzcn3Estk8Vq9j4' },
+			action: 'https://qa-ual.shuyun.com/pcrm-account/1.0/file/uploadImageFile',
 			onBeforeUpload(file) {
 				return true;
 			},
