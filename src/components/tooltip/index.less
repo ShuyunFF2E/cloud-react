@@ -1,9 +1,9 @@
 @import '../style/index';
 
 @tooltip-prefix-cls: ~'@{prefix}-tooltip';
-@arrow-size: 6px;
-@left-space-size: 20px;
-@top-space-size: 8px;
+@arrow-size: 7px;
+@left-space-size: 5px;
+@top-space-size: 5px;
 @offset-size: -3px;
 @light-offset-size: -3px;
 @transparent-height: 7px;
@@ -161,7 +161,7 @@
   }
 
   &.top-left {
-    .top-style(@left-space-size - @arrow-size, rotate(45deg));
+    .top-style(@left-space-size, rotate(45deg));
   }
 
   &.top-center {
@@ -169,7 +169,7 @@
   }
 
   &.top-right {
-    .top-style(calc(100% - @left-space-size), rotate(45deg));
+    .top-style(calc(100% - @left-space-size - @arrow-size), rotate(45deg));
   }
 
   &.right-top {
@@ -197,7 +197,7 @@
   }
 
   &.bottom-left {
-    .bottom-style(@left-space-size - @arrow-size, rotate(45deg));
+    .bottom-style(@left-space-size, rotate(45deg));
   }
 
   &.bottom-center {
@@ -205,6 +205,6 @@
   }
 
   &.bottom-right {
-    .bottom-style(calc(100% - @left-space-size), rotate(45deg));
+    .bottom-style(calc(100% - @left-space-size - @arrow-size), rotate(45deg));
   }
 }
