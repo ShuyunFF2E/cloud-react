@@ -287,6 +287,7 @@ class Input extends React.Component {
       'hasClear',
       'prefix',
       'suffix',
+      'value',
       'addonAfter',
       'addonBefore',
       'onEnter',
