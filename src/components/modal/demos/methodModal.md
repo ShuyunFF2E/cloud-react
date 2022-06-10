@@ -1,5 +1,5 @@
 ---
-order: 13
+order: 11
 title: 方法打开弹框
 desc: 使用createModal方法创建一个弹出框，open方法打开
 ---

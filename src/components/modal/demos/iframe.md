@@ -1,5 +1,5 @@
 ---
-order: 11
+order: 10
 title: iframe框架嵌套
 desc: 当iframe窗口里面的页面和父窗口不存在跨域时，弹框将默认挂载到父窗口，以此增强视觉效果
 ---
@@ -55,7 +55,7 @@ export default class ModaliFrameDemo extends React.Component {
 			console.log(err);
 		}
 
-		return <iframe ref={this.iframeRef} src="/#/组件/modal" style={style} />;
+		return <iframe ref={this.iframeRef} src="/v1/cloud-react/action/modal" style={style} />;
 	}
 }
 ```

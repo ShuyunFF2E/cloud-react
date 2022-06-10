@@ -15,14 +15,15 @@ group:
 
 ### API
 
-### Modal
-
 | 属性               | 说明                                     | 类型                | 默认值  |
 | ------------------ | ---------------------------------------- | ------------------- | ------- |
 | visible            | 是否显示 modal 弹出框                    | boolean             | `false` |
+| size              | 弹出框的尺寸, `small`,`medium`,`large`  | string              | `medium` |
 | title              | 弹出框的标题                             | string              | `title` |
 | modalStyle         | 设置弹出框样式                           | object              | -       |
+| headerStyle        | 设置弹出框header样式                           | object              | -       |
 | bodyStyle          | 设置弹出框内容区域样式                   | object              | -       |
+| footerStyle        | 设置弹出框footer区域样式                 | object              | -       |
 | disabledOk         | 禁用确认按钮                             | boolean             | `false` |
 | className          | 设置弹出框样式名称                       | string              | -       |
 | hasFooter          | 是否显示底部区域                         | boolean             | `true`  |
@@ -42,15 +43,15 @@ group:
 
 ### Modal method
 
-包括：
+```js
+Modal.confirm(config)
+Modal.success(config)
+Modal.error(config)
+Modal.info(config)
+Modal.warning(config)
+```
 
--   Modal.confirm()
--   Modal.success()
--   Modal.error()
--   Modal.info()
--   Modal.warning()
-
-以上均为函数，参数为 object，具体属性如下：
+`config`类型为`object`，具体属性如下：
 
 | 方法名     | 说明                                          | 类型     | 默认值 |
 | ---------- | --------------------------------------------- | -------- | ------ |
@@ -69,7 +70,15 @@ group:
 
  ### 代码演示 
 
+<embed src="@components/modal/demos/info.md" /> 
+
+<embed src="@components/modal/demos/confirm.md" /> 
+
+<embed src="@components/modal/demos/defineInfoStyle.md" /> 
+
 <embed src="@components/modal/demos/async.md" /> 
+
+<embed src="@components/modal/demos/basic-size-modal.md" /> 
 
 <embed src="@components/modal/demos/basic-modal.md" /> 
 
@@ -77,19 +86,9 @@ group:
 
 <embed src="@components/modal/demos/component.md" /> 
 
-<embed src="@components/modal/demos/confirm.md" /> 
-
-<embed src="@components/modal/demos/conplex.md" /> 
-
-<embed src="@components/modal/demos/defineInfoStyle.md" /> 
-
 <embed src="@components/modal/demos/defineTpl.md" /> 
 
-<embed src="@components/modal/demos/hasFooter.md" /> 
-
 <embed src="@components/modal/demos/iframe.md" /> 
-
-<embed src="@components/modal/demos/info.md" /> 
 
 <embed src="@components/modal/demos/methodModal.md" /> 
 

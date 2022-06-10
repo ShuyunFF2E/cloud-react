@@ -1,5 +1,5 @@
 ---
-order: 2
+order: 7
 title: 自定义回调函数
 desc: 设置onOk、onCancel、onClose实现自定义回调函数
 ---
@@ -57,8 +57,8 @@ export default class ModalDemo extends React.Component {
 					自定义回调函数
 				</Button>
 				<br />
-				<Modal visible={this.state.visible} onOk={this.handleOk} onCancel={this.handleCancel} onClose={this.handleClose}>
-					this is callback demo
+				<Modal title="自定义回调函数" visible={this.state.visible} onOk={this.handleOk} onCancel={this.handleCancel} onClose={this.handleClose}>
+					这是一个演示Modal自定义回调函数的example。
 				</Modal>
 				<br />
 				<span>{this.state.content}</span>
