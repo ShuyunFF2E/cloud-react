@@ -1,5 +1,5 @@
 ---
-order: 9
+order: 12
 title: 嵌套弹窗
 desc: 弹出一个提示框，在其内部再弹出一个提示框
 ---
@@ -60,7 +60,6 @@ export default class ModalDemo extends React.Component {
 				</Button>
 				<Modal
 					ignoreFrame
-					title="basic title"
 					visible={this.state.visible}
 					onOk={this.handleOk}
 					onCancel={this.handleCancel}
@@ -98,7 +97,7 @@ class SecondModal extends React.Component {
 				<Button type="normal" onClick={this.openInfoModal}>
 					信息提示弹出框
 				</Button>
-				<Modal hasFooter={false} title="basic title111" visible={this.state.visible} onClose={this.handleClose}>
+				<Modal hasFooter={false} visible={this.state.visible} onClose={this.handleClose}>
 					<ConfirmModal />
 				</Modal>
 			</div>
@@ -109,7 +108,7 @@ class SecondModal extends React.Component {
 class ConfirmModal extends React.Component {
 	openInfoModal = () => {
 		Modal.info({
-			body: 'something you can write here',
+			body: '可以点开下面的图标查看example代码。',
 			onCancel: () => {}
 		});
 	};

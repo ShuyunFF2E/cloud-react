@@ -1,14 +1,14 @@
 ---
-order: 6
-title: 基础用法
-desc: 使用modal打开基本对话框，点击遮罩区域关闭对话框
+order: 5
+title: 3种尺寸规格
+desc: 3种modal尺寸规格，高度会随内容进行自适应
 ---
 
 ```jsx
 
             /**
              * title: 基础用法
-             * desc: 使用modal打开基本对话框，点击遮罩区域关闭对话框
+             * desc: 3种modal尺寸规格，高度会随内容进行自适应
              */
 import React from 'react';
 import { Button, Modal, Select, CPicker, Radio, Form, Message } from 'cloud-react';
@@ -21,27 +21,37 @@ export default class ModalDemo extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			visible: false
+			visible: false,
+			size: 'medium',
+			title: ''
 		};
 	}
 
-	// 打开可在遮罩区域关闭的弹出框
-	openMaskCloseModal = () => {
+	// 打开弹出框
+	openSmallModal = () => {
 		this.setState({
 			visible: true,
-			showMask: true,
-			clickMaskCanClose: true
+			size: 'small',
+			title: '小号弹窗S，宽600，高320(最小)'
 		});
 	};
-
-	// 打开无遮罩层对话框
-	openHideMaskModal = () => {
+	
+	openMediumModal = () => {
 		this.setState({
 			visible: true,
-			showMask: false
+			size: 'medium',
+			title: '中号(默认)弹窗M，宽680，高320(最小)'
 		});
 	};
-
+  	
+	openLargeModal = () => {
+		this.setState({
+			visible: true,
+			size: 'large',
+			title: '大号弹窗L，宽920，高320(最小)'
+		});
+	};	
+	
 	// 确认按钮回调函数
 	handleOk = () => {
 		this.setState({
@@ -63,24 +73,28 @@ export default class ModalDemo extends React.Component {
 	};
 
 	showMessage = () => {
-		Message.info('你点击了提交按钮');
+		Message.error('请输入内容');
 	};
 
 	render() {
 		return (
 			<div>
-				<Button type="primary" onClick={this.openMaskCloseModal}>
-					点击遮罩区域关闭对话框
+				<Button type="primary" onClick={this.openSmallModal}>
+					小号弹窗S
 				</Button>
 				{blank}
-				<Button type="normal" onClick={this.openHideMaskModal}>
-					不显示遮罩层
+				<Button type="primary" onClick={this.openMediumModal}>
+					中号(默认)弹窗M
 				</Button>
+				{blank}
+				<Button type="primary" onClick={this.openLargeModal}>
+					大号弹窗L
+				</Button>
+				{blank}
 				<Modal
-					title="异步关闭"
+					title={this.state.title}
+					size={this.state.size}
 					visible={this.state.visible}
-					showMask={this.state.showMask}
-					clickMaskCanClose={this.state.clickMaskCanClose}
 					onOk={this.handleOk}
 					onCancel={this.handleCancel}
 					onClose={this.handleClose}>
