@@ -60,7 +60,7 @@ export default function CTableDemo() {
             setStyle({ width: '100%', height: `calc(100% - ${btnHeight}px)` })
           }}>重置表格尺寸</Button>
           <CTable
-            style={{ ...style, marginTop: 15 }}
+            style={{ ...style, marginTop: 20 }}
             useCustomScroll={false}
             supportPage
             isDelay

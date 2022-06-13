@@ -63,7 +63,7 @@ export default function CTableDemo() {
 
   return (
     <div>
-      <div style={{ display: 'flex', alignItems: 'center', marginBottom: 10 }}>
+      <div style={{ display: 'flex', alignItems: 'center', marginBottom: 20 }}>
         <Checkbox checked={queryParams.isMyActivity} onChange={checked => {
           const params = { ...queryParams, isMyActivity: checked };
           setQueryParams(params);
