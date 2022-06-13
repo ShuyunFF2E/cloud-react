@@ -20,8 +20,9 @@ class Modal extends Component {
 	static ConfigProvider = ContextProvider;
 
 	render() {
-		const { children, ...props } = this.props;
-		const rootWindow = getRootWindow();
+		const { children, showType, ...props } = this.props;
+		const isTop = showType !== 'current';
+		const rootWindow = getRootWindow(isTop);
 		const rootDocument = rootWindow.document;
 
 		return ReactDOM.createPortal(
@@ -31,7 +32,7 @@ class Modal extends Component {
 					rootDocument,
 					getContext: () => rootDocument.querySelector(`.${sandboxSelector}`) || rootDocument.body
 				}}>
-				<Notification type="modal" {...props}>
+				<Notification type="modal" showType={showType} {...props}>
 					{children}
 				</Notification>
 			</ContextProvider.Provider>,

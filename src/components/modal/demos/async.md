@@ -13,9 +13,19 @@ desc: 点击确定按钮后异步关闭对话框，如提交请求场景
 import React from 'react';
 import { Button, Modal } from 'cloud-react';
 
+function getQueryString(name) {
+	var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+	var r = window.location.search.substr(1).match(reg);
+	if (r != null) {
+		return decodeURIComponent(r[2]);
+	}
+	return null;
+}
+
 export default class ModalDemo extends React.Component {
 	constructor(props) {
 		super(props);
+		this.showType = getQueryString('showType') || 'top';
 		this.state = {
 			visible: false,
 			showConfirmLoading: false
@@ -59,6 +69,7 @@ export default class ModalDemo extends React.Component {
 				</Button>
 				<Modal
 					title="basic title"
+					showType={this.showType}
 					visible={this.state.visible}
 					clickMaskCanClose={this.state.clickMaskCanClose}
 					showConfirmLoading={this.state.showConfirmLoading}

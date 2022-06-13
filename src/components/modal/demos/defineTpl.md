@@ -15,9 +15,19 @@ import { Button, Modal } from 'cloud-react';
 
 const blank = '\u00A0';
 
+function getQueryString(name) {
+	var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+	var r = window.location.search.substr(1).match(reg);
+	if (r != null) {
+		return decodeURIComponent(r[2]);
+	}
+	return null;
+}
+
 export default class ModalDemo extends React.Component {
 	constructor(props) {
 		super(props);
+		this.showType = getQueryString('showType') || 'top';
 		this.state = {
 			visibleTitle: false,
 			visibleBody: false,
@@ -86,15 +96,23 @@ export default class ModalDemo extends React.Component {
 					自定义底部区域
 				</Button>
 
-				<Modal visible={this.state.visibleTitle} title={this.state.title} onOk={this.closeModal} onCancel={this.closeModal} onClose={this.closeModal}>
+				<Modal 
+					showType={this.showType}
+					visible={this.state.visibleTitle} 
+					title={this.state.title}
+					onOk={this.closeModal}
+					onCancel={this.closeModal}
+					onClose={this.closeModal}>
 					something you can write
 				</Modal>
 
-				<Modal visible={this.state.visibleBody} onOk={this.closeModal} onCancel={this.closeModal} onClose={this.closeModal}>
+				<Modal visible={this.state.visibleBody}
+				showType={this.showType} onOk={this.closeModal} onCancel={this.closeModal} onClose={this.closeModal}>
 					<Body />
 				</Modal>
 
 				<Modal
+					showType={this.showType}
 					visible={this.state.visibleFooter}
 					footer={this.state.footer}
 					onOk={this.closeModal}
@@ -104,6 +122,7 @@ export default class ModalDemo extends React.Component {
 				</Modal>
 
 				<Modal
+					showType={this.showType}
 					visible={this.state.visibleFooterText}
 					okText={this.state.okText}
 					cancelText={this.state.cancelText}
