@@ -20,7 +20,7 @@ export default class Tabs extends PureComponent {
     className: PropTypes.string,
     onChange: PropTypes.func,
     onClose: PropTypes.func,
-    mode: PropTypes.oneOf(['reset', 'remain']),
+    mode: PropTypes.oneOf([ 'reset', 'remain' ]),
     style: PropTypes.object,
     step: PropTypes.number,
   };
@@ -42,7 +42,7 @@ export default class Tabs extends PureComponent {
     super(props);
     const { defaultActiveKey, activeKey, children } = props;
 
-    const childList = Array.isArray(children) ? children : [children];
+    const childList = Array.isArray(children) ? children : [ children ];
     const activedKey = activeKey || defaultActiveKey || childList[0].key;
     const childCount = React.Children.count(children);
 
@@ -66,9 +66,9 @@ export default class Tabs extends PureComponent {
     // 1. 通过props指定activeKey时，更新state
     // 2. tabpanel的数量发生变化时, 更新state
     if (
-      prevProps.activeKey !== nextProps.activeKey ||
-      (prevProps.activeKey === nextProps.activeKey &&
-        prevChildCount !== nextChildCount)
+      prevProps.activeKey !== nextProps.activeKey
+      || (prevProps.activeKey === nextProps.activeKey
+        && prevChildCount !== nextChildCount)
     ) {
       return {
         activedKey: nextProps.activeKey,
@@ -82,7 +82,7 @@ export default class Tabs extends PureComponent {
 
   componentDidMount() {
     this.initTabsItems();
-    if (this.hasLineBar) this.countLineBarStyle();
+    if (this.hasLineBar) setTimeout(() => this.countLineBarStyle());
   }
 
   componentDidUpdate() {
@@ -218,8 +218,8 @@ export default class Tabs extends PureComponent {
         activeTabsOffsetWidth,
       } = this;
       if (
-        activeTabsOffsetLeft + activeTabsOffsetWidth >=
-        tabsOffsetWidth - CONTAINER_PADDING * 2 + -tabsOffsetLeft
+        activeTabsOffsetLeft + activeTabsOffsetWidth
+        >= tabsOffsetWidth - CONTAINER_PADDING * 2 + -tabsOffsetLeft
       ) {
         const max = parseFloat(itemsMaxLeft) - CONTAINER_PADDING * 2;
         const left = activeTabsOffsetLeft > -max ? max : -activeTabsOffsetLeft;
@@ -271,7 +271,7 @@ export default class Tabs extends PureComponent {
 
   keyFilter = (key) => {
     // 使用form key会变为 0.$XXXX
-    const [k1 = '', k2 = ''] = key.split('.$');
+    const [ k1 = '', k2 = '' ] = key.split('.$');
     return k2 || k1;
   };
 
@@ -380,10 +380,9 @@ export default class Tabs extends PureComponent {
 
   renderMoreIcon = () => {
     if (
-      !this.state.hasMore ||
-      (this.hasLineBar && (this.isVerticalRight || this.isVerticalLeft))
-    )
-      return null;
+      !this.state.hasMore
+      || (this.hasLineBar && (this.isVerticalRight || this.isVerticalLeft))
+    ) return null;
     const { type } = this.props;
 
     return (
@@ -405,7 +404,9 @@ export default class Tabs extends PureComponent {
   };
 
   render() {
-    const { children, className, mode, type, linePlacement } = this.props;
+    const {
+      children, className, mode, type, linePlacement,
+    } = this.props;
     const { activedKey, hasMore } = this.state;
 
     const headers = [];
@@ -415,8 +416,7 @@ export default class Tabs extends PureComponent {
     Children.forEach(children, (child) => {
       if (!isValidElement(child)) return;
 
-      const isActived =
-        this.keyFilter(child.key) === this.keyFilter(activedKey);
+      const isActived = this.keyFilter(child.key) === this.keyFilter(activedKey);
       headers.push(this.renderTabHeader(child, isActived));
 
       if (type === 'card' && child.props.fixed) {
@@ -434,10 +434,8 @@ export default class Tabs extends PureComponent {
       }
     });
 
-    const isVertical =
-      this.hasLineBar && (this.isVerticalLeft || this.isVerticalRight);
-    const isHorizontal =
-      this.hasLineBar && !(this.isVerticalLeft || this.isVerticalRight);
+    const isVertical = this.hasLineBar && (this.isVerticalLeft || this.isVerticalRight);
+    const isHorizontal = this.hasLineBar && !(this.isVerticalLeft || this.isVerticalRight);
     const finalClassName = cls(
       `${prefixCls}-tabs`,
       {
