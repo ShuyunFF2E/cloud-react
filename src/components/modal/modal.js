@@ -29,7 +29,6 @@ class Notification extends Component {
 		super(props);
 		this.ref = React.createRef();
 		this.maskRef = React.createRef();
-
 		this.state = {
 			pageX: '',
 			pageY: '',

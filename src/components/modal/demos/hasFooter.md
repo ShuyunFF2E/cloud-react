@@ -15,9 +15,19 @@ import { Button, Modal } from 'cloud-react';
 
 const blank = '\u00A0';
 
+function getQueryString(name) {
+	var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+	var r = window.location.search.substr(1).match(reg);
+	if (r != null) {
+		return decodeURIComponent(r[2]);
+	}
+	return null;
+}
+
 export default class ModalDemo extends React.Component {
 	constructor(props) {
 		super(props);
+		this.showType = getQueryString('showType') || 'top';
 		this.state = {
 			visible: false,
 			hasFooter: true
@@ -63,6 +73,7 @@ export default class ModalDemo extends React.Component {
 				</Button>
 				<br />
 				<Modal
+					showType={this.showType}
 					visible={this.state.visible}
 					hasFooter={this.state.hasFooter}
 					onOk={this.handleOk}

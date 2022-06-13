@@ -13,22 +13,32 @@ desc: 在modal中使用其他组件
 import React from 'react';
 import { Button, Modal, Message, Select, Tabs, Table } from 'cloud-react';
 
+function getQueryString(name) {
+	var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+	var r = window.location.search.substr(1).match(reg);
+	if (r != null) {
+		return decodeURIComponent(r[2]);
+	}
+	return null;
+}
+
 export default class ModalDemo extends React.Component {
 	constructor(props) {
 		super(props);
+		this.showType = getQueryString('showType') || 'top';
 		this.state = {
-			visible: false
+			visible: false,
+			dataList: [
+				{
+					label: '苹果',
+					value: 'apple'
+				},
+				{
+					label: '草莓',
+					value: 'strawberry'
+				}
+			]
 		};
-		this.state.dataList = [
-			{
-				label: '苹果',
-				value: 'apple'
-			},
-			{
-				label: '草莓',
-				value: 'strawberry'
-			}
-		];
 	}
 
 	// 打开弹出框
@@ -80,6 +90,7 @@ export default class ModalDemo extends React.Component {
 				</Button>
 				<Modal
 					title="basic title"
+					showType={this.showType}
 					bodyStyle={modalStyle}
 					visible={this.state.visible}
 					onOk={this.handleOk}

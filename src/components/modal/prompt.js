@@ -16,6 +16,7 @@ class Prompt extends React.Component {
 	static defaultProps = {
 		isShowIcon: true,
 		style: {},
+		showType: 'top',
 		type: '',
 		icon: '',
 		body: '',
@@ -28,6 +29,7 @@ class Prompt extends React.Component {
 	static propTypes = {
 		isShowIcon: PropTypes.bool,
 		style: PropTypes.object,
+		showType: PropTypes.oneOf(['top', 'current']),
 		type: PropTypes.string,
 		icon: PropTypes.string,
 		body: PropTypes.node,
@@ -69,7 +71,8 @@ class Prompt extends React.Component {
 
 	/* eslint-disable-next-line */
 	get window() {
-		return getRootWindow();
+		const isTop = this.props.showType === 'top';
+		return getRootWindow(isTop);
 	}
 
 	get document() {
@@ -167,9 +170,10 @@ class Prompt extends React.Component {
 	}
 }
 
-function prompt({ isShowIcon, type, icon, body, onOk, onCancel, iconStyle, style, okText, cancelText }) {
+function prompt({ isShowIcon, type, icon, showType, body, onOk, onCancel, iconStyle, style, okText, cancelText }) {
 	// 创建一个关联id
-	const rootDocument = getRootWindow().document;
+	const isTop = showType === 'top';
+	const rootDocument = getRootWindow(isTop).document;
 	const id = `prompt${new Date().getTime()}`;
 	const ele = rootDocument.createElement('div');
 
@@ -180,6 +184,7 @@ function prompt({ isShowIcon, type, icon, body, onOk, onCancel, iconStyle, style
 		<Prompt
 			id={id}
 			type={type}
+			showType={showType}
 			icon={icon}
 			body={body}
 			style={style}

@@ -15,9 +15,19 @@ import { Button, Modal } from 'cloud-react';
 
 const blank = '\u00A0';
 
+function getQueryString(name) {
+	var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+	var r = window.location.search.substr(1).match(reg);
+	if (r != null) {
+		return decodeURIComponent(r[2]);
+	}
+	return null;
+}
+
 export default class ModalDemo extends React.Component {
 	constructor(props) {
 		super(props);
+		this.showType = getQueryString('showType') || 'top';
 		this.state = {
 			content: ''
 		};
@@ -31,6 +41,7 @@ export default class ModalDemo extends React.Component {
 
 	openConfirmModal = () => {
 		Modal.confirm({
+			showType: this.showType,
 			isShowIcon: false,
 			body: 'something you can write here',
 			onOk: () => {
@@ -46,6 +57,7 @@ export default class ModalDemo extends React.Component {
 
 	openCustomConfirmModal = () => {
 		Modal.confirm({
+			showType: this.showType,
 			okText: '好',
 			cancelText: '关闭',
 			body: '按钮的文案修改了'
@@ -55,6 +67,7 @@ export default class ModalDemo extends React.Component {
 	// 打开确认弹出框
 	openAsyncConfirmModal = () => {
 		Modal.confirm({
+			showType: this.showType,
 			body: 'this is a async demo，do you want to test it ？ if you want, please click the button',
 			onOk: () => {
 				return new Promise((resolve, reject) => {

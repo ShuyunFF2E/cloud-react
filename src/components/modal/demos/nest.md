@@ -15,9 +15,19 @@ import { Button, Modal } from 'cloud-react';
 
 const blank = '\u00A0';
 
+function getQueryString(name) {
+	var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+	var r = window.location.search.substr(1).match(reg);
+	if (r != null) {
+		return decodeURIComponent(r[2]);
+	}
+	return null;
+}
+
 export default class ModalDemo extends React.Component {
 	constructor(props) {
 		super(props);
+		this.showType = getQueryString('showType') || 'top';
 		this.state = {
 			visible: false
 		};
@@ -59,13 +69,13 @@ export default class ModalDemo extends React.Component {
 					打开嵌套弹出框
 				</Button>
 				<Modal
-					ignoreFrame
+					showType={this.showType}
 					title="basic title"
 					visible={this.state.visible}
 					onOk={this.handleOk}
 					onCancel={this.handleCancel}
 					onClose={this.handleClose}>
-					<SecondModal />
+					<SecondModal showType={this.showType} />
 				</Modal>
 			</div>
 		);
@@ -98,8 +108,8 @@ class SecondModal extends React.Component {
 				<Button type="normal" onClick={this.openInfoModal}>
 					信息提示弹出框
 				</Button>
-				<Modal hasFooter={false} title="basic title111" visible={this.state.visible} onClose={this.handleClose}>
-					<ConfirmModal />
+				<Modal hasFooter={false} showType={this.props.showType} title="basic title111" visible={this.state.visible} onClose={this.handleClose}>
+					<ConfirmModal showType={this.props.showType} />
 				</Modal>
 			</div>
 		);
@@ -109,6 +119,7 @@ class SecondModal extends React.Component {
 class ConfirmModal extends React.Component {
 	openInfoModal = () => {
 		Modal.info({
+			showType: this.props.showType,
 			body: 'something you can write here',
 			onCancel: () => {}
 		});

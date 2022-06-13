@@ -15,9 +15,19 @@ import { Button, Modal, Select, Datepicker, Form, Message } from 'cloud-react';
 
 const blank = '\u00A0';
 
+function getQueryString(name) {
+	var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+	var r = window.location.search.substr(1).match(reg);
+	if (r != null) {
+		return decodeURIComponent(r[2]);
+	}
+	return null;
+}
+
 export default class ModalDemo extends React.Component {
 	constructor(props) {
 		super(props);
+		this.showType = getQueryString('showType') || 'top';
 		this.state = {
 			visible: false
 		};
@@ -88,6 +98,7 @@ export default class ModalDemo extends React.Component {
 				</Button>
 				<Modal
 					title="basic title"
+					showType={this.showType}
 					visible={this.state.visible}
 					showMask={this.state.showMask}
 					clickMaskCanClose={this.state.clickMaskCanClose}

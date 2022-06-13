@@ -13,9 +13,19 @@ desc: 使用style属性自定义modal组件样式，禁用确定按钮
 import React from 'react';
 import { Button, Modal, Message } from 'cloud-react';
 
+function getQueryString(name) {
+	var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+	var r = window.location.search.substr(1).match(reg);
+	if (r != null) {
+		return decodeURIComponent(r[2]);
+	}
+	return null;
+}
+
 export default class ModalDemo extends React.Component {
 	constructor(props) {
 		super(props);
+		this.showType = getQueryString('showType') || 'top';
 		this.state = {
 			visible: false
 		};
@@ -54,6 +64,7 @@ export default class ModalDemo extends React.Component {
 				</Button>
 				<Modal
 					title="basic title"
+					showType={this.showType}
 					bodyStyle={bodyStyle}
 					className="test"
 					modalStyle={modalStyle}

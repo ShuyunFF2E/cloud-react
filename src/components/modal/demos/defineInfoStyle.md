@@ -15,14 +15,25 @@ import { Button, Modal } from 'cloud-react';
 
 const blank = '\u00A0';
 
+function getQueryString(name) {
+	var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+	var r = window.location.search.substr(1).match(reg);
+	if (r != null) {
+		return decodeURIComponent(r[2]);
+	}
+	return null;
+}
+
 export default class ModalDemo extends React.Component {
 	constructor(props) {
 		super(props);
+		this.showType = getQueryString('showType') || 'top';
 	}
 
 	// 默认弹出框
 	openNormalModal = () => {
 		Modal.info({
+			showType: this.showType,
 			body: '我是默认样式的提示',
 			onCancel: () => {}
 		});
@@ -30,6 +41,7 @@ export default class ModalDemo extends React.Component {
 
 	openInfoModal = () => {
 		Modal.info({
+			showType: this.showType,
 			style: {
 				width: '200px'
 			},
@@ -40,6 +52,7 @@ export default class ModalDemo extends React.Component {
 
 	openSuccessModal = () => {
 		Modal.success({
+			showType: this.showType,
 			style: {
 				height: '200px'
 			},
@@ -51,6 +64,7 @@ export default class ModalDemo extends React.Component {
 
 	openWarningModal = () => {
 		Modal.warning({
+			showType: this.showType,
 			style: {
 				background: 'rgb(232, 76, 76)',
 				color: '#FFF',
