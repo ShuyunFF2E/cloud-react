@@ -27,10 +27,10 @@ group:
 | options.duration        | 自动关闭的延时，单位毫秒。设为 0 时不自动关闭 | number      | 3000          |
 | option.contextContainer | 指定 message 挂载的 HTML 节点, 默认在 body 上 | HTMLElement | document.body |
 | option.className        | 指定 message 节点上的className | string | '' |
-| option.showClose        | 是否显示关闭Icon | bool | true |
-| option.title            | 文本标题 | node | - |
-| option.operate          | 操作文案 | node | - |
-| option.onOperate        | 操作区点击事件 | func | - |
+| option.showClose        | 是否显示关闭Icon | bool | false |
+| option.showIcon         | 是否展示Icon | bool | true |
+| option.isDeepen          | 是否使用重提示UI | bool | false |
+| option.onClose        | 手动关闭后的触发事件 | func | - |
 
 ### message.method()
 
@@ -42,9 +42,15 @@ group:
 
 -   message.info(msg, options)
 
- ### 代码演示 
+### 代码演示 
 
 <embed src="@components/message/demos/basic-message.md" /> 
+
+<embed src="@components/message/demos/basic-deepen-message.md" /> 
+
+<embed src="@components/message/demos/basic-close-message.md" /> 
+
+<embed src="@components/message/demos/basic-noicon-message.md" /> 
 
 <embed src="@components/message/demos/contextContainer.md" /> 
 
