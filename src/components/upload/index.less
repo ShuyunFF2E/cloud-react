@@ -139,12 +139,13 @@
 			height: 54px;
 			padding: 16px;
 			margin-top: 4px;
+			border-radius: 2px;
 			font-size: @size-big;
 			box-sizing: border-box;
 			color: @gray-9;
 
 			&:first-child {
-				margin-top: 8px;
+				margin-top: 4px;
 			}
 
 			&:hover {
@@ -158,6 +159,31 @@
 			&-error {
 				color: @red-4;
 			}
+
+			&-info {
+				// max-width: 300px;
+				display: flex;
+				align-items: center;
+				column-gap: 16px;
+
+				&-detail {
+					width: 28px;
+					height: 28px;
+					flex-basis: 28px;
+
+					> img {
+						max-width: 28px;
+					}
+				}
+			}
+
+			&-name {
+				.text-overflow-ellipsis();
+			}
+		}
+
+		&-type-icon {
+			font-size: 28px;
 		}
 
 		&-pic {

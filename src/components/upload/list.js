@@ -1,149 +1,189 @@
-import React, { Component } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { noop } from '@utils';
 
 import Icon from '../icon';
 import Tooltip from '../tooltip';
-import { TYPE, PREFIX } from './constant';
+import { TYPE, PREFIX, getFileTypeIcon } from './constant';
+
+const { ColorIcon } = Icon;
 
 const prefix = `${PREFIX}-list`;
 
-const Text = props => {
-	const { list, disabled, onRemove } = props;
+const TextItem = ({ item, disabled, onRemove }) => {
+  const iconType = getFileTypeIcon(item);
+  const { name, status } = item;
 
-	return list.map(item => {
-		const { name, status } = item;
-		const content = status === 'error' ? '上传失败' : '';
-		return (
-			<Tooltip content={content} key={item.id}>
-				<div key={name} className={`${prefix}-text`}>
-					<span className={`${prefix}-text-${status}`}>{name}</span>
-					{!disabled && (
-						<div className={`${prefix}-text-actions`}>
-							<div className={`${prefix}-delete`}>
-								<Icon
-									type="close"
-									style={{ fontSize: '14px' }}
-									onClick={() => {
-										onRemove(item);
-									}}
-								/>
-							</div>
-						</div>
-					)}
-				</div>
-			</Tooltip>
-		)
-	});
+  const nameRef = useRef();
+
+  const [ show, setShow ] = useState(false);
+  const [ content, setContent ] = useState('');
+
+  useEffect(() => {
+    if (nameRef.current) {
+      const { width } = nameRef.current.getBoundingClientRect();
+      if (width > 270) {
+        setShow(true);
+        setContent(name);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (status === 'error') {
+      setContent('上传失败');
+    }
+  }, [ item.status ]);
+
+  return (
+    <Tooltip content={content} key={item.id}>
+      <div key={name} className={`${prefix}-text`}>
+        <div className={`${prefix}-text-info`}>
+          <div className={`${prefix}-text-info-detail`}>
+            {iconType === 'pic' ? (
+              <img src={item.url} alt="" />
+            ) : (
+              <ColorIcon type={iconType} className={`${prefix}-type-icon`} />
+            )}
+          </div>
+          {show ? (
+            <span ref={nameRef} style={{ maxWidth: 270 }} className={`${prefix}-text-name ${prefix}-text-${status}`}>{name}</span>
+          ) : (
+            <span ref={nameRef} className={`${prefix}-text-name ${prefix}-text-${status}`}>{name}</span>
+          )}
+        </div>
+        {!disabled && (
+          <div className={`${prefix}-text-actions`}>
+            <div className={`${prefix}-delete`}>
+              <Icon
+                type="close"
+                style={{ fontSize: '14px' }}
+                onClick={() => {
+                  onRemove(item);
+                }}
+              />
+            </div>
+          </div>
+        )}
+      </div>
+    </Tooltip>
+  );
 };
 
-const Picture = props => {
-	const { list, hasPreview, disabled, onRemove, onPreview, onReUpload } = props;
-
-	return list.map((item, index) => {
-		const classes = classNames(`${prefix}-pic`, {
-			[`${prefix}-pic-${item.status}`]: true
-		});
-		if (item.status === 'error') {
-			return (
-				<Tooltip content="上传失败" key={item.id}>
-					<div className={classes}>
-						<div style={{ backgroundImage: `url(${item.url})` }} className={`${prefix}-pic-image`} />
-						{!disabled && (
-							<div className={`${prefix}-pic-icons`}>
-							<div className={`${prefix}-delete`}>
-								<Icon
-									type="close"
-									style={{ fontSize: '14px' }}
-									onClick={() => {
-										onRemove(item);
-									}}
-								/>
-							</div>
-						</div>
-						)}
-					</div>
-				</Tooltip>
-			)
-		}
-		return (
-			<div key={item.id} className={classes}>
-				<div style={{ backgroundImage: `url(${item.url})` }} className={`${prefix}-pic-image`} />
-				<div className={`${prefix}-pic-icons`}>
-					{hasPreview && (
-						<Icon
-							type="view"
-							style={{ fontSize: '17px', marginRight: disabled ? 0 : 18 }}
-							onClick={() => {
-								onPreview(item);
-							}}
-						/>
-					)}
-					{!disabled && (
-						<>
-							<Icon
-								type="edit"
-								style={{ fontSize: '14px' }}
-								onClick={() => {
-									onReUpload({...item, index});
-								}}
-							/>
-							<div className={`${prefix}-delete`}>
-								<Icon
-									type="close"
-									style={{ fontSize: '14px' }}
-									onClick={() => {
-										onRemove(item);
-									}}
-								/>
-							</div>
-						</>
-					)}
-				</div>
-			</div>
-		);
-	});
+const Text = (props) => {
+  const { list, ...otherProps } = props;
+  return list.map((item) => <TextItem key={item.id} {...otherProps} item={item} />);
 };
 
-class UploadList extends Component {
-	render() {
-		const { fileList = [], type, hasPreview, disabled, onRemove, onPreview, onReUpload } = this.props;
+const Picture = (props) => {
+  const {
+    list, hasPreview, disabled, onRemove, onPreview, onReUpload
+  } = props;
 
-		const classes = classNames(`${prefix}`, {
-			[`${prefix}-${type}`]: type === TYPE.PICTURE,
-			[`${prefix}-${type}-multiple`]: fileList.length > 1,
-		});
+  return list.map((item, index) => {
+    const classes = classNames(`${prefix}-pic`, {
+      [`${prefix}-pic-${item.status}`]: true,
+    });
+    if (item.status === 'error') {
+      return (
+        <Tooltip content="上传失败" key={item.id}>
+          <div className={classes}>
+            <div style={{ backgroundImage: `url(${item.url})` }} className={`${prefix}-pic-image`} />
+            {!disabled && (
+              <div className={`${prefix}-pic-icons`}>
+                <div className={`${prefix}-delete`}>
+                  <Icon
+                    type="close"
+                    style={{ fontSize: '14px' }}
+                    onClick={() => {
+                      onRemove(item);
+                    }}
+                  />
+                </div>
+              </div>
+            )}
+          </div>
+        </Tooltip>
+      );
+    }
+    return (
+      <div key={item.id} className={classes}>
+        <div style={{ backgroundImage: `url(${item.url})` }} className={`${prefix}-pic-image`} />
+        <div className={`${prefix}-pic-icons`}>
+          {hasPreview && (
+            <Icon
+              type="view"
+              style={{ fontSize: '17px', marginRight: disabled ? 0 : 18 }}
+              onClick={() => {
+                onPreview(item);
+              }}
+            />
+          )}
+          {!disabled && (
+            <>
+              <Icon
+                type="edit"
+                style={{ fontSize: '14px' }}
+                onClick={() => {
+                  onReUpload({ ...item, index });
+                }}
+              />
+              <div className={`${prefix}-delete`}>
+                <Icon
+                  type="close"
+                  style={{ fontSize: '14px' }}
+                  onClick={() => {
+                    onRemove(item);
+                  }}
+                />
+              </div>
+            </>
+          )}
+        </div>
+      </div>
+    );
+  });
+};
 
-		return (
-			<div className={classes}>
-				{type === TYPE.DEFAULT ? (
-					<Text disabled={disabled} list={fileList} onRemove={onRemove} />
-				) : (
-					<Picture
-						disabled={disabled}
-						list={fileList}
-						hasPreview={hasPreview}
-						onRemove={onRemove}
-						onPreview={onPreview}
-						onReUpload={onReUpload}
-					/>
-				)}
-			</div>
-		);
-	}
+function UploadList(props) {
+  const {
+    fileList = [], type, hasPreview, disabled, onRemove, onPreview, onReUpload
+  } = props;
+
+  const classes = classNames(`${prefix}`, {
+    [`${prefix}-${type}`]: type === TYPE.PICTURE,
+    [`${prefix}-${type}-multiple`]: fileList.length > 1,
+  });
+
+  return (
+    <div className={classes}>
+      {type === TYPE.DEFAULT ? (
+        <Text disabled={disabled} list={fileList} onRemove={onRemove} />
+      ) : (
+        <Picture
+          disabled={disabled}
+          list={fileList}
+          hasPreview={hasPreview}
+          onRemove={onRemove}
+          onPreview={onPreview}
+          onReUpload={onReUpload}
+        />
+      )}
+    </div>
+  );
 }
 
 UploadList.propTypes = {
-	fileList: PropTypes.array,
-	type: PropTypes.oneOf([TYPE.PICTURE, TYPE.DEFAULT]),
-	onRemove: PropTypes.func
+  fileList: PropTypes.array,
+  type: PropTypes.oneOf([ TYPE.PICTURE, TYPE.DEFAULT ]),
+  onRemove: PropTypes.func,
 };
 
 UploadList.defaultProps = {
-	fileList: [],
-	type: TYPE.DEFAULT,
-	onRemove: noop
+  fileList: [],
+  type: TYPE.DEFAULT,
+  onRemove: noop,
 };
 
 export default UploadList;
