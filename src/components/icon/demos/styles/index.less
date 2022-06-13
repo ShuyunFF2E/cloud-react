@@ -1,0 +1,47 @@
+.icon-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  padding: 0;
+  margin-top: 18px;
+  .icon-card {
+    display: inline-block;
+    width: 17%;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.65);
+    transition: color 0.3s, border-color 0.3s, background-color 0.3s;
+    cursor: pointer;
+    border: 1px solid #f3f3f3;
+
+    &:hover {
+      background: var(--shuyunBlue1);
+      color: var(--shuyunBlue4);
+      border-color: var(--shuyunBlue4);
+      .icon-area {
+        transform: scale(1.2);
+      }
+      &::after {
+        background-color: var(--shuyunBlue4);
+      }
+    }
+
+    &::after {
+      content: '';
+      display: block;
+      height: 5px;
+      transition: background-color 0.3s;
+    }
+
+    .icon-area {
+      height: 80px;
+      line-height: 80px;
+      transition: transform 0.3s;
+    }
+    .text-area {
+      height: 20px;
+      line-height: 20px;
+      margin-bottom: 12px;
+      cursor: pointer;
+    }
+  }
+}
