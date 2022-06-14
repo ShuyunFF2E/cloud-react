@@ -91,12 +91,13 @@ function Popover(props) {
 
         <section className={`${classSelector}-btn`} ref={ref}>
           {showCancelBtn && (
-            <Button onClick={handleCancelClick} className={cancelBtnClass} {...cancelBtnOpts}>
+            <Button onClick={handleCancelClick} size="small" className={cancelBtnClass} {...cancelBtnOpts}>
               {cancelBtnText}
             </Button>
           )}
           {showConfirmBtn && (
             <Button
+              size="small"
               type="primary"
               id={`${confirmBtnClass}`}
               onClick={handleConfirmClick}
