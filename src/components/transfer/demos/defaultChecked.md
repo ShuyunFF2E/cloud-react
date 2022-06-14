@@ -17,18 +17,18 @@ export default class TransferDemo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        value: [1, 5]
+        value: ['3', '6']
     }
     this._handleChange = this.handleChange.bind(this);
   }
 
   get data() {
     const data = [];
-    for (let i = 1; i <= 10; i++) {
+    for (let i = 1; i <= 6; i++) {
       data.push({
-        key: i,
-        label: `内容${i}`,
-        disabled: i === 3
+        id: '' + i,
+        name: `备选文字${i}`,
+        disableSelected: ['4', '5'].includes(i)
       });
     }
     return data;
@@ -45,8 +45,8 @@ export default class TransferDemo extends React.Component {
         <Transfer data={this.data}
                   titles={titles}
                   filterable
-                  leftDefaultChecked={[4, 6]}
-                  rightDefaultChecked={[5]}
+                  leftDefaultChecked={['4']}
+                  rightDefaultChecked={['6']}
                   value={this.state.value}
                   onChange={this._handleChange} />
     )

@@ -24,11 +24,11 @@ export default class TransferDemo extends React.Component {
 
   get data() {
     const data = [];
-    for (let i = 1; i <= 10; i++) {
+    for (let i = 1; i <= 6; i++) {
       data.push({
-        key: i,
-        label: `内容${i}`,
-        disabled: false
+        id: '' + i,
+        name: `备选文字${i}`,
+        disableSelected: [4, 5].includes(i)
       });
     }
     return data;
