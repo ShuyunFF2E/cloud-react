@@ -36,7 +36,7 @@ const columns = [
 export default function CTableDemo() {
   return (
     <CTable
-      style={{ width: '100%', height: 360 }}
+      style={{ width: '100%', height: 370 }}
       supportRadio
       supportPage
       lightCheckedRow

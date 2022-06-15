@@ -94,7 +94,8 @@ export default function CTableDemo() {
             render: () => {
               const iconStyle = {
                 paddingRight: 16,
-                cursor: 'pointer'
+                cursor: 'pointer',
+                lineHeight: '20px',
               };
               return (
                 <div className="custom-operate" style={{ display: 'flex', color: 'rgba(0, 0, 0, 0.45)' }}>

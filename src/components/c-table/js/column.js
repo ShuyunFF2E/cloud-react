@@ -118,7 +118,7 @@ export default class Column {
         className: `${tablePrefixCls}-drag-column`,
         width: 40,
         render: () => {
-          return <Icon type="move" />;
+          return <Icon type="move" style={{ lineHeight: '20px' }} />;
         },
       });
     }
@@ -329,6 +329,7 @@ export default class Column {
     const { leafNodesMap } = _this;
     return {
       title: '',
+      className: `${tablePrefixCls}-radio-column`,
       dataIndex: 'radio',
       key: 'radio',
       width: 40,

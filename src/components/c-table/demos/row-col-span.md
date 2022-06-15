@@ -102,7 +102,7 @@ const columns = [
     dataIndex: '',
     key: 'f',
     render() {
-      return <Button type="link" size="small">查看详情</Button>;
+      return <Button type="link" size="small" style={{ padding: '0 6px' }}>查看详情</Button>;
     },
     onCell(_, index) {
       if (index === 5) {
