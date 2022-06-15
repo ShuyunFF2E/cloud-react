@@ -63,6 +63,7 @@ export default class ModalDemo extends React.Component {
 				</Button>
 				<Modal
 					title="自定义样式弹窗"
+					size="medium"
 					headerStyle={headerStyle}
 					bodyStyle={bodyStyle}
 					footerStyle={footerStyle}

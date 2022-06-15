@@ -60,6 +60,7 @@ export default class ModalDemo extends React.Component {
 				</Button>
 				<Modal
 					ignoreFrame
+					size="medium"
 					visible={this.state.visible}
 					onOk={this.handleOk}
 					onCancel={this.handleCancel}
@@ -97,7 +98,7 @@ class SecondModal extends React.Component {
 				<Button type="normal" onClick={this.openInfoModal}>
 					信息提示弹出框
 				</Button>
-				<Modal hasFooter={false} visible={this.state.visible} onClose={this.handleClose}>
+				<Modal size="medium" hasFooter={false} visible={this.state.visible} onClose={this.handleClose}>
 					<ConfirmModal />
 				</Modal>
 			</div>

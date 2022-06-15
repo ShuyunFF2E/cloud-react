@@ -53,8 +53,14 @@
     width: 920px;
   }
 
+  &-container-size-auto {
+    width: auto;
+  }
+
   &-container {
     min-height: 320px;
+    min-width: 440px;
+    max-width: 50%;
     margin: 0 auto;
     position: relative;
     top: 20%;
@@ -125,6 +131,7 @@
   &-body {
     max-height: calc(100vh - 200px);
     color: @color-gray4;
+    background-color: white;
     padding: 16px;
     overflow: auto;
     box-sizing: border-box;

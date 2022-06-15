@@ -18,7 +18,7 @@ group:
 | 属性               | 说明                                     | 类型                | 默认值  |
 | ------------------ | ---------------------------------------- | ------------------- | ------- |
 | visible            | 是否显示 modal 弹出框                    | boolean             | `false` |
-| size              | 弹出框的尺寸, `small`,`medium`,`large`  | string              | `medium` |
+| size              | 弹出框的尺寸, `small`,`medium`,`large`,`auto`  | string              | `auto` |
 | title              | 弹出框的标题                             | string              | `title` |
 | modalStyle         | 设置弹出框样式                           | object              | -       |
 | headerStyle        | 设置弹出框header样式                           | object              | -       |
