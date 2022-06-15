@@ -59,6 +59,7 @@ export default class ModalDemo extends React.Component {
 				</Button>
 				<Modal
 					title="异步弹出"
+					size="medium"
 					visible={this.state.visible}
 					clickMaskCanClose={this.state.clickMaskCanClose}
 					showConfirmLoading={this.state.showConfirmLoading}

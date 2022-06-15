@@ -78,6 +78,7 @@ export default class ModalDemo extends React.Component {
 				</Button>
 				<Modal
 					title="异步关闭"
+					size="medium"
 					visible={this.state.visible}
 					showMask={this.state.showMask}
 					clickMaskCanClose={this.state.clickMaskCanClose}
