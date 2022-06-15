@@ -38,9 +38,9 @@ const columns = [
         dataIndex: 'operator',
         render: (v, row) => (
             <div>
-                <Button disabled={row.id === '121410327'} type="link" size="small">编辑</Button>
-                <Button type="link" size="small">查看报告</Button>
-                <Button disabled={row.id === '121410327'} type="link" size="small" colorType="danger">删除</Button>
+                <Button disabled={row.id === '121410327'} type="link" size="small" style={{ padding: '0 11px' }}>编辑</Button>
+                <Button type="link" size="small" style={{ padding: '0 11px' }}>查看报告</Button>
+                <Button disabled={row.id === '121410327'} type="link" size="small" colorType="danger" style={{ padding: '0 11px' }}>删除</Button>
             </div>
         ),
         width: 300,
@@ -60,7 +60,7 @@ export default function CTableDemo() {
             setStyle({ width: '100%', height: `calc(100% - ${btnHeight}px)` })
           }}>重置表格尺寸</Button>
           <CTable
-            style={{ ...style, marginTop: 15 }}
+            style={{ ...style, marginTop: 20 }}
             useCustomScroll={false}
             supportPage
             isDelay

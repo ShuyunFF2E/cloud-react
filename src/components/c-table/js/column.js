@@ -115,7 +115,7 @@ export default class Column {
         key: 'cTableDrag',
         className: `${tablePrefixCls}-drag-column`,
         width: 40,
-        render: () => <Icon type="move" />,
+        render: () => <Icon type="move" style={{ lineHeight: '20px' }} />,
       });
     }
 
@@ -204,7 +204,7 @@ export default class Column {
               width={135}
               placement="bottom-center"
               className={`${tablePrefixCls}-filter-content`}
-              content={
+              content={(
                 <Checkbox.Group
                   layout="v"
                   value={_this.state.filterValue}
@@ -216,7 +216,7 @@ export default class Column {
                     </Checkbox>
                   ))}
                 </Checkbox.Group>
-              }
+              )}
               // onCancelClick={this.onFilterReset}
               // onConfirmClick={this.onFilterConfirm}
             >
@@ -245,26 +245,20 @@ export default class Column {
           <li>
             <Checkbox
               disabled={
-                item.show
-                  && originColumnData.filter((i) => i.show).length === 1
+                item.show && originColumnData.filter((i) => i.show).length === 1
               }
               checked={item.show}
               onChange={(checked) => {
                 Object.assign(item, { show: !!checked });
                 if (_this.props.supportMemory) {
-                  setConfig(
-                    _this.state.originColumnData,
-                    _this.props.tableId,
-                  );
+                  setConfig(_this.state.originColumnData, _this.props.tableId);
                 }
                 this.setColumnData();
                 _this.setHeaderStyle();
                 _this.setFixedStyle();
               }}
             >
-              {typeof item.title === 'function'
-                ? item.title(item)
-                : item.title}
+              {typeof item.title === 'function' ? item.title(item) : item.title}
             </Checkbox>
           </li>
         ))}
@@ -318,6 +312,7 @@ export default class Column {
     const { leafNodesMap } = _this;
     return {
       title: '',
+      className: `${tablePrefixCls}-radio-column`,
       dataIndex: 'radio',
       key: 'radio',
       width: 40,
