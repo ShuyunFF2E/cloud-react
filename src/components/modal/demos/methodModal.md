@@ -65,7 +65,7 @@ class SecondModal extends React.Component {
 			className: 'test'
 		};
 		return (
-			<Modal visible {...attr} onOk={this.handleOk} onClose={this.handleClose} onCancel={this.handleClose}>
+			<Modal size="medium" visible {...attr} onOk={this.handleOk} onClose={this.handleClose} onCancel={this.handleClose}>
 				这是一个通过createModal方法创建的modal，接受字符串、html、JSX
 			</Modal>
 		);
@@ -77,7 +77,7 @@ function modalEntity(props) {
 		props.onOk('你关闭了一个函数式组件');
 	};
 	return (
-		<Modal visible title="打开一个嵌套的函数组件" onOk={handleOk}>
+		<Modal size="medium" visible title="打开一个嵌套的函数组件" onOk={handleOk}>
 			这是内部嵌套的一个modal，高级组件
 		</Modal>
 	);

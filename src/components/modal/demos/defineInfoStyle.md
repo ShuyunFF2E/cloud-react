@@ -25,8 +25,6 @@ export default class ModalDemo extends React.Component {
 			title: '自定义弹窗样式',
 			style: {
 				background: 'rgb(232, 76, 76)',
-				color: '#FFF',
-				fontSize: '20px'
 			},
 			body: '我是背景色是红色的提示',
 			onCancel: () => {}

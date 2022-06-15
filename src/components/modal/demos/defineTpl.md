@@ -88,11 +88,12 @@ export default class ModalDemo extends React.Component {
 				<Button type="normal" onClick={this.openHideFooterModal}>
 					隐藏底部区域
 				</Button>
-				<Modal visible={this.state.visibleBody} title={this.state.title} onOk={this.closeModal} onCancel={this.closeModal} onClose={this.closeModal}>
+				<Modal size="medium" visible={this.state.visibleBody} title={this.state.title} onOk={this.closeModal} onCancel={this.closeModal} onClose={this.closeModal}>
 					<Body />
 				</Modal>
 
 				<Modal
+					size="medium"
 					visible={this.state.visibleFooter}
 					footer={this.state.footer}
 					onOk={this.closeModal}
@@ -102,6 +103,7 @@ export default class ModalDemo extends React.Component {
 				</Modal>
 				
 				<Modal
+					size="medium"
 					visible={this.state.visibleFooter2}
 					hasFooter={this.state.hasFooter}
 					onOk={this.closeModal}
@@ -111,6 +113,7 @@ export default class ModalDemo extends React.Component {
 				</Modal>
 
 				<Modal
+					size="medium"
 					visible={this.state.visibleFooterText}
 					okText={this.state.okText}
 					cancelText={this.state.cancelText}
