@@ -20,15 +20,15 @@ export default class ButtonDemo extends React.Component {
 		return (
 			<React.Fragment>
 				<div>
-					<Button type="primary">primary</Button>
+					<Button type="primary">主要</Button>
 					{blank}
-					<Button type="normal">normal</Button>
+					<Button type="normal">普通</Button>
 					{blank}
-					<Button type="dashed">dashed</Button>
+					<Button type="dashed">幽灵</Button>
 					{blank}
-					<Button type="link">link</Button>
+					<Button href="https://www.baidu.com/" target="_blank" title="百度一下，你就知道" type="link">链接</Button>
 					{blank}
-					<Button type="text">text</Button>
+					<Button type="text">文字</Button>
 				</div>
 			</React.Fragment>
 		);

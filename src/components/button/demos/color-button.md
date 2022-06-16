@@ -13,38 +13,46 @@ desc: 按钮三种颜色类型：tips（提示按钮）、danger（危险按钮�
 import React from 'react';
 import { Button, InputNumber } from 'cloud-react';
 
-const blank = '\u00A0';
-
 export default class ButtonDemo extends React.Component {
 	render() {
 		return (
-			<React.Fragment>
-				<div>
-					<Button type="primary" colorType="tips">primary-tips</Button>
-					{blank}
-					<Button type="normal" colorType="tips">normal-tips</Button>
-					{blank}
-					<Button type="link" colorType="tips" >link-tips</Button>
-					{blank}
-					<Button type="text" colorType="tips" >text-tips</Button>
-					<div style={{ marginTop:10 }}/>
-					<Button type="primary" colorType="danger">primary-danger</Button>
-					{blank}
-					<Button type="normal" colorType="danger">normal-danger</Button>
-					{blank}
-					<Button type="link" colorType="danger">link-danger</Button>
-					{blank}
-					<Button type="text" colorType="danger">text-danger</Button>
-					<div style={{ marginTop:10 }}/>
-					<Button type="primary" colorType="success">primary-success</Button>
-					{blank}
-					<Button type="normal" colorType="success">normal-success</Button>
-					{blank}
-					<Button type="link" colorType="success">link-success</Button>
-					{blank}
-					<Button type="text" colorType="success">text-success</Button>
-				</div>
-			</React.Fragment>
+			<ul>
+				<li style={{ marginBottom: 10 }}>
+					<h5>主要：</h5>
+					<Button type="primary" style={{ marginRight: 5 }}>主题色</Button>
+					<Button type="primary" style={{ marginRight: 5 }} colorType="tips">警告</Button>
+					<Button type="primary" style={{ marginRight: 5 }} colorType="danger">危险</Button>
+					<Button type="primary" style={{ marginRight: 5 }} colorType="success">成功</Button>
+				</li>
+				<li style={{ marginBottom: 10 }}>
+					<h5>普通：</h5>
+					<Button style={{ marginRight: 5 }}>主题色</Button>
+					<Button style={{ marginRight: 5 }} colorType="tips">警告</Button>
+					<Button style={{ marginRight: 5 }} colorType="danger">危险</Button>
+					<Button style={{ marginRight: 5 }} colorType="success">成功</Button>
+				</li>
+				<li style={{ marginBottom: 10 }}>
+					<h5>幽灵：</h5>
+					<Button type="dashed" style={{ marginRight: 5 }}>主题色</Button>
+					<Button type="dashed" style={{ marginRight: 5 }} colorType="tips">警告</Button>
+					<Button type="dashed" style={{ marginRight: 5 }} colorType="danger">危险</Button>
+					<Button type="dashed" style={{ marginRight: 5 }} colorType="success">成功</Button>
+				</li>
+				<li style={{ marginBottom: 10 }}>
+					<h5>链接：</h5>
+					<Button type="link" style={{ marginRight: 5 }}>主题色</Button>
+					<Button type="link" style={{ marginRight: 5 }} colorType="tips">警告</Button>
+					<Button type="link" style={{ marginRight: 5 }} colorType="danger">危险</Button>
+					<Button type="link" style={{ marginRight: 5 }} colorType="success">成功</Button>
+				</li>
+				<li style={{ marginBottom: 10 }}>
+					<h5>文字：</h5>
+					<Button type="text" style={{ marginRight: 5 }}>主题色</Button>
+					<Button type="text" style={{ marginRight: 5 }} colorType="tips">警告</Button>
+					<Button type="text" style={{ marginRight: 5 }} colorType="danger">危险</Button>
+					<Button type="text" style={{ marginRight: 5 }} colorType="success">成功</Button>
+				</li>
+			</ul>
 		);
 	}
 }
