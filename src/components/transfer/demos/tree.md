@@ -25,32 +25,32 @@ export default class TransferDemo extends React.Component {
   get data() {
     return [
       {
-        id: '1',
-        name: '一级文字',
+        key: '1',
+        label: '一级文字',
         children: [
           {
-            id: '1-1',
-            name: '二级文字',
+            key: '1-1',
+            label: '二级文字',
           }
         ]
       },
       {
-        id: '2',
-        name: '一级文字',
+        key: '2',
+        label: '一级文字',
         children: [
           {
-            id: '2-1',
-            name: '二级文字',
+            key: '2-1',
+            label: '二级文字',
             pid: '2',
             children: [
               {
-                id: '2-1-1',
-                name: '三级文字',
+                key: '2-1-1',
+                label: '三级文字',
                 pid: '2-1',
               },
               {
-                id: '2-1-2',
-                name: '三级文字',
+                key: '2-1-2',
+                label: '三级文字',
                 pid: '2-1',
               }
             ]
@@ -58,12 +58,12 @@ export default class TransferDemo extends React.Component {
         ]
       },
       {
-        id: '3',
-        name: '一级文字',
+      key: '3',
+        label: '一级文字',
         children: [
           {
-            id: '3-1',
-            name: '二级文字',
+          key: '3-1',
+            label: '二级文字',
             pid: '3',
           }
         ]

@@ -26,8 +26,8 @@ export default class TransferDemo extends React.Component {
     const data = [];
     for (let i = 1; i <= 5; i++) {
       data.push({
-        id: '' + i,
-        name: `备选文字${i}`
+        key: '' + i,
+        label: `备选文字${i}`
       });
     }
     return data;

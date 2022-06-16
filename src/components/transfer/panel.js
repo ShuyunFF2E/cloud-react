@@ -3,11 +3,35 @@ import { prefixCls } from '@utils';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Checkbox from '../checkbox';
-import Tree from '../tree';
-import { getLeafNodes } from './utils';
+import Icon from '../icon';
+import Input from '../input';
+import {
+  getLeafNodes, loop, filterTree, copy,
+} from './utils';
 
 const classSelector = `${prefixCls}-transfer`;
+
+/**
+ * 数据源数据结构
+ * {
+ *  key: number | string, // 唯一标识
+ *  label: string       // 显示内容
+ *  disabled: boolean, // 是否禁用
+ *  isFold: boolean, // 是否折叠收起
+ *  checked: boolean, // 是否选中
+ *  indeterminate: boolean, // 是否半选
+ *  children: [], // 子节点同上述类型 没有子节点的节点不需要传递children
+ * }
+ */
+
 class TransferPanel extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      searchValue: '',
+    };
+  }
+
   get leafNodes() {
     return getLeafNodes(this.props.data);
   }
@@ -17,12 +41,48 @@ class TransferPanel extends Component {
   }
 
   onAllChange = (isChecked) => {
-    const checked = isChecked ? this.leafNodes : [];
+    const checked = isChecked ? this.leafNodes.map((node) => node.key) : [];
     this.props.onChange(checked);
   };
 
-  onSelect = (_, nodes) => {
-    this.props.onChange(nodes);
+  onSelect = (isChecked, item) => {
+    const { checked } = this.props;
+    // 确定当前应该选中的叶子节点
+    let currentChecked = checked.slice();
+    // 获取所有受影响的叶子结点
+    const leaf = [];
+    loop([ item ], (node) => {
+      if (!node.children) {
+        leaf.push(node.key);
+      }
+    });
+    if (isChecked) {
+      // 去重合并
+      currentChecked = leaf.concat(
+        currentChecked.filter((key) => !leaf.includes(key)),
+      );
+    } else {
+      // 删除结点
+      currentChecked = currentChecked.filter((key) => !leaf.includes(key));
+    }
+    this.props.onChange(currentChecked);
+  };
+
+  onSearchValueChange = (evt) => {
+    this.setState({
+      searchValue: evt.target.value,
+    });
+  };
+
+  filterData = (data, searchValue) => {
+    if (!searchValue) {
+      return data;
+    }
+    const result = filterTree(
+      copy(data),
+      (node) => node.label.indexOf(searchValue) > -1,
+    );
+    return result;
   };
 
   renderHeader() {
@@ -50,41 +110,70 @@ class TransferPanel extends Component {
     );
   }
 
-  renderContent() {
+  renderChildren(data) {
+    const { onFold } = this.props;
     const { onSelect, isTree } = this;
-    const {
-      data, filterable, value, checked,
-    } = this.props;
-    // value更新后 需要重新渲染Tree
-    const key = JSON.stringify(value);
-    return (
+    return data.map((item) => (
       <div
+        key={item.key}
         className={classNames(
-          `${classSelector}-panel-content`,
+          `${classSelector}-panel-wrapper`,
+          item.isFold ? 'fold' : '',
           isTree ? '' : 'normal',
         )}
       >
-        {data.length ? (
-          <Tree
-            key={key}
-            treeData={data}
-            selectedValue={checked}
-            onSelectedNode={onSelect}
-            isUnfold
-            supportCheckbox
-            supportSearch={filterable}
-          />
-        ) : null}
+        <div
+          className={classNames(
+            'panel-item',
+            `level-${item.level}`,
+            item.disabled ? 'disabled' : '',
+          )}
+          style={{ paddingLeft: isTree ? (16 + 12) * item.level + 12 : 4 }}
+        >
+          {item.children ? (
+            <Icon
+              type={item.isFold ? 'down' : 'up'}
+              onClick={() => onFold(item)}
+              className="panel-item-icon"
+            />
+          ) : (
+            <div className="panel-item-place" />
+          )}
+          <Checkbox
+            checked={item.checked}
+            indeterminate={item.indeterminate}
+            onChange={(checked) => onSelect(checked, item)}
+            disabled={item.disabled}
+          >
+            {item.label}
+          </Checkbox>
+        </div>
+        {item.children ? this.renderChildren(item.children) : null}
       </div>
-    );
+    ));
   }
 
   render() {
-    const { style } = this.props;
+    const { style, data, filterable } = this.props;
+    const { searchValue } = this.state;
+    const { onSearchValueChange, isTree } = this;
+    const filteredData = this.filterData(data, searchValue);
     return (
       <div className={`${classSelector}-panel`} style={style}>
         {this.renderHeader()}
-        {this.renderContent()}
+        <div className={classNames(`${classSelector}-panel-content`, isTree)}>
+          {filterable && data.length ? (
+            <div className={classNames(`${classSelector}-panel-search`)}>
+              <Input
+                suffix={<Icon type="search" />}
+                value={searchValue}
+                onChange={onSearchValueChange}
+                style={{ width: 'auto' }}
+              />
+            </div>
+          ) : null}
+          {this.renderChildren(filteredData)}
+        </div>
       </div>
     );
   }
@@ -98,7 +187,6 @@ TransferPanel.propTypes = {
   style: PropTypes.object,
   filterable: PropTypes.bool,
   onChange: PropTypes.func,
-  value: PropTypes.array,
 };
 TransferPanel.defaultProps = {
   data: [],

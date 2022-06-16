@@ -5,102 +5,174 @@ import classNames from 'classnames';
 import Icon from '../icon';
 import TransferPanel from './panel';
 import './index.less';
-import { getLeafNodes, getSourceTree, getTargetTree } from './utils';
+import {
+  initTree,
+  calcTree,
+  getLeafNodes,
+  getSourceTree,
+  getTargetTree,
+  generateTreeMap,
+} from './utils';
 
 const classSelector = `${prefixCls}-transfer`;
 class Transfer extends Component {
   constructor(props) {
     super(props);
+    this.init();
+  }
+
+  init() {
+    const {
+      data,
+      value,
+      leftDefaultChecked = [],
+      rightDefaultChecked = [],
+    } = this.props;
+    const base = initTree(data);
+    const sourceData = getSourceTree(base, value);
+    const sourceMap = generateTreeMap(sourceData);
+    calcTree(sourceMap, leftDefaultChecked);
+    const targetData = getTargetTree(base, value);
+    const targetMap = generateTreeMap(targetData);
+    calcTree(targetMap, rightDefaultChecked);
     this.state = {
-      leftChecked: [],
-      rightChecked: [],
+      leftChecked: leftDefaultChecked,
+      rightChecked: rightDefaultChecked,
+      value,
+      base,
+      sourceData,
+      sourceMap,
+      targetData,
+      targetMap,
     };
   }
 
-  componentDidMount() {
-    const { leftDefaultChecked, rightDefaultChecked } = this.props;
-    const { leafNodes } = this;
-    if (leftDefaultChecked.length) {
-      this.setState({
-        leftChecked: leafNodes.filter((node) => leftDefaultChecked.includes(node.id)),
-      });
+  static getDerivedStateFromProps(props, state) {
+    // value 更新后，树的数据随之更新
+    if (props.value !== state.value) {
+      const { base } = state;
+      const { value } = props;
+      const sourceData = getSourceTree(base, value);
+      const sourceMap = generateTreeMap(sourceData);
+      const targetData = getTargetTree(base, value);
+      const targetMap = generateTreeMap(targetData);
+      return {
+        value,
+        sourceData,
+        sourceMap,
+        targetData,
+        targetMap,
+      };
     }
-    if (rightDefaultChecked.length) {
-      this.setState({
-        rightChecked: leafNodes.filter((node) => rightDefaultChecked.includes(node.id)),
-      });
-    }
+    return null;
   }
+
+  onFold = (item, type) => {
+    if (type === 'source') {
+      const { sourceMap, sourceData } = this.state;
+      sourceMap[item.key].isFold = !sourceMap[item.key].isFold;
+      this.setState({
+        sourceData,
+        sourceMap,
+      });
+    }
+    if (type === 'target') {
+      const { targetMap, targetData } = this.state;
+      targetMap[item.key].isFold = !targetMap[item.key].isFold;
+      this.setState({
+        targetData,
+        targetMap,
+      });
+    }
+  };
 
   get leafNodes() {
-    const { data } = this.props;
-    return getLeafNodes(data);
-  }
-
-  get sourceData() {
-    const { data, value } = this.props;
-    return getSourceTree(data, value);
-  }
-
-  get targetData() {
-    const { data, value } = this.props;
-    return getTargetTree(data, value);
+    const { base } = this.state;
+    return getLeafNodes(base);
   }
 
   addToLeft = () => {
-    const { value } = this.props;
-    const { rightChecked } = this.state;
+    const { rightChecked, value } = this.state;
     const currentValue = value.slice();
     rightChecked.forEach((item) => {
-      const index = currentValue.indexOf(item.id);
+      const index = currentValue.indexOf(item);
       if (index > -1) {
         currentValue.splice(index, 1);
       }
     });
-    this.setState({ rightChecked: [] }, () => this.props.onChange(
-      currentValue,
-      'left',
-      rightChecked.map((_) => _.id),
-    ));
+    this.setState({ rightChecked: [] }, () => this.props.onChange(currentValue, 'left', rightChecked));
   };
 
   addToRight = () => {
-    const { value } = this.props;
-    const { leftChecked } = this.state;
+    const { leftChecked, value } = this.state;
     let currentValue = value.slice();
     leftChecked.forEach((item) => {
-      if (!value.includes(item.id)) {
-        currentValue = currentValue.concat(item.id);
+      if (!value.includes(item)) {
+        currentValue = currentValue.concat(item);
       }
     });
-    this.setState({ leftChecked: [] }, () => this.props.onChange(
-      currentValue,
-      'right',
-      leftChecked.map((_) => _.id),
-    ));
+    this.setState(
+      {
+        leftChecked: [],
+      },
+      () => this.props.onChange(currentValue, 'right', leftChecked),
+    );
   };
 
-  onSourceCheckedChange = (val) => {
-    this.setState({ leftChecked: val });
+  onSourceCheckedChange = (checkeds) => {
+    const { sourceData, sourceMap } = this.state;
+    Object.keys(sourceMap).forEach((key) => {
+      sourceMap[key].checked = false;
+      sourceMap[key].indeterminate = false;
+    });
+    calcTree(sourceMap, checkeds);
+    this.setState({
+      leftChecked: checkeds,
+      sourceMap,
+      sourceData,
+    });
   };
 
-  onTargetCheckedChange = (val) => {
-    this.setState({ rightChecked: val });
+  onSourceCheckedChange = (checkeds) => {
+    const { sourceData, sourceMap } = this.state;
+    Object.keys(sourceMap).forEach((key) => {
+      sourceMap[key].checked = false;
+      sourceMap[key].indeterminate = false;
+    });
+    calcTree(sourceMap, checkeds);
+    this.setState({
+      leftChecked: checkeds,
+      sourceData,
+      sourceMap,
+    });
+  };
+
+  onTargetCheckedChange = (checkeds) => {
+    const { targetData, targetMap } = this.state;
+    Object.keys(targetMap).forEach((key) => {
+      targetMap[key].checked = false;
+      targetMap[key].indeterminate = false;
+    });
+    calcTree(targetMap, checkeds);
+    this.setState({
+      rightChecked: checkeds,
+      targetData,
+      targetMap,
+    });
   };
 
   render() {
-    const { leftChecked, rightChecked } = this.state;
     const {
-      sourceData,
-      targetData,
+      sourceData, targetData, leftChecked, rightChecked, value,
+    } = this.state;
+    const {
+      onFold,
       onSourceCheckedChange,
       onTargetCheckedChange,
       addToLeft,
       addToRight,
     } = this;
-    const {
-      propsAlias, titles, filterable, style, value,
-    } = this.props;
+    const { titles, filterable, style } = this.props;
     return (
       <div className={classSelector}>
         <TransferPanel
@@ -110,28 +182,28 @@ class Transfer extends Component {
           type="source"
           filterable={filterable}
           titles={titles[0]}
-          propsAlias={propsAlias}
           checked={leftChecked}
+          onFold={(item) => onFold(item, 'source')}
           onChange={onSourceCheckedChange}
         />
         <div className={`${classSelector}-button`}>
+          {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
           <div
             className={classNames(
               `${classSelector}-button-text`,
               rightChecked.length && 'active',
             )}
-            onClick={() => {}}
-            onKeyDown={addToLeft}
+            onClick={addToLeft}
           >
             <Icon type="left" />
           </div>
+          {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
           <div
             className={classNames(
               `${classSelector}-button-text`,
               leftChecked.length && 'active',
             )}
-            onClick={() => {}}
-            onKeyDown={addToRight}
+            onClick={addToRight}
           >
             <Icon type="right" />
           </div>
@@ -143,8 +215,8 @@ class Transfer extends Component {
           type="target"
           filterable={filterable}
           titles={titles[1]}
-          propsAlias={propsAlias}
           checked={rightChecked}
+          onFold={(item) => onFold(item, 'target')}
           onChange={onTargetCheckedChange}
         />
       </div>
