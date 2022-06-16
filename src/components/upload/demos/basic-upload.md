@@ -59,13 +59,14 @@ export default class UploadDemo extends React.Component {
 	render() {
 		const props = {
 			// type: 'picture',
-			limit: 1,
+			// limit: 1,
 			size: 2,
 			multiple: true,
 			isShowIcon: false,
 			hasPreview: false,
             showBeforeConfirm: true,
             params: {test: 1},
+			// style: { width: 66, height: 66 },
             beforeConfirmBody: (
                 <span>
                     请确定您要上传文件么？

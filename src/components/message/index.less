@@ -3,124 +3,134 @@
 @message-prefix-cls: ~'@{prefix}-message';
 @text-color: @gray-9;
 
-@success-bg: @green-1;
+@bg: @color-white;
+@border-color: @gray-6;
+@close-x-color: @gray-6;
+@close-x-hover-color: @gray-7;
+
+@success-bg: @green-4;
 @success-color: @text-color;
-@success-border: @green-2;
-@success-x-color: @green-3;
-@success-x-hover-color: @green-3;
+@success-border: @green-4;
 @success-icon-color: @green-4;
 
-@error-bg: @red-1;
+@error-bg: @red-4;
 @error-color: @text-color;
-@error-border: @red-2;
-@error-x-color: @red-3;
-@error-x-hover-color: @red-3;
+@error-border: @red-4;
 @error-icon-color: @red-4;
 
-@info-bg: @blue-1;
+@info-bg: @blue-4;
 @info-color: @text-color;
-@info-border: @blue-2;
-@info-x-color: @blue-3;
-@info-x-hover-color: @blue-3;
+@info-border: @blue-4;
 @info-icon-color: @blue-4;
 
-@warn-bg: @orange-1;
+@warn-bg: @orange-4;
 @warn-color: @text-color;
-@warn-border: @orange-2;
-@warn-x-color: @orange-3;
-@warn-x-hover-color: @orange-3;
+@warn-border: @orange-4;
 @warn-icon-color: @orange-4;
 
-.cloud-message-type(@bg, @bgBorderColor, @msgTextColor, @closeColor, @closeHoverColor, @tagColor) {
-	background: @bg;
-	border: 1px solid @bgBorderColor;
-	.msg-text {
-		flex: 1;	
-		.msg-text-title {
-			color: @msgTextColor;
-		}
-	}
-	.close-icon {
-		color: @closeColor;
-		margin-top: 1px;
-		&:hover {
-			color: @closeHoverColor;
-		}
-	}
-	.msg-operate {
-		cursor: pointer;
-		color: @tagColor;
-	}
-	.tag-icon {
-		color: @tagColor;
-		margin-top: 1px;
-	}
+.cloud-message-type(@bg, @bgBorderColor, @msgTextColor, @tagColor) {
+  box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.1), 0 2px 8px 0 rgba(0, 0, 0, 0.04);
+  border-radius: 2px;
+  background: @bg;
+  .msg-text {
+    flex: 1;
+    color: @msgTextColor;
+    a,
+    a:link,
+    a:hover,
+    a:visited {
+      color: @color-blue5;
+      cursor: pointer;
+    }
+    a:active {
+      color: @color-blue6;
+    }
+  }
+  .close-icon {
+    color: @close-x-color;
+    margin-top: 1px;
+    &:hover {
+      color: @close-x-hover-color;
+    }
+  }
+
+  .tag-icon {
+    color: @tagColor;
+    margin-top: 1px;
+  }
 }
 
 .@{message-prefix-cls} {
-	position: fixed;
-	max-height: 100%;
-	overflow-y: auto;
-	z-index: @z-index-message;
-	top: 0;
-	left: 50%;
-	transform: translateX(-50%);
-	.notice {
-		display: inline-flex;
-		align-items: flex-start;
-		width: 400px;
-		min-height: 36px;
-		line-height: 18px;
-		border-radius: 2px;
-		overflow: hidden;
-		font-size: 12px;
-		padding: 8px 9px 8px 9px;
-		margin-top: 1px;
-		box-sizing: border-box;
-		transform: translateY(-35%);
-		opacity: 0;
-		transition: 0.5s;
-	}
-	.fade-in {
-		opacity: 1;
-		transform: translateY(0);
-	}
-	.fade-out {
-		opacity: 0;
-		transform: scale(0.95);
-	}
-	.tag-icon {
-		font-size: 14px;
-		margin-right: 10px;
-	}
-	.msg-text {
-		font-size: 14px;
-		line-height: 20px;
-		color: @gray-8;
-		margin-right: 8px;
-	}
-	.msg-operate {
-		line-height: 20px;
-		margin-right: 10px;
-		font-size: 14px;
-	}
-	.close-icon {
-		align-items: flex-end;
-		font-size: 16px;
-		cursor: pointer;
-		opacity: 0.6;
-	}
-	&-success {
-		.cloud-message-type(@success-bg, @success-border, @success-color, @success-x-color, @success-x-hover-color, @success-icon-color);
-	}
+  position: fixed;
+  max-height: 100%;
+  z-index: @z-index-message;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
 
-	&-error {
-		.cloud-message-type(@error-bg, @error-border, @error-color, @error-x-color, @error-x-hover-color, @error-icon-color);
-	}
-	&-info {
-		.cloud-message-type(@info-bg, @info-border, @info-color, @info-x-color, @info-x-hover-color, @info-icon-color);
-	}
-	&-warn {
-		.cloud-message-type(@warn-bg, @warn-border, @warn-color, @warn-x-color, @warn-x-hover-color, @warn-icon-color);
-	}
+  &-content {
+    display: inline-flex;
+    align-items: flex-start;
+    width: auto;
+    max-width: 400px;
+    min-height: 36px;
+    line-height: 18px;
+    border-radius: 2px;
+    overflow: hidden;
+    font-size: 12px;
+    padding: 8px;
+    box-sizing: border-box;
+    transform: translateY(-35%);
+    opacity: 0;
+    transition: 0.5s;
+  }
+  .fade-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .fade-out {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  .tag-icon {
+    font-size: 16px;
+    margin-right: 8px;
+  }
+  .msg-text {
+    font-size: 14px;
+    line-height: 20px;
+    color: @gray-8;
+  }
+  .close-icon {
+    align-items: flex-end;
+    margin-left: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    opacity: 0.6;
+  }
+  &-success {
+    .cloud-message-type(@bg, @border-color, @success-color, @success-icon-color);
+  }
+  &-error {
+    .cloud-message-type(@bg, @border-color, @error-color, @error-icon-color);
+  }
+  &-info {
+    .cloud-message-type(@bg, @border-color, @info-color, @info-icon-color);
+  }
+  &-warn {
+    .cloud-message-type(@bg, @border-color, @warn-color, @warn-icon-color);
+  }
+}
+
+.@{message-prefix-cls}-deepen.@{message-prefix-cls}-success {
+  .cloud-message-type(@success-bg, @success-border, @color-white, @color-white);
+}
+.@{message-prefix-cls}-deepen.@{message-prefix-cls}-error {
+  .cloud-message-type(@error-bg, @error-border, @color-white, @color-white);
+}
+.@{message-prefix-cls}-deepen.@{message-prefix-cls}-info {
+  .cloud-message-type(@info-bg, @info-border, @color-white, @color-white);
+}
+.@{message-prefix-cls}-deepen.@{message-prefix-cls}-warn {
+  .cloud-message-type(@warn-bg, @warn-border, @color-white, @color-white);
 }
