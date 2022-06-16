@@ -73,8 +73,8 @@ export default class UploadDemo extends React.Component {
                 </span>
             ),
 			labelText: '点击上传1',
-			headers: { 'x-token': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRJZCI6InF5d3hfc3l5al93cG5UcndFQUFBV082cmtsWWVmUzBvc0VEenFSMTBQQSIsInVzZXJJZCI6MTE4NTA0NTIsInVzZXJUeXBlIjoicXl3eCIsInVzZXJOYW1lIjoid29uVHJ3RUFBQTFUZm9oRGFUajFhOVJZZlFtMnZFRFEiLCJleHQiOjE2NTIzNjI2NzMxMjAsImlhdCI6MTY1MjMxOTQ3MzEyMCwiY29ycElkIjoid3BuVHJ3RUFBQVdPNnJrbFllZlMwb3NFRHpxUjEwUEEiLCJidXNpbmVzc1VzZXJJZCI6IndvblRyd0VBQUExVGZvaERhVGoxYTlSWWZRbTJ2RURRIn0.ET-FRmvCgDGquMi_DnuRL4C56C58qzcn3Estk8Vq9j4' },
-			action: 'https://qa-ual.shuyun.com/pcrm-account/1.0/file/uploadImageFile',
+			headers: {},
+			action: '/upload',
 			onBeforeUpload(file) {
 				return true;
 			},
