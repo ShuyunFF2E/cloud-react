@@ -57,6 +57,8 @@ this.tableRef.refreshTable(params?);
 | expandable | 表格展开功能的额外配置，详见 https://table-react-component.vercel.app/#api    | object   |   {}   | |
 | expandIconColumnIndex | 展开行图标将插入哪一列的索引 | 	number   |   0   | |
 | isExpendAloneColumn | 树状表格的展开图标是否单独占据一列（只有两级的树状表格需要设置该属性） | 	boolean   |   false   | |
+| supportGroup | 表格分组 | 	boolean   |   false   | |
+| supportFullColumn | 表格通栏 | 	boolean   |   false   | |
 
 #### CTable 多选/单选配置
 | 属性           | 说明                    | 类型              | 默认值
@@ -96,7 +98,6 @@ this.tableRef.refreshTable(params?);
 | 属性           | 说明                    | 类型              | 默认值
 | -------------- | ---------------------- | ----------------- | ------ |
 | supportResizeColumn | 是否支持配置列的拉伸  | boolean	   |   false   | |
-| supportGroup | 表格分组 | 	boolean   |   false   | |
 | summaryData | 表格合计（API 同 columnData） | 	array   |   []   | |
 
 [comment]: <> (| supportConfigColumn | 是否支持配置列的隐藏和展示  | boolean	   |   false   | |)
@@ -166,6 +167,8 @@ this.tableRef.refreshTable(params?);
 <embed src="@components/c-table/demos/fixed-header.md" /> 
 
 <embed src="@components/c-table/demos/tree2.md" /> 
+
+<embed src="@components/c-table/demos/tree3.md" /> 
 
 <embed src="@components/c-table/demos/summary.md" /> 
 
