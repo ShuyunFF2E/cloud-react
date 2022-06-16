@@ -118,7 +118,9 @@ class Button extends React.PureComponent {
         }}
       >
         {loading && <span className={`${prefixCls}-button-loading-spin`} />}
-        {icon && <Icon type={icon} />}
+        {icon && (
+          <Icon type={icon} className={`${prefixCls}-button-suffix-icon`} />
+        )}
         {content}
       </ElementName>
     );
