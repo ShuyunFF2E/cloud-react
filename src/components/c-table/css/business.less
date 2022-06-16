@@ -141,10 +141,7 @@
   // 树状表格（只有两级），展开图标单独占据一列
   &.@{tablePrefixCls}-two-level-tree {
     .@{tablePrefixCls}-expend-icon {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      .absolute-center();
 
       &-expended {
         transform: translate(-50%, -50%) rotate(90deg);
