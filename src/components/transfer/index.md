@@ -19,15 +19,14 @@ group:
 
 | 属性           | 说明                    | 类型              | 默认值 |
 | -------------- | ----------------------- | ----------------- | ------ |
-| data | Transfer 的数据源 | array[{ id, name }] | — | [ ] |
-| value | 选中到右侧的数据 | array | - | [] |
-| filterable | 是否可搜索 | boolean | — | false |
-| titles | 自定义列表标题 | array | — | ['列表 1', '列表 2'] |
-| leftDefaultChecked | 初始状态下左侧列表的已勾选项的 key 数组 | array | — | [ ] |
-| rightDefaultChecked | 初始状态下右侧列表的已勾选项的 key 数组 | array | — | [ ] |
-| style | 样式 | object | - | {} |
+| data | Transfer 的数据源 | array[{ key, label, disabled }] | [ ] |
+| value | 选中到右侧的数据 key的数组 | array | [ ] |
+| filterable | 是否可搜索 | boolean | false |
+| titles | 自定义列表标题 | array | ['列表 1', '列表 2'] |
+| leftDefaultChecked | 初始状态下左侧列表的已勾选项的 key 数组 | array | [ ] |
+| rightDefaultChecked | 初始状态下右侧列表的已勾选项的 key 数组 | array | [ ] |
+| style | 样式 | object | {} |
 
-内部使用树形组件 `<Tree>`，数据源属性详见 [Tree](./tree)
 
 ### Events
 | 事件名称      | 说明    | 类型       | 默认值 |
@@ -40,4 +39,3 @@ group:
 <embed src="@components/transfer/demos/searchable.md" />
 <embed src="@components/transfer/demos/defaultChecked.md" />
 <embed src="@components/transfer/demos/tree.md" />
-<!-- <embed src="@components/transfer/demos/own.md" /> -->
