@@ -53,6 +53,7 @@ export const propTypes = {
   dragSelector: PropTypes.string,
   onDragAfter: PropTypes.func,
   showDragIcon: PropTypes.bool,
+  supportFullColumn: PropTypes.bool,
 };
 
 export const defaultProps = {
@@ -105,4 +106,5 @@ export const defaultProps = {
   dragSelector: '',
   onDragAfter: noop,
   showDragIcon: false,
+  supportFullColumn: false,
 };

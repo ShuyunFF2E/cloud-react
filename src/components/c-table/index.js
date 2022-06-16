@@ -569,6 +569,7 @@ class CTable extends Component {
       summaryData,
       supportDrag,
       showDragIcon,
+      supportFullColumn,
     } = this.props;
     const {
       data,
@@ -611,6 +612,7 @@ class CTable extends Component {
                 summaryData && summaryData.length, // 表尾合计
               [`${tablePrefixCls}-support-drag`]: supportDrag && !showDragIcon, // 拖拽行
               [`${tablePrefixCls}-support-resize`]: supportResizeColumn, // 表格列拉伸
+              [`${tablePrefixCls}-full-column`]: supportFullColumn, // 表格通栏
             },
             className,
           )}
