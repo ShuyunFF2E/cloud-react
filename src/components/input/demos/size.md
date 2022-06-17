@@ -13,15 +13,13 @@ desc: 三种尺寸：large、default、small
 import React from 'react';
 import { Input } from 'cloud-react';
 
-const blank = '\u00A0';
-
 export default function InputDemo() {
 	return (
-		<div>
+		<div className="input-demo-box">
 			<Input size="large" placeholder="size: large input" />
-			{blank}
+			<br />
 			<Input size="default" placeholder="size: default input" />
-			{blank}
+			<br />
 			<Input size="small" placeholder="size: small input" />
 		</div>
 	);

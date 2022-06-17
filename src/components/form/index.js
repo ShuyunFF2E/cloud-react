@@ -69,7 +69,7 @@ export default class Form extends Component {
       className,
       ...others
     } = this.props;
-    const props = omit(others, ['scrollToFirstError']);
+    const props = omit(others, [ 'scrollToFirstError' ]);
     const classNames = classnames(`${prefixCls}-form`, className);
 
     return (
@@ -110,7 +110,7 @@ Form.propTypes = {
     FORM_SIZE_TYPES.DEFAULT,
     FORM_SIZE_TYPES.LARGE,
   ]),
-  labelAlign: PropTypes.oneOf([LABEL_ALIGN.LEFT, LABEL_ALIGN.RIGHT]),
+  labelAlign: PropTypes.oneOf([ LABEL_ALIGN.LEFT, LABEL_ALIGN.RIGHT ]),
   labelCol: PropTypes.shape({
     span: PropTypes.number,
     offset: PropTypes.number,

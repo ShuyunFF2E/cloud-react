@@ -35,7 +35,9 @@ class InputNumber extends Component {
   static contextType = FormContext;
 
   componentDidMount() {
-    const { min, max, value, defaultValue, precision, step } = this.props;
+    const {
+      min, max, value, defaultValue, precision, step,
+    } = this.props;
     let _value = value;
     // 获取默认value
     const number = parseFloat(defaultValue);
@@ -43,21 +45,20 @@ class InputNumber extends Component {
     const defaultNumber = Number.isNaN(number)
       ? ''
       : getCurrentValue(
-          number,
-          min,
-          max,
-          getCurrentPrecision(number, precision, step),
-        );
+        number,
+        min,
+        max,
+        getCurrentPrecision(number, precision, step),
+      );
 
-    _value =
-      value !== undefined
-        ? getCurrentValue(
-            value,
-            min,
-            max,
-            getCurrentPrecision(value, precision, step),
-          )
-        : defaultNumber;
+    _value = value !== undefined
+      ? getCurrentValue(
+        value,
+        min,
+        max,
+        getCurrentPrecision(value, precision, step),
+      )
+      : defaultNumber;
 
     this.setState({
       currentValue: _value,
@@ -67,13 +68,15 @@ class InputNumber extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { value, min, max, precision } = this.props;
+    const {
+      value, min, max, precision,
+    } = this.props;
 
     if (
-      prevProps.value !== value ||
-      prevProps.min !== min ||
-      prevProps.max !== max ||
-      prevProps.precision !== precision
+      prevProps.value !== value
+      || prevProps.min !== min
+      || prevProps.max !== max
+      || prevProps.precision !== precision
     ) {
       this.setIsControlled(value !== undefined);
       this.updateCurrentValue();
@@ -127,7 +130,9 @@ class InputNumber extends Component {
   };
 
   handleBlur = (event) => {
-    const { min, max, precision, onBlur, onChange } = this.props;
+    const {
+      min, max, precision, onBlur, onChange,
+    } = this.props;
     const targetValue = event.target.value.trim();
     const val = getCurrentValue(targetValue, min, max, precision);
     const _val = isInvalidNumber(String(val)) ? val : Number(val);
@@ -163,7 +168,9 @@ class InputNumber extends Component {
   };
 
   handlePlusMinus(isPlus) {
-    const { min, max, precision, step, onChange } = this.props;
+    const {
+      min, max, precision, step, onChange,
+    } = this.props;
     const { currentValue } = this.state;
     let val = currentValue;
 
@@ -222,8 +229,9 @@ class InputNumber extends Component {
   }
 
   renderInput() {
-    const { min, max, step, disabled, placeholder, stepType, ...others } =
-      this.props;
+    const {
+      min, max, step, disabled, placeholder, stepType, ...others
+    } = this.props;
 
     const { currentValue } = this.state;
 
@@ -298,7 +306,9 @@ class InputNumber extends Component {
   }
 
   render() {
-    const { size, disabled, className, style, stepType } = this.props;
+    const {
+      size, disabled, className, style, stepType,
+    } = this.props;
     const { focused } = this.state;
     const { size: formSize } = this.context;
     const mergedSize = size || formSize || 'default';
@@ -323,15 +333,15 @@ InputNumber.propTypes = {
   className: PropTypes.string,
   style: PropTypes.object,
   placeholder: PropTypes.string,
-  size: PropTypes.oneOf(['small', 'default', 'large']),
+  size: PropTypes.oneOf([ 'small', 'default', 'large' ]),
   min: PropTypes.number,
   max: PropTypes.number,
   step: PropTypes.number,
   noStep: PropTypes.bool,
   stepType: PropTypes.string,
   precision: PropTypes.number,
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  value: PropTypes.oneOfType([ PropTypes.string, PropTypes.number ]),
+  defaultValue: PropTypes.oneOfType([ PropTypes.string, PropTypes.number ]),
   disabled: PropTypes.bool,
   onChange: PropTypes.func,
   onBlur: PropTypes.func,
