@@ -106,7 +106,7 @@ export default class TreeDemo extends React.Component {
 				]
 			}
 		];
-		return <Tree treeData={treeData} selectedValue={this.state.selectedValue} onSelectedNode={this.selectedNode} />;
+		return <Tree supportSearch treeData={treeData} selectedValue={this.state.selectedValue} onSelectedNode={this.selectedNode} />;
 	}
 }
 ```
