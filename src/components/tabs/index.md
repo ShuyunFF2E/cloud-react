@@ -33,6 +33,7 @@ group:
 | linePrefixTpl    | 设置选项卡前置模板（仅适用于 type === `line`）         | -            | ''              |
 | linePlacement    | 设置选项卡排列方向（仅适用于 type === `line`），可选 `left` `top` `right`         | string            |    `top`           |
 | lineBgMode   | 设置选项卡通过背景变化展示样式（仅适用于 type === `line` && linePlacement === `left`/`right`）      | boolean            |    false           |
+| size | 设置tabs的大小，只有type为`capsule` `empty-capsule`有用 | default \| small | default |
 
 ### Tabs.Panel
 
