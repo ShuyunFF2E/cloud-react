@@ -172,7 +172,7 @@ class Node extends Component {
     // 将三个方法传递出去可以供外部调用
     const options = { setInputValue, onSaveClick, onClickCancel };
     // 无拖拽时根节点不缩进
-    const paddingLeft = supportDrag ? 18 * data.level : 18 * data.level - 18;
+    const paddingLeft = supportDrag ? 24 * data.level + 12 : 24 * data.level - 24 + 12;
     //
     return (
       <>
@@ -285,7 +285,6 @@ function ToggleFold({ hasChildren, showChildrenItem, toggle }) {
     hasChildren && (
       <Icon
         className="toggle-icon"
-        // type={!showChildrenItem ? 'down' : 'up'}
         type="up"
         style={{ transform: showChildrenItem ? 'rotate(0)' : 'rotate(-180deg)' }}
         onClick={toggle}

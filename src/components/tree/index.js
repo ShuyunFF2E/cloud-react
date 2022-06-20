@@ -32,7 +32,7 @@ const menuModalBodyStyle = {
 // 搜索区域样式
 const hasSearchStyle = {
   height: 'calc(100% - 42px)',
-  overflow: 'auto',
+  // overflow: 'auto',
 };
 
 class Tree extends Component {
@@ -732,7 +732,7 @@ class Tree extends Component {
             </div>
           )}
 
-          {(!treeData || !treeData.length) && <p>暂无结果</p>}
+          {(!treeData || !treeData.length) && <p className={`${selector}-empty-search`}>暂无结果</p>}
 
           {showDialogMenu && (
             <Modal

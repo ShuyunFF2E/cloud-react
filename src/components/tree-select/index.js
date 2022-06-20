@@ -155,14 +155,14 @@ class TreeSelect extends Component {
         style: {
           position: 'fixed',
           left: `${left}px`,
-          top: isLocationTop ? `${top - optionsHeight}px` : `${bottom}px`,
+          top: isLocationTop ? `${top - optionsHeight - 4}px` : `${bottom + 4}px`,
           borderTop,
         },
       });
     } else {
       this.setState({
         style: {
-          top: isLocationTop ? `${-optionsHeight}px` : `${height}px`,
+          top: isLocationTop ? `${-optionsHeight- 4}px` : `${height + 4}px`,
           borderTop,
         },
       });
@@ -316,6 +316,7 @@ class TreeSelect extends Component {
       style,
       className,
       isAppendToBody,
+      type,
     } = this.props;
     const { value, open, style: popupStyle } = this.state;
     const { width } = this.selectedContainerStyle;
@@ -339,6 +340,7 @@ class TreeSelect extends Component {
       <div className={`${classNames}`} style={style} ref={this.node}>
         <Selected
           ref={this.selectedNode}
+          type={type}
           onClick={this.onClickSelected}
           onClear={this.onClearSelected}
           open={open}
