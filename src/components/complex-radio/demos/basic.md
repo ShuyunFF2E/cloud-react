@@ -9,63 +9,133 @@ import React, { useState, useEffect } from 'react';
 import { ComplexRadio, Radio, Button } from 'cloud-react';
 
 export default function ComplexRadioDemo() {
-    const [disabled, setDisabled] = useState(false);
-    const radioCon = (
-        <>
-            <p>
-                说明1
-            </p>
-            <p>
-                说明2
-            </p>
-        </>
-        
-    );
 	return (
-        <div>
-            <Button type="primary" onClick={() => {
-                setDisabled(!disabled);
-            }}>切换禁用状态</Button>
-            <div style={{ height: 10 }}/>
-            <Radio.Group  vertical>
+        <div style={{display: 'flex', justifyContent: 'space-around', flexWrap: "wrap"}}>
+            <div>
+              <h4>基础+头像</h4>
+              <Radio.Group  vertical>
                 <ComplexRadio
-                    disabled={disabled}
+                    title="单选文字"
+                    imgSrc="https://brand-guide.shuyun.com/IAM/52e939494f3b.png"
+                />
+                <ComplexRadio
+                    title="单选文字"
+                    imgSrc="https://brand-guide.shuyun.com/IAM/52e939494f3b.png"
+                />
+                <ComplexRadio
+                    title="单选文字"
+                    imgSrc="https://brand-guide.shuyun.com/IAM/52e939494f3b.png"
                     checked
-                    content="说明"
-                    title="标题"
-                />
-                <div style={{ height: 10 }}/>
-                <ComplexRadio
-                    disabled={disabled}
-                    style={{ height: 48 }}
-                    content="说明"
-                    imgSrc="https://img2.baidu.com/it/u=1429175118,2649084526&fm=26&fmt=auto"
-                />
-                <div style={{ height: 10 }}/>
-                <ComplexRadio
-                    disabled={disabled}
-                    style={{ height: 48 }}
-                    content={radioCon}
-                    imgSrc="https://img2.baidu.com/it/u=1429175118,2649084526&fm=26&fmt=auto"
                 />
                 <ComplexRadio
-                    disabled={disabled}
-                    content={radioCon}
-                    title="标题"
+                    title="单选文字"
+                    imgSrc="https://brand-guide.shuyun.com/IAM/52e939494f3b.png"
+                    disabled
+                />
+                <ComplexRadio
+                    title="单选文字"
+                    imgSrc="https://brand-guide.shuyun.com/IAM/52e939494f3b.png"
                     checked
-                    imgSrc="https://img2.baidu.com/it/u=1429175118,2649084526&fm=26&fmt=auto"
+                    disabled
                 />
-                <div style={{ height: 10 }}/>
+              </Radio.Group>
+            </div>
+            <div>
+              <h4>标题</h4>
+              <Radio.Group  vertical>
                 <ComplexRadio
-                    disabled={disabled}
-                    textOverflowEllipsis
+                    title="单选文字标题"
+                    content="说明文案"
+                />
+                <ComplexRadio
+                    title="单选文字标题"
+                    content="说明文案"
+                />
+                <ComplexRadio
+                    title="单选文字标题"
+                    content="说明文案"
                     checked
-                    contentStyle={{ width: 100 }}
-                    content="说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明"
-                    title="标题"
-                    imgSrc="https://img2.baidu.com/it/u=1429175118,2649084526&fm=26&fmt=auto"
+                />
+                <ComplexRadio
+                    title="单选文字标题"
+                    content="说明文案"
+                    disabled
+                />
+                <ComplexRadio
+                    title="单选文字标题"
+                    content="说明文案"
+                    checked
+                    disabled
                 />
             </Radio.Group>
+            </div>
+            <div>
+              <h4>标题+头像</h4>
+              <Radio.Group  vertical>
+                <ComplexRadio
+                    title="单选文字标题"
+                    content="说明文案"
+                    imgSrc="https://brand-guide.shuyun.com/IAM/52e939494f3b.png"
+                />
+                <ComplexRadio
+                    title="单选文字标题"
+                    content="说明文案"
+                    imgSrc="https://brand-guide.shuyun.com/IAM/52e939494f3b.png"
+                />
+                <ComplexRadio
+                    title="单选文字标题"
+                    content="说明文案"
+                    imgSrc="https://brand-guide.shuyun.com/IAM/52e939494f3b.png"
+                    checked
+                />
+                <ComplexRadio
+                    title="单选文字标题"
+                    content="说明文案"
+                    imgSrc="https://brand-guide.shuyun.com/IAM/52e939494f3b.png"
+                    disabled
+                />
+                <ComplexRadio
+                    title="单选文字标题"
+                    content="说明文案"
+                    imgSrc="https://brand-guide.shuyun.com/IAM/52e939494f3b.png"
+                    checked
+                    disabled
+                />
+            </Radio.Group>
+            </div>
+            <div>
+              <h4>卡片样式</h4>
+              <Radio.Group>
+                <ComplexRadio
+                    title="单选文字标题"
+                    content="说明文案"
+                    type="card"
+                />
+                <ComplexRadio
+                    title="单选文字标题"
+                    content="说明文案"
+                    checked
+                    type="card"
+                />
+            </Radio.Group>
+            <br/>
+            <br/>
+            <Radio.Group>
+            <ComplexRadio
+                    title="单选文字标题"
+                    content="说明文案"
+                    disabled
+                    type="card"
+                />
+                <ComplexRadio
+                    title="单选文字标题"
+                    content="说明文案"
+                    checked
+                    disabled
+                    type="card"
+                />
+            </Radio.Group>
+            </div>
         </div>
 	);
 }
