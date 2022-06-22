@@ -39,21 +39,21 @@ export default function ComplexRadioDemo() {
                     disabled={disabled}
                     style={{ height: 48 }}
                     content="说明"
-                    imgSrc="https://img2.baidu.com/it/u=1429175118,2649084526&fm=26&fmt=auto"
+                    imgSrc="https://brand-guide.shuyun.com/IAM/77c28a6547cd.png"
                 />
                 <div style={{ height: 10 }}/>
                 <ComplexRadio
                     disabled={disabled}
                     style={{ height: 48 }}
                     content={radioCon}
-                    imgSrc="https://img2.baidu.com/it/u=1429175118,2649084526&fm=26&fmt=auto"
+                    imgSrc="https://brand-guide.shuyun.com/IAM/77c28a6547cd.png"
                 />
                 <ComplexRadio
                     disabled={disabled}
                     content={radioCon}
                     title="标题"
                     checked
-                    imgSrc="https://img2.baidu.com/it/u=1429175118,2649084526&fm=26&fmt=auto"
+                    imgSrc="https://brand-guide.shuyun.com/IAM/77c28a6547cd.png"
                 />
                 <div style={{ height: 10 }}/>
                 <ComplexRadio
@@ -63,7 +63,7 @@ export default function ComplexRadioDemo() {
                     contentStyle={{ width: 100 }}
                     content="说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明"
                     title="标题"
-                    imgSrc="https://img2.baidu.com/it/u=1429175118,2649084526&fm=26&fmt=auto"
+                    imgSrc="https://brand-guide.shuyun.com/IAM/77c28a6547cd.png"
                 />
             </Radio.Group>
         </div>
