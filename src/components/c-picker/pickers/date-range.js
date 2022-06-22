@@ -37,8 +37,8 @@ const DateRangePicker = ({
   canEdit = true,
   allowEmpty,
   style,
-  showToday,
-  showNow,
+  showToday = true,
+  showNow = true,
   disabledDate: _disabledDate,
   renderExtraFooter,
   autoFocus,
@@ -58,11 +58,11 @@ const DateRangePicker = ({
   const { current: _this } = useRef({
     formatType: STR,
   });
-  const [value, setValue] = useState();
+  const [ value, setValue ] = useState();
   const format = _format || (showTimePicker ? dateTimeFormat : dateFormat);
   let placeholder = _placeholder;
   if (typeof placeholder === 'string') {
-    placeholder = [placeholder, placeholder];
+    placeholder = [ placeholder, placeholder ];
   }
 
   useEffect(() => {
@@ -70,43 +70,41 @@ const DateRangePicker = ({
       _this.formatType = OBJ;
     }
     setValue(transformString2Moment(_value, format, _this));
-  }, [_value, _defaultValue, format]);
+  }, [ _value, _defaultValue, format ]);
 
   const getDisabledDate = useCallback(
     (d) => {
       const target = d.clone();
-      const min =
-        minDate &&
-        (minDate instanceof Date
+      const min = minDate
+        && (minDate instanceof Date
           ? moment(moment(minDate).format(format), format)
           : moment(minDate, format));
-      const max =
-        maxDate &&
-        (maxDate instanceof Date
+      const max = maxDate
+        && (maxDate instanceof Date
           ? moment(moment(maxDate).format(format), format)
           : moment(maxDate, format));
       return (
-        (min && target.isBefore(min)) ||
-        (max && target.isAfter(max)) ||
-        (minYear && target.year() < minYear) ||
-        (maxYear && target.year() > maxYear)
+        (min && target.isBefore(min))
+        || (max && target.isAfter(max))
+        || (minYear && target.year() < minYear)
+        || (maxYear && target.year() > maxYear)
       );
     },
-    [format, minDate, maxDate, minYear, maxYear],
+    [ format, minDate, maxDate, minYear, maxYear ],
   );
 
   const handleGetDisabledDate = useCallback(
     (target) => {
-      const m = moment(target.format(format));
+      const m = target && moment(target.format(format));
       if (_disabledDate) {
         if (_this.formatType === OBJ) {
           return _disabledDate(m && m.clone().toDate());
         }
         return _disabledDate(m && m.format(format));
       }
-      return getDisabledDate(m);
+      return m && getDisabledDate(m);
     },
-    [_disabledDate, getDisabledDate, format],
+    [ _disabledDate, getDisabledDate, format ],
   );
 
   const handleOk = useCallback(
@@ -114,8 +112,8 @@ const DateRangePicker = ({
       if (onOk) {
         if (_this.formatType === OBJ) {
           onOk(
-            m &&
-              m.reduce((pre, cur, index) => {
+            m
+              && m.reduce((pre, cur, index) => {
                 if (index === 0) {
                   return { start: cur && cur.clone().toDate() };
                 }
@@ -125,8 +123,8 @@ const DateRangePicker = ({
           return;
         }
         onOk(
-          m &&
-            m.reduce((pre, cur, index) => {
+          m
+            && m.reduce((pre, cur, index) => {
               if (index === 0) {
                 return { start: cur && cur.format(format) };
               }
@@ -135,7 +133,7 @@ const DateRangePicker = ({
         );
       }
     },
-    [onOk, format, handleGetDisabledDate],
+    [ onOk, format, handleGetDisabledDate ],
   );
 
   const handlePanelChange = useCallback(
@@ -143,8 +141,8 @@ const DateRangePicker = ({
       if (onPanelChange) {
         if (_this.formatType === OBJ) {
           onPanelChange(
-            val &&
-              val.reduce((pre, cur, index) => {
+            val
+              && val.reduce((pre, cur, index) => {
                 if (index === 0) {
                   return { start: cur && cur.clone().toDate() };
                 }
@@ -155,8 +153,8 @@ const DateRangePicker = ({
           return;
         }
         onPanelChange(
-          val &&
-            val.reduce((pre, cur, index) => {
+          val
+            && val.reduce((pre, cur, index) => {
               if (index === 0) {
                 return { start: cur && cur.format(format) };
               }
@@ -166,23 +164,23 @@ const DateRangePicker = ({
         );
       }
     },
-    [onPanelChange, format],
+    [ onPanelChange, format ],
   );
 
   const handleChange = useCallback(
-    (m, v) => {
+    (m, str) => {
       const val = m && m.map((x) => (handleGetDisabledDate(x) ? undefined : x));
-      const vVal = val && val.map((y, i) => (y ? v[i] : undefined));
+      const vVal = val && val.map((y, i) => (y ? str[i] : undefined));
       if (onChange) {
         if (_this.formatType === OBJ) {
           onChange(
             val
               ? val.reduce((pre, cur, index) => {
-                  if (index === 0) {
-                    return { start: cur && cur.clone().toDate() };
-                  }
-                  return { ...pre, end: cur && cur.clone().toDate() };
-                }, {})
+                if (index === 0) {
+                  return { start: cur && cur.clone().toDate() };
+                }
+                return { ...pre, end: cur && cur.clone().toDate() };
+              }, {})
               : { start: undefined, end: undefined },
           );
           return;
@@ -190,18 +188,18 @@ const DateRangePicker = ({
         onChange(
           vVal
             ? vVal.reduce((pre, cur, index) => {
-                if (index === 0) {
-                  return { start: cur };
-                }
-                return { ...pre, end: cur };
-              }, {})
+              if (index === 0) {
+                return { start: cur };
+              }
+              return { ...pre, end: cur };
+            }, {})
             : { start: undefined, end: undefined },
         );
       } else {
         setValue(val || { start: undefined, end: undefined });
       }
     },
-    [onChange],
+    [ onChange ],
   );
 
   const getPopupContainer = useMemo(() => {
@@ -212,7 +210,13 @@ const DateRangePicker = ({
       return () => document.body;
     }
     return undefined;
-  }, [_getPopupContainer, isAppendToBody]);
+  }, [ _getPopupContainer, isAppendToBody ]);
+
+  const defaultShowTimeObj = {
+    defaultValue:
+      defaultTime && defaultTime.map((v) => v && moment(v, timeFormat)),
+    format: timeFormat,
+  };
 
   return (
     <Picker
@@ -225,13 +229,12 @@ const DateRangePicker = ({
         ]
       }
       showTime={
+        // eslint-disable-next-line no-nested-ternary
         showTimePicker instanceof Object
-          ? {
-              defaultValue:
-                defaultTime &&
-                defaultTime.map((v) => v && moment(v, timeFormat)),
-            }
+          ? { ...defaultShowTimeObj, showTimePicker }
           : showTimePicker
+            ? defaultShowTimeObj
+            : false
       }
       onChange={handleChange}
       onOk={handleOk}
@@ -248,6 +251,7 @@ const DateRangePicker = ({
         open,
         placeholder,
         showToday: showToday || showNow,
+        showNow,
         renderExtraFooter,
         autoFocus,
         allowClear,

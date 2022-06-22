@@ -78,6 +78,7 @@ export default class RangePickerDemo extends React.Component {
 						onChange={this.onChange}
 						showTimePicker
 						showToday
+						showNow
 						minDate={new Date()}
 						disabled={disabled}
 					/>
@@ -87,7 +88,6 @@ export default class RangePickerDemo extends React.Component {
 					<RangePicker
 						value={values}
 						onChange={this.onChange}
-						onOK={this.onOK}
 						allowClear
 						disabled={[false, true]}
 						allowEmpty={[true, false]}
@@ -96,7 +96,6 @@ export default class RangePickerDemo extends React.Component {
 
 				<Form.Item label="日期范围选择器（开始结束可为空）">
 					<RangePicker
-						onOK={this.onOK}
 						allowEmpty={[true, true]}
 						disabled={disabled}
 					/>
@@ -109,7 +108,7 @@ export default class RangePickerDemo extends React.Component {
 				<h4>自定义</h4>
 
 				<RangePicker
-					placeholder="请选择时间范围"
+					placeholder={["开始时间", "结束时间"]}
 					style={{ width: 380 }}
 					showTimePicker
 					format={'yyyy年MM月DD日 HH:mm'}

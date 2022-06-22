@@ -1,15 +1,14 @@
 ---
 order: 1
 title: 按钮文字前添加图标
-desc: 可选值为该组件库内所有Icon图标对应的字符：remark、config、view等等
+desc: 可选值为组件库内所有 Icon 图标对应的类型代码
 ---
 
 ```jsx
-
-            /**
-             * title: 按钮文字前添加图标
-             * desc: 可选值为该组件库内所有Icon图标对应的字符：remark、config、view等等
-             */
+/**
+ * title: 按钮文字前添加图标
+ * desc: 可选值为组件库内所有 Icon 图标对应的类型代码
+ */
 import React from 'react';
 import { Button, InputNumber } from 'cloud-react';
 
@@ -18,12 +17,16 @@ export default class ButtonDemo extends React.Component {
 		return (
 			<ul>
 				<li style={{ marginBottom: 10 }}>
+					<h5>普通：</h5>
+					<Button icon="plus-solid">添加</Button>
+				</li>
+				<li style={{ marginBottom: 10 }}>
 					<h5>主要：</h5>
 					<Button type="primary" icon="plus-solid">添加</Button>
 				</li>
 				<li style={{ marginBottom: 10 }}>
-					<h5>普通：</h5>
-					<Button icon="plus-solid">添加</Button>
+					<h5>次要：</h5>
+					<Button type="secondary" icon="plus-solid">添加</Button>
 				</li>
 				<li style={{ marginBottom: 10 }}>
 					<h5>幽灵：</h5>

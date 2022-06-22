@@ -20,9 +20,11 @@ export default class ButtonDemo extends React.Component {
 		return (
 			<React.Fragment>
 				<div>
+					<Button type="normal">普通</Button>
+					{blank}
 					<Button type="primary">主要</Button>
 					{blank}
-					<Button type="normal">普通</Button>
+					<Button type="secondary">次要</Button>
 					{blank}
 					<Button type="dashed">幽灵</Button>
 					{blank}

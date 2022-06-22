@@ -59,7 +59,7 @@ const DatePicker = ({
   const { current: _this } = useRef({
     formatType: STR,
   });
-  const [value, setValue] = useState();
+  const [ value, setValue ] = useState();
   const format = _format || (showTimePicker ? dateTimeFormat : dateFormat);
 
   useEffect(() => {
@@ -67,7 +67,7 @@ const DatePicker = ({
       _this.formatType = OBJ;
     }
     setValue(transformString2Moment(_value, format, _this));
-  }, [_value, _defaultValue, format]);
+  }, [ _value, _defaultValue, format ]);
 
   const handleChange = useCallback(
     (m, v) => {
@@ -81,7 +81,7 @@ const DatePicker = ({
         setValue(m);
       }
     },
-    [onChange],
+    [ onChange ],
   );
 
   const handleSelect = useCallback(
@@ -94,7 +94,7 @@ const DatePicker = ({
         }
       }
     },
-    [onSelect, format],
+    [ onSelect, format ],
   );
 
   const handleOk = useCallback(
@@ -107,7 +107,7 @@ const DatePicker = ({
         }
       }
     },
-    [onOk, format],
+    [ onOk, format ],
   );
 
   const handlePanelChange = useCallback(
@@ -120,7 +120,7 @@ const DatePicker = ({
         }
       }
     },
-    [onPanelChange, format],
+    [ onPanelChange, format ],
   );
 
   const getPopupContainer = useMemo(() => {
@@ -131,25 +131,23 @@ const DatePicker = ({
       return () => document.body;
     }
     return undefined;
-  }, [_getPopupContainer, isAppendToBody]);
+  }, [ _getPopupContainer, isAppendToBody ]);
 
   const getDisabledDate = useCallback(
     (d) => {
       const current = d.clone();
-      const min =
-        minDate &&
-        (minDate instanceof Date ? moment(minDate) : moment(minDate, format));
-      const max =
-        maxDate &&
-        (maxDate instanceof Date ? moment(maxDate) : moment(maxDate, format));
+      const min = minDate
+        && (minDate instanceof Date ? moment(minDate) : moment(minDate, format));
+      const max = maxDate
+        && (maxDate instanceof Date ? moment(maxDate) : moment(maxDate, format));
       return (
-        (min && current.isBefore(min)) ||
-        (max && current.isAfter(max)) ||
-        (minYear && current.year() < minYear) ||
-        (maxYear && current.year() > maxYear)
+        (min && current.isBefore(min))
+        || (max && current.isAfter(max))
+        || (minYear && current.year() < minYear)
+        || (maxYear && current.year() > maxYear)
       );
     },
-    [format, minDate, maxDate, minYear, maxYear],
+    [ format, minDate, maxDate, minYear, maxYear ],
   );
 
   const handleGetDisabledDate = useCallback(
@@ -162,8 +160,13 @@ const DatePicker = ({
       }
       return getDisabledDate(m);
     },
-    [_disabledDate, getDisabledDate, format],
+    [ _disabledDate, getDisabledDate, format ],
   );
+
+  const defaultShowTimeObj = {
+    defaultValue: defaultTime && moment(defaultTime, timeFormat),
+    format: timeFormat,
+  };
 
   return (
     <Picker
@@ -171,9 +174,12 @@ const DatePicker = ({
       style={{ width, ...style }}
       defaultValue={_defaultValue && moment(_defaultValue, format)}
       showTime={
-        showTimePicker && {
-          defaultValue: defaultTime && moment(defaultTime, timeFormat),
-        }
+        // eslint-disable-next-line no-nested-ternary
+        showTimePicker instanceof Object
+          ? { ...defaultShowTimeObj, showTimePicker }
+          : showTimePicker
+            ? defaultShowTimeObj
+            : false
       }
       onChange={handleChange}
       onSelect={handleSelect}

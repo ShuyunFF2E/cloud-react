@@ -103,14 +103,22 @@
       .@{prefix-cls}-cell.@{prefix-cls}-cell-in-view {
         &.@{prefix-cls}-cell-range-start,
         &.@{prefix-cls}-cell-range-hover-start {
-          &::before {
+          &:not(.@{prefix-cls}-cell-in-range):not(.@{prefix-cls}-cell-range-start-near-hover)::before {
             left: 8px;
+          }
+          &:not(.@{prefix-cls}-cell-range-end) .@{prefix-cls}-cell-inner {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
           }
         }
         &.@{prefix-cls}-cell-range-end,
         &.@{prefix-cls}-cell-range-hover-end {
-          &::before {
+          &:not(.@{prefix-cls}-cell-in-range):not(.@{prefix-cls}-cell-range-end-near-hover)::before {
             right: 8px;
+          }
+          &:not(.@{prefix-cls}-cell-range-start) .@{prefix-cls}-cell-inner {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
           }
         }
         &.@{prefix-cls}-cell-range-hover-start:not(.@{prefix-cls}-cell-range-start),
@@ -152,25 +160,6 @@
         }
         &.@{prefix-cls}-cell-range-hover.@{prefix-cls}-cell-in-range::before {
           background-color: @blue-1;
-        }
-        &.@{prefix-cls}-cell-range-start-near-hover::after,
-        &.@{prefix-cls}-cell-range-end-near-hover::after {
-          position: absolute;
-          top: 50%;
-          right: 0;
-          left: 0;
-          z-index: 1;
-          height: 24px;
-          transform: translateY(-50%);
-          transition: all 0.3s;
-          content: '';
-          background-color: @blue-1;
-        }
-        &.@{prefix-cls}-cell-range-start-near-hover::after {
-          left: 8px;
-        }
-        &.@{prefix-cls}-cell-range-end-near-hover::after {
-          right: 8px;
         }
       }
     }

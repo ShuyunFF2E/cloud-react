@@ -88,6 +88,7 @@ class Button extends React.PureComponent {
     // 针对单按钮情况
     let content = type !== 'link'
       && type !== 'text'
+      && !icon
       && typeof children === 'string'
       && children.length === 2
       ? children.split('').join(' ')
@@ -101,6 +102,7 @@ class Button extends React.PureComponent {
       && children[0].length === 2
       && type !== 'link'
       && type !== 'text'
+      && !icon
     ) {
       content = children[0].split('').join(' ');
     }
