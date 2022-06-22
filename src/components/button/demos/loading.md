@@ -1,15 +1,14 @@
 ---
 order: 6
-title: loading状态控制
-desc: 按钮点击添加loading
+title: 加载状态
+desc: 按钮点击添加加载中状态
 ---
 
 ```jsx
-
-            /**
-             * title: loading状态控制
-             * desc: 按钮点击添加loading
-             */
+/**
+ * title: 加载状态
+ * desc: 按钮点击添加加载中状态
+ */
 import React from 'react';
 import { Button, InputNumber } from 'cloud-react';
 
@@ -26,9 +25,9 @@ export default class ButtonDemo extends React.Component {
 
 	handlerCLick = () => {
 		this.setState({ loading: true }, () => {
-			// setTimeout(() => {
-			// 	this.setState({ loading: false })
-			// }, 3000);
+			setTimeout(() => {
+				this.setState({ loading: false });
+			}, 30000);
 		});
 	};
 
@@ -38,6 +37,13 @@ export default class ButtonDemo extends React.Component {
 		return (
 			<ul>
 				<li style={{ marginBottom: 10 }}>
+					<h5>普通：</h5>
+					<Button style={{ marginRight: 5 }} loading={this.state.loading} onClick={this.handlerCLick}>{text}</Button>
+					<Button style={{ marginRight: 5 }} colorType="tips" loading={this.state.loading} onClick={this.handlerCLick}>{text}</Button>
+					<Button style={{ marginRight: 5 }} colorType="danger" loading={this.state.loading} onClick={this.handlerCLick}>{text}</Button>
+					<Button style={{ marginRight: 5 }} colorType="success" loading={this.state.loading} onClick={this.handlerCLick}>{text}</Button>
+				</li>
+				<li style={{ marginBottom: 10 }}>
 					<h5>主要：</h5>
 					<Button style={{ marginRight: 5 }} type="primary" loading={this.state.loading} onClick={this.handlerCLick}>{text}</Button>
 					<Button style={{ marginRight: 5 }} type="primary" colorType="tips" loading={this.state.loading} onClick={this.handlerCLick}>{text}</Button>
@@ -45,11 +51,11 @@ export default class ButtonDemo extends React.Component {
 					<Button style={{ marginRight: 5 }} type="primary" colorType="success" loading={this.state.loading} onClick={this.handlerCLick}>{text}</Button>
 				</li>
 				<li style={{ marginBottom: 10 }}>
-					<h5>普通：</h5>
-					<Button style={{ marginRight: 5 }} loading={this.state.loading} onClick={this.handlerCLick}>{text}</Button>
-					<Button style={{ marginRight: 5 }} colorType="tips" loading={this.state.loading} onClick={this.handlerCLick}>{text}</Button>
-					<Button style={{ marginRight: 5 }} colorType="danger" loading={this.state.loading} onClick={this.handlerCLick}>{text}</Button>
-					<Button style={{ marginRight: 5 }} colorType="success" loading={this.state.loading} onClick={this.handlerCLick}>{text}</Button>
+					<h5>次要：</h5>
+					<Button style={{ marginRight: 5 }} type="secondary" loading={this.state.loading} onClick={this.handlerCLick}>{text}</Button>
+					<Button style={{ marginRight: 5 }} type="secondary" colorType="tips" loading={this.state.loading} onClick={this.handlerCLick}>{text}</Button>
+					<Button style={{ marginRight: 5 }} type="secondary" colorType="danger" loading={this.state.loading} onClick={this.handlerCLick}>{text}</Button>
+					<Button style={{ marginRight: 5 }} type="secondary" colorType="success" loading={this.state.loading} onClick={this.handlerCLick}>{text}</Button>
 				</li>
 				<li style={{ marginBottom: 10 }}>
 					<h5>幽灵：</h5>
