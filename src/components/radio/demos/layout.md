@@ -13,26 +13,25 @@ import React from 'react';
 import { Radio } from 'cloud-react';
 
 export default function RadioDemo() {
-  const style = { marginBottom: '10px' };
 
   return (
     <React.Fragment>
-      <h2>horizontal</h2>
+      <h3>横向分布</h3>
       <Radio.Group defaultValue={1} horizontal>
-        <Radio value={1}>A</Radio>
-        <Radio value={2}>B</Radio>
-        <Radio value={3}>C</Radio>
+        <Radio value={1}>选项A</Radio>
+        <Radio value={2}>选项B</Radio>
+        <Radio value={3}>选项C</Radio>
       </Radio.Group>
-      <h2>vertical</h2>
+      <h3>纵向分布</h3>
       <Radio.Group defaultValue={1} vertical>
-        <Radio style={style} value={1}>
-          AAAA
+        <Radio value={1}>
+          选项A
         </Radio>
-        <Radio style={style} value={2}>
-          BBBB
+        <Radio value={2}>
+          选项B
         </Radio>
-        <Radio style={style} value={3}>
-          CCCC
+        <Radio value={3}>
+          选项C
         </Radio>
       </Radio.Group>
     </React.Fragment>
