@@ -5,59 +5,89 @@
 @complex-radio-prefix-cls: ~'@{prefix}-complex-radio';
 
 .@{complex-radio-prefix-cls} {
-	height: 24px;
+  height: 24px;
 
-	img[alt='header'] {
-		height: 24px;
-		width: 24px;
-		margin-right: 8px;
-	}
+  img[alt='header'] {
+    height: 24px;
+    width: 24px;
+    margin-right: 8px;
+  }
 
-	&-title {
-		color: @gray-9;
-		margin-bottom: 4px;
-	}
+  &-title {
+    color: @gray-9;
+    font-size: 14px;
+    line-height: 20px;
+    min-width: 177px;
+  }
 
-	&-content {
-		color: @gray-7;
-	}
+  &-content {
+    color: @gray-7;
+    line-height: 16px;
+    font-size: 14px;
+  }
+  &-card {
+    background: @color-white;
+    padding: 18px;
+    border-radius: 2px;
+    &:hover {
+      background: @gray-2;
+    }
+    &-checked {
+      background-color: #f5f8ff;
+      border: 1px solid @color-blue5;
+      &:hover {
+        background: #f5f8ff;
+      }
+    }
+    &-disabled {
+      background: #fff !important;
+      border: none !important;
+      &:hover {
+        background: #fff !important;
+      }
+    }
+  }
 
-	&.@{complex-radio-prefix-cls}-overflow-ellipsis {
-		.@{complex-radio-prefix-cls}-content {
-			.text-overflow-ellipsis;
-		}
-	}
+  &.@{complex-radio-prefix-cls}-overflow-ellipsis {
+    .@{complex-radio-prefix-cls}-content {
+      .text-overflow-ellipsis;
+    }
+  }
 
-	// 图片 + title + content
-	&.@{complex-radio-prefix-cls}-img {
-		height: auto;
+  // 图片 + title + content
+  &.@{complex-radio-prefix-cls}-img {
+    height: auto;
 
-		img[alt='header'] {
-			height: 48px;
-			width: 48px;
-		}
-	}
+    img[alt='header'] {
+      height: 48px;
+      width: 48px;
+      border-radius: 2px;
+    }
+  }
 
-	// title + content
-	&.@{complex-radio-prefix-cls}-title-content {
-		height: auto;
+  // title + content
+  &.@{complex-radio-prefix-cls}-title-content {
+    height: auto;
 
-		.@{radio-prefix-cls}-text {
-			flex-direction: column;
-			align-items: flex-start;
-		}
+    .@{radio-prefix-cls}-text {
+      flex-direction: column;
+      align-items: flex-start;
+      font-size: 14px;
+      line-height: 20px;
+    }
 
-		.@{radio-prefix-cls}-wrapper {
-			align-self: flex-start;
-		}
-	}
+    .@{radio-prefix-cls}-wrapper {
+      align-self: flex-start;
+      margin-top: 3px;
+    }
+  }
 
-	&-disabled {
-		.@{complex-radio-prefix-cls}-title {
-			color: @gray-7;
-		}
-		.@{complex-radio-prefix-cls}-content {
-			color: @gray-6;
-		}
-	}
+  &-disabled {
+    .@{complex-radio-prefix-cls}-title {
+      color: @gray-7;
+    }
+    .@{complex-radio-prefix-cls}-content {
+      color: @gray-6;
+    }
+  }
 }
