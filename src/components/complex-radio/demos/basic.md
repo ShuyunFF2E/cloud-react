@@ -26,6 +26,22 @@ export default function ComplexRadioDemo() {
                     title="单选文字"
                     imgSrc="https://brand-guide.shuyun.com/IAM/52e939494f3b.png"
                     checked
+                    content="说明"
+                    title="标题"
+                />
+                <div style={{ height: 10 }}/>
+                <ComplexRadio
+                    disabled={disabled}
+                    style={{ height: 48 }}
+                    content="说明"
+                    imgSrc="https://brand-guide.shuyun.com/IAM/77c28a6547cd.png"
+                />
+                <div style={{ height: 10 }}/>
+                <ComplexRadio
+                    disabled={disabled}
+                    style={{ height: 48 }}
+                    content={radioCon}
+                    imgSrc="https://brand-guide.shuyun.com/IAM/77c28a6547cd.png"
                 />
                 <ComplexRadio
                     title="单选文字"
@@ -36,7 +52,7 @@ export default function ComplexRadioDemo() {
                     title="单选文字"
                     imgSrc="https://brand-guide.shuyun.com/IAM/52e939494f3b.png"
                     checked
-                    disabled
+                    imgSrc="https://brand-guide.shuyun.com/IAM/77c28a6547cd.png"
                 />
               </Radio.Group>
             </div>
@@ -55,17 +71,10 @@ export default function ComplexRadioDemo() {
                     title="单选文字标题"
                     content="说明文案"
                     checked
-                />
-                <ComplexRadio
-                    title="单选文字标题"
-                    content="说明文案"
-                    disabled
-                />
-                <ComplexRadio
-                    title="单选文字标题"
-                    content="说明文案"
-                    checked
-                    disabled
+                    contentStyle={{ width: 100 }}
+                    content="说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明"
+                    title="标题"
+                    imgSrc="https://brand-guide.shuyun.com/IAM/77c28a6547cd.png"
                 />
             </Radio.Group>
             </div>
