@@ -156,6 +156,7 @@ class Prompt extends React.Component {
     };
     const promptBodyStyle = {
       // width: 'calc(100% - 40px)',
+      ...style,
       height: 'calc(100% - 92px)',
       minHeight: style.height && 'calc(100% - 92px)',
     };
@@ -203,9 +204,7 @@ class Prompt extends React.Component {
                   )}
                 </div>
 
-                <section className="more-info" style={{ ...style }}>
-                  {body}
-                </section>
+                <section className="more-info">{body}</section>
               </div>
             </header>
           </div>

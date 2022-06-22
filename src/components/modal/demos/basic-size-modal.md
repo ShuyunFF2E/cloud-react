@@ -11,7 +11,7 @@ desc: 3种modal尺寸规格，高度会随内容进行自适应
              * desc: 3种modal尺寸规格，高度会随内容进行自适应
              */
 import React from 'react';
-import { Button, Modal, Select, CPicker, Radio, Form, Message } from 'cloud-react';
+import { Button, Input, Modal, Select, CPicker, Radio, Form, Message } from 'cloud-react';
 
 const { RangePicker } = CPicker;
 
@@ -22,6 +22,8 @@ export default class ModalDemo extends React.Component {
 		super(props);
 		this.state = {
 			visible: false,
+			customModalStyle: {},
+			customBodyStyle: {},
 			size: 'medium',
 			title: ''
 		};
@@ -52,9 +54,20 @@ export default class ModalDemo extends React.Component {
 		});
 	};	
 	
+	openCustomModal = () => {
+    this.setState({
+      customVisible: true,
+			customModalStyle: { maxWidth: '1100px' },
+			customBodyStyle: { maxHeight: '400px' },
+      title: '自定义样式-宽高'
+    });
+  };
+	
+	
 	// 确认按钮回调函数
 	handleOk = () => {
 		this.setState({
+			customVisible: false,
 			visible: false
 		});
 	};
@@ -62,12 +75,14 @@ export default class ModalDemo extends React.Component {
 	// 关闭回调函数
 	handleClose = () => {
 		this.setState({
+			customVisible: false,
 			visible: false
 		});
 	};
 
 	handleCancel = () => {
 		this.setState({
+			customVisible: false,
 			visible: false
 		});
 	};
@@ -91,6 +106,59 @@ export default class ModalDemo extends React.Component {
 					大号弹窗L
 				</Button>
 				{blank}
+				<Button type="normal" onClick={this.openCustomModal}>
+					自定义尺寸弹窗
+				</Button>
+				{blank}
+				<Modal
+					title={this.state.title}
+					visible={this.state.customVisible}
+					modalStyle={this.state.customModalStyle}
+					bodyStyle={this.state.customBodyStyle}
+					onOk={this.handleOk}
+					onCancel={this.handleCancel}
+					onClose={this.handleClose}>
+					<Form layout="horizontal" labelCol={{ span: 4 }} wrapperCol={{ span: 18 }}>
+						<Form.Item label="你的特长">
+							<Select isAppendToBody style={{ width: 200 }}>
+								<Select.Option value={12}>乒乓球</Select.Option>
+								<Select.Option value={13}>足球</Select.Option>
+								<Select.Option value={14}>羽毛球</Select.Option>
+							</Select>
+						</Form.Item>
+						<Form.Item label="你的性别">
+							<Radio.Group defaultValue={1}>
+								<Radio value={1}>男</Radio>
+								<Radio value={2}>女</Radio>
+								<Radio value={3}>未知</Radio>
+							</Radio.Group>
+						</Form.Item>
+						<Form.Item label="日期组件">
+							<RangePicker allowClear showToday />
+						</Form.Item>
+						<Form.Item label="个人简介1">
+							<Input.Textarea maxLength={10} hasCounter style={{ width: '800px' }} minRows={2} placeholder="请输入个人简介..." />
+						</Form.Item>
+						<Form.Item label="个人简介2">
+							<Input.Textarea maxLength={10} hasCounter style={{ width: '800px' }} minRows={2} placeholder="请输入个人简介..." />
+						</Form.Item>
+						<Form.Item label="个人简介3">
+							<Input.Textarea maxLength={10} hasCounter style={{ width: '800px' }} minRows={2} placeholder="请输入个人简介..." />
+						</Form.Item>
+						<Form.Item label="个人简介4">
+							<Input.Textarea maxLength={10} hasCounter style={{ width: '800px' }} minRows={2} placeholder="请输入个人简介..." />
+						</Form.Item>
+						<Form.Item label="个人简介5">
+							<Input.Textarea maxLength={10} hasCounter style={{ width: '800px' }} minRows={2} placeholder="请输入个人简介..." />
+						</Form.Item>
+						<Form.Item label="个人简介6">
+							<Input.Textarea maxLength={10} hasCounter style={{ width: '800px' }} minRows={2} placeholder="请输入个人简介..." />
+						</Form.Item>
+						<Form.Item wrapperCol={{ offset: 4 }}>
+							<Button type="primary" onClick={this.showMessage}>提交</Button>
+						</Form.Item>
+					</Form>
+				</Modal>
 				<Modal
 					title={this.state.title}
 					size={this.state.size}

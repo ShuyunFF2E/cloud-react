@@ -1,2 +1,15 @@
 @import './core/index';
 @import './mixins/index';
+
+/** 修改滚动条样式 */
+::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: @gray-4;
+  border-radius: 4px;
+  &:hover {
+    background-color: @gray-7;
+  }
+}

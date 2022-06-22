@@ -18,15 +18,15 @@ export default function InputDemo() {
 	return (
 		<div className="input-demo-mix-box">
 			<div className="input-demo-box">
-				<Input size="large" hasClear prefix={<Icon className='input-prefix-icon' type="shop" />} addonBefore={<span>http://</span>} addonAfter=".com" />
+				<Input size="large" hasClear prefix={<Icon className='input-prefix-icon' type="rmb" />} addonBefore={<span>http://</span>} addonAfter=".com" />
 				<Input hasClear size="default" addonBefore={<span>http://</span>} addonAfter=".com" />
 				<Input hasClear size="small" addonBefore={<span>http://</span>} addonAfter=".com" />
 			</div>
-
+      <br />
 			<div className="input-demo-box">
-				<Input hasClear size="large" prefix={<Icon className='input-prefix-icon' type="shop" />} />
-				<Input suffix={<Icon className='input-prefix-icon' type="search" />} />
-				<Input prefix={<Icon className='input-prefix-icon' type="shop" />} suffix="RMB" />
+				<Input hasClear size="large" prefix={<Icon className='input-prefix-icon' type="rmb" />} /><br />
+				<Input suffix={<Icon className='input-prefix-icon' type="search" />} /><br />
+				<Input prefix={<Icon className='input-prefix-icon' type="rmb" />} suffix="RMB" />
 			</div>
 		</div>
 	);

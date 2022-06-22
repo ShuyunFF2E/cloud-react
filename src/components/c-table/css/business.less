@@ -55,7 +55,7 @@
 
       &-resizeable {
         &:not(:last-of-type):hover {
-          background: @indigo-1;
+          background: @blue-1;
           box-shadow: inset 0 0 0 1px @blue-4;
           z-index: 1;
         }
@@ -84,7 +84,7 @@
     .@{tablePrefixCls}-resizeable {
       &:not(:last-of-type):hover {
         position: relative;
-        background: @indigo-1;
+        background: @blue-1;
         z-index: 1;
 
         &::before {
@@ -141,10 +141,7 @@
   // 树状表格（只有两级），展开图标单独占据一列
   &.@{tablePrefixCls}-two-level-tree {
     .@{tablePrefixCls}-expend-icon {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      .absolute-center();
 
       &-expended {
         transform: translate(-50%, -50%) rotate(90deg);
@@ -235,6 +232,13 @@
 
     &.@{tablePrefixCls}-bordered .@{tablePrefixCls}-container {
       border: none;
+    }
+  }
+
+  // 表格通栏
+  &.@{tablePrefixCls}-full-column {
+    .@{tablePrefixCls}-expend-icon {
+      display: none;
     }
   }
 

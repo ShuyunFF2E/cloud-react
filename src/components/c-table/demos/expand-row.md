@@ -12,6 +12,7 @@ desc: 展开行
  */
 import React from 'react';
 import { CTable } from 'cloud-react';
+import headerImg from './header.jpg';
 
 const data = [
     { id: '121410327', name: '手机号优先继续发送1', createTime: '2021/12/14 10:19:02', creator: 'liyuan.meng', key: '121410327' },
@@ -24,7 +25,7 @@ const data = [
 const columns = [
     { title: '活动名称', dataIndex: 'name', align: 'left', render: (value) => (
         <div style={{ display: 'flex' }}>
-          <img style={{ width: 24, height: 24, borderRadius: '100%', marginRight: 8 }} src="https://img2.baidu.com/it/u=1429175118,2649084526&fm=26&fmt=auto" />
+          <img style={{ width: 24, height: 24, borderRadius: '100%', marginRight: 8 }} src={headerImg} />
           <span>{value}</span>
         </div>
       )
@@ -60,6 +61,9 @@ export default function CTableDemo() {
                     </ul>
                 )
             }}
+            /**
+             * 更多 expandable 功能查看 API：https://table-react-component.vercel.app/#api
+            */
             expandable={{
                 expandRowByClick: true,
                 defaultExpandedRowKeys: ['121410327'],

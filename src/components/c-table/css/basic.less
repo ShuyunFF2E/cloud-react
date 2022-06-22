@@ -330,7 +330,7 @@
     align-items: center;
     justify-content: center;
     width: 22px;
-    height: 22px;
+    height: 18px;
     font-size: 14px;
     color: @gray-7;
     cursor: pointer;
@@ -353,6 +353,19 @@
 
   .@{tablePrefixCls}-checkbox-column {
     min-width: auto;
+    position: relative;
+
+    .cloud-checkbox {
+      .absolute-center();
+    }
+  }
+
+  .@{tablePrefixCls}-radio-column {
+    position: relative;
+
+    .cloud-radio {
+      .absolute-center();
+    }
   }
 
   .@{tablePrefixCls}-row-expand-column {

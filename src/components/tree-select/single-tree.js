@@ -9,34 +9,24 @@ import Input from '../input';
 import './index.less';
 import { selector, getOpenKeys, getChildValues } from './const';
 
-const OptionsSearch = ({ searchValue, onOptionsSearch, clearSearch, placeholder }) => {
-  return (
-    <div className={`${selector}-search`}>
-      <Input
-        value={searchValue}
-        onChange={onOptionsSearch}
-        placeholder={placeholder}
-        className={`${selector}-search-input`}
-      />
-      <Icon
-        type="close-circle-solid"
-        className={classnames(`${selector}-search-icon`, {
-          show: searchValue
-        })}
-        onClick={clearSearch}
-      />
-    </div>
-  );
-};
+const OptionsSearch = ({ searchValue, onOptionsSearch, clearSearch, placeholder }) => (
+  <div className={`${selector}-search`}>
+    <Input
+      value={searchValue}
+      onChange={onOptionsSearch}
+      placeholder={placeholder}
+      className={`${selector}-search-input`}
+      suffix={<Icon type="close-fill" className={classnames(`${selector}-search-icon`, { show: searchValue })} onClick={clearSearch} />}
+    />
+  </div>
+);
 
-const OptionsEmpty = ({ emptyRender, ...props }) => {
-  return (
-    <div className={`${selector}-empty-options`} {...props}>
-      {' '}
-      {emptyRender}{' '}
-    </div>
-  );
-};
+const OptionsEmpty = ({ emptyRender, ...props }) => (
+  <div className={`${selector}-empty-options`} {...props}>
+    {' '}
+    {emptyRender}{' '}
+  </div>
+);
 
 class SingleTree extends React.Component {
   constructor(props) {
@@ -48,7 +38,7 @@ class SingleTree extends React.Component {
       openKeys: getOpenKeys(value, dataSource, isUnfold),
       dataSource,
       selected: value,
-      prevProps: props,
+      prevProps: props
     };
   }
 
@@ -61,7 +51,7 @@ class SingleTree extends React.Component {
         value,
         prevValue: value,
         openKeys: getOpenKeys(value, dataSource, isUnfold),
-        prevProps: props,
+        prevProps: props
       };
     }
     return null;
@@ -70,7 +60,7 @@ class SingleTree extends React.Component {
   onOptionsSearch = e => {
     const { value } = e.target;
     this.setState({
-      searchValue: value,
+      searchValue: value
     });
     this.props.onSearch(value);
     this.onFilterDataSource(value);
@@ -78,7 +68,7 @@ class SingleTree extends React.Component {
 
   clearSearch = () => {
     this.setState({
-      searchValue: '',
+      searchValue: ''
     });
     this.props.onSearch('');
     this.onFilterDataSource('');
@@ -151,11 +141,7 @@ class SingleTree extends React.Component {
       const label = this.getLabel(node.label, searchValue);
       return (
         <div key={node.value} className={`${selector}-option-list`}>
-          <div
-            className={classNames}
-            style={{ paddingLeft: node.level * 20 }}
-            onClick={this.onClickOption.bind(this, node)}
-          >
+          <div className={classNames} style={{ paddingLeft: node.level * 20 }} onClick={this.onClickOption.bind(this, node)}>
             <span dangerouslySetInnerHTML={{ __html: label }} title={node.label} />
             {node.children && node.children.length ? <Icon type="right" className={iconClassNames} /> : null}
           </div>
@@ -167,23 +153,14 @@ class SingleTree extends React.Component {
   }
 
   render() {
-    const {
-      props, state, clearSearch, onOptionsSearch,
-    } = this;
-    const {
-      searchable, searchPlaceholder, dropdownClassName, dropdownStyle, emptyRender,
-    } = props;
+    const { props, state, clearSearch, onOptionsSearch } = this;
+    const { searchable, searchPlaceholder, dropdownClassName, dropdownStyle, emptyRender } = props;
     const { dataSource, searchValue } = state;
     const classNames = classnames(`${selector}-options`, dropdownClassName, `${selector}-single-options`);
     return (
       <div className={classNames} style={dropdownStyle}>
         {searchable && (
-          <OptionsSearch
-            searchValue={searchValue}
-            onOptionsSearch={onOptionsSearch}
-            placeholder={searchPlaceholder}
-            clearSearch={clearSearch}
-          />
+          <OptionsSearch searchValue={searchValue} onOptionsSearch={onOptionsSearch} placeholder={searchPlaceholder} clearSearch={clearSearch} />
         )}
         {this.renderChildren(dataSource)}
         {!dataSource.length && <OptionsEmpty emptyRender={emptyRender} />}
@@ -197,11 +174,11 @@ SingleTree.propTypes = {
   searchable: PropTypes.bool,
   isUnfold: PropTypes.bool,
   searchPlaceholder: PropTypes.string,
-  value: PropTypes.oneOfType([ PropTypes.object, PropTypes.array ]),
+  value: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   dropdownClassName: PropTypes.string,
   dropdownStyle: PropTypes.object,
   onChange: PropTypes.func,
-  onSearch: PropTypes.func,
+  onSearch: PropTypes.func
 };
 
 SingleTree.defaultProps = {
@@ -213,7 +190,7 @@ SingleTree.defaultProps = {
   dropdownClassName: '',
   dropdownStyle: {},
   onChange: noop,
-  onSearch: noop,
+  onSearch: noop
 };
 
 export default SingleTree;

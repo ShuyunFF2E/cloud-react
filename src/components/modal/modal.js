@@ -49,7 +49,7 @@ class Notification extends Component {
 
   static defaultProps = {
     visible: false,
-    size: 'medium',
+    size: 'auto',
     modalStyle: {},
     headerStyle: {},
     bodyStyle: {},
@@ -138,6 +138,18 @@ class Notification extends Component {
 
   get modalRef() {
     return this.ref.current;
+  }
+
+  get headerCurrent() {
+    return this.headerRef.current;
+  }
+
+  get bodyCurrent() {
+    return this.bodyRef.current;
+  }
+
+  get footerCurrent() {
+    return this.footerRef.current;
   }
 
   get mask() {

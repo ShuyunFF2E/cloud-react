@@ -6,10 +6,10 @@ desc: 与Tree结合的树下拉
 
 ```jsx
 
-            /**
-             * title: 多层单选与多选
-             * desc: 与Tree结合的树下拉
-             */
+/**
+ * title: 多层单选与多选
+ * desc: 与Tree结合的树下拉
+ */
 import React from 'react';
 import { TreeSelect } from 'cloud-react';
 
@@ -56,38 +56,6 @@ export default class TreeSelectDemo extends React.Component {
 				}
 			]
 		};
-        setTimeout(() => {
-           this.setState({
-              confirmNodes: [
-                 {
-                 					id: 113,
-                 					name: '删除三个',
-                 					pId: 11,
-                 					children: [
-                 						{
-                 							id: 1131,
-                 							name: '禁止删除节点31',
-                 							pId: 113,
-                 							children: []
-                 						},
-                 						{
-                 							id: 1132,
-                 							name: '禁止删除节点32',
-                 							pId: 113,
-                 							children: [
-                 								{
-                 									id: 11321,
-                 									name: '禁止删除节点321',
-                 									pId: 1132,
-                 									children: []
-                 								}
-                 							]
-                 						}
-                 					]
-                 				}
-              ]
-           });
-        }, 1000);
 
 	}
 
@@ -161,7 +129,8 @@ export default class TreeSelectDemo extends React.Component {
 				<TreeSelect
 					isAppendToBody
 					type="single"
-					// isUnfold
+					searchable
+					isUnfold
 					containParentNode
 					position="auto"
 					placeholder="选择一个选项"

@@ -80,6 +80,7 @@ export default class ModalDemo extends React.Component {
 				</Button>
 				<Modal
 					title="弹窗"
+					size="large"
 					bodyStyle={modalStyle}
 					visible={this.state.visible}
 					onOk={this.handleOk}

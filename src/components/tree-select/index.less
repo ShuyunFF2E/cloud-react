@@ -2,35 +2,36 @@
 
 @select-prefix-cls: ~'@{prefix}-tree-select';
 
-@font-size: 12px;
-@height: 30px;
+@font-size: 14px;
+@icon-font-size: 16px;
+@height: 32px;
 @line-height: 16px;
-@max-height: 220px;
+@max-height: 248px;
 @min-width: 64px;
 @max-width: 400px;
-@text-icon-gap: 20px;
+@text-icon-gap: 8px;
 @search-input-height: 25px;
 
-@default-padding: 5px;
+@default-padding: 8px 12px;
 @default-margin: 5px;
 @default-border-radius: 2px;
 @large-padding: 10px;
 
-@dropdown-icon-size: @font-size;
+@dropdown-icon-size: @icon-font-size;
 
 @box-sizing: border-box;
 
-@font-color: #3d3d3d;
+@font-color: @gray-9;
 @background-color: #fff;
 @select-empty-color: #c9c9c9;
-@select-normal-border: 1px solid @color-gray5;
-@select-hover-color: #aacbe1;
+@select-normal-border: 1px solid @gray-4;
+@select-hover-color: #5280FF;
 @select-hover-border: 1px solid @select-hover-color;
 @select-disabled-border: 1px solid @color-gray5;
 @select-disabled-color: #c9c9c9;
 @select-disabled-background: @color-gray7;
-@dropdown-icon-color: #c2c2c2;
-@option-hover-background: #f6f6f6;
+@dropdown-icon-color: @gray-6;
+@option-hover-background: #F5F8FF;
 @option-disabled-background: #f6f6f6;
 @search-border: 1px solid #ededed;
 @sign-color: #dbdbdb;
@@ -64,6 +65,7 @@
 		line-height: @line-height;
 		background: @color-white;
 		border: @select-normal-border;
+		border-radius: 2px;
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
@@ -73,7 +75,7 @@
 			border: @select-hover-border;
 
 			.@{select-prefix-cls}-select-icon {
-				color: @select-hover-color;
+				color: @gray-7;
 			}
 		}
 
@@ -105,7 +107,8 @@
 
 		.@{select-prefix-cls}-selected {
 			flex: 1 0;
-			padding: @default-padding;
+			// padding: @default-padding;
+			padding: 6px 12px;
 			padding-right: @text-icon-gap;
 			font-size: @font-size;
 			color: @font-color;
@@ -117,7 +120,7 @@
 		.@{select-prefix-cls}-select-icon {
 			font-size: @dropdown-icon-size;
 			color: @dropdown-icon-color;
-			margin-right: 10px;
+			margin-right: 12px;
 			transition: transform 0.3s;
 
 			&.open {
@@ -135,9 +138,32 @@
 
 		.@{select-prefix-cls}-clear-icon {
 			display: none;
+			color: @gray-7;
 
 			&.show {
 				display: block;
+			}
+		}
+
+
+		.@{select-prefix-cls}-selected-list {
+			padding: 4px 8px;
+
+			&-item {
+				display: flex;
+				align-items: center;
+				height: 24px;
+				padding: 2px 4px;
+				background: @gray-3;
+				border-radius: 2px;
+				color: @gray-8;
+				font-size: 14px;
+			}
+
+			.item-delete-icon {
+				margin-left: 4px;
+				color: @gray-6;
+				font-size: 16px;
 			}
 		}
 	}
@@ -170,10 +196,12 @@
 	max-width: @max-width;
 	min-width: @min-width;
 	width: 100%;
-	border: @select-normal-border;
+	// border: @select-normal-border;
 	background: @background-color;
 	cursor: pointer;
 	overflow: auto;
+	box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.1), 0px 2px 8px 0px rgba(0, 0, 0, 0.04);
+	border-radius: 2px;
 
 	& * {
 		box-sizing: @box-sizing;
@@ -194,20 +222,20 @@
 
 		.@{select-prefix-cls}-search-input {
 			width: 100%;
-			padding: @default-padding;
-			padding-right: @text-icon-gap;
-			height: @search-input-height;
-			border: @search-border;
-			border-radius: @default-border-radius;
-			outline: none;
-			.text-overflow-ellipsis();
+			// padding: @default-padding;
+			// padding-right: @text-icon-gap;
+			// height: @search-input-height;
+			// border: @search-border;
+			// border-radius: @default-border-radius;
+			// outline: none;
+			// .text-overflow-ellipsis();
 		}
 
 		.@{select-prefix-cls}-search-icon {
 			color: @sign-color;
 			position: absolute;
-			right: @default-padding * 2;
-			top: @default-padding * 2;
+			right: 12px;
+			// top: @default-padding * 2;
 			display: none;
 
 			&.show {
@@ -229,7 +257,7 @@
 		.column-layout;
 
 		.@{select-prefix-cls}-option {
-			padding: @default-padding @large-padding;
+			padding: @default-padding;
 
 			&.selected {
 				background: @background-color;
@@ -261,13 +289,13 @@
 			width: @min-width;
 
 			&:not(:last-child) {
-				margin-right: 10px;
+				margin-right: 12px;
 			}
 		}
 	}
 
 	.@{prefix}-tree {
-		padding: 5px 0;
+		padding: 8px 0;
 		overflow: auto;
 	}
 }
@@ -282,9 +310,9 @@
 		.@{select-prefix-cls}-option {
 			display: none;
 			justify-content: space-between;
-			padding: @default-padding @large-padding;
+			padding: 6px 12px;
 			height: @height;
-			line-height: @height - @default-padding * 2;
+			line-height: 20px;
 			.text-overflow-ellipsis();
 
 			.@{select-prefix-cls}-icon {
@@ -301,7 +329,8 @@
 			}
 
 			.search-text {
-				color: @color-blue1;
+				color: #8FAFFF;
+				font-size: 14px;
 			}
 
 			&-show {
@@ -313,7 +342,7 @@
 			}
 
 			&.selected {
-				background: #f6f6f6;
+				background: #D4E1FF;
 			}
 		}
 	}
