@@ -32,7 +32,6 @@ const menuModalBodyStyle = {
 // 搜索区域样式
 const hasSearchStyle = {
   height: 'calc(100% - 42px)',
-  overflow: 'auto',
 };
 
 class Tree extends Component {
