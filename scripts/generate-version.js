@@ -65,8 +65,6 @@ const calcNext = mode => {
 	}
 };
 
-console.log(calcNext(params.mode));
-
 const package = getPackageJson();
 
 package.version = calcNext(params.mode);
