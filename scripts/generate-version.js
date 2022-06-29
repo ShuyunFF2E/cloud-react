@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /**
  * eg: npm run cli-version mode=develop/prod
  * 配合企业级 devops 流水线
@@ -26,12 +27,26 @@ function getPackageJson() {
 	return JSON.parse(packageJson);
 }
 
-const cmdStr = 'npm view cloud-react version';
+const cmdStr = 'npm view cloud-react versions';
 
 const buffer = execSync(cmdStr);
-const currVersion = buffer.toString().replace(/\n/, '');
 
-console.log(`目前npm上cloud-react版本为 ${currVersion}`);
+// 老版本去0开头的版本号
+const versions = eval(buffer.toString()).filter(f => f[0] === '0').slice(-10);
+const sortVersions = versions.sort((a, b) => {
+  const [ a1, a2, a3 ] = a.split('.');
+  const [ b1, b2, b3 ] = b.split('.');
+  const [ a3_1, a3_2 = 0 ] = a3.split('-');
+  const [ b3_1, b3_2 = 0 ] = b3.split('-');
+  if (+a1 > +b1) return 1;
+  if (+a2 > +b2) return 1;
+  if (+a3_1 > +b3_1) return 1;
+  if (+a3_2 > +b3_2) return 1;
+  return -1;
+});
+const currVersion = sortVersions[sortVersions.length - 1];
+
+console.log(`目前npm上cloud-react版本(旧版本)为 ${currVersion}`);
 
 const calcNext = mode => {
 	const arr = currVersion.split('.');
@@ -49,6 +64,8 @@ const calcNext = mode => {
 		return currVersion.substr(0, currVersion.indexOf('-')) + '-' + (Number(r[1]) + 1);
 	}
 };
+
+console.log(calcNext(params.mode));
 
 const package = getPackageJson();
 
