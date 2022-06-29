@@ -31,7 +31,7 @@
 
  const buffer = execSync(cmdStr);
 
- // 老版本去0开头的版本号
+ // 新版本取1开头的版本号
  const versions = eval(buffer.toString()).filter(f => f[0] === '1').slice(-10);
  const sortVersions = versions.sort((a, b) => {
    const [ a1, a2, a3 ] = a.split('.');
