@@ -95,6 +95,7 @@
 
   &.small {
     padding: 1px 4px;
+    line-height: 18px;
 
     &.closable {
       padding-right: 20px;
@@ -178,7 +179,7 @@
       .close-style(@red-3, @red-5, @red-6);
     }
   }
-
+  &.primary,
   &.blue {
     .theme-style(@blue-1, @blue-5);
     &.disabled {
@@ -201,6 +202,9 @@
     .theme-style(@gray-3, @gray-8);
     &.disabled {
       .color-disabled(@gray-7, @gray-3);
+    }
+    .tag-close-icon {
+      .close-style(@gray-6, @gray-7, @gray-8);
     }
   }
 }
