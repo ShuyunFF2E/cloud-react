@@ -23,14 +23,18 @@ export default class TagDemo extends Component {
 					<Tag color="yellow" size="small"> 黄色 </Tag>
 					<Tag color="orange" size="small"> 橙色 </Tag>
 					<Tag color="red" size="small"> 红色 </Tag>
+          	<Tag color="green" size="small" > 绿色 </Tag>
+					<Tag color="gray" size="small" > 灰色 </Tag>
 				</div>
 
-				<div style={{ marginBottom: 15, fontSize: 14 }}>
-					<div style={{ marginBottom: 5 }}>禁用小标签</div>
-					<Tag color="blue" disabled size="small"> 蓝色 </Tag>
-					<Tag color="yellow" disabled size="small"> 黄色 </Tag>
-					<Tag color="orange" disabled size="small"> 橙色 </Tag>
-					<Tag color="red" disabled size="small"> 红色 </Tag>
+         <div style={{ marginBottom: 15, fontSize: 14 }}>
+					<div style={{ marginBottom: 5 }}>圆形小标签</div>
+					<Tag color="blue" size="small" rounded > 蓝色 </Tag>
+					<Tag color="yellow" size="small" rounded > 黄色 </Tag>
+					<Tag color="orange" size="small" rounded > 橙色 </Tag>
+					<Tag color="red" size="small" rounded> 红色 </Tag>
+          <Tag color="green" size="small" rounded> 绿色 </Tag>
+					<Tag color="gray" size="small" rounded> 灰色 </Tag>
 				</div>
 
 				<div style={{ marginBottom: 15, fontSize: 14 }}>
@@ -39,6 +43,8 @@ export default class TagDemo extends Component {
 					<Tag color="yellow" size="small" closable> 黄色 </Tag>
 					<Tag color="orange" size="small" closable> 橙色 </Tag>
 					<Tag color="red" size="small" closable> 红色 </Tag>
+          	<Tag color="green" size="small" closable > 绿色 </Tag>
+					<Tag color="gray" size="small" closable > 灰色 </Tag>
 				</div>
 
 				<div style={{ marginBottom: 15, fontSize: 14 }}>
@@ -47,6 +53,8 @@ export default class TagDemo extends Component {
 					<Tag color="yellow" size="small" icon="people"> 黄色 </Tag>
 					<Tag color="orange" size="small" icon="people"> 橙色 </Tag>
 					<Tag color="red" size="small" icon="people"> 红色 </Tag>
+          	<Tag color="green" size="small" icon="people" > 绿色 </Tag>
+					<Tag color="gray" size="small" icon="people" > 灰色 </Tag>
 				</div>
 				<div style={{ marginBottom: 15, fontSize: 14 }}>
 					<div style={{ marginBottom: 5 }}>带icon的标签+可关闭的小标签</div>
@@ -54,7 +62,9 @@ export default class TagDemo extends Component {
 					<Tag color="yellow" size="small" icon="people" closable> 黄色 </Tag>
 					<Tag color="orange" size="small" icon="people" closable> 橙色 </Tag>
 					<Tag color="red" size="small" icon="people" closable> 红色 </Tag>
-				</div>
+          <Tag color="green" size="small" icon="people" closable> 绿色 </Tag>
+					<Tag color="gray" size="small" icon="people" closable> 灰色 </Tag>
+				</div> 
 				
 			</React.Fragment>
 		);

@@ -40,13 +40,7 @@ export default class TagDemo extends Component {
 
 				<div style={{ marginBottom: 15, fontSize: 14 }}>
 					<div style={{ marginBottom: 5 }}>禁用的标签</div>
-					<Tag color="blue" disabled> 蓝色 </Tag>
-					<Tag color="yellow" disabled> 黄色 </Tag>
-					<Tag color="orange" disabled> 橙色 </Tag>
-					<Tag color="red" disabled> 红色 </Tag>
-					<Tag color="green" disabled> 绿色 </Tag>
-					<Tag color="gray" disabled> 灰色 </Tag>
-					<Tag disabled> 默认 </Tag>
+					<Tag checked={false} disabled> 默认 </Tag>
 				</div>
 
 				<div style={{ marginBottom: 15, fontSize: 14 }}>
@@ -57,7 +51,6 @@ export default class TagDemo extends Component {
 					<Tag color="red" closable> 红色 </Tag>
 					<Tag color="green" closable> 绿色 </Tag>
 					<Tag color="gray" closable> 灰色 </Tag>
-					<Tag closable> 默认 </Tag>
 				</div>
 
 				<div style={{ marginBottom: 15, fontSize: 14 }}>
@@ -69,7 +62,6 @@ export default class TagDemo extends Component {
 					<Tag color="red" icon="people"> 红色 </Tag>
 					<Tag color="green" icon="people"> 绿色 </Tag>
 					<Tag color="gray" icon="people"> 灰色 </Tag>
-					<Tag closable icon="people"> 默认 </Tag>
 				</div>
 
 				<div style={{ marginBottom: 15, fontSize: 14 }}>
@@ -81,7 +73,6 @@ export default class TagDemo extends Component {
 					<Tag color="red" icon="people" closable> 红色 </Tag>
 					<Tag color="green" icon="people" closable> 绿色 </Tag>
 					<Tag color="gray" icon="people" closable> 灰色 </Tag>
-					<Tag closable icon="people" closable> 默认 </Tag>
 				</div>
 				
 			</React.Fragment>
