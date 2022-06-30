@@ -63,6 +63,10 @@ ComplexRadio.propTypes = {
   textOverflowEllipsis: PropTypes.bool,
   contentStyle: PropTypes.object,
   type: PropTypes.string,
+  disabled: PropTypes.bool,
+  checked: PropTypes.bool,
+  value: PropTypes.node.isRequired,
+  onChange: PropTypes.func,
 };
 
 ComplexRadio.defaultProps = {
@@ -73,4 +77,7 @@ ComplexRadio.defaultProps = {
   textOverflowEllipsis: false,
   contentStyle: {},
   type: 'default',
+  disabled: false,
+  checked: false,
+  onChange: () => {},
 };
