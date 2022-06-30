@@ -7,127 +7,121 @@
 @radio-size: 14px;
 
 .@{raido-prefix-cls}-position {
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
 .@{raido-prefix-cls} {
-	display: inline-flex;
-	align-items: center;
-	margin-right: 24px;
+  display: inline-flex;
+  align-items: center;
+  margin-right: 24px;
 
-	cursor: pointer;
-	color: @gray-5;
+  cursor: pointer;
+  color: @gray-5;
 
-	&-group {
-		display: inline-flex;
-		&.vertical {
-			flex-direction: column;
-			gap: 16px
-		}
-		&.horizontal {
-			flex-direction: row;
-		}
-	}
+  &-group {
+    display: inline-flex;
+    &.vertical {
+      flex-direction: column;
+      gap: 16px;
+    }
+    &.horizontal {
+      flex-direction: row;
+    }
+  }
 
-	&-container {
-		// display: flex;
-		// flex-direction: column;
-		&-text {
-			color: @gray-7;
-			margin-left: 22px;
-			line-height: 20px;
-		}
-	}
+  &-container {
+    &-text {
+      color: @gray-7;
+      margin-left: 22px;
+      line-height: 20px;
+    }
+  }
 
-	&-wrapper {
-		position: relative;
-		width: @radio-size;
-		height: @radio-size;
+  &-wrapper {
+    position: relative;
+    width: @radio-size;
+    height: @radio-size;
 
-		margin-right: 8px;
+    margin-right: 8px;
 
-		&:hover {
-			color: @blue-4;
-		}
-	}
+    &:hover {
+      color: @gray-6;
+    }
+  }
 
-	&-input {
-		position: absolute;
-		opacity: 0;
-		cursor: pointer;
+  &-input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
 
-		&:checked + .@{raido-prefix-cls}-inner {
-			color: @blue-4;
+    &:checked + .@{raido-prefix-cls}-inner {
+      color: @blue-4;
 
-			&::after:extend(.cloud-radio-position) {
-				content: '';
-				background-color: currentColor;
-				width: 6px;
-				height: 6px;
-				margin-left: 3px;
-				margin-top: 3px;
-				border: none;
-				// box-shadow: 0 0 5px currentColor;
-				animation: fadeIn 300ms ease-out both;
-				border-radius: 50%;
-			}
-		}
+      &::after:extend(.cloud-radio-position) {
+        content: '';
+        background-color: currentColor;
+        width: 6px;
+        height: 6px;
+        margin-left: 3px;
+        margin-top: 3px;
+        border: none;
+        animation: fadeIn 300ms ease-out both;
+        border-radius: 50%;
+      }
+    }
+    &:disabled,
+    &:disabled + .@{raido-prefix-cls}-inner {
+      .disabled;
+      color: @radio-disabled-inner-color;
+    }
 
+    &[disabled]:not(:checked) + .@{raido-prefix-cls}-inner {
+      color: @gray-5;
+      background-color: @gray-3;
+    }
 
-		&:disabled,
-		&:disabled + .@{raido-prefix-cls}-inner {
-			.disabled;
-			color: @radio-disabled-inner-color;
-		}
+    &[checked][disabled] + .@{raido-prefix-cls}-inner {
+      color: @blue-2;
+      &::after:extend(.cloud-radio-position) {
+        background-color: @blue-2;
+        box-shadow: 0 0 5px @blue-2;
+      }
+    }
+  }
 
-		&[disabled]:not(:checked) + .@{raido-prefix-cls}-inner {
-			color: @gray-5;
-			background-color: @gray-3;
-		}
+  &-inner:extend(.cloud-radio-position) {
+    z-index: 1;
 
-		&[checked][disabled]  + .@{raido-prefix-cls}-inner{
-			color: @blue-2;
-			&::after:extend(.cloud-radio-position) {
-				background-color: @blue-2;
-				box-shadow: 0 0 5px @blue-2;
-			}
-		}
+    border-radius: 50%;
+    border: 1px solid currentColor;
+    background-color: @gray-1;
+  }
 
-	}
+  &-text {
+    display: inline-flex;
+    align-items: center;
+    line-height: 30px;
+    color: @gray-9;
+  }
 
-	&-inner:extend(.cloud-radio-position) {
-		z-index: 1;
+  .disabled {
+    cursor: not-allowed;
+    color: @gray-6;
+  }
 
-		border-radius: 50%;
-		border: 1px solid currentColor;
-		background-color: @gray-1;
-	}
+  @keyframes fadeIn {
+    from {
+      box-shadow: 0 0 5px currentColor;
+      transform: scale(0.5);
+    }
 
-	&-text {
-		display: inline-flex;
-		align-items: center;
-		line-height: 30px;
-		color: @gray-9;
-	}
-
-	.disabled {
-		cursor: not-allowed;
-		color: @gray-6;
-	}
-
-	@keyframes fadeIn {
-		from {
-			box-shadow: 0 0 5px currentColor;
-			transform: scale(0.5);
-		}
-
-		to {
-			box-shadow: none;
-			transform: scale(1);
-		}
-	}
+    to {
+      box-shadow: none;
+      transform: scale(1);
+    }
+  }
 }

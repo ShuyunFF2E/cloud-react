@@ -21,9 +21,9 @@ export default function RadioDemo() {
 
   return (
     <Radio.Group value={value} defaultValue={1} onChange={onChange}>
-      <Radio value={1}>A</Radio>
-      <Radio value={2}>B</Radio>
-      <Radio value={3}>C</Radio>
+      <Radio value={1}>组合选项A</Radio>
+      <Radio value={2}>组合选项B</Radio>
+      <Radio value={3}>组合选项C</Radio>
     </Radio.Group>
   );
 }

@@ -36,7 +36,7 @@ export default class ButtonDemo extends React.Component {
 				<div style={{ marginBottom: 10 }}>
 					<Button onClick={() => this.onChangeSize('large')}>大尺寸</Button>
 					{blank}
-					<Button onClick={() => this.onChangeSize('default')}>默认</Button>
+					<Button onClick={() => this.onChangeSize('default')}>中尺寸</Button>
 					{blank}
 					<Button onClick={() => this.onChangeSize('small')}>小尺寸</Button>
 					{blank}
@@ -47,9 +47,11 @@ export default class ButtonDemo extends React.Component {
 
 				<h4>无图标</h4>
 				<div>
+					<Button type="normal" size={size}>普通</Button>
+					{blank}
 					<Button type="primary" size={size}>主要</Button>
 					{blank}
-					<Button type="normal" size={size}>普通</Button>
+					<Button type="secondary" size={size}>次要</Button>
 					{blank}
 					<Button type="dashed" size={size}>幽灵</Button>
 					{blank}
@@ -59,37 +61,17 @@ export default class ButtonDemo extends React.Component {
 				</div>
 				<div>
 					<h4>有图标</h4>
+					<Button type="normal" icon="plus-solid" size={size}>普通</Button>
+					{blank}
 					<Button type="primary" icon="plus-solid" size={size}>主要</Button>
 					{blank}
-					<Button type="normal" icon="plus-solid" size={size}>普通</Button>
+					<Button type="secondary" icon="plus-solid" size={size}>次要</Button>
 					{blank}
 					<Button type="dashed" icon="plus-solid" size={size}>幽灵</Button>
 					{blank}
 					<Button type="link" icon="plus-solid" size={size}>链接</Button>
 					{blank}
 					<Button type="text" icon="plus-solid" size={size}>文字</Button>
-				</div>
-				<div>
-					<h4>有图标</h4>
-					<Button type="primary" icon="plus-solid" size={size}>
-						primary
-					</Button>
-					{blank}
-					<Button type="normal" icon="plus-solid" size={size}>
-						normal
-					</Button>
-					{blank}
-					<Button type="dashed" icon="plus-solid" size={size}>
-						dashed
-					</Button>
-					{blank}
-					<Button type="link" icon="plus-solid" size={size}>
-						link
-					</Button>
-					{blank}
-					<Button type="text" icon="plus-solid" size={size}>
-						text
-					</Button>
 				</div>
 			</React.Fragment>
 		);

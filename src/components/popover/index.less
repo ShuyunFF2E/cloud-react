@@ -1,11 +1,13 @@
 @import '../style/index';
 
 @popover-prefix-cls: ~'@{prefix}-popover';
+@popover-line-height: 20px;
 
 .@{popover-prefix-cls} {
   &-content {
     display: flex;
     align-content: flex-start;
+    line-height: @popover-line-height;
 
     .popover-warn-icon {
       align-self: flex-start;
@@ -20,6 +22,7 @@
     color: #FD830A;
     margin-right: 8px;
     font-size: 16px;
+    line-height: @popover-line-height;
   }
 
   &-main-content {
@@ -31,15 +34,20 @@
   &-title {
     font-size: 14px;
     color: @gray-9;
-    margin-top: 2px;
+    // margin-top: 2px;
     margin-bottom: 4px;
   }
 
   &-desc {
     font-size: 14px;
     color: @gray-9;
+    line-height: 18px;
     max-height: 190px;
     overflow-y: auto;
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+
 
     &.@{popover-prefix-cls}-has-title {
       font-size: 12px;

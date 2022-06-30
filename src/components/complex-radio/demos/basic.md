@@ -46,7 +46,7 @@ export default function ComplexRadioDemo() {
                     imgSrc="https://brand-guide.shuyun.com/IAM/52e939494f3b.png"
                     value="E"
                     checked
-                    disabled
+                    imgSrc="https://brand-guide.shuyun.com/IAM/77c28a6547cd.png"
                 />
               </Radio.Group>
             </div>

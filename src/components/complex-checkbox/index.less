@@ -7,6 +7,18 @@
 .@{complex-checkbox-prefix-cls} {
 	height: 24px;
 
+	&.@{complex-checkbox-prefix-cls}-checkbox-card{
+		padding: 16px;
+		border: 1px solid transparent;
+		&:hover{
+			background: @gray-2;
+		}
+	}
+	&.@{checkbox-prefix-cls}-checked&.@{complex-checkbox-prefix-cls}-checkbox-card{
+		background: @blue-1;
+		border: 1px solid @blue-4;
+
+	}
 	img[alt='header'] {
 		height: 24px;
 		width: 24px;

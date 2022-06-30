@@ -100,6 +100,8 @@ group:
 | defaultValue     | 组件默认值 | number | - |
 | placeholder      | 输入框占位符 | string | `"请选择年份"` |
 | disabled         | 指示组件是否可用 | boolean | `true` |
+| min              | 最小年份（原 `minYear` 失效）                        | number                  |                   |
+| max              | 最大年份（原 `maxYear` 失效）                        | number                  | -                 |
 | onChange         | 组件值改变事件处理函数 | (value: number) => void | - |
 | onSelect         | 弹层中选择事件处理函数 | (value: number) => void | - |
 | onPanelChange    | 弹层中日历切换事件处理函数 | (value: number, type: string) => void | - |
