@@ -35,7 +35,7 @@ export default function SelectDemo() {
   const onClick = () => setDisabled(!disabled);
 
   return (
-    <div>
+    <div className="demo">
       <Select
         style={{ marginBottom: '10px' }}
         disabled={disabled}

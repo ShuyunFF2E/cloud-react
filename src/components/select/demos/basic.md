@@ -40,7 +40,7 @@ export default function SelectDemo() {
   };
 
   return (
-    <>
+    <div className="demo">
       <Select
         defaultValue={'3'}
         onChange={handleChange}
@@ -89,7 +89,7 @@ export default function SelectDemo() {
         ))}
       </Select>
       <Select dataSource={[]} style={{ width: 220 }}></Select>
-    </>
+    </div>
   );
 }
 ```
