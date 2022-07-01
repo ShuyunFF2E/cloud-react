@@ -39,7 +39,7 @@ export default function SelectDemo() {
   const [size, setSize ] = useState('default');
 
   return (
-    <>
+    <div className="demo">
       <div style={{ marginBottom: 10 }}>
         <Button size="large" onClick={() => setSize('large')}>大尺寸</Button>
         {blank}
@@ -71,7 +71,7 @@ export default function SelectDemo() {
         ))}
       </Select>
       <Select dataSource={[]} size={size} style={{ width: 220 }} />
-    </>
+    </div>
   );
 }
 ```
