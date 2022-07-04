@@ -43,7 +43,7 @@ this.tableRef.refreshTable(params?);
 | 属性           | 说明                    | 类型              | 默认值
 | -------------- | ---------------------- | ----------------- | ------ |
 | supportPage | 是否支持分页    | boolean   |   false   | |
-| pageOpts | 分页信息，详细见下表 **pageOpts**    | object   |   -   | |
+| pageOpts | 分页信息，详见**Pagination**组件：https://cloud-react.shuyun.com/v1/cloud-react/nav/pagination    | object   |   -   | |
 | showTotal | 显示总条数   | boolean   |   false   | |
 | showRefresh | 显示刷新按钮   | boolean   |   true   | |
 
@@ -85,6 +85,8 @@ this.tableRef.refreshTable(params?);
 | rowClassName | 自定义行类名   | function   |   -   | |
 | lightCheckedRow | 选中行高亮   | boolean   |   false   | |
 | disabledData | 禁用行（也可以通过给 data 设置 disabled: true 来实现禁用行）   | array   |   []   | |
+| loadingOpts | 表格自定义loading属性，详细见**Loading**组件：https://cloud-react.shuyun.com/v1/cloud-react/action/loading   | object   |   []   | |
+| loadingTpl | 自定义 loading    | function   |   -   | |
 
 #### CTable 业务相关配置
 | 属性           | 说明                    | 类型              | 默认值
@@ -121,18 +123,6 @@ this.tableRef.refreshTable(params?);
 | onCell     | 为每个单元格设置自定义参数 Function(record, index)                                   | function                      | -               |
 | minWidth     | 列拉伸的最小宽                       | number                   | - |
 | filters     | 配置表格列筛选项 [{ text: '男', value: 'male' }, { text: '女', value: 'female' }]                      | array                   | [] |
-
-#### CTable pageOpts
-| 属性                | 说明                                         | 类型                        | 默认值           |
-| ------------------- | -------------------------------------------- | --------------------------- | ---------------- |
-| pageNum             | 当前页数                                     | number                      | 1                |
-| pageSize            | 每页条数                                     | number                      | 10               |
-| showQuickJumper     | 是否可以快速跳转至某页                       | boolean                     | false            |
-| pageSizeOptions     | 指定每页可以显示多少条                       | number[]                    | [10, 20, 50, 100] |
-| showPageSizeOptions | 显示下拉选择每页显示多少条                   | boolean                     | false            |
-| total               | 数据总数                                     | number                      | 0                |
-| isAppendToBody      | 分页下拉框是否渲染在 body 上	          | boolean                      | true                |
-| emptyStyle | 数据为空默认模板的样式 | object     |   {}   | |
 
 ### 代码演示
 
