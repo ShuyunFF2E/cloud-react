@@ -186,35 +186,37 @@ class CTable extends Component {
    * 手动计算 右侧固定列 表头的样式（由于自定义滚动条占据宽度导致，rcTable 并不兼容这种情况）
    */
   setFixedStyle = () => {
-    if (isFirefox() || !this.props.useCustomScroll) {
-      return;
-    }
-    const fixedColumn = this.state.columnData
-      .filter((item) => item.fixed === 'right')
-      .reverse();
-    if (!fixedColumn.length) {
-      return;
-    }
-    const fixedEles = Array.from(
-      this.ref.current.querySelectorAll('th.cloud-table-cell-fix-right'),
-    );
-    if (fixedEles.length) {
-      fixedEles.pop();
-      fixedEles.reverse().forEach((ele, index) => {
-        if (index === 0) {
-          Object.assign(ele.style, { right: 0 });
-        } else {
-          const right = fixedColumn.slice(0, index).reduce((sum, item) => {
-            // eslint-disable-next-line no-param-reassign
-            sum += item.width;
-            return sum;
-          }, 0);
-          Object.assign(ele.style, {
-            right: `${right}px`,
-          });
-        }
-      });
-    }
+    setTimeout(() => {
+      if (isFirefox() || !this.props.useCustomScroll) {
+        return;
+      }
+      const fixedColumn = this.state.columnData
+        .filter((item) => item.fixed === 'right')
+        .reverse();
+      if (!fixedColumn.length) {
+        return;
+      }
+      const fixedEles = Array.from(
+        this.ref.current.querySelectorAll('th.cloud-table-cell-fix-right'),
+      );
+      if (fixedEles.length) {
+        fixedEles.pop();
+        fixedEles.reverse().forEach((ele, index) => {
+          if (index === 0) {
+            Object.assign(ele.style, { right: 0 });
+          } else {
+            const right = fixedColumn.slice(0, index).reduce((sum, item) => {
+              // eslint-disable-next-line no-param-reassign
+              sum += item.width;
+              return sum;
+            }, 0);
+            Object.assign(ele.style, {
+              right: `${right}px`,
+            });
+          }
+        });
+      }
+    }, 200);
   };
 
   /**
@@ -572,6 +574,8 @@ class CTable extends Component {
       supportDrag,
       showDragIcon,
       supportFullColumn,
+      loadingTpl,
+      loadingOpts,
     } = this.props;
     const {
       data,
@@ -669,10 +673,13 @@ class CTable extends Component {
                 : undefined
             }
           />
-          <Loading
-            className={`${tablePrefixCls}-loading-layer`}
-            loading={isLoading}
-          />
+          {loadingTpl(isLoading) || (
+            <Loading
+              className={`${tablePrefixCls}-loading-layer`}
+              loading={isLoading}
+              {...loadingOpts}
+            />
+          )}
         </div>
         {supportPage && (
           <div className={classnames(`${tablePrefixCls}-footer`)}>

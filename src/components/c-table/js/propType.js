@@ -54,6 +54,8 @@ export const propTypes = {
   onDragAfter: PropTypes.func,
   showDragIcon: PropTypes.bool,
   supportFullColumn: PropTypes.bool,
+  loadingTpl: PropTypes.func,
+  loadingOpts: PropTypes.object,
 };
 
 export const defaultProps = {
@@ -107,4 +109,6 @@ export const defaultProps = {
   onDragAfter: noop,
   showDragIcon: false,
   supportFullColumn: false,
+  loadingTpl: () => null,
+  loadingOpts: {},
 };
