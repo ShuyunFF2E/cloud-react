@@ -85,11 +85,11 @@
     border: 1px solid @blue-2;
     color: @blue-4;
     background: @gray-1;
+
     &.tips {
       border: 1px solid @orange-2;
       color: @orange-4;
     }
-
     &.danger {
       border: 1px solid @red-2;
       color: @red-4;
@@ -100,12 +100,10 @@
     }
 
     &:hover {
-      background: @blue-1;
       &.tips {
         border: 1px solid @orange-2;
         background: @orange-1;
       }
-
       &.danger {
         border: 1px solid @red-2;
         background: @red-1;
@@ -124,7 +122,6 @@
         color: @orange-5;
         background: @orange-2;
       }
-
       &.danger {
         border: 1px solid @red-3;
         color: @red-5;
@@ -185,6 +182,60 @@
       &.success {
         border: 1px solid @green-6;
         background: @green-6;
+      }
+    }
+  }
+  &.secondary {
+    border: 1px solid @blue-1;
+    color: @blue-4;
+    background: @blue-1;
+
+    &.tips {
+      border: 1px solid @orange-1;
+      background: @orange-1;
+      color: @orange-4;
+    }
+    &.danger {
+      border: 1px solid @red-1;
+      background: @red-1;
+      color: @red-4;
+    }
+    &.success {
+      border: 1px solid @green-1;
+      background: @green-1;
+      color: @green-4;
+    }
+
+    &:hover {
+      border: 1px solid @blue-2;
+      background: @blue-2;
+      &.tips {
+        border: 1px solid @orange-2;
+        background: @orange-2;
+      }
+      &.danger {
+        border: 1px solid @red-2;
+        background: @red-2;
+      }
+      &.success {
+        border: 1px solid @green-2;
+        background: @green-2;
+      }
+    }
+    &:active {
+      border: 1px solid @blue-3;
+      background: @blue-3;
+      &.tips {
+        border: 1px solid @orange-3;
+        background: @orange-3;
+      }
+      &.danger {
+        border: 1px solid @red-3;
+        background: @red-3;
+      }
+      &.success {
+        border: 1px solid @green-3;
+        background: @green-3;
       }
     }
   }
@@ -261,7 +312,6 @@
       }
     }
   }
-
   &.text {
     border: none;
     line-height: 1;
@@ -332,20 +382,6 @@
         background: @primary-disabled-bg;
         background-clip: padding-box;
         cursor: not-allowed;
-
-        // &.tips{
-        // 	border: 1px solid @orange-2;
-        // 	background: @orange-2;
-        // }
-
-        // &.danger{
-        // 	border: 1px solid @red-2;
-        // 	background: @red-2;
-        // }
-        // &.success{
-        // 	border: 1px solid @green-2;
-        // 	background: @green-2;
-        // }
       }
     }
 
@@ -357,22 +393,17 @@
         border: 1px solid @gray-4;
         background-color: @gray-3;
         cursor: not-allowed;
-        // &.tips{
-        // 	border: 1px solid @orange-2;
-        // 	background:transparent;
-        // 	color: @orange-2
-        // }
+      }
+    }
 
-        // &.danger{
-        // 	border: 1px solid @red-2;
-        // 	background:transparent;
-        // 	color: @red-2
-        // }
-        // &.success{
-        // 	border: 1px solid @green-2;
-        // 	background: transparent;
-        // 	color: @green-2
-        // }
+    &.secondary {
+      &,
+      &:hover,
+      &:active {
+        color: @gray-6;
+        border: 1px solid @gray-3;
+        background-color: @gray-3;
+        cursor: not-allowed;
       }
     }
 
@@ -463,7 +494,6 @@
           border: 1px solid @orange-2;
           background-color: @gray-1;
         }
-
         &.danger {
           color: @red-4;
           border: 1px solid @red-2;
@@ -473,6 +503,32 @@
           color: @green-4;
           border: 1px solid @green-2;
           background-color: @gray-1;
+        }
+      }
+    }
+
+    &.secondary {
+      &,
+      &:hover,
+      &:active {
+        color: @blue-4;
+        border: 1px solid @blue-1;
+        background-color: @blue-1;
+        cursor: not-allowed;
+        &.tips {
+          color: @orange-4;
+          border: 1px solid @orange-1;
+          background-color: @orange-1;
+        }
+        &.danger {
+          color: @red-4;
+          border: 1px solid @red-1;
+          background-color: @red-1;
+        }
+        &.success {
+          color: @green-4;
+          border: 1px solid @green-1;
+          background-color: @green-1;
         }
       }
     }
@@ -517,7 +573,6 @@
           background: transparent;
           border-color: transparent;
         }
-
         &.danger {
           color: @red-2;
           background: transparent;
@@ -540,7 +595,6 @@
         &.tips {
           color: @orange-2;
         }
-
         &.danger {
           color: @red-2;
         }

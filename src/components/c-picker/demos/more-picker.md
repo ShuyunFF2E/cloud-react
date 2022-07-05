@@ -65,8 +65,8 @@ export default class DatePickerDemo extends React.Component {
 						disabled={disabled}
 						allowClear
 						format="yyyy"
-						minYear={2020}
-						maxYear={2025}
+						min={2020}
+						max={2025}
 					/>
 				</Form.Item>
 				<Form.Item label="年月选择器">

@@ -87,6 +87,10 @@
   &-panels {
     display: flex;
     justify-content: center;
+
+    .@{prefix-cls}-panel + .@{prefix-cls}-panel {
+      border-left: 1px solid @gray-3;
+    }
   }
 
   &-panel {
@@ -119,6 +123,13 @@
 
     .@{prefix-cls}-time-panel {
       border-left: 1px solid @gray-3;
+      .@{prefix-cls}-header {
+        border-bottom: 1px solid @gray-3;
+      }
+      .@{prefix-cls}-content {
+        padding-top: 0;
+        height: 230px;
+      }
     }
 
     .@{prefix-cls}-date-panel,
@@ -275,7 +286,7 @@
       .headerButton();
 
       .@{prefix}-icon {
-        font-size: inherit;
+        font-size: 16px;
       }
 
       &:hover {
@@ -396,10 +407,14 @@
     }
 
     &-disabled {
-      color: @gray-6;
-      pointer-events: none;
+      color: @gray-5 !important;
+      cursor: not-allowed;
       &::before {
-        background-color: @gray-3;
+        display: none;
+      }
+      .@{prefix-cls}-cell-inner {
+        color: @gray-5 !important;
+        background-color: transparent !important;
       }
     }
 

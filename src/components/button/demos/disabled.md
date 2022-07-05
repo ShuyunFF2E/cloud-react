@@ -20,12 +20,16 @@ export default class ButtonDemo extends React.Component {
 		return (
 			<React.Fragment>
 				<div>
+					<Button type="normal" disabled>
+						普通
+					</Button>
+					{blank}
 					<Button type="primary" disabled>
 						主要
 					</Button>
 					{blank}
-					<Button type="normal" disabled>
-						普通
+					<Button type="secondary" disabled>
+						次要
 					</Button>
 					{blank}
 					<Button type="dashed" disabled>
