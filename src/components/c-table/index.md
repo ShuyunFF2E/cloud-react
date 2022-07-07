@@ -186,6 +186,8 @@ this.tableRef.refreshTable(params?);
 
 <embed src="@components/c-table/demos/disabled1.md" /> 
 
+<embed src="@components/c-table/demos/disabled2.md" /> 
+
 <embed src="@components/c-table/demos/drag.md" /> 
 
 <embed src="@components/c-table/demos/drag1.md" />
