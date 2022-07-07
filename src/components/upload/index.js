@@ -398,6 +398,7 @@ class Upload extends Component {
         />
         {isShowPreview && (
           <Modal
+            modalStyle={{ width: 680, height: 680 }}
             hasFooter={false}
             className={`${PREFIX}-pic-preview`}
             title={name}
