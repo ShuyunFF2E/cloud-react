@@ -18,4 +18,3 @@ export default function InputDemo() {
 	return <Input hasClear placeholder="basic usage" />;
 }
 ```
-
