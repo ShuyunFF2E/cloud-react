@@ -1,6 +1,6 @@
 ---
 title: 图片形式上传
-order: 3
+order: 4
 desc: 设置 type=picture 样式上传，并且处理上传失败 onError 的情况。
 ---
 

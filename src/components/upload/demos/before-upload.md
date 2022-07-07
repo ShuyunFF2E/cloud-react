@@ -1,18 +1,19 @@
 ---
-title: 经典款式，用户点击按钮弹出文件选择框，按钮样式可配置，主要使用主要按钮及次要按钮。
-order: 1
-desc: 包含上传成功 onSuccess、删除已上传 onRemove、 重新上传 onReUpload。
+title: 选中文件之后，上传前执行，可以控制是否继续上传。
+order: 8
+desc: 通过返回的boolean值来决定是否继续上传。
 ---
 
 ```jsx
 /**
- * title: 经典款式，用户点击按钮弹出文件选择框，按钮样式可配置，主要使用主要按钮及次要按钮。
- * desc: 包含上传成功 onSuccess、删除已上传 onRemove、 重新上传 onReUpload。
+ * title: 选中文件之后，上传前执行，可以控制是否继续上传。
+ * desc: 通过返回的boolean值来决定是否继续上传。
  */
 import React from 'react';
 import { Message, Upload } from 'cloud-react';
 
 export default class UploadDemo extends React.Component {
+
   state = {
     fileList: []
   };
@@ -64,23 +65,17 @@ export default class UploadDemo extends React.Component {
       labelText: '点击上传',
       headers: {},
       action: '/upload',
+      onBeforeUpload: () => {
+        Message.error('操作失败');
+        return false;
+      },
       onProgress: this.handleProgress,
       onSuccess: this.handleSuccess,
       onRemove: this.handleRemove,
       onReUpload: this.handleReUpload
     };
 
-    const minorBtnProps = {
-      type: 'normal'
-    };
-
-    return (
-      <div>
-        <Upload {...props} fileList={this.state.fileList} />
-        <br />
-        <Upload {...props} fileList={this.state.fileList} btnOptions={minorBtnProps} />
-      </div>
-    );
+    return <Upload {...props} fileList={this.state.fileList} />;
   }
 }
 ```

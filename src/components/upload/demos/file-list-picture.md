@@ -1,6 +1,6 @@
 ---
 title: 图片形式已上传列表
-order: 5
+order: 6
 desc: 使用 fileList 设置已上传的图片列表进行控制。
 ---
 
