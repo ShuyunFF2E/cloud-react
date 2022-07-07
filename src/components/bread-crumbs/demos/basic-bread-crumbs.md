@@ -86,4 +86,3 @@ export default class BreadCrumbsDemo extends React.Component {
 	}
 }
 ```
-

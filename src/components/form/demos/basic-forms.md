@@ -52,12 +52,14 @@ export default function FormHorizontalDemo() {
 			</Form.Item>
 
 			<Form.Item label="所属平台" required>
-				<Checkbox.Group>
-					<Checkbox value={1}>淘宝</Checkbox>
-					<Checkbox value={2}>京东</Checkbox>
-					<Checkbox value={3}>苏宁</Checkbox>
-					<Checkbox value={4}>蘑菇街</Checkbox>
-				</Checkbox.Group>
+        <div style={{ marginTop: 6 }}>
+          <Checkbox.Group>
+            <Checkbox value={1}>淘宝</Checkbox>
+            <Checkbox value={2}>京东</Checkbox>
+            <Checkbox value={3}>苏宁</Checkbox>
+            <Checkbox value={4}>蘑菇街</Checkbox>
+          </Checkbox.Group>
+        </div>
 			</Form.Item>
 
 			<Form.Item label="备注">
