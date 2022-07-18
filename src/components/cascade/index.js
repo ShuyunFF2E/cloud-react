@@ -16,7 +16,8 @@ class Cascade extends Component {
     super(props);
     this.state = {
       // 该数据用于记录当前展开的多层级数据；回显的数据需要在此进行处理 todo
-      currentArr: props.data ? [props.data] : []
+      currentArr: props.data ? [props.data] : [],
+      container: React.createRef()
     }
   }
 
@@ -25,8 +26,8 @@ class Cascade extends Component {
     body.addEventListener('click', this.onBlur);
   }
 
-  onBlur = () => {
-    if(this.props.isShow){
+  onBlur = (e) => {
+    if(this.props.isShow && !this.state.container.current.contains(e.target)){
       this.props.onClose();
     }
   }
@@ -107,9 +108,9 @@ class Cascade extends Component {
   }
 
   render(){
-    const { props: { height, isShow, data }, state: { currentArr } } = this;
+    const { props: { height, isShow, data }, state: { currentArr, container } } = this;
     if(!data) return null;
-    return  isShow ? <div style={ { height, display: 'inline-flex' }} className={classnames(`${prefixCls}-cascade-wrapper`)} >
+    return  isShow ? <div ref={container}  style={ { height, display: 'inline-flex' }} className={classnames(`${prefixCls}-cascade-wrapper`)} >
       {
         currentArr && currentArr.length ? currentArr.map((item, index) => this.renderChild(item, index)) : null
       }
