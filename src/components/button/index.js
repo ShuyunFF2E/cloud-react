@@ -29,7 +29,7 @@ class Button extends React.PureComponent {
     href: PropTypes.string,
     block: PropTypes.bool,
     colorType: PropTypes.string,
-    icon: PropTypes.string,
+    icon: PropTypes.oneOfType([ PropTypes.string, PropTypes.element ]),
     loading: PropTypes.bool,
     target: PropTypes.string,
     htmlType: PropTypes.string,
@@ -107,6 +107,13 @@ class Button extends React.PureComponent {
       content = children[0].split('').join(' ');
     }
 
+    let iconDom = null;
+    if (icon && typeof icon === 'string') {
+      iconDom = <Icon type={icon} className={`${prefixCls}-button-suffix-icon`} />;
+    } else if (icon && typeof icon === 'object') {
+      iconDom = icon;
+    }
+
     return (
       <ElementName
         type="button"
@@ -120,9 +127,7 @@ class Button extends React.PureComponent {
         }}
       >
         {loading && <span className={`${prefixCls}-button-loading-spin`} />}
-        {icon && (
-          <Icon type={icon} className={`${prefixCls}-button-suffix-icon`} />
-        )}
+        {iconDom}
         {content}
       </ElementName>
     );

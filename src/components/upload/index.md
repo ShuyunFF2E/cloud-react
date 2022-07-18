@@ -34,7 +34,8 @@ group:
 | multiple          | 是否上传多个文件                                                | boolean     | false                        |
 | isShowIcon        | 是否显示上传按钮前面的图标                                      | boolean     | true                         |
 | showBeforeConfirm | 上传前是否显示确认对话框                                        | boolean     | false                        |
-| beforeConfirmBody | 上传前的确认对话框中的提示信息                                  | any         | '确认上传吗?'                |
+| beforeConfirmBody | 上传前的确认对话框中的提示描述，如只需配置提示描述可使用此参数         | any         | '确认上传吗?'                |
+| beforeConfirmConfig | 上传前的确认对话框的配置信息，相关配置信息可参考Modal.confirm     | any         | { title: '确定要上传文件吗？' }                |
 | onClick           | 返回Promise对像，当未执行resolve()时将中止上传  | func | () => new Promise(resolve => resolve())  |
 | onBeforeUpload    | 选中文件之后，上传前执行，通过返回的boolean值来决定是否继续上传   | func        |                              |
 | customRequest     | 自定义上传                                                      | func        |                              |
@@ -123,6 +124,10 @@ group:
  ### 代码演示 
 
 <embed src="@components/upload/demos/basic-upload.md" /> 
+
+<embed src="@components/upload/demos/before-confirm.md" /> 
+
+<embed src="@components/upload/demos/before-upload.md" /> 
 
 <embed src="@components/upload/demos/custom-request.md" /> 
 

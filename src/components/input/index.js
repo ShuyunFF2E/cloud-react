@@ -169,6 +169,7 @@ class Input extends React.Component {
   };
 
   onBlur = (evt) => {
+    evt.persist();
     this.setState({ focused: false }, () => this.props.onBlur(evt));
   };
 

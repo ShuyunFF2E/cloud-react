@@ -73,7 +73,7 @@ class Upload extends Component {
   onClick = (e) => {
     const element = this.ref.current;
     if (!element || e?.target === element) return;
-    const { onClick, showBeforeConfirm, beforeConfirmBody } = this.props;
+    const { onClick, showBeforeConfirm, beforeConfirmBody, beforeConfirmConfig } = this.props;
 
     onClick().then(() => {
       if (!showBeforeConfirm) {
@@ -81,7 +81,9 @@ class Upload extends Component {
         return;
       }
       Modal.confirm({
+        icon: 'info_1',
         body: beforeConfirmBody,
+        ...beforeConfirmConfig,
         onOk: () => {
           element.click();
         },
@@ -396,6 +398,7 @@ class Upload extends Component {
         />
         {isShowPreview && (
           <Modal
+            modalStyle={{ width: 680, height: 680 }}
             hasFooter={false}
             className={`${PREFIX}-pic-preview`}
             title={name}
@@ -456,6 +459,7 @@ Upload.propTypes = {
   hasPreview: PropTypes.bool,
   showBeforeConfirm: PropTypes.bool,
   beforeConfirmBody: PropTypes.node,
+  beforeConfirmConfig: PropTypes.object,
   customRequest: PropTypes.func,
   onClick: PropTypes.func,
   onBeforeUpload: PropTypes.func,
@@ -486,6 +490,9 @@ Upload.defaultProps = {
   customRequest: undefined,
   showBeforeConfirm: false,
   beforeConfirmBody: '确认上传？',
+  beforeConfirmConfig: {
+    title: '确定要上传文件吗？',
+  },
   onClick: () => new Promise((resolve) => resolve()),
   onBeforeUpload: undefined,
   onProgress: noop,
