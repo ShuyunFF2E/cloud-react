@@ -39,7 +39,7 @@ class Cascade extends Component {
   }
 
   onClickItem = (children, id, index) => {
-    const { props:{ titleKey, idKey, childrenKey, pidKey, onClose } } = this;
+    const { props:{ titleKey, idKey, childrenKey, pidKey, onClose, onChange } } = this;
     const { currentArr } = this.state;
     const currentItem = currentArr[index].find(item=>item[idKey] === id && item.active);
     // 点击已经选择过的选项就不走之后的逻辑了；
@@ -70,17 +70,27 @@ class Cascade extends Component {
     if(!children || !children.length){
       // 点击无子级则调用父级ok事件和关闭事件
       if(onClose){onClose()};
+      if(onChange){
+        const arr = [];
+        this.state.currentArr.forEach(item => {
+          const x = item.find(i => i.active);
+          if(x){
+            arr.push(x);
+          }
+        })
+        onChange(...arr);
+      };
     }
 
   } 
 
   renderChild(data, index){
     if(!data) return null;
-    const { onClickItem, props:{ titleKey, idKey, childrenKey, pidKey, width } } = this;
+    const { onClickItem, props:{ titleKey, idKey, childrenKey, pidKey, width, disabled } } = this;
 
-    return <div key={index} className="cascade">
+    return <div key={index} className={`${disabled ? 'disabled' : ''} cascade`}>
     {data.map(item => {
-
+      const { active } = item;
       const id = item[idKey];
       const children = item[childrenKey];
       const title = item[titleKey];
@@ -93,8 +103,8 @@ class Cascade extends Component {
               const idchild = ite[idKey];
               const childrenchild = ite[childrenKey];
               const titlechild = ite[titleKey];
-              return <div key={idchild} onClick={()=>onClickItem(childrenchild, idchild, index)}><span title={titlechild}>{titlechild}</span>
-              {childrenchild && childrenchild.length && <Icon type="right" style={{ fontSize: '10px', color: 'rgba(0,0,0,0.4500)' }} />}
+              return <div key={idchild} className={`${active ? 'itemActive' : ''}  normal`} onClick={()=>onClickItem(childrenchild, idchild, index)}><span title={titlechild}>{titlechild}</span>
+              {!disabled && childrenchild && childrenchild.length && <Icon type="right" style={{ fontSize: '10px', color: 'rgba(0,0,0,0.4500)' }} />}
               </div>
             })}
           </div>
@@ -102,9 +112,9 @@ class Cascade extends Component {
       }
 
       // 如果不存在同层级分类则走该路线
-      return <div key={id}  className="notTitle" onClick={()=>onClickItem(children, id, index)} style={{ width }}>
+      return <div key={id}  className={`${active ? 'itemActive' : ''} notTitle normal`} onClick={()=>onClickItem(children, id, index)} style={{ width }}>
           <span title={title}>{title}</span>
-          {children && children.length && <Icon type="right" style={{ fontSize: '10px', color: 'rgba(0,0,0,0.4500)' }} />}
+          {!disabled && children && children.length && <Icon type="right" style={{ fontSize: '10px', color: 'rgba(0,0,0,0.4500)' }} />}
       </div>
     })}
   </div>
@@ -124,8 +134,10 @@ class Cascade extends Component {
 Cascade.propTypes = {
   data: PropTypes.array.isRequired,
   visible: PropTypes.bool,
+  disabled: PropTypes.bool,
   container: PropTypes.string.isRequired, 
   onClose: PropTypes.func,
+  onChange: PropTypes.func,
   height: PropTypes.string,
   width: PropTypes.string,
   titleKey: PropTypes.string,
@@ -135,6 +147,7 @@ Cascade.propTypes = {
 };
 
 Cascade.defaultProps = {
+  disabled: false,
   titleKey: 'title',
   height: '300px',
   visible: true,
@@ -142,6 +155,7 @@ Cascade.defaultProps = {
   idKey: 'id',
   pidKey: 'pid',
   onClose: () => {},
+  onChange: () => {},
   childrenKey: 'children',
 };
 

@@ -52,8 +52,8 @@ export default class CascadeDemo extends Component{
 	render(){
 		const { state:{ visible, data, container }, onChangeShow } = this;
 		return (
-			<div className={container} style={{ height: 400, position:'relative' }}>
-			<Button onClick={onChangeShow}>单层点击展示</Button>
+			<div className={container} style={{ height: 320, width: 350, position:'relative' }}>
+			<Button onClick={onChangeShow}>点击展示选中收起</Button>
 			<div style={{ position:'absolute',top: '30px', left: '0px' }}>
 				<Cascade
 				width="300px"

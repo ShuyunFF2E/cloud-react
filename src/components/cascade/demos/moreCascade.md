@@ -50,7 +50,7 @@ export default class CascadeDemo extends Component{
 				},
 				{ 
 					id: '7',
-					title:'人生',
+					title:'人生逆旅',
 					children:[
 						{
 							title: '风刀霜剑，困厄催逼',
@@ -67,14 +67,19 @@ export default class CascadeDemo extends Component{
 		}
 	}
 
+	onChange = (...a) => {
+		console.log(a);
+	}
+
 	render(){
-		const { state:{ visible, data, container } } = this;
+		const { state:{ visible, data, container }, onChange } = this;
 		return (
 			<div className={container} style={{ height: 400, position: 'relative' }}>
 				<div style={{ position: 'absolute', top: '30px', left: '0px' }}>
 					<Cascade
 					width="208px"
 					height="270px"
+					onChange={onChange}
 					container={container}
 					visible={visible} 
 					data={data}

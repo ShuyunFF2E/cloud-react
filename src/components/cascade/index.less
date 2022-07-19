@@ -13,8 +13,13 @@
 	font-weight: 400;
 }
 .padding{
-	padding-top:6px;
-	padding-bottom:6px;
+	padding-top:8px;
+	padding-bottom:8px;
+}
+
+.paddinglr{
+	padding-right:10px;
+	padding-left:10px;
 }
 
 .@{selector} {
@@ -23,22 +28,26 @@
 		height:100%;
 		overflow-y: auto;
 		box-sizing: border-box;
-		padding: 12px;
+		padding-top: 12px;
+		padding-bottom: 12px;
 		background: #FFFFFF;
 		box-shadow: 0px 2px 8px 0px rgba(0,0,0,0.0800), 0px 1px 4px 0px rgba(0,0,0,0.0400);
 		border-radius: 4px;
+		cursor: pointer;
 		.includeTitle{
 			p{
 				.font;
 				color: rgba(0,0,0,0.4500);
 				.overFlo;
 				.padding;
+				.paddinglr
 			}
 		}
 		.content div,
 		.notTitle{
 			display: flex;
 			.font;
+			.paddinglr;
 			color: rgba(0,0,0,0.8500);
 			justify-content: space-between;
 			flex-wrap: nowrap;
@@ -48,6 +57,24 @@
 				.overFlo;
 				.padding;
 			}
+		}
+
+		.itemActive,
+		.normal:hover{
+			background: #F5F5F5;
+		}
+	}
+
+	.cascade.disabled{
+		pointer-events: none;
+		.content div,
+		.notTitle{
+			color: #DDD;
+		}
+
+		.itemActive,
+		.normal:hover{
+			background:transparent;
 		}
 	}
 }

@@ -62,16 +62,22 @@ export default class CascadeDemo extends Component{
 			visible: !visible
 		})
 	}
+
+	onChange = (...a) => {
+		console.log(a);
+	}
+
 	render(){
-		const { state:{ visible, data, container }, onChangeShow } = this;
+		const { state:{ visible, data, container }, onChangeShow, onChange } = this;
 		return (
-			<div className={container} style={{ height: 400, position: 'relative' }}>
-				<Button onClick={onChangeShow}>同层级带title</Button>
+			<div className={container} style={{ height: 320, width: 350, position: 'relative' }}>
+				<Button onClick={onChangeShow}>同层级带title点击展示选中隐藏</Button>
 				<div style={{ position: 'absolute', top: '30px', left: '0px' }}>
 					<Cascade
 					container={container}
 					width="110px"
 					height="270px"
+					onChange={onChange}
 					onClose={onChangeShow}
 					visible={visible} 
 					data={data}
