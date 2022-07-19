@@ -86,23 +86,25 @@ class Cascade extends Component {
       const title = item[titleKey];
       if(isValid(id) && children && children.length && isValid(children[0][pidKey])){
         // 如果存在同层级分类则走该路线；
-        return <div key={id} className="cascadeWrapper" style={{ width }}>
-        <p>{title}</p>
-        {children.map(ite=>{
-          const idchild = ite[idKey];
-          const childrenchild = ite[childrenKey];
-          const titlechild = ite[titleKey];
-          return <div key={idchild} onClick={()=>onClickItem(childrenchild, idchild, index)}><span>{titlechild}</span>
-          {childrenchild && childrenchild.length && <Icon type="right" />}
+        return <div key={id} className="includeTitle" style={{ width }}>
+          <p>{title}</p>
+          <div className="content">
+            {children.map(ite=>{
+              const idchild = ite[idKey];
+              const childrenchild = ite[childrenKey];
+              const titlechild = ite[titleKey];
+              return <div key={idchild} onClick={()=>onClickItem(childrenchild, idchild, index)}><span title={titlechild}>{titlechild}</span>
+              {childrenchild && childrenchild.length && <Icon type="right" style={{ fontSize: '10px', color: 'rgba(0,0,0,0.4500)' }} />}
+              </div>
+            })}
           </div>
-        })}
         </div>
       }
 
       // 如果不存在同层级分类则走该路线
-      return <div key={id}  className="cascadeWrapper" onClick={()=>onClickItem(children, id, index)}>
-          <span>{title}</span>
-          {children && children.length && <Icon type="right" />}
+      return <div key={id}  className="notTitle" onClick={()=>onClickItem(children, id, index)} style={{ width }}>
+          <span title={title}>{title}</span>
+          {children && children.length && <Icon type="right" style={{ fontSize: '10px', color: 'rgba(0,0,0,0.4500)' }} />}
       </div>
     })}
   </div>
@@ -136,7 +138,7 @@ Cascade.defaultProps = {
   titleKey: 'title',
   height: '300px',
   visible: true,
-  width: '',
+  width: '150px',
   idKey: 'id',
   pidKey: 'pid',
   onClose: () => {},

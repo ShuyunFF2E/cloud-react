@@ -70,6 +70,8 @@ export default class CascadeDemo extends Component{
 				<div style={{ position: 'absolute', top: '30px', left: '0px' }}>
 					<Cascade
 					container={container}
+					width="110px"
+					height="270px"
 					onClose={onChangeShow}
 					visible={visible} 
 					data={data}

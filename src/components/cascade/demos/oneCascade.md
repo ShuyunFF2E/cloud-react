@@ -56,6 +56,8 @@ export default class CascadeDemo extends Component{
 			<Button onClick={onChangeShow}>单层点击展示</Button>
 			<div style={{ position:'absolute',top: '30px', left: '0px' }}>
 				<Cascade
+				width="300px"
+				height="270px"
 				container={container}
 				onClose={onChangeShow}
 				visible={visible} 

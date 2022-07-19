@@ -2,14 +2,52 @@
 
 @selector: ~'@{prefix}-cascade-wrapper';
 
+.overFlo{
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.font{
+	font-size:inherit;
+	font-weight: 400;
+}
+.padding{
+	padding-top:6px;
+	padding-bottom:6px;
+}
+
 .@{selector} {
 	width:fit-content;
 	.cascade{
 		height:100%;
+		overflow-y: auto;
 		box-sizing: border-box;
-		padding: 10px;
-		background: #fff;
-		box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.08), 0px 0px 4px 0px rgba(0, 0, 0, 0.08);
+		padding: 12px;
+		background: #FFFFFF;
+		box-shadow: 0px 2px 8px 0px rgba(0,0,0,0.0800), 0px 1px 4px 0px rgba(0,0,0,0.0400);
 		border-radius: 4px;
+		.includeTitle{
+			p{
+				.font;
+				color: rgba(0,0,0,0.4500);
+				.overFlo;
+				.padding;
+			}
+		}
+		.content div,
+		.notTitle{
+			display: flex;
+			.font;
+			color: rgba(0,0,0,0.8500);
+			justify-content: space-between;
+			flex-wrap: nowrap;
+			align-items: center;
+			span{
+				width: calc(100% - 16px);
+				.overFlo;
+				.padding;
+			}
+		}
 	}
 }
