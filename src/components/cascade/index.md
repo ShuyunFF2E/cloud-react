@@ -66,4 +66,6 @@ group:
 
  ### 代码演示 
 
-<embed src="@components/cascade/demos/allowClear.md" /> 
+<embed src="@components/cascade/demos/oneCascade.md" /> 
+<embed src="@components/cascade/demos/moreCascade.md" /> 
+<embed src="@components/cascade/demos/supportTitle.md" /> 

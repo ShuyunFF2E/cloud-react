@@ -3,7 +3,13 @@
 @selector: ~'@{prefix}-cascade-wrapper';
 
 .@{selector} {
-	height: 100%;
-	background-color: #FFFFFF;
-	border: 1px solid #E5E5E5;
+	width:fit-content;
+	.cascade{
+		height:100%;
+		box-sizing: border-box;
+		padding: 10px;
+		background: #fff;
+		box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.08), 0px 0px 4px 0px rgba(0, 0, 0, 0.08);
+		border-radius: 4px;
+	}
 }

@@ -17,28 +17,29 @@ class Cascade extends Component {
     this.state = {
       // 该数据用于记录当前展开的多层级数据；回显的数据需要在此进行处理 todo
       currentArr: props.data ? [props.data] : [],
-      container: React.createRef()
+      container: props.container
     }
   }
 
   componentDidMount(){
     const body = document.getElementsByTagName('body')[0];
-    body.addEventListener('click', this.onBlur);
+    if(this.props.onClose){body.addEventListener('click', this.onBlur);}
   }
 
   onBlur = (e) => {
-    if(this.props.isShow && !this.state.container.current.contains(e.target)){
+    const container = document.getElementsByClassName(this.state.container)[0];
+    if(this.props.isShow && !container.contains(e.target)){
       this.props.onClose();
     }
   }
 
   componentWillUnmount(){
     const body = document.getElementsByTagName('body')[0];
-    body.removeEventListener('click', this.onBlur);
+    if(this.props.onClose){body.removeEventListener('click', this.onBlur);}
   }
 
   onClickItem = (children, id, index) => {
-    const { props:{ titleKey, idKey, childrenKey, pidKey } } = this;
+    const { props:{ titleKey, idKey, childrenKey, pidKey, onClose } } = this;
     const { currentArr } = this.state;
     const currentItem = currentArr[index].find(item=>item[idKey] === id && item.active);
     // 点击已经选择过的选项就不走之后的逻辑了；
@@ -68,16 +69,16 @@ class Cascade extends Component {
     this.setState({ currentArr });
     if(!children || !children.length){
       // 点击无子级则调用父级ok事件和关闭事件
-      this.props.onClose();
+      if(onClose){onClose()};
     }
 
   } 
 
   renderChild(data, index){
     if(!data) return null;
-    const { onClickItem, props:{ titleKey, idKey, childrenKey, pidKey } } = this;
+    const { onClickItem, props:{ titleKey, idKey, childrenKey, pidKey, width } } = this;
 
-    return <div key={index} className={classnames(`${prefixCls}-cascade`)}>
+    return <div key={index} className="cascade">
     {data.map(item => {
 
       const id = item[idKey];
@@ -85,7 +86,7 @@ class Cascade extends Component {
       const title = item[titleKey];
       if(isValid(id) && children && children.length && isValid(children[0][pidKey])){
         // 如果存在同层级分类则走该路线；
-        return <div key={id} className="cascadeWrapper">
+        return <div key={id} className="cascadeWrapper" style={{ width }}>
         <p>{title}</p>
         {children.map(ite=>{
           const idchild = ite[idKey];
@@ -108,9 +109,9 @@ class Cascade extends Component {
   }
 
   render(){
-    const { props: { height, isShow, data }, state: { currentArr, container } } = this;
+    const { props: { height, isShow, data }, state: { currentArr } } = this;
     if(!data) return null;
-    return  isShow ? <div ref={container}  style={ { height, display: 'inline-flex' }} className={classnames(`${prefixCls}-cascade-wrapper`)} >
+    return  isShow ? <div style={ { height, display: 'inline-flex' }} className={classnames(`${prefixCls}-cascade-wrapper`)} >
       {
         currentArr && currentArr.length ? currentArr.map((item, index) => this.renderChild(item, index)) : null
       }
@@ -121,8 +122,10 @@ class Cascade extends Component {
 Cascade.propTypes = {
   data: PropTypes.array.isRequired,
   isShow: PropTypes.bool.isRequired,
+  container: PropTypes.string.isRequired, 
   onClose: PropTypes.func,
   height: PropTypes.string,
+  width: PropTypes.string,
   titleKey: PropTypes.string,
   idKey: PropTypes.string,
   pidKey: PropTypes.string,
@@ -132,6 +135,7 @@ Cascade.propTypes = {
 Cascade.defaultProps = {
   titleKey: 'title',
   height: '300px',
+  width: '',
   idKey: 'id',
   pidKey: 'pid',
   onClose: () => {},
