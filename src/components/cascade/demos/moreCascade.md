@@ -18,7 +18,7 @@ export default class CascadeDemo extends Component{
 		super(props);
 		this.state = {
 			container: 'onlyuuid2',
-			isShow: false,
+			visible: false,
 			data:[
 				{ 
 					id: '1',
@@ -68,13 +68,13 @@ export default class CascadeDemo extends Component{
 	}
 
 	onChangeShow = () => {
-		const { state:{ isShow } } = this;
+		const { state:{ visible } } = this;
 		this.setState({
-			isShow: !isShow
+			visible: !visible
 		})
 	}
 	render(){
-		const { state:{ isShow, data, container }, onChangeShow } = this;
+		const { state:{ visible, data, container }, onChangeShow } = this;
 		return (
 			<div className={container} style={{ height: 400, position: 'relative' }}>
 				<Button onClick={onChangeShow}>多层点击展示</Button>
@@ -82,7 +82,7 @@ export default class CascadeDemo extends Component{
 					<Cascade
 					container={container}
 					onClose={onChangeShow}
-					isShow={isShow} 
+					visible={visible} 
 					data={data}
 						/>
 				</div>

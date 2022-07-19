@@ -28,7 +28,7 @@ class Cascade extends Component {
 
   onBlur = (e) => {
     const container = document.getElementsByClassName(this.state.container)[0];
-    if(this.props.isShow && !container.contains(e.target)){
+    if(this.props.visible && !container.contains(e.target)){
       this.props.onClose();
     }
   }
@@ -109,9 +109,9 @@ class Cascade extends Component {
   }
 
   render(){
-    const { props: { height, isShow, data }, state: { currentArr } } = this;
+    const { props: { height, visible, data }, state: { currentArr } } = this;
     if(!data) return null;
-    return  isShow ? <div style={ { height, display: 'inline-flex' }} className={classnames(`${prefixCls}-cascade-wrapper`)} >
+    return  visible ? <div style={ { height, display: 'inline-flex' }} className={classnames(`${prefixCls}-cascade-wrapper`)} >
       {
         currentArr && currentArr.length ? currentArr.map((item, index) => this.renderChild(item, index)) : null
       }
@@ -121,7 +121,7 @@ class Cascade extends Component {
 
 Cascade.propTypes = {
   data: PropTypes.array.isRequired,
-  isShow: PropTypes.bool.isRequired,
+  visible: PropTypes.bool,
   container: PropTypes.string.isRequired, 
   onClose: PropTypes.func,
   height: PropTypes.string,
@@ -135,6 +135,7 @@ Cascade.propTypes = {
 Cascade.defaultProps = {
   titleKey: 'title',
   height: '300px',
+  visible: true,
   width: '',
   idKey: 'id',
   pidKey: 'pid',
