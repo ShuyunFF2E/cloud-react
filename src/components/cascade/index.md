@@ -21,6 +21,7 @@ group:
 | ----------------- | ----------------------------------------------------------------- | --------------------------------------- | -------------- |
 | disabled      | 禁选     | boolean | false          |
 | data      | 要展示的数据     | array | 无默认必传具体格式见示例          |
+| value      | 要回显得数据     | string | ''          |
 | container | 代表标签，标签外失焦时会调用onClose函数| string | 必传          |
 | visible   | 控制显隐 | boolean | true  |
 | dataSource | 需要展示的数据，dataSource 和 children 同时存在时以 children 为准 | array                                   | []             |

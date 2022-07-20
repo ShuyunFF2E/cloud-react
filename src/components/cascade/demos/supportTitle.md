@@ -50,7 +50,7 @@ export default class CascadeDemo extends Component{
 							pid: '11',
 							title: '曾用名',
 							id: '12',
-							children:[{id: '13', title: '摘月亮'},{id: '14', title: '小石头要变成星球'}]}]
+							children:[{id: '13', title: '摘月亮' },{id: '14', title: '小石头要变成星球'}]}]
 				}
 			]
 		}
@@ -77,6 +77,7 @@ export default class CascadeDemo extends Component{
 					container={container}
 					width="110px"
 					height="270px"
+					value="2,5"
 					onChange={onChange}
 					onClose={onChangeShow}
 					visible={visible} 

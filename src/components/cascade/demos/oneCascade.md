@@ -58,6 +58,7 @@ export default class CascadeDemo extends Component{
 				<Cascade
 				width="300px"
 				height="270px"
+				value="1"
 				container={container}
 				onClose={onChangeShow}
 				visible={visible} 

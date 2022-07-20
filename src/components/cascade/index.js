@@ -14,11 +14,46 @@ class Cascade extends Component {
 
   constructor(props){
     super(props);
+    let currentArr;
+    currentArr = [props.data];
+    // 处理回显
+    if(props.value){
+      const arr = props.value.includes(',') ? props.value.split(',') : [props.value];
+      currentArr = this.getData(arr, JSON.parse(JSON.stringify(props.data)), []);
+    }
+    
     this.state = {
-      // 该数据用于记录当前展开的多层级数据；回显的数据需要在此进行处理 todo
-      currentArr: props.data ? [props.data] : [],
+      currentArr,
       container: props.container
     }
+  }
+
+  getData = (arr, data, tar) => {
+    if(arr.length === 0)return tar;
+    const { props:{ idKey, childrenKey, pidKey } } = this;
+    if(data[0] && data[0][childrenKey] && isValid(data[0][childrenKey][0][pidKey])){
+      let result;
+      data.find(item=>{
+        const child = item[childrenKey];
+        result = child.find(i => {
+          if(i[idKey] === arr[0]){
+            return true;
+          }
+          return false;
+        });
+        if(result){
+          result.active = true;
+          return true;
+        }
+        return false;
+      });
+      tar.push(data);
+      return this.getData(arr.splice(1), JSON.parse(JSON.stringify(result[childrenKey] || [])), tar );
+    }
+      const result = data.find(item => item[idKey] === arr[0]);
+      result.active = true;
+      tar.push(data);
+      return this.getData(arr.splice(1), JSON.parse(JSON.stringify(result[childrenKey] || [])), tar );
   }
 
   componentDidMount(){
@@ -38,21 +73,57 @@ class Cascade extends Component {
     if(this.props.onClose){body.removeEventListener('click', this.onBlur);}
   }
 
-  onClickItem = (children, id, index) => {
-    const { props:{ titleKey, idKey, childrenKey, pidKey, onClose, onChange } } = this;
+  isBeenClick = (id, index, idParent) => {
+    const { props:{ idKey, childrenKey } } = this;
     const { currentArr } = this.state;
-    const currentItem = currentArr[index].find(item=>item[idKey] === id && item.active);
+    let currentItem;
+    if(!isValid(idParent)){
+      currentItem = currentArr[index].find(item=>item[idKey] === id && item.active);
+    }else{
+      currentItem = currentArr[index].find(item=>item[idKey] === idParent)[childrenKey].find(item=>item[idKey] === id && item.active);
+    } 
+    return currentItem;
+  }
+
+  activeItem = (id, index, idParent) => {
+    const { props:{ idKey, childrenKey } } = this;
+    const { currentArr } = this.state;
+    // 针对非对应项恢复未激活而对应项进行激活；
+    const newArr = currentArr[index].map(item => {
+      const obj = { ...item };
+      if(obj.active === false || obj.active === true){
+        delete obj.active;
+      }
+      if(item[idKey] === id && !isValid(idParent)){
+        obj.active = true;
+      }
+      if(isValid(idParent)){
+        obj[childrenKey] = obj[childrenKey].map(i => {
+          const x = { ...i };
+          if(x.active === false || x.active === true){
+            delete x.active;
+          }
+          if(i[idKey] === id){
+            x.active = true;
+          }
+          return x;
+        });
+      }
+      return obj
+    });
+    return newArr;
+  }
+
+  // 针对含title的子级里的数据需要进一步处理 todo
+  onClickItem = (children, id, index, idParent) => {
+    const { props:{ childrenKey, pidKey, onClose, onChange } } = this;
+    const { currentArr } = this.state;
+    const currentItem = this.isBeenClick(id, index, idParent);;
     // 点击已经选择过的选项就不走之后的逻辑了；
     if(currentItem)return;
 
     // 针对非对应项恢复未激活而对应项进行激活；
-    const newArr = currentArr[index].map(item => {
-      const obj = { [idKey]: item[idKey], [titleKey]: item[titleKey], [pidKey]: item[pidKey], [childrenKey]: item[childrenKey], ...item, active: false };
-      if(item[idKey] === id){
-        obj.active = true;
-      }
-      return obj
-    })
+    const newArr = this.activeItem(id, index, idParent);
     currentArr[index] = newArr;
      
     // 点击项有子级
@@ -73,7 +144,20 @@ class Cascade extends Component {
       if(onChange){
         const arr = [];
         this.state.currentArr.forEach(item => {
-          const x = item.find(i => i.active);
+          const childr = item[0][childrenKey];
+          let x;
+          if(childr && childr.length && isValid(childr[0][pidKey])){
+            item.find(i => {
+              if(i[childrenKey] && i[childrenKey].length){
+                x = i[childrenKey].find(z => z.active);
+                return x;
+              }
+              return false;
+            })
+          }else{
+            x = item.find(i => i.active);
+          }
+
           if(x){
             arr.push(x);
           }
@@ -103,7 +187,7 @@ class Cascade extends Component {
               const idchild = ite[idKey];
               const childrenchild = ite[childrenKey];
               const titlechild = ite[titleKey];
-              return <div key={idchild} className={`${active ? 'itemActive' : ''}  normal`} onClick={()=>onClickItem(childrenchild, idchild, index)}><span title={titlechild}>{titlechild}</span>
+              return <div key={idchild} className={`${ite.active ? 'itemActive' : ''}  normal`} onClick={()=>onClickItem(childrenchild, idchild, index, id)}><span title={titlechild}>{titlechild}</span>
               {!disabled && childrenchild && childrenchild.length && <Icon type="right" style={{ fontSize: '10px', color: 'rgba(0,0,0,0.4500)' }} />}
               </div>
             })}
@@ -133,6 +217,7 @@ class Cascade extends Component {
 
 Cascade.propTypes = {
   data: PropTypes.array.isRequired,
+  value: PropTypes.string,
   visible: PropTypes.bool,
   disabled: PropTypes.bool,
   container: PropTypes.string.isRequired, 
@@ -148,6 +233,7 @@ Cascade.propTypes = {
 
 Cascade.defaultProps = {
   disabled: false,
+  value: '',
   titleKey: 'title',
   height: '300px',
   visible: true,
