@@ -69,3 +69,4 @@ export { default as TreeSelect } from './tree-select';
 
 export { default as Upload } from './upload';
 
+export { default as Cascade } from './cascade';
