@@ -1,5 +1,5 @@
 ---
-order: 5
+order: 4
 title: 异步关闭
 desc: 点击确定按钮后异步关闭对话框，如提交请求场景
 ---
@@ -58,14 +58,15 @@ export default class ModalDemo extends React.Component {
 					异步关闭弹出框
 				</Button>
 				<Modal
-					title="basic title"
+					title="异步弹出"
+					size="medium"
 					visible={this.state.visible}
 					clickMaskCanClose={this.state.clickMaskCanClose}
 					showConfirmLoading={this.state.showConfirmLoading}
 					onOk={this.handleOk}
 					onCancel={this.handleCancel}
 					onClose={this.handleCancel}>
-					hello, this is a body content
+					这是一段弹出窗的内容
 				</Modal>
 			</div>
 		);

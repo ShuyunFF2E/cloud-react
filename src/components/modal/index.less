@@ -8,6 +8,9 @@
 
 @border-color: 1px solid @gray-3;
 
+@scrollbar-thumb: @gray-5;
+@scrollbar-bg: @gray-3;
+
 @confirm-icon-color: #faad14;
 @info-icon-color: #1890ff;
 @success-icon-color: #52c41a;
@@ -34,9 +37,29 @@
     background: @gray-7;
   }
 
+  &-no-scroll {
+    overflow: hidden;
+  }
+
+  &-container-size-small {
+    width: 600px;
+  }
+
+  &-container-size-medium {
+    width: 680px;
+  }
+
+  &-container-size-large {
+    width: 920px;
+  }
+
+  &-container-size-auto {
+    width: auto;
+  }
+
   &-container {
-    min-height: 160px;
-    min-width: 400px;
+    min-height: 320px;
+    min-width: 440px;
     max-width: 50%;
     margin: 0 auto;
     position: relative;
@@ -45,11 +68,27 @@
     border-radius: @body-border-radius;
     white-space: normal;
     box-shadow: @border-shadow-3;
-    opacity: 0;
+  }
 
-    &.transition {
-      transition: 0.3s cubic-bezier(0, 0.71, 0.77, 1);
-    }
+  &-enter,
+  &-appear {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  &-enter-active,
+  &-appear-active {
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 300ms, transform 300ms;
+  }
+  &-exit {
+    opacity: 1;
+    transform: scale(1);
+  }
+  &-exit-active {
+    opacity: 0;
+    transform: scale(0.5);
+    transition: opacity 300ms, transform 300ms;
   }
 
   &-header {
@@ -73,7 +112,11 @@
     .close-icon {
       position: relative;
       color: @gray-7;
-      font-size: @font-size-medium;
+      //font-size: @font-size-medium;
+      font-size: @font-size-large;
+      //line-height: @font-size-medium;
+      line-height: @font-size-large;
+      //padding: 4px;
       cursor: pointer;
 
       &:hover {
@@ -90,17 +133,43 @@
   &-body {
     max-height: calc(100vh - 200px);
     color: @color-gray4;
+    background-color: white;
     padding: 16px;
     overflow: auto;
-    box-sizing: content-box;
+    box-sizing: border-box;
+
+    scrollbar-width: thin;
+    scrollbar-color: @scrollbar-thumb @scrollbar-bg;
+
+    &::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    &::-webkit-scrollbar-thumb {
+      /*滚动条里面小方块*/
+      background: @scrollbar-thumb;
+      border-radius: 4px;
+    }
+    &::-webkit-scrollbar-track {
+      /*滚动条里面轨道*/
+      width: 8px;
+      border-radius: 0;
+      background: @scrollbar-bg;
+    }
+    &::-webkit-scrollbar-corner {
+      /*右下角按钮样式*/
+      background: @scrollbar-bg;
+    }
   }
 
   &-confirm-size {
     min-height: 40px;
+    border-radius: @body-border-radius;
   }
 
   &-size {
-    //min-height: 170px;
+    // 320 - 56 - 60 - 2
+    min-height: 202px;
   }
 
   &-footer {
@@ -139,16 +208,20 @@
   }
 
   &-line-height {
-    line-height: @line-height-extra-medium;
+    line-height: 24px;
   }
 
   &-title {
     font-size: @font-size-medium;
     color: @gray-9;
+    font-weight: 500;
   }
 
   &-close-icon {
     cursor: pointer;
+    font-size: @font-size-large;
+    line-height: @font-size-large;
+    color: @gray-7;
   }
 
   .icon-style {
@@ -178,7 +251,7 @@
   }
 
   .more-info {
-    display: inline;
+    display: inline-block;
     font-size: @font-size-base;
     color: @gray-8;
     vertical-align: text-top;

@@ -1,399 +1,536 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { prefixCls, getCssText, noop, sandboxSelector } from '@utils';
+import {
+  prefixCls, getCssText, noop, sandboxSelector,
+} from '@utils';
 import ContextProvider from '@contexts/context-provider';
+import { CSSTransition } from 'react-transition-group';
+
 import Icon from '../icon';
 import Button from '../button';
 import './index.less';
 
 // 获取当前document下的所有样式创建到顶层doucment上，sandboxSelector是一个简单的隔离方式
 function insertRootDocumentStyleRule(doc) {
-	let style = doc.querySelector(`[data-name="${sandboxSelector}"]`);
+  let style = doc.querySelector(`[data-name="${sandboxSelector}"]`);
 
-	if (style) return;
+  if (style) return;
 
-	const cssText = getCssText(`.${sandboxSelector}`);
+  const cssText = getCssText(`.${sandboxSelector}`);
 
-	style = document.createElement('style');
+  style = document.createElement('style');
 
-	style.setAttribute('data-name', sandboxSelector);
-	style.setAttribute('type', 'text/css');
+  style.setAttribute('data-name', sandboxSelector);
+  style.setAttribute('type', 'text/css');
 
-	style.innerHTML = cssText.join('');
-	doc.head.appendChild(style);
+  style.innerHTML = cssText.join('');
+  doc.head.appendChild(style);
 }
 
 class Notification extends Component {
-	constructor(props) {
-		super(props);
-		this.ref = React.createRef();
-		this.maskRef = React.createRef();
+  constructor(props) {
+    super(props);
 
-		this.state = {
-			pageX: '',
-			pageY: '',
-			diffX: '',
-			diffY: '',
-			height: 0
-		};
-	}
+    this.ref = React.createRef();
+    this.maskRef = React.createRef();
 
-	static contextType = ContextProvider;
+    this.state = {
+      pageX: '',
+      pageY: '',
+      diffX: '',
+      diffY: '',
+      height: 0,
+      preVisible: props.visible,
+    };
+  }
 
-	static defaultProps = {
-		visible: false,
-		modalStyle: {},
-		bodyStyle: {},
-		disabledOk: false,
-		title: 'title',
-		children: '',
-		footer: '',
-		hasFooter: true,
-		showMask: true,
-		okText: '确定',
-		cancelText: '取消',
-		clickMaskCanClose: true,
-		showConfirmLoading: false,
-		onOk: noop,
-		onCancel: noop,
-		onClose: noop
-	};
+  static contextType = ContextProvider;
 
-	static propTypes = {
-		visible: PropTypes.bool,
-		modalStyle: PropTypes.object,
-		bodyStyle: PropTypes.object,
-		disabledOk: PropTypes.bool,
-		title: PropTypes.string,
-		children: PropTypes.node,
-		footer: PropTypes.node,
-		okText: PropTypes.string,
-		cancelText: PropTypes.string,
-		hasFooter: PropTypes.bool,
-		onOk: PropTypes.func,
-		onCancel: PropTypes.func,
-		onClose: PropTypes.func,
-		showMask: PropTypes.bool,
-		showConfirmLoading: PropTypes.bool,
-		clickMaskCanClose: PropTypes.bool
-	};
+  static defaultProps = {
+    visible: false,
+    size: 'auto',
+    modalStyle: {},
+    headerStyle: {},
+    bodyStyle: {},
+    footerStyle: {},
+    disabledOk: false,
+    title: '弹窗',
+    children: '',
+    footer: '',
+    hasFooter: true,
+    showMask: true,
+    okText: '确定',
+    cancelText: '取消',
+    clickMaskCanClose: true,
+    showConfirmLoading: false,
+    onOk: noop,
+    onCancel: noop,
+    onClose: noop,
+  };
 
-	// 组件装在完毕监听屏幕大小切换事件
-	componentDidMount() {
-		if (this.props.visible) {
-			this.addTransition();
-			this.insertRootDocumentStyleRule();
-		}
+  static propTypes = {
+    visible: PropTypes.bool,
+    size: PropTypes.string,
+    modalStyle: PropTypes.object,
+    headerStyle: PropTypes.object,
+    bodyStyle: PropTypes.object,
+    footerStyle: PropTypes.object,
+    disabledOk: PropTypes.bool,
+    title: PropTypes.string,
+    children: PropTypes.node,
+    footer: PropTypes.node,
+    okText: PropTypes.string,
+    cancelText: PropTypes.string,
+    hasFooter: PropTypes.bool,
+    onOk: PropTypes.func,
+    onCancel: PropTypes.func,
+    onClose: PropTypes.func,
+    showMask: PropTypes.bool,
+    showConfirmLoading: PropTypes.bool,
+    clickMaskCanClose: PropTypes.bool,
+  };
 
-		this.screenChange();
-		this.window.addEventListener('resize', this.screenChange);
-	}
+  // 组件装在完毕监听屏幕大小切换事件
+  componentDidMount() {
+    if (this.props.visible) {
+      this.insertRootDocumentStyleRule();
+    }
 
-	componentDidUpdate({ visible: prevVisible }) {
-		const { visible } = this.props;
+    this.screenChange();
+    this.window.addEventListener('resize', this.screenChange);
+  }
 
-		if (prevVisible !== visible && visible) {
-			this.addTransition();
-			this.screenChange();
-			this.insertRootDocumentStyleRule();
-		}
+  /* eslint-disable */
+  async UNSAFE_componentWillReceiveProps() {
+    const { visible } = this.props;
+    this.setState({
+      preVisible: visible,
+    });
+  }
+  /* eslint-disable */
 
-		if (this.modalRef) {
-			this.refreshHeight();
-		}
-	}
+  componentDidUpdate({ visible: prevVisible }) {
+    const { visible } = this.props;
 
-	componentWillUnmount() {
-		this.window.removeEventListener('resize', this.screenChange);
-	}
+    if (prevVisible !== visible && visible) {
+      this.screenChange();
+      this.insertRootDocumentStyleRule();
+    }
 
-	get window() {
-		return this.context.rootWindow;
-	}
+    if (this.modalRef) {
+      this.refreshHeight();
+    }
+  }
 
-	get document() {
-		return this.context.rootDocument;
-	}
+  componentWillUnmount() {
+    this.window.removeEventListener('resize', this.screenChange);
+    this.onScrollRemove();
+  }
 
-	get modalRef() {
-		return this.ref.current;
-	}
+  get window() {
+    return this.context.rootWindow;
+  }
 
-	get mask() {
-		return this.maskRef.current;
-	}
+  get document() {
+    return this.context.rootDocument;
+  }
 
-	// 高度变化
-	refreshHeight() {
-		const { height } = this.modalRef.getBoundingClientRect();
-		const { height: prevHeight } = this.state;
+  get modalRef() {
+    return this.ref.current;
+  }
 
-		if (height !== prevHeight) {
-			this.setState({
-				height
-			});
-			this.screenChange();
-		}
-	}
+  get headerCurrent() {
+    return this.headerRef.current;
+  }
 
-	// 突破iframe框架创建当前文档下的样式，避免样式丢失
-	insertRootDocumentStyleRule() {
-		if (window !== this.window) {
-			insertRootDocumentStyleRule(this.document);
-		}
-	}
+  get bodyCurrent() {
+    return this.bodyRef.current;
+  }
 
-	// 屏幕变化
-	screenChange = () => {
-		this.window.requestAnimationFrame(() => {
-			if (this.modalRef) {
-				const maskHeight = this.mask && this.mask.offsetHeight;
-				const modalHeight = this.modalRef.offsetHeight;
-				this.modalRef.style.top = `${(maskHeight - modalHeight) / 2}px`;
-				this.modalRef.style.opacity = 1;
-			}
-		});
-	};
+  get footerCurrent() {
+    return this.footerRef.current;
+  }
 
-	removeTransition() {
-		this.modalRef.classList.remove('transition');
-	}
+  get mask() {
+    return this.maskRef.current;
+  }
 
-	addTransition() {
-		this.modalRef.classList.add('transition');
-	}
+  // 高度变化
+  refreshHeight() {
+    const { height } = this.modalRef.getBoundingClientRect();
+    const { height: prevHeight } = this.state;
 
-	// 获取鼠标点击title时的坐标、title的坐标以及两者的位移
-	getPosition = ({ target: titleDom, pageX, screenY }) => {
-		// titleDom的坐标(视窗)
-		const X = titleDom.getBoundingClientRect().left;
+    if (height !== prevHeight) {
+      this.setState({
+        height,
+      });
+      this.screenChange();
+    }
+  }
 
-		// 由于Y轴出现滚动条，需要与鼠标保持一致，存储页面相对位置
-		const Y = this.modalRef.offsetTop;
+  // 突破iframe框架创建当前文档下的样式，避免样式丢失
+  insertRootDocumentStyleRule() {
+    if (window !== this.window) {
+      insertRootDocumentStyleRule(this.document);
+    }
+  }
 
-		// 鼠标点击的坐标(页面)
-		const mouseX = pageX;
-		const mouseY = screenY;
+  // 屏幕变化
+  screenChange = () => {
+    this.window.requestAnimationFrame(() => {
+      if (this.modalRef) {
+        const maskHeight = this.mask && this.mask.offsetHeight;
+        const modalHeight = this.modalRef.offsetHeight;
+        this.modalRef.style.top = `${(maskHeight - modalHeight) / 2}px`;
+      }
+    });
+  };
 
-		// 鼠标点击位置与modal的位移
-		const diffX = mouseX - X;
-		const diffY = mouseY - Y;
+  // 获取鼠标点击title时的坐标、title的坐标以及两者的位移
+  getPosition = ({ target: titleDom, pageX, screenY }) => {
+    // titleDom的坐标(视窗)
+    const X = titleDom.getBoundingClientRect().left;
 
-		return { X, Y, mouseX, mouseY, diffX, diffY };
-	};
+    // 由于Y轴出现滚动条，需要与鼠标保持一致，存储页面相对位置
+    const Y = this.modalRef.offsetTop;
 
-	/**
-	 * 鼠标按下，注册鼠标移动事件
-	 * 计算鼠标按下时，指针所在位置与modal位置以及两者的差值
-	 * */
-	onMouseDown = evt => {
-		const { diffX, diffY } = this.getPosition(evt);
+    // 鼠标点击的坐标(页面)
+    const mouseX = pageX;
+    const mouseY = screenY;
 
-		this.document.addEventListener('mousemove', this.onMouseMove);
-		this.document.addEventListener('mouseup', this.onMouseUp);
+    // 鼠标点击位置与modal的位移
+    const diffX = mouseX - X;
+    const diffY = mouseY - Y;
 
-		this.removeTransition();
-		this.setState({ diffX, diffY });
-	};
+    return { X, Y, mouseX, mouseY, diffX, diffY };
+  };
 
-	// 松开鼠标
-	onMouseUp = () => {
-		this.document.removeEventListener('mousemove', this.onMouseMove);
-		this.document.removeEventListener('mouseup', this.onMouseUp);
-	};
+  /**
+   * 鼠标按下，注册鼠标移动事件
+   * 计算鼠标按下时，指针所在位置与modal位置以及两者的差值
+   * */
+  onMouseDown = (evt) => {
+    const { diffX, diffY } = this.getPosition(evt);
 
-	// 鼠标移动重新设置modal的位置
-	onMouseMove = evt => {
-		this.window.requestAnimationFrame(() => {
-			const { diffX, diffY } = this.state;
+    this.document.addEventListener('mousemove', this.onMouseMove);
+    this.document.addEventListener('mouseup', this.onMouseUp);
 
-			// 获取鼠标位置数据
-			const position = this.getPosition(evt);
-			// 计算modal应该随鼠标移动到的坐标
-			const x = position.mouseX - diffX;
-			const y = position.mouseY - diffY;
+    this.setState({ diffX, diffY });
+  };
 
-			// 窗口大小，结构限制，需要做调整，减去侧边栏宽度
-			const { clientWidth, clientHeight } = this.document.documentElement;
-			const modal = this.modalRef;
+  // 松开鼠标
+  onMouseUp = () => {
+    this.document.removeEventListener('mousemove', this.onMouseMove);
+    this.document.removeEventListener('mouseup', this.onMouseUp);
+  };
 
-			modal.style.margin = 0;
+  // 鼠标移动重新设置modal的位置
+  onMouseMove = (evt) => {
+    this.window.requestAnimationFrame(() => {
+      const { diffX, diffY } = this.state;
 
-			// 计算modal坐标的最大值
-			const maxHeight = clientHeight - modal.offsetHeight;
-			const maxWidth = clientWidth - modal.offsetWidth;
+      // 获取鼠标位置数据
+      const position = this.getPosition(evt);
+      // 计算modal应该随鼠标移动到的坐标
+      const x = position.mouseX - diffX;
+      const y = position.mouseY - diffY;
 
-			// 判断得出modal的最终位置，不得超出浏览器可见窗口
-			// eslint-disable-next-line no-nested-ternary
-			const left = x > 0 ? (x < maxWidth ? x : maxWidth) : 0;
-			// eslint-disable-next-line no-nested-ternary
-			const top = y > 0 ? (y < maxHeight ? y : maxHeight) : 0;
+      // 窗口大小，结构限制，需要做调整，减去侧边栏宽度
+      const { clientWidth, clientHeight } = this.document.documentElement;
+      const modal = this.modalRef;
 
-			this.setState({ pageX: left, pageY: top });
-		});
+      modal.style.margin = 0;
 
-		// 阻止默认行为(拖动时文字选中)
-		evt.preventDefault();
-	};
+      // 计算modal坐标的最大值
+      const maxHeight = clientHeight - modal.offsetHeight;
+      const maxWidth = clientWidth - modal.offsetWidth;
 
-	onReset = () => {
-		this.setState({ pageX: '', pageY: '', diffX: '', diffY: '' });
-	};
+      // 判断得出modal的最终位置，不得超出浏览器可见窗口
+      // eslint-disable-next-line no-nested-ternary
+      const left = x > 0 ? (x < maxWidth ? x : maxWidth) : 0;
+      // eslint-disable-next-line no-nested-ternary
+      const top = y > 0 ? (y < maxHeight ? y : maxHeight) : 0;
 
-	render() {
-		const {
-			visible,
-			modalStyle,
-			bodyStyle,
-			disabledOk,
-			className,
-			type,
-			children,
-			title,
-			footer,
-			hasFooter,
-			showMask,
-			okText,
-			cancelText,
-			clickMaskCanClose,
-			showConfirmLoading,
-			onOk,
-			onClose,
-			onCancel
-		} = this.props;
+      this.setState({ pageX: left, pageY: top });
+    });
 
-		if (!visible && !showConfirmLoading) {
-			return null;
-		}
+    // 阻止默认行为(拖动时文字选中)
+    evt.preventDefault();
+  };
 
-		const { pageX, pageY } = this.state;
+  onReset = () => {
+    this.setState({ pageX: '', pageY: '', diffX: '', diffY: '' });
+  };
 
-		const style = {
-			...modalStyle,
-			left: pageX,
-			top: pageY,
-			pointerEvents: 'auto'
-		};
+  onScrollRemove = () => {
+    // 可能存在多个弹窗，所以只有当仅有1个弹窗销毁时才恢复滚动条
+    if (this.document.body.querySelectorAll('.r-w_s-').length === 1) {
+      this.document.body.classList.remove(`${prefixCls}-modal-no-scroll`);
+    }
+  };
 
-		// 不要删除最外层的节点，虽然看似多余，但在iframe场景下至关重要
-		return (
-			<div className={sandboxSelector}>
-				<div
-					id="mask"
-					ref={this.maskRef}
-					className={classnames(`${prefixCls}-modal`, {
-						'other-area-can-click': !showMask
-					})}>
-					{/* 遮罩层 */}
-					<ModalMask showMask={showMask} onClose={onClose} onReset={this.onReset} clickMaskCanClose={clickMaskCanClose} />
+  onScrollAdd = () => {
+    const noScroll = `${prefixCls}-modal-no-scroll`;
+    if (this.document.body.classList.toString().indexOf(noScroll) === -1) {
+      this.document.body.classList.add(noScroll);
+    }
+  };
 
-					{/* 弹出框 */}
-					<div ref={this.ref} style={style} className={classnames(`${prefixCls}-modal-container`, className)}>
-						<ModalHeader type={type} onReset={this.onReset} onMouseDown={this.onMouseDown} onClose={onClose} title={title} />
+  onTransitionExited = () => {
+    this.setState({
+      preVisible: false,
+    });
+  };
 
-						<ModalBody type={type} style={{ ...bodyStyle }}>{children}</ModalBody>
+  render() {
+    const {
+      visible,
+      size,
+      modalStyle,
+      bodyStyle,
+      footerStyle,
+      headerStyle,
+      disabledOk,
+      className,
+      type,
+      children,
+      title,
+      footer,
+      hasFooter,
+      showMask,
+      okText,
+      cancelText,
+      clickMaskCanClose,
+      showConfirmLoading,
+      onOk,
+      onClose,
+      onCancel,
+    } = this.props;
 
-						<ModalFooter
-							visible={visible}
-							type={type}
-							onOk={onOk}
-							footer={footer}
-							okText={okText}
-							onReset={this.onReset}
-							onCancel={onCancel}
-							hasFooter={hasFooter}
-							cancelText={cancelText}
-							disabledOk={disabledOk}
-							showConfirmLoading={showConfirmLoading}
-						/>
-					</div>
-				</div>
-			</div>
-		);
-	}
+    if (!visible && !this.state.preVisible) {
+      this.onScrollRemove();
+      return null;
+    }
+
+    this.onScrollAdd();
+
+    const { pageX, pageY } = this.state;
+
+    const style = {
+      ...modalStyle,
+      left: pageX,
+      top: pageY,
+      pointerEvents: 'auto',
+    };
+
+    // 不要删除最外层的节点，虽然看似多余，但在iframe场景下至关重要
+    return (
+      <div className={sandboxSelector}>
+        <div
+          id="mask"
+          ref={this.maskRef}
+          className={classnames(`${prefixCls}-modal`, {
+            'other-area-can-click': !showMask,
+          })}
+        >
+          {/* 遮罩层 */}
+
+          {visible && (
+            <ModalMask
+              showMask={showMask}
+              onClose={onClose}
+              onReset={this.onReset}
+              clickMaskCanClose={clickMaskCanClose}
+            />
+          )}
+
+          <CSSTransition
+            in={visible}
+            timeout={300}
+            classNames="cloud-modal"
+            unmountOnExit
+            appear
+            onExited={this.onTransitionExited}
+          >
+            {/* 弹出框 */}
+            <div
+              ref={this.ref}
+              style={style}
+              className={classnames(
+                `${prefixCls}-modal-container`,
+                `${prefixCls}-modal-container-size-${size}`,
+                className,
+              )}
+            >
+              <ModalHeader
+                type={type}
+                style={headerStyle}
+                onReset={this.onReset}
+                onMouseDown={this.onMouseDown}
+                onClose={onClose}
+                title={title}
+              />
+
+              <ModalBody type={type} style={{ ...bodyStyle }}>
+                {children}
+              </ModalBody>
+
+              <ModalFooter
+                style={footerStyle}
+                visible={visible}
+                type={type}
+                onOk={onOk}
+                footer={footer}
+                okText={okText}
+                onReset={this.onReset}
+                onCancel={onCancel}
+                hasFooter={hasFooter}
+                cancelText={cancelText}
+                disabledOk={disabledOk}
+                showConfirmLoading={showConfirmLoading}
+              />
+            </div>
+          </CSSTransition>
+        </div>
+      </div>
+    );
+  }
 }
 
 function ModalMask({ onReset, showMask, onClose, clickMaskCanClose }) {
-	const close = () => {
-		onReset();
-		onClose();
-	};
-	return showMask && <div className={classnames(`${prefixCls}-modal-mask`)} onClick={clickMaskCanClose ? close : noop} />;
+  const close = () => {
+    onReset();
+    onClose();
+  };
+  return (
+    showMask && (
+      <div
+        className={classnames(`${prefixCls}-modal-mask`)}
+        onClick={clickMaskCanClose ? close : noop}
+      />
+    )
+  );
 }
 
 function ModalHeader({ type, title, onClose, onReset, ...props }) {
-	const close = () => {
-		onReset();
-		onClose();
-	};
-	const selected = e => {
-		e.stopPropagation();
-	};
-	return (
-		type === 'modal' && (
-			<header {...props} className={classnames(`${prefixCls}-modal-header`)}>
-				<span className={classnames(`${prefixCls}-modal-title`)} onMouseDown={event => selected(event)}>
-					{title}
-				</span>
-				<Icon type="close" className="close-icon" onMouseDown={event => selected(event)} onClick={close} />
-			</header>
-		)
-	);
+  const close = () => {
+    onReset();
+    onClose();
+  };
+  const selected = (e) => {
+    e.stopPropagation();
+  };
+  return (
+    type === 'modal' && (
+      <header {...props} className={classnames(`${prefixCls}-modal-header`)}>
+        <span
+          className={classnames(`${prefixCls}-modal-title`)}
+          onMouseDown={(event) => selected(event)}
+        >
+          {title}
+        </span>
+        <Icon
+          type="close"
+          className="close-icon"
+          onMouseDown={(event) => selected(event)}
+          onClick={close}
+        />
+      </header>
+    )
+  );
 }
 
 function ModalBody({ type, style, children }) {
-	return (
-		<section className={classnames(`${prefixCls}-modal-body ${type === 'modal' ? `${prefixCls}-modal-size` : `${prefixCls}-modal-confirm-size`}`)} style={style}>
-			{children}
-		</section>
-	);
+  return (
+    <section
+      className={classnames(
+        `${prefixCls}-modal-body ${
+          type === 'modal'
+            ? `${prefixCls}-modal-size`
+            : `${prefixCls}-modal-confirm-size`
+        }`,
+      )}
+      style={style}
+    >
+      {children}
+    </section>
+  );
 }
 
 /**
  * @return {null}
  */
-function ModalFooter({ visible, type, footer, okText, cancelText, hasFooter, showConfirmLoading, onCancel, onOk, onReset, disabledOk }) {
-	const ok = () => {
-		onOk();
-		if (!visible) {
-			onReset();
-		}
-	};
-	const cancel = () => {
-		onReset();
-		onCancel();
-	};
-	const footerClass = classnames(`${prefixCls}-modal-footer ${type !== 'modal' && `${prefixCls}-modal-border` }`);
-	const confirmClass = classnames(`${prefixCls}-modal-confirm-btn`);
+function ModalFooter({
+  style,
+  visible,
+  type,
+  footer,
+  okText,
+  cancelText,
+  hasFooter,
+  showConfirmLoading,
+  onCancel,
+  onOk,
+  onReset,
+  disabledOk,
+}) {
+  const ok = () => {
+    onOk();
+    if (!visible) {
+      onReset();
+    }
+  };
+  const cancel = () => {
+    onReset();
+    onCancel();
+  };
+  const footerClass = classnames(
+    `${prefixCls}-modal-footer ${
+      type !== 'modal' && `${prefixCls}-modal-border`
+    }`,
+  );
+  const confirmClass = classnames(`${prefixCls}-modal-confirm-btn`);
   if (!hasFooter) {
-		return null;
-	}
+    return null;
+  }
 
   if (hasFooter && footer) {
     return <footer className={footerClass}>{footer}</footer>;
-	}
+  }
 
-	if (hasFooter && type !== 'modal' && type !== 'confirm') {
+  if (hasFooter && type !== 'modal' && type !== 'confirm') {
     return (
-			<footer className={footerClass}>
-				<Button type="primary" size="large" onClick={cancel}>
-					知道了
-				</Button>
-			</footer>
-		);
-	}
+      <footer style={style} className={footerClass}>
+        <Button type="primary" size="large" onClick={cancel}>
+          知道了
+        </Button>
+      </footer>
+    );
+  }
 
   return (
-		<footer className={footerClass}>
-			<Button type="normal" size="large" disabled={showConfirmLoading} onClick={cancel}>
-				{cancelText}
-			</Button>
-      <Button type="primary" size="large" className={confirmClass} disabled={showConfirmLoading || disabledOk} onClick={ok} loading={showConfirmLoading}>
+    <footer style={style} className={footerClass}>
+      <Button
+        type="normal"
+        size="large"
+        disabled={showConfirmLoading}
+        onClick={cancel}
+      >
+        {cancelText}
+      </Button>
+      <Button
+        type="primary"
+        size="large"
+        className={confirmClass}
+        disabled={showConfirmLoading || disabledOk}
+        onClick={ok}
+        loading={showConfirmLoading}
+      >
         {okText}
       </Button>
-		</footer>
-	);
+    </footer>
+  );
 }
 
 export default Notification;

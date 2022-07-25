@@ -1,5 +1,5 @@
 ---
-order: 1
+order: 6
 title: 基础用法
 desc: 使用modal打开基本对话框，点击遮罩区域关闭对话框
 ---
@@ -11,7 +11,9 @@ desc: 使用modal打开基本对话框，点击遮罩区域关闭对话框
              * desc: 使用modal打开基本对话框，点击遮罩区域关闭对话框
              */
 import React from 'react';
-import { Button, Modal, Select, Datepicker, Form, Message } from 'cloud-react';
+import { Button, Modal, Select, CPicker, Radio, Form, Message } from 'cloud-react';
+
+const { RangePicker } = CPicker;
 
 const blank = '\u00A0';
 
@@ -22,14 +24,6 @@ export default class ModalDemo extends React.Component {
 			visible: false
 		};
 	}
-
-	// 打开弹出框
-	openBasicModal = () => {
-		this.setState({
-			visible: true,
-			clickMaskCanClose: false
-		});
-	};
 
 	// 打开可在遮罩区域关闭的弹出框
 	openMaskCloseModal = () => {
@@ -69,17 +63,13 @@ export default class ModalDemo extends React.Component {
 	};
 
 	showMessage = () => {
-		Message.error('请输入内容');
+		Message.info('你点击了提交按钮');
 	};
 
 	render() {
 		return (
 			<div>
-				<Button type="primary" onClick={this.openBasicModal}>
-					基本弹出框
-				</Button>
-				{blank}
-				<Button type="normal" onClick={this.openMaskCloseModal}>
+				<Button type="primary" onClick={this.openMaskCloseModal}>
 					点击遮罩区域关闭对话框
 				</Button>
 				{blank}
@@ -87,7 +77,8 @@ export default class ModalDemo extends React.Component {
 					不显示遮罩层
 				</Button>
 				<Modal
-					title="basic title"
+					title="异步关闭"
+					size="medium"
 					visible={this.state.visible}
 					showMask={this.state.showMask}
 					clickMaskCanClose={this.state.clickMaskCanClose}
@@ -101,7 +92,14 @@ export default class ModalDemo extends React.Component {
 							</Select>
 						</Form.Item>
 						<Form.Item label="日期组件">
-							<Datepicker.RangePicker isAppendToBody position="auto" width={400} />
+							<RangePicker allowClear showToday />
+						</Form.Item>
+						<Form.Item label="你的性别">
+							<Radio.Group defaultValue={1}>
+								<Radio value={1}>男</Radio>
+								<Radio value={2}>女</Radio>
+								<Radio value={3}>未知</Radio>
+							</Radio.Group>
 						</Form.Item>
 						<Form.Item wrapperCol={{ offset: 4 }}>
 							<Button type="primary" onClick={this.showMessage}>提交</Button>

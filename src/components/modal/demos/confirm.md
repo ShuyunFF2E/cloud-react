@@ -1,14 +1,14 @@
 ---
-order: 6
+order: 2
 title: 确认对话框
-desc: 使用confirm快捷弹出确认对话框
+desc: 通过API调用方式弹出confirm确认对话框
 ---
 
 ```jsx
 
             /**
              * title: 确认对话框
-             * desc: 使用confirm快捷弹出确认对话框
+             * desc: 通过API调用方式弹出confirm确认对话框
              */
 import React from 'react';
 import { Button, Modal } from 'cloud-react';
@@ -25,68 +25,84 @@ export default class ModalDemo extends React.Component {
 
 	handleOk = () => {
 		this.setState({
-			content: 'it is ok'
+			content: '你点击了确定'
 		});
 	};
 
 	openConfirmModal = () => {
 		Modal.confirm({
 			isShowIcon: false,
-			body: 'something you can write here something you can write here something you can write here something you can write here something you can write here something you can write here',
+			title: '基本确认对话框',
+			body: '一天不练手脚慢，两天不练丢一半，三天不练门外汉，四天不练瞪眼看。',
 			onOk: () => {
 				this.handleOk();
 			},
 			onCancel: () => {
 				this.setState({
-					content: 'it is cancel'
+					content: '你点击了取消'
 				});
 			}
 		});
 	};
 
-    openCustomerIconConfirmModal = () => {
-            Modal.confirm({
-                isShowIcon: true,
-                icon: 'warning-circle-solid',
-                iconStyle: {
-                    color: '#ffcf33'
-                },           
-                title: '确认要删除吗？',
-                body: '确认要删除该条目？',
-                onOk: () => {
-                    this.handleOk();
-                },
-                onCancel: () => {
-                    this.setState({
-                        content: 'it is cancel'
-                    });
-                }
-            });
-        };
+	openCustomerIconConfirmModal = () => {
+		Modal.confirm({
+			title: '自定义图标确认对话框',
+			isShowIcon: true,
+			icon: 'warning-circle-solid',
+			iconStyle: {
+				color: '#ffcf33'
+			},           
+			title: '确认要删除吗？',
+			body: '此内容删除后将放入回收站，确认要删除该条目？',
+			onOk: () => {
+				this.handleOk();
+			},
+			onCancel: () => {
+				this.setState({
+					content: '你点击了取消'
+				});
+			}
+		});
+	};
 
 
 	openCustomConfirmModal = () => {
 		Modal.confirm({
+			title: '自定义弹窗按钮',
 			okText: '好',
 			cancelText: '关闭',
-			body: '按钮的文案修改了'
+			body: '按钮的文案修改了',
+			onOk: () => {
+				this.setState({
+					content: '你点击了好'
+				});
+			},
+			onCancel: () => {
+				this.setState({
+					content: '你点击了关闭'
+				});
+			}
 		});
 	}
 
-	// 打开确认弹出框
 	openAsyncConfirmModal = () => {
 		Modal.confirm({
-			body: 'this is a async demo，do you want to test it ？ if you want, please click the button',
+			title: '异步弹窗框',
+			body: '这是个异步的example，请点击确定按钮测试验证',
 			onOk: () => {
 				return new Promise((resolve, reject) => {
-					setTimeout(Math.random() > 0.5 ? resolve : reject, 2000);
+					setTimeout(() => {
+						resolve();
+						this.handleOk();
+					}, 3000);
 				}).catch(() => {
 					console.log('error');
 				});
 			},
 			onCancel: () => {
 				this.setState({
-					content: 'it is cancel'
+					content: '你点击了取消'
 				});
 			}
 		});
@@ -96,10 +112,10 @@ export default class ModalDemo extends React.Component {
 		return (
 			<div>
 				<Button type="primary" onClick={this.openConfirmModal}>
-					基础确认对话框
+					基础确认对话框+多行文本
 				</Button>
 				{blank}
-                <Button type="primary" onClick={this.openCustomerIconConfirmModal}>
+				<Button type="primary" onClick={this.openCustomerIconConfirmModal}>
 					自定义图标确认对话框
 				</Button>
 				{blank}

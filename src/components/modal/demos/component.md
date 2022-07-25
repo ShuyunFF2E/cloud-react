@@ -1,5 +1,5 @@
 ---
-order: 11
+order: 8
 title: 内部使用其他组件
 desc: 在modal中使用其他组件
 ---
@@ -17,18 +17,18 @@ export default class ModalDemo extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			visible: false
+			visible: false,
+			dataList: [
+				{
+					label: '苹果',
+					value: 'apple'
+				},
+				{
+					label: '草莓',
+					value: 'strawberry'
+				}
+			]
 		};
-		this.state.dataList = [
-			{
-				label: '苹果',
-				value: 'apple'
-			},
-			{
-				label: '草莓',
-				value: 'strawberry'
-			}
-		];
 	}
 
 	// 打开弹出框
@@ -79,7 +79,8 @@ export default class ModalDemo extends React.Component {
 					使用更多组件
 				</Button>
 				<Modal
-					title="basic title"
+					title="弹窗"
+					size="large"
 					bodyStyle={modalStyle}
 					visible={this.state.visible}
 					onOk={this.handleOk}
@@ -95,6 +96,7 @@ export default class ModalDemo extends React.Component {
 							</Option>
 						))}
 					</Select>
+					<br />
 					<br />
 					<Tabs defaultActiveKey="eat" onChange={this.handleChange} step={500}>
 						<Tabs.Panel tab="选项1" key="1">
@@ -118,6 +120,9 @@ export default class ModalDemo extends React.Component {
 					</Tabs>
 					<br />
 					<Table gridManagerName="test-table" ajaxData={resource} columnData={columnData} />
+					<br />
+					<br />
+																
 				</Modal>
 			</div>
 		);
