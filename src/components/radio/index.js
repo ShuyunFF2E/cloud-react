@@ -28,7 +28,7 @@ class Radio extends React.Component {
   static Group = Group;
 
   onChangeAction(evt) {
-    const { value, onChange, disabled } = this.props;
+    const { value, onChange = () => {}, disabled } = this.props;
     if (disabled) return;
     onChange(value, evt);
   }
