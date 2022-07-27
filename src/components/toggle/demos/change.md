@@ -22,7 +22,12 @@ export default class ToggleDemo extends React.Component {
 
   handleBeforeChange = () => {
     Modal.confirm({
-      title: '确定切换吗？',
+      icon: 'info_1',
+      iconStyle: {
+        color: '#5280FF',
+      },
+      title: '确定要切换吗？',
+      body: '切换后会产生的相应状态描述。',
       onOk: () => {
         this.setState((prevState) => ({ checked: !prevState.checked }));
       },
