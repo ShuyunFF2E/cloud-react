@@ -13,13 +13,14 @@
 .type-mixin(@bg, @border, @close, @action, @hover, @active) {
   background: @bg;
   border: 1px solid @border;
+  border-radius: 2px;
   .close-icon {
     color: @close;
   }
   .action-icon, .tip-icon {
     color: @action;
   }
-  .close-icon, .action-icon, .tip-icon {
+  .close-icon, .action-icon {
     &:hover {
       color: @hover;
     }
@@ -63,7 +64,6 @@
   gap: 8px;
   padding: 8px;
   line-height: 20px;
-  border-radius: 2px;
   font-size: 14px;
 
   .action-icon,
