@@ -21,30 +21,35 @@ export default function Group(props) {
     horizontal,
     vertical,
   } = props;
-  const [currentValue, setCurrentValue] = useState(defaultValue);
+  const [ currentValue, setCurrentValue ] = useState(defaultValue);
 
   useEffect(() => {
     setCurrentValue(value === undefined ? defaultValue : value);
-  }, [value]);
+  }, [ value ]);
 
   function renderChild(childs) {
     return Children.map(childs, (child) => {
       // 子元素有可能为一个表达式，直接返回了false或者null
-      if (child && child.type && child.type.name === 'Radio') {
-        return cloneElement(child, {
-          disabled: disabled || child.props.disabled,
-          checked: child.props.value === currentValue,
-          onChange(val, evt) {
-            setCurrentValue(val);
-            onChange(val, evt);
-          },
-        });
-      }
+      // if (child && child.type && child.type.name === 'Radio') {
+      //   return cloneElement(child, {
+      //     disabled: disabled || child.props.disabled,
+      //     checked: child.props.value === currentValue,
+      //     onChange(val, evt) {
+      //       setCurrentValue(val);
+      //       onChange(val, evt);
+      //     },
+      //   });
+      // }
 
       if (child && child.props && child.props.children) {
         return cloneElement(child, {
           ...child.props,
           children: renderChild(child.props.children),
+          checked: child.props.value === currentValue,
+          onChange(val, evt) {
+            setCurrentValue(val);
+            onChange(val, evt);
+          },
         });
       }
       return child;
@@ -53,7 +58,7 @@ export default function Group(props) {
 
   const radios = useMemo(
     () => renderChild(children),
-    [currentValue, disabled, children],
+    [ currentValue, disabled, children ],
   );
 
   return (
