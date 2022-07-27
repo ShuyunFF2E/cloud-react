@@ -45,6 +45,7 @@ export default function Group(props) {
         return cloneElement(child, {
           ...child.props,
           children: renderChild(child.props.children),
+          disabled: disabled || child.props.disabled,
           checked: child.props.value === currentValue,
           onChange(val, evt) {
             setCurrentValue(val);
