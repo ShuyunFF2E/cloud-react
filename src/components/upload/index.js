@@ -224,8 +224,10 @@ class Upload extends Component {
   /**
    * 文件上传之前校验大小是否符合
    */
-  handleBeforeUpload(file) {
-    const { size, unit } = this.props;
+  async handleBeforeUpload(file) {
+    const {
+      size, unit, accept, onBeforeUpload,
+    } = this.props;
 
     let isSizeInvalidate;
 
@@ -243,23 +245,36 @@ class Upload extends Component {
       return false;
     }
 
-    if (this.props.onBeforeUpload) {
-      return this.props.onBeforeUpload(file);
+    if (accept !== '*' && !accept.includes(file.type)) {
+      Message.error(`仅支持上传${accept}格式的文件`);
+      this.ref.current.value = '';
+      return false;
+    }
+
+    if (onBeforeUpload) {
+      const _result = await onBeforeUpload(file);
+      return _result;
     }
 
     return true;
   }
 
-  upload(file) {
+  async upload(file) {
     const { unify } = this.props;
     if (unify) {
-      const sizeValidate = file.filter((item) => this.handleBeforeUpload(item));
-      if (file.length === sizeValidate.length) {
-        this.post(file);
-      }
+      const _errFile = [];
+      file.forEach(async (fileItem, index) => {
+        const before = await this.handleBeforeUpload(fileItem);
+        if (!before) {
+          _errFile.push(fileItem);
+        }
+        if (before && index + 1 === file.length && !_errFile.length) {
+          this.post(file);
+        }
+      });
     } else {
-      file.forEach((fileItem) => {
-        const before = this.handleBeforeUpload(fileItem);
+      file.forEach(async (fileItem) => {
+        const before = await this.handleBeforeUpload(fileItem);
         if (before) {
           this.post(fileItem);
         }
@@ -405,7 +420,7 @@ class Upload extends Component {
             visible={isShowPreview}
             onClose={() => this.handlePreview()}
           >
-            <img src={url} alt="" />
+            <div className={`${PREFIX}-pic-preview-detail`} style={{ backgroundImage: `url(${url})` }} />
           </Modal>
         )}
         {this.renderUpload()}
