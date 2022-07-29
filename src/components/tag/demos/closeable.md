@@ -18,10 +18,9 @@ export default class TagDemo extends Component {
 		super(props);
 		this.state = {
 			tagList: [
-				{ text: '红色', checked: true },
-				{ text: '白色', checked: true },
-				{ text: '蓝色', checked: false },
-				{ text: '黄色', checked: false }
+				{ text: '红色', checked: true, color: "red" },
+				{ text: '蓝色', checked: false, color: "blue" },
+				{ text: '黄色', checked: false, color: "yellow" }
 			]
 		};
 	}
@@ -54,7 +53,7 @@ export default class TagDemo extends Component {
 		return (
 			<React.Fragment>
 				{tagList.map((item, index) => (
-					<Tag key={index} closable checked={item.checked} onClose={() => this.handleRemove(index)} onClick={() => this.handleClick(index)}>
+					<Tag key={index} closable color={item.color} onClose={() => this.handleRemove(index)} onClick={() => this.handleClick(index)}>
 						{item.text}
 					</Tag>
 				))}
