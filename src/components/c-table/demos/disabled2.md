@@ -28,10 +28,10 @@ const data = [
 const columns = [
   {
     title: '活动名称', dataIndex: 'name', align: 'left', width: 270, render: (value, row) => (
-      <div style={{ display: 'flex', cursor: disabledIds.includes(row.id) ? 'not-allowed' : 'pointer' }}>
-        <img style={{ width: 40, height: 40, marginRight: 8, opacity: disabledIds.includes(row.id) ? 0.5 : 1 }}
+      <div style={{ display: 'flex', cursor: row.id === '121410327' || row.id === '121407191' ? 'not-allowed' : 'pointer' }}>
+        <img style={{ width: 40, height: 40, marginRight: 8, opacity: row.id === '121410327' || row.id === '121407191' ? 0.5 : 1 }}
              src={headerImg} />
-            <a style={{ color: disabledIds.includes(row.id) ? 'rgba(0, 0, 0, 0.25)': '#5280FF' }}>{value}</a>
+            <a style={{ color: row.id === '121410327' || row.id === '121407191'.includes(row.id) ? 'rgba(0, 0, 0, 0.25)': '#5280FF' }}>{value}</a>
       </div>
     )
   },
@@ -46,7 +46,7 @@ export default function CTableDemo() {
       style={{ width: '100%', height: 360 }}
       supportCheckbox
       supportPage
-      useCustomScroll={false}
+      // useCustomScroll={false}
       rowKey="id"
       checkedData={[data[1]]}
       pageOpts={{ pageSize: 6 }}

@@ -179,6 +179,7 @@ export default class Column {
 
   renderBasicTitle = (item, sortBy, resolveColumnItem) => {
     const { _this } = this;
+    const { showFilterBtn } = _this.props;
     const hasFilter = item.filters && item.filters.length;
 
     if (item.sortable || hasFilter) {
@@ -203,29 +204,41 @@ export default class Column {
             <Popover
               trigger="click"
               size="mini"
-              // showCancelBtn
-              // showConfirmBtn
+              showCancelBtn={showFilterBtn}
+              showConfirmBtn={showFilterBtn}
               cancelBtnText="重置"
-              width={135}
-              placement="bottom-center"
+              width={170}
+              placement="bottom-left"
               className={`${tablePrefixCls}-filter-content`}
               content={
-                <Checkbox.Group
-                  layout="v"
-                  value={_this.state.filterValue}
-                  onChange={this.onFilterChange}
-                >
-                  {item.filters.map((f) => (
-                    <Checkbox key={f.value} value={f.value}>
+                <>
+                  {item.filters.map((f, index) => (
+                    <Checkbox
+                      onChange={this.onFilterChange}
+                      defaultChecked={_this.state.filterValue.includes(f.value)}
+                      key={f.value}
+                      value={f.value}
+                      disabled={f.disabled}
+                      className={
+                        !showFilterBtn &&
+                        index === item.filters.length - 1 &&
+                        'last-filter-item'
+                      }
+                    >
                       {f.text}
                     </Checkbox>
                   ))}
-                </Checkbox.Group>
+                </>
               }
-              // onCancelClick={this.onFilterReset}
-              // onConfirmClick={this.onFilterConfirm}
+              onCancelClick={this.onFilterReset}
+              onConfirmClick={this.onFilterConfirm}
             >
-              <Icon className="filter-icon" type="filter" />
+              <Icon
+                className={`filter-icon ${
+                  _this.state.filterValue.length && 'has-filter-value'
+                }`}
+                type="filter"
+              />
             </Popover>
           )}
         </span>
@@ -506,19 +519,43 @@ export default class Column {
     });
   };
 
-  onFilterChange = (value) => {
+  onFilterChange = (checked, value) => {
     const { _this } = this;
-    _this.setState({ filterValue: value }, () => {
+    const { filterValue } = _this.state;
+    const { showFilterBtn } = _this.props;
+    const targetIndex = filterValue.findIndex((v) => v === value);
+
+    if (checked && targetIndex === -1) {
+      filterValue.push(value);
+    }
+    if (!checked && targetIndex > -1) {
+      filterValue.splice(targetIndex, 1);
+    }
+    _this.setState({ filterValue }, () => {
+      if (!showFilterBtn) {
+        this.setColumnData();
+        _this.loadGrid();
+      }
+    });
+  };
+
+  /**
+   * 筛选重置
+   */
+  onFilterReset = () => {
+    const { _this } = this;
+    _this.setState({ filterValue: [] }, () => {
       this.setColumnData();
       _this.loadGrid();
     });
   };
 
-  // onFilterReset = () => {
-  //   const { _this } = this;
-  //   _this.setState({ filterValue: [] }, this.setColumnData);
-  // }
-  //
-  // onFilterConfirm = () => {
-  // }
+  /**
+   * 筛选确认
+   */
+  onFilterConfirm = () => {
+    const { _this } = this;
+    this.setColumnData();
+    _this.loadGrid();
+  };
 }

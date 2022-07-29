@@ -161,11 +161,7 @@ class CTable extends Component {
    * 解决表头滚动问题（rcTable bug）
    */
   setHeaderStyle = () => {
-    if (
-      isFirefox() ||
-      !this.props.useCustomScroll ||
-      this.props.supportResizeColumn
-    ) {
+    if (isFirefox() || !this.props.useCustomScroll) {
       return;
     }
     setTimeout(() => {

@@ -43,7 +43,7 @@ export default function CTableDemo() {
           type="link"
           size="small"
           colorType="danger"
-          style={{ padding: '0 6px' }}
+          style={{ padding: '0 6px 0 0' }}
           onClick={() => {
             console.log(value, row);
             tableRef.current.refreshTable(false);
@@ -80,7 +80,7 @@ export default function CTableDemo() {
         style={{ width: '100%', height: 400 }}
         columnData={columns}
         pageOpts={{ pageSize: 6 }}
-        useCustomScroll={false}
+        // useCustomScroll={false}
         supportPage
         ajaxData={(params) => {
           return new Promise(resolve => {

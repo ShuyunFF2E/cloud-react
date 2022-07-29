@@ -56,6 +56,7 @@ export const propTypes = {
   supportFullColumn: PropTypes.bool,
   loadingTpl: PropTypes.func,
   loadingOpts: PropTypes.object,
+  showFilterBtn: PropTypes.bool,
 };
 
 export const defaultProps = {
@@ -111,4 +112,5 @@ export const defaultProps = {
   supportFullColumn: false,
   loadingTpl: () => null,
   loadingOpts: {},
+  showFilterBtn: false,
 };
