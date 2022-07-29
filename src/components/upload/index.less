@@ -82,8 +82,11 @@
 	}
 
 	&-pic-preview {
-		img {
-			width: 100%;
+		&-detail {
+			height: 590px;
+			background-repeat: no-repeat;
+			background-size: contain;
+			background-position: center;
 		}
 	}
 
@@ -113,6 +116,7 @@
 
 		.@{upload-prefix-cls}-list-delete {
 			position: relative;
+			cursor: pointer;
 			background: @gray-4;
 			width: 14px;
 			height: 14px;
@@ -167,12 +171,13 @@
 				column-gap: 16px;
 
 				&-detail {
-					width: 28px;
-					height: 28px;
-					flex-basis: 28px;
+					width: 32px;
+					height: 32px;
+					flex-basis: 32px;
 
 					> img {
-						max-width: 28px;
+						max-width: 32px;
+						border-radius: 2px;
 					}
 				}
 			}
@@ -183,7 +188,7 @@
 		}
 
 		&-type-icon {
-			font-size: 28px;
+			font-size: 32px;
 		}
 
 		&-pic {
@@ -228,7 +233,7 @@
 				.@{upload-prefix-cls}-list-delete {
 					position: absolute;
 					top: -16px;
-					right: -13px;
+					right: -16px;
 				}
 			}
 

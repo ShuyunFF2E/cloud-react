@@ -54,16 +54,14 @@ const TextItem = ({ item, disabled, onRemove }) => {
           )}
         </div>
         {!disabled && (
-          <div className={`${prefix}-text-actions`}>
-            <div className={`${prefix}-delete`}>
-              <Icon
-                type="close"
-                style={{ fontSize: '14px' }}
-                onClick={() => {
-                  onRemove(item);
-                }}
-              />
-            </div>
+          <div className={`${prefix}-delete`}>
+            <Icon
+              type="close"
+              style={{ fontSize: '14px' }}
+              onClick={() => {
+                onRemove(item);
+              }}
+            />
           </div>
         )}
       </div>
@@ -114,7 +112,7 @@ const Picture = (props) => {
           {hasPreview && (
             <Icon
               type="view"
-              style={{ fontSize: '17px', marginRight: disabled ? 0 : 18 }}
+              style={{ fontSize: '16px', marginRight: disabled ? 0 : 16 }}
               onClick={() => {
                 onPreview(item);
               }}
@@ -124,7 +122,7 @@ const Picture = (props) => {
             <>
               <Icon
                 type="edit"
-                style={{ fontSize: '14px' }}
+                style={{ fontSize: '16px' }}
                 onClick={() => {
                   onReUpload({ ...item, index });
                 }}

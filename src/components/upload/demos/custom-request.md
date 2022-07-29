@@ -1,6 +1,6 @@
 ---
 title: 自定义上传。
-order: 2
+order: 3
 desc: 根据自身业务需求，传相应FormData。
 ---
 
