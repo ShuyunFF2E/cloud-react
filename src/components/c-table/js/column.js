@@ -91,9 +91,7 @@ export default class Column {
         align: 'center',
         className: `${tablePrefixCls}-row-expand-column`,
         fixed: isFirstColumnFixed || _this.props.isCheckboxFixed,
-        render: () => {
-          return '';
-        },
+        render: () => '',
       });
     }
 
@@ -117,9 +115,7 @@ export default class Column {
         key: 'cTableDrag',
         className: `${tablePrefixCls}-drag-column`,
         width: 40,
-        render: () => {
-          return <Icon type="move" style={{ lineHeight: '20px' }} />;
-        },
+        render: () => <Icon type="move" style={{ lineHeight: '20px' }} />,
       });
     }
 
@@ -259,35 +255,27 @@ export default class Column {
     const { originColumnData } = _this.state;
     return (
       <ul className={`${tablePrefixCls}-tooltip-content`}>
-        {originColumnData.map((item) => {
-          return (
-            <li>
-              <Checkbox
-                disabled={
-                  item.show &&
-                  originColumnData.filter((i) => i.show).length === 1
+        {originColumnData.map((item) => (
+          <li>
+            <Checkbox
+              disabled={
+                item.show && originColumnData.filter((i) => i.show).length === 1
+              }
+              checked={item.show}
+              onChange={(checked) => {
+                Object.assign(item, { show: !!checked });
+                if (_this.props.supportMemory) {
+                  setConfig(_this.state.originColumnData, _this.props.tableId);
                 }
-                checked={item.show}
-                onChange={(checked) => {
-                  Object.assign(item, { show: !!checked });
-                  if (_this.props.supportMemory) {
-                    setConfig(
-                      _this.state.originColumnData,
-                      _this.props.tableId,
-                    );
-                  }
-                  this.setColumnData();
-                  _this.setHeaderStyle();
-                  _this.setFixedStyle();
-                }}
-              >
-                {typeof item.title === 'function'
-                  ? item.title(item)
-                  : item.title}
-              </Checkbox>
-            </li>
-          );
-        })}
+                this.setColumnData();
+                _this.setHeaderStyle();
+                _this.setFixedStyle();
+              }}
+            >
+              {typeof item.title === 'function' ? item.title(item) : item.title}
+            </Checkbox>
+          </li>
+        ))}
       </ul>
     );
   };
@@ -319,18 +307,14 @@ export default class Column {
     };
   };
 
-  getDragColumn = () => {
-    return {
-      title: '',
-      dataIndex: 'cTableDrag',
-      key: 'cTableDrag',
-      className: `${tablePrefixCls}-drag-column`,
-      width: 40,
-      render: () => {
-        return <Icon type="move" />;
-      },
-    };
-  };
+  getDragColumn = () => ({
+    title: '',
+    dataIndex: 'cTableDrag',
+    key: 'cTableDrag',
+    className: `${tablePrefixCls}-drag-column`,
+    width: 40,
+    render: () => <Icon type="move" />,
+  });
 
   /**
    * 单选列模板
@@ -366,7 +350,7 @@ export default class Column {
   /**
    * 多选列模板
    * @param isFirstColumnFixed
-   * @returns {{dataIndex: string, width: number, className: string, fixed: (boolean|*), title: JSX.Element, render: (function(*, *=)), key: string}}
+   * @returns {{}}
    */
   getCheckboxColumn = (isFirstColumnFixed) => {
     const { _this } = this;

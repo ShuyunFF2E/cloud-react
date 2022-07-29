@@ -23,7 +23,7 @@ group:
 | rowKey | 表格数据的唯一标识    | string   |   'id'   | |
 | bordered | 是否展示表格边框   | boolean   |   false   | |
 | headerBordered | 表头带线条   | boolean   |   false   | |
-| size | 表格大小，可选 `default` `small`     | string   |   `default`   | |
+| size | 表格大小，可选 `default` `small` `large`    | string   |   `default`   | |
 | maxHeight | tbody最大高度    | string/number |   -   |
 | onLoadGridAfter | 表格刷新后回调，Function(res)   | function   |   () => {}   | |
 | onLoadGridBefore | 表格刷新前回调，Function(params)   | function   |   () => {}   | |

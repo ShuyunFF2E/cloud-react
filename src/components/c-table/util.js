@@ -116,6 +116,4 @@ export const removeConfig = (tableName) => {
   window.sessionStorage.removeItem(getConfigKey(tableName));
 };
 
-export const isFirefox = () => {
-  return navigator.userAgent.indexOf('Firefox') > -1;
-};
+export const isFirefox = () => navigator.userAgent.indexOf('Firefox') > -1;

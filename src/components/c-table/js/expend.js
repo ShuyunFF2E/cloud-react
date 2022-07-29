@@ -10,20 +10,18 @@ import { tablePrefixCls } from '../constant';
  * @returns {JSX.Element}
  * @constructor
  */
-const CustomExpandIcon = ({ expendProps, hideIcon }) => {
-  return (
-    <Icon
-      className={classnames(`${tablePrefixCls}-expend-icon`, {
-        [`${tablePrefixCls}-expend-icon-hide`]: hideIcon,
-        [`${tablePrefixCls}-expend-icon-expended`]: expendProps.expanded,
-      })}
-      type="right"
-      onClick={(e) => {
-        expendProps.onExpand(expendProps.record, e);
-      }}
-    />
-  );
-};
+const CustomExpandIcon = ({ expendProps, hideIcon }) => (
+  <Icon
+    className={classnames(`${tablePrefixCls}-expend-icon`, {
+      [`${tablePrefixCls}-expend-icon-hide`]: hideIcon,
+      [`${tablePrefixCls}-expend-icon-expended`]: expendProps.expanded,
+    })}
+    type="right"
+    onClick={(e) => {
+      expendProps.onExpand(expendProps.record, e);
+    }}
+  />
+);
 
 export default function getExpandableConfig({
   supportExpend,

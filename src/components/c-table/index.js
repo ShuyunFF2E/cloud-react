@@ -40,6 +40,7 @@ class CTable extends Component {
     pageSizeOptions: [10, 20, 50, 100],
   };
 
+  // eslint-disable-next-line react/state-in-constructor
   state = {
     data: [],
     columnData: this.props.columnData.map((item) => ({ ...item, show: true })),
@@ -239,6 +240,7 @@ class CTable extends Component {
    */
   getKeyFieldVal = (node) => {
     if (node) {
+      // eslint-disable-next-line no-unused-vars
       const { checked, disabled, ...props } = node;
       return node[this.props.rowKey] || JSON.stringify(props);
     }
