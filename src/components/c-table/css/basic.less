@@ -450,7 +450,8 @@
       &:hover {
         &:not(.cell-align-right):after {
           position: absolute;
-          top: 15px;
+          top: 50%;
+          transform: translate(0, -50%);
           right: 11px;
           content: '';
           display: inline-block;
@@ -493,11 +494,11 @@
       }
 
       .sort-up-icon {
-        top: 9px;
+        top: calc(50% - 14px);
       }
 
       .sort-down-icon {
-        top: 16px;
+        top: calc(50% - 7px);
       }
     }
 
@@ -519,27 +520,66 @@
     .filter-icon {
       position: absolute;
       right: 14px;
+      top: 11px;
+      //top: 50%;
+      //transform: translate(0, -50%);
       cursor: pointer;
+      // todo@liyuan 透明色值bug
+      color: #898989;
+
+      &:hover:before {
+        background: @gray-4;
+      }
+
+      &.has-filter-value {
+        color: @blue-4;
+      }
     }
   }
 }
 
 // 筛选
 .@{tablePrefixCls}-filter-content {
-  //.cloud-button {
-  //  height: 28px!important;
-  //  font-size: 12px!important;
-  //
-  //  &.normal {
-  //    margin-left: 0;
-  //  }
-  //}
+  padding: 4px 12px;
 
-  .cloud-checkbox {
-    margin-top: 8px;
+  &:after {
+    display: none;
   }
 
-  &.cloud-popover-tooltip-mini {
-    min-width: 135px;
+  &.cloud-tooltip.is-light {
+    box-shadow: @border-shadow-3;
+  }
+
+  .cloud-popover {
+    position: relative;
+
+    &::after {
+      position: absolute;
+      display: block;
+      bottom: -7px;
+      left: -12px;
+      content: '';
+      width: calc(100% + 24px);
+      height: 1px;
+      background: #e8e8e8;
+    }
+  }
+
+  .cloud-checkbox {
+    width: 100%;
+    margin-top: 8px;
+
+    &.last-filter-item {
+      margin-bottom: 8px;
+    }
+  }
+
+  .cloud-button {
+    height: 28px !important;
+    font-size: 12px !important;
+
+    &.normal {
+      margin-left: 0;
+    }
   }
 }

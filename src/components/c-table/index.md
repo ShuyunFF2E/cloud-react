@@ -101,6 +101,7 @@ this.tableRef.refreshTable(params?);
 | -------------- | ---------------------- | ----------------- | ------ |
 | supportResizeColumn | 是否支持配置列的拉伸  | boolean	   |   false   | |
 | summaryData | 表格合计（API 同 columnData） | 	array   |   []   | |
+| showFilterBtn | 过滤下拉是否展示确认取消按钮 | 	boolean   |   false   | |
 
 [comment]: <> (| supportConfigColumn | 是否支持配置列的隐藏和展示  | boolean	   |   false   | |)
 
@@ -125,6 +126,7 @@ this.tableRef.refreshTable(params?);
 | filters     | 配置表格列筛选项 [{ text: '男', value: 'male' }, { text: '女', value: 'female' }]                      | array                   | [] |
 
 ### 代码演示
+<embed src="@components/c-table/demos/filter.md" />
 
 <embed src="@components/c-table/demos/basic.md" /> 
 
@@ -177,8 +179,6 @@ this.tableRef.refreshTable(params?);
 <embed src="@components/c-table/demos/sort-with-page.md" /> 
 
 <embed src="@components/c-table/demos/sort-front.md" /> 
-
-<embed src="@components/c-table/demos/filter.md" />
 
 <embed src="@components/c-table/demos/refresh-table.md" /> 
 

@@ -11,7 +11,7 @@ desc: 固定列
  * desc: 固定列
  */
 import React, { useState } from 'react';
-import { CTable, Button } from 'cloud-react';
+import { CTable, Button, Select, Radio } from 'cloud-react';
 
 const data = [
     { id: '121410327', name: '手机号优先继续发送1', createTime: '2021/12/14 10:19:02', creator: 'liyuan.meng', approver: 'admin', status: '执行完成' },
@@ -38,7 +38,7 @@ const columns = [
         dataIndex: 'operator',
         render: (v, row) => (
             <div>
-                <Button disabled={row.id === '121410327'} type="link" size="small" style={{ padding: '0 11px' }}>编辑</Button>
+                <Button disabled={row.id === '121410327'} type="link" size="small" style={{ padding: '0px 11px 0 0' }}>编辑</Button>
                 <Button type="link" size="small" style={{ padding: '0 11px' }}>查看报告</Button>
                 <Button disabled={row.id === '121410327'} type="link" size="small" colorType="danger" style={{ padding: '0 11px' }}>删除</Button>
             </div>
@@ -49,26 +49,27 @@ const columns = [
 ];
 
 export default function CTableDemo() {
-  const btnHeight = 47;
-    const [style, setStyle] = useState({ width: '100%', height: `calc(100% - ${btnHeight}px)` });
+    const [size, setSize] = useState('default');
+
 	return (
-        <div style={{ height: 500 }}>
-          <Button style={{ marginRight: 15 }} onClick={() => {
-            setStyle({ width: 'calc(100% - 30px)', height: `calc(100% - ${btnHeight}px - 30px)` })
-          }}>改变表格尺寸</Button>
-          <Button onClick={() => {
-            setStyle({ width: '100%', height: `calc(100% - ${btnHeight}px)` })
-          }}>重置表格尺寸</Button>
+        <div>
+          <Radio.Group value={size} onChange={setSize}>
+            <Radio value="default">基础型表格</Radio>
+            <Radio value="large">舒适型表格</Radio>
+            <Radio value="small">紧凑型表格</Radio>
+          </Radio.Group>
           <CTable
-            style={{ ...style, marginTop: 20 }}
-            useCustomScroll={false}
+            style={{ height: 500, marginTop: 20 }}
+            // useCustomScroll={false}
+            size={size}
             supportPage
             isDelay
             columnData={columns}
             ajaxData={{ totals: data.length, data }}
             pageOpts={{ onChange: () => {
                 console.log(11);
-              } }}
+              }
+            }}
           />
         </div>
 	);

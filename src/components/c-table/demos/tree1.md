@@ -127,7 +127,7 @@ export default function CTableDemo() {
 	return (
         <CTable
             style={{ width: '100%', height: 230 }}
-            useCustomScroll={false}
+            // useCustomScroll={false}
             supportExpend
             supportTree
             supportCheckbox
