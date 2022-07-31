@@ -191,7 +191,7 @@ export default class Column {
               'cell-align-right': item.align === 'right',
               [`sort-${sortBy?.toLowerCase()}`]: !!sortBy,
             })}
-            onClick={() => this.onSort(resolveColumnItem)}
+            onClick={() => this.onSort(item, resolveColumnItem)}
           >
             <Icon className="sort-up-icon" type="up-solid" />
             <Icon className="sort-down-icon" type="down-solid" />
@@ -475,9 +475,10 @@ export default class Column {
 
   /**
    * 表格排序
+   * @param itemData
    * @param columnItem
    */
-  onSort = (columnItem) => {
+  onSort = (itemData, columnItem) => {
     const { _this } = this;
     _this.loadGrid({ sortParams: columnItem }, () => {
       // 更新 columnData 的 sortBy 字段
@@ -489,11 +490,13 @@ export default class Column {
             if (item.dataIndex === columnItem.dataIndex) {
               return {
                 ...item,
+                title: itemData.title,
                 sortBy: item.sortBy === 'ASC' ? 'DESC' : 'ASC',
               };
             }
             return {
               ...item,
+              title: itemData.title,
               sortBy: '',
             };
           }),

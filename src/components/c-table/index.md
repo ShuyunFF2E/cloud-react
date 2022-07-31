@@ -126,8 +126,6 @@ this.tableRef.refreshTable(params?);
 | filters     | 配置表格列筛选项 [{ text: '男', value: 'male' }, { text: '女', value: 'female' }]                      | array                   | [] |
 
 ### 代码演示
-<embed src="@components/c-table/demos/filter.md" />
-
 <embed src="@components/c-table/demos/basic.md" /> 
 
 <embed src="@components/c-table/demos/header-bordered.md" /> 
@@ -166,10 +164,6 @@ this.tableRef.refreshTable(params?);
 
 <embed src="@components/c-table/demos/page.md" /> 
 
-<embed src="@components/c-table/demos/small.md" /> 
-
-<embed src="@components/c-table/demos/large.md" /> 
-
 <embed src="@components/c-table/demos/row-col-span.md" /> 
 
 <embed src="@components/c-table/demos/light-row.md" /> 
@@ -179,6 +173,8 @@ this.tableRef.refreshTable(params?);
 <embed src="@components/c-table/demos/sort-with-page.md" /> 
 
 <embed src="@components/c-table/demos/sort-front.md" /> 
+
+<embed src="@components/c-table/demos/filter.md" />
 
 <embed src="@components/c-table/demos/refresh-table.md" /> 
 
