@@ -21,9 +21,9 @@ const data = new Array(100).fill(1).map((item, index) => (
 const columns = [
   {
     title: item => {
-      return <span>
+      return <span style={{ display: 'flex', alignItems: 'center' }}>
                 <span style={{ marginRight: 5 }}>活动ID</span>
-                <Tooltip content="说明说明"><Icon type="question-circle-solid"/></Tooltip>
+                <Tooltip content="说明说明"><Icon style={{ color: 'raba(0, 0, 0, 0.25)' }} type="question-circle"/></Tooltip>
             </span>;
     },
     dataIndex: 'id',

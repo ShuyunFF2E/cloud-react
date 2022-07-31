@@ -12,6 +12,7 @@ desc: 表格过滤
  */
 import React, { useState } from 'react';
 import { CTable, Icon, Tooltip, Checkbox } from 'cloud-react';
+import './style/index.less';
 
 export default function CTableDemo() {
     const [creator, setCreator] = useState('');
@@ -94,21 +95,30 @@ export default function CTableDemo() {
             dataIndex: 'creator',
             align: 'left',
             width: 200,
-            render: () => {
-              const iconStyle = {
-                paddingRight: 16,
-                cursor: 'pointer',
-                lineHeight: '20px',
-              };
-              return (
-                <div className="custom-operate" style={{ display: 'flex', color: 'rgba(0, 0, 0, 0.45)' }}>
+          render: () => {
+            const iconStyle = {
+              marginRight: 16,
+              cursor: 'pointer',
+              lineHeight: '20px',
+            };
+            return (
+              <div className="custom-operate" style={{ display: 'flex', color: 'rgba(0, 0, 0, 0.45)' }}>
+                <Tooltip content="导出文件">
                   <Icon style={iconStyle} type="export" />
+                </Tooltip>
+                <Tooltip content="设置条目">
                   <Icon style={iconStyle} type="config" />
+                </Tooltip>
+                <Tooltip content="复制条目">
                   <Icon style={iconStyle} type="copy" />
+                </Tooltip>
+                <Tooltip content="删除条目">
                   <Icon style={iconStyle} type="delete" />
-                </div>
-              )
-            },
+                </Tooltip>
+              </div>
+            )
+          },
+
         }
     ];
 
@@ -124,7 +134,7 @@ export default function CTableDemo() {
   };
 
 	return (
-        <>
+        <div className="cloud-table-demo">
           <Checkbox style={{ marginBottom: 20 }} checked={showFilterBtn} onChange={checked => {
             setShowFilterBtn(checked)
           }}>
@@ -145,7 +155,7 @@ export default function CTableDemo() {
               })
             }}
           />
-        </>
+        </div>
 	);
 }
 ```
