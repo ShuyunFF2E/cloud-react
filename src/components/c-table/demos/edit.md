@@ -12,6 +12,7 @@ desc: 表格可编辑
  */
 import React, { Component, createRef } from 'react';
 import { CTable, Input } from 'cloud-react';
+import './style/index.less';
 
 const data = [
   { id: '121410327', name: 'click me1', createTime: '2021/12/14 10:19:02', creator: 'liyuan.meng', num: '12,222' },
@@ -37,7 +38,7 @@ export default class RcTableDemo extends Component {
       width: 300,
       render: (value, row) => {
         return (
-          <div style={{ height: 28, width: 206, display: 'flex', alignItems: 'center' }}>
+          <div className={`cloud-react-edit ${row.id === this.state.editId && 'current-edit'}`} style={{ height: 28, width: 206, display: 'flex', alignItems: 'center' }}>
             {row.id === this.state.editId ? (
               <Input
                 ref={this.ref}
@@ -73,6 +74,7 @@ export default class RcTableDemo extends Component {
   render() {
     return (
       <CTable
+        className="cloud-table-demo"
         columnData={this.columns}
         ajaxData={this.state.ajaxData}
       />
