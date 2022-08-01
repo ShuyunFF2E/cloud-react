@@ -126,7 +126,7 @@ class Pagination extends Component {
         className="ellips"
         onClick={this.nextMore}
       >
-        <span className="dot" onClick={this.nextMore} />
+        <Icon type="more" className="dot" onClick={this.nextMore} />
         <Icon
           type="double-right"
           className="moreIcon"
@@ -161,7 +161,7 @@ class Pagination extends Component {
         className="ellips"
         onClick={this.preMore}
       >
-        <span className="dot" onClick={this.preMore} />
+        <Icon type="more" className="dot" onClick={this.preMore} />
         <Icon type="double-left" className="moreIcon" onClick={this.preMore} />
       </li>,
     );
@@ -202,7 +202,7 @@ class Pagination extends Component {
     );
     pages.push(
       <li key="preMore" className="ellips">
-        <span className="dot" onClick={this.preMore} />
+        <Icon type="more" className="dot" onClick={this.preMore} />
         <Icon type="double-left" className="moreIcon" onClick={this.preMore} />
       </li>,
     );
@@ -234,7 +234,7 @@ class Pagination extends Component {
 
     pages.push(
       <li key="nextMore" className="ellips">
-        <span className="dot" onClick={this.nextMore} />
+        <Icon type="more" className="dot" onClick={this.nextMore} />
         <Icon
           type="double-right"
           className="moreIcon"

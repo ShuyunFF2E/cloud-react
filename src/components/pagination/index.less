@@ -15,6 +15,7 @@
 .@{pagination-prefix-cls} {
   display: flex;
   align-items: center;
+  font-size: 14px;
 
   ul {
     display: flex;
@@ -73,17 +74,7 @@
         min-width: auto;
 
         .dot {
-          display: block;
-
-          &:after {
-            content: '\2022\2022\2022';
-            display: block;
-            letter-spacing: 0;
-            color: @pagination-item-ellips-color;
-            font-size: 12px;
-            margin-top: 1px;
-            font-weight: 300;
-          }
+          color: @pagination-item-ellips-color;
         }
 
         .moreIcon {
@@ -94,7 +85,7 @@
         &:hover {
           background: none;
 
-          .dot:after {
+          .dot {
             color: @blue-4;
           }
         }
@@ -107,7 +98,7 @@
       }
 
       .pg-icon {
-        font-size: 14px;
+        font-size: 16px;
       }
     }
 
@@ -119,7 +110,7 @@
           color: @gray-6;
         }
 
-        &.ellips .dot::after {
+        &.ellips .dot {
           color: @gray-5;
         }
 
@@ -294,11 +285,11 @@
       padding-right: 14px;
 
       &:hover {
-        background: @blue-2;
+        background: @indigo-1;
       }
 
       &.active {
-        background: @blue-2;
+        background: @indigo-2;
       }
 
       .icon-finish {
@@ -313,5 +304,14 @@
 
   &.cloud-tooltip.bottom-center.is-light:after {
     display: none;
+  }
+
+  //noinspection CssInvalidPropertyValue
+  .cloud-popover-desc {
+    overflow-y: overlay;
+
+    &::-webkit-scrollbar {
+      width: 8px !important;
+    }
   }
 }

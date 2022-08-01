@@ -148,8 +148,6 @@ this.tableRef.refreshTable(params?);
 
 <embed src="@components/c-table/demos/custom-column-icon-link.md" /> 
 
-<embed src="@components/c-table/demos/custom-column-operate.md" /> 
-
 <embed src="@components/c-table/demos/custom-column-tag.md" /> 
 
 <embed src="@components/c-table/demos/fixed-column.md" /> 
