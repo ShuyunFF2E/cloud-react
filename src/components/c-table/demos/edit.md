@@ -43,7 +43,6 @@ export default class RcTableDemo extends Component {
               <Input
                 ref={this.ref}
                 size="small"
-                style={{ width: '100%' }}
                 defaultValue={row.name}
                 onBlur={evt => {
                   const target = data.find(item => item.id === row.id);
