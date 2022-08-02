@@ -16,7 +16,7 @@ import './style/index.less';
 
 export default function CTableDemo() {
     const [creator, setCreator] = useState('');
-    const [showFilterBtn, setShowFilterBtn] = useState(false);
+    const [showFilterBtn, setShowFilterBtn] = useState(true);
 
     const data = [
         { id: '121410327', name: '手机号优先继续发送1手机号优先继续发送1手机号优先继续发送1手机号优先继续发送1', createTime: '2021/12/14 10:19:02', creator: 'liyuan.meng', category: { status: 'executing', text: '执行中' } },
@@ -61,7 +61,6 @@ export default function CTableDemo() {
           { text: '执行中', value: 'executing' },
           { text: '执行失败', value: 'fail' },
           { text: '执行错误', value: 'error' },
-          { text: '待审批', value: 'approval' },
           { text: '已中止', value: 'paused', disabled: true }
         ],
         render: (category) => {
@@ -138,7 +137,7 @@ export default function CTableDemo() {
           <Checkbox style={{ marginBottom: 20 }} checked={showFilterBtn} onChange={checked => {
             setShowFilterBtn(checked)
           }}>
-            筛选项展示确认按钮
+            筛选项展示确定按钮
           </Checkbox>
           <CTable
             key={Math.random()}
