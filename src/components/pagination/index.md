@@ -29,6 +29,8 @@ group:
 | total               | 数据总数                                     | number                      | 0                |
 | onChange            | 页码改变的回调，参数是改变后的页码及每页条数 | Function(current, pageSize) | noop             |
 | isAppendToBody      | 分页下拉框是否渲染在 body 上	          | boolean                      | true                |
+| disabled      | 禁用分页	          | boolean                      | false                |
+| type      | 分页类型 `default` `simple` `small` `mini-page` `mini-no-page`         | string                      | default                |
 
  ### 代码演示 
 
@@ -38,6 +40,12 @@ group:
 
 <embed src="@components/pagination/demos/jump.md" /> 
 
-<embed src="@components/pagination/demos/more.md" /> 
+<embed src="@components/pagination/demos/disabled.md" /> 
 
 <embed src="@components/pagination/demos/simple.md" /> 
+
+<embed src="@components/pagination/demos/small.md" /> 
+
+<embed src="@components/pagination/demos/mini-page.md" /> 
+
+<embed src="@components/pagination/demos/mini-no-page.md" /> 

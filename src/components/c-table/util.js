@@ -78,11 +78,12 @@ export function getLeafNodes(node) {
  * 遍历 tree
  * @param tree
  * @param callback
+ * @param childrenKey
  */
-export function traverseTree(tree, callback) {
+export function traverseTree(tree, callback, childrenKey = 'children') {
   const fn = (node, parentNode) => {
-    if (node.children && node.children.length) {
-      node.children.forEach((n) => fn(n, node));
+    if (node[childrenKey] && node[childrenKey].length) {
+      node[childrenKey].forEach((n) => fn(n, node));
     }
     callback(node, parentNode);
   };
@@ -115,6 +116,4 @@ export const removeConfig = (tableName) => {
   window.sessionStorage.removeItem(getConfigKey(tableName));
 };
 
-export const isFirefox = () => {
-  return navigator.userAgent.indexOf('Firefox') > -1;
-};
+export const isFirefox = () => navigator.userAgent.indexOf('Firefox') > -1;

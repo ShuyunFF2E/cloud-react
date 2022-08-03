@@ -1,14 +1,14 @@
 ---
 order: 1
 title: CTable
-desc: 默认表格
+desc: 拖拽
 ---
 
 ```jsx
 
 /**
- * title: 基础表格
- * desc: 基础表格
+ * title: 拖拽行
+ * desc: 表格拖拽行带手柄
  */
 import React from 'react';
 import { CTable } from 'cloud-react';
@@ -32,6 +32,8 @@ const columns = [
 export default function CTableDemo() {
 	return (
         <CTable
+           supportDrag
+           showDragIcon
            columnData={columns}
            ajaxData={{ totals: data.length, data }}
         />

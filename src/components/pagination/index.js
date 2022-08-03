@@ -6,6 +6,7 @@ import { noop, prefixCls } from '@utils';
 import Icon from '../icon';
 import Input from '../input';
 import Select from '../select';
+import Popover from '../popover';
 
 import './index.less';
 
@@ -18,15 +19,22 @@ class Pagination extends Component {
     onChange: PropTypes.func,
     showPageSizeOptions: PropTypes.bool,
     showQuickJumper: PropTypes.bool,
-    type: PropTypes.oneOf(['default', 'simple']),
+    type: PropTypes.oneOf([
+      'default',
+      'simple',
+      'small',
+      'mini-page',
+      'mini-no-page',
+    ]),
     isAppendToBody: PropTypes.bool,
     className: PropTypes.string,
+    disabled: PropTypes.bool,
   };
 
   static defaultProps = {
     current: 1,
     pageSize: 10,
-    pageSizeOptions: [10, 20, 30, 40],
+    pageSizeOptions: [ 10, 20, 30, 40 ],
     total: 0,
     onChange: noop,
     showPageSizeOptions: false,
@@ -34,12 +42,15 @@ class Pagination extends Component {
     type: 'default',
     isAppendToBody: true,
     className: '',
+    disabled: false,
   };
 
   constructor(props) {
     super(props);
 
-    const { pageSize, current, showPageSizeOptions, pageSizeOptions } = props;
+    const {
+      pageSize, current, showPageSizeOptions, pageSizeOptions,
+    } = props;
 
     this.state = {
       current,
@@ -115,7 +126,7 @@ class Pagination extends Component {
         className="ellips"
         onClick={this.nextMore}
       >
-        <span className="dot" onClick={this.nextMore} />
+        <Icon type="more" className="dot" onClick={this.nextMore} />
         <Icon
           type="double-right"
           className="moreIcon"
@@ -150,7 +161,7 @@ class Pagination extends Component {
         className="ellips"
         onClick={this.preMore}
       >
-        <span className="dot" onClick={this.preMore} />
+        <Icon type="more" className="dot" onClick={this.preMore} />
         <Icon type="double-left" className="moreIcon" onClick={this.preMore} />
       </li>,
     );
@@ -191,7 +202,7 @@ class Pagination extends Component {
     );
     pages.push(
       <li key="preMore" className="ellips">
-        <span className="dot" onClick={this.preMore} />
+        <Icon type="more" className="dot" onClick={this.preMore} />
         <Icon type="double-left" className="moreIcon" onClick={this.preMore} />
       </li>,
     );
@@ -223,7 +234,7 @@ class Pagination extends Component {
 
     pages.push(
       <li key="nextMore" className="ellips">
-        <span className="dot" onClick={this.nextMore} />
+        <Icon type="more" className="dot" onClick={this.nextMore} />
         <Icon
           type="double-right"
           className="moreIcon"
@@ -269,22 +280,34 @@ class Pagination extends Component {
   };
 
   goPage = (current) => {
+    if (this.props.disabled) {
+      return;
+    }
     this.props.onChange(current, this.props.pageSize);
   };
 
   prevPage = () => {
+    if (this.props.disabled) {
+      return;
+    }
     let { current } = this.state;
     if (current === 1) return;
     this.goPage((current -= 1));
   };
 
   nextPage = () => {
+    if (this.props.disabled) {
+      return;
+    }
     let { current } = this.state;
     if (current + 1 > this.totalPage) return;
     this.goPage((current += 1));
   };
 
   nextMore = () => {
+    if (this.props.disabled) {
+      return;
+    }
     let { current } = this.state;
     if (this.totalPage - current > 5) {
       current += 5;
@@ -296,6 +319,9 @@ class Pagination extends Component {
   };
 
   preMore = () => {
+    if (this.props.disabled) {
+      return;
+    }
     let { current } = this.state;
     if (current > 5) {
       current -= 5;
@@ -311,6 +337,8 @@ class Pagination extends Component {
         <div className="quickJumper">
           前往
           <Input
+            size={this.props.type === 'small' ? 'small' : ''}
+            disabled={this.props.disabled}
             onKeyDown={this.handlePage}
             onChange={this.changeInput}
             value={this.state.pageNum}
@@ -327,13 +355,17 @@ class Pagination extends Component {
   };
 
   getSelectJumper = () => {
-    const { showPageSizeOptions, pageSize, isAppendToBody } = this.props;
+    const {
+      showPageSizeOptions, pageSize, isAppendToBody, type,
+    } = this.props;
     const { pageSizeOptions } = this.state;
 
     if (showPageSizeOptions) {
       return (
         <div className="change-size">
           <Select
+            size={type === 'small' ? 'small' : ''}
+            disabled={this.props.disabled}
             className="change-size-select"
             position="auto"
             isAppendToBody={isAppendToBody}
@@ -377,6 +409,71 @@ class Pagination extends Component {
     });
   };
 
+  renderMiniPage = () => {
+    const pageList = new Array(this.totalPage)
+      .fill(1)
+      .map((item, index) => index + 1);
+    return this.props.disabled ? (
+      <span className="current-page disabled">
+        {this.state.current}
+        /
+        {this.totalPage}
+      </span>
+    ) : (
+      <Popover
+        trigger="click"
+        placement="bottom-center"
+        className={`${prefixCls}-pagination-mini-container`}
+        content={(
+          <div className="mini-page-list">
+            {pageList.map((page) => (
+              <span
+                key={page}
+                className={`mini-page-item ${prefixCls}-popover-cancel ${
+                  `${page}` === `${this.state.current}` ? 'active' : ''
+                }`}
+                onClick={() => {
+                  this.goPage(page);
+                }}
+              >
+                <span>{page}</span>
+                {`${page}` === `${this.state.current}` && (
+                  <Icon type="finish" />
+                )}
+              </span>
+            ))}
+          </div>
+        )}
+      >
+        <span className="current-page">
+          {this.state.current}
+          /
+          {this.totalPage}
+        </span>
+      </Popover>
+    );
+  };
+
+  renderMiniNoPage = () => (
+    <span className={`mini-no-page ${this.props.disabled ? 'disabled' : ''}`}>
+      <span
+        onClick={this.prevPage}
+        className={`pre-page-btn ${this.state.current === 1 ? 'nomore' : ''}`}
+      >
+        上一页
+      </span>
+      /
+      <span
+        className={`next-page-btn ${
+          this.state.current === this.totalPage ? 'nomore' : ''
+        }`}
+        onClick={this.nextPage}
+      >
+        下一页
+      </span>
+    </span>
+  );
+
   render() {
     const classes = classNames(
       `${prefixCls}-pagination`,
@@ -386,21 +483,30 @@ class Pagination extends Component {
 
     return (
       <div className={classes} style={this.props.style}>
-        <ul>
+        <ul
+          className={`${
+            this.props.disabled && `${prefixCls}-pagination-disabled`
+          }`}
+        >
           <li
             onClick={this.prevPage}
             role="presentation"
-            className={this.props.current === 1 ? 'nomore' : ''}
+            className={`pre-page ${this.props.current === 1 ? 'nomore' : ''}`}
           >
-            <Icon type="left" className="pg-icon"></Icon>
+            <Icon type="left" className="pg-icon" />
           </li>
-          {this.getPages()}
+          {this.props.type === 'mini-page' && this.renderMiniPage()}
+          {this.props.type === 'mini-no-page' && this.renderMiniNoPage()}
+          {![ 'mini-page', 'mini-no-page' ].includes(this.props.type)
+            && this.getPages()}
           <li
             onClick={this.nextPage}
             role="presentation"
-            className={this.props.current === this.totalPage ? 'nomore' : ''}
+            className={`next-page ${
+              this.props.current === this.totalPage ? 'nomore' : ''
+            }`}
           >
-            <Icon type="right" className="pg-icon"></Icon>
+            <Icon type="right" className="pg-icon" />
           </li>
         </ul>
         {this.getSelectJumper()}
