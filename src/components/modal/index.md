@@ -74,7 +74,7 @@ Modal.warning(config)
 
 <embed src="@components/modal/demos/confirm.md" /> 
 
-<embed src="@components/modal/demos/defineInfoStyle.md" /> 
+<!-- <embed src="@components/modal/demos/defineInfoStyle.md" />  -->
 
 <embed src="@components/modal/demos/async.md" /> 
 
@@ -88,7 +88,7 @@ Modal.warning(config)
 
 <embed src="@components/modal/demos/defineTpl.md" /> 
 
-<embed src="@components/modal/demos/iframe.md" /> 
+<!-- <embed src="@components/modal/demos/iframe.md" />  -->
 
 <embed src="@components/modal/demos/methodModal.md" /> 
 
