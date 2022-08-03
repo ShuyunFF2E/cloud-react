@@ -14,11 +14,11 @@ import React from 'react';
 import { CTable, Button } from 'cloud-react';
 
 const data = [
-  { a: '13812340987', b: '0571-12345678', c: '张三', d: '贞观路', e: 'Male' },
-  { a: '13812340986', b: '0571-98787658', c: '张夫人', d: '长安路', e: 'Female' },
-  { a: '13812988888', b: '0571-099877', c: '李四', d: '丈八东路', e: 'Male' },
-  { a: '1381200008888', b: '0571-099877', c: '王五', d: '高新三路', e: 'Male' },
-  { a: '0571-88888110', c: '李警官', d: '高新四路', e: 'Male' },
+  { a: '13812340987', b: '0571-12345678', c: '张三', d: '贞观路', e: '男' },
+  { a: '13812340986', b: '0571-98787658', c: '张夫人', d: '长安路', e: '女' },
+  { a: '13812988888', b: '0571-099877', c: '李四', d: '丈八东路', e: '男' },
+  { a: '1381200008888', b: '0571-099877', c: '王五', d: '高新三路', e: '男' },
+  { a: '0571-88888110', c: '李警官', d: '高新四路', e: '男' },
   { a: '资料统计完毕于2022年3月3日' },
 ];
 
@@ -57,7 +57,7 @@ const columns = [
     },
   },
   {
-    title: 'Name',
+    title: '姓名',
     dataIndex: 'c',
     key: 'c',
     onCell(_, index) {
@@ -68,7 +68,7 @@ const columns = [
     },
   },
   {
-    title: 'Address',
+    title: '地址',
     dataIndex: 'd',
     key: 'd',
     onCell(_, index) {
@@ -87,7 +87,7 @@ const columns = [
     },
   },
   {
-    title: 'Gender',
+    title: '性别',
     dataIndex: 'e',
     key: 'e',
     onCell(_, index) {
@@ -98,11 +98,11 @@ const columns = [
     },
   },
   {
-    title: 'Operations',
+    title: '操作',
     dataIndex: '',
     key: 'f',
     render() {
-      return <Button type="link" size="small">Operations</Button>;
+      return <Button type="link" size="small" style={{ padding: '0 6px 0 0' }}>查看详情</Button>;
     },
     onCell(_, index) {
       if (index === 5) {

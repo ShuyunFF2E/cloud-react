@@ -1,7 +1,5 @@
 ---
-order: 9
-title: CTable
-desc: 表格禁用行
+order: 9 title: CTable desc: 表格禁用行（设置 disabled: true 的形式）
 ---
 
 ```jsx

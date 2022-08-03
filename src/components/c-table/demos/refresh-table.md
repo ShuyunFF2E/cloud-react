@@ -34,7 +34,6 @@ export default function CTableDemo() {
     { title: '活动ID', dataIndex: 'id' },
     { title: '活动名称', dataIndex: 'name' },
     { title: '创建时间', dataIndex: 'createTime' },
-    { title: '人数', dataIndex: 'num', align: 'right' },
     { title: '创建人', dataIndex: 'creator' },
     {
       title: '操作',
@@ -43,6 +42,8 @@ export default function CTableDemo() {
         <Button
           type="link"
           size="small"
+          colorType="danger"
+          style={{ padding: '0 6px 0 0' }}
           onClick={() => {
             console.log(value, row);
             tableRef.current.refreshTable(false);
@@ -62,7 +63,7 @@ export default function CTableDemo() {
 
   return (
     <div>
-      <div style={{ display: 'flex', alignItems: 'center', marginBottom: 10 }}>
+      <div style={{ display: 'flex', alignItems: 'center', marginBottom: 20 }}>
         <Checkbox checked={queryParams.isMyActivity} onChange={checked => {
           const params = { ...queryParams, isMyActivity: checked };
           setQueryParams(params);
@@ -79,7 +80,7 @@ export default function CTableDemo() {
         style={{ width: '100%', height: 400 }}
         columnData={columns}
         pageOpts={{ pageSize: 6 }}
-        useCustomScroll={false}
+        // useCustomScroll={false}
         supportPage
         ajaxData={(params) => {
           return new Promise(resolve => {

@@ -1,14 +1,14 @@
 ---
 order: 2
 title: CTable
-desc: 带边框表格
+desc: 全边框表格
 ---
 
 ```jsx
 
 /**
- * title: 带边框表格
- * desc: 带边框表格
+ * title: 全边框表格
+ * desc: 全边框表格
  */
 import React from 'react';
 import { CTable } from 'cloud-react';

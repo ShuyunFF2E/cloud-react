@@ -7,8 +7,8 @@ desc: 默认表格
 ```jsx
 
 /**
- * title: 基础表格
- * desc: 基础表格
+ * title: 拉伸列
+ * desc: 表头带线条表格拉伸列
  */
 import React from 'react';
 import { CTable } from 'cloud-react';
@@ -23,8 +23,8 @@ const data = [
 
 const columns = [
   { title: '活动ID', dataIndex: 'id' },
-  { title: '活动名称', dataIndex: 'name' },
-  { title: '创建时间', dataIndex: 'createTime' },
+  { title: '活动名称', dataIndex: 'name', width: 200, minWidth: 160 },
+  { title: '创建时间', dataIndex: 'createTime', width: 200, minWidth: 170 },
   { title: '人数', dataIndex: 'num', align: 'right' },
   { title: '创建人', dataIndex: 'creator' }
 ];
@@ -32,6 +32,9 @@ const columns = [
 export default function CTableDemo() {
 	return (
         <CTable
+           headerBordered
+           supportResizeColumn
+          // useCustomScroll={false}
            columnData={columns}
            ajaxData={{ totals: data.length, data }}
         />

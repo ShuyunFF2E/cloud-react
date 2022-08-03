@@ -6,7 +6,7 @@ order: 9 title: CTable desc: 表格禁用行
 
 /**
  * title: 表格禁用行
- * desc: 表格禁用行（设置 disabledData 的形式）
+ * desc: 表格禁用行（使用 onRow）
  */
 import React from 'react';
 import { CTable } from 'cloud-react';
@@ -25,15 +25,13 @@ const data = [
   { id: '121407196', name: '继续发送手机8继续发送手机8继续发送手机8', createTime: '2021/12/13 11:03:23', creator: 'xian.yong' },
 ];
 
-const disabledIds = [data[0].id, data[8].id]
-
 const columns = [
   {
     title: '活动名称', dataIndex: 'name', align: 'left', width: 270, render: (value, row) => (
-      <div style={{ display: 'flex', cursor: disabledIds.includes(row.id) ? 'not-allowed' : 'pointer' }}>
-        <img style={{ width: 40, height: 40, marginRight: 8, opacity: disabledIds.includes(row.id) ? 0.5 : 1 }}
+      <div style={{ display: 'flex', cursor: row.id === '121410327' || row.id === '121407191' ? 'not-allowed' : 'pointer' }}>
+        <img style={{ width: 40, height: 40, marginRight: 8, opacity: row.id === '121410327' || row.id === '121407191' ? 0.5 : 1 }}
              src={headerImg} />
-            <a style={{ color: disabledIds.includes(row.id) ? 'rgba(0, 0, 0, 0.25)': '#5280FF' }}>{value}</a>
+            <a style={{ color: row.id === '121410327' || row.id === '121407191'.includes(row.id) ? 'rgba(0, 0, 0, 0.25)': '#5280FF' }}>{value}</a>
       </div>
     )
   },
@@ -48,12 +46,16 @@ export default function CTableDemo() {
       style={{ width: '100%', height: 360 }}
       supportCheckbox
       supportPage
-      useCustomScroll={false}
-      rowKey="id" // rowKey 设置为 ""，disabledData 可以传递整行数据，例如：rowKey="" disabledData={[data[0], data[8]]}
-      disabledData={disabledIds}
+      // useCustomScroll={false}
+      rowKey="id"
       checkedData={[data[1]]}
       pageOpts={{ pageSize: 6 }}
       columnData={columns}
+      onRow={row => {
+        if (row.id === '121410327' || row.id === '121407191') {
+          Object.assign(row, { disabled: true });
+        }
+      }}
       ajaxData={(params) => {
         return new Promise(resolve => {
           setTimeout(() => {
