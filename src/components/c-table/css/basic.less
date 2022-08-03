@@ -555,15 +555,18 @@
       position: absolute;
       display: block;
       bottom: -7px;
-      left: -12px;
       content: '';
-      width: calc(100% + 24px);
+      width: 100%;
       height: 1px;
       background: #e8e8e8;
     }
 
     .cloud-popover-btn {
       padding-right: 12px;
+
+      > button {
+        margin-bottom: 0;
+      }
     }
   }
 
@@ -573,6 +576,7 @@
     line-height: 32px;
     padding-left: 12px;
     margin-top: -1px;
+    overflow: hidden;
 
     &.last-filter-item {
       margin-bottom: 8px;
