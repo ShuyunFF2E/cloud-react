@@ -8,7 +8,7 @@ import './index.less';
 export default class TableLite extends Component {
   static propTypes = {
     className: PropTypes.string,
-    height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    height: PropTypes.oneOfType([ PropTypes.string, PropTypes.number ]),
     dataSource: PropTypes.array,
     columnData: PropTypes.array,
     expandable: PropTypes.bool,
@@ -81,6 +81,7 @@ export default class TableLite extends Component {
     const { columnData, expandable } = this.state;
     return (
       <tr>
+        {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
         {expandable ? <th width={12} /> : null}
         {columnData.map((item) => {
           const { text, align = 'left', width = 'auto' } = item;
@@ -108,11 +109,9 @@ export default class TableLite extends Component {
       }
       return element;
     });
-    this.setState(() => {
-      return {
-        dataSource,
-      };
-    });
+    this.setState(() => ({
+      dataSource,
+    }));
   }
 
   /**
@@ -121,24 +120,23 @@ export default class TableLite extends Component {
    */
   renderTbodyContent() {
     const { dataSource, columnData, expandable } = this.state;
-    const renderTreeTd = (rowExpandable, row, children) => {
-      return (
-        <td
-          align="center"
-          className="expand-td"
-          onClick={() => {
-            this.onClickTreeAction(row);
-          }}
-        >
-          {children && children.length ? (
-            <Icon
-              className={`expand-icon ${rowExpandable && 'expended'}`}
-              type="right"
-            />
-          ) : null}
-        </td>
-      );
-    };
+    const renderTreeTd = (rowExpandable, row, children) => (
+      // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
+      <td
+        align="center"
+        className="expand-td"
+        onClick={() => {
+          this.onClickTreeAction(row);
+        }}
+      >
+        {children && children.length ? (
+          <Icon
+            className={`expand-icon ${rowExpandable && 'expended'}`}
+            type="right"
+          />
+        ) : null}
+      </td>
+    );
     // 渲染tr
     const renderTr = (row, rowIndex, isChildren = false) => {
       const { rowExpandable } = row;
@@ -157,9 +155,7 @@ export default class TableLite extends Component {
             })}
           </tr>
           {expandable && children && children.length && rowExpandable
-            ? children.map((child, childIndex) =>
-                renderTr(child, childIndex, true),
-              )
+            ? children.map((child, childIndex) => renderTr(child, childIndex, true))
             : null}
         </React.Fragment>
       );

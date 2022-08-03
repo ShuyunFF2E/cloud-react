@@ -486,9 +486,11 @@ function ModalFooter({
     onCancel();
   };
   const footerClass = classnames(
-    `${prefixCls}-modal-footer ${
-      type !== 'modal' && `${prefixCls}-modal-border`
-    }`,
+    `${prefixCls}-modal-footer`,
+    {
+      [`${prefixCls}-modal-border`]:  type !== 'modal',
+      [ `${prefixCls}-modal-footer-default`]: !(hasFooter && footer)
+    }
   );
   const confirmClass = classnames(`${prefixCls}-modal-confirm-btn`);
   if (!hasFooter) {

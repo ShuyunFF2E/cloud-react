@@ -154,9 +154,6 @@ export default class ModalDemo extends React.Component {
 						<Form.Item label="个人简介6">
 							<Input.Textarea maxLength={10} hasCounter style={{ width: '800px' }} minRows={2} placeholder="请输入个人简介..." />
 						</Form.Item>
-						<Form.Item wrapperCol={{ offset: 4 }}>
-							<Button type="primary" onClick={this.showMessage}>提交</Button>
-						</Form.Item>
 					</Form>
 				</Modal>
 				<Modal
@@ -181,9 +178,6 @@ export default class ModalDemo extends React.Component {
 								<Radio value={2}>女</Radio>
 								<Radio value={3}>未知</Radio>
 							</Radio.Group>
-						</Form.Item>
-						<Form.Item wrapperCol={{ offset: 4 }}>
-							<Button type="primary" onClick={this.showMessage}>提交</Button>
 						</Form.Item>
 					</Form>
 				</Modal>
