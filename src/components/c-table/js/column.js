@@ -202,6 +202,7 @@ export default class Column {
               showCancelBtn={showFilterBtn}
               showConfirmBtn={showFilterBtn}
               cancelBtnText="重置"
+              confirmText="确定"
               width={170}
               placement="bottom-left"
               className={`${tablePrefixCls}-filter-content`}

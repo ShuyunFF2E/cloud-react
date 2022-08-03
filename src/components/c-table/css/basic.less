@@ -538,7 +538,7 @@
 
 // 筛选
 .@{tablePrefixCls}-filter-content {
-  padding: 4px 12px;
+  padding: 8px 0;
 
   &:after {
     display: none;
@@ -555,20 +555,43 @@
       position: absolute;
       display: block;
       bottom: -7px;
-      left: -12px;
       content: '';
-      width: calc(100% + 24px);
+      width: 100%;
       height: 1px;
       background: #e8e8e8;
+    }
+
+    .cloud-popover-btn {
+      padding-right: 12px;
+
+      > button {
+        margin-bottom: 0;
+      }
     }
   }
 
   .cloud-checkbox {
-    width: 100%;
-    margin-top: 8px;
+    width: calc(100% - 12px);
+    height: 32px;
+    line-height: 32px;
+    padding-left: 12px;
+    margin-top: -1px;
+    overflow: hidden;
 
     &.last-filter-item {
       margin-bottom: 8px;
+    }
+
+    &.cloud-checkbox-checked:not(.cloud-checkbox-disabled) {
+      background: @indigo-2;
+
+      &:hover {
+        background: @indigo-2;
+      }
+    }
+
+    &:hover:not(.cloud-checkbox-disabled) {
+      background: @indigo-1;
     }
   }
 
@@ -578,6 +601,16 @@
 
     &.normal {
       margin-left: 0;
+    }
+  }
+
+  //noinspection CssInvalidPropertyValue
+  .cloud-popover-desc {
+    max-height: 250px;
+    overflow-y: overlay;
+
+    &::-webkit-scrollbar {
+      width: 8px !important;
     }
   }
 }
