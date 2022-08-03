@@ -206,7 +206,9 @@ export default class Column {
               confirmText="确定"
               width={170}
               placement="bottom-left"
-              className={`${tablePrefixCls}-filter-content`}
+              className={`${tablePrefixCls}-filter-content ${
+                showFilterBtn && 'show-filter-btn'
+              }`}
               content={
                 <>
                   {item.filters.map((f, index) => (

@@ -548,19 +548,23 @@
     box-shadow: @border-shadow-3;
   }
 
-  .cloud-popover {
-    position: relative;
+  &.show-filter-btn {
+    .cloud-popover {
+      position: relative;
 
-    &::after {
-      position: absolute;
-      display: block;
-      bottom: -7px;
-      content: '';
-      width: 100%;
-      height: 1px;
-      background: #e8e8e8;
+      &::after {
+        position: absolute;
+        display: block;
+        bottom: -7px;
+        content: '';
+        width: 100%;
+        height: 1px;
+        background: #e8e8e8;
+      }
     }
+  }
 
+  .cloud-popover {
     .cloud-popover-btn {
       padding-right: 12px;
 
@@ -579,7 +583,7 @@
     overflow: hidden;
 
     &.last-filter-item {
-      margin-bottom: 8px;
+      margin-bottom: 0;
     }
 
     &.cloud-checkbox-checked:not(.cloud-checkbox-disabled) {
