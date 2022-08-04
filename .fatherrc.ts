@@ -12,7 +12,6 @@ const isBuild = !(argv.dev || argv.watch);
 const externals = [
   'react',
   'react-dom',
-  'classnames'
 ];
 
 export default {
