@@ -49,11 +49,12 @@ export default class StepItem extends React.Component {
           )}
           onClick={onClick}
         >
-          {icon || (status === FINISH ? (
-            <Icon type="finish" />
-          ) : (
-            <span>{iconNumber}</span>
-          ))}
+          {icon
+            || (status === FINISH ? (
+              <Icon type="finish" />
+            ) : (
+              <span>{iconNumber}</span>
+            ))}
         </div>
 
         <div className={classnames(`${prefixCls}-step-body`)}>

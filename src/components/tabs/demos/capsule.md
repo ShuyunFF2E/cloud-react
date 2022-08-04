@@ -25,10 +25,10 @@ export default class BasicTabsDemo extends Component {
                     <Tabs.Panel tab="选项normal" key="1" />
                     <Tabs.Panel tab="选项active" key="eat" />
                     <Tabs.Panel tab="选项disabled" key="aaa" disabled>
-                        lalala
+                        选项disabled
                     </Tabs.Panel>
                     <Tabs.Panel tab="选项normal" key="2">
-                        lalala
+                        选项normal2
                     </Tabs.Panel>
                 </Tabs>
                 <h4>胶囊样式二：</h4>
@@ -36,10 +36,33 @@ export default class BasicTabsDemo extends Component {
                     <Tabs.Panel tab="选项normal" key="1" />
                     <Tabs.Panel tab="选项active" key="eat" />
                     <Tabs.Panel tab="选项disabled" key="aaa" disabled>
-                        lalala
+                        选项disabled
+                    </Tabs.Panel>
+                    <Tabs.Panel tab="选项disabled" key="2">
+                        选项disabled
+                    </Tabs.Panel>
+                </Tabs>
+                <h4>胶囊样式的大小控制：</h4>
+                <h5>样式1</h5>
+                <Tabs defaultActiveKey="eat" type="capsule" onChange={this.handleChange} step={500} size="small">
+                    <Tabs.Panel tab="选项normal" key="1" />
+                    <Tabs.Panel tab="选项active" key="eat" />
+                    <Tabs.Panel tab="选项disabled" key="aaa" disabled>
+                        选项disabled
                     </Tabs.Panel>
                     <Tabs.Panel tab="选项normal" key="2">
-                        lalala
+                        选项normal2
+                    </Tabs.Panel>
+                </Tabs>
+                <h5>样式2</h5>
+                <Tabs defaultActiveKey="eat" type="empty-capsule" onChange={this.handleChange} step={500} size="small">
+                    <Tabs.Panel tab="选项normal" key="1" />
+                    <Tabs.Panel tab="选项active" key="eat" />
+                    <Tabs.Panel tab="选项disabled" key="aaa" disabled>
+                        选项disabled
+                    </Tabs.Panel>
+                    <Tabs.Panel tab="选项normal" key="2">
+                        选项normal2
                     </Tabs.Panel>
                 </Tabs>
                 <h4>胶囊样式的大小控制：</h4>

@@ -132,6 +132,9 @@
 
       &.fixed-has-more-icon {
         left: 30px;
+        .cloud-tabs-item-card:last-child {
+          border-top-right-radius: 0;
+        }
       }
     }
   }
@@ -145,6 +148,9 @@
       background: @color-white;
       border-bottom-color: @color-white;
       color: @blue-4;
+      i {
+        color: @gray-7!important;
+      }
     }
 
     &:not(:first-child) {
@@ -259,7 +265,7 @@
         }
 
         .@{selector}-item-bar {
-          height: @lineTabHeight;
+          height: 24px;
           transition: top 0.3s;
         }
       }
