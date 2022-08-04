@@ -158,7 +158,9 @@ export default class Tabs extends PureComponent {
 
   get activeTabsOffsetTop() {
     if (this.hasLineBar && (this.isVerticalLeft || this.isVerticalRight)) {
-      return this.activeEle ? this.activeEle.offsetTop : 0;
+      return this.activeEle
+        ? this.activeEle.offsetTop + this.activeEle.clientHeight * 0.25
+        : 0;
     }
     return 'auto';
   }
