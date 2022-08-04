@@ -6,33 +6,33 @@
 
 // 画图标
 .drawing-icon(@icon-size) {
-	.@{icon-selector} {
-		width: @icon-size;
-		height: @icon-size;
-		line-height: @icon-size;
-	}
+  .@{icon-selector} {
+    width: @icon-size;
+    height: @icon-size;
+    line-height: @icon-size;
+  }
 }
 
 // 画横线
 .drawing-horizontal-line(@icon-size, @both-margin) {
-	.@{item-selector}:not(:last-child)::before {
-		width: calc(~'100% - @{icon-size} - @{both-margin} * 2');
-		left: calc(~'50% + @{icon-size} / 2 + @{both-margin}');
-		top: floor(@icon-size / 2);
-	}
+  .@{item-selector}:not(:last-child)::before {
+    width: calc(~'100% - @{icon-size} - @{both-margin} * 2');
+    left: calc(~'50% + @{icon-size} / 2 + @{both-margin}');
+    top: floor(@icon-size / 2);
+  }
 }
 
 // 画竖线
 .drawing-vertical-line(@icon-size, @both-margin) {
-	.@{item-selector}:not(:last-child)::before {
-		height: calc(~'100% - @{icon-size} - @{both-margin} * 2');
-		left: floor(@icon-size / 2);
-		top: calc(~'@{icon-size} + @{both-margin}');
-	}
+  .@{item-selector}:not(:last-child)::before {
+    height: calc(~'100% - @{icon-size} - @{both-margin} * 2');
+    left: floor(@icon-size / 2);
+    top: calc(~'@{icon-size} + @{both-margin}');
+  }
 }
 
 // vertical body
-@body-padding-left: 18px;
+@body-padding-left: 8px;
 @circle-icon-size: 32px;
 @circle-small-icon-size: 24px;
 @circle-both-margin: 8px;
@@ -43,303 +43,351 @@
 @dot-vertical-both-margin: 8px;
 
 .@{step-prefix-cls} {
-	display: flex;
-	width: 100%;
+  display: flex;
+  width: 100%;
 
-	// 子选择器
-	@item-selector: @{step-prefix-cls}-item;
-	@icon-selector: @{step-prefix-cls}-icon;
-	@body-selector: @{step-prefix-cls}-body;
-	@title-selector: @{step-prefix-cls}-title;
-	@content-selector: @{step-prefix-cls}-content;
+  // 子选择器
+  @item-selector: ~'@{step-prefix-cls}-item';
+  @icon-selector: ~'@{step-prefix-cls}-icon';
+  @body-selector: ~'@{step-prefix-cls}-body';
+  @title-selector: ~'@{step-prefix-cls}-title';
+  @content-selector: ~'@{step-prefix-cls}-content';
 
-	// 圆形和点状类型的公共样式
-	&.circle,
-	&.dot {
-		.@{icon-selector} {
-			border-radius: 50%;
-			text-align: center;
-		}
-	}
+  // 圆形和点状类型的公共样式
+  &.circle,
+  &.dot {
+    .@{icon-selector} {
+      border-radius: 50%;
+      text-align: center;
+    }
+  }
 
-	// 点状类型图标的样式
-	&.dot {
-		.@{icon-selector} {
-			&.wait {
-				border: 1px solid @gray-4;
-				background: none;
-			}
+  // 点状类型图标的样式
+  &.dot {
+    .@{icon-selector} {
+      &.wait {
+        background: @gray-4;
+      }
 
-			> * {
-				display: none;
-			}
-		}
-	}
+      > * {
+        display: none;
+      }
+    }
+  }
 
-	// 设置横向、纵向、并列排版类型中的图标样式
-	&.horizontal,
-	&.vertical,
-	&.inline {
-		&.circle {
-			.drawing-icon(@circle-icon-size);
-		}
+  // 设置横向、纵向、并列排版类型中的图标样式
+  &.horizontal,
+  &.vertical,
+  &.inline {
+    &.circle {
+      .drawing-icon(@circle-icon-size);
+    }
 
-		&.dot {
-			.drawing-icon(@dot-icon-size);
-		}
-	}
+    &.dot {
+      .drawing-icon(@dot-icon-size);
+    }
+  }
 
-	&.horizontal,
-	&.inline {
-		&.circle {
-			.drawing-horizontal-line(@circle-icon-size, @circle-both-margin);
+  &.horizontal,
+  &.inline {
+    &.circle {
+      .drawing-horizontal-line(@circle-icon-size, @circle-both-margin);
 
-			&.inline {
-				.@{item-selector}:not(:last-child)::before {
-					width: calc(~'100% - @{circle-icon-size} - @{circle-both-margin} * 2');
-					left: calc(~'@{circle-icon-size} + @{circle-both-margin}');
-				}
-			}
-		}
+      &.inline {
+        .@{item-selector}:not(:last-child)::before {
+          width: calc(
+            ~'100% - @{circle-icon-size} - @{circle-both-margin} * 2'
+          );
+          left: calc(~'@{circle-icon-size} + @{circle-both-margin}');
+        }
+      }
+    }
 
-		&.dot {
-			.drawing-horizontal-line(@dot-icon-size, @dot-both-margin);
-		}
-	}
+    &.dot {
+      .drawing-horizontal-line(@dot-icon-size, @dot-both-margin);
+    }
+  }
 
-	&.horizontal {
-		.@{item-selector} {
-			text-align: center;
+  &.horizontal {
+    .@{item-selector} {
+      text-align: center;
 
-			> * {
-				vertical-align: top;
-			}
-		}
+      > * {
+        vertical-align: top;
+      }
+    }
 
-		&.circle {
-			.@{body-selector} {
-				margin-top: 8px;
-			}
-		}
+    &.circle {
+      .@{body-selector} {
+        margin-top: 8px;
+      }
+    }
 
-		&.dot {
-			.@{body-selector} {
-				margin-top: 0;
-			}
-		}
-	}
+    &.dot {
+      .@{body-selector} {
+        margin-top: 0;
+      }
+    }
+  }
 
-	&.vertical {
-		flex-direction: column;
+  &.vertical {
+    flex-direction: column;
 
-		.@{item-selector} {
-			position: relative;
-			flex: 1;
-			overflow: hidden;
+    .@{item-selector} {
+      position: relative;
+      flex: 1;
+      overflow: hidden;
 
-			&:not(:last-child)::before {
-				content: '';
-				position: absolute;
-				width: 1px;
-			}
-		}
+      &:not(:last-child)::before {
+        content: '';
+        position: absolute;
+        width: 1px;
+      }
+    }
 
-		.@{body-selector} {
-			display: inline-block;
-			vertical-align: top;
-			margin-top: 0;
-			margin-bottom: 30px;
-			padding-left: @body-padding-left;
-		}
+    .@{body-selector} {
+      display: inline-block;
+      vertical-align: top;
+      margin-top: 0;
+      margin-bottom: 30px;
+      padding-left: @body-padding-left;
+    }
 
-		.@{content-selector} {
-			margin-bottom: 10px;
-		}
+    .@{content-selector} {
+      margin-bottom: 10px;
+    }
 
-		&.circle {
-			.drawing-vertical-line(@circle-icon-size, @circle-vertical-both-margin);
+    &.circle {
+      .drawing-vertical-line(@circle-icon-size, @circle-vertical-both-margin);
 
-			.@{item-selector} {
-				min-height: 48px;
-			}
+      .@{item-selector} {
+        min-height: 48px;
+      }
 
-			.@{body-selector} {
-				margin-top: 4px;
-				width: calc(~'100% - @{body-padding-left} - @{circle-icon-size}');
-			}
-		}
+      .@{body-selector} {
+        margin-top: 4px;
+        width: calc(~'100% - @{body-padding-left} - @{circle-icon-size}');
+      }
+    }
 
-		&.dot {
-			.drawing-vertical-line(@dot-icon-size, @dot-vertical-both-margin);
+    &.dot {
+      .drawing-vertical-line(@dot-icon-size, @dot-vertical-both-margin);
 
-			.@{item-selector} {
-				min-height: 28px;
+      .@{item-selector} {
+        min-height: 28px;
 
-				&:not(:last-child)::before {
-					top: calc(~'@{dot-icon-size} + @{dot-both-margin} + 4px');
-				}
-			}
+        &:not(:last-child)::before {
+          top: calc(~'@{dot-icon-size} + @{dot-both-margin} + 4px');
+        }
+      }
 
-			.@{body-selector} {
-				width: calc(~'100% - @{body-padding-left} - @{dot-icon-size}');
-				position: relative;
-				top: -3px;
-			}
-		}
-	}
+      .@{body-selector} {
+        width: calc(~'100% - @{body-padding-left} - @{dot-icon-size}');
+        position: relative;
+        top: -3px;
+      }
+    }
+  }
 
-	&.inline {
-		.@{item-selector} {
-			display: flex;
-			align-items: center;
+  &.inline {
+    .@{item-selector} {
+      display: flex;
+      align-items: center;
 
-			&.hasContent {
-				align-items: flex-start;
+      &.hasContent {
+        align-items: flex-start;
 
-				.@{body-selector} {
-					top: 5px;
-				}
-			}
+        .@{body-selector} {
+          top: 5px;
+        }
+      }
 
-			&:not(:last-child) {
-				.@{body-selector} {
-					max-width: calc(~'100% - @{circle-icon-size} - @{circle-both-margin} * 2');
-				}
-			}
+      &:not(:last-child) {
+        .@{body-selector} {
+          max-width: calc(
+            ~'100% - @{circle-icon-size} - @{circle-both-margin} * 2'
+          );
+        }
+      }
 
-			&:last-child {
-				flex: none;
-			}
-		}
+      &:last-child {
+        flex: none;
+        .@{title-selector} {
+          background: none;
+        }
+      }
+    }
 
-		.@{body-selector} {
-			position: relative;
-			display: inline-block;
-			margin-top: 0;
-			padding-left: 8px;
-			vertical-align: text-top;
-		}
+    .@{body-selector} {
+      position: relative;
+      display: inline-block;
+      margin-top: 0;
+      padding-left: 8px;
+      vertical-align: text-top;
+    }
 
-		.@{title-selector} {
-			display: inline-block;
-			padding-right: 8px;
-			background: #fff;
-		}
-	}
+    .@{title-selector} {
+      display: inline-block;
+      padding-right: 8px;
+      background: #fff;
+    }
+  }
 
-	&.small {
-		&.circle {
-			.drawing-icon(@circle-small-icon-size);
-		}
+  &.small {
+    &.circle {
+      .drawing-icon(@circle-small-icon-size);
+    }
 
-		&.horizontal.circle {
-			.drawing-horizontal-line(@circle-small-icon-size, @circle-both-margin);
-		}
+    &.horizontal.circle {
+      .drawing-horizontal-line(@circle-small-icon-size, @circle-both-margin);
+    }
 
-		&.vertical.circle {
-			.drawing-vertical-line(@circle-small-icon-size, @circle-vertical-both-margin);
+    &.vertical.circle {
+      .drawing-vertical-line(@circle-small-icon-size, @circle-vertical-both-margin);
 
-			.@{body-selector} {
-				margin-top: 0;
-				width: calc(~'100% - @{body-padding-left} - @{circle-small-icon-size}');
-			}
-		}
+      .@{body-selector} {
+        margin-top: 0;
+        width: calc(~'100% - @{body-padding-left} - @{circle-small-icon-size}');
+      }
+    }
 
-		.@{icon-selector}.finish {
-			.icon-finish {
-				font-size: 16px;
-			}
-		}
-	}
+    .@{icon-selector}.finish {
+      .icon-finish {
+        font-size: 16px;
+      }
+    }
 
-	// 每一个item的样式
-	.@{item-selector} {
-		position: relative;
-		flex: 1;
-		font-size: 14px;
+    &.horizontal,
+    &.inline {
+      &.circle {
+        .drawing-horizontal-line(@circle-small-icon-size, @circle-vertical-both-margin);
 
-		&:not(:last-child)::before {
-			content: '';
-			position: absolute;
-			width: calc(100% - 40px);
-			height: 1px;
-		}
+        &.inline {
+          .@{item-selector}:not(:last-child)::before {
+            width: calc(
+              ~'100% - @{circle-small-icon-size} - @{circle-vertical-both-margin} * 2'
+            );
+            left: calc(
+              ~'@{circle-small-icon-size} + @{circle-vertical-both-margin}'
+            );
+          }
+        }
+      }
+    } // 标题的样式
+    .@{title-selector} {
+      font-size: 14px;
+    }
 
-		&.wait {
-			.@{title-selector} {
-				color: @gray-8;
-			}
-			&:before {
-				background: @gray-5;
-			}
-		}
+    .@{icon-selector}.icon .cloud-icon {
+      font-size: 24px;
+    }
+  }
 
-		&.process {
-			.@{title-selector} {
-				color: @gray-9;
-				font-weight: 500;
-			}
-			&:before {
-				background: @gray-5;
-			}
-		}
+  // 每一个item的样式
+  .@{item-selector} {
+    position: relative;
+    flex: 1;
+    font-size: 14px;
 
-		&.finish {
-			.@{title-selector} {
-				color: @gray-9;
-			}
-			&:before {
-				background: @blue-4;
-			}
-		}
-	}
+    &:not(:last-child)::before {
+      content: '';
+      position: absolute;
+      width: calc(100% - 40px);
+      height: 1px;
+    }
 
-	// 每一个图标的基本样式
-	.@{icon-selector} {
-		position: relative;
-		display: inline-block;
-		box-sizing: border-box;
-		cursor: pointer;
+    &.wait {
+      .@{title-selector} {
+        color: @gray-8;
+      }
+      &:before {
+        background: @gray-5;
+      }
+    }
 
-		&.wait {
-			color: @gray-7;
-			background: @gray-4;
-		}
+    &.process {
+      .@{title-selector} {
+        color: @gray-9;
+        font-weight: 500;
+      }
+      &:before {
+        background: @gray-5;
+      }
+    }
 
-		&.finish {
-			color: @blue-4;
-			background: @blue-2;
+    &.finish {
+      .@{title-selector} {
+        color: @gray-9;
+      }
+      &:before {
+        background: @blue-4;
+      }
+    }
+  }
 
-			.icon-finish {
-				font-size: 22px;
-			}
-		}
+  // 每一个图标的基本样式
+  .@{icon-selector} {
+    position: relative;
+    display: inline-block;
+    box-sizing: border-box;
+    cursor: pointer;
 
-		&.process {
-			color: @gray-1;
-			background: @blue-4;
-		}
-	}
+    &.wait {
+      color: @gray-7;
+      background: @gray-4;
+      &.icon {
+        background: none;
+        color: @gray-6;
+      }
+    }
 
-	// 文本部分容器样式
-	.@{body-selector} {
-		margin-top: 4px;
-		font-size: 12px;
-		box-sizing: border-box;
-	}
+    &.finish {
+      color: @blue-4;
+      background: @blue-2;
 
-	// 标题的样式
-	.@{title-selector} {
-		word-break: break-all;
-		line-height: 1.4;
-		font-size: 16px;
-	}
+      .icon-finish {
+        font-size: 22px;
+      }
+      &.icon {
+        background: none;
+        color: @blue-4;
+      }
+    }
 
-	// 内容的样式
-	.@{content-selector} {
-		margin-top: 4px;
-		word-break: break-all;
-		line-height: 1.4;
-		color: @gray-7;
-	}
+    &.process {
+      color: @gray-1;
+      background: @blue-4;
+      &.icon {
+        color: @blue-4;
+        background: none;
+      }
+    }
+
+    &.icon .cloud-icon {
+      font-size: 32px;
+    }
+  }
+
+  // 文本部分容器样式
+  .@{body-selector} {
+    margin-top: 4px;
+    font-size: 12px;
+    box-sizing: border-box;
+  }
+
+  // 标题的样式
+  .@{title-selector} {
+    word-break: break-all;
+    line-height: 1.4;
+    font-size: 16px;
+  }
+
+  // 内容的样式
+  .@{content-selector} {
+    margin-top: 4px;
+    word-break: break-all;
+    line-height: 1.4;
+    color: @gray-7;
+    font-size: 14px;
+  }
 }

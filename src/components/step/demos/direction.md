@@ -11,7 +11,7 @@ desc: 纵向方向的步骤
              * desc: 纵向方向的步骤
              */
 import React from 'react';
-import { Step } from 'cloud-react';
+import { Step, Icon } from 'cloud-react';
 import './styles/direction.less'
 
 const title1Style = {};
@@ -23,7 +23,6 @@ export default function StepDemo() {
 			<div className="step-demo-direction">
 				<div>
 					<h4 style={title1Style}>把大象装进冰箱分几步</h4>
-
 					<Step current={1} direction="vertical">
 						<Step.Item title="步骤一" content="把冰箱门打开" />
 						<Step.Item title="步骤二" content="把大象放进去" />
@@ -54,6 +53,14 @@ export default function StepDemo() {
 						<Step.Item title="步骤四" content="把冰箱门关上" />
 					</Step>
 				</div>
+        <div>
+          <h4 style={title1Style}>节点为icon</h4>
+          <Step current={1} direction="vertical">
+            <Step.Item title="步骤一" content="把冰箱门打开" icon={<Icon type="search-file"/>} />
+            <Step.Item title="步骤二" content="把大象放进去" icon={<Icon type="config"/>} />
+            <Step.Item title="步骤三" content="把冰箱门关上" icon={<Icon type="view"/>} />
+          </Step>
+        </div>
 			</div>
 
 			<div className="step-demo-direction">

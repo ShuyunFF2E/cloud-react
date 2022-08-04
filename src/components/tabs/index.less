@@ -6,6 +6,9 @@
 @defaultHeight: 40px; // tab 页默认高度
 @defaultLineHeight: 38px;
 
+@smallHeight: 32px; // tab 页small高度
+@smallLineHeight: 30px;
+
 @lineTabHeight: 48px; // 类型为 line 的 tab 页高度
 
 .flexCenter {
@@ -381,6 +384,11 @@
       .closable-wrapper .closable {
         display: inline-block;
       }
+    }
+
+    &.small {
+      height: @smallHeight;
+      line-height: @smallLineHeight;
     }
   }
 
