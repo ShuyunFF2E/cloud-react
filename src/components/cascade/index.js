@@ -116,7 +116,7 @@ class Cascade extends Component {
 
   // 针对含title的子级里的数据需要进一步处理 todo
   onClickItem = (children, id, index, idParent) => {
-    const { props:{ childrenKey, pidKey, onClose, onChange } } = this;
+    const { props:{ childrenKey, pidKey, onClose, onChange, isClickAndClose } } = this;
     const { currentArr } = this.state;
     const currentItem = this.isBeenClick(id, index, idParent);;
     // 点击已经选择过的选项就不走之后的逻辑了；
@@ -140,7 +140,7 @@ class Cascade extends Component {
     this.setState({ currentArr });
     if(!children || !children.length){
       // 点击无子级则调用父级ok事件和关闭事件
-      if(onClose){onClose()};
+      if(onClose && isClickAndClose){onClose()};
       if(onChange){
         const arr = [];
         this.state.currentArr.forEach(item => {
@@ -228,7 +228,8 @@ Cascade.propTypes = {
   titleKey: PropTypes.string,
   idKey: PropTypes.string,
   pidKey: PropTypes.string,
-  childrenKey: PropTypes.string
+  childrenKey: PropTypes.string,
+  isClickAndClose: PropTypes.bool
 };
 
 Cascade.defaultProps = {
@@ -243,6 +244,7 @@ Cascade.defaultProps = {
   onClose: () => {},
   onChange: () => {},
   childrenKey: 'children',
+  isClickAndClose: true
 };
 
 export default Cascade;

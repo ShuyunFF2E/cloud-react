@@ -27,6 +27,7 @@ group:
 | dataSource | 需要展示的数据，dataSource 和 children 同时存在时以 children 为准 | array                                   | []             |
 | onChange   | 在选中某一最终子项时会调用         | func                                  | ()=>{}        |
 | onClose   | 卡片失焦或者在选中某一最终子项时会调用         | func                                  | ()=>{}        |
+| isClickAndClose   | 在选中某一最终子项时是否调用onClose         | bool                                  | true      |
 | idKey    | 指定使用的 唯一标识 键值         | string                                  | 'id'        |
 | pidKey    |   同层级下指定使用的 层级标识 键值 |  string                           | 'pid'        |
 | titleKey  | 指定使用的 展示文案 键值            | string                 | 'title'             |
