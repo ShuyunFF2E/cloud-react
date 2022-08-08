@@ -61,6 +61,7 @@ export default class CascadeDemo extends Component{
 				value="1"
 				container={container}
 				onClose={onChangeShow}
+				onChange={onChangeShow}
 				visible={visible} 
 				data={data}
 				/>

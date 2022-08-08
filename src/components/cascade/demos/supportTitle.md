@@ -65,6 +65,7 @@ export default class CascadeDemo extends Component{
 
 	onChange = (...a) => {
 		console.log(a);
+		this.onChangeShow();
 	}
 
 	render(){
