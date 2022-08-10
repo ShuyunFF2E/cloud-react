@@ -245,10 +245,14 @@ class Upload extends Component {
       return false;
     }
 
-    if (accept !== '*' && !accept.includes(file.type)) {
-      Message.error(`仅支持上传${accept}格式的文件`);
-      this.ref.current.value = '';
-      return false;
+    if (accept !== '*') {
+      const fileNames = file.name.split('.') || [];
+      const fileType = `.${fileNames[fileNames.length - 1]}`;
+      if (!accept.includes(file.type) && !accept.includes(fileType)) {
+        Message.error(`仅支持上传${accept}格式的文件`);
+        this.ref.current.value = '';
+        return false;
+      }
     }
 
     if (onBeforeUpload) {
@@ -462,7 +466,7 @@ Upload.propTypes = {
   type: PropTypes.oneOf([ TYPE.PICTURE, TYPE.DEFAULT ]),
   btnOptions: PropTypes.object,
   labelText: PropTypes.string,
-  accept: PropTypes.string,
+  accept: PropTypes.oneOfType([ PropTypes.array, PropTypes.string ]),
   size: PropTypes.number,
   unit: PropTypes.string,
   limit: PropTypes.number,
