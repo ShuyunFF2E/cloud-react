@@ -52,7 +52,11 @@ class CTable extends Component {
       })),
     footerHeight: 0,
     expandIconColumnIndex: this.props.expandIconColumnIndex,
-    pageOpts: { ...this.defaultPageOpts, ...this.props.pageOpts },
+    pageOpts: {
+      ...this.defaultPageOpts,
+      ...this.props.pageOpts,
+      pageNum: this.props.pageOpts.current,
+    },
     selectedNodeList: this.props.checkedData,
     isLoading: false,
     filterValue: [],
@@ -99,6 +103,15 @@ class CTable extends Component {
       this.getDataSource = this.props.isDelay
         ? getDataSourceWithDelay
         : getDataSource;
+    }
+    if (this.props.pageOpts !== prevProps.pageOpts) {
+      this.setState({
+        pageOpts: {
+          ...this.state.pageOpts,
+          ...this.props.pageOpts,
+          pageNum: this.props.pageOpts.current,
+        },
+      });
     }
   }
 
