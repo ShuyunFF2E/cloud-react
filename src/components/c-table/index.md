@@ -162,6 +162,8 @@ this.tableRef.refreshTable(params?);
 
 <embed src="@components/c-table/demos/page.md" /> 
 
+<embed src="@components/c-table/demos/page1.md" /> 
+
 <embed src="@components/c-table/demos/row-col-span.md" /> 
 
 <embed src="@components/c-table/demos/light-row.md" /> 
