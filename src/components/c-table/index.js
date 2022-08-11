@@ -1,4 +1,4 @@
-/* eslint-disable react/no-unused-prop-types */
+/* eslint-disable */
 import React, { Component, createRef } from 'react';
 import PropTypes from 'prop-types';
 import RcTable from 'rc-table';
@@ -52,7 +52,11 @@ class CTable extends Component {
       })),
     footerHeight: 0,
     expandIconColumnIndex: this.props.expandIconColumnIndex,
-    pageOpts: { ...this.defaultPageOpts, ...this.props.pageOpts },
+    pageOpts: {
+      ...this.defaultPageOpts,
+      ...this.props.pageOpts,
+      pageNum: this.props.pageOpts.current,
+    },
     selectedNodeList: this.props.checkedData,
     isLoading: false,
   };
@@ -93,6 +97,16 @@ class CTable extends Component {
       this.getDataSource = this.props.isDelay
         ? getDataSourceWithDelay
         : getDataSource;
+    }
+    if (this.props.pageOpts !== prevProps.pageOpts) {
+      const { pageOpts } = this.state;
+      this.setState({
+        pageOpts: {
+          ...pageOpts,
+          ...this.props.pageOpts,
+          pageNum: this.props.pageOpts.current,
+        },
+      });
     }
   }
 
