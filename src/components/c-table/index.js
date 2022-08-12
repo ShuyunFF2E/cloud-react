@@ -55,7 +55,7 @@ class CTable extends Component {
     pageOpts: {
       ...this.defaultPageOpts,
       ...this.props.pageOpts,
-      pageNum: this.props.pageOpts.current,
+      pageNum: this.props.pageOpts.current || this.defaultPageOpts.pageNum,
     },
     selectedNodeList: this.props.checkedData,
     isLoading: false,
@@ -104,7 +104,7 @@ class CTable extends Component {
         pageOpts: {
           ...pageOpts,
           ...this.props.pageOpts,
-          pageNum: this.props.pageOpts.current,
+          pageNum: this.props.pageOpts.current || this.defaultPageOpts.pageNum,
         },
       });
     }
