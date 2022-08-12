@@ -1,6 +1,6 @@
 ---
 title: 自定义上传显示
-order: 6
+order: 7
 desc: 自定义上传显示。
 ---
 
