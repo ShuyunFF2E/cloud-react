@@ -101,9 +101,6 @@ export default class ModalDemo extends React.Component {
 								<Radio value={3}>未知</Radio>
 							</Radio.Group>
 						</Form.Item>
-						<Form.Item wrapperCol={{ offset: 4 }}>
-							<Button type="primary" onClick={this.showMessage}>提交</Button>
-						</Form.Item>
 					</Form>
 				</Modal>
 			</div>

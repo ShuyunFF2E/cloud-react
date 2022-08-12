@@ -1,0 +1,336 @@
+/**
+  基于表格基础样式开发的业务功能样式
+ */
+
+@import '../../style/index';
+@import './var';
+
+@tableContainerPrefixCls: ~'@{prefix}-table-box';
+@containerPrefixCls: ~'@{prefix}-container';
+
+.@{containerPrefixCls} {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.@{tableContainerPrefixCls} {
+  position: relative;
+  width: 100%;
+
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    height: 1px;
+    width: 100%;
+    background: @gray-4;
+    z-index: 2;
+  }
+
+  // 带边框表格
+  &.@{tablePrefixCls}-bordered {
+    .@{tablePrefixCls} {
+      &-header {
+        border-top: @border;
+        border-right: @border;
+        border-left: @border;
+      }
+
+      &-body {
+        border-right: @border;
+        border-left: @border;
+      }
+
+      th:not(:last-child),
+      td:not(:last-child) {
+        border-right: @border;
+      }
+
+      &-container {
+        border-left: @border;
+        border-top: @border;
+        border-right: @border;
+      }
+    }
+
+    .@{tablePrefixCls}-scroll-horizontal {
+      .@{tablePrefixCls}-container {
+        border: none;
+
+        // 可见的最后一列
+        th:nth-last-of-type(2) {
+          border-right: none;
+        }
+      }
+    }
+
+    &.@{tablePrefixCls}-support-resize {
+      // 可见的最后一列
+      .@{tablePrefixCls}-resizeable {
+        &:hover {
+          background: @blue-1;
+          z-index: 1;
+        }
+
+        // 非可见的最后一列
+        &:not(:nth-last-of-type(2)):hover {
+          border-right: 1px solid @blue-4;
+        }
+
+        // 可见的最后一列
+        &:nth-last-of-type(2) {
+          border-right: none;
+
+          &:hover {
+            box-shadow: 0 0 0 1px @blue-4;
+          }
+        }
+      }
+
+      .@{tablePrefixCls}-container {
+        border: none;
+      }
+    }
+  }
+
+  // 表头带线条
+  &.@{tablePrefixCls}-header-bordered {
+    th:not(:last-child) {
+      position: relative;
+
+      &:after {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translate(0, -50%);
+        content: '';
+        display: block;
+        width: 1px;
+        height: 24px;
+        background: @gray-5;
+      }
+    }
+
+    .@{tablePrefixCls}-scroll-horizontal {
+      // 可见的最后一列
+      th:nth-last-of-type(2):after {
+        display: none;
+      }
+    }
+
+    .@{tablePrefixCls}-resizeable {
+      &:not(:last-of-type):hover {
+        position: relative;
+        background: @blue-1;
+        z-index: 1;
+
+        &::before {
+          position: absolute;
+          top: 0;
+          right: 0;
+          content: '';
+          display: block;
+          width: 1px;
+          height: 100%;
+          z-index: 1;
+          background: @blue-4;
+        }
+
+        // 可见的最后一列
+        &:nth-last-of-type(2):hover {
+          &::before {
+            right: auto;
+            left: -1px;
+          }
+        }
+      }
+    }
+  }
+
+  // 紧凑型表格
+  &.@{tablePrefixCls}-small {
+    .@{tablePrefixCls} {
+      &-cell {
+        padding: @small-cell-padding;
+      }
+
+      th,
+      td {
+        padding: @small-cell-padding;
+      }
+
+      &-fixed {
+        padding: @small-cell-padding;
+      }
+    }
+  }
+
+  // 舒适型表格
+  &.@{tablePrefixCls}-large {
+    .@{tablePrefixCls} {
+      &-cell {
+        padding: @large-cell-padding;
+      }
+
+      th,
+      td {
+        padding: @large-cell-padding;
+      }
+
+      &-fixed {
+        padding: @large-cell-padding;
+      }
+    }
+  }
+
+  // 树状表格（只有两级），展开图标单独占据一列
+  &.@{tablePrefixCls}-two-level-tree {
+    .@{tablePrefixCls}-expend-icon {
+      .absolute-center();
+
+      &-expended {
+        transform: translate(-50%, -50%) rotate(90deg);
+      }
+    }
+
+    .@{tablePrefixCls}-row-level-1 {
+      td.cloud-table-row-expand-column + td {
+        padding-left: 34px;
+      }
+    }
+  }
+
+  // 树状表格（多级），展开图标不单独占一列
+  &.@{tablePrefixCls}-support-tree {
+  }
+
+  // 带有展开行的表格
+  &.@{tablePrefixCls}-expand-details {
+    .@{tablePrefixCls}-row-expand-icon-cell {
+      padding-right: 0;
+    }
+  }
+
+  // 表格分组
+  &.@{tablePrefixCls}-support-group {
+    .@{tablePrefixCls}-row-level-0 {
+      td {
+        background: @gray-2;
+      }
+
+      .@{tablePrefixCls}-cell-with-append {
+        padding-left: 6px;
+      }
+
+      .@{tablePrefixCls}-expend-icon {
+        margin-right: 20px;
+      }
+    }
+
+    .@{tablePrefixCls}-row-level-1 {
+      &:hover td {
+        background: #fff;
+      }
+
+      .@{tablePrefixCls}-row-indent,
+      .@{tablePrefixCls}-expend-icon {
+        display: none;
+      }
+    }
+  }
+
+  // 表尾合计
+  &.@{tablePrefixCls}-support-summary {
+    &.@{tablePrefixCls}-bordered {
+      .@{tablePrefixCls}-summary {
+        border-right: @border;
+        border-left: @border;
+      }
+    }
+  }
+
+  // 拖拽行
+  &.@{tablePrefixCls}-support-drag {
+    .@{tablePrefixCls}-row {
+      cursor: move;
+    }
+  }
+
+  // 表格列拉伸
+  &.@{tablePrefixCls}-support-resize {
+    .@{tablePrefixCls}-resizeable {
+      .react-resizable-handle {
+        height: 100%;
+        cursor: col-resize;
+        background-image: initial;
+        width: 30px;
+        right: -15px;
+        z-index: 10;
+      }
+
+      // 可见的最后一列
+      &:nth-last-of-type(2) {
+        .react-resizable-handle-se {
+          display: none;
+        }
+      }
+    }
+  }
+
+  // 表格通栏
+  &.@{tablePrefixCls}-full-column {
+    .@{tablePrefixCls}-expend-icon {
+      display: none;
+    }
+  }
+
+  // 加载中
+  &.@{tablePrefixCls}-loading {
+    position: relative;
+
+    .@{tablePrefixCls}-loading-layer {
+      display: block;
+      position: absolute;
+      content: '';
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: @color-white;
+      opacity: 0.9;
+      z-index: 3;
+    }
+  }
+
+  //解决表头滚动问题（rcTable bug）
+  &.@{tablePrefixCls}-use-custom-scroll {
+    .@{tablePrefixCls}-thead {
+      th:last-of-type {
+        &.@{tablePrefixCls}-cell-fix-right,
+        &.@{tablePrefixCls}-cell-scrollbar {
+          display: none !important;
+        }
+      }
+    }
+  }
+}
+
+.@{tablePrefixCls}-tooltip {
+  max-width: 300px;
+
+  &-content {
+    display: flex;
+    flex-wrap: wrap;
+
+    > li {
+      width: 114px;
+      padding: 4px 10px;
+      .text-overflow-ellipsis;
+    }
+  }
+}
+
+.@{tablePrefixCls}-drag-line {
+  border: 1px solid @blue-4!important;
+}

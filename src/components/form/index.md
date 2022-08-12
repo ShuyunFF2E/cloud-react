@@ -38,6 +38,7 @@ group:
 | 属性       | 说明                                                                  | 类型    | 默认值    |
 | ---------- | --------------------------------------------------------------------- | ------- | --------- |
 | label      | `label` 标签的文本                                                    | string  | ReactNode | - |
+| description      | `label` 标签的解释                                                  | string  | - | - |
 | help       | 提示信息，如不设置，则会根据校验规则自动生成                          | string  | ReactNode | - |
 | htmlFor    | 设置子元素 `label` `htmlFor` 属性                                     | string  | -         |
 | required   | 是否必填，如不设置，则会根据校验规则自动生成                          | boolean | `false`   |
@@ -80,7 +81,7 @@ function FormB() {
 				</Form.Item>
 			</Form>
 		</>
-		
+
 	);
 }
 
@@ -103,12 +104,12 @@ function UseNexus() {
 }
 ``` -->
 
- ### 代码演示 
+ ### 代码演示
 
-<embed src="@components/form/demos/basic-forms.md" /> 
+<embed src="@components/form/demos/basic-forms.md" />
 
-<embed src="@components/form/demos/basic-usage.md" /> 
+<embed src="@components/form/demos/basic-usage.md" />
 
-<embed src="@components/form/demos/horizontal.md" /> 
+<embed src="@components/form/demos/horizontal.md" />
 
-<embed src="@components/form/demos/inline.md" /> 
+<embed src="@components/form/demos/inline.md" />

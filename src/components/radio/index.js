@@ -15,7 +15,7 @@ class Radio extends React.Component {
     checked: PropTypes.bool,
     radioStyle: PropTypes.object,
     textStyle: PropTypes.object,
-    desc: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
+    desc: PropTypes.oneOfType([ PropTypes.node, PropTypes.string ]),
   };
 
   static defaultProps = {
@@ -27,21 +27,8 @@ class Radio extends React.Component {
 
   static Group = Group;
 
-  /**
-   * hotfix:
-   * Radio存在children组件时
-   * Radio的父级组件更新后导致Radio.children更新不了
-   */
-  // shouldComponentUpdate(nextProps) {
-
-  // 	const { checked, disabled } = nextProps;
-  // 	const { checked: prevChecked, disabled: prevDisabled } = this.props;
-
-  // 	return checked !== prevChecked || disabled !== prevDisabled;
-  // }
-
   onChangeAction(evt) {
-    const { value, onChange, disabled } = this.props;
+    const { value, onChange = () => {}, disabled } = this.props;
     if (disabled) return;
     onChange(value, evt);
   }

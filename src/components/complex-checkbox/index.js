@@ -9,7 +9,7 @@ import './index.less';
 const classSelector = `${prefixCls}-complex`;
 
 export default function ComplexCheckbox(props) {
-	const { imgSrc, title, content, textOverflowEllipsis, contentStyle, ...otherProps } = props;
+	const { imgSrc, title, content, textOverflowEllipsis, checkboxType, contentStyle, ...otherProps } = props;
 
 	const titleContentMode = !!(title && content && !imgSrc);
 	const titleContentImgMode = !!(title && content && imgSrc);
@@ -20,7 +20,8 @@ export default function ComplexCheckbox(props) {
 				[`${classSelector}-title-content`]: titleContentMode,
 				[`${classSelector}-img`]: titleContentImgMode,
 				[`${classSelector}-disabled`]: props.disabled,
-				[`${classSelector}-overflow-ellipsis`]: textOverflowEllipsis
+				[`${classSelector}-overflow-ellipsis`]: textOverflowEllipsis,
+				[`${classSelector}-checkbox-card`]: checkboxType === 'card',
 			})}
 			{...otherProps}>
 			{imgSrc && <img alt="header" src={imgSrc} />}
@@ -49,6 +50,7 @@ ComplexCheckbox.propTypes = {
 	title: PropTypes.string,
 	textOverflowEllipsis: PropTypes.bool,
 	contentStyle: PropTypes.object,
+	checkboxType: PropTypes.string,
 };
 
 ComplexCheckbox.defaultProps = {
@@ -56,4 +58,5 @@ ComplexCheckbox.defaultProps = {
 	title: '',
 	textOverflowEllipsis: false,
 	contentStyle: {},
+	checkboxType:'',
 };

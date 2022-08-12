@@ -81,12 +81,20 @@
   [role="menuitem"]{
     cursor: pointer;
   }
+
   .@{prefix}-cmenu-submenu-arrow {
     font-family: 'cloud-react-icon-font' !important;
     &::before {
       content: '\e624' !important;
     }
   }
+
+  .@{menuTitleIcon} {
+      .cloud-icon {
+        font-size: 14px !important;
+      }
+  }
+
   .@{prefix}-cmenu-item-selected {
     background-color: @lightSelectedBg !important;
     a {
@@ -98,6 +106,7 @@
       color: @lightSelectedColor !important;
     }
   }
+
 .@{prefix}-cmenu-inline-collapsed .@{prefix}-cmenu-submenu-popup {
   .@{prefix}-cmenu-submenu .@{prefix}-cmenu-submenu-title {
     span,  .@{prefix}-cmenu-submenu-arrow{
@@ -296,7 +305,7 @@
   }
 
 
-
+  
   .@{prefix}-cmenu-submenu-arrow {
     transform: rotate(-270deg);
     display: inline-block;
@@ -376,7 +385,8 @@
     padding: 8px;
     width: 100%;
     margin-top: 0;
-    border: 1px solid #d9d9d9;
+    box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.1), 0px 2px 8px 0px rgba(0, 0, 0, 0.04);
+    border-radius: 2px;
     box-sizing: border-box;
   }
   & > .@{prefix}-cmenu-item {

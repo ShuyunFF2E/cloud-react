@@ -1,7 +1,7 @@
 ---
 title: 贡献者列表
 nav:
-  title: 指南
+  title: 文档
   path: /guide
 group:
   title: 贡献者列表

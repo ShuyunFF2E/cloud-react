@@ -1,17 +1,17 @@
 ---
-title: demo 示例
+title: 贡献示例
 nav:
-  title: 指南
+  title: 文档
   path: /guide
 group:
-  title: demo 示例
+  title: 贡献示例
   path: /demo
   order: 3
 ---
 
 ### demo 文件目录
 
-组件的文档放到组件的 demos 目录下，文件名称 `*.markdown`，例如：
+组件的文档放到组件的 demos 目录下，文件名称 `*.md`，例如：
 
 ```javascript
 |- src

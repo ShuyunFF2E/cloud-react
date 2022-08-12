@@ -1,64 +1,67 @@
 .color-palettes {
-	margin: 0 1%;
+  margin: 0 1%;
 
-	.color-palette {
-		cursor: pointer;
-		display: inline-block;
-		width: 31%;
-		margin: 45px 1%;
+  .color-palette {
+    cursor: pointer;
+    display: inline-block;
+    width: 31%;
+    margin: 45px 1%;
 
-		&.active {
-			border: 1px solid #59CC74;
+    &.active {
+      border: 1px solid #59cc74;
 
-			.color-palette-title {
-				color: #59CC74;
-			}
-		}
+      .color-palette-title {
+        color: #59cc74;
+      }
+    }
 
-		.color-palette-title {
-			margin: 0 0 24px;
-			color: #5c6b77;
-			font-weight: 500;
-			font-size: 22px;
-			text-align: center;
-			text-transform: capitalize;
-		}
+    .color-palette-title {
+      margin: 0 0 24px;
+      color: #5c6b77;
+      font-weight: 500;
+      font-size: 22px;
+      text-align: center;
+      text-transform: capitalize;
+    }
 
-		.main-color {
-			text-align: left;
-		}
-
-
-	}
-
-
+    .main-color {
+      text-align: left;
+    }
+  }
+}
+.__dumi-default-previewer-demo {
+  .demo {
+    .cloud-select {
+      margin: 0 8px 10px 0;
+    }
+  }
 }
 
 .main-color-item-wrap {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .main-color-item {
-	position: relative;
-	height: 44px;
-	padding: 0 12px;
-	font-size: 14px;
-	line-height: 44px;
-	cursor: pointer;
-	transition: all .2s;
-	flex: 1;
-	.main-color-item-name {
-		float: left;
-	}
+  position: relative;
+  height: 44px;
+  padding: 0 12px;
+  font-size: 14px;
+  line-height: 44px;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex: 1;
+  .main-color-item-name {
+    float: left;
+  }
 
-	.main-color-item-text {
-		position: relative;
-		left: 3px;
-		float: right;
-		transform: scale(.85);
-		transform-origin: 100% 50%;
-		transition: all .3s;
-	}
+  .main-color-item-text {
+    position: relative;
+    left: 3px;
+    float: right;
+    transform: scale(0.85);
+    transform-origin: 100% 50%;
+    transition: all 0.3s;
+  }
 }
