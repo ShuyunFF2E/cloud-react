@@ -1,14 +1,14 @@
 ---
 order: 2
 title: 级联卡片
-desc: 适用于存在级联关系的场景
+desc: 存在级联关系、纯展示
 ---
 
 ```jsx
 
             /**
              * title: 级联卡片
-             * desc: 适用于存在级联关系的场景
+             * desc: 存在级联关系、纯展示
              */
 import React, { Component } from 'react';
 import { Cascade, Button } from 'cloud-react';
@@ -79,6 +79,7 @@ export default class CascadeDemo extends Component{
 					<Cascade
 					width="208px"
 					height="270px"
+					isOnlyShow
 					onChange={onChange}
 					container={container}
 					visible={visible} 
