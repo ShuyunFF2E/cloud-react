@@ -116,7 +116,7 @@ class Cascade extends Component {
 
   // 针对含title的子级里的数据需要进一步处理 todo
   onClickItem = (children, id, index, idParent) => {
-    const { props:{ childrenKey, pidKey, onChange } } = this;
+    const { props:{ childrenKey, pidKey, onChange, isOnlyShow } } = this;
     const { currentArr } = this.state;
     const currentItem = this.isBeenClick(id, index, idParent);;
     // 点击已经选择过的选项就不走之后的逻辑了；
@@ -136,11 +136,14 @@ class Cascade extends Component {
       currentArr.splice(index + 1);
       currentArr.push(JSON.parse(JSON.stringify(children)));
       }
-    }
     this.setState({ currentArr });
+    }
     if(!children || !children.length){
-      // 点击无子级则调用父级change事件
-      if(onChange){
+      // 点击无子级则根据是否纯展示来控制调用父级change事件且更新当前currentArr
+      currentArr.splice(index + 1);
+      this.setState({ currentArr });
+      // 
+      if(!isOnlyShow && onChange){
         const arr = [];
         this.state.currentArr.forEach(item => {
           const childr = item[0][childrenKey];
@@ -164,12 +167,11 @@ class Cascade extends Component {
         onChange(...arr);
       };
     }
-
   } 
 
   renderChild(data, index){
     if(!data) return null;
-    const { onClickItem, props:{ titleKey, idKey, childrenKey, pidKey, width, disabled } } = this;
+    const { onClickItem, props:{ titleKey, idKey, childrenKey, pidKey, width, disabled, isOnlyShow } } = this;
 
     return <div key={index} className={`${disabled ? 'disabled' : ''} cascade`}>
     {data.map(item => {
@@ -186,7 +188,7 @@ class Cascade extends Component {
               const idchild = ite[idKey];
               const childrenchild = ite[childrenKey];
               const titlechild = ite[titleKey];
-              return <div key={idchild} className={`${ite.active ? 'itemActive' : ''}  normal`} onClick={()=>onClickItem(childrenchild, idchild, index, id)}><span title={titlechild}>{titlechild}</span>
+              return <div key={idchild} className={`${ite.active ? 'itemActive' : ''}  normal`} onMouseEnter={isOnlyShow ? ()=>onClickItem(childrenchild, idchild, index, id) : null} onClick={ !isOnlyShow ? ()=>onClickItem(childrenchild, idchild, index, id) : null}><span title={titlechild}>{titlechild}</span>
               {!disabled && childrenchild && childrenchild.length && <Icon type="right" style={{ fontSize: '10px', color: 'rgba(0,0,0,0.4500)' }} />}
               </div>
             })}
@@ -195,7 +197,7 @@ class Cascade extends Component {
       }
 
       // 如果不存在同层级分类则走该路线
-      return <div key={id}  className={`${active ? 'itemActive' : ''} notTitle normal`} onClick={()=>onClickItem(children, id, index)} style={{ width }}>
+      return <div key={id}  className={`${active ? 'itemActive' : ''} notTitle normal`} onMouseEnter={isOnlyShow ? ()=>onClickItem(children, id, index) : null} onClick={!isOnlyShow ? ()=>onClickItem(children, id, index) : null} style={{ width }}>
           <span title={title}>{title}</span>
           {!disabled && children && children.length && <Icon type="right" style={{ fontSize: '10px', color: 'rgba(0,0,0,0.4500)' }} />}
       </div>
@@ -218,6 +220,7 @@ Cascade.propTypes = {
   data: PropTypes.array.isRequired,
   value: PropTypes.string,
   visible: PropTypes.bool,
+  isOnlyShow: PropTypes.bool,
   disabled: PropTypes.bool,
   container: PropTypes.string.isRequired, 
   onClose: PropTypes.func,
@@ -235,6 +238,7 @@ Cascade.defaultProps = {
   value: '',
   titleKey: 'title',
   height: '300px',
+  isOnlyShow: false,
   visible: true,
   width: '150px',
   idKey: 'id',
