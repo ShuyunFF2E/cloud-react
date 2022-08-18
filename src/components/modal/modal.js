@@ -62,6 +62,8 @@ class Notification extends Component {
     showMask: true,
     okText: '确定',
     cancelText: '取消',
+    okBtnOpts: {},
+    cancelBtnOpts: {},
     clickMaskCanClose: true,
     showConfirmLoading: false,
     onOk: noop,
@@ -82,6 +84,8 @@ class Notification extends Component {
     footer: PropTypes.node,
     okText: PropTypes.string,
     cancelText: PropTypes.string,
+    okBtnOpts: PropTypes.object,
+    cancelBtnOpts: PropTypes.object,
     hasFooter: PropTypes.bool,
     onOk: PropTypes.func,
     onCancel: PropTypes.func,
@@ -301,6 +305,8 @@ class Notification extends Component {
       showMask,
       okText,
       cancelText,
+      okBtnOpts, 
+      cancelBtnOpts,
       clickMaskCanClose,
       showConfirmLoading,
       onOk,
@@ -383,6 +389,8 @@ class Notification extends Component {
                 onOk={onOk}
                 footer={footer}
                 okText={okText}
+                okBtnOpts={okBtnOpts}
+                cancelBtnOpts={cancelBtnOpts}
                 onReset={this.onReset}
                 onCancel={onCancel}
                 hasFooter={hasFooter}
@@ -468,6 +476,8 @@ function ModalFooter({
   footer,
   okText,
   cancelText,
+  okBtnOpts,
+  cancelBtnOpts,
   hasFooter,
   showConfirmLoading,
   onCancel,
@@ -518,6 +528,7 @@ function ModalFooter({
         size="large"
         disabled={showConfirmLoading}
         onClick={cancel}
+        {...cancelBtnOpts}
       >
         {cancelText}
       </Button>
@@ -528,6 +539,7 @@ function ModalFooter({
         disabled={showConfirmLoading || disabledOk}
         onClick={ok}
         loading={showConfirmLoading}
+        {...okBtnOpts}
       >
         {okText}
       </Button>
