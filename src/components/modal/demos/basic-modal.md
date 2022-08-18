@@ -78,6 +78,8 @@ export default class ModalDemo extends React.Component {
 				</Button>
 				<Modal
 					title="异步关闭"
+					okBtnOpts={{ type: 'primary' }}
+					cancelBtnOpts={{ type: 'secondary' }}
 					size="medium"
 					visible={this.state.visible}
 					showMask={this.state.showMask}
