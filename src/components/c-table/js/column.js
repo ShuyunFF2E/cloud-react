@@ -54,7 +54,7 @@ export default class Column {
   /**
    * 设置 columnData
    */
-  setColumnData = (currentThArr) => {
+  setColumnData = ({ currentThArr } = {}) => {
     const { _this } = this;
     const { originColumnData } = _this.state;
     const { supportCheckbox, supportRadio, isExpendAloneColumn, showDragIcon } =

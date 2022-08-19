@@ -41,34 +41,27 @@ class CTable extends Component {
     pageSizeOptions: [10, 20, 50, 100],
   };
 
-  // eslint-disable-next-line react/state-in-constructor
-  state = {
-    data: [],
-    columnData: this.props.columnData.map((item) => ({ ...item, show: true })),
-    originColumnData:
-      (this.props.supportMemory && getConfig(this.props.tableId)) ||
-      this.props.columnData.map((item) => ({
-        ...item,
-        show: true,
-      })),
-    footerHeight: 0,
-    expandIconColumnIndex: this.props.expandIconColumnIndex,
-    pageOpts: {
-      ...this.defaultPageOpts,
-      ...this.props.pageOpts,
-      pageNum: this.props.pageOpts.current || this.defaultPageOpts.pageNum,
-    },
-    selectedNodeList: this.props.checkedData,
-    isLoading: false,
-    filterValue: [],
-  };
-
   leafNodesMap = {};
 
   getDataSource = this.props.isDelay ? getDataSourceWithDelay : getDataSource;
 
   constructor(props) {
     super(props);
+    this.state = {
+      data: [],
+      columnData: this.resolveColumn(),
+      originColumnData: this.resolveOriginColumn(),
+      footerHeight: 0,
+      expandIconColumnIndex: this.props.expandIconColumnIndex,
+      pageOpts: {
+        ...this.defaultPageOpts,
+        ...this.props.pageOpts,
+        pageNum: this.props.pageOpts.current || this.defaultPageOpts.pageNum,
+      },
+      selectedNodeList: this.props.checkedData,
+      isLoading: false,
+      filterValue: [],
+    };
     this.column = new Column(this);
   }
 
@@ -96,10 +89,21 @@ class CTable extends Component {
   componentDidUpdate(prevProps) {
     if (
       typeof prevProps.ajaxData === 'object' &&
-      (this.props.ajaxData !== prevProps.ajaxData ||
-        this.props.columnData !== prevProps.columnData)
+      this.props.ajaxData !== prevProps.ajaxData
     ) {
       this.loadData();
+    }
+    if (this.props.columnData !== prevProps.columnData) {
+      this.setState(
+        {
+          columnData: this.resolveColumn(),
+          originColumnData: this.resolveOriginColumn(),
+        },
+        () => {
+          this.column.setColumnData();
+          this.loadData();
+        },
+      );
     }
     if (this.props.checkedData !== prevProps.checkedData) {
       this.init();
@@ -125,6 +129,20 @@ class CTable extends Component {
       window.removeEventListener('resize', this.onResize());
     }
   }
+
+  resolveColumn = () => {
+    return this.props.columnData.map((item) => ({ ...item, show: true }));
+  };
+
+  resolveOriginColumn = () => {
+    return (
+      (this.props.supportMemory && getConfig(this.props.tableId)) ||
+      this.props.columnData.map((item) => ({
+        ...item,
+        show: true,
+      }))
+    );
+  };
 
   /**
    * 加载表格数据
@@ -541,7 +559,7 @@ class CTable extends Component {
   onResize = () => {
     return debounce(() => {
       const thArr = this.ref.current?.querySelectorAll('th.cloud-table-cell');
-      this.column.setColumnData(thArr);
+      this.column.setColumnData({ currentThArr: thArr });
     }, 500);
   };
 
