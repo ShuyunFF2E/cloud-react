@@ -73,7 +73,7 @@ export default function CTableDemo() {
           }}>{valid ? '重置表格列' : '删除最后一列'}</Button>
           <CTable
             style={{ height: 500, marginTop: 20 }}
-            useCustomScroll={false}
+            // useCustomScroll={false}
             size={size}
             supportPage
             isDelay
