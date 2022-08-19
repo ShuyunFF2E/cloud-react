@@ -22,7 +22,7 @@ const data = [
 ];
 
 const columns = [
-  { title: '活动ID', dataIndex: 'id' },
+  { title: '活动ID', dataIndex: 'id', minWidth: 130 },
   { title: '活动名称', dataIndex: 'name' },
   { title: '创建时间', dataIndex: 'createTime' },
   { title: '人数', dataIndex: 'num', align: 'right' },
@@ -32,6 +32,7 @@ const columns = [
 export default function CTableDemo() {
 	return (
         <CTable
+           style={{ height: 400 }}
            columnData={columns}
            ajaxData={{ totals: data.length, data }}
         />

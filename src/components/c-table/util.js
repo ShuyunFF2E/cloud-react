@@ -117,3 +117,21 @@ export const removeConfig = (tableName) => {
 };
 
 export const isFirefox = () => navigator.userAgent.indexOf('Firefox') > -1;
+
+/**
+ * 回调函数在 delay 时间段内只执行一次
+ * @param callback
+ * @param delay
+ * @returns {(function(): void)|*}
+ */
+export const debounce = (callback, delay) => {
+  let timer = null;
+  return () => {
+    if (timer) {
+      clearTimeout(timer);
+    }
+    timer = setTimeout(() => {
+      callback();
+    }, delay);
+  };
+};

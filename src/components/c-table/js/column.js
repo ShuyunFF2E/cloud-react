@@ -54,7 +54,7 @@ export default class Column {
   /**
    * 设置 columnData
    */
-  setColumnData = () => {
+  setColumnData = (currentThArr) => {
     const { _this } = this;
     const { originColumnData } = _this.state;
     const { supportCheckbox, supportRadio, isExpendAloneColumn, showDragIcon } =
@@ -62,8 +62,12 @@ export default class Column {
     const isLastColumnFixed =
       originColumnData[originColumnData.length - 1].fixed;
     const isFirstColumnFixed = originColumnData[0].fixed;
+    const thArr =
+      currentThArr ||
+      _this.ref.current?.querySelectorAll('th.cloud-table-cell') ||
+      [];
 
-    const resolvedColumnData = originColumnData.reduce((arr, item) => {
+    const resolvedColumnData = originColumnData.reduce((arr, item, index) => {
       // 判断当前列展示还是隐藏，默认为 true
       if (!item.show) {
         return arr;
@@ -73,7 +77,7 @@ export default class Column {
         ...item,
         sortBy,
         align: item.align || 'left',
-        width: item.width || (originColumnData.find((c) => c.fixed) ? 150 : ''),
+        width: this.getColumnWidth(item, thArr?.[index]),
       };
       arr.push({
         ...resolveColumnItem,
@@ -147,11 +151,12 @@ export default class Column {
         if (!item.fixed) {
           Object.assign(item, {
             onHeaderCell: (column) => {
-              const thArr =
+              const resizableThArr =
                 _this.ref.current.querySelectorAll('th.react-resizable');
               return {
                 width:
-                  column.width || thArr[index]?.getBoundingClientRect().width,
+                  column.width ||
+                  resizableThArr[index]?.getBoundingClientRect().width,
                 onResize: this.handleResize(index),
               };
             },
@@ -247,6 +252,33 @@ export default class Column {
       return item.title(item);
     }
     return item.title;
+  };
+
+  /**
+   * 获取表格列宽
+   * @param columnItem
+   * @param columnTh
+   * @returns {number|*}
+   */
+  getColumnWidth = (columnItem, columnTh) => {
+    const { _this } = this;
+    const { originColumnData } = _this.state;
+
+    if (columnItem.width) {
+      return columnItem.width;
+    }
+
+    if (
+      columnItem.minWidth &&
+      columnItem.minWidth > columnTh?.getBoundingClientRect().width
+    ) {
+      return columnItem.minWidth;
+    }
+
+    if (originColumnData.find((c) => c.fixed)) {
+      return 150;
+    }
+    return '';
   };
 
   /**

@@ -14,6 +14,7 @@ import {
   getLeafNodes,
   getConfig,
   isFirefox,
+  debounce,
 } from './util';
 import { DRAG_ICON_SELECTOR, DRAG_SELECTOR, tablePrefixCls } from './constant';
 import getExpandableConfig from './js/expend';
@@ -55,7 +56,7 @@ class CTable extends Component {
     pageOpts: {
       ...this.defaultPageOpts,
       ...this.props.pageOpts,
-      pageNum: this.props.pageOpts.current,
+      pageNum: this.props.pageOpts.current || this.defaultPageOpts.pageNum,
     },
     selectedNodeList: this.props.checkedData,
     isLoading: false,
@@ -86,6 +87,10 @@ class CTable extends Component {
       this.init();
       this.props.onLoadGridAfter(res);
     });
+
+    if (!this.props.supportResizeColumn) {
+      window.addEventListener('resize', this.onResize());
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -109,9 +114,15 @@ class CTable extends Component {
         pageOpts: {
           ...this.state.pageOpts,
           ...this.props.pageOpts,
-          pageNum: this.props.pageOpts.current,
+          pageNum: this.props.pageOpts.current || this.defaultPageOpts.pageNum,
         },
       });
+    }
+  }
+
+  componentWillUnmount() {
+    if (!this.props.supportResizeColumn) {
+      window.removeEventListener('resize', this.onResize());
     }
   }
 
@@ -525,6 +536,13 @@ class CTable extends Component {
         this.props.onDragAfter(data[fromIndex], data[toIndex]);
       },
     );
+  };
+
+  onResize = () => {
+    return debounce(() => {
+      const thArr = this.ref.current?.querySelectorAll('th.cloud-table-cell');
+      this.column.setColumnData(thArr);
+    }, 500);
   };
 
   /**
