@@ -122,7 +122,7 @@ this.tableRef.refreshTable(params?);
 | sortable     | 是否支持排序                                     | boolean                      | false               |
 | sorter     | 自定义列排序规则                                     | function                      | -               |
 | onCell     | 为每个单元格设置自定义参数 Function(record, index)                                   | function                      | -               |
-| minWidth     | 列拉伸的最小宽                       | number                   | - |
+| minWidth     | 列最小宽度                       | number                   | - |
 | filters     | 配置表格列筛选项 [{ text: '男', value: 'male' }, { text: '女', value: 'female' }]                      | array                   | [] |
 
 ### 代码演示
