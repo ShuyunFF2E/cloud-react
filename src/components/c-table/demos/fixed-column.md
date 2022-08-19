@@ -11,7 +11,7 @@ desc: 固定列
  * desc: 固定列
  */
 import React, { useState } from 'react';
-import { CTable, Button, Select, Radio } from 'cloud-react';
+import { CTable, Button, Select, Radio, Checkbox } from 'cloud-react';
 
 const data = [
     { id: '121410327', name: '手机号优先继续发送1', createTime: '2021/12/14 10:19:02', creator: 'liyuan.meng', approver: 'admin', status: '执行完成' },
@@ -52,6 +52,7 @@ export default function CTableDemo() {
     const [size, setSize] = useState('default');
     const [columnData, setColumnData] = useState([...columns]);
     const [valid, setValid] = useState(false);
+    const [reloadAfterSetColumn, setReloadAfterSetColumn] = useState(true)
 
 	return (
         <div>
@@ -60,28 +61,34 @@ export default function CTableDemo() {
             <Radio value="large">舒适型表格</Radio>
             <Radio value="small">紧凑型表格</Radio>
           </Radio.Group>
-          <Button onClick={() => {
+          <br/>
+          <Button style={{ marginRight: 20, marginTop: 10 }} onClick={() => {
             if (valid) {
               setColumnData([...columns]);
               setValid(false);
               return;
             }
             columnData.splice(-1, 2);
-            console.log(columnData);
             setColumnData([...columnData]);
             setValid(true);
           }}>{valid ? '重置表格列' : '删除最后一列'}</Button>
+          <Checkbox checked={reloadAfterSetColumn} onChange={checked => {
+            setReloadAfterSetColumn(checked);
+          }}>设置列后，是否需要刷新表格</Checkbox>
           <CTable
             style={{ height: 500, marginTop: 20 }}
             // useCustomScroll={false}
             size={size}
             supportPage
-            isDelay
+            supportCheckbox
+            reloadAfterSetColumn={reloadAfterSetColumn}
             columnData={columnData}
-            ajaxData={{ totals: data.length, data }}
-            pageOpts={{ onChange: () => {
-                console.log(11);
-              }
+            ajaxData={(params) => {
+              return new Promise(resolve => {
+                setTimeout(() => {
+                  resolve({ totals: data.length, data: JSON.parse(JSON.stringify(data.slice(params.pageSize * (params.pageNum - 1), params.pageSize * params.pageNum))) })
+                }, 500);
+              });
             }}
           />
         </div>

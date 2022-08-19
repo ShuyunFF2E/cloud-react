@@ -95,6 +95,7 @@ this.tableRef.refreshTable(params?);
 | isCheckboxFixed | 是否固定多选框列或单选框列  | boolean	   |   false   | |
 | useCustomScroll | 业务中是否使用自定义滚动条 | 	boolean   |   true   | |
 | scrollIntoTop | 翻页后表格自动滚到顶部 | 	boolean   |   true   | |
+| reloadAfterSetColumn | 重新设置表格列后，是否需要刷新表格 | 	boolean   |   true   | |
 
 #### CTable 其他功能配置
 | 属性           | 说明                    | 类型              | 默认值
