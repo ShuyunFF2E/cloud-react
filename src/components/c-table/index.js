@@ -101,7 +101,14 @@ class CTable extends Component {
         },
         () => {
           this.column.setColumnData();
-          this.loadData();
+
+          if (this.props.reloadAfterSetColumn) {
+            this.loadData();
+          }
+
+          this.setHeaderStyle();
+          this.setFixedStyle();
+          this.setFooterHeight();
         },
       );
     }
@@ -217,7 +224,7 @@ class CTable extends Component {
           ).style.width = 0;
         }
       }
-    }, 200);
+    });
   };
 
   /**
@@ -254,7 +261,7 @@ class CTable extends Component {
           }
         });
       }
-    }, 200);
+    });
   };
 
   /**

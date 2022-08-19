@@ -57,6 +57,7 @@ export const propTypes = {
   loadingTpl: PropTypes.func,
   loadingOpts: PropTypes.object,
   showFilterBtn: PropTypes.bool,
+  reloadAfterSetColumn: PropTypes.bool,
 };
 
 export const defaultProps = {
@@ -113,4 +114,5 @@ export const defaultProps = {
   loadingTpl: () => null,
   loadingOpts: {},
   showFilterBtn: false,
+  reloadAfterSetColumn: true,
 };
