@@ -50,6 +50,8 @@ const columns = [
 
 export default function CTableDemo() {
     const [size, setSize] = useState('default');
+    const [columnData, setColumnData] = useState([...columns]);
+    const [valid, setValid] = useState(false);
 
 	return (
         <div>
@@ -58,13 +60,24 @@ export default function CTableDemo() {
             <Radio value="large">舒适型表格</Radio>
             <Radio value="small">紧凑型表格</Radio>
           </Radio.Group>
+          <Button onClick={() => {
+            if (valid) {
+              setColumnData([...columns]);
+              setValid(false);
+              return;
+            }
+            columnData.splice(-1, 2);
+            console.log(columnData);
+            setColumnData([...columnData]);
+            setValid(true);
+          }}>{valid ? '重置表格列' : '删除最后一列'}</Button>
           <CTable
             style={{ height: 500, marginTop: 20 }}
             // useCustomScroll={false}
             size={size}
             supportPage
             isDelay
-            columnData={columns}
+            columnData={columnData}
             ajaxData={{ totals: data.length, data }}
             pageOpts={{ onChange: () => {
                 console.log(11);
