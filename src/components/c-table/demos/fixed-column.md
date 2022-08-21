@@ -10,7 +10,7 @@ desc: 固定列
  * title: 固定列
  * desc: 固定列
  */
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { CTable, Button, Select, Radio, Checkbox } from 'cloud-react';
 
 const data = [
@@ -49,10 +49,10 @@ const columns = [
 ];
 
 export default function CTableDemo() {
+    const tableRef = useRef();
     const [size, setSize] = useState('default');
-    const [columnData, setColumnData] = useState([...columns]);
     const [valid, setValid] = useState(false);
-    const [reloadAfterSetColumn, setReloadAfterSetColumn] = useState(true)
+    const [isReloadGrid, setIsReloadGrid] = useState(true);
 
 	return (
         <div>
@@ -64,25 +64,26 @@ export default function CTableDemo() {
           <br/>
           <Button style={{ marginRight: 20, marginTop: 10 }} onClick={() => {
             if (valid) {
-              setColumnData([...columns]);
+              tableRef.current.setColumn(columns, isReloadGrid);
               setValid(false);
               return;
             }
+            const columnData = [...columns];
             columnData.splice(-1, 2);
-            setColumnData([...columnData]);
+            tableRef.current.setColumn(columnData, isReloadGrid);
             setValid(true);
           }}>{valid ? '重置表格列' : '删除最后一列'}</Button>
-          <Checkbox checked={reloadAfterSetColumn} onChange={checked => {
-            setReloadAfterSetColumn(checked);
+          <Checkbox checked={isReloadGrid} onChange={checked => {
+            setIsReloadGrid(checked);
           }}>设置列后，是否需要刷新表格</Checkbox>
           <CTable
             style={{ height: 500, marginTop: 20 }}
+            ref={tableRef}
             // useCustomScroll={false}
             size={size}
             supportPage
             supportCheckbox
-            reloadAfterSetColumn={reloadAfterSetColumn}
-            columnData={columnData}
+            columnData={columns}
             ajaxData={(params) => {
               return new Promise(resolve => {
                 setTimeout(() => {
