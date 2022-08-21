@@ -30,7 +30,25 @@ group:
 | onRow | 表格刷新后回调   | 设置自定义 row 属性，Function(record, index)	   |   () => {}   | |
 
 #### CTable 手动刷新表格
-this.tableRef.refreshTable(params?);
+this.tableRef.current.refreshTable(gotoFirstPage?, params?);
+
+*refreshTable 参数：*
+
+| 属性           | 说明                    | 类型              | 默认值
+| -------------- | ---------------------- | ----------------- | ------ |
+| gotoFirstPage | 表格刷新后，是否跳转到第一页   | boolean   |   true   | |
+| params | 分页等表格查询参数   | object   |   {}   | |
+
+
+#### CTable 重新设置表格列 columnData
+this.tableRef.current.setColumn(columnData, isReloadGrid?);
+
+*setColumn 参数：*
+
+| 属性           | 说明                    | 类型              | 默认值
+| -------------- | ---------------------- | ----------------- | ------ |
+| columnData | 表格列数组   | array   |   []   | |
+| isReloadGrid | 重新设置表格列后，是否需要刷新表格   | boolean   |   false   | |
 
 #### CTable 字段映射
 | 属性           | 说明                    | 类型              | 默认值
@@ -95,7 +113,7 @@ this.tableRef.refreshTable(params?);
 | isCheckboxFixed | 是否固定多选框列或单选框列  | boolean	   |   false   | |
 | useCustomScroll | 业务中是否使用自定义滚动条 | 	boolean   |   true   | |
 | scrollIntoTop | 翻页后表格自动滚到顶部 | 	boolean   |   true   | |
-| reloadAfterSetColumn | 重新设置表格列后，是否需要刷新表格 | 	boolean   |   true   | |
+| reloadAfterSetColumn | 重新设置表格列后，是否需要刷新表格 | 	boolean   |   false   | |
 
 #### CTable 其他功能配置
 | 属性           | 说明                    | 类型              | 默认值

@@ -49,8 +49,8 @@ class CTable extends Component {
     super(props);
     this.state = {
       data: [],
-      columnData: this.resolveColumn(),
-      originColumnData: this.resolveOriginColumn(),
+      columnData: this.resolveColumn(this.props.columnData),
+      originColumnData: this.resolveOriginColumn(this.props.columnData),
       footerHeight: 0,
       expandIconColumnIndex: this.props.expandIconColumnIndex,
       pageOpts: {
@@ -93,25 +93,6 @@ class CTable extends Component {
     ) {
       this.loadData();
     }
-    if (this.props.columnData !== prevProps.columnData) {
-      this.setState(
-        {
-          columnData: this.resolveColumn(),
-          originColumnData: this.resolveOriginColumn(),
-        },
-        () => {
-          this.column.setColumnData();
-
-          if (this.props.reloadAfterSetColumn) {
-            this.loadData();
-          }
-
-          this.setHeaderStyle();
-          this.setFixedStyle();
-          this.setFooterHeight();
-        },
-      );
-    }
     if (this.props.checkedData !== prevProps.checkedData) {
       this.init();
     }
@@ -137,14 +118,14 @@ class CTable extends Component {
     }
   }
 
-  resolveColumn = () => {
-    return this.props.columnData.map((item) => ({ ...item, show: true }));
+  resolveColumn = (columnData) => {
+    return columnData.map((item) => ({ ...item, show: true }));
   };
 
-  resolveOriginColumn = () => {
+  resolveOriginColumn = (columnData) => {
     return (
       (this.props.supportMemory && getConfig(this.props.tableId)) ||
-      this.props.columnData.map((item) => ({
+      columnData.map((item) => ({
         ...item,
         show: true,
       }))
@@ -538,6 +519,31 @@ class CTable extends Component {
    */
   refreshTable = (gotoFirstPage = true, params = {}) => {
     this.loadGrid({ ...params, pageNum: gotoFirstPage ? 1 : params.pageNum });
+  };
+
+  /**
+   * 外部调用此函数，重新设置表格列
+   * @param columnData
+   * @param isReloadGrid：设置表格列后，是否重新刷新表格
+   */
+  setColumn = (columnData = [], isReloadGrid = false) => {
+    this.setState(
+      {
+        columnData: this.resolveColumn(columnData),
+        originColumnData: this.resolveOriginColumn(columnData),
+      },
+      () => {
+        this.column.setColumnData();
+
+        if (isReloadGrid) {
+          this.loadData();
+        }
+
+        this.setHeaderStyle();
+        this.setFixedStyle();
+        this.setFooterHeight();
+      },
+    );
   };
 
   /**
