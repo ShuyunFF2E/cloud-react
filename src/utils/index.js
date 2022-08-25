@@ -5,5 +5,15 @@ import getCssText from './get-styles';
 import flat from './flat';
 import { prefixCls } from './config';
 import sandboxSelector from './sandbox-selector';
+import { loadScript } from './module';
 
-export { noop, omit, prefixCls, getRootWindow, flat, getCssText, sandboxSelector };
+export {
+  noop,
+  omit,
+  prefixCls,
+  getRootWindow,
+  flat,
+  getCssText,
+  sandboxSelector,
+  loadScript,
+};

@@ -4,11 +4,11 @@
 
 @font-face {
   font-family: 'cloud-react-icon-font'; /* Project id 2990746 */
-  src: url('//at.alicdn.com/t/font_2990746_kmok89ebj7t.woff2?t=1653532879955')
+  src: url('//cloud-cdn.shuyun.com/fe-publish-asset/0.0.37/libs/cloud-react/icon/font/iconfont.woff2')
       format('woff2'),
-    url('//at.alicdn.com/t/font_2990746_kmok89ebj7t.woff?t=1653532879955')
+    url('//cloud-cdn.shuyun.com/fe-publish-asset/0.0.37/libs/cloud-react/icon/font/iconfont.woff')
       format('woff'),
-    url('//at.alicdn.com/t/font_2990746_kmok89ebj7t.ttf?t=1653532879955')
+    url('//cloud-cdn.shuyun.com/fe-publish-asset/0.0.37/libs/cloud-react/icon/font/iconfont.ttf')
       format('truetype');
 }
 
@@ -18,6 +18,10 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-guanbi:before {
+  content: '\e7ed';
 }
 
 .icon-group-fill1:before {
@@ -366,4 +370,25 @@
 
 .icon-checkbox-blank:before {
   content: '\e61f';
+}
+
+// 特殊处理
+.icon-close-fill {
+  position: relative;
+  color: #e5e5e5;
+  &:before {
+    position: relative;
+    z-index: 2;
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    z-index: 1;
+    display: block;
+    width: 60%;
+    height: 60%;
+    background: #7e7e7e;
+    left: 20%;
+    top: 20%;
+  }
 }
