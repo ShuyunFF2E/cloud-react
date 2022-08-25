@@ -32,13 +32,13 @@ export default class UploadDemo extends React.Component {
 				{
 					id: '-3',
 					name: 'image.png',
-					url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
+					url: 'https://brand-guide.shuyun.com/mpcm/20220817144023/9272cf9e90daa4065f85c57c6f9ad3e0/qqxIWa/31.jpg'
 				},
 				{
 					id: '-4',
 					status: 'error',
 					name: 'image.png',
-					url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
+					url: 'https://brand-guide.shuyun.com/mpcm/20220817144022/9272cf9e90daa4065f85c57c6f9ad3e0/LQWGLi/27.jpg'
 				}
 			]
 		};
