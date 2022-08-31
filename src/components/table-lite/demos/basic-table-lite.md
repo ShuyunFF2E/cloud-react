@@ -11,7 +11,7 @@ desc: 最基本的一个表格
              * desc: 最基本的一个表格
              */
 import React, { Component } from 'react';
-import { TableLite } from 'cloud-react';
+import { TableLite, Button } from 'cloud-react';
 
 const columnData =  [
 	{
@@ -21,10 +21,12 @@ const columnData =  [
 		text: '参与人',
 		template: (name, rowData) => {
 			return (
-				<a className="demo-github" href={'https://github.com/' + name} target="_black">
-					<img className="demo-pic" src={rowData.pic} />
-					<span className="demo-username">{name}</span>
-				</a>
+				<div style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }} onClick={() => {
+                    window.open('https://github.com/' + name);
+                }}>
+					<img style={{ marginRight: 8 }} width={40} height={40} className="demo-pic" src={rowData.pic} />
+					<Button type="link" style={{ padding: 0 }}>{name}</Button>
+				</div>
 			);
 		}
 	},
@@ -33,9 +35,11 @@ const columnData =  [
 		text: 'github',
 		template: (name, rowData) => {
 					return (
-						<a className="demo-github" href={name} target="_black">
+						<Button type="link" style={{ padding: 0 }} onClick={() => {
+                            window.open(name)
+                        }}>
 							{name}
-						</a>
+						</Button>
 					);
 				}
 	},
@@ -74,11 +78,39 @@ let dataSource = [{
 	  "id": 4
   },
   {
+    "name": "baukh789",
+    "pic": "https://avatars3.githubusercontent.com/u/11342827?s=60&v=4",
+    "like": "开车",
+    "github": "https://github.com/baukh789",
+    "id": 14
+  },
+  {
+    "name": "silence717",
+    "pic": "https://avatars0.githubusercontent.com/u/8267830?s=60&v=4",
+    "like": "炒饭",
+    "github": "https://github.com/silence717",
+    "id": 15
+  },
+  {
+    "name": "BoWang816",
+    "pic": "https://avatars0.githubusercontent.com/u/26587649?s=60&v=4",
+    "like": "Coding",
+    "github": "https://github.com/BoWang816",
+    "id": 16
+  },
+  {
 	  "name": "runrunlolz",
 	  "pic": "https://avatars0.githubusercontent.com/u/20176682?s=60&v=4",
 	  "like": "赚钱",
 	  "github": "https://github.com/runrunlolz",
 	  "id": 5
+  },
+  {
+    "name": "DongWJ",
+    "pic": "https://avatars0.githubusercontent.com/u/24518633?s=60&v=4",
+    "like": "做菜",
+    "github": "https://github.com/DongWJ",
+    "id": 10
   },
   {
 	  "name": "greria",
@@ -109,13 +141,6 @@ let dataSource = [{
 	  "priority": 9
   },
   {
-	  "name": "DongWJ",
-	  "pic": "https://avatars0.githubusercontent.com/u/24518633?s=60&v=4",
-	  "like": "做菜",
-	  "github": "https://github.com/DongWJ",
-	  "id": 10
-  },
-  {
 	  "name": "jsonliu6",
 	  "pic": "https://avatars1.githubusercontent.com/u/15153054?s=460&v=4",
 	  "like": "红烧肉",
@@ -135,27 +160,6 @@ let dataSource = [{
 	  "like": "Coding",
 	  "github": "https://github.com/rookie125",
 	  "id": 13
-  },
-  {
-	  "name": "baukh789",
-	  "pic": "https://avatars3.githubusercontent.com/u/11342827?s=60&v=4",
-	  "like": "开车",
-	  "github": "https://github.com/baukh789",
-	  "id": 14
-  },
-  {
-	  "name": "silence717",
-	  "pic": "https://avatars0.githubusercontent.com/u/8267830?s=60&v=4",
-	  "like": "炒饭",
-	  "github": "https://github.com/silence717",
-	  "id": 15
-  },
-  {
-	  "name": "BoWang816",
-	  "pic": "https://avatars0.githubusercontent.com/u/26587649?s=60&v=4",
-	  "like": "Coding",
-	  "github": "https://github.com/BoWang816",
-	  "id": 16
   },
 ]
 

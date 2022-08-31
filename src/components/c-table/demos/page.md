@@ -13,7 +13,6 @@ desc: 分页
 import React, { useState } from 'react';
 import { CTable, Checkbox, Tooltip, Icon, Button } from 'cloud-react';
 
-
 const data = new Array(100).fill(1).map((item, index) => (
   { id: 121410327 + index, name: '手机号优先继续发送1', createTime: '2021/12/14 10:19:02', creator: 'liyuan.meng' }
 ))
@@ -21,9 +20,9 @@ const data = new Array(100).fill(1).map((item, index) => (
 const columns = [
   {
     title: item => {
-      return <span>
+      return <span style={{ display: 'flex', alignItems: 'center' }}>
                 <span style={{ marginRight: 5 }}>活动ID</span>
-                <Tooltip content="lalallalla"><Icon type="question-circle-solid"/></Tooltip>
+                <Tooltip content="说明说明"><Icon style={{ color: 'rgba(0, 0, 0, 0.25)' }} type="question-circle"/></Tooltip>
             </span>;
     },
     dataIndex: 'id',

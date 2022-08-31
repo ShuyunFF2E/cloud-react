@@ -11,12 +11,12 @@ desc: 改变每页显示条目数
              * desc: 改变每页显示条目数
              */
 import React from 'react';
-import Pagination from '../index';
+import { Pagination } from 'cloud-react';
 
 export default class PaginationDemo extends React.Component {
 	state = {
-		current: 1,
-		pageSize: 7
+		current: 5,
+		pageSize: 10,
 	};
 
 	onChange = (current, pageSize) => {
@@ -29,17 +29,13 @@ export default class PaginationDemo extends React.Component {
 
 	render() {
 		return (
-			<React.Fragment>
-				<Pagination
-					total={500}
-					showPageSizeOptions={true}
-					style={{ marginBottom: '20px' }}
-					onChange={this.onChange}
-					current={this.state.current}
-					pageSize={this.state.pageSize}
-				/>
-				<Pagination total={500} showPageSizeOptions={true} pageSizeOptions={[100, 200, 300]} />
-			</React.Fragment>
+          <Pagination
+            total={500}
+            showPageSizeOptions={true}
+            onChange={this.onChange}
+            current={this.state.current}
+            pageSize={this.state.pageSize}
+          />
 		);
 	}
 }

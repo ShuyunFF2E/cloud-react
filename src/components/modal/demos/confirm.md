@@ -33,7 +33,8 @@ export default class ModalDemo extends React.Component {
 		Modal.confirm({
 			isShowIcon: false,
 			title: '基本确认对话框',
-			body: '一天不练手脚慢，两天不练丢一半，三天不练门外汉，四天不练瞪眼看。',
+			body: '杭州数云信息技术有限公司是国内领先的全域消费者增长方案提供商',
+			cancelBtnOpts: { type: 'secondary' },
 			onOk: () => {
 				this.handleOk();
 			},
@@ -48,13 +49,9 @@ export default class ModalDemo extends React.Component {
 	openCustomerIconConfirmModal = () => {
 		Modal.confirm({
 			title: '自定义图标确认对话框',
-			isShowIcon: true,
-			icon: 'warning-circle-solid',
-			iconStyle: {
-				color: '#ffcf33'
-			},           
-			title: '确认要删除吗？',
-			body: '此内容删除后将放入回收站，确认要删除该条目？',
+			isShowIcon: true,        
+			title: '确定要删除吗？',
+			body: '这里是删除后相应状态的描述。',
 			onOk: () => {
 				this.handleOk();
 			},
@@ -129,7 +126,6 @@ export default class ModalDemo extends React.Component {
 				{blank}
 				<br />
 				<br />
-				{this.state.content}
 			</div>
 		);
 	}

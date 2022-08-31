@@ -1,54 +1,49 @@
 ---
-order: 2
-title: toggle 大小 size 使用
-desc: 不配置size即为默认的 default 大小，设置size = samll 为小号toggle
+order: 4
+title: 两种大小
+desc: size可为 `small`、`default`，默认为 `defalut`
 ---
 
 ```jsx
-
-            /**
-             * title: toggle 大小 size 使用
-             * desc: 不配置size即为默认的 default 大小，设置size = samll 为小号toggle
-             */
+/**
+ * title: 两种大小
+ * desc: size可为 `small`、`default`，默认为 `defalut`
+ */
 import React from 'react';
 import { Button, Toggle } from 'cloud-react';
-import './styles/size.less';
 
 export default class ToggleSizeDemo extends React.Component {
-	constructor(props) {
-		super(props);
+  constructor(props) {
+    super(props);
+    this.state = {
+      checked: true,
+      size: 'default',
+      isSmall: false,
+    };
+  }
 
-		this.state = {
-			checked: true,
-			size: 'default'
-		};
-	}
+  handleChange = (checked) => {
+    this.setState({ checked });
+  };
 
-	handleChange = checked => {
-		this.setState({ checked });
-	};
+  handleSize = (size) => {
+    const { isSmall } = this.state;
+    this.setState({ size, isSmall: !isSmall });
+  };
 
-	handleSize = size => {
-		this.setState({ size });
-	};
-
-	render() {
-		const { size, checked } = this.state;
-
-		return (
-			<div>
-				当前size为<span className="hightlight">{size}</span>：
-				<Toggle size={size} checked={checked} onChange={this.handleChange} checkedText="开" unCheckedText="关" />
-				<Button size="small" type="normal" className="item" onClick={this.handleSize.bind(this, 'default')}>
-					切换为default
-				</Button>
-				<Button size="small" type="primary" onClick={this.handleSize.bind(this, 'small')}>
-					切换为small
-				</Button>
-			</div>
-		);
-	}
+  render() {
+    const { size, checked, isSmall } = this.state;
+    const switchSize = isSmall ? 'default' : 'small';
+    return (
+      <div>
+        当前size为{size}：
+        <Toggle size={size} checked={checked} onChange={this.handleChange} />
+        <br /><br />
+        <Button onClick={() => this.handleSize(switchSize)}>
+          切换为{switchSize}
+        </Button>
+      </div>
+    );
+  }
 }
 ```
-
-`

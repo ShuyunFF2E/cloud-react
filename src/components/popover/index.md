@@ -31,9 +31,10 @@ group:
 | cancelBtnText      | 取消按钮自定义文本      | string            | '取消'     |
 | confirmText      | 确认按钮自定义文本      | string            | '确认'     |
 | onCancelClick      | 取消按钮回调      | function            | () => {}     |
-| onConfirmClick      | 确认按钮回调      | function            | () => {}     |
+| onConfirmClick      | 确认按钮回调      | function            | () => {}  (函数返回为true时不隐藏popover)     |
 | cancelBtnOpts      | 取消按钮配置项      | object            | {}     |
 | confirmBtnOpts      | 确认按钮配置项      | object            | {}     |
+| onVisibleChange     | 显示/隐藏回调       | function          | (visible) => {} |
 
  ### 代码演示 
 

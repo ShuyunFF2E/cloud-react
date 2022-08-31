@@ -12,6 +12,7 @@ desc: 自定义列模板
  */
 import React from 'react';
 import { CTable } from 'cloud-react';
+import headerImg from './header.jpg';
 
 const data = [
   { id: '121410327', name: '手机号优先继续发送1手机号优先继续发送1手机号优先继续...', createTime: '2021/12/14 10:19:02', creator: 'liyuan.meng', num: '12,222' },
@@ -28,7 +29,7 @@ const columns = [
     width: 270,
     render: (value) => (
       <div style={{ display: 'flex', cursor: 'pointer' }}>
-        <img style={{ width: 40, height: 40, marginRight: 8 }} src="https://img2.baidu.com/it/u=1429175118,2649084526&fm=26&fmt=auto" />
+        <img style={{ width: 40, height: 40, marginRight: 8 }} src={headerImg} />
         <a style={{ color: '#5280FF' }}>{value}</a>
       </div>
     )

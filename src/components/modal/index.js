@@ -104,7 +104,10 @@ Modal.confirm = (props) => {
   const config = {
     ...props,
     type: 'confirm',
-    icon: props.icon || 'question-circle-solid',
+    icon: props.icon || 'info_1',
+    iconStyle: {
+      color: props.iconStyle?.color || '#fd830a',
+    },
   };
   return Prompt(config);
 };

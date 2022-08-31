@@ -14,6 +14,7 @@ const typeEnum = {
   WARNING: 'warning',
   DEFAULT: 'default',
   DANGER: 'danger',
+  PRIMARY: 'primary',
 };
 
 const sizeEnum = {
@@ -29,8 +30,9 @@ export default class Tag extends Component {
       typeEnum.WARNING,
       typeEnum.DEFAULT,
       typeEnum.DANGER,
+      typeEnum.PRIMARY,
     ]),
-    size: PropTypes.oneOf([sizeEnum.SMALL, sizeEnum.NORMAL]),
+    size: PropTypes.oneOf([ sizeEnum.SMALL, sizeEnum.NORMAL ]),
     color: PropTypes.string,
     rounded: PropTypes.bool,
     closable: PropTypes.bool,
@@ -113,7 +115,9 @@ export default class Tag extends Component {
   };
 
   renderContent() {
-    const { closable, disabled, icon, maxWidth, ...others } = this.props;
+    const {
+      closable, disabled, icon, maxWidth, ...others
+    } = this.props;
 
     const props = omit(others, [
       'type',

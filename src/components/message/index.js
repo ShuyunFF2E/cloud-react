@@ -22,7 +22,7 @@ const MESSAGE_TYPE = {
     icon: 'success-fill',
   },
   error: {
-    icon: 'close-fill',
+    icon: 'close-fill-1',
   },
   info: {
     icon: 'info_1',

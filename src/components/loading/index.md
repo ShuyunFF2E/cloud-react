@@ -15,26 +15,20 @@ group:
 
 ### API
 
-| 属性      | 说明                                            | 类型          | 默认值  |
-| --------- | ----------------------------------------------- | ------------- | ------- |
-| loading   | 是否为加载中状态                                | boolean       | true    |
-| size      | loading 大小，可选值：`small` `default` `large` | string        | default |
-| layer     | 是否带背景层                                    | boolean       | false   |
-| tip       | 自定义描述文案                                  | string        | -       |
-| delay     | 延迟显示加载效果的时间（防止闪烁）              | number (毫秒) | -       |
-| className | 外部控制样式                                    | string        | -       |
-| style | 外部自定义样式                                    | string        | -       |
+| 属性      | 说明                                           | 类型          | 默认值    |
+| --------- | ---------------------------------------------- | ------------- | --------- |
+| loading   | 是否为加载中状态                               | boolean       | true      |
+| size      | loading 大小，包括 `small`、`default`、`large` | string        | `default` |
+| layer     | 是否带背景层                                   | boolean       | false     |
+| tip       | 自定义描述文案                                 | string        | ''        |
+| delay     | 延迟显示加载效果的时间（防止闪烁）             | number (毫秒) | 0         |
+| style     | 设置最外层样式                                 | CSSProperties | {}        |
+| className | 设置最外层类样式                               | string        | ''        |
 
- ### 代码演示 
+### 代码演示
 
-<embed src="@components/loading/demos/basic-loading.md" /> 
-
-<embed src="@components/loading/demos/delay.md" /> 
-
+<embed src="@components/loading/demos/basic-loading.md" />
 <embed src="@components/loading/demos/embed.md" /> 
-
-[comment]: <> (<embed src="@components/loading/demos/layer.md" /> )
-
-<embed src="@components/loading/demos/size.md" /> 
-
-<embed src="@components/loading/demos/tip.md" /> 
+<embed src="@components/loading/demos/delay.md" />
+<embed src="@components/loading/demos/size.md" />
+<embed src="@components/loading/demos/tip.md" />

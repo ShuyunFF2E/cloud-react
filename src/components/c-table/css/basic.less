@@ -1,130 +1,9 @@
-@import '../style/index';
+/**
+表格基础样式（非必要勿动）
+ */
 
-@tablePrefixCls: ~'@{prefix}-table';
-@tableContainerPrefixCls: ~'@{prefix}-table-box';
-@containerPrefixCls: ~'@{prefix}-container';
-@text-color: @gray-9;
-@font-size-base: 12px;
-@line-height: 1.5;
-@table-border-color: @gray-4;
-@table-head-background-color: @gray-2;
-@large-vertical-padding: 16px;
-@large-horizontal-padding: 16px;
-@vertical-padding: 12px;
-@horizontal-padding: 12px;
-@small-vertical-padding: 8px;
-@small-horizontal-padding: 8px;
-@border-width: 1px;
-@border-color: @gray-4;
-@border: @border-width solid @border-color;
-@cell-padding: @vertical-padding @horizontal-padding;
-@large-cell-padding: @large-vertical-padding @large-horizontal-padding;
-@small-cell-padding: @small-vertical-padding @small-horizontal-padding;
-@cell-margin: -@vertical-padding -@horizontal-padding;
-@border-radius: 2px;
-
-.@{containerPrefixCls} {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-
-.@{tableContainerPrefixCls} {
-  position: relative;
-  width: 100%;
-
-  &::before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    height: 1px;
-    width: 100%;
-    background: @gray-4;
-    z-index: 2;
-  }
-
-  // 带边框表格
-  &.@{tablePrefixCls}-bordered {
-    .@{tablePrefixCls} {
-      &-header {
-        border-top: @border;
-        border-right: @border;
-        border-left: @border;
-      }
-
-      &-body {
-        border-right: @border;
-        border-left: @border;
-      }
-
-      th:not(:last-child),
-      td:not(:last-child) {
-        border-right: @border;
-      }
-
-      &-container {
-        border-left: @border;
-        border-top: @border;
-        border-right: @border;
-      }
-    }
-  }
-
-  // 表头带线条
-  &.@{tablePrefixCls}-header-bordered {
-    th:not(:last-child) {
-      position: relative;
-
-      &:after {
-        position: absolute;
-        right: 0;
-        top: 50%;
-        transform: translate(0, -50%);
-        content: '';
-        display: block;
-        width: 1px;
-        height: 24px;
-        background: @gray-5;
-      }
-    }
-  }
-
-  // 紧凑型表格
-  &.@{tablePrefixCls}-small {
-    .@{tablePrefixCls} {
-      &-cell {
-        padding: @small-cell-padding;
-      }
-
-      th,
-      td {
-        padding: @small-cell-padding;
-      }
-
-      &-fixed {
-        padding: @small-cell-padding;
-      }
-    }
-  }
-
-  // 舒适型表格
-  &.@{tablePrefixCls}-large {
-    .@{tablePrefixCls} {
-      &-cell {
-        padding: @large-cell-padding;
-      }
-
-      th,
-      td {
-        padding: @large-cell-padding;
-      }
-
-      &-fixed {
-        padding: @large-cell-padding;
-      }
-    }
-  }
-}
+@import '../../style/index';
+@import './var';
 
 .@{tablePrefixCls} {
   height: 100%;
@@ -193,10 +72,6 @@
   &-cell {
     position: relative;
     min-width: 100px;
-
-    &:hover {
-      //background: @gray-3;
-    }
 
     .cloud-radio,
     .cloud-radio-wrapper {
@@ -278,17 +153,9 @@
         }
       }
     }
-  }
 
-  &-support-config {
-    .@{tablePrefixCls}-cell:last-of-type {
-      min-width: auto;
-    }
-  }
-
-  &-support-checkbox {
-    .@{tablePrefixCls}-cell:first-of-type {
-      min-width: auto;
+    .cloud-checkbox-wrapper {
+      margin-right: 0;
     }
   }
 
@@ -304,15 +171,6 @@
     .@{tablePrefixCls}-cell-fix-right-last::after {
       box-shadow: @border-shadow-right;
     }
-  }
-
-  // ================= Expand =================
-  &-expand-icon-col {
-    width: 40px;
-  }
-
-  &-row-expand-icon-cell {
-    text-align: center;
   }
 
   // ================= Header =================
@@ -361,8 +219,6 @@
       }
 
       .@{tablePrefixCls}-no-data {
-        margin-top: 124px;
-        margin-bottom: 124px;
 
         > p {
           margin-top: 2px;
@@ -430,11 +286,19 @@
     right: 0;
     bottom: 0;
     z-index: 1;
-    //border-right: @border;
     content: '';
   }
 
   // ================= Expand =================
+  &-expand-icon-col {
+    width: 40px;
+  }
+
+  &-row-expand-icon-cell {
+    min-width: auto;
+    text-align: center;
+  }
+
   &-expanded-row {
     .@{tablePrefixCls}-cell {
       padding: 24px 12px;
@@ -461,19 +325,55 @@
 
   &-expend-icon {
     display: inline-flex;
-    padding-right: 10px;
-    font-size: 12px;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 18px;
+    font-size: 14px;
     color: @gray-7;
     cursor: pointer;
     transition: all 0.3s;
 
+    &-expended {
+      transform: rotate(90deg);
+    }
+
     &-hide {
       visibility: hidden;
     }
+  }
 
-    &-expended {
-      transform: translate(-5px, 5px) rotate(90deg);
+  // ================= custom column =================
+
+  .@{tablePrefixCls}-config-column {
+    min-width: auto;
+  }
+
+  .@{tablePrefixCls}-checkbox-column {
+    min-width: auto;
+    position: relative;
+
+    .cloud-checkbox {
+      .absolute-center();
     }
+  }
+
+  .@{tablePrefixCls}-radio-column {
+    position: relative;
+
+    .cloud-radio {
+      .absolute-center();
+    }
+  }
+
+  .@{tablePrefixCls}-row-expand-column {
+    min-width: auto;
+    padding: 12px 6px;
+  }
+
+  .@{tablePrefixCls}-drag-column {
+    min-width: auto;
+    cursor: move;
   }
 
   // ================= Title ==================
@@ -531,116 +431,187 @@
 
   &-summary {
     border-top: @border;
-    border-left: @border;
+
+    tr td {
+      background: @gray-2;
+    }
   }
 
-  .sort-icon-container {
-    display: inline-flex;
-    flex-direction: column;
-    align-items: center;
-    cursor: pointer;
+  .title-container {
+    // 排序
+    .sort-icon-container {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
 
-    &:hover {
-      &:not(.cell-align-right):after {
-        position: absolute;
-        top: 15px;
-        right: 10px;
-        content: '';
-        display: inline-block;
-        width: 16px;
-        height: 16px;
-        background: @gray-4;
-        z-index: 0;
+      &:hover {
+        &:not(.cell-align-right):after {
+          position: absolute;
+          top: 50%;
+          transform: translate(0, -50%);
+          right: 11px;
+          content: '';
+          display: inline-block;
+          width: 16px;
+          height: 16px;
+          background: @gray-4;
+          z-index: 0;
+        }
       }
-    }
 
-    &.cell-align-right {
+      &.cell-align-right {
+        .sort-up-icon,
+        .sort-down-icon {
+          right: 0;
+        }
+      }
+
+      &.sort-asc {
+        .sort-up-icon {
+          color: @blue-4;
+        }
+      }
+
+      &.sort-desc {
+        .sort-down-icon {
+          color: @blue-4;
+        }
+      }
+
       .sort-up-icon,
       .sort-down-icon {
-        right: 0;
+        position: absolute;
+        right: 12px;
+        font-size: 14px;
+        color: @gray-7;
+        display: inline-block;
+        transform: scale(0.9);
+        z-index: 1;
       }
-    }
 
-    &.sort-asc {
       .sort-up-icon {
-        color: @blue-4;
+        top: calc(50% - 14px);
       }
-    }
 
-    &.sort-desc {
       .sort-down-icon {
+        top: calc(50% - 7px);
+      }
+    }
+
+    // 筛选
+    &.filter-container {
+      .sort-icon-container {
+        &:hover {
+          &:not(.cell-align-right):after {
+            right: 35px;
+          }
+        }
+        .sort-up-icon,
+        .sort-down-icon {
+          right: 36px;
+        }
+      }
+    }
+
+    .filter-icon {
+      position: absolute;
+      right: 14px;
+      top: 11px;
+      //top: 50%;
+      //transform: translate(0, -50%);
+      cursor: pointer;
+      color: @gray-7;
+
+      &:hover:before {
+        background: @gray-4;
+      }
+
+      &.has-filter-value {
         color: @blue-4;
       }
     }
-
-    .sort-up-icon,
-    .sort-down-icon {
-      position: absolute;
-      right: 12px;
-      font-size: 12px;
-      // todo@liyuan 透明色值bug
-      color: #898989;
-      display: inline-block;
-      transform: scale(0.9);
-      z-index: 1;
-    }
-
-    .sort-up-icon {
-      top: 11px;
-    }
-
-    .sort-down-icon {
-      top: 18px;
-    }
   }
 }
 
-.@{tablePrefixCls}-tooltip {
-  max-width: 300px;
+// 筛选
+.@{tablePrefixCls}-filter-content {
+  padding: 8px 0;
 
-  &-content {
-    display: flex;
-    flex-wrap: wrap;
-
-    > li {
-      width: 114px;
-      padding: 4px 10px;
-      .text-overflow-ellipsis;
-    }
-  }
-}
-
-.@{tablePrefixCls}-resizeable {
-  .react-resizable-handle {
-    height: 100%;
-    cursor: ew-resize;
-    background-image: initial;
-    width: 30px;
-    right: -15px;
-    z-index: 10;
+  &:after {
+    display: none;
   }
 
-  &:hover {
-    background: @gray-3;
+  &.cloud-tooltip.is-light {
+    box-shadow: @border-shadow-3;
   }
-}
 
-// 加载中
-.@{tablePrefixCls}-loading-layer {
-  .cloud-loading-container {
-    background: @color-white;
-    opacity: 0.7;
-  }
-}
+  &.show-filter-btn {
+    .cloud-popover {
+      position: relative;
 
-//解决表头滚动问题（rcTable bug）
-.@{tablePrefixCls}-use-custom-scroll {
-  .@{tablePrefixCls}-thead {
-    th:last-of-type {
-      &.@{tablePrefixCls}-cell-fix-right,
-      &.@{tablePrefixCls}-cell-scrollbar {
-        display: none !important;
+      &::after {
+        position: absolute;
+        display: block;
+        bottom: -7px;
+        content: '';
+        width: 100%;
+        height: 1px;
+        background: #e8e8e8;
       }
+    }
+  }
+
+  .cloud-popover {
+    .cloud-popover-btn {
+      padding-right: 12px;
+
+      > button {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .cloud-checkbox {
+    width: calc(100% - 12px);
+    height: 32px;
+    line-height: 32px;
+    padding-left: 12px;
+    margin-top: -1px;
+    overflow: hidden;
+
+    &.last-filter-item {
+      margin-bottom: 0;
+    }
+
+    &.cloud-checkbox-checked:not(.cloud-checkbox-disabled) {
+      background: @indigo-2;
+
+      &:hover {
+        background: @indigo-2;
+      }
+    }
+
+    &:hover:not(.cloud-checkbox-disabled) {
+      background: @indigo-1;
+    }
+  }
+
+  .cloud-button {
+    height: 28px !important;
+
+    &.normal {
+      margin-left: 0;
+    }
+  }
+
+  //noinspection CssInvalidPropertyValue
+  .cloud-popover-desc {
+    max-height: 250px;
+    overflow-y: overlay;
+
+    &::-webkit-scrollbar {
+      width: 8px !important;
     }
   }
 }

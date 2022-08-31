@@ -1,17 +1,17 @@
 ---
 order: 4
 title: CTable
-desc: 动态设置表格尺寸
+desc: 固定列
 ---
 
 ```jsx
 
 /**
- * title: 动态设置表格尺寸
- * desc: 动态设置表格尺寸
+ * title: 固定列
+ * desc: 固定列
  */
-import React, { useState } from 'react';
-import { CTable, Button } from 'cloud-react';
+import React, { useState, useRef } from 'react';
+import { CTable, Button, Select, Radio, Checkbox } from 'cloud-react';
 
 const data = [
     { id: '121410327', name: '手机号优先继续发送1', createTime: '2021/12/14 10:19:02', creator: 'liyuan.meng', approver: 'admin', status: '执行完成' },
@@ -36,11 +36,11 @@ const columns = [
     { 
         title: '操作',
         dataIndex: 'operator',
-        render: () => (
+        render: (v, row) => (
             <div>
-                <Button type="link" size="small">编辑</Button>
-                <Button type="link" size="small">查看报告</Button>
-                <Button type="link" size="small" colorType="danger">删除</Button>
+                <Button disabled={row.id === '121410327'} type="link" size="small" style={{ padding: '0px 11px 0 0' }}>编辑</Button>
+                <Button type="link" size="small" style={{ padding: '0 11px' }}>查看报告</Button>
+                <Button disabled={row.id === '121410327'} type="link" size="small" colorType="danger" style={{ padding: '0 11px' }}>删除</Button>
             </div>
         ),
         width: 300,
@@ -49,26 +49,48 @@ const columns = [
 ];
 
 export default function CTableDemo() {
-  const btnHeight = 47;
-    const [style, setStyle] = useState({ width: '100%', height: `calc(100% - ${btnHeight}px)` });
+    const tableRef = useRef();
+    const [size, setSize] = useState('default');
+    const [valid, setValid] = useState(false);
+    const [isReloadGrid, setIsReloadGrid] = useState(true);
+
 	return (
-        <div style={{ height: 500 }}>
-          <Button style={{ marginRight: 15 }} onClick={() => {
-            setStyle({ width: 'calc(100% - 30px)', height: `calc(100% - ${btnHeight}px - 30px)` })
-          }}>改变表格尺寸</Button>
-          <Button onClick={() => {
-            setStyle({ width: '100%', height: `calc(100% - ${btnHeight}px)` })
-          }}>重置表格尺寸</Button>
+        <div>
+          <Radio.Group value={size} onChange={setSize}>
+            <Radio value="default">基础型表格</Radio>
+            <Radio value="large">舒适型表格</Radio>
+            <Radio value="small">紧凑型表格</Radio>
+          </Radio.Group>
+          <br/>
+          <Button style={{ marginRight: 20, marginTop: 10 }} onClick={() => {
+            if (valid) {
+              tableRef.current.setColumn(columns, isReloadGrid);
+              setValid(false);
+              return;
+            }
+            const columnData = [...columns];
+            columnData.splice(-1, 2);
+            tableRef.current.setColumn(columnData, isReloadGrid);
+            setValid(true);
+          }}>{valid ? '重置表格列' : '删除最后一列'}</Button>
+          <Checkbox checked={isReloadGrid} onChange={checked => {
+            setIsReloadGrid(checked);
+          }}>设置列后，是否需要刷新表格</Checkbox>
           <CTable
-            style={{ ...style, marginTop: 15 }}
-            useCustomScroll={false}
+            style={{ height: 500, marginTop: 20 }}
+            ref={tableRef}
+            // useCustomScroll={false}
+            size={size}
             supportPage
-            isDelay
+            supportCheckbox
             columnData={columns}
-            ajaxData={{ totals: data.length, data }}
-            pageOpts={{ onChange: () => {
-                console.log(11);
-              } }}
+            ajaxData={(params) => {
+              return new Promise(resolve => {
+                setTimeout(() => {
+                  resolve({ totals: data.length, data: JSON.parse(JSON.stringify(data.slice(params.pageSize * (params.pageNum - 1), params.pageSize * params.pageNum))) })
+                }, 500);
+              });
+            }}
           />
         </div>
 	);
