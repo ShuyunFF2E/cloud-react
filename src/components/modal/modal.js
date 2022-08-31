@@ -305,7 +305,7 @@ class Notification extends Component {
       showMask,
       okText,
       cancelText,
-      okBtnOpts, 
+      okBtnOpts,
       cancelBtnOpts,
       clickMaskCanClose,
       showConfirmLoading,
@@ -378,7 +378,11 @@ class Notification extends Component {
                 title={title}
               />
 
-              <ModalBody type={type} style={{ ...bodyStyle }}>
+              <ModalBody
+                type={type}
+                style={{ ...bodyStyle }}
+                hasFooter={hasFooter}
+              >
                 {children}
               </ModalBody>
 
@@ -449,7 +453,7 @@ function ModalHeader({ type, title, onClose, onReset, ...props }) {
   );
 }
 
-function ModalBody({ type, style, children }) {
+function ModalBody({ type, style, children, hasFooter }) {
   return (
     <section
       className={classnames(
@@ -457,7 +461,7 @@ function ModalBody({ type, style, children }) {
           type === 'modal'
             ? `${prefixCls}-modal-size`
             : `${prefixCls}-modal-confirm-size`
-        }`,
+        } ${!hasFooter ? `${prefixCls}-modal-no-footer` : ''}`,
       )}
       style={style}
     >
@@ -495,13 +499,10 @@ function ModalFooter({
     onReset();
     onCancel();
   };
-  const footerClass = classnames(
-    `${prefixCls}-modal-footer`,
-    {
-      [`${prefixCls}-modal-border`]:  type !== 'modal',
-      [ `${prefixCls}-modal-footer-default`]: !(hasFooter && footer)
-    }
-  );
+  const footerClass = classnames(`${prefixCls}-modal-footer`, {
+    [`${prefixCls}-modal-border`]: type !== 'modal',
+    [`${prefixCls}-modal-footer-default`]: !(hasFooter && footer),
+  });
   const confirmClass = classnames(`${prefixCls}-modal-confirm-btn`);
   if (!hasFooter) {
     return null;
