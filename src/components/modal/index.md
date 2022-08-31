@@ -33,6 +33,8 @@ group:
 | onCancel           | 点击取消按钮时触发的回调                 | function            | -       |
 | okText             | 确定按钮自定义文本                       | string              | `确定`  |
 | cancelText         | 取消按钮自定义文本                       | string              | `取消`  |
+| okBtnOpts        | 确定按钮自定义配置                       | object              | -       |
+| cancelBtnOpts    | 取消按钮自定义配置                       | object              | -       |
 | showMask           | 是否显示遮罩层                           | boolean             | `true`  |
 | clickMaskCanClose  | 点击遮罩层是否关闭, showMask 必须为 true | boolean             | `true`  |
 | showConfirmLoading | 点击确定是否显示 loading，用于异步关闭   | boolean             | `false` |
@@ -74,7 +76,7 @@ Modal.warning(config)
 
 <embed src="@components/modal/demos/confirm.md" /> 
 
-<embed src="@components/modal/demos/defineInfoStyle.md" /> 
+<!-- <embed src="@components/modal/demos/defineInfoStyle.md" />  -->
 
 <embed src="@components/modal/demos/async.md" /> 
 
@@ -88,7 +90,7 @@ Modal.warning(config)
 
 <embed src="@components/modal/demos/defineTpl.md" /> 
 
-<embed src="@components/modal/demos/iframe.md" /> 
+<!-- <embed src="@components/modal/demos/iframe.md" />  -->
 
 <embed src="@components/modal/demos/methodModal.md" /> 
 

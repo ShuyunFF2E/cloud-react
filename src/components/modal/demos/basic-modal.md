@@ -78,6 +78,8 @@ export default class ModalDemo extends React.Component {
 				</Button>
 				<Modal
 					title="异步关闭"
+					okBtnOpts={{ type: 'primary' }}
+					cancelBtnOpts={{ type: 'secondary' }}
 					size="medium"
 					visible={this.state.visible}
 					showMask={this.state.showMask}
@@ -100,9 +102,6 @@ export default class ModalDemo extends React.Component {
 								<Radio value={2}>女</Radio>
 								<Radio value={3}>未知</Radio>
 							</Radio.Group>
-						</Form.Item>
-						<Form.Item wrapperCol={{ offset: 4 }}>
-							<Button type="primary" onClick={this.showMessage}>提交</Button>
 						</Form.Item>
 					</Form>
 				</Modal>

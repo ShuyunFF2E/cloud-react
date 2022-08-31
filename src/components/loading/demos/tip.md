@@ -1,21 +1,20 @@
 ---
-order: 4
+order: 5
 title: 自定义描述文案
-desc: ''
+desc:
 ---
 
 ```jsx
-
-            /**
-             * title: 自定义描述文案
-             * desc: 
-             */
+/**
+ * title: 自定义描述文案
+ * desc:
+ */
 import React from 'react';
 import { Loading } from 'cloud-react';
 
 export default class LoadingDemo extends React.Component {
-	render() {
-		return <Loading tip="Loading加载提示" />;
-	}
+  render() {
+    return <Loading tip="Loading加载提示" />;
+  }
 }
 ```

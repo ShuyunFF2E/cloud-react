@@ -104,7 +104,7 @@ export default class ModalDemo extends React.Component {
 				</Button>
 				{blank}
 				<Button type="primary" onClick={this.openErrorModal}>
-					错误提示弹出框
+					失败提示弹出框
 				</Button>
 				{blank}
 				<Button type="primary" onClick={this.openWarningModal}>

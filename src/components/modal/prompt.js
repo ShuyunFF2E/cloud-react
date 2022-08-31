@@ -145,6 +145,8 @@ class Prompt extends React.Component {
       style,
       okText,
       cancelText,
+      okBtnOpts,
+      cancelBtnOpts,
       title,
     } = this.props;
     const promptStyle = {
@@ -172,6 +174,8 @@ class Prompt extends React.Component {
           type={type}
           okText={okText}
           cancelText={cancelText}
+          okBtnOpts={okBtnOpts}
+          cancelBtnOpts={cancelBtnOpts}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
           bodyStyle={promptBodyStyle}
@@ -225,6 +229,8 @@ function prompt({
   style,
   okText,
   cancelText,
+  okBtnOpts,
+  cancelBtnOpts,
   title,
 }) {
   // 创建一个关联id
@@ -247,6 +253,8 @@ function prompt({
       isShowIcon={isShowIcon}
       okText={okText}
       cancelText={cancelText}
+      okBtnOpts={okBtnOpts}
+      cancelBtnOpts={cancelBtnOpts}
       onOk={onOk}
       onCancel={onCancel}
     />,

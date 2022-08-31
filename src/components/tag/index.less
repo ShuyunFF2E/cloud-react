@@ -5,7 +5,7 @@
 .disabled() {
   color: @gray-7;
   background: @gray-3;
-  border: 1px solid @gray-4;
+  border: 1px solid @gray-3;
 }
 
 .theme-style(@backgourdColor, @color) {
@@ -49,7 +49,7 @@
   font-size: 12px;
   box-sizing: border-box;
   color: @gray-9;
-  padding: 3px 8px;
+  padding: 2px 8px;
   margin-right: 8px;
   cursor: default;
   background: @gray-1;
@@ -67,7 +67,7 @@
   }
 
   &.closable {
-    padding-right: 28px;
+    padding-right: 24px;
     .tag-close-wrapper {
       display: flex;
       align-items: center;
@@ -78,33 +78,34 @@
     }
     .tag-close-icon {
       color: @gray-6;
-      font-size: 16px;
+      font-size: 7px;
       cursor: pointer;
     }
   }
 
   &.icon {
-    padding-left: 28px;
+    padding-left: 24px;
 
     .tag-icon {
       position: absolute;
       left: 8px;
-      font-size: 16px;
+      font-size: 8px;
     }
   }
 
   &.small {
     padding: 1px 4px;
+    line-height: 18px;
 
     &.closable {
-      padding-right: 24px;
-      .tag-close-icon {
+      padding-right: 20px;
+      .tag-close-wrapper {
         right: 4px;
       }
     }
 
     &.icon {
-      padding-left: 24px;
+      padding-left: 20px;
 
       .tag-icon {
         left: 4px;
@@ -137,9 +138,9 @@
   // 不同状态、不同颜色
   &.disabled {
     .disabled();
-    &:hover {
-      .disabled();
-    }
+    // &:hover {
+    //   .disabled();
+    // }
     &.checked {
       background: @blue-2;
       border-color: @blue-2;
@@ -178,7 +179,7 @@
       .close-style(@red-3, @red-5, @red-6);
     }
   }
-
+  &.primary,
   &.blue {
     .theme-style(@blue-1, @blue-5);
     &.disabled {
@@ -201,6 +202,9 @@
     .theme-style(@gray-3, @gray-8);
     &.disabled {
       .color-disabled(@gray-7, @gray-3);
+    }
+    .tag-close-icon {
+      .close-style(@gray-6, @gray-7, @gray-8);
     }
   }
 }
