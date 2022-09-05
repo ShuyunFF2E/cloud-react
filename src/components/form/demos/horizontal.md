@@ -20,7 +20,7 @@ export default function FormHorizontalDemo() {
 				<div>固定名称</div>
 			</Form.Item>
 
-			<Form.Item label="密码" required help="一些提示信息...">
+			<Form.Item label="密码" required>
 				<Input style={{ width: '70%' }} type="password" placeholder="请输入密码..." />
 			</Form.Item>
 
