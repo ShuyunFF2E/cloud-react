@@ -6,10 +6,10 @@ desc:  topBottom 上下, leftRight 左右
 
 ```jsx
 
-            /**
-             * title: 步数控制样式
-             * desc: 两种样式，topBottom 上下，leftRight 左右。
-             */
+/**
+ * title: 步数控制样式
+ * desc: 两种样式，topBottom 上下，leftRight 左右。
+ */
 import React from 'react';
 import { Button, InputNumber } from 'cloud-react';
 

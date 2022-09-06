@@ -6,10 +6,10 @@ desc: 设置最小、最大行数或者直接由文本自适应， 固定行数
 
 ```jsx
 
-            /**
-             * title: 多行纯文本输入框
-             * desc: 设置最小、最大行数或者直接由文本自适应， 固定行数
-             */
+/**
+ * title: 多行纯文本输入框
+ * desc: 设置最小、最大行数或者直接由文本自适应， 固定行数
+ */
 import React, { useState } from 'react';
 import { Input, Button } from 'cloud-react';
 
@@ -21,7 +21,7 @@ export default function InputDemo() {
 	}
 
 	function onSetTextArea() {
-		setValue('1111\n2222\n3333\n4444\n5555');
+		setValue('文本内容');
 	}
 
 	function onResetTextArea() {
@@ -30,22 +30,22 @@ export default function InputDemo() {
 
 	return (
 		<div>
-			<Input.Textarea placeholder="basic textarea" style={{ width: 400 }} autoSize maxLength={10} hasCounter />
+			<Input.Textarea placeholder="请输入文案，最多10个字符" style={{ width: 400 }} autoSize maxLength={10} hasCounter />
 			<br />
-			<Input.Textarea placeholder="rows: 4" rows={4} />
+			<Input.Textarea placeholder="请输入文案，高度最小3行，最大5行" rows={4} />
 			<br />
-			<Input.Textarea placeholder="autoSize & minRows: 2" autoSize minRows={2} />
+			<Input.Textarea placeholder="请输入文案，高度可自适应" autoSize minRows={2} />
 			<br />
-			<Input.Textarea placeholder="autoSize & minRows: 2 _ minRows: 4" autoSize minRows={2} maxRows={4} />
-			<br />
-			<Input.Textarea value={value} onChange={onChange} placeholder="autoSize" autoSize />
-			<br />
-			<Button onClick={onSetTextArea} type="primary" size="small">
-				设置值
-			</Button>
-			<Button onClick={onResetTextArea} size="small" style={{ marginLeft: 10 }}>
-				清空
-			</Button>
+      <div className="row-flex-center">
+        <Input.Textarea value={value} onChange={onChange} placeholder="请输入文案" autoSize />
+        <Button onClick={onSetTextArea} type="primary" size="small" style={{ marginLeft: 10 }}>
+          设置值
+        </Button>
+        <Button onClick={onResetTextArea} size="small" style={{ marginLeft: 10 }}>
+          清空
+        </Button>
+      </div>
+
 		</div>
 	);
 }
