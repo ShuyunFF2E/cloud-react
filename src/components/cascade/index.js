@@ -7,7 +7,7 @@ import Icon from '../icon';
 import './index.less';
 
 function isValid(value){
-  return value || value === 0;
+  return value || value === 0; 
 }
 
 class Cascade extends Component {
@@ -21,7 +21,7 @@ class Cascade extends Component {
       const arr = props.value.includes(',') ? props.value.split(',') : [props.value];
       currentArr = this.getData(arr, JSON.parse(JSON.stringify(props.data)), []);
     }
-
+    
     this.state = {
       currentArr,
       container: props.container
@@ -33,9 +33,10 @@ class Cascade extends Component {
     const { props:{ idKey, childrenKey, pidKey } } = this;
     if(data[0] && data[0][childrenKey] && isValid(data[0][childrenKey][0][pidKey])){
       let result;
-      data.forEach(item=>{
-        const child = item[childrenKey];
-        result = child.find(i => {
+			for (let index = 0; index < data.length; index += 1) {
+				const item = data[index];
+				const child = item[childrenKey];
+				result = child.find(i => {
           if(i[idKey] === arr[0]){
             return true;
           }
@@ -43,10 +44,9 @@ class Cascade extends Component {
         });
         if(result){
           result.active = true;
-          return true;
+					break;
         }
-        return false;
-      });
+			}
       tar.push(data);
       return this.getData(arr.splice(1), JSON.parse(JSON.stringify(result[childrenKey] || [])), tar );
     }
@@ -81,7 +81,7 @@ class Cascade extends Component {
       currentItem = currentArr[index].find(item=>item[idKey] === id && item.active);
     }else{
       currentItem = currentArr[index].find(item=>item[idKey] === idParent)[childrenKey].find(item=>item[idKey] === id && item.active);
-    }
+    } 
     return currentItem;
   }
 
@@ -125,7 +125,7 @@ class Cascade extends Component {
     // 针对非对应项恢复未激活而对应项进行激活；
     const newArr = this.activeItem(id, index, idParent);
     currentArr[index] = newArr;
-
+     
     // 点击项有子级
     if(children && children.length){
       if(index === currentArr.length - 1){
@@ -142,20 +142,20 @@ class Cascade extends Component {
       // 点击无子级则根据是否纯展示来控制调用父级change事件且更新当前currentArr
       currentArr.splice(index + 1);
       this.setState({ currentArr });
-      //
+      // 
       if(!isOnlyShow && onChange){
         const arr = [];
         this.state.currentArr.forEach(item => {
           const childr = item[0][childrenKey];
           let x;
           if(childr && childr.length && isValid(childr[0][pidKey])){
-            item.forEach(i => {
-              if(i[childrenKey] && i[childrenKey].length){
+						for (let itemIndex = 0; itemIndex < item.length; itemIndex += 1) {
+							const i = item[itemIndex];
+							if(i[childrenKey] && i[childrenKey].length){
                 x = i[childrenKey].find(z => z.active);
-                return x;
+                break;
               }
-              return false;
-            })
+						}
           }else{
             x = item.find(i => i.active);
           }
@@ -167,7 +167,7 @@ class Cascade extends Component {
         onChange(...arr);
       };
     }
-  }
+  } 
 
   renderChild(data, index){
     if(!data) return null;
@@ -222,7 +222,7 @@ Cascade.propTypes = {
   visible: PropTypes.bool,
   isOnlyShow: PropTypes.bool,
   disabled: PropTypes.bool,
-  container: PropTypes.string.isRequired,
+  container: PropTypes.string.isRequired, 
   onClose: PropTypes.func,
   onChange: PropTypes.func,
   height: PropTypes.string,
