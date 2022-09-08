@@ -33,9 +33,10 @@ class Cascade extends Component {
     const { props:{ idKey, childrenKey, pidKey } } = this;
     if(data[0] && data[0][childrenKey] && isValid(data[0][childrenKey][0][pidKey])){
       let result;
-      data.find(item=>{
-        const child = item[childrenKey];
-        result = child.find(i => {
+			for (let index = 0; index < data.length; index += 1) {
+				const item = data[index];
+				const child = item[childrenKey];
+				result = child.find(i => {
           if(i[idKey] === arr[0]){
             return true;
           }
@@ -43,10 +44,9 @@ class Cascade extends Component {
         });
         if(result){
           result.active = true;
-          return true;
+					break;
         }
-        return false;
-      });
+			}
       tar.push(data);
       return this.getData(arr.splice(1), JSON.parse(JSON.stringify(result[childrenKey] || [])), tar );
     }
@@ -149,13 +149,13 @@ class Cascade extends Component {
           const childr = item[0][childrenKey];
           let x;
           if(childr && childr.length && isValid(childr[0][pidKey])){
-            item.find(i => {
-              if(i[childrenKey] && i[childrenKey].length){
+						for (let itemIndex = 0; itemIndex < item.length; itemIndex += 1) {
+							const i = item[itemIndex];
+							if(i[childrenKey] && i[childrenKey].length){
                 x = i[childrenKey].find(z => z.active);
-                return x;
+                break;
               }
-              return false;
-            })
+						}
           }else{
             x = item.find(i => i.active);
           }
