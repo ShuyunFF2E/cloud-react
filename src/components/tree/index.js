@@ -560,7 +560,7 @@ class Tree extends Component {
       this.onAddAction(id, name, level);
     } else {
       // 重命名
-      this.onRenameAction(id, name, nodeData);
+      this.onRenameAction(id, name, this.state.nodeData);
     }
   };
 
