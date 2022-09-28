@@ -1,7 +1,7 @@
 ---
 title: 介绍
 nav:
-  title: 指南
+  title: 文档
   path: /guide
 group:
   title: 介绍

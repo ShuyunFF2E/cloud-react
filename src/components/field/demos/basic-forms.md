@@ -142,24 +142,26 @@ export default class FormHorizontalDemo extends React.Component {
 					</Form.Item>
 
 					<Form.Item label="所属平台" required>
-						<Checkbox.Group
-							{...init('platform', {
-								rules: [
-									{ required: true, message: '所属平台必须选择一项' },
-									{
-										validator: (name, value, callback) => {
-											setTimeout(() => {
-												callback(value.length < 2 ? '所属平台必须选择两个以上' : '');
-											}, 300);
-										}
-									}
-								]
-							})}>
-							<Checkbox value={1}>淘宝</Checkbox>
-							<Checkbox value={2}>京东</Checkbox>
-							<Checkbox value={3}>苏宁</Checkbox>
-							<Checkbox value={4}>蘑菇街</Checkbox>
-						</Checkbox.Group>
+						<div style={{ marginTop: 6 }}>
+              <Checkbox.Group
+                {...init('platform', {
+                  rules: [
+                    { required: true, message: '所属平台必须选择一项' },
+                    {
+                      validator: (name, value, callback) => {
+                        setTimeout(() => {
+                          callback(value.length < 2 ? '所属平台必须选择两个以上' : '');
+                        }, 300);
+                      }
+                    }
+                  ]
+                })}>
+                <Checkbox value={1}>淘宝</Checkbox>
+                <Checkbox value={2}>京东</Checkbox>
+                <Checkbox value={3}>苏宁</Checkbox>
+                <Checkbox value={4}>蘑菇街</Checkbox>
+              </Checkbox.Group>
+            </div>
 					</Form.Item>
 
 					<Form.Item label="备注">

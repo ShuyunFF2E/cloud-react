@@ -336,7 +336,7 @@ class Input extends React.Component {
         <input
           {...props}
           {...commonProps}
-          style={{ padding: 0, height: 'auto' }}
+          style={{ padding: 0, height: 'auto', lineHeight: '20px' }}
           className={classnames(_className, size)}
         />
       </InputWrapper>

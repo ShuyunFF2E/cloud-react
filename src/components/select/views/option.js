@@ -9,12 +9,22 @@ import { selector } from './common';
 import '../index.less';
 
 export default function Option(props) {
-  const { disabled, isSelected, multiple, className, onChange, isSupportTitle, ...otherProps } = props;
+  const {
+    disabled,
+    isSelected,
+    multiple,
+    className,
+    onChange,
+    isSupportTitle,
+    ...otherProps
+  } = props;
 
-  const getTitle = arr => {
+  const getTitle = (arr) => {
     let title = '';
     if (isSupportTitle) {
-      title = Array.isArray(arr) ? arr.filter(item => typeof item === 'string').join('') : arr;
+      title = Array.isArray(arr)
+        ? arr.filter((item) => typeof item === 'string').join('')
+        : arr;
     }
     return title;
   };
@@ -24,46 +34,52 @@ export default function Option(props) {
 
     onChange(props);
   };
-  const classNames = classnames(`${selector}-option`, { disabled, selected: isSelected }, className);
+  const classNames = classnames(
+    `${selector}-option`,
+    { disabled, selected: isSelected },
+    className,
+  );
 
   if (multiple) {
-    const { value, showText, children } = otherProps;
-    const childrenType = typeof children === 'string';
+    const { value, children } = otherProps;
     return (
       <label className={classnames(classNames, `${selector}-multi-option`)}>
-        <Checkbox checked={isSelected} disabled={disabled} value={value} onChange={onChange}/>
-        {
-          childrenType ? <span title={getTitle(children)} dangerouslySetInnerHTML={{ __html: showText }}/> :
-            <span title={getTitle(children)}>{children}</span>
-        }
+        <Checkbox
+          checked={isSelected}
+          disabled={disabled}
+          value={value}
+          onChange={onChange}
+        />
+        <span title={getTitle(children)}>{children}</span>
       </label>
     );
   }
 
-  const { children, showText, ...others } = otherProps;
-  const childrenType = typeof children === 'string';
+  const { children, ...others } = otherProps;
+
   return useMemo(
     () => (
-      <div {...others} onClick={onOptionClick} className={classnames(classNames, `${selector}-option-single`)}>
-        {
-          childrenType ?
-            <span className={`${selector}-option-single-text`} title={getTitle(children)}
-                  dangerouslySetInnerHTML={{ __html: showText }}/> :
-            <span className={`${selector}-option-single-text`} title={getTitle(children)}>{children}</span>
-        }
-        {isSelected && <Icon type="finish" className={`${selector}-single-selected-icon`}/>}
+      <div
+        {...others}
+        onClick={onOptionClick}
+        className={classnames(classNames, `${selector}-multi-option`)}
+      >
+        <span title={getTitle(children)}>{children}</span>
+        {isSelected && (
+          <Icon type="finish" className={`${selector}-single-selected-icon`} />
+        )}
       </div>
     ),
-    [isSelected, showText]
+    [ isSelected ],
   );
 }
 
 Option.propTypes = {
   disabled: PropTypes.bool,
   isSupportTitle: PropTypes.bool,
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  value: PropTypes.oneOfType([ PropTypes.string, PropTypes.number ]),
   className: PropTypes.string,
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
 };
 
 Option.defaultProps = {
@@ -71,5 +87,5 @@ Option.defaultProps = {
   isSupportTitle: false,
   value: '',
   className: '',
-  onChange: noop
+  onChange: noop,
 };

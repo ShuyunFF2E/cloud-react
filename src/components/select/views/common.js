@@ -6,32 +6,37 @@ import Input from '../../input';
 
 export const selector = `${prefixCls}-select`;
 
-export const OptionsEmpty = ({ emptyRender, ...props }) => {
-	return (
-		<div className={`${selector}-empty-options`} {...props}>
-			{' '}
-			{emptyRender}{' '}
-		</div>
-	);
-};
+export const OptionsEmpty = ({ emptyRender, ...props }) => (
+  <div className={`${selector}-empty-options`} {...props}>
+    {emptyRender || (
+      <>
+        <img
+          src="https://brand-guide.shuyun.com/IAM/276d125f58c2.png"
+          alt="缺省"
+        />
+        暂无数据
+      </>
+    )}
+  </div>
+);
 
-export const OptionsSearch = ({ searchValue, onOptionsSearch, clearSearch, placeholder }) => {
-	return (
-		<div className={`${selector}-search`}>
-      <Input
-        value={searchValue}
-        placeholder={placeholder}
-        onChange={onOptionsSearch}
-        suffix={searchValue ? <Icon
-            type="close-fill-1"
-            className={`${selector}-search-icon`}
-            onClick={clearSearch}/>
-          :
-          <Icon type="search" className={`${selector}-search-icon`}
-          />}
-        className={`${selector}-search-input`}
-      />
-
-		</div>
-	);
-};
+export const OptionsSearch = ({
+  searchValue,
+  onOptionsSearch,
+  clearSearch,
+  placeholder,
+}) => (
+  <div className={`${selector}-search`}>
+    <Input
+      value={searchValue}
+      placeholder={placeholder}
+      onChange={onOptionsSearch}
+      className={`${selector}-search-input`}
+    />
+    <Icon
+      type="search"
+      className={classnames(`${selector}-search-icon`)}
+      onClick={clearSearch}
+    />
+  </div>
+);

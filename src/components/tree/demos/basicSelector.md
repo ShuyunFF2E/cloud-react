@@ -236,6 +236,34 @@ export default class TreeDemo extends React.Component {
 						children: []
 					}
 				]
+			},
+			{
+				id: 2,
+				name: '所有有',
+				children: [
+					{
+						id: 21,
+						name: '未分类',
+						pid: 2,
+						children: [
+							{
+								id: 211,
+								name: '未分类',
+								pid: 21,
+							},
+							{
+								id: 212,
+								name: '未分类',
+								pid: 21
+							}
+						]
+					},
+					{
+						id: 22,
+						name: '未分类',
+						pid: 2
+					},
+				]
 			}
 		];
 		return (

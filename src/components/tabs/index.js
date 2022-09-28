@@ -23,6 +23,7 @@ export default class Tabs extends PureComponent {
     mode: PropTypes.oneOf([ 'reset', 'remain' ]),
     style: PropTypes.object,
     step: PropTypes.number,
+    size: PropTypes.oneOf([ 'default', 'small' ]),
   };
 
   static defaultProps = {
@@ -36,6 +37,7 @@ export default class Tabs extends PureComponent {
     step: 0,
     onChange: noop,
     onClose: noop,
+    size: 'default',
   };
 
   constructor(props) {
@@ -156,7 +158,9 @@ export default class Tabs extends PureComponent {
 
   get activeTabsOffsetTop() {
     if (this.hasLineBar && (this.isVerticalLeft || this.isVerticalRight)) {
-      return this.activeEle ? this.activeEle.offsetTop : 0;
+      return this.activeEle
+        ? this.activeEle.offsetTop + this.activeEle.clientHeight * 0.25
+        : 0;
     }
     return 'auto';
   }
@@ -301,7 +305,7 @@ export default class Tabs extends PureComponent {
   };
 
   renderTabHeader(child, isActived) {
-    const { type, activeClassName } = this.props;
+    const { type, activeClassName, size } = this.props;
     const {
       disabled,
       closable,
@@ -317,6 +321,7 @@ export default class Tabs extends PureComponent {
     const className = cls(`${prefixCls}-tabs-item-${type}`, {
       [activeClassName]: !disabled && isActived,
       disabled,
+      [size]: type === 'capsule' || type === 'empty-capsule',
     });
 
     const getTabTpl = () => {

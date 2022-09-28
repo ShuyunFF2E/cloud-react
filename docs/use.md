@@ -1,11 +1,12 @@
 ---
 title: 快速上手
 nav:
-  title: 指南
+  title: 文档
   path: /guide
 group:
   title: 快速上手
   path: /use
+  order: 2
 ---
 
 ### 安装

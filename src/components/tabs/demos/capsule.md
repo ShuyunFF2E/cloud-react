@@ -24,23 +24,30 @@ export default class BasicTabsDemo extends Component {
                 <Tabs defaultActiveKey="eat" type="capsule" onChange={this.handleChange} step={500}>
                     <Tabs.Panel tab="选项normal" key="1" />
                     <Tabs.Panel tab="选项active" key="eat" />
-                    <Tabs.Panel tab="选项disabled" key="aaa" disabled>
-                        lalala
-                    </Tabs.Panel>
-                    <Tabs.Panel tab="选项normal" key="2">
-                        lalala
-                    </Tabs.Panel>
+                    <Tabs.Panel tab="选项disabled" key="aaa" disabled/>
+                    <Tabs.Panel tab="选项normal" key="2"/>
                 </Tabs>
                 <h4>胶囊样式二：</h4>
                 <Tabs defaultActiveKey="eat" type="empty-capsule" onChange={this.handleChange} step={500}>
                     <Tabs.Panel tab="选项normal" key="1" />
                     <Tabs.Panel tab="选项active" key="eat" />
-                    <Tabs.Panel tab="选项disabled" key="aaa" disabled>
-                        lalala
-                    </Tabs.Panel>
-                    <Tabs.Panel tab="选项normal" key="2">
-                        lalala
-                    </Tabs.Panel>
+                    <Tabs.Panel tab="选项disabled" key="aaa" disabled/>
+                    <Tabs.Panel tab="选项disabled" key="2"/>
+                </Tabs>
+                <h4>胶囊样式的大小控制：</h4>
+                <h5>样式1</h5>
+                <Tabs defaultActiveKey="eat" type="capsule" onChange={this.handleChange} step={500} size="small">
+                    <Tabs.Panel tab="选项normal" key="1" />
+                    <Tabs.Panel tab="选项active" key="eat" />
+                    <Tabs.Panel tab="选项disabled" key="aaa" disabled/>
+                    <Tabs.Panel tab="选项normal" key="2"/>
+                </Tabs>
+                <h5>样式2</h5>
+                <Tabs defaultActiveKey="eat" type="empty-capsule" onChange={this.handleChange} step={500} size="small">
+                    <Tabs.Panel tab="选项normal" key="1" />
+                    <Tabs.Panel tab="选项active" key="eat" />
+                    <Tabs.Panel tab="选项disabled" key="aaa" disabled/>
+                    <Tabs.Panel tab="选项normal" key="2"/>
                 </Tabs>
             </section>
 		);

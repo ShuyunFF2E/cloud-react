@@ -20,7 +20,7 @@ export default function FormHorizontalDemo() {
 
 	return (
 		<Form layout="horizontal" labelCol={{ span: 6 }}>
-			<Form.Item label="用户名">
+			<Form.Item label="用户名" description="这是一个描述">
 				<Input placeholder="请输入用户名" />
 			</Form.Item>
 
@@ -52,12 +52,14 @@ export default function FormHorizontalDemo() {
 			</Form.Item>
 
 			<Form.Item label="所属平台" required>
-				<Checkbox.Group>
-					<Checkbox value={1}>淘宝</Checkbox>
-					<Checkbox value={2}>京东</Checkbox>
-					<Checkbox value={3}>苏宁</Checkbox>
-					<Checkbox value={4}>蘑菇街</Checkbox>
-				</Checkbox.Group>
+        <div style={{ marginTop: 6 }}>
+          <Checkbox.Group>
+            <Checkbox value={1}>淘宝</Checkbox>
+            <Checkbox value={2}>京东</Checkbox>
+            <Checkbox value={3}>苏宁</Checkbox>
+            <Checkbox value={4}>蘑菇街</Checkbox>
+          </Checkbox.Group>
+        </div>
 			</Form.Item>
 
 			<Form.Item label="备注">
@@ -65,7 +67,7 @@ export default function FormHorizontalDemo() {
 			</Form.Item>
 
 			<Form.Item wrapperCol={{ offset: 6 }}>
-				<Button type="primary" style={{ marginRight: 10 }} onClick={onClick}>
+				<Button type="primary" style={{ marginRight: 16 }} onClick={onClick}>
 					提交
 				</Button>
 				<Button>重置</Button>

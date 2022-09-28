@@ -21,9 +21,26 @@ export default defineConfig({
   //   type: 'hash'
   // },
   // mfsu: {},
+  menus: {
+    '/standard': [
+      {
+        title: '数云基础组件规范',
+        path: '/standard/basic',
+        children: [
+          '/standard/basic',
+          '/standard/basic/philosophy',
+          '/standard/basic/style',
+        ],
+      },
+    ],
+  },
   navs: [
     {
-      title: '指南',
+      title: '设计',
+      path: '/standard',
+    },
+    {
+      title: '文档',
       path: '/guide',
     },
     {

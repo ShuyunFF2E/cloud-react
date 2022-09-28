@@ -6,6 +6,9 @@
 @defaultHeight: 40px; // tab 页默认高度
 @defaultLineHeight: 38px;
 
+@smallHeight: 32px; // tab 页small高度
+@smallLineHeight: 30px;
+
 @lineTabHeight: 48px; // 类型为 line 的 tab 页高度
 
 .flexCenter {
@@ -48,6 +51,9 @@
 
   .icon {
     font-size: 14px;
+  }
+  .icon:hover {
+    color: @color-blue5;
   }
 }
 
@@ -129,6 +135,9 @@
 
       &.fixed-has-more-icon {
         left: 30px;
+        .cloud-tabs-item-card:last-child {
+          border-top-right-radius: 0;
+        }
       }
     }
   }
@@ -142,6 +151,9 @@
       background: @color-white;
       border-bottom-color: @color-white;
       color: @blue-4;
+      i {
+        color: @gray-7!important;
+      }
     }
 
     &:not(:first-child) {
@@ -256,7 +268,7 @@
         }
 
         .@{selector}-item-bar {
-          height: @lineTabHeight;
+          height: 24px;
           transition: top 0.3s;
         }
       }
@@ -319,6 +331,7 @@
 
           &.active {
             background: @blue-1;
+            border-radius: 2px;
           }
         }
       }
@@ -381,6 +394,11 @@
       .closable-wrapper .closable {
         display: inline-block;
       }
+    }
+
+    &.small {
+      height: @smallHeight;
+      line-height: @smallLineHeight;
     }
   }
 

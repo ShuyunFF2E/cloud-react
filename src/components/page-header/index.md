@@ -23,12 +23,12 @@ group:
 
  ### 基础
 
-<embed src="@components/pageHeader/demos/basic-page-header.md" /> 
+<embed src="@components/page-header/demos/basic-page-header.md" /> 
 
 ### 包含返回按钮
 
-<embed src="@components/pageHeader/demos/back-page-header.md" /> 
+<embed src="@components/page-header/demos/back-page-header.md" /> 
 
 ### 包含面包屑
 
-<embed src="@components/pageHeader/demos/breadcrumb-page-header.md" /> 
+<embed src="@components/page-header/demos/breadcrumb-page-header.md" /> 
