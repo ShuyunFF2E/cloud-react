@@ -151,7 +151,7 @@
       background: @scrollbar-thumb;
       border-radius: 4px;
       &:hover {
-        background: @gray-7
+        background: @gray-7;
       }
     }
     &::-webkit-scrollbar-track {
@@ -164,6 +164,10 @@
       /*右下角按钮样式*/
       background: @scrollbar-bg;
     }
+  }
+
+  &-no-footer {
+    border-radius: 0 0 @body-border-radius @body-border-radius;
   }
 
   &-confirm-size {

@@ -18,6 +18,7 @@ const { ColorIcon } = Icon;
 
 const iconList = {
 	basic: [
+		'guanbi',
 		'group-fill1',
 		'shop-fill',
 		'shop-line',

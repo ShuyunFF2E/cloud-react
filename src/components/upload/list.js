@@ -54,15 +54,13 @@ const TextItem = ({ item, disabled, onRemove }) => {
           )}
         </div>
         {!disabled && (
-          <div className={`${prefix}-delete`}>
-            <Icon
-              type="close"
-              style={{ fontSize: '14px' }}
-              onClick={() => {
-                onRemove(item);
-              }}
-            />
-          </div>
+          <Icon
+            type="close-fill"
+            className={`${prefix}-delete`}
+            onClick={() => {
+              onRemove(item);
+            }}
+          />
         )}
       </div>
     </Tooltip>
@@ -76,7 +74,7 @@ const Text = (props) => {
 
 const Picture = (props) => {
   const {
-    list, hasPreview, disabled, onRemove, onPreview, onReUpload
+    list, hasPreview, disabled, onRemove, onPreview, onReUpload,
   } = props;
 
   return list.map((item, index) => {
@@ -87,18 +85,18 @@ const Picture = (props) => {
       return (
         <Tooltip content="上传失败" key={item.id}>
           <div className={classes}>
-            <div style={{ backgroundImage: `url(${item.url})` }} className={`${prefix}-pic-image`} />
+            <div className={`${prefix}-pic-image`}>
+              <img src={item.url} alt="" />
+            </div>
             {!disabled && (
               <div className={`${prefix}-pic-icons`}>
-                <div className={`${prefix}-delete`}>
-                  <Icon
-                    type="close"
-                    style={{ fontSize: '14px' }}
-                    onClick={() => {
-                      onRemove(item);
-                    }}
-                  />
-                </div>
+                <Icon
+                  type="close-fill"
+                  className={`${prefix}-delete`}
+                  onClick={() => {
+                    onRemove(item);
+                  }}
+                />
               </div>
             )}
           </div>
@@ -107,7 +105,9 @@ const Picture = (props) => {
     }
     return (
       <div key={item.id} className={classes}>
-        <div style={{ backgroundImage: `url(${item.url})` }} className={`${prefix}-pic-image`} />
+        <div className={`${prefix}-pic-image`}>
+          <img src={item.url} alt="" />
+        </div>
         <div className={`${prefix}-pic-icons`}>
           {hasPreview && (
             <Icon
@@ -127,15 +127,13 @@ const Picture = (props) => {
                   onReUpload({ ...item, index });
                 }}
               />
-              <div className={`${prefix}-delete`}>
-                <Icon
-                  type="close"
-                  style={{ fontSize: '14px' }}
-                  onClick={() => {
-                    onRemove(item);
-                  }}
-                />
-              </div>
+              <Icon
+                type="close-fill"
+                className={`${prefix}-delete`}
+                onClick={() => {
+                  onRemove(item);
+                }}
+              />
             </>
           )}
         </div>
@@ -146,7 +144,7 @@ const Picture = (props) => {
 
 function UploadList(props) {
   const {
-    fileList = [], type, hasPreview, disabled, onRemove, onPreview, onReUpload
+    fileList = [], type, hasPreview, disabled, onRemove, onPreview, onReUpload,
   } = props;
 
   const classes = classNames(`${prefix}`, {

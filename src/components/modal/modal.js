@@ -62,6 +62,8 @@ class Notification extends Component {
     showMask: true,
     okText: '确定',
     cancelText: '取消',
+    okBtnOpts: {},
+    cancelBtnOpts: {},
     clickMaskCanClose: true,
     showConfirmLoading: false,
     onOk: noop,
@@ -82,6 +84,8 @@ class Notification extends Component {
     footer: PropTypes.node,
     okText: PropTypes.string,
     cancelText: PropTypes.string,
+    okBtnOpts: PropTypes.object,
+    cancelBtnOpts: PropTypes.object,
     hasFooter: PropTypes.bool,
     onOk: PropTypes.func,
     onCancel: PropTypes.func,
@@ -301,6 +305,8 @@ class Notification extends Component {
       showMask,
       okText,
       cancelText,
+      okBtnOpts,
+      cancelBtnOpts,
       clickMaskCanClose,
       showConfirmLoading,
       onOk,
@@ -372,7 +378,11 @@ class Notification extends Component {
                 title={title}
               />
 
-              <ModalBody type={type} style={{ ...bodyStyle }}>
+              <ModalBody
+                type={type}
+                style={{ ...bodyStyle }}
+                hasFooter={hasFooter}
+              >
                 {children}
               </ModalBody>
 
@@ -383,6 +393,8 @@ class Notification extends Component {
                 onOk={onOk}
                 footer={footer}
                 okText={okText}
+                okBtnOpts={okBtnOpts}
+                cancelBtnOpts={cancelBtnOpts}
                 onReset={this.onReset}
                 onCancel={onCancel}
                 hasFooter={hasFooter}
@@ -441,7 +453,7 @@ function ModalHeader({ type, title, onClose, onReset, ...props }) {
   );
 }
 
-function ModalBody({ type, style, children }) {
+function ModalBody({ type, style, children, hasFooter }) {
   return (
     <section
       className={classnames(
@@ -449,7 +461,7 @@ function ModalBody({ type, style, children }) {
           type === 'modal'
             ? `${prefixCls}-modal-size`
             : `${prefixCls}-modal-confirm-size`
-        }`,
+        } ${!hasFooter ? `${prefixCls}-modal-no-footer` : ''}`,
       )}
       style={style}
     >
@@ -468,6 +480,8 @@ function ModalFooter({
   footer,
   okText,
   cancelText,
+  okBtnOpts,
+  cancelBtnOpts,
   hasFooter,
   showConfirmLoading,
   onCancel,
@@ -485,13 +499,10 @@ function ModalFooter({
     onReset();
     onCancel();
   };
-  const footerClass = classnames(
-    `${prefixCls}-modal-footer`,
-    {
-      [`${prefixCls}-modal-border`]:  type !== 'modal',
-      [ `${prefixCls}-modal-footer-default`]: !(hasFooter && footer)
-    }
-  );
+  const footerClass = classnames(`${prefixCls}-modal-footer`, {
+    [`${prefixCls}-modal-border`]: type !== 'modal',
+    [`${prefixCls}-modal-footer-default`]: !(hasFooter && footer),
+  });
   const confirmClass = classnames(`${prefixCls}-modal-confirm-btn`);
   if (!hasFooter) {
     return null;
@@ -518,6 +529,7 @@ function ModalFooter({
         size="large"
         disabled={showConfirmLoading}
         onClick={cancel}
+        {...cancelBtnOpts}
       >
         {cancelText}
       </Button>
@@ -528,6 +540,7 @@ function ModalFooter({
         disabled={showConfirmLoading || disabledOk}
         onClick={ok}
         loading={showConfirmLoading}
+        {...okBtnOpts}
       >
         {okText}
       </Button>

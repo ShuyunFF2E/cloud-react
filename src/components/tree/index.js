@@ -375,9 +375,9 @@ class Tree extends Component {
    * @param id
    * @param newValue
    */
-  onRenameAction = (id, newValue) => {
+  onRenameAction = (id, newValue, node) => {
     const { onRenameNode } = this.props;
-    onRenameNode(id, newValue)
+    onRenameNode(id, newValue, node)
       .then(() => {
         const treeData = store.renameChildNode(
           this.state.treeData,
@@ -561,7 +561,7 @@ class Tree extends Component {
       this.onAddAction(id, name, level);
     } else {
       // 重命名
-      this.onRenameAction(id, name);
+      this.onRenameAction(id, name, nodeData);
     }
   };
 

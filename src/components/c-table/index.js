@@ -65,6 +65,7 @@ class CTable extends Component {
     this.column = new Column(this);
   }
 
+
   componentDidMount() {
     if (
       (this.props.supportExpend || this.props.supportTree) &&
