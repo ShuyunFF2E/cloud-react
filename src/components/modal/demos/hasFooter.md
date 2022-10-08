@@ -12,12 +12,14 @@ desc: 设置hasFooter控制底部区域显示/隐藏
              */
 import React from 'react';
 import { Button, Modal } from 'cloud-react';
+import getQueryString from './query.js';
 
 const blank = '\u00A0';
 
 export default class ModalDemo extends React.Component {
 	constructor(props) {
 		super(props);
+		this.showType = getQueryString('showType') || 'top';
 		this.state = {
 			visible: false,
 			hasFooter: true
@@ -63,6 +65,7 @@ export default class ModalDemo extends React.Component {
 				</Button>
 				<br />
 				<Modal
+					showType={this.showType}
 					visible={this.state.visible}
 					hasFooter={this.state.hasFooter}
 					onOk={this.handleOk}

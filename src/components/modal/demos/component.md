@@ -12,10 +12,12 @@ desc: 在modal中使用其他组件
              */
 import React from 'react';
 import { Button, Modal, Message, Select, Tabs, Table } from 'cloud-react';
+import getQueryString from './query.js';
 
 export default class ModalDemo extends React.Component {
 	constructor(props) {
 		super(props);
+		this.showType = getQueryString('showType') || 'top';
 		this.state = {
 			visible: false
 		};
@@ -80,6 +82,7 @@ export default class ModalDemo extends React.Component {
 				</Button>
 				<Modal
 					title="basic title"
+					showType={this.showType}
 					bodyStyle={modalStyle}
 					visible={this.state.visible}
 					onOk={this.handleOk}

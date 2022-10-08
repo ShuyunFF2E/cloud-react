@@ -12,17 +12,20 @@ desc: 弹出一个信息提示框
              */
 import React from 'react';
 import { Button, Modal } from 'cloud-react';
+import getQueryString from './query.js';
 
 const blank = '\u00A0';
 
 export default class ModalDemo extends React.Component {
 	constructor(props) {
 		super(props);
+		this.showType = getQueryString('showType') || 'top';
 	}
 
 	// 默认弹出框
 	openInfoModal = () => {
 		Modal.info({
+			showType: this.showType,
 			body: 'something you can write here',
 			onCancel: () => {}
 		});
@@ -30,6 +33,7 @@ export default class ModalDemo extends React.Component {
 
 	openSuccessModal = () => {
 		Modal.success({
+			showType: this.showType,
 			title: 'this is a success message!',
 			body: 'something you can write here',
 			onCancel: () => {}
@@ -38,6 +42,7 @@ export default class ModalDemo extends React.Component {
 
 	openWarningModal = () => {
 		Modal.warning({
+			showType: this.showType,
 			body: 'something you can write here',
 			onCancel: () => {}
 		});
@@ -45,6 +50,7 @@ export default class ModalDemo extends React.Component {
 
 	openErrorModal = () => {
 		Modal.error({
+			showType: this.showType,
 			body: 'something you can write here',
 			onCancel: () => {}
 		});
@@ -53,6 +59,7 @@ export default class ModalDemo extends React.Component {
 	openJSXModal = () => {
 		const dom = <p>hello world, this is a p element</p>;
 		Modal.info({
+			showType: this.showType,
 			isShowIcon: false,
 			body: dom,
 			onCancel: () => {}
@@ -62,6 +69,7 @@ export default class ModalDemo extends React.Component {
 	openNoIconModal = () => {
 		const dom = <p>hello world, there is no icon</p>;
 		Modal.info({
+			showType: this.showType,
 			isShowIcon: false,
 			body: dom,
 			onCancel: () => {}
@@ -70,6 +78,7 @@ export default class ModalDemo extends React.Component {
 
 	openDefineIconModal = () => {
 		Modal.info({
+			showType: this.showType,
 			icon: 'flag-solid',
 			body: 'this is a defined icon',
 			onCancel: () => {}
@@ -78,6 +87,7 @@ export default class ModalDemo extends React.Component {
 
 	openDefineIconStyleModal = () => {
 		Modal.info({
+			showType: this.showType,
 			icon: 'flag-solid',
 			iconStyle: { color: '#aaa' },
 			body: 'this is a defined icon',

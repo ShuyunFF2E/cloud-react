@@ -12,6 +12,7 @@ desc: 使用createModal方法创建一个弹出框，open方法打开
              */
 import React from 'react';
 import { Button, Modal } from 'cloud-react';
+import getQueryString from './query.js';
 
 export default class ModalDemo extends React.Component {
 	// 弹出框
@@ -35,9 +36,14 @@ export default class ModalDemo extends React.Component {
 }
 
 class SecondModal extends React.Component {
+	constructor(props) {
+		super(props);
+		this.showType = getQueryString('showType') || 'top';
+	}
 	// 确认按钮回调函数
 	handleOk = () => {
 		Modal.confirm({
+			showType: this.showType,
 			body: '即将打开一个内部嵌套的modal，是否打开？',
 			onOk: () => {
 				new Promise(resolve => {
@@ -65,7 +71,12 @@ class SecondModal extends React.Component {
 			className: 'test'
 		};
 		return (
-			<Modal visible {...attr} onOk={this.handleOk} onClose={this.handleClose} onCancel={this.handleClose}>
+			<Modal visible
+				showType={this.showType} 
+				{...attr} 
+				onOk={this.handleOk} 
+				onClose={this.handleClose} 
+				onCancel={this.handleClose}>
 				这是一个通过createModal方法创建的modal，接受字符串、html、JSX
 			</Modal>
 		);
@@ -73,11 +84,12 @@ class SecondModal extends React.Component {
 }
 
 function modalEntity(props) {
+	const showType = getQueryString('showType') || 'top';
 	const handleOk = () => {
 		props.onOk('你关闭了一个函数式组件');
 	};
 	return (
-		<Modal visible title="打开一个嵌套的函数组件" onOk={handleOk}>
+		<Modal visible showType={showType} title="打开一个嵌套的函数组件" onOk={handleOk}>
 			这是内部嵌套的一个modal，高级组件
 		</Modal>
 	);

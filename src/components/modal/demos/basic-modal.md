@@ -12,12 +12,14 @@ desc: 使用modal打开基本对话框，点击遮罩区域关闭对话框
              */
 import React from 'react';
 import { Button, Modal, Select, Datepicker, Form, Message } from 'cloud-react';
+import getQueryString from './query.js';
 
 const blank = '\u00A0';
 
 export default class ModalDemo extends React.Component {
 	constructor(props) {
 		super(props);
+		this.showType = getQueryString('showType') || 'top';
 		this.state = {
 			visible: false
 		};
@@ -88,6 +90,7 @@ export default class ModalDemo extends React.Component {
 				</Button>
 				<Modal
 					title="basic title"
+					showType={this.showType}
 					visible={this.state.visible}
 					showMask={this.state.showMask}
 					clickMaskCanClose={this.state.clickMaskCanClose}

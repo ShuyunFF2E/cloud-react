@@ -12,10 +12,12 @@ desc: 在modal组件中进行数据传输
              */
 import React from 'react';
 import { Button, Modal } from 'cloud-react';
+import getQueryString from './query.js';
 
 export default class ModalDemo extends React.Component {
 	constructor(props) {
 		super(props);
+		this.showType = getQueryString('showType') || 'top';
 		this.state = {
 			visible: false,
 			content: 'hello world, I come from outside'
@@ -51,7 +53,12 @@ export default class ModalDemo extends React.Component {
 				<Button type="primary" onClick={this.openComplexModal}>
 					复杂演示
 				</Button>
-				<Modal visible={this.state.visible} onOk={this.handleOk} onClose={this.handleCancel} onCancel={this.handleCancel}>
+				<Modal 
+					showType={this.showType}
+					visible={this.state.visible}
+					onOk={this.handleOk} 
+					onClose={this.handleCancel} 
+					onCancel={this.handleCancel}>
 					this is a complex demo,you can click it
 					<br />
 					<br />

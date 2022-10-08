@@ -12,10 +12,12 @@ desc: 设置onOk、onCancel、onClose实现自定义回调函数
              */
 import React from 'react';
 import { Button, Modal } from 'cloud-react';
+import getQueryString from './query.js';
 
 export default class ModalDemo extends React.Component {
 	constructor(props) {
 		super(props);
+		this.showType = getQueryString('showType') || 'top';
 		this.state = {
 			visible: false,
 			content: ''
@@ -57,7 +59,11 @@ export default class ModalDemo extends React.Component {
 					自定义回调函数
 				</Button>
 				<br />
-				<Modal visible={this.state.visible} onOk={this.handleOk} onCancel={this.handleCancel} onClose={this.handleClose}>
+				<Modal visible={this.state.visible}
+					showType={this.showType}
+					onOk={this.handleOk} 
+					onCancel={this.handleCancel} 
+					onClose={this.handleClose}>
 					this is callback demo
 				</Modal>
 				<br />
