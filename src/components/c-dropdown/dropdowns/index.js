@@ -89,10 +89,11 @@ function Dropdown(props) {
 
   return (
     <RcDropdown
+      {...props}
+      prefixCls={`${prefixCls}-dropdowns`}
       alignPoint={alignPoint}
       trigger={triggerActions}
       overlay={renderOverlay}
-      animation="slide-up"
       visible={mergedOpen}
       onVisibleChange={onInnerVisibleChange}
       builtinPlacements={builtinPlacements}
