@@ -32,7 +32,7 @@ export default class DropdownDemo extends React.Component {
 	}
 
 	render() {
-        const style = { display: 'flex', gap: '10px 30px' };
+        const style = { display: 'flex', gap: '10px 30px', alignItems: 'center' };
         const overlay = (
             <Dropdown.Menu onClick={this.handleMenuClick}>
                 <Dropdown.Item icon={<Icon type="shop-line"/>} id="tenement">租户</Dropdown.Item>
@@ -43,11 +43,11 @@ export default class DropdownDemo extends React.Component {
 		return (
             <div>
                 <div style={style}>
+                    <span>常见样式</span>
                     <Dropdown.Button
                         overlay={overlay}
                         onClick={this.handleClick}
-                        type="primary"
-                        open>
+                        type="primary">
                         DropdownBtn
                     </Dropdown.Button>
                     <Dropdown.Button
@@ -58,6 +58,7 @@ export default class DropdownDemo extends React.Component {
                 </div>
                 <br/>
                 <div style={style}>
+                    <span>disabled</span>
                     <Dropdown.Button
                         overlay={overlay}
                         onClick={this.handleClick}
@@ -69,6 +70,27 @@ export default class DropdownDemo extends React.Component {
                         overlay={overlay}
                         onClick={this.handleClick}
                         disabled>
+                        DropdownBtn
+                    </Dropdown.Button>
+                </div>
+                <br/>
+                <div style={style}>
+                    <span>切换大小</span>
+                    <Dropdown.Button
+                        overlay={overlay}
+                        onClick={this.handleClick}>
+                        DropdownBtn
+                    </Dropdown.Button>
+                    <Dropdown.Button
+                        overlay={overlay}
+                        size="small"
+                        onClick={this.handleClick}>
+                        DropdownBtn
+                    </Dropdown.Button>
+                    <Dropdown.Button
+                        overlay={overlay}
+                        size="large"
+                        onClick={this.handleClick}>
                         DropdownBtn
                     </Dropdown.Button>
                 </div>
