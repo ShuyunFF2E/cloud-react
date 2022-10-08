@@ -60,7 +60,7 @@ class Upload extends Component {
     if (props.fileList && !ShuyunUtils.equal(fileList, prevState.prevFileList)) {
       return {
         fileList: [ ...fileList ],
-        prevFileList: [ ...fileList ] 
+        prevFileList: [ ...fileList ],
       };
     }
     return null;
@@ -73,7 +73,9 @@ class Upload extends Component {
   onClick = (e) => {
     const element = this.ref.current;
     if (!element || e?.target === element) return;
-    const { onClick, showBeforeConfirm, beforeConfirmBody, beforeConfirmConfig } = this.props;
+    const {
+      onClick, showBeforeConfirm, beforeConfirmBody, beforeConfirmConfig,
+    } = this.props;
 
     onClick().then(() => {
       if (!showBeforeConfirm) {
@@ -142,7 +144,7 @@ class Upload extends Component {
 
     onRemove({
       file,
-      fileList: [ ...this.state.fileList ]
+      fileList: [ ...this.state.fileList ],
     });
   };
 
@@ -231,7 +233,7 @@ class Upload extends Component {
 
     let isSizeInvalidate;
 
-    if (unit === 'M') {
+    if (unit === 'M' || unit === 'MB') {
       isSizeInvalidate = file.size / 1024 / 1024 > size;
     }
 
@@ -288,7 +290,7 @@ class Upload extends Component {
 
   post = (file) => {
     const {
-      action, headers, withCredentials, customRequest, unify, params
+      action, headers, withCredentials, customRequest, unify, params,
     } = this.props;
     const request = customRequest || defaultHttp;
     const { id } = file;
@@ -328,7 +330,7 @@ class Upload extends Component {
 
   renderUploadShow() {
     const {
-      type, children, labelText, isShowIcon, btnOptions, disabled
+      type, children, labelText, isShowIcon, btnOptions, disabled,
     } = this.props;
 
     if (children) return children;
@@ -348,7 +350,7 @@ class Upload extends Component {
 
   renderUpload() {
     const {
-      type, accept, disabled, multiple, className, limit
+      type, accept, disabled, multiple, className, limit,
     } = this.props;
     const { fileList } = this.state;
     const uploadDisabled = disabled || limit && limit > 1 && limit === fileList.length;
