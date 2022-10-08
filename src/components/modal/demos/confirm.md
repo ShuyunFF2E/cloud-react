@@ -12,12 +12,14 @@ desc: 使用confirm快捷弹出确认对话框
              */
 import React from 'react';
 import { Button, Modal } from 'cloud-react';
+import getQueryString from './query.js';
 
 const blank = '\u00A0';
 
 export default class ModalDemo extends React.Component {
 	constructor(props) {
 		super(props);
+		this.showType = getQueryString('showType') || 'top';
 		this.state = {
 			content: ''
 		};
@@ -31,6 +33,7 @@ export default class ModalDemo extends React.Component {
 
 	openConfirmModal = () => {
 		Modal.confirm({
+			showType: this.showType,
 			isShowIcon: false,
 			body: 'something you can write here',
 			onOk: () => {
@@ -46,6 +49,7 @@ export default class ModalDemo extends React.Component {
 
 	openCustomConfirmModal = () => {
 		Modal.confirm({
+			showType: this.showType,
 			okText: '好',
 			cancelText: '关闭',
 			body: '按钮的文案修改了'
@@ -55,6 +59,7 @@ export default class ModalDemo extends React.Component {
 	// 打开确认弹出框
 	openAsyncConfirmModal = () => {
 		Modal.confirm({
+			showType: this.showType,
 			body: 'this is a async demo，do you want to test it ？ if you want, please click the button',
 			onOk: () => {
 				return new Promise((resolve, reject) => {

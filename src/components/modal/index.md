@@ -21,6 +21,7 @@ group:
 | ------------------ | ---------------------------------------- | ------------------- | ------- |
 | visible            | 是否显示 modal 弹出框                    | boolean             | `false` |
 | title              | 弹出框的标题                             | string              | `title` |
+| showType           | iframe时，弹窗的透传模式，`top`, `current` | string              | `top`   |
 | modalStyle         | 设置弹出框样式                           | object              | -       |
 | bodyStyle          | 设置弹出框内容区域样式                   | object              | -       |
 | disabledOk         | 禁用确认按钮                             | boolean             | `false` |
@@ -44,19 +45,21 @@ group:
 
 包括：
 
--   Modal.confirm()
--   Modal.success()
--   Modal.error()
--   Modal.info()
--   Modal.warning()
+-   Modal.confirm(config)
+-   Modal.success(config)
+-   Modal.error(config)
+-   Modal.info(config)
+-   Modal.warning(config)
 
 以上均为函数，参数为 object，具体属性如下：
+以上均为函数，`config`参数为`object`，具体属性如下：
 
 | 方法名     | 说明                                          | 类型     | 默认值 |
 | ---------- | --------------------------------------------- | -------- | ------ |
 | isShowIcon | 是否显示提示信息前面的 icon                   | boolean  | `true` |
 | icon       | 提示信息前面 icon, 即 icon 组件中的 type 名称 | string   | `--`   |
 | iconStyle  | 提示信息前面 icon 的样式                      | object   | `--`   |
+| showType   | iframe时，弹窗的透传模式，`top`, `current` | string  | `top`   |
 | style      | 提示框的样式                                  | object   | `--`   |
 | body       | 提示信息内容, 支持 jsx 语法直接传入 dom 节点  | any      | `--`   |
 | okText             | 确定按钮自定义文本                       | string              | `确定`  |
@@ -87,6 +90,8 @@ group:
 <embed src="@components/modal/demos/hasFooter.md" /> 
 
 <embed src="@components/modal/demos/iframe.md" /> 
+
+<embed src="@components/modal/demos/iframe-current.md" /> 
 
 <embed src="@components/modal/demos/info.md" /> 
 
