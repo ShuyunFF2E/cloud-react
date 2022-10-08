@@ -33,7 +33,7 @@ export default class DropdownDemo extends React.Component {
 	}
 
 	render() {
-         const style = { display: 'flex', gap: '10px 30px', 'flex-wrap': 'wrap' };
+         const style = { display: 'flex', gap: '10px 30px', 'flexWrap': 'wrap' };
 		const overlay = (
             <Dropdown.Menu onClick={this.handleMenuClick}>
                 <Dropdown.Item icon={<Icon type="shop-line"/>} id="tenement">租户</Dropdown.Item>

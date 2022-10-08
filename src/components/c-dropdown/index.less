@@ -25,6 +25,8 @@
 
   width: fit-content;
 
+  z-index: 100;
+
   &:hover,
   &:focus,
   &:active {
@@ -111,6 +113,56 @@
   }
 }
 
-.rc-dropdown-arrow {
+.@{dropdown-prefix-cls}-arrow {
   z-index: -1;
+  position: absolute;
+  box-shadow: 0 1px 5px #ccc;
+  border: 4px solid transparent;
+  transform: rotate(45deg);
+}
+
+.@{dropdown-prefix-cls}-hidden {
+  display: none;
+}
+.@{dropdown-prefix-cls}-placement-bottom,
+.@{dropdown-prefix-cls}-placement-bottomLeft,
+.@{dropdown-prefix-cls}-placement-bottomRight {
+  .@{dropdown-prefix-cls}-arrow {
+    top: -5px;
+    border-bottom-color: #fff;
+  }
+}
+.@{dropdown-prefix-cls}-placement-top,
+.@{dropdown-prefix-cls}-placement-topLeft,
+.@{dropdown-prefix-cls}-placement-topRight {
+  .@{dropdown-prefix-cls}-arrow {
+    bottom: -5px;
+    border-top-color: #fff;
+  }
+}
+.@{dropdown-prefix-cls}-placement-bottomLeft,
+.@{dropdown-prefix-cls}-placement-topLeft {
+  .@{dropdown-prefix-cls}-arrow {
+    left: 15%;
+  }
+}
+.@{dropdown-prefix-cls}-placement-bottomRight,
+.@{dropdown-prefix-cls}-placement-topRight {
+  .@{dropdown-prefix-cls}-arrow {
+    right: 15%;
+  }
+}
+
+.@{dropdown-prefix-cls}-placement-bottom,
+.@{dropdown-prefix-cls}-placement-top {
+  .@{dropdown-prefix-cls}-arrow {
+    left: 50%;
+  }
+}
+
+.@{dropdown-prefix-cls}-slide-up-leave {
+  opacity: 0;
+}
+.@{dropdown-prefix-cls}-slide-up-enter {
+  opacity: 1;
 }

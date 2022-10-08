@@ -21,34 +21,34 @@
 @darkActive: rgba(255, 255, 255, 0.1);
 @titleBold: rgba(0, 0, 0, 0.85);
 
-  // 通用全局样式
-  .@{prefix}-cmenu-root{
-    box-shadow: none;
-    border: none;
-    height: 100%;
+// 通用全局样式
+.@{prefix}-cmenu-root {
+  box-shadow: none;
+  border: none;
+  height: 100%;
+}
+
+.@{prefix}-cmenu {
+  font-size: 14px;
+  line-height: 20px;
+  box-shadow: none;
+  user-select: none;
+  outline: none;
+  margin-bottom: 0;
+  padding-left: 0;
+  padding-right: 0;
+  list-style: none;
+  color: rgba(0, 0, 0, 0.65);
+  border-radius: 0;
+
+  .@{prefix}-cmenu-item.@{prefix}-cmenu-item-disabled {
+    cursor: not-allowed;
   }
-
-  .@{prefix}-cmenu{
-    font-size: 14px;
-    line-height: 20px;
-    box-shadow: none;
-    user-select: none;
-    outline: none;
-    margin-bottom: 0;
-    padding-left: 0;
-    padding-right: 0;
-    list-style: none;
-    color: rgba(0, 0, 0, 0.65);
-    border-radius: 0;
-
-    .@{prefix}-cmenu-item.@{prefix}-cmenu-item-disabled {
-      cursor: not-allowed;
-    }
-    a {
-		color: inherit;
-		display: inline-block;
-		width: 100%;
-		height: 100%;
+  a {
+    color: inherit;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
     &:link {
       text-decoration: none;
       font-weight: normal;
@@ -57,59 +57,61 @@
       text-decoration: none;
     }
     &:hover {
-        color: inherit;
-        text-decoration: none;
+      color: inherit;
+      text-decoration: none;
     }
     &:active {
-        text-decoration: none;
-    }
-  }}
-
-  .@{prefix}-cmenu-submenu-hidden {
-    display: none;
-  }
-
-  .@{prefix}-cmenu-hidden {
-    display: none;
-  }
-
-  .@{prefix}-cmenu-submenu-popup {
-    position: absolute;
-    z-index: 10000;
-  }
-
-  [role="menuitem"]{
-    cursor: pointer;
-  }
-
-  .@{prefix}-cmenu-submenu-arrow {
-    font-family: 'cloud-react-icon-font' !important;
-    &::before {
-      content: '\e624' !important;
+      text-decoration: none;
     }
   }
+}
 
-  .@{menuTitleIcon} {
-      .cloud-icon {
-        font-size: 14px !important;
-      }
-  }
+.@{prefix}-cmenu-submenu-hidden {
+  display: none;
+}
 
-  .@{prefix}-cmenu-item-selected {
-    background-color: @lightSelectedBg !important;
-    a {
-      color: @lightSelectedColor !important;
-    }
+.@{prefix}-cmenu-hidden {
+  display: none;
+}
+
+.@{prefix}-cmenu-submenu-popup {
+  position: absolute;
+  z-index: 10000;
+}
+
+[role='menuitem'] {
+  cursor: pointer;
+}
+
+.@{prefix}-cmenu-submenu-arrow {
+  font-family: 'cloud-react-icon-font' !important;
+  &::before {
+    content: '\e624' !important;
   }
-  .@{prefix}-cmenu-item-active {
-    a {
-      color: @lightSelectedColor !important;
-    }
+}
+
+.@{menuTitleIcon} {
+  .cloud-icon {
+    font-size: 14px !important;
   }
+}
+
+.@{prefix}-cmenu-item-selected {
+  background-color: @lightSelectedBg !important;
+  a {
+    color: @lightSelectedColor !important;
+  }
+}
+.@{prefix}-cmenu-item-active {
+  a {
+    color: @lightSelectedColor !important;
+  }
+}
 
 .@{prefix}-cmenu-inline-collapsed .@{prefix}-cmenu-submenu-popup {
   .@{prefix}-cmenu-submenu .@{prefix}-cmenu-submenu-title {
-    span,  .@{prefix}-cmenu-submenu-arrow{
+    span,
+    .@{prefix}-cmenu-submenu-arrow {
       display: inline-block;
     }
   }
@@ -136,7 +138,6 @@
   box-shadow: none;
 }
 
-
 .@{menuLink} {
   position: absolute;
   left: 0;
@@ -161,9 +162,9 @@
       box-sizing: border-box;
     }
   }
-  &.@{verticalHeader}{
+  &.@{verticalHeader} {
     .@{prefix}-cmenu-root.@{prefix}-cmenu-inline,
-    .@{prefix}-cmenu-root.@{prefix}-cmenu-vertical{
+    .@{prefix}-cmenu-root.@{prefix}-cmenu-vertical {
       height: calc(100% - 100px);
       overflow-y: auto;
       overflow-x: hidden;
@@ -174,9 +175,9 @@
       top: 0;
     }
   }
-  &.@{menuCollapsed}{
+  &.@{menuCollapsed} {
     .@{prefix}-cmenu-root.@{prefix}-cmenu-inline,
-    .@{prefix}-cmenu-root.@{prefix}-cmenu-vertical{
+    .@{prefix}-cmenu-root.@{prefix}-cmenu-vertical {
       height: calc(100% - 100px);
       overflow-y: auto;
       overflow-x: hidden;
@@ -189,7 +190,6 @@
     object-fit: contain;
   }
 }
-
 
 // mode === horizontal
 .@{prefix}-cmenu-horizontal {
@@ -208,14 +208,14 @@
   & > .@{prefix}-cmenu-submenu {
     margin-right: 32px;
     & > .@{prefix}-cmenu-submenu-title {
-    padding: 20px 25px 20px 2px;
-    margin-bottom: 0;
-  }
+      padding: 20px 25px 20px 2px;
+      margin-bottom: 0;
+    }
   }
   & > .@{prefix}-cmenu-item {
     padding: 20px 2px;
     margin-right: 32px;
-}
+  }
   i {
     margin-right: 9px;
   }
@@ -239,7 +239,7 @@
       padding: 6px 12px;
     }
     & > .@{prefix}-cmenu-submenu {
-      & > .@{prefix}-cmenu-submenu-title{
+      & > .@{prefix}-cmenu-submenu-title {
         padding: 6px 38px 6px 12px;
       }
     }
@@ -254,7 +254,8 @@
     color: @lightSelectedColor;
   }
 
- .@{prefix}-cmenu-item-active, .@{prefix}-cmenu-submenu-active{
+  .@{prefix}-cmenu-item-active,
+  .@{prefix}-cmenu-submenu-active {
     color: @lightSelectedColor;
     border-bottom-color: @lightSelectedColor;
     background-color: @lightColor;
@@ -272,16 +273,18 @@
 .@{menuDark} .@{prefix}-cmenu-horizontal {
   background-color: @darkColor;
   color: @lightColor;
-  .@{prefix}-cmenu-submenu-selected, .@{prefix}-cmenu-item-selected  {
+  .@{prefix}-cmenu-submenu-selected,
+  .@{prefix}-cmenu-item-selected {
     background-color: @darkColor !important;
     color: @lightSelectedColor;
   }
- .@{prefix}-cmenu-item-active, .@{prefix}-cmenu-submenu-active{
+  .@{prefix}-cmenu-item-active,
+  .@{prefix}-cmenu-submenu-active {
     color: @lightColor;
     border-bottom-color: @lightSelectedColor;
     background-color: @darkActive;
     & > .@{prefix}-cmenu-submenu-title {
-    background-color: @darkActive;
+      background-color: @darkActive;
     }
   }
   .@{prefix}-cmenu-item.@{prefix}-cmenu-item-disabled {
@@ -302,9 +305,8 @@
 
   &.@{prefix}-cmenu-root {
     width: 208px;
+    height: auto;
   }
-
-
 
   .@{prefix}-cmenu-submenu-arrow {
     transform: rotate(-270deg);
@@ -321,7 +323,9 @@
     transition: transform 0.3s;
   }
 
-  .@{prefix}-cmenu-submenu-open > .@{prefix}-cmenu-submenu-title .@{prefix}-cmenu-submenu-arrow {
+  .@{prefix}-cmenu-submenu-open
+    > .@{prefix}-cmenu-submenu-title
+    .@{prefix}-cmenu-submenu-arrow {
     transform: rotate(-90deg);
   }
 
@@ -350,7 +354,7 @@
     margin-bottom: 4px;
   }
 
-  [role="menuitem"]{
+  [role='menuitem'] {
     padding-top: 10px !important;
     padding-bottom: 10px !important;
     line-height: 20px !important;
@@ -379,13 +383,14 @@
 
   .@{prefix}-cmenu-submenu-arrow {
     transform: rotate(0deg) !important;
-}
+  }
   &.@{prefix}-cmenu-sub {
     min-width: 120px;
     padding: 8px;
     width: 100%;
     margin-top: 0;
-    box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.1), 0px 2px 8px 0px rgba(0, 0, 0, 0.04);
+    box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.1),
+      0px 2px 8px 0px rgba(0, 0, 0, 0.04);
     border-radius: 2px;
     box-sizing: border-box;
   }
@@ -394,7 +399,7 @@
     line-height: 20px;
   }
   & > .@{prefix}-cmenu-submenu {
-    & > .@{prefix}-cmenu-submenu-title{
+    & > .@{prefix}-cmenu-submenu-title {
       padding: 6px 38px 6px 12px;
     }
   }
@@ -403,7 +408,7 @@
     line-height: 20px;
   }
   & > .@{prefix}-cmenu-submenu {
-    & > .@{prefix}-cmenu-submenu-title{
+    & > .@{prefix}-cmenu-submenu-title {
       padding: 6px 38px 6px 24px;
     }
   }
@@ -411,7 +416,8 @@
 
 // ------------inline、vertical  theme---------------
 // ------------light------------
-.@{menuLight} .@{prefix}-cmenu-inline, .@{menuLight} .@{prefix}-cmenu-vertical{
+.@{menuLight} .@{prefix}-cmenu-inline,
+.@{menuLight} .@{prefix}-cmenu-vertical {
   // width: 208px;
   background-color: @lightColor;
   font-weight: normal;
@@ -426,7 +432,6 @@
     .@{menuTitleIcon} {
       color: @lightSelectedColor;
     }
-
   }
   .@{prefix}-cmenu-submenu-active {
     & > .@{prefix}-cmenu-submenu-title {
@@ -452,7 +457,8 @@
   }
 }
 // ------------dark------------
-.@{menuDark} .@{prefix}-cmenu-inline, .@{menuDark} .@{prefix}-cmenu-vertical{
+.@{menuDark} .@{prefix}-cmenu-inline,
+.@{menuDark} .@{prefix}-cmenu-vertical {
   // width: 208px;
   color: @lightColor;
   background-color: @darkColor;
@@ -466,7 +472,7 @@
   }
   .@{prefix}-cmenu-submenu-active {
     & > .@{prefix}-cmenu-submenu-title {
-    background-color: @darkActive;
+      background-color: @darkActive;
       color: @lightColor;
     }
   }
@@ -499,7 +505,7 @@
 }
 
 // 收起状态下menu
-.@{prefix}-cmenu-inline-collapsed{
+.@{prefix}-cmenu-inline-collapsed {
   width: 64px;
   transition: 0.5s;
   -moz-transition: 0.5s; /* Firefox 4 */
@@ -510,38 +516,41 @@
     width: 64px;
   }
 
-  .@{prefix}-cmenu-submenu .@{prefix}-cmenu-submenu-title .@{prefix}-cmenu-submenu-arrow{
+  .@{prefix}-cmenu-submenu
+    .@{prefix}-cmenu-submenu-title
+    .@{prefix}-cmenu-submenu-arrow {
     display: none;
   }
 
   .@{prefix}-cmenu-item,
-  .@{prefix}-cmenu-submenu .@{prefix}-cmenu-submenu-title{
+  .@{prefix}-cmenu-submenu .@{prefix}-cmenu-submenu-title {
     padding-left: 24px;
 
-    i:first-child{
+    i:first-child {
       margin-right: 0;
     }
   }
 }
 
 // 收起按钮
-.@{inlineCollapsed}{
+.@{inlineCollapsed} {
   position: absolute;
   bottom: 0;
   padding: 0 0 25px 32px;
   cursor: pointer;
   overflow: hidden;
   white-space: nowrap;
-  &:hover{
-    i, .text{
+  &:hover {
+    i,
+    .text {
       color: @lightSelectedColor;
     }
   }
-  i{
+  i {
     width: 14px;
     height: 14px;
   }
-  .text{
+  .text {
     overflow: hidden;
     margin-left: 13px;
     font-size: 14px;
@@ -551,25 +560,24 @@
 
 // ------------Collapsed  theme---------------
 .@{menuLight} .@{inlineCollapsed} {
-  i{
+  i {
     color: rgba(0, 0, 0, 0.45);
-    &:hover{
+    &:hover {
       color: @lightSelectedColor;
     }
   }
-  .text{
+  .text {
     color: rgba(0, 0, 0, 0.85);
   }
-
 }
 .@{menuDark} .@{inlineCollapsed} {
-  i{
+  i {
     color: @lightColor;
-    &:hover{
+    &:hover {
       color: @lightSelectedColor;
     }
   }
-  .text{
+  .text {
     color: @lightColor;
   }
 }
