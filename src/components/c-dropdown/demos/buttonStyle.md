@@ -8,7 +8,7 @@ desc: 基本用法。
 
 /**
  * title: 下拉菜单是按钮（新）
- * desc: 通过设置icon属性修改右边的图标
+ * desc: 按钮下拉菜单的基础用法
  */
 import React, { useState } from 'react';
 import { 
@@ -32,7 +32,7 @@ export default class DropdownDemo extends React.Component {
 	}
 
 	render() {
-        const style = { display: 'flex', gap: '10px 30px' };
+        const style = { display: 'flex', gap: '10px 30px', alignItems: 'center' };
         const overlay = (
             <Dropdown.Menu onClick={this.handleMenuClick}>
                 <Dropdown.Item icon={<Icon type="shop-line"/>} id="tenement">租户</Dropdown.Item>
@@ -43,11 +43,11 @@ export default class DropdownDemo extends React.Component {
 		return (
             <div>
                 <div style={style}>
+                    <span>常见样式</span>
                     <Dropdown.Button
                         overlay={overlay}
                         onClick={this.handleClick}
-                        type="primary"
-                        open>
+                        type="primary">
                         DropdownBtn
                     </Dropdown.Button>
                     <Dropdown.Button
@@ -58,6 +58,7 @@ export default class DropdownDemo extends React.Component {
                 </div>
                 <br/>
                 <div style={style}>
+                    <span>disabled</span>
                     <Dropdown.Button
                         overlay={overlay}
                         onClick={this.handleClick}
