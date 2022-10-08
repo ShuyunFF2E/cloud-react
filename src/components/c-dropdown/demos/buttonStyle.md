@@ -73,27 +73,6 @@ export default class DropdownDemo extends React.Component {
                         DropdownBtn
                     </Dropdown.Button>
                 </div>
-                <br/>
-                <div style={style}>
-                    <span>切换大小</span>
-                    <Dropdown.Button
-                        overlay={overlay}
-                        onClick={this.handleClick}>
-                        DropdownBtn
-                    </Dropdown.Button>
-                    <Dropdown.Button
-                        overlay={overlay}
-                        size="small"
-                        onClick={this.handleClick}>
-                        DropdownBtn
-                    </Dropdown.Button>
-                    <Dropdown.Button
-                        overlay={overlay}
-                        size="large"
-                        onClick={this.handleClick}>
-                        DropdownBtn
-                    </Dropdown.Button>
-                </div>
             </div>
 		);
 	}

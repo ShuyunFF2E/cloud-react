@@ -42,7 +42,6 @@ group:
 | icon | 右侧的 icon | ReactNode | - |
 | overlay | 菜单 | ReactNode| - |
 | placement | 菜单弹出位置：`bottom` `bottomLeft` `bottomRight` `top` `topLeft` `topRight` | string | `bottomLeft` |
-| size | 按钮大小，和 [Button](/cloud-react/common/button) 一致 | string | `default` |
 | trigger | 触发下拉的行为 | Array&lt;`click`\|`hover`> | \[`hover`] |
 | type | 按钮类型，和 [Button](/cloud-react/common/button) 一致 | string | `normal` |
 | open | 菜单是否显示 | boolean | - |
