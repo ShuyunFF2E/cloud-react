@@ -8,7 +8,7 @@ desc: 基本用法。
 
 /**
  * title: 下拉菜单是按钮（新）
- * desc: 通过设置icon属性修改右边的图标
+ * desc: 按钮下拉菜单的基础用法
  */
 import React, { useState } from 'react';
 import { 

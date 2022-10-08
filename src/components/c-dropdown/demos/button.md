@@ -42,36 +42,37 @@ export default class DropdownDemo extends React.Component {
             </Dropdown.Menu>
         );
 		return (
-            <div style={style}>
-                <Dropdown.Button
-                    overlay={overlay}
-					onClick={this.handleClick}>
-                    DropdownBtn
-                </Dropdown.Button>
-				<Dropdown.Button overlay={overlay} placement="topLeft" icon={<Icon type="user-fill"/>} onClick={this.handleClick}>
-					DropdownBtn
-				</Dropdown.Button>
-				<Dropdown.Button overlay={overlay} disabled onClick={this.handleClick}>
-					DropdownBtn
-				</Dropdown.Button>
-				<Dropdown.Button overlay={overlay} danger onClick={this.handleClick}>
-					DropdownBtn
-				</Dropdown.Button>
-				<Dropdown overlay={overlay} onClick={this.handleClick}>
-					<Button>
-						Button
-						<Icon type="down"/>
-					</Button>
-				</Dropdown>
-				<Dropdown.Button overlay={overlay} onClick={this.handleClick} buttonsRender={(leftBtn, rightBtn)  => (
-					[
-						<Tooltip content="click send">
-							{React.cloneElement(leftBtn, {}, <span style={{ width: 70, display: 'inline-blank'}}>send</span>)}
-						</Tooltip>,
-						React.cloneElement(rightBtn, {}, <Icon type ='sent'/>)
-					]
-				)} />
-            </div>
+			<>
+				<div style={style}>
+					<Dropdown.Button
+						overlay={overlay}
+						onClick={this.handleClick}>
+						DropdownBtn
+					</Dropdown.Button>
+					<Dropdown.Button overlay={overlay} placement="topLeft" icon={<Icon type="user-fill"/>} onClick={this.handleClick}>
+						DropdownBtn
+					</Dropdown.Button>
+					<Dropdown.Button overlay={overlay} danger onClick={this.handleClick}>
+						DropdownBtn
+					</Dropdown.Button>
+				</div>
+				<div style={{ ...style, marginTop: 10 }}>
+					<Dropdown overlay={overlay} onClick={this.handleClick}>
+						<Button>
+							Button
+							<Icon type="down"/>
+						</Button>
+					</Dropdown>
+					<Dropdown.Button overlay={overlay} onClick={this.handleClick} buttonsRender={(leftBtn, rightBtn)  => (
+						[
+							<Tooltip content="click send">
+								{React.cloneElement(leftBtn, {}, <span style={{ width: 50, display: 'inline-blank'}}>Send</span>)}
+							</Tooltip>,
+							React.cloneElement(rightBtn, {}, <Icon type ='sent'/>)
+						]
+					)} />
+				</div>
+			</>
 		);
 	}
 }
