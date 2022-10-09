@@ -22,7 +22,6 @@ group:
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| arrow | 下拉框箭头是否显示 | boolean \| { pointAtCenter: boolean } | false |
 | disabled | 菜单是否禁用 | boolean | - |
 | getPopupContainer | 菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。| (triggerNode: HTMLElement) => HTMLElement | () => document.body |
 | overlay | 菜单 | ReactNode | - |
@@ -73,5 +72,4 @@ group:
 
 <embed src="@components/c-dropdown/demos/trigger.md" />
 <embed src="@components/c-dropdown/demos/placement.md" />
-<embed src="@components/c-dropdown/demos/arrow.md" />
 <embed src="@components/c-dropdown/demos/controllableCom.md" />
