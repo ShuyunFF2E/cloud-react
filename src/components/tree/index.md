@@ -64,6 +64,8 @@ group:
 
 **注意：根节点 pId 不可为数字 0**
 
+**注意：title字段存在时显示由title字段决定 0**
+
 ```json
 [
 	{
@@ -80,6 +82,7 @@ group:
 					{
 						"id": 111,
 						"name": "22323",
+						"title": <span>22323</span>,
 						"pId": 11,
 						"categoryType": 0
 					}

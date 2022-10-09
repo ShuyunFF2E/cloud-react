@@ -71,7 +71,7 @@ export default class TreeDemo extends React.Component {
 		const treeData = [
 			{
 				id: 1,
-				name: '所有',
+				name: '所有基础',
 				pId: null,
 				disableRemove: true,
 				disableRename: true,
@@ -84,7 +84,8 @@ export default class TreeDemo extends React.Component {
 						children: [
 							{
 								id: 111,
-								name: '删除一个',
+								name: '删除一个3',
+								title: <span style={{ color: 'red' }}>删除一个3</span>,
 								pId: 11,
 								children: []
 							},
