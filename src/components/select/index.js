@@ -17,7 +17,7 @@ import { formatOptionSource } from './utils';
 import './index.less';
 
 const getSelected = (data, children) => {
-  const options = Array.isArray(data) ? data : [data];
+  const options = Array.isArray(data) ? data : [ data ];
   if (!options.length) return [];
   const selected = Children.map(children, (child) => {
     const { children: label, value } = child.props;
@@ -26,19 +26,17 @@ const getSelected = (data, children) => {
   return selected;
 };
 
-const getOptions = (dataSource, labelKey, valueKey, isSupportTitle) => {
-  return dataSource.map((v, index) => (
-    <Option
-      item={{ ...v, index }}
-      value={v[valueKey]}
-      disabled={v.disabled}
-      isSupportTitle={isSupportTitle}
-      key={Math.random()}
-    >
-      {v[labelKey]}
-    </Option>
-  ));
-};
+const getOptions = (dataSource, labelKey, valueKey, isSupportTitle) => dataSource.map((v, index) => (
+  <Option
+    item={{ ...v, index }}
+    value={v[valueKey]}
+    disabled={v.disabled}
+    isSupportTitle={isSupportTitle}
+    key={Math.random()}
+  >
+    {v[labelKey]}
+  </Option>
+));
 
 class Select extends Component {
   static Option = Option;
@@ -69,8 +67,9 @@ class Select extends Component {
 
   static getDerivedStateFromProps(props, prevState) {
     const { prevProps } = prevState;
-    const { value, children, dataSource, multiple, open, isSupportTitle } =
-      props;
+    const {
+      value, children, dataSource, multiple, open, isSupportTitle,
+    } = props;
     const {
       value: prevValue,
       children: prevChildren,
@@ -79,11 +78,13 @@ class Select extends Component {
     } = prevProps;
 
     if (
-      value !== prevValue ||
-      Children.count(children) !== Children.count(prevChildren) ||
-      !ShuyunUtils.equal(dataSource, prevData)
+      value !== prevValue
+      || Children.count(children) !== Children.count(prevChildren)
+      || !ShuyunUtils.equal(dataSource, prevData)
     ) {
-      const { labelKey, valueKey, labelInValue, defaultValue } = props;
+      const {
+        labelKey, valueKey, labelInValue, defaultValue,
+      } = props;
       const displayValue = value !== null ? value : defaultValue;
       const childs = Array.isArray(children)
         ? flat(children, Infinity)
@@ -116,27 +117,32 @@ class Select extends Component {
   componentDidMount() {
     this.document.addEventListener('click', this.handleClick);
     this.node.current.addEventListener('mouseleave', this.handleMouseLeave);
-    // if (this.state.open) {
-    this.positionPop();
-    // }
+    if (this.state.open) this.positionPop();
+
     if (!this.props.dataSource.length) {
       // console.warn('请传入dataSource属性，未传入可能导致部分功能不能正常使用');
     }
   }
 
   componentDidUpdate(_, prevState) {
-    if (this.state.open !== prevState.open && this.state.open)
+    if (this.state.open !== prevState.open && this.state.open) {
       this.positionPop();
+    }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    const { disabled, width, open: propOpen, searchable } = nextProps;
-    const { open, value, selected, style } = nextState;
+    const {
+      disabled, width, open: propOpen, searchable, size,
+    } = nextProps;
+    const {
+      open, value, selected, style,
+    } = nextState;
     const {
       disabled: prevDisabled,
       width: prevWidth,
       open: prevPropOpen,
       searchable: prevSearchable,
+      size: prevSize,
     } = this.props;
     const {
       open: prevOpen,
@@ -146,14 +152,15 @@ class Select extends Component {
     } = this.state;
 
     return (
-      disabled !== prevDisabled ||
-      width !== prevWidth ||
-      propOpen !== prevPropOpen ||
-      open !== prevOpen ||
-      value !== prevValue ||
-      selected !== prevSelected ||
-      searchable !== prevSearchable ||
-      style !== prevStyle
+      disabled !== prevDisabled
+      || size !== prevSize
+      || width !== prevWidth
+      || propOpen !== prevPropOpen
+      || open !== prevOpen
+      || value !== prevValue
+      || selected !== prevSelected
+      || searchable !== prevSearchable
+      || style !== prevStyle
     );
   }
 
@@ -180,8 +187,9 @@ class Select extends Component {
   }
 
   get children() {
-    const { children, dataSource, labelKey, valueKey, isSupportTitle } =
-      this.props;
+    const {
+      children, dataSource, labelKey, valueKey, isSupportTitle,
+    } = this.props;
     const childs = Array.isArray(children)
       ? flat(children, Infinity)
       : Children.toArray(children);
@@ -208,25 +216,25 @@ class Select extends Component {
   positionPop = () => {
     const {
       props: { isAppendToBody, position },
-      selectedContainerStyle: { left, top, bottom, height },
+      selectedContainerStyle: {
+        left, top, bottom, height,
+      },
       optionsNodeStyle: { height: optionsHeight },
     } = this;
-    const isBottomDistanceEnough =
-      bottom + optionsHeight < this.document.documentElement.clientHeight;
-    const isLocationTop =
-      optionsHeight < top && !isBottomDistanceEnough && position === 'auto';
+    const isBottomDistanceEnough = bottom + optionsHeight < this.document.documentElement.clientHeight;
+    const isLocationTop = optionsHeight < top && !isBottomDistanceEnough && position === 'auto';
     if (isAppendToBody) {
       this.setState({
         style: {
           position: 'fixed',
           left: `${left}px`,
-          top: isLocationTop ? `${top - optionsHeight}px` : `${bottom}px`,
+          top: isLocationTop ? `${top - optionsHeight}px` : `${bottom + 4}px`,
         },
       });
     } else {
       this.setState({
         style: {
-          top: isLocationTop ? `${-optionsHeight}px` : `${height}px`,
+          top: isLocationTop ? `${-optionsHeight}px` : `${height + 4}px`,
         },
       });
     }
@@ -245,9 +253,8 @@ class Select extends Component {
 
   handleClick = (e) => {
     const { open, prevValue } = this.state;
-    const isClickSelect =
-      this.node.current.contains(e.target) ||
-      (this.optionsNode.current && this.optionsNode.current.contains(e.target));
+    const isClickSelect = this.node.current.contains(e.target)
+      || (this.optionsNode.current && this.optionsNode.current.contains(e.target));
 
     if (!isClickSelect && open) {
       const { onSelectClose, open: propOpen, hasConfirmButton } = this.props;
@@ -423,6 +430,7 @@ class Select extends Component {
       className,
       isAppendToBody,
       isSupportTitle,
+      size,
       ...otherProps
     } = this.props;
     const { selected, open, style: popupStyle } = this.state;
@@ -457,6 +465,7 @@ class Select extends Component {
           dataSource={selected}
           metaData={this.children}
           disabled={disabled}
+          size={size}
           isSupportTitle={isSupportTitle}
         />
 
@@ -472,15 +481,16 @@ Select.propTypes = {
   multiple: PropTypes.bool,
   allowClear: PropTypes.bool,
   defaultOpen: PropTypes.bool,
+  size: PropTypes.string,
   open: PropTypes.bool,
   disabled: PropTypes.bool,
   placeholder: PropTypes.string,
   dataSource: PropTypes.array,
   labelKey: PropTypes.string,
   valueKey: PropTypes.string,
-  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  width: PropTypes.oneOfType([ PropTypes.string, PropTypes.number ]),
   searchable: PropTypes.bool,
-  emptyRender: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+  emptyRender: PropTypes.oneOfType([ PropTypes.string, PropTypes.node ]),
   defaultValue: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
@@ -492,6 +502,7 @@ Select.propTypes = {
     PropTypes.array,
   ]),
   labelInValue: PropTypes.bool,
+  showSelectStyle: PropTypes.bool,
   hasSelectAll: PropTypes.bool,
   hasConfirmButton: PropTypes.bool,
   isSupportTitle: PropTypes.bool,
@@ -505,23 +516,23 @@ Select.propTypes = {
   onSelectClose: PropTypes.func,
   onOk: PropTypes.func,
   onCancel: PropTypes.func,
-  size: PropTypes.string,
-  isAppendToBody: PropTypes.bool,
 };
 
 Select.defaultProps = {
   multiple: false,
   allowClear: false,
   defaultOpen: false,
+  showSelectStyle: true,
+  size: 'default',
   open: null,
   disabled: false,
-  placeholder: '',
+  placeholder: '请选择',
   dataSource: [],
   labelKey: 'label',
   valueKey: 'value',
   width: 'auto',
   searchable: false,
-  emptyRender: '暂时没有数据',
+  emptyRender: '',
   defaultValue: null,
   value: null,
   labelInValue: false,
@@ -538,8 +549,6 @@ Select.defaultProps = {
   onSelectClose: noop,
   onOk: noop,
   onCancel: noop,
-  size: undefined,
-  isAppendToBody: false,
 };
 
 export default Select;
