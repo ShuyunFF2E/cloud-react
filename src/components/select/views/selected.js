@@ -2,7 +2,6 @@ import React from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import { noop } from '@utils';
-import FormContext from '../../form/context';
 
 import Icon from '../../icon';
 import { selector } from './common';
@@ -10,7 +9,9 @@ import { selector } from './common';
 import '../index.less';
 
 const getLables = (props) => {
-  const { dataSource, multiple, showSelectAll, metaData } = props;
+  const {
+    dataSource, multiple, showSelectAll, metaData,
+  } = props;
   if (multiple) {
     if (showSelectAll) {
       const data = metaData.reduce((acc, v) => {
@@ -51,8 +52,6 @@ export default class Selected extends React.Component {
     };
   }
 
-  static contextType = FormContext;
-
   static getDerivedStateFromProps(props, prevState) {
     const { prevProps } = prevState;
     if (props.dataSource !== prevProps.dataSource) {
@@ -73,7 +72,9 @@ export default class Selected extends React.Component {
   };
 
   onMouseEnter = () => {
-    const { disabled, open, trigger, allowClear, onClick } = this.props;
+    const {
+      disabled, open, trigger, allowClear, onClick,
+    } = this.props;
     if (!disabled) {
       if (trigger === 'hover' && !open) {
         onClick();
@@ -108,19 +109,14 @@ export default class Selected extends React.Component {
       state: { selected, clear },
       onMouseEnter,
       onMouseLeave,
-      context: { size: formSize },
     } = this;
-    const mergedSize = size || formSize || 'default';
-
-    const classNames = classnames(
-      `${selector}-wrapper`,
-      {
-        disabled,
-        empty: !dataSource.length,
-        hidden: !showSelectStyle,
-      },
-      `${mergedSize}`,
-    );
+    console.log('size', size);
+    const classNames = classnames(`${selector}-wrapper`, {
+      disabled,
+      empty: !dataSource.length,
+      hidden: !showSelectStyle,
+      [`${size}`]: true,
+    });
     const iconClasses = classnames(`${selector}-select-icon`, {
       open,
       close: !open,
@@ -161,7 +157,7 @@ Selected.propTypes = {
   disabled: PropTypes.bool,
   allowClear: PropTypes.bool,
   open: PropTypes.bool,
-  dataSource: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+  dataSource: PropTypes.oneOfType([ PropTypes.object, PropTypes.array ]),
   placeholder: PropTypes.string,
   showArrow: PropTypes.bool,
   showSelectStyle: PropTypes.bool,
