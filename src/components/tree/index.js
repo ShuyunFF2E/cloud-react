@@ -164,6 +164,20 @@ class Tree extends Component {
         ),
       };
     }
+    if (prevProps.treeData !== nextProps.treeData) {
+      const _treeData = store.initData({
+        treeData: nextProps.treeData,
+        maxLevel: nextProps.maxLevel,
+        selectedValue: nextProps.selectedValue,
+        isUnfold: nextProps.isUnfold,
+        disabled: nextProps.disabled,
+      });
+      return {
+        prevProps: nextProps,
+        treeData: copyData(_treeData),
+        allTreeData: copyData(_treeData),
+      };
+    }
 
     return null;
   }
