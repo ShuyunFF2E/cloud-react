@@ -226,6 +226,7 @@ class Node extends Component {
                 id={data.id}
                 name={data.name}
                 title={data.title}
+                selectable={data.selectable}
                 disableSelected={data.disableSelected}
                 searchText={searchText}
                 supportMenu={supportMenu}
@@ -369,6 +370,7 @@ function ShowSelection({
   id,
   name,
   title,
+  selectable,
   disableSelected,
   onDoubleClick,
   onHandleSelect,
@@ -468,9 +470,13 @@ function ShowSelection({
           indeterminate={indeterminate}
           checked={checked}
           value={id}
-          onChange={(value) => {
-            onHandleSelect(value, true);
-          }}
+          onChange={
+            selectable === false
+              ? () => {}
+              : (value) => {
+                onHandleSelect(value, true);
+              }
+          }
           style={labelWidth}
         >
           <>{!breakCheckbox && tmp}</>
