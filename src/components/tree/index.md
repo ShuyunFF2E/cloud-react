@@ -58,6 +58,7 @@ group:
 -   disableRename: 布尔类型，设置为 true 则表示不可重命名；
 -   disableRemove: 布尔类型，设置为 true 则表示不可删除；
 -   disableSelected: 布尔类型，设置为 true 则表示不可选择，只是不可选择该节点，若有子节点，其子节点仍可以选择；
+-   selectable: 布尔类型，设置为false表示该节点不可被选择
 -   pId：父节点 id
 
 ### 数据格式：treeData 属性值
@@ -133,7 +134,8 @@ group:
 			{
 				"id": 13,
 				"name": "未分类",
-				"pId": 1
+				"pId": 1,
+				"selectable": false
 			}
 		]
 	}

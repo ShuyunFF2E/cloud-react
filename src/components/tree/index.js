@@ -148,6 +148,21 @@ class Tree extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {
     const { prevProps } = prevState;
 
+    if (prevProps.treeData !== nextProps.treeData) {
+      const _treeData = store.initData({
+        treeData: nextProps.treeData,
+        maxLevel: nextProps.maxLevel,
+        selectedValue: nextProps.selectedValue,
+        isUnfold: nextProps.isUnfold,
+        disabled: nextProps.disabled,
+      });
+      return {
+        prevProps: nextProps,
+        treeData: copyData(_treeData),
+        allTreeData: copyData(_treeData),
+      };
+    }
+
     if (prevProps.selectedValue !== nextProps.selectedValue) {
       return {
         selectedValue: nextProps.selectedValue,
@@ -162,20 +177,6 @@ class Tree extends Component {
         preSelectedList: store.getSelectedLowestNodeList(
           nextProps.selectedValue,
         ),
-      };
-    }
-    if (prevProps.treeData !== nextProps.treeData) {
-      const _treeData = store.initData({
-        treeData: nextProps.treeData,
-        maxLevel: nextProps.maxLevel,
-        selectedValue: nextProps.selectedValue,
-        isUnfold: nextProps.isUnfold,
-        disabled: nextProps.disabled,
-      });
-      return {
-        prevProps: nextProps,
-        treeData: copyData(_treeData),
-        allTreeData: copyData(_treeData),
       };
     }
 
@@ -268,6 +269,8 @@ class Tree extends Component {
     this.onHideMenu();
     const data = this.state.treeData;
     const { supportSearch, supportCheckbox, onSelectedNode } = this.props;
+
+    if (node.selectable === false) return;
 
     // 更新节点选中状态
     this.updateActiveNode(data, node);
