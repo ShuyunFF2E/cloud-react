@@ -47,6 +47,7 @@ class InputNumber extends Component {
 		if (prevProps.value !== value || prevProps.min !== min || prevProps.max !== max || prevProps.precision !== precision) {
 			this.setIsControlled(value !== undefined);
 			this.updateCurrentValue();
+			this.updateBtnStatus();
 		}
 
 		if (this.state.currentValue !== prevState.currentValue) {
