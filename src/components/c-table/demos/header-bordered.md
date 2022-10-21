@@ -30,11 +30,13 @@ const columns = [
 
 export default function CTableDemo() {
   return (
-    <CTable
-      headerBordered
-      columnData={columns}
-      ajaxData={{ totals: data.length, data }}
-    />
+    <div style={{ width: '100%' }}>
+      <CTable
+        headerBordered
+        columnData={columns}
+        ajaxData={{ totals: data.length, data }}
+      />
+    </div>
   );
 }
 ```

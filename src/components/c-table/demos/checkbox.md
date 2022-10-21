@@ -42,7 +42,9 @@ export default function RcTableDemo() {
         lightCheckedRow={lightCheckedRow}
         columnData={columns}
         ajaxData={{ totals: data.length, data }}
-        checkedData={data.slice(1, 4)}
+        rowKey="id"
+        checkedData={[{ id: '121410327' }, { id: '121410329' }]} // 这种写法需要指定 rowKey
+        // checkedData={[data[0], data[1]]} // 这种写法需要传递完整行数据，可以不指定 rowKey
         onCheckedAfter={checkedList => {
           console.log('已选列表:', checkedList);
         }}

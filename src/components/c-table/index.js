@@ -15,6 +15,7 @@ import {
   getConfig,
   isFirefox,
   debounce,
+  hasCustomScroll,
 } from './util';
 import { DRAG_ICON_SELECTOR, DRAG_SELECTOR, tablePrefixCls } from './constant';
 import getExpandableConfig from './js/expend';
@@ -65,8 +66,8 @@ class CTable extends Component {
     this.column = new Column(this);
   }
 
-
   componentDidMount() {
+    this.hasCustomScroll = hasCustomScroll();
     if (
       (this.props.supportExpend || this.props.supportTree) &&
       !this.props.rowKey
@@ -193,7 +194,7 @@ class CTable extends Component {
    * 解决表头滚动问题（rcTable bug）
    */
   setHeaderStyle = () => {
-    if (isFirefox() || !this.props.useCustomScroll) {
+    if (isFirefox() || !this.hasCustomScroll) {
       return;
     }
     setTimeout(() => {
@@ -214,7 +215,7 @@ class CTable extends Component {
    */
   setFixedStyle = () => {
     setTimeout(() => {
-      if (isFirefox() || !this.props.useCustomScroll) {
+      if (isFirefox() || !this.hasCustomScroll) {
         return;
       }
       const fixedColumn = this.state.columnData
@@ -624,7 +625,6 @@ class CTable extends Component {
       onRow,
       supportResizeColumn,
       maxHeight,
-      useCustomScroll,
       isExpendAloneColumn,
       supportExpend,
       supportTree,
@@ -666,7 +666,7 @@ class CTable extends Component {
               [`${tablePrefixCls}-loading`]: isLoading,
               [`${tablePrefixCls}-empty`]: !data.length,
               [`${tablePrefixCls}-use-custom-scroll`]:
-                useCustomScroll && !isFirefox(),
+                this.hasCustomScroll && !isFirefox(),
               [`${tablePrefixCls}-two-level-tree`]: isExpendAloneColumn, // 两级树
               [`${tablePrefixCls}-support-tree`]:
                 supportTree && !isExpendAloneColumn, // 多级树
