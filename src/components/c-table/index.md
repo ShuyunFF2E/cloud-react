@@ -82,7 +82,7 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 | 属性           | 说明                    | 类型              | 默认值
 | -------------- | ---------------------- | ----------------- | ------ |
 | supportCheckbox | 是否支持多选    | boolean   |   false   | |
-| checkedData | 已选数据    | array   |   []   | |
+| checkedData | 已选数据，支持两种写法。在 "多选表格（checkbox.md）" demo 中查看说明   | array   |   []   | |
 | supportRadio | 是否支持单选   | boolean   |   false   | |
 | onCheckedAfter | 选中行回调，需要设置 supportCheckbox 为 true，Function(checkedList, checkedRow)    | function   |   -   | | 
 | onCheckedAllAfter | 选中当页回调，需要设置 supportCheckbox 为 true，Function(checkedList)   | function   |   -   | |
@@ -111,7 +111,7 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 | -------------- | ---------------------- | ----------------- | ------ |
 | isDelay | 刷新表格时，是否延迟loading，一般在纯前端表格中使用   | boolean   |   false   | |
 | isCheckboxFixed | 是否固定多选框列或单选框列  | boolean	   |   false   | |
-| useCustomScroll | 业务中是否使用自定义滚动条 | 	boolean   |   true   | |
+| ~~useCustomScroll~~ | ~~业务中是否使用自定义滚动条~~，无需设置，原设置过的不影响 | 	boolean   |   true   | |
 | scrollIntoTop | 翻页后表格自动滚到顶部 | 	boolean   |   true   | |
 | reloadAfterSetColumn | 重新设置表格列后，是否需要刷新表格 | 	boolean   |   false   | |
 
