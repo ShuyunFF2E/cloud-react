@@ -141,7 +141,7 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 | sortable     | 是否支持排序                                     | boolean                      | false               |
 | sorter     | 自定义列排序规则                                     | function                      | -               |
 | onCell     | 为每个单元格设置自定义参数 Function(record, index)                                   | function                      | -               |
-| minWidth     | 列最小宽度                       | number                   | - |
+| minWidth     | 列最小宽度（**该属性效果不流畅，可以给 columnData 中的每一项都设置 width 属性，可达到同样效果**）                      | number                   | - |
 | filters     | 配置表格列筛选项 [{ text: '男', value: 'male' }, { text: '女', value: 'female' }]                      | array                   | [] |
 
 ### 代码演示

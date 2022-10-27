@@ -22,11 +22,11 @@ const data = [
 ];
 
 const columns = [
-  { title: '活动ID', dataIndex: 'id', minWidth: 130 },
-  { title: '活动名称', dataIndex: 'name' },
-  { title: '创建时间', dataIndex: 'createTime' },
-  { title: '人数', dataIndex: 'num', align: 'right' },
-  { title: '创建人', dataIndex: 'creator' }
+  { title: '活动ID', dataIndex: 'id', width: 130 },
+  { title: '活动名称', dataIndex: 'name', width: 140 },
+  { title: '创建时间', dataIndex: 'createTime', width: 140 },
+  { title: '人数', dataIndex: 'num', align: 'right', width: 120 },
+  { title: '创建人', dataIndex: 'creator', width: 130 }
 ];
 
 export default function CTableDemo() {

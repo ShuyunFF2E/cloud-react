@@ -83,7 +83,10 @@ class CTable extends Component {
       this.props.onLoadGridAfter(res);
     });
 
-    if (!this.props.supportResizeColumn) {
+    if (
+      this.props.columnData.find((c) => c.minWidth) &&
+      !this.props.supportResizeColumn
+    ) {
       window.addEventListener('resize', this.onResize());
     }
   }
@@ -115,7 +118,10 @@ class CTable extends Component {
   }
 
   componentWillUnmount() {
-    if (!this.props.supportResizeColumn) {
+    if (
+      this.props.columnData.find((c) => c.minWidth) &&
+      !this.props.supportResizeColumn
+    ) {
       window.removeEventListener('resize', this.onResize());
     }
   }
