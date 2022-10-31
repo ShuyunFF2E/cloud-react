@@ -234,7 +234,7 @@ class CTable extends Component {
         this.ref.current.querySelectorAll('th.cloud-table-cell-fix-right'),
       );
       if (fixedEles.length) {
-        fixedEles.pop();
+        // fixedEles.pop();
         fixedEles.reverse().forEach((ele, index) => {
           if (index === 0) {
             Object.assign(ele.style, { right: 0 });
