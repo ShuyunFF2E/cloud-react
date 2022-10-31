@@ -315,7 +315,8 @@
   //解决表头滚动问题（rcTable bug）
   &.@{tablePrefixCls}-use-custom-scroll {
     .@{tablePrefixCls}-thead {
-      th:last-of-type {
+      // 表头最右侧元素 td，在有自定义滚动条时，会导致表头错位，由 css 和 js（setFixedStyle setFooterHeight） 共同控制
+      td {
         &.@{tablePrefixCls}-cell-fix-right,
         &.@{tablePrefixCls}-cell-scrollbar {
           display: none !important;
