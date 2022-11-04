@@ -106,7 +106,9 @@ class CTable extends Component {
         ? getDataSourceWithDelay
         : getDataSource;
     }
-    if (this.props.pageOpts !== prevProps.pageOpts) {
+    if (
+      JSON.stringify(this.props.pageOpts) !== JSON.stringify(prevProps.pageOpts)
+    ) {
       this.setState({
         pageOpts: {
           ...this.state.pageOpts,
