@@ -5,11 +5,6 @@ desc: 自定义列模板
 ---
 
 ```jsx
-
-/**
- * title: 自定义表格列模板
- * desc: 自定义表格列模板（状态标签）
- */
 import React from 'react';
 import { CTable } from 'cloud-react';
 

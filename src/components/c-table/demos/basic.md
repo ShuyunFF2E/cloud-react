@@ -5,11 +5,6 @@ desc: 默认表格
 ---
 
 ```jsx
-
-/**
- * title: 基础表格
- * desc: 基础表格
- */
 import React from 'react';
 import { CTable } from 'cloud-react';
 

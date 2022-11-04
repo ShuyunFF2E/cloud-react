@@ -5,11 +5,6 @@ desc: 合并列 & 合并行
 ---
 
 ```jsx
-
-/**
- * title: 合并列 & 合并行
- * desc: 合并列 & 合并行
- */
 import React from 'react';
 import { CTable, Button } from 'cloud-react';
 

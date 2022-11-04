@@ -5,11 +5,6 @@ desc: 多选
 ---
 
 ```jsx
-
-/**
- * title: 多选表格
- * desc: 多选表格
- */
 import React, { useState } from 'react';
 import { CTable, Checkbox } from 'cloud-react';
 

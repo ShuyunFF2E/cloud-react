@@ -6,10 +6,6 @@ desc: 表头带线条
 
 ```jsx
 
-/**
- * title: 表头带线条
- * desc: 表头带线条
- */
 import React from 'react';
 import { CTable } from 'cloud-react';
 

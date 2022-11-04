@@ -5,11 +5,6 @@ desc: 树状表格（多级）
 ---
 
 ```jsx
-
-/**
- * title: 树状表格（多级）
- * desc: 树状表格（多级）
- */
 import React from 'react';
 import { CTable } from 'cloud-react';
 

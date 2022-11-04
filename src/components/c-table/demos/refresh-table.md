@@ -5,11 +5,6 @@ desc: 手动刷新表格
 ---
 
 ```jsx
-
-/**
- * title: 手动刷新表格
- * desc: 手动刷新表格
- */
 import React, { useState, useRef } from 'react';
 import { CTable, Input, Checkbox, Button } from 'cloud-react';
 

@@ -5,11 +5,6 @@ desc: 固定列
 ---
 
 ```jsx
-
-/**
- * title: 固定列
- * desc: 固定列
- */
 import React, { useState, useRef } from 'react';
 import { CTable, Button, Select, Radio, Checkbox } from 'cloud-react';
 

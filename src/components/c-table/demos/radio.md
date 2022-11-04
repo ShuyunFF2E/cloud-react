@@ -5,11 +5,6 @@ desc: 单选
 ---
 
 ```jsx
-
-/**
- * title: 单选表格
- * desc: 单选表格
- */
 import React, { useState, useEffect } from 'react';
 import { CTable, Checkbox, Button } from 'cloud-react';
 

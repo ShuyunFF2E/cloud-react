@@ -5,11 +5,6 @@ desc: 分页
 ---
 
 ```jsx
-
-/**
- * title: 表格带分页
- * desc: 表格带分页
- */
 import React, { useState } from 'react';
 import { CTable, Checkbox, Tooltip, Icon, Button } from 'cloud-react';
 

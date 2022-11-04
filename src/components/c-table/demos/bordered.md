@@ -5,11 +5,6 @@ desc: 全边框表格
 ---
 
 ```jsx
-
-/**
- * title: 全边框表格
- * desc: 全边框表格
- */
 import React from 'react';
 import { CTable } from 'cloud-react';
 

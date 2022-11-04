@@ -5,11 +5,6 @@ desc: 表格过滤
 ---
 
 ```jsx
-
-/**
- * title: 表格过滤
- * desc: 表格过滤
- */
 import React, { useState } from 'react';
 import { CTable, Icon, Tooltip, Checkbox } from 'cloud-react';
 import './style/index.less';

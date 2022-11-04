@@ -5,11 +5,6 @@ desc: 表格通栏
 ---
 
 ```jsx
-
-/**
- * title: 表格通栏
- * desc: 表格通栏
- */
 import React from 'react';
 import { CTable } from 'cloud-react';
 

@@ -5,11 +5,6 @@ desc: 树状表格（两级）
 ---
 
 ```jsx
-
-/**
- * title: 树状表格（两级）
- * desc: 树状表格（两级）
- */
 import React, { useState } from 'react';
 import { CTable, Button } from 'cloud-react';
 
