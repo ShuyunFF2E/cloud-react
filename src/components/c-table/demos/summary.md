@@ -5,11 +5,6 @@ desc: 表尾合计
 ---
 
 ```jsx
-
-/**
- * title: 表尾合计
- * desc: 表尾合计
- */
 import React from 'react';
 import { CTable } from 'cloud-react';
 
