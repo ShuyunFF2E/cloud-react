@@ -99,6 +99,8 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 | 属性           | 说明                    | 类型              | 默认值
 | -------------- | ---------------------- | ----------------- | ------ |
 | footerTpl | 自定义 footer    | function   |   -   | |
+| footerHeight | 分页部分高度，设置 footerTpl，需要设置 footerHeight    | number   |   undefined   | |
+| footerSelectTpl | 自定义 已选n条 模板   | -   |   null   | |
 | emptyTpl | 自定义数据为空模板   | function   |   -   | |
 | rowClassName | 自定义行类名   | function   |   -   | |
 | lightCheckedRow | 选中行高亮   | boolean   |   false   | |

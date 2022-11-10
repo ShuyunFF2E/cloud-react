@@ -56,6 +56,8 @@ export const propTypes = {
   loadingTpl: PropTypes.func,
   loadingOpts: PropTypes.object,
   showFilterBtn: PropTypes.bool,
+  footerHeight: PropTypes.number,
+  footerSelectTpl: PropTypes.any,
 };
 
 export const defaultProps = {
@@ -111,4 +113,6 @@ export const defaultProps = {
   loadingTpl: () => null,
   loadingOpts: {},
   showFilterBtn: false,
+  footerHeight: undefined,
+  footerSelectTpl: null,
 };

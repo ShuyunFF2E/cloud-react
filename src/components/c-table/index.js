@@ -52,7 +52,7 @@ class CTable extends Component {
       data: [],
       columnData: this.resolveColumn(this.props.columnData),
       originColumnData: this.resolveOriginColumn(this.props.columnData),
-      footerHeight: 0,
+      footerHeight: this.props.footerHeight || 0,
       expandIconColumnIndex: this.props.expandIconColumnIndex,
       pageOpts: {
         ...this.defaultPageOpts,
@@ -76,6 +76,9 @@ class CTable extends Component {
     }
     if (this.props.supportMemory && !this.props.tableId) {
       console.warn('请设置 tableId');
+    }
+    if (this.props.footerTpl() && this.props.footerHeight === undefined) {
+      console.warn('请设置 footerHeight');
     }
     this.props.onLoadGridBefore(this.state.pageOpts);
     this.loadData((res) => {
@@ -348,6 +351,9 @@ class CTable extends Component {
    * 设置 footer 高度
    */
   setFooterHeight = () => {
+    if (this.state.footerHeight !== undefined) {
+      return;
+    }
     if (this.ref.current && this.ref.current.querySelector) {
       const footerEle = this.ref.current.querySelector(
         `.${tablePrefixCls}-footer`,
@@ -643,6 +649,7 @@ class CTable extends Component {
       supportFullColumn,
       loadingTpl,
       loadingOpts,
+      footerSelectTpl,
     } = this.props;
     const {
       data,
@@ -654,12 +661,6 @@ class CTable extends Component {
       isLoading,
     } = this.state;
     const { pageNum, pageSize, totals } = pageOpts;
-    const fixed = !!(
-      columnData.find((item) => item.fixed) ||
-      style.height ||
-      supportResizeColumn ||
-      maxHeight
-    );
 
     return (
       <div className={`${tablePrefixCls}-container`} style={style} ref={ref}>
@@ -697,7 +698,7 @@ class CTable extends Component {
             columns={columnData}
             data={data}
             expandIconColumnIndex={expandIconColumnIndex}
-            scroll={fixed ? { x: '100%', y: maxHeight || '100%' } : {}}
+            scroll={{ x: '100%', y: maxHeight || '100%' }}
             expandable={getExpandableConfig({ ...this.props })}
             emptyText={emptyTpl()}
             rowKey={rowKey}
@@ -753,7 +754,7 @@ class CTable extends Component {
             <div className={classnames(`${tablePrefixCls}-footer-statistics`)}>
               {(supportCheckbox || supportRadio) && (
                 <span className={classnames(`${tablePrefixCls}-footer-select`)}>
-                  已选 {selectedNodeList.length} 条
+                  {footerSelectTpl || <>已选 {selectedNodeList.length} 条</>}
                 </span>
               )}
               {showRefresh && (
