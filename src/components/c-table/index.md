@@ -99,6 +99,8 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 | 属性           | 说明                    | 类型              | 默认值
 | -------------- | ---------------------- | ----------------- | ------ |
 | footerTpl | 自定义 footer    | function   |   -   | |
+| footerHeight | 分页部分高度，设置 footerTpl，需要设置 footerHeight    | number   |   undefined   | |
+| footerSelectTpl | 自定义 已选n条 模板   | -   |   null   | |
 | emptyTpl | 自定义数据为空模板   | function   |   -   | |
 | rowClassName | 自定义行类名   | function   |   -   | |
 | lightCheckedRow | 选中行高亮   | boolean   |   false   | |
@@ -158,6 +160,10 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 ### 多选表格
 <embed src="@components/c-table/demos/checkbox.md" /> 
 
+<embed src="@components/c-table/demos/page.md" /> 
+
+<embed src="@components/c-table/demos/page1.md" /> 
+
 ### 单选表格
 <embed src="@components/c-table/demos/radio.md" /> 
 
@@ -191,11 +197,6 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 
 ### 表尾合计
 <embed src="@components/c-table/demos/summary.md" />
-
-### 表格带分页
-<embed src="@components/c-table/demos/page.md" /> 
-
-<embed src="@components/c-table/demos/page1.md" /> 
 
 ### 表格合并列/行
 <embed src="@components/c-table/demos/row-col-span.md" /> 

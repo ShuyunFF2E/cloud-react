@@ -252,7 +252,6 @@ export default function CTableDemo() {
         <Button style={{ marginBottom: 20 }} onClick={onExpandAll}>{isExpandAll ? '展开全部' : '收起全部'}</Button>
         <CTable
           style={{ width: '100%', height: 400 }}
-          useCustomScroll={false}
           supportExpend
           supportTree
           supportCheckbox
