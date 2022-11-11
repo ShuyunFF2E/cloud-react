@@ -35,7 +35,6 @@ export default function CTableDemo() {
       supportRadio
       supportPage
       lightCheckedRow
-      useCustomScroll={false}
       checkedData={[data[1]]}
       pageOpts={{ pageSize: 6 }}
       columnData={columns}

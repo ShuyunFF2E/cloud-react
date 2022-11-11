@@ -138,7 +138,6 @@ export default function CTableDemo() {
             key={Math.random()}
             style={{ width: '100%', height: 360 }}
             showFilterBtn={showFilterBtn}
-            // useCustomScroll={false}
             columnData={columns}
             ajaxData={(params) => {
               return new Promise(resolve => {

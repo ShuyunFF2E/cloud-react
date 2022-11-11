@@ -35,7 +35,6 @@ export default function CTableDemo() {
         <CTable
           bordered
             style={{ width: '100%' }}
-            useCustomScroll={false}
             columnData={columns}
             ajaxData={{ totals: data.length, data }}
             summaryData={summaryData}

@@ -34,7 +34,6 @@ export default function CTableDemo() {
         <CTable
            headerBordered
            supportResizeColumn
-          // useCustomScroll={false}
            columnData={columns}
            ajaxData={{ totals: data.length, data }}
         />

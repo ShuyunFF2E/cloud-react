@@ -351,7 +351,7 @@ class CTable extends Component {
    * 设置 footer 高度
    */
   setFooterHeight = () => {
-    if (this.state.footerHeight !== undefined) {
+    if (this.props.footerHeight !== undefined) {
       return;
     }
     if (this.ref.current && this.ref.current.querySelector) {

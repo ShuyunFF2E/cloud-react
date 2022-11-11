@@ -46,7 +46,6 @@ export default function CTableDemo() {
       style={{ width: '100%', height: 360 }}
       supportCheckbox
       supportPage
-      // useCustomScroll={false}
       rowKey="id"
       checkedData={[data[1]]}
       pageOpts={{ pageSize: 6 }}

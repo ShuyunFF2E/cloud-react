@@ -5,10 +5,16 @@ desc: 分页
 ---
 
 ```jsx
+
+/**
+ * title: 表格多选带分页
+ * desc: 表格多选带分页
+ */
+
 import React, { useState } from 'react';
 import { CTable, Checkbox, Tooltip, Icon, Button } from 'cloud-react';
 
-const data = new Array(100).fill(1).map((item, index) => (
+const data = new Array(50).fill(1).map((item, index) => (
   { id: 121410327 + index, name: '手机号优先继续发送1', createTime: '2021/12/14 10:19:02', creator: 'liyuan.meng' }
 ))
 
@@ -49,8 +55,7 @@ export default function CTableDemo() {
         }}>选中前两条</Button>
       </div>
       <CTable
-        style={{ width: '100%', height: 500 }}
-        useCustomScroll={false}
+        style={{ width: '100%', height: 400 }}
         supportExpend
         supportTree
         supportCheckbox
