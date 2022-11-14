@@ -6,10 +6,10 @@ desc: 根据hooks API定制的方法，没有this也可以使用
 
 ```jsx
 
-            /**
-             * title: 函数组件
-             * desc: 根据hooks API定制的方法，没有this也可以使用
-             */
+/**
+ * title: 函数组件
+ * desc: 根据hooks API定制的方法，没有this也可以使用
+ */
 import React, { useState } from 'react';
 import { Form, Input, Button, Checkbox, Radio, Select, Toggle, InputNumber, Field } from 'cloud-react';
 
@@ -94,24 +94,27 @@ export default function FormHorizontalDemo() {
 			</Form.Item>
 
 			<Form.Item label="所属平台" required>
-				<Checkbox.Group
-					{...init('platform', {
-						rules: [
-							{ required: true, message: '所属平台必须选择一项' },
-							{
-								validator: (name, value, callback) => {
-									setTimeout(() => {
-										callback(value.length < 2 ? '所属平台必须选择两个以上' : '');
-									}, 300);
-								}
-							}
-						]
-					})}>
-					<Checkbox value={1}>淘宝</Checkbox>
-					<Checkbox value={2}>京东</Checkbox>
-					<Checkbox value={3}>苏宁</Checkbox>
-					<Checkbox value={4}>蘑菇街</Checkbox>
-				</Checkbox.Group>
+        <div style={{ paddingTop: 6 }}>
+          <Checkbox.Group
+            {...init('platform', {
+              rules: [
+                { required: true, message: '所属平台必须选择一项' },
+                {
+                  validator: (name, value, callback) => {
+                    setTimeout(() => {
+                      callback(value.length < 2 ? '所属平台必须选择两个以上' : '');
+                    }, 300);
+                  }
+                }
+              ]
+            })}
+          >
+            <Checkbox value={1}>淘宝</Checkbox>
+            <Checkbox value={2}>京东</Checkbox>
+            <Checkbox value={3}>苏宁</Checkbox>
+            <Checkbox value={4}>蘑菇街</Checkbox>
+          </Checkbox.Group>
+        </div>
 			</Form.Item>
 
 			<Form.Item label="备注">

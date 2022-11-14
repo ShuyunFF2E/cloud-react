@@ -32,7 +32,7 @@ export default class FormInlineDemo extends React.Component {
 		const { init } = this.field;
 
 		return (
-			<Form layout="inline" field={this.field} onSubmit={this.onSubmit.bind(this)}>
+			<Form layout="inline" field={this.field} labelCol={{ span: 6 }} onSubmit={this.onSubmit.bind(this)}>
 				<Form.Item label="用户名">
 					<Input
 						placeholder="请输入用户名"
@@ -42,7 +42,7 @@ export default class FormInlineDemo extends React.Component {
 					/>
 				</Form.Item>
 
-				<Form.Item label="密码">
+				<Form.Item label="验证邮箱">
 					<Input
 						placeholder="请输入验证邮箱"
 						{...init('email', {
