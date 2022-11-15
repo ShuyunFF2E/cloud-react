@@ -25,6 +25,7 @@ group:
 | value      | 要回显得数据     | string | ''          |
 | container | 代表标签，标签外失焦时会调用onClose函数| string | 必传          |
 | visible   | 控制显隐 | boolean | true  |
+| supportCopy | 是否支持叶节点复制 需isOnlyShow | boolean | false |
 | dataSource | 需要展示的数据，dataSource 和 children 同时存在时以 children 为准 | array                                   | []             |
 | onChange   | 在选中某一最终子项时会调用         | func                                  | ()=>{}        |
 | onClose   | 卡片失焦时且visible为true时会调用         | func                                  | ()=>{}        |
