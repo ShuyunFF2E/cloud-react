@@ -58,6 +58,7 @@ export const propTypes = {
   showFilterBtn: PropTypes.bool,
   footerHeight: PropTypes.number,
   footerSelectTpl: PropTypes.any,
+  isTreeIncludeChildren: PropTypes.bool,
 };
 
 export const defaultProps = {
@@ -115,4 +116,5 @@ export const defaultProps = {
   showFilterBtn: false,
   footerHeight: undefined,
   footerSelectTpl: null,
+  isTreeIncludeChildren: true,
 };

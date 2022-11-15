@@ -233,3 +233,6 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 <embed src="@components/c-table/demos/resize.md" />
 
 <embed src="@components/c-table/demos/resize1.md" />
+
+### 商品选择器表格
+<embed src="@components/c-table/demos/goods-table.md" />
