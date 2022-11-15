@@ -163,14 +163,15 @@ class CTable extends Component {
         ...pageOpts,
         filterValue,
       });
+
       if (childrenKey !== 'children') {
-        traverseTree(
-          res[dataKey],
-          (node) => {
+        traverseTree({
+          tree: res[dataKey],
+          callback: ({ node }) => {
             Object.assign(node, { children: node[childrenKey] || [] });
           },
-          childrenKey,
-        );
+          childrenKey: this.props.childrenKey,
+        });
       }
 
       this.setState(
@@ -297,10 +298,14 @@ class CTable extends Component {
    */
   isInCurrentPage = (targetVal) => {
     let isInCurrentPage = false;
-    traverseTree(this.state.data, (node) => {
-      if (String(this.getKeyFieldVal(node)) === String(targetVal)) {
-        isInCurrentPage = true;
-      }
+    traverseTree({
+      tree: this.state.data,
+      callback: ({ node }) => {
+        if (String(this.getKeyFieldVal(node)) === String(targetVal)) {
+          isInCurrentPage = true;
+        }
+      },
+      childrenKey: this.props.childrenKey,
     });
     return isInCurrentPage;
   };
@@ -337,12 +342,17 @@ class CTable extends Component {
    */
   getLeafNodesMap = (tree) => {
     const LeafNodesMap = {};
-    traverseTree(tree, (node, parentNode) => {
-      LeafNodesMap[this.getKeyFieldVal(node)] = {
-        parentNode, // 父节点
-        node, // 当前节点
-        childNodes: getLeafNodes(node), // 所有叶子节点
-      };
+    traverseTree({
+      tree,
+      callback: ({ node, parentNode, childNodes }) => {
+        LeafNodesMap[this.getKeyFieldVal(node)] = {
+          parentNode, // 父节点
+          node, // 当前节点
+          childNodes: childNodes || getLeafNodes(node), // 所有叶子节点
+        };
+      },
+      childrenKey: this.props.childrenKey,
+      isTreeIncludeChildren: this.props.isTreeIncludeChildren,
     });
     return LeafNodesMap;
   };
@@ -463,8 +473,12 @@ class CTable extends Component {
       const { ajaxData, dataKey, childrenKey } = this.props;
       const res = await this.getDataSource(ajaxData, params);
       if (childrenKey !== 'children') {
-        traverseTree(res[dataKey], (node) => {
-          Object.assign(node, { children: node[childrenKey] || [] });
+        traverseTree({
+          tree: res[dataKey],
+          callback: ({ node }) => {
+            Object.assign(node, { children: node[childrenKey] || [] });
+          },
+          childrenKey: this.props.childrenKey,
         });
       }
       let resolvedData = res[dataKey];
