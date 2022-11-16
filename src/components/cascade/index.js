@@ -4,6 +4,7 @@ import classnames from 'classnames';
 import { prefixCls } from '@utils';
 import shuyunUtils from 'shuyun-utils';
 import Message from '../message';
+import Tooltip from '../tooltip';
 import Icon from '../icon';
 
 import './index.less';
@@ -301,14 +302,15 @@ class Cascade extends Component {
               style={{ width }}
             >
               {isShowCopy ? (
-                <span
-                  title="双击可复制"
-                  onDoubleClick={(evt) => onCopyItem(evt, title)}
-                >
-                  {title}
-                </span>
+                <Tooltip content="双击可复制">
+                  <span onDoubleClick={(evt) => onCopyItem(evt, title)}>
+                    {title}
+                  </span>
+                </Tooltip>
               ) : (
-                <span title={title}>{title}</span>
+                <Tooltip content={title}>
+                  <span>{title}</span>
+                </Tooltip>
               )}
               {!disabled && children && children.length && (
                 <Icon
