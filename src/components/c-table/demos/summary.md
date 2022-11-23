@@ -26,8 +26,8 @@ const columns = [
 
 const summaryData = [
   { index: 0, colSpan: 2, content: '合计' },
-  { index: 3, colSpan: 1, content: '3,008', align: 'right' },
-  { index: 4, colSpan: 1, content: '379', align: 'right' },
+  { index: 2, colSpan: 1, content: '3,008', align: 'right' },
+  { index: 3, colSpan: 1, content: '379', align: 'right' },
 ];
 
 export default function CTableDemo() {
