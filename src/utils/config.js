@@ -1,2 +1,2 @@
-export const prefixCls = 'cloud';
+export const prefixCls = CloudPrefixCls;
 export const suffix = '-';

@@ -11,9 +11,9 @@ const isBuild = !(argv.dev || argv.watch);
 
 const externals = [
   'react',
-  'react-dom',
-  ...(isBuild ? [] : ['gridmanager-react', 'prop-types', 'classnames']),
+  'react-dom'
 ];
+console.log(isBuild);
 
 export default {
   esm: isBuild ? false : 'rollup',
@@ -22,6 +22,9 @@ export default {
   //   type: 'rollup',
   //   minify: !argv.dev,
   // },
+	replace: {
+    CloudPrefixCls: JSON.stringify('newCloud'),
+  },
   umd: isBuild
     ? {
         name: 'CloudReact',
@@ -32,6 +35,11 @@ export default {
   entry: 'src/components/index.js',
   extraExternals: externals,
   extractCSS: isBuild,
+	lessInRollupMode:{
+		globalVars: {
+			'@cloud': 'newCloud',
+		}
+	},
   extraRollupPlugins: [
     eslint({
       throwOnError: true,
