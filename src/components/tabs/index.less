@@ -75,7 +75,7 @@
 .@{selector} {
   width: 100%;
   box-sizing: border-box;
-  &-header-card:extend(.@{prefix}-tabs-header-basic all) {
+  &-header-card:extend(.newCloud-tabs-header-basic all) {
     &::before {
       border-bottom: 1px solid @gray-4;
     }
@@ -86,7 +86,7 @@
   }
 
   &-header-line {
-    &:extend(.@{prefix}-tabs-header-basic all);
+    &:extend(.newCloud-tabs-header-basic all);
 
     // type === line && linePlacement === 'top';
     &.@{selector}-line-horizontal {
@@ -104,11 +104,11 @@
   }
 
   &-more-icon-card {
-    &:extend(.@{prefix}-tabs-more-icon-basic all);
+    &:extend(.newCloud-tabs-more-icon-basic all);
   }
 
   &-more-icon-line {
-    &:extend(.@{prefix}-tabs-more-icon-basic all);
+    &:extend(.newCloud-tabs-more-icon-basic all);
   }
 
   &-items {
@@ -134,7 +134,7 @@
   }
 
   // type 为 card
-  &-item-card:extend(.@{prefix}-tabs-item-basic all) {
+  &-item-card:extend(.newCloud-tabs-item-basic all) {
     border: 1px solid @gray-4;
     background-color: @gray-2;
 
@@ -165,7 +165,7 @@
   }
 
   // type 为 line，横向 tab（linePlacement 为 top）
-  &-item-line:extend(.@{prefix}-tabs-item-basic all) {
+  &-item-line:extend(.newCloud-tabs-item-basic all) {
     color: @gray-8;
     padding: 0;
     margin: 0 12px;
@@ -346,8 +346,8 @@
   }
 
   // type 为 capsule
-  &-item-capsule:extend(.@{prefix}-tabs-item-basic all),
-  &-item-empty-capsule:extend(.@{prefix}-tabs-item-basic all) {
+  &-item-capsule:extend(.newCloud-tabs-item-basic all),
+  &-item-empty-capsule:extend(.newCloud-tabs-item-basic all) {
     border: 1px solid @gray-4;
     background-color: @color-white;
     padding: 0 16px;
@@ -425,7 +425,7 @@
   }
 
   // type 为 slide
-  &-item-slide:extend(.@{prefix}-tabs-item-basic all) {
+  &-item-slide:extend(.newCloud-tabs-item-basic all) {
     position: relative;
     padding: 0 14px;
 
