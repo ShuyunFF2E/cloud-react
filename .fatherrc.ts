@@ -25,7 +25,7 @@ const isBuild = !(argv.dev || argv.watch);
 const externals = [
   'react',
   'react-dom',
-  ...(isBuild ? [] : ['gridmanager-react', 'prop-types', 'classnames']),
+  // ...(isBuild ? [] : ['gridmanager-react', 'prop-types', 'classnames']),
 ];
 
 export default isBuild ? [{
