@@ -15,6 +15,7 @@ import {
   getConfig,
   isFirefox,
   debounce,
+  hasCustomScroll,
 } from './util';
 import { DRAG_ICON_SELECTOR, DRAG_SELECTOR, tablePrefixCls } from './constant';
 import getExpandableConfig from './js/expend';
@@ -51,7 +52,7 @@ class CTable extends Component {
       data: [],
       columnData: this.resolveColumn(this.props.columnData),
       originColumnData: this.resolveOriginColumn(this.props.columnData),
-      footerHeight: 0,
+      footerHeight: this.props.footerHeight || 0,
       expandIconColumnIndex: this.props.expandIconColumnIndex,
       pageOpts: {
         ...this.defaultPageOpts,
@@ -65,8 +66,8 @@ class CTable extends Component {
     this.column = new Column(this);
   }
 
-
   componentDidMount() {
+    this.hasCustomScroll = hasCustomScroll();
     if (
       (this.props.supportExpend || this.props.supportTree) &&
       !this.props.rowKey
@@ -76,13 +77,19 @@ class CTable extends Component {
     if (this.props.supportMemory && !this.props.tableId) {
       console.warn('请设置 tableId');
     }
+    if (this.props.footerTpl() && this.props.footerHeight === undefined) {
+      console.warn('请设置 footerHeight');
+    }
     this.props.onLoadGridBefore(this.state.pageOpts);
     this.loadData((res) => {
       this.init();
       this.props.onLoadGridAfter(res);
     });
 
-    if (!this.props.supportResizeColumn) {
+    if (
+      this.props.columnData.find((c) => c.minWidth) &&
+      !this.props.supportResizeColumn
+    ) {
       window.addEventListener('resize', this.onResize());
     }
   }
@@ -102,7 +109,9 @@ class CTable extends Component {
         ? getDataSourceWithDelay
         : getDataSource;
     }
-    if (this.props.pageOpts !== prevProps.pageOpts) {
+    if (
+      JSON.stringify(this.props.pageOpts) !== JSON.stringify(prevProps.pageOpts)
+    ) {
       this.setState({
         pageOpts: {
           ...this.state.pageOpts,
@@ -114,7 +123,10 @@ class CTable extends Component {
   }
 
   componentWillUnmount() {
-    if (!this.props.supportResizeColumn) {
+    if (
+      this.props.columnData.find((c) => c.minWidth) &&
+      !this.props.supportResizeColumn
+    ) {
       window.removeEventListener('resize', this.onResize());
     }
   }
@@ -193,7 +205,7 @@ class CTable extends Component {
    * 解决表头滚动问题（rcTable bug）
    */
   setHeaderStyle = () => {
-    if (isFirefox() || !this.props.useCustomScroll) {
+    if (isFirefox() || !this.hasCustomScroll) {
       return;
     }
     setTimeout(() => {
@@ -214,7 +226,7 @@ class CTable extends Component {
    */
   setFixedStyle = () => {
     setTimeout(() => {
-      if (isFirefox() || !this.props.useCustomScroll) {
+      if (isFirefox() || !this.hasCustomScroll) {
         return;
       }
       const fixedColumn = this.state.columnData
@@ -227,7 +239,7 @@ class CTable extends Component {
         this.ref.current.querySelectorAll('th.cloud-table-cell-fix-right'),
       );
       if (fixedEles.length) {
-        fixedEles.pop();
+        // fixedEles.pop();
         fixedEles.reverse().forEach((ele, index) => {
           if (index === 0) {
             Object.assign(ele.style, { right: 0 });
@@ -339,6 +351,9 @@ class CTable extends Component {
    * 设置 footer 高度
    */
   setFooterHeight = () => {
+    if (this.props.footerHeight !== undefined) {
+      return;
+    }
     if (this.ref.current && this.ref.current.querySelector) {
       const footerEle = this.ref.current.querySelector(
         `.${tablePrefixCls}-footer`,
@@ -624,7 +639,6 @@ class CTable extends Component {
       onRow,
       supportResizeColumn,
       maxHeight,
-      useCustomScroll,
       isExpendAloneColumn,
       supportExpend,
       supportTree,
@@ -635,6 +649,7 @@ class CTable extends Component {
       supportFullColumn,
       loadingTpl,
       loadingOpts,
+      footerSelectTpl,
     } = this.props;
     const {
       data,
@@ -646,12 +661,6 @@ class CTable extends Component {
       isLoading,
     } = this.state;
     const { pageNum, pageSize, totals } = pageOpts;
-    const fixed = !!(
-      columnData.find((item) => item.fixed) ||
-      style.height ||
-      supportResizeColumn ||
-      maxHeight
-    );
 
     return (
       <div className={`${tablePrefixCls}-container`} style={style} ref={ref}>
@@ -666,7 +675,7 @@ class CTable extends Component {
               [`${tablePrefixCls}-loading`]: isLoading,
               [`${tablePrefixCls}-empty`]: !data.length,
               [`${tablePrefixCls}-use-custom-scroll`]:
-                useCustomScroll && !isFirefox(),
+                this.hasCustomScroll && !isFirefox(),
               [`${tablePrefixCls}-two-level-tree`]: isExpendAloneColumn, // 两级树
               [`${tablePrefixCls}-support-tree`]:
                 supportTree && !isExpendAloneColumn, // 多级树
@@ -689,7 +698,7 @@ class CTable extends Component {
             columns={columnData}
             data={data}
             expandIconColumnIndex={expandIconColumnIndex}
-            scroll={fixed ? { x: '100%', y: maxHeight || '100%' } : {}}
+            scroll={{ x: '100%', y: maxHeight || '100%' }}
             expandable={getExpandableConfig({ ...this.props })}
             emptyText={emptyTpl()}
             rowKey={rowKey}
@@ -745,7 +754,7 @@ class CTable extends Component {
             <div className={classnames(`${tablePrefixCls}-footer-statistics`)}>
               {(supportCheckbox || supportRadio) && (
                 <span className={classnames(`${tablePrefixCls}-footer-select`)}>
-                  已选 {selectedNodeList.length} 条
+                  {footerSelectTpl || <>已选 {selectedNodeList.length} 条</>}
                 </span>
               )}
               {showRefresh && (

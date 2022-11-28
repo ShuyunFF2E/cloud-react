@@ -5,11 +5,6 @@ desc: 单选
 ---
 
 ```jsx
-
-/**
- * title: 单选表格
- * desc: 单选表格
- */
 import React, { useState, useEffect } from 'react';
 import { CTable, Checkbox, Button } from 'cloud-react';
 
@@ -40,7 +35,6 @@ export default function CTableDemo() {
       supportRadio
       supportPage
       lightCheckedRow
-      useCustomScroll={false}
       checkedData={[data[1]]}
       pageOpts={{ pageSize: 6 }}
       columnData={columns}

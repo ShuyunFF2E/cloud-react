@@ -14,9 +14,58 @@
   width: 100%;
 }
 
+.header-bordered-resizable(@index: 1) {
+  position: relative;
+  background: @blue-1;
+  z-index: 1;
+
+  &::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    content: '';
+    display: block;
+    width: 1px;
+    height: 100%;
+    z-index: 1;
+    background: @blue-4;
+  }
+
+  // 可见的最后一列
+  &:nth-last-of-type(@{index}):hover {
+    &::before {
+      right: auto;
+      left: -1px;
+    }
+  }
+}
+
+.bordered-resizable(@index: 1; @borderRight: 1px solid @blue-4) {
+  &:hover {
+    background: @blue-1;
+    z-index: 1;
+  }
+
+  // 非可见的最后一列
+  // https://stackoverflow.com/questions/18118272/less-mix-in-for-nth-child
+  &:not(:nth-last-of-type(@{index})):hover {
+    border-right: @borderRight;
+  }
+
+  // 可见的最后一列
+  &:nth-last-of-type(@{index}) {
+    border-right: none;
+
+    &:hover {
+      box-shadow: 0 0 0 1px @blue-4;
+    }
+  }
+}
+
 .@{tableContainerPrefixCls} {
   position: relative;
   width: 100%;
+  z-index: 1;
 
   &::before {
     content: '';
@@ -59,7 +108,7 @@
         border: none;
 
         // 可见的最后一列
-        th:nth-last-of-type(2) {
+        th:nth-last-of-type(1) {
           border-right: none;
         }
       }
@@ -68,24 +117,7 @@
     &.@{tablePrefixCls}-support-resize {
       // 可见的最后一列
       .@{tablePrefixCls}-resizeable {
-        &:hover {
-          background: @blue-1;
-          z-index: 1;
-        }
-
-        // 非可见的最后一列
-        &:not(:nth-last-of-type(2)):hover {
-          border-right: 1px solid @blue-4;
-        }
-
-        // 可见的最后一列
-        &:nth-last-of-type(2) {
-          border-right: none;
-
-          &:hover {
-            box-shadow: 0 0 0 1px @blue-4;
-          }
-        }
+        .bordered-resizable(1);
       }
 
       .@{tablePrefixCls}-container {
@@ -114,36 +146,14 @@
 
     .@{tablePrefixCls}-scroll-horizontal {
       // 可见的最后一列
-      th:nth-last-of-type(2):after {
+      th:nth-last-of-type(1):after {
         display: none;
       }
     }
 
     .@{tablePrefixCls}-resizeable {
-      &:not(:last-of-type):hover {
-        position: relative;
-        background: @blue-1;
-        z-index: 1;
-
-        &::before {
-          position: absolute;
-          top: 0;
-          right: 0;
-          content: '';
-          display: block;
-          width: 1px;
-          height: 100%;
-          z-index: 1;
-          background: @blue-4;
-        }
-
-        // 可见的最后一列
-        &:nth-last-of-type(2):hover {
-          &::before {
-            right: auto;
-            left: -1px;
-          }
-        }
+      &:hover {
+        .header-bordered-resizable(1);
       }
     }
   }
@@ -246,6 +256,10 @@
       .@{tablePrefixCls}-summary {
         border-right: @border;
         border-left: @border;
+
+        colgroup col:last-child {
+          display: none;
+        }
       }
     }
   }
@@ -270,7 +284,7 @@
       }
 
       // 可见的最后一列
-      &:nth-last-of-type(2) {
+      &:nth-last-of-type(1) {
         .react-resizable-handle-se {
           display: none;
         }
@@ -306,10 +320,49 @@
   //解决表头滚动问题（rcTable bug）
   &.@{tablePrefixCls}-use-custom-scroll {
     .@{tablePrefixCls}-thead {
-      th:last-of-type {
+      // 表头最右侧元素 td，在有自定义滚动条时，会导致表头错位，由 css 和 js（setFixedStyle setFooterHeight） 共同控制
+      td {
         &.@{tablePrefixCls}-cell-fix-right,
         &.@{tablePrefixCls}-cell-scrollbar {
           display: none !important;
+        }
+      }
+    }
+
+    // 带边框表格
+    &.@{tablePrefixCls}-bordered {
+      &.@{tablePrefixCls}-support-resize {
+        .@{tablePrefixCls}-resizeable {
+          .bordered-resizable(2);
+        }
+      }
+    }
+
+    // 表头带线条
+    &.@{tablePrefixCls}-header-bordered {
+      .@{tablePrefixCls}-resizeable {
+        &:not(:last-of-type):hover {
+          .header-bordered-resizable(2);
+        }
+      }
+    }
+
+    // 表格列拉伸
+    &.@{tablePrefixCls}-support-resize {
+      &.@{tablePrefixCls}-header-bordered {
+        .@{tablePrefixCls}-scroll-horizontal {
+          // 可见的最后一列
+          th:nth-last-of-type(2):after {
+            display: none;
+          }
+        }
+      }
+      .@{tablePrefixCls}-resizeable {
+        // 可见的最后一列
+        &:nth-last-of-type(2) {
+          .react-resizable-handle-se {
+            display: none;
+          }
         }
       }
     }

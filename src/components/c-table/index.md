@@ -27,7 +27,7 @@ group:
 | maxHeight | tbody最大高度    | string/number |   -   |
 | onLoadGridAfter | 表格刷新后回调，Function(res)   | function   |   () => {}   | |
 | onLoadGridBefore | 表格刷新前回调，Function(params)   | function   |   () => {}   | |
-| onRow | 表格刷新后回调   | 设置自定义 row 属性，Function(record, index)	   |   () => {}   | |
+| onRow | 表格刷新后回调，设置自定义 row 属性，Function(record, index)   | 	function   |   () => {}   | |
 
 #### CTable 手动刷新表格
 this.tableRef.current.refreshTable(gotoFirstPage?, params?);
@@ -82,7 +82,7 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 | 属性           | 说明                    | 类型              | 默认值
 | -------------- | ---------------------- | ----------------- | ------ |
 | supportCheckbox | 是否支持多选    | boolean   |   false   | |
-| checkedData | 已选数据    | array   |   []   | |
+| checkedData | 已选数据，支持两种写法。在 "多选表格（checkbox.md）" demo 中查看说明   | array   |   []   | |
 | supportRadio | 是否支持单选   | boolean   |   false   | |
 | onCheckedAfter | 选中行回调，需要设置 supportCheckbox 为 true，Function(checkedList, checkedRow)    | function   |   -   | | 
 | onCheckedAllAfter | 选中当页回调，需要设置 supportCheckbox 为 true，Function(checkedList)   | function   |   -   | |
@@ -99,6 +99,8 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 | 属性           | 说明                    | 类型              | 默认值
 | -------------- | ---------------------- | ----------------- | ------ |
 | footerTpl | 自定义 footer    | function   |   -   | |
+| footerHeight | 分页部分高度，设置 footerTpl，需要设置 footerHeight    | number   |   undefined   | |
+| footerSelectTpl | 自定义 已选n条 模板   | -   |   null   | |
 | emptyTpl | 自定义数据为空模板   | function   |   -   | |
 | rowClassName | 自定义行类名   | function   |   -   | |
 | lightCheckedRow | 选中行高亮   | boolean   |   false   | |
@@ -111,7 +113,7 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 | -------------- | ---------------------- | ----------------- | ------ |
 | isDelay | 刷新表格时，是否延迟loading，一般在纯前端表格中使用   | boolean   |   false   | |
 | isCheckboxFixed | 是否固定多选框列或单选框列  | boolean	   |   false   | |
-| useCustomScroll | 业务中是否使用自定义滚动条 | 	boolean   |   true   | |
+| ~~useCustomScroll~~ | ~~业务中是否使用自定义滚动条~~，无需设置，原设置过的不影响 | 	boolean   |   true   | |
 | scrollIntoTop | 翻页后表格自动滚到顶部 | 	boolean   |   true   | |
 | reloadAfterSetColumn | 重新设置表格列后，是否需要刷新表格 | 	boolean   |   false   | |
 
@@ -141,72 +143,93 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 | sortable     | 是否支持排序                                     | boolean                      | false               |
 | sorter     | 自定义列排序规则                                     | function                      | -               |
 | onCell     | 为每个单元格设置自定义参数 Function(record, index)                                   | function                      | -               |
-| minWidth     | 列最小宽度                       | number                   | - |
+| minWidth     | 列最小宽度（**该属性效果不流畅，可以给 columnData 中的每一项都设置 width 属性，可达到同样效果**）                      | number                   | - |
 | filters     | 配置表格列筛选项 [{ text: '男', value: 'male' }, { text: '女', value: 'female' }]                      | array                   | [] |
 
 ### 代码演示
+
+### 基础表格
 <embed src="@components/c-table/demos/basic.md" /> 
 
+### 表头带线条
 <embed src="@components/c-table/demos/header-bordered.md" /> 
 
+### 全边框表格
 <embed src="@components/c-table/demos/bordered.md" /> 
 
+### 多选表格
 <embed src="@components/c-table/demos/checkbox.md" /> 
 
+<embed src="@components/c-table/demos/page.md" /> 
+
+<embed src="@components/c-table/demos/page1.md" /> 
+
+### 单选表格
 <embed src="@components/c-table/demos/radio.md" /> 
 
+### 树状表格（两级）
 <embed src="@components/c-table/demos/tree.md" /> 
 
+### 树状表格（多级）
 <embed src="@components/c-table/demos/tree1.md" /> 
 
+### 表格可编辑
 <embed src="@components/c-table/demos/edit.md" /> 
 
+### 表格展开行
 <embed src="@components/c-table/demos/expand-row.md" /> 
 
+### 表格带图标
 <embed src="@components/c-table/demos/custom-column-icon.md" /> 
 
 <embed src="@components/c-table/demos/custom-column-icon-link.md" /> 
 
 <embed src="@components/c-table/demos/custom-column-tag.md" /> 
 
+### 表格固定列
 <embed src="@components/c-table/demos/fixed-column.md" /> 
 
-<embed src="@components/c-table/demos/fixed-header.md" /> 
-
+### 表格分组
 <embed src="@components/c-table/demos/tree2.md" /> 
 
+### 表格通栏
 <embed src="@components/c-table/demos/tree3.md" /> 
 
-<embed src="@components/c-table/demos/summary.md" /> 
+### 表尾合计
+<embed src="@components/c-table/demos/summary.md" />
 
-<embed src="@components/c-table/demos/page.md" /> 
-
-<embed src="@components/c-table/demos/page1.md" /> 
-
+### 表格合并列/行
 <embed src="@components/c-table/demos/row-col-span.md" /> 
 
+### 表格行高亮
 <embed src="@components/c-table/demos/light-row.md" /> 
 
+### 表格排序
 <embed src="@components/c-table/demos/sort-no-page.md" /> 
 
 <embed src="@components/c-table/demos/sort-with-page.md" /> 
 
 <embed src="@components/c-table/demos/sort-front.md" /> 
 
+### 表格过滤
 <embed src="@components/c-table/demos/filter.md" />
 
+### 手动刷新表格
 <embed src="@components/c-table/demos/refresh-table.md" /> 
 
+### 表格禁用行
 <embed src="@components/c-table/demos/disabled0.md" /> 
 
 <embed src="@components/c-table/demos/disabled1.md" /> 
 
 <embed src="@components/c-table/demos/disabled2.md" /> 
 
+### 表格行拖拽
 <embed src="@components/c-table/demos/drag.md" /> 
 
 <embed src="@components/c-table/demos/drag1.md" />
 
+### 表格列拉伸
 <embed src="@components/c-table/demos/resize.md" />
 
 <embed src="@components/c-table/demos/resize1.md" />

@@ -5,11 +5,6 @@ desc: 表格分组
 ---
 
 ```jsx
-
-/**
- * title: 表格分组
- * desc: 表格分组
- */
 import React from 'react';
 import { CTable } from 'cloud-react';
 

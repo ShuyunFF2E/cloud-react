@@ -19,11 +19,14 @@ class Tooltip extends Component {
 
   timestamp = new Date().getTime().toString();
 
-  state = {
-    visible: false,
-  };
-
   tipRef = React.createRef();
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      visible: false,
+    };
+  }
 
   componentDidMount() {
     if (this.props.visible) {
@@ -66,16 +69,17 @@ class Tooltip extends Component {
   }
 
   onClick = (evt) => {
+    if (this.props.alwaysShow && this.state.visible) {
+      return;
+    }
     if (
-      !evt.path ||
-      !evt.path.find((ele) => {
-        return (
-          ele.classList &&
-          ele.classList.contains &&
-          ele.classList.contains(`${prefixCls}-tooltip`)
-        );
-      }) ||
-      this.props.closeTooltipExec(evt.path)
+      !evt.path
+      || !evt.path.find(
+        (ele) => ele.classList
+          && ele.classList.contains
+          && ele.classList.contains(`${prefixCls}-tooltip`),
+      )
+      || this.props.closeTooltipExec(evt.path)
     ) {
       this.setState({ visible: false }, () => {
         this.props.onVisibleChange(this.state.visible);
@@ -85,7 +89,7 @@ class Tooltip extends Component {
 
   getChildren() {
     const { children } = this.props;
-    const __children = createElement('span', null, [children]);
+    const __children = createElement('span', null, [ children ]);
     return __children;
   }
 
@@ -119,10 +123,10 @@ class Tooltip extends Component {
   closeTips = (event) => {
     const { mouseLeaveDelay, visible, trigger } = this.props;
     if (
-      (event &&
-        event.relatedTarget &&
-        event.relatedTarget.className?.includes('cloud-tooltip')) ||
-      trigger === 'click'
+      (event
+        && event.relatedTarget
+        && event.relatedTarget.className?.includes('cloud-tooltip'))
+      || trigger === 'click'
     ) {
       return;
     }
@@ -209,6 +213,7 @@ Tooltip.propTypes = {
   overlayStyle: PropTypes.object,
   closeTooltipExec: PropTypes.func,
   onVisibleChange: PropTypes.func,
+  alwaysShow: PropTypes.bool,
 };
 
 Tooltip.defaultProps = {
@@ -223,6 +228,7 @@ Tooltip.defaultProps = {
   overlayStyle: {},
   closeTooltipExec: () => false,
   onVisibleChange: () => {},
+  alwaysShow: false,
 };
 
 export default Tooltip;

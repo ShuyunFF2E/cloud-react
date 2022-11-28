@@ -135,3 +135,10 @@ export const debounce = (callback, delay) => {
     }, delay);
   };
 };
+
+export const hasCustomScroll = () => {
+  const bodyEle = document.querySelector('body');
+  return window
+    .getComputedStyle(bodyEle, '::-webkit-scrollbar')
+    .width.includes('px');
+};

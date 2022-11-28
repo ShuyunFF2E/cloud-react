@@ -6,10 +6,6 @@ desc: 表头带线条
 
 ```jsx
 
-/**
- * title: 表头带线条
- * desc: 表头带线条
- */
 import React from 'react';
 import { CTable } from 'cloud-react';
 
@@ -30,11 +26,13 @@ const columns = [
 
 export default function CTableDemo() {
   return (
-    <CTable
-      headerBordered
-      columnData={columns}
-      ajaxData={{ totals: data.length, data }}
-    />
+    <div style={{ width: '100%' }}>
+      <CTable
+        headerBordered
+        columnData={columns}
+        ajaxData={{ totals: data.length, data }}
+      />
+    </div>
   );
 }
 ```

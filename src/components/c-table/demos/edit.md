@@ -5,11 +5,6 @@ desc: 表格可编辑
 ---
 
 ```jsx
-
-/**
- * title: 表格可编辑
- * desc: 表格可编辑
- */
 import React, { Component, createRef } from 'react';
 import { CTable, Input } from 'cloud-react';
 import './style/index.less';

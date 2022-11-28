@@ -5,11 +5,6 @@ desc: 表尾合计
 ---
 
 ```jsx
-
-/**
- * title: 表尾合计
- * desc: 表尾合计
- */
 import React from 'react';
 import { CTable } from 'cloud-react';
 
@@ -31,8 +26,8 @@ const columns = [
 
 const summaryData = [
   { index: 0, colSpan: 2, content: '合计' },
-  { index: 3, colSpan: 1, content: '3,008', align: 'right' },
-  { index: 4, colSpan: 1, content: '379', align: 'right' },
+  { index: 2, colSpan: 1, content: '3,008', align: 'right' },
+  { index: 3, colSpan: 1, content: '379', align: 'right' },
 ];
 
 export default function CTableDemo() {
@@ -40,7 +35,6 @@ export default function CTableDemo() {
         <CTable
           bordered
             style={{ width: '100%' }}
-            useCustomScroll={false}
             columnData={columns}
             ajaxData={{ totals: data.length, data }}
             summaryData={summaryData}
