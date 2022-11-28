@@ -41,6 +41,7 @@
     "prop-types": "^15.7.2",
     "rc-cascader": "^3.4.2",
     "rc-color-picker": "^1.2.6",
+		"rc-drawer": "^6.0.1",
     "rc-dropdown": "~4.0.1",
     "rc-menu": "^9.0.12",
     "rc-picker": "^2.5.19",

@@ -61,7 +61,7 @@
     &:checked + .@{raido-prefix-cls}-inner {
       color: @blue-4;
 
-      &::after:extend(.cloud-radio-position) {
+      &::after:extend(.@{prefix}-radio-position) {
         content: '';
         background-color: currentColor;
         width: 6px;
@@ -86,14 +86,14 @@
 
     &[checked][disabled] + .@{raido-prefix-cls}-inner {
       color: @blue-2;
-      &::after:extend(.cloud-radio-position) {
+      &::after:extend(.@{prefix}-radio-position) {
         background-color: @blue-2;
         box-shadow: 0 0 5px @blue-2;
       }
     }
   }
 
-  &-inner:extend(.cloud-radio-position) {
+  &-inner:extend(.@{prefix}-radio-position) {
     z-index: 1;
 
     border-radius: 50%;
