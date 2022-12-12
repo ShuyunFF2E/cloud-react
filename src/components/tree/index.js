@@ -422,7 +422,7 @@ class Tree extends Component {
       body: '你确定删除此目录吗?',
       onOk: () => {
         const { treeData } = this.state;
-        if (!store.removeChildNode(treeData, node)) {
+        if (!store.isExistChildNode(treeData, node)) {
           Message.error('该目录存在子目录，不可删除!');
           return;
         }

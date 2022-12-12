@@ -391,6 +391,33 @@ class Store {
 		return !isAdd && sameNode.id !== id;
 	}
 
+
+  /**
+   * 是否包含子节点
+   * @param data
+   * @param node
+   * @returns {*}
+   */
+  isExistChildNode(data, node) {
+    const parentNode = this.findNodeById(data, node.pId);
+
+    // 删除失败: 当前为顶层
+    if (!parentNode) {
+      return false;
+    }
+
+    // 删除失败: 存在子节点
+    if (Array.isArray(node.children) && node.children.length) {
+      return false;
+    }
+    return parentNode.children.some((child) => {
+      if (child.id === node.id) {
+        return true;
+      }
+      return false;
+    });
+  }
+
 	/**
 	 * 删除节点
 	 * @param data
@@ -402,19 +429,18 @@ class Store {
 
 		// 删除失败: 当前为顶层
 		if (!parentNode) {
-			return false;
+			return;
 		}
 
 		// 删除失败: 存在子节点
 		if (Array.isArray(node.children) && node.children.length) {
-			return false;
+			return;
 		}
-		return parentNode.children.some((child, index) => {
+
+		parentNode.children.forEach((child, index) => {
 			if (child.id === node.id) {
 				parentNode.children.splice(index, 1);
-				return true;
 			}
-			return false;
 		});
 	}
 
