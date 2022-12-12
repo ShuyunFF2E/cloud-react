@@ -12,6 +12,7 @@ desc: 点击确定按钮后异步关闭对话框，如提交请求场景
              */
 import React from 'react';
 import { Button, Modal } from 'cloud-react';
+import getQueryString from './query.js';
 
 function getQueryString(name) {
 	var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');

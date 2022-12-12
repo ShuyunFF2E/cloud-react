@@ -12,17 +12,9 @@ desc: 弹出一个提示框，在其内部再弹出一个提示框
              */
 import React from 'react';
 import { Button, Modal } from 'cloud-react';
+import getQueryString from './query.js';
 
 const blank = '\u00A0';
-
-function getQueryString(name) {
-	var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
-	var r = window.location.search.substr(1).match(reg);
-	if (r != null) {
-		return decodeURIComponent(r[2]);
-	}
-	return null;
-}
 
 export default class ModalDemo extends React.Component {
 	constructor(props) {
@@ -75,7 +67,7 @@ export default class ModalDemo extends React.Component {
 					onOk={this.handleOk}
 					onCancel={this.handleCancel}
 					onClose={this.handleClose}>
-					<SecondModal showType={this.showType} />
+					<SecondModal showType={this.showType}/>
 				</Modal>
 			</div>
 		);
@@ -108,8 +100,8 @@ class SecondModal extends React.Component {
 				<Button type="normal" onClick={this.openInfoModal}>
 					信息提示弹出框
 				</Button>
-				<Modal hasFooter={false} showType={this.props.showType} title="basic title111" visible={this.state.visible} onClose={this.handleClose}>
-					<ConfirmModal showType={this.props.showType} />
+				<Modal hasFooter={false}  showType={this.props.showType} title="basic title111" visible={this.state.visible} onClose={this.handleClose}>
+					<ConfirmModal  showType={this.props.showType}/>
 				</Modal>
 			</div>
 		);

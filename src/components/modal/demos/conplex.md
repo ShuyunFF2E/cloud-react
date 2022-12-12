@@ -12,15 +12,7 @@ desc: 在modal组件中进行数据传输
              */
 import React from 'react';
 import { Button, Modal } from 'cloud-react';
-
-function getQueryString(name) {
-	var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
-	var r = window.location.search.substr(1).match(reg);
-	if (r != null) {
-		return decodeURIComponent(r[2]);
-	}
-	return null;
-}
+import getQueryString from './query.js';
 
 export default class ModalDemo extends React.Component {
 	constructor(props) {
@@ -64,7 +56,7 @@ export default class ModalDemo extends React.Component {
 				<Modal 
 					showType={this.showType}
 					visible={this.state.visible}
-				 	onOk={this.handleOk} 
+					onOk={this.handleOk} 
 					onClose={this.handleCancel} 
 					onCancel={this.handleCancel}>
 					this is a complex demo,you can click it

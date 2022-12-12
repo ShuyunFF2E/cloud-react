@@ -12,6 +12,7 @@ desc: 自定义提示框样式
              */
 import React from 'react';
 import { Button, Modal } from 'cloud-react';
+import getQueryString from './query.js';
 
 const blank = '\u00A0';
 
@@ -45,6 +46,7 @@ export default class ModalDemo extends React.Component {
 			style: {
 				width: '200px'
 			},
+			showType: this.showType,
 			body: '我是宽度只有200px的提示',
 			onCancel: () => {}
 		});
@@ -56,6 +58,7 @@ export default class ModalDemo extends React.Component {
 			style: {
 				height: '200px'
 			},
+			showType: this.showType,
 			body:
 				'我是高度只有200px的提示，但是我数量很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多，所以我出现了滚动条',
 			onCancel: () => {}
@@ -70,6 +73,7 @@ export default class ModalDemo extends React.Component {
 				color: '#FFF',
 				fontSize: '20px'
 			},
+			showType: this.showType,
 			body: '我是背景色是红色的提示',
 			onCancel: () => {}
 		});

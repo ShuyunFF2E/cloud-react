@@ -51,14 +51,15 @@ group:
 -   Modal.info(config)
 -   Modal.warning(config)
 
+以上均为函数，参数为 object，具体属性如下：
 以上均为函数，`config`参数为`object`，具体属性如下：
 
 | 方法名     | 说明                                          | 类型     | 默认值 |
 | ---------- | --------------------------------------------- | -------- | ------ |
 | isShowIcon | 是否显示提示信息前面的 icon                   | boolean  | `true` |
 | icon       | 提示信息前面 icon, 即 icon 组件中的 type 名称 | string   | `--`   |
-| showType   | iframe时，弹窗的透传模式，`top`, `current` | string  | `top`   |
 | iconStyle  | 提示信息前面 icon 的样式                      | object   | `--`   |
+| showType   | iframe时，弹窗的透传模式，`top`, `current` | string  | `top`   |
 | style      | 提示框的样式                                  | object   | `--`   |
 | body       | 提示信息内容, 支持 jsx 语法直接传入 dom 节点  | any      | `--`   |
 | okText             | 确定按钮自定义文本                       | string              | `确定`  |

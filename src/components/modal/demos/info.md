@@ -12,6 +12,7 @@ desc: 弹出一个信息提示框
              */
 import React from 'react';
 import { Button, Modal } from 'cloud-react';
+import getQueryString from './query.js';
 
 const blank = '\u00A0';
 

@@ -12,6 +12,7 @@ desc: 使用confirm快捷弹出确认对话框
              */
 import React from 'react';
 import { Button, Modal } from 'cloud-react';
+import getQueryString from './query.js';
 
 const blank = '\u00A0';
 

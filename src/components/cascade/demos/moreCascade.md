@@ -26,11 +26,11 @@ export default class CascadeDemo extends Component{
 					children:[
 						{ 
 							id: '2',
-							title: '惟将终夜长开眼，报答平生未展眉'
+							title: '豫章故郡'
 						},
 						{ 
 							id: '3',
-							title: '愿为市鞍马，从此替爷征'
+							title: '洪都新府'
 						}
 					]
 				},
@@ -39,11 +39,11 @@ export default class CascadeDemo extends Component{
 					title:'侠之大者',
 					children:[
 						{
-							title: '功成不必在我',
+							title: '星分翼轸',
 							id: '5',
 						},
 						{
-							title: '为众人抱薪者，不可使其冻毙于荒野',
+							title: '地接衡庐',
 							id: '6',
 						}
 					]
@@ -53,12 +53,12 @@ export default class CascadeDemo extends Component{
 					title:'人生逆旅',
 					children:[
 						{
-							title: '风刀霜剑，困厄催逼',
+							title: '物华天宝',
 							id: '8',
-							children: [{ title: '感谢这世界有剥夺也有馈赠', id: '10'}]
+							children: [{ title: '龙光射牛斗之墟', id: '10'}]
 						},
 						{
-							title: '论迹不论心，论心无完人',
+							title: '人杰地灵',
 							id: '9',
 						}
 					]
@@ -80,6 +80,7 @@ export default class CascadeDemo extends Component{
 					width="208px"
 					height="270px"
 					isOnlyShow
+					supportCopy
 					onChange={onChange}
 					container={container}
 					visible={visible} 

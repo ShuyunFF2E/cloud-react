@@ -12,15 +12,7 @@ desc: 使用createModal方法创建一个弹出框，open方法打开
              */
 import React from 'react';
 import { Button, Modal } from 'cloud-react';
-
-function getQueryString(name) {
-	var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
-	var r = window.location.search.substr(1).match(reg);
-	if (r != null) {
-		return decodeURIComponent(r[2]);
-	}
-	return null;
-}
+import getQueryString from './query.js';
 
 export default class ModalDemo extends React.Component {
 	// 弹出框
@@ -79,7 +71,12 @@ class SecondModal extends React.Component {
 			className: 'test'
 		};
 		return (
-			<Modal visible showType={this.showType} {...attr} onOk={this.handleOk} onClose={this.handleClose} onCancel={this.handleClose}>
+			<Modal visible
+				showType={this.showType} 
+				{...attr} 
+				onOk={this.handleOk} 
+				onClose={this.handleClose} 
+				onCancel={this.handleClose}>
 				这是一个通过createModal方法创建的modal，接受字符串、html、JSX
 			</Modal>
 		);

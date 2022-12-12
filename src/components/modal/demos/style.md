@@ -12,6 +12,7 @@ desc: 使用style属性自定义modal组件样式，禁用确定按钮
              */
 import React from 'react';
 import { Button, Modal, Message } from 'cloud-react';
+import getQueryString from './query.js';
 
 function getQueryString(name) {
 	var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');

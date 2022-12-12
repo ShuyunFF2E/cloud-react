@@ -86,7 +86,7 @@ Modal.createModal = ModalEntity => {
 			ReactDOM.render(<ModalEntity visible onCancel={handleCancel} onClose={handleClose} onOk={handleOk} {...options} />, container);
 		});
 	};
-
+	/* eslint-disable-next-line */
 	return { open, close };
 };
 
