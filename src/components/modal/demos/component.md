@@ -12,7 +12,6 @@ desc: 在modal中使用其他组件
              */
 import React from 'react';
 import { Button, Modal, Message, Select, Tabs, Table } from 'cloud-react';
-import getQueryString from './query.js';
 
 function getQueryString(name) {
 	var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');

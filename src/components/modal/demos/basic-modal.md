@@ -12,7 +12,6 @@ desc: 使用modal打开基本对话框，点击遮罩区域关闭对话框
              */
 import React from 'react';
 import { Button, Modal, Select, Datepicker, Form, Message } from 'cloud-react';
-import getQueryString from './query.js';
 
 const blank = '\u00A0';
 

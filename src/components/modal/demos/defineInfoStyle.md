@@ -12,7 +12,6 @@ desc: 自定义提示框样式
              */
 import React from 'react';
 import { Button, Modal } from 'cloud-react';
-import getQueryString from './query.js';
 
 const blank = '\u00A0';
 
