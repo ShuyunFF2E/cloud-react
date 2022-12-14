@@ -354,7 +354,7 @@ class Notification extends Component {
           <CSSTransition
             in={visible}
             timeout={300}
-            classNames="cloud-modal"
+            classNames={`${prefixCls}-modal`}
             unmountOnExit
             appear
             onExited={this.onTransitionExited}

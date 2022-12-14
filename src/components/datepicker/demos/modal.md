@@ -84,7 +84,7 @@ export default class DatepickerDemo extends React.Component {
 					<br />
 
 					<Datepicker
-						containerEleClass="cloud-modal-body"
+						containerEleClass="newCloud-modal-body"
 						maxYear={2023}
 						showTimePicker={true}
 						onChange={this.onInpChange}
