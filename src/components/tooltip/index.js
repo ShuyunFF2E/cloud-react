@@ -111,9 +111,8 @@ class Tooltip extends Component {
     }
 
     if (content && (visible || visible === undefined)) {
-      this.target = this.getTooltipParent(target);
-
       setTimeout(() => {
+        this.target = this.getTooltipParent(target);
         this.setState({ visible: true }, () => {
           this.props.onVisibleChange(this.state.visible);
         });
