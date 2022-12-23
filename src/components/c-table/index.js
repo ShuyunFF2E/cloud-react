@@ -587,16 +587,18 @@ class CTable extends Component {
     if (!this.props.supportDrag) {
       return;
     }
+    const _fromIndex = fromIndex - 1;
+    const _toIndex = toIndex - 1;
     const { data } = this.state;
     const dataCopy = [...data];
-    const item = dataCopy.splice(fromIndex, 1)[0];
-    dataCopy.splice(toIndex, 0, item);
+    const item = dataCopy.splice(_fromIndex, 1)[0];
+    dataCopy.splice(_toIndex, 0, item);
     this.setState(
       {
         data: dataCopy,
       },
       () => {
-        this.props.onDragAfter(data[fromIndex], data[toIndex]);
+        this.props.onDragAfter(data[_fromIndex], data[_toIndex]);
       },
     );
   };
