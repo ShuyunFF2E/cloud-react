@@ -59,6 +59,7 @@ export const propTypes = {
   footerHeight: PropTypes.number,
   footerSelectTpl: PropTypes.any,
   isTreeIncludeChildren: PropTypes.bool,
+  tooltipConfigs: PropTypes.array,
 };
 
 export const defaultProps = {
@@ -117,4 +118,5 @@ export const defaultProps = {
   footerHeight: undefined,
   footerSelectTpl: null,
   isTreeIncludeChildren: true,
+  tooltipConfigs: [],
 };

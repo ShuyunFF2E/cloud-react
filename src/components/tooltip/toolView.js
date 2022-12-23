@@ -68,7 +68,7 @@ function getDirection(tooltip, target, placement) {
 }
 
 // 计算tooltip位置
-function getTooltipPositionInBody(tooltip, target, placement) {
+export function getTooltipPositionInBody(tooltip, target, placement) {
 	const { offsetWidth, offsetHeight } = tooltip;
 	const { left, top, right, bottom, width, height } = getAbsPosition(target);
 

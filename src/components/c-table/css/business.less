@@ -7,6 +7,7 @@
 
 @tableContainerPrefixCls: ~'@{prefix}-table-box';
 @containerPrefixCls: ~'@{prefix}-container';
+@tooltipPrefixCls: ~'@{prefix}-table-row-tooltip';
 
 .@{containerPrefixCls} {
   display: flex;
@@ -389,4 +390,26 @@
 
 .@{tablePrefixCls}-drag-line {
   border: 1px solid @blue-4!important;
+}
+
+.@{tooltipPrefixCls} {
+  position: absolute;
+  background-color: @gray-9;
+  color: @color-white;
+  line-height: 1.5;
+  padding: 6px 6px;
+  border-radius: 2px;
+  font-size: 12px;
+
+  &:after {
+    bottom: -7px;
+    right: 2%;
+    transform: translate(-50%) rotate(0);
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 4px solid transparent;
+    border-top: 4px solid @gray-9;
+  }
 }

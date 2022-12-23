@@ -27,6 +27,7 @@ import emptyImg from './empty.png';
 import './css/basic.less';
 import './css/business.less';
 import Column from './js/column';
+import RowTooltip from './js/rowTooltip';
 import { defaultProps, propTypes } from './js/propType';
 
 class CTable extends Component {
@@ -664,6 +665,7 @@ class CTable extends Component {
       loadingTpl,
       loadingOpts,
       footerSelectTpl,
+      tooltipConfigs,
     } = this.props;
     const {
       data,
@@ -799,6 +801,9 @@ class CTable extends Component {
           </div>
         )}
         {footerTpl()}
+        {tooltipConfigs?.length ? (
+          <RowTooltip tableContainerRef={ref} tooltipConfigs={tooltipConfigs} />
+        ) : null}
       </div>
     );
   }
