@@ -29,6 +29,7 @@ import './css/business.less';
 import Column from './js/column';
 import RowTooltip from './js/rowTooltip';
 import { defaultProps, propTypes } from './js/propType';
+import { prefixCls } from '@utils';
 
 class CTable extends Component {
   ref = createRef();
@@ -212,11 +213,11 @@ class CTable extends Component {
     }
     setTimeout(() => {
       if (this.ref.current) {
-        const bodyEle = this.ref.current.querySelector('.cloud-table-body');
+        const bodyEle = this.ref.current.querySelector(`.${tablePrefixCls}-body`);
         if (bodyEle) {
           bodyEle.style.paddingRight = 0;
           bodyEle.parentElement.querySelector(
-            '.cloud-table-header colgroup col:last-child',
+            `.${tablePrefixCls}-header colgroup col:last-child`,
           ).style.width = 0;
         }
       }
@@ -238,7 +239,7 @@ class CTable extends Component {
         return;
       }
       const fixedEles = Array.from(
-        this.ref.current.querySelectorAll('th.cloud-table-cell-fix-right'),
+        this.ref.current.querySelectorAll(`th.${tablePrefixCls}-cell-fix-right`),
       );
       if (fixedEles.length) {
         // fixedEles.pop();
@@ -266,7 +267,7 @@ class CTable extends Component {
   scrollIntoView = () => {
     if (this.props.scrollIntoTop) {
       const trEle = this.ref.current?.querySelector(
-        'tr.cloud-table-row:nth-child(2)',
+        `tr.${tablePrefixCls}-row:nth-child(2)`,
       );
       if (trEle) {
         trEle.scrollIntoView({
@@ -602,7 +603,7 @@ class CTable extends Component {
 
   onResize = () => {
     return debounce(() => {
-      const thArr = this.ref.current?.querySelectorAll('th.cloud-table-cell');
+      const thArr = this.ref.current?.querySelectorAll(`th.${tablePrefixCls}-cell`);
       this.column.setColumnData({ currentThArr: thArr });
     }, 500);
   };

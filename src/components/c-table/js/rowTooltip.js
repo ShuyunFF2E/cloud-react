@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { getTrEle } from '../util';
 import { getTooltipPositionInBody } from '../../tooltip/toolView';
 import '../css/business.less';
+import { tablePrefixCls } from '../constant';
 
 class RowTooltip extends Component {
   constructor(props) {
@@ -15,7 +16,7 @@ class RowTooltip extends Component {
 
   componentDidMount() {
     setTimeout(() => {
-      const ele = this.props.tableContainerRef?.current?.querySelector('.cloud-table-container');
+      const ele = this.props.tableContainerRef?.current?.querySelector(`.${tablePrefixCls}-container`);
       if (ele) {
         ele.addEventListener('mouseover', this.onMouseOver)
       }
@@ -23,7 +24,7 @@ class RowTooltip extends Component {
   }
 
   componentWillUnmount() {
-    const ele = this.props.tableContainerRef?.current?.querySelector('.cloud-table-container');
+    const ele = this.props.tableContainerRef?.current?.querySelector(`.${tablePrefixCls}-container`);
     if (ele) {
       ele.removeEventListener('mouseover', this.onMouseOver);
     }
@@ -34,7 +35,7 @@ class RowTooltip extends Component {
 
     const targetTooltipConfig = this.props.tooltipConfigs.find(item => targetRow?.classList?.contains(item.tooltipRowCls));
     if (targetTooltipConfig) {
-      const tooltipEle = document.querySelector('.cloud-table-row-tooltip');
+      const tooltipEle = document.querySelector(`.${tablePrefixCls}-row-tooltip`);
       const tooltipStyle = getTooltipPositionInBody(tooltipEle, targetRow, 'top-right');
 
       this.setState({
@@ -61,7 +62,7 @@ class RowTooltip extends Component {
 
   render() {
     return (
-      <span className="cloud-table-row-tooltip" style={this.state.tooltipStyle}>
+      <span className={`${tablePrefixCls}-row-tooltip`} style={this.state.tooltipStyle}>
           {this.state.tooltipMsg}
         </span>
     )
@@ -76,7 +77,7 @@ RowTooltip.propTypes = {
 RowTooltip.defaultProps = {
   tooltipConfigs: [{
     tooltipMsg: '不可选',
-    tooltipRowCls: 'cloud-table-row-disabled', // 需要展示 tooltip 行的类名，
+    tooltipRowCls: `${tablePrefixCls}-row-disabled`, // 需要展示 tooltip 行的类名，
   }]
 };
 
