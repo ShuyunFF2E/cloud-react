@@ -27,7 +27,9 @@ import emptyImg from './empty.png';
 import './css/basic.less';
 import './css/business.less';
 import Column from './js/column';
+import RowTooltip from './js/rowTooltip';
 import { defaultProps, propTypes } from './js/propType';
+import { prefixCls } from '@utils';
 
 class CTable extends Component {
   ref = createRef();
@@ -211,11 +213,11 @@ class CTable extends Component {
     }
     setTimeout(() => {
       if (this.ref.current) {
-        const bodyEle = this.ref.current.querySelector('.cloud-table-body');
+        const bodyEle = this.ref.current.querySelector(`.${tablePrefixCls}-body`);
         if (bodyEle) {
           bodyEle.style.paddingRight = 0;
           bodyEle.parentElement.querySelector(
-            '.cloud-table-header colgroup col:last-child',
+            `.${tablePrefixCls}-header colgroup col:last-child`,
           ).style.width = 0;
         }
       }
@@ -237,7 +239,7 @@ class CTable extends Component {
         return;
       }
       const fixedEles = Array.from(
-        this.ref.current.querySelectorAll('th.cloud-table-cell-fix-right'),
+        this.ref.current.querySelectorAll(`th.${tablePrefixCls}-cell-fix-right`),
       );
       if (fixedEles.length) {
         // fixedEles.pop();
@@ -265,7 +267,7 @@ class CTable extends Component {
   scrollIntoView = () => {
     if (this.props.scrollIntoTop) {
       const trEle = this.ref.current?.querySelector(
-        'tr.cloud-table-row:nth-child(2)',
+        `tr.${tablePrefixCls}-row:nth-child(2)`,
       );
       if (trEle) {
         trEle.scrollIntoView({
@@ -585,23 +587,25 @@ class CTable extends Component {
     if (!this.props.supportDrag) {
       return;
     }
+    const _fromIndex = fromIndex - 1;
+    const _toIndex = toIndex - 1;
     const { data } = this.state;
     const dataCopy = [...data];
-    const item = dataCopy.splice(fromIndex, 1)[0];
-    dataCopy.splice(toIndex, 0, item);
+    const item = dataCopy.splice(_fromIndex, 1)[0];
+    dataCopy.splice(_toIndex, 0, item);
     this.setState(
       {
         data: dataCopy,
       },
       () => {
-        this.props.onDragAfter(data[fromIndex], data[toIndex]);
+        this.props.onDragAfter(data[_fromIndex], data[_toIndex]);
       },
     );
   };
 
   onResize = () => {
     return debounce(() => {
-      const thArr = this.ref.current?.querySelectorAll('th.cloud-table-cell');
+      const thArr = this.ref.current?.querySelectorAll(`th.${tablePrefixCls}-cell`);
       this.column.setColumnData({ currentThArr: thArr });
     }, 500);
   };
@@ -664,6 +668,7 @@ class CTable extends Component {
       loadingTpl,
       loadingOpts,
       footerSelectTpl,
+      tooltipConfigs,
     } = this.props;
     const {
       data,
@@ -799,6 +804,9 @@ class CTable extends Component {
           </div>
         )}
         {footerTpl()}
+        {tooltipConfigs?.length ? (
+          <RowTooltip tableContainerRef={ref} tooltipConfigs={tooltipConfigs} />
+        ) : null}
       </div>
     );
   }
