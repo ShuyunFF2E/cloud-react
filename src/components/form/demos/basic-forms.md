@@ -20,7 +20,7 @@ export default function FormHorizontalDemo() {
 
 	return (
 		<Form layout="horizontal" labelCol={{ span: 6 }}>
-			<Form.Item label="用户名">
+			<Form.Item label="用户名" description="这是一个描述">
 				<Input placeholder="请输入用户名" />
 			</Form.Item>
 
