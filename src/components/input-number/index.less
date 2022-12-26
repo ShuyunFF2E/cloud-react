@@ -31,7 +31,7 @@
     box-sizing: border-box;
   }
 
-  &:not(&-focused):hover {
+  &:not(&-focused):not(&-disabled):hover {
     border-color: @gray-6;
   }
 
@@ -46,6 +46,9 @@
     background-color: @gray-3;
     opacity: 1;
     cursor: not-allowed;
+    .@{input-number-prefix-cls}-input {
+      cursor: not-allowed;
+    }
     .@{input-number-prefix-cls}-handler-wrap {
       display: none;
     }
@@ -140,6 +143,14 @@
     background: @gray-1;
     border-left: 1px solid @gray-4;
     border-radius: 0 4px 4px 0;
+    opacity: 0;
+    transition: opacity .24s linear .1s;
+  }
+
+  &:hover, &:focus {
+    .@{input-number-prefix-cls}-handler-wrap {
+      opacity: 1;
+    }
   }
 
   &-handler {
