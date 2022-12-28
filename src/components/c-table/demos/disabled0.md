@@ -38,6 +38,10 @@ export default function CTableDemo() {
       supportCheckbox
       supportPage
       rowKey="id"
+      tooltipConfigs={[{
+        tooltipMsg: '不可选', // tooltip 展示的内容
+        tooltipRowCls: 'cloud-table-row-disabled', // 需要展示 tooltip 行的类名，
+      }]}
       checkedData={[data[1]]}
       pageOpts={{ pageSize: 6 }}
       columnData={columns}

@@ -154,3 +154,10 @@ export const hasCustomScroll = () => {
     .getComputedStyle(bodyEle, '::-webkit-scrollbar')
     .width.includes('px');
 };
+
+export const getTrEle = targetEle => {
+  if (targetEle && !targetEle?.hasAttribute('data-row-key')) {
+    return getTrEle(targetEle?.parentElement);
+  }
+  return targetEle;
+};
