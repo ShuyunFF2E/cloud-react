@@ -49,7 +49,7 @@ export default class DropdownDemo extends React.Component {
                         </Dropdown.Menu>
                     }>
                     <div>
-                        <span>基础下来菜单</span>
+                        <span>基础下拉菜单</span>
                         <Icon type="down" />
                     </div>
                 </Dropdown>
