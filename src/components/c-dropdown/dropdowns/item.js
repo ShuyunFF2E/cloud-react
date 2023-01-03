@@ -19,7 +19,7 @@ function DropdownItem(props) {
     if (disabled) {
       return;
     }
-    onClick?.(props.id);
+    onClick(props.id);
   };
 
   const renderDivider = () => <div className="divider" />;

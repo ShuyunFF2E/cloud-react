@@ -13,7 +13,9 @@ function DropdownMenu(props) {
     >
       {Children.map(children, (child) => cloneElement(child, {
         onClick(key) {
-          props.onClick(key);
+          if (typeof props.onClick === 'function') {
+            props.onClick(key);
+          }
         },
       }))}
     </div>

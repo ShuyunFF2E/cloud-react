@@ -35,7 +35,7 @@
   }
   &[disabled] {
     cursor: not-allowed;
-    color: @color-gray3;
+    color: @gray-6;
   }
 }
 .@{dropdown-prefix-cls}-menu-btn {
@@ -46,8 +46,16 @@
     padding: 7px;
     box-sizing: border-box;
     i {
-      height: 16px;
-      width: 16px;
+      line-height: normal;
+    }
+  }
+
+  &:active,
+  &:hover {
+    .cloud-button.primary:not(:first-child)::after,
+    .cloud-button.primary[disabled]:not(:first-child)::after {
+      width: 2px;
+      background: #ffffff;
     }
   }
   &:active {
@@ -59,6 +67,9 @@
       color: @blue-5;
       border: 1px solid @blue-3;
       background: @blue-2;
+      &:not(:first-child)::after {
+        background: #8fafff;
+      }
     }
   }
   &:hover {
@@ -70,12 +81,22 @@
         color: @gray-1;
         border: 1px solid @primary-disabled-bg;
         background: @primary-disabled-bg;
-        background-clip: padding-box;
-        cursor: not-allowed;
       }
     }
     .cloud-button.normal {
       background: @blue-1;
+      &[disabled] {
+        color: @gray-6;
+        border: 1px solid @gray-4;
+        background-color: @gray-3;
+      }
+    }
+    .cloud-button.normal,
+    .cloud-button.primary {
+      &[disabled] {
+        background-clip: padding-box;
+        cursor: not-allowed;
+      }
     }
   }
 }
@@ -99,9 +120,9 @@
       background: #f5f8ff;
     }
     i {
-      font-size: 16px;
-      width: 16px;
       height: 16px;
+      height: 16px;
+      line-height: normal;
       color: @color-gray3;
       margin-right: 8px;
     }
