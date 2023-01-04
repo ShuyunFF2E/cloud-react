@@ -29,7 +29,6 @@ import './css/business.less';
 import Column from './js/column';
 import RowTooltip from './js/rowTooltip';
 import { defaultProps, propTypes } from './js/propType';
-import { prefixCls } from '@utils';
 
 class CTable extends Component {
   ref = createRef();

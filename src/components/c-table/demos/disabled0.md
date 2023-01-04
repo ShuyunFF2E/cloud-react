@@ -9,7 +9,7 @@ order: 9 title: CTable desc: 表格禁用行（设置 disabled: true 的形式�
  * desc: 表格禁用行（设置 disabled: true 的形式）
  */
 import React from 'react';
-import { CTable } from 'cloud-react';
+import { CTable, Modal, Button } from 'cloud-react';
 
 const data = [
     { id: '121410327', name: '手机号优先继续发送1', createTime: '2021/12/14 10:19:02', creator: 'liyuan.meng', disabled: true },
@@ -31,7 +31,7 @@ const columns = [
     { title: '创建人', dataIndex: 'creator', align: 'left' }
 ];
 
-export default function CTableDemo() {
+function CTableDemo(props) {
   return (
     <CTable
       style={{ width: '100%', height: 360 }}
@@ -39,7 +39,7 @@ export default function CTableDemo() {
       supportPage
       rowKey="id"
       tooltipConfigs={[{
-        tooltipMsg: '不可选', // tooltip 展示的内容
+        tooltipMsg: '当前条目不可选当前条目不可选', // tooltip 展示的内容
         tooltipRowCls: 'cloud-table-row-disabled', // 需要展示 tooltip 行的类名，
       }]}
       checkedData={[data[1]]}
@@ -53,6 +53,32 @@ export default function CTableDemo() {
         })
       }}
     />
+  )
+}
+
+function CTableModal(props) {
+  return (
+    <Modal 
+      visible
+      title="表格"
+      modalStyle={{ width: 800 }}
+      onClose={props.onClose}
+      onCancel={props.onClose}>
+      <CTableDemo/>
+    </Modal>
   );
+}
+
+export default function Demo() {
+  return (
+    <div>
+      <Button type="link" onClick={() => {
+        Modal.createModal(CTableModal).open().then(res => {
+          console.log(res);
+        });
+      }}>打开弹窗</Button>
+      <CTableDemo/>
+    </div>
+  )
 }
 ```
