@@ -393,6 +393,7 @@
 }
 
 .@{tooltipPrefixCls} {
+  visibility: hidden;
   position: absolute;
   background-color: @gray-9;
   color: @color-white;
@@ -400,7 +401,7 @@
   padding: 6px 6px;
   border-radius: 2px;
   font-size: 12px;
-  z-index: 10;
+  z-index: 2000;
 
   &:after {
     bottom: -7px;
