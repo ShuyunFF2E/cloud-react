@@ -65,9 +65,7 @@ export default class DropdownDemo extends React.Component {
 					</Dropdown>
 					<Dropdown.Button overlay={overlay} onClick={this.handleClick} buttonsRender={(leftBtn, rightBtn)  => (
 						[
-							<Tooltip content="click send">
-								{React.cloneElement(leftBtn, {}, <span style={{ width: 50, height: 14, lineHeight: '14px', display: 'inline-blank'}}>Send</span>)}
-							</Tooltip>,
+							React.cloneElement(leftBtn, {}, <span style={{ width: 50, height: 14, lineHeight: '14px', display: 'inline-blank'}}>Send</span>),
 							React.cloneElement(rightBtn, {}, <Icon type ='sent'/>)
 						]
 					)} />
