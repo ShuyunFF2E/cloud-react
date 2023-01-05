@@ -50,14 +50,6 @@
     }
   }
 
-  &:active,
-  &:hover {
-    .cloud-button.primary:not(:first-child)::after,
-    .cloud-button.primary[disabled]:not(:first-child)::after {
-      width: 2px;
-      background: #ffffff;
-    }
-  }
   &:active {
     .cloud-button.primary {
       border-color: @primary-active-bg;
@@ -77,6 +69,7 @@
       border-color: @primary-hover-bg;
       background: @primary-hover-bg;
       color: #ffffff;
+      z-index: auto;
       &[disabled] {
         color: @gray-1;
         border: 1px solid @primary-disabled-bg;
