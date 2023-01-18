@@ -8,6 +8,7 @@ import { flat, noop } from '@utils';
 import ContextProvider from '@contexts/context-provider';
 import SingleSelect from './views/single-select';
 import MultiSelect from './views/multi-select';
+import GroupSelect from './views/group-select';
 import Selected from './views/selected';
 import Option from './views/option';
 import { selector } from './views/common';
@@ -196,6 +197,9 @@ class Select extends Component {
 
     if (childs.length) return childs;
 
+    if (dataSource.every((x) => x.options)) {
+      return this.getGroupOptions();
+    }
     return getOptions(dataSource, labelKey, valueKey, isSupportTitle);
   }
 
@@ -212,6 +216,26 @@ class Select extends Component {
     if (!ele) return {};
     return ele.getBoundingClientRect();
   }
+
+  getGroupOptions = () => {
+    const {
+      dataSource, labelKey, valueKey, isSupportTitle,
+    } = this.props;
+    return dataSource.map((group) => {
+      const groupItem = getOptions(
+        group.options || [],
+        labelKey,
+        valueKey,
+        isSupportTitle,
+      );
+      return (
+        <div>
+          <p className="groupName">{group.label}</p>
+          {groupItem}
+        </div>
+      );
+    });
+  };
 
   positionPop = () => {
     const {
@@ -394,7 +418,7 @@ class Select extends Component {
   };
 
   renderOptions() {
-    const { multiple, confirmTemplate } = this.props;
+    const { multiple, confirmTemplate, dataSource } = this.props;
     const { value } = this.state;
 
     if (multiple) {
@@ -407,6 +431,21 @@ class Select extends Component {
           onCancel={this.handleCancel}
           confirmTemplate={confirmTemplate}
           onChange={this.onMultiSelectValueChange}
+        />
+      );
+    }
+
+    if (
+      Array.isArray(dataSource)
+      && dataSource.length
+      && dataSource.every((item) => item.options)
+    ) {
+      return (
+        <GroupSelect
+          {...this.props}
+          value={value}
+          dataSource={this.children}
+          onChange={this.onSimpleOptionChange}
         />
       );
     }

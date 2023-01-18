@@ -13,6 +13,7 @@ export default function Option(props) {
     disabled,
     isSelected,
     multiple,
+    type,
     className,
     onChange,
     isSupportTitle,
@@ -55,9 +56,11 @@ export default function Option(props) {
     );
   }
 
+  const renderDivider = () => <div className="divider" />;
+
   const { children, ...others } = otherProps;
 
-  return useMemo(
+  const renderOption = () => useMemo(
     () => (
       <div
         {...others}
@@ -66,12 +69,16 @@ export default function Option(props) {
       >
         <span title={getTitle(children)}>{children}</span>
         {isSelected && (
-          <Icon type="finish" className={`${selector}-single-selected-icon`} />
+          <Icon
+            type="finish"
+            className={`${selector}-single-selected-icon`}
+          />
         )}
       </div>
     ),
     [ isSelected ],
   );
+  return type && type === 'divider' ? renderDivider() : renderOption();
 }
 
 Option.propTypes = {

@@ -69,6 +69,7 @@ group:
 | value     | 默认使用此属性进行基本操作，选中 option 的值       | string \| number | -      |
 | item      | 当前选项的原始属性，包含 index 值                | object        | -      |
 | className | 该项 option 的类名                             | string        | -      |
+| type | type枚举类型： `divider`  表示分割线 | String | '' |
 
 ### 代码演示
 
@@ -85,3 +86,9 @@ group:
 <embed src="@components/select/demos/key.md" />
 
 <embed src="@components/select/demos/trigger.md" />
+
+<embed src="@components/select/demos/group.md" />
+
+<embed src="@components/select/demos/group2.md" />
+
+<embed src="@components/select/demos/groupSearch.md" />
