@@ -66,6 +66,7 @@
 .@{tableContainerPrefixCls} {
   position: relative;
   width: 100%;
+  z-index: 1;
 
   &::before {
     content: '';
@@ -256,6 +257,10 @@
       .@{tablePrefixCls}-summary {
         border-right: @border;
         border-left: @border;
+
+        colgroup col:last-child {
+          display: none;
+        }
       }
     }
   }
@@ -336,25 +341,23 @@
 
     // 表头带线条
     &.@{tablePrefixCls}-header-bordered {
-      .@{tablePrefixCls}-scroll-horizontal {
-        // 可见的最后一列
-        th:nth-last-of-type(1):after {
-          display: none;
-        }
-
-        .@{tablePrefixCls}-resizeable {
-          &:nth-last-of-type(2):after {
-            display: none;
-          }
-          &:not(:last-of-type):hover {
-            .header-bordered-resizable(2);
-          }
+      .@{tablePrefixCls}-resizeable {
+        &:not(:last-of-type):hover {
+          .header-bordered-resizable(2);
         }
       }
     }
 
     // 表格列拉伸
     &.@{tablePrefixCls}-support-resize {
+      &.@{tablePrefixCls}-header-bordered {
+        .@{tablePrefixCls}-scroll-horizontal {
+          // 可见的最后一列
+          th:nth-last-of-type(2):after {
+            display: none;
+          }
+        }
+      }
       .@{tablePrefixCls}-resizeable {
         // 可见的最后一列
         &:nth-last-of-type(2) {
