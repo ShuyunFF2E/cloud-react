@@ -12,7 +12,7 @@ const Icon = ({
   type, style, className, ...restProps
 }) => (
   <i
-    className={classNames(className, `${prefixCls}-icon icon-${type}`)}
+    className={classNames(className, `${prefixCls}-icon newIcon-${type}`)}
     style={style}
     {...restProps}
   />
