@@ -45,7 +45,7 @@ class RowTooltip extends Component {
       const tooltipEle = Array.from(tooltipEles).find(ele => ele.dataset.id === String(this.timeStamp));
 
       if (tooltipEle) {
-        const tooltipStyle = getTooltipPositionInBody(tooltipEle, targetRow, 'top-right');
+        const tooltipStyle = getTooltipPositionInBody(tooltipEle, targetRow.querySelector(`.${prefixCls}-checkbox-disabled`), 'top-left');
 
         const isInModal = document.querySelector(`.${prefixCls}-modal-mask`);
 
@@ -55,8 +55,8 @@ class RowTooltip extends Component {
           this.setState({
             tooltipStyle: {
               ...this.state.tooltipStyle,
-              left: tooltipStyle.left,
-              top: isInModal ? tooltipStyle.top + window.pageYOffset + 6 : tooltipStyle.top + 6,
+              left: tooltipStyle.left - 7,
+              top: isInModal ? tooltipStyle.top + window.pageYOffset - 8 : tooltipStyle.top - 8,
               visibility: 'visible'
             }
           })

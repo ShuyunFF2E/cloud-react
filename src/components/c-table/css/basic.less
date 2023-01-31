@@ -56,6 +56,7 @@
     font-size: 14px;
     color: @gray-9;
     transition: box-shadow 0.3s;
+    line-height: 19px;
 
     .@{tablePrefixCls}-rtl& {
       border-right: 0;
@@ -249,17 +250,17 @@
     flex: 1;
     overflow: auto auto !important;
     overflow: overlay overlay !important;
-    &::-webkit-scrollbar-thumb {
-      background-color: var(--dw-scroll-color, rgba(0, 0, 0, 0)) !important;
-    }
-    &:hover {
-      &::-webkit-scrollbar-thumb {
-        background-color: var(
-          --dw-scroll-color,
-          rgba(0, 0, 0, 0.25)
-        ) !important;
-      }
-    }
+    //&::-webkit-scrollbar-thumb {
+    //  background-color: var(--dw-scroll-color, rgba(0, 0, 0, 0)) !important;
+    //}
+    //&:hover {
+    //  &::-webkit-scrollbar-thumb {
+    //    background-color: var(
+    //      --dw-scroll-color,
+    //      rgba(0, 0, 0, 0.25)
+    //    ) !important;
+    //  }
+    //}
 
     tr.@{tablePrefixCls}-row-select {
       td {
@@ -410,6 +411,7 @@
 
       > i {
         margin-right: 6px;
+        color: @gray-7;
       }
     }
 
@@ -421,6 +423,7 @@
 
     &-total {
       margin-right: 16px;
+      color: @gray-9;
     }
   }
 

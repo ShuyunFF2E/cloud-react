@@ -88,17 +88,29 @@ class Pagination extends Component {
    * 分页总数小于10
    */
   renderLowerPagesLength = (current, pages) => {
-    for (let i = 1; i <= this.totalPage; i += 1) {
+    if (this.props.total === 0) {
       pages.push(
         <li
           role="presentation"
-          onClick={() => this.goPage(i)}
-          className={current === i ? 'active' : ''}
-          key={i}
+          onClick={() => this.goPage(1)}
+          className="active"
         >
-          {i}
+          1
         </li>,
       );
+    } else {
+      for (let i = 1; i <= this.totalPage; i += 1) {
+        pages.push(
+          <li
+            role="presentation"
+            onClick={() => this.goPage(i)}
+            className={`pageBtn ${current === i ? 'active' : ''}`}
+            key={i}
+          >
+            {i}
+          </li>,
+        );
+      }
     }
   };
 
@@ -111,7 +123,7 @@ class Pagination extends Component {
         <li
           role="presentation"
           key={i}
-          className={current === i ? 'active' : ''}
+          className={`pageBtn ${current === i ? 'active' : ''}`}
           onClick={() => this.goPage(i)}
         >
           {i}
@@ -212,7 +224,7 @@ class Pagination extends Component {
         <li
           role="presentation"
           key={current - i}
-          className={current === current - i ? ' active' : ''}
+          className={`pageBtn ${current === current - i ? ' active' : ''}`}
           onClick={() => this.goPage(current - i)}
         >
           {current - i}
@@ -225,6 +237,7 @@ class Pagination extends Component {
         <li
           role="presentation"
           key={current + j}
+          className="pageBtn"
           onClick={() => this.goPage(current + j)}
         >
           {current + j}
