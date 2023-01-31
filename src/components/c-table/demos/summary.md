@@ -24,9 +24,16 @@ const columns = [
     { title: '发送失败条数', dataIndex: 'fail', align: 'right' }
 ];
 
+const hasCustomScroll = () => {
+  const bodyEle = document.querySelector('body');
+  return window
+    .getComputedStyle(bodyEle, '::-webkit-scrollbar')
+    .width.includes('px');
+};
+
 const summaryData = [
   { index: 0, colSpan: 2, content: '合计' },
-  { index: 3, colSpan: 1, content: '3,008', align: 'right' },
+  { index: hasCustomScroll ? 2 : 3, colSpan: 1, content: '3,008', align: 'right' },
   { index: 4, colSpan: 1, content: '379', align: 'right' },
 ];
 

@@ -327,15 +327,6 @@
 
     // 带边框表格
     &.@{tablePrefixCls}-bordered {
-      .@{tablePrefixCls}-scroll-horizontal {
-        .@{tablePrefixCls}-container {
-          // 可见的最后一列
-          th:nth-last-of-type(2) {
-            border-right: none;
-          }
-        }
-      }
-
       &.@{tablePrefixCls}-support-resize {
         .@{tablePrefixCls}-resizeable {
           .bordered-resizable(2);
@@ -347,14 +338,17 @@
     &.@{tablePrefixCls}-header-bordered {
       .@{tablePrefixCls}-scroll-horizontal {
         // 可见的最后一列
-        th:nth-last-of-type(2):after {
+        th:nth-last-of-type(1):after {
           display: none;
         }
-      }
 
-      .@{tablePrefixCls}-resizeable {
-        &:not(:last-of-type):hover {
-          .header-bordered-resizable(2);
+        .@{tablePrefixCls}-resizeable {
+          &:nth-last-of-type(2):after {
+            display: none;
+          }
+          &:not(:last-of-type):hover {
+            .header-bordered-resizable(2);
+          }
         }
       }
     }
