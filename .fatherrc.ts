@@ -27,6 +27,7 @@ const externals = [
   'react-dom',
   // ...(isBuild ? [] : ['gridmanager-react', 'prop-types', 'classnames']),
 ];
+console.log(isBuild);
 
 export default isBuild ? [{
   esm: isBuild ? false : 'rollup',
@@ -290,6 +291,32 @@ export default isBuild ? [{
     },
   },
   extraRollupPlugins: [
+    generatePackageJson({
+      outputFolder: 'dist',
+      baseContents: (pkg) =>
+        isBuild
+          ? {
+              name,
+              version,
+              description,
+              main,
+              dependencies,
+              devDependencies,
+            }
+          : {
+              name,
+              version,
+              description,
+							scripts,
+							dumiAssets,
+              main,
+							module,
+              source,
+              jest,
+              dependencies,
+              devDependencies,
+            },
+    }),
     eslint({
       throwOnError: true,
       include: [NodePath.resolve('src/components')],
@@ -301,7 +328,7 @@ export default isBuild ? [{
     // }),
     copy({
       targets: [
-        { src: 'package.json', dest: 'dist' },
+        // { src: 'package.json', dest: 'dist' },
         { src: 'src/locale', dest: 'dist' },
       ],
     }),
