@@ -8,11 +8,15 @@ loadScript(
   'https://cloud-cdn.shuyun.com/cloud-fe-iconfont/0.0.2/cloud-react/color/symbol.min.js',
 );
 
+const iconPrefixCls = prefixCls === 'cloud' ? 'icon' : `${prefixCls}-icon`;
 const Icon = ({
   type, style, className, ...restProps
 }) => (
   <i
-    className={classNames(className, `${prefixCls}-icon newIcon-${type}`)}
+    className={classNames(
+      className,
+      `${prefixCls}-icon ${iconPrefixCls}-${type}`,
+    )}
     style={style}
     {...restProps}
   />
