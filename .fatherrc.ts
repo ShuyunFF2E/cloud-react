@@ -3,6 +3,20 @@ import alias from '@rollup/plugin-alias';
 import { eslint } from 'rollup-plugin-eslint';
 import copy from 'rollup-plugin-copy';
 // import url from '@rollup/plugin-url';
+import generatePackageJson from 'rollup-plugin-generate-package-json';
+import {
+  name,
+  version,
+  description,
+  main,
+  dependencies,
+  devDependencies,
+  module,
+  scripts,
+  dumiAssets,
+  jest,
+  source,
+} from './package.json';
 
 const yargs = require('yargs/yargs');
 const { hideBin } = require('yargs/helpers');
@@ -14,6 +28,7 @@ const externals = [
   'react-dom',
   // ...(isBuild ? [] : ['gridmanager-react', 'prop-types', 'classnames']),
 ];
+console.log(isBuild);
 
 export default {
   esm: isBuild ? false : 'rollup',
@@ -22,7 +37,7 @@ export default {
   //   type: 'rollup',
   //   minify: !argv.dev,
   // },
-	replace: {
+  replace: {
     CloudPrefixCls: JSON.stringify('newCloud'),
   },
   umd: isBuild
@@ -35,12 +50,38 @@ export default {
   entry: 'src/components/index.js',
   extraExternals: externals,
   extractCSS: isBuild,
-	lessInRollupMode:{
-		globalVars: {
-			'@cloud': 'newCloud',
-		}
-	},
+  lessInRollupMode: {
+    globalVars: {
+      '@cloud': 'newCloud',
+    },
+  },
   extraRollupPlugins: [
+    generatePackageJson({
+      outputFolder: 'dist',
+      baseContents: (pkg) =>
+        isBuild
+          ? {
+              name,
+              version,
+              description,
+              main,
+              dependencies,
+              devDependencies,
+            }
+          : {
+              name,
+              version,
+              description,
+							scripts,
+							dumiAssets,
+              main,
+							module,
+              source,
+              jest,
+              dependencies,
+              devDependencies,
+            },
+    }),
     eslint({
       throwOnError: true,
       include: [NodePath.resolve('src/components')],
@@ -52,7 +93,7 @@ export default {
     // }),
     copy({
       targets: [
-        { src: 'package.json', dest: 'dist' },
+        // { src: 'package.json', dest: 'dist' },
         { src: 'src/locale', dest: 'dist' },
       ],
     }),
