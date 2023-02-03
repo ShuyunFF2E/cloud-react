@@ -15,47 +15,49 @@ import { Select } from 'cloud-react';
 const Option = Select.Option;
 
 const dataList = [
-  {
-    label: '淘宝',
-    value: '1',
-    options: [
-        {
-            label: '淘宝(A)',
-            value: '11'
-        },{
-            label: '淘宝(B)',
-            value: '12',
-        },{
-            label: '淘宝(C)',
-            value: '13'
-        },
-    ],
-  },
-  {
-    label: '京东',
-    value: '2',
-    options: [
-        {
-            label: '自营店',
-            value: '21',
-        },{
-            label: '非自营店',
-            value: '22',
-        }
-    ],
-  }
+    {
+        "label":"淘宝",
+        "value":"taobao",
+        "options":[
+            {
+                "label":"淘宝店",
+                "value":11
+            },
+            {
+                "label":"天猫店",
+                "value":10
+            }
+        ]
+    },
+    {
+        "label":"京东",
+        "value":"jos",
+        "options":[
+            {
+                "label":"自营店",
+                "value":20
+            },
+            {
+                "label":"非自营店",
+                "value":21
+            }
+        ]
+    }
 ];
 
 export default function SelectDemo() {
+
+  const [ value, setValue] = useState(20);
   const handleChange = (value, prevValue) => {
     console.log('select --- ' + value);
     console.log('prevSelect --- ' + prevValue);
+    setValue(value)
   };
 
   return (
     <div className="demo">
       <Select
-        defaultValue={'3'}
+        value={value}
         onChange={handleChange}
         style={{ width: 120 }}
         dataSource={dataList}

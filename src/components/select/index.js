@@ -13,17 +13,28 @@ import Selected from './views/selected';
 import Option from './views/option';
 import { selector } from './views/common';
 
-import { formatOptionSource } from './utils';
+import { formatOptionSource, isGroupSelectPicker } from './utils';
 
 import './index.less';
 
-const getSelected = (data, children) => {
+const getSelected = (data, children, dataSource) => {
   const options = Array.isArray(data) ? data : [ data ];
   if (!options.length) return [];
-  const selected = Children.map(children, (child) => {
-    const { children: label, value } = child.props;
-    return options.includes(value) ? { label, value } : null;
-  });
+  let selected = [];
+  if (isGroupSelectPicker(dataSource)) {
+    const groupOptionData = dataSource.map((x) => x.options).flat();
+    groupOptionData.forEach((x) => {
+      const { label, value } = x;
+      if (options.includes(value)) {
+        selected.push({ label, value });
+      }
+    });
+  } else {
+    selected = Children.map(children, (child) => {
+      const { children: label, value } = child.props;
+      return options.includes(value) ? { label, value } : null;
+    });
+  }
   return selected;
 };
 
@@ -50,7 +61,11 @@ class Select extends Component {
     const { open, defaultOpen, labelInValue } = props;
     const { defaultSelectValue, children } = this;
 
-    const selected = getSelected(defaultSelectValue, children);
+    const selected = getSelected(
+      defaultSelectValue,
+      children,
+      this.props.dataSource,
+    );
 
     this.state = {
       open: open || defaultOpen,
@@ -93,7 +108,7 @@ class Select extends Component {
       const source = childs.length
         ? childs
         : getOptions(dataSource, labelKey, valueKey, isSupportTitle);
-      const selected = getSelected(displayValue, source);
+      const selected = getSelected(displayValue, source, dataSource);
       const emptyValue = multiple ? [] : '';
       const currentValue = displayValue !== null ? displayValue : emptyValue;
       return {
@@ -197,7 +212,7 @@ class Select extends Component {
 
     if (childs.length) return childs;
 
-    if (dataSource.every((x) => x.options)) {
+    if (isGroupSelectPicker(dataSource)) {
       return this.getGroupOptions();
     }
     return getOptions(dataSource, labelKey, valueKey, isSupportTitle);
@@ -435,11 +450,7 @@ class Select extends Component {
       );
     }
 
-    if (
-      Array.isArray(dataSource)
-      && dataSource.length
-      && dataSource.every((item) => item.options)
-    ) {
+    if (isGroupSelectPicker(dataSource)) {
       return (
         <GroupSelect
           {...this.props}
