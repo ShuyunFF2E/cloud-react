@@ -47,3 +47,9 @@ export const filterGroupOption = (options, filter) => Children.map(options, (chi
     children: tmp,
   });
 }).filter((x) => !!x.props.children[1].length);
+
+export const isGroupSelectPicker = (dataSource) => (
+  Array.isArray(dataSource)
+    && dataSource.length !== 0
+    && dataSource.every((x) => x.options)
+);
