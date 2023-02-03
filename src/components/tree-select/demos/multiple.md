@@ -193,7 +193,6 @@ export default class TreeSelectDemo extends React.Component {
 					type="single"
 					isUnfold
 					containParentNode
-					position="auto"
 					placeholder="选择一个选项"
 					dataSource={this.treeData}
 					value={this.state.singleNodes}
