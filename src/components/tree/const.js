@@ -1,17 +1,14 @@
-export const copyData = (data = {}) => {
-  let result = [];
+export const copyData = (data) => {
+  const result = [];
 
-  if (!(data instanceof Array)) return result;
+  if (!Array.isArray(data)) return result;
 
-  if (typeof data === 'object' && data !== null) {
-    data.forEach((v, index) => {
-      result[index] = { ...v };
-      if (v.children && v.children.length) {
-        result[index].children = copyData(v.children);
-      }
-    });
-  } else {
-    result = data;
-  }
+  data.forEach((v, index) => {
+    result[index] = { ...v };
+    if (v.children && v.children.length) {
+      result[index].children = copyData(v.children);
+    }
+  });
+
   return result;
 };
