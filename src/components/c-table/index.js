@@ -121,6 +121,12 @@ class CTable extends Component {
         },
       });
     }
+    if (
+      this.props.watchColumnData &&
+      this.props.columnData !== prevProps.columnData
+    ) {
+      this.setColumn(this.props.columnData);
+    }
   }
 
   componentWillUnmount() {
@@ -674,6 +680,7 @@ class CTable extends Component {
       loadingOpts,
       footerSelectTpl,
       tooltipConfigs,
+      disablePageOnLoad,
     } = this.props;
     const {
       data,
@@ -802,7 +809,7 @@ class CTable extends Component {
                 current={pageNum}
                 pageSize={pageSize}
                 total={totals}
-                disabled={isLoading}
+                disabled={disablePageOnLoad ? isLoading : false}
                 onChange={onPageChange}
               />
             </div>

@@ -143,7 +143,7 @@ class InputNumber extends Component {
     });
 
     onChange(_val);
-    onBlur(_val);
+    onBlur(_val, event);
   };
 
   handleChange = (event) => {
