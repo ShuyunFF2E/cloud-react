@@ -24,6 +24,9 @@ group:
 | defaultValue   | 初始化 selected value    | Array           | false  |
 | value          | selected value          | Array            | --     |
 | change         | 变化时回调函数            | Function(e:Event) | --     |
+| allowClear     | 是否支持清除	            | boolean           | false     |
+| popupClassName     | 自定义浮层类名		     | string           | ''     |
+
 
 
  ### 代码演示 

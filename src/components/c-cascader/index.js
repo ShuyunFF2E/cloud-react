@@ -139,7 +139,7 @@ Cascader.defaultProps = {
   fieldNames: { label: 'label', value: 'value', children: 'children' },
   expandIcon: <Icon type="right" style={{ fontSize: '16px' }} />,
   clearIcon: <Icon type="close-line" style={{ fontSize: '14px' }} />,
-  removeIcon: <Icon type="close" style={{ fontSize: '12px' }} />,
+  removeIcon: <Icon type="close-fill-1" style={{ fontSize: '12px' }} />,
   splitInput: '/',
 };
 
