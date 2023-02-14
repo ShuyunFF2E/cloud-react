@@ -60,6 +60,8 @@ export const propTypes = {
   footerSelectTpl: PropTypes.any,
   isTreeIncludeChildren: PropTypes.bool,
   tooltipConfigs: PropTypes.array,
+  disablePageOnLoad: PropTypes.bool,
+  watchColumnData: PropTypes.bool,
 };
 
 export const defaultProps = {
@@ -119,4 +121,6 @@ export const defaultProps = {
   footerSelectTpl: null,
   isTreeIncludeChildren: true,
   tooltipConfigs: [],
+  disablePageOnLoad: true,
+  watchColumnData: false,
 };
