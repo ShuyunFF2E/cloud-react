@@ -17,31 +17,31 @@ const theme = [
     children: [
       {
         name: 'blue-1',
-        text: '#F7F9FA',
+        text: '#EDF6FF',
       },
       {
         name: 'blue-2',
-        text: '#CCEBFF',
+        text: '#CCE6FF',
       },
       {
         name: 'blue-3',
-        text: '#72BAED',
+        text: '#72B0ED',
       },
       {
         name: 'blue-4',
-        text: '#0071C7',
+        text: '#0066CC',
       },
       {
         name: 'blue-5',
-        text: '#0052A3',
+        text: '#004CA3',
       },
       {
         name: 'blue-6',
-        text: '#004285',
+        text: '#003775',
       },
       {
         name: 'blue-7',
-        text: '#002747',
+        text: '#002147',
       },
     ],
   },
@@ -141,6 +141,39 @@ const theme = [
       {
         name: 'blue-7',
         text: '#060B48',
+      },
+    ],
+  },
+  {
+    title: '蓝绿色 - 微信会员',
+    children: [
+      {
+        name: 'blue-1',
+        text: '#E5F5F9',
+      },
+      {
+        name: 'blue-2',
+        text: '#B0E9F5',
+      },
+      {
+        name: 'blue-3',
+        text: '#4FC4DB',
+      },
+      {
+        name: 'blue-4',
+        text: '#078DA8',
+      },
+      {
+        name: 'blue-5',
+        text: '#14768F',
+      },
+      {
+        name: 'blue-6',
+        text: '#0B566B',
+      },
+      {
+        name: 'blue-7',
+        text: '#063A4D',
       },
     ],
   },

@@ -73,8 +73,8 @@
     position: relative;
     min-width: 100px;
 
-    .cloud-radio,
-    .cloud-radio-wrapper {
+    .@{prefix}-radio,
+    .@{prefix}-radio-wrapper {
       margin-right: 0;
     }
 
@@ -154,7 +154,7 @@
       }
     }
 
-    .cloud-checkbox-wrapper {
+    .@{prefix}-checkbox-wrapper {
       margin-right: 0;
     }
   }
@@ -354,7 +354,7 @@
     min-width: auto;
     position: relative;
 
-    .cloud-checkbox {
+    .@{prefix}-checkbox {
       .absolute-center();
     }
   }
@@ -362,7 +362,7 @@
   .@{tablePrefixCls}-radio-column {
     position: relative;
 
-    .cloud-radio {
+    .@{prefix}-radio {
       .absolute-center();
     }
   }
@@ -543,12 +543,12 @@
     display: none;
   }
 
-  &.cloud-tooltip.is-light {
+  &.@{prefix}-tooltip.is-light {
     box-shadow: @border-shadow-3;
   }
 
   &.show-filter-btn {
-    .cloud-popover {
+    .@{prefix}-popover {
       position: relative;
 
       &::after {
@@ -563,8 +563,8 @@
     }
   }
 
-  .cloud-popover {
-    .cloud-popover-btn {
+  .@{prefix}-popover {
+    .@{prefix}-popover-btn {
       padding-right: 12px;
 
       > button {
@@ -573,7 +573,7 @@
     }
   }
 
-  .cloud-checkbox {
+  .@{prefix}-checkbox {
     width: calc(100% - 12px);
     height: 32px;
     line-height: 32px;
@@ -585,7 +585,7 @@
       margin-bottom: 0;
     }
 
-    &.cloud-checkbox-checked:not(.cloud-checkbox-disabled) {
+    &.@{prefix}-checkbox-checked:not(.@{prefix}-checkbox-disabled) {
       background: @indigo-2;
 
       &:hover {
@@ -593,12 +593,12 @@
       }
     }
 
-    &:hover:not(.cloud-checkbox-disabled) {
+    &:hover:not(.@{prefix}-checkbox-disabled) {
       background: @indigo-1;
     }
   }
 
-  .cloud-button {
+  .@{prefix}-button {
     height: 28px !important;
 
     &.normal {
@@ -607,7 +607,7 @@
   }
 
   //noinspection CssInvalidPropertyValue
-  .cloud-popover-desc {
+  .@{prefix}-popover-desc {
     max-height: 250px;
     overflow-y: overlay;
 

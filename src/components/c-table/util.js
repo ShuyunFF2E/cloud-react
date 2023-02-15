@@ -50,22 +50,24 @@ export function isSomeChecked(data) {
 /**
  * 是否是叶子节点
  * @param node
+ * @param childrenKey
  * @returns {boolean}
  */
-export function isLeaf(node) {
-  return !node.children || !node.children.length;
+export function isLeaf(node, childrenKey = 'children') {
+  return !node[childrenKey] || !node[childrenKey].length;
 }
 
 /**
  * 获取节点的所有叶子节点
  * @param node
+ * @param childrenKey
  * @returns {*[]}
  */
-export function getLeafNodes(node) {
+export function getLeafNodes(node, childrenKey = 'children') {
   const leafNodes = [];
   const fn = (n) => {
-    if (n.children && n.children.length) {
-      n.children.forEach(fn);
+    if (n[childrenKey] && n[childrenKey].length) {
+      n[childrenKey].forEach(fn);
     } else {
       leafNodes.push(n);
     }
@@ -79,13 +81,23 @@ export function getLeafNodes(node) {
  * @param tree
  * @param callback
  * @param childrenKey
+ * @param isTreeIncludeChildren
  */
-export function traverseTree(tree, callback, childrenKey = 'children') {
+export function traverseTree({
+  tree,
+  callback,
+  childrenKey = 'children',
+  isTreeIncludeChildren = true,
+}) {
   const fn = (node, parentNode) => {
-    if (node[childrenKey] && node[childrenKey].length) {
-      node[childrenKey].forEach((n) => fn(n, node));
+    if (isTreeIncludeChildren) {
+      if (node[childrenKey] && node[childrenKey].length) {
+        node[childrenKey].forEach((n) => fn(n, node));
+      }
+      callback({ node, parentNode });
+    } else {
+      callback({ node, parentNode: undefined, childNodes: [ node ] });
     }
-    callback(node, parentNode);
   };
   tree.forEach((node) => fn(node));
 }
@@ -141,4 +153,11 @@ export const hasCustomScroll = () => {
   return window
     .getComputedStyle(bodyEle, '::-webkit-scrollbar')
     .width.includes('px');
+};
+
+export const getTrEle = targetEle => {
+  if (targetEle && !targetEle?.hasAttribute('data-row-key')) {
+    return getTrEle(targetEle?.parentElement);
+  }
+  return targetEle;
 };

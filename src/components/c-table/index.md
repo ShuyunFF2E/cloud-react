@@ -123,6 +123,7 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 | supportResizeColumn | 是否支持配置列的拉伸  | boolean	   |   false   | |
 | summaryData | 表格合计（API 同 columnData） | 	array   |   []   | |
 | showFilterBtn | 过滤下拉是否展示确认取消按钮 | 	boolean   |   false   | |
+| tooltipConfigs | 表格行展示tooltip，详见**表格禁用行**Demo | 	array   |   []   | |
 
 [comment]: <> (| supportConfigColumn | 是否支持配置列的隐藏和展示  | boolean	   |   false   | |)
 
@@ -233,3 +234,6 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 <embed src="@components/c-table/demos/resize.md" />
 
 <embed src="@components/c-table/demos/resize1.md" />
+
+### 商品选择器表格
+<embed src="@components/c-table/demos/goods-table.md" />

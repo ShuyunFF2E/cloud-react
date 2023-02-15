@@ -53,6 +53,10 @@ export default function CTableDemo() {
       checkedData={[data[1]]}
       pageOpts={{ pageSize: 6 }}
       columnData={columns}
+      tooltipConfigs={[{
+        tooltipMsg: '当前条目不可选', // tooltip 展示的内容
+        tooltipRowCls: 'cloud-table-row-disabled', // 需要展示 tooltip 行的类名，
+      }]}
       ajaxData={(params) => {
         return new Promise(resolve => {
           setTimeout(() => {
