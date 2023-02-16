@@ -23,7 +23,7 @@ group:
 | disabled       | 是否禁用                 | boolean           | false  |
 | defaultValue   | 初始化 selected value    | Array           | false  |
 | value          | selected value          | Array            | --     |
-| change         | 变化时回调函数            | Function(e:Event) | --     |
+| onChange         | 变化时回调函数            | Function(e:Event) | --     |
 
 
  ### 代码演示 
