@@ -102,7 +102,11 @@ class Input extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.value !== this.props.value || (this.inputNode.value && String(this.props.value) !== this.inputNode.value)) {
+    if (
+      prevProps.value !== this.props.value
+      || (this.inputNode.value
+        && String(this.props.value) !== this.inputNode.value)
+    ) {
       this.setInputValue();
     }
   }
@@ -223,7 +227,7 @@ class Input extends React.Component {
     const { size: formSize } = this.context;
     const mergedSize = size || formSize || 'default';
 
-    const type = 'close-fill';
+    const type = 'close-fill-1';
     const classNames = classnames(`${prefixCls}-input-clear`, {
       show: counter,
       hidden: !counter,
@@ -312,7 +316,9 @@ class Input extends React.Component {
           {...props}
           {...commonProps}
           style={isPure ? style : {}}
-          className={classnames(_className, className, mergedSize, { [`${_className}-disabled`]: props.disabled })}
+          className={classnames(_className, className, mergedSize, {
+            [`${_className}-disabled`]: props.disabled,
+          })}
         />
       );
     }
