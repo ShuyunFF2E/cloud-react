@@ -136,7 +136,7 @@ Cascader.defaultProps = {
   expandTrigger: 'click',
   fieldNames: { label: 'label', value: 'value', children: 'children' },
   expandIcon: <Icon type="right" style={{ fontSize: '16px' }} />,
-  clearIcon: <Icon type="close-fill" style={{ fontSize: '14px' }} />,
+  clearIcon: <Icon type="close-fill-1" style={{ fontSize: '14px' }} />,
   removeIcon: <Icon type="close" style={{ fontSize: '12px' }} />,
   splitInput: '/',
 };

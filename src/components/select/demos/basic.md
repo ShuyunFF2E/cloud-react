@@ -42,6 +42,7 @@ export default function SelectDemo() {
   return (
     <div className="demo">
       <Select
+        allowClear
         defaultValue={'3'}
         onChange={handleChange}
         style={{ width: 120 }}
