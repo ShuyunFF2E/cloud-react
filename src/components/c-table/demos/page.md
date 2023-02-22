@@ -38,6 +38,7 @@ export default function CTableDemo() {
   const [showRefresh, setShowRefresh] = useState(true);
   const [showTotal, setShowTotal] = useState(true);
   const [checkedData, setCheckedData] = useState([data[1], data[4], data[15]]);
+  const [isLoading, setIsLoading] = useState(false);
   return (
     <div>
       <div style={{ marginBottom: 20 }}>
@@ -53,6 +54,9 @@ export default function CTableDemo() {
         <Button style={{ marginLeft: 15 }} onClick={() => {
           setCheckedData([data[0], data[1]]);
         }}>选中前两条</Button>
+        <Checkbox style={{ marginLeft: 15 }} checked={isLoading} onChange={checked => {
+          setIsLoading(checked);
+        }}>展示loading</Checkbox>
       </div>
       <CTable
         style={{ width: '100%', height: 400 }}
@@ -73,6 +77,10 @@ export default function CTableDemo() {
         }}
         onCheckedAfter={checkedData => {
             setCheckedData(checkedData);
+        }}
+        loadingOpts={{
+          loading: isLoading,
+          layer: true,
         }}
       />
     </div>

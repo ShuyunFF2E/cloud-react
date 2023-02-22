@@ -121,6 +121,12 @@ class CTable extends Component {
         },
       });
     }
+    if (
+      this.props.watchColumnData &&
+      this.props.columnData !== prevProps.columnData
+    ) {
+      this.setColumn(this.props.columnData);
+    }
   }
 
   componentWillUnmount() {
@@ -212,7 +218,9 @@ class CTable extends Component {
     }
     setTimeout(() => {
       if (this.ref.current) {
-        const bodyEle = this.ref.current.querySelector(`.${tablePrefixCls}-body`);
+        const bodyEle = this.ref.current.querySelector(
+          `.${tablePrefixCls}-body`,
+        );
         if (bodyEle) {
           bodyEle.style.paddingRight = 0;
           bodyEle.parentElement.querySelector(
@@ -238,7 +246,9 @@ class CTable extends Component {
         return;
       }
       const fixedEles = Array.from(
-        this.ref.current.querySelectorAll(`th.${tablePrefixCls}-cell-fix-right`),
+        this.ref.current.querySelectorAll(
+          `th.${tablePrefixCls}-cell-fix-right`,
+        ),
       );
       if (fixedEles.length) {
         // fixedEles.pop();
@@ -604,7 +614,9 @@ class CTable extends Component {
 
   onResize = () => {
     return debounce(() => {
-      const thArr = this.ref.current?.querySelectorAll(`th.${tablePrefixCls}-cell`);
+      const thArr = this.ref.current?.querySelectorAll(
+        `th.${tablePrefixCls}-cell`,
+      );
       this.column.setColumnData({ currentThArr: thArr });
     }, 500);
   };
@@ -668,6 +680,7 @@ class CTable extends Component {
       loadingOpts,
       footerSelectTpl,
       tooltipConfigs,
+      disablePageOnLoad,
     } = this.props;
     const {
       data,
@@ -690,7 +703,7 @@ class CTable extends Component {
               [`${tablePrefixCls}-bordered`]: bordered,
               [`${tablePrefixCls}-header-bordered`]:
                 !bordered && headerBordered,
-              [`${tablePrefixCls}-loading`]: isLoading,
+              [`${tablePrefixCls}-loading`]: isLoading || loadingOpts.loading,
               [`${tablePrefixCls}-empty`]: !data.length,
               [`${tablePrefixCls}-use-custom-scroll`]:
                 this.hasCustomScroll && !isFirefox(),
@@ -796,7 +809,7 @@ class CTable extends Component {
                 current={pageNum}
                 pageSize={pageSize}
                 total={totals}
-                disabled={isLoading}
+                disabled={disablePageOnLoad ? isLoading : false}
                 onChange={onPageChange}
               />
             </div>

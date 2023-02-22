@@ -157,7 +157,7 @@ export default class CTableDemo extends Component {
         return row.skus && row.skus.length ? (
           <Button
             className="choose-sku-btn"
-            style={{ paddingLeft: 0 }}
+            style={{ padding: 0, lineHeight: '16px' }}
             type="link"
             onClick={() => {
               this.onExpand(!row.isExpand, row)
