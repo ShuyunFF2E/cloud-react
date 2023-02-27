@@ -28,7 +28,7 @@ const externals = [
   ...(isBuild ? [] : ['gridmanager-react', 'prop-types', 'classnames']),
 ];
 
-export default [{
+export default isBuild ? [{
   esm: isBuild ? false : 'rollup',
   file: 'cloud-react',
   // cjs: {
@@ -263,4 +263,72 @@ export default [{
       ],
     }),
   ],
-}];
+}] : {
+  esm: isBuild ? false : 'rollup',
+  file: 'cloud-react',
+	replace: {
+    CloudPrefixCls: JSON.stringify('cloud'),
+  },
+  // cjs: {
+  //   type: 'rollup',
+  //   minify: !argv.dev,
+  // },
+	
+  umd: isBuild
+    ? {
+        name: 'CloudReact',
+        file: 'cloud-react',
+        minFile: true,
+      }
+    : false,
+  entry: 'src/components/index.js',
+  extraExternals: externals,
+  extractCSS: isBuild,
+	lessInRollupMode: {
+    globalVars: {
+      '@cloud': 'cloud',
+    },
+  },
+  extraRollupPlugins: [
+    eslint({
+      throwOnError: true,
+      include: [NodePath.resolve('src/components')],
+      /* your options */
+    }),
+    // url({
+    //   include: ['**/*.woff', '**/*.woff2'],
+    //   limit: Infinity,
+    // }),
+    copy({
+      targets: [
+        { src: 'package.json', dest: 'dist' },
+        { src: 'src/locale', dest: 'dist' },
+      ],
+    }),
+    alias({
+      entries: [
+        {
+          find: '@utils',
+          replacement: NodePath.resolve(
+            NodePath.resolve(__dirname),
+            'src/utils',
+          ),
+          // OR place `customResolver` here. See explanation below.
+        },
+        {
+          find: '@contexts',
+          replacement: NodePath.resolve(
+            NodePath.resolve(__dirname),
+            'src/contexts',
+          ),
+          // OR place `customResolver` here. See explanation below.
+        },
+        {
+          find: '@tests',
+          replacement: NodePath.resolve(NodePath.resolve(__dirname), 'tests'),
+          // OR place `customResolver` here. See explanation below.
+        },
+      ],
+    }),
+  ],
+};
