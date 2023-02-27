@@ -7,7 +7,7 @@
     "gen:doc": "node ./scripts/generate-doc.js",
     "start": "npm run gen:index && dumi dev",
     "site": "npm run gen:index && father-build --dev && dumi build",
-    "build": "rimraf dist/* && father-build && node ./scripts/pre-publish.js",
+    "build": "rimraf dist/* && father-build --no-clean && node ./scripts/pre-publish.js",
     "watch": "rimraf dist/* && father-build --watch",
     "deploy": "npm run docs:build && npm run docs:deploy",
     "release": "npm run build && npm publish dist",
@@ -55,6 +55,7 @@
     "react-transition-group": "^4.4.2",
     "rollup-plugin-copy": "^3.4.0",
     "rollup-plugin-eslint": "^7.0.0",
+    "rollup-plugin-generate-package-json": "^3.2.0",
     "shuyun-utils": "0.0.3"
   },
   "devDependencies": {

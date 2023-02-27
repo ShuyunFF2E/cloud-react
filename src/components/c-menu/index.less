@@ -21,12 +21,92 @@
 @darkActive: rgba(255, 255, 255, 0.1);
 @titleBold: rgba(0, 0, 0, 0.85);
 
-// 通用全局样式
-.@{prefix}-cmenu-root {
-  box-shadow: none;
-  border: none;
-  height: 100%;
+.root-cloud-menu-prefix{
+	padding: 16px 8px;
+  transition: 0.5s;
+  -moz-transition: 0.5s; /* Firefox 4 */
+  -webkit-transition: 0.5s; /* Safari 和 Chrome */
+  -o-transition: 0.5s; /* Opera */
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  &.@{prefix}-cmenu-root {
+    width: 208px;
+  }
+
+
+
+  .@{prefix}-cmenu-submenu-arrow {
+    transform: rotate(-270deg);
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    vertical-align: baseline;
+    text-align: center;
+    text-transform: none;
+    text-rendering: auto;
+    position: absolute;
+    right: 16px;
+    line-height: 1.5em;
+    transition: transform 0.3s;
+  }
+
+  .@{prefix}-cmenu-submenu-open > .@{prefix}-cmenu-submenu-title .@{prefix}-cmenu-submenu-arrow {
+    transform: rotate(-90deg);
+  }
+
+  .@{prefix}-cmenu-submenu-selected {
+    background-color: #fff;
+  }
+  .@{prefix}-cmenu-submenu-arrow {
+    right: 8px !important;
+  }
+  &.@{prefix}-cmenu-sub {
+    overflow: hidden;
+  }
+
+  .@{prefix}-cmenu-submenu-title {
+    line-height: 20px;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    margin-bottom: 4px;
+  }
+  & > .@{prefix}-cmenu-item {
+    line-height: 20px;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+  }
+  li {
+    margin-bottom: 4px;
+  }
+
+  [role="menuitem"]{
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    line-height: 20px !important;
+    margin-bottom: 4px;
+  }
+
+  i {
+    margin-right: 9px;
+  }
+
+  .@{menuTitle},
+  .@{menuTitle} .@{menuTitleIcon} + span > a {
+    color: @titleBold;
+    font-weight: 500;
+    .@{menuTitleIcon} {
+      color: #666;
+    }
+  }
 }
+
+  // 通用全局样式
+  .@{prefix}-cmenu-root{
+    box-shadow: none;
+    border: none;
+    height: 100%;
+  }
 
 .@{prefix}-cmenu {
   font-size: 14px;
@@ -90,11 +170,12 @@
   }
 }
 
-.@{menuTitleIcon} {
-  .cloud-icon {
-    font-size: 14px !important;
+  .@{menuTitleIcon} {
+      .@{prefix}-icon {
+        font-size: 14px !important;
+      }
   }
-}
+
 
 .@{prefix}-cmenu-item-selected {
   background-color: @lightSelectedBg !important;
@@ -295,89 +376,12 @@
 // mode === inline / vertical
 .@{prefix}-cmenu-inline {
   // width: 208px;
-  padding: 16px 8px;
-  transition: 0.5s;
-  -moz-transition: 0.5s; /* Firefox 4 */
-  -webkit-transition: 0.5s; /* Safari 和 Chrome */
-  -o-transition: 0.5s; /* Opera */
-  overflow-x: hidden;
-  overflow-y: auto;
-
-  &.@{prefix}-cmenu-root {
-    width: 208px;
-    height: auto;
-  }
-
-  .@{prefix}-cmenu-submenu-arrow {
-    transform: rotate(-270deg);
-    display: inline-block;
-    font: normal normal normal 14px/1 FontAwesome;
-    font-size: inherit;
-    vertical-align: baseline;
-    text-align: center;
-    text-transform: none;
-    text-rendering: auto;
-    position: absolute;
-    right: 16px;
-    line-height: 1.5em;
-    transition: transform 0.3s;
-  }
-
-  .@{prefix}-cmenu-submenu-open
-    > .@{prefix}-cmenu-submenu-title
-    .@{prefix}-cmenu-submenu-arrow {
-    transform: rotate(-90deg);
-  }
-
-  .@{prefix}-cmenu-submenu-selected {
-    background-color: #fff;
-  }
-  .@{prefix}-cmenu-submenu-arrow {
-    right: 8px !important;
-  }
-  &.@{prefix}-cmenu-sub {
-    overflow: hidden;
-  }
-
-  .@{prefix}-cmenu-submenu-title {
-    line-height: 20px;
-    padding-top: 10px !important;
-    padding-bottom: 10px !important;
-    margin-bottom: 4px;
-  }
-  & > .@{prefix}-cmenu-item {
-    line-height: 20px;
-    padding-top: 10px !important;
-    padding-bottom: 10px !important;
-  }
-  li {
-    margin-bottom: 4px;
-  }
-
-  [role='menuitem'] {
-    padding-top: 10px !important;
-    padding-bottom: 10px !important;
-    line-height: 20px !important;
-    margin-bottom: 4px;
-  }
-
-  i {
-    margin-right: 9px;
-  }
-
-  .@{menuTitle},
-  .@{menuTitle} .@{menuTitleIcon} + span > a {
-    color: @titleBold;
-    font-weight: 500;
-    .@{menuTitleIcon} {
-      color: #666;
-    }
-  }
+  .root-cloud-menu-prefix;
 }
 
 // mode === vertical
 .@{prefix}-cmenu-vertical {
-  .cloud-cmenu-inline;
+	.root-cloud-menu-prefix;
   font-size: 14px;
   width: 208px;
 
