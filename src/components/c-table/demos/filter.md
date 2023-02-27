@@ -5,11 +5,6 @@ desc: 表格过滤
 ---
 
 ```jsx
-
-/**
- * title: 表格过滤
- * desc: 表格过滤
- */
 import React, { useState } from 'react';
 import { CTable, Icon, Tooltip, Checkbox } from 'cloud-react';
 import './style/index.less';
@@ -129,7 +124,8 @@ export default function CTableDemo() {
   };
 
   const filter = (data, { filterValue }) => {
-    return data.filter(item => !filterValue.length || (filterValue.length && filterValue.includes(item.category.status)))
+    console.log(filterValue);
+    return data.filter(item => !filterValue?.length || (filterValue?.length && filterValue.includes(item.category.status)))
   };
 
 	return (
@@ -143,13 +139,13 @@ export default function CTableDemo() {
             key={Math.random()}
             style={{ width: '100%', height: 360 }}
             showFilterBtn={showFilterBtn}
-            // useCustomScroll={false}
             columnData={columns}
             ajaxData={(params) => {
               return new Promise(resolve => {
                 setTimeout(() => {
                   const filterData = filter(sort(data, params), params);
-                  resolve({ totals: filterData.length, data: JSON.parse(JSON.stringify(filterData.slice(params.pageSize * (params.pageNum - 1), params.pageSize * params.pageNum))) });
+                  console.log(filterData)
+                  resolve({ totals: filterData?.length, data: JSON.parse(JSON.stringify(filterData.slice(params.pageSize * (params.pageNum - 1), params.pageSize * params.pageNum))) });
                 }, 200)
               })
             }}

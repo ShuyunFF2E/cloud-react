@@ -30,6 +30,7 @@ group:
 | placement       | 气泡框位置，可选 `auto` `top` `left` `right` `bottom` `top-left` `top-right` `bottom-left` `bottom-right` `left-top` `left-bottom` `right-top` `right-bottom` | string   | auto          |
 | className       | 设置类样式                                                                                                                           | string   | ''            |
 | overlayStyle    | 自定义卡片样式                                                                                                                       | object   | {}            |
+| alwaysShow      | 设置 visible 为 true 后，点击其他位置，tooltip 不消失                                                                                                                     | bool   | false            |
 
  ### 代码演示 
 

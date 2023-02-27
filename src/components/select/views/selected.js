@@ -110,7 +110,6 @@ export default class Selected extends React.Component {
       onMouseEnter,
       onMouseLeave,
     } = this;
-    console.log('size', size);
     const classNames = classnames(`${selector}-wrapper`, {
       disabled,
       empty: !dataSource.length,

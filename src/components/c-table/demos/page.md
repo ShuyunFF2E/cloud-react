@@ -7,13 +7,14 @@ desc: 分页
 ```jsx
 
 /**
- * title: 表格带分页
- * desc: 表格带分页
+ * title: 表格多选带分页
+ * desc: 表格多选带分页
  */
+
 import React, { useState } from 'react';
 import { CTable, Checkbox, Tooltip, Icon, Button } from 'cloud-react';
 
-const data = new Array(100).fill(1).map((item, index) => (
+const data = new Array(50).fill(1).map((item, index) => (
   { id: 121410327 + index, name: '手机号优先继续发送1', createTime: '2021/12/14 10:19:02', creator: 'liyuan.meng' }
 ))
 
@@ -37,6 +38,7 @@ export default function CTableDemo() {
   const [showRefresh, setShowRefresh] = useState(true);
   const [showTotal, setShowTotal] = useState(true);
   const [checkedData, setCheckedData] = useState([data[1], data[4], data[15]]);
+  const [isLoading, setIsLoading] = useState(false);
   return (
     <div>
       <div style={{ marginBottom: 20 }}>
@@ -52,10 +54,12 @@ export default function CTableDemo() {
         <Button style={{ marginLeft: 15 }} onClick={() => {
           setCheckedData([data[0], data[1]]);
         }}>选中前两条</Button>
+        <Checkbox style={{ marginLeft: 15 }} checked={isLoading} onChange={checked => {
+          setIsLoading(checked);
+        }}>展示loading</Checkbox>
       </div>
       <CTable
-        style={{ width: '100%', height: 500 }}
-        useCustomScroll={false}
+        style={{ width: '100%', height: 400 }}
         supportExpend
         supportTree
         supportCheckbox
@@ -73,6 +77,10 @@ export default function CTableDemo() {
         }}
         onCheckedAfter={checkedData => {
             setCheckedData(checkedData);
+        }}
+        loadingOpts={{
+          loading: isLoading,
+          layer: true,
         }}
       />
     </div>

@@ -48,12 +48,15 @@ export default function CTableDemo() {
       style={{ width: '100%', height: 360 }}
       supportCheckbox
       supportPage
-      useCustomScroll={false}
       rowKey="id" // rowKey 设置为 ""，disabledData 可以传递整行数据，例如：rowKey="" disabledData={[data[0], data[8]]}
       disabledData={disabledIds}
       checkedData={[data[1]]}
       pageOpts={{ pageSize: 6 }}
       columnData={columns}
+      tooltipConfigs={[{
+        tooltipMsg: '当前条目不可选', // tooltip 展示的内容
+        tooltipRowCls: 'cloud-table-row-disabled', // 需要展示 tooltip 行的类名，
+      }]}
       ajaxData={(params) => {
         return new Promise(resolve => {
           setTimeout(() => {

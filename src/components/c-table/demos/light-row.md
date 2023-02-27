@@ -5,11 +5,6 @@ desc: 自定义表格行背景色
 ---
 
 ```jsx
-
-/**
- * title: 自定义表格行背景色
- * desc: 自定义表格行背景色
- */
 import React from 'react';
 import { CTable } from 'cloud-react';
 

@@ -5,11 +5,6 @@ desc: 拖拽
 ---
 
 ```jsx
-
-/**
- * title: 拖拽行
- * desc: 表格拖拽行
- */
 import React from 'react';
 import { CTable } from 'cloud-react';
 

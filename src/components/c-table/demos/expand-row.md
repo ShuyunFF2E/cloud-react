@@ -5,11 +5,6 @@ desc: 展开行
 ---
 
 ```jsx
-
-/**
- * title: 展开行
- * desc: 展开行
- */
 import React from 'react';
 import { CTable } from 'cloud-react';
 import headerImg from './header.jpg';

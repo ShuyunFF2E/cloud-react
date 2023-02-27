@@ -43,7 +43,6 @@ export const propTypes = {
   maxHeight: PropTypes.oneOfType([ PropTypes.string, PropTypes.number ]),
   supportMemory: PropTypes.bool,
   tableId: PropTypes.string,
-  useCustomScroll: PropTypes.bool,
   scrollIntoTop: PropTypes.bool,
   expandIconColumnIndex: PropTypes.number,
   isExpendAloneColumn: PropTypes.bool,
@@ -57,6 +56,12 @@ export const propTypes = {
   loadingTpl: PropTypes.func,
   loadingOpts: PropTypes.object,
   showFilterBtn: PropTypes.bool,
+  footerHeight: PropTypes.number,
+  footerSelectTpl: PropTypes.any,
+  isTreeIncludeChildren: PropTypes.bool,
+  tooltipConfigs: PropTypes.array,
+  disablePageOnLoad: PropTypes.bool,
+  watchColumnData: PropTypes.bool,
 };
 
 export const defaultProps = {
@@ -99,7 +104,6 @@ export const defaultProps = {
   maxHeight: '',
   supportMemory: false,
   tableId: '',
-  useCustomScroll: true,
   scrollIntoTop: true,
   expandIconColumnIndex: 0,
   isExpendAloneColumn: false,
@@ -113,4 +117,10 @@ export const defaultProps = {
   loadingTpl: () => null,
   loadingOpts: {},
   showFilterBtn: false,
+  footerHeight: undefined,
+  footerSelectTpl: null,
+  isTreeIncludeChildren: true,
+  tooltipConfigs: [],
+  disablePageOnLoad: true,
+  watchColumnData: false,
 };

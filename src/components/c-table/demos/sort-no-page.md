@@ -5,11 +5,6 @@ desc: 表格排序
 ---
 
 ```jsx
-
-/**
- * title: 表格排序
- * desc: 表格排序（自定义表格列排序规则）
- */
 import React from 'react';
 import { CTable } from 'cloud-react';
 

@@ -56,6 +56,7 @@
     font-size: 14px;
     color: @gray-9;
     transition: box-shadow 0.3s;
+    line-height: 19px;
 
     .@{tablePrefixCls}-rtl& {
       border-right: 0;
@@ -73,8 +74,8 @@
     position: relative;
     min-width: 100px;
 
-    .@{prefix}radio,
-    .@{prefix}radio-wrapper {
+    .@{prefix}-radio,
+    .@{prefix}-radio-wrapper {
       margin-right: 0;
     }
 
@@ -154,7 +155,7 @@
       }
     }
 
-    .@{prefix}checkbox-wrapper {
+    .@{prefix}-checkbox-wrapper {
       margin-right: 0;
     }
   }
@@ -219,7 +220,6 @@
       }
 
       .@{tablePrefixCls}-no-data {
-
         > p {
           margin-top: 2px;
           color: @gray-7;
@@ -239,6 +239,8 @@
   }
 
   &-content {
+    width: 100%;
+    overflow: auto;
     border-radius: @border-radius 0 0 0;
   }
 
@@ -248,17 +250,17 @@
     flex: 1;
     overflow: auto auto !important;
     overflow: overlay overlay !important;
-    &::-webkit-scrollbar-thumb {
-      background-color: var(--dw-scroll-color, rgba(0, 0, 0, 0)) !important;
-    }
-    &:hover {
-      &::-webkit-scrollbar-thumb {
-        background-color: var(
-          --dw-scroll-color,
-          rgba(0, 0, 0, 0.25)
-        ) !important;
-      }
-    }
+    //&::-webkit-scrollbar-thumb {
+    //  background-color: var(--dw-scroll-color, rgba(0, 0, 0, 0)) !important;
+    //}
+    //&:hover {
+    //  &::-webkit-scrollbar-thumb {
+    //    background-color: var(
+    //      --dw-scroll-color,
+    //      rgba(0, 0, 0, 0.25)
+    //    ) !important;
+    //  }
+    //}
 
     tr.@{tablePrefixCls}-row-select {
       td {
@@ -353,7 +355,7 @@
     min-width: auto;
     position: relative;
 
-    .@{prefix}checkbox {
+    .@{prefix}-checkbox {
       .absolute-center();
     }
   }
@@ -361,7 +363,7 @@
   .@{tablePrefixCls}-radio-column {
     position: relative;
 
-    .@{prefix}radio {
+    .@{prefix}-radio {
       .absolute-center();
     }
   }
@@ -409,6 +411,7 @@
 
       > i {
         margin-right: 6px;
+        color: @gray-7;
       }
     }
 
@@ -420,6 +423,7 @@
 
     &-total {
       margin-right: 16px;
+      color: @gray-9;
     }
   }
 
@@ -542,12 +546,12 @@
     display: none;
   }
 
-  &.@{prefix}tooltip.is-light {
+  &.@{prefix}-tooltip.is-light {
     box-shadow: @border-shadow-3;
   }
 
   &.show-filter-btn {
-    .@{prefix}popover {
+    .@{prefix}-popover {
       position: relative;
 
       &::after {
@@ -562,8 +566,8 @@
     }
   }
 
-  .@{prefix}popover {
-    .@{prefix}popover-btn {
+  .@{prefix}-popover {
+    .@{prefix}-popover-btn {
       padding-right: 12px;
 
       > button {
@@ -572,7 +576,7 @@
     }
   }
 
-  .@{prefix}checkbox {
+  .@{prefix}-checkbox {
     width: calc(100% - 12px);
     height: 32px;
     line-height: 32px;
@@ -584,7 +588,7 @@
       margin-bottom: 0;
     }
 
-    &.@{prefix}checkbox-checked:not(.@{prefix}checkbox-disabled) {
+    &.@{prefix}-checkbox-checked:not(.@{prefix}-checkbox-disabled) {
       background: @indigo-2;
 
       &:hover {
@@ -592,12 +596,12 @@
       }
     }
 
-    &:hover:not(.@{prefix}checkbox-disabled) {
+    &:hover:not(.@{prefix}-checkbox-disabled) {
       background: @indigo-1;
     }
   }
 
-  .@{prefix}button {
+  .@{prefix}-button {
     height: 28px !important;
 
     &.normal {
@@ -606,7 +610,7 @@
   }
 
   //noinspection CssInvalidPropertyValue
-  .@{prefix}popover-desc {
+  .@{prefix}-popover-desc {
     max-height: 250px;
     overflow-y: overlay;
 
