@@ -24,6 +24,7 @@ const TimePicker = ({
   getPopupContainer: _getPopupContainer, // New
   isAppendToBody,
   canEdit = true,
+  format: _format,
   style,
   showNow,
   renderExtraFooter,
@@ -41,7 +42,7 @@ const TimePicker = ({
   onOk,
 }) => {
   const [ value, setValue ] = useState();
-  const format = timeFormat;
+  const format = _format || timeFormat;
 
   useEffect(() => {
     setValue(transformString2Moment(_value, format));

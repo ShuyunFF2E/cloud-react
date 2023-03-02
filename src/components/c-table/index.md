@@ -118,6 +118,7 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 | reloadAfterSetColumn | 重新设置表格列后，是否需要刷新表格 | 	boolean   |   false   | |
 | disablePageOnLoad | 切换分页，数据未返回时，是否需要禁用分页按钮 | 	boolean   |   true   | |
 | watchColumnData | 是否监听 columnData 变化 | 	boolean   |   false   | |
+| useRootWindow | window 对象是否使用根 window | 	boolean   |   false   | |
 
 #### CTable 其他功能配置
 | 属性           | 说明                    | 类型              | 默认值
