@@ -62,6 +62,7 @@ export const propTypes = {
   tooltipConfigs: PropTypes.array,
   disablePageOnLoad: PropTypes.bool,
   watchColumnData: PropTypes.bool,
+  useRootWindow: PropTypes.bool,
 };
 
 export const defaultProps = {
@@ -123,4 +124,5 @@ export const defaultProps = {
   tooltipConfigs: [],
   disablePageOnLoad: true,
   watchColumnData: false,
+  useRootWindow: false,
 };

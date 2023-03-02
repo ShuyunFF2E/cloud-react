@@ -5,7 +5,7 @@ import { getTooltipPositionInBody } from '../../tooltip/toolView';
 import '../css/business.less';
 import { tablePrefixCls } from '../constant';
 import ReactDOM from 'react-dom';
-import { prefixCls } from '../../../utils';
+import { getRootWindow, prefixCls } from '../../../utils';
 
 class RowTooltip extends Component {
   constructor(props) {
@@ -52,11 +52,12 @@ class RowTooltip extends Component {
         this.setState({
           tooltipMsg: targetTooltipConfig.tooltipMsg
         }, () => {
+          const _window = this.props.useRootWindow ? getRootWindow() : window;
           this.setState({
             tooltipStyle: {
               ...this.state.tooltipStyle,
               left: tooltipStyle.left - 7,
-              top: isInModal ? tooltipStyle.top + window.pageYOffset - 8 : tooltipStyle.top - 8,
+              top: isInModal ? tooltipStyle.top + _window.pageYOffset - 8 : tooltipStyle.top - 8,
               visibility: 'visible'
             }
           })
