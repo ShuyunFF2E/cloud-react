@@ -2,7 +2,7 @@
 
 @input-number-prefix-cls: ~'@{prefix}-input-number';
 
-@small-height: 24px;
+@small-height: 28px;
 @small-fontSize: 12px;
 
 .size-mixin(@height, @fontSize, @inputPadding: 0 12px) {
@@ -31,7 +31,7 @@
     box-sizing: border-box;
   }
 
-  &:not(&-focused):hover {
+  &:not(&-focused):not(&-disabled):hover {
     border-color: @gray-6;
   }
 
@@ -46,6 +46,9 @@
     background-color: @gray-3;
     opacity: 1;
     cursor: not-allowed;
+    .@{input-number-prefix-cls}-input {
+      cursor: not-allowed;
+    }
     .@{input-number-prefix-cls}-handler-wrap {
       display: none;
     }
@@ -92,11 +95,11 @@
   }
 
   &.large {
-    .size-mixin(@line-height-extra-large, @font-size-medium);
+    .size-mixin(@line-height-extra-large, @font-size-base);
     .@{input-number-prefix-cls}-handler-plus,
     .@{input-number-prefix-cls}-handler-sub {
       height: calc(@line-height-extra-large - 2px);
-      font-size: @font-size-medium;
+      font-size: @font-size-base;
     }
     .@{input-number-prefix-cls}-handle {
       width: calc(@line-height-extra-large - 2px);
@@ -116,7 +119,7 @@
   }
 
   &.small {
-    .size-mixin(@small-height, @small-fontSize, 0 7px);
+    .size-mixin(@small-height, @font-size-base, 0 7px);
     .@{input-number-prefix-cls}-handler-plus,
     .@{input-number-prefix-cls}-handler-sub {
       height: calc(@small-height - 2px);
@@ -141,11 +144,10 @@
     border-left: 1px solid @gray-4;
     border-radius: 0 4px 4px 0;
     opacity: 0;
-    transition: opacity 0.24s linear 0.1s;
+    transition: opacity .24s linear .1s;
   }
 
-  &:hover,
-  &:focus {
+  &:hover, &:focus {
     .@{input-number-prefix-cls}-handler-wrap {
       opacity: 1;
     }
@@ -218,7 +220,7 @@
     outline: 0;
 
     &:disabled {
-      color: @gray-6;
+      color: @gray-7;
     }
     &:focus {
       border: 0;

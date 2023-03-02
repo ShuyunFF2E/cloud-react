@@ -362,7 +362,7 @@ InputNumber.defaultProps = {
   min: -Infinity,
   max: Infinity,
   size: undefined,
-  placeholder: '请输入...',
+  placeholder: '请输入',
   step: 1,
   noStep: false,
   stepType: 'topBottom',

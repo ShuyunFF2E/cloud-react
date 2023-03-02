@@ -121,7 +121,9 @@ class Node extends Component {
   // 选中节点
   handleSelect = (checked, isCheckbox) => {
     const { data } = this.props;
-    const { disabled, supportCheckbox, onSelectedAction, onDoubleClick } = this.context;
+    const {
+      disabled, supportCheckbox, onSelectedAction, onDoubleClick,
+    } = this.context;
 
     if (disabled) {
       return;
@@ -184,9 +186,7 @@ class Node extends Component {
           )}
         >
           <div
-            onContextMenu={(e) =>
-              supportMenu && this.onHandleShowMenu(e, RIGHT_MENU, data, options)
-            }
+            onContextMenu={(e) => supportMenu && this.onHandleShowMenu(e, RIGHT_MENU, data, options)}
             style={{ minWidth: `calc(100% - ${paddingLeft}px)`, paddingLeft }}
             className={`node-item-container ${
               data.isActive ? 'is-active' : null
@@ -225,6 +225,8 @@ class Node extends Component {
               <ShowSelection
                 id={data.id}
                 name={data.name}
+                title={data.title}
+                selectable={data.selectable}
                 disableSelected={data.disableSelected}
                 searchText={searchText}
                 supportMenu={supportMenu}
@@ -243,9 +245,7 @@ class Node extends Component {
               {supportMenu && menuType !== RIGHT_MENU && !disabled && (
                 <span
                   className="edit-icon"
-                  onClick={(e) =>
-                    this.onHandleShowMenu(e, DIALOG_MENU, data, options)
-                  }
+                  onClick={(e) => this.onHandleShowMenu(e, DIALOG_MENU, data, options)}
                 >
                   ...
                 </span>
@@ -262,7 +262,11 @@ class Node extends Component {
               cancelSave={(e) => this.onClickCancel(e, data)}
             />
           </div>
-          <div className={`node-children ${data.isUnfold ? 'node-children-visible' : 'node-children-hidden'}`}>
+          <div
+            className={`node-children ${
+              data.isUnfold ? 'node-children-visible' : 'node-children-hidden'
+            }`}
+          >
             {children}
           </div>
         </div>
@@ -287,7 +291,9 @@ function ToggleFold({ hasChildren, showChildrenItem, toggle }) {
         className="toggle-icon"
         // type={!showChildrenItem ? 'down' : 'up'}
         type="up"
-        style={{ transform: showChildrenItem ? 'rotate(0)' : 'rotate(-180deg)' }}
+        style={{
+          transform: showChildrenItem ? 'rotate(0)' : 'rotate(-180deg)',
+        }}
         onClick={toggle}
       />
     )
@@ -363,6 +369,8 @@ function ShowSelection({
   breakCheckbox,
   id,
   name,
+  title,
+  selectable,
   disableSelected,
   onDoubleClick,
   onHandleSelect,
@@ -380,14 +388,23 @@ function ShowSelection({
 
   let nodeText = name;
   // 处理搜索关键字高亮
-  if (searchText) {
+  if (searchText && !title) {
     const re = new RegExp(
       `(${searchText.replace(/[(){}.+*?^$|\\[\]]/g, '\\$&')})`,
       'ig',
     );
     nodeText = name.replace(re, `<span class="hot-text">${searchText}</span>`);
   }
-  let tmp = (
+  let tmp = title ? (
+    <span
+      name={id}
+      className={`${nodeClassName} ${
+        disableSelected ? 'disabled-node-name' : ''
+      }`}
+    >
+      {title}
+    </span>
+  ) : (
     <span
       name={id}
       className={`${nodeClassName} ${
@@ -403,8 +420,8 @@ function ShowSelection({
     if (treeWidth > 0) {
       let correctWidth = 0;
       if (
-        !supportCheckbox &&
-        (!supportMenu || (supportMenu && menuType === RIGHT_MENU))
+        !supportCheckbox
+        && (!supportMenu || (supportMenu && menuType === RIGHT_MENU))
       ) {
         // 单选无菜单或有右键菜单
         correctWidth = 46;
@@ -414,8 +431,8 @@ function ShowSelection({
         correctWidth = 71;
       }
       if (
-        supportCheckbox &&
-        (!supportMenu || (supportMenu && menuType === RIGHT_MENU))
+        supportCheckbox
+        && (!supportMenu || (supportMenu && menuType === RIGHT_MENU))
       ) {
         // 多选无菜单或有右键菜单
         correctWidth = 66;
@@ -453,9 +470,13 @@ function ShowSelection({
           indeterminate={indeterminate}
           checked={checked}
           value={id}
-          onChange={(value) => {
-            onHandleSelect(value, true);
-          }}
+          onChange={
+            selectable === false
+              ? () => {}
+              : (value) => {
+                onHandleSelect(value, true);
+              }
+          }
           style={labelWidth}
         >
           <>{!breakCheckbox && tmp}</>

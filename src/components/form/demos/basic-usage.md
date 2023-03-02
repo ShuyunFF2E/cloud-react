@@ -40,7 +40,7 @@ export default class FormBasicDemo extends React.Component {
 				<Form.Item label="用户名" help="额外的提示信息">
 					<Input
 						style={{ width: '70%' }}
-						placeholder="请输入用户名..."
+						placeholder="请输入用户名"
 						{...init('userName', {
 							rules: [{ required: true, message: '用户名不能为空' }]
 						})}
@@ -50,7 +50,7 @@ export default class FormBasicDemo extends React.Component {
 				<Form.Item label="邮箱">
 					<Input
 						style={{ width: '70%' }}
-						placeholder="请输入邮箱..."
+						placeholder="请输入邮箱"
 						{...init('email', {
 							rules: [
 								{ required: true, message: '验证邮箱不允许为空' },
@@ -64,7 +64,7 @@ export default class FormBasicDemo extends React.Component {
 					<Input
 						style={{ width: '70%' }}
 						type="password"
-						placeholder="请输入密码..."
+						placeholder="请输入密码"
 						{...init('password', {
 							rules: [
 								{ required: true, message: '密码不能为空' },
@@ -78,7 +78,7 @@ export default class FormBasicDemo extends React.Component {
 					<Input
 						style={{ width: '70%' }}
 						type="password"
-						placeholder="请输入密码..."
+						placeholder="请输入密码"
 						{...init('password1', {
 							rules: [
 								{ required: true, message: '请再次输入密码' },
@@ -99,7 +99,7 @@ export default class FormBasicDemo extends React.Component {
 				</Form.Item>
 
 				<Form.Item label="备注">
-					<Input.Textarea style={{ width: '70%' }} autoSize minRows={2} placeholder="备注信息..." {...init('remarks')} />
+					<Input.Textarea style={{ width: '70%' }} autoSize minRows={2} placeholder="备注信息" {...init('remarks')} />
 				</Form.Item>
 
 				<Form.Item wrapperCol={{ offset: 6 }}>

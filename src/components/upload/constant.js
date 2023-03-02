@@ -16,6 +16,7 @@ const FILE_TYPE_ICONS = {
   doc: 'DOC',
   zip: 'ZIP',
   xls: 'XLS',
+  xlsx: 'XLS',
 };
 
 const PIC_TYPES = [

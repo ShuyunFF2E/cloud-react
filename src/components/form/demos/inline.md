@@ -42,7 +42,7 @@ export default class FormInlineDemo extends React.Component {
 					/>
 				</Form.Item>
 
-				<Form.Item label="密码">
+				<Form.Item label="验证邮箱">
 					<Input
 						placeholder="请输入验证邮箱"
 						{...init('email', {

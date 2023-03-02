@@ -1,9 +1,11 @@
 /* eslint-disable */
-import React, { Component, Children, cloneElement } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { noop, prefixCls } from '@utils';
+import { prefixCls } from '@utils';
 
+import Tooltip from '../tooltip';
+import Icon from '../icon';
 import FormContext from './context';
 import Explain from './explain';
 import RenderChildren from './render-children';
@@ -102,7 +104,7 @@ export default class FormItem extends Component {
   renderLabel() {
     const { labelColSpan, required } = this;
     const { colon, layout, labelCol: formLabelCol, labelWrap } = this.context;
-    const { label, htmlFor, labelCol = formLabelCol } = this.props;
+    const { label, htmlFor, labelCol = formLabelCol, description } = this.props;
     const { offset } = labelCol;
 
     const labelAttrs = {
@@ -112,12 +114,23 @@ export default class FormItem extends Component {
         'has-colon': colon,
         'label-wrap': labelWrap,
         [`col-${labelColSpan}`]:
-          labelColSpan !== undefined && layout === LAYOUT_TYPES.HORIZONTAL,
+          labelColSpan !== undefined && [ LAYOUT_TYPES.HORIZONTAL, LAYOUT_TYPES.INLINE ].includes(layout),
         [`col-offset-${offset}`]: offset !== undefined,
       }),
     };
 
-    return label && <label {...labelAttrs}>{label}</label>;
+    return label && (
+      <label {...labelAttrs}>
+        {label}
+        {
+          description && (
+            <Tooltip content={description} placement="top">
+              <Icon type="question-circle" className={`${prefixCls}-form-item-description`} />
+            </Tooltip>
+          )
+        }
+      </label>
+    );
   }
 
   renderWrapper() {

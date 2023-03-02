@@ -12,6 +12,7 @@ import Input from '../input';
 import Modal from '../modal';
 import Store from './store';
 import Menu from './menu';
+import { copyData } from './const';
 import './index.less';
 
 // 默认菜单类型，右键打开
@@ -115,7 +116,13 @@ class Tree extends Component {
 
     const { treeData, maxLevel, selectedValue, isUnfold, disabled } = props;
 
-    const _treeData = store.initData({ treeData, maxLevel, selectedValue, isUnfold, disabled });
+    const _treeData = store.initData({
+      treeData,
+      maxLevel,
+      selectedValue,
+      isUnfold,
+      disabled,
+    });
 
     this.state = {
       showRightMenu: false,
@@ -127,8 +134,8 @@ class Tree extends Component {
       menuOptions: null,
       searchText: '',
       treeWidth: 0,
-      treeData: ShuyunUtils.clone(_treeData),
-      allTreeData: ShuyunUtils.clone(_treeData),
+      treeData: copyData(_treeData),
+      allTreeData: copyData(_treeData),
       prevProps: props,
       preSelectedNode: selectedValue && selectedValue[0],
       preSelectedList: store.getSelectedLowestNodeList(selectedValue),
@@ -141,6 +148,21 @@ class Tree extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {
     const { prevProps } = prevState;
 
+    if (prevProps.treeData !== nextProps.treeData) {
+      const _treeData = store.initData({
+        treeData: nextProps.treeData,
+        maxLevel: nextProps.maxLevel,
+        selectedValue: nextProps.selectedValue,
+        isUnfold: nextProps.isUnfold,
+        disabled: nextProps.disabled,
+      });
+      return {
+        prevProps: nextProps,
+        treeData: copyData(_treeData),
+        allTreeData: copyData(_treeData),
+      };
+    }
+
     if (prevProps.selectedValue !== nextProps.selectedValue) {
       return {
         selectedValue: nextProps.selectedValue,
@@ -150,7 +172,7 @@ class Tree extends Component {
           treeData: prevState.treeData,
           maxLevel: prevProps.maxLevel,
           selectedValue: nextProps.selectedValue,
-          disabled: nextProps.disabled
+          disabled: nextProps.disabled,
         }),
         preSelectedList: store.getSelectedLowestNodeList(
           nextProps.selectedValue,
@@ -201,9 +223,10 @@ class Tree extends Component {
     this.setState({
       searchText,
     });
-    const { disabled,isUnfold, supportSearch, supportCheckbox, onSearchNode } = this.props;
+    const { disabled, isUnfold, supportSearch, supportCheckbox, onSearchNode } =
+      this.props;
 
-    const tmp = ShuyunUtils.clone(this.state.allTreeData);
+    const tmp = copyData(this.state.allTreeData);
 
     // 搜索结果数据
     const backTree = store.searchNode(tmp, searchText);
@@ -222,9 +245,9 @@ class Tree extends Component {
           maxLevel: null,
           selectedValue: [...allSelectedLowest],
           isUnfold,
-          disabled
+          disabled,
         }),
-        preSelectedList: allSelectedLowest
+        preSelectedList: allSelectedLowest,
       });
     } else {
       this.setState({
@@ -246,6 +269,8 @@ class Tree extends Component {
     this.onHideMenu();
     const data = this.state.treeData;
     const { supportSearch, supportCheckbox, onSelectedNode } = this.props;
+
+    if (node.selectable === false) return;
 
     // 更新节点选中状态
     this.updateActiveNode(data, node);
@@ -277,7 +302,7 @@ class Tree extends Component {
 
     // 更新树列表数据
     this.setState({
-      treeData: ShuyunUtils.clone(data),
+      treeData: copyData(data),
       preSelectedNode: node,
       ...searchMap,
     });
@@ -355,8 +380,8 @@ class Tree extends Component {
           isAddFront,
         );
         this.setState({
-          treeData: ShuyunUtils.clone(treeData),
-          allTreeData: ShuyunUtils.clone(allTreeData),
+          treeData: copyData(treeData),
+          allTreeData: copyData(allTreeData),
         });
         Message.success('添加成功');
         // 关闭弹框
@@ -389,8 +414,8 @@ class Tree extends Component {
           newValue,
         );
         this.setState({
-          treeData: ShuyunUtils.clone(treeData),
-          allTreeData: ShuyunUtils.clone(allTreeData),
+          treeData: copyData(treeData),
+          allTreeData: copyData(allTreeData),
         });
         Message.success('更新成功');
         // 关闭弹框
@@ -435,7 +460,7 @@ class Tree extends Component {
             // const allTreeData = store.removeChildNode(this.state.allTreeData, node);
             this.setState({
               treeData,
-              allTreeData: ShuyunUtils.clone(treeData),
+              allTreeData: copyData(treeData),
             });
           })
           .catch((err) => {

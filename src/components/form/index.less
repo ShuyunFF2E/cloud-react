@@ -19,6 +19,11 @@
       display: block;
       min-height: @content-line-height;
       line-height: @content-line-height;
+      font-size: 14px;
+    }
+    &-description {
+      margin: 0 2px;
+      color: @gray-6;
     }
 
     &.small &-label,
@@ -47,14 +52,16 @@
     &.vertical & {
       &-label {
         text-align: left !important;
-        margin-bottom: 4px;
+        margin-bottom: 8px;
+        min-height: auto;
+        line-height: unset;
       }
     }
 
     &.inline {
       display: inline-flex;
       margin-right: 24px;
-      margin-bottom: 16px;
+      margin-bottom: 8px;
     }
 
     /* align */

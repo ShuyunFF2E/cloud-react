@@ -1,15 +1,15 @@
 ---
 order: 2
-title: 三种大小
-desc: 三种大小的数字输入框，当 size 分别为 large 和 small 时，输入框高度为 40px 和 24px ，默认高度为 32px。
+title: 数字输入框大小
+desc: 三种默认尺寸：large、default、small，分别为：36px、32px、28px。
 ---
 
 ```jsx
 
-            /**
-             * title: 三种大小
-             * desc: 三种大小的数字输入框，当 size 分别为 large 和 small 时，输入框高度为 40px 和 24px ，默认高度为 32px。
-             */
+/**
+ * title: 数字输入框大小
+ * desc: 三种默认尺寸：large、default、small，分别为：36px、32px、28px。
+ */
 import React from 'react';
 import { Button, InputNumber } from 'cloud-react';
 
