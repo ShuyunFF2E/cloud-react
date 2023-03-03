@@ -122,9 +122,9 @@ class Cascader extends Component {
 }
 Cascader.defaultProps = {
   onChange() {},
-	maxTagPlaceholder: (text)=>{
-		return text?.length ?`+ ${text.length}`:'';
-	},
+  maxTagPlaceholder: (text) => {
+    return text?.length ? `+ ${text.length}` : '';
+  },
   multiple: false,
   allowClear: false,
   disabled: false,

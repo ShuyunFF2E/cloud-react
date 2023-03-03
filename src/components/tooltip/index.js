@@ -72,14 +72,15 @@ class Tooltip extends Component {
     if (this.props.alwaysShow && this.state.visible) {
       return;
     }
+    const path = evt.composedPath();
     if (
-      !evt.path
-      || !evt.path.find(
+      !path
+      || !path.find(
         (ele) => ele.classList
           && ele.classList.contains
           && ele.classList.contains(`${prefixCls}-tooltip`),
       )
-      || this.props.closeTooltipExec(evt.path)
+      || this.props.closeTooltipExec(path)
     ) {
       this.setState({ visible: false }, () => {
         this.props.onVisibleChange(this.state.visible);
@@ -110,9 +111,8 @@ class Tooltip extends Component {
     }
 
     if (content && (visible || visible === undefined)) {
-      this.target = this.getTooltipParent(target);
-
       setTimeout(() => {
+        this.target = this.getTooltipParent(target);
         this.setState({ visible: true }, () => {
           this.props.onVisibleChange(this.state.visible);
         });

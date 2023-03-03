@@ -144,7 +144,7 @@ export default function MultiSelect(props) {
                 checked={checkAll}
                 indeterminate={indeterminate}
                 onChange={handleCheckAll}
-                className={`${selector}-option`}
+                className={`${selector}-option ${selector}-all-select`}
               >
                 全选
               </Checkbox>

@@ -71,7 +71,7 @@ onChange(value) {
 
     return (
 			<>
-			  <CCascader options={addressOptions} onChange={this.onChange} placeholder="Please select"   showSearch={{filter:this.filter }}/>
+			  <CCascader allowClear options={addressOptions} onChange={this.onChange} placeholder="Please select"   showSearch={{filter:this.filter }}/>
 
 			</>
     );

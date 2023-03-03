@@ -26,11 +26,9 @@ export default class DropdownDemo extends React.Component {
 		current: '1',
 	};
 
-	handleClick = e => {
-		this.setState({ current: e.key });
-		Message.success(`菜单Item onClick ${key}`);
+	handleMenuClick = key => {
+        Message.success(`菜单Item onClick ${key}`);
     }
-
     onOpenChange = e => {
         console.log('收缩、展开', e)
 		Message.success(`收缩、展开 ${e}`);

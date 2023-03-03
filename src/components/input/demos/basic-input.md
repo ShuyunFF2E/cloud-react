@@ -15,6 +15,6 @@ import { Input } from 'cloud-react';
 import './styles/basic.less'
 
 export default function InputDemo() {
-	return <Input hasClear placeholder="请输入" />;
+	return <Input hasClear placeholder="请输入" hasClear/>;
 }
 ```

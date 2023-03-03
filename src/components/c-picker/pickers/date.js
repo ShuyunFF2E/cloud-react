@@ -176,7 +176,7 @@ const DatePicker = ({
       showTime={
         // eslint-disable-next-line no-nested-ternary
         showTimePicker instanceof Object
-          ? { ...defaultShowTimeObj, showTimePicker }
+          ? { ...defaultShowTimeObj, ...showTimePicker }
           : showTimePicker
             ? defaultShowTimeObj
             : false

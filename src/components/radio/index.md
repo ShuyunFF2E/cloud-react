@@ -35,14 +35,14 @@ group:
 | disabled | 是否禁用                | boolean | false  |
 | desc       | 单选提示         | string 或 React.node  | null    |
 
- ### 代码演示 
+ ### 代码演示
 
-<embed src="@components/radio/demos/basic-radio.md" /> 
+<embed src="@components/radio/demos/basic-radio.md" />
 
-<embed src="@components/radio/demos/complex.md" /> 
+<embed src="@components/radio/demos/complex.md" />
 
-<embed src="@components/radio/demos/disabled.md" /> 
+<embed src="@components/radio/demos/disabled.md" />
 
-<embed src="@components/radio/demos/group.md" /> 
+<embed src="@components/radio/demos/group.md" />
 
-<embed src="@components/radio/demos/layout.md" /> 
+<embed src="@components/radio/demos/layout.md" />
