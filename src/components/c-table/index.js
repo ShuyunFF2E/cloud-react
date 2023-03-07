@@ -213,7 +213,7 @@ class CTable extends Component {
    * 解决表头滚动问题（rcTable bug）
    */
   setHeaderStyle = () => {
-    if (isFirefox() || !this.hasCustomScroll) {
+    if (isFirefox() || !this.hasCustomScroll || this.props.useRootWindow) {
       return;
     }
     setTimeout(() => {
@@ -817,7 +817,11 @@ class CTable extends Component {
         )}
         {footerTpl()}
         {tooltipConfigs?.length ? (
-          <RowTooltip tableContainerRef={ref} tooltipConfigs={tooltipConfigs} useRootWindow={this.props.useRootWindow} />
+          <RowTooltip
+            tableContainerRef={ref}
+            tooltipConfigs={tooltipConfigs}
+            useRootWindow={this.props.useRootWindow}
+          />
         ) : null}
       </div>
     );
