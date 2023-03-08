@@ -76,4 +76,5 @@ class Radio extends React.Component {
   }
 }
 
+Radio.displayName = 'Radio';
 export default Radio;

@@ -30,7 +30,7 @@ export default function Group(props) {
   function renderChild(childs) {
     return Children.map(childs, (child) => {
       // 子元素有可能为一个表达式，直接返回了false或者null
-      if (child && child.type && [ 'Radio', 'ComplexRadio' ].includes(child.type.name)) {
+      if (child && child.type && [ 'Radio', 'ComplexRadio' ].includes(child.type.displayName)) {
         return cloneElement(child, {
           disabled: disabled || child.props.disabled,
           checked: child.props.value === currentValue,
