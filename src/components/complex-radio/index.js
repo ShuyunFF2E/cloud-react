@@ -55,6 +55,8 @@ export default function ComplexRadio(props) {
   );
 }
 
+ComplexRadio.displayName = 'ComplexRadio';
+
 ComplexRadio.propTypes = {
   content: PropTypes.oneOfType([ PropTypes.string, PropTypes.element ])
     .isRequired,
