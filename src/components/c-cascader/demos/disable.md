@@ -83,7 +83,7 @@ onChange(value) {
 
     return (
 			<>
-			  <CCascader options={addressOptions} onChange={this.onChange} placeholder="Please select"  multiple   maxTagCount={1}  showSearch={{ filter:this.filter }}
+			  <CCascader style={{width: '330px'}} options={addressOptions} onChange={this.onChange} placeholder="Please select"  multiple   showSearch={{ filter:this.filter }}
 />
 
 			</>
