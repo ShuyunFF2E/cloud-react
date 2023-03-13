@@ -1,4 +1,6 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, {
+  useCallback, useEffect, useMemo, useState,
+} from 'react';
 import moment from 'moment';
 import momentGenerateConfig from 'rc-picker/lib/generate/moment';
 import generatePicker from '../generator';
@@ -23,6 +25,10 @@ const TimeRangePicker = ({
   isAppendToBody,
   canEdit = true,
   allowEmpty,
+  format = timeFormat,
+  showHour,
+  showMinute,
+  showSecond,
   style,
   showToday,
   showNow,
@@ -40,23 +46,22 @@ const TimeRangePicker = ({
   onKeyDown,
   onOk,
 }) => {
-  const [value, setValue] = useState();
-  const format = timeFormat;
+  const [ value, setValue ] = useState();
   let placeholder = _placeholder;
   if (typeof placeholder === 'string') {
-    placeholder = [placeholder, placeholder];
+    placeholder = [ placeholder, placeholder ];
   }
 
   useEffect(() => {
     setValue(transformString2Moment(_value, format));
-  }, [_value]);
+  }, [ _value ]);
 
   const handleChange = useCallback(
     (m, v) => {
       if (onChange) {
         onChange(
-          v &&
-            v.reduce((pre, cur, index) => {
+          v
+            && v.reduce((pre, cur, index) => {
               if (index === 0) {
                 return { start: cur };
               }
@@ -67,15 +72,15 @@ const TimeRangePicker = ({
         setValue(m);
       }
     },
-    [onChange],
+    [ onChange ],
   );
 
   const handleOk = useCallback(
     (m) => {
       if (onOk) {
         onOk(
-          m &&
-            m.reduce((pre, cur, index) => {
+          m
+            && m.reduce((pre, cur, index) => {
               if (index === 0) {
                 return { start: cur && cur.format(format) };
               }
@@ -84,7 +89,7 @@ const TimeRangePicker = ({
         );
       }
     },
-    [onOk, format],
+    [ onOk, format ],
   );
 
   const getPopupContainer = useMemo(() => {
@@ -95,7 +100,7 @@ const TimeRangePicker = ({
       return () => document.body;
     }
     return undefined;
-  }, [_getPopupContainer, isAppendToBody]);
+  }, [ _getPopupContainer, isAppendToBody ]);
 
   return (
     <Picker
@@ -115,6 +120,9 @@ const TimeRangePicker = ({
         className,
         dropdownClassName,
         format,
+        showHour,
+        showMinute,
+        showSecond,
         value,
         disabled,
         open,
