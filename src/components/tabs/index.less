@@ -48,13 +48,8 @@
     color: @blue-4;
   }
 }
-
-.@{selector}-header-basic {
-  .root-cloud-tabs-header-basic
-}
-
-.@{selector}-more-icon-basic {
-  position: absolute;
+.root-cloud-tabs-more-icon-basic{
+	position: absolute;
   line-height: @defaultLineHeight;
   width: 20px;
   text-align: center;
@@ -72,6 +67,14 @@
   .icon {
     font-size: 14px;
   }
+}
+
+.@{selector}-header-basic {
+  .root-cloud-tabs-header-basic
+}
+
+.@{selector}-more-icon-basic {
+  .root-cloud-tabs-more-icon-basic
 }
 
 .@{subSelector}-basic {
@@ -110,11 +113,11 @@
   }
 
   &-more-icon-card {
-    &:extend(.newCloud-tabs-more-icon-basic all);
+    &:extend(.root-cloud-tabs-more-icon-basic all);
   }
 
   &-more-icon-line {
-    &:extend(.newCloud-tabs-more-icon-basic all);
+    &:extend(.root-cloud-tabs-more-icon-basic all);
   }
 
   &-items {
