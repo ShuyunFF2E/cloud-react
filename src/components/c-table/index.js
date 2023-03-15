@@ -68,7 +68,7 @@ class CTable extends Component {
   }
 
   componentDidMount() {
-    this.hasCustomScroll = hasCustomScroll();
+    this.hasCustomScroll = hasCustomScroll(this.props.useRootWindow);
     if (
       (this.props.supportExpend || this.props.supportTree) &&
       !this.props.rowKey
@@ -817,7 +817,7 @@ class CTable extends Component {
         )}
         {footerTpl()}
         {tooltipConfigs?.length ? (
-          <RowTooltip tableContainerRef={ref} tooltipConfigs={tooltipConfigs} />
+          <RowTooltip tableContainerRef={ref} tooltipConfigs={tooltipConfigs} useRootWindow={this.props.useRootWindow} />
         ) : null}
       </div>
     );

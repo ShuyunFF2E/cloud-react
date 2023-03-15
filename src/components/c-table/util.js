@@ -1,4 +1,5 @@
 import { tablePrefixCls } from './constant';
+import { getRootWindow } from '../../utils';
 
 /**
  * 如果 ajaxData 是数组，则返回 ajaxData；如果 ajaxData 是函数，则返回 ajaxData() 执行后的结果
@@ -148,9 +149,10 @@ export const debounce = (callback, delay) => {
   };
 };
 
-export const hasCustomScroll = () => {
+export const hasCustomScroll = (useRootWindow) => {
+  const _window = useRootWindow ? getRootWindow() : window;
   const bodyEle = document.querySelector('body');
-  return window
+  return _window
     .getComputedStyle(bodyEle, '::-webkit-scrollbar')
     .width.includes('px');
 };
@@ -161,3 +163,4 @@ export const getTrEle = targetEle => {
   }
   return targetEle;
 };
+
