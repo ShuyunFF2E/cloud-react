@@ -28,6 +28,26 @@
     width: 100%;
   }
 }
+.root-cloud-tabs-item-basic{
+	position: relative;
+  display: inline-block;
+  line-height: @defaultLineHeight;
+  font-size: 14px;
+  color: @gray-8;
+  text-align: center;
+  cursor: pointer;
+  padding: 0 40px;
+  transition: 0.3s;
+  &.disabled {
+    color: @gray-6 !important;
+    cursor: not-allowed !important;
+    user-select: none;
+    pointer-events: none;
+  }
+  &:hover {
+    color: @blue-4;
+  }
+}
 
 .@{selector}-header-basic {
   .root-cloud-tabs-header-basic
@@ -55,24 +75,7 @@
 }
 
 .@{subSelector}-basic {
-  position: relative;
-  display: inline-block;
-  line-height: @defaultLineHeight;
-  font-size: 14px;
-  color: @gray-8;
-  text-align: center;
-  cursor: pointer;
-  padding: 0 40px;
-  transition: 0.3s;
-  &.disabled {
-    color: @gray-6 !important;
-    cursor: not-allowed !important;
-    user-select: none;
-    pointer-events: none;
-  }
-  &:hover {
-    color: @blue-4;
-  }
+  .root-cloud-tabs-item-basic
 }
 
 .@{selector} {
@@ -137,7 +140,7 @@
   }
 
   // type 为 card
-  &-item-card:extend(.newCloud-tabs-item-basic all) {
+  &-item-card:extend(.root-cloud-tabs-item-basic all) {
     border: 1px solid @gray-4;
     background-color: @gray-2;
 
@@ -168,7 +171,7 @@
   }
 
   // type 为 line，横向 tab（linePlacement 为 top）
-  &-item-line:extend(.newCloud-tabs-item-basic all) {
+  &-item-line:extend(.root-cloud-tabs-item-basic all) {
     color: @gray-8;
     padding: 0;
     margin: 0 12px;
@@ -349,8 +352,8 @@
   }
 
   // type 为 capsule
-  &-item-capsule:extend(.newCloud-tabs-item-basic all),
-  &-item-empty-capsule:extend(.newCloud-tabs-item-basic all) {
+  &-item-capsule:extend(.root-cloud-tabs-item-basic all),
+  &-item-empty-capsule:extend(.root-cloud-tabs-item-basic all) {
     border: 1px solid @gray-4;
     background-color: @color-white;
     padding: 0 16px;
@@ -428,7 +431,7 @@
   }
 
   // type 为 slide
-  &-item-slide:extend(.newCloud-tabs-item-basic all) {
+  &-item-slide:extend(.root-cloud-tabs-item-basic all) {
     position: relative;
     padding: 0 14px;
 
