@@ -13,9 +13,8 @@
   align-items: center;
   justify-content: center;
 }
-
-.@{selector}-header-basic {
-  position: relative;
+.root-cloud-tabs-header-basic{
+	position: relative;
   display: flex;
   // overflow: hidden;
   white-space: nowrap;
@@ -28,6 +27,10 @@
     bottom: 0;
     width: 100%;
   }
+}
+
+.@{selector}-header-basic {
+  .root-cloud-tabs-header-basic
 }
 
 .@{selector}-more-icon-basic {
@@ -75,7 +78,7 @@
 .@{selector} {
   width: 100%;
   box-sizing: border-box;
-  &-header-card:extend(.newCloud-tabs-header-basic all) {
+  &-header-card:extend(.root-cloud-tabs-header-basic all) {
     &::before {
       border-bottom: 1px solid @gray-4;
     }
@@ -86,7 +89,7 @@
   }
 
   &-header-line {
-    &:extend(.newCloud-tabs-header-basic all);
+    &:extend(.root-cloud-tabs-header-basic all);
 
     // type === line && linePlacement === 'top';
     &.@{selector}-line-horizontal {
