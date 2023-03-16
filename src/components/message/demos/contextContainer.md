@@ -36,7 +36,7 @@ export default class MessageDemo extends Component {
 		});
 	};
 	onShowSuccess = () => {
-		Message.success('更改成功', { duration: 0, contextContainer: document.getElementsByClassName('newCloud-modal-body')[0] });
+		Message.success('更改成功', { duration: 0, contextContainer: document.getElementsByClassName('cloud-modal-body')[0] });
 	};
 
 	render() {

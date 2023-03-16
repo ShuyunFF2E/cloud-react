@@ -3,42 +3,38 @@
 @checkbox-prefix-cls: ~'@{prefix}-checkbox';
 
 @checkbox-size: 16px;
-.root-cloud-checkbox-checked-inner-after{
-	position: absolute;
-	top: 4%;
-	left: 30%;
-	width: 28%;
-	height: 60%;
-	content: '';
-	display: block;
-	transform: rotate(45deg);
-	border-left: 0;
-	border-top: 0;
-	border-right: 2px solid;
-	border-bottom: 2px solid;
-	animation: transformAnimate 0.3s;
+.root-cloud-checkbox-checked-inner-after {
+  position: absolute;
+  top: 4%;
+  left: 30%;
+  width: 28%;
+  height: 60%;
+  content: '';
+  display: block;
+  transform: rotate(45deg);
+  border-left: 0;
+  border-top: 0;
+  border-right: 2px solid;
+  border-bottom: 2px solid;
+  animation: transformAnimate 0.3s;
 }
-.root-cloud-checkbox-indeterminate-inner-after{
-	position: absolute;
-	top: 4%;
-	left: 30%;
-	width: 28%;
-	height: 60%;
-	content: '';
-	display: block;
-	transform: rotate(45deg);
-	border-left: 0;
-	border-top: 0;
-	border-right: 2px solid;
-	border-bottom: 2px solid;
-	animation: transformAnimate 0.3s;
+.root-cloud-checkbox-indeterminate-inner-after {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 60%;
+  height: 2px;
+  content: '';
+  display: block;
+  transform: rotate(0) translate(-50%, -50%);
+  animation: transformAnimate 0.3s;
 }
 .@{checkbox-prefix-cls}-checked-inner-after {
-	.root-cloud-checkbox-checked-inner-after;
+  .root-cloud-checkbox-checked-inner-after;
 }
 
 .@{checkbox-prefix-cls}-indeterminate-inner-after {
-	.root-cloud-checkbox-indeterminate-inner-after;
+  .root-cloud-checkbox-indeterminate-inner-after;
 }
 
 @keyframes transformAnimate {
@@ -118,22 +114,22 @@
       border: 1px solid @blue-4;
       background-color: @blue-4;
 
-			&::after:extend(.root-cloud-checkbox-checked-inner-after) {
-				border-color: @color-white;
-			}
-		}
-	}
+      &::after:extend(.root-cloud-checkbox-checked-inner-after) {
+        border-color: @color-white;
+      }
+    }
+  }
 
   &.@{checkbox-prefix-cls}-indeterminate {
     .@{checkbox-prefix-cls}-inner {
       border: 1px solid @blue-4;
       background-color: @blue-4;
 
-			&::after:extend(.root-cloud-checkbox-indeterminate-inner-after) {
-				background: @color-white;
-			}
-		}
-	}
+      &::after:extend(.root-cloud-checkbox-indeterminate-inner-after) {
+        background: @color-white;
+      }
+    }
+  }
 
   &.@{checkbox-prefix-cls}-disabled {
     &:hover {
