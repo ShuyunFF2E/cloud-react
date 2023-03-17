@@ -6,6 +6,8 @@ import Icon from '../icon';
 import Input from '../input';
 import PropTypes from 'prop-types';
 import './index.less';
+import { prefixCls } from '@utils';
+
 function highlightKeyword(str, lowerKeyword, prefixCls) {
   const cells = str
     .toLowerCase()
@@ -129,7 +131,7 @@ Cascader.defaultProps = {
   transitionName: '',
   defaultValue: [],
   inputIcon: <Icon type="down" style={{ fontSize: '12px' }} />,
-  prefixCls: 'cloud-ccascader',
+  prefixCls: `${prefixCls}-ccascader`,
   popupClassName: '',
   popupPlacement: 'bottomLeft',
   showArrow: true,

@@ -13,9 +13,8 @@
   align-items: center;
   justify-content: center;
 }
-
-.@{selector}-header-basic {
-  position: relative;
+.root-cloud-tabs-header-basic{
+	position: relative;
   display: flex;
   // overflow: hidden;
   white-space: nowrap;
@@ -29,9 +28,28 @@
     width: 100%;
   }
 }
-
-.@{selector}-more-icon-basic {
-  position: absolute;
+.root-cloud-tabs-item-basic{
+	position: relative;
+  display: inline-block;
+  line-height: @defaultLineHeight;
+  font-size: 14px;
+  color: @gray-8;
+  text-align: center;
+  cursor: pointer;
+  padding: 0 40px;
+  transition: 0.3s;
+  &.disabled {
+    color: @gray-6 !important;
+    cursor: not-allowed !important;
+    user-select: none;
+    pointer-events: none;
+  }
+  &:hover {
+    color: @blue-4;
+  }
+}
+.root-cloud-tabs-more-icon-basic{
+	position: absolute;
   line-height: @defaultLineHeight;
   width: 20px;
   text-align: center;
@@ -51,31 +69,22 @@
   }
 }
 
+.@{selector}-header-basic {
+  .root-cloud-tabs-header-basic
+}
+
+.@{selector}-more-icon-basic {
+  .root-cloud-tabs-more-icon-basic
+}
+
 .@{subSelector}-basic {
-  position: relative;
-  display: inline-block;
-  line-height: @defaultLineHeight;
-  font-size: 14px;
-  color: @gray-8;
-  text-align: center;
-  cursor: pointer;
-  padding: 0 40px;
-  transition: 0.3s;
-  &.disabled {
-    color: @gray-6 !important;
-    cursor: not-allowed !important;
-    user-select: none;
-    pointer-events: none;
-  }
-  &:hover {
-    color: @blue-4;
-  }
+  .root-cloud-tabs-item-basic
 }
 
 .@{selector} {
   width: 100%;
   box-sizing: border-box;
-  &-header-card:extend(.cloud-tabs-header-basic all) {
+  &-header-card:extend(.root-cloud-tabs-header-basic all) {
     &::before {
       border-bottom: 1px solid @gray-4;
     }
@@ -86,7 +95,7 @@
   }
 
   &-header-line {
-    &:extend(.cloud-tabs-header-basic all);
+    &:extend(.root-cloud-tabs-header-basic all);
 
     // type === line && linePlacement === 'top';
     &.@{selector}-line-horizontal {
@@ -104,11 +113,11 @@
   }
 
   &-more-icon-card {
-    &:extend(.cloud-tabs-more-icon-basic all);
+    &:extend(.root-cloud-tabs-more-icon-basic all);
   }
 
   &-more-icon-line {
-    &:extend(.cloud-tabs-more-icon-basic all);
+    &:extend(.root-cloud-tabs-more-icon-basic all);
   }
 
   &-items {
@@ -134,7 +143,7 @@
   }
 
   // type 为 card
-  &-item-card:extend(.cloud-tabs-item-basic all) {
+  &-item-card:extend(.root-cloud-tabs-item-basic all) {
     border: 1px solid @gray-4;
     background-color: @gray-2;
 
@@ -165,7 +174,7 @@
   }
 
   // type 为 line，横向 tab（linePlacement 为 top）
-  &-item-line:extend(.cloud-tabs-item-basic all) {
+  &-item-line:extend(.root-cloud-tabs-item-basic all) {
     color: @gray-8;
     padding: 0;
     margin: 0 12px;
@@ -346,8 +355,8 @@
   }
 
   // type 为 capsule
-  &-item-capsule:extend(.cloud-tabs-item-basic all),
-  &-item-empty-capsule:extend(.cloud-tabs-item-basic all) {
+  &-item-capsule:extend(.root-cloud-tabs-item-basic all),
+  &-item-empty-capsule:extend(.root-cloud-tabs-item-basic all) {
     border: 1px solid @gray-4;
     background-color: @color-white;
     padding: 0 16px;
@@ -425,7 +434,7 @@
   }
 
   // type 为 slide
-  &-item-slide:extend(.cloud-tabs-item-basic all) {
+  &-item-slide:extend(.root-cloud-tabs-item-basic all) {
     position: relative;
     padding: 0 14px;
 

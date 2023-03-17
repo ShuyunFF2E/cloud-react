@@ -105,6 +105,17 @@ export default class RangePickerDemo extends React.Component {
 					<TimeRangePicker value={times} onChange={this.onTimeChange} showNow disabled={disabled} />
 				</Form.Item>
 
+				<Form.Item label="时间范围选择器（不显示秒）">
+					<TimeRangePicker
+						value={times}
+						onChange={this.onTimeChange}
+						showNow
+						format="HH:mm"
+						showSecond={false}
+						disabled={disabled}
+					/>
+				</Form.Item>
+
 				<h4>自定义</h4>
 
 				<RangePicker
