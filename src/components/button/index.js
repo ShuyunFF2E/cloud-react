@@ -20,6 +20,8 @@ function ButtonGroup({ children, ...props }) {
   );
 }
 
+console.log(11);
+
 class Button extends React.PureComponent {
   static contextType = FormContext;
 
