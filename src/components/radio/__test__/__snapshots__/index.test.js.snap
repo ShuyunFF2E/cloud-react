@@ -1,26 +1,30 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Radio renders correctly 1`] = `
-<label
-  class="cloud-radio"
+<div
+  class="cloud-radio-container"
 >
-  <span
-    class="cloud-radio-wrapper"
+  <label
+    class="cloud-radio"
   >
-    <input
-      checked=""
-      class="cloud-radio-input"
-      type="radio"
-      value="1"
-    />
     <span
-      class="cloud-radio-inner"
-    />
-  </span>
-  <span
-    class="cloud-radio-text"
-  >
-    单选
-  </span>
-</label>
+      class="cloud-radio-wrapper"
+    >
+      <input
+        checked=""
+        class="cloud-radio-input"
+        type="radio"
+        value="1"
+      />
+      <span
+        class="cloud-radio-inner"
+      />
+    </span>
+    <span
+      class="cloud-radio-text"
+    >
+      单选
+    </span>
+  </label>
+</div>
 `;

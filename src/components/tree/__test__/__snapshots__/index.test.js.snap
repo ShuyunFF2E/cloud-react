@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tree renders correctly 1`] = `
+<div
+  class="cloud-tree "
+>
+  <div
+    class="cloud-tree-list-container"
+  />
+</div>
+`;

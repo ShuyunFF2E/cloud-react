@@ -13,10 +13,10 @@ exports[`Multilayer TreeSelect multiple tree renders correctly 1`] = `
       选择一个选项
     </span>
     <i
-      class="cloud-tree-select-select-icon cloud-tree-select-clear-icon cloud-icon cloud-icon-close-circle-solid"
+      class="cloud-tree-select-select-icon cloud-tree-select-clear-icon cloud-icon icon-close-circle-solid"
     />
     <i
-      class="cloud-tree-select-select-icon close cloud-icon cloud-icon-down-solid"
+      class="cloud-tree-select-select-icon close cloud-icon icon-down-solid"
     />
   </div>
 </div>
@@ -33,10 +33,10 @@ exports[`Multilayer TreeSelect older multiple tree renders correctly 1`] = `
       class="cloud-tree-select-selected"
     />
     <i
-      class="cloud-tree-select-select-icon cloud-tree-select-clear-icon cloud-icon cloud-icon-close-circle-solid"
+      class="cloud-tree-select-select-icon cloud-tree-select-clear-icon cloud-icon icon-close-circle-solid"
     />
     <i
-      class="cloud-tree-select-select-icon close cloud-icon cloud-icon-down-solid"
+      class="cloud-tree-select-select-icon close cloud-icon icon-down-solid"
     />
   </div>
 </div>
@@ -53,10 +53,10 @@ exports[`Multilayer TreeSelect older single tree renders correctly 1`] = `
       class="cloud-tree-select-selected"
     />
     <i
-      class="cloud-tree-select-select-icon cloud-tree-select-clear-icon cloud-icon cloud-icon-close-circle-solid"
+      class="cloud-tree-select-select-icon cloud-tree-select-clear-icon cloud-icon icon-close-circle-solid"
     />
     <i
-      class="cloud-tree-select-select-icon close cloud-icon cloud-icon-down-solid"
+      class="cloud-tree-select-select-icon close cloud-icon icon-down-solid"
     />
   </div>
 </div>
@@ -176,7 +176,7 @@ exports[`Multilayer TreeSelect single tree renders correctly 1`] = `
             type="close-circle-solid"
           >
             <i
-              className="cloud-tree-select-select-icon cloud-tree-select-clear-icon cloud-icon cloud-icon-close-circle-solid"
+              className="cloud-tree-select-select-icon cloud-tree-select-clear-icon cloud-icon icon-close-circle-solid"
               onClick={[Function]}
               style={Object {}}
             />
@@ -187,7 +187,7 @@ exports[`Multilayer TreeSelect single tree renders correctly 1`] = `
             type="down-solid"
           >
             <i
-              className="cloud-tree-select-select-icon open cloud-icon cloud-icon-down-solid"
+              className="cloud-tree-select-select-icon open cloud-icon icon-down-solid"
               style={Object {}}
             />
           </Icon>
@@ -616,13 +616,21 @@ exports[`Multilayer TreeSelect single tree renders correctly 1`] = `
                                 <Icon
                                   className="toggle-icon"
                                   onClick={[Function]}
-                                  style={Object {}}
-                                  type="down-solid"
+                                  style={
+                                    Object {
+                                      "transform": "rotate(0)",
+                                    }
+                                  }
+                                  type="up"
                                 >
                                   <i
-                                    className="toggle-icon cloud-icon cloud-icon-down-solid"
+                                    className="toggle-icon cloud-icon icon-up"
                                     onClick={[Function]}
-                                    style={Object {}}
+                                    style={
+                                      Object {
+                                        "transform": "rotate(0)",
+                                      }
+                                    }
                                   />
                                 </Icon>
                               </ToggleFold>
@@ -655,7 +663,7 @@ exports[`Multilayer TreeSelect single tree renders correctly 1`] = `
                                   treeWidth={210}
                                 >
                                   <span
-                                    className="node-name"
+                                    className="node-name "
                                     dangerouslySetInnerHTML={
                                       Object {
                                         "__html": "禁止删除节点",
@@ -673,301 +681,706 @@ exports[`Multilayer TreeSelect single tree renders correctly 1`] = `
                                 saveItem={[Function]}
                               />
                             </div>
-                            <List
-                              data={
-                                Array [
-                                  Object {
-                                    "checked": false,
-                                    "children": Array [
-                                      Object {
-                                        "checked": false,
-                                        "children": Array [],
-                                        "id": 1131,
-                                        "indeterminate": false,
-                                        "isUnfold": false,
-                                        "level": 3,
-                                        "name": "禁止删除节点31",
-                                        "pId": 113,
-                                      },
-                                      Object {
-                                        "checked": false,
-                                        "children": Array [
-                                          Object {
-                                            "checked": false,
-                                            "children": Array [],
-                                            "id": 11321,
-                                            "indeterminate": false,
-                                            "isUnfold": false,
-                                            "level": 4,
-                                            "name": "禁止删除节点321",
-                                            "pId": 1132,
-                                          },
-                                        ],
-                                        "id": 1132,
-                                        "indeterminate": false,
-                                        "isUnfold": false,
-                                        "level": 3,
-                                        "name": "禁止删除节点32",
-                                        "pId": 113,
-                                      },
-                                    ],
-                                    "id": 113,
-                                    "indeterminate": false,
-                                    "isUnfold": false,
-                                    "level": 2,
-                                    "name": "删除三个",
-                                    "pId": 11,
-                                  },
-                                  Object {
-                                    "checked": false,
-                                    "children": Array [],
-                                    "id": 114,
-                                    "indeterminate": false,
-                                    "isUnfold": false,
-                                    "level": 2,
-                                    "name": "禁止删除节点4",
-                                    "pId": 11,
-                                  },
-                                ]
-                              }
-                              prefixCls="cloud-tree"
+                            <div
+                              className="node-children node-children-visible"
                             >
-                              <ul
-                                className="cloud-tree-list"
+                              <List
+                                data={
+                                  Array [
+                                    Object {
+                                      "checked": false,
+                                      "children": Array [
+                                        Object {
+                                          "checked": false,
+                                          "children": Array [],
+                                          "id": 1131,
+                                          "indeterminate": false,
+                                          "isUnfold": false,
+                                          "level": 3,
+                                          "name": "禁止删除节点31",
+                                          "pId": 113,
+                                        },
+                                        Object {
+                                          "checked": false,
+                                          "children": Array [
+                                            Object {
+                                              "checked": false,
+                                              "children": Array [],
+                                              "id": 11321,
+                                              "indeterminate": false,
+                                              "isUnfold": false,
+                                              "level": 4,
+                                              "name": "禁止删除节点321",
+                                              "pId": 1132,
+                                            },
+                                          ],
+                                          "id": 1132,
+                                          "indeterminate": false,
+                                          "isUnfold": false,
+                                          "level": 3,
+                                          "name": "禁止删除节点32",
+                                          "pId": 113,
+                                        },
+                                      ],
+                                      "id": 113,
+                                      "indeterminate": false,
+                                      "isUnfold": false,
+                                      "level": 2,
+                                      "name": "删除三个",
+                                      "pId": 11,
+                                    },
+                                    Object {
+                                      "checked": false,
+                                      "children": Array [],
+                                      "id": 114,
+                                      "indeterminate": false,
+                                      "isUnfold": false,
+                                      "level": 2,
+                                      "name": "禁止删除节点4",
+                                      "pId": 11,
+                                    },
+                                  ]
+                                }
+                                prefixCls="cloud-tree"
                               >
-                                <li
-                                  draggable={false}
-                                  id={113}
-                                  key="113"
-                                  onDrag={[Function]}
-                                  onDragEnd={[Function]}
-                                  onDragLeave={[Function]}
-                                  onDragOver={[Function]}
-                                  onDragStart={[Function]}
+                                <ul
+                                  className="cloud-tree-list"
                                 >
-                                  <Node
-                                    data={
-                                      Object {
-                                        "checked": false,
-                                        "children": Array [
-                                          Object {
-                                            "checked": false,
-                                            "children": Array [],
-                                            "id": 1131,
-                                            "indeterminate": false,
-                                            "isUnfold": false,
-                                            "level": 3,
-                                            "name": "禁止删除节点31",
-                                            "pId": 113,
-                                          },
-                                          Object {
-                                            "checked": false,
-                                            "children": Array [
-                                              Object {
-                                                "checked": false,
-                                                "children": Array [],
-                                                "id": 11321,
-                                                "indeterminate": false,
-                                                "isUnfold": false,
-                                                "level": 4,
-                                                "name": "禁止删除节点321",
-                                                "pId": 1132,
-                                              },
-                                            ],
-                                            "id": 1132,
-                                            "indeterminate": false,
-                                            "isUnfold": false,
-                                            "level": 3,
-                                            "name": "禁止删除节点32",
-                                            "pId": 113,
-                                          },
-                                        ],
-                                        "id": 113,
-                                        "indeterminate": false,
-                                        "isUnfold": false,
-                                        "level": 2,
-                                        "name": "删除三个",
-                                        "pId": 11,
-                                      }
-                                    }
-                                    prefixCls="cloud-tree"
+                                  <li
+                                    draggable={false}
+                                    id={113}
+                                    key="113"
+                                    onDrag={[Function]}
+                                    onDragEnd={[Function]}
+                                    onDragLeave={[Function]}
+                                    onDragOver={[Function]}
+                                    onDragStart={[Function]}
                                   >
-                                    <div
-                                      className="cloud-tree-list-node-area null"
+                                    <Node
+                                      data={
+                                        Object {
+                                          "checked": false,
+                                          "children": Array [
+                                            Object {
+                                              "checked": false,
+                                              "children": Array [],
+                                              "id": 1131,
+                                              "indeterminate": false,
+                                              "isUnfold": false,
+                                              "level": 3,
+                                              "name": "禁止删除节点31",
+                                              "pId": 113,
+                                            },
+                                            Object {
+                                              "checked": false,
+                                              "children": Array [
+                                                Object {
+                                                  "checked": false,
+                                                  "children": Array [],
+                                                  "id": 11321,
+                                                  "indeterminate": false,
+                                                  "isUnfold": false,
+                                                  "level": 4,
+                                                  "name": "禁止删除节点321",
+                                                  "pId": 1132,
+                                                },
+                                              ],
+                                              "id": 1132,
+                                              "indeterminate": false,
+                                              "isUnfold": false,
+                                              "level": 3,
+                                              "name": "禁止删除节点32",
+                                              "pId": 113,
+                                            },
+                                          ],
+                                          "id": 113,
+                                          "indeterminate": false,
+                                          "isUnfold": false,
+                                          "level": 2,
+                                          "name": "删除三个",
+                                          "pId": 11,
+                                        }
+                                      }
+                                      prefixCls="cloud-tree"
                                     >
                                       <div
-                                        className="node-item-container null "
-                                        onContextMenu={[Function]}
-                                        style={
-                                          Object {
-                                            "minWidth": "calc(100% - 14px)",
-                                            "paddingLeft": 14,
-                                          }
-                                        }
+                                        className="cloud-tree-list-node-area null"
                                       >
-                                        <ToggleFold
-                                          hasChildren={true}
-                                          showChildrenItem={false}
-                                          toggle={[Function]}
-                                        >
-                                          <Icon
-                                            className="toggle-icon"
-                                            onClick={[Function]}
-                                            style={Object {}}
-                                            type="right-solid"
-                                          >
-                                            <i
-                                              className="toggle-icon cloud-icon cloud-icon-right-solid"
-                                              onClick={[Function]}
-                                              style={Object {}}
-                                            />
-                                          </Icon>
-                                        </ToggleFold>
                                         <div
-                                          className="node-item null "
-                                          onClick={[Function]}
+                                          className="node-item-container null "
+                                          onContextMenu={[Function]}
+                                          style={
+                                            Object {
+                                              "minWidth": "calc(100% - 18px)",
+                                              "paddingLeft": 18,
+                                            }
+                                          }
                                         >
-                                          <NodeIcon
-                                            closeIconType="folder-solid"
+                                          <ToggleFold
                                             hasChildren={true}
-                                            iconColor="#999"
-                                            openIconType="folder-solid-open"
                                             showChildrenItem={false}
-                                            showIcon={false}
-                                          />
-                                          <ShowSelection
-                                            breakCheckbox={false}
-                                            checked={false}
-                                            id={113}
-                                            indentValue={14}
-                                            indeterminate={false}
-                                            menuType="rightMenu"
-                                            name="删除三个"
-                                            onDoubleClick={[Function]}
-                                            onHandleSelect={[Function]}
-                                            searchText=""
-                                            supportCheckbox={false}
-                                            supportMenu={false}
-                                            supportTooltip={false}
-                                            treeWidth={210}
+                                            toggle={[Function]}
                                           >
-                                            <span
-                                              className="node-name"
-                                              dangerouslySetInnerHTML={
+                                            <Icon
+                                              className="toggle-icon"
+                                              onClick={[Function]}
+                                              style={
                                                 Object {
-                                                  "__html": "删除三个",
+                                                  "transform": "rotate(-180deg)",
                                                 }
                                               }
-                                              name={113}
+                                              type="up"
+                                            >
+                                              <i
+                                                className="toggle-icon cloud-icon icon-up"
+                                                onClick={[Function]}
+                                                style={
+                                                  Object {
+                                                    "transform": "rotate(-180deg)",
+                                                  }
+                                                }
+                                              />
+                                            </Icon>
+                                          </ToggleFold>
+                                          <div
+                                            className="node-item null "
+                                            onClick={[Function]}
+                                          >
+                                            <NodeIcon
+                                              closeIconType="folder-solid"
+                                              hasChildren={true}
+                                              iconColor="#999"
+                                              openIconType="folder-solid-open"
+                                              showChildrenItem={false}
+                                              showIcon={false}
                                             />
-                                          </ShowSelection>
+                                            <ShowSelection
+                                              breakCheckbox={false}
+                                              checked={false}
+                                              id={113}
+                                              indentValue={18}
+                                              indeterminate={false}
+                                              menuType="rightMenu"
+                                              name="删除三个"
+                                              onDoubleClick={[Function]}
+                                              onHandleSelect={[Function]}
+                                              searchText=""
+                                              supportCheckbox={false}
+                                              supportMenu={false}
+                                              supportTooltip={false}
+                                              treeWidth={210}
+                                            >
+                                              <span
+                                                className="node-name "
+                                                dangerouslySetInnerHTML={
+                                                  Object {
+                                                    "__html": "删除三个",
+                                                  }
+                                                }
+                                                name={113}
+                                              />
+                                            </ShowSelection>
+                                          </div>
+                                          <ShowInput
+                                            cancelSave={[Function]}
+                                            handleInputChange={[Function]}
+                                            inputValue=""
+                                            maxLength=""
+                                            saveItem={[Function]}
+                                          />
                                         </div>
-                                        <ShowInput
-                                          cancelSave={[Function]}
-                                          handleInputChange={[Function]}
-                                          inputValue=""
-                                          maxLength=""
-                                          saveItem={[Function]}
-                                        />
+                                        <div
+                                          className="node-children node-children-hidden"
+                                        >
+                                          <List
+                                            data={
+                                              Array [
+                                                Object {
+                                                  "checked": false,
+                                                  "children": Array [],
+                                                  "id": 1131,
+                                                  "indeterminate": false,
+                                                  "isUnfold": false,
+                                                  "level": 3,
+                                                  "name": "禁止删除节点31",
+                                                  "pId": 113,
+                                                },
+                                                Object {
+                                                  "checked": false,
+                                                  "children": Array [
+                                                    Object {
+                                                      "checked": false,
+                                                      "children": Array [],
+                                                      "id": 11321,
+                                                      "indeterminate": false,
+                                                      "isUnfold": false,
+                                                      "level": 4,
+                                                      "name": "禁止删除节点321",
+                                                      "pId": 1132,
+                                                    },
+                                                  ],
+                                                  "id": 1132,
+                                                  "indeterminate": false,
+                                                  "isUnfold": false,
+                                                  "level": 3,
+                                                  "name": "禁止删除节点32",
+                                                  "pId": 113,
+                                                },
+                                              ]
+                                            }
+                                            prefixCls="cloud-tree"
+                                          >
+                                            <ul
+                                              className="cloud-tree-list"
+                                            >
+                                              <li
+                                                draggable={false}
+                                                id={1131}
+                                                key="1131"
+                                                onDrag={[Function]}
+                                                onDragEnd={[Function]}
+                                                onDragLeave={[Function]}
+                                                onDragOver={[Function]}
+                                                onDragStart={[Function]}
+                                              >
+                                                <Node
+                                                  data={
+                                                    Object {
+                                                      "checked": false,
+                                                      "children": Array [],
+                                                      "id": 1131,
+                                                      "indeterminate": false,
+                                                      "isUnfold": false,
+                                                      "level": 3,
+                                                      "name": "禁止删除节点31",
+                                                      "pId": 113,
+                                                    }
+                                                  }
+                                                  prefixCls="cloud-tree"
+                                                >
+                                                  <div
+                                                    className="cloud-tree-list-node-area child-style"
+                                                  >
+                                                    <div
+                                                      className="node-item-container null "
+                                                      onContextMenu={[Function]}
+                                                      style={
+                                                        Object {
+                                                          "minWidth": "calc(100% - 36px)",
+                                                          "paddingLeft": 36,
+                                                        }
+                                                      }
+                                                    >
+                                                      <ToggleFold
+                                                        hasChildren={false}
+                                                        showChildrenItem={false}
+                                                        toggle={[Function]}
+                                                      />
+                                                      <div
+                                                        className="node-item null "
+                                                        onClick={[Function]}
+                                                      >
+                                                        <NodeIcon
+                                                          closeIconType="folder-solid"
+                                                          hasChildren={false}
+                                                          iconColor="#999"
+                                                          openIconType="folder-solid-open"
+                                                          showChildrenItem={false}
+                                                          showIcon={false}
+                                                        />
+                                                        <ShowSelection
+                                                          breakCheckbox={false}
+                                                          checked={false}
+                                                          id={1131}
+                                                          indentValue={36}
+                                                          indeterminate={false}
+                                                          menuType="rightMenu"
+                                                          name="禁止删除节点31"
+                                                          onDoubleClick={[Function]}
+                                                          onHandleSelect={[Function]}
+                                                          searchText=""
+                                                          supportCheckbox={false}
+                                                          supportMenu={false}
+                                                          supportTooltip={false}
+                                                          treeWidth={210}
+                                                        >
+                                                          <span
+                                                            className="node-name "
+                                                            dangerouslySetInnerHTML={
+                                                              Object {
+                                                                "__html": "禁止删除节点31",
+                                                              }
+                                                            }
+                                                            name={1131}
+                                                          />
+                                                        </ShowSelection>
+                                                      </div>
+                                                      <ShowInput
+                                                        cancelSave={[Function]}
+                                                        handleInputChange={[Function]}
+                                                        inputValue=""
+                                                        maxLength=""
+                                                        saveItem={[Function]}
+                                                      />
+                                                    </div>
+                                                    <div
+                                                      className="node-children node-children-hidden"
+                                                    />
+                                                  </div>
+                                                </Node>
+                                              </li>
+                                              <li
+                                                draggable={false}
+                                                id={1132}
+                                                key="1132"
+                                                onDrag={[Function]}
+                                                onDragEnd={[Function]}
+                                                onDragLeave={[Function]}
+                                                onDragOver={[Function]}
+                                                onDragStart={[Function]}
+                                              >
+                                                <Node
+                                                  data={
+                                                    Object {
+                                                      "checked": false,
+                                                      "children": Array [
+                                                        Object {
+                                                          "checked": false,
+                                                          "children": Array [],
+                                                          "id": 11321,
+                                                          "indeterminate": false,
+                                                          "isUnfold": false,
+                                                          "level": 4,
+                                                          "name": "禁止删除节点321",
+                                                          "pId": 1132,
+                                                        },
+                                                      ],
+                                                      "id": 1132,
+                                                      "indeterminate": false,
+                                                      "isUnfold": false,
+                                                      "level": 3,
+                                                      "name": "禁止删除节点32",
+                                                      "pId": 113,
+                                                    }
+                                                  }
+                                                  prefixCls="cloud-tree"
+                                                >
+                                                  <div
+                                                    className="cloud-tree-list-node-area null"
+                                                  >
+                                                    <div
+                                                      className="node-item-container null "
+                                                      onContextMenu={[Function]}
+                                                      style={
+                                                        Object {
+                                                          "minWidth": "calc(100% - 36px)",
+                                                          "paddingLeft": 36,
+                                                        }
+                                                      }
+                                                    >
+                                                      <ToggleFold
+                                                        hasChildren={true}
+                                                        showChildrenItem={false}
+                                                        toggle={[Function]}
+                                                      >
+                                                        <Icon
+                                                          className="toggle-icon"
+                                                          onClick={[Function]}
+                                                          style={
+                                                            Object {
+                                                              "transform": "rotate(-180deg)",
+                                                            }
+                                                          }
+                                                          type="up"
+                                                        >
+                                                          <i
+                                                            className="toggle-icon cloud-icon icon-up"
+                                                            onClick={[Function]}
+                                                            style={
+                                                              Object {
+                                                                "transform": "rotate(-180deg)",
+                                                              }
+                                                            }
+                                                          />
+                                                        </Icon>
+                                                      </ToggleFold>
+                                                      <div
+                                                        className="node-item null "
+                                                        onClick={[Function]}
+                                                      >
+                                                        <NodeIcon
+                                                          closeIconType="folder-solid"
+                                                          hasChildren={true}
+                                                          iconColor="#999"
+                                                          openIconType="folder-solid-open"
+                                                          showChildrenItem={false}
+                                                          showIcon={false}
+                                                        />
+                                                        <ShowSelection
+                                                          breakCheckbox={false}
+                                                          checked={false}
+                                                          id={1132}
+                                                          indentValue={36}
+                                                          indeterminate={false}
+                                                          menuType="rightMenu"
+                                                          name="禁止删除节点32"
+                                                          onDoubleClick={[Function]}
+                                                          onHandleSelect={[Function]}
+                                                          searchText=""
+                                                          supportCheckbox={false}
+                                                          supportMenu={false}
+                                                          supportTooltip={false}
+                                                          treeWidth={210}
+                                                        >
+                                                          <span
+                                                            className="node-name "
+                                                            dangerouslySetInnerHTML={
+                                                              Object {
+                                                                "__html": "禁止删除节点32",
+                                                              }
+                                                            }
+                                                            name={1132}
+                                                          />
+                                                        </ShowSelection>
+                                                      </div>
+                                                      <ShowInput
+                                                        cancelSave={[Function]}
+                                                        handleInputChange={[Function]}
+                                                        inputValue=""
+                                                        maxLength=""
+                                                        saveItem={[Function]}
+                                                      />
+                                                    </div>
+                                                    <div
+                                                      className="node-children node-children-hidden"
+                                                    >
+                                                      <List
+                                                        data={
+                                                          Array [
+                                                            Object {
+                                                              "checked": false,
+                                                              "children": Array [],
+                                                              "id": 11321,
+                                                              "indeterminate": false,
+                                                              "isUnfold": false,
+                                                              "level": 4,
+                                                              "name": "禁止删除节点321",
+                                                              "pId": 1132,
+                                                            },
+                                                          ]
+                                                        }
+                                                        prefixCls="cloud-tree"
+                                                      >
+                                                        <ul
+                                                          className="cloud-tree-list"
+                                                        >
+                                                          <li
+                                                            draggable={false}
+                                                            id={11321}
+                                                            key="11321"
+                                                            onDrag={[Function]}
+                                                            onDragEnd={[Function]}
+                                                            onDragLeave={[Function]}
+                                                            onDragOver={[Function]}
+                                                            onDragStart={[Function]}
+                                                          >
+                                                            <Node
+                                                              data={
+                                                                Object {
+                                                                  "checked": false,
+                                                                  "children": Array [],
+                                                                  "id": 11321,
+                                                                  "indeterminate": false,
+                                                                  "isUnfold": false,
+                                                                  "level": 4,
+                                                                  "name": "禁止删除节点321",
+                                                                  "pId": 1132,
+                                                                }
+                                                              }
+                                                              prefixCls="cloud-tree"
+                                                            >
+                                                              <div
+                                                                className="cloud-tree-list-node-area child-style"
+                                                              >
+                                                                <div
+                                                                  className="node-item-container null "
+                                                                  onContextMenu={[Function]}
+                                                                  style={
+                                                                    Object {
+                                                                      "minWidth": "calc(100% - 54px)",
+                                                                      "paddingLeft": 54,
+                                                                    }
+                                                                  }
+                                                                >
+                                                                  <ToggleFold
+                                                                    hasChildren={false}
+                                                                    showChildrenItem={false}
+                                                                    toggle={[Function]}
+                                                                  />
+                                                                  <div
+                                                                    className="node-item null "
+                                                                    onClick={[Function]}
+                                                                  >
+                                                                    <NodeIcon
+                                                                      closeIconType="folder-solid"
+                                                                      hasChildren={false}
+                                                                      iconColor="#999"
+                                                                      openIconType="folder-solid-open"
+                                                                      showChildrenItem={false}
+                                                                      showIcon={false}
+                                                                    />
+                                                                    <ShowSelection
+                                                                      breakCheckbox={false}
+                                                                      checked={false}
+                                                                      id={11321}
+                                                                      indentValue={54}
+                                                                      indeterminate={false}
+                                                                      menuType="rightMenu"
+                                                                      name="禁止删除节点321"
+                                                                      onDoubleClick={[Function]}
+                                                                      onHandleSelect={[Function]}
+                                                                      searchText=""
+                                                                      supportCheckbox={false}
+                                                                      supportMenu={false}
+                                                                      supportTooltip={false}
+                                                                      treeWidth={210}
+                                                                    >
+                                                                      <span
+                                                                        className="node-name "
+                                                                        dangerouslySetInnerHTML={
+                                                                          Object {
+                                                                            "__html": "禁止删除节点321",
+                                                                          }
+                                                                        }
+                                                                        name={11321}
+                                                                      />
+                                                                    </ShowSelection>
+                                                                  </div>
+                                                                  <ShowInput
+                                                                    cancelSave={[Function]}
+                                                                    handleInputChange={[Function]}
+                                                                    inputValue=""
+                                                                    maxLength=""
+                                                                    saveItem={[Function]}
+                                                                  />
+                                                                </div>
+                                                                <div
+                                                                  className="node-children node-children-hidden"
+                                                                />
+                                                              </div>
+                                                            </Node>
+                                                          </li>
+                                                        </ul>
+                                                      </List>
+                                                    </div>
+                                                  </div>
+                                                </Node>
+                                              </li>
+                                            </ul>
+                                          </List>
+                                        </div>
                                       </div>
-                                    </div>
-                                  </Node>
-                                </li>
-                                <li
-                                  draggable={false}
-                                  id={114}
-                                  key="114"
-                                  onDrag={[Function]}
-                                  onDragEnd={[Function]}
-                                  onDragLeave={[Function]}
-                                  onDragOver={[Function]}
-                                  onDragStart={[Function]}
-                                >
-                                  <Node
-                                    data={
-                                      Object {
-                                        "checked": false,
-                                        "children": Array [],
-                                        "id": 114,
-                                        "indeterminate": false,
-                                        "isUnfold": false,
-                                        "level": 2,
-                                        "name": "禁止删除节点4",
-                                        "pId": 11,
-                                      }
-                                    }
-                                    prefixCls="cloud-tree"
+                                    </Node>
+                                  </li>
+                                  <li
+                                    draggable={false}
+                                    id={114}
+                                    key="114"
+                                    onDrag={[Function]}
+                                    onDragEnd={[Function]}
+                                    onDragLeave={[Function]}
+                                    onDragOver={[Function]}
+                                    onDragStart={[Function]}
                                   >
-                                    <div
-                                      className="cloud-tree-list-node-area child-style"
+                                    <Node
+                                      data={
+                                        Object {
+                                          "checked": false,
+                                          "children": Array [],
+                                          "id": 114,
+                                          "indeterminate": false,
+                                          "isUnfold": false,
+                                          "level": 2,
+                                          "name": "禁止删除节点4",
+                                          "pId": 11,
+                                        }
+                                      }
+                                      prefixCls="cloud-tree"
                                     >
                                       <div
-                                        className="node-item-container null "
-                                        onContextMenu={[Function]}
-                                        style={
-                                          Object {
-                                            "minWidth": "calc(100% - 14px)",
-                                            "paddingLeft": 14,
-                                          }
-                                        }
+                                        className="cloud-tree-list-node-area child-style"
                                       >
-                                        <ToggleFold
-                                          hasChildren={false}
-                                          showChildrenItem={false}
-                                          toggle={[Function]}
-                                        />
                                         <div
-                                          className="node-item null "
-                                          onClick={[Function]}
+                                          className="node-item-container null "
+                                          onContextMenu={[Function]}
+                                          style={
+                                            Object {
+                                              "minWidth": "calc(100% - 18px)",
+                                              "paddingLeft": 18,
+                                            }
+                                          }
                                         >
-                                          <NodeIcon
-                                            closeIconType="folder-solid"
+                                          <ToggleFold
                                             hasChildren={false}
-                                            iconColor="#999"
-                                            openIconType="folder-solid-open"
                                             showChildrenItem={false}
-                                            showIcon={false}
+                                            toggle={[Function]}
                                           />
-                                          <ShowSelection
-                                            breakCheckbox={false}
-                                            checked={false}
-                                            id={114}
-                                            indentValue={14}
-                                            indeterminate={false}
-                                            menuType="rightMenu"
-                                            name="禁止删除节点4"
-                                            onDoubleClick={[Function]}
-                                            onHandleSelect={[Function]}
-                                            searchText=""
-                                            supportCheckbox={false}
-                                            supportMenu={false}
-                                            supportTooltip={false}
-                                            treeWidth={210}
+                                          <div
+                                            className="node-item null "
+                                            onClick={[Function]}
                                           >
-                                            <span
-                                              className="node-name"
-                                              dangerouslySetInnerHTML={
-                                                Object {
-                                                  "__html": "禁止删除节点4",
-                                                }
-                                              }
-                                              name={114}
+                                            <NodeIcon
+                                              closeIconType="folder-solid"
+                                              hasChildren={false}
+                                              iconColor="#999"
+                                              openIconType="folder-solid-open"
+                                              showChildrenItem={false}
+                                              showIcon={false}
                                             />
-                                          </ShowSelection>
+                                            <ShowSelection
+                                              breakCheckbox={false}
+                                              checked={false}
+                                              id={114}
+                                              indentValue={18}
+                                              indeterminate={false}
+                                              menuType="rightMenu"
+                                              name="禁止删除节点4"
+                                              onDoubleClick={[Function]}
+                                              onHandleSelect={[Function]}
+                                              searchText=""
+                                              supportCheckbox={false}
+                                              supportMenu={false}
+                                              supportTooltip={false}
+                                              treeWidth={210}
+                                            >
+                                              <span
+                                                className="node-name "
+                                                dangerouslySetInnerHTML={
+                                                  Object {
+                                                    "__html": "禁止删除节点4",
+                                                  }
+                                                }
+                                                name={114}
+                                              />
+                                            </ShowSelection>
+                                          </div>
+                                          <ShowInput
+                                            cancelSave={[Function]}
+                                            handleInputChange={[Function]}
+                                            inputValue=""
+                                            maxLength=""
+                                            saveItem={[Function]}
+                                          />
                                         </div>
-                                        <ShowInput
-                                          cancelSave={[Function]}
-                                          handleInputChange={[Function]}
-                                          inputValue=""
-                                          maxLength=""
-                                          saveItem={[Function]}
+                                        <div
+                                          className="node-children node-children-hidden"
                                         />
                                       </div>
-                                    </div>
-                                  </Node>
-                                </li>
-                              </ul>
-                            </List>
+                                    </Node>
+                                  </li>
+                                </ul>
+                              </List>
+                            </div>
                           </div>
                         </Node>
                       </li>
@@ -1046,7 +1459,7 @@ exports[`Multilayer TreeSelect single tree renders correctly 1`] = `
                                   treeWidth={210}
                                 >
                                   <span
-                                    className="node-name"
+                                    className="node-name "
                                     dangerouslySetInnerHTML={
                                       Object {
                                         "__html": "未分类",
@@ -1064,6 +1477,9 @@ exports[`Multilayer TreeSelect single tree renders correctly 1`] = `
                                 saveItem={[Function]}
                               />
                             </div>
+                            <div
+                              className="node-children node-children-visible"
+                            />
                           </div>
                         </Node>
                       </li>
@@ -1091,10 +1507,10 @@ exports[`Multilayer TreeSelect single tree should word correctly when value is n
       class="cloud-tree-select-selected"
     />
     <i
-      class="cloud-tree-select-select-icon cloud-tree-select-clear-icon cloud-icon cloud-icon-close-circle-solid"
+      class="cloud-tree-select-select-icon cloud-tree-select-clear-icon cloud-icon icon-close-circle-solid"
     />
     <i
-      class="cloud-tree-select-select-icon close cloud-icon cloud-icon-down-solid"
+      class="cloud-tree-select-select-icon close cloud-icon icon-down-solid"
     />
   </div>
 </div>
@@ -1111,10 +1527,10 @@ exports[`Multilayer TreeSelect single tree should word correctly when value is n
       class="cloud-tree-select-selected"
     />
     <i
-      class="cloud-tree-select-select-icon cloud-tree-select-clear-icon cloud-icon cloud-icon-close-circle-solid"
+      class="cloud-tree-select-select-icon cloud-tree-select-clear-icon cloud-icon icon-close-circle-solid"
     />
     <i
-      class="cloud-tree-select-select-icon close cloud-icon cloud-icon-down-solid"
+      class="cloud-tree-select-select-icon close cloud-icon icon-down-solid"
     />
   </div>
 </div>
@@ -1131,10 +1547,10 @@ exports[`Multilayer TreeSelect tree should word correctly when datasource is an 
       class="cloud-tree-select-selected"
     />
     <i
-      class="cloud-tree-select-select-icon cloud-tree-select-clear-icon cloud-icon cloud-icon-close-circle-solid"
+      class="cloud-tree-select-select-icon cloud-tree-select-clear-icon cloud-icon icon-close-circle-solid"
     />
     <i
-      class="cloud-tree-select-select-icon open cloud-icon cloud-icon-down-solid"
+      class="cloud-tree-select-select-icon open cloud-icon icon-down-solid"
     />
   </div>
   <div

@@ -11,25 +11,25 @@ exports[`InputNumber render correctly 1`] = `
       class="cloud-input-number-handler cloud-input-number-handler-up"
     >
       <i
-        class="cloud-input-number-handler-up-icon cloud-icon cloud-icon-up"
+        class="cloud-input-number-handler-up-icon cloud-icon icon-up"
       />
     </span>
     <span
       class="cloud-input-number-handler cloud-input-number-handler-down"
     >
       <i
-        class="cloud-input-number-handler-down-icon cloud-icon cloud-icon-down"
+        class="cloud-input-number-handler-down-icon cloud-icon icon-down"
       />
     </span>
   </div>
   <div
-    class="cloud-input-number-handler-input"
+    class="cloud-input-number-handler-input cloud-input-number-handler-input-top-bottom"
   >
     <input
       class="cloud-input-number-input"
       max="Infinity"
       min="-Infinity"
-      placeholder="请输入..."
+      placeholder="请输入"
       step="1"
       value=""
     />
@@ -42,13 +42,13 @@ exports[`InputNumber should render correctly noStep 1`] = `
   class="cloud-input-number default "
 >
   <div
-    class="cloud-input-number-handler-input"
+    class="cloud-input-number-handler-input cloud-input-number-handler-input-top-bottom"
   >
     <input
       class="cloud-input-number-input"
       max="Infinity"
       min="-Infinity"
-      placeholder="请输入..."
+      placeholder="请输入"
       step="1"
       value=""
     />
@@ -67,25 +67,25 @@ exports[`InputNumber should render different by size props 1`] = `
       class="cloud-input-number-handler cloud-input-number-handler-up"
     >
       <i
-        class="cloud-input-number-handler-up-icon cloud-icon cloud-icon-up"
+        class="cloud-input-number-handler-up-icon cloud-icon icon-up"
       />
     </span>
     <span
       class="cloud-input-number-handler cloud-input-number-handler-down"
     >
       <i
-        class="cloud-input-number-handler-down-icon cloud-icon cloud-icon-down"
+        class="cloud-input-number-handler-down-icon cloud-icon icon-down"
       />
     </span>
   </div>
   <div
-    class="cloud-input-number-handler-input"
+    class="cloud-input-number-handler-input cloud-input-number-handler-input-top-bottom"
   >
     <input
       class="cloud-input-number-input"
       max="Infinity"
       min="-Infinity"
-      placeholder="请输入..."
+      placeholder="请输入"
       step="1"
       value=""
     />
@@ -104,25 +104,25 @@ exports[`InputNumber should render different by size props 2`] = `
       class="cloud-input-number-handler cloud-input-number-handler-up"
     >
       <i
-        class="cloud-input-number-handler-up-icon cloud-icon cloud-icon-up"
+        class="cloud-input-number-handler-up-icon cloud-icon icon-up"
       />
     </span>
     <span
       class="cloud-input-number-handler cloud-input-number-handler-down"
     >
       <i
-        class="cloud-input-number-handler-down-icon cloud-icon cloud-icon-down"
+        class="cloud-input-number-handler-down-icon cloud-icon icon-down"
       />
     </span>
   </div>
   <div
-    class="cloud-input-number-handler-input"
+    class="cloud-input-number-handler-input cloud-input-number-handler-input-top-bottom"
   >
     <input
       class="cloud-input-number-input"
       max="Infinity"
       min="-Infinity"
-      placeholder="请输入..."
+      placeholder="请输入"
       step="1"
       value=""
     />
@@ -141,25 +141,25 @@ exports[`InputNumber should render different by size props 3`] = `
       class="cloud-input-number-handler cloud-input-number-handler-up"
     >
       <i
-        class="cloud-input-number-handler-up-icon cloud-icon cloud-icon-up"
+        class="cloud-input-number-handler-up-icon cloud-icon icon-up"
       />
     </span>
     <span
       class="cloud-input-number-handler cloud-input-number-handler-down"
     >
       <i
-        class="cloud-input-number-handler-down-icon cloud-icon cloud-icon-down"
+        class="cloud-input-number-handler-down-icon cloud-icon icon-down"
       />
     </span>
   </div>
   <div
-    class="cloud-input-number-handler-input"
+    class="cloud-input-number-handler-input cloud-input-number-handler-input-top-bottom"
   >
     <input
       class="cloud-input-number-input"
       max="Infinity"
       min="-Infinity"
-      placeholder="请输入..."
+      placeholder="请输入"
       step="1"
       value=""
     />

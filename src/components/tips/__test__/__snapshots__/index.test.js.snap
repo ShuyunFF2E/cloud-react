@@ -2,8 +2,22 @@
 
 exports[`Tips renders correctly 1`] = `
 <div
-  class="normal cloud-tips-container"
+  class="cloud-tips default normal"
 >
-  默认提示信息
+  <div
+    class="cloud-tips-container default-container"
+  >
+    <div
+      class="content"
+    >
+      <div
+        class="msg"
+      >
+        <div>
+          默认提示信息
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 `;

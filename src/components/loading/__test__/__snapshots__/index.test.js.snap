@@ -8,19 +8,18 @@ exports[`Loading renders correctly 1`] = `
     class="cloud-loading-container"
   >
     <div
-      class="cloud-loading-animation"
+      class="cloud-loading-animation cloud-loading-animation-default"
+      style="width:12px;height:16px"
     >
-      <svg
-        class="circular"
-        viewBox="25 25 50 50"
-      >
-        <circle
-          class="path"
-          cx="50"
-          cy="50"
-          r="18"
-        />
-      </svg>
+      <span
+        style="width:2px"
+      />
+      <span
+        style="width:2px"
+      />
+      <span
+        style="width:2px"
+      />
     </div>
   </div>
 </div>
@@ -34,19 +33,18 @@ exports[`Loading renders different size 1`] = `
     class="cloud-loading-container"
   >
     <div
-      class="cloud-loading-animation"
+      class="cloud-loading-animation cloud-loading-animation-small"
+      style="width:12px;height:10px"
     >
-      <svg
-        class="circular"
-        viewBox="25 25 50 50"
-      >
-        <circle
-          class="path"
-          cx="50"
-          cy="50"
-          r="13"
-        />
-      </svg>
+      <span
+        style="width:2px"
+      />
+      <span
+        style="width:2px"
+      />
+      <span
+        style="width:2px"
+      />
     </div>
   </div>
 </div>
@@ -60,19 +58,18 @@ exports[`Loading renders different size 2`] = `
     class="cloud-loading-container"
   >
     <div
-      class="cloud-loading-animation"
+      class="cloud-loading-animation cloud-loading-animation-default"
+      style="width:12px;height:16px"
     >
-      <svg
-        class="circular"
-        viewBox="25 25 50 50"
-      >
-        <circle
-          class="path"
-          cx="50"
-          cy="50"
-          r="18"
-        />
-      </svg>
+      <span
+        style="width:2px"
+      />
+      <span
+        style="width:2px"
+      />
+      <span
+        style="width:2px"
+      />
     </div>
   </div>
 </div>
@@ -86,19 +83,18 @@ exports[`Loading renders different size 3`] = `
     class="cloud-loading-container"
   >
     <div
-      class="cloud-loading-animation"
+      class="cloud-loading-animation cloud-loading-animation-large"
+      style="width:18px;height:22px"
     >
-      <svg
-        class="circular"
-        viewBox="25 25 50 50"
-      >
-        <circle
-          class="path"
-          cx="50"
-          cy="50"
-          r="23"
-        />
-      </svg>
+      <span
+        style="width:3px"
+      />
+      <span
+        style="width:3px"
+      />
+      <span
+        style="width:3px"
+      />
     </div>
   </div>
 </div>

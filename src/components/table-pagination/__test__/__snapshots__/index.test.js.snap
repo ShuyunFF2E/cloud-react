@@ -17,10 +17,10 @@ exports[`TablePagination renders correctly 1`] = `
         class="icon-group"
       >
         <i
-          class="disabled cloud-icon cloud-icon-first-solid"
+          class="disabled cloud-icon icon-first-solid"
         />
         <i
-          class="disabled cloud-icon cloud-icon-left-solid"
+          class="disabled cloud-icon icon-left-solid"
         />
       </div>
       <div
@@ -41,10 +41,10 @@ exports[`TablePagination renders correctly 1`] = `
         class="icon-group"
       >
         <i
-          class="cloud-icon cloud-icon-right-solid"
+          class="cloud-icon icon-right-solid"
         />
         <i
-          class="cloud-icon cloud-icon-last-solid"
+          class="cloud-icon icon-last-solid"
         />
       </div>
     </div>
