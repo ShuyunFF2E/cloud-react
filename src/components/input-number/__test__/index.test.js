@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import React, { Component } from 'react';
 import { render, mount } from 'enzyme';
 import mountTest from '@tests/shared/mountTest';
@@ -39,43 +40,43 @@ describe('InputNumber', () => {
   it('should have default value', () => {
     const wrapper = mount(<InputNumber defaultValue={3} />);
 
-    expect(wrapper.state('currentValue')).toEqual(3);
+    expect(wrapper.state('currentValue')).toEqual('3');
   });
 
   it('should use value when defaultValue and value are exits', () => {
     const wrapper = mount(<InputNumber defaultValue={1} value={5} />);
-    expect(wrapper.state('currentValue')).toEqual(5);
+    expect(wrapper.state('currentValue')).toEqual('5');
   });
 
   it('should currentValue equal min when value less than min ', () => {
     const wrapper = mount(<InputNumber min={10} value={5} />);
 
-    expect(wrapper.state('currentValue')).toEqual(10);
+    expect(wrapper.state('currentValue')).toEqual('10');
     expect(wrapper.state('upButtonEnabled')).toBeTruthy();
     expect(wrapper.state('downButtonEnabled')).toBeFalsy();
 
     wrapper.find(`.${prefix}-handler-down`).simulate('click');
     wrapper.find(`.${prefix}-handler-up`).simulate('click');
 
-    expect(wrapper.state('currentValue')).toEqual(11);
+    expect(wrapper.state('currentValue')).toEqual('11');
   });
 
   it('should currentValue equal max when value more than max', () => {
     const wrapper = mount(<InputNumber max={10} value={20} />);
 
-    expect(wrapper.state('currentValue')).toEqual(10);
+    expect(wrapper.state('currentValue')).toEqual('10');
     expect(wrapper.state('upButtonEnabled')).toBeFalsy();
     expect(wrapper.state('downButtonEnabled')).toBeTruthy();
 
     wrapper.find(`.${prefix}-handler-up`).simulate('click');
     wrapper.find(`.${prefix}-handler-down`).simulate('click');
 
-    expect(wrapper.state('currentValue')).toEqual(9);
+    expect(wrapper.state('currentValue')).toEqual('9');
   });
 
   it('should currentValue equla value when value between min and max', () => {
     const wrapper = mount(<InputNumber min={1} max={10} value={5} />);
-    expect(wrapper.state('currentValue')).toEqual(5);
+    expect(wrapper.state('currentValue')).toEqual('5');
     expect(wrapper.state('upButtonEnabled')).toBeTruthy();
     expect(wrapper.state('downButtonEnabled')).toBeTruthy();
   });
@@ -85,7 +86,7 @@ describe('InputNumber', () => {
       <InputNumber min={1} max={10} defaultValue={5} step={2} />,
     );
     wrapper.find(`.${prefix}-handler-up`).simulate('click');
-    expect(wrapper.state('currentValue')).toEqual(7);
+    expect(wrapper.state('currentValue')).toEqual('7');
   });
 
   it('should update currentValue minus step on click down icon', () => {
@@ -93,7 +94,7 @@ describe('InputNumber', () => {
       <InputNumber min={1} max={10} defaultValue={5} step={10} />,
     );
     wrapper.find(`.${prefix}-handler-down`).simulate('click');
-    expect(wrapper.state('currentValue')).toEqual(1);
+    expect(wrapper.state('currentValue')).toEqual('1');
   });
 
   it('should change function not trigger when disabled', () => {
@@ -107,7 +108,7 @@ describe('InputNumber', () => {
   it('should set currentValue to zere when defaultValue is blank', () => {
     const wrapper = mount(<InputNumber defaultValue={1.34} step={0.001} />);
     wrapper.find(`.${prefix}-handler-down`).simulate('click');
-    expect(wrapper.state('currentValue')).toEqual(1.339);
+    expect(wrapper.state('currentValue')).toEqual('1.339');
   });
 
   it('should update correctly on change no min', () => {
@@ -206,8 +207,8 @@ describe('InputNumber', () => {
     expect(onKeyDown).toHaveBeenCalled();
   });
 
-  it('should render correctly with precison', () => {
+  it('should render correctly with precision', () => {
     const wrapper = mount(<InputNumber defaultValue={1} precision={2} />);
-    expect(wrapper.state('currentValue')).toEqual(1.0);
+    expect(wrapper.state('currentValue')).toEqual('1.00');
   });
 });
