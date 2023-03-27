@@ -151,7 +151,6 @@ class Upload extends Component {
   handleProgress = (event, file) => {
     const { onProgress } = this.props;
     const newFile = this.getStatusFile(file, 'uploading', event.percent);
-
     onProgress({
       file: newFile,
       fileList: [ ...this.state.fileList ],
@@ -200,6 +199,7 @@ class Upload extends Component {
       });
       return;
     }
+
     onSuccess({
       file: newFile,
       fileList: [ ...this.state.fileList ],
