@@ -350,7 +350,7 @@ class Pagination extends Component {
         <div className="quickJumper">
           前往
           <Input
-            size={this.props.type === 'small' ? 'small' : ''}
+            size={this.props.type === 'small' ? 'small' : undefined}
             disabled={this.props.disabled}
             onKeyDown={this.handlePage}
             onChange={this.changeInput}
