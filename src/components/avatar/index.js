@@ -41,7 +41,7 @@ export default function Avatar(props) {
         onError={handleImgLoadError}
         alt={alt}
       />
-		  );
+		);
   } else if (hasImageElement) {
     renderChildren = src;
   } else if (icon) {
