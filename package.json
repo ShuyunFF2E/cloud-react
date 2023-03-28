@@ -101,6 +101,7 @@
     "father-build": "^1.17.2",
     "gh-pages": "^3.0.0",
     "glob": "^7.1.7",
+    "husky": "^8.0.3",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.0.6",
     "jest-environment-jsdom": "^27.0.6",
@@ -113,5 +114,10 @@
     "rollup-plugin-postcss": "^4.0.1",
     "umi-lint": "^2.0.2",
     "yargs": "^17.1.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run test"
+    }
   }
 }
