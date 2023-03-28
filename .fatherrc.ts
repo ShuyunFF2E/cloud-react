@@ -179,7 +179,7 @@ export default isBuild ? [{
               name,
               version,
               description,
-              main,
+              main:'new-cloud-react.js',
               dependencies,
               devDependencies,
             }
