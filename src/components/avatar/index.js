@@ -30,7 +30,7 @@ export default function Avatar(props) {
     if (errorFlag !== false) {
 		  setIsImgExist(false);
     }
-	  };
+	};
 
   let renderChildren;
   if (typeof src === 'string' && isImgExist) {
