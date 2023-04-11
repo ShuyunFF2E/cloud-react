@@ -130,7 +130,7 @@ Cascader.defaultProps = {
   disabled: false,
   transitionName: '',
   defaultValue: [],
-  inputIcon: <Icon type="down" style={{ fontSize: '12px' }} />,
+  inputIcon: <Icon type="down" style={{ fontSize: '14px' }} />,
   prefixCls: `${prefixCls}-ccascader`,
   popupClassName: '',
   popupPlacement: 'bottomLeft',
