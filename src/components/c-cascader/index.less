@@ -164,8 +164,10 @@ input::-webkit-search-cancel-button {
 		flex-wrap: wrap;
 		align-items: center;
 		padding: 1px 4px;
+		height: 32px;
 		max-height: 350px;
 		overflow: auto;
+		box-sizing: border-box;
 	}
 
 	&-single &-selection-placeholder {
@@ -196,6 +198,7 @@ input::-webkit-search-cancel-button {
 		white-space: nowrap;
 		text-overflow: ellipsis;
 		pointer-events: none;
+		height: 28px;
 	}
 
 	&-multiple &-selection-search {
@@ -203,7 +206,7 @@ input::-webkit-search-cancel-button {
 		max-width: 100%;
 		-webkit-margin-start: 7px;
 		margin-inline-start: 7px;
-
+		line-height: 22px;
 		&-mirror {
 			position: absolute;
 			top: 0;
@@ -227,6 +230,7 @@ input::-webkit-search-cancel-button {
 			-webkit-appearance: none;
 			-moz-appearance: none;
 			appearance: none;
+			height: 24px;
 		}
 	}
 
@@ -286,6 +290,9 @@ input::-webkit-search-cancel-button {
 			flex: none;
 			align-self: center;
 			max-width: 100%;
+		}
+		&-item-suffix{
+			position: static !important;
 		}
 	}
 
