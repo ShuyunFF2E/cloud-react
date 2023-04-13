@@ -20,6 +20,7 @@ group:
 | visible            | 是否显示 modal 弹出框                    | boolean             | `false` |
 | size              | 弹出框的尺寸, `small`,`medium`,`large`,`auto`  | string              | `auto` |
 | title              | 弹出框的标题                             | string              | `title` |
+| showType           | iframe时，弹窗的透传模式，`top`, `current` | string              | `top`   |
 | modalStyle         | 设置弹出框样式                           | object              | -       |
 | headerStyle        | 设置弹出框header样式                           | object              | -       |
 | bodyStyle          | 设置弹出框内容区域样式                   | object              | -       |
@@ -60,6 +61,7 @@ Modal.warning(config)
 | isShowIcon | 是否显示提示信息前面的 icon                   | boolean  | `true` |
 | icon       | 提示信息前面 icon, 即 icon 组件中的 type 名称 | string   | `--`   |
 | title      | 提示信息标题                                | string   | `title`   |
+| showType   | iframe时，弹窗的透传模式，`top`, `current` | string  | `top`   |
 | iconStyle  | 提示信息前面 icon 的样式                      | object   | `--`   |
 | style      | 提示框的样式                                  | object   | `--`   |
 | body       | 提示信息内容, 支持 jsx 语法直接传入 dom 节点  | any      | `--`   |

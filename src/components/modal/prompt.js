@@ -15,6 +15,7 @@ const ENTER_KEY_CODE = 13;
 class Prompt extends React.Component {
   static defaultProps = {
     isShowIcon: true,
+    showType: 'top',
     style: {},
     type: '',
     icon: '',
@@ -28,6 +29,7 @@ class Prompt extends React.Component {
 
   static propTypes = {
     isShowIcon: PropTypes.bool,
+    showType: PropTypes.oneOf(['top', 'current']),
     style: PropTypes.object,
     type: PropTypes.string,
     title: PropTypes.string,
@@ -72,7 +74,8 @@ class Prompt extends React.Component {
 
   /* eslint-disable-next-line */
   get window() {
-    return getRootWindow();
+    const isTop = this.props.showType === 'top';
+		return getRootWindow(isTop);
   }
 
   get document() {
@@ -221,6 +224,7 @@ class Prompt extends React.Component {
 function prompt({
   isShowIcon,
   type,
+  showType,
   icon,
   body,
   onOk,
@@ -234,7 +238,8 @@ function prompt({
   title,
 }) {
   // 创建一个关联id
-  const rootDocument = getRootWindow().document;
+  const isTop = showType === 'top';
+  const rootDocument = getRootWindow(isTop).document;
   const id = `prompt${new Date().getTime()}`;
   const ele = rootDocument.createElement('div');
 
