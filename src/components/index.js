@@ -17,7 +17,7 @@ bodys.style.setProperty(`--shuyunBlue${i + 1}`,color)
 }
 }
 
-export const version = '1.1.0';
+export const version = '1.0.20';
 
 export { default as Avatar } from './avatar';
 
@@ -28,6 +28,10 @@ export { default as BreadCrumbs } from './bread-crumbs';
 export { default as Button } from './button';
 
 export { default as CCascader } from './c-cascader';
+
+export { default as CDrawer } from './c-drawer';
+
+export { default as CDropdown } from './c-dropdown';
 
 export { default as CMenu } from './c-menu';
 

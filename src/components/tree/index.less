@@ -140,7 +140,7 @@
           font-size: 16px;
           text-align: center;
           color: @gray-7;
-          margin: 0 8px;
+          margin: 0 8px 0 12px;
           transition: all 0.1s;
 
           &:hover {
@@ -160,7 +160,7 @@
           vertical-align: middle;
           top: 10px;
           color: #999;
-          margin: 0 8px;
+          margin: 0 8px 0 12px;
         }
 
         .edit-icon {
@@ -182,7 +182,6 @@
       }
 
       .node-children {
-
         &-visible .node-item-container {
           height: 32px;
           opacity: 1;
@@ -212,7 +211,7 @@
         border-radius: 2px;
         line-height: 26px;
 
-        .cloud-checkbox {
+        .@{prefix}-checkbox {
           padding-left: 0 !important;
         }
 
@@ -295,10 +294,10 @@
       }
 
       .break-checkbox {
-        .cloud-checkbox {
+        .@{prefix}-checkbox {
           width: auto !important;
 
-          .cloud-checkbox-text {
+          .@{prefix}-checkbox-text {
             width: inherit;
           }
         }

@@ -7,6 +7,7 @@ import Radio from '../../radio';
 import Popover from '../../popover';
 import { isEveryChecked, isSomeChecked, setConfig } from '../util';
 import { tablePrefixCls } from '../constant';
+import { prefixCls } from '@utils';
 
 export default class Column {
   constructor(_this) {
@@ -63,7 +64,7 @@ export default class Column {
     const isLastColumnFixed = originColumnData[originColumnData.length - 1].fixed;
     const isFirstColumnFixed = originColumnData[0].fixed;
     const thArr = currentThArr
-      || _this.ref.current?.querySelectorAll('th.cloud-table-cell')
+      || _this.ref.current?.querySelectorAll(`th.${tablePrefixCls}-cell`)
       || [];
 
     const resolvedColumnData = originColumnData.reduce((arr, item, index) => {

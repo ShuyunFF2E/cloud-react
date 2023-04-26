@@ -5,14 +5,18 @@ import { prefixCls, loadScript } from '@utils';
 import './index.less';
 
 loadScript(
-  'https://cloud-cdn.shuyun.com/fe-publish-asset/0.0.37/libs/cloud-react/icon/color/symbol.min.js',
+  'https://cloud-cdn.shuyun.com/cloud-fe-iconfont/0.0.2/cloud-react/color/symbol.min.js',
 );
 
+const iconPrefixCls = prefixCls === 'cloud' ? 'icon' : `${prefixCls}-icon`;
 const Icon = ({
   type, style, className, ...restProps
 }) => (
   <i
-    className={classNames(className, `${prefixCls}-icon icon-${type}`)}
+    className={classNames(
+      className,
+      `${prefixCls}-icon ${iconPrefixCls}-${type}`,
+    )}
     style={style}
     {...restProps}
   />

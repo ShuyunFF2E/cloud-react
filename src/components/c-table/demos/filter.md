@@ -124,7 +124,8 @@ export default function CTableDemo() {
   };
 
   const filter = (data, { filterValue }) => {
-    return data.filter(item => !filterValue.length || (filterValue.length && filterValue.includes(item.category.status)))
+    console.log(filterValue);
+    return data.filter(item => !filterValue?.length || (filterValue?.length && filterValue.includes(item.category.status)))
   };
 
 	return (
@@ -143,7 +144,8 @@ export default function CTableDemo() {
               return new Promise(resolve => {
                 setTimeout(() => {
                   const filterData = filter(sort(data, params), params);
-                  resolve({ totals: filterData.length, data: JSON.parse(JSON.stringify(filterData.slice(params.pageSize * (params.pageNum - 1), params.pageSize * params.pageNum))) });
+                  console.log(filterData)
+                  resolve({ totals: filterData?.length, data: JSON.parse(JSON.stringify(filterData.slice(params.pageSize * (params.pageNum - 1), params.pageSize * params.pageNum))) });
                 }, 200)
               })
             }}

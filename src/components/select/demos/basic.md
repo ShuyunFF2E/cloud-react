@@ -34,14 +34,19 @@ const dataList = [
 ];
 
 export default function SelectDemo() {
+  const [value, setValue] = useState('4');
   const handleChange = (value, prevValue) => {
     console.log('select --- ' + value);
     console.log('prevSelect --- ' + prevValue);
   };
+  const handleChange1 = value => {
+    setValue(value);
+  }
 
   return (
     <div className="demo">
       <Select
+        allowClear
         defaultValue={'3'}
         onChange={handleChange}
         style={{ width: 120 }}
@@ -89,6 +94,12 @@ export default function SelectDemo() {
         ))}
       </Select>
       <Select dataSource={[]} style={{ width: 220 }}></Select>
+      <Select
+        value={value}
+        onChange={handleChange1}
+        style={{ width: 120 }}
+        dataSource={dataList}
+      />
     </div>
   );
 }

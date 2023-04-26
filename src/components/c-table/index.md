@@ -37,7 +37,7 @@ this.tableRef.current.refreshTable(gotoFirstPage?, params?);
 | 属性           | 说明                    | 类型              | 默认值
 | -------------- | ---------------------- | ----------------- | ------ |
 | gotoFirstPage | 表格刷新后，是否跳转到第一页   | boolean   |   true   | |
-| params | 分页等表格查询参数   | object   |   {}   | |
+| params | 分页等表格查询参数（暂不支持传入额外查询参数）   | object   |   {}   | |
 
 
 #### CTable 重新设置表格列 columnData
@@ -84,8 +84,8 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 | supportCheckbox | 是否支持多选    | boolean   |   false   | |
 | checkedData | 已选数据，支持两种写法。在 "多选表格（checkbox.md）" demo 中查看说明   | array   |   []   | |
 | supportRadio | 是否支持单选   | boolean   |   false   | |
-| onCheckedAfter | 选中行回调，需要设置 supportCheckbox 为 true，Function(checkedList, checkedRow)    | function   |   -   | | 
-| onCheckedAllAfter | 选中当页回调，需要设置 supportCheckbox 为 true，Function(checkedList)   | function   |   -   | |
+| onCheckedAfter | 选中行回调，需要设置 supportCheckbox 为 true，Function(checkedList, checkedRow, checked)    | function   |   -   | | 
+| onCheckedAllAfter | 选中当页回调，需要设置 supportCheckbox 为 true，Function(checkedList, currentPageData, checked)   | function   |   -   | |
 
 #### CTable 表格拖拽配置
 | 属性           | 说明                    | 类型              | 默认值
@@ -116,6 +116,9 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 | ~~useCustomScroll~~ | ~~业务中是否使用自定义滚动条~~，无需设置，原设置过的不影响 | 	boolean   |   true   | |
 | scrollIntoTop | 翻页后表格自动滚到顶部 | 	boolean   |   true   | |
 | reloadAfterSetColumn | 重新设置表格列后，是否需要刷新表格 | 	boolean   |   false   | |
+| disablePageOnLoad | 切换分页，数据未返回时，是否需要禁用分页按钮 | 	boolean   |   true   | |
+| watchColumnData | 是否监听 columnData 变化 | 	boolean   |   false   | |
+| useRootWindow | window 对象是否使用根 window | 	boolean   |   false   | |
 
 #### CTable 其他功能配置
 | 属性           | 说明                    | 类型              | 默认值
@@ -123,6 +126,7 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 | supportResizeColumn | 是否支持配置列的拉伸  | boolean	   |   false   | |
 | summaryData | 表格合计（API 同 columnData） | 	array   |   []   | |
 | showFilterBtn | 过滤下拉是否展示确认取消按钮 | 	boolean   |   false   | |
+| tooltipConfigs | 表格行展示tooltip，详见**表格禁用行**Demo | 	array   |   []   | |
 
 [comment]: <> (| supportConfigColumn | 是否支持配置列的隐藏和展示  | boolean	   |   false   | |)
 
@@ -233,3 +237,6 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 <embed src="@components/c-table/demos/resize.md" />
 
 <embed src="@components/c-table/demos/resize1.md" />
+
+### 商品选择器表格
+<embed src="@components/c-table/demos/goods-table.md" />

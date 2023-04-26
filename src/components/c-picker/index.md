@@ -85,12 +85,16 @@ group:
 
 | 属性              | 说明                                               | 类型                    | 默认值            |
 | ----------------- | -------------------------------------------------- | ----------------------- | ----------------- |
+| format           | 格式化输出格式 | string | `"HH:mm:ss"` |
 | value            | 组件值 | string | - |
 | defaultValue     | 组件默认值 | string | - |
 | placeholder      | 输入框占位符 | string | `"请选择时间"` |
 | disabled         | 指示组件是否可用 | boolean | `true` |
 | onChange         | 组件值改变事件处理函数 | (value: string) => void | - |
 | onOk             | 确定按钮点击事件处理函数 | (value: string) => void | - |
+| showHour         | 显示小时选择 | boolean | `true` |
+| showMinute       | 显示分钟选择 | boolean | `true` |
+| showSecond       | 显示秒选择 | boolean | `true` |
 
 #### YearPicker
 
@@ -139,6 +143,7 @@ group:
 
 | 属性              | 说明                                               | 类型                    | 默认值            |
 | ----------------- | -------------------------------------------------- | ----------------------- | ----------------- |
+| format           | 格式化输出格式 | string | `"HH:mm:ss"` |
 | value            | 组件值 | string[] | - |
 | defaultValue     | 组件默认值 | string[] | - |
 | placeholder      | 输入框占位符，可分开设置 | string / string[] | `"开始时间"` 和 `"结束时间"` |
@@ -146,6 +151,9 @@ group:
 | allowEmpty       | 允许开始或结束为空，需分开设置 | boolean[] | `[false, false]` |
 | onChange         | 组件值改变事件处理函数 | (value: string[]) => void | - |
 | onOk             | 确定按钮点击事件处理函数 | (value: string[]) => void | - |
+| showHour         | 显示小时选择 | boolean | `true` |
+| showMinute       | 显示分钟选择 | boolean | `true` |
+| showSecond       | 显示秒选择 | boolean | `true` |
 
 ### 代码演示
 

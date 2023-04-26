@@ -19,7 +19,9 @@ class TreeSelect extends Component {
   constructor(props) {
     super(props);
 
-    const { open, defaultOpen, value, defaultValue, single, multiple } = props;
+    const {
+      open, defaultOpen, value, defaultValue, single, multiple,
+    } = props;
     let values;
     if (this.isTree) {
       values = value || defaultValue || [];
@@ -53,8 +55,8 @@ class TreeSelect extends Component {
       open: prevOpen,
     } = prevProps;
     if (
-      !ShuyunUtils.equal(value, prevValue) ||
-      !ShuyunUtils.equal(dataSource, prevData)
+      !ShuyunUtils.equal(value, prevValue)
+      || !ShuyunUtils.equal(dataSource, prevData)
     ) {
       return {
         value,
@@ -77,7 +79,9 @@ class TreeSelect extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    const { disabled, width, open: propOpen, searchable } = nextProps;
+    const {
+      disabled, width, open: propOpen, searchable,
+    } = nextProps;
     const { open, value, style } = nextState;
     const {
       disabled: prevDisabled,
@@ -87,19 +91,18 @@ class TreeSelect extends Component {
     } = this.props;
     const { open: prevOpen, value: prevValue, style: prevStyle } = this.state;
     return (
-      disabled !== prevDisabled ||
-      width !== prevWidth ||
-      propOpen !== prevPropOpen ||
-      open !== prevOpen ||
-      value !== prevValue ||
-      searchable !== prevSearchable ||
-      style !== prevStyle
+      disabled !== prevDisabled
+      || width !== prevWidth
+      || propOpen !== prevPropOpen
+      || open !== prevOpen
+      || value !== prevValue
+      || searchable !== prevSearchable
+      || style !== prevStyle
     );
   }
 
   componentDidUpdate(_, prevState) {
-    if (this.state.open !== prevState.open && this.state.open)
-      this.positionPop();
+    if (this.state.open !== prevState.open && this.state.open) this.positionPop();
   }
 
   componentWillUnmount() {
@@ -142,27 +145,29 @@ class TreeSelect extends Component {
   positionPop = () => {
     const {
       props: { isAppendToBody, position },
-      selectedContainerStyle: { left, top, bottom, height },
+      selectedContainerStyle: {
+        left, top, bottom, height,
+      },
       optionsNodeStyle: { height: optionsHeight },
     } = this;
-    const isBottomDistanceEnough =
-      bottom + optionsHeight < this.document.documentElement.clientHeight;
-    const isLocationTop =
-      optionsHeight < top && !isBottomDistanceEnough && position === 'auto';
+    const isBottomDistanceEnough = bottom + optionsHeight < this.document.documentElement.clientHeight;
+    const isLocationTop = optionsHeight < top && !isBottomDistanceEnough && position === 'auto';
     const borderTop = isLocationTop ? '1px solid #d9d9d9' : null;
     if (isAppendToBody) {
       this.setState({
         style: {
           position: 'fixed',
           left: `${left}px`,
-          top: isLocationTop ? `${top - optionsHeight}px` : `${bottom}px`,
+          top: isLocationTop
+            ? `${top - optionsHeight - 4}px`
+            : `${bottom + 4}px`,
           borderTop,
         },
       });
     } else {
       this.setState({
         style: {
-          top: isLocationTop ? `${-optionsHeight}px` : `${height}px`,
+          top: isLocationTop ? `${-optionsHeight - 4}px` : `${height + 4}px`,
           borderTop,
         },
       });
@@ -171,9 +176,8 @@ class TreeSelect extends Component {
 
   handleClick = (e) => {
     const { open, prevValue } = this.state;
-    const isClickSelect =
-      this.node.current.contains(e.target) ||
-      (this.optionsNode.current && this.optionsNode.current.contains(e.target));
+    const isClickSelect = this.node.current.contains(e.target)
+      || (this.optionsNode.current && this.optionsNode.current.contains(e.target));
     if (!isClickSelect && open) {
       const { onSelectClose, open: propOpen, hasConfirmButton } = this.props;
       onSelectClose();
@@ -364,11 +368,11 @@ TreeSelect.propTypes = {
   dataSource: PropTypes.array,
   disabled: PropTypes.bool,
   placeholder: PropTypes.string,
-  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  width: PropTypes.oneOfType([ PropTypes.string, PropTypes.number ]),
   searchable: PropTypes.bool,
-  emptyRender: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
-  defaultValue: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
-  value: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+  emptyRender: PropTypes.oneOfType([ PropTypes.string, PropTypes.node ]),
+  defaultValue: PropTypes.oneOfType([ PropTypes.array, PropTypes.object ]),
+  value: PropTypes.oneOfType([ PropTypes.array, PropTypes.object ]),
   hasConfirmButton: PropTypes.bool,
   className: PropTypes.string,
   isAppendToBody: PropTypes.bool,

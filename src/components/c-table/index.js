@@ -27,6 +27,7 @@ import emptyImg from './empty.png';
 import './css/basic.less';
 import './css/business.less';
 import Column from './js/column';
+import RowTooltip from './js/rowTooltip';
 import { defaultProps, propTypes } from './js/propType';
 
 class CTable extends Component {
@@ -67,7 +68,7 @@ class CTable extends Component {
   }
 
   componentDidMount() {
-    this.hasCustomScroll = hasCustomScroll();
+    this.hasCustomScroll = hasCustomScroll(this.props.useRootWindow);
     if (
       (this.props.supportExpend || this.props.supportTree) &&
       !this.props.rowKey
@@ -120,6 +121,12 @@ class CTable extends Component {
         },
       });
     }
+    if (
+      this.props.watchColumnData &&
+      this.props.columnData !== prevProps.columnData
+    ) {
+      this.setColumn(this.props.columnData);
+    }
   }
 
   componentWillUnmount() {
@@ -163,14 +170,15 @@ class CTable extends Component {
         ...pageOpts,
         filterValue,
       });
+
       if (childrenKey !== 'children') {
-        traverseTree(
-          res[dataKey],
-          (node) => {
+        traverseTree({
+          tree: res[dataKey],
+          callback: ({ node }) => {
             Object.assign(node, { children: node[childrenKey] || [] });
           },
-          childrenKey,
-        );
+          childrenKey: this.props.childrenKey,
+        });
       }
 
       this.setState(
@@ -205,16 +213,18 @@ class CTable extends Component {
    * 解决表头滚动问题（rcTable bug）
    */
   setHeaderStyle = () => {
-    if (isFirefox() || !this.hasCustomScroll) {
+    if (isFirefox() || !this.hasCustomScroll || this.props.useRootWindow) {
       return;
     }
     setTimeout(() => {
       if (this.ref.current) {
-        const bodyEle = this.ref.current.querySelector('.cloud-table-body');
+        const bodyEle = this.ref.current.querySelector(
+          `.${tablePrefixCls}-body`,
+        );
         if (bodyEle) {
           bodyEle.style.paddingRight = 0;
           bodyEle.parentElement.querySelector(
-            '.cloud-table-header colgroup col:last-child',
+            `.${tablePrefixCls}-header colgroup col:last-child`,
           ).style.width = 0;
         }
       }
@@ -236,7 +246,9 @@ class CTable extends Component {
         return;
       }
       const fixedEles = Array.from(
-        this.ref.current.querySelectorAll('th.cloud-table-cell-fix-right'),
+        this.ref.current.querySelectorAll(
+          `th.${tablePrefixCls}-cell-fix-right`,
+        ),
       );
       if (fixedEles.length) {
         // fixedEles.pop();
@@ -264,7 +276,7 @@ class CTable extends Component {
   scrollIntoView = () => {
     if (this.props.scrollIntoTop) {
       const trEle = this.ref.current?.querySelector(
-        'tr.cloud-table-row:nth-child(2)',
+        `tr.${tablePrefixCls}-row:nth-child(2)`,
       );
       if (trEle) {
         trEle.scrollIntoView({
@@ -297,10 +309,14 @@ class CTable extends Component {
    */
   isInCurrentPage = (targetVal) => {
     let isInCurrentPage = false;
-    traverseTree(this.state.data, (node) => {
-      if (String(this.getKeyFieldVal(node)) === String(targetVal)) {
-        isInCurrentPage = true;
-      }
+    traverseTree({
+      tree: this.state.data,
+      callback: ({ node }) => {
+        if (String(this.getKeyFieldVal(node)) === String(targetVal)) {
+          isInCurrentPage = true;
+        }
+      },
+      childrenKey: this.props.childrenKey,
     });
     return isInCurrentPage;
   };
@@ -337,12 +353,17 @@ class CTable extends Component {
    */
   getLeafNodesMap = (tree) => {
     const LeafNodesMap = {};
-    traverseTree(tree, (node, parentNode) => {
-      LeafNodesMap[this.getKeyFieldVal(node)] = {
-        parentNode, // 父节点
-        node, // 当前节点
-        childNodes: getLeafNodes(node), // 所有叶子节点
-      };
+    traverseTree({
+      tree,
+      callback: ({ node, parentNode, childNodes }) => {
+        LeafNodesMap[this.getKeyFieldVal(node)] = {
+          parentNode, // 父节点
+          node, // 当前节点
+          childNodes: childNodes || getLeafNodes(node), // 所有叶子节点
+        };
+      },
+      childrenKey: this.props.childrenKey,
+      isTreeIncludeChildren: this.props.isTreeIncludeChildren,
     });
     return LeafNodesMap;
   };
@@ -463,8 +484,12 @@ class CTable extends Component {
       const { ajaxData, dataKey, childrenKey } = this.props;
       const res = await this.getDataSource(ajaxData, params);
       if (childrenKey !== 'children') {
-        traverseTree(res[dataKey], (node) => {
-          Object.assign(node, { children: node[childrenKey] || [] });
+        traverseTree({
+          tree: res[dataKey],
+          callback: ({ node }) => {
+            Object.assign(node, { children: node[childrenKey] || [] });
+          },
+          childrenKey: this.props.childrenKey,
         });
       }
       let resolvedData = res[dataKey];
@@ -571,23 +596,27 @@ class CTable extends Component {
     if (!this.props.supportDrag) {
       return;
     }
+    const _fromIndex = fromIndex - 1;
+    const _toIndex = toIndex - 1;
     const { data } = this.state;
     const dataCopy = [...data];
-    const item = dataCopy.splice(fromIndex, 1)[0];
-    dataCopy.splice(toIndex, 0, item);
+    const item = dataCopy.splice(_fromIndex, 1)[0];
+    dataCopy.splice(_toIndex, 0, item);
     this.setState(
       {
         data: dataCopy,
       },
       () => {
-        this.props.onDragAfter(data[fromIndex], data[toIndex]);
+        this.props.onDragAfter(data[_fromIndex], data[_toIndex]);
       },
     );
   };
 
   onResize = () => {
     return debounce(() => {
-      const thArr = this.ref.current?.querySelectorAll('th.cloud-table-cell');
+      const thArr = this.ref.current?.querySelectorAll(
+        `th.${tablePrefixCls}-cell`,
+      );
       this.column.setColumnData({ currentThArr: thArr });
     }, 500);
   };
@@ -650,6 +679,8 @@ class CTable extends Component {
       loadingTpl,
       loadingOpts,
       footerSelectTpl,
+      tooltipConfigs,
+      disablePageOnLoad,
     } = this.props;
     const {
       data,
@@ -672,7 +703,7 @@ class CTable extends Component {
               [`${tablePrefixCls}-bordered`]: bordered,
               [`${tablePrefixCls}-header-bordered`]:
                 !bordered && headerBordered,
-              [`${tablePrefixCls}-loading`]: isLoading,
+              [`${tablePrefixCls}-loading`]: isLoading || loadingOpts.loading,
               [`${tablePrefixCls}-empty`]: !data.length,
               [`${tablePrefixCls}-use-custom-scroll`]:
                 this.hasCustomScroll && !isFirefox(),
@@ -778,13 +809,20 @@ class CTable extends Component {
                 current={pageNum}
                 pageSize={pageSize}
                 total={totals}
-                disabled={isLoading}
+                disabled={disablePageOnLoad ? isLoading : false}
                 onChange={onPageChange}
               />
             </div>
           </div>
         )}
         {footerTpl()}
+        {tooltipConfigs?.length ? (
+          <RowTooltip
+            tableContainerRef={ref}
+            tooltipConfigs={tooltipConfigs}
+            useRootWindow={this.props.useRootWindow}
+          />
+        ) : null}
       </div>
     );
   }
