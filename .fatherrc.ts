@@ -51,6 +51,8 @@ export default isBuild ? [{
 	lessInRollupMode: {
     globalVars: {
       '@cloud': 'cloud',
+      'react': 'window.React',
+      'react-dom': 'window.ReactDom',
     },
   },
   extraRollupPlugins: [
@@ -273,7 +275,7 @@ export default isBuild ? [{
   //   type: 'rollup',
   //   minify: !argv.dev,
   // },
-	
+
   umd: isBuild
     ? {
         name: 'CloudReact',
