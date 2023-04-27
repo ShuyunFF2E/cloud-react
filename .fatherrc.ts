@@ -43,6 +43,10 @@ export default isBuild ? [{
         name: 'CloudReact',
         file: 'cloud-react',
         minFile: true,
+        globals: {
+          'react': 'window.React',
+          'react-dom': 'window.ReactDOM',
+        },
       }
     : false,
   entry: 'src/components/index.js',
@@ -162,6 +166,10 @@ export default isBuild ? [{
         name: 'NewCloudReact',
         file: 'new-cloud-react',
         minFile: true,
+        globals: {
+          'react': 'window.React',
+          'react-dom': 'window.ReactDOM',
+        },
       }
     : false,
   entry: 'src/components/index.js',
