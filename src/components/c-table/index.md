@@ -120,6 +120,7 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 | disablePageOnLoad | 切换分页，数据未返回时，是否需要禁用分页按钮 | 	boolean   |   true   | |
 | watchColumnData | 是否监听 columnData 变化 | 	boolean   |   false   | |
 | useRootWindow | window 对象是否使用根 window | 	boolean   |   false   | |
+| hideEmptyFooter | 配置表格无数据返回，不展示 footer | 	boolean   |   false   | |
 
 #### CTable 其他功能配置
 | 属性           | 说明                    | 类型              | 默认值
@@ -163,8 +164,6 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 <embed src="@components/c-table/demos/bordered.md" /> 
 
 ### 多选表格
-<embed src="@components/c-table/demos/checkbox.md" /> 
-
 <embed src="@components/c-table/demos/page.md" /> 
 
 <embed src="@components/c-table/demos/page1.md" /> 

@@ -7,7 +7,7 @@ desc: 分页
 ```jsx
 
 /**
- * title: 表格多选带分页
+ * title: 表格多选带分页（默认选中第2页）
  * desc: 表格多选带分页（受控分页，可由外部指定 pageNum 和 pageSize，多用于表格记忆功能）
  */
 import React, { useState } from 'react';
@@ -34,26 +34,10 @@ const columns = [
 ];
 
 export default function CTableDemo() {
-  const [showRefresh, setShowRefresh] = useState(true);
-  const [showTotal, setShowTotal] = useState(true);
-  const [checkedData, setCheckedData] = useState([data[1], data[4], data[15], data[25]]);
+  const [checkedData, setCheckedData] = useState([]);
   const [pageOpts, setPageOpts] = useState({ pageNum: 2, pageSize: 20 });
   return (
     <div>
-      <div style={{ marginBottom: 20 }}>
-        <Checkbox style={{ marginLeft: 15 }} checked={showRefresh} onChange={checked => {
-          setShowRefresh(checked);
-        }}>显示刷新按钮</Checkbox>
-        <Checkbox style={{ marginLeft: 15 }} checked={showTotal} onChange={checked => {
-          setShowTotal(checked);
-        }}>显示总条数</Checkbox>
-        <Button style={{ marginLeft: 15 }} onClick={() => {
-          setCheckedData([]);
-        }}>清空已选</Button>
-        <Button style={{ marginLeft: 15 }} onClick={() => {
-          setCheckedData([data[0], data[1]]);
-        }}>选中前两条</Button>
-      </div>
       <CTable
         style={{ width: '100%', height: 400 }}
         supportExpend
@@ -64,8 +48,8 @@ export default function CTableDemo() {
         dataKey="list"
         totalsKey="total"
         isDelay
-        showRefresh={showRefresh}
-        showTotal={showTotal}
+        showRefresh
+        showTotal
         checkedData={checkedData}
         columnData={columns}
         pageOpts={{

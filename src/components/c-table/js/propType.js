@@ -64,6 +64,7 @@ export const propTypes = {
   watchColumnData: PropTypes.bool,
   useRootWindow: PropTypes.bool,
   showFooterSelect: PropTypes.bool,
+  hideEmptyFooter: PropTypes.bool,
 };
 
 export const defaultProps = {
@@ -127,4 +128,5 @@ export const defaultProps = {
   watchColumnData: false,
   useRootWindow: false,
   showFooterSelect: true,
+  hideEmptyFooter: false,
 };
