@@ -63,6 +63,7 @@ export const propTypes = {
   disablePageOnLoad: PropTypes.bool,
   watchColumnData: PropTypes.bool,
   useRootWindow: PropTypes.bool,
+  showFooterSelect: PropTypes.bool,
 };
 
 export const defaultProps = {
@@ -125,4 +126,5 @@ export const defaultProps = {
   disablePageOnLoad: true,
   watchColumnData: false,
   useRootWindow: false,
+  showFooterSelect: true,
 };

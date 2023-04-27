@@ -37,6 +37,7 @@ const columns = [
 export default function CTableDemo() {
   const [showRefresh, setShowRefresh] = useState(true);
   const [showTotal, setShowTotal] = useState(true);
+  const [showFooterSelect, setShowFooterSelect] = useState(true);
   const [checkedData, setCheckedData] = useState([data[1], data[4], data[15]]);
   const [isLoading, setIsLoading] = useState(false);
   return (
@@ -48,6 +49,9 @@ export default function CTableDemo() {
         <Checkbox style={{ marginLeft: 15 }} checked={showTotal} onChange={checked => {
           setShowTotal(checked);
         }}>显示总条数</Checkbox>
+        <Checkbox style={{ marginLeft: 15 }} checked={showFooterSelect} onChange={checked => {
+          setShowFooterSelect(checked);
+        }}>显示已选条数</Checkbox>
         <Button style={{ marginLeft: 15 }} onClick={() => {
           setCheckedData([]);
         }}>清空已选</Button>
@@ -68,6 +72,7 @@ export default function CTableDemo() {
         dataKey="list"
         totalsKey="total"
         isDelay
+        showFooterSelect={showFooterSelect}
         showRefresh={showRefresh}
         showTotal={showTotal}
         checkedData={checkedData}

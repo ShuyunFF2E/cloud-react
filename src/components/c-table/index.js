@@ -681,6 +681,7 @@ class CTable extends Component {
       footerSelectTpl,
       tooltipConfigs,
       disablePageOnLoad,
+      showFooterSelect,
     } = this.props;
     const {
       data,
@@ -783,7 +784,7 @@ class CTable extends Component {
         {supportPage && (
           <div className={classnames(`${tablePrefixCls}-footer`)}>
             <div className={classnames(`${tablePrefixCls}-footer-statistics`)}>
-              {(supportCheckbox || supportRadio) && (
+              {showFooterSelect && (supportCheckbox || supportRadio) && (
                 <span className={classnames(`${tablePrefixCls}-footer-select`)}>
                   {footerSelectTpl || <>已选 {selectedNodeList.length} 条</>}
                 </span>

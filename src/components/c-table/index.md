@@ -86,6 +86,7 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 | supportRadio | 是否支持单选   | boolean   |   false   | |
 | onCheckedAfter | 选中行回调，需要设置 supportCheckbox 为 true，Function(checkedList, checkedRow, checked)    | function   |   -   | | 
 | onCheckedAllAfter | 选中当页回调，需要设置 supportCheckbox 为 true，Function(checkedList, currentPageData, checked)   | function   |   -   | |
+| showFooterSelect | 配置是否显示已选条数 | boolean   |   true   | |
 
 #### CTable 表格拖拽配置
 | 属性           | 说明                    | 类型              | 默认值
