@@ -1,7 +1,7 @@
 @import '../../style/index';
 
 @icon-prefix-cls: ~'@{prefix}-icon';
-@icon: if(('@{prefix} === cloud'), 'icon', ~'@{prefix}-icon');
+@icon: if(('@{prefix}' = 'cloud'), ~'icon', ~'@{prefix}-icon');
 
 @font-face {
   font-family: 'cloud-react-icon-font'; /* Project id 2990746 */

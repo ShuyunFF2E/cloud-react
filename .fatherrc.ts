@@ -55,8 +55,6 @@ export default isBuild ? [{
 	lessInRollupMode: {
     globalVars: {
       '@cloud': 'cloud',
-      'react': 'window.React',
-      'react-dom': 'window.ReactDom',
     },
   },
   extraRollupPlugins: [
