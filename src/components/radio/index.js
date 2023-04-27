@@ -54,7 +54,7 @@ class Radio extends React.Component {
               type="radio"
               checked={checked}
               disabled={disabled}
-              className={`${classSelector}-input`}
+              className={`${classSelector}-input ${checked ? 'checked' : ''}`}
               onChange={this.onChangeAction.bind(this)}
             />
             <span className={`${classSelector}-inner`} />
