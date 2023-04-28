@@ -681,6 +681,8 @@ class CTable extends Component {
       footerSelectTpl,
       tooltipConfigs,
       disablePageOnLoad,
+      showFooterSelect,
+      hideEmptyFooter,
     } = this.props;
     const {
       data,
@@ -721,7 +723,11 @@ class CTable extends Component {
             },
             className,
           )}
-          style={{ height: `calc(100% - ${footerHeight}px)` }}
+          style={{
+            height: `calc(100% - ${
+              hideEmptyFooter && !totals ? 0 : footerHeight
+            }px)`,
+          }}
         >
           <RcTable
             ref={tableRef}
@@ -780,10 +786,10 @@ class CTable extends Component {
             />
           )}
         </div>
-        {supportPage && (
+        {supportPage && (!hideEmptyFooter || (hideEmptyFooter && !!totals)) && (
           <div className={classnames(`${tablePrefixCls}-footer`)}>
             <div className={classnames(`${tablePrefixCls}-footer-statistics`)}>
-              {(supportCheckbox || supportRadio) && (
+              {showFooterSelect && (supportCheckbox || supportRadio) && (
                 <span className={classnames(`${tablePrefixCls}-footer-select`)}>
                   {footerSelectTpl || <>已选 {selectedNodeList.length} 条</>}
                 </span>

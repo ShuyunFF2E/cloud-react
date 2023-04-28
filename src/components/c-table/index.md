@@ -86,6 +86,7 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 | supportRadio | 是否支持单选   | boolean   |   false   | |
 | onCheckedAfter | 选中行回调，需要设置 supportCheckbox 为 true，Function(checkedList, checkedRow, checked)    | function   |   -   | | 
 | onCheckedAllAfter | 选中当页回调，需要设置 supportCheckbox 为 true，Function(checkedList, currentPageData, checked)   | function   |   -   | |
+| showFooterSelect | 配置是否显示已选条数 | boolean   |   true   | |
 
 #### CTable 表格拖拽配置
 | 属性           | 说明                    | 类型              | 默认值
@@ -119,6 +120,7 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 | disablePageOnLoad | 切换分页，数据未返回时，是否需要禁用分页按钮 | 	boolean   |   true   | |
 | watchColumnData | 是否监听 columnData 变化 | 	boolean   |   false   | |
 | useRootWindow | window 对象是否使用根 window | 	boolean   |   false   | |
+| hideEmptyFooter | 配置表格无数据返回，不展示 footer | 	boolean   |   false   | |
 
 #### CTable 其他功能配置
 | 属性           | 说明                    | 类型              | 默认值
@@ -162,8 +164,6 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 <embed src="@components/c-table/demos/bordered.md" /> 
 
 ### 多选表格
-<embed src="@components/c-table/demos/checkbox.md" /> 
-
 <embed src="@components/c-table/demos/page.md" /> 
 
 <embed src="@components/c-table/demos/page1.md" /> 

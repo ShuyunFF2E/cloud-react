@@ -58,7 +58,7 @@
     opacity: 0;
     cursor: pointer;
 
-    &:checked + .@{raido-prefix-cls}-inner {
+    &.checked + .@{raido-prefix-cls}-inner {
       color: @blue-4;
 
       &::after:extend(.root-cloud-radio-position) {
@@ -79,12 +79,12 @@
       color: @radio-disabled-inner-color;
     }
 
-    &[disabled]:not(:checked) + .@{raido-prefix-cls}-inner {
+    &[disabled]:not(.checked) + .@{raido-prefix-cls}-inner {
       color: @gray-5;
       background-color: @gray-3;
     }
 
-    &[checked][disabled] + .@{raido-prefix-cls}-inner {
+    &.checked[disabled] + .@{raido-prefix-cls}-inner {
       color: @blue-2;
       &::after:extend(.root-cloud-radio-position) {
         background-color: @blue-2;
