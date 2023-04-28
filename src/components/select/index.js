@@ -234,7 +234,7 @@ class Select extends Component {
     } else {
       this.setState({
         style: {
-          top: isLocationTop ? `${-optionsHeight}px` : `${height + 4}px`,
+          top: isLocationTop ? `${-optionsHeight - 4}px` : `${height + 4}px`,
         },
       });
     }
