@@ -58,6 +58,13 @@ export const propTypes = {
   showFilterBtn: PropTypes.bool,
   footerHeight: PropTypes.number,
   footerSelectTpl: PropTypes.any,
+  isTreeIncludeChildren: PropTypes.bool,
+  tooltipConfigs: PropTypes.array,
+  disablePageOnLoad: PropTypes.bool,
+  watchColumnData: PropTypes.bool,
+  useRootWindow: PropTypes.bool,
+  showFooterSelect: PropTypes.bool,
+  hideEmptyFooter: PropTypes.bool,
 };
 
 export const defaultProps = {
@@ -115,4 +122,11 @@ export const defaultProps = {
   showFilterBtn: false,
   footerHeight: undefined,
   footerSelectTpl: null,
+  isTreeIncludeChildren: true,
+  tooltipConfigs: [],
+  disablePageOnLoad: true,
+  watchColumnData: false,
+  useRootWindow: false,
+  showFooterSelect: true,
+  hideEmptyFooter: false,
 };

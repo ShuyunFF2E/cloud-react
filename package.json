@@ -19,7 +19,8 @@
     "umi-lint": "umi-lint --eslint.ext='.js,jsx' ./src/components",
     "precommit": "umi-lint --staged --eslint --prettier --fix",
     "new:component": "cp -r tpls/new-component src/components/new-component",
-    "cli-version": "node ./scripts/generate-version.js"
+    "cli-version": "node ./scripts/generate-version.js",
+    "postinstall": "patch-package"
   },
   "dumiAssets": "assets.json",
   "main": "dist/cloud-react.js",
@@ -38,6 +39,7 @@
     "gridmanager-react": "1.10.2-0",
     "less": "^3.13.1",
     "moment": "^2.29.1",
+    "patch-package": "^6.4.7",
     "prop-types": "^15.7.2",
     "rc-cascader": "^3.4.2",
     "rc-color-picker": "^1.2.6",
@@ -45,7 +47,7 @@
     "rc-picker": "^2.5.19",
     "rc-table": "7.28.1",
     "rc-trigger": "^5.2.10",
-    "rc-util": "^5.21.5",
+    "rc-util": "5.25.2",
     "react": "16.12.0",
     "react-dom": "16.12.0",
     "react-drag-listview": "^0.2.0",

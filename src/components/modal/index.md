@@ -38,6 +38,7 @@ group:
 | showMask           | 是否显示遮罩层                           | boolean             | `true`  |
 | clickMaskCanClose  | 点击遮罩层是否关闭, showMask 必须为 true | boolean             | `true`  |
 | showConfirmLoading | 点击确定是否显示 loading，用于异步关闭   | boolean             | `false` |
+| useRootWindow | 是否使用 rootWindow   | boolean             | `true` |
 
 ### Modal.createModal()
 

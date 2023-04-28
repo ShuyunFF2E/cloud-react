@@ -11,17 +11,19 @@ import './index.less';
 class Modal extends Component {
   static propTypes = {
     children: PropTypes.any,
+    useRootWindow: PropTypes.bool,
   };
 
   static defaultProps = {
     children: null,
+    useRootWindow: true,
   };
 
   static ConfigProvider = ContextProvider;
 
   render() {
-    const { children, ...props } = this.props;
-    const rootWindow = getRootWindow();
+    const { children, useRootWindow = true, ...props } = this.props;
+    const rootWindow = getRootWindow(useRootWindow);
     const rootDocument = rootWindow.document;
 
     return ReactDOM.createPortal(

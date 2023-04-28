@@ -1,0 +1,124 @@
+diff --git a/node_modules/rc-util/es/Dom/isVisible.js b/node_modules/rc-util/es/Dom/isVisible.js
+index 79a072d..6e6dfb0 100644
+--- a/node_modules/rc-util/es/Dom/isVisible.js
++++ b/node_modules/rc-util/es/Dom/isVisible.js
+@@ -1,11 +1,39 @@
++function getRootWindow(ignoreFrame = true) {
++  let _win = window;
++
++  if (!ignoreFrame) return _win;
++
++  const getDocument = ({ parent }) => {
++    try {
++      // 不同域，直接返回
++      if (!parent || !parent.document) {
++        return _win;
++      }
++
++      if (_win === parent) {
++        return _win;
++      }
++
++      _win = parent;
++
++      return getDocument(_win);
++    } catch (_) {
++      return _win;
++    }
++  };
++
++  return getDocument(window);
++}
++
+ export default (function (element) {
+   if (!element) {
+     return false;
+   }
+-  if (element instanceof HTMLElement && element.offsetParent) {
++  const _window = getRootWindow().document.querySelector('#mask') ? getRootWindow() : window;
++  if (element instanceof _window.HTMLElement && element.offsetParent) {
+     return true;
+   }
+-  if (element instanceof SVGGraphicsElement && element.getBBox) {
++  if (element instanceof _window.SVGGraphicsElement && element.getBBox) {
+     var _element$getBBox = element.getBBox(),
+       width = _element$getBBox.width,
+       height = _element$getBBox.height;
+@@ -13,7 +41,7 @@ export default (function (element) {
+       return true;
+     }
+   }
+-  if (element instanceof HTMLElement && element.getBoundingClientRect) {
++  if (element instanceof _window.HTMLElement && element.getBoundingClientRect) {
+     var _element$getBoundingC = element.getBoundingClientRect(),
+       _width = _element$getBoundingC.width,
+       _height = _element$getBoundingC.height;
+diff --git a/node_modules/rc-util/lib/Dom/isVisible.d.ts b/node_modules/rc-util/lib/Dom/isVisible.d.ts
+index 3e25fac..173aa58 100644
+--- a/node_modules/rc-util/lib/Dom/isVisible.d.ts
++++ b/node_modules/rc-util/lib/Dom/isVisible.d.ts
+@@ -1,2 +1,3 @@
+ declare const _default: (element: HTMLElement | SVGGraphicsElement) => boolean;
+ export default _default;
++
+diff --git a/node_modules/rc-util/lib/Dom/isVisible.js b/node_modules/rc-util/lib/Dom/isVisible.js
+index af19fba..b218cb5 100644
+--- a/node_modules/rc-util/lib/Dom/isVisible.js
++++ b/node_modules/rc-util/lib/Dom/isVisible.js
+@@ -1,5 +1,32 @@
+ "use strict";
+ 
++function getRootWindow(ignoreFrame = true) {
++  let _win = window;
++
++  if (!ignoreFrame) return _win;
++
++  const getDocument = ({ parent }) => {
++    try {
++      // 不同域，直接返回
++      if (!parent || !parent.document) {
++        return _win;
++      }
++
++      if (_win === parent) {
++        return _win;
++      }
++
++      _win = parent;
++
++      return getDocument(_win);
++    } catch (_) {
++      return _win;
++    }
++  };
++
++  return getDocument(window);
++}
++
+ Object.defineProperty(exports, "__esModule", {
+   value: true
+ });
+@@ -8,10 +35,12 @@ var _default = function _default(element) {
+   if (!element) {
+     return false;
+   }
+-  if (element instanceof HTMLElement && element.offsetParent) {
++  const _window = window.document.querySelector('#mask') ? getRootWindow() : window;
++  console.log(_window);
++  if (element instanceof _window.HTMLElement && element.offsetParent) {
+     return true;
+   }
+-  if (element instanceof SVGGraphicsElement && element.getBBox) {
++  if (element instanceof _window.SVGGraphicsElement && element.getBBox) {
+     var _element$getBBox = element.getBBox(),
+       width = _element$getBBox.width,
+       height = _element$getBBox.height;
+@@ -19,7 +48,7 @@ var _default = function _default(element) {
+       return true;
+     }
+   }
+-  if (element instanceof HTMLElement && element.getBoundingClientRect) {
++  if (element instanceof _window.HTMLElement && element.getBoundingClientRect) {
+     var _element$getBoundingC = element.getBoundingClientRect(),
+       _width = _element$getBoundingC.width,
+       _height = _element$getBoundingC.height;
