@@ -1,0 +1,80 @@
+@import '../style/index';
+
+.@{prefix}-drawer {
+  position: fixed;
+  background: white;
+  transition: top 500ms, right 500ms, bottom 500ms, left 500ms;
+  z-index: -1;
+
+  &.show {
+    box-shadow: @border-shadow-3;
+    z-index: @z-index-drawer;
+  }
+
+  &.top {
+    top: 0;
+    right: 0;
+    left: 0;
+  }
+
+  &.right {
+    top: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  &.bottom {
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+  &.left {
+    top: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+  &-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 56px;
+    line-height: 56px;
+    background: #fafafa;
+    box-shadow: inset 0px -1px 0px 0px #f5f5f5;
+    color: @gray-9;
+
+    .@{prefix}-icon.icon-close {
+      font-size: 16px;
+      cursor: pointer;
+      color: @gray-7;
+      margin-right: 20px;
+    }
+  }
+
+  &-title {
+    margin-left: 16px;
+  }
+
+  &-content {
+    padding: 16px;
+    height: calc(100% - 56px);
+    overflow: auto;
+  }
+
+  &-container {
+    padding-bottom: 32px;
+  }
+
+  &-mask {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: @gray-7;
+    z-index: @z-index-drawer-mask;
+  }
+}
