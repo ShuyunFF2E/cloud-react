@@ -99,7 +99,14 @@ function Drawer(
               className={`${drawerPrefix}-title`}
               dangerouslySetInnerHTML={{ __html: title }}
             />
-            <Icon id={`${drawerPrefix}-close`} type="close" onClick={onClose} />
+            <Icon
+              id={`${drawerPrefix}-close`}
+              type="close"
+              onClick={(evt) => {
+                evt.stopPropagation();
+                onClose();
+              }}
+            />
           </header>
         )}
 
