@@ -12,7 +12,7 @@ import './index.less';
 import Icon from '../icon';
 import { getCoordinate, isInsideRect } from './util';
 
-const drawerPrefix = `${prefixCls}-drawer`;
+const drawerPrefix = `${prefixCls}-drawer1`;
 
 function Drawer(
   {
