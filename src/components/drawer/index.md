@@ -18,13 +18,18 @@ group:
 
 | 属性           | 说明                    | 类型              | 默认值 
 | -------------- | ---------------------- | ----------------- | ------ |
-| visible |  是否显示 Drawer  |  boolean  |   false  | |
 | title |  header内容  |  string  |   -  | |
 | placement | Drawer 打开的方向，`top` `right` `bottom` `left`   |  string  |   `right`   | |
 | size | Drawer 窗体的大小   |  number/string  |   30%  | |
 | showHeader |  是否展示	header  |  boolean  |   true  | |
 | showMask | 是否需要遮罩层    | boolean   |   false   | |
 | wrapperClosable |  点击 外部区域/遮罩区域 是否可以关闭 Drawer	  |  boolean  |   false  | |
+| onCloseAfter |  关闭抽屉后的回调函数	  |  func  |   () => {}  | |
+
+#### 打开抽屉
+```js
+drawerRef.current.open();
+```
 
 ### 代码演示
 
