@@ -29,27 +29,35 @@ const columns = [
 ];
 
 export default function CTableDemo() {
+  const [disabled, setDisabled] = useState(false);
   return (
-    <CTable
-      style={{ width: '100%', height: 370 }}
-      supportRadio
-      supportPage
-      lightCheckedRow
-      showFooterSelect={false}
-      checkedData={[data[1]]}
-      pageOpts={{ pageSize: 6 }}
-      columnData={columns}
-      ajaxData={(params) => {
-        return new Promise(resolve => {
-          setTimeout(() => {
-            resolve({ totals: data.length, data: JSON.parse(JSON.stringify(data.slice(params.pageSize * (params.pageNum - 1), params.pageSize * params.pageNum))) });
-          }, 500)
-        })
-      }}
-      onCheckedAfter={checkedList => {
-        console.log('已选列表:', checkedList);
-      }}
-    />
+    <div>
+      <Checkbox style={{ marginBottom: 20 }} checked={disabled} onChange={disabled => {
+        setDisabled(disabled);
+      }}>禁用选择</Checkbox>
+      <CTable
+        key={String(disabled)}
+        style={{ width: '100%', height: 370 }}
+        supportRadio
+        supportPage
+        lightCheckedRow
+        disabled={disabled}
+        showFooterSelect={false}
+        checkedData={[data[1]]}
+        pageOpts={{ pageSize: 6 }}
+        columnData={columns}
+        ajaxData={(params) => {
+          return new Promise(resolve => {
+            setTimeout(() => {
+              resolve({ totals: data.length, data: JSON.parse(JSON.stringify(data.slice(params.pageSize * (params.pageNum - 1), params.pageSize * params.pageNum))) });
+            }, 200)
+          })
+        }}
+        onCheckedAfter={checkedList => {
+          console.log('已选列表:', checkedList);
+        }}
+      />
+    </div>
   );
 }
 ```

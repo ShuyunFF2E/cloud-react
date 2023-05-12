@@ -635,7 +635,7 @@ class CTable extends Component {
         style={this.props.emptyStyle}
       >
         <img src={emptyImg} height={90} alt="暂无数据" />
-        <p style={{ marginTop: 4 }}>暂无数据</p>
+        <p style={{ marginTop: 4 }}>{this.props.emptyText() || '暂无数据'}</p>
       </div>
     );
   };

@@ -87,6 +87,7 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 | onCheckedAfter | 选中行回调，需要设置 supportCheckbox 为 true，Function(checkedList, checkedRow, checked)    | function   |   -   | | 
 | onCheckedAllAfter | 选中当页回调，需要设置 supportCheckbox 为 true，Function(checkedList, currentPageData, checked)   | function   |   -   | |
 | showFooterSelect | 配置是否显示已选条数 | boolean   |   true   | |
+| disabled | 禁用多选/单选按钮 | boolean   |   false   | |
 
 #### CTable 表格拖拽配置
 | 属性           | 说明                    | 类型              | 默认值
@@ -103,6 +104,7 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 | footerHeight | 分页部分高度，设置 footerTpl，需要设置 footerHeight    | number   |   undefined   | |
 | footerSelectTpl | 自定义 已选n条 模板   | -   |   null   | |
 | emptyTpl | 自定义数据为空模板   | function   |   -   | |
+| emptyText | 自定义数据为空模板的文本（无需重新配置暂无数据图片）   | function   |   -   | |
 | rowClassName | 自定义行类名   | function   |   -   | |
 | lightCheckedRow | 选中行高亮   | boolean   |   false   | |
 | disabledData | 禁用行（也可以通过给 data 设置 disabled: true 来实现禁用行）   | array   |   []   | |
