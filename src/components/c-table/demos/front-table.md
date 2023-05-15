@@ -58,7 +58,7 @@ export default function CTableDemo() {
     <div>
       <Button style={{ marginBottom: 20 }} onClick={onAdd}>新增数据</Button>
       <CTable
-        style={{ height: 400 }}
+        maxHeight={260}
         columnData={columns}
         ajaxData={{ totals: data.length, data }}
       />
