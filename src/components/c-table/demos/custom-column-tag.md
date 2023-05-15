@@ -22,6 +22,7 @@ const columns = [
     { title: '创建时间', dataIndex: 'createTime' },
     {
         title: '活动分类',
+        width: 200,
         dataIndex: 'category',
         render: (category) => {
           const styleConfig = {
