@@ -683,6 +683,7 @@ class CTable extends Component {
       disablePageOnLoad,
       showFooterSelect,
       hideEmptyFooter,
+      sticky,
     } = this.props;
     const {
       data,
@@ -735,6 +736,7 @@ class CTable extends Component {
             columns={columnData}
             data={data}
             expandIconColumnIndex={expandIconColumnIndex}
+            sticky={sticky}
             scroll={{ x: '100%', y: maxHeight || '100%' }}
             expandable={getExpandableConfig({ ...this.props })}
             emptyText={emptyTpl()}
