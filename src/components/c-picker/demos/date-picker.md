@@ -69,6 +69,9 @@ export default class DatePickerDemo extends React.Component {
 				<Form.Item label="时间选择器">
 					<TimePicker value={time} onChange={this.onTimeChange} disabled={disabled} />
 				</Form.Item>
+				<Form.Item label="时间选择器（不显示秒）">
+					<TimePicker value={time} onChange={this.onTimeChange} format="HH:mm" showSecond={false} disabled={disabled} />
+				</Form.Item>
 			</Form>
 		);
 	}
