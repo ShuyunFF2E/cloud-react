@@ -97,6 +97,12 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 | onDragAfter | 表格拖拽行回调 | 	function   |   -   | |
 | dragSelector | 指定表格拖拽的选择器 | 	string   |   ''   | |
 
+#### CTable 表格固定表头
+| 属性           | 说明                    | 类型              | 默认值
+| -------------- | ---------------------- | ----------------- | ------ |
+| sticky | 表头固定 | 	object { offsetHeader?: number, getContainer?: () => Window / HTMLElement }  |   {}   | |
+
+
 #### CTable 自定义模板配置
 | 属性           | 说明                    | 类型              | 默认值
 | -------------- | ---------------------- | ----------------- | ------ |
@@ -239,6 +245,9 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 <embed src="@components/c-table/demos/resize.md" />
 
 <embed src="@components/c-table/demos/resize1.md" />
+
+### 表格固定表头
+<embed src="@components/c-table/demos/sticky.md" />
 
 ### 解决方案
 <embed src="@components/c-table/demos/goods-table.md" />
