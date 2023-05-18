@@ -51,8 +51,6 @@ export { default as ComplexRadio } from './complex-radio';
 
 export { default as Datepicker } from './datepicker';
 
-export { default as Drawer } from './drawer';
-
 export { default as Field } from './field';
 
 export { default as Form } from './form';
