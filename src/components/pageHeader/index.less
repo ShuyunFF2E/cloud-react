@@ -2,28 +2,31 @@
 
 @breadcrumbs-prefix-cls: ~'@{prefix}-page-header';
 
-.cloud-breadcrumbs{
-	margin-bottom: 8px;
+.@{prefix}-breadcrumbs {
+  margin-bottom: 8px;
 }
 .@{breadcrumbs-prefix-cls} {
-	font-size: 16px;
-	font-family: PingFangSC-Medium, PingFang SC;
-	font-weight: 500;
-	color: rgba(0, 0, 0, 0.85);
-	&.@{breadcrumbs-prefix-cls}-large, &.@{breadcrumbs-prefix-cls}-large .@{breadcrumbs-prefix-cls}-icon {
-		font-size: 20px;
-	}
-	&.@{breadcrumbs-prefix-cls}-default, &.@{breadcrumbs-prefix-cls}-default .@{breadcrumbs-prefix-cls}-icon {
-		font-size: 16px;
-	}
-	&.@{breadcrumbs-prefix-cls}-small, &.@{breadcrumbs-prefix-cls}-small .@{breadcrumbs-prefix-cls}-icon {
-		font-size: 14px;
-	}
-	.@{breadcrumbs-prefix-cls}-icon {
-		cursor: pointer;
-	}
-	.@{breadcrumbs-prefix-cls}-subtitle {
-		color: rgba(0, 0, 0, 0.25);
-		font-weight: normal;
-	}
+  font-size: 16px;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.85);
+  &.@{breadcrumbs-prefix-cls}-large,
+  &.@{breadcrumbs-prefix-cls}-large .@{breadcrumbs-prefix-cls}-icon {
+    font-size: 20px;
+  }
+  &.@{breadcrumbs-prefix-cls}-default,
+  &.@{breadcrumbs-prefix-cls}-default .@{breadcrumbs-prefix-cls}-icon {
+    font-size: 16px;
+  }
+  &.@{breadcrumbs-prefix-cls}-small,
+  &.@{breadcrumbs-prefix-cls}-small .@{breadcrumbs-prefix-cls}-icon {
+    font-size: 14px;
+  }
+  .@{breadcrumbs-prefix-cls}-icon {
+    cursor: pointer;
+  }
+  .@{breadcrumbs-prefix-cls}-subtitle {
+    color: rgba(0, 0, 0, 0.25);
+    font-weight: normal;
+  }
 }

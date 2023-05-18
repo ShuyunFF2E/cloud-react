@@ -17,7 +17,7 @@ for (let i = 0; i < colors.length; i += 1) {
   }
 }
 
-export const version = '1.1.0';
+export const version = '1.0.23';
 
 export { default as Avatar } from './avatar';
 

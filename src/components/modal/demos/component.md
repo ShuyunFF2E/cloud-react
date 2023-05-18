@@ -46,7 +46,7 @@ export default class ModalDemo extends React.Component {
 	};
 
 	message = () => {
-		Message.success('欢迎使用message组件', { duration: 0, contextContainer: document.getElementsByClassName('newCloud-modal-body')[0] });
+		Message.success('欢迎使用message组件', { duration: 0, contextContainer: document.getElementsByClassName('cloud-modal-body')[0] });
 	};
 
 	handleChange = value => {
