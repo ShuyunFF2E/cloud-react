@@ -31,6 +31,8 @@ export { default as CCascader } from './c-cascader';
 
 export { default as CDrawer } from './c-drawer';
 
+export { default as CDropdown } from './c-dropdown';
+
 export { default as CMenu } from './c-menu';
 
 export { default as CPicker } from './c-picker';
@@ -48,6 +50,8 @@ export { default as ComplexCheckbox } from './complex-checkbox';
 export { default as ComplexRadio } from './complex-radio';
 
 export { default as Datepicker } from './datepicker';
+
+export { default as Drawer } from './drawer';
 
 export { default as Field } from './field';
 
