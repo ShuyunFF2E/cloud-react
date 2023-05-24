@@ -68,6 +68,7 @@ export const propTypes = {
   hideEmptyFooter: PropTypes.bool,
   disabled: PropTypes.bool,
   sticky: PropTypes.object,
+  stickyFooter: PropTypes.bool,
 };
 
 export const defaultProps = {
@@ -134,5 +135,6 @@ export const defaultProps = {
   showFooterSelect: true,
   hideEmptyFooter: false,
   disabled: false,
-  sticky: {},
+  sticky: undefined,
+  stickyFooter: false,
 };

@@ -684,6 +684,7 @@ class CTable extends Component {
       showFooterSelect,
       hideEmptyFooter,
       sticky,
+      stickyFooter,
     } = this.props;
     const {
       data,
@@ -789,7 +790,11 @@ class CTable extends Component {
           )}
         </div>
         {supportPage && (!hideEmptyFooter || (hideEmptyFooter && !!totals)) && (
-          <div className={classnames(`${tablePrefixCls}-footer`)}>
+          <div
+            className={classnames(`${tablePrefixCls}-footer`, {
+              [`${tablePrefixCls}-sticky-footer`]: stickyFooter,
+            })}
+          >
             <div className={classnames(`${tablePrefixCls}-footer-statistics`)}>
               {showFooterSelect && (supportCheckbox || supportRadio) && (
                 <span className={classnames(`${tablePrefixCls}-footer-select`)}>

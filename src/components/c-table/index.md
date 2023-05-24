@@ -101,6 +101,7 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 | 属性           | 说明                    | 类型              | 默认值
 | -------------- | ---------------------- | ----------------- | ------ |
 | sticky | 表头固定 | 	object { offsetHeader?: number, getContainer?: () => Window / HTMLElement }  |   {}   | |
+| stickyFooter | 表尾固定在页面底部 | 	bool  |   false   | |
 
 
 #### CTable 自定义模板配置
@@ -246,7 +247,7 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 
 <embed src="@components/c-table/demos/resize1.md" />
 
-### 表格固定表头
+### 表格固定表头和表尾
 <embed src="@components/c-table/demos/sticky.md" />
 
 ### 解决方案

@@ -26,6 +26,7 @@ export default function CTableDemo() {
           sticky={{
             offsetHeader: 64,
           }}
+          stickyFooter
           supportPage
            columnData={columns}
            ajaxData={{ totals: data.length, data }}
