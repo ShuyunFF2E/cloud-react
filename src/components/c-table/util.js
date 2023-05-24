@@ -11,7 +11,14 @@ export function getDataSource(ajaxData, params) {
   if (typeof ajaxData === 'function') {
     return ajaxData(params);
   }
-  return ajaxData;
+  return Object.keys(ajaxData).reduce((obj, key) => {
+    if (Array.isArray(ajaxData[key])) {
+      obj[key] = [...ajaxData[key]];
+    } else {
+      obj[key] = ajaxData[key];
+    }
+    return obj;
+  }, {});
 }
 
 const DELAY_TIME = 300;

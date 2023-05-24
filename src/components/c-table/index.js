@@ -635,7 +635,7 @@ class CTable extends Component {
         style={this.props.emptyStyle}
       >
         <img src={emptyImg} height={90} alt="暂无数据" />
-        <p style={{ marginTop: 4 }}>暂无数据</p>
+        <p style={{ marginTop: 4 }}>{this.props.emptyText() || '暂无数据'}</p>
       </div>
     );
   };
@@ -683,6 +683,7 @@ class CTable extends Component {
       disablePageOnLoad,
       showFooterSelect,
       hideEmptyFooter,
+      sticky,
     } = this.props;
     const {
       data,
@@ -735,6 +736,7 @@ class CTable extends Component {
             columns={columnData}
             data={data}
             expandIconColumnIndex={expandIconColumnIndex}
+            sticky={sticky}
             scroll={{ x: '100%', y: maxHeight || '100%' }}
             expandable={getExpandableConfig({ ...this.props })}
             emptyText={emptyTpl()}

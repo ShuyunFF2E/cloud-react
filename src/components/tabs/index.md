@@ -59,4 +59,6 @@ group:
 
 <embed src="@components/tabs/demos/capsule.md" /> 
 
-<embed src="@components/tabs/demos/slide.md" /> 
+<embed src="@components/tabs/demos/slide.md" />
+
+<embed src="@components/tabs/demos/icons.md" /> 

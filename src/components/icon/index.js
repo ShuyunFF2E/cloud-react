@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { prefixCls, loadScript } from '@utils';
 import './index.less';
 
+
 const Icon = ({
   type, style, className, ...restProps
 }) => {

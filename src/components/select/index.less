@@ -27,7 +27,7 @@
 
 @box-sizing: border-box;
 
-@select-empty-color: @gray-7;
+@select-empty-color: @gray-6;
 @select-normal-border: 1px solid @gray-4;
 @select-hover-color: @gray-6;
 @select-hover-border: 1px solid @select-hover-color;
@@ -191,6 +191,24 @@
   border-radius: 2px;
   padding: 8px 0;
   background: @color-white;
+  .divider {
+    height: 1px;
+    background: @gray-4;
+    margin-top: 8px;
+    margin-bottom: 8px;
+  }
+}
+
+.@{select-prefix-cls}-group-select-options {
+  .groupName {
+    color: rgba(0, 0, 0, 0.45);
+    font-size: 12px;
+    margin-left: 12px;
+    margin-bottom: 8px;
+    &:not(:first-child) {
+      margin-top: 8px;
+    }
+  }
 }
 
 .@{select-prefix-cls}-select-options {
@@ -312,6 +330,10 @@
         &:hover {
           background: @option-hover-background;
         }
+      }
+
+      .@{select-prefix-cls}-all-select {
+        height: 32px;
       }
     }
   }

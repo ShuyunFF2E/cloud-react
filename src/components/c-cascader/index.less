@@ -29,12 +29,26 @@ input::-webkit-search-cancel-button {
 		}
 	}
 
+	&-disabled {
+		&:hover {
+			.@{cascader-prefix-cls}-selector {
+				border-color: @gray-4;
+
+			}
+		}
+
+		.@{cascader-prefix-cls}-selector {
+			cursor: not-allowed;
+			background: @gray-3;
+		}
+	}
+
 	&-selection-item {
-		color: @gray-8;
+		color: @gray-9;
 		overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    padding-right: 12px;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		padding-right: 12px;
 	}
 
 	&-arrow {
@@ -114,8 +128,9 @@ input::-webkit-search-cancel-button {
 	}
 
 	&-dropdown-hidden {
-	  display: none;
+		display: none;
 	}
+
 	&-single &-selector &-selection-search {
 		position: absolute;
 		top: 0;
@@ -149,8 +164,10 @@ input::-webkit-search-cancel-button {
 		flex-wrap: wrap;
 		align-items: center;
 		padding: 1px 4px;
+		height: 32px;
 		max-height: 350px;
-    overflow: auto;
+		overflow: auto;
+		box-sizing: border-box;
 	}
 
 	&-single &-selection-placeholder {
@@ -166,6 +183,8 @@ input::-webkit-search-cancel-button {
 		white-space: nowrap;
 		text-overflow: ellipsis;
 		pointer-events: none;
+		height: 28px;
+		line-height: 28px;
 	}
 
 	&-multiple &-selection-placeholder {
@@ -181,6 +200,8 @@ input::-webkit-search-cancel-button {
 		white-space: nowrap;
 		text-overflow: ellipsis;
 		pointer-events: none;
+		height: 28px;
+		line-height: 28px;
 	}
 
 	&-multiple &-selection-search {
@@ -188,7 +209,7 @@ input::-webkit-search-cancel-button {
 		max-width: 100%;
 		-webkit-margin-start: 7px;
 		margin-inline-start: 7px;
-
+		line-height: 22px;
 		&-mirror {
 			position: absolute;
 			top: 0;
@@ -212,6 +233,7 @@ input::-webkit-search-cancel-button {
 			-webkit-appearance: none;
 			-moz-appearance: none;
 			appearance: none;
+			height: 24px;
 		}
 	}
 
@@ -271,6 +293,9 @@ input::-webkit-search-cancel-button {
 			flex: none;
 			align-self: center;
 			max-width: 100%;
+		}
+		&-item-suffix{
+			position: static !important;
 		}
 	}
 
@@ -378,7 +403,7 @@ input::-webkit-search-cancel-button {
 
 			&-expand &-expand-icon,
 			&-loading-icon {
-			
+
 				font-size: 16px;
 				color: @gray-7;
 

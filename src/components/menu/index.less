@@ -11,7 +11,7 @@
 @menu-bg-color: #e9ebee;
 @menu-indicator-color: #cbcbcb;
 
-.@{menu-item-prefix-cls} {
+.root-cloud-menu-prefix {
 	height: 40px;
 	font-size: 12px;
 	line-height: 40px;
@@ -56,7 +56,7 @@
 			color: @color-gray8;
 		}
 
-		.group-title:extend(.cloud-menu-item all) {
+		.group-title:extend(.root-cloud-menu-prefix all) {
 			position: relative;
 
 			.indicator {
@@ -82,7 +82,7 @@
 		}
 
 		.item {
-			&:extend(.cloud-menu-item all);
+			&:extend(.root-cloud-menu-prefix all);
 		}
 	}
 }

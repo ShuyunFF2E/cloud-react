@@ -20,6 +20,7 @@ export const propTypes = {
   onCheckedAfter: PropTypes.func,
   onCheckedAllAfter: PropTypes.func,
   emptyTpl: PropTypes.any,
+  emptyText: PropTypes.any,
   checkedData: PropTypes.array,
   showTotal: PropTypes.bool,
   showRefresh: PropTypes.bool,
@@ -65,6 +66,8 @@ export const propTypes = {
   useRootWindow: PropTypes.bool,
   showFooterSelect: PropTypes.bool,
   hideEmptyFooter: PropTypes.bool,
+  disabled: PropTypes.bool,
+  sticky: PropTypes.object,
 };
 
 export const defaultProps = {
@@ -84,6 +87,7 @@ export const defaultProps = {
   onCheckedAfter: () => {},
   onCheckedAllAfter: () => {},
   emptyTpl: () => '',
+  emptyText: () => '',
   checkedData: [],
   showTotal: false,
   showRefresh: true,
@@ -129,4 +133,6 @@ export const defaultProps = {
   useRootWindow: false,
   showFooterSelect: true,
   hideEmptyFooter: false,
+  disabled: false,
+  sticky: {},
 };
