@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { prefixCls, loadScript } from '@utils';
 import './index.less';
 
-
+const iconPrefixCls = prefixCls === 'cloud' ? 'icon' : `${prefixCls}-icon`;
 const Icon = ({
   type, style, className, ...restProps
 }) => {
@@ -15,7 +15,7 @@ const Icon = ({
   }, []);
   return (
     <i
-      className={classNames(className, `${prefixCls}-icon icon-${type}`)}
+      className={classNames(className, `${prefixCls}-icon ${iconPrefixCls}-${type}`)}
       style={style}
       {...restProps}
     />
