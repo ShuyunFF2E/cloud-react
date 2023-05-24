@@ -1,22 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { prefixCls, loadScript } from '@utils';
 import './index.less';
 
-loadScript(
-  'https://cloud-cdn.shuyun.com/fe-publish-asset/0.0.37/libs/cloud-react/icon/color/symbol.min.js',
-);
-
 const Icon = ({
   type, style, className, ...restProps
-}) => (
-  <i
-    className={classNames(className, `${prefixCls}-icon icon-${type}`)}
-    style={style}
-    {...restProps}
-  />
-);
+}) => {
+  useEffect(() => {
+    loadScript(
+      'https://cloud-cdn.shuyun.com/fe-publish-asset/0.0.37/libs/cloud-react/icon/color/symbol.min.js',
+    );
+  }, []);
+  return (
+    <i
+      className={classNames(className, `${prefixCls}-icon icon-${type}`)}
+      style={style}
+      {...restProps}
+    />
+  );
+};
 
 const ColorIcon = ({
   type, style, className, ...restProps
