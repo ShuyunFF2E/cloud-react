@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { prefixCls } from '@utils';
+import { prefixCls, loadScript } from '@utils';
 import './index.less';
 
-import('https://cloud-cdn.shuyun.com/fe-publish-asset/0.0.37/libs/cloud-react/icon/color/symbol.min.js');
+loadScript(
+  'https://cloud-cdn.shuyun.com/fe-publish-asset/0.0.37/libs/cloud-react/icon/color/symbol.min.js',
+);
 
 const iconPrefixCls = prefixCls === 'cloud' ? 'icon' : `${prefixCls}-icon`;
 const Icon = ({
