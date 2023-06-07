@@ -6,6 +6,7 @@ import flat from './flat';
 import { prefixCls } from './config';
 import sandboxSelector from './sandbox-selector';
 import { loadScript } from './module';
+import getPlacements from './placements';
 
 export {
   noop,
@@ -16,4 +17,5 @@ export {
   getCssText,
   sandboxSelector,
   loadScript,
+  getPlacements,
 };
