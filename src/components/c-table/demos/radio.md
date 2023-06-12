@@ -37,7 +37,7 @@ export default function CTableDemo() {
       }}>禁用选择</Checkbox>
       <CTable
         key={String(disabled)}
-        style={{ width: '100%', height: 370 }}
+        style={{ width: '100%', height: 400 }}
         supportRadio
         supportPage
         lightCheckedRow

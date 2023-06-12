@@ -45,7 +45,7 @@ const columns = [
 export default function CTableDemo() {
   return (
     <CTable
-      style={{ width: '100%', height: 360 }}
+      style={{ width: '100%', height: 400 }}
       supportCheckbox
       supportPage
       rowKey="id" // rowKey 设置为 ""，disabledData 可以传递整行数据，例如：rowKey="" disabledData={[data[0], data[8]]}

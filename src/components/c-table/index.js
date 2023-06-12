@@ -204,71 +204,71 @@ class CTable extends Component {
 
     this.column.setColumnData();
 
-    this.setHeaderStyle();
-    this.setFixedStyle();
+    // this.setHeaderStyle();
+    // this.setFixedStyle();
     this.setFooterHeight();
   };
 
   /**
    * 解决表头滚动问题（rcTable bug）
    */
-  setHeaderStyle = () => {
-    if (isFirefox() || !this.hasCustomScroll || this.props.useRootWindow) {
-      return;
-    }
-    setTimeout(() => {
-      if (this.ref.current) {
-        const bodyEle = this.ref.current.querySelector(
-          `.${tablePrefixCls}-body`,
-        );
-        if (bodyEle) {
-          bodyEle.style.paddingRight = 0;
-          bodyEle.parentElement.querySelector(
-            `.${tablePrefixCls}-header colgroup col:last-child`,
-          ).style.width = 0;
-        }
-      }
-    });
-  };
+  // setHeaderStyle = () => {
+  //   if (isFirefox() || !this.hasCustomScroll || this.props.useRootWindow) {
+  //     return;
+  //   }
+  //   setTimeout(() => {
+  //     if (this.ref.current) {
+  //       const bodyEle = this.ref.current.querySelector(
+  //         `.${tablePrefixCls}-body`,
+  //       );
+  //       if (bodyEle) {
+  //         bodyEle.style.paddingRight = 0;
+  //         bodyEle.parentElement.querySelector(
+  //           `.${tablePrefixCls}-header colgroup col:last-child`,
+  //         ).style.width = 0;
+  //       }
+  //     }
+  //   });
+  // };
 
   /**
    * 手动计算 右侧固定列 表头的样式（由于自定义滚动条占据宽度导致，rcTable 并不兼容这种情况）
    */
-  setFixedStyle = () => {
-    setTimeout(() => {
-      if (isFirefox() || !this.hasCustomScroll) {
-        return;
-      }
-      const fixedColumn = this.state.columnData
-        .filter((item) => item.fixed === 'right')
-        .reverse();
-      if (!fixedColumn.length) {
-        return;
-      }
-      const fixedEles = Array.from(
-        this.ref.current.querySelectorAll(
-          `th.${tablePrefixCls}-cell-fix-right`,
-        ),
-      );
-      if (fixedEles.length) {
-        // fixedEles.pop();
-        fixedEles.reverse().forEach((ele, index) => {
-          if (index === 0) {
-            Object.assign(ele.style, { right: 0 });
-          } else {
-            const right = fixedColumn.slice(0, index).reduce((sum, item) => {
-              // eslint-disable-next-line no-param-reassign
-              sum += item.width;
-              return sum;
-            }, 0);
-            Object.assign(ele.style, {
-              right: `${right}px`,
-            });
-          }
-        });
-      }
-    });
-  };
+  // setFixedStyle = () => {
+  //   setTimeout(() => {
+  //     if (isFirefox() || !this.hasCustomScroll) {
+  //       return;
+  //     }
+  //     const fixedColumn = this.state.columnData
+  //       .filter((item) => item.fixed === 'right')
+  //       .reverse();
+  //     if (!fixedColumn.length) {
+  //       return;
+  //     }
+  //     const fixedEles = Array.from(
+  //       this.ref.current.querySelectorAll(
+  //         `th.${tablePrefixCls}-cell-fix-right`,
+  //       ),
+  //     );
+  //     if (fixedEles.length) {
+  //       // fixedEles.pop();
+  //       fixedEles.reverse().forEach((ele, index) => {
+  //         if (index === 0) {
+  //           Object.assign(ele.style, { right: 0 });
+  //         } else {
+  //           const right = fixedColumn.slice(0, index).reduce((sum, item) => {
+  //             // eslint-disable-next-line no-param-reassign
+  //             sum += item.width;
+  //             return sum;
+  //           }, 0);
+  //           Object.assign(ele.style, {
+  //             right: `${right}px`,
+  //           });
+  //         }
+  //       });
+  //     }
+  //   });
+  // };
 
   /**
    * 表格翻页后，滚动到顶部
@@ -524,8 +524,8 @@ class CTable extends Component {
         async () => {
           this.column.setCheckboxColumn();
           await onRefreshAfter();
-          this.setHeaderStyle();
-          this.setFixedStyle();
+          // this.setHeaderStyle();
+          // this.setFixedStyle();
           this.scrollIntoView();
           this.props.onLoadGridAfter(res);
         },
@@ -580,8 +580,8 @@ class CTable extends Component {
           this.loadData();
         }
 
-        this.setHeaderStyle();
-        this.setFixedStyle();
+        // this.setHeaderStyle();
+        // this.setFixedStyle();
         this.setFooterHeight();
       },
     );

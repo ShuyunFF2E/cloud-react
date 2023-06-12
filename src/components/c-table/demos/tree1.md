@@ -121,7 +121,7 @@ const columns = [
 export default function CTableDemo() {
 	return (
         <CTable
-            style={{ width: '100%', height: 230 }}
+            style={{ width: '100%', height: 300 }}
             supportExpend
             supportTree
             supportCheckbox
