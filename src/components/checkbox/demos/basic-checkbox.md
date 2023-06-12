@@ -40,6 +40,8 @@ export default function CheckboxDemo() {
 			</Checkbox>
 			<br />
 			<Checkbox disabled>disabled</Checkbox>
+			<br />
+			<Checkbox disabled defaultChecked>disabled</Checkbox>
 		</div>
 	);
 }

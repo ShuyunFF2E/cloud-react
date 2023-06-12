@@ -24,6 +24,7 @@ group:
 | imgSrc        | 图片     | string           | ''     |
 | textOverflowEllipsis        | content 超长显示 ...     | boolean           | false     |
 | contentStyle        | content 样式，设置 textOverflowEllipsis 为 true 的时候，需要设置 content 的宽度    | object           | {}     |
+| type        |  显示类型    | "card"\| "default"           | "default"     |
 
  ### 代码演示 
 
