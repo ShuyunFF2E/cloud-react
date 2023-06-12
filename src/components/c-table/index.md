@@ -164,35 +164,45 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 ### 代码演示
 
 ### 基础表格
+
 <embed src="@components/c-table/demos/basic.md" /> 
 
 ### 表头带线条
+
 <embed src="@components/c-table/demos/header-bordered.md" /> 
 
 ### 全边框表格
+
 <embed src="@components/c-table/demos/bordered.md" /> 
 
 ### 多选表格
+
 <embed src="@components/c-table/demos/page.md" /> 
 
 <embed src="@components/c-table/demos/page1.md" /> 
 
 ### 单选表格
+
 <embed src="@components/c-table/demos/radio.md" /> 
 
 ### 树状表格（两级）
+
 <embed src="@components/c-table/demos/tree.md" /> 
 
 ### 树状表格（多级）
+
 <embed src="@components/c-table/demos/tree1.md" /> 
 
 ### 表格可编辑
+
 <embed src="@components/c-table/demos/edit.md" /> 
 
 ### 表格展开行
+
 <embed src="@components/c-table/demos/expand-row.md" /> 
 
 ### 表格带图标
+
 <embed src="@components/c-table/demos/custom-column-icon.md" /> 
 
 <embed src="@components/c-table/demos/custom-column-icon-link.md" /> 
@@ -200,24 +210,32 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 <embed src="@components/c-table/demos/custom-column-tag.md" /> 
 
 ### 表格固定列
+
 <embed src="@components/c-table/demos/fixed-column.md" /> 
+<embed src="@components/c-table/demos/fixed-column1.md" /> 
 
 ### 表格分组
+
 <embed src="@components/c-table/demos/tree2.md" /> 
 
 ### 表格通栏
+
 <embed src="@components/c-table/demos/tree3.md" /> 
 
 ### 表尾合计
+
 <embed src="@components/c-table/demos/summary.md" />
 
 ### 表格合并列/行
+
 <embed src="@components/c-table/demos/row-col-span.md" /> 
 
 ### 表格行高亮
+
 <embed src="@components/c-table/demos/light-row.md" /> 
 
 ### 表格排序
+
 <embed src="@components/c-table/demos/sort-no-page.md" /> 
 
 <embed src="@components/c-table/demos/sort-with-page.md" /> 
@@ -225,12 +243,15 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 <embed src="@components/c-table/demos/sort-front.md" /> 
 
 ### 表格过滤
+
 <embed src="@components/c-table/demos/filter.md" />
 
 ### 手动刷新表格
+
 <embed src="@components/c-table/demos/refresh-table.md" /> 
 
 ### 表格禁用行
+
 <embed src="@components/c-table/demos/disabled0.md" /> 
 
 <embed src="@components/c-table/demos/disabled1.md" /> 
@@ -238,18 +259,23 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 <embed src="@components/c-table/demos/disabled2.md" /> 
 
 ### 表格行拖拽
+
 <embed src="@components/c-table/demos/drag.md" /> 
 
 <embed src="@components/c-table/demos/drag1.md" />
 
 ### 表格列拉伸
+
 <embed src="@components/c-table/demos/resize.md" />
 
 <embed src="@components/c-table/demos/resize1.md" />
 
 ### 表格固定表头和表尾
+
 <embed src="@components/c-table/demos/sticky.md" />
 
 ### 解决方案
+
 <embed src="@components/c-table/demos/goods-table.md" />
+
 <embed src="@components/c-table/demos/front-table.md" />
