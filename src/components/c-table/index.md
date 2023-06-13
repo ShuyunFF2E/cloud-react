@@ -212,7 +212,6 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 ### 表格固定列
 
 <embed src="@components/c-table/demos/fixed-column.md" /> 
-<embed src="@components/c-table/demos/fixed-column1.md" /> 
 
 ### 表格分组
 
