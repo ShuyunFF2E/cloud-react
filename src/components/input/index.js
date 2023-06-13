@@ -33,6 +33,7 @@ class Input extends React.Component {
     onBlur: PropTypes.func,
     onKeyDown: PropTypes.func,
     onEnter: PropTypes.func,
+    loading: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -53,6 +54,7 @@ class Input extends React.Component {
     onChange: noop,
     onKeyDown: noop,
     onEnter: noop,
+    loading: false,
   };
 
   static Textarea = Textarea;
@@ -102,7 +104,11 @@ class Input extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.value !== this.props.value || (this.inputNode.value && String(this.props.value) !== this.inputNode.value)) {
+    if (
+      prevProps.value !== this.props.value
+      || (this.inputNode.value
+        && String(this.props.value) !== this.inputNode.value)
+    ) {
       this.setInputValue();
     }
   }
@@ -223,7 +229,7 @@ class Input extends React.Component {
     const { size: formSize } = this.context;
     const mergedSize = size || formSize || 'default';
 
-    const type = 'close-fill';
+    const type = 'close-fill-1';
     const classNames = classnames(`${prefixCls}-input-clear`, {
       show: counter,
       hidden: !counter,
@@ -249,7 +255,10 @@ class Input extends React.Component {
   }
 
   renderSuffix() {
-    const { hasClear, suffix } = this.props;
+    const { hasClear, suffix, loading } = this.props;
+    if (loading) {
+      return <span className={`${prefixCls}-input-loading-spin`} />;
+    }
 
     return hasClear ? (
       <>
@@ -312,7 +321,9 @@ class Input extends React.Component {
           {...props}
           {...commonProps}
           style={isPure ? style : {}}
-          className={classnames(_className, className, mergedSize, { [`${_className}-disabled`]: props.disabled })}
+          className={classnames(_className, className, mergedSize, {
+            [`${_className}-disabled`]: props.disabled,
+          })}
         />
       );
     }

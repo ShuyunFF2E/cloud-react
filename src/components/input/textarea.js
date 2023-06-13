@@ -97,6 +97,7 @@ export default class Textarea extends React.PureComponent {
     onEnter: PropTypes.func,
     onChange: PropTypes.func,
     onKeyDown: PropTypes.func,
+    resize: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -113,6 +114,7 @@ export default class Textarea extends React.PureComponent {
     onEnter: noop,
     onChange: noop,
     onKeyDown: noop,
+    resize: false,
   };
 
   static getDerivedStateFromProps({ value }) {
@@ -182,7 +184,7 @@ export default class Textarea extends React.PureComponent {
   render() {
     const { value, autoSizeStyle } = this.state;
     const {
-      className, style, hasCounter, maxLength, ...others
+      className, style, hasCounter, maxLength, resize, ...others
     } = this.props;
 
     const classNames = classnames(`${prefixCls}-input-textarea`, className, {
@@ -216,6 +218,7 @@ export default class Textarea extends React.PureComponent {
           onBlur={this.onBlur}
           onChange={this.onChange}
           onKeyDown={this.onKeyDown}
+          style={{ resize: resize ? 'auto' : 'none' }}
         />
         {hasCounter && maxLength ? (
           <span className={`${prefixCls}-input-textarea-counter`}>

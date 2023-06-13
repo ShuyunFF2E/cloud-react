@@ -20,10 +20,7 @@ export default function InputDemo() {
 			<div className="input-demo-box">
 				<Input size="large" hasClear addonBefore={<span>http://</span>} addonAfter=".com" placeholder="请输入" />
 				<Input hasClear size="default" addonBefore={<span>http://</span>} addonAfter=".com" placeholder="请输入" />
-			</div>
 
-			<div className="input-demo-box">
-				<Input suffix={<Icon className='input-prefix-icon' type="search" />} placeholder="请输入" /><br />
 				<Input prefix={<Icon className='input-prefix-icon' type="people" />} placeholder="请输入" suffix="RMB" />
 			</div>
 		</div>
