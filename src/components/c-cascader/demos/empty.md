@@ -1,13 +1,14 @@
 ---
 order: 1
 title: 级联选择器
-desc: 默认样式
+desc: 下拉没有数据时，暂时内容
 ---
 
 ```jsx
 
 import React from 'react';
 import { CCascader } from 'cloud-react';
+
 const addressOptions =  [
   {
     value: 'zhejiang',
@@ -48,36 +49,30 @@ const addressOptions =  [
     ],
   },
 ];
-
-
-export default class Demo extends React.Component {
-	onChange(value) {
+export default function Demo() {
+	const onChange = value => {
 		console.log(value);
 	}
 
-	filter(inputValue, path) {
+	const filter = (inputValue, path) => {
 		return path.some(option => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1);
 	}
 
-	render() {
-
-		return (
-			<div>
-				<div style={{ marginBottom: 24 }}>仅叶子选项支持选择</div>
-				<CCascader
-					options={addressOptions}
-					onChange={this.onChange}
-					placeholder="Please select"
-					showSearch={{filter:this.filter }} />
-				<div style={{ marginBottom: 24, marginTop: 40 }}>任意选项支持选择</div>
-				<CCascader
-					options={addressOptions}
-					onChange={this.onChange}
-					placeholder="Please select"
-					showSearch={{filter:this.filter }}
-					changeOnSelect/>
-			</div>
-		);
-	}
+	return (
+		<div>
+			<div style={{ marginBottom: 24 }}>下拉列表没有数据，默认为空内容</div>
+			<CCascader
+				options={[]}
+				placeholder="Please select"/>
+			<div style={{ marginBottom: 24, marginTop: 40 }}>自定义下拉列表没有数据展示内容</div>
+			<CCascader
+				options={addressOptions}
+				onChange={onChange}
+				placeholder="Please select"
+				showSearch={{filter:filter }}
+				notFoundContent="自定义为空内容"/>
+		</div>
+	)
+				
 }
 ```

@@ -1,7 +1,7 @@
 ---
 order: 1
 title: 级联选择器
-desc: 默认样式
+desc: 清空选中项
 ---
 
 ```jsx
@@ -49,35 +49,29 @@ const addressOptions =  [
   },
 ];
 
-
-export default class Demo extends React.Component {
-	onChange(value) {
+export default function Demo() {
+	const onChange = value => {
 		console.log(value);
 	}
 
-	filter(inputValue, path) {
-		return path.some(option => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1);
-	}
-
-	render() {
-
-		return (
-			<div>
-				<div style={{ marginBottom: 24 }}>仅叶子选项支持选择</div>
-				<CCascader
-					options={addressOptions}
-					onChange={this.onChange}
-					placeholder="Please select"
-					showSearch={{filter:this.filter }} />
-				<div style={{ marginBottom: 24, marginTop: 40 }}>任意选项支持选择</div>
-				<CCascader
-					options={addressOptions}
-					onChange={this.onChange}
-					placeholder="Please select"
-					showSearch={{filter:this.filter }}
-					changeOnSelect/>
-			</div>
+	return (
+        <div>
+			<div style={{ marginBottom: 24 }}>未填写场景</div>
+			<CCascader
+                disabled
+				options={addressOptions}
+				onChange={onChange}
+				placeholder="Please select"
+                allowClear/>
+			<div style={{ marginBottom: 24, marginTop: 40 }}>已填写场景</div>
+			<CCascader
+				disabled
+				options={addressOptions}
+				value={["jiangsu"]}
+				placeholder="Please select"
+				changeOnSelect/>
+		</div>
+			
 		);
-	}
 }
 ```

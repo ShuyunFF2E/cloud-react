@@ -1,12 +1,12 @@
 ---
 order: 1
 title: 级联选择器
-desc: 默认样式
+desc: 多选级联组件
 ---
 
 ```jsx
 
-import React from 'react';
+import React, { useState } from 'react';
 import { CCascader } from 'cloud-react';
 const addressOptions = [{
   label: '福建',
@@ -71,23 +71,37 @@ const defaultOptions = [{
   label: '余杭',
   value: 'yuhang',
 }];
-export default class Demo extends React.Component {
-onChange(value) {
-  console.log(value);
-}
- filter(inputValue, path) {
-  return path.some(option => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1);
-}
-  render() {
-    const defaultValue = defaultOptions.map(o => o.value);
+export default function Demo() {
+	const [ value, setValue ] = useState([]);
 
-    return (
-			<>
-			  <CCascader options={addressOptions} onChange={this.onChange} placeholder="Please select"  multiple   maxTagCount={1}  showSearch={{ filter:this.filter }}
-/>
+	const onChange = value => {
+		setValue(value);
+	}
 
-			</>
+	const filter = (inputValue, path) => {
+		return path.some(option => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1);
+	}
+
+	return (
+		<div>
+			<div style={{ marginBottom: 24 }}>多选级联组件</div>
+			<CCascader
+				options={addressOptions}
+				onChange={onChange}
+				placeholder="Please select"
+				value={value}
+				multiple
+				showSearch={{ filter: filter }}
+				maxTagCount={2}/>
+			<div style={{ marginBottom: 24, marginTop: 40 }}>多选级联组件不可用</div>
+			<CCascader
+				options={addressOptions}
+				placeholder="Please select"
+				value={value}
+				disabled
+				multiple
+				maxTagCount={2}/>
+		</div>
     );
-  }
 }
 ```
