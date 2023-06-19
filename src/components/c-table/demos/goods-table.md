@@ -1,10 +1,9 @@
----
-order: 1
-title: CTable
-desc: 默认表格
----
-
 ```jsx
+
+/**
+ * title: 商品选择器表格
+ * desc: 商品选择器表格交互样例
+ */
 import React, { useState, createRef, useEffect, Component } from 'react';
 import { CTable, Button, Checkbox } from 'cloud-react';
 import './style/goods.less';

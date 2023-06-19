@@ -179,7 +179,7 @@ export default class Column {
 
   renderBasicTitle = (item, sortBy, resolveColumnItem) => {
     const { _this } = this;
-    const { showFilterBtn } = _this.props;
+    const { showFilterBtn, disabled } = _this.props;
     const hasFilter = item.filters && item.filters.length;
 
     if (item.sortable || hasFilter) {
@@ -221,7 +221,7 @@ export default class Column {
                       defaultChecked={_this.state.filterValue.includes(f.value)}
                       key={f.value}
                       value={f.value}
-                      disabled={f.disabled}
+                      disabled={disabled || f.disabled}
                       className={
                         !showFilterBtn
                         && index === item.filters.length - 1
@@ -287,13 +287,14 @@ export default class Column {
   renderConfig = () => {
     const { _this } = this;
     const { originColumnData } = _this.state;
+    const { disabled } = _this.props;
     return (
       <ul className={`${tablePrefixCls}-tooltip-content`}>
         {originColumnData.map((item) => (
           <li>
             <Checkbox
               disabled={
-                item.show && originColumnData.filter((i) => i.show).length === 1
+                disabled || item.show && originColumnData.filter((i) => i.show).length === 1
               }
               checked={item.show}
               onChange={(checked) => {
@@ -358,6 +359,7 @@ export default class Column {
   getRadioColumn = (isFirstColumnFixed) => {
     const { _this } = this;
     const { leafNodesMap } = _this;
+    const { disabled } = _this.props;
     return {
       title: '',
       className: `${tablePrefixCls}-radio-column`,
@@ -368,7 +370,7 @@ export default class Column {
       render: (value, row) => {
         const radioVal = _this.getKeyFieldVal(row);
         const targetNode = leafNodesMap[radioVal] || {};
-        const isDisabled = _this.isRowDisabled(row);
+        const isDisabled = disabled || _this.isRowDisabled(row);
         return (
           <Radio
             disabled={isDisabled}
@@ -389,6 +391,7 @@ export default class Column {
   getCheckboxColumn = (isFirstColumnFixed) => {
     const { _this } = this;
     const { leafNodesMap } = _this;
+    const { disabled } = _this.props;
 
     const currentLeafNodes = Object.keys(leafNodesMap).reduce(
       (nodeList, key) => {
@@ -408,6 +411,7 @@ export default class Column {
       title: (
         <Checkbox
           style={{ float: 'left' }}
+          disabled={disabled}
           checked={isCheckedAll}
           indeterminate={isIndeterminateAll}
           onChange={(checked) => this.onAllCheckedChange(checked)}
@@ -422,7 +426,7 @@ export default class Column {
         const targetNode = leafNodesMap[_this.getKeyFieldVal(row)] || {};
         const isChecked = !!isEveryChecked(targetNode.childNodes);
         const isIndeterminate = !isChecked && isSomeChecked((targetNode || {}).childNodes);
-        const isDisabled = _this.isRowDisabled(row);
+        const isDisabled = disabled || _this.isRowDisabled(row);
         return (
           <Checkbox
             checked={isChecked}

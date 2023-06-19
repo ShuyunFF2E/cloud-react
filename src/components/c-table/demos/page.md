@@ -43,6 +43,7 @@ export default function CTableDemo() {
   const [isEmpty, setIsEmpty] = useState(false);
   const [hideEmptyFooter, setHideEmptyFooter] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [disabled, setDisabled] = useState(false);
   const tableRef = useRef();
 
   useEffect(() => {
@@ -52,7 +53,7 @@ export default function CTableDemo() {
   return (
     <div>
       <div style={{ marginBottom: 20, display: 'flex', flexDirection: 'column', gap: 15 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 15 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 15, flexWrap: 'wrap' }}>
           <Checkbox checked={lightCheckedRow} onChange={checked => {
             setLightCheckedRow(checked);
           }}>选中行高亮</Checkbox>
@@ -68,6 +69,9 @@ export default function CTableDemo() {
           <Checkbox checked={isLoading} onChange={checked => {
             setIsLoading(checked);
           }}>展示loading</Checkbox>
+          <Checkbox checked={disabled} onChange={disabled => {
+            setDisabled(disabled);
+          }}>禁用选择</Checkbox>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 15 }}>
           <Button onClick={() => {
@@ -87,6 +91,7 @@ export default function CTableDemo() {
         </div>
       </div>
       <CTable
+        key={String(disabled)}
         style={{ width: '100%', height: 400 }}
         ref={tableRef}
         supportExpend
@@ -102,6 +107,7 @@ export default function CTableDemo() {
         showRefresh={showRefresh}
         showTotal={showTotal}
         hideEmptyFooter={hideEmptyFooter}
+        disabled={disabled}
         checkedData={checkedData}
         columnData={columns}
         ajaxData={(params) => {
