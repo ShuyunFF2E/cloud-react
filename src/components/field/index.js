@@ -118,6 +118,7 @@ export default class Field {
 
   setValue = (name, value) => {
     const fieldMeta = this.fieldsMeta[name];
+
     if (fieldMeta && typeof fieldMeta === 'object') {
       fieldMeta[fieldMeta.valueName] = value;
       this.validate([name]);

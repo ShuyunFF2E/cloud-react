@@ -40,13 +40,10 @@ export default class FormItem extends Component {
 
   destructionExpiredFields(names = this.dataFields) {
     const { field } = this;
-    const { name = '', preserve } = this.props;
-
-    const _names = preserve ? names.filter(n => n !== name) : names;
 
     // 如果设置了校验规则，则重置并删除
-    if (field && field.remove && _names && _names.length) {
-      field.remove(_names);
+    if (field && field.remove && names && names.length) {
+      field.remove(names);
     }
   }
 

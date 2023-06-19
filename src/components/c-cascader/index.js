@@ -6,6 +6,8 @@ import Icon from '../icon';
 import Input from '../input';
 import PropTypes from 'prop-types';
 import './index.less';
+import { prefixCls } from '@utils';
+
 function highlightKeyword(str, lowerKeyword, prefixCls) {
   const cells = str
     .toLowerCase()
@@ -120,23 +122,23 @@ class Cascader extends Component {
 }
 Cascader.defaultProps = {
   onChange() {},
-	maxTagPlaceholder: (text)=>{
-		return text?.length ?`+ ${text.length}`:'';
-	},
+  maxTagPlaceholder: (text) => {
+    return text?.length ? `+ ${text.length}` : '';
+  },
   multiple: false,
   allowClear: false,
   disabled: false,
   transitionName: '',
   defaultValue: [],
-  inputIcon: <Icon type="down" style={{ fontSize: '12px' }} />,
-  prefixCls: 'cloud-ccascader',
+  inputIcon: <Icon type="down" style={{ fontSize: '14px' }} />,
+  prefixCls: `${prefixCls}-ccascader`,
   popupClassName: '',
   popupPlacement: 'bottomLeft',
   showArrow: true,
   expandTrigger: 'click',
   fieldNames: { label: 'label', value: 'value', children: 'children' },
   expandIcon: <Icon type="right" style={{ fontSize: '16px' }} />,
-  clearIcon: <Icon type="close-line" style={{ fontSize: '14px' }} />,
+  clearIcon: <Icon type="close-fill-1" style={{ fontSize: '14px' }} />,
   removeIcon: <Icon type="close" style={{ fontSize: '12px' }} />,
   splitInput: '/',
 };

@@ -64,7 +64,6 @@ export default class TreeSelectDemo extends React.Component {
 			<TreeSelect
 				searchable
 				allowClear
-				position="auto"
 				onSearch={this.handleSearch}
 				value={{
                     label: '栗子111',
