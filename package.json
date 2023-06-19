@@ -20,7 +20,8 @@
     "precommit": "umi-lint --staged --eslint --prettier --fix",
     "new:component": "cp -r tpls/new-component src/components/new-component",
     "cli-version": "node ./scripts/generate-version.js",
-    "postinstall": "patch-package"
+    "postinstall": "patch-package",
+    "changelog": "auto-changelog"
   },
   "dumiAssets": "assets.json",
   "main": "dist/cloud-react.js",
@@ -113,7 +114,8 @@
     "rimraf": "^3.0.2",
     "rollup-plugin-postcss": "^4.0.1",
     "umi-lint": "^2.0.2",
-    "yargs": "^17.1.1"
+    "yargs": "^17.1.1",
+    "auto-changelog": "*"
   },
   "husky": {
     "hooks": {

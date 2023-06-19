@@ -16,6 +16,12 @@ exports[`Pagination renders correctly 1`] = `
       />
     </li>
     <li
+      class="active"
+      role="presentation"
+    >
+      1
+    </li>
+    <li
       class="next-page "
       role="presentation"
     >

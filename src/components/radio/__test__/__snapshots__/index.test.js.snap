@@ -12,7 +12,7 @@ exports[`Radio renders correctly 1`] = `
     >
       <input
         checked=""
-        class="cloud-radio-input"
+        class="cloud-radio-input checked"
         type="radio"
         value="1"
       />

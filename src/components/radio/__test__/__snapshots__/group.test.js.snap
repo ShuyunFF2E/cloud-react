@@ -14,7 +14,7 @@ exports[`RadioGroup complex group renders correctly 1`] = `
         class="cloud-radio-wrapper"
       >
         <input
-          class="cloud-radio-input"
+          class="cloud-radio-input "
           type="radio"
           value="1"
         />
@@ -39,7 +39,7 @@ exports[`RadioGroup complex group renders correctly 1`] = `
         class="cloud-radio-wrapper"
       >
         <input
-          class="cloud-radio-input"
+          class="cloud-radio-input "
           type="radio"
           value="2"
         />
@@ -70,7 +70,7 @@ exports[`RadioGroup complex group renders correctly 1`] = `
           class="cloud-radio-wrapper"
         >
           <input
-            class="cloud-radio-input"
+            class="cloud-radio-input "
             type="radio"
             value="3"
           />
@@ -95,7 +95,7 @@ exports[`RadioGroup complex group renders correctly 1`] = `
           class="cloud-radio-wrapper"
         >
           <input
-            class="cloud-radio-input"
+            class="cloud-radio-input "
             type="radio"
             value="4"
           />
@@ -128,7 +128,7 @@ exports[`RadioGroup renders correctly 1`] = `
         class="cloud-radio-wrapper"
       >
         <input
-          class="cloud-radio-input"
+          class="cloud-radio-input "
           type="radio"
           value="1"
         />
@@ -153,7 +153,7 @@ exports[`RadioGroup renders correctly 1`] = `
         class="cloud-radio-wrapper"
       >
         <input
-          class="cloud-radio-input"
+          class="cloud-radio-input "
           type="radio"
           value="2"
         />

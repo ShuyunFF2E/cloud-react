@@ -13,10 +13,10 @@ exports[`TreeSelect renders correctly 1`] = `
       选择一个选项
     </span>
     <i
-      class="cloud-tree-select-select-icon cloud-tree-select-clear-icon cloud-icon icon-close-circle-solid"
+      class="cloud-tree-select-select-icon cloud-tree-select-clear-icon cloud-icon icon-close-fill"
     />
     <i
-      class="cloud-tree-select-select-icon close cloud-icon icon-down-solid"
+      class="cloud-tree-select-select-icon close cloud-icon icon-down"
     />
   </div>
 </div>

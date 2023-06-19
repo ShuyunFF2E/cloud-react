@@ -9,6 +9,7 @@ exports[`Modal default function should be called if there are no props 1`] = `
       className="selfContainer"
     />
     <Modal
+      useRootWindow={true}
       visible={true}
     >
       <Portal
@@ -286,6 +287,7 @@ exports[`Modal not close modal when click mask 1`] = `
     />
     <Modal
       clickMaskCanClose={false}
+      useRootWindow={true}
       visible={true}
     >
       <Portal
@@ -572,6 +574,7 @@ exports[`Modal render with custom footer 1`] = `
           我是自定义Footer组件
         </div>
       }
+      useRootWindow={true}
       visible={true}
     >
       <Portal
@@ -803,6 +806,7 @@ exports[`Modal render without footer 1`] = `
     />
     <Modal
       hasFooter={false}
+      useRootWindow={true}
       visible={true}
     >
       <Portal
@@ -1011,6 +1015,7 @@ exports[`Modal render without mask 1`] = `
     />
     <Modal
       showMask={false}
+      useRootWindow={true}
       visible={true}
     >
       <Portal
@@ -1281,6 +1286,7 @@ exports[`Modal should do some stuff on mouseMove 1`] = `
     />
     <Modal
       showMask={true}
+      useRootWindow={true}
       visible={true}
     >
       <Portal

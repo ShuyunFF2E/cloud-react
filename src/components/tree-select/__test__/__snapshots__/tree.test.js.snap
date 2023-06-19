@@ -13,10 +13,10 @@ exports[`Multilayer TreeSelect multiple tree renders correctly 1`] = `
       选择一个选项
     </span>
     <i
-      class="cloud-tree-select-select-icon cloud-tree-select-clear-icon cloud-icon icon-close-circle-solid"
+      class="cloud-tree-select-select-icon cloud-tree-select-clear-icon cloud-icon icon-close-fill"
     />
     <i
-      class="cloud-tree-select-select-icon close cloud-icon icon-down-solid"
+      class="cloud-tree-select-select-icon close cloud-icon icon-down"
     />
   </div>
 </div>
@@ -33,10 +33,10 @@ exports[`Multilayer TreeSelect older multiple tree renders correctly 1`] = `
       class="cloud-tree-select-selected"
     />
     <i
-      class="cloud-tree-select-select-icon cloud-tree-select-clear-icon cloud-icon icon-close-circle-solid"
+      class="cloud-tree-select-select-icon cloud-tree-select-clear-icon cloud-icon icon-close-fill"
     />
     <i
-      class="cloud-tree-select-select-icon close cloud-icon icon-down-solid"
+      class="cloud-tree-select-select-icon close cloud-icon icon-down"
     />
   </div>
 </div>
@@ -53,10 +53,10 @@ exports[`Multilayer TreeSelect older single tree renders correctly 1`] = `
       class="cloud-tree-select-selected"
     />
     <i
-      class="cloud-tree-select-select-icon cloud-tree-select-clear-icon cloud-icon icon-close-circle-solid"
+      class="cloud-tree-select-select-icon cloud-tree-select-clear-icon cloud-icon icon-close-fill"
     />
     <i
-      class="cloud-tree-select-select-icon close cloud-icon icon-down-solid"
+      class="cloud-tree-select-select-icon close cloud-icon icon-down"
     />
   </div>
 </div>
@@ -173,10 +173,10 @@ exports[`Multilayer TreeSelect single tree renders correctly 1`] = `
             className="cloud-tree-select-select-icon cloud-tree-select-clear-icon"
             onClick={[Function]}
             style={Object {}}
-            type="close-circle-solid"
+            type="close-fill"
           >
             <i
-              className="cloud-tree-select-select-icon cloud-tree-select-clear-icon cloud-icon icon-close-circle-solid"
+              className="cloud-tree-select-select-icon cloud-tree-select-clear-icon cloud-icon icon-close-fill"
               onClick={[Function]}
               style={Object {}}
             />
@@ -184,10 +184,10 @@ exports[`Multilayer TreeSelect single tree renders correctly 1`] = `
           <Icon
             className="cloud-tree-select-select-icon open"
             style={Object {}}
-            type="down-solid"
+            type="down"
           >
             <i
-              className="cloud-tree-select-select-icon open cloud-icon icon-down-solid"
+              className="cloud-tree-select-select-icon open cloud-icon icon-down"
               style={Object {}}
             />
           </Icon>
@@ -199,7 +199,7 @@ exports[`Multilayer TreeSelect single tree renders correctly 1`] = `
           Object {
             "borderTop": null,
             "minWidth": 0,
-            "top": "0px",
+            "top": "4px",
           }
         }
       >
@@ -1507,10 +1507,10 @@ exports[`Multilayer TreeSelect single tree should word correctly when value is n
       class="cloud-tree-select-selected"
     />
     <i
-      class="cloud-tree-select-select-icon cloud-tree-select-clear-icon cloud-icon icon-close-circle-solid"
+      class="cloud-tree-select-select-icon cloud-tree-select-clear-icon cloud-icon icon-close-fill"
     />
     <i
-      class="cloud-tree-select-select-icon close cloud-icon icon-down-solid"
+      class="cloud-tree-select-select-icon close cloud-icon icon-down"
     />
   </div>
 </div>
@@ -1527,10 +1527,10 @@ exports[`Multilayer TreeSelect single tree should word correctly when value is n
       class="cloud-tree-select-selected"
     />
     <i
-      class="cloud-tree-select-select-icon cloud-tree-select-clear-icon cloud-icon icon-close-circle-solid"
+      class="cloud-tree-select-select-icon cloud-tree-select-clear-icon cloud-icon icon-close-fill"
     />
     <i
-      class="cloud-tree-select-select-icon close cloud-icon icon-down-solid"
+      class="cloud-tree-select-select-icon close cloud-icon icon-down"
     />
   </div>
 </div>
@@ -1547,10 +1547,10 @@ exports[`Multilayer TreeSelect tree should word correctly when datasource is an 
       class="cloud-tree-select-selected"
     />
     <i
-      class="cloud-tree-select-select-icon cloud-tree-select-clear-icon cloud-icon icon-close-circle-solid"
+      class="cloud-tree-select-select-icon cloud-tree-select-clear-icon cloud-icon icon-close-fill"
     />
     <i
-      class="cloud-tree-select-select-icon open cloud-icon icon-down-solid"
+      class="cloud-tree-select-select-icon open cloud-icon icon-down"
     />
   </div>
   <div
