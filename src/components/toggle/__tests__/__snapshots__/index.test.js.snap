@@ -2,7 +2,7 @@
 
 exports[`Toggle renders correctlly 1`] = `
 <button
-  class="cloud-toggle"
+  class="cloud-toggle default"
   type="button"
 >
   <span
@@ -13,7 +13,7 @@ exports[`Toggle renders correctlly 1`] = `
 
 exports[`Toggle should change big or small set size 1`] = `
 <button
-  class="cloud-toggle cloud-toggle-small"
+  class="cloud-toggle small"
   type="button"
 >
   <span
@@ -24,7 +24,7 @@ exports[`Toggle should change big or small set size 1`] = `
 
 exports[`Toggle should change status by set checked 1`] = `
 <button
-  class="cloud-toggle cloud-toggle-checked"
+  class="cloud-toggle default cloud-toggle-checked"
   type="button"
 >
   <span
@@ -35,7 +35,7 @@ exports[`Toggle should change status by set checked 1`] = `
 
 exports[`Toggle should change status by set checked 2`] = `
 <button
-  class="cloud-toggle"
+  class="cloud-toggle default"
   type="button"
 >
   <span
@@ -46,7 +46,7 @@ exports[`Toggle should change status by set checked 2`] = `
 
 exports[`Toggle should render correctlly set checkedText and unCheckedText 1`] = `
 <button
-  class="cloud-toggle"
+  class="cloud-toggle default"
   type="button"
 >
   <span

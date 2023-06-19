@@ -2,23 +2,31 @@
 
 exports[`Pagination renders correctly 1`] = `
 <div
-  class="cloud-pagination"
+  class="cloud-pagination cloud-pagination-default"
 >
-  <ul>
+  <ul
+    class="false"
+  >
     <li
-      class="nomore"
+      class="pre-page nomore"
       role="presentation"
     >
       <i
-        class="pg-icon cloud-icon cloud-icon-left"
+        class="pg-icon cloud-icon icon-left"
       />
     </li>
     <li
-      class=""
+      class="active"
+      role="presentation"
+    >
+      1
+    </li>
+    <li
+      class="next-page "
       role="presentation"
     >
       <i
-        class="pg-icon cloud-icon cloud-icon-right"
+        class="pg-icon cloud-icon icon-right"
       />
     </li>
   </ul>

@@ -5,7 +5,7 @@ exports[`Form function component 1`] = `
   class="cloud-form"
 >
   <div
-    class="cloud-form-item vertical right"
+    class="cloud-form-item vertical"
   >
     <label
       class="cloud-form-item-label has-colon"
@@ -28,10 +28,10 @@ exports[`Form function component 1`] = `
     </div>
   </div>
   <button
-    class="cloud-button normal default"
+    class="cloud-button normal default "
     type="button"
   >
-    重置
+    重 置
   </button>
 </form>
 `;
@@ -53,7 +53,7 @@ exports[`Form scrollToFirstError 1`] = `
     <br />
     <br />
     <div
-      class="cloud-form-item vertical right"
+      class="cloud-form-item vertical"
     >
       <label
         class="cloud-form-item-label has-colon"
@@ -76,7 +76,7 @@ exports[`Form scrollToFirstError 1`] = `
       </div>
     </div>
     <div
-      class="cloud-form-item vertical right"
+      class="cloud-form-item vertical"
     >
       <label
         class="cloud-form-item-label has-colon"
@@ -98,7 +98,7 @@ exports[`Form scrollToFirstError 1`] = `
       </div>
     </div>
     <div
-      class="cloud-form-item vertical right"
+      class="cloud-form-item vertical"
     >
       <label
         class="cloud-form-item-label has-colon"
@@ -118,7 +118,7 @@ exports[`Form should render correctly 1`] = `
   class="cloud-form"
 >
   <div
-    class="cloud-form-item vertical right"
+    class="cloud-form-item vertical"
   >
     <label
       class="cloud-form-item-label has-colon"
@@ -142,7 +142,7 @@ exports[`Form should render correctly when data-field is attributed to span 1`] 
   class="cloud-form"
 >
   <div
-    class="cloud-form-item vertical right"
+    class="cloud-form-item vertical"
   >
     <label
       class="cloud-form-item-label has-colon"
@@ -165,7 +165,7 @@ exports[`Form should render correctly when data-field is attributed to span 1`] 
     </div>
   </div>
   <div
-    class="cloud-form-item vertical right"
+    class="cloud-form-item vertical"
   >
     <div
       class="cloud-form-item-wrapper"
@@ -189,7 +189,7 @@ exports[`Form should render correctly when getState is undefined or getError is 
   class="cloud-form"
 >
   <div
-    class="cloud-form-item vertical right"
+    class="cloud-form-item vertical"
   >
     <label
       class="cloud-form-item-label has-colon"
@@ -219,7 +219,7 @@ exports[`Form should render correctly when the type of formItems children is num
   class="cloud-form"
 >
   <div
-    class="cloud-form-item vertical right"
+    class="cloud-form-item vertical"
   >
     <div
       class="cloud-form-item-wrapper"

@@ -23,3 +23,6 @@
 # ide
 /.vscode
 /.idea
+
+# jest
+/coverage

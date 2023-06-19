@@ -14,7 +14,7 @@ exports[`Tabs renders correctly 1`] = `
         class="cloud-tabs-items-scroll"
       >
         <span
-          class="cloud-tabs-item-card active"
+          class="cloud-tabs-item-card active cloud-tabs-container"
         >
           tab
         </span>
