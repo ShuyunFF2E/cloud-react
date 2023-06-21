@@ -31,6 +31,8 @@ group:
 | clearIcon      | 清空图标 | ReactNode | <Icon type="close-fill-1" style={{ fontSize: '14px' }} />|
 | popupPlacement | 弹框位置 | bottomRight topRight bottomLeft topLeft | bottomLeft |
 | notFoundContent | 下拉列表为空时显示的内容 | string \| ReactNode | -- |
+| showSearch     | 搜索配置               | object   | -- |
+
 
  ## 代码演示 
 

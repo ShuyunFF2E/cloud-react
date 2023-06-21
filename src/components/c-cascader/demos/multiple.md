@@ -11,7 +11,6 @@ import { CCascader } from 'cloud-react';
 const addressOptions = [{
   label: '福建',
   value: 'fj',
-	disabled: true,
   children: [{
     label: '福州',
     value: 'fuzhou',
@@ -61,19 +60,16 @@ const addressOptions = [{
   }],
 }];
 
-const defaultOptions = [{
-  label: '浙江',
-  value: 'zj',
-}, {
-  label: '杭州',
-  value: 'hangzhou',
-}, {
-  label: '余杭',
-  value: 'yuhang',
-}];
 export default function Demo() {
 	const [ value, setValue ] = useState([]);
-
+  const maxTagCount = addressOptions.reduce((acc, item) => {
+    if (item.children && item.children.length){
+      acc = acc + item.children.length;
+    } else {
+      acc += 1;
+    }
+    return acc;
+  }, 0)
 	const onChange = value => {
 		setValue(value);
 	}
@@ -81,7 +77,6 @@ export default function Demo() {
 	const filter = (inputValue, path) => {
 		return path.some(option => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1);
 	}
-
 	return (
 		<div>
 			<div style={{ marginBottom: 24 }}>多选级联组件</div>
@@ -92,7 +87,7 @@ export default function Demo() {
 				value={value}
 				multiple
 				showSearch={{ filter: filter }}
-				maxTagCount={2}/>
+				maxTagCount={1}/>
 			<div style={{ marginBottom: 24, marginTop: 40 }}>多选级联组件不可用</div>
 			<CCascader
 				options={addressOptions}
@@ -100,7 +95,15 @@ export default function Demo() {
 				value={value}
 				disabled
 				multiple
-				maxTagCount={2}/>
+				maxTagCount={1}/>
+      <div style={{ marginBottom: 24, marginTop: 40 }}>多选级联组件，全部展开</div>
+			<CCascader
+				options={addressOptions}
+				onChange={onChange}
+				placeholder="Please select"
+				value={value}
+				multiple
+				maxTagCount={maxTagCount}/>
 		</div>
     );
 }

@@ -68,13 +68,13 @@ export default class Demo extends React.Component {
 					options={addressOptions}
 					onChange={this.onChange}
 					placeholder="Please select"
-					showSearch={{filter:this.filter }} />
+          />
 				<div style={{ marginBottom: 24, marginTop: 40 }}>任意选项支持选择</div>
 				<CCascader
 					options={addressOptions}
 					onChange={this.onChange}
 					placeholder="Please select"
-					showSearch={{filter:this.filter }}
+					showSearch={{ filter:this.filter }}
 					changeOnSelect/>
 			</div>
 		);

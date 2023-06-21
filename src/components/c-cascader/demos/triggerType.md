@@ -49,16 +49,6 @@ const addressOptions =  [
   },
 ];
 
-const defaultOptions = [{
-  label: '浙江',
-  value: 'zj',
-}, {
-  label: '杭州',
-  value: 'hangzhou',
-}, {
-  label: '余杭',
-  value: 'yuhang',
-}];
 export default function Demo() {
 	const onChange = value => {
 		console.log(value);
