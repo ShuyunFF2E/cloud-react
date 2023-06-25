@@ -6,8 +6,8 @@ desc: 弹出位置
 
 ```jsx
 
-import React from 'react';
-import { CCascader } from 'cloud-react';
+import React, { useState } from 'react';
+import { Button, CCascader } from 'cloud-react';
 const addressOptions =  [
   {
     value: 'zhejiang',
@@ -50,50 +50,26 @@ const addressOptions =  [
 ];
 
 export default function Demo() {
+	const [ placement, setPlacement ] = useState('bottomLeft');
 	const onChange = value => {
 		console.log(value);
 	}
-
-	const filter = (inputValue, path) => {
-		return path.some(option => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1);
-	}
-
-
 	return (
     	<div>
-			<div style={{ marginBottom: 24 }}>左下</div>
-			<CCascader
-          		options={addressOptions}
-          		onChange={onChange}
-				placeholder="Please select"
-				showSearch={{ filter: filter }}
-				popupPlacement="bottomLeft"
-			/>
-			<div style={{ marginBottom: 24, marginTop: 40 }}>左上</div>
-			<CCascader
-          		options={addressOptions}
-          		onChange={onChange}
-				placeholder="Please select"
-				showSearch={{ filter: filter }}
-				popupPlacement="topLeft"
-			/>
-			<div style={{ marginBottom: 24, marginTop: 40 }}>右下</div>
-			<CCascader
-          		options={addressOptions}
-          		onChange={onChange}
-				placeholder="Please select"
-				showSearch={{ filter: filter }}
-				popupPlacement="bottomRight"
-			/>
-			<div style={{ marginBottom: 24, marginTop: 40 }}>右上</div>
-			<CCascader
-          		options={addressOptions}
-          		onChange={onChange}
-				placeholder="Please select"
-				showSearch={{ filter: filter }}
-				popupPlacement="topRight"
-			/>
-
+			<Button.Group>
+				<Button onClick={() => setPlacement('bottomLeft')}>左下</Button>
+				<Button onClick={() => setPlacement('topLeft')}>左上</Button>
+				<Button onClick={() => setPlacement('bottomRight')}>右下</Button>
+				<Button onClick={() => setPlacement('topRight')}>右上</Button>
+			</Button.Group>
+			<div style={{ marginTop: 24 }}>
+				<CCascader
+					options={addressOptions}
+					onChange={onChange}
+					placeholder="Please select"
+					placement={placement}
+				/>
+			</div>
 		</div>
 		);
 }

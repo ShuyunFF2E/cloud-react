@@ -1,7 +1,7 @@
 ---
 order: 1
 title: 级联选择器
-desc: 清空选中项
+desc: 下来动画
 ---
 
 ```jsx
@@ -11,9 +11,7 @@ import { CCascader } from 'cloud-react';
 const addressOptions =  [
   {
     value: 'zhejiang',
-    label: 'Zhejiang',
-		           
-
+    label: 'ZhejiangZhejiangZhejiangZhejiangZhejiangZhejiangZhejiangZhejiangZhejiangZhejiangZhejiangZhejiang',
     children: [
       {
         value: 'hangzhou',
@@ -48,23 +46,14 @@ const addressOptions =  [
     ],
   },
 ];
-
 export default function Demo() {
-	const onChange = value => {
-		console.log(value);
-	}
-
-	const filter = (inputValue, path) => {
-		return path.some(option => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1);
-	}
 
 	return (
-			<CCascader
-				options={addressOptions}
-				onChange={onChange}
-				placeholder="Please select"
-				showSearch={{ filter: filter }}
-        allowClear/>
+		<CCascader
+            options={addressOptions}
+            placeholder="Please select"
+            transitionName="slide-up"
+          />
 		);
 }
 ```

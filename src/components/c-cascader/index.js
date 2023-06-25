@@ -1,9 +1,8 @@
 /* eslint-disable */
 
-import React, { Component, cloneElement } from 'react';
+import React, { Component } from 'react';
 import CascaderMenu from 'rc-cascader';
 import Icon from '../icon';
-import Input from '../input';
 import PropTypes from 'prop-types';
 import './index.less';
 function highlightKeyword(str, lowerKeyword, prefixCls) {
@@ -149,12 +148,12 @@ Cascader.defaultProps = {
   multiple: false,
   allowClear: false,
   disabled: false,
-  transitionName: '',
+  transitionName: undefined,
   defaultValue: [],
   inputIcon: <Icon type="down" style={{ fontSize: '12px' }} />,
   prefixCls: 'cloud-ccascader',
   popupClassName: '',
-  popupPlacement: 'bottomLeft',
+  placement: 'bottomLeft',
   showArrow: true,
   expandTrigger: 'click',
   fieldNames: { label: 'label', value: 'value', children: 'children' },

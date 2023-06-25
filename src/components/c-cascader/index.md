@@ -19,8 +19,8 @@ group:
 | options        | 可选项数据源              | array             | --     |
 | splitInput     | input显示的分隔符     		 |      string      | /   |
 | disabled       | 是否禁用                 | boolean           | false  |
-| defaultValue   | 初始化 selected value    | Array           | false  |
-| value          | selected value          | Array            | --     |
+| defaultValue   | 初始化所选值    | Array           | false  |
+| value          | 所选值         | Array            | --     |
 | change         | 变化时回调函数            | Function(e:Event) | --     | 
 | changeOnSelect | 每个选项都触发改变  | boolean            | false  | 
 | displayRender  | 自定义回写格式  | Function(labels:Array)        | --  |
@@ -29,9 +29,10 @@ group:
 | loadingIcon    | 加载子项目图标 | ReactNode | -- |
 | allowClear     | 点击清空图标删除选中内容 | boolean | false |
 | clearIcon      | 清空图标 | ReactNode | <Icon type="close-fill-1" style={{ fontSize: '14px' }} />|
-| popupPlacement | 弹框位置 | bottomRight topRight bottomLeft topLeft | bottomLeft |
+| placement | 弹框位置 | bottomRight topRight bottomLeft topLeft | bottomLeft |
 | notFoundContent | 下拉列表为空时显示的内容 | string \| ReactNode | -- |
 | showSearch     | 搜索配置               | object   | -- |
+| fieldNames     | 标签、值和子项的自定义字段名称  | object | { label: 'label', value: 'value', children: 'children' } |
 
 
  ## 代码演示 
@@ -64,4 +65,7 @@ group:
 <embed src="@components/c-cascader/demos/size.md" /> 
 
 ### 下拉项目没数据
-<embed src="@components/c-cascader/demos/empty.md" /> 
+<embed src="@components/c-cascader/demos/empty.md" />
+
+### 动画 
+<embed src="@components/c-cascader/demos/transition.md" />
