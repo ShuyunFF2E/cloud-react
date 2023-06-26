@@ -1,9 +1,9 @@
 @import '../style/index';
 
-@toogle-prefix-cls: ~'@{prefix}-toggle';
-@toogle-prefix-cls-checked: ~'@{prefix}-toggle-checked';
+@toggle-prefix-cls: ~'@{prefix}-toggle';
+@toggle-prefix-cls-checked: ~'@{prefix}-toggle-checked';
 
-.@{toogle-prefix-cls} {
+.@{toggle-prefix-cls} {
   // normal
   box-sizing: border-box;
   display: inline-block;
@@ -54,6 +54,28 @@
     box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.16);
     content: '';
   }
+  &-loading {
+    display: inline-block;
+    border: 1px solid @blue-4;
+    border-right-color: @color-white;
+    border-radius: 50%;
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    top: 3px;
+    left: 2px;
+    z-index: 1;
+    box-sizing: border-box;
+    animation: load 1.5s infinite linear;
+    @keyframes load {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  }
 
   // 被选中
   &-checked {
@@ -74,6 +96,9 @@
       margin-left: -1px;
       transform: translateX(-100%);
     }
+    .@{toggle-prefix-cls}-loading {
+      left: calc(100% - 16px);
+    }
   }
 
   &-checked &-inner {
@@ -89,7 +114,7 @@
     &:active {
       background-color: @gray-4;
     }
-    &.@{toogle-prefix-cls-checked} {
+    &.@{toggle-prefix-cls-checked} {
       &,
       &:hover,
       &:active {
@@ -113,14 +138,25 @@
       height: 12px;
     }
 
+    .@{toggle-prefix-cls}-loading {
+      width: 10px;
+      height: 10px;
+      top: 2px;
+    }
+
     .cloud-toggle-inner {
       padding-left: 12px;
       padding-right: 0;
     }
 
-    &.cloud-toggle-checked .cloud-toggle-inner {
-      padding-left: 0;
-      padding-right: 12px;
+    &.cloud-toggle-checked {
+      .cloud-toggle-inner {
+        padding-left: 0;
+        padding-right: 12px;
+      }
+      .@{toggle-prefix-cls}-loading {
+        left: calc(100% - 12px);
+      }
     }
   }
 }

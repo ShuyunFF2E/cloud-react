@@ -20,7 +20,7 @@ export default function ComplexCheckboxDemo() {
 	return (
         <div>
             <div style={{ marginBottom: 24 }}>基础+说明</div>
-            <Checkbox.Group layout="h">
+            <Checkbox.Group layout="h" style={{ rowGap: 20 }}>
                 <ComplexCheckbox
                     title="标题"
                     content="长太息以掩涕兮，哀民生之多艰"
@@ -43,7 +43,7 @@ export default function ComplexCheckboxDemo() {
                 />
             </Checkbox.Group>
             <div style={{ marginBottom: 24, marginTop: 40 }}>基础+头像</div>
-            <Checkbox.Group layout="h">
+            <Checkbox.Group layout="h" style={{ rowGap: 20 }}>
                 <ComplexCheckbox
                     title="标题"
                     imgSrc={imgSrc}
@@ -66,7 +66,7 @@ export default function ComplexCheckboxDemo() {
                 />
             </Checkbox.Group>
             <div style={{ marginBottom: 24, marginTop: 40 }}>基础+头像+说明</div>
-            <Checkbox.Group layout="h">
+            <Checkbox.Group layout="h" style={{ rowGap: 20 }}>
                 <ComplexCheckbox
                     title="标题"
                     content={checkCon}
@@ -93,7 +93,7 @@ export default function ComplexCheckboxDemo() {
                 />
             </Checkbox.Group>
             <div style={{ marginBottom: 24, marginTop: 40 }}>基础卡片</div>
-            <Checkbox.Group layout="h">
+            <Checkbox.Group layout="h" style={{ rowGap: 20 }}>
                 <ComplexCheckbox
                     title="标题"
                     type="card"
@@ -116,7 +116,7 @@ export default function ComplexCheckboxDemo() {
                 />
             </Checkbox.Group>
             <div style={{ marginBottom: 24, marginTop: 40 }}>基础卡片+说明</div>
-            <Checkbox.Group layout="h">
+            <Checkbox.Group layout="h" style={{ rowGap: 20 }}>
                 <ComplexCheckbox
                     title="标题"
                     type="card"
