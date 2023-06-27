@@ -23,7 +23,7 @@
   width: 150px;
   color: @gray-9;
   border: 1px solid @gray-4;
-  border-radius: 2px;
+  border-radius: 3px;
   background-color: @gray-1;
   transition: border-color 0.3s;
 
@@ -144,10 +144,11 @@
     border-left: 1px solid @gray-4;
     border-radius: 0 4px 4px 0;
     opacity: 0;
-    transition: opacity .24s linear .1s;
+    transition: opacity 0.24s linear 0.1s;
   }
 
-  &:hover, &:focus {
+  &:hover,
+  &:focus {
     .@{input-number-prefix-cls}-handler-wrap {
       opacity: 1;
     }
@@ -188,14 +189,10 @@
     }
   }
 
-  &-handler-down-icon,
-  &-handler-up-icon {
-    // font-size: 8px;
-
-    // PC上主流浏览器只能识别最小为12px的字体
-    font-size: 12px;
-    transform: scale(0.7);
-  }
+  // &-handler-down-icon,
+  // &-handler-up-icon {
+  //   transform: scale(0.7);
+  // }
 
   &-handler-input {
     height: 100%;
