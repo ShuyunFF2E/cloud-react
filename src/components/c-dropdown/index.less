@@ -5,13 +5,6 @@
 @primary-active-bg: @blue-6;
 @primary-disabled-bg: @gray-5;
 
-.@{dropdown-prefix-cls}-menu-area {
-  box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.1),
-    0px 2px 8px 0px rgba(0, 0, 0, 0.04);
-  border-radius: 2px;
-  background: #fff;
-  width: fit-content;
-}
 .@{dropdown-prefix-cls} {
   color: #5280ff;
   display: flex;
@@ -27,6 +20,14 @@
   min-width: fit-content !important;
 
   z-index: 100;
+
+  &-menu-area {
+    box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.1),
+      0px 2px 8px 0px rgba(0, 0, 0, 0.04);
+    border-radius: 6px;
+    background: #fff;
+    width: fit-content;
+  }
 
   &:hover,
   &:focus,
