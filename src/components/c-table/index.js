@@ -68,6 +68,7 @@ class CTable extends Component {
   }
 
   componentDidMount() {
+    this.hasCustomScroll = hasCustomScroll(this.props.useRootWindow);
     if (
       (this.props.supportExpend || this.props.supportTree) &&
       !this.props.rowKey
@@ -221,7 +222,7 @@ class CTable extends Component {
    */
   setHeaderStyle = () => {
     setTimeout(() => {
-      if (isFirefox() || this.hasScroll() || this.props.useRootWindow) {
+      if (isFirefox() || !this.hasCustomScroll || this.props.useRootWindow) {
         return;
       }
       if (this.ref.current) {
@@ -232,7 +233,7 @@ class CTable extends Component {
           bodyEle.style.paddingRight = 0;
           bodyEle.parentElement.querySelector(
             `.${tablePrefixCls}-header colgroup col:last-child`,
-          ).style.display = 'none';
+          ).style.display = this.hasScroll() ? 'table-column' : 'none';
         }
       }
     });
@@ -243,7 +244,7 @@ class CTable extends Component {
    */
   setFixedStyle = () => {
     setTimeout(() => {
-      if (isFirefox() || this.hasScroll()) {
+      if (isFirefox() || !this.hasCustomScroll) {
         return;
       }
       const fixedColumn = this.state.columnData
@@ -261,13 +262,16 @@ class CTable extends Component {
         // fixedEles.pop();
         fixedEles.reverse().forEach((ele, index) => {
           if (index === 0) {
-            Object.assign(ele.style, { right: 0 });
+            Object.assign(ele.style, { right: this.hasScroll() ? '10px' : 0 });
           } else {
-            const right = fixedColumn.slice(0, index).reduce((sum, item) => {
-              // eslint-disable-next-line no-param-reassign
-              sum += item.width;
-              return sum;
-            }, 0);
+            const right = fixedColumn.slice(0, index).reduce(
+              (sum, item) => {
+                // eslint-disable-next-line no-param-reassign
+                sum += item.width;
+                return sum;
+              },
+              this.hasScroll() ? 10 : 0,
+            );
             Object.assign(ele.style, {
               right: `${right}px`,
             });
@@ -717,7 +721,7 @@ class CTable extends Component {
               [`${tablePrefixCls}-loading`]: isLoading || loadingOpts.loading,
               [`${tablePrefixCls}-empty`]: !data.length,
               [`${tablePrefixCls}-use-custom-scroll`]:
-                hasCustomScroll(this.props.useRootWindow) && !isFirefox(),
+                this.hasCustomScroll && !isFirefox(),
               [`${tablePrefixCls}-two-level-tree`]: isExpendAloneColumn, // 两级树
               [`${tablePrefixCls}-support-tree`]:
                 supportTree && !isExpendAloneColumn, // 多级树
