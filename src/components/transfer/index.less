@@ -3,14 +3,38 @@
 @transfer-prefix-cls: ~'@{prefix}-transfer';
 
 .@{transfer-prefix-cls} {
+  width: fit-content;
+
+  &.@{transfer-prefix-cls}-simple {
+    border: 1px solid @gray-4;
+    .@{transfer-prefix-cls}-panel {
+      border: none;
+    }
+    .@{transfer-prefix-cls}-panel:first-child {
+      border-right: 1px solid @gray-4;
+    }
+  }
+
+  &.@{transfer-prefix-cls}-disabled {
+    cursor: not-allowed !important;
+    color: @gray-6;
+    .@{transfer-prefix-cls}-button-text {
+      background: @gray-3;
+    }
+    .@{transfer-prefix-cls}-single-item {
+      color: @gray-6;
+      cursor: not-allowed;
+    }
+  }
   &-panel {
-      display: inline-block;
-      vertical-align: middle;
-      width: 200px;
-      height: 300px;
-      border-radius: 2px;
-      box-shadow: @border-shadow-3;
-    .cloud-checkbox-text {
+    display: inline-block;
+    vertical-align: middle;
+    width: 200px;
+    height: 300px;
+    border-radius: 2px;
+    border: 1px solid @gray-4;
+    .cloud-checkbox-text,
+    &-header-title {
       font-size: 14px;
     }
     &-header {
@@ -20,11 +44,15 @@
       border-bottom: 1px solid @gray-3;
       margin-bottom: 8px;
       padding: 0 12px;
+      justify-content: space-between;
+      display: flex;
+      align-items: center;
       &-checkbox {
         position: absolute;
         top: 9px;
       }
-      > span {
+      > span,
+      > button {
         position: absolute;
         right: 12px;
         font-size: @font-size-small;
@@ -32,7 +60,8 @@
       &-page {
         color: @gray-6;
       }
-      &-clear {
+      &-clear,
+      &-removeAll {
         color: @blue-4;
         cursor: pointer;
       }
@@ -50,7 +79,7 @@
       label {
         padding: 5px 12px;
         &:hover {
-          background: @blue-1;
+          background: @gray-3;
         }
       }
       &.filterable {
@@ -58,6 +87,19 @@
       }
       .cloud-checkbox-group {
         width: 100%;
+      }
+      .@{transfer-prefix-cls}-empty {
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        padding-top: calc(50% - 10px);
+        box-sizing: border-box;
+        font-size: 14px;
+        line-height: 20px;
+        font-family: PingFangSC-Regular, PingFang SC;
+        font-weight: 400;
+        color: rgba(0, 0, 0, 0.25);
       }
     }
   }
@@ -91,6 +133,25 @@
           color: @gray-1;
           border: 1px solid @blue-4;
         }
+      }
+    }
+  }
+  &-single-item {
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+    color: @gray-9;
+    padding: 6px 12px;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    &:hover {
+      background: @gray-3;
+    }
+    &-remove {
+      color: @gray-6;
+      &:hover {
+        color: @gray-7;
       }
     }
   }

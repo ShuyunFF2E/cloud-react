@@ -9,12 +9,12 @@ group:
   path: /data
 ---
 
-### 何时使用
+## 何时使用
 
 上传是将本地文件通过网页发布到远程服务器的过程。  
 需要上传一个或者多个文件时
 
-### API
+## API
 
 | 参数              | 说明                                                            | 类型        | 默认值                       |
 | ----------------- | --------------------------------------------------------------- | ----------- | ---------------------------- |
@@ -48,7 +48,7 @@ group:
 | className         | 外部控制样式                                                    | string      |                              |
 | params            | FormData 中的额外参数                                                 | object      |    {}                          | 
 
-#### filelist 中的 File 对象
+### filelist 中的 File 对象
 
 | 参数 | 说明                                    | 类型   | 默认值 |
 | ---- | --------------------------------------- | ------ | ------ |
@@ -57,7 +57,7 @@ group:
 | url  | 如果为图片的话展示缩略图需要的 url 地址 | string |        |
 | status  | 上传状态('done','error') | string |        |
 
-#### onProgress
+### onProgress
 
 文件上传中会调用该函数，返回值为：
 
@@ -70,7 +70,7 @@ group:
 }
 ```
 
-#### onSuccess
+### onSuccess
 
 文件上传成功会调用该函数，返回值为：
 
@@ -85,7 +85,7 @@ group:
 }
 ```
 
-#### onError
+### onError
 
 文件上传失败会调用此函数，返回值为：
 
@@ -109,7 +109,7 @@ group:
 }
 ```
 
-#### onRemove
+### onRemove
 
 删除已上传列表单个文件的时候调用此函数，返回值为：
 
@@ -122,20 +122,28 @@ group:
 }
 ```
 
- ### 代码演示 
+ ## 代码演示 
 
+### 经典使用
 <embed src="@components/upload/demos/basic-upload.md" /> 
 
+### 上传前显示确认对话框
 <embed src="@components/upload/demos/before-confirm.md" /> 
 
+### 选中文件之后，上传前执行，可以控制是否继续上传
 <embed src="@components/upload/demos/before-upload.md" /> 
 
+### 自定义上传
 <embed src="@components/upload/demos/custom-request.md" /> 
 
+### 图片形式已上传列表
 <embed src="@components/upload/demos/file-list-picture.md" /> 
 
+### 已上传的文件列表
 <embed src="@components/upload/demos/file-list-text.md" /> 
 
+### 图片形式上传
 <embed src="@components/upload/demos/picture.md" /> 
 
+### 自定义上传显示
 <embed src="@components/upload/demos/custom-upload.md" /> 
