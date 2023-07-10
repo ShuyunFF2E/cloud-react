@@ -32,7 +32,8 @@ export default class DatePickerDemo extends React.Component {
 	state = {
 		year: 2021,
 		month: '2021/07',
-		monthDay: '06/07'
+		monthDay: '06/07',
+		week: '2021/06/07 所在周',
 	}
 
 	onYearChange = year => {
@@ -45,13 +46,18 @@ export default class DatePickerDemo extends React.Component {
 		this.setState({ month });
 	}
 
+	onWeekChange = week => {
+		console.log('week:', week);
+		this.setState({ week });
+	}
+
 	onMonthDayChange = monthDay => {
 		console.log('monthDay:', monthDay);
 		this.setState({ monthDay });
 	}
 
 	render() {
-		const { year, month, monthDay, disabled } = this.state;
+		const { year, month, week, monthDay, disabled } = this.state;
 		const { init } = this.field;
 		return (
 			<Form field={this.field} layout="horizontal" labelAlign="left" labelCol={{ span: 8 }}>
@@ -80,6 +86,17 @@ export default class DatePickerDemo extends React.Component {
 						maxYear={2025}
 						minMonth={3}
 						maxMonth={10}
+					/>
+				</Form.Item>
+				<Form.Item label="周选择器">
+					<WeekPicker
+						value={week}
+						onChange={this.onWeekChange}
+						disabled={disabled}
+						allowClear
+					  format="yyyy/MM/DD 所在周"
+						minYear={2020}
+						maxYear={2025}
 					/>
 				</Form.Item>
 				<Form.Item label="实现【月-日】选择">
