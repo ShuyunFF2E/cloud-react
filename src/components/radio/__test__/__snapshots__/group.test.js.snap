@@ -4,96 +4,112 @@ exports[`RadioGroup complex group renders correctly 1`] = `
 <span
   class="cloud-radio-group"
 >
-  <label
-    class="cloud-radio"
+  <div
+    class="cloud-radio-container"
   >
-    <span
-      class="cloud-radio-wrapper"
+    <label
+      class="cloud-radio"
     >
-      <input
-        class="cloud-radio-input"
-        type="radio"
-        value="1"
-      />
       <span
-        class="cloud-radio-inner"
-      />
-    </span>
-    <span
-      class="cloud-radio-text"
-    >
-      1
-    </span>
-  </label>
-  <label
-    class="cloud-radio"
+        class="cloud-radio-wrapper"
+      >
+        <input
+          class="cloud-radio-input "
+          type="radio"
+          value="1"
+        />
+        <span
+          class="cloud-radio-inner"
+        />
+      </span>
+      <span
+        class="cloud-radio-text"
+      >
+        1
+      </span>
+    </label>
+  </div>
+  <div
+    class="cloud-radio-container"
   >
-    <span
-      class="cloud-radio-wrapper"
+    <label
+      class="cloud-radio"
     >
-      <input
-        class="cloud-radio-input"
-        type="radio"
-        value="2"
-      />
       <span
-        class="cloud-radio-inner"
-      />
-    </span>
-    <span
-      class="cloud-radio-text"
-    >
-      2
-    </span>
-  </label>
+        class="cloud-radio-wrapper"
+      >
+        <input
+          class="cloud-radio-input "
+          type="radio"
+          value="2"
+        />
+        <span
+          class="cloud-radio-inner"
+        />
+      </span>
+      <span
+        class="cloud-radio-text"
+      >
+        2
+      </span>
+    </label>
+  </div>
   <span>
     单选
   </span>
   <span
     class="cloud-radio-group"
   >
-    <label
-      class="cloud-radio"
+    <div
+      class="cloud-radio-container"
     >
-      <span
-        class="cloud-radio-wrapper"
+      <label
+        class="cloud-radio"
       >
-        <input
-          class="cloud-radio-input"
-          type="radio"
-          value="3"
-        />
         <span
-          class="cloud-radio-inner"
-        />
-      </span>
-      <span
-        class="cloud-radio-text"
-      >
-        3
-      </span>
-    </label>
-    <label
-      class="cloud-radio"
+          class="cloud-radio-wrapper"
+        >
+          <input
+            class="cloud-radio-input "
+            type="radio"
+            value="3"
+          />
+          <span
+            class="cloud-radio-inner"
+          />
+        </span>
+        <span
+          class="cloud-radio-text"
+        >
+          3
+        </span>
+      </label>
+    </div>
+    <div
+      class="cloud-radio-container"
     >
-      <span
-        class="cloud-radio-wrapper"
+      <label
+        class="cloud-radio"
       >
-        <input
-          class="cloud-radio-input"
-          type="radio"
-          value="4"
-        />
         <span
-          class="cloud-radio-inner"
-        />
-      </span>
-      <span
-        class="cloud-radio-text"
-      >
-        4
-      </span>
-    </label>
+          class="cloud-radio-wrapper"
+        >
+          <input
+            class="cloud-radio-input "
+            type="radio"
+            value="4"
+          />
+          <span
+            class="cloud-radio-inner"
+          />
+        </span>
+        <span
+          class="cloud-radio-text"
+        >
+          4
+        </span>
+      </label>
+    </div>
   </span>
 </span>
 `;
@@ -102,47 +118,55 @@ exports[`RadioGroup renders correctly 1`] = `
 <span
   class="cloud-radio-group"
 >
-  <label
-    class="cloud-radio"
+  <div
+    class="cloud-radio-container"
   >
-    <span
-      class="cloud-radio-wrapper"
+    <label
+      class="cloud-radio"
     >
-      <input
-        class="cloud-radio-input"
-        type="radio"
-        value="1"
-      />
       <span
-        class="cloud-radio-inner"
-      />
-    </span>
-    <span
-      class="cloud-radio-text"
-    >
-      1
-    </span>
-  </label>
-  <label
-    class="cloud-radio"
+        class="cloud-radio-wrapper"
+      >
+        <input
+          class="cloud-radio-input "
+          type="radio"
+          value="1"
+        />
+        <span
+          class="cloud-radio-inner"
+        />
+      </span>
+      <span
+        class="cloud-radio-text"
+      >
+        1
+      </span>
+    </label>
+  </div>
+  <div
+    class="cloud-radio-container"
   >
-    <span
-      class="cloud-radio-wrapper"
+    <label
+      class="cloud-radio"
     >
-      <input
-        class="cloud-radio-input"
-        type="radio"
-        value="2"
-      />
       <span
-        class="cloud-radio-inner"
-      />
-    </span>
-    <span
-      class="cloud-radio-text"
-    >
-      2
-    </span>
-  </label>
+        class="cloud-radio-wrapper"
+      >
+        <input
+          class="cloud-radio-input "
+          type="radio"
+          value="2"
+        />
+        <span
+          class="cloud-radio-inner"
+        />
+      </span>
+      <span
+        class="cloud-radio-text"
+      >
+        2
+      </span>
+    </label>
+  </div>
 </span>
 `;

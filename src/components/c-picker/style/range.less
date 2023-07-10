@@ -104,7 +104,9 @@
       .@{prefix-cls}-cell.@{prefix-cls}-cell-in-view {
         &.@{prefix-cls}-cell-range-start,
         &.@{prefix-cls}-cell-range-hover-start {
-          &:not(.@{prefix-cls}-cell-in-range):not(.@{prefix-cls}-cell-range-start-near-hover)::before {
+          &:not(.@{prefix-cls}-cell-in-range):not(
+              .@{prefix-cls}-cell-range-start-near-hover
+            )::before {
             left: 8px;
           }
           &:not(.@{prefix-cls}-cell-range-end) .@{prefix-cls}-cell-inner {
@@ -114,7 +116,9 @@
         }
         &.@{prefix-cls}-cell-range-end,
         &.@{prefix-cls}-cell-range-hover-end {
-          &:not(.@{prefix-cls}-cell-in-range):not(.@{prefix-cls}-cell-range-end-near-hover)::before {
+          &:not(.@{prefix-cls}-cell-in-range):not(
+              .@{prefix-cls}-cell-range-end-near-hover
+            )::before {
             right: 8px;
           }
           &:not(.@{prefix-cls}-cell-range-start) .@{prefix-cls}-cell-inner {
@@ -122,7 +126,9 @@
             border-bottom-left-radius: 0;
           }
         }
-        &.@{prefix-cls}-cell-range-hover-start:not(.@{prefix-cls}-cell-range-start),
+        &.@{prefix-cls}-cell-range-hover-start:not(
+            .@{prefix-cls}-cell-range-start
+          ),
         &.@{prefix-cls}-cell-range-hover-end {
           &::before {
             background-color: @blue-1;
@@ -152,11 +158,17 @@
           &.@{prefix-cls}-cell-range-hover-start::before {
             background-color: @blue-1;
           }
-          &.@{prefix-cls}-cell-range-start-single:not(.@{prefix-cls}-cell-range-hover-start)::before {
+          &.@{prefix-cls}-cell-range-start-single:not(
+              .@{prefix-cls}-cell-range-hover-start
+            )::before {
             background-color: transparent;
           }
         }
-        &.@{prefix-cls}-cell-range-hover:not(.@{prefix-cls}-cell-range-start):not(.@{prefix-cls}-cell-range-end):not(.@{prefix-cls}-cell-in-range)::before {
+        &.@{prefix-cls}-cell-range-hover:not(
+            .@{prefix-cls}-cell-range-start
+          ):not(.@{prefix-cls}-cell-range-end):not(
+            .@{prefix-cls}-cell-in-range
+          )::before {
           background-color: @blue-1;
         }
         &.@{prefix-cls}-cell-range-hover.@{prefix-cls}-cell-in-range::before {

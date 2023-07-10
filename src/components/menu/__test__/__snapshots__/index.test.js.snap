@@ -102,7 +102,7 @@ exports[`Menu header works correctly 1`] = `
               type="down"
             >
               <i
-                className="indicator cloud-icon cloud-icon-down"
+                className="indicator cloud-icon icon-down"
                 style={Object {}}
               />
             </Icon>
@@ -206,7 +206,7 @@ exports[`Menu header works correctly 1`] = `
               type="down"
             >
               <i
-                className="indicator cloud-icon cloud-icon-down"
+                className="indicator cloud-icon icon-down"
                 style={Object {}}
               />
             </Icon>
@@ -297,7 +297,7 @@ exports[`Menu renders correctly with composition 1`] = `
       >
         subMenu2
         <i
-          class="indicator cloud-icon cloud-icon-down"
+          class="indicator cloud-icon icon-down"
         />
       </div>
       <ul
@@ -337,7 +337,7 @@ exports[`Menu renders correctly with structual data 1`] = `
       >
         北京
         <i
-          class="indicator cloud-icon cloud-icon-down"
+          class="indicator cloud-icon icon-down"
         />
       </div>
       <ul
@@ -370,7 +370,7 @@ exports[`Menu renders correctly with structual data 1`] = `
       >
         上海
         <i
-          class="indicator cloud-icon cloud-icon-down"
+          class="indicator cloud-icon icon-down"
         />
       </div>
       <ul

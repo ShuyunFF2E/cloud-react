@@ -2,7 +2,8 @@
 
 exports[`Tag renders correctly 1`] = `
 <span
-  class="cloud-tag"
+  class="cloud-tag checkable normal"
+  style="max-width:200px"
 >
   Facebook
 </span>

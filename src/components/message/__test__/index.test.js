@@ -56,8 +56,8 @@ describe('Message', () => {
     jest.runAllTimers();
   });
 
-  it('should destory when click close icon', () => {
-    Message.success('sucess info', { duration: 0 });
+  it('should destroy when click close icon', () => {
+    Message.success('sucess info', { duration: 0, showClose: true });
 
     expect(document.querySelectorAll(`${selector}-success`)).toHaveLength(1);
 

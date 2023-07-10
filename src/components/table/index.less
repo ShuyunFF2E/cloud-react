@@ -6,93 +6,93 @@
 @loading-stroke-width: 3;
 @pagination-bg: #f2f2f2;
 
-.table-wrap.cloud-react-skin {
-	// th区域
-	[grid-manager] th {
-		padding: 0;
-		.th-wrap {
-			padding: 6px;
-		}
-		&[remind] .th-wrap {
-			padding-left: 20px;
-		}
+.table-wrap.@{prefix}-react-skin {
+  // th区域
+  [grid-manager] th {
+    padding: 0;
+    .th-wrap {
+      padding: 6px;
+    }
+    &[remind] .th-wrap {
+      padding-left: 20px;
+    }
 
-		.th-text {
-			color: @color-gray2;
-			font-weight: 400;
-			i {
-				font-size: 16px !important;
-				color: @color-blue3;
-			}
-		}
-	}
-	// 配置区域
-	.gm-config-area {
-		.config-action {
-			display: none;
-		}
-	}
+    .th-text {
+      color: @color-gray2;
+      font-weight: 400;
+      i {
+        font-size: 16px !important;
+        color: @color-blue3;
+      }
+    }
+  }
+  // 配置区域
+  .gm-config-area {
+    .config-action {
+      display: none;
+    }
+  }
 
-	// tbody区域
-	tbody {
-		tr:not([full-column-interval]):not([full-column]) > td {
-			height: 42px;
-			min-height: 42px;
-			padding: 6px;
-			> div {
-				white-space: normal;
-			}
-		}
-	}
+  // tbody区域
+  tbody {
+    tr:not([full-column-interval]):not([full-column]) > td {
+      height: 42px;
+      min-height: 42px;
+      padding: 6px;
+      > div {
+        white-space: normal;
+      }
+    }
+  }
 
-	// 分页区域
-	.gm-toolbar {
-		.change-size {
-			position: absolute;
-			top: 6px;
-			right: 0;
-		}
-		.totals-count {
-			display: inline-block;
-			height: 30px;
-			padding: 6px 7px;
-			margin-left: 2px;
-			vertical-align: middle;
-		}
-		/* 无总页模式不显示总条数 */
-		&[no-totals-mode='true'] {
-			.totals-count {
-				display: none;
-			}
-		}
-		.refresh-action {
-			color: @color-gray2;
-			padding: 6px;
-			i {
-				vertical-align: -1px;
-			}
-			.refresh-label {
-				margin-left: 3px;
-			}
-		}
+  // 分页区域
+  .gm-toolbar {
+    .change-size {
+      position: absolute;
+      top: 6px;
+      right: 0;
+    }
+    .totals-count {
+      display: inline-block;
+      height: 30px;
+      padding: 6px 7px;
+      margin-left: 2px;
+      vertical-align: middle;
+    }
+    /* 无总页模式不显示总条数 */
+    &[no-totals-mode='true'] {
+      .totals-count {
+        display: none;
+      }
+    }
+    .refresh-action {
+      color: @color-gray2;
+      padding: 6px;
+      i {
+        vertical-align: -1px;
+      }
+      .refresh-label {
+        margin-left: 3px;
+      }
+    }
 
-		.pagination {
-			bottom: 5px;
-			right: 60px;
-			> ul {
-				> li {
-					border: none !important;
-					background: @pagination-bg !important;
-					padding: 6px 10px;
-					> i {
-						font-size: 16px;
-						color: @pagination-color;
-					}
-					&.disabled > i {
-						color: @pagination-disabled-color;
-					}
-				}
-			}
-		}
-	}
+    .pagination {
+      bottom: 5px;
+      right: 60px;
+      > ul {
+        > li {
+          border: none !important;
+          background: @pagination-bg !important;
+          padding: 6px 10px;
+          > i {
+            font-size: 16px;
+            color: @pagination-color;
+          }
+          &.disabled > i {
+            color: @pagination-disabled-color;
+          }
+        }
+      }
+    }
+  }
 }

@@ -1,0 +1,1555 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Modal default function should be called if there are no props 1`] = `
+<ModalTester
+  visible={true}
+>
+  <div>
+    <div
+      className="selfContainer"
+    />
+    <Modal
+      useRootWindow={true}
+      visible={true}
+    >
+      <Portal
+        containerInfo={
+          <body
+            class="cloud-modal-no-scroll"
+          >
+            <script
+              src="https://cloud-cdn.shuyun.com/fe-publish-asset/0.0.37/libs/cloud-react/icon/color/symbol.min.js"
+              type="text/javascript"
+            />
+            <div
+              class="r-w_s-"
+            >
+              <div
+                class="cloud-modal"
+                id="mask"
+              >
+                <div
+                  class="cloud-modal-mask"
+                />
+                <div
+                  class="cloud-modal-container cloud-modal-container-size-auto cloud-modal-appear cloud-modal-appear-active"
+                  style="pointer-events: auto;"
+                >
+                  <header
+                    class="cloud-modal-header"
+                  >
+                    <span
+                      class="cloud-modal-title"
+                    >
+                      弹窗
+                    </span>
+                    <i
+                      class="close-icon cloud-icon icon-close"
+                    />
+                  </header>
+                  <section
+                    class="cloud-modal-body cloud-modal-size "
+                  >
+                    Here is content of Modal
+                  </section>
+                  <footer
+                    class="cloud-modal-footer cloud-modal-footer-default"
+                  >
+                    <button
+                      class="cloud-button normal large "
+                      type="button"
+                    >
+                      
+                      取 消
+                    </button>
+                    <button
+                      class="cloud-button primary large  cloud-modal-confirm-btn"
+                      type="button"
+                    >
+                      
+                      确 定
+                    </button>
+                  </footer>
+                </div>
+              </div>
+            </div>
+          </body>
+        }
+      >
+        <Notification
+          bodyStyle={Object {}}
+          cancelBtnOpts={Object {}}
+          cancelText="取消"
+          clickMaskCanClose={true}
+          disabledOk={false}
+          footer=""
+          footerStyle={Object {}}
+          hasFooter={true}
+          headerStyle={Object {}}
+          modalStyle={Object {}}
+          okBtnOpts={Object {}}
+          okText="确定"
+          onCancel={[Function]}
+          onClose={[Function]}
+          onOk={[Function]}
+          showConfirmLoading={false}
+          showMask={true}
+          size="auto"
+          title="弹窗"
+          type="modal"
+          visible={true}
+        >
+          <div
+            className="r-w_s-"
+          >
+            <div
+              className="cloud-modal"
+              id="mask"
+            >
+              <ModalMask
+                clickMaskCanClose={true}
+                onClose={[Function]}
+                onReset={[Function]}
+                showMask={true}
+              >
+                <div
+                  className="cloud-modal-mask"
+                  onClick={[Function]}
+                />
+              </ModalMask>
+              <CSSTransition
+                appear={true}
+                classNames="cloud-modal"
+                in={true}
+                onExited={[Function]}
+                timeout={300}
+                unmountOnExit={true}
+              >
+                <Transition
+                  appear={true}
+                  enter={true}
+                  exit={true}
+                  in={true}
+                  mountOnEnter={false}
+                  onEnter={[Function]}
+                  onEntered={[Function]}
+                  onEntering={[Function]}
+                  onExit={[Function]}
+                  onExited={[Function]}
+                  onExiting={[Function]}
+                  timeout={300}
+                  unmountOnExit={true}
+                >
+                  <div
+                    className="cloud-modal-container cloud-modal-container-size-auto"
+                    style={
+                      Object {
+                        "left": "",
+                        "pointerEvents": "auto",
+                        "top": "",
+                      }
+                    }
+                  >
+                    <ModalHeader
+                      onClose={[Function]}
+                      onMouseDown={[Function]}
+                      onReset={[Function]}
+                      style={Object {}}
+                      title="弹窗"
+                      type="modal"
+                    >
+                      <header
+                        className="cloud-modal-header"
+                        onMouseDown={[Function]}
+                        style={Object {}}
+                      >
+                        <span
+                          className="cloud-modal-title"
+                          onMouseDown={[Function]}
+                        >
+                          弹窗
+                        </span>
+                        <Icon
+                          className="close-icon"
+                          onClick={[Function]}
+                          onMouseDown={[Function]}
+                          style={Object {}}
+                          type="close"
+                        >
+                          <i
+                            className="close-icon cloud-icon icon-close"
+                            onClick={[Function]}
+                            onMouseDown={[Function]}
+                            style={Object {}}
+                          />
+                        </Icon>
+                      </header>
+                    </ModalHeader>
+                    <ModalBody
+                      hasFooter={true}
+                      style={Object {}}
+                      type="modal"
+                    >
+                      <section
+                        className="cloud-modal-body cloud-modal-size "
+                        style={Object {}}
+                      >
+                        Here is content of Modal
+                      </section>
+                    </ModalBody>
+                    <ModalFooter
+                      cancelBtnOpts={Object {}}
+                      cancelText="取消"
+                      disabledOk={false}
+                      footer=""
+                      hasFooter={true}
+                      okBtnOpts={Object {}}
+                      okText="确定"
+                      onCancel={[Function]}
+                      onOk={[Function]}
+                      onReset={[Function]}
+                      showConfirmLoading={false}
+                      style={Object {}}
+                      type="modal"
+                      visible={true}
+                    >
+                      <footer
+                        className="cloud-modal-footer cloud-modal-footer-default"
+                        style={Object {}}
+                      >
+                        <Button
+                          block={false}
+                          className=""
+                          colorType=""
+                          disabled={false}
+                          href=""
+                          htmlType="button"
+                          icon=""
+                          loading={false}
+                          onClick={[Function]}
+                          size="large"
+                          target=""
+                          type="normal"
+                        >
+                          <button
+                            className="cloud-button normal large "
+                            disabled={false}
+                            onClick={[Function]}
+                            type="button"
+                          >
+                            取 消
+                          </button>
+                        </Button>
+                        <Button
+                          block={false}
+                          className="cloud-modal-confirm-btn"
+                          colorType=""
+                          disabled={false}
+                          href=""
+                          htmlType="button"
+                          icon=""
+                          loading={false}
+                          onClick={[Function]}
+                          size="large"
+                          target=""
+                          type="primary"
+                        >
+                          <button
+                            className="cloud-button primary large  cloud-modal-confirm-btn"
+                            disabled={false}
+                            onClick={[Function]}
+                            type="button"
+                          >
+                            确 定
+                          </button>
+                        </Button>
+                      </footer>
+                    </ModalFooter>
+                  </div>
+                </Transition>
+              </CSSTransition>
+            </div>
+          </div>
+        </Notification>
+      </Portal>
+    </Modal>
+  </div>
+</ModalTester>
+`;
+
+exports[`Modal not close modal when click mask 1`] = `
+<ModalTester
+  clickMaskCanClose={false}
+>
+  <div>
+    <div
+      className="selfContainer"
+    />
+    <Modal
+      clickMaskCanClose={false}
+      useRootWindow={true}
+      visible={true}
+    >
+      <Portal
+        containerInfo={
+          <body
+            class="cloud-modal-no-scroll"
+          >
+            <script
+              src="https://cloud-cdn.shuyun.com/fe-publish-asset/0.0.37/libs/cloud-react/icon/color/symbol.min.js"
+              type="text/javascript"
+            />
+            <div
+              class="r-w_s-"
+            >
+              <div
+                class="cloud-modal"
+                id="mask"
+              >
+                <div
+                  class="cloud-modal-mask"
+                />
+                <div
+                  class="cloud-modal-container cloud-modal-container-size-auto cloud-modal-appear cloud-modal-appear-active"
+                  style="pointer-events: auto;"
+                >
+                  <header
+                    class="cloud-modal-header"
+                  >
+                    <span
+                      class="cloud-modal-title"
+                    >
+                      弹窗
+                    </span>
+                    <i
+                      class="close-icon cloud-icon icon-close"
+                    />
+                  </header>
+                  <section
+                    class="cloud-modal-body cloud-modal-size "
+                  >
+                    Here is content of Modal
+                  </section>
+                  <footer
+                    class="cloud-modal-footer cloud-modal-footer-default"
+                  >
+                    <button
+                      class="cloud-button normal large "
+                      type="button"
+                    >
+                      
+                      取 消
+                    </button>
+                    <button
+                      class="cloud-button primary large  cloud-modal-confirm-btn"
+                      type="button"
+                    >
+                      
+                      确 定
+                    </button>
+                  </footer>
+                </div>
+              </div>
+            </div>
+          </body>
+        }
+      >
+        <Notification
+          bodyStyle={Object {}}
+          cancelBtnOpts={Object {}}
+          cancelText="取消"
+          clickMaskCanClose={false}
+          disabledOk={false}
+          footer=""
+          footerStyle={Object {}}
+          hasFooter={true}
+          headerStyle={Object {}}
+          modalStyle={Object {}}
+          okBtnOpts={Object {}}
+          okText="确定"
+          onCancel={[Function]}
+          onClose={[Function]}
+          onOk={[Function]}
+          showConfirmLoading={false}
+          showMask={true}
+          size="auto"
+          title="弹窗"
+          type="modal"
+          visible={true}
+        >
+          <div
+            className="r-w_s-"
+          >
+            <div
+              className="cloud-modal"
+              id="mask"
+            >
+              <ModalMask
+                clickMaskCanClose={false}
+                onClose={[Function]}
+                onReset={[Function]}
+                showMask={true}
+              >
+                <div
+                  className="cloud-modal-mask"
+                  onClick={[Function]}
+                />
+              </ModalMask>
+              <CSSTransition
+                appear={true}
+                classNames="cloud-modal"
+                in={true}
+                onExited={[Function]}
+                timeout={300}
+                unmountOnExit={true}
+              >
+                <Transition
+                  appear={true}
+                  enter={true}
+                  exit={true}
+                  in={true}
+                  mountOnEnter={false}
+                  onEnter={[Function]}
+                  onEntered={[Function]}
+                  onEntering={[Function]}
+                  onExit={[Function]}
+                  onExited={[Function]}
+                  onExiting={[Function]}
+                  timeout={300}
+                  unmountOnExit={true}
+                >
+                  <div
+                    className="cloud-modal-container cloud-modal-container-size-auto"
+                    style={
+                      Object {
+                        "left": "",
+                        "pointerEvents": "auto",
+                        "top": "",
+                      }
+                    }
+                  >
+                    <ModalHeader
+                      onClose={[Function]}
+                      onMouseDown={[Function]}
+                      onReset={[Function]}
+                      style={Object {}}
+                      title="弹窗"
+                      type="modal"
+                    >
+                      <header
+                        className="cloud-modal-header"
+                        onMouseDown={[Function]}
+                        style={Object {}}
+                      >
+                        <span
+                          className="cloud-modal-title"
+                          onMouseDown={[Function]}
+                        >
+                          弹窗
+                        </span>
+                        <Icon
+                          className="close-icon"
+                          onClick={[Function]}
+                          onMouseDown={[Function]}
+                          style={Object {}}
+                          type="close"
+                        >
+                          <i
+                            className="close-icon cloud-icon icon-close"
+                            onClick={[Function]}
+                            onMouseDown={[Function]}
+                            style={Object {}}
+                          />
+                        </Icon>
+                      </header>
+                    </ModalHeader>
+                    <ModalBody
+                      hasFooter={true}
+                      style={Object {}}
+                      type="modal"
+                    >
+                      <section
+                        className="cloud-modal-body cloud-modal-size "
+                        style={Object {}}
+                      >
+                        Here is content of Modal
+                      </section>
+                    </ModalBody>
+                    <ModalFooter
+                      cancelBtnOpts={Object {}}
+                      cancelText="取消"
+                      disabledOk={false}
+                      footer=""
+                      hasFooter={true}
+                      okBtnOpts={Object {}}
+                      okText="确定"
+                      onCancel={[Function]}
+                      onOk={[Function]}
+                      onReset={[Function]}
+                      showConfirmLoading={false}
+                      style={Object {}}
+                      type="modal"
+                      visible={true}
+                    >
+                      <footer
+                        className="cloud-modal-footer cloud-modal-footer-default"
+                        style={Object {}}
+                      >
+                        <Button
+                          block={false}
+                          className=""
+                          colorType=""
+                          disabled={false}
+                          href=""
+                          htmlType="button"
+                          icon=""
+                          loading={false}
+                          onClick={[Function]}
+                          size="large"
+                          target=""
+                          type="normal"
+                        >
+                          <button
+                            className="cloud-button normal large "
+                            disabled={false}
+                            onClick={[Function]}
+                            type="button"
+                          >
+                            取 消
+                          </button>
+                        </Button>
+                        <Button
+                          block={false}
+                          className="cloud-modal-confirm-btn"
+                          colorType=""
+                          disabled={false}
+                          href=""
+                          htmlType="button"
+                          icon=""
+                          loading={false}
+                          onClick={[Function]}
+                          size="large"
+                          target=""
+                          type="primary"
+                        >
+                          <button
+                            className="cloud-button primary large  cloud-modal-confirm-btn"
+                            disabled={false}
+                            onClick={[Function]}
+                            type="button"
+                          >
+                            确 定
+                          </button>
+                        </Button>
+                      </footer>
+                    </ModalFooter>
+                  </div>
+                </Transition>
+              </CSSTransition>
+            </div>
+          </div>
+        </Notification>
+      </Portal>
+    </Modal>
+  </div>
+</ModalTester>
+`;
+
+exports[`Modal render with custom footer 1`] = `
+<ModalTester
+  footer={
+    <div>
+      我是自定义Footer组件
+    </div>
+  }
+  visible={true}
+>
+  <div>
+    <div
+      className="selfContainer"
+    />
+    <Modal
+      footer={
+        <div>
+          我是自定义Footer组件
+        </div>
+      }
+      useRootWindow={true}
+      visible={true}
+    >
+      <Portal
+        containerInfo={
+          <body
+            class="cloud-modal-no-scroll"
+          >
+            <script
+              src="https://cloud-cdn.shuyun.com/fe-publish-asset/0.0.37/libs/cloud-react/icon/color/symbol.min.js"
+              type="text/javascript"
+            />
+            <div
+              class="r-w_s-"
+            >
+              <div
+                class="cloud-modal"
+                id="mask"
+              >
+                <div
+                  class="cloud-modal-mask"
+                />
+                <div
+                  class="cloud-modal-container cloud-modal-container-size-auto cloud-modal-appear cloud-modal-appear-active"
+                  style="pointer-events: auto;"
+                >
+                  <header
+                    class="cloud-modal-header"
+                  >
+                    <span
+                      class="cloud-modal-title"
+                    >
+                      弹窗
+                    </span>
+                    <i
+                      class="close-icon cloud-icon icon-close"
+                    />
+                  </header>
+                  <section
+                    class="cloud-modal-body cloud-modal-size "
+                  >
+                    Here is content of Modal
+                  </section>
+                  <footer
+                    class="cloud-modal-footer"
+                  >
+                    <div>
+                      我是自定义Footer组件
+                    </div>
+                  </footer>
+                </div>
+              </div>
+            </div>
+          </body>
+        }
+      >
+        <Notification
+          bodyStyle={Object {}}
+          cancelBtnOpts={Object {}}
+          cancelText="取消"
+          clickMaskCanClose={true}
+          disabledOk={false}
+          footer={
+            <div>
+              我是自定义Footer组件
+            </div>
+          }
+          footerStyle={Object {}}
+          hasFooter={true}
+          headerStyle={Object {}}
+          modalStyle={Object {}}
+          okBtnOpts={Object {}}
+          okText="确定"
+          onCancel={[Function]}
+          onClose={[Function]}
+          onOk={[Function]}
+          showConfirmLoading={false}
+          showMask={true}
+          size="auto"
+          title="弹窗"
+          type="modal"
+          visible={true}
+        >
+          <div
+            className="r-w_s-"
+          >
+            <div
+              className="cloud-modal"
+              id="mask"
+            >
+              <ModalMask
+                clickMaskCanClose={true}
+                onClose={[Function]}
+                onReset={[Function]}
+                showMask={true}
+              >
+                <div
+                  className="cloud-modal-mask"
+                  onClick={[Function]}
+                />
+              </ModalMask>
+              <CSSTransition
+                appear={true}
+                classNames="cloud-modal"
+                in={true}
+                onExited={[Function]}
+                timeout={300}
+                unmountOnExit={true}
+              >
+                <Transition
+                  appear={true}
+                  enter={true}
+                  exit={true}
+                  in={true}
+                  mountOnEnter={false}
+                  onEnter={[Function]}
+                  onEntered={[Function]}
+                  onEntering={[Function]}
+                  onExit={[Function]}
+                  onExited={[Function]}
+                  onExiting={[Function]}
+                  timeout={300}
+                  unmountOnExit={true}
+                >
+                  <div
+                    className="cloud-modal-container cloud-modal-container-size-auto"
+                    style={
+                      Object {
+                        "left": "",
+                        "pointerEvents": "auto",
+                        "top": "",
+                      }
+                    }
+                  >
+                    <ModalHeader
+                      onClose={[Function]}
+                      onMouseDown={[Function]}
+                      onReset={[Function]}
+                      style={Object {}}
+                      title="弹窗"
+                      type="modal"
+                    >
+                      <header
+                        className="cloud-modal-header"
+                        onMouseDown={[Function]}
+                        style={Object {}}
+                      >
+                        <span
+                          className="cloud-modal-title"
+                          onMouseDown={[Function]}
+                        >
+                          弹窗
+                        </span>
+                        <Icon
+                          className="close-icon"
+                          onClick={[Function]}
+                          onMouseDown={[Function]}
+                          style={Object {}}
+                          type="close"
+                        >
+                          <i
+                            className="close-icon cloud-icon icon-close"
+                            onClick={[Function]}
+                            onMouseDown={[Function]}
+                            style={Object {}}
+                          />
+                        </Icon>
+                      </header>
+                    </ModalHeader>
+                    <ModalBody
+                      hasFooter={true}
+                      style={Object {}}
+                      type="modal"
+                    >
+                      <section
+                        className="cloud-modal-body cloud-modal-size "
+                        style={Object {}}
+                      >
+                        Here is content of Modal
+                      </section>
+                    </ModalBody>
+                    <ModalFooter
+                      cancelBtnOpts={Object {}}
+                      cancelText="取消"
+                      disabledOk={false}
+                      footer={
+                        <div>
+                          我是自定义Footer组件
+                        </div>
+                      }
+                      hasFooter={true}
+                      okBtnOpts={Object {}}
+                      okText="确定"
+                      onCancel={[Function]}
+                      onOk={[Function]}
+                      onReset={[Function]}
+                      showConfirmLoading={false}
+                      style={Object {}}
+                      type="modal"
+                      visible={true}
+                    >
+                      <footer
+                        className="cloud-modal-footer"
+                      >
+                        <div>
+                          我是自定义Footer组件
+                        </div>
+                      </footer>
+                    </ModalFooter>
+                  </div>
+                </Transition>
+              </CSSTransition>
+            </div>
+          </div>
+        </Notification>
+      </Portal>
+    </Modal>
+  </div>
+</ModalTester>
+`;
+
+exports[`Modal render without footer 1`] = `
+<ModalTester
+  hasFooter={false}
+  visible={true}
+>
+  <div>
+    <div
+      className="selfContainer"
+    />
+    <Modal
+      hasFooter={false}
+      useRootWindow={true}
+      visible={true}
+    >
+      <Portal
+        containerInfo={
+          <body
+            class="cloud-modal-no-scroll"
+          >
+            <script
+              src="https://cloud-cdn.shuyun.com/fe-publish-asset/0.0.37/libs/cloud-react/icon/color/symbol.min.js"
+              type="text/javascript"
+            />
+            <div
+              class="r-w_s-"
+            >
+              <div
+                class="cloud-modal"
+                id="mask"
+              >
+                <div
+                  class="cloud-modal-mask"
+                />
+                <div
+                  class="cloud-modal-container cloud-modal-container-size-auto cloud-modal-appear cloud-modal-appear-active"
+                  style="pointer-events: auto;"
+                >
+                  <header
+                    class="cloud-modal-header"
+                  >
+                    <span
+                      class="cloud-modal-title"
+                    >
+                      弹窗
+                    </span>
+                    <i
+                      class="close-icon cloud-icon icon-close"
+                    />
+                  </header>
+                  <section
+                    class="cloud-modal-body cloud-modal-size cloud-modal-no-footer"
+                  >
+                    Here is content of Modal
+                  </section>
+                </div>
+              </div>
+            </div>
+          </body>
+        }
+      >
+        <Notification
+          bodyStyle={Object {}}
+          cancelBtnOpts={Object {}}
+          cancelText="取消"
+          clickMaskCanClose={true}
+          disabledOk={false}
+          footer=""
+          footerStyle={Object {}}
+          hasFooter={false}
+          headerStyle={Object {}}
+          modalStyle={Object {}}
+          okBtnOpts={Object {}}
+          okText="确定"
+          onCancel={[Function]}
+          onClose={[Function]}
+          onOk={[Function]}
+          showConfirmLoading={false}
+          showMask={true}
+          size="auto"
+          title="弹窗"
+          type="modal"
+          visible={true}
+        >
+          <div
+            className="r-w_s-"
+          >
+            <div
+              className="cloud-modal"
+              id="mask"
+            >
+              <ModalMask
+                clickMaskCanClose={true}
+                onClose={[Function]}
+                onReset={[Function]}
+                showMask={true}
+              >
+                <div
+                  className="cloud-modal-mask"
+                  onClick={[Function]}
+                />
+              </ModalMask>
+              <CSSTransition
+                appear={true}
+                classNames="cloud-modal"
+                in={true}
+                onExited={[Function]}
+                timeout={300}
+                unmountOnExit={true}
+              >
+                <Transition
+                  appear={true}
+                  enter={true}
+                  exit={true}
+                  in={true}
+                  mountOnEnter={false}
+                  onEnter={[Function]}
+                  onEntered={[Function]}
+                  onEntering={[Function]}
+                  onExit={[Function]}
+                  onExited={[Function]}
+                  onExiting={[Function]}
+                  timeout={300}
+                  unmountOnExit={true}
+                >
+                  <div
+                    className="cloud-modal-container cloud-modal-container-size-auto"
+                    style={
+                      Object {
+                        "left": "",
+                        "pointerEvents": "auto",
+                        "top": "",
+                      }
+                    }
+                  >
+                    <ModalHeader
+                      onClose={[Function]}
+                      onMouseDown={[Function]}
+                      onReset={[Function]}
+                      style={Object {}}
+                      title="弹窗"
+                      type="modal"
+                    >
+                      <header
+                        className="cloud-modal-header"
+                        onMouseDown={[Function]}
+                        style={Object {}}
+                      >
+                        <span
+                          className="cloud-modal-title"
+                          onMouseDown={[Function]}
+                        >
+                          弹窗
+                        </span>
+                        <Icon
+                          className="close-icon"
+                          onClick={[Function]}
+                          onMouseDown={[Function]}
+                          style={Object {}}
+                          type="close"
+                        >
+                          <i
+                            className="close-icon cloud-icon icon-close"
+                            onClick={[Function]}
+                            onMouseDown={[Function]}
+                            style={Object {}}
+                          />
+                        </Icon>
+                      </header>
+                    </ModalHeader>
+                    <ModalBody
+                      hasFooter={false}
+                      style={Object {}}
+                      type="modal"
+                    >
+                      <section
+                        className="cloud-modal-body cloud-modal-size cloud-modal-no-footer"
+                        style={Object {}}
+                      >
+                        Here is content of Modal
+                      </section>
+                    </ModalBody>
+                    <ModalFooter
+                      cancelBtnOpts={Object {}}
+                      cancelText="取消"
+                      disabledOk={false}
+                      footer=""
+                      hasFooter={false}
+                      okBtnOpts={Object {}}
+                      okText="确定"
+                      onCancel={[Function]}
+                      onOk={[Function]}
+                      onReset={[Function]}
+                      showConfirmLoading={false}
+                      style={Object {}}
+                      type="modal"
+                      visible={true}
+                    />
+                  </div>
+                </Transition>
+              </CSSTransition>
+            </div>
+          </div>
+        </Notification>
+      </Portal>
+    </Modal>
+  </div>
+</ModalTester>
+`;
+
+exports[`Modal render without mask 1`] = `
+<ModalTester
+  showMask={false}
+  visible={true}
+>
+  <div>
+    <div
+      className="selfContainer"
+    />
+    <Modal
+      showMask={false}
+      useRootWindow={true}
+      visible={true}
+    >
+      <Portal
+        containerInfo={
+          <body
+            class="cloud-modal-no-scroll"
+          >
+            <script
+              src="https://cloud-cdn.shuyun.com/fe-publish-asset/0.0.37/libs/cloud-react/icon/color/symbol.min.js"
+              type="text/javascript"
+            />
+            <div
+              class="r-w_s-"
+            >
+              <div
+                class="cloud-modal other-area-can-click"
+                id="mask"
+              >
+                <div
+                  class="cloud-modal-container cloud-modal-container-size-auto cloud-modal-appear cloud-modal-appear-active"
+                  style="pointer-events: auto;"
+                >
+                  <header
+                    class="cloud-modal-header"
+                  >
+                    <span
+                      class="cloud-modal-title"
+                    >
+                      弹窗
+                    </span>
+                    <i
+                      class="close-icon cloud-icon icon-close"
+                    />
+                  </header>
+                  <section
+                    class="cloud-modal-body cloud-modal-size "
+                  >
+                    Here is content of Modal
+                  </section>
+                  <footer
+                    class="cloud-modal-footer cloud-modal-footer-default"
+                  >
+                    <button
+                      class="cloud-button normal large "
+                      type="button"
+                    >
+                      
+                      取 消
+                    </button>
+                    <button
+                      class="cloud-button primary large  cloud-modal-confirm-btn"
+                      type="button"
+                    >
+                      
+                      确 定
+                    </button>
+                  </footer>
+                </div>
+              </div>
+            </div>
+          </body>
+        }
+      >
+        <Notification
+          bodyStyle={Object {}}
+          cancelBtnOpts={Object {}}
+          cancelText="取消"
+          clickMaskCanClose={true}
+          disabledOk={false}
+          footer=""
+          footerStyle={Object {}}
+          hasFooter={true}
+          headerStyle={Object {}}
+          modalStyle={Object {}}
+          okBtnOpts={Object {}}
+          okText="确定"
+          onCancel={[Function]}
+          onClose={[Function]}
+          onOk={[Function]}
+          showConfirmLoading={false}
+          showMask={false}
+          size="auto"
+          title="弹窗"
+          type="modal"
+          visible={true}
+        >
+          <div
+            className="r-w_s-"
+          >
+            <div
+              className="cloud-modal other-area-can-click"
+              id="mask"
+            >
+              <ModalMask
+                clickMaskCanClose={true}
+                onClose={[Function]}
+                onReset={[Function]}
+                showMask={false}
+              />
+              <CSSTransition
+                appear={true}
+                classNames="cloud-modal"
+                in={true}
+                onExited={[Function]}
+                timeout={300}
+                unmountOnExit={true}
+              >
+                <Transition
+                  appear={true}
+                  enter={true}
+                  exit={true}
+                  in={true}
+                  mountOnEnter={false}
+                  onEnter={[Function]}
+                  onEntered={[Function]}
+                  onEntering={[Function]}
+                  onExit={[Function]}
+                  onExited={[Function]}
+                  onExiting={[Function]}
+                  timeout={300}
+                  unmountOnExit={true}
+                >
+                  <div
+                    className="cloud-modal-container cloud-modal-container-size-auto"
+                    style={
+                      Object {
+                        "left": "",
+                        "pointerEvents": "auto",
+                        "top": "",
+                      }
+                    }
+                  >
+                    <ModalHeader
+                      onClose={[Function]}
+                      onMouseDown={[Function]}
+                      onReset={[Function]}
+                      style={Object {}}
+                      title="弹窗"
+                      type="modal"
+                    >
+                      <header
+                        className="cloud-modal-header"
+                        onMouseDown={[Function]}
+                        style={Object {}}
+                      >
+                        <span
+                          className="cloud-modal-title"
+                          onMouseDown={[Function]}
+                        >
+                          弹窗
+                        </span>
+                        <Icon
+                          className="close-icon"
+                          onClick={[Function]}
+                          onMouseDown={[Function]}
+                          style={Object {}}
+                          type="close"
+                        >
+                          <i
+                            className="close-icon cloud-icon icon-close"
+                            onClick={[Function]}
+                            onMouseDown={[Function]}
+                            style={Object {}}
+                          />
+                        </Icon>
+                      </header>
+                    </ModalHeader>
+                    <ModalBody
+                      hasFooter={true}
+                      style={Object {}}
+                      type="modal"
+                    >
+                      <section
+                        className="cloud-modal-body cloud-modal-size "
+                        style={Object {}}
+                      >
+                        Here is content of Modal
+                      </section>
+                    </ModalBody>
+                    <ModalFooter
+                      cancelBtnOpts={Object {}}
+                      cancelText="取消"
+                      disabledOk={false}
+                      footer=""
+                      hasFooter={true}
+                      okBtnOpts={Object {}}
+                      okText="确定"
+                      onCancel={[Function]}
+                      onOk={[Function]}
+                      onReset={[Function]}
+                      showConfirmLoading={false}
+                      style={Object {}}
+                      type="modal"
+                      visible={true}
+                    >
+                      <footer
+                        className="cloud-modal-footer cloud-modal-footer-default"
+                        style={Object {}}
+                      >
+                        <Button
+                          block={false}
+                          className=""
+                          colorType=""
+                          disabled={false}
+                          href=""
+                          htmlType="button"
+                          icon=""
+                          loading={false}
+                          onClick={[Function]}
+                          size="large"
+                          target=""
+                          type="normal"
+                        >
+                          <button
+                            className="cloud-button normal large "
+                            disabled={false}
+                            onClick={[Function]}
+                            type="button"
+                          >
+                            取 消
+                          </button>
+                        </Button>
+                        <Button
+                          block={false}
+                          className="cloud-modal-confirm-btn"
+                          colorType=""
+                          disabled={false}
+                          href=""
+                          htmlType="button"
+                          icon=""
+                          loading={false}
+                          onClick={[Function]}
+                          size="large"
+                          target=""
+                          type="primary"
+                        >
+                          <button
+                            className="cloud-button primary large  cloud-modal-confirm-btn"
+                            disabled={false}
+                            onClick={[Function]}
+                            type="button"
+                          >
+                            确 定
+                          </button>
+                        </Button>
+                      </footer>
+                    </ModalFooter>
+                  </div>
+                </Transition>
+              </CSSTransition>
+            </div>
+          </div>
+        </Notification>
+      </Portal>
+    </Modal>
+  </div>
+</ModalTester>
+`;
+
+exports[`Modal should do some stuff on mouseMove 1`] = `
+<ModalTester
+  showMask={true}
+  visible={true}
+>
+  <div>
+    <div
+      className="selfContainer"
+    />
+    <Modal
+      showMask={true}
+      useRootWindow={true}
+      visible={true}
+    >
+      <Portal
+        containerInfo={
+          <body
+            class="cloud-modal-no-scroll"
+          >
+            <script
+              src="https://cloud-cdn.shuyun.com/fe-publish-asset/0.0.37/libs/cloud-react/icon/color/symbol.min.js"
+              type="text/javascript"
+            />
+            <div
+              class="r-w_s-"
+            >
+              <div
+                class="cloud-modal"
+                id="mask"
+              >
+                <div
+                  class="cloud-modal-mask"
+                />
+                <div
+                  class="cloud-modal-container cloud-modal-container-size-auto cloud-modal-appear cloud-modal-appear-active"
+                  style="pointer-events: auto; margin: 0px; left: 0px; top: 0px;"
+                >
+                  <header
+                    class="cloud-modal-header"
+                  >
+                    <span
+                      class="cloud-modal-title"
+                    >
+                      弹窗
+                    </span>
+                    <i
+                      class="close-icon cloud-icon icon-close"
+                    />
+                  </header>
+                  <section
+                    class="cloud-modal-body cloud-modal-size "
+                  >
+                    Here is content of Modal
+                  </section>
+                  <footer
+                    class="cloud-modal-footer cloud-modal-footer-default"
+                  >
+                    <button
+                      class="cloud-button normal large "
+                      type="button"
+                    >
+                      
+                      取 消
+                    </button>
+                    <button
+                      class="cloud-button primary large  cloud-modal-confirm-btn"
+                      type="button"
+                    >
+                      
+                      确 定
+                    </button>
+                  </footer>
+                </div>
+              </div>
+            </div>
+          </body>
+        }
+      >
+        <Notification
+          bodyStyle={Object {}}
+          cancelBtnOpts={Object {}}
+          cancelText="取消"
+          clickMaskCanClose={true}
+          disabledOk={false}
+          footer=""
+          footerStyle={Object {}}
+          hasFooter={true}
+          headerStyle={Object {}}
+          modalStyle={Object {}}
+          okBtnOpts={Object {}}
+          okText="确定"
+          onCancel={[Function]}
+          onClose={[Function]}
+          onOk={[Function]}
+          showConfirmLoading={false}
+          showMask={true}
+          size="auto"
+          title="弹窗"
+          type="modal"
+          visible={true}
+        >
+          <div
+            className="r-w_s-"
+          >
+            <div
+              className="cloud-modal"
+              id="mask"
+            >
+              <ModalMask
+                clickMaskCanClose={true}
+                onClose={[Function]}
+                onReset={[Function]}
+                showMask={true}
+              >
+                <div
+                  className="cloud-modal-mask"
+                  onClick={[Function]}
+                />
+              </ModalMask>
+              <CSSTransition
+                appear={true}
+                classNames="cloud-modal"
+                in={true}
+                onExited={[Function]}
+                timeout={300}
+                unmountOnExit={true}
+              >
+                <Transition
+                  appear={true}
+                  enter={true}
+                  exit={true}
+                  in={true}
+                  mountOnEnter={false}
+                  onEnter={[Function]}
+                  onEntered={[Function]}
+                  onEntering={[Function]}
+                  onExit={[Function]}
+                  onExited={[Function]}
+                  onExiting={[Function]}
+                  timeout={300}
+                  unmountOnExit={true}
+                >
+                  <div
+                    className="cloud-modal-container cloud-modal-container-size-auto"
+                    style={
+                      Object {
+                        "left": "",
+                        "pointerEvents": "auto",
+                        "top": "",
+                      }
+                    }
+                  >
+                    <ModalHeader
+                      onClose={[Function]}
+                      onMouseDown={[Function]}
+                      onReset={[Function]}
+                      style={Object {}}
+                      title="弹窗"
+                      type="modal"
+                    >
+                      <header
+                        className="cloud-modal-header"
+                        onMouseDown={[Function]}
+                        style={Object {}}
+                      >
+                        <span
+                          className="cloud-modal-title"
+                          onMouseDown={[Function]}
+                        >
+                          弹窗
+                        </span>
+                        <Icon
+                          className="close-icon"
+                          onClick={[Function]}
+                          onMouseDown={[Function]}
+                          style={Object {}}
+                          type="close"
+                        >
+                          <i
+                            className="close-icon cloud-icon icon-close"
+                            onClick={[Function]}
+                            onMouseDown={[Function]}
+                            style={Object {}}
+                          />
+                        </Icon>
+                      </header>
+                    </ModalHeader>
+                    <ModalBody
+                      hasFooter={true}
+                      style={Object {}}
+                      type="modal"
+                    >
+                      <section
+                        className="cloud-modal-body cloud-modal-size "
+                        style={Object {}}
+                      >
+                        Here is content of Modal
+                      </section>
+                    </ModalBody>
+                    <ModalFooter
+                      cancelBtnOpts={Object {}}
+                      cancelText="取消"
+                      disabledOk={false}
+                      footer=""
+                      hasFooter={true}
+                      okBtnOpts={Object {}}
+                      okText="确定"
+                      onCancel={[Function]}
+                      onOk={[Function]}
+                      onReset={[Function]}
+                      showConfirmLoading={false}
+                      style={Object {}}
+                      type="modal"
+                      visible={true}
+                    >
+                      <footer
+                        className="cloud-modal-footer cloud-modal-footer-default"
+                        style={Object {}}
+                      >
+                        <Button
+                          block={false}
+                          className=""
+                          colorType=""
+                          disabled={false}
+                          href=""
+                          htmlType="button"
+                          icon=""
+                          loading={false}
+                          onClick={[Function]}
+                          size="large"
+                          target=""
+                          type="normal"
+                        >
+                          <button
+                            className="cloud-button normal large "
+                            disabled={false}
+                            onClick={[Function]}
+                            type="button"
+                          >
+                            取 消
+                          </button>
+                        </Button>
+                        <Button
+                          block={false}
+                          className="cloud-modal-confirm-btn"
+                          colorType=""
+                          disabled={false}
+                          href=""
+                          htmlType="button"
+                          icon=""
+                          loading={false}
+                          onClick={[Function]}
+                          size="large"
+                          target=""
+                          type="primary"
+                        >
+                          <button
+                            className="cloud-button primary large  cloud-modal-confirm-btn"
+                            disabled={false}
+                            onClick={[Function]}
+                            type="button"
+                          >
+                            确 定
+                          </button>
+                        </Button>
+                      </footer>
+                    </ModalFooter>
+                  </div>
+                </Transition>
+              </CSSTransition>
+            </div>
+          </div>
+        </Notification>
+      </Portal>
+    </Modal>
+  </div>
+</ModalTester>
+`;

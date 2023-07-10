@@ -1,7 +1,5 @@
 import React from 'react';
-/* eslint-disable-next-line */
-import renderer from 'react-test-renderer';
-import { mount } from 'enzyme';
+import { mount, render } from 'enzyme';
 
 import Upload from '../index';
 
@@ -20,7 +18,8 @@ describe('Upload', () => {
         return true;
       },
     };
-    expect(() => renderer.create(<Upload {...props} />)).not.toThrow();
+    const wrapper = render(<Upload {...props} />);
+    expect(wrapper).toMatchSnapshot();
   });
   it('return promise in beforeUpload', () => {
     const data = jest.fn();
@@ -40,7 +39,7 @@ describe('Upload', () => {
 
     wrapper.find('input').simulate('change', {
       target: {
-        files: [{ file: 'foo.png' }],
+        files: [ { file: 'foo.png' } ],
       },
     });
     wrapper.unmount();
@@ -52,7 +51,7 @@ describe('Upload', () => {
       showBeforeConfirm: true,
     };
 
-    const wrapper = mount(<Upload {...props}></Upload>);
+    const wrapper = mount(<Upload {...props} />);
 
     wrapper
       .find('.cloud-upload-select')
@@ -67,7 +66,7 @@ describe('Upload', () => {
       onClick: () => new Promise((resolve) => resolve()),
     };
 
-    const wrapper = mount(<Upload {...props}></Upload>);
+    const wrapper = mount(<Upload {...props} />);
 
     wrapper
       .find('.cloud-upload-select')
@@ -95,10 +94,10 @@ describe('Upload', () => {
       },
     };
 
-    const wrapper = mount(<Upload {...props}></Upload>);
+    const wrapper = mount(<Upload {...props} />);
 
     wrapper.find('input').simulate('change', {
-      files: [{ file: 'foo.png' }],
+      files: [ { file: 'foo.png' } ],
     });
   });
   it('upload disabled', () => {
@@ -120,7 +119,7 @@ describe('Upload', () => {
       },
     };
 
-    const wrapper = mount(<Upload {...props}></Upload>);
+    const wrapper = mount(<Upload {...props} />);
     expect(wrapper.find('input').props().disabled).toEqual(true);
   });
   it('upload labelText', () => {
@@ -159,7 +158,7 @@ describe('Upload', () => {
       },
     };
 
-    const wrapper = mount(<Upload {...props}></Upload>);
+    const wrapper = mount(<Upload {...props} />);
     expect(wrapper.find('button').find('span').text()).toEqual('上传');
   });
   it('upload fileList', () => {
@@ -183,7 +182,7 @@ describe('Upload', () => {
         url: 'http://www.baidu.com/zzz.png',
       },
     ];
-    const wrapper = mount(<Upload {...props} fileList={fileList}></Upload>);
+    const wrapper = mount(<Upload {...props} fileList={fileList} />);
     expect(wrapper.find('.cloud-upload-list-text')).toHaveLength(3);
     expect(
       wrapper.find('.cloud-upload-list-text').at(0).find('span').text(),
@@ -323,13 +322,13 @@ describe('Upload', () => {
     ).toHaveLength(3);
   });
   it('upload picture list remove', () => {
-    const data = jest.fn();
+    const removeFn = jest.fn();
     const props = {
       accept: 'image/*',
       labelText: 'Upload',
       action: '/upload',
       type: 'picture',
-      onRemove: data,
+      onRemove: removeFn,
     };
     const fileList = [
       {
@@ -352,8 +351,9 @@ describe('Upload', () => {
     expect(
       wrapper.find('UploadList').find('Picture').props().list,
     ).toHaveLength(3);
-    wrapper.find('.cloud-upload-list-pic').at(0).find('Icon').simulate('click');
-    expect(data).toHaveBeenCalled();
+    wrapper.find('.cloud-upload-list-pic').at(0).find('Icon').at(2)
+      .simulate('click');
+    expect(removeFn).toHaveBeenCalled();
     wrapper.setState({
       fileList: [
         {
@@ -371,13 +371,13 @@ describe('Upload', () => {
 
     wrapper.update();
   });
-  it('upload upload fn', () => {
-    const data = jest.fn();
+  it('upload beforeUpload fn', () => {
+    const beforeUploadFn = jest.fn();
     const props = {
-      accept: 'image/*',
+      accept: 'image/jpeg,image/jpg,image/png',
       labelText: 'Upload',
-      action: '/http://upload.com',
-      onBeforeUpload: data,
+      action: 'http://upload.com',
+      onBeforeUpload: beforeUploadFn,
     };
     function mockGetRef() {
       return [
@@ -407,14 +407,14 @@ describe('Upload', () => {
         ],
       },
     });
-    expect(data).toHaveBeenCalled();
+    expect(beforeUploadFn).toHaveBeenCalled();
   });
   it('upload upload size reject', () => {
     const data = jest.fn();
     const props = {
-      accept: 'image/*',
+      accept: 'image/jpeg,image/jpg,image/png',
       labelText: 'Upload',
-      action: '/http://upload.com',
+      action: 'http://upload.com',
       onBeforeUpload: data,
       size: 0,
       unify: true,
@@ -449,18 +449,18 @@ describe('Upload', () => {
     });
     expect(data).not.toHaveBeenCalled();
   });
-  it('upload upload onSuccess', () => {
-    const data = jest.fn();
-    const res = '{"msh":"123"}';
-    const customRequest = (opt) => {
-      return opt.onSuccess(res);
-    };
+  it('upload upload onSuccess', async () => {
+    const onSuccessFn = jest.fn();
+    const res = { msh: '123' };
+    const customRequest = (opt) => opt.onSuccess(res);
     const props = {
-      accept: 'image/*',
+      type: 'picture',
+      accept: 'image/jpeg,image/jpg,image/png',
       labelText: 'Upload',
-      action: '/http://upload.com',
+      action: 'http://upload.com',
       customRequest,
-      onSuccess: data,
+      onSuccess: onSuccessFn,
+      unify: true,
     };
     function mockGetRef() {
       return [
@@ -491,18 +491,16 @@ describe('Upload', () => {
         ],
       },
     });
-    expect(data).toHaveBeenCalled();
+    expect(await onSuccessFn).toHaveBeenCalled();
     wrapper.unmount();
   });
   it('upload upload  abort', () => {
     const data = jest.fn();
-    const customRequest = (opt) => {
-      return Object.assign(opt, { abort() {} });
-    };
+    const customRequest = (opt) => Object.assign(opt, { abort() {} });
     const props = {
-      accept: 'image/*',
+      accept: 'image/jpeg,image/jpg,image/png',
       labelText: 'Upload',
-      action: '/http://upload.com',
+      action: 'http://upload.com',
       customRequest,
       onSuccess: data,
       unify: true,
@@ -539,16 +537,14 @@ describe('Upload', () => {
     expect(data).not.toHaveBeenCalled();
     wrapper.unmount();
   });
-  it('upload upload onSuccess warn', () => {
+  it('upload upload onSuccess warn', async () => {
     const data = jest.fn();
     const res = '{"msh":"123"<2:}';
-    const customRequest = (opt) => {
-      return opt.onSuccess(res);
-    };
+    const customRequest = (opt) => opt.onSuccess(res);
     const props = {
-      accept: 'image/*',
+      accept: 'image/jpeg,image/jpg,image/png',
       labelText: 'Upload',
-      action: '/http://upload.com',
+      action: 'http://upload.com',
       customRequest,
       onSuccess: data,
     };
@@ -580,18 +576,16 @@ describe('Upload', () => {
         ],
       },
     });
-    expect(data).toHaveBeenCalled();
+    expect(await data).toHaveBeenCalled();
   });
-  it('upload upload onError', () => {
+  it('upload upload onError', async () => {
     const data = jest.fn();
     const res = '{"msh":"123"}';
-    const customRequest = (opt) => {
-      return opt.onError(res);
-    };
+    const customRequest = (opt) => opt.onError(res);
     const props = {
-      accept: 'image/*',
+      accept: 'image/jpeg,image/jpg,image/png',
       labelText: 'Upload',
-      action: '/http://upload.com',
+      action: 'http://upload.com',
       customRequest,
       onError: data,
     };
@@ -623,18 +617,16 @@ describe('Upload', () => {
         ],
       },
     });
-    expect(data).toHaveBeenCalled();
+    expect(await data).toHaveBeenCalled();
   });
-  it('upload upload onProgress', () => {
+  it('upload upload onProgress', async () => {
     const data = jest.fn();
     const res = '{"msh":"123"}';
-    const customRequest = (opt) => {
-      return opt.onProgress(res);
-    };
+    const customRequest = (opt) => opt.onProgress(res);
     const props = {
-      accept: 'image/*',
+      accept: 'image/jpeg,image/jpg,image/png',
       labelText: 'Upload',
-      action: '/http://upload.com',
+      action: 'http://upload.com',
       customRequest,
       onProgress: data,
     };
@@ -666,6 +658,6 @@ describe('Upload', () => {
         ],
       },
     });
-    expect(data).toHaveBeenCalled();
+    expect(await data).toHaveBeenCalled();
   });
 });

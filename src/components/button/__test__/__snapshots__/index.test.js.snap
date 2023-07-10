@@ -2,17 +2,7 @@
 
 exports[`Button renders correctly 1`] = `
 <button
-  class="cloud-button normal default"
-  type="button"
->
-  Follow
-</button>
-`;
-
-exports[`Button renders correctly123 1`] = `
-<button
-  className="cloud-button normal default"
-  disabled={false}
+  class="cloud-button normal default "
   type="button"
 >
   Follow
@@ -23,15 +13,16 @@ exports[`Button should render empty button without error 1`] = `
 <Button
   block={false}
   className=""
+  colorType=""
   href=""
   htmlType="button"
+  icon=""
   loading={false}
-  size="default"
   target=""
   type="normal"
 >
   <button
-    className="cloud-button normal default"
+    className="cloud-button normal default "
     disabled={false}
     type="button"
   >
@@ -42,7 +33,7 @@ exports[`Button should render empty button without error 1`] = `
 
 exports[`Button should support link button 1`] = `
 <a
-  class="cloud-button normal default"
+  class="cloud-button normal default "
   href="https://baidu.com"
   target="__blank"
 >
