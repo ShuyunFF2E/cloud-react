@@ -4,17 +4,17 @@ import './style/core/normalize.less';
 import './style/mixins/animation.less';
 
 // 检验当前运行环境
-if (typeof window === 'undefined') {
-  console.warn('cloud-react 仅支持在浏览器环境进行使用!');
+if(typeof window === 'undefined') {
+	console.warn('cloud-react 仅支持在浏览器环境进行使用!');
 }
 
 const bodys = document.getElementsByTagName('body')[0];
-const colors = [ 1, 2, 3, 4, 5, 6, 7 ];
-for (let i = 0; i < colors.length; i += 1) {
-  const color = window.localStorage.getItem(`--shuyunBlue${i + 1}`);
-  if (color) {
-    bodys.style.setProperty(`--shuyunBlue${i + 1}`, color);
-  }
+const colors = [1,2,3,4,5,6,7];
+for(let i = 0; i < colors.length; i += 1){
+const color = window.localStorage.getItem(`--shuyunBlue${i + 1}`)
+if(color){
+bodys.style.setProperty(`--shuyunBlue${i + 1}`,color)
+}
 }
 
 export const version = '1.0.23';
@@ -114,3 +114,5 @@ export { default as Tree } from './tree';
 export { default as TreeSelect } from './tree-select';
 
 export { default as Upload } from './upload';
+
+
