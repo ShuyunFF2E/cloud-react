@@ -138,6 +138,14 @@ class CTable extends Component {
     }
   }
 
+  hasScroll = () => {
+    const bodyEle = this.ref.current.querySelector(`.${tablePrefixCls}-body`);
+    const tableEle = this.ref.current.querySelector(
+      `.${tablePrefixCls}-body > table`,
+    );
+    return tableEle?.clientHeight > bodyEle?.clientHeight;
+  };
+
   resolveColumn = (columnData) => {
     return columnData.map((item) => ({ ...item, show: true }));
   };
@@ -213,10 +221,10 @@ class CTable extends Component {
    * 解决表头滚动问题（rcTable bug）
    */
   setHeaderStyle = () => {
-    if (isFirefox() || !this.hasCustomScroll || this.props.useRootWindow) {
-      return;
-    }
     setTimeout(() => {
+      if (isFirefox() || !this.hasCustomScroll || this.props.useRootWindow) {
+        return;
+      }
       if (this.ref.current) {
         const bodyEle = this.ref.current.querySelector(
           `.${tablePrefixCls}-body`,
@@ -225,7 +233,7 @@ class CTable extends Component {
           bodyEle.style.paddingRight = 0;
           bodyEle.parentElement.querySelector(
             `.${tablePrefixCls}-header colgroup col:last-child`,
-          ).style.width = 0;
+          ).style.display = this.hasScroll() ? 'table-column' : 'none';
         }
       }
     });
@@ -254,13 +262,16 @@ class CTable extends Component {
         // fixedEles.pop();
         fixedEles.reverse().forEach((ele, index) => {
           if (index === 0) {
-            Object.assign(ele.style, { right: 0 });
+            Object.assign(ele.style, { right: this.hasScroll() ? '10px' : 0 });
           } else {
-            const right = fixedColumn.slice(0, index).reduce((sum, item) => {
-              // eslint-disable-next-line no-param-reassign
-              sum += item.width;
-              return sum;
-            }, 0);
+            const right = fixedColumn.slice(0, index).reduce(
+              (sum, item) => {
+                // eslint-disable-next-line no-param-reassign
+                sum += item.width;
+                return sum;
+              },
+              this.hasScroll() ? 10 : 0,
+            );
             Object.assign(ele.style, {
               right: `${right}px`,
             });
@@ -635,7 +646,7 @@ class CTable extends Component {
         style={this.props.emptyStyle}
       >
         <img src={emptyImg} height={90} alt="暂无数据" />
-        <p style={{ marginTop: 4 }}>暂无数据</p>
+        <p style={{ marginTop: 4 }}>{this.props.emptyText() || '暂无数据'}</p>
       </div>
     );
   };
@@ -683,6 +694,8 @@ class CTable extends Component {
       disablePageOnLoad,
       showFooterSelect,
       hideEmptyFooter,
+      sticky,
+      stickyFooter,
     } = this.props;
     const {
       data,
@@ -735,6 +748,7 @@ class CTable extends Component {
             columns={columnData}
             data={data}
             expandIconColumnIndex={expandIconColumnIndex}
+            sticky={sticky}
             scroll={{ x: '100%', y: maxHeight || '100%' }}
             expandable={getExpandableConfig({ ...this.props })}
             emptyText={emptyTpl()}
@@ -787,7 +801,11 @@ class CTable extends Component {
           )}
         </div>
         {supportPage && (!hideEmptyFooter || (hideEmptyFooter && !!totals)) && (
-          <div className={classnames(`${tablePrefixCls}-footer`)}>
+          <div
+            className={classnames(`${tablePrefixCls}-footer`, {
+              [`${tablePrefixCls}-sticky-footer`]: stickyFooter,
+            })}
+          >
             <div className={classnames(`${tablePrefixCls}-footer-statistics`)}>
               {showFooterSelect && (supportCheckbox || supportRadio) && (
                 <span className={classnames(`${tablePrefixCls}-footer-select`)}>
