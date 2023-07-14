@@ -47,6 +47,7 @@ group:
 | onRemove          | 删除已上传列表的文件                                            | func        |                              |
 | className         | 外部控制样式                                                    | string      |                              |
 | params            | FormData 中的额外参数                                                 | object      |    {}                          | 
+| acceptErrorTip            | 格式校验失败的提示文案                                                | string      |                             | 
 
 #### filelist 中的 File 对象
 

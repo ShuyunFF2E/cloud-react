@@ -22,6 +22,7 @@ export default class UploadDemo extends React.Component {
 	render() {
 		const props = {
 			accept: 'image/*',
+			acceptErrorTip: '只能上传图片格式',
 			labelText: 'Upload',
 			action: '/upload',
 			type: 'picture',
