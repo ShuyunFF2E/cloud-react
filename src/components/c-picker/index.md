@@ -53,6 +53,7 @@ group:
 | minYear           | 最小年份                                           | number                  |                   |
 | maxYear           | 最大年份                                           | number                  | -                 |
 | disabledDate      | 筛选不可选择的日期（设置此项将覆盖以上 4 个属性的作用）        | (date: string) => boolean     | -                 |
+| presets           | 预设的时间（区间）         | { label: string; value: `DateType` \| () => `DateType` } `DateType`: string \| Date \| string[] \| Date[]   | -           |
 | showTimePicker    | 指示是否展示时间选择器,只在 `DatePicker` 或 `RangePicker` 中生效         | boolean                 | `false`           |
 | renderExtraFooter | 渲染可选的额外选择框底部元素           | (mode: string) => React.ReactNode          | -  |
 | onOpenChange      | 弹层打开状态改变事件处理函数 | (open: boolean) => void | - |

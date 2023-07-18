@@ -1,16 +1,27 @@
 import * as React from 'react';
+import moment from 'moment';
 import classNames from 'classnames';
 import RCPicker from 'rc-picker';
 import defaultLocale from '../../../locale/zh_CN';
 import { prefixCls as rootPrefixCls } from '../../../utils';
 import Icon from '../../icon';
 import components from './components';
-import { getTimeProps } from './utils';
+import { getTimeProps, transformValue2Moment } from './utils';
 
 export default function generateSinglePicker(generateConfig) {
   function getPicker(picker, displayName) {
     class Picker extends React.Component {
       pickerRef = React.createRef();
+
+      constructor(props) {
+        super(props);
+        moment.locale('zh-cn', {
+          week: {
+            dow: 1,
+            day: 7,
+          },
+        });
+      }
 
       focus = () => {
         if (this.pickerRef.current) {
@@ -30,6 +41,8 @@ export default function generateSinglePicker(generateConfig) {
           size,
           bordered = true,
           placeholder,
+          locale = defaultLocale.lang,
+          presets = [],
           ...restProps
         } = this.props;
         const { format, showTime } = this.props;
@@ -79,7 +92,14 @@ export default function generateSinglePicker(generateConfig) {
             transitionName={`${prefixCls}-slide-up`}
             {...restProps}
             {...additionalOverrideProps}
-            locale={defaultLocale.lang}
+            locale={locale}
+            presets={presets.map(({ label, value: v }) => {
+              let preset = transformValue2Moment(v, format);
+              if (typeof v === 'function') {
+                preset = () => transformValue2Moment(v(), format);
+              }
+              return { label, value: preset };
+            })}
             className={classNames(
               {
                 [`${prefixCls}-${size}`]: size,

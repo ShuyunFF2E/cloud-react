@@ -73,6 +73,7 @@ export default class DatePickerDemo extends React.Component {
 						format="yyyy"
 						min={2020}
 						max={2025}
+						presets={[{ label: '去年', value: () => moment().clone().subtract(1, 'years').startOf('year') }]}
 					/>
 				</Form.Item>
 				<Form.Item label="年月选择器">
@@ -86,6 +87,7 @@ export default class DatePickerDemo extends React.Component {
 						maxYear={2025}
 						minMonth={3}
 						maxMonth={10}
+						presets={[{ label: '上个月', value: () => moment().clone().subtract(1, 'months').startOf('month') }]}
 					/>
 				</Form.Item>
 				<Form.Item label="周选择器">
@@ -97,6 +99,7 @@ export default class DatePickerDemo extends React.Component {
 					  format="yyyy/MM/DD 所在周"
 						minYear={2020}
 						maxYear={2025}
+						presets={[{ label: '上周', value: () => moment().clone().subtract(1, 'weeks').startOf('week') }]}
 					/>
 				</Form.Item>
 				<Form.Item label="实现【月-日】选择">

@@ -45,6 +45,7 @@ const TimeRangePicker = ({
   onContextMenu,
   onKeyDown,
   onOk,
+  presets,
 }) => {
   const [ value, setValue ] = useState();
   let placeholder = _placeholder;
@@ -142,6 +143,7 @@ const TimeRangePicker = ({
         onClick,
         onContextMenu,
         onKeyDown,
+        presets,
       }}
     />
   );

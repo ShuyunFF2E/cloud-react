@@ -43,6 +43,7 @@ const TimePicker = ({
   onContextMenu,
   onKeyDown,
   onOk,
+  presets,
 }) => {
   const [ value, setValue ] = useState();
   const format = _format || timeFormat;
@@ -115,6 +116,7 @@ const TimePicker = ({
         onClick,
         onContextMenu,
         onKeyDown,
+        presets,
       }}
     />
   );

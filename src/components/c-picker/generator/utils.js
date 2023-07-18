@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 function toArray(list) {
   if (!list) {
     return [];
@@ -47,4 +49,14 @@ export function getTimeProps(props) {
   return {
     showTime: showTimeObj,
   };
+}
+
+export function transformValue2Moment(val, format) {
+  if (typeof val === 'string') {
+    return moment(val, format);
+  }
+  if (val instanceof Date) {
+    return moment(val).clone();
+  }
+  return val;
 }

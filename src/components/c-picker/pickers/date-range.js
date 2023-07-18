@@ -54,6 +54,7 @@ const DateRangePicker = ({
   onKeyDown,
   onPanelChange,
   onOk,
+  presets
 }) => {
   const { current: _this } = useRef({
     formatType: STR,
@@ -266,6 +267,7 @@ const DateRangePicker = ({
         onClick,
         onContextMenu,
         onKeyDown,
+        presets,
       }}
     />
   );

@@ -43,6 +43,7 @@ const MonthPicker = ({
   onKeyDown,
   onSelect,
   onPanelChange,
+  presets,
 }) => {
   const [value, setValue] = useState();
   const format = _format || monthFormat;
@@ -148,6 +149,7 @@ const MonthPicker = ({
         onClick,
         onContextMenu,
         onKeyDown,
+        presets,
       }}
     />
   );

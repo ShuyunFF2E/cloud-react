@@ -41,6 +41,7 @@ const WeekPicker = ({
   onKeyDown,
   onSelect,
   onPanelChange,
+  presets,
 }) => {
   const [value, setValue] = useState();
   const format = _format || weekFormat;
@@ -139,6 +140,7 @@ const WeekPicker = ({
         onClick,
         onContextMenu,
         onKeyDown,
+        presets,
       }}
     />
   );
