@@ -228,7 +228,7 @@ class Upload extends Component {
    */
   async handleBeforeUpload(file) {
     const {
-      size, unit, accept, onBeforeUpload,
+      size, unit, accept, onBeforeUpload, acceptErrorTip
     } = this.props;
 
     let isSizeInvalidate;
@@ -251,7 +251,7 @@ class Upload extends Component {
       const fileNames = file.name.split('.') || [];
       const fileType = `.${fileNames[fileNames.length - 1]}`;
       if (!accept.includes(file.type) && !accept.includes(fileType)) {
-        Message.error(`仅支持上传${accept}格式的文件`);
+        Message.error(acceptErrorTip ? acceptErrorTip : `仅支持上传${accept}格式的文件`);
         this.ref.current.value = '';
         return false;
       }
@@ -492,6 +492,7 @@ Upload.propTypes = {
   className: PropTypes.string,
   unify: PropTypes.bool,
   params: PropTypes.object,
+  acceptErrorTip: PropTypes.string,
 };
 
 Upload.defaultProps = {
