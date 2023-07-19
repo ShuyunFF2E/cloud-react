@@ -126,6 +126,11 @@ export default function CTableDemo() {
           loading: isLoading,
           layer: true,
         }}
+        footerTotalTpl={total => {
+          return (
+            <span>共 {total} 条，上限 1000 条</span>
+          )
+        }}
       />
     </div>
   );

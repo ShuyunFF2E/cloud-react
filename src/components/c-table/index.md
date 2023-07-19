@@ -109,7 +109,8 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 | -------------- | ---------------------- | ----------------- | ------ |
 | footerTpl | 自定义 footer    | function   |   -   | |
 | footerHeight | 分页部分高度，设置 footerTpl，需要设置 footerHeight    | number   |   undefined   | |
-| footerSelectTpl | 自定义 已选n条 模板   | -   |   null   | |
+| footerSelectTpl | 自定义 已选n条 模板   | HTMLElement   |   null   | |
+| footerTotalTpl | 自定义 共n条 模板   | HTMLElement/function   |   null   | |
 | emptyTpl | 自定义数据为空模板   | function   |   -   | |
 | emptyText | 自定义数据为空模板的文本（无需重新配置暂无数据图片）   | function   |   -   | |
 | rowClassName | 自定义行类名   | function   |   -   | |
@@ -177,9 +178,9 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 
 ### 多选表格
 
-<embed src="@components/c-table/demos/page.md" /> 
+<embed src="@components/c-table/demos/checkbox.md" /> 
 
-<embed src="@components/c-table/demos/page1.md" /> 
+<embed src="@components/c-table/demos/checkbox1.md" /> 
 
 ### 单选表格
 
@@ -215,11 +216,11 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 
 ### 表格分组
 
-<embed src="@components/c-table/demos/tree2.md" /> 
+<embed src="@components/c-table/demos/group.md" /> 
 
 ### 表格通栏
 
-<embed src="@components/c-table/demos/tree3.md" /> 
+<embed src="@components/c-table/demos/fullColumn.md" /> 
 
 ### 表尾合计
 
