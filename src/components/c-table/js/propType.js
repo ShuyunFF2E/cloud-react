@@ -70,6 +70,8 @@ export const propTypes = {
   disabled: PropTypes.bool,
   sticky: PropTypes.object,
   stickyFooter: PropTypes.bool,
+  sortWidthOriginStatus: PropTypes.bool,
+  sortMultiColumns: PropTypes.bool,
 };
 
 export const defaultProps = {
@@ -139,4 +141,6 @@ export const defaultProps = {
   disabled: false,
   sticky: undefined,
   stickyFooter: false,
+  sortWidthOriginStatus: false,
+  sortMultiColumns: false,
 };

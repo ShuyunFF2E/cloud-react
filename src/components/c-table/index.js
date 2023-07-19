@@ -488,7 +488,7 @@ class CTable extends Component {
       };
       const params = {
         ..._pageOpts,
-        sortParams: { ...sortParams, sortBy: sortParams.sortBy || 'DESC' },
+        sortParams,
         filterValue,
       };
 
