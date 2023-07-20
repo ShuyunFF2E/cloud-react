@@ -7,7 +7,6 @@ import Radio from '../../radio';
 import Popover from '../../popover';
 import { isEveryChecked, isSomeChecked, setConfig } from '../util';
 import { tablePrefixCls } from '../constant';
-import { prefixCls } from '@utils';
 
 export default class Column {
   constructor(_this) {
@@ -73,15 +72,15 @@ export default class Column {
         return arr;
       }
       const sortBy = item.sortable ? item.sortBy : '';
-      const resolveColumnItem = {
+      const currentColumnItem = {
         ...item,
         sortBy,
         align: item.align || 'left',
         width: this.getColumnWidth(item, thArr?.[index]),
       };
       arr.push({
-        ...resolveColumnItem,
-        title: this.renderBasicTitle(item, sortBy, resolveColumnItem),
+        ...currentColumnItem,
+        title: this.renderBasicTitle(item, sortBy, currentColumnItem),
       });
       return arr;
     }, []);
@@ -177,7 +176,31 @@ export default class Column {
     });
   };
 
-  renderBasicTitle = (item, sortBy, resolveColumnItem) => {
+  renderTitle = (columnItem) => {
+    const title = typeof columnItem.title === 'function'
+      ? columnItem.title(columnItem)
+      : columnItem.title;
+    if (columnItem?.titleTooltipConfig?.content) {
+      return (
+        <span
+          className={`title-with-tip ${
+            columnItem?.titleTooltipAlign === 'right'
+            || !columnItem?.titleTooltipAlign
+              ? 'title-with-tip-right'
+              : 'title-with-tip-left'
+          }`}
+        >
+          <span>{title}</span>
+          <Tooltip {...(columnItem.titleTooltipConfig || {})}>
+            <Icon className="title-tip-icon" type="question-circle" />
+          </Tooltip>
+        </span>
+      );
+    }
+    return title;
+  };
+
+  renderBasicTitle = (item, sortBy, currentColumnItem) => {
     const { _this } = this;
     const { showFilterBtn, disabled } = _this.props;
     const hasFilter = item.filters && item.filters.length;
@@ -189,13 +212,13 @@ export default class Column {
             'filter-container': hasFilter,
           })}
         >
-          {typeof item.title === 'function' ? item.title(item) : item.title}
+          {this.renderTitle(item)}
           <span
             className={classnames('sort-icon-container', {
               'cell-align-right': item.align === 'right',
               [`sort-${sortBy?.toLowerCase()}`]: !!sortBy,
             })}
-            onClick={() => this.onSort(item, resolveColumnItem)}
+            onClick={() => this.onSort(item, currentColumnItem)}
           >
             <Icon className="sort-up-icon" type="up-solid" />
             <Icon className="sort-down-icon" type="down-solid" />
@@ -294,7 +317,9 @@ export default class Column {
           <li>
             <Checkbox
               disabled={
-                disabled || item.show && originColumnData.filter((i) => i.show).length === 1
+                disabled
+                || (item.show
+                  && originColumnData.filter((i) => i.show).length === 1)
               }
               checked={item.show}
               onChange={(checked) => {
@@ -513,34 +538,69 @@ export default class Column {
   /**
    * 表格排序
    * @param itemData
-   * @param columnItem
+   * @param currentColumnItem
    */
-  onSort = (itemData, columnItem) => {
+  onSort = (itemData, currentColumnItem) => {
     const { _this } = this;
-    _this.loadGrid({ sortParams: columnItem }, () => {
-      // 更新 columnData 的 sortBy 字段
-      const { columnData } = _this.state;
-      _this.setState(
-        {
-          // eslint-disable-next-line react/no-unused-state
-          originColumnData: columnData.map((item) => {
-            if (item.dataIndex === columnItem.dataIndex) {
-              return {
-                ...item,
-                title: itemData.title,
-                sortBy: item.sortBy === 'ASC' ? 'DESC' : 'ASC',
-              };
-            }
-            return {
-              ...item,
-              title: itemData.title,
-              sortBy: '',
-            };
-          }),
-        },
-        _this.column.setColumnData,
+    let sortBy;
+    // 支持三个排序状态：升序、降序、原始状态
+    if (_this.props.sortWidthOriginStatus) {
+      if (!currentColumnItem.sortBy) {
+        sortBy = 'ASC';
+      } else if (currentColumnItem.sortBy === 'ASC') {
+        sortBy = 'DESC';
+      } else if (currentColumnItem.sortBy === 'DESC') {
+        sortBy = '';
+      }
+    } else {
+      // 支持两个排序状态：升序、降序
+      sortBy = !currentColumnItem.sortBy || currentColumnItem.sortBy === 'DESC'
+        ? 'ASC'
+        : 'DESC';
+    }
+
+    const { columnData, originColumnData } = _this.state;
+    const resolveOriginColumnData = columnData.map((item) => {
+      // 当前排序的列
+      if (item.dataIndex === currentColumnItem.dataIndex) {
+        return {
+          ...item,
+          title: itemData.title,
+          sortBy,
+        };
+      }
+      const originColumnItem = originColumnData.find(
+        (oItem) => oItem.dataIndex === item.dataIndex,
       );
+      return _this.props.sortMultiColumns
+        ? {
+          // 支持多个列同时排序
+          ...item,
+          title: originColumnItem?.title || item.title,
+        }
+        : {
+          // 单个列排序
+          ...item,
+          title: originColumnItem?.title || item.title,
+          sortBy: '',
+        };
     });
+
+    _this.loadGrid(
+      {
+        sortParams: {
+          ...currentColumnItem,
+          sortBy,
+          allSortColumns: [ ...resolveOriginColumnData ],
+        },
+      },
+      () => {
+        _this.setState(
+          { originColumnData: resolveOriginColumnData },
+          this.setColumnData,
+        );
+      },
+    );
   };
 
   onFilterChange = (checked, value) => {

@@ -106,6 +106,10 @@ const iconList = {
 		'checkbox',
 		'checkbox-indeterminate',
 		'checkbox-blank',
+        'arrange-3',
+        'arrange-2',  
+        'edit-2',  
+        'warn'
 	],
 	color: [
 		'mr',
