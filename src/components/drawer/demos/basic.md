@@ -27,7 +27,7 @@ export default function CTableDemo() {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 15 }}>
       <Radio.Group value={placement} onChange={value => {
         setPlacement(value)
-        drawerRef.current.close();
+        // drawerRef.current.close();
       }}>
         {placementList.map(item => (
           <Radio value={item.value} key={item.value}>{item.label}</Radio>
@@ -45,7 +45,7 @@ export default function CTableDemo() {
           value={size}
           onChange={value => {
             setSize(value);
-            drawerRef.current.close();
+            // drawerRef.current.close();
           }}
           min={unit === '%' ? 30 : 400} max={unit === '%' ? 80 : 900}
           prevision={0}
@@ -60,11 +60,15 @@ export default function CTableDemo() {
           }}
         />
       </div>
-      
+
       <div>
         <Button type="primary" onClick={() => {
           drawerRef.current.open();
         }}>点我打开</Button>
+
+        <Button style={{ marginLeft: 15 }} className="do-not-close-drawer">
+          点我不会关闭
+        </Button>
       </div>
       
       <div>
@@ -72,6 +76,7 @@ export default function CTableDemo() {
           ref={drawerRef}
           placement={placement}
           title="这里是标题"
+          excludeClassList={['do-not-close-drawer']}
           size={unit === '%' ? `${size}%` : `${size}px`}
           showMask={showMask}
           wrapperClosable={wrapperClosable}

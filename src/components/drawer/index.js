@@ -26,6 +26,7 @@ function Drawer(
     wrapperClosable = false,
     showMask = false,
     onCloseAfter = () => {},
+    excludeClassList = [],
   },
   ref,
 ) {
@@ -57,6 +58,18 @@ function Drawer(
       return;
     }
     if (visible) {
+      const targetClassList = evt.target?.classList
+        ? Array.from(evt.target.classList)
+        : [];
+      if (excludeClassList?.length && targetClassList.length) {
+        // 点击包含 excludeClassList 中存在类名的元素，不关闭抽屉
+        if (
+          targetClassList.find((item) => excludeClassList.find((item1) => item1 === item))
+        ) {
+          return;
+        }
+      }
+
       const drawerCoordinate = getCoordinate(`.${drawerPrefix}`, drawerRef);
       const _visible = isInsideRect(evt, drawerCoordinate);
       setVisible(_visible);
@@ -140,6 +153,7 @@ Drawer.propTypes = {
   showMask: PropTypes.bool,
   wrapperClosable: PropTypes.bool,
   onCloseAfter: PropTypes.func,
+  excludeClassList: PropTypes.array,
 };
 Drawer.defaultProps = {
   placement: 'right',
@@ -148,4 +162,5 @@ Drawer.defaultProps = {
   showMask: false,
   wrapperClosable: false,
   onCloseAfter: () => {},
+  excludeClassList: [],
 };

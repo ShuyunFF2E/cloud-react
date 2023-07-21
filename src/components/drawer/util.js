@@ -19,3 +19,25 @@ export const isInsideRect = (target, rect) => {
   } = rect;
   return x >= x1 && x <= x2 && y >= y1 && y <= y2;
 };
+
+export const findAllChildNodeClassList = (ele) => {
+  const classList = [];
+  const fn = (node) => {
+    if (node?.childNodes?.length) {
+      const childNodes = Array.from(node?.childNodes);
+      childNodes.forEach(fn);
+    }
+    if (node?.classList?.length) {
+      classList.push(...Array.from(node.classList));
+    }
+  };
+
+  if (ele) {
+    classList.push(...Array.from(ele.classList));
+    if (ele?.childNodes?.length) {
+      Array.from(ele?.childNodes).forEach(fn);
+    }
+  }
+
+  return classList;
+};
