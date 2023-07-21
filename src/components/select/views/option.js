@@ -35,11 +35,10 @@ export default function Option(props) {
 
   const getLabel = (originLabel) => {
     if (supportLightText) {
-      const title = getTitle(originLabel);
       return (
         <LightText
           keyWords={searchValue || ''}
-          originText={title}
+          originText={originLabel}
           color={lightTextColor}
         />
       );

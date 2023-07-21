@@ -31,6 +31,11 @@ group:
 drawerRef.current.open();
 ```
 
+#### 关闭抽屉
+```js
+drawerRef.current.close();
+```
+
 ### 代码演示
 
 ### 基础用法

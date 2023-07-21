@@ -27,6 +27,7 @@ export default function CTableDemo() {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 15 }}>
       <Radio.Group value={placement} onChange={value => {
         setPlacement(value)
+        drawerRef.current.close();
       }}>
         {placementList.map(item => (
           <Radio value={item.value} key={item.value}>{item.label}</Radio>
@@ -42,7 +43,10 @@ export default function CTableDemo() {
         <span>设置尺寸：</span>
         <InputNumber
           value={size}
-          onChange={setSize}
+          onChange={value => {
+            setSize(value);
+            drawerRef.current.close();
+          }}
           min={unit === '%' ? 30 : 400} max={unit === '%' ? 80 : 900}
           prevision={0}
           step={unit === '%' ? 10 : 100}
@@ -63,7 +67,7 @@ export default function CTableDemo() {
         }}>点我打开</Button>
       </div>
       
-      <div key={`${placement}-${size}`}>
+      <div>
         <Drawer
           ref={drawerRef}
           placement={placement}

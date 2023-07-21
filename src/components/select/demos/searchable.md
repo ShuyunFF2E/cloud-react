@@ -42,17 +42,13 @@ export default function SelectDemo() {
     <>
       <Select
         searchable
+        supportLightText
         placeholder="带搜索的下拉单选"
         onSearch={handleSearch}
         onChange={handleChange}
         style={{width: 200}}
-      >
-        {dataList.map((item, index) => (
-          <Option value={item.value} key={index}>
-            {item.label}
-          </Option>
-        ))}
-      </Select>
+        dataSource={dataList}
+      />
     </>
   );
 }

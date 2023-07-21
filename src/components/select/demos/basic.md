@@ -89,15 +89,6 @@ export default function SelectDemo() {
         ))}
       </Select>
       <Select dataSource={[]} style={{ width: 220 }}></Select>
-      <Select
-        supportLightText
-        multiple
-        searchable
-        onChange={handleChange}
-        style={{ width: 120 }}
-        isSupportTitle
-        dataSource={dataList}
-      />
     </div>
   );
 }
