@@ -77,7 +77,13 @@ function Drawer(
         }
         setVisibleTrans(false);
         const drawerCoordinate = getCoordinate(`.${drawerPrefix}`, drawerRef);
-        const _visible = isInsideRect(evt, drawerCoordinate);
+        const _visible = isInsideRect(
+          {
+            x: clientX,
+            y: clientY,
+          },
+          drawerCoordinate,
+        );
         setVisible(_visible);
 
         if (!_visible) {
