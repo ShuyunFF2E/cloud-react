@@ -103,13 +103,19 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 | sticky | 表头固定 | 	object { offsetHeader?: number, getContainer?: () => Window / HTMLElement }  |   {}   | |
 | stickyFooter | 表尾固定在页面底部 | 	bool  |   false   | |
 
+#### CTable 表格排序（此处是全局配置，配置每列的排序详看 columnData 配置）
+| 属性           | 说明                    | 类型              | 默认值
+| -------------- | ---------------------- | ----------------- | ------ |
+| sortWidthOriginStatus | 表格排序状态分为升序和降序，配置该参数为 true，排序状态可以恢复原始状态 | 	boolean   |   false   | |
+| sortMultiColumns | 是否支持多个列同时排序 | 	boolean   |   false   | |
 
 #### CTable 自定义模板配置
 | 属性           | 说明                    | 类型              | 默认值
 | -------------- | ---------------------- | ----------------- | ------ |
 | footerTpl | 自定义 footer    | function   |   -   | |
 | footerHeight | 分页部分高度，设置 footerTpl，需要设置 footerHeight    | number   |   undefined   | |
-| footerSelectTpl | 自定义 已选n条 模板   | -   |   null   | |
+| footerSelectTpl | 自定义 已选n条 模板   | HTMLElement   |   null   | |
+| footerTotalTpl | 自定义 共n条 模板   | HTMLElement/function   |   null   | |
 | emptyTpl | 自定义数据为空模板   | function   |   -   | |
 | emptyText | 自定义数据为空模板的文本（无需重新配置暂无数据图片）   | function   |   -   | |
 | rowClassName | 自定义行类名   | function   |   -   | |
@@ -149,6 +155,8 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 | 属性                | 说明                                         | 类型                        | 默认值           |
 | ------------------- | -------------------------------------------- | --------------------------- | ---------------- |
 | title             | 表头                                     | string/function                    | -                |
+| titleTooltipConfig   | 表头tooltip配置                                     |  object（同 tooltip 组件配置）                    | {}                |
+| titleTooltipAlign   | 表头tooltip展示位置 `left` `right`                    |  boolean                    | `right`                |
 | dataIndex            | 列对应的唯一标识                                     | string                      | -               |
 | align     | 对齐方式 `left` `right` `center`                       | string                     | `left`            |
 | width     | 列宽                       | string/number                   | - |
@@ -177,9 +185,9 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 
 ### 多选表格
 
-<embed src="@components/c-table/demos/page.md" /> 
+<embed src="@components/c-table/demos/checkbox.md" /> 
 
-<embed src="@components/c-table/demos/page1.md" /> 
+<embed src="@components/c-table/demos/checkbox1.md" /> 
 
 ### 单选表格
 
@@ -215,11 +223,11 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 
 ### 表格分组
 
-<embed src="@components/c-table/demos/tree2.md" /> 
+<embed src="@components/c-table/demos/group.md" /> 
 
 ### 表格通栏
 
-<embed src="@components/c-table/demos/tree3.md" /> 
+<embed src="@components/c-table/demos/fullColumn.md" /> 
 
 ### 表尾合计
 
@@ -234,8 +242,6 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 <embed src="@components/c-table/demos/light-row.md" /> 
 
 ### 表格排序
-
-<embed src="@components/c-table/demos/sort-no-page.md" /> 
 
 <embed src="@components/c-table/demos/sort-with-page.md" /> 
 

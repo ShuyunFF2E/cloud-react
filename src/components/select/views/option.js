@@ -5,6 +5,7 @@ import { noop } from '@utils';
 import Checkbox from '../../checkbox';
 import Icon from '../../icon';
 import { selector } from './common';
+import LightText from './light-text';
 
 import '../index.less';
 
@@ -16,6 +17,9 @@ export default function Option(props) {
     className,
     onChange,
     isSupportTitle,
+    searchValue,
+    supportLightText,
+    lightTextColor,
     ...otherProps
   } = props;
 
@@ -27,6 +31,19 @@ export default function Option(props) {
         : arr;
     }
     return title;
+  };
+
+  const getLabel = (originLabel) => {
+    if (supportLightText) {
+      return (
+        <LightText
+          keyWords={searchValue || ''}
+          originText={originLabel}
+          color={lightTextColor}
+        />
+      );
+    }
+    return originLabel;
   };
 
   const onOptionClick = () => {
@@ -50,7 +67,7 @@ export default function Option(props) {
           value={value}
           onChange={onChange}
         />
-        <span title={getTitle(children)}>{children}</span>
+        <span title={getTitle(children)}>{getLabel(children)}</span>
       </label>
     );
   }
@@ -64,13 +81,13 @@ export default function Option(props) {
         onClick={onOptionClick}
         className={classnames(classNames, `${selector}-multi-option`)}
       >
-        <span title={getTitle(children)}>{children}</span>
+        <span title={getTitle(children)}>{getLabel(children)}</span>
         {isSelected && (
           <Icon type="finish" className={`${selector}-single-selected-icon`} />
         )}
       </div>
     ),
-    [ isSelected ],
+    [ isSelected, searchValue ],
   );
 }
 

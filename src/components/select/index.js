@@ -26,13 +26,24 @@ const getSelected = (data, children) => {
   return selected;
 };
 
-const getOptions = (dataSource, labelKey, valueKey, isSupportTitle) => dataSource.map((v, index) => (
+const getOptions = (
+  dataSource,
+  labelKey,
+  valueKey,
+  isSupportTitle,
+  searchValue,
+  supportLightText,
+  lightTextColor,
+) => dataSource.map((v, index) => (
   <Option
     item={{ ...v, index }}
     value={v[valueKey]}
     disabled={v.disabled}
     isSupportTitle={isSupportTitle}
     key={Math.random()}
+    searchValue={searchValue}
+    supportLightText={supportLightText}
+    lightTextColor={lightTextColor}
   >
     {v[labelKey]}
   </Option>
@@ -59,6 +70,7 @@ class Select extends Component {
       selected,
       prevProps: props,
       style: {},
+      searchValue: '',
     };
     this.node = React.createRef();
     this.optionsNode = React.createRef();
@@ -91,7 +103,15 @@ class Select extends Component {
         : Children.toArray(children);
       const source = childs.length
         ? childs
-        : getOptions(dataSource, labelKey, valueKey, isSupportTitle);
+        : getOptions(
+          dataSource,
+          labelKey,
+          valueKey,
+          isSupportTitle,
+          prevState?.searchValue,
+          props.supportLightText,
+          props.lightTextColor,
+        );
       const selected = getSelected(displayValue, source);
       const emptyValue = multiple ? [] : '';
       const currentValue = displayValue !== null ? displayValue : emptyValue;
@@ -101,6 +121,7 @@ class Select extends Component {
         prevResult: labelInValue ? selected : displayValue,
         selected,
         prevProps: props,
+        searchValue: prevState?.searchValue,
       };
     }
 
@@ -143,12 +164,14 @@ class Select extends Component {
       open: prevPropOpen,
       searchable: prevSearchable,
       size: prevSize,
+      searchValue,
     } = this.props;
     const {
       open: prevOpen,
       value: prevValue,
       selected: prevSelected,
       style: prevStyle,
+      searchValue: prevSearchValue,
     } = this.state;
 
     return (
@@ -161,6 +184,7 @@ class Select extends Component {
       || selected !== prevSelected
       || searchable !== prevSearchable
       || style !== prevStyle
+      || searchValue !== prevSearchValue
     );
   }
 
@@ -196,7 +220,15 @@ class Select extends Component {
 
     if (childs.length) return childs;
 
-    return getOptions(dataSource, labelKey, valueKey, isSupportTitle);
+    return getOptions(
+      dataSource,
+      labelKey,
+      valueKey,
+      isSupportTitle,
+      this.state?.searchValue,
+      this.props.supportLightText,
+      this.props.lightTextColor,
+    );
   }
 
   get selectedContainerStyle() {
@@ -278,6 +310,7 @@ class Select extends Component {
   };
 
   onClickSelected = () => {
+    this.onSearchValueChange('');
     const { disabled } = this.props;
     if (disabled) return;
 
@@ -393,6 +426,10 @@ class Select extends Component {
     handleSelect();
   };
 
+  onSearchValueChange = (v) => {
+    this.setState({ searchValue: v });
+  };
+
   renderOptions() {
     const { multiple, confirmTemplate } = this.props;
     const { value } = this.state;
@@ -407,6 +444,7 @@ class Select extends Component {
           onCancel={this.handleCancel}
           confirmTemplate={confirmTemplate}
           onChange={this.onMultiSelectValueChange}
+          onSearchValueChange={this.onSearchValueChange}
         />
       );
     }
@@ -417,6 +455,7 @@ class Select extends Component {
         value={value}
         dataSource={this.children}
         onChange={this.onSimpleOptionChange}
+        onSearchValueChange={this.onSearchValueChange}
       />
     );
   }
@@ -516,6 +555,8 @@ Select.propTypes = {
   onSelectClose: PropTypes.func,
   onOk: PropTypes.func,
   onCancel: PropTypes.func,
+  supportLightText: PropTypes.bool,
+  lightTextColor: PropTypes.string,
 };
 
 Select.defaultProps = {
@@ -549,6 +590,8 @@ Select.defaultProps = {
   onSelectClose: noop,
   onOk: noop,
   onCancel: noop,
+  supportLightText: false,
+  lightTextColor: undefined,
 };
 
 export default Select;

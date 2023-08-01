@@ -1,6 +1,5 @@
 import React, {
   useState,
-  useEffect,
   forwardRef,
   useImperativeHandle,
   useRef,
@@ -26,6 +25,7 @@ function Drawer(
     wrapperClosable = false,
     showMask = false,
     onCloseAfter = () => {},
+    excludeClassList = [],
   },
   ref,
 ) {
@@ -35,6 +35,7 @@ function Drawer(
   };
 
   const [ visible, setVisible ] = useState(false);
+  const [ visibleTrans, setVisibleTrans ] = useState(false);
   const drawerRef = useRef();
 
   const onClose = () => {
@@ -56,28 +57,35 @@ function Drawer(
       evt.preventDefault();
       return;
     }
-    if (visible) {
-      const drawerCoordinate = getCoordinate(`.${drawerPrefix}`, drawerRef);
-      const _visible = isInsideRect(evt, drawerCoordinate);
-      setVisible(_visible);
+    const { clientX, clientY } = evt;
 
-      if (!_visible) {
-        onCloseAfter();
-      }
+    if (visible) {
+      setVisibleTrans(true);
+      setTimeout(() => {
+        document.elementFromPoint(clientX, clientY).click();
+        const targetClassList = Array.from(
+          document.elementFromPoint(clientX, clientY).classList,
+        );
+        if (excludeClassList?.length && targetClassList.length) {
+          // 点击包含 excludeClassList 中存在类名的元素，不关闭抽屉
+          if (
+            targetClassList.find((item) => excludeClassList.find((item1) => item1 === item))
+          ) {
+            setVisibleTrans(false);
+            return;
+          }
+        }
+        setVisibleTrans(false);
+        const drawerCoordinate = getCoordinate(`.${drawerPrefix}`, drawerRef);
+        const _visible = isInsideRect(evt, drawerCoordinate);
+        setVisible(_visible);
+
+        if (!_visible) {
+          onCloseAfter();
+        }
+      }, 0);
     }
   };
-
-  useEffect(() => {
-    if (wrapperClosable && !showMask) {
-      window.addEventListener('click', toggleShowDrawer);
-    }
-
-    return () => {
-      if (wrapperClosable && !showMask) {
-        window.removeEventListener('click', toggleShowDrawer);
-      }
-    };
-  });
 
   const onClickMask = () => {
     if (wrapperClosable) {
@@ -125,6 +133,12 @@ function Drawer(
       {showMask && visible && (
         <div className={`${drawerPrefix}-mask`} onClick={onClickMask} />
       )}
+      {wrapperClosable && !showMask && visible && !visibleTrans && (
+        <div
+          className={`${drawerPrefix}-transparent`}
+          onClick={toggleShowDrawer}
+        />
+      )}
     </section>,
     document.body,
   );
@@ -140,6 +154,7 @@ Drawer.propTypes = {
   showMask: PropTypes.bool,
   wrapperClosable: PropTypes.bool,
   onCloseAfter: PropTypes.func,
+  excludeClassList: PropTypes.array,
 };
 Drawer.defaultProps = {
   placement: 'right',
@@ -148,4 +163,5 @@ Drawer.defaultProps = {
   showMask: false,
   wrapperClosable: false,
   onCloseAfter: () => {},
+  excludeClassList: [],
 };

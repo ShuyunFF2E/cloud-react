@@ -5,7 +5,7 @@ import { prefixCls, loadScript } from '@utils';
 import './index.less';
 
 loadScript(
-  'https://cloud-cdn.shuyun.com/fe-publish-asset/0.0.37/libs/cloud-react/icon/color/symbol.min.js',
+  'https://cloud-cdn.shuyun.com/fe-publish-asset/0.0.99/libs/cloud-react/icon/color/symbol.min.js',
 );
 
 const iconPrefixCls = prefixCls === 'cloud' ? 'icon' : `${prefixCls}-icon`;

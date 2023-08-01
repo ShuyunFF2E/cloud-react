@@ -25,10 +25,16 @@ group:
 | showMask | 是否需要遮罩层    | boolean   |   false   | |
 | wrapperClosable |  点击 外部区域/遮罩区域 是否可以关闭 Drawer	  |  boolean  |   false  | |
 | onCloseAfter |  关闭抽屉后的回调函数	  |  func  |   () => {}  | |
+| excludeClassList |  设置 wrapperClosable 为 true 后，配置元素类名，点击拥有该类名的元素，不会关闭抽屉	  |  array  |   []  | |
 
 #### 打开抽屉
 ```js
 drawerRef.current.open();
+```
+
+#### 关闭抽屉
+```js
+drawerRef.current.close();
 ```
 
 ### 代码演示

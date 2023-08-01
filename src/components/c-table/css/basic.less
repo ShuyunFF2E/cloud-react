@@ -116,6 +116,11 @@
       pointer-events: none;
     }
 
+    &-fix-left,
+    &-fix-right {
+      z-index: 2;
+    }
+
     &-fix-right-first,
     &-fix-right-last {
       .@{tablePrefixCls}-rtl & {
@@ -488,18 +493,18 @@
         position: absolute;
         right: 12px;
         font-size: 14px;
-        color: @gray-7;
+        color: #949494;
         display: inline-block;
         transform: scale(0.9);
         z-index: 1;
       }
 
       .sort-up-icon {
-        top: calc(50% - 14px);
+        top: calc(50% - 13px);
       }
 
       .sort-down-icon {
-        top: calc(50% - 7px);
+        top: calc(50% - 6px);
       }
     }
 
@@ -521,7 +526,7 @@
     .filter-icon {
       position: absolute;
       right: 14px;
-      top: 11px;
+      top: 13px;
       //top: 50%;
       //transform: translate(0, -50%);
       cursor: pointer;
@@ -533,6 +538,25 @@
 
       &.has-filter-value {
         color: @blue-4;
+      }
+    }
+
+    .title-with-tip {
+      display: inline-flex;
+      align-items: center;
+
+      .title-tip-icon {
+        //position: relative;
+        //top: 1px;
+        margin: 0 4px;
+        color: @gray-6;
+      }
+
+      &.title-with-tip-right {
+      }
+
+      &.title-with-tip-left {
+        flex-direction: row-reverse;
       }
     }
   }

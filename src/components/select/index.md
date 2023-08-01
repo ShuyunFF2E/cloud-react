@@ -60,6 +60,8 @@ group:
 | onSelectClose     | 下拉选择框关闭的时候回调此函数                                                                                                                       | function                                | -              |
 | onBeforeChange    | 确认选择值之前回调此函数，仅支持单选                                                                                                                 | function(value)                         | -              |
 | confirmTemplate   | 自定义确认取消按钮模板(适用于多选下拉)                                                                                                               | function:({ onOk, onCancel })           | 组件默认模板   |
+| supportLightText   | 是否支持搜索高亮关键字                                                                                                         |  boolean          | false   |
+| lightTextColor   | 高亮关键字颜色                                                                                                         |  string          | #0055CC   |
 
 ### Option Props
 

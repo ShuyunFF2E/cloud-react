@@ -488,7 +488,7 @@ class CTable extends Component {
       };
       const params = {
         ..._pageOpts,
-        sortParams: { ...sortParams, sortBy: sortParams.sortBy || 'DESC' },
+        sortParams,
         filterValue,
       };
 
@@ -690,6 +690,7 @@ class CTable extends Component {
       loadingTpl,
       loadingOpts,
       footerSelectTpl,
+      footerTotalTpl,
       tooltipConfigs,
       disablePageOnLoad,
       showFooterSelect,
@@ -825,7 +826,9 @@ class CTable extends Component {
             <div className={classnames(`${tablePrefixCls}-footer-page`)}>
               {showTotal && (
                 <span className={classnames(`${tablePrefixCls}-footer-total`)}>
-                  共 {totals} 条
+                  {(typeof footerTotalTpl === 'function'
+                    ? footerTotalTpl(totals)
+                    : footerTotalTpl) || <>共 {totals} 条</>}
                 </span>
               )}
               <Pagination
