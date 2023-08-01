@@ -22,9 +22,9 @@ import {
 
 const {
 	YearPicker,
-	QuarterPicker,
 	MonthPicker,
-	WeekPicker
+	WeekPicker,
+	QuarterPicker
 } = DatePicker;
 
 export default class DatePickerDemo extends React.Component {
@@ -33,7 +33,8 @@ export default class DatePickerDemo extends React.Component {
 		year: 2021,
 		month: '2021/07',
 		monthDay: '06/07',
-		week: '2021/06/07 所在周',
+		week: '2021年 第24周',
+		quarter: '2021年 Q3',
 	}
 
 	onYearChange = year => {
@@ -51,13 +52,18 @@ export default class DatePickerDemo extends React.Component {
 		this.setState({ week });
 	}
 
+	onQuarterChange = quarter => {
+		console.log('quarter:', quarter);
+		this.setState({ quarter });
+	}
+
 	onMonthDayChange = monthDay => {
 		console.log('monthDay:', monthDay);
 		this.setState({ monthDay });
 	}
 
 	render() {
-		const { year, month, week, monthDay, disabled } = this.state;
+		const { year, month, week, quarter, monthDay, disabled } = this.state;
 		const { init } = this.field;
 		return (
 			<Form field={this.field} layout="horizontal" labelAlign="left" labelCol={{ span: 8 }}>
@@ -96,10 +102,19 @@ export default class DatePickerDemo extends React.Component {
 						onChange={this.onWeekChange}
 						disabled={disabled}
 						allowClear
-					  format="yyyy/MM/DD 所在周"
 						minYear={2020}
 						maxYear={2025}
 						presets={[{ label: '上周', value: () => moment().clone().subtract(1, 'weeks').startOf('week') }]}
+					/>
+				</Form.Item>
+				<Form.Item label="季度选择器">
+					<QuarterPicker
+						value={quarter}
+						onChange={this.onQuarterChange}
+						disabled={disabled}
+						allowClear
+						minYear={2020}
+						maxYear={2025}
 					/>
 				</Form.Item>
 				<Form.Item label="实现【月-日】选择">

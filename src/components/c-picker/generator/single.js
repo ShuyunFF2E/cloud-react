@@ -18,7 +18,7 @@ export default function generateSinglePicker(generateConfig) {
         moment.locale('zh-cn', {
           week: {
             dow: 1,
-            day: 7,
+            doy: 4,
           },
         });
       }

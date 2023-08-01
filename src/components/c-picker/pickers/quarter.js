@@ -2,11 +2,11 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import moment from 'moment';
 import momentGenerateConfig from 'rc-picker/lib/generate/moment';
 import generatePicker from '../generator';
-import { weekFormat } from '../formats';
+import { quarterFormat } from '../formats';
 
-const { WeekPicker: Picker } = generatePicker(momentGenerateConfig);
+const { QuarterPicker: Picker } = generatePicker(momentGenerateConfig);
 
-const WeekPicker = ({
+const QuarterPicker = ({
   size,
   className,
   dropdownClassName, // New
@@ -44,16 +44,16 @@ const WeekPicker = ({
   presets,
 }) => {
   const [value, setValue] = useState();
-  const format = _format || weekFormat;
+  const format = _format || quarterFormat;
 
   useEffect(() => {
-    setValue(_value && moment(_value, format).startOf('week'));
+    setValue(_value && moment(_value, format));
   }, [_value, format]);
 
   const handleChange = useCallback(
     (m) => {
       if (onChange) {
-        onChange(m && m.clone().startOf('week').format(format));
+        onChange(m && m.clone().format(format));
       } else {
         setValue(m);
       }
@@ -94,7 +94,7 @@ const WeekPicker = ({
       const current = d.clone();
       return (minYear && current.year() < minYear) || (maxYear && current.year() > maxYear);
     },
-    [minYear, maxYear],
+    [format, minYear, maxYear],
   );
 
   const handleGetDisabledDate = useCallback(
@@ -146,4 +146,4 @@ const WeekPicker = ({
   );
 };
 
-export default WeekPicker;
+export default QuarterPicker;
