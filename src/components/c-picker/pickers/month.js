@@ -109,7 +109,7 @@ const MonthPicker = ({
   const handleGetDisabledDate = useCallback(
     (m) => {
       if (_disabledDate) {
-        return _disabledDate(m && m.clone().format(format));
+        return _disabledDate(m && m.clone().format(format), m.clone());
       }
       return getDisabledDate(m);
     },

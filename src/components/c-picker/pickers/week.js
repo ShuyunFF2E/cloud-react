@@ -92,7 +92,10 @@ const WeekPicker = ({
   const getDisabledDate = useCallback(
     (d) => {
       const current = d.clone();
-      return (minYear && current.year() < minYear) || (maxYear && current.year() > maxYear);
+      return (
+        (minYear && current.startOf('week').year() < minYear)
+        || (maxYear && current.endOf('week').year() > maxYear)
+      );
     },
     [minYear, maxYear],
   );
@@ -100,7 +103,7 @@ const WeekPicker = ({
   const handleGetDisabledDate = useCallback(
     (m) => {
       if (_disabledDate) {
-        return _disabledDate(m && m.clone().format(format));
+        return _disabledDate(m && m.clone().format(format), m.clone());
       }
       return getDisabledDate(m);
     },

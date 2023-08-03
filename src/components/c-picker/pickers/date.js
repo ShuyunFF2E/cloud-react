@@ -155,9 +155,9 @@ const DatePicker = ({
     (m) => {
       if (_disabledDate) {
         if (_this.formatType === OBJ) {
-          return _disabledDate(m && m.clone().toDate());
+          return _disabledDate(m && m.clone().toDate(), m.clone());
         }
-        return _disabledDate(m && m.format(format));
+        return _disabledDate(m && m.format(format), m.clone());
       }
       return getDisabledDate(m);
     },
