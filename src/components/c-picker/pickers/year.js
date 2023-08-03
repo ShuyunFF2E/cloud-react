@@ -103,7 +103,7 @@ const YearPicker = ({
   const handleGetDisabledDate = useCallback(
     (m) => {
       if (_disabledDate) {
-        return _disabledDate(m && m.clone().year());
+        return _disabledDate(m && m.clone().year(), m.clone());
       }
       return getDisabledDate(m);
     },

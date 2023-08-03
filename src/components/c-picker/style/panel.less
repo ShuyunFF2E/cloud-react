@@ -472,7 +472,7 @@
       background-color: @blue-1;
     }
 
-    &-selected&-in-view &-inner,
+    &-selected:not(&-in-range)&-in-view &-inner,
     &-range-start&-in-view &-inner,
     &-range-end&-in-view &-inner {
       color: #fff;
@@ -532,7 +532,8 @@
 
   &-week-panel {
     &-row {
-      &:hover .@{prefix-cls}-cell:not(.@{prefix-cls}-cell-week)::before {
+      &:hover .@{prefix-cls}-cell:not(.@{prefix-cls}-cell-week)::before,
+      &-range-hover .@{prefix-cls}-cell:not(.@{prefix-cls}-cell-week)::before {
         background: @blue-1;
       }
 
@@ -548,9 +549,9 @@
         }
       }
 
-      &-selected {
+      &-selected, &-range-start, &-range-end {
         .@{prefix-cls}-cell {
-          &:not(&-in-view):hover,
+          &:not(:nth-child(2)):not(:last-of-type):hover,
           &-today,
           &-selected {
             .@{prefix-cls}-cell-inner {
@@ -598,7 +599,7 @@
 
             .@{prefix-cls}-cell-inner {
               color: #fff;
-              background: @blue-4;
+              background: @blue-4 !important;
             }
           }
           &:nth-child(2)::before {
@@ -615,6 +616,10 @@
   &-month-panel,
   &-year-panel,
   &-quarter-panel {
+    .@{prefix-cls}-cell::before {
+      height: 28px;
+    }
+
     .@{prefix-cls}-cell-inner {
       width: 48px;
       height: 28px;
@@ -624,6 +629,11 @@
 
     .@{prefix-cls}-cell-selected .@{prefix-cls}-cell-inner {
       color: #fff;
+    }
+
+    .@{prefix-cls}-cell-selected:not(.@{prefix-cls}-cell-range-start):not(.@{prefix-cls}-cell-range-end) .@{prefix-cls}-cell-inner {
+      color: @gray-9;
+      background: unset;
     }
   }
 }

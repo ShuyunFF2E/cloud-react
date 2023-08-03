@@ -15,12 +15,7 @@ export default function generateSinglePicker(generateConfig) {
 
       constructor(props) {
         super(props);
-        moment.locale('zh-cn', {
-          week: {
-            dow: 1,
-            doy: 4,
-          },
-        });
+        moment.locale('zh-cn', { week: { dow: 1 } });
       }
 
       focus = () => {

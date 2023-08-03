@@ -15,12 +15,7 @@ export default function generateRangePicker(generateConfig) {
 
       constructor(props) {
         super(props);
-        moment.locale('zh-cn', {
-          week: {
-            dow: 1,
-            doy: 4,
-          },
-        });
+        moment.locale('zh-cn', { week: { dow: 1 } });
       }
 
       focus = () => {
@@ -42,6 +37,7 @@ export default function generateRangePicker(generateConfig) {
           bordered = true,
           placeholder: _placeholder,
           presets = [],
+          type = picker,
           ...restProps
         } = this.props;
         const { format, showTime } = this.props;
@@ -97,6 +93,7 @@ export default function generateRangePicker(generateConfig) {
             transitionName={`${prefixCls}-slide-up`}
             {...restProps}
             {...additionalOverrideProps}
+            {...(picker === 'time' ? {} : { picker: type })}
             presets={presets?.map(({ label, value: vs = [] }) => ({
               label,
               value: () => {

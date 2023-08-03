@@ -8,7 +8,7 @@ import React, {
 import moment from 'moment';
 import momentGenerateConfig from 'rc-picker/lib/generate/moment';
 import generatePicker from '../generator';
-import { dateFormat, dateTimeFormat, timeFormat } from '../formats';
+import { dateFormat, dateTimeFormat, timeFormat, pickerDefaultFormatMap } from '../formats';
 import { STR, OBJ, transformString2Moment } from '../utils';
 
 const { DateRangePicker: Picker } = generatePicker(momentGenerateConfig);
@@ -54,13 +54,15 @@ const DateRangePicker = ({
   onKeyDown,
   onPanelChange,
   onOk,
-  presets
+  presets,
+  type = 'date',
 }) => {
   const { current: _this } = useRef({
     formatType: STR,
   });
   const [ value, setValue ] = useState();
-  const format = _format || (showTimePicker ? dateTimeFormat : dateFormat);
+  // eslint-disable-next-line no-nested-ternary
+  const format = _format || (type !== 'date' ? pickerDefaultFormatMap[type] : (showTimePicker ? dateTimeFormat : dateFormat));
   let placeholder = _placeholder;
   if (typeof placeholder === 'string') {
     placeholder = [ placeholder, placeholder ];
@@ -87,21 +89,20 @@ const DateRangePicker = ({
       return (
         (min && target.isBefore(min))
         || (max && target.isAfter(max))
-        || (minYear && target.year() < minYear)
-        || (maxYear && target.year() > maxYear)
+        || (minYear && target.startOf(type === 'week' ? 'week' : 'day').year() < minYear)
+        || (maxYear && target.endOf(type === 'week' ? 'week' : 'day').year() > maxYear)
       );
     },
-    [ format, minDate, maxDate, minYear, maxYear ],
+    [ type, format, minDate, maxDate, minYear, maxYear ],
   );
 
   const handleGetDisabledDate = useCallback(
-    (target) => {
-      const m = target && moment(target.format(format));
+    (m) => {
       if (_disabledDate) {
         if (_this.formatType === OBJ) {
-          return _disabledDate(m && m.clone().toDate());
+          return _disabledDate(m && m.clone().toDate(), m.clone());
         }
-        return _disabledDate(m && m.format(format));
+        return _disabledDate(m && m.format(format), m.clone());
       }
       return m && getDisabledDate(m);
     },
@@ -268,6 +269,7 @@ const DateRangePicker = ({
         onContextMenu,
         onKeyDown,
         presets,
+        type,
       }}
     />
   );
