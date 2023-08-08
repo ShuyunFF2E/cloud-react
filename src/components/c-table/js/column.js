@@ -416,7 +416,7 @@ export default class Column {
   getCheckboxColumn = (isFirstColumnFixed) => {
     const { _this } = this;
     const { leafNodesMap } = _this;
-    const { disabled } = _this.props;
+    const { disabled, showCheckedAll } = _this.props;
 
     const currentLeafNodes = Object.keys(leafNodesMap).reduce(
       (nodeList, key) => {
@@ -433,7 +433,7 @@ export default class Column {
     const isIndeterminateAll = !isCheckedAll && isSomeChecked(currentLeafNodes);
 
     return {
-      title: (
+      title: showCheckedAll ? (
         <Checkbox
           style={{ float: 'left' }}
           disabled={disabled}
@@ -441,6 +441,8 @@ export default class Column {
           indeterminate={isIndeterminateAll}
           onChange={(checked) => this.onAllCheckedChange(checked)}
         />
+      ) : (
+        ''
       ),
       className: `${tablePrefixCls}-checkbox-column`,
       dataIndex: 'checkbox',

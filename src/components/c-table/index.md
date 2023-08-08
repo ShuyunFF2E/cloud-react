@@ -88,6 +88,7 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 | onCheckedAllAfter | 选中当页回调，需要设置 supportCheckbox 为 true，Function(checkedList, currentPageData, checked)   | function   |   -   | |
 | showFooterSelect | 配置是否显示已选条数 | boolean   |   true   | |
 | disabled | 禁用多选/单选按钮 | boolean   |   false   | |
+| showCheckedAll | 是否展示表格全选当页按钮 | boolean   |   true   | |
 
 #### CTable 表格拖拽配置
 | 属性           | 说明                    | 类型              | 默认值
