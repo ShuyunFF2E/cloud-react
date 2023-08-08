@@ -175,10 +175,16 @@ class CTable extends Component {
       childrenKey,
     } = this.props;
     this.setState({ isLoading: true }, async () => {
+      const sortParams = {
+        allSortColumns: [...this.state.columnData],
+      };
       const res = await this.getDataSource(ajaxData, {
         ...pageOpts,
         filterValue,
+        sortParams,
       });
+
+      this.setState({ sortParams });
 
       if (childrenKey !== 'children') {
         traverseTree({
