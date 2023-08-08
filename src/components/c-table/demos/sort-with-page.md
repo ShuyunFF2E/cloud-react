@@ -13,13 +13,9 @@ desc: 表格排序
 import React from 'react';
 import { CTable, Tooltip, Icon } from 'cloud-react';
 
-const data = [
-  { id: '121410321', name: '手机号优先继续发送1', createTime: '2021/12/14 10:19:02', creator: 'liyuan.meng', num: '12,222', orderNum: '33,342' },
-  { id: '121410322', name: 'ouid疲劳度2', createTime: '2021/12/13 15:47:33	', creator: 'jiaojiao.diao', num: '198', orderNum: '122' },
-  { id: '121410323', name: '继续发送手机3', createTime: '2021/12/13 15:36:42', creator: 'nan.run', num: '1,232', orderNum: '1,332' },
-  { id: '121410324', name: '继续发送手机4', createTime: '2021/12/13 11:14:40', creator: 'xiaotong.fan', num: '12,122,112', orderNum: '112,122,112' },
-  { id: '121410325', name: '继续发送手机5', createTime: '2021/12/13 11:03:05', creator: 'zhenxiao.guo', num: '1000,000', orderNum: '200,000' },
-];
+const data = new Array(50).fill(1).map((item, index) => (
+  { id: 121410327 + index, name: `手机号优先继续发送${index}`, createTime: '2021/12/14 10:19:02', creator: 'liyuan.meng', num: '12,222', orderNum: '33,342' }
+))
 
 const columns = [
   {
@@ -79,7 +75,8 @@ export default function CTableDemo() {
   }
 
   return (
-    <CTable 
+    <CTable
+      style={{ height: 400 }}
       supportPage
       columnData={columns}
       ajaxData={(params) => {
