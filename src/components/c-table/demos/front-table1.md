@@ -58,7 +58,6 @@ function TableDemo({ data, setData }) {
 }
 
 export default function CTableDemo() {
-  const tableRef = createRef();
   const [data, setData] = useState([
     { id: '121410327', name: '手机号优先继续发送1', createTime: '2021/12/14 10:19:02', creator: 'liyuan.meng', num: '12,222' },
   ]);

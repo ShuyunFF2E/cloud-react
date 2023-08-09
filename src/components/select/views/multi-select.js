@@ -90,10 +90,10 @@ export default function MultiSelect(props) {
     });
     onChange(result);
   };
-
   const views = useMemo(
-    () => Children.map(options, (child) => cloneElement(child, {
+    () => Children.map(options, (child, index) => cloneElement(child, {
       ...child.props,
+      ...(dataSource?.[index]?.props || {}),
       multiple: true,
       isSelected: values.includes(child.props.value),
       onChange: onOptionChange,
