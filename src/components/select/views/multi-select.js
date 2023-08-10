@@ -54,6 +54,8 @@ export default function MultiSelect(props) {
     confirmTemplate,
     className,
     onSearchValueChange,
+    supportUnlimited,
+    handleSelect,
   } = props;
   const [ options, setOptions ] = useState(dataSource);
   const [ searchValue, setSearchValue ] = useState('');
@@ -80,6 +82,14 @@ export default function MultiSelect(props) {
     }
   };
 
+  const onUnlimitedChange = ({ disabled }) => {
+    if (disabled) {
+      return;
+    }
+    onChange([]);
+    handleSelect();
+  };
+
   const handleCheckAll = (checked) => {
     const result = Children.map(dataSource, (child) => {
       const { value: childValue, disabled } = child.props;
@@ -94,9 +104,15 @@ export default function MultiSelect(props) {
     () => Children.map(options, (child, index) => cloneElement(child, {
       ...child.props,
       ...(dataSource?.[index]?.props || {}),
+      hideCheckbox:
+            supportUnlimited && !child.props.value && child.props.value !== 0,
       multiple: true,
       isSelected: values.includes(child.props.value),
       onChange: onOptionChange,
+      onUnlimitedChange: () => onUnlimitedChange({
+        ...child.props,
+        ...(dataSource?.[index]?.props || {}),
+      }),
     })),
     [ options, values ],
   );
@@ -184,6 +200,7 @@ MultiSelect.propTypes = {
   onSearch: PropTypes.func,
   onOk: PropTypes.func,
   onCancel: PropTypes.func,
+  supportUnlimited: PropTypes.bool,
 };
 
 MultiSelect.defaultProps = {
@@ -199,4 +216,5 @@ MultiSelect.defaultProps = {
   onSearch: noop,
   onOk: noop,
   onCancel: noop,
+  supportUnlimited: false,
 };
