@@ -20,6 +20,8 @@ export default function Option(props) {
     searchValue,
     supportLightText,
     lightTextColor,
+    hideCheckbox,
+    onUnlimitedChange,
     ...otherProps
   } = props;
 
@@ -61,13 +63,21 @@ export default function Option(props) {
     const { value, children } = otherProps;
     return (
       <label className={classnames(classNames, `${selector}-multi-option`)}>
-        <Checkbox
-          checked={isSelected}
-          disabled={disabled}
-          value={value}
-          onChange={onChange}
-        />
-        <span title={getTitle(children)}>{getLabel(children)}</span>
+        {hideCheckbox ? (
+          <span title={getTitle(children)} onClick={onUnlimitedChange}>
+            {getLabel(children)}
+          </span>
+        ) : (
+          <>
+            <Checkbox
+              checked={isSelected}
+              disabled={disabled}
+              value={value}
+              onChange={onChange}
+            />
+            <span title={getTitle(children)}>{getLabel(children)}</span>
+          </>
+        )}
       </label>
     );
   }

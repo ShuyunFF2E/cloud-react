@@ -10,9 +10,20 @@ import '../index.less';
 
 const getLables = (props) => {
   const {
-    dataSource, multiple, showSelectAll, metaData,
+    dataSource: _dataSource,
+    multiple,
+    showSelectAll,
+    metaData,
+    supportUnlimited,
+    unlimitedLabel,
   } = props;
+  const dataSource = supportUnlimited
+    ? _dataSource.filter((item) => item.value !== '')
+    : _dataSource;
   if (multiple) {
+    if (supportUnlimited && !dataSource?.length) {
+      return unlimitedLabel || '不限';
+    }
     if (showSelectAll) {
       const data = metaData.reduce((acc, v) => {
         acc.push({
@@ -105,6 +116,7 @@ export default class Selected extends React.Component {
         showSelectStyle,
         onClear,
         size,
+        supportUnlimited,
       },
       state: { selected, clear },
       onMouseEnter,
@@ -112,7 +124,7 @@ export default class Selected extends React.Component {
     } = this;
     const classNames = classnames(`${selector}-wrapper`, {
       disabled,
-      empty: !dataSource.length,
+      empty: supportUnlimited ? false : !dataSource.length,
       hidden: !showSelectStyle,
       [`${size}`]: true,
     });
