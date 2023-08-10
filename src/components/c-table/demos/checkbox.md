@@ -42,6 +42,7 @@ export default function CTableDemo() {
   const [checkedData, setCheckedData] = useState([data[1], data[4], data[15]]);
   const [isEmpty, setIsEmpty] = useState(false);
   const [hideEmptyFooter, setHideEmptyFooter] = useState(false);
+  const [showCheckedAll, setShowCheckedAll] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [disabled, setDisabled] = useState(false);
   const tableRef = useRef();
@@ -72,6 +73,9 @@ export default function CTableDemo() {
           <Checkbox checked={disabled} onChange={disabled => {
             setDisabled(disabled);
           }}>禁用选择</Checkbox>
+          <Checkbox checked={showCheckedAll} onChange={checked => {
+            setShowCheckedAll(checked);
+          }}>显示全选当页按钮</Checkbox>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 15 }}>
           <Button onClick={() => {
@@ -91,7 +95,7 @@ export default function CTableDemo() {
         </div>
       </div>
       <CTable
-        key={String(disabled)}
+        key={`${String(disabled)}-${String(showCheckedAll)}`}
         style={{ width: '100%', height: 400 }}
         ref={tableRef}
         supportExpend
@@ -107,6 +111,7 @@ export default function CTableDemo() {
         showRefresh={showRefresh}
         showTotal={showTotal}
         hideEmptyFooter={hideEmptyFooter}
+        showCheckedAll={showCheckedAll}
         disabled={disabled}
         checkedData={checkedData}
         columnData={columns}

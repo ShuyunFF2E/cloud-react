@@ -1,8 +1,8 @@
 ```jsx
 
 /**
- * title: 纯前端表格带操作
- * desc: 此例子用来解决：纯前端表格，对表格进行增删操作时，表格数据源异常的问题（利用对象的引用特性解决）
+ * title: 纯前端表格增删操作
+ * desc: 此例子用来解决：纯前端表格，对表格进行增删操作时，表格数据源异常的问题（利用对象的引用特性解决。如果有更好的解决方案欢迎戳我，我来更新文档！！！）
  */
 import React, { useState, useEffect } from 'react';
 import { CTable, Button } from 'cloud-react';

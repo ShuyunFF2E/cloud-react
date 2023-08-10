@@ -8,7 +8,7 @@ desc: 表格排序
 
 /**
  * title: 表格排序
- * desc: 表格排序（从远程获取数据）
+ * desc: 表格排序（指定列默认排序规则：给 columnData 配置 sortBy 参数即可）
  */
 import React from 'react';
 import { CTable, Tooltip, Icon } from 'cloud-react';
@@ -24,6 +24,7 @@ const columns = [
     sortable: true,
     fixed: 'left',
     width: 120,
+    sortBy: 'DESC',
     titleTooltipConfig: {
       content: <span>提示信息</span>
     }
@@ -61,11 +62,12 @@ const columns = [
 
 export default function CTableDemo() {
   const sort = (data, { sortParams }) => {
-    if (sortParams?.dataIndex === 'id') {
-      return data.sort((a, b) => sortParams.sortBy === 'ASC' ? Number(a.id) - Number(b.id) : Number(b.id) - Number(a.id));
+    const { dataIndex, sortBy } = sortParams?.allSortColumns?.find(item => item.sortBy) || {};
+    if (dataIndex === 'id') {
+      return data.sort((a, b) => sortBy === 'ASC' ? Number(a.id) - Number(b.id) : Number(b.id) - Number(a.id));
     }
-    if (['name', 'createTime', 'num', 'orderNum', 'creator'].includes(sortParams?.dataIndex)) {
-      return data.sort((a, b) => sortParams.sortBy === 'ASC' ? a[sortParams.dataIndex].localeCompare(b[sortParams.dataIndex]) : b[sortParams.dataIndex].localeCompare(a[sortParams.dataIndex]));
+    if (['name', 'createTime', 'num', 'orderNum', 'creator'].includes(dataIndex)) {
+      return data.sort((a, b) => sortBy === 'ASC' ? a[dataIndex].localeCompare(b[dataIndex]) : b[dataIndex].localeCompare(a[dataIndex]));
     }
     return data;
   };
@@ -80,7 +82,13 @@ export default function CTableDemo() {
       supportPage
       columnData={columns}
       ajaxData={(params) => {
-        console.log('给后端传递参数：', '字段:', params.sortParams?.dataIndex, params.sortParams?.sortBy === 'ASC' ? '；升序:' : '；降序:', params.sortParams?.sortBy);
+        console.log('所有列排序配置:');
+        console.table(params.sortParams?.allSortColumns?.map(item => {
+          return {
+            dataIndex: item.dataIndex,
+            sortBy: item.sortBy
+          }
+        }));
         return new Promise(resolve => {
           const sortedData = sort(data, params);
           setTimeout(() => {
