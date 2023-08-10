@@ -61,23 +61,23 @@ export default function Option(props) {
 
   if (multiple) {
     const { value, children } = otherProps;
-    return (
+    return hideCheckbox ? (
+      // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
+      <label
+        className={classnames(classNames, `${selector}-multi-option`)}
+        onClick={onUnlimitedChange}
+      >
+        <span title={getTitle(children)}>{getLabel(children)}</span>
+      </label>
+    ) : (
       <label className={classnames(classNames, `${selector}-multi-option`)}>
-        {hideCheckbox ? (
-          <span title={getTitle(children)} onClick={onUnlimitedChange}>
-            {getLabel(children)}
-          </span>
-        ) : (
-          <>
-            <Checkbox
-              checked={isSelected}
-              disabled={disabled}
-              value={value}
-              onChange={onChange}
-            />
-            <span title={getTitle(children)}>{getLabel(children)}</span>
-          </>
-        )}
+        <Checkbox
+          checked={isSelected}
+          disabled={disabled}
+          value={value}
+          onChange={onChange}
+        />
+        <span title={getTitle(children)}>{getLabel(children)}</span>
       </label>
     );
   }
