@@ -88,6 +88,7 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 | onCheckedAllAfter | 选中当页回调，需要设置 supportCheckbox 为 true，Function(checkedList, currentPageData, checked)   | function   |   -   | |
 | showFooterSelect | 配置是否显示已选条数 | boolean   |   true   | |
 | disabled | 禁用多选/单选按钮 | boolean   |   false   | |
+| showCheckedAll | 是否展示表格全选当页按钮 | boolean   |   true   | |
 
 #### CTable 表格拖拽配置
 | 属性           | 说明                    | 类型              | 默认值
@@ -165,6 +166,7 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 | render     | 自定义列模板                                     | function                      | -               |
 | sortable     | 是否支持排序                                     | boolean                      | false               |
 | sorter     | 自定义列排序规则                                     | function                      | -               |
+| sortBy     | 指定列默认排序规则（正序/倒叙）`ASC` `DESC`                | string                      | ''               |
 | onCell     | 为每个单元格设置自定义参数 Function(record, index)                                   | function                      | -               |
 | minWidth     | 列最小宽度（**该属性效果不流畅，可以给 columnData 中的每一项都设置 width 属性，可达到同样效果**）                      | number                   | - |
 | filters     | 配置表格列筛选项 [{ text: '男', value: 'male' }, { text: '女', value: 'female' }]                      | array                   | [] |
@@ -247,6 +249,8 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 
 <embed src="@components/c-table/demos/sort-front.md" /> 
 
+<embed src="@components/c-table/demos/sort-store.md" /> 
+
 ### 表格过滤
 
 <embed src="@components/c-table/demos/filter.md" />
@@ -284,5 +288,7 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 <embed src="@components/c-table/demos/goods-table.md" />
 
 <embed src="@components/c-table/demos/front-table.md" />
+
+<embed src="@components/c-table/demos/front-table1.md" />
 
 <embed src="@components/c-table/demos/table-in-tab.md" />
