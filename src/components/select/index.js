@@ -8,21 +8,33 @@ import { flat, noop } from '@utils';
 import ContextProvider from '@contexts/context-provider';
 import SingleSelect from './views/single-select';
 import MultiSelect from './views/multi-select';
+import GroupSelect from './views/group-select';
 import Selected from './views/selected';
 import Option from './views/option';
 import { selector } from './views/common';
 
-import { formatOptionSource } from './utils';
+import { formatOptionSource, isGroupSelectPicker } from './utils';
 
 import './index.less';
 
-const getSelected = (data, children) => {
+const getSelected = (data, children, dataSource) => {
   const options = Array.isArray(data) ? data : [ data ];
   if (!options.length) return [];
-  const selected = Children.map(children, (child) => {
-    const { children: label, value } = child.props;
-    return options.includes(value) ? { label, value } : null;
-  });
+  let selected = [];
+  if (isGroupSelectPicker(dataSource)) {
+    const groupOptionData = dataSource.map((x) => x.options).flat();
+    groupOptionData.forEach((x) => {
+      const { label, value } = x;
+      if (options.includes(value)) {
+        selected.push({ label, value });
+      }
+    });
+  } else {
+    selected = Children.map(children, (child) => {
+      const { children: label, value } = child.props;
+      return options.includes(value) ? { label, value } : null;
+    });
+  }
   return selected;
 };
 
@@ -112,7 +124,7 @@ class Select extends Component {
           props.supportLightText,
           props.lightTextColor,
         );
-      const selected = getSelected(displayValue, source);
+      const selected = getSelected(displayValue, source, dataSource);
       const emptyValue = multiple ? [] : '';
       const currentValue = displayValue !== null ? displayValue : emptyValue;
       return {
@@ -220,6 +232,9 @@ class Select extends Component {
 
     if (childs.length) return childs;
 
+    if (isGroupSelectPicker(dataSource)) {
+      return this.getGroupOptions();
+    }
     return getOptions(
       dataSource,
       labelKey,
@@ -244,6 +259,26 @@ class Select extends Component {
     if (!ele) return {};
     return ele.getBoundingClientRect();
   }
+
+  getGroupOptions = () => {
+    const {
+      dataSource, labelKey, valueKey, isSupportTitle,
+    } = this.props;
+    return dataSource.map((group) => {
+      const groupItem = getOptions(
+        group.options || [],
+        labelKey,
+        valueKey,
+        isSupportTitle,
+      );
+      return (
+        <div>
+          <p className="groupName">{group.label}</p>
+          {groupItem}
+        </div>
+      );
+    });
+  };
 
   positionPop = () => {
     const {
@@ -431,7 +466,7 @@ class Select extends Component {
   };
 
   renderOptions() {
-    const { multiple, confirmTemplate } = this.props;
+    const { multiple, confirmTemplate, dataSource } = this.props;
     const { value } = this.state;
 
     if (multiple) {
@@ -446,6 +481,17 @@ class Select extends Component {
           onChange={this.onMultiSelectValueChange}
           onSearchValueChange={this.onSearchValueChange}
           handleSelect={this.handleSelect}
+        />
+      );
+    }
+
+    if (isGroupSelectPicker(dataSource)) {
+      return (
+        <GroupSelect
+          {...this.props}
+          value={value}
+          dataSource={this.children}
+          onChange={this.onSimpleOptionChange}
         />
       );
     }
