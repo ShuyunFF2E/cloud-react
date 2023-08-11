@@ -62,6 +62,8 @@ group:
 | confirmTemplate   | 自定义确认取消按钮模板(适用于多选下拉)                                                                                                               | function:({ onOk, onCancel })           | 组件默认模板   |
 | supportLightText   | 是否支持搜索高亮关键字                                                                                                         |  boolean          | false   |
 | lightTextColor   | 高亮关键字颜色                                                                                                         |  string          | #0055CC   |
+| supportUnlimited   | 多选下拉是否支持不限                                                                                                         |   boolean          | false   |
+| unlimitedLabel   | 修改"不限"文本                                                                                                         |  string          | 不限   |
 
 ### Option Props
 
@@ -87,3 +89,5 @@ group:
 <embed src="@components/select/demos/key.md" />
 
 <embed src="@components/select/demos/trigger.md" />
+
+<embed src="@components/select/demos/unlimited.md" />

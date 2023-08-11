@@ -445,6 +445,7 @@ class Select extends Component {
           confirmTemplate={confirmTemplate}
           onChange={this.onMultiSelectValueChange}
           onSearchValueChange={this.onSearchValueChange}
+          handleSelect={this.handleSelect}
         />
       );
     }
@@ -470,6 +471,7 @@ class Select extends Component {
       isAppendToBody,
       isSupportTitle,
       size,
+      supportUnlimited,
       ...otherProps
     } = this.props;
     const { selected, open, style: popupStyle } = this.state;
@@ -506,6 +508,7 @@ class Select extends Component {
           disabled={disabled}
           size={size}
           isSupportTitle={isSupportTitle}
+          supportUnlimited={supportUnlimited}
         />
 
         {isAppendToBody
@@ -557,6 +560,8 @@ Select.propTypes = {
   onCancel: PropTypes.func,
   supportLightText: PropTypes.bool,
   lightTextColor: PropTypes.string,
+  supportUnlimited: PropTypes.bool,
+  unlimitedLabel: PropTypes.string,
 };
 
 Select.defaultProps = {
@@ -592,6 +597,8 @@ Select.defaultProps = {
   onCancel: noop,
   supportLightText: false,
   lightTextColor: undefined,
+  supportUnlimited: false,
+  unlimitedLabel: '不限',
 };
 
 export default Select;

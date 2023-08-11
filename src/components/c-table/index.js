@@ -63,6 +63,7 @@ class CTable extends Component {
       selectedNodeList: this.props.checkedData,
       isLoading: false,
       filterValue: [],
+      sortParams: {},
     };
     this.column = new Column(this);
   }
@@ -174,10 +175,16 @@ class CTable extends Component {
       childrenKey,
     } = this.props;
     this.setState({ isLoading: true }, async () => {
+      const sortParams = {
+        allSortColumns: [...this.state.columnData],
+      };
       const res = await this.getDataSource(ajaxData, {
         ...pageOpts,
         filterValue,
+        sortParams,
       });
+
+      this.setState({ sortParams });
 
       if (childrenKey !== 'children') {
         traverseTree({
@@ -492,6 +499,8 @@ class CTable extends Component {
         filterValue,
       };
 
+      this.setState({ sortParams });
+
       const { ajaxData, dataKey, childrenKey } = this.props;
       const res = await this.getDataSource(ajaxData, params);
       if (childrenKey !== 'children') {
@@ -554,7 +563,7 @@ class CTable extends Component {
     if (pageOpts && pageOpts.onChange) {
       pageOpts.onChange({ pageNum, pageSize });
     }
-    this.loadGrid({ pageNum, pageSize });
+    this.loadGrid({ pageNum, pageSize, sortParams: this.state.sortParams });
   };
 
   /**

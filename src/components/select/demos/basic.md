@@ -34,6 +34,7 @@ const dataList = [
 ];
 
 export default function SelectDemo() {
+  const [multiDataList, setDataList] = useState(dataList);
   const handleChange = (value, prevValue) => {
     console.log('select --- ' + value);
     console.log('prevSelect --- ' + prevValue);
@@ -65,13 +66,24 @@ export default function SelectDemo() {
         ))}
       </Select>
       <Select
-        defaultValue={'3'}
-        onChange={handleChange}
+        onChange={values => {
+          if (values.length > 1) {
+            setDataList(multiDataList.map((item, index) => ({
+              ...item,
+              disabled: !values.includes(item.value)
+            })))
+          } else {
+            setDataList(multiDataList.map((item, index) => ({
+              ...item,
+              disabled: false
+            })))
+          }
+        }}
         style={{ width: 120 }}
         multiple
       >
-        {dataList.map((item, index) => (
-          <Option value={item.value} disabled={item.disabled} key={index}>
+        {multiDataList.map((item, index) => (
+          <Option value={item.value} disabled={item.disabled} key={`${index}-${item.disabled}`}>
             {item.label}
           </Option>
         ))}
