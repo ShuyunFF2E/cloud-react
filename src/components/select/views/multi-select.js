@@ -131,7 +131,6 @@ export default function MultiSelect(props) {
 
   useEffect(() => {
     const result = filterOptions(dataSource, searchValue);
-    console.log(searchValue, dataSource, result);
     setOptions(result);
   }, [ searchValue ]);
 
