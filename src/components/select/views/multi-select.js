@@ -103,7 +103,7 @@ export default function MultiSelect(props) {
   const views = useMemo(
     () => Children.map(options, (child, index) => cloneElement(child, {
       ...child.props,
-      ...(dataSource?.[index]?.props || {}),
+      disabled: (dataSource?.[index]?.props || child.props)?.disabled,
       hideCheckbox:
             supportUnlimited && !child.props.value && child.props.value !== 0,
       multiple: true,
@@ -131,6 +131,7 @@ export default function MultiSelect(props) {
 
   useEffect(() => {
     const result = filterOptions(dataSource, searchValue);
+    console.log(searchValue, dataSource, result);
     setOptions(result);
   }, [ searchValue ]);
 
