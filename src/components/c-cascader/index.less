@@ -19,31 +19,36 @@ input::-webkit-search-cancel-button {
   display: inline-block;
   cursor: pointer;
 
+  &-loading-spin {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    animation: load 1.5s infinite linear;
+    border: 1px solid @blue-4;
+    border-right: 1px solid transparent;
+    @keyframes load {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  }
+
   &-focused &-selector {
     border-color: @blue-4;
   }
 
-  &:hover {
+  &:not(&-disabled):hover {
     .@{cascader-prefix-cls}-selector {
       border-color: @blue-4;
     }
   }
 
-  &-disabled {
-    &:hover {
-      .@{cascader-prefix-cls}-selector {
-        border-color: @gray-4;
-      }
-    }
-
-    .@{cascader-prefix-cls}-selector {
-      cursor: not-allowed;
-      background: @gray-3;
-    }
-  }
-
   &-selection-item {
-    color: @gray-9;
+    color: @gray-8;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -84,14 +89,33 @@ input::-webkit-search-cancel-button {
     left: -9999px;
     z-index: 1050;
     box-sizing: border-box;
-    padding: 8px 0;
-    overflow: hidden;
+    // overflow: hidden;
     font-size: @font-size-base;
     font-variant: initial;
     background-color: @gray-1;
-    border-radius: 2px;
     outline: none;
-    box-shadow: @border-shadow-3;
+    box-shadow: @border-shadow-4;
+    border-radius: 6px;
+    padding: 0;
+
+    max-width: 500px;
+    overflow-x: auto;
+
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: rgba(0, 0, 0, 0.25);
+      border-radius: 8px;
+      border: 0px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background-color: rgba(0, 0, 0, 0.45);
+    }
+    ::-webkit-scrollbar-track {
+      background-color: transparent;
+    }
   }
 
   &-checkbox {
@@ -120,8 +144,10 @@ input::-webkit-search-cancel-button {
     opacity: 0;
     transition: color 0.3s ease, opacity 0.15s ease;
     text-rendering: auto;
+    &:hover {
+      color: @gray-7;
+    }
   }
-
   &:hover &-clear {
     opacity: 1;
   }
@@ -129,7 +155,6 @@ input::-webkit-search-cancel-button {
   &-dropdown-hidden {
     display: none;
   }
-
   &-single &-selector &-selection-search {
     position: absolute;
     top: 0;
@@ -155,6 +180,10 @@ input::-webkit-search-cancel-button {
     appearance: none;
     height: 30px;
     cursor: pointer;
+    &:read-only {
+      caret-color: rgba(0, 0, 0, 0);
+    }
+
     // width: 100%;
   }
 
@@ -162,11 +191,10 @@ input::-webkit-search-cancel-button {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    padding: 1px 4px;
-    height: 32px;
+    padding: 0 12px 0 8px;
     max-height: 350px;
     overflow: auto;
-    box-sizing: border-box;
+    font-size: 12px;
   }
 
   &-single &-selection-placeholder {
@@ -182,11 +210,10 @@ input::-webkit-search-cancel-button {
     white-space: nowrap;
     text-overflow: ellipsis;
     pointer-events: none;
-    height: 28px;
-    line-height: 28px;
   }
 
   &-multiple &-selection-placeholder {
+    font-size: 14px;
     position: absolute;
     top: 50%;
     right: 11px;
@@ -199,8 +226,6 @@ input::-webkit-search-cancel-button {
     white-space: nowrap;
     text-overflow: ellipsis;
     pointer-events: none;
-    height: 28px;
-    line-height: 28px;
   }
 
   &-multiple &-selection-search {
@@ -208,7 +233,7 @@ input::-webkit-search-cancel-button {
     max-width: 100%;
     -webkit-margin-start: 7px;
     margin-inline-start: 7px;
-    line-height: 22px;
+
     &-mirror {
       position: absolute;
       top: 0;
@@ -232,10 +257,12 @@ input::-webkit-search-cancel-button {
       -webkit-appearance: none;
       -moz-appearance: none;
       appearance: none;
-      height: 24px;
     }
   }
 
+  &-multiple &-selection-overflow-item {
+    height: 30px;
+  }
   &-multiple &-selection-item {
     position: relative;
     display: flex;
@@ -243,8 +270,8 @@ input::-webkit-search-cancel-button {
     box-sizing: border-box;
     max-width: 100%;
     height: 24px;
-    margin-top: 2px;
-    margin-bottom: 2px;
+    margin-top: 3px;
+    margin-bottom: 0px;
     line-height: 22px;
     background: @gray-3;
     border: 1px solid @gray-3;
@@ -259,10 +286,10 @@ input::-webkit-search-cancel-button {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    -webkit-margin-end: 8px;
-    margin-inline-end: 8px;
-    -webkit-padding-start: 8px;
-    padding-inline-start: 8px;
+    -webkit-margin-end: 4px;
+    margin-inline-end: 4px;
+    -webkit-padding-start: 6px;
+    padding-inline-start: 6px;
     -webkit-padding-end: 4px;
     padding-inline-end: 4px;
 
@@ -291,11 +318,12 @@ input::-webkit-search-cancel-button {
     &-item {
       flex: none;
       align-self: center;
-      max-width: 100%;
+      max-width: 65%;
     }
-    &-item-suffix {
-      position: static !important;
-    }
+
+    // &-item-suffix {
+    // 	display: none;
+    // }
   }
 
   &-selector {
@@ -310,24 +338,16 @@ input::-webkit-search-cancel-button {
     position: relative;
     width: 100%;
     height: 32px;
-    padding: 0 11px;
+    padding: 0 12px;
     display: flex;
     align-items: center;
     box-sizing: border-box;
-  }
-
-  &-multiple &-selector {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    padding: 1px 4px;
   }
 
   &-menus {
     display: flex;
     flex-wrap: nowrap;
     align-items: flex-start;
-
     &.@{cascader-prefix-cls}-menu-empty {
       .@{cascader-prefix-cls}-menu {
         width: 100%;
@@ -339,13 +359,13 @@ input::-webkit-search-cancel-button {
   &-menu {
     height: 180px;
     margin: 0;
-    margin: -4px 0;
-    padding: 4px 0;
-    overflow: auto;
+    padding: 8px 0;
     vertical-align: top;
     list-style: none;
     border-right: 1px solid @gray-4;
     -ms-overflow-style: -ms-autohiding-scrollbar;
+    overflow-y: auto;
+    overflow-x: hidden;
 
     &-item {
       min-width: 100px;
@@ -353,15 +373,12 @@ input::-webkit-search-cancel-button {
       flex-wrap: nowrap;
       align-items: center;
       padding: 8px 12px;
-      overflow: hidden;
       line-height: 16px;
-      white-space: nowrap;
-      text-overflow: ellipsis;
       cursor: pointer;
       transition: all 0.3s;
 
       &:hover {
-        background: @blue-1;
+        background: @gray-3;
       }
 
       &-active:not(&-disabled) {
@@ -397,6 +414,10 @@ input::-webkit-search-cancel-button {
 
       &-content {
         flex: auto;
+        max-width: 280px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
       }
 
       &-expand &-expand-icon,
@@ -413,5 +434,85 @@ input::-webkit-search-cancel-button {
         color: @blue-3;
       }
     }
+  }
+
+  &-disabled,
+  &-disabled input {
+    cursor: not-allowed;
+    border: #e8e8e8;
+    color: @gray-6;
+    .@{cascader-prefix-cls}-selector {
+      background: #f5f5f5;
+    }
+    .@{cascader-prefix-cls}-selection-item,
+    .@{cascader-prefix-cls}-selection-item-content {
+      color: @gray-6;
+    }
+    .@{cascader-prefix-cls}-selection-overflow
+      .@{cascader-prefix-cls}-selection-item {
+      border-color: #e8e8e8;
+    }
+    &:hover {
+      background: transparent;
+    }
+  }
+  &-empty {
+    display: flex;
+    // height: 154px;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.25);
+    line-height: 16px;
+    img {
+      width: 104px;
+      height: 69px;
+    }
+  }
+}
+
+.@{cascader-prefix-cls}-dropdown {
+  .effect() {
+    animation-duration: 0.3s;
+    animation-fill-mode: both;
+    transform-origin: 0 0;
+  }
+  &.slide-up-enter,
+  &.slide-up-appear {
+    .effect();
+    opacity: 0;
+    animation-timing-function: cubic-bezier(0.08, 0.82, 0.17, 1);
+    animation-play-state: paused;
+  }
+
+  &.slide-up-leave {
+    .effect();
+    opacity: 1;
+    animation-timing-function: cubic-bezier(0.6, 0.04, 0.98, 0.34);
+    animation-play-state: paused;
+  }
+
+  &.slide-up-enter.slide-up-enter-active&-placement-bottomLeft,
+  &.slide-up-appear.slide-up-appear-active&-placement-bottomLeft {
+    animation-name: cloudSlideUpIn;
+    animation-play-state: running;
+  }
+
+  &.slide-up-enter.slide-up-enter-active&-placement-topLeft,
+  &.slide-up-appear.slide-up-appear-active&-placement-topLeft {
+    animation-name: cloudSlideDownIn;
+    animation-play-state: running;
+  }
+
+  &.slide-up-leave.slide-up-leave-active&-placement-bottomLeft {
+    animation-name: cloudSlideUpOut;
+    animation-play-state: running;
+  }
+
+  &.slide-up-leave.slide-up-leave-active&-placement-topLeft {
+    animation-name: cloudSlideDownOut;
+    animation-play-state: running;
   }
 }
