@@ -9,7 +9,7 @@ desc: 多选级联组件
 import React, { useState } from 'react';
 import { CCascader } from 'cloud-react';
 const addressOptions = [{
-  label: '福建',
+  label: '贵州 - 黔西南布依族苗族自治州',
   value: 'fj',
   children: [{
     label: '福州',
