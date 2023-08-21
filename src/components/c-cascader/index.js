@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import CascaderMenu from 'rc-cascader';
 import Icon from '../icon';
 import PropTypes from 'prop-types';
+import { prefixCls } from '@utils';
 import './index.less';
 function highlightKeyword(str, lowerKeyword, prefixCls) {
   const cells = str
@@ -151,7 +152,7 @@ Cascader.defaultProps = {
   transitionName: undefined,
   defaultValue: [],
   inputIcon: <Icon type="down" style={{ fontSize: '12px' }} />,
-  prefixCls: 'cloud-ccascader',
+  prefixCls: `${prefixCls}-ccascader`,
   popupClassName: '',
   placement: 'bottomLeft',
   showArrow: true,
