@@ -47,15 +47,15 @@ const TimeRangePicker = ({
   onOk,
   presets,
 }) => {
-  const [ value, setValue ] = useState();
+  const [value, setValue] = useState();
   let placeholder = _placeholder;
   if (typeof placeholder === 'string') {
-    placeholder = [ placeholder, placeholder ];
+    placeholder = [placeholder, placeholder];
   }
 
   useEffect(() => {
     setValue(transformString2Moment(_value, format));
-  }, [ _value ]);
+  }, [_value]);
 
   const handleChange = useCallback(
     (m, v) => {
@@ -73,7 +73,7 @@ const TimeRangePicker = ({
         setValue(m);
       }
     },
-    [ onChange ],
+    [onChange],
   );
 
   const handleOk = useCallback(
@@ -90,7 +90,7 @@ const TimeRangePicker = ({
         );
       }
     },
-    [ onOk, format ],
+    [onOk, format],
   );
 
   const getPopupContainer = useMemo(() => {
@@ -101,7 +101,7 @@ const TimeRangePicker = ({
       return () => document.body;
     }
     return undefined;
-  }, [ _getPopupContainer, isAppendToBody ]);
+  }, [_getPopupContainer, isAppendToBody]);
 
   return (
     <Picker

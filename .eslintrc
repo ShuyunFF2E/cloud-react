@@ -27,6 +27,7 @@
     "jest/prefer-to-have-length": "warn",
     "jest/valid-expect": "error",
 
+    "arrow-parens": "off",
     "no-mixed-operators": "off",
     "no-else-return": 0,
     "no-confusing-arrow": 0,
@@ -68,7 +69,8 @@
 		"no-lonely-if": "error",
 		"no-unneeded-ternary": "error",
 		"no-case-declarations": "error",
-		"array-bracket-spacing": ["error", "always"],
+		"object-curly-newline": "off",
+		"array-bracket-spacing": "off",
 		"space-before-function-paren": "error",
     "space-before-blocks": ["error", { "functions": "always", "keywords": "always", "classes": "always" }],
     "no-underscore-dangle": "off",
@@ -98,6 +100,7 @@
     "react/jsx-boolean-value": "error",
     "react/no-deprecated": "warn",
     "react/require-default-props": "off",
+    "react/jsx-wrap-multilines": "off"
   },
   "globals": {
     "window": true,

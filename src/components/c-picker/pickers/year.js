@@ -92,10 +92,7 @@ const YearPicker = ({
   const getDisabledDate = useCallback(
     (d) => {
       const current = d.clone();
-      return (
-        (minYear && current.year() < minYear) ||
-        (maxYear && current.year() > maxYear)
-      );
+      return (minYear && current.year() < minYear) || (maxYear && current.year() > maxYear);
     },
     [format, minYear, maxYear],
   );

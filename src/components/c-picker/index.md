@@ -48,8 +48,8 @@ group:
 | showNow           | 指示是否显示『此刻』按钮                             | boolean              | `false` |
 | allowClear        | 指示是否可以清除值                              | boolean              | `false` |
 | autoFocus         | 指示是否自动获得焦点                             | boolean              | `false` |
-| minDate           | 最小值（除年份选择器外）                               | string / Date             | -  |
-| maxDate           | 最大值（除年份选择器外）                               | string / Date             | -  |
+| minDate           | 最小值（除年份选择器外）**不推荐，此属性是为了兼容旧组件** | string / Date             | -  |
+| maxDate           | 最大值（除年份选择器外）**不推荐，此属性是为了兼容旧组件** | string / Date             | -  |
 | minYear           | 最小年份                                           | number                  |                   |
 | maxYear           | 最大年份                                           | number                  | -                 |
 | disabledDate      | 筛选不可选择的日期（设置此项将覆盖以上 4 个属性的作用）        | (date: string) => boolean     | -                 |

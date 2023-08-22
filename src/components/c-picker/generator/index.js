@@ -13,8 +13,7 @@ function generatePicker(generateConfig) {
   } = generateSinglePicker(generateConfig);
 
   // ======================== Range Picker ========================
-  const { DateRangePicker, TimeRangePicker } =
-    generateRangePicker(generateConfig);
+  const { DateRangePicker, TimeRangePicker } = generateRangePicker(generateConfig);
 
   return {
     DatePicker,

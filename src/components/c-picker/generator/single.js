@@ -68,9 +68,7 @@ export default function generateSinglePicker(generateConfig) {
             placeholder={
               placeholder !== undefined
                 ? placeholder
-                : defaultLocale.lang[
-                    `${mergedPicker ? `${mergedPicker}P` : 'p'}laceholder`
-                  ]
+                : defaultLocale.lang[`${mergedPicker ? `${mergedPicker}P` : 'p'}laceholder`]
             }
             suffixIcon={
               mergedPicker === 'time' ? (
