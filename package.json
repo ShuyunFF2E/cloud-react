@@ -47,7 +47,7 @@
     "rc-drawer": "^6.0.1",
     "rc-dropdown": "~4.0.1",
     "rc-menu": "^9.0.12",
-    "rc-picker": "^3.11.0",
+    "rc-picker": "3.11.0",
     "rc-table": "7.28.1",
     "rc-tooltip": "~5.2.0",
     "rc-trigger": "^5.2.10",

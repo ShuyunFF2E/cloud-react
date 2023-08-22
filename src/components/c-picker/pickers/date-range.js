@@ -60,12 +60,12 @@ const DateRangePicker = ({
   const { current: _this } = useRef({
     formatType: STR,
   });
-  const [ value, setValue ] = useState();
+  const [value, setValue] = useState();
   // eslint-disable-next-line no-nested-ternary
   const format = _format || (type !== 'date' ? pickerDefaultFormatMap[type] : (showTimePicker ? dateTimeFormat : dateFormat));
   let placeholder = _placeholder;
   if (typeof placeholder === 'string') {
-    placeholder = [ placeholder, placeholder ];
+    placeholder = [placeholder, placeholder];
   }
 
   useEffect(() => {
@@ -73,19 +73,19 @@ const DateRangePicker = ({
       _this.formatType = OBJ;
     }
     setValue(transformString2Moment(_value, format, _this));
-  }, [ _value, _defaultValue, format ]);
+  }, [_value, _defaultValue, format]);
 
   const getDisabledDate = useCallback(
     (d) => {
       const target = d.clone();
-      const min = minDate
-        && (minDate instanceof Date
-          ? moment(moment(minDate).format(format), format)
-          : moment(minDate, format));
-      const max = maxDate
-        && (maxDate instanceof Date
-          ? moment(moment(maxDate).format(format), format)
-          : moment(maxDate, format));
+      const min = minDate && (minDate instanceof Date
+        ? moment(moment(minDate).format(format), format)
+        : moment(minDate, format)
+      );
+      const max = maxDate && (maxDate instanceof Date
+        ? moment(moment(maxDate).format(format), format)
+        : moment(maxDate, format)
+      );
       return (
         (min && target.isBefore(min))
         || (max && target.isAfter(max))
@@ -93,7 +93,7 @@ const DateRangePicker = ({
         || (maxYear && target.endOf(type === 'week' ? 'week' : 'day').year() > maxYear)
       );
     },
-    [ type, format, minDate, maxDate, minYear, maxYear ],
+    [type, format, minDate, maxDate, minYear, maxYear],
   );
 
   const handleGetDisabledDate = useCallback(
@@ -106,7 +106,7 @@ const DateRangePicker = ({
       }
       return m && getDisabledDate(m);
     },
-    [ _disabledDate, getDisabledDate, format ],
+    [_disabledDate, getDisabledDate, format],
   );
 
   const handleOk = useCallback(
@@ -135,7 +135,7 @@ const DateRangePicker = ({
         );
       }
     },
-    [ onOk, format, handleGetDisabledDate ],
+    [onOk, format, handleGetDisabledDate],
   );
 
   const handlePanelChange = useCallback(
@@ -166,7 +166,7 @@ const DateRangePicker = ({
         );
       }
     },
-    [ onPanelChange, format ],
+    [onPanelChange, format],
   );
 
   const handleChange = useCallback(
@@ -201,7 +201,7 @@ const DateRangePicker = ({
         setValue(val || { start: undefined, end: undefined });
       }
     },
-    [ onChange ],
+    [onChange],
   );
 
   const getPopupContainer = useMemo(() => {
@@ -212,7 +212,7 @@ const DateRangePicker = ({
       return () => document.body;
     }
     return undefined;
-  }, [ _getPopupContainer, isAppendToBody ]);
+  }, [_getPopupContainer, isAppendToBody]);
 
   const defaultShowTimeObj = {
     defaultValue:

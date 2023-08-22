@@ -17,6 +17,8 @@ const QuarterPicker = ({
   onOpenChange, // New
   placeholder,
   width,
+  minDate,
+  maxDate,
   minYear,
   maxYear,
   format: _format,
@@ -92,9 +94,18 @@ const QuarterPicker = ({
   const getDisabledDate = useCallback(
     (d) => {
       const current = d.clone();
-      return (minYear && current.year() < minYear) || (maxYear && current.year() > maxYear);
+      const min = minDate
+        && (minDate instanceof Date ? moment(minDate) : moment(minDate, format));
+      const max = maxDate
+        && (maxDate instanceof Date ? moment(maxDate) : moment(maxDate, format));
+      return (
+        (min && current.isBefore(min))
+        || (max && current.isAfter(max))
+        || (minYear && current.year() < minYear)
+        || (maxYear && current.year() > maxYear)
+      );
     },
-    [format, minYear, maxYear],
+    [format, minDate, maxDate, minYear, maxYear],
   );
 
   const handleGetDisabledDate = useCallback(

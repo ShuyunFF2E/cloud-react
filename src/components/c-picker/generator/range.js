@@ -56,10 +56,9 @@ export default function generateRangePicker(generateConfig) {
             : {}),
         };
 
-        const placeholder =
-          typeof _placeholder === 'string'
-            ? [_placeholder, _placeholder]
-            : _placeholder;
+        const placeholder = typeof _placeholder === 'string'
+          ? [_placeholder, _placeholder]
+          : _placeholder;
 
         return (
           <RCRangePicker
@@ -73,10 +72,8 @@ export default function generateRangePicker(generateConfig) {
               placeholder !== undefined
                 ? placeholder
                 : defaultLocale.lang[
-                    `${picker ? `${picker}R` : 'r'}angePlaceholder${
-                      picker !== 'time' && showTime ? 'WithTime' : ''
-                    }`
-                  ]
+                  `${picker ? `${picker}R` : 'r'}angePlaceholder${picker !== 'time' && showTime ? 'WithTime' : ''}`
+                ]
             }
             suffixIcon={
               picker === 'time' ? (
@@ -101,7 +98,7 @@ export default function generateRangePicker(generateConfig) {
                   return vs()?.map(v => transformValue2Moment(v, format));
                 }
                 return vs?.map(v => transformValue2Moment(v, format));
-              }
+              },
             }))}
             ranges={null}
             locale={defaultLocale.lang}

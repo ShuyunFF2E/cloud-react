@@ -17,6 +17,8 @@ const WeekPicker = ({
   onOpenChange, // New
   placeholder,
   width,
+  minDate,
+  maxDate,
   minYear,
   maxYear,
   format: _format,
@@ -92,12 +94,16 @@ const WeekPicker = ({
   const getDisabledDate = useCallback(
     (d) => {
       const current = d.clone();
+      const min = minDate && (minDate instanceof Date ? moment(minDate) : moment(minDate, format));
+      const max = maxDate && (maxDate instanceof Date ? moment(maxDate) : moment(maxDate, format));
       return (
-        (minYear && current.startOf('week').year() < minYear)
+        (min && current.startOf('week').isBefore(min))
+        || (max && current.startOf('week').isAfter(max))
+        || (minYear && current.startOf('week').year() < minYear)
         || (maxYear && current.endOf('week').year() > maxYear)
       );
     },
-    [minYear, maxYear],
+    [minDate, maxDate, minYear, maxYear],
   );
 
   const handleGetDisabledDate = useCallback(

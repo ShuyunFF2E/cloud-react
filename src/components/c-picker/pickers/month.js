@@ -17,6 +17,8 @@ const MonthPicker = ({
   onOpenChange, // New
   placeholder,
   width,
+  minDate,
+  maxDate,
   minYear,
   maxYear,
   minMonth: _minMonth,
@@ -96,14 +98,20 @@ const MonthPicker = ({
   const getDisabledDate = useCallback(
     (d) => {
       const current = d.clone();
+      const min = minDate
+        && (minDate instanceof Date ? moment(minDate) : moment(minDate, format));
+      const max = maxDate
+        && (maxDate instanceof Date ? moment(maxDate) : moment(maxDate, format));
       return (
-        (minYear && current.year() < minYear) ||
-        (maxYear && current.year() > maxYear) ||
-        (minMonth && current.month() < minMonth) ||
-        (maxMonth && current.month() > maxMonth)
+        (min && current.isBefore(min))
+        || (max && current.isAfter(max))
+        || (minYear && current.year() < minYear)
+        || (maxYear && current.year() > maxYear)
+        || (minMonth && current.month() < minMonth)
+        || (maxMonth && current.month() > maxMonth)
       );
     },
-    [format, minYear, maxYear, minMonth, maxMonth],
+    [format, minDate, maxDate, minYear, maxYear, minMonth, maxMonth],
   );
 
   const handleGetDisabledDate = useCallback(
