@@ -27,8 +27,16 @@ export default class ButtonDemo extends React.Component {
 		this.setState({ loading: true }, () => {
 			setTimeout(() => {
 				this.setState({ loading: false });
-			}, 30000);
+			}, 5000);
 		});
+	};
+
+	handlerCompactCLick = async () => {
+		await new Promise(resolve => {
+			setTimeout(() => {
+				resolve();
+			}, 5000);
+		})
 	};
 
 	render() {
@@ -36,6 +44,14 @@ export default class ButtonDemo extends React.Component {
 		const text = loading ? '加载中…' : '点击后变为加载中';
 		return (
 			<ul>
+				<li style={{ marginBottom: 10 }}>
+					<h5>异步方法回调：</h5>
+					<Button style={{ marginRight: 5 }} onClick={this.handlerCompactCLick}>请点击</Button>
+					<Button.Group>
+						<Button onClick={this.handlerCompactCLick}>上一页</Button>
+						<Button onClick={this.handlerCompactCLick}>下一页</Button>
+					</Button.Group>
+				</li>
 				<li style={{ marginBottom: 10 }}>
 					<h5>普通：</h5>
 					<Button style={{ marginRight: 5 }} loading={this.state.loading} onClick={this.handlerCLick}>{text}</Button>
