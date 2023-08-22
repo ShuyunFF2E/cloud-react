@@ -51,6 +51,26 @@ class Button extends React.PureComponent {
 
   static Group = ButtonGroup;
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: false,
+    };
+  }
+
+  handleClick = e => {
+    const { onClick } = this.props;
+    if (onClick) {
+      const res = onClick(e);
+      if (res instanceof Promise) {
+        this.setState({ loading: true });
+        res.finally(() => {
+          this.setState({ loading: false });
+        });
+      }
+    }
+  }
+
   render() {
     const { size: formSize } = this.context;
     const {
@@ -60,7 +80,7 @@ class Button extends React.PureComponent {
       // custom attr
       size,
       disabled,
-      loading,
+      loading: _loading,
       type,
       colorType,
       block,
@@ -71,6 +91,7 @@ class Button extends React.PureComponent {
       htmlType,
       ...others
     } = this.props;
+    const { loading } = this.state;
 
     const ElementName = href ? 'a' : 'button';
     const classNames = classnames(
@@ -80,7 +101,7 @@ class Button extends React.PureComponent {
         [size || formSize || 'default']: true,
         [colorType]: true,
         block,
-        loading,
+        loading: loading || _loading,
       },
       className,
     );
@@ -111,15 +132,18 @@ class Button extends React.PureComponent {
       <ElementName
         type="button"
         className={classNames}
-        disabled={disabled || loading}
+        disabled={disabled || loading || _loading}
         {...{
           ...others,
           href: href || undefined,
           type: href ? undefined : htmlType,
           target: href ? target : undefined,
+          onClick: this.handleClick,
         }}
       >
-        {loading && <span className={`${prefixCls}-button-loading-spin`} />}
+        {(loading || _loading) && (
+          <span className={`${prefixCls}-button-loading-spin`} />
+        )}
         {icon && (
           <Icon type={icon} className={`${prefixCls}-button-suffix-icon`} />
         )}
