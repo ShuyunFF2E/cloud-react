@@ -43,13 +43,14 @@ const TimePicker = ({
   onContextMenu,
   onKeyDown,
   onOk,
+  presets,
 }) => {
-  const [ value, setValue ] = useState();
+  const [value, setValue] = useState();
   const format = _format || timeFormat;
 
   useEffect(() => {
     setValue(transformString2Moment(_value, format));
-  }, [ _value ]);
+  }, [_value]);
 
   const handleChange = useCallback(
     (m, v) => {
@@ -59,7 +60,7 @@ const TimePicker = ({
         setValue(m);
       }
     },
-    [ onChange ],
+    [onChange],
   );
 
   const handleOk = useCallback(
@@ -68,7 +69,7 @@ const TimePicker = ({
         onOk(m && m.format(format));
       }
     },
-    [ onOk, format ],
+    [onOk, format],
   );
 
   const getPopupContainer = useMemo(() => {
@@ -79,7 +80,7 @@ const TimePicker = ({
       return () => document.body;
     }
     return undefined;
-  }, [ _getPopupContainer, isAppendToBody ]);
+  }, [_getPopupContainer, isAppendToBody]);
 
   return (
     <Picker
@@ -115,6 +116,7 @@ const TimePicker = ({
         onClick,
         onContextMenu,
         onKeyDown,
+        presets,
       }}
     />
   );

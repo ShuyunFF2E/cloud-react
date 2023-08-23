@@ -2,11 +2,11 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import moment from 'moment';
 import momentGenerateConfig from 'rc-picker/lib/generate/moment';
 import generatePicker from '../generator';
-import { yearFormat } from '../formats';
+import { weekFormat } from '../formats';
 
-const { YearPicker: Picker } = generatePicker(momentGenerateConfig);
+const { WeekPicker: Picker } = generatePicker(momentGenerateConfig);
 
-const YearPicker = ({
+const WeekPicker = ({
   size,
   className,
   dropdownClassName, // New
@@ -17,8 +17,10 @@ const YearPicker = ({
   onOpenChange, // New
   placeholder,
   width,
-  min: minYear,
-  max: maxYear,
+  minDate,
+  maxDate,
+  minYear,
+  maxYear,
   format: _format,
   onChange,
   getPopupContainer: _getPopupContainer, // New
@@ -44,39 +46,39 @@ const YearPicker = ({
   presets,
 }) => {
   const [value, setValue] = useState();
-  const format = _format || yearFormat;
+  const format = _format || weekFormat;
 
   useEffect(() => {
-    setValue(_value && moment().year(Number(_value)));
-  }, [_value]);
+    setValue(_value && moment(_value, format).startOf('week'));
+  }, [_value, format]);
 
   const handleChange = useCallback(
     (m) => {
       if (onChange) {
-        onChange(m && m.clone().year());
+        onChange(m && m.clone().startOf('week').format(format));
       } else {
         setValue(m);
       }
     },
-    [onChange],
+    [onChange, format],
   );
 
   const handleSelect = useCallback(
     (m) => {
       if (onSelect) {
-        onSelect(m && m.clone().year());
+        onSelect(m && m.clone().format(format));
       }
     },
-    [onSelect],
+    [onSelect, format],
   );
 
   const handlePanelChange = useCallback(
     (val, mode) => {
       if (onPanelChange) {
-        onPanelChange(val && val.clone().year(), mode);
+        onPanelChange(val && val.clone().format(format), mode);
       }
     },
-    [onPanelChange],
+    [onPanelChange, format],
   );
 
   const getPopupContainer = useMemo(() => {
@@ -92,19 +94,26 @@ const YearPicker = ({
   const getDisabledDate = useCallback(
     (d) => {
       const current = d.clone();
-      return (minYear && current.year() < minYear) || (maxYear && current.year() > maxYear);
+      const min = minDate && (minDate instanceof Date ? moment(minDate) : moment(minDate, format));
+      const max = maxDate && (maxDate instanceof Date ? moment(maxDate) : moment(maxDate, format));
+      return (
+        (min && current.startOf('week').isBefore(min))
+        || (max && current.startOf('week').isAfter(max))
+        || (minYear && current.startOf('week').year() < minYear)
+        || (maxYear && current.endOf('week').year() > maxYear)
+      );
     },
-    [format, minYear, maxYear],
+    [minDate, maxDate, minYear, maxYear],
   );
 
   const handleGetDisabledDate = useCallback(
     (m) => {
       if (_disabledDate) {
-        return _disabledDate(m && m.clone().year(), m.clone());
+        return _disabledDate(m && m.clone().format(format), m.clone());
       }
       return getDisabledDate(m);
     },
-    [_disabledDate, getDisabledDate],
+    [_disabledDate, getDisabledDate, format],
   );
 
   return (
@@ -146,4 +155,4 @@ const YearPicker = ({
   );
 };
 
-export default YearPicker;
+export default WeekPicker;

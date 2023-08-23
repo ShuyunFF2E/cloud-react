@@ -8,7 +8,7 @@ import React, {
 import moment from 'moment';
 import momentGenerateConfig from 'rc-picker/lib/generate/moment';
 import generatePicker from '../generator';
-import { dateFormat, dateTimeFormat, timeFormat } from '../formats';
+import { dateFormat, dateTimeFormat, timeFormat, pickerDefaultFormatMap } from '../formats';
 import { STR, OBJ, transformString2Moment } from '../utils';
 
 const { DateRangePicker: Picker } = generatePicker(momentGenerateConfig);
@@ -54,15 +54,18 @@ const DateRangePicker = ({
   onKeyDown,
   onPanelChange,
   onOk,
+  presets,
+  type = 'date',
 }) => {
   const { current: _this } = useRef({
     formatType: STR,
   });
-  const [ value, setValue ] = useState();
-  const format = _format || (showTimePicker ? dateTimeFormat : dateFormat);
+  const [value, setValue] = useState();
+  // eslint-disable-next-line no-nested-ternary
+  const format = _format || (type !== 'date' ? pickerDefaultFormatMap[type] : (showTimePicker ? dateTimeFormat : dateFormat));
   let placeholder = _placeholder;
   if (typeof placeholder === 'string') {
-    placeholder = [ placeholder, placeholder ];
+    placeholder = [placeholder, placeholder];
   }
 
   useEffect(() => {
@@ -70,41 +73,40 @@ const DateRangePicker = ({
       _this.formatType = OBJ;
     }
     setValue(transformString2Moment(_value, format, _this));
-  }, [ _value, _defaultValue, format ]);
+  }, [_value, _defaultValue, format]);
 
   const getDisabledDate = useCallback(
     (d) => {
       const target = d.clone();
-      const min = minDate
-        && (minDate instanceof Date
-          ? moment(moment(minDate).format(format), format)
-          : moment(minDate, format));
-      const max = maxDate
-        && (maxDate instanceof Date
-          ? moment(moment(maxDate).format(format), format)
-          : moment(maxDate, format));
+      const min = minDate && (minDate instanceof Date
+        ? moment(moment(minDate).format(format), format)
+        : moment(minDate, format)
+      );
+      const max = maxDate && (maxDate instanceof Date
+        ? moment(moment(maxDate).format(format), format)
+        : moment(maxDate, format)
+      );
       return (
         (min && target.isBefore(min))
         || (max && target.isAfter(max))
-        || (minYear && target.year() < minYear)
-        || (maxYear && target.year() > maxYear)
+        || (minYear && target.startOf(type === 'week' ? 'week' : 'day').year() < minYear)
+        || (maxYear && target.endOf(type === 'week' ? 'week' : 'day').year() > maxYear)
       );
     },
-    [ format, minDate, maxDate, minYear, maxYear ],
+    [type, format, minDate, maxDate, minYear, maxYear],
   );
 
   const handleGetDisabledDate = useCallback(
-    (target) => {
-      const m = target && moment(target.format(format));
+    (m) => {
       if (_disabledDate) {
         if (_this.formatType === OBJ) {
-          return _disabledDate(m && m.clone().toDate());
+          return _disabledDate(m && m.clone().toDate(), m.clone());
         }
-        return _disabledDate(m && m.format(format));
+        return _disabledDate(m && m.format(format), m.clone());
       }
       return m && getDisabledDate(m);
     },
-    [ _disabledDate, getDisabledDate, format ],
+    [_disabledDate, getDisabledDate, format],
   );
 
   const handleOk = useCallback(
@@ -133,7 +135,7 @@ const DateRangePicker = ({
         );
       }
     },
-    [ onOk, format, handleGetDisabledDate ],
+    [onOk, format, handleGetDisabledDate],
   );
 
   const handlePanelChange = useCallback(
@@ -164,7 +166,7 @@ const DateRangePicker = ({
         );
       }
     },
-    [ onPanelChange, format ],
+    [onPanelChange, format],
   );
 
   const handleChange = useCallback(
@@ -199,7 +201,7 @@ const DateRangePicker = ({
         setValue(val || { start: undefined, end: undefined });
       }
     },
-    [ onChange ],
+    [onChange],
   );
 
   const getPopupContainer = useMemo(() => {
@@ -210,7 +212,7 @@ const DateRangePicker = ({
       return () => document.body;
     }
     return undefined;
-  }, [ _getPopupContainer, isAppendToBody ]);
+  }, [_getPopupContainer, isAppendToBody]);
 
   const defaultShowTimeObj = {
     defaultValue:
@@ -266,6 +268,8 @@ const DateRangePicker = ({
         onClick,
         onContextMenu,
         onKeyDown,
+        presets,
+        type,
       }}
     />
   );
