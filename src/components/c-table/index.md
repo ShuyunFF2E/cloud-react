@@ -173,122 +173,127 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 
 ### 代码演示
 
-### 基础表格
+[comment]: <> (### 基础表格)
 
-<embed src="@components/c-table/demos/basic.md" /> 
+[comment]: <> (<embed src="@components/c-table/demos/basic.md" /> )
 
-### 表头带线条
+[comment]: <> (### 表头带线条)
 
-<embed src="@components/c-table/demos/header-bordered.md" /> 
+[comment]: <> (<embed src="@components/c-table/demos/header-bordered.md" /> )
 
-### 全边框表格
+[comment]: <> (### 全边框表格)
 
-<embed src="@components/c-table/demos/bordered.md" /> 
+[comment]: <> (<embed src="@components/c-table/demos/bordered.md" /> )
 
-### 多选表格
+[comment]: <> (### 多选表格)
 
-<embed src="@components/c-table/demos/checkbox.md" /> 
+[comment]: <> (<embed src="@components/c-table/demos/checkbox.md" /> )
 
-<embed src="@components/c-table/demos/checkbox1.md" /> 
+[comment]: <> (<embed src="@components/c-table/demos/checkbox1.md" /> )
 
-### 单选表格
+[comment]: <> (### 单选表格)
 
-<embed src="@components/c-table/demos/radio.md" /> 
+[comment]: <> (<embed src="@components/c-table/demos/radio.md" /> )
 
-### 树状表格（两级）
+[comment]: <> (### 树状表格（两级）)
 
-<embed src="@components/c-table/demos/tree.md" /> 
+[comment]: <> (<embed src="@components/c-table/demos/tree.md" /> )
 
-### 树状表格（多级）
+[comment]: <> (### 树状表格（多级）)
 
-<embed src="@components/c-table/demos/tree1.md" /> 
+[comment]: <> (<embed src="@components/c-table/demos/tree1.md" /> )
 
-### 表格可编辑
+[comment]: <> (### 表格可编辑)
 
-<embed src="@components/c-table/demos/edit.md" /> 
+[comment]: <> (<embed src="@components/c-table/demos/edit.md" /> )
 
-### 表格展开行
+[comment]: <> (### 表格展开行)
 
-<embed src="@components/c-table/demos/expand-row.md" /> 
+[comment]: <> (<embed src="@components/c-table/demos/expand-row.md" /> )
 
-### 表格带图标
+[comment]: <> (### 表格带图标)
 
-<embed src="@components/c-table/demos/custom-column-icon.md" /> 
+[comment]: <> (<embed src="@components/c-table/demos/custom-column-icon.md" /> )
 
-<embed src="@components/c-table/demos/custom-column-icon-link.md" /> 
+[comment]: <> (<embed src="@components/c-table/demos/custom-column-icon-link.md" /> )
 
-<embed src="@components/c-table/demos/custom-column-tag.md" /> 
+[comment]: <> (<embed src="@components/c-table/demos/custom-column-tag.md" /> )
 
-### 表格固定列
+[comment]: <> (### 表格固定列)
 
-<embed src="@components/c-table/demos/fixed-column.md" /> 
+[comment]: <> (<embed src="@components/c-table/demos/fixed-column.md" /> )
 
-### 表格分组
+[comment]: <> (### 表格分组)
 
-<embed src="@components/c-table/demos/group.md" /> 
+[comment]: <> (<embed src="@components/c-table/demos/group.md" /> )
 
-### 表格通栏
+[comment]: <> (### 表格通栏)
 
-<embed src="@components/c-table/demos/fullColumn.md" /> 
+[comment]: <> (<embed src="@components/c-table/demos/fullColumn.md" /> )
 
-### 表尾合计
+[comment]: <> (### 表尾合计)
 
-<embed src="@components/c-table/demos/summary.md" />
+[comment]: <> (<embed src="@components/c-table/demos/summary.md" />)
 
-### 表格合并列/行
+[comment]: <> (### 表格合并列/行)
 
-<embed src="@components/c-table/demos/row-col-span.md" /> 
+[comment]: <> (<embed src="@components/c-table/demos/row-col-span.md" /> )
 
-### 表格行高亮
+[comment]: <> (### 表格行高亮)
 
-<embed src="@components/c-table/demos/light-row.md" /> 
+[comment]: <> (<embed src="@components/c-table/demos/light-row.md" /> )
 
-### 表格排序
+[comment]: <> (### 表格排序)
 
-<embed src="@components/c-table/demos/sort-with-page.md" /> 
+[comment]: <> (<embed src="@components/c-table/demos/sort-with-page.md" /> )
 
-<embed src="@components/c-table/demos/sort-front.md" /> 
+[comment]: <> (<embed src="@components/c-table/demos/sort-front.md" /> )
 
-<embed src="@components/c-table/demos/sort-store.md" /> 
+[comment]: <> (<embed src="@components/c-table/demos/sort-store.md" /> )
 
-### 表格过滤
+[comment]: <> (### 表格过滤)
 
-<embed src="@components/c-table/demos/filter.md" />
+[comment]: <> (<embed src="@components/c-table/demos/filter.md" />)
 
-### 手动刷新表格
+[comment]: <> (### 手动刷新表格)
 
-<embed src="@components/c-table/demos/refresh-table.md" /> 
+[comment]: <> (<embed src="@components/c-table/demos/refresh-table.md" /> )
 
-### 表格禁用行
+[comment]: <> (### 表格禁用行)
 
-<embed src="@components/c-table/demos/disabled0.md" /> 
+[comment]: <> (<embed src="@components/c-table/demos/disabled0.md" /> )
 
-<embed src="@components/c-table/demos/disabled1.md" /> 
+[comment]: <> (<embed src="@components/c-table/demos/disabled1.md" /> )
 
-<embed src="@components/c-table/demos/disabled2.md" /> 
+[comment]: <> (<embed src="@components/c-table/demos/disabled2.md" /> )
 
-### 表格行拖拽
+[comment]: <> (### 表格行拖拽)
 
-<embed src="@components/c-table/demos/drag.md" /> 
+[comment]: <> (<embed src="@components/c-table/demos/drag.md" /> )
 
-<embed src="@components/c-table/demos/drag1.md" />
+[comment]: <> (<embed src="@components/c-table/demos/drag1.md" />)
 
-### 表格列拉伸
+[comment]: <> (### 表格列拉伸)
 
-<embed src="@components/c-table/demos/resize.md" />
+[comment]: <> (<embed src="@components/c-table/demos/resize.md" />)
 
-<embed src="@components/c-table/demos/resize1.md" />
+[comment]: <> (<embed src="@components/c-table/demos/resize1.md" />)
 
-### 表格固定表头和表尾
+[comment]: <> (### 表格固定表头和表尾)
 
-<embed src="@components/c-table/demos/sticky.md" />
+[comment]: <> (<embed src="@components/c-table/demos/sticky.md" />)
 
-### 解决方案
+### 标准化表格样例
+<embed src="@components/c-table/demos/uniform_number.md" />
 
-<embed src="@components/c-table/demos/goods-table.md" />
+<embed src="@components/c-table/demos/uniform_time.md" />
 
-<embed src="@components/c-table/demos/front-table.md" />
+[comment]: <> (### 解决方案)
 
-<embed src="@components/c-table/demos/front-table1.md" />
+[comment]: <> (<embed src="@components/c-table/demos/goods-table.md" />)
 
-<embed src="@components/c-table/demos/table-in-tab.md" />
+[comment]: <> (<embed src="@components/c-table/demos/front-table.md" />)
+
+[comment]: <> (<embed src="@components/c-table/demos/front-table1.md" />)
+
+[comment]: <> (<embed src="@components/c-table/demos/table-in-tab.md" />)

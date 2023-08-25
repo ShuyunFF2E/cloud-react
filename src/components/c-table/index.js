@@ -17,7 +17,12 @@ import {
   debounce,
   hasCustomScroll,
 } from './util';
-import { DRAG_ICON_SELECTOR, DRAG_SELECTOR, tablePrefixCls } from './constant';
+import {
+  DRAG_ICON_SELECTOR,
+  DRAG_SELECTOR,
+  NUMBER,
+  tablePrefixCls,
+} from './constant';
 import getExpandableConfig from './js/expend';
 import ResizableTitle from './js/resizableTitle';
 import Pagination from '../pagination';
@@ -29,6 +34,7 @@ import './css/business.less';
 import Column from './js/column';
 import RowTooltip from './js/rowTooltip';
 import { defaultProps, propTypes } from './js/propType';
+import ColumnTpl from './columnTpl';
 
 class CTable extends Component {
   ref = createRef();
@@ -148,13 +154,19 @@ class CTable extends Component {
   };
 
   resolveColumn = (columnData) => {
-    return columnData.map((item) => ({ ...item, show: true }));
+    return columnData.map((item) => ({
+      render: (val, row) => <ColumnTpl value={val} row={row} {...item} />,
+      ...item,
+      show: true,
+      align: item.type === NUMBER ? 'right' : 'left',
+    }));
   };
 
   resolveOriginColumn = (columnData) => {
     return (
       (this.props.supportMemory && getConfig(this.props.tableId)) ||
       columnData.map((item) => ({
+        render: (val, row) => <ColumnTpl value={val} row={row} {...item} />,
         ...item,
         show: true,
       }))

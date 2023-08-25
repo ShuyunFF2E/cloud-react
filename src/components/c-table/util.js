@@ -97,7 +97,7 @@ export function traverseTree({
       }
       callback({ node, parentNode });
     } else {
-      callback({ node, parentNode: undefined, childNodes: [ node ] });
+      callback({ node, parentNode: undefined, childNodes: [node] });
     }
   };
   tree.forEach((node) => fn(node));
@@ -157,10 +157,25 @@ export const hasCustomScroll = (useRootWindow) => {
     .width.includes('px');
 };
 
-export const getTrEle = targetEle => {
+export const getTrEle = (targetEle) => {
   if (targetEle && !targetEle?.hasAttribute('data-row-key')) {
     return getTrEle(targetEle?.parentElement);
   }
   return targetEle;
 };
 
+/**
+ * 千分位
+ * @param num
+ * @returns {string}
+ */
+export const formatThousands = (num) => {
+  let numStr = `${num}`;
+  if (!numStr.includes('.')) numStr += '.';
+  return numStr
+    .replace(/(\d)(?=(\d{3})+\.)/g, ($0, $1) => `${$1},`)
+    .replace(/\.$/, '');
+};
+
+export const isFalsy = (value) => (value === 0 ? false : !value);
+export const isVoid = (value) => value === undefined || value === null || value === '';
