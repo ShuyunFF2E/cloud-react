@@ -1,10 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { isVoid } from '../util';
 
-export default function TimeRangeTpl({ value, format }) {
-  if (isVoid(value)) {
+export default function TimeRangeTpl({
+  row,
+  startKey,
+  endKey,
+  format,
+  startValue,
+  endValue,
+}) {
+  const start = startValue || row[startKey];
+  const end = endValue || row[endKey];
+  if (!start && !end) {
     return '-';
   }
   if (format) {
@@ -12,23 +20,40 @@ export default function TimeRangeTpl({ value, format }) {
       <div>
         <p>
           起：
-          {moment(value).format(format)}
+          {start ? moment(start).format(format) : '-'}
         </p>
         <p>
           止：
-          {moment(value).format(format)}
+          {end ? moment(end).format(format) : '-'}
         </p>
       </div>
     );
   }
-  return `${value}`.replaceAll('/', '-');
+  return (
+    <div>
+      <p>
+        起：
+        {start ? start.replaceAll('/', '-') : '-'}
+      </p>
+      <p>
+        止：
+        {end ? end.replaceAll('/', '-') : '-'}
+      </p>
+    </div>
+  );
 }
 
 TimeRangeTpl.propTypes = {
-  value: PropTypes.string.isRequired,
+  row: PropTypes.object.isRequired,
+  startKey: PropTypes.string.isRequired,
+  endKey: PropTypes.string.isRequired,
   format: PropTypes.string,
+  startValue: PropTypes.string,
+  endValue: PropTypes.string,
 };
 
 TimeRangeTpl.defaultProps = {
   format: '',
+  startValue: '',
+  endValue: '',
 };

@@ -5,18 +5,29 @@ desc: 默认表格
 ---
 
 ```jsx
+
+/**
+ * title: 数值类型
+ * desc: 数值类型
+ */
 import React from 'react';
 import { CTable } from 'cloud-react';
 
 const data = [
-  { number: '1234455', name: '手机号优先继续发送1', createTime: '2021/12/14 10:19:02', creator: 'liyuan.meng', num: '12,222' },
-  { number: 122, name: 'ouid疲劳度3', createTime: '2021/12/13 15:47:33	', creator: 'jiaojiao.diao', num: '198' },
-  { number: 12243, name: '继续发送手机1', createTime: '2021/12/13 15:36:42', creator: 'nan.run', num: '1,232' },
-  { number: 2345, name: '继续发送手机2', createTime: '2021/12/13 11:14:40', creator: 'xiaotong.fan', num: '12,122,112' },
-  { number: 1231322, name: '继续发送手机3', createTime: '2021/12/13 11:03:05', creator: 'zhenxiao.guo', num: '1000,000' },
+  { number: '1234455', rate: '12', creator: 'liyuan.meng' },
+  { number: 122, rate: '100', creator: 'jiaojiao.diao' },
+  { number: 12243, rate: 23.1, creator: 'sitong.hui' },
+  { number: 1231322, rate: '99.99', creator: 'wanjuan.dong' },
+  { number: 0, rate: 0, creator: 'zhenxiao.guo' },
+  { number: '', rate: '', creator: 'jie.li' },
 ];
 
 const columns = [
+  {
+    title: '创建人',
+    dataIndex: 'creator',
+    width: 90,
+  },
   {
     title: '客户数',
     dataIndex: 'number',
@@ -24,7 +35,7 @@ const columns = [
     type: 'NUMBER'
   },
   {
-    title: '金额',
+    title: '金额（保留两位小数）',
     dataIndex: 'number',
     width: 130,
     type: 'NUMBER',
@@ -33,14 +44,35 @@ const columns = [
       precision: 2,
     }
   },
-  { title: '人数', dataIndex: 'num', align: 'right', width: 120 },
-  { title: '创建人', dataIndex: 'creator', width: 130 }
+  {
+    title: '金额（整数）',
+    dataIndex: 'number',
+    width: 130,
+    type: 'NUMBER',
+    typeConfig: {
+      prefix: '¥ ',
+    }
+  },
+  {
+    title: '百分比',
+    dataIndex: 'rate',
+    width: 100,
+    type: 'NUMBER',
+    typeConfig: {
+      suffix: ' %',
+      precision: 2,
+    }
+  },
+  {
+    title: '',
+    dataIndex: 'empty',
+    width: 10,
+  },
 ];
 
 export default function CTableDemo() {
 	return (
         <CTable
-           style={{ height: 400 }}
            columnData={columns}
            ajaxData={{ totals: data.length, data }}
         />

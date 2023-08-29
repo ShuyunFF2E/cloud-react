@@ -179,3 +179,21 @@ export const formatThousands = (num) => {
 
 export const isFalsy = (value) => (value === 0 ? false : !value);
 export const isVoid = (value) => value === undefined || value === null || value === '';
+
+export const getTextWidth = (text, fontSize = '14px') => {
+  const element = document.createElement('div');
+
+  element.style.display = 'inline-block';
+  element.style.opacity = '0';
+  element.innerText = text;
+  element.style.fontSize = fontSize;
+  element.style.width = 'fit-content';
+
+  document.body.appendChild(element);
+
+  const { width } = window.getComputedStyle(element);
+
+  document.body.removeChild(element);
+
+  return Math.ceil(parseFloat(width));
+};
