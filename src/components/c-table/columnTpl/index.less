@@ -1,0 +1,59 @@
+@import '../../style/index';
+
+@tableTextCls: ~'@{prefix}-table-column-tpl-text';
+@tableMultiTextCls: ~'@{prefix}-table-column-tpl-multi-text';
+@tableLinkCls: ~'@{prefix}-table-column-tpl-link';
+@tableMultiLinkCls: ~'@{prefix}-table-column-tpl-multi-link';
+@tableTagCls: ~'@{prefix}-table-column-tpl-tag';
+@tableTagTooltipCls: ~'@{prefix}-table-column-tpl-tag-tooltip';
+
+.@{tableTextCls} {
+  width: 100%;
+  .text-overflow-ellipsis;
+}
+
+.@{tableMultiTextCls} {
+  width: 100%;
+  .text-overflow-ellipsis(2);
+}
+
+.@{tableLinkCls} {
+  width: 100%;
+  cursor: pointer;
+  color: @blue-4;
+  .text-overflow-ellipsis;
+}
+
+.@{tableMultiLinkCls} {
+  width: 100%;
+  cursor: pointer;
+  color: @blue-4;
+  .text-overflow-ellipsis(2);
+}
+
+.@{tableTagCls} {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  &-item {
+    min-width: fit-content;
+    max-width: 100%;
+    padding: 1px 4px;
+    line-height: 18px;
+    font-size: 12px;
+    color: @gray-8;
+    background-color: #f5f5f5;
+    border-color: #f5f5f5;
+    cursor: default;
+    .text-overflow-ellipsis;
+
+    &.more {
+      cursor: pointer;
+    }
+  }
+}
+
+.@{tableTagTooltipCls} {
+  //min-width: 278px;
+}
