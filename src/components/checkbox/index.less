@@ -53,10 +53,17 @@
   font-size: 14px;
   line-height: 20px;
 
-  &:not(.@{checkbox-prefix-cls}-disabled):hover {
-    cursor: pointer;
-    .@{checkbox-prefix-cls}-inner {
-      border-color: #496bf5;
+  &:not(.@{checkbox-prefix-cls}-disabled) {
+    &:hover {
+      cursor: pointer;
+    }
+
+    .@{checkbox-prefix-cls}-wrapper {
+      &:hover {
+        .@{checkbox-prefix-cls}-inner {
+          border-color: #496bf5;
+        }
+      }
     }
   }
 
