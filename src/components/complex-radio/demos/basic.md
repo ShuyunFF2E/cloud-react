@@ -10,6 +10,13 @@ import { ComplexRadio, Radio, Button } from 'cloud-react';
 
 export default function ComplexRadioDemo() {
   const [value, setValue] = useState();
+  const radioList = [
+    { label: '单选文字', value: 'A', imgSrc: 'https://brand-guide.shuyun.com/IAM/52e939494f3b.png', content: '说明文案' },
+    { label: '单选文字', value: 'B', imgSrc: 'https://brand-guide.shuyun.com/IAM/52e939494f3b.png', content: '说明文案' },
+    { label: '单选文字', value: 'C', imgSrc: 'https://brand-guide.shuyun.com/IAM/52e939494f3b.png', content: '说明文案' },
+    { label: '单选文字', value: 'D', imgSrc: 'https://brand-guide.shuyun.com/IAM/52e939494f3b.png', content: '说明文案' },
+    { label: '单选文字', value: 'E', imgSrc: 'https://brand-guide.shuyun.com/IAM/52e939494f3b.png', content: '说明文案' }
+  ];
 
   const onChange = (value) => {
     console.log('AAAA', value);
@@ -21,144 +28,69 @@ export default function ComplexRadioDemo() {
             <div>
               <h4>基础+头像</h4>
               <Radio.Group  vertical value={value} defaultValue={"A"} onChange={onChange}>
-                <ComplexRadio
-                    title="单选文字"
-                    imgSrc="https://brand-guide.shuyun.com/IAM/52e939494f3b.png"
-                    value="A"
-                />
-                <ComplexRadio
-                    title="单选文字"
-                    imgSrc="https://brand-guide.shuyun.com/IAM/52e939494f3b.png"
-                    value="B"
-                /> 
-                <ComplexRadio
-                    title="单选文字"
-                    imgSrc="https://brand-guide.shuyun.com/IAM/52e939494f3b.png"
-                    value="C"
-                />
-                <ComplexRadio
-                    title="单选文字"
-                    imgSrc="https://brand-guide.shuyun.com/IAM/52e939494f3b.png"
-                    value="D"
-                />
-                <ComplexRadio
-                    title="单选文字"
-                    imgSrc="https://brand-guide.shuyun.com/IAM/52e939494f3b.png"
-                    value="E"
-                    checked
-                    imgSrc="https://brand-guide.shuyun.com/IAM/77c28a6547cd.png"
-                />
+                {radioList.map((item, index) => (
+                  <ComplexRadio
+                    title={item.label}
+                    imgSrc={item.imgSrc}
+                    value={item.value}
+                    disabled={index > 3}
+                  />
+                ))}
               </Radio.Group>
             </div>
             <div>
               <h4>标题</h4>
               <Radio.Group  vertical value={value} defaultValue={"A"} onChange={onChange}>
-                <ComplexRadio
-                    title="单选文字标题"
-                    value="A"
-                    content="说明文案"
-                />
-                <ComplexRadio
-                    title="单选文字标题"
-                    value="B"
-                    content="说明文案"
-                />
-                <ComplexRadio
-                    title="单选文字标题"
-                    content="说明文案"
-                    value="C"
-                    checked
-                />
-                <ComplexRadio
-                    title="单选文字标题"
-                    content="说明文案"
-                    value="D"
-                    disabled
-                />
-                <ComplexRadio
-                    title="单选文字标题"
-                    content="说明文案"
-                    value="E"
-                    checked
-                    disabled
-                />
+                {radioList.map((item, index) => (
+                  <ComplexRadio
+                    title={item.label}
+                    content={item.content}
+                    value={item.value}
+                    disabled={index > 3}
+                  />
+                ))}
             </Radio.Group>
             </div>
             <div>
               <h4>标题+头像</h4>
               <Radio.Group  vertical value={value} defaultValue={"A"} onChange={onChange}>
-                <ComplexRadio
-                    title="单选文字标题"
-                    content="说明文案"
-                    value="A"
-                    imgSrc="https://brand-guide.shuyun.com/IAM/52e939494f3b.png"
-                />
-                <ComplexRadio
-                    title="单选文字标题"
-                    content="说明文案"
-                    value="B"
-                    imgSrc="https://brand-guide.shuyun.com/IAM/52e939494f3b.png"
-                />
-                <ComplexRadio
-                    title="单选文字标题"
-                    content="说明文案"
-                    value="C"
-                    imgSrc="https://brand-guide.shuyun.com/IAM/52e939494f3b.png"
-                    checked
-                />
-                <ComplexRadio
-                    title="单选文字标题"
-                    content="说明文案"
-                    value="D"
-                    imgSrc="https://brand-guide.shuyun.com/IAM/52e939494f3b.png"
-                    disabled
-                />
-                <ComplexRadio
-                    title="单选文字标题"
-                    content="说明文案"
-                    value="E"
-                    imgSrc="https://brand-guide.shuyun.com/IAM/52e939494f3b.png"
-                    checked
-                    disabled
-                />
+                {radioList.map((item, index) => (
+                  <ComplexRadio
+                    title={item.label}
+                    content={item.content}
+                    value={item.value}
+                    imgSrc={item.imgSrc}
+                    disabled={index > 3}
+                  />
+                ))}
             </Radio.Group>
             </div>
             <div>
-              <h4>卡片样式</h4>
-              <Radio.Group value={value} defaultValue={"A"} onChange={onChange}>
-                <ComplexRadio
-                    title="单选文字标题"
-                    content="说明文案"
-                    value="A"
+              <h4>基础卡片</h4>
+              <Radio.Group value={value} defaultValue={"A"} onChange={onChange} style={{ display: 'flex', flexWrap: 'wrap', gap: 24 }}>
+                {radioList.map((item, index) => (
+                  <ComplexRadio
+                    title={item.label}
+                    value={item.value}
                     type="card"
-                />
-                <ComplexRadio
-                    title="单选文字标题"
-                    content="说明文案"
-                    value="B"
-                    checked
+                    disabled={index > 3}
+                  />
+                ))}
+              </Radio.Group>
+            </div>
+            <div>
+              <h4>基础卡片 + 说明</h4>
+              <Radio.Group value={value} defaultValue={"A"} onChange={onChange} style={{ display: 'flex', flexWrap: 'wrap', gap: 24 }}>
+                {radioList.map((item, index) => (
+                  <ComplexRadio
+                    title={item.label}
+                    content={item.content}
+                    value={item.value}
                     type="card"
-                />
-            </Radio.Group>
-            <br/>
-            <br/>
-            <Radio.Group value={value} defaultValue={"A"} onChange={onChange}>
-            <ComplexRadio
-                    title="单选文字标题"
-                    content="说明文案"
-                    value="A"
-                    disabled
-                    type="card"
-                />
-                <ComplexRadio
-                    title="单选文字标题"
-                    content="说明文案"
-                    value="B"
-                    checked
-                    disabled
-                    type="card"
-                />
-            </Radio.Group>
+                    disabled={index > 3}
+                  />
+                ))}
+              </Radio.Group>
             </div>
         </div>
 	);

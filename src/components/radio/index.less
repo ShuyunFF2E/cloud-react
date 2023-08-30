@@ -17,10 +17,10 @@
 .@{raido-prefix-cls} {
   display: inline-flex;
   align-items: center;
-  margin-right: 24px;
-
+  margin-right: 20px;
   cursor: pointer;
   color: @gray-5;
+  font-size: 14px;
 
   &-group {
     display: inline-flex;
@@ -49,7 +49,7 @@
     margin-right: 8px;
 
     &:hover {
-      color: @gray-6;
+      color: @blue-4;
     }
   }
 
@@ -85,10 +85,9 @@
     }
 
     &.checked[disabled] + .@{raido-prefix-cls}-inner {
-      color: @blue-2;
+      color: #d9d9d9;
       &::after:extend(.cloud-radio-position) {
-        background-color: @blue-2;
-        box-shadow: 0 0 5px @blue-2;
+        background-color: #d9d9d9;
       }
     }
   }

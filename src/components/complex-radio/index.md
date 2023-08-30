@@ -28,6 +28,7 @@ group:
 | value        | 当前 radio 对应的值     | any           | --     |
 | textOverflowEllipsis        | content 超长显示 ...     | boolean           | false     |
 | contentStyle        | content 样式，设置 textOverflowEllipsis 为 true 的时候，需要设置 content 的宽度    | object           | {}     |
+| borderRadiusSize       | 圆角大小： `small`: 3px；`default`: 6px；`large`: 12px；         | string | `default`     |
 
  ### 代码演示 
 
