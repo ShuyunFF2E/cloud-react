@@ -28,19 +28,15 @@ export default function CheckboxDemo() {
 	};
 
 	return (
-		<div>
+		<div style={{ display: 'flex', gap: 20 }}>
 			<Checkbox>default</Checkbox>
-			<br />
 			<Checkbox defaultChecked={true} onChange={handleChange} value={1}>
 				checked
 			</Checkbox>
-			<br />
 			<Checkbox indeterminate={indeterminate} defaultChecked={checked} onChange={handleIndeterminateChange} value={2}>
 				indeterminate
 			</Checkbox>
-			<br />
 			<Checkbox disabled>disabled</Checkbox>
-			<br />
 			<Checkbox disabled defaultChecked>disabled</Checkbox>
 		</div>
 	);
