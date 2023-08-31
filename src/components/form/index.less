@@ -4,7 +4,8 @@
 
 @content-line-height: 32px;
 @content-line-height-small: 24px;
-@content-line-height-large: 36px;
+@content-line-height-large: 35px;
+@content-height-large: 36px;
 
 .@{form-prefix-cls} {
   line-height: 1.3;
@@ -37,10 +38,10 @@
     }
     &.large &-label,
     &.large &-wrapper {
-      min-height: @content-line-height-large;
+      min-height: @content-height-large;
       line-height: @content-line-height-large;
       &.has-colon::after {
-        height: @content-line-height-large;
+        height: @content-height-large;
         line-height: @content-line-height-large;
       }
     }
@@ -106,10 +107,21 @@
       }
     }
 
+    &.fixedError {
+      .has-error + .@{prefix}-form-item-explain {
+        position: relative;
+        top: 20px;
+      }
+
+      .@{prefix}-form-item-explain {
+        position: absolute;
+      }
+    }
+
     &-explain {
-      margin-top: 4px;
+      margin-top: 0;
+      line-height: 20px;
       font-size: 12px;
-      line-height: 12px;
       color: @color-gray2;
       &.error {
         color: @red-4;
@@ -136,7 +148,7 @@
       }
       .@{prefix}-picker,
       .@{prefix}-picker-range {
-        height: @content-line-height-large;
+        height: @content-height-large;
       }
     }
 

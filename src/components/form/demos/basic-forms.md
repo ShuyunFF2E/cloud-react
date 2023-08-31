@@ -11,18 +11,28 @@ desc: 标签描述和控件在一条水平线上
              * desc: 标签描述和控件在一条水平线上
              */
 import React, { useState } from 'react';
-import { Form, Input, Button, Checkbox, Radio, Select, Field } from 'cloud-react';
+import { Form, Input, Button, Checkbox, Radio, Select, InputNumber } from 'cloud-react';
 
 export default function FormHorizontalDemo() {
-	new Field(this);
-	const [err, setErr] = useState(false);
-	const onClick = () => setErr(true);
+    const [size, setSize] = useState('large');
 
 	return (
-		<Form layout="horizontal" labelCol={{ span: 6 }}>
+		<Form key={size} layout="horizontal" size={size} labelCol={{ span: 6 }}>
+          <Form.Item label="设置表单尺寸">
+            <Radio.Group value={size} onChange={setSize}>
+              <Radio value="large">large</Radio>
+              <Radio value="default">default</Radio>
+              <Radio value="small">small</Radio>
+            </Radio.Group>
+          </Form.Item>
+
 			<Form.Item label="用户名" description="这是一个描述">
 				<Input placeholder="请输入用户名" />
 			</Form.Item>
+
+          <Form.Item label="金额">
+            <InputNumber placeholder="请输入金额" />
+          </Form.Item>
 
 			<Form.Item label="密码" required>
 				<Input type="password" placeholder="请输入密码" />
@@ -39,7 +49,6 @@ export default function FormHorizontalDemo() {
 			<Form.Item label="备注333">
 				<div>
 					<Input.Textarea autoSize minRows={2} placeholder="备注信息..." />
-					{err && <Input placeholder="xaaaaaa" />}
 				</div>
 			</Form.Item>
 
@@ -65,7 +74,7 @@ export default function FormHorizontalDemo() {
 			</Form.Item>
 
 			<Form.Item wrapperCol={{ offset: 6 }}>
-				<Button type="primary" style={{ marginRight: 10 }} onClick={onClick}>
+				<Button type="primary" style={{ marginRight: 10 }}>
 					提交
 				</Button>
 				<Button>重置</Button>

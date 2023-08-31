@@ -114,22 +114,26 @@ export default class FormItem extends Component {
         'has-colon': colon,
         'label-wrap': labelWrap,
         [`col-${labelColSpan}`]:
-          labelColSpan !== undefined && [ LAYOUT_TYPES.HORIZONTAL, LAYOUT_TYPES.INLINE ].includes(layout),
+          labelColSpan !== undefined &&
+          [LAYOUT_TYPES.HORIZONTAL, LAYOUT_TYPES.INLINE].includes(layout),
         [`col-offset-${offset}`]: offset !== undefined,
       }),
     };
 
-    return label && (
-      <label {...labelAttrs}>
-        {label}
-        {
-          description && (
+    return (
+      label && (
+        <label {...labelAttrs}>
+          {label}
+          {description && (
             <Tooltip content={description} placement="top">
-              <Icon type="question-circle" className={`${prefixCls}-form-item-description`} />
+              <Icon
+                type="question-circle"
+                className={`${prefixCls}-form-item-description`}
+              />
             </Tooltip>
-          )
-        }
-      </label>
+          )}
+        </label>
+      )
     );
   }
 
@@ -158,13 +162,14 @@ export default class FormItem extends Component {
   }
 
   render() {
-    const { layout, labelAlign, size } = this.context;
+    const { layout, labelAlign, size, fixedError } = this.context;
     const { className } = this.props;
 
     return (
       <div
         className={classnames(
           `${prefixCls}-form-item`,
+          fixedError ? 'fixedError' : '',
           layout,
           size,
           layout === LAYOUT_TYPES.HORIZONTAL ? labelAlign : undefined,
