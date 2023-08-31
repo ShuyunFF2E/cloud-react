@@ -811,6 +811,7 @@ class CTable extends Component {
                 </span>
               )}
               <Pagination
+                type="simple"
                 {...pageOpts}
                 current={pageNum}
                 pageSize={pageSize}
