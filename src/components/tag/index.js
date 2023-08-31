@@ -116,7 +116,7 @@ export default class Tag extends Component {
 
   renderContent() {
     const {
-      closable, disabled, icon, maxWidth, ...others
+      closable, disabled, icon, maxWidth, style, ...others
     } = this.props;
 
     const props = omit(others, [
@@ -134,7 +134,7 @@ export default class Tag extends Component {
     return (
       <span
         className={this.classes}
-        style={{ maxWidth: maxWidth || 200 }}
+        style={{ maxWidth: maxWidth || 200, ...style }}
         onClick={this.handleClick}
         ref={this.ref}
         {...props}

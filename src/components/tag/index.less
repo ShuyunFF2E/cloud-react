@@ -45,7 +45,7 @@
   position: relative;
   //max-width: 200px;
   height: auto;
-  line-height: 20px;
+  line-height: 18px;
   font-size: 12px;
   box-sizing: border-box;
   color: @gray-9;
@@ -93,9 +93,20 @@
     }
   }
 
+  &.large {
+    line-height: 22px;
+
+    &.closable {
+      padding-right: 24px;
+      .tag-close-wrapper {
+        right: 8px;
+      }
+    }
+  }
+
   &.small {
     padding: 1px 4px;
-    line-height: 18px;
+    line-height: 16px;
 
     &.closable {
       padding-right: 20px;

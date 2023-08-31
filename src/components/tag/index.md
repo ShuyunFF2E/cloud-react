@@ -19,7 +19,7 @@ group:
 | 属性     | 说明                                                   | 类型     | 默认值 |
 | -------- | ------------------------------------------------------ | -------- | ------ |
 | type     | 标签状态,可选状态值：success、warning、default、danger | string   | -      |
-| size     | 标签大小,可选状态值：normal、small                     | string   | normal      |
+| size     | 标签大小,可选状态值：normal、small、large                     | string   | normal      |
 | rounded     | 圆形标签                  | bool   | false      |
 | maxWidth  | 标签最大宽度，超过则显示省略号及Tooltip                    | number   | 200  |
 | color     | 标签颜色,可选状态值：green、orange、red、blue、yellow、gray  | string   | -      |
