@@ -3,93 +3,101 @@
 @breadcrumbs-prefix-cls: ~'@{prefix}-badge';
 
 .@{breadcrumbs-prefix-cls} {
-	cursor: pointer;
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 
-	&.@{breadcrumbs-prefix-cls}-message {
-		.remark {
-			position: relative;
-			font-size: 16px;
+  &.@{breadcrumbs-prefix-cls}-message {
+    .remark {
+      position: relative;
+      font-size: 16px;
 
-			&:after {
-				position: absolute;
-				top: -1px;
-				right: -3px;
-				display: block;
-				content: '';
-				width: 8px;
-				height: 8px;
-				border-radius: 100%;
-			}
-		}
-	}
-
-	&.@{breadcrumbs-prefix-cls}-number {
-		.number-container {
-			display: inline-block;
-			height: 8px;
-			min-width: 8px;
-			padding: 4px;
-			width: fit-content;
-			line-height: 8px;
-			border-radius: 8px;
-			color: @color-white;
-			text-align: center;
-			font-size: 12px;
-		}
-	}
-
-  &.@{breadcrumbs-prefix-cls}-dot {
-    cursor: auto;
-    .text {
-      font-size: 14px;
-
-      &:before {
-        content: '';
-        display: inline-block;
-        position: relative;
+      &:after {
+        position: absolute;
         top: -1px;
+        right: -3px;
+        display: block;
+        content: '';
         width: 6px;
         height: 6px;
-        border-radius: 50%;
-        margin-right: 7px;
+        border-radius: 100%;
       }
     }
   }
 
-	&.@{breadcrumbs-prefix-cls}-default {
-    .text:before,
-		.remark:after,
-		.number-container {
-			background: @blue-4;
-		}
-	}
+  &.@{breadcrumbs-prefix-cls}-number {
+    .number-container {
+      display: inline-block;
+      height: 8px;
+      min-width: 8px;
+      padding: 4px;
+      width: fit-content;
+      line-height: 8px;
+      border-radius: 8px;
+      color: @color-white;
+      text-align: center;
+      font-size: 12px;
 
-	&.@{breadcrumbs-prefix-cls}-success {
-    .text:before,
-		.remark:after,
-		.number-container {
-			background: @green-4;
-		}
-	}
+      &.square {
+        border-radius: 3px;
+      }
+    }
+  }
 
-	&.@{breadcrumbs-prefix-cls}-warn {
-    .text:before,
-		.remark:after,
-		.number-container {
-			background: @orange-4;
-		}
-	}
+  &.@{breadcrumbs-prefix-cls}-dot,
+  &.@{breadcrumbs-prefix-cls}-custom-dot {
+    cursor: auto;
 
-	&.@{breadcrumbs-prefix-cls}-fail {
+    .text,
+    .custom-dot-text {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+    }
+
     .text:before,
-		.remark:after,
-		.number-container {
-			background: @red-4;
-		}
-	}
+    .custom-dot {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      margin-right: 7px;
+    }
+  }
+
+  &.@{breadcrumbs-prefix-cls}-default {
+    .text:before,
+    .remark:after,
+    .number-container {
+      background: @blue-4;
+    }
+  }
+
+  &.@{breadcrumbs-prefix-cls}-success {
+    .text:before,
+    .remark:after,
+    .number-container {
+      background: @green-4;
+    }
+  }
+
+  &.@{breadcrumbs-prefix-cls}-warn {
+    .text:before,
+    .remark:after,
+    .number-container {
+      background: @orange-4;
+    }
+  }
+
+  &.@{breadcrumbs-prefix-cls}-fail {
+    .text:before,
+    .remark:after,
+    .number-container {
+      background: @red-4;
+    }
+  }
 
   &.@{breadcrumbs-prefix-cls}-finish {
     .text:before,
