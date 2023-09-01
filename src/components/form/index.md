@@ -31,6 +31,7 @@ group:
 | className  | Form 的 className 属性                                                | string              | -          |
 | scrollToFirstError | 提交失败自动滚动到第一个错误字段，`field`字段不存在时无效			| boolean              | `false`     |
 | fixedError | 展示报错提示时表单项位置是否发生变化			| boolean              | `true`     |
+| gap | 各个表单项的间距			|  number              | 20     |
 
 如果 Form 和 Form.Item 相同的属性，Form.Item 的优先级更高，如果 Form 上设置了就不用每一个 Form.Item 上都进行设置，更加方便
 

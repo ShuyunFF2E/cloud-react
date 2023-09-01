@@ -162,7 +162,7 @@ export default class FormItem extends Component {
   }
 
   render() {
-    const { layout, labelAlign, size, fixedError } = this.context;
+    const { layout, labelAlign, size, fixedError, gap } = this.context;
     const { className } = this.props;
 
     return (
@@ -175,6 +175,7 @@ export default class FormItem extends Component {
           layout === LAYOUT_TYPES.HORIZONTAL ? labelAlign : undefined,
           className,
         )}
+        style={{ marginBottom: gap }}
       >
         {this.renderLabel()}
         {this.renderWrapper()}

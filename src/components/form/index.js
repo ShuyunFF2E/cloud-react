@@ -68,6 +68,7 @@ export default class Form extends Component {
       labelWrap,
       className,
       fixedError,
+      gap,
       ...others
     } = this.props;
     const props = omit(others, [ 'scrollToFirstError' ]);
@@ -85,6 +86,7 @@ export default class Form extends Component {
           wrapperCol,
           labelWrap,
           fixedError,
+          gap,
         }}
       >
         <form {...props} className={classNames}>
@@ -124,6 +126,7 @@ Form.propTypes = {
   scrollToFirstError: PropTypes.bool,
   children: PropTypes.any,
   fixedError: PropTypes.bool,
+  gap: PropTypes.number,
 };
 
 Form.defaultProps = {
@@ -139,4 +142,5 @@ Form.defaultProps = {
   children: null,
   scrollToFirstError: false,
   fixedError: true,
+  gap: 20,
 };
