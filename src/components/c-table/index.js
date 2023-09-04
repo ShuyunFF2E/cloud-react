@@ -166,7 +166,7 @@ class CTable extends Component {
       render: (val, row) => <ColumnTpl value={val} row={row} {...item} />,
       ...item,
       show: true,
-      align: item.type === NUMBER ? 'right' : 'left',
+      align: item.type === NUMBER ? 'right' : item.align,
     }));
   };
 
