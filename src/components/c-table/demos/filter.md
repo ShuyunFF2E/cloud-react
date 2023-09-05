@@ -74,19 +74,18 @@ export default function CTableDemo() {
       width: 150,
       align: 'left',
       ellipsis: true,
-      render: (value) => {
-        return (
-          <Tooltip content={value} placement="top-left">
-            {value}
-          </Tooltip>
-        )
+      render: val => {
+        return <CTable.TextTpl value={val} />
       }
     },
     {
       title: '创建时间',
       dataIndex: 'createTime',
       width: 150,
-      align: 'left'
+      align: 'left',
+      render: val => {
+        return <CTable.TimeTpl value={val} format="YYYY-MM-DD" />
+      }
     },
     {
       title: '活动状态',

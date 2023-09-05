@@ -819,7 +819,7 @@ class CTable extends Component {
                       <RcTable.Summary.Row>
                         {summaryData.map((item) => (
                           <RcTable.Summary.Cell {...item}>
-                            {item.content || null}
+                            <NumberTpl {...item} value={item.content} />
                           </RcTable.Summary.Cell>
                         ))}
                       </RcTable.Summary.Row>

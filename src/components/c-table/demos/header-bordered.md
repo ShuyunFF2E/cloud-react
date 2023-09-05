@@ -18,10 +18,18 @@ const data = [
 ];
 
 const columns = [
-  { title: '活动ID', dataIndex: 'id' },
-  { title: '活动名称', dataIndex: 'name' },
-  { title: '创建时间', dataIndex: 'createTime' },
-  { title: '创建人', dataIndex: 'creator' }
+  { title: '活动ID', dataIndex: 'id', width: 130 },
+  {
+    title: '活动名称', dataIndex: 'name', width: 140, render: val => {
+      return <CTable.TextTpl value={val} />
+    }
+  },
+  {
+    title: '创建时间', dataIndex: 'createTime', width: 140, render: val => {
+      return <CTable.TimeTpl value={val} />
+    }
+  },
+  { title: '创建人', dataIndex: 'creator', width: 130 }
 ];
 
 export default function CTableDemo() {

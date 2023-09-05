@@ -1,7 +1,5 @@
 ---
-order: 7
-title: CTable
-desc: 单选
+order: 7 title: CTable desc: 单选
 ---
 
 ```jsx
@@ -23,8 +21,16 @@ const data = [
 
 const columns = [
   { title: '活动ID', dataIndex: 'id' },
-  { title: '活动名称', dataIndex: 'name' },
-  { title: '创建时间', dataIndex: 'createTime' },
+  {
+    title: '活动名称', dataIndex: 'name', render: val => {
+      return <CTable.TextTpl value={val} />
+    }
+  },
+  {
+    title: '创建时间', dataIndex: 'createTime', render: val => {
+      return <CTable.TimeTpl value={val} />
+    }
+  },
   { title: '创建人', dataIndex: 'creator' },
 ];
 
@@ -49,7 +55,10 @@ export default function CTableDemo() {
         ajaxData={(params) => {
           return new Promise(resolve => {
             setTimeout(() => {
-              resolve({ totals: data.length, data: JSON.parse(JSON.stringify(data.slice(params.pageSize * (params.pageNum - 1), params.pageSize * params.pageNum))) });
+              resolve({
+                totals: data.length,
+                data: JSON.parse(JSON.stringify(data.slice(params.pageSize * (params.pageNum - 1), params.pageSize * params.pageNum)))
+              });
             }, 200)
           })
         }}
