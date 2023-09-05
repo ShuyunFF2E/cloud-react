@@ -17,18 +17,22 @@
 .@{tooltip-prefix-cls} {
   position: absolute;
   font-size: 12px;
-  min-height: 26px;
   max-width: 320px;
-  min-width: 72px;
-  line-height: 1.5;
-  padding: 8px 12px;
-  border-radius: 2px;
+  min-width: 40px;
+  max-height: 70px;
+  line-height: 18px;
+  padding: 8px;
+  border-radius: 6px;
   box-sizing: border-box;
   z-index: @z-index-tooltip;
   word-break: break-all;
   top: 0;
   left: 0;
   opacity: 0;
+
+  &.no-arrow:after {
+    display: none !important;
+  }
 
   &.show {
     opacity: 1;
