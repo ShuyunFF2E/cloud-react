@@ -16,6 +16,7 @@ import {
   isFirefox,
   debounce,
   hasCustomScroll,
+  getBtnNum,
 } from './util';
 import {
   DRAG_ICON_SELECTOR,
@@ -162,12 +163,21 @@ class CTable extends Component {
   };
 
   resolveColumn = (columnData) => {
-    return columnData.map((item) => ({
-      render: (val, row) => <ColumnTpl value={val} row={row} {...item} />,
-      ...item,
-      show: true,
-      align: item.type === NUMBER ? 'right' : item.align,
-    }));
+    return columnData.map((item) => {
+      const align = item.type === NUMBER ? 'right' : item.align;
+      const btnNum = getBtnNum(item);
+      const colClassName =
+        align === 'right' && btnNum > 0 ? `padding-${btnNum}` : '';
+      return {
+        render: (val, row) => <ColumnTpl value={val} row={row} {...item} />,
+        ...item,
+        show: true,
+        align,
+        className: item.className
+          ? `${item.className} ${colClassName}`
+          : colClassName,
+      };
+    });
   };
 
   resolveOriginColumn = (columnData) => {

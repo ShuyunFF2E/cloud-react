@@ -170,6 +170,7 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 | onCell     | 为每个单元格设置自定义参数 Function(record, index)                                   | function                      | -               |
 | minWidth     | 列最小宽度（**该属性效果不流畅，可以给 columnData 中的每一项都设置 width 属性，可达到同样效果**）                      | number                   | - |
 | filters     | 配置表格列筛选项 [{ text: '男', value: 'male' }, { text: '女', value: 'female' }]                      | array                   | [] |
+| className     | 给列设置类名                | string                   | '' |
 | type     | 列模板类型，可传值：数字类型-`NUMBER`、时间类型-`TIME`、时间范围类型-`TIME_RANGE`、单行文本类型-`TEXT`、多行文本类型-`MULTI_TEXT`、单行文本带链接-`LINK`、多行文本带链接-`MULTI_LINK`、标签类型-`TAG`                 | string                   | - |
 | typeConfig     | 搭配 type 使用，支持参数详见下表 ⬇️                    | object                   | {} |
 
@@ -330,21 +331,27 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 <embed src="@components/c-table/demos/sticky.md" />
 
 ### 标准化表格-数值类型
+
 <embed src="@components/c-table/demos/uniform_number.md" />
 
 ### 标准化表格-时间类型
+
 <embed src="@components/c-table/demos/uniform_time.md" />
 
 ### 标准化表格-时间范围类型
+
 <embed src="@components/c-table/demos/uniform_time_range.md" />
 
 ### 标准化表格-文本类型
+
 <embed src="@components/c-table/demos/uniform_text.md" />
 
 ### 标准化表格-标签类型
+
 <embed src="@components/c-table/demos/uniform_tag.md" />
 
 ### 标准化表格-使用列模板形式
+
 <embed src="@components/c-table/demos/uniform_tpl.md" />
 
 ### 解决方案
