@@ -197,3 +197,32 @@ export const getTextWidth = (text, fontSize = '14px') => {
 
   return Math.ceil(parseFloat(width));
 };
+
+export const getBtnNum = (columnItem) => {
+  const paddingConfig = {
+    tooltip:
+      columnItem?.titleTooltipConfig?.content
+      && columnItem?.titleTooltipAlign !== 'left',
+    sort: !!columnItem?.sortable,
+    filter: !!columnItem?.filters?.length,
+  };
+  const btnNum = Object.keys(paddingConfig)?.filter(
+    (key) => paddingConfig[key],
+  )?.length;
+  if (btnNum === 1) {
+    if (paddingConfig.filter) {
+      return 34;
+    }
+    return 32;
+  }
+  if (btnNum === 2) {
+    if (paddingConfig.tooltip && paddingConfig.sort) {
+      return 52;
+    }
+    return 54;
+  }
+  if (btnNum === 3) {
+    return 74;
+  }
+  return 0;
+};

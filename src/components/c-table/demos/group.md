@@ -12,8 +12,8 @@ const data = [
     {
         key: 1,
         name: '一级条目1',
-        id: '',
-        details: '',
+        id: ' ',
+        details: ' ',
         children: [
             {
                 key: 11,
@@ -38,8 +38,8 @@ const data = [
   {
     key: 3,
     name: '一级条目3',
-    id: '',
-    details: '',
+    id: ' ',
+    details: ' ',
     children: [
       {
         key: 31,
@@ -52,8 +52,8 @@ const data = [
     {
         key: 4,
         name: '一级条目4',
-        id: '',
-        details: '',
+        id: ' ',
+        details: ' ',
         children: [
             {
                 key: 41,

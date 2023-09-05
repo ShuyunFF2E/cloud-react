@@ -9,11 +9,11 @@ import { CTable, Button } from 'cloud-react';
 
 export default function CTableDemo() {
   const [data, setData] = useState([
-    { id: '121410327', name: '手机号优先继续发送1', createTime: '2021/12/14 10:19:02', creator: 'liyuan.meng', num: '12,222' },
+    { id: '121410327', name: '手机号优先继续发送1', createTime: '2021/12/14 10:19:02', creator: 'liyuan.meng', num: 12222 },
     { id: '121410328', name: 'ouid疲劳度3', createTime: '2021/12/13 15:47:33	', creator: 'jiaojiao.diao', num: '198' },
-    { id: '121410329', name: '继续发送手机1', createTime: '2021/12/13 15:36:42', creator: 'nan.run', num: '1,232' },
-    { id: '121408294', name: '继续发送手机2', createTime: '2021/12/13 11:14:40', creator: 'xiaotong.fan', num: '12,122,112' },
-    { id: '121407191', name: '继续发送手机3', createTime: '2021/12/13 11:03:05', creator: 'zhenxiao.guo', num: '1000,000' },
+    { id: '121410329', name: '继续发送手机1', createTime: '2021/12/13 15:36:42', creator: 'nan.run', num: '1232' },
+    { id: '121408294', name: '继续发送手机2', createTime: '2021/12/13 11:14:40', creator: 'xiaotong.fan', num: 12122112 },
+    { id: '121407191', name: '继续发送手机3', createTime: '2021/12/13 11:03:05', creator: 'zhenxiao.guo', num: '1000000' },
   ]);
 
   // （1）定义一个 buffer 对象，将 data 赋值给 buffer.bufferData，并监听 data 变化更新 buffer
@@ -33,14 +33,30 @@ export default function CTableDemo() {
 
   // （3）新增操作使用 buffer.bufferData 处理
   const onAdd = () => {
-    setData([...buffer.bufferData, { id: new Date().getTime(), name: '手机号优先继续发送1', createTime: '2021/12/14 10:19:02', creator: 'liyuan.meng', num: '12,222' }])
+    setData([...buffer.bufferData, {
+      id: new Date().getTime(),
+      name: '手机号优先继续发送1',
+      createTime: '2021/12/14 10:19:02',
+      creator: 'liyuan.meng',
+      num: '12,222'
+    }])
   };
 
   const columns = [
     { title: '活动ID', dataIndex: 'id', width: 130 },
     { title: '活动名称', dataIndex: 'name', width: 140 },
-    { title: '创建时间', dataIndex: 'createTime', width: 140 },
-    { title: '人数', dataIndex: 'num', align: 'right', width: 120 },
+    {
+      title: '创建时间', dataIndex: 'createTime', width: 140, render: val => {
+        return <CTable.TimeTpl value={val} />
+      }
+    },
+    {
+      title: '人数',
+      dataIndex: 'num',
+      align: 'right',
+      width: 120,
+      render: val => <CTable.NumberTpl value={val} precision={0} />
+    },
     { title: '创建人', dataIndex: 'creator', width: 130 },
     {
       title: '操作',

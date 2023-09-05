@@ -1,7 +1,5 @@
 ---
-order: 9
-title: CTable
-desc: 分页
+order: 9 title: CTable desc: 分页
 ---
 
 ```jsx
@@ -22,15 +20,24 @@ const columns = [
     title: item => {
       return <span style={{ display: 'flex', alignItems: 'center' }}>
                 <span style={{ marginRight: 5 }}>活动ID</span>
-                <Tooltip content="说明说明"><Icon style={{ color: 'rgba(0, 0, 0, 0.25)' }} type="question-circle"/></Tooltip>
+                <Tooltip content="说明说明"><Icon style={{ color: 'rgba(0, 0, 0, 0.25)' }}
+                                              type="question-circle" /></Tooltip>
             </span>;
     },
     dataIndex: 'id',
     align: 'left'
   },
-    { title: '活动名称', dataIndex: 'name', align: 'left' },
-    { title: '创建时间', dataIndex: 'createTime', align: 'left' },
-    { title: '创建人', dataIndex: 'creator', align: 'left' }
+  {
+    title: '活动名称', dataIndex: 'name', render: val => {
+      return <CTable.TextTpl value={val} />
+    }
+  },
+  {
+    title: '创建时间', dataIndex: 'createTime', render: val => {
+      return <CTable.TimeTpl value={val} />
+    }
+  },
+  { title: '创建人', dataIndex: 'creator', align: 'left' }
 ];
 
 export default function CTableDemo() {
@@ -60,10 +67,13 @@ export default function CTableDemo() {
           }
         }}
         ajaxData={(params) => {
-            return { total: data.length, list: JSON.parse(JSON.stringify(data.slice(params.pageSize * (params.pageNum - 1), params.pageSize * params.pageNum))) };
+          return {
+            total: data.length,
+            list: JSON.parse(JSON.stringify(data.slice(params.pageSize * (params.pageNum - 1), params.pageSize * params.pageNum)))
+          };
         }}
         onCheckedAfter={checkedData => {
-            setCheckedData(checkedData);
+          setCheckedData(checkedData);
         }}
       />
     </div>
