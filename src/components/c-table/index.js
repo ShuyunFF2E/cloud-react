@@ -17,7 +17,12 @@ import {
   debounce,
   hasCustomScroll,
 } from './util';
-import { DRAG_ICON_SELECTOR, DRAG_SELECTOR, tablePrefixCls } from './constant';
+import {
+  DRAG_ICON_SELECTOR,
+  DRAG_SELECTOR,
+  NUMBER,
+  tablePrefixCls,
+} from './constant';
 import getExpandableConfig from './js/expend';
 import ResizableTitle from './js/resizableTitle';
 import Pagination from '../pagination';
@@ -29,6 +34,15 @@ import './css/business.less';
 import Column from './js/column';
 import RowTooltip from './js/rowTooltip';
 import { defaultProps, propTypes } from './js/propType';
+import ColumnTpl from './columnTpl';
+import NumberTpl from './columnTpl/number';
+import TimeTpl from './columnTpl/time';
+import TimeRangeTpl from './columnTpl/timeRange';
+import TextTpl from './columnTpl/text';
+import MultiTextTpl from './columnTpl/multiText';
+import LinkTpl from './columnTpl/link';
+import MultiLinkTpl from './columnTpl/multiLink';
+import TagTpl from './columnTpl/tag';
 
 class CTable extends Component {
   ref = createRef();
@@ -148,16 +162,18 @@ class CTable extends Component {
   };
 
   resolveColumn = (columnData) => {
-    return columnData.map((item) => ({ ...item, show: true }));
+    return columnData.map((item) => ({
+      render: (val, row) => <ColumnTpl value={val} row={row} {...item} />,
+      ...item,
+      show: true,
+      align: item.type === NUMBER ? 'right' : item.align,
+    }));
   };
 
   resolveOriginColumn = (columnData) => {
     return (
       (this.props.supportMemory && getConfig(this.props.tableId)) ||
-      columnData.map((item) => ({
-        ...item,
-        show: true,
-      }))
+      this.resolveColumn(columnData)
     );
   };
 
@@ -886,3 +902,12 @@ export default CTable;
 
 CTable.propTypes = propTypes;
 CTable.defaultProps = defaultProps;
+
+CTable.NumberTpl = NumberTpl;
+CTable.TimeTpl = TimeTpl;
+CTable.TimeRangeTpl = TimeRangeTpl;
+CTable.TextTpl = TextTpl;
+CTable.MultiTextTpl = MultiTextTpl;
+CTable.LinkTpl = LinkTpl;
+CTable.MultiLinkTpl = MultiLinkTpl;
+CTable.TagTpl = TagTpl;

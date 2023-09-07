@@ -30,8 +30,8 @@ export default class Column {
         expandIconColumnIndex: _this.props.expandIconColumnIndex + 1,
         columnData:
           columnData[0].dataIndex === 'checkbox'
-            ? [ checkboxColumn, ...columnData.slice(1) ]
-            : [ checkboxColumn, ...columnData ],
+            ? [checkboxColumn, ...columnData.slice(1)]
+            : [checkboxColumn, ...columnData],
       });
       return;
     }
@@ -41,8 +41,8 @@ export default class Column {
         expandIconColumnIndex: _this.props.expandIconColumnIndex + 1,
         columnData:
           columnData[0].dataIndex === 'radio'
-            ? [ radioColumn, ...columnData.slice(1) ]
-            : [ radioColumn, ...columnData ],
+            ? [radioColumn, ...columnData.slice(1)]
+            : [radioColumn, ...columnData],
       });
       return;
     }
@@ -57,9 +57,7 @@ export default class Column {
   setColumnData = ({ currentThArr } = {}) => {
     const { _this } = this;
     const { originColumnData } = _this.state;
-    const {
-      supportCheckbox, supportRadio, isExpendAloneColumn, showDragIcon,
-    } = _this.props;
+    const { supportCheckbox, supportRadio, isExpendAloneColumn, showDragIcon } = _this.props;
     const isLastColumnFixed = originColumnData[originColumnData.length - 1].fixed;
     const isFirstColumnFixed = originColumnData[0].fixed;
     const thArr = currentThArr
@@ -236,7 +234,7 @@ export default class Column {
               className={`${tablePrefixCls}-filter-content ${
                 showFilterBtn && 'show-filter-btn'
               }`}
-              content={(
+              content={
                 <>
                   {item.filters.map((f, index) => (
                     <Checkbox
@@ -255,7 +253,7 @@ export default class Column {
                     </Checkbox>
                   ))}
                 </>
-              )}
+              }
               onCancelClick={this.onFilterReset}
               onConfirmClick={this.onFilterConfirm}
             >
@@ -270,10 +268,7 @@ export default class Column {
         </span>
       );
     }
-    if (typeof item.title === 'function') {
-      return item.title(item);
-    }
-    return item.title;
+    return this.renderTitle(item);
   };
 
   /**
@@ -349,7 +344,7 @@ export default class Column {
     const { _this } = this;
     return (e, { size }) => {
       _this.setState(({ columnData }) => {
-        const nextColumns = [ ...columnData ];
+        const nextColumns = [...columnData];
         const minWidth = nextColumns[index].minWidth || 106;
         Object.assign(nextColumns[index], {
           width: size.width > minWidth ? size.width : minWidth,
@@ -593,7 +588,7 @@ export default class Column {
         sortParams: {
           ...currentColumnItem,
           sortBy,
-          allSortColumns: [ ...resolveOriginColumnData ],
+          allSortColumns: [...resolveOriginColumnData],
         },
       },
       () => {

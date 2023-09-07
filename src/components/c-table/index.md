@@ -12,9 +12,9 @@ group:
 ### 何时使用
 可配置分页功能的表格组件。
 
-### API
+### 一、API
 
-#### CTable 基础配置项
+### CTable 基础配置项
 
 | 属性           | 说明                    | 类型              | 默认值 
 | -------------- | ---------------------- | ----------------- | ------ |
@@ -29,7 +29,7 @@ group:
 | onLoadGridBefore | 表格刷新前回调，Function(params)   | function   |   () => {}   | |
 | onRow | 表格刷新后回调，设置自定义 row 属性，Function(record, index)   | 	function   |   () => {}   | |
 
-#### CTable 手动刷新表格
+### CTable 手动刷新表格
 this.tableRef.current.refreshTable(gotoFirstPage?, params?);
 
 *refreshTable 参数：*
@@ -40,7 +40,7 @@ this.tableRef.current.refreshTable(gotoFirstPage?, params?);
 | params | 分页等表格查询参数（暂不支持传入额外查询参数）   | object   |   {}   | |
 
 
-#### CTable 重新设置表格列 columnData
+### CTable 重新设置表格列 columnData
 this.tableRef.current.setColumn(columnData, isReloadGrid?);
 
 *setColumn 参数：*
@@ -50,14 +50,14 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 | columnData | 表格列数组   | array   |   []   | |
 | isReloadGrid | 重新设置表格列后，是否需要刷新表格   | boolean   |   false   | |
 
-#### CTable 字段映射
+### CTable 字段映射
 | 属性           | 说明                    | 类型              | 默认值
 | -------------- | ---------------------- | ----------------- | ------ |
 | totalsKey | total 映射字段   | string   |   'totals'   | |
 | dataKey | data 映射字段   | string   |   'data'   | |
 | childrenKey | children 映射字段   | string   |   'children'   | |
 
-#### CTable 分页相关配置
+### CTable 分页相关配置
 | 属性           | 说明                    | 类型              | 默认值
 | -------------- | ---------------------- | ----------------- | ------ |
 | supportPage | 是否支持分页    | boolean   |   false   | |
@@ -65,7 +65,7 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 | showTotal | 显示总条数   | boolean   |   false   | |
 | showRefresh | 显示刷新按钮   | boolean   |   true   | |
 
-#### CTable 多级表格配置（树、展开行）
+### CTable 多级表格配置（树、展开行）
 | 属性           | 说明                    | 类型              | 默认值
 | -------------- | ---------------------- | ----------------- | ------ |
 | supportTree | 是否支持树状表格    | boolean   |   false   | |
@@ -78,7 +78,7 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 | supportGroup | 表格分组 | 	boolean   |   false   | |
 | supportFullColumn | 表格通栏 | 	boolean   |   false   | |
 
-#### CTable 多选/单选配置
+### CTable 多选/单选配置
 | 属性           | 说明                    | 类型              | 默认值
 | -------------- | ---------------------- | ----------------- | ------ |
 | supportCheckbox | 是否支持多选    | boolean   |   false   | |
@@ -90,7 +90,7 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 | disabled | 禁用多选/单选按钮 | boolean   |   false   | |
 | showCheckedAll | 是否展示表格全选当页按钮 | boolean   |   true   | |
 
-#### CTable 表格拖拽配置
+### CTable 表格拖拽配置
 | 属性           | 说明                    | 类型              | 默认值
 | -------------- | ---------------------- | ----------------- | ------ |
 | supportDrag | 是否支持表格拖拽行 | 	bool   |   false   | |
@@ -98,19 +98,19 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 | onDragAfter | 表格拖拽行回调 | 	function   |   -   | |
 | dragSelector | 指定表格拖拽的选择器 | 	string   |   ''   | |
 
-#### CTable 表格固定表头
+### CTable 表格固定表头
 | 属性           | 说明                    | 类型              | 默认值
 | -------------- | ---------------------- | ----------------- | ------ |
 | sticky | 表头固定 | 	object { offsetHeader?: number, getContainer?: () => Window / HTMLElement }  |   {}   | |
 | stickyFooter | 表尾固定在页面底部 | 	bool  |   false   | |
 
-#### CTable 表格排序（此处是全局配置，配置每列的排序详看 columnData 配置）
+### CTable 表格排序（此处是全局配置，配置每列的排序详看 columnData 配置）
 | 属性           | 说明                    | 类型              | 默认值
 | -------------- | ---------------------- | ----------------- | ------ |
 | sortWidthOriginStatus | 表格排序状态分为升序和降序，配置该参数为 true，排序状态可以恢复原始状态 | 	boolean   |   false   | |
 | sortMultiColumns | 是否支持多个列同时排序 | 	boolean   |   false   | |
 
-#### CTable 自定义模板配置
+### CTable 自定义模板配置
 | 属性           | 说明                    | 类型              | 默认值
 | -------------- | ---------------------- | ----------------- | ------ |
 | footerTpl | 自定义 footer    | function   |   -   | |
@@ -125,7 +125,7 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 | loadingOpts | 表格自定义loading属性，详细见**Loading**组件：https://cloud-react.shuyun.com/v1/cloud-react/action/loading   | object   |   []   | |
 | loadingTpl | 自定义 loading    | function   |   -   | |
 
-#### CTable 业务相关配置
+### CTable 业务相关配置
 | 属性           | 说明                    | 类型              | 默认值
 | -------------- | ---------------------- | ----------------- | ------ |
 | isDelay | 刷新表格时，是否延迟loading，一般在纯前端表格中使用   | boolean   |   false   | |
@@ -138,7 +138,7 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 | useRootWindow | window 对象是否使用根 window | 	boolean   |   false   | |
 | hideEmptyFooter | 配置表格无数据返回，不展示 footer | 	boolean   |   false   | |
 
-#### CTable 其他功能配置
+### CTable 其他功能配置
 | 属性           | 说明                    | 类型              | 默认值
 | -------------- | ---------------------- | ----------------- | ------ |
 | supportResizeColumn | 是否支持配置列的拉伸  | boolean	   |   false   | |
@@ -152,7 +152,7 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 
 [comment]: <> (| tableId | 表格ID。supportMemory 为 true 的时候，需要设置 tableId；其他场景无需设置（开发中）  | string     |   ''   | | )
 
-#### CTable columnData
+### CTable columnData
 | 属性                | 说明                                         | 类型                        | 默认值           |
 | ------------------- | -------------------------------------------- | --------------------------- | ---------------- |
 | title             | 表头                                     | string/function                    | -                |
@@ -170,8 +170,54 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 | onCell     | 为每个单元格设置自定义参数 Function(record, index)                                   | function                      | -               |
 | minWidth     | 列最小宽度（**该属性效果不流畅，可以给 columnData 中的每一项都设置 width 属性，可达到同样效果**）                      | number                   | - |
 | filters     | 配置表格列筛选项 [{ text: '男', value: 'male' }, { text: '女', value: 'female' }]                      | array                   | [] |
+| type     | 列模板类型，可传值：数字类型-`NUMBER`、时间类型-`TIME`、时间范围类型-`TIME_RANGE`、单行文本类型-`TEXT`、多行文本类型-`MULTI_TEXT`、单行文本带链接-`LINK`、多行文本带链接-`MULTI_LINK`、标签类型-`TAG`                 | string                   | - |
+| typeConfig     | 搭配 type 使用，支持参数详见下表 ⬇️                    | object                   | {} |
 
-### 代码演示
+**（1）type 为 数字类型-`NUMBER`**
+（_可根据下表配置 typeConfig，查看 [Demo](https://cloud-react.shuyun.com/v1/cloud-react/data/c-table#标准化表格-数值类型)；也可以使用组件形式 <Table.NumberTpl/>，查看 [Demo](https://cloud-react.shuyun.com/v1/cloud-react/data/c-table#标准化表格-使用列模板形式)_）
+| 属性                | 说明                                         | 类型                        | 默认值           |
+| ------------------- | -------------------------------------------- | --------------------------- | ---------------- |
+| value            | 展示值，使用组件的形式必传，使用 typeConfig 忽略次字段             | number                 | -                |
+| typeConfig.precision            | 数值保留的小数位数              | number                 | 0                |
+| typeConfig.isThousands            | 是否使用千分位格式              | bool                 | true                |
+| typeConfig.prefix            | 前缀              |  string                 | ''                |
+| typeConfig.suffix            | 后缀              |  string                 | ''                |
+
+**（2）type 为 时间类型-`TIME`**
+（_可根据下表配置 typeConfig，查看 [Demo](https://cloud-react.shuyun.com/v1/cloud-react/data/c-table#标准化表格-时间类型)；也可以使用组件形式 <Table.TimeTpl/>，查看 [Demo](https://cloud-react.shuyun.com/v1/cloud-react/data/c-table#标准化表格-使用列模板形式)_）
+| 属性                | 说明                                         | 类型                        | 默认值           |
+| ------------------- | -------------------------------------------- | --------------------------- | ---------------- |
+| value            | 展示值，使用组件的形式必传，使用 typeConfig 忽略次字段             | string                 | -                |
+| typeConfig.format            | 格式化日期，和 moment.js format 支持参数一致，例如：YYY-MM-DD HH:MM:SS              | string                 | -                |
+
+**（3）type 为 时间范围类型-`TIME_RANGE`**
+（_可根据下表配置 typeConfig，查看 [Demo](https://cloud-react.shuyun.com/v1/cloud-react/data/c-table#标准化表格-时间范围类型)；也可以使用组件形式 <Table.TimeRangeTpl/>，查看 [Demo](https://cloud-react.shuyun.com/v1/cloud-react/data/c-table#标准化表格-使用列模板形式)_）
+| 属性                | 说明                                         | 类型                        | 默认值           |
+| ------------------- | -------------------------------------------- | --------------------------- | ---------------- |
+| value            | 展示值，使用组件的形式必传，使用 typeConfig 忽略次字段             | string                 | -                |
+| typeConfig.format            | 格式化日期，和 moment.js format 支持参数一致，例如：YYY-MM-DD HH:MM:SS              | string                 |  -               |
+| typeConfig.startKey            | 开始时间的 key 值             | string                 | -                |
+| typeConfig.endKey            | 结束时间的 key 值             | string                 | -                |
+| typeConfig.startValue            | 开始时间值             | string                 | -                |
+| typeConfig.endValue            | 结束时间值             | string                 | -                |
+
+**（4）type 为 单行链接类型-`LINK`、多行链接类型-`MULTI_LINK`**
+（_可根据下表配置 typeConfig，查看 [Demo](https://cloud-react.shuyun.com/v1/cloud-react/data/c-table#标准化表格-文本类型)；也可以使用组件形式 <Table.LinkTpl/>，查看 [Demo](https://cloud-react.shuyun.com/v1/cloud-react/data/c-table#标准化表格-使用列模板形式)_）
+| 属性                | 说明                                         | 类型                        | 默认值           |
+| ------------------- | -------------------------------------------- | --------------------------- | ---------------- |
+| value            | 展示值，使用组件的形式必传，使用 typeConfig 忽略次字段             | string                 | -                |
+| typeConfig.linkKey            | 链接 key             | string                 | ''                |
+| typeConfig.link            | 链接值             | string                 | ''                |
+
+**（5）type 为 标签类型-`TAG`**
+（_可根据下表配置 typeConfig，查看 [Demo](https://cloud-react.shuyun.com/v1/cloud-react/data/c-table#标准化表格-标签类型)；也可以使用组件形式 <Table.TagTpl/>，查看 [Demo](https://cloud-react.shuyun.com/v1/cloud-react/data/c-table#标准化表格-使用列模板形式)_）
+| 属性                | 说明                                         | 类型                        | 默认值           |
+| ------------------- | -------------------------------------------- | --------------------------- | ---------------- |
+| value            | 展示值，使用组件的形式必传，使用 typeConfig 忽略次字段             | string                 | -                |
+| typeConfig.formatValue            | 格式化 value             | function                 | -                |
+
+
+### 二、代码演示
 
 ### 基础表格
 
@@ -282,6 +328,24 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 ### 表格固定表头和表尾
 
 <embed src="@components/c-table/demos/sticky.md" />
+
+### 标准化表格-数值类型
+<embed src="@components/c-table/demos/uniform_number.md" />
+
+### 标准化表格-时间类型
+<embed src="@components/c-table/demos/uniform_time.md" />
+
+### 标准化表格-时间范围类型
+<embed src="@components/c-table/demos/uniform_time_range.md" />
+
+### 标准化表格-文本类型
+<embed src="@components/c-table/demos/uniform_text.md" />
+
+### 标准化表格-标签类型
+<embed src="@components/c-table/demos/uniform_tag.md" />
+
+### 标准化表格-使用列模板形式
+<embed src="@components/c-table/demos/uniform_tpl.md" />
 
 ### 解决方案
 
