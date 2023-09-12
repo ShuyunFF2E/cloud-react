@@ -23,6 +23,9 @@
     "postinstall": "patch-package",
     "changelog": "auto-changelog"
   },
+  "auto-changelog": {
+    "output": "docs/log.md"
+  },
   "dumiAssets": "assets.json",
   "main": "dist/cloud-react.js",
   "module": "dist/cloud-react.esm.js",
