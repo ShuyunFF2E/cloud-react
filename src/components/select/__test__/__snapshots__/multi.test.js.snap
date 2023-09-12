@@ -5,17 +5,19 @@ exports[`multi-select renders correctly 1`] = `
   class="cloud-select"
 >
   <div
-    class="cloud-select-wrapper empty"
+    class="cloud-select-wrapper empty default"
   >
     <span
       class="cloud-select-selected"
       title=""
+    >
+      请选择
+    </span>
+    <i
+      class="cloud-select-select-icon cloud-select-clear-icon cloud-icon icon-close-fill-1"
     />
     <i
-      class="cloud-select-select-icon cloud-select-clear-icon cloud-icon cloud-icon-close-circle-solid"
-    />
-    <i
-      class="cloud-select-select-icon close cloud-icon cloud-icon-down-solid"
+      class="cloud-select-select-icon close cloud-icon icon-down"
     />
   </div>
 </div>
@@ -26,7 +28,7 @@ exports[`multi-select renders custom option correctly 1`] = `
   class="cloud-select"
 >
   <div
-    class="cloud-select-wrapper"
+    class="cloud-select-wrapper default"
   >
     <span
       class="cloud-select-selected"
@@ -35,10 +37,10 @@ exports[`multi-select renders custom option correctly 1`] = `
       草莓
     </span>
     <i
-      class="cloud-select-select-icon cloud-select-clear-icon cloud-icon cloud-icon-close-circle-solid"
+      class="cloud-select-select-icon cloud-select-clear-icon cloud-icon icon-close-fill-1"
     />
     <i
-      class="cloud-select-select-icon close cloud-icon cloud-icon-down-solid"
+      class="cloud-select-select-icon close cloud-icon icon-down"
     />
   </div>
 </div>

@@ -40,7 +40,7 @@ exports[`StepItem renders different status correctly 2`] = `
       class="cloud-step-icon finish"
     >
       <i
-        class="cloud-icon cloud-icon-finish"
+        class="cloud-icon icon-finish"
       />
     </div>
     <div

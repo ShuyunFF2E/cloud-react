@@ -100,13 +100,10 @@
   }
 
   &-wrapper {
-    .@{prefix-cls}-panel .@{prefix-cls}-date-panel {
-      .@{prefix-cls}-cell.@{prefix-cls}-cell-in-view {
+    .@{prefix-cls}-panel {
+      .@{prefix-cls}-body .@{prefix-cls}-cell.@{prefix-cls}-cell-in-view {
         &.@{prefix-cls}-cell-range-start,
         &.@{prefix-cls}-cell-range-hover-start {
-          &:not(.@{prefix-cls}-cell-in-range):not(.@{prefix-cls}-cell-range-start-near-hover)::before {
-            left: 8px;
-          }
           &:not(.@{prefix-cls}-cell-range-end) .@{prefix-cls}-cell-inner {
             border-top-right-radius: 0;
             border-bottom-right-radius: 0;
@@ -114,15 +111,14 @@
         }
         &.@{prefix-cls}-cell-range-end,
         &.@{prefix-cls}-cell-range-hover-end {
-          &:not(.@{prefix-cls}-cell-in-range):not(.@{prefix-cls}-cell-range-end-near-hover)::before {
-            right: 8px;
-          }
           &:not(.@{prefix-cls}-cell-range-start) .@{prefix-cls}-cell-inner {
             border-top-left-radius: 0;
             border-bottom-left-radius: 0;
           }
         }
-        &.@{prefix-cls}-cell-range-hover-start:not(.@{prefix-cls}-cell-range-start),
+        &.@{prefix-cls}-cell-range-hover-start:not(
+            .@{prefix-cls}-cell-range-start
+          ),
         &.@{prefix-cls}-cell-range-hover-end {
           &::before {
             background-color: @blue-1;
@@ -152,23 +148,71 @@
           &.@{prefix-cls}-cell-range-hover-start::before {
             background-color: @blue-1;
           }
-          &.@{prefix-cls}-cell-range-start-single:not(.@{prefix-cls}-cell-range-hover-start)::before {
+          &.@{prefix-cls}-cell-range-start-single:not(
+              .@{prefix-cls}-cell-range-hover-start
+            )::before {
             background-color: transparent;
           }
         }
-        &.@{prefix-cls}-cell-range-hover:not(.@{prefix-cls}-cell-range-start):not(.@{prefix-cls}-cell-range-end):not(.@{prefix-cls}-cell-in-range)::before {
+        &.@{prefix-cls}-cell-range-hover:not(
+            .@{prefix-cls}-cell-range-start
+          ):not(.@{prefix-cls}-cell-range-end):not(
+            .@{prefix-cls}-cell-in-range
+          )::before {
           background-color: @blue-1;
         }
         &.@{prefix-cls}-cell-range-hover.@{prefix-cls}-cell-in-range::before {
           background-color: @blue-1;
         }
       }
+
+      .@{prefix-cls}-date-panel, .@{prefix-cls}-week-panel, .@{prefix-cls}-quarter-panel {
+        .@{prefix-cls}-body .@{prefix-cls}-cell.@{prefix-cls}-cell-in-view {
+          &.@{prefix-cls}-cell-range-start,
+          &.@{prefix-cls}-cell-range-hover-start {
+            &:not(.@{prefix-cls}-cell-in-range):not(
+                .@{prefix-cls}-cell-range-start-near-hover
+              )::before {
+              left: 8px;
+            }
+          }
+          &.@{prefix-cls}-cell-range-end,
+          &.@{prefix-cls}-cell-range-hover-end {
+            &:not(.@{prefix-cls}-cell-in-range):not(
+                .@{prefix-cls}-cell-range-end-near-hover
+              )::before {
+              right: 8px;
+            }
+          }
+        }
+      }
+
+      .@{prefix-cls}-month-panel, .@{prefix-cls}-year-panel {
+        .@{prefix-cls}-body .@{prefix-cls}-cell.@{prefix-cls}-cell-in-view {
+          &.@{prefix-cls}-cell-range-start,
+          &.@{prefix-cls}-cell-range-hover-start {
+            &:not(.@{prefix-cls}-cell-in-range):not(.@{prefix-cls}-cell-range-start-near-hover)::before {
+              left: 18px;
+            }
+          }
+        
+          &.@{prefix-cls}-cell-range-end,
+          &.@{prefix-cls}-cell-range-hover-end {
+            &:not(.@{prefix-cls}-cell-in-range):not(.@{prefix-cls}-cell-range-end-near-hover)::before {
+              right: 18px;
+            }
+          }
+        }
+      }
     }
   }
 
   &-wrapper {
+    .@{prefix-cls}-panel-container {
+      margin-left: 0 !important;
+    }
     &.@{prefix-cls}-time-range-wrapper .@{prefix-cls}-panel-container {
-      width: 168px;
+      width: fit-content;
     }
   }
 

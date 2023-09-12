@@ -27,7 +27,7 @@ group:
 
 ### API
 
-注意：
+📢 注意：
 所有日期类的组件，默认接收**符合格式的字符串类型**， 如果 `value` 传入的是 `Date` 对象，所有涉及到暴露值的函数入参格式都将为 `Date` 对象。
 时间类组件只支持字符串格式，请勿传 `Date` 对象。
 
@@ -48,11 +48,12 @@ group:
 | showNow           | 指示是否显示『此刻』按钮                             | boolean              | `false` |
 | allowClear        | 指示是否可以清除值                              | boolean              | `false` |
 | autoFocus         | 指示是否自动获得焦点                             | boolean              | `false` |
-| minDate           | 最小值（除年份选择器外）                               | string / Date             | -  |
-| maxDate           | 最大值（除年份选择器外）                               | string / Date             | -  |
+| minDate           | 最小值（除年份选择器外）**不推荐，此属性是为了兼容旧组件** | string / Date             | -  |
+| maxDate           | 最大值（除年份选择器外）**不推荐，此属性是为了兼容旧组件** | string / Date             | -  |
 | minYear           | 最小年份                                           | number                  |                   |
 | maxYear           | 最大年份                                           | number                  | -                 |
 | disabledDate      | 筛选不可选择的日期（设置此项将覆盖以上 4 个属性的作用）        | (date: string) => boolean     | -                 |
+| presets           | 预设的时间（区间）         | { label: string; value: `DateType` \| () => `DateType` } `DateType`: string \| Date \| string[] \| Date[] \| moment \| moment[]   | -           |
 | showTimePicker    | 指示是否展示时间选择器,只在 `DatePicker` 或 `RangePicker` 中生效         | boolean                 | `false`           |
 | renderExtraFooter | 渲染可选的额外选择框底部元素           | (mode: string) => React.ReactNode          | -  |
 | onOpenChange      | 弹层打开状态改变事件处理函数 | (open: boolean) => void | - |
@@ -85,12 +86,16 @@ group:
 
 | 属性              | 说明                                               | 类型                    | 默认值            |
 | ----------------- | -------------------------------------------------- | ----------------------- | ----------------- |
+| format           | 格式化输出格式 | string | `"HH:mm:ss"` |
 | value            | 组件值 | string | - |
 | defaultValue     | 组件默认值 | string | - |
 | placeholder      | 输入框占位符 | string | `"请选择时间"` |
 | disabled         | 指示组件是否可用 | boolean | `true` |
 | onChange         | 组件值改变事件处理函数 | (value: string) => void | - |
 | onOk             | 确定按钮点击事件处理函数 | (value: string) => void | - |
+| showHour         | 显示小时选择 | boolean | `true` |
+| showMinute       | 显示分钟选择 | boolean | `true` |
+| showSecond       | 显示秒选择 | boolean | `true` |
 
 #### YearPicker
 
@@ -124,6 +129,7 @@ group:
 
 | 属性              | 说明                                               | 类型                    | 默认值            |
 | ----------------- | -------------------------------------------------- | ----------------------- | ----------------- |
+| type             | 选择面板类型 | string 可选值：`date`, `week`, `month`, `quarter`, `year` | `"date"` |
 | format           | 格式化输出格式 | string | `"yyyy/MM/DD"` / `"yyyy/MM/DD HH:mm:ss"` |
 | value            | 组件值 | string[] / Date[] | - |
 | defaultValue     | 组件默认值 | string[] / Date[] | - |
@@ -135,10 +141,13 @@ group:
 | onOk             | 确定按钮点击事件处理函数 | (value: string[] / Date[]) => void | - |
 | onPanelChange    | 弹层中日历切换事件处理函数 | (value: string[] / Date[], type: string[]) => void | - |
 
+> 📢 注意：**范围选择器的类型选择为非日期时，其默认的 format 串也会相应变化，具体见最后面的示例**
+
 #### TimeRangePicker
 
 | 属性              | 说明                                               | 类型                    | 默认值            |
 | ----------------- | -------------------------------------------------- | ----------------------- | ----------------- |
+| format           | 格式化输出格式 | string | `"HH:mm:ss"` |
 | value            | 组件值 | string[] | - |
 | defaultValue     | 组件默认值 | string[] | - |
 | placeholder      | 输入框占位符，可分开设置 | string / string[] | `"开始时间"` 和 `"结束时间"` |
@@ -146,14 +155,21 @@ group:
 | allowEmpty       | 允许开始或结束为空，需分开设置 | boolean[] | `[false, false]` |
 | onChange         | 组件值改变事件处理函数 | (value: string[]) => void | - |
 | onOk             | 确定按钮点击事件处理函数 | (value: string[]) => void | - |
+| showHour         | 显示小时选择 | boolean | `true` |
+| showMinute       | 显示分钟选择 | boolean | `true` |
+| showSecond       | 显示秒选择 | boolean | `true` |
 
 ### 代码演示
 
 #### 单个选择器
 <embed src="@components/c-picker/demos/date-picker.md" />
 
+#### 其他种类选择器
+<embed src="@components/c-picker/demos/more-picker.md" />
+
 #### 范围选择器
 <embed src="@components/c-picker/demos/range-picker.md" />
 
-#### 其他种类选择器
-<embed src="@components/c-picker/demos/more-picker.md" />
+#### 范围选择器 [type] 属性
+<embed src="@components/c-picker/demos/range-picker-type.md" />
+

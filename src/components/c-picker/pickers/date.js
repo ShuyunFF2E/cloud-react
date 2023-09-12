@@ -55,11 +55,12 @@ const DatePicker = ({
   onSelect,
   onPanelChange,
   onOk,
+  presets,
 }) => {
   const { current: _this } = useRef({
     formatType: STR,
   });
-  const [ value, setValue ] = useState();
+  const [value, setValue] = useState();
   const format = _format || (showTimePicker ? dateTimeFormat : dateFormat);
 
   useEffect(() => {
@@ -67,7 +68,7 @@ const DatePicker = ({
       _this.formatType = OBJ;
     }
     setValue(transformString2Moment(_value, format, _this));
-  }, [ _value, _defaultValue, format ]);
+  }, [_value, _defaultValue, format]);
 
   const handleChange = useCallback(
     (m, v) => {
@@ -81,7 +82,7 @@ const DatePicker = ({
         setValue(m);
       }
     },
-    [ onChange ],
+    [onChange],
   );
 
   const handleSelect = useCallback(
@@ -94,7 +95,7 @@ const DatePicker = ({
         }
       }
     },
-    [ onSelect, format ],
+    [onSelect, format],
   );
 
   const handleOk = useCallback(
@@ -107,7 +108,7 @@ const DatePicker = ({
         }
       }
     },
-    [ onOk, format ],
+    [onOk, format],
   );
 
   const handlePanelChange = useCallback(
@@ -120,7 +121,7 @@ const DatePicker = ({
         }
       }
     },
-    [ onPanelChange, format ],
+    [onPanelChange, format],
   );
 
   const getPopupContainer = useMemo(() => {
@@ -131,7 +132,7 @@ const DatePicker = ({
       return () => document.body;
     }
     return undefined;
-  }, [ _getPopupContainer, isAppendToBody ]);
+  }, [_getPopupContainer, isAppendToBody]);
 
   const getDisabledDate = useCallback(
     (d) => {
@@ -147,20 +148,20 @@ const DatePicker = ({
         || (maxYear && current.year() > maxYear)
       );
     },
-    [ format, minDate, maxDate, minYear, maxYear ],
+    [format, minDate, maxDate, minYear, maxYear],
   );
 
   const handleGetDisabledDate = useCallback(
     (m) => {
       if (_disabledDate) {
         if (_this.formatType === OBJ) {
-          return _disabledDate(m && m.clone().toDate());
+          return _disabledDate(m && m.clone().toDate(), m.clone());
         }
-        return _disabledDate(m && m.format(format));
+        return _disabledDate(m && m.format(format), m.clone());
       }
       return getDisabledDate(m);
     },
-    [ _disabledDate, getDisabledDate, format ],
+    [_disabledDate, getDisabledDate, format],
   );
 
   const defaultShowTimeObj = {
@@ -211,6 +212,7 @@ const DatePicker = ({
         onClick,
         onContextMenu,
         onKeyDown,
+        presets,
       }}
     />
   );

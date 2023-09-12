@@ -31,6 +31,7 @@ export default function SingleSelect(props) {
     onSearch,
     searchPlaceholder,
     className,
+    onSearchValueChange,
   } = props;
   const [ options, setOptions ] = useState(dataSource);
   const [ searchValue, setSearchValue ] = useState('');
@@ -61,9 +62,13 @@ export default function SingleSelect(props) {
     const { value: search } = e.target;
     setSearchValue(search);
     onSearch(search);
+    onSearchValueChange(search);
   };
 
-  const clearSearch = () => setSearchValue('');
+  const clearSearch = () => {
+    setSearchValue('');
+    onSearchValueChange('');
+  };
 
   useEffect(() => {
     const result = filterOptions(dataSource, searchValue);

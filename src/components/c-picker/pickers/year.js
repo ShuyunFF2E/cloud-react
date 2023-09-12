@@ -41,6 +41,7 @@ const YearPicker = ({
   onKeyDown,
   onSelect,
   onPanelChange,
+  presets,
 }) => {
   const [value, setValue] = useState();
   const format = _format || yearFormat;
@@ -91,10 +92,7 @@ const YearPicker = ({
   const getDisabledDate = useCallback(
     (d) => {
       const current = d.clone();
-      return (
-        (minYear && current.year() < minYear) ||
-        (maxYear && current.year() > maxYear)
-      );
+      return (minYear && current.year() < minYear) || (maxYear && current.year() > maxYear);
     },
     [format, minYear, maxYear],
   );
@@ -102,7 +100,7 @@ const YearPicker = ({
   const handleGetDisabledDate = useCallback(
     (m) => {
       if (_disabledDate) {
-        return _disabledDate(m && m.clone().year());
+        return _disabledDate(m && m.clone().year(), m.clone());
       }
       return getDisabledDate(m);
     },
@@ -142,6 +140,7 @@ const YearPicker = ({
         onClick,
         onContextMenu,
         onKeyDown,
+        presets,
       }}
     />
   );

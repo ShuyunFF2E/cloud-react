@@ -9,17 +9,19 @@ group:
   path: /data
 ---
 
-### 何时使用
+## 何时使用
 
 1. 弹出一个下拉菜单给用户选择操作，用于代替原生的选择器，或者需要一个更优雅的多选器时。
 2. 当选项少时（少于 5 项），建议直接将选项平铺，使用 Radio 是更好的选择。
 
-### API
+## API
 ```html
 <Select>
   <Option value="React">React</Option>
 </Select>
 ```
+
+## Props
 ### Select Props
 
 | 属性              | 说明                                                                                                                                                 | 类型                                    | 默认值         |
@@ -60,6 +62,10 @@ group:
 | onSelectClose     | 下拉选择框关闭的时候回调此函数                                                                                                                       | function                                | -              |
 | onBeforeChange    | 确认选择值之前回调此函数，仅支持单选                                                                                                                 | function(value)                         | -              |
 | confirmTemplate   | 自定义确认取消按钮模板(适用于多选下拉)                                                                                                               | function:({ onOk, onCancel })           | 组件默认模板   |
+| supportLightText   | 是否支持搜索高亮关键字                                                                                                         |  boolean          | false   |
+| lightTextColor   | 高亮关键字颜色                                                                                                         |  string          | #0055CC   |
+| supportUnlimited   | 多选下拉是否支持不限                                                                                                         |   boolean          | false   |
+| unlimitedLabel   | 修改"不限"文本                                                                                                         |  string          | 不限   |
 
 ### Option Props
 
@@ -69,19 +75,39 @@ group:
 | value     | 默认使用此属性进行基本操作，选中 option 的值       | string \| number | -      |
 | item      | 当前选项的原始属性，包含 index 值                | object        | -      |
 | className | 该项 option 的类名                             | string        | -      |
+| type | type枚举类型： `divider`  表示分割线 | String | '' |
 
-### 代码演示
+## 代码演示
 
+### 基础使用
 <embed src="@components/select/demos/basic.md" />
 
+### 大小
 <embed src="@components/select/demos/sizeSelect.md" />
 
+### 可搜索
 <embed src="@components/select/demos/searchable.md" />
 
+### 定制化选项
 <embed src="@components/select/demos/customItem.md" />
 
+### 不可用
 <embed src="@components/select/demos/disabled.md" />
 
+### 指定使用的键值
 <embed src="@components/select/demos/key.md" />
 
+### 触发方式
 <embed src="@components/select/demos/trigger.md" />
+
+### 分组
+<embed src="@components/select/demos/group.md" />
+
+### 分组 带分割线
+<embed src="@components/select/demos/group2.md" />
+
+### 分组可搜索
+<embed src="@components/select/demos/groupSearch.md" />
+
+### 多选下拉支持不限
+<embed src="@components/select/demos/unlimited.md" />

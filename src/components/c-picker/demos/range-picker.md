@@ -19,8 +19,34 @@ import {
 	Toggle
 } from 'cloud-react';
 
-
 const { RangePicker, TimeRangePicker } = DatePicker;
+
+const dateRangePresets = [
+	{
+		label: '近三天',
+		value: () => [moment().clone().subtract(2, 'days'), moment().clone()]
+	},
+	{
+		label: '近一周',
+		value: () => [moment().clone().subtract(6, 'days'), moment().clone()]
+	},
+	{
+		label: '近一月',
+		value: () => [moment().clone().subtract(1, 'months').toDate(), moment().clone().toDate()]
+	},
+	{
+		label: '近一年以来',
+		value: () => [moment().clone().subtract(1, 'years'), moment().clone()]
+	}
+];
+
+const timeRangePresets = [{
+	label: '上午',
+	value: () => [
+		moment().clone().startOf('day'),
+		moment().clone().startOf('day').add(12, 'hours')
+	]
+}];
 
 export default class RangePickerDemo extends React.Component {
 	field = new Field(this)
@@ -53,7 +79,7 @@ export default class RangePickerDemo extends React.Component {
 				</Form.Item>
 
 				<Form.Item label="日期范围选择器">
-					<RangePicker value={values} onChange={this.onChange} disabled={disabled} minDate={new Date()} />
+					<RangePicker value={values} onChange={this.onChange} disabled={disabled} minDate={new Date()} presets={dateRangePresets} />
 				</Form.Item>
 
 				<Form.Item label="日期范围选择器（可清除）">
@@ -68,6 +94,7 @@ export default class RangePickerDemo extends React.Component {
 						})}
 						allowClear
 						showToday
+						presets={dateRangePresets}
 						disabled={disabled}
 					/>
 				</Form.Item>
@@ -97,12 +124,25 @@ export default class RangePickerDemo extends React.Component {
 				<Form.Item label="日期范围选择器（开始结束可为空）">
 					<RangePicker
 						allowEmpty={[true, true]}
+						presets={dateRangePresets}
 						disabled={disabled}
 					/>
 				</Form.Item>
 
 				<Form.Item label="时间范围选择器">
-					<TimeRangePicker value={times} onChange={this.onTimeChange} showNow disabled={disabled} />
+					<TimeRangePicker value={times} onChange={this.onTimeChange} showNow disabled={disabled} presets={timeRangePresets} />
+				</Form.Item>
+
+				<Form.Item label="时间范围选择器（不显示秒）">
+					<TimeRangePicker
+						value={times}
+						onChange={this.onTimeChange}
+						showNow
+						format="HH:mm"
+						showSecond={false}
+						disabled={disabled}
+						presets={timeRangePresets}
+					/>
 				</Form.Item>
 
 				<h4>自定义</h4>
@@ -113,8 +153,9 @@ export default class RangePickerDemo extends React.Component {
 					showTimePicker
 					format={'yyyy年MM月DD日 HH:mm'}
 					onChange={this.onChange}
-					minYear={2021}
-					maxYear={2023}
+					minYear={2020}
+					maxYear={2030}
+					presets={dateRangePresets}
 				/>
 
 			</Form>

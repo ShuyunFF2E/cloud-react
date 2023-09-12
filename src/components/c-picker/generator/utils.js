@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 function toArray(list) {
   if (!list) {
     return [];
@@ -7,8 +9,7 @@ function toArray(list) {
 
 // eslint-disable-next-line import/prefer-default-export
 export function getTimeProps(props) {
-  const { format, picker, showHour, showMinute, showSecond, use12Hours } =
-    props;
+  const { format, picker, showHour, showMinute, showSecond, use12Hours } = props;
   const firstFormat = toArray(format)[0];
   const showTimeObj = { ...props };
 
@@ -19,18 +20,11 @@ export function getTimeProps(props) {
     if (!firstFormat.includes('m') && showMinute === undefined) {
       showTimeObj.showMinute = false;
     }
-    if (
-      !firstFormat.includes('H') &&
-      !firstFormat.includes('h') &&
-      showHour === undefined
-    ) {
+    if (!firstFormat.includes('H') && !firstFormat.includes('h') && showHour === undefined) {
       showTimeObj.showHour = false;
     }
 
-    if (
-      (firstFormat.includes('a') || firstFormat.includes('A')) &&
-      use12Hours === undefined
-    ) {
+    if ((firstFormat.includes('a') || firstFormat.includes('A')) && use12Hours === undefined) {
       showTimeObj.use12Hours = true;
     }
   }
@@ -47,4 +41,14 @@ export function getTimeProps(props) {
   return {
     showTime: showTimeObj,
   };
+}
+
+export function transformValue2Moment(val, format) {
+  if (typeof val === 'string') {
+    return moment(val, format);
+  }
+  if (val instanceof Date) {
+    return moment(val).clone();
+  }
+  return val;
 }

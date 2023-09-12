@@ -5,6 +5,13 @@
 @primary-active-bg: @blue-6;
 @primary-disabled-bg: @gray-5;
 
+.@{dropdown-prefix-cls}-menu-area {
+  box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.1),
+    0px 2px 8px 0px rgba(0, 0, 0, 0.04);
+  border-radius: 2px;
+  background: #fff;
+  width: fit-content;
+}
 .@{dropdown-prefix-cls} {
   color: #5280ff;
   display: flex;
@@ -43,7 +50,7 @@
   .@{prefix}-button-suffix-icon {
     margin-right: 0;
   }
-  .cloud-button-group .cloud-button:last-child {
+  .@{prefix}-button-group .@{prefix}-button:last-child {
     padding: 7px;
     box-sizing: border-box;
     i {
@@ -52,11 +59,11 @@
   }
 
   &:active {
-    .cloud-button.primary {
+    .@{prefix}-button.primary {
       border-color: @primary-active-bg;
       background: @primary-active-bg;
     }
-    .cloud-button.normal {
+    .@{prefix}-button.normal {
       color: @blue-5;
       border: 1px solid @blue-3;
       background: @blue-2;
@@ -66,7 +73,7 @@
     }
   }
   &:hover {
-    .cloud-button.primary {
+    .@{prefix}-button.primary {
       border-color: @primary-hover-bg;
       background: @primary-hover-bg;
       color: #ffffff;
@@ -77,7 +84,7 @@
         background: @primary-disabled-bg;
       }
     }
-    .cloud-button.normal {
+    .@{prefix}-button.normal {
       background: @blue-1;
       &[disabled] {
         color: @gray-6;
@@ -85,8 +92,8 @@
         background-color: @gray-3;
       }
     }
-    .cloud-button.normal,
-    .cloud-button.primary {
+    .@{prefix}-button.normal,
+    .@{prefix}-button.primary {
       &[disabled] {
         background-clip: padding-box;
         cursor: not-allowed;

@@ -2,13 +2,13 @@
 
 exports[`Icon renders correctly 1`] = `
 <i
-  class="cloud-icon cloud-icon-config"
+  class="cloud-icon icon-config"
 />
 `;
 
 exports[`Icon should render correctly has style 1`] = `
 <i
-  class="cloud-icon cloud-icon-edit"
+  class="cloud-icon icon-edit"
   style="color:#0083BA;font-size:12px"
 />
 `;

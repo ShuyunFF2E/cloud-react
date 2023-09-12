@@ -8,31 +8,54 @@ import { flat, noop } from '@utils';
 import ContextProvider from '@contexts/context-provider';
 import SingleSelect from './views/single-select';
 import MultiSelect from './views/multi-select';
+import GroupSelect from './views/group-select';
 import Selected from './views/selected';
 import Option from './views/option';
 import { selector } from './views/common';
 
-import { formatOptionSource } from './utils';
+import { formatOptionSource, isGroupSelectPicker } from './utils';
 
 import './index.less';
 
-const getSelected = (data, children) => {
+const getSelected = (data, children, dataSource) => {
   const options = Array.isArray(data) ? data : [ data ];
   if (!options.length) return [];
-  const selected = Children.map(children, (child) => {
-    const { children: label, value } = child.props;
-    return options.includes(value) ? { label, value } : null;
-  });
+  let selected = [];
+  if (isGroupSelectPicker(dataSource)) {
+    const groupOptionData = dataSource.map((x) => x.options).flat();
+    groupOptionData.forEach((x) => {
+      const { label, value } = x;
+      if (options.includes(value)) {
+        selected.push({ label, value });
+      }
+    });
+  } else {
+    selected = Children.map(children, (child) => {
+      const { children: label, value } = child.props;
+      return options.includes(value) ? { label, value } : null;
+    });
+  }
   return selected;
 };
 
-const getOptions = (dataSource, labelKey, valueKey, isSupportTitle) => dataSource.map((v, index) => (
+const getOptions = (
+  dataSource,
+  labelKey,
+  valueKey,
+  isSupportTitle,
+  searchValue,
+  supportLightText,
+  lightTextColor,
+) => dataSource.map((v, index) => (
   <Option
     item={{ ...v, index }}
     value={v[valueKey]}
     disabled={v.disabled}
     isSupportTitle={isSupportTitle}
     key={Math.random()}
+    searchValue={searchValue}
+    supportLightText={supportLightText}
+    lightTextColor={lightTextColor}
   >
     {v[labelKey]}
   </Option>
@@ -59,6 +82,7 @@ class Select extends Component {
       selected,
       prevProps: props,
       style: {},
+      searchValue: '',
     };
     this.node = React.createRef();
     this.optionsNode = React.createRef();
@@ -91,8 +115,16 @@ class Select extends Component {
         : Children.toArray(children);
       const source = childs.length
         ? childs
-        : getOptions(dataSource, labelKey, valueKey, isSupportTitle);
-      const selected = getSelected(displayValue, source);
+        : getOptions(
+          dataSource,
+          labelKey,
+          valueKey,
+          isSupportTitle,
+          prevState?.searchValue,
+          props.supportLightText,
+          props.lightTextColor,
+        );
+      const selected = getSelected(displayValue, source, dataSource);
       const emptyValue = multiple ? [] : '';
       const currentValue = displayValue !== null ? displayValue : emptyValue;
       return {
@@ -101,6 +133,7 @@ class Select extends Component {
         prevResult: labelInValue ? selected : displayValue,
         selected,
         prevProps: props,
+        searchValue: prevState?.searchValue,
       };
     }
 
@@ -143,12 +176,14 @@ class Select extends Component {
       open: prevPropOpen,
       searchable: prevSearchable,
       size: prevSize,
+      searchValue,
     } = this.props;
     const {
       open: prevOpen,
       value: prevValue,
       selected: prevSelected,
       style: prevStyle,
+      searchValue: prevSearchValue,
     } = this.state;
 
     return (
@@ -161,6 +196,7 @@ class Select extends Component {
       || selected !== prevSelected
       || searchable !== prevSearchable
       || style !== prevStyle
+      || searchValue !== prevSearchValue
     );
   }
 
@@ -196,7 +232,18 @@ class Select extends Component {
 
     if (childs.length) return childs;
 
-    return getOptions(dataSource, labelKey, valueKey, isSupportTitle);
+    if (isGroupSelectPicker(dataSource)) {
+      return this.getGroupOptions();
+    }
+    return getOptions(
+      dataSource,
+      labelKey,
+      valueKey,
+      isSupportTitle,
+      this.state?.searchValue,
+      this.props.supportLightText,
+      this.props.lightTextColor,
+    );
   }
 
   get selectedContainerStyle() {
@@ -212,6 +259,26 @@ class Select extends Component {
     if (!ele) return {};
     return ele.getBoundingClientRect();
   }
+
+  getGroupOptions = () => {
+    const {
+      dataSource, labelKey, valueKey, isSupportTitle,
+    } = this.props;
+    return dataSource.map((group) => {
+      const groupItem = getOptions(
+        group.options || [],
+        labelKey,
+        valueKey,
+        isSupportTitle,
+      );
+      return (
+        <div>
+          <p className="groupName">{group.label}</p>
+          {groupItem}
+        </div>
+      );
+    });
+  };
 
   positionPop = () => {
     const {
@@ -278,6 +345,7 @@ class Select extends Component {
   };
 
   onClickSelected = () => {
+    this.onSearchValueChange('');
     const { disabled } = this.props;
     if (disabled) return;
 
@@ -393,8 +461,12 @@ class Select extends Component {
     handleSelect();
   };
 
+  onSearchValueChange = (v) => {
+    this.setState({ searchValue: v });
+  };
+
   renderOptions() {
-    const { multiple, confirmTemplate } = this.props;
+    const { multiple, confirmTemplate, dataSource } = this.props;
     const { value } = this.state;
 
     if (multiple) {
@@ -407,6 +479,19 @@ class Select extends Component {
           onCancel={this.handleCancel}
           confirmTemplate={confirmTemplate}
           onChange={this.onMultiSelectValueChange}
+          onSearchValueChange={this.onSearchValueChange}
+          handleSelect={this.handleSelect}
+        />
+      );
+    }
+
+    if (isGroupSelectPicker(dataSource)) {
+      return (
+        <GroupSelect
+          {...this.props}
+          value={value}
+          dataSource={this.children}
+          onChange={this.onSimpleOptionChange}
         />
       );
     }
@@ -417,6 +502,7 @@ class Select extends Component {
         value={value}
         dataSource={this.children}
         onChange={this.onSimpleOptionChange}
+        onSearchValueChange={this.onSearchValueChange}
       />
     );
   }
@@ -431,6 +517,7 @@ class Select extends Component {
       isAppendToBody,
       isSupportTitle,
       size,
+      supportUnlimited,
       ...otherProps
     } = this.props;
     const { selected, open, style: popupStyle } = this.state;
@@ -467,6 +554,7 @@ class Select extends Component {
           disabled={disabled}
           size={size}
           isSupportTitle={isSupportTitle}
+          supportUnlimited={supportUnlimited}
         />
 
         {isAppendToBody
@@ -516,6 +604,10 @@ Select.propTypes = {
   onSelectClose: PropTypes.func,
   onOk: PropTypes.func,
   onCancel: PropTypes.func,
+  supportLightText: PropTypes.bool,
+  lightTextColor: PropTypes.string,
+  supportUnlimited: PropTypes.bool,
+  unlimitedLabel: PropTypes.string,
 };
 
 Select.defaultProps = {
@@ -549,6 +641,10 @@ Select.defaultProps = {
   onSelectClose: noop,
   onOk: noop,
   onCancel: noop,
+  supportLightText: false,
+  lightTextColor: undefined,
+  supportUnlimited: false,
+  unlimitedLabel: '不限',
 };
 
 export default Select;

@@ -47,6 +47,8 @@ group:
 | labelCol   | `label` 标签布局，设置 `span` `offset` 值，如 `{span: 3, offset: 12}` | string  | -         |
 | wrapperCol | 需要为输入控件设置布局样式时，使用该属性，用法同 `labelCol`           | string  | -         |
 | className  | Form.Item 的 className 属性                                           | string  | -         |
+| name  | 字段名                                           | string  | -         |
+| preserve  | 当Form.Item卸载时保留字段值                                           | boolean  | -         |
 
 ### Form.Nexus
 

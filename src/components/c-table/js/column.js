@@ -7,7 +7,6 @@ import Radio from '../../radio';
 import Popover from '../../popover';
 import { isEveryChecked, isSomeChecked, setConfig } from '../util';
 import { tablePrefixCls } from '../constant';
-import { prefixCls } from '@utils';
 
 export default class Column {
   constructor(_this) {
@@ -31,8 +30,8 @@ export default class Column {
         expandIconColumnIndex: _this.props.expandIconColumnIndex + 1,
         columnData:
           columnData[0].dataIndex === 'checkbox'
-            ? [ checkboxColumn, ...columnData.slice(1) ]
-            : [ checkboxColumn, ...columnData ],
+            ? [checkboxColumn, ...columnData.slice(1)]
+            : [checkboxColumn, ...columnData],
       });
       return;
     }
@@ -42,8 +41,8 @@ export default class Column {
         expandIconColumnIndex: _this.props.expandIconColumnIndex + 1,
         columnData:
           columnData[0].dataIndex === 'radio'
-            ? [ radioColumn, ...columnData.slice(1) ]
-            : [ radioColumn, ...columnData ],
+            ? [radioColumn, ...columnData.slice(1)]
+            : [radioColumn, ...columnData],
       });
       return;
     }
@@ -58,9 +57,7 @@ export default class Column {
   setColumnData = ({ currentThArr } = {}) => {
     const { _this } = this;
     const { originColumnData } = _this.state;
-    const {
-      supportCheckbox, supportRadio, isExpendAloneColumn, showDragIcon,
-    } = _this.props;
+    const { supportCheckbox, supportRadio, isExpendAloneColumn, showDragIcon } = _this.props;
     const isLastColumnFixed = originColumnData[originColumnData.length - 1].fixed;
     const isFirstColumnFixed = originColumnData[0].fixed;
     const thArr = currentThArr
@@ -73,15 +70,15 @@ export default class Column {
         return arr;
       }
       const sortBy = item.sortable ? item.sortBy : '';
-      const resolveColumnItem = {
+      const currentColumnItem = {
         ...item,
         sortBy,
         align: item.align || 'left',
         width: this.getColumnWidth(item, thArr?.[index]),
       };
       arr.push({
-        ...resolveColumnItem,
-        title: this.renderBasicTitle(item, sortBy, resolveColumnItem),
+        ...currentColumnItem,
+        title: this.renderBasicTitle(item, sortBy, currentColumnItem),
       });
       return arr;
     }, []);
@@ -177,9 +174,33 @@ export default class Column {
     });
   };
 
-  renderBasicTitle = (item, sortBy, resolveColumnItem) => {
+  renderTitle = (columnItem) => {
+    const title = typeof columnItem.title === 'function'
+      ? columnItem.title(columnItem)
+      : columnItem.title;
+    if (columnItem?.titleTooltipConfig?.content) {
+      return (
+        <span
+          className={`title-with-tip ${
+            columnItem?.titleTooltipAlign === 'right'
+            || !columnItem?.titleTooltipAlign
+              ? 'title-with-tip-right'
+              : 'title-with-tip-left'
+          }`}
+        >
+          <span>{title}</span>
+          <Tooltip {...(columnItem.titleTooltipConfig || {})}>
+            <Icon className="title-tip-icon" type="question-circle" />
+          </Tooltip>
+        </span>
+      );
+    }
+    return title;
+  };
+
+  renderBasicTitle = (item, sortBy, currentColumnItem) => {
     const { _this } = this;
-    const { showFilterBtn } = _this.props;
+    const { showFilterBtn, disabled } = _this.props;
     const hasFilter = item.filters && item.filters.length;
 
     if (item.sortable || hasFilter) {
@@ -189,13 +210,13 @@ export default class Column {
             'filter-container': hasFilter,
           })}
         >
-          {typeof item.title === 'function' ? item.title(item) : item.title}
+          {this.renderTitle(item)}
           <span
             className={classnames('sort-icon-container', {
               'cell-align-right': item.align === 'right',
               [`sort-${sortBy?.toLowerCase()}`]: !!sortBy,
             })}
-            onClick={() => this.onSort(item, resolveColumnItem)}
+            onClick={() => this.onSort(item, currentColumnItem)}
           >
             <Icon className="sort-up-icon" type="up-solid" />
             <Icon className="sort-down-icon" type="down-solid" />
@@ -213,7 +234,7 @@ export default class Column {
               className={`${tablePrefixCls}-filter-content ${
                 showFilterBtn && 'show-filter-btn'
               }`}
-              content={(
+              content={
                 <>
                   {item.filters.map((f, index) => (
                     <Checkbox
@@ -221,7 +242,7 @@ export default class Column {
                       defaultChecked={_this.state.filterValue.includes(f.value)}
                       key={f.value}
                       value={f.value}
-                      disabled={f.disabled}
+                      disabled={disabled || f.disabled}
                       className={
                         !showFilterBtn
                         && index === item.filters.length - 1
@@ -232,7 +253,7 @@ export default class Column {
                     </Checkbox>
                   ))}
                 </>
-              )}
+              }
               onCancelClick={this.onFilterReset}
               onConfirmClick={this.onFilterConfirm}
             >
@@ -247,10 +268,7 @@ export default class Column {
         </span>
       );
     }
-    if (typeof item.title === 'function') {
-      return item.title(item);
-    }
-    return item.title;
+    return this.renderTitle(item);
   };
 
   /**
@@ -287,13 +305,16 @@ export default class Column {
   renderConfig = () => {
     const { _this } = this;
     const { originColumnData } = _this.state;
+    const { disabled } = _this.props;
     return (
       <ul className={`${tablePrefixCls}-tooltip-content`}>
         {originColumnData.map((item) => (
           <li>
             <Checkbox
               disabled={
-                item.show && originColumnData.filter((i) => i.show).length === 1
+                disabled
+                || (item.show
+                  && originColumnData.filter((i) => i.show).length === 1)
               }
               checked={item.show}
               onChange={(checked) => {
@@ -323,7 +344,7 @@ export default class Column {
     const { _this } = this;
     return (e, { size }) => {
       _this.setState(({ columnData }) => {
-        const nextColumns = [ ...columnData ];
+        const nextColumns = [...columnData];
         const minWidth = nextColumns[index].minWidth || 106;
         Object.assign(nextColumns[index], {
           width: size.width > minWidth ? size.width : minWidth,
@@ -358,6 +379,7 @@ export default class Column {
   getRadioColumn = (isFirstColumnFixed) => {
     const { _this } = this;
     const { leafNodesMap } = _this;
+    const { disabled } = _this.props;
     return {
       title: '',
       className: `${tablePrefixCls}-radio-column`,
@@ -368,7 +390,7 @@ export default class Column {
       render: (value, row) => {
         const radioVal = _this.getKeyFieldVal(row);
         const targetNode = leafNodesMap[radioVal] || {};
-        const isDisabled = _this.isRowDisabled(row);
+        const isDisabled = disabled || _this.isRowDisabled(row);
         return (
           <Radio
             disabled={isDisabled}
@@ -389,6 +411,7 @@ export default class Column {
   getCheckboxColumn = (isFirstColumnFixed) => {
     const { _this } = this;
     const { leafNodesMap } = _this;
+    const { disabled, showCheckedAll } = _this.props;
 
     const currentLeafNodes = Object.keys(leafNodesMap).reduce(
       (nodeList, key) => {
@@ -405,13 +428,16 @@ export default class Column {
     const isIndeterminateAll = !isCheckedAll && isSomeChecked(currentLeafNodes);
 
     return {
-      title: (
+      title: showCheckedAll ? (
         <Checkbox
           style={{ float: 'left' }}
+          disabled={disabled}
           checked={isCheckedAll}
           indeterminate={isIndeterminateAll}
           onChange={(checked) => this.onAllCheckedChange(checked)}
         />
+      ) : (
+        ''
       ),
       className: `${tablePrefixCls}-checkbox-column`,
       dataIndex: 'checkbox',
@@ -422,7 +448,7 @@ export default class Column {
         const targetNode = leafNodesMap[_this.getKeyFieldVal(row)] || {};
         const isChecked = !!isEveryChecked(targetNode.childNodes);
         const isIndeterminate = !isChecked && isSomeChecked((targetNode || {}).childNodes);
-        const isDisabled = _this.isRowDisabled(row);
+        const isDisabled = disabled || _this.isRowDisabled(row);
         return (
           <Checkbox
             checked={isChecked}
@@ -509,34 +535,69 @@ export default class Column {
   /**
    * 表格排序
    * @param itemData
-   * @param columnItem
+   * @param currentColumnItem
    */
-  onSort = (itemData, columnItem) => {
+  onSort = (itemData, currentColumnItem) => {
     const { _this } = this;
-    _this.loadGrid({ sortParams: columnItem }, () => {
-      // 更新 columnData 的 sortBy 字段
-      const { columnData } = _this.state;
-      _this.setState(
-        {
-          // eslint-disable-next-line react/no-unused-state
-          originColumnData: columnData.map((item) => {
-            if (item.dataIndex === columnItem.dataIndex) {
-              return {
-                ...item,
-                title: itemData.title,
-                sortBy: item.sortBy === 'ASC' ? 'DESC' : 'ASC',
-              };
-            }
-            return {
-              ...item,
-              title: itemData.title,
-              sortBy: '',
-            };
-          }),
-        },
-        _this.column.setColumnData,
+    let sortBy;
+    // 支持三个排序状态：升序、降序、原始状态
+    if (_this.props.sortWidthOriginStatus) {
+      if (!currentColumnItem.sortBy) {
+        sortBy = 'ASC';
+      } else if (currentColumnItem.sortBy === 'ASC') {
+        sortBy = 'DESC';
+      } else if (currentColumnItem.sortBy === 'DESC') {
+        sortBy = '';
+      }
+    } else {
+      // 支持两个排序状态：升序、降序
+      sortBy = !currentColumnItem.sortBy || currentColumnItem.sortBy === 'DESC'
+        ? 'ASC'
+        : 'DESC';
+    }
+
+    const { columnData, originColumnData } = _this.state;
+    const resolveOriginColumnData = columnData.map((item) => {
+      // 当前排序的列
+      if (item.dataIndex === currentColumnItem.dataIndex) {
+        return {
+          ...item,
+          title: itemData.title,
+          sortBy,
+        };
+      }
+      const originColumnItem = originColumnData.find(
+        (oItem) => oItem.dataIndex === item.dataIndex,
       );
+      return _this.props.sortMultiColumns
+        ? {
+          // 支持多个列同时排序
+          ...item,
+          title: originColumnItem?.title || item.title,
+        }
+        : {
+          // 单个列排序
+          ...item,
+          title: originColumnItem?.title || item.title,
+          sortBy: '',
+        };
     });
+
+    _this.loadGrid(
+      {
+        sortParams: {
+          ...currentColumnItem,
+          sortBy,
+          allSortColumns: [...resolveOriginColumnData],
+        },
+      },
+      () => {
+        _this.setState(
+          { originColumnData: resolveOriginColumnData },
+          this.setColumnData,
+        );
+      },
+    );
   };
 
   onFilterChange = (checked, value) => {

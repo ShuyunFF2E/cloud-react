@@ -3,8 +3,7 @@
 @checkbox-prefix-cls: ~'@{prefix}-checkbox';
 
 @checkbox-size: 16px;
-
-.@{checkbox-prefix-cls}-checked-inner-after {
+.root-cloud-checkbox-checked-inner-after {
   position: absolute;
   top: 4%;
   left: 30%;
@@ -19,8 +18,7 @@
   border-bottom: 2px solid;
   animation: transformAnimate 0.3s;
 }
-
-.@{checkbox-prefix-cls}-indeterminate-inner-after {
+.root-cloud-checkbox-indeterminate-inner-after {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -30,6 +28,13 @@
   display: block;
   transform: rotate(0) translate(-50%, -50%);
   animation: transformAnimate 0.3s;
+}
+.@{checkbox-prefix-cls}-checked-inner-after {
+  .root-cloud-checkbox-checked-inner-after;
+}
+
+.@{checkbox-prefix-cls}-indeterminate-inner-after {
+  .root-cloud-checkbox-indeterminate-inner-after;
 }
 
 @keyframes transformAnimate {
@@ -118,7 +123,7 @@
       border: 1px solid @blue-4;
       background-color: @blue-4;
 
-      &::after:extend(.cloud-checkbox-checked-inner-after) {
+      &::after:extend(.root-cloud-checkbox-checked-inner-after) {
         border-color: @color-white;
       }
     }
@@ -129,7 +134,7 @@
       border: 1px solid @blue-4;
       background-color: @blue-4;
 
-      &::after:extend(.cloud-checkbox-indeterminate-inner-after) {
+      &::after:extend(.root-cloud-checkbox-indeterminate-inner-after) {
         background: @color-white;
       }
     }

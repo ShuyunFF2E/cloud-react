@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Upload mount correctly 1`] = `
+<div
+  class="cloud-upload-button-wrapper"
+>
+  <div
+    class="cloud-upload cloud-upload-select cloud-upload-select-button"
+  >
+    <span
+      class="cloud-upload"
+      role="button"
+    >
+      <input
+        accept="*"
+        multiple=""
+        style="display:none"
+        type="file"
+      />
+      <button
+        class="cloud-button primary default "
+        type="button"
+      >
+        <span>
+          点击上传
+        </span>
+      </button>
+    </span>
+  </div>
+  <div
+    class="cloud-upload-list"
+  />
+</div>
+`;

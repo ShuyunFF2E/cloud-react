@@ -116,6 +116,11 @@
       pointer-events: none;
     }
 
+    &-fix-left,
+    &-fix-right {
+      z-index: 2;
+    }
+
     &-fix-right-first,
     &-fix-right-last {
       .@{tablePrefixCls}-rtl & {
@@ -249,7 +254,8 @@
   &-body {
     flex: 1;
     overflow: auto auto !important;
-    overflow: overlay overlay !important;
+    z-index: 1;
+    //overflow: overlay overlay !important;
     //&::-webkit-scrollbar-thumb {
     //  background-color: var(--dw-scroll-color, rgba(0, 0, 0, 0)) !important;
     //}
@@ -488,18 +494,18 @@
         position: absolute;
         right: 12px;
         font-size: 14px;
-        color: @gray-7;
+        color: #949494;
         display: inline-block;
         transform: scale(0.9);
         z-index: 1;
       }
 
       .sort-up-icon {
-        top: calc(50% - 14px);
+        top: calc(50% - 13px);
       }
 
       .sort-down-icon {
-        top: calc(50% - 7px);
+        top: calc(50% - 6px);
       }
     }
 
@@ -521,7 +527,7 @@
     .filter-icon {
       position: absolute;
       right: 14px;
-      top: 11px;
+      top: 13px;
       //top: 50%;
       //transform: translate(0, -50%);
       cursor: pointer;
@@ -535,6 +541,65 @@
         color: @blue-4;
       }
     }
+  }
+
+  .title-with-tip {
+    display: inline-flex;
+    align-items: center;
+
+    .title-tip-icon {
+      //position: relative;
+      //top: 1px;
+      margin: 0 4px;
+      color: @gray-6;
+    }
+
+    &.title-with-tip-right {
+    }
+
+    &.title-with-tip-left {
+      flex-direction: row-reverse;
+    }
+  }
+
+  &-sticky {
+    &-holder {
+      position: sticky;
+      z-index: 2;
+    }
+    &-scroll {
+      position: sticky;
+      bottom: 0;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      border-top: 1px solid #f3f3f3;
+      opacity: 0.6;
+      transition: transform 0.1s ease-in 0s;
+      &:hover {
+        transform: scaleY(1.2);
+        transform-origin: center bottom;
+      }
+      &-bar {
+        height: 8px;
+        background-color: #bbb;
+        border-radius: 4px;
+        &:hover {
+          background-color: #999;
+        }
+        &-active {
+          background-color: #999;
+        }
+      }
+    }
+  }
+
+  &-sticky-footer {
+    position: sticky;
+    bottom: 0;
+    background: white;
+    z-index: 100;
+    border-top: 1px solid #e8e8e8;
   }
 }
 
@@ -612,7 +677,7 @@
   //noinspection CssInvalidPropertyValue
   .@{prefix}-popover-desc {
     max-height: 250px;
-    overflow-y: overlay;
+    //overflow-y: overlay;
 
     &::-webkit-scrollbar {
       width: 8px !important;

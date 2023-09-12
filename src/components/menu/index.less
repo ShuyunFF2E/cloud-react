@@ -11,78 +11,78 @@
 @menu-bg-color: #e9ebee;
 @menu-indicator-color: #cbcbcb;
 
-.@{menu-item-prefix-cls} {
-	height: 40px;
-	font-size: 12px;
-	line-height: 40px;
-	color: @menu-item-color;
-	cursor: pointer;
-	z-index: 1;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	&:hover {
-		background: @menu-item-hover-color;
-	}
-	&.active {
-		background: @menu-item-active-color;
-	}
-	&.disabled {
-		color: @menu-item-disable-color;
-		cursor: not-allowed;
-	}
+.root-cloud-menu-prefix {
+  height: 40px;
+  font-size: 12px;
+  line-height: 40px;
+  color: @menu-item-color;
+  cursor: pointer;
+  z-index: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  &:hover {
+    background: @menu-item-hover-color;
+  }
+  &.active {
+    background: @menu-item-active-color;
+  }
+  &.disabled {
+    color: @menu-item-disable-color;
+    cursor: not-allowed;
+  }
 }
 
 // ========== menu ===========
 .@{menuSelector} {
-	display: flex;
-	flex-flow: column nowrap;
-	justify-content: flex-start;
-	align-items: flex-start;
-	height: 100%;
-	width: 180px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  height: 100%;
+  width: 180px;
 
-	.list {
-		flex: 1;
-		position: relative;
-		z-index: 1;
-		width: 100%;
-		background-color: @menu-bg-color;
-		overflow: auto;
+  .list {
+    flex: 1;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    background-color: @menu-bg-color;
+    overflow: auto;
 
-		a {
-			display: block;
-			text-decoration: none;
-			color: @color-gray8;
-		}
+    a {
+      display: block;
+      text-decoration: none;
+      color: @color-gray8;
+    }
 
-		.group-title:extend(.cloud-menu-item all) {
-			position: relative;
+    .group-title:extend(.root-cloud-menu-prefix all) {
+      position: relative;
 
-			.indicator {
-				position: absolute;
-				color: @menu-indicator-color;
-				font-size: 12px;
-				right: 15px;
-				top: 50%;
-				transform: translateY(-50%);
-			}
-		}
-		.group-sub {
-			&.collapse {
-				height: 0;
-				overflow: hidden;
-			}
-			&.expand {
-				height: auto;
-			}
-			.menu-item {
-				color: @color-gray8;
-			}
-		}
+      .indicator {
+        position: absolute;
+        color: @menu-indicator-color;
+        font-size: 12px;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+    .group-sub {
+      &.collapse {
+        height: 0;
+        overflow: hidden;
+      }
+      &.expand {
+        height: auto;
+      }
+      .menu-item {
+        color: @color-gray8;
+      }
+    }
 
-		.item {
-			&:extend(.cloud-menu-item all);
-		}
-	}
+    .item {
+      &:extend(.root-cloud-menu-prefix all);
+    }
+  }
 }

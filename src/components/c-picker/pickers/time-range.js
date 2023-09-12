@@ -1,4 +1,6 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, {
+  useCallback, useEffect, useMemo, useState,
+} from 'react';
 import moment from 'moment';
 import momentGenerateConfig from 'rc-picker/lib/generate/moment';
 import generatePicker from '../generator';
@@ -23,6 +25,10 @@ const TimeRangePicker = ({
   isAppendToBody,
   canEdit = true,
   allowEmpty,
+  format = timeFormat,
+  showHour,
+  showMinute,
+  showSecond,
   style,
   showToday,
   showNow,
@@ -39,9 +45,9 @@ const TimeRangePicker = ({
   onContextMenu,
   onKeyDown,
   onOk,
+  presets,
 }) => {
   const [value, setValue] = useState();
-  const format = timeFormat;
   let placeholder = _placeholder;
   if (typeof placeholder === 'string') {
     placeholder = [placeholder, placeholder];
@@ -55,8 +61,8 @@ const TimeRangePicker = ({
     (m, v) => {
       if (onChange) {
         onChange(
-          v &&
-            v.reduce((pre, cur, index) => {
+          v
+            && v.reduce((pre, cur, index) => {
               if (index === 0) {
                 return { start: cur };
               }
@@ -74,8 +80,8 @@ const TimeRangePicker = ({
     (m) => {
       if (onOk) {
         onOk(
-          m &&
-            m.reduce((pre, cur, index) => {
+          m
+            && m.reduce((pre, cur, index) => {
               if (index === 0) {
                 return { start: cur && cur.format(format) };
               }
@@ -115,6 +121,9 @@ const TimeRangePicker = ({
         className,
         dropdownClassName,
         format,
+        showHour,
+        showMinute,
+        showSecond,
         value,
         disabled,
         open,
@@ -134,6 +143,7 @@ const TimeRangePicker = ({
         onClick,
         onContextMenu,
         onKeyDown,
+        presets,
       }}
     />
   );

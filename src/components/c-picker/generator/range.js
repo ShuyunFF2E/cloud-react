@@ -1,16 +1,22 @@
 import * as React from 'react';
+import moment from 'moment';
 import classNames from 'classnames';
 import { RangePicker as RCRangePicker } from 'rc-picker';
 import defaultLocale from '../../../locale/zh_CN';
 import { prefixCls as rootPrefixCls } from '../../../utils';
 import Icon from '../../icon';
 import components from './components';
-import { getTimeProps } from './utils';
+import { getTimeProps, transformValue2Moment } from './utils';
 
 export default function generateRangePicker(generateConfig) {
   function getRangePicker(picker, displayName) {
     class RangePicker extends React.Component {
       pickerRef = React.createRef();
+
+      constructor(props) {
+        super(props);
+        moment.locale('zh-cn', { week: { dow: 1 } });
+      }
 
       focus = () => {
         if (this.pickerRef.current) {
@@ -30,6 +36,8 @@ export default function generateRangePicker(generateConfig) {
           size,
           bordered = true,
           placeholder: _placeholder,
+          presets = [],
+          type = picker,
           ...restProps
         } = this.props;
         const { format, showTime } = this.props;
@@ -48,10 +56,9 @@ export default function generateRangePicker(generateConfig) {
             : {}),
         };
 
-        const placeholder =
-          typeof _placeholder === 'string'
-            ? [_placeholder, _placeholder]
-            : _placeholder;
+        const placeholder = typeof _placeholder === 'string'
+          ? [_placeholder, _placeholder]
+          : _placeholder;
 
         return (
           <RCRangePicker
@@ -65,10 +72,8 @@ export default function generateRangePicker(generateConfig) {
               placeholder !== undefined
                 ? placeholder
                 : defaultLocale.lang[
-                    `${picker ? `${picker}R` : 'r'}angePlaceholder${
-                      picker !== 'time' && showTime ? 'WithTime' : ''
-                    }`
-                  ]
+                  `${picker ? `${picker}R` : 'r'}angePlaceholder${picker !== 'time' && showTime ? 'WithTime' : ''}`
+                ]
             }
             suffixIcon={
               picker === 'time' ? (
@@ -85,6 +90,17 @@ export default function generateRangePicker(generateConfig) {
             transitionName={`${prefixCls}-slide-up`}
             {...restProps}
             {...additionalOverrideProps}
+            {...(picker === 'time' ? {} : { picker: type })}
+            presets={presets?.map(({ label, value: vs = [] }) => ({
+              label,
+              value: () => {
+                if (typeof vs === 'function') {
+                  return vs()?.map(v => transformValue2Moment(v, format));
+                }
+                return vs?.map(v => transformValue2Moment(v, format));
+              },
+            }))}
+            ranges={null}
             locale={defaultLocale.lang}
             className={classNames(
               {

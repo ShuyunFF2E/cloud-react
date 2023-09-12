@@ -1,6 +1,7 @@
 import React, { cloneElement, useState, useEffect } from 'react';
 import RcDropdown from 'rc-dropdown';
 import classNames from 'classnames';
+import 'rc-dropdown/assets/index.css';
 import { prefixCls, getPlacements } from '@utils';
 // eslint-disable-next-line
 import DropdownButton from './dropdown-button';

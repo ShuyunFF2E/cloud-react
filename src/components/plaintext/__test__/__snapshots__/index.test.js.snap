@@ -1,27 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Plaintext it should be plain 1`] = `
-<div
-  class="cloud-plaintext"
->
-  <i
-    class="cloud-icon cloud-icon-hide"
-  />
-  <span>
-    李子最美呀
-  </span>
-</div>
-`;
-
 exports[`Plaintext render correctly 1`] = `
 <div
   class="cloud-plaintext"
 >
   <i
-    class="cloud-icon cloud-icon-view"
+    class="cloud-icon icon-view"
   />
   <span>
     李子最美
+  </span>
+</div>
+`;
+
+exports[`Plaintext should be plain 1`] = `
+<div
+  class="cloud-plaintext"
+>
+  <i
+    class="cloud-icon icon-hide"
+  />
+  <span>
+    李子最美呀
   </span>
 </div>
 `;

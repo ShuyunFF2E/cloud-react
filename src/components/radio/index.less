@@ -6,7 +6,7 @@
 
 @radio-size: 14px;
 
-.@{raido-prefix-cls}-position {
+.root-cloud-radio-position {
   position: absolute;
   top: 0;
   left: 0;
@@ -61,7 +61,7 @@
     &.checked + .@{raido-prefix-cls}-inner {
       color: @blue-4;
 
-      &::after:extend(.cloud-radio-position) {
+      &::after:extend(.root-cloud-radio-position) {
         content: '';
         background-color: currentColor;
         width: 6px;
@@ -92,7 +92,7 @@
     }
   }
 
-  &-inner:extend(.cloud-radio-position) {
+  &-inner:extend(.root-cloud-radio-position) {
     z-index: 1;
 
     border-radius: 50%;

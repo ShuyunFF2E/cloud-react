@@ -19,8 +19,28 @@ import {
 	Toggle
 } from 'cloud-react';
 
-
 const { TimePicker } = DatePicker;
+
+const presets = [
+	{
+		label: '三天前',
+		value: () => moment().clone().subtract(2, 'days')
+	},
+	{
+		label: '一周前',
+		value: () => moment().clone().subtract(6, 'days')
+	},
+	{
+		label: '一月前',
+		value: () => moment().clone().subtract(1, 'months').toDate()
+	},
+	{
+		label: '一年前',
+		value: () => moment().clone().subtract(1, 'years').format('yyyy/MM/DD HH:mm:ss')
+	},
+];
+
+const timePresets = [{ label: '中午', value: () => moment().clone().startOf('day').add(12, 'hours') }];
 
 export default class DatePickerDemo extends React.Component {
 	field = new Field(this)
@@ -48,7 +68,7 @@ export default class DatePickerDemo extends React.Component {
 					<Toggle checked={!disabled} onChange={b => this.setState({ disabled: !b })} />
 				</Form.Item>
 				<Form.Item label="日期选择器">
-					<DatePicker value={value} onChange={this.onChange} disabled={disabled} />
+					<DatePicker value={value} onChange={this.onChange} disabled={disabled} presets={presets} />
 				</Form.Item>
 				<Form.Item label="日期选择器（可清除）">
 					<DatePicker
@@ -57,17 +77,24 @@ export default class DatePickerDemo extends React.Component {
 								required: true, message: '请输入时间',
 							}]
 						})}
-						showToday disabled={disabled} autoFocus allowClear
+						showToday
+						disabled={disabled}
+						autoFocus
+						allowClear
+						presets={presets}
 				 	/>
 				</Form.Item>
 				<Form.Item label="日期选择器（不可输入修改）">
 					<DatePicker value={value} onChange={this.onChange} canEdit={false} disabled={disabled} />
 				</Form.Item>
 				<Form.Item label="日期选择器（带时间）">
-					<DatePicker value={value} onChange={this.onChange} showToday showTimePicker disabled={disabled} />
+					<DatePicker value={value} onChange={this.onChange} showToday showTimePicker disabled={disabled} presets={presets} />
 				</Form.Item>
 				<Form.Item label="时间选择器">
-					<TimePicker value={time} onChange={this.onTimeChange} disabled={disabled} />
+					<TimePicker value={time} onChange={this.onTimeChange} disabled={disabled} presets={timePresets} />
+				</Form.Item>
+				<Form.Item label="时间选择器（不显示秒）">
+					<TimePicker value={time} onChange={this.onTimeChange} format="HH:mm" showSecond={false} disabled={disabled} presets={timePresets} />
 				</Form.Item>
 			</Form>
 		);
