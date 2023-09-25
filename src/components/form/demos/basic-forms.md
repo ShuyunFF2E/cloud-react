@@ -43,7 +43,7 @@ export default function FormHorizontalDemo() {
   };
 
   return (
-    <Form key={`${size}-${labelAlign}-${layout}`} field={field} size={size === 'default' ? undefined : size}
+    <Form fixedError key={`${size}-${labelAlign}-${layout}`} field={field} size={size === 'default' ? undefined : size}
           labelAlign={labelAlign}
           layout={layout}
           labelCol={{ span: 6 }} style={{ width: 494, margin: '0 auto' }}>
