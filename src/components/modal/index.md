@@ -39,6 +39,7 @@ group:
 | clickMaskCanClose  | 点击遮罩层是否关闭, showMask 必须为 true | boolean             | `true`  |
 | showConfirmLoading | 点击确定是否显示 loading，用于异步关闭   | boolean             | `false` |
 | useRootWindow | 是否使用 rootWindow   | boolean             | `true` |
+| supportDrag | 是否支持拖拽   | boolean             | `true` |
 
 ### Modal.createModal()
 
