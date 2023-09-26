@@ -118,10 +118,12 @@ Form.propTypes = {
   labelCol: PropTypes.shape({
     span: PropTypes.number,
     offset: PropTypes.number,
+    style: PropTypes.object,
   }),
   wrapperCol: PropTypes.shape({
     span: PropTypes.number,
     offset: PropTypes.number,
+    style: PropTypes.object,
   }),
   scrollToFirstError: PropTypes.bool,
   children: PropTypes.any,

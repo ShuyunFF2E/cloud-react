@@ -42,7 +42,7 @@ export default class FormItem extends Component {
     const { field } = this;
     const { name = '', preserve } = this.props;
 
-    const _names = preserve ? names.filter(n => n !== name) : names;
+    const _names = preserve ? names.filter((n) => n !== name) : names;
 
     // 如果设置了校验规则，则重置并删除
     if (field && field.remove && _names && _names.length) {
@@ -108,7 +108,7 @@ export default class FormItem extends Component {
     const { labelColSpan, required } = this;
     const { colon, layout, labelCol: formLabelCol, labelWrap } = this.context;
     const { label, htmlFor, labelCol = formLabelCol, description } = this.props;
-    const { offset } = labelCol;
+    const { offset, style } = labelCol;
 
     const labelAttrs = {
       htmlFor,
@@ -121,6 +121,7 @@ export default class FormItem extends Component {
           [LAYOUT_TYPES.HORIZONTAL, LAYOUT_TYPES.INLINE].includes(layout),
         [`col-offset-${offset}`]: offset !== undefined,
       }),
+      style: style || {},
     };
 
     return (
@@ -147,6 +148,7 @@ export default class FormItem extends Component {
     const {
       span = labelColSpan !== undefined ? MAX_COL - labelColSpan : undefined,
       offset,
+      style,
     } = wrapperCol;
 
     const wrapperAttrs = {
@@ -154,6 +156,7 @@ export default class FormItem extends Component {
         [`col-${span}`]: span !== undefined && layout !== LAYOUT_TYPES.VERTICAL,
         [`col-offset-${offset}`]: offset !== undefined,
       }),
+      style: style || {},
     };
 
     return (
@@ -198,10 +201,12 @@ FormItem.propTypes = {
   labelCol: PropTypes.shape({
     span: PropTypes.number,
     offset: PropTypes.number,
+    style: PropTypes.object,
   }),
   wrapperCol: PropTypes.shape({
     span: PropTypes.number,
     offset: PropTypes.number,
+    style: PropTypes.object,
   }),
   children: PropTypes.any,
 };

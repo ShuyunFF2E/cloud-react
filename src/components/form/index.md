@@ -44,7 +44,7 @@ group:
 | help       | 提示信息，如不设置，则会根据校验规则自动生成                          | string  | ReactNode | - |
 | htmlFor    | 设置子元素 `label` `htmlFor` 属性                                     | string  | -         |
 | required   | 是否必填，如不设置，则会根据校验规则自动生成                          | boolean | `false`   |
-| labelCol   | `label` 标签布局，设置 `span` `offset` 值，如 `{span: 3, offset: 12}` | string  | -         |
+| labelCol   | `label` 标签布局，设置 `span` `offset` `style` 值，如 `{span: 3, offset: 12}` 或 { style: { width: 80 } } | string  | -         |
 | wrapperCol | 需要为输入控件设置布局样式时，使用该属性，用法同 `labelCol`           | string  | -         |
 | className  | Form.Item 的 className 属性                                           | string  | -         |
 | name  | 字段名                                           | string  | -         |
