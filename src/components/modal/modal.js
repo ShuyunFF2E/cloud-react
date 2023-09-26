@@ -68,6 +68,7 @@ class Notification extends Component {
     onCancel: noop,
     onClose: noop,
     supportDrag: true,
+    borderRadiusSize: 'large',
   };
 
   static propTypes = {
@@ -93,6 +94,7 @@ class Notification extends Component {
     showConfirmLoading: PropTypes.bool,
     clickMaskCanClose: PropTypes.bool,
     supportDrag: PropTypes.bool,
+    borderRadiusSize: PropTypes.string,
   };
 
   // 组件装在完毕监听屏幕大小切换事件
@@ -316,6 +318,7 @@ class Notification extends Component {
       onClose,
       onCancel,
       supportDrag,
+      borderRadiusSize,
     } = this.props;
 
     if (!visible && !this.state.preVisible) {
@@ -342,6 +345,7 @@ class Notification extends Component {
           ref={this.maskRef}
           className={classnames(`${prefixCls}-modal`, {
             'other-area-can-click': !showMask,
+            [`${prefixCls}-modal-${borderRadiusSize}`]: borderRadiusSize,
           })}
         >
           {/* 遮罩层 */}

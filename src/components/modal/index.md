@@ -40,6 +40,7 @@ group:
 | showConfirmLoading | 点击确定是否显示 loading，用于异步关闭   | boolean             | `false` |
 | useRootWindow | 是否使用 rootWindow   | boolean             | `true` |
 | supportDrag | 是否支持拖拽   | boolean             | `true` |
+| borderRadiusSize | 圆角尺寸 `large` `small` `middle`   | string             | `large` |
 
 ### Modal.createModal()
 
