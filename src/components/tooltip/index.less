@@ -50,15 +50,17 @@
 
   &.is-dark {
     .theme-style(@gray-9, @color-white);
+    box-shadow: @border-shadow-3;
   }
 
   &.is-light {
     .theme-style(@color-white, @gray-9);
-    box-shadow: @border-shadow-2;
+    box-shadow: @border-shadow-3;
   }
 
   &.is-error {
     .theme-style(@color-red1, @color-gray1);
+    box-shadow: @border-shadow-3;
   }
 
   &.is-remind {
