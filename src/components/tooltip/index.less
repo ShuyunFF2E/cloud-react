@@ -9,7 +9,7 @@
 .theme-style(@backColor, @color) {
   background-color: @backColor;
   color: @color;
-  &:after  {
+  &:after {
     border-top-color: @backColor;
   }
 }
@@ -29,6 +29,7 @@
   top: 0;
   left: 0;
   opacity: 0;
+  transition: opacity 0.25s ease-in;
 
   &.no-arrow:after {
     display: none !important;
@@ -37,7 +38,6 @@
   &.show {
     opacity: 1;
   }
-
 
   &:after {
     content: '';
@@ -49,13 +49,12 @@
   }
 
   &.is-dark {
-    .theme-style(@gray-9, @color-white)
+    .theme-style(@gray-9, @color-white);
   }
 
   &.is-light {
     .theme-style(@color-white, @gray-9);
     box-shadow: @border-shadow-2;
-
   }
 
   &.is-error {
@@ -67,45 +66,45 @@
   }
 
   &.top-left:after {
-      bottom: @offset-size;
-      left: @left-space-size;
-      transform: rotate(0);
+    bottom: @offset-size;
+    left: @left-space-size;
+    transform: rotate(0);
   }
 
   &.top-center:after {
-      bottom: @offset-size;
-      left: 50%;
-      transform: translate(-50%) rotate(0);
+    bottom: @offset-size;
+    left: 50%;
+    transform: translate(-50%) rotate(0);
   }
 
   &.top-right:after {
-      bottom: @offset-size;
-      left: calc(100% - @left-space-size + @offset-size);
-      transform: rotate(0);
+    bottom: @offset-size;
+    left: calc(100% - @left-space-size + @offset-size);
+    transform: rotate(0);
   }
 
   &.right-top:after {
-      left: @offset-size;
-      top: @top-space-size;
-      transform: rotate(90deg);
+    left: @offset-size;
+    top: @top-space-size;
+    transform: rotate(90deg);
   }
 
   &.right-center:after {
-      left: @offset-size;
-      top: 50%;
-      transform: translate(0, -50%) rotate(90deg);
+    left: @offset-size;
+    top: 50%;
+    transform: translate(0, -50%) rotate(90deg);
   }
 
   &.right-bottom:after {
-      left: @offset-size;
-      top: calc(100% - @top-space-size + @offset-size);
-      transform: rotate(90deg);
+    left: @offset-size;
+    top: calc(100% - @top-space-size + @offset-size);
+    transform: rotate(90deg);
   }
 
   &.left-top {
     &:after {
       right: @offset-size;
-      top:@top-space-size;
+      top: @top-space-size;
       transform: rotate(270deg);
     }
   }
