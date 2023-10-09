@@ -29,6 +29,7 @@ export default function FormHorizontalDemo() {
   const [size, setSize] = useState('default');
   const [labelAlign, setLabelAlign] = useState('right');
   const [layout, setLayout] = useState('horizontal');  
+  const [disabled, setDisabled] = useState(false);
 
   const [value, setValue] = useState();
   const radioList = [
@@ -47,6 +48,9 @@ export default function FormHorizontalDemo() {
           labelAlign={labelAlign}
           layout={layout}
           labelCol={{ span: 6 }} style={{ width: 494, margin: '0 auto' }}>
+      <Form.Item label="设置禁用状态">
+        <Checkbox value={disabled} checked={disabled} onChange={setDisabled}>禁用表单</Checkbox>
+      </Form.Item>
       <Form.Item label="设置表单尺寸">
         <Radio.Group value={size} onChange={setSize}>
           <Radio value="large">large</Radio>
@@ -69,6 +73,7 @@ export default function FormHorizontalDemo() {
 
       <Form.Item label="活动名称" description="请输入活动名称">
         <Input
+          disabled={disabled}
           placeholder="请输入活动名称"
           style={{ width: 328 }}
           {...field.init('activityName', {
@@ -79,6 +84,7 @@ export default function FormHorizontalDemo() {
 
       <Form.Item label="活动描述">
         <Input.Textarea
+          disabled={disabled}
           minRows={2}
           placeholder="请输入活动描述"
           style={{ width: 328, height: 84 }}
@@ -90,6 +96,7 @@ export default function FormHorizontalDemo() {
 
       <Form.Item label="活动日期">
         <RangePicker
+          disabled={disabled}
           minDate={new Date()}
           style={{ width: 328 }}
           {...field.init('activityDate', {
@@ -100,6 +107,7 @@ export default function FormHorizontalDemo() {
 
       <Form.Item label="订单筛选类型" required>
         <Radio.Group
+          disabled={disabled}
           {...field.init('type', {
             rules: [{ required: true, message: '请选择订单筛选类型' }]
           })}>
@@ -111,6 +119,7 @@ export default function FormHorizontalDemo() {
 
       <Form.Item label="执行频率" required>
         <Radio.Group
+          disabled={disabled}
           vertical
           onChange={onComplexRadioChange}
           {...field.init('frequency', {
@@ -129,6 +138,7 @@ export default function FormHorizontalDemo() {
 
       <Form.Item label="客户添加渠道" required>
         <Checkbox.Group
+          disabled={disabled}
           {...field.init('channel', {
             rules: [{ required: true, message: '请选择客户添加渠道' }]
           })}>
@@ -144,6 +154,7 @@ export default function FormHorizontalDemo() {
 
       <Form.Item label="金额">
         <InputNumber
+          disabled={disabled}
           placeholder="请输入金额"
           {...field.init('payment', {
             rules: [{ required: true, message: '请输入金额' }]
@@ -153,6 +164,7 @@ export default function FormHorizontalDemo() {
 
       <Form.Item label="所在国家" required>
         <Select
+          disabled={disabled}
           {...field.init('country', {
             rules: [{ required: true, message: '请选择所在国家' }]
           })}>
@@ -163,7 +175,7 @@ export default function FormHorizontalDemo() {
       </Form.Item>
 
       <Form.Item wrapperCol={{ offset: 6 }}>
-        <Button type="primary" style={{ marginRight: 10 }} onClick={() => {
+        <Button disabled={disabled} type="primary" style={{ marginRight: 10 }} onClick={() => {
           field.validate(err => {
             console.log(err);
             if (!err) {
@@ -173,7 +185,7 @@ export default function FormHorizontalDemo() {
         }}>
           提交
         </Button>
-        <Button onClick={() => {
+        <Button disabled={disabled} onClick={() => {
           field.reset();
         }}>重置</Button>
       </Form.Item>
