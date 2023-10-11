@@ -16,7 +16,7 @@ import {
   isFirefox,
   debounce,
   hasCustomScroll,
-  getBtnNum,
+  getBtnNum, getScrollbarWidth,
 } from './util';
 import {
   DRAG_ICON_SELECTOR,
@@ -295,7 +295,7 @@ class CTable extends Component {
         // fixedEles.pop();
         fixedEles.reverse().forEach((ele, index) => {
           if (index === 0) {
-            Object.assign(ele.style, { right: this.hasScroll() ? '10px' : 0 });
+            Object.assign(ele.style, { right: this.hasScroll() ? getScrollbarWidth() : 0 });
           } else {
             const right = fixedColumn.slice(0, index).reduce(
               (sum, item) => {
@@ -303,7 +303,7 @@ class CTable extends Component {
                 sum += item.width;
                 return sum;
               },
-              this.hasScroll() ? 10 : 0,
+              this.hasScroll() ? Number(getScrollbarWidth().replace('px', '')) : 0,
             );
             Object.assign(ele.style, {
               right: `${right}px`,
