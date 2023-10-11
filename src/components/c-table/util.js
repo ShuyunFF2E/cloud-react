@@ -149,13 +149,15 @@ export const debounce = (callback, delay) => {
   };
 };
 
-export const hasCustomScroll = (useRootWindow) => {
+export const getScrollbarWidth = (useRootWindow) => {
   const _window = useRootWindow ? getRootWindow() : window;
   const bodyEle = document.querySelector('body');
   return _window
     .getComputedStyle(bodyEle, '::-webkit-scrollbar')
-    .width.includes('px');
+    .width;
 };
+
+export const hasCustomScroll = (useRootWindow) => getScrollbarWidth(useRootWindow)?.includes('px');
 
 export const getTrEle = (targetEle) => {
   if (targetEle && !targetEle?.hasAttribute('data-row-key')) {
