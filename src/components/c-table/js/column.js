@@ -208,19 +208,22 @@ export default class Column {
         <span
           className={classnames('title-container', {
             'filter-container': hasFilter,
+            'align-right': item.align === 'right',
           })}
         >
           {this.renderTitle(item)}
-          <span
-            className={classnames('sort-icon-container', {
-              'cell-align-right': item.align === 'right',
-              [`sort-${sortBy?.toLowerCase()}`]: !!sortBy,
-            })}
-            onClick={() => this.onSort(item, currentColumnItem)}
-          >
-            <Icon className="sort-up-icon" type="up-solid" />
-            <Icon className="sort-down-icon" type="down-solid" />
-          </span>
+          {item.sortable && (
+            <span
+              className={classnames('sort-icon-container', {
+                'cell-align-right': item.align === 'right',
+                [`sort-${sortBy?.toLowerCase()}`]: !!sortBy,
+              })}
+              onClick={() => this.onSort(item, currentColumnItem)}
+            >
+              <Icon className="sort-up-icon" type="up-solid" />
+              <Icon className="sort-down-icon" type="down-solid" />
+            </span>
+          )}
           {hasFilter && (
             <Popover
               trigger="click"

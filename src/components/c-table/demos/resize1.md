@@ -1,7 +1,5 @@
 ---
-order: 1
-title: CTable
-desc: 默认表格
+order: 1 title: CTable desc: 默认表格
 ---
 
 ```jsx
@@ -24,19 +22,23 @@ const data = [
 const columns = [
   { title: '活动ID', dataIndex: 'id' },
   { title: '活动名称', dataIndex: 'name', width: 200, minWidth: 160 },
-  { title: '创建时间', dataIndex: 'createTime', width: 200, minWidth: 170 },
+  {
+    title: '创建时间', dataIndex: 'createTime', width: 200, render: val => {
+      return <CTable.TimeTpl value={val} />
+    }
+  },
   { title: '人数', dataIndex: 'num', align: 'right' },
   { title: '创建人', dataIndex: 'creator' }
 ];
 
 export default function CTableDemo() {
-	return (
-        <CTable
-           headerBordered
-           supportResizeColumn
-           columnData={columns}
-           ajaxData={{ totals: data.length, data }}
-        />
-	);
+  return (
+    <CTable
+      headerBordered
+      supportResizeColumn
+      columnData={columns}
+      ajaxData={{ totals: data.length, data }}
+    />
+  );
 }
 ```

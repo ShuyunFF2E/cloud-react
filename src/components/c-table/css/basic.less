@@ -64,6 +64,24 @@
     }
   }
 
+  td {
+    &.padding-32 {
+      padding-right: 32px;
+    }
+    &.padding-34 {
+      padding-right: 34px;
+    }
+    &.padding-54 {
+      padding-right: 54px;
+    }
+    &.padding-52 {
+      padding-right: 52px;
+    }
+    &.padding-74 {
+      padding-right: 74px;
+    }
+  }
+
   tr:not(.@{tablePrefixCls}-expanded-row):hover td {
     background: @gray-2;
     transition: all 0.3s;
@@ -448,19 +466,36 @@
   }
 
   .title-container {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    &.align-right {
+      justify-content: end;
+    }
+
     // 排序
     .sort-icon-container {
+      position: relative;
+      top: -4px;
       display: inline-flex;
       flex-direction: column;
       align-items: center;
       cursor: pointer;
 
+      .sort-up-icon {
+        height: 7px;
+      }
+
+      .sort-down-icon {
+        height: 7px;
+      }
+
       &:hover {
-        &:not(.cell-align-right):after {
+        &:after {
           position: absolute;
-          top: 50%;
-          transform: translate(0, -50%);
-          right: 11px;
+          top: 4px;
+          left: -1px;
           content: '';
           display: inline-block;
           width: 16px;
@@ -473,7 +508,7 @@
       &.cell-align-right {
         .sort-up-icon,
         .sort-down-icon {
-          right: 0;
+          //right: 0;
         }
       }
 
@@ -491,8 +526,8 @@
 
       .sort-up-icon,
       .sort-down-icon {
-        position: absolute;
-        right: 12px;
+        //position: absolute;
+        //right: 12px;
         font-size: 14px;
         color: #949494;
         display: inline-block;
@@ -501,11 +536,11 @@
       }
 
       .sort-up-icon {
-        top: calc(50% - 13px);
+        //top: calc(50% - 13px);
       }
 
       .sort-down-icon {
-        top: calc(50% - 6px);
+        //top: calc(50% - 6px);
       }
     }
 
@@ -514,20 +549,21 @@
       .sort-icon-container {
         &:hover {
           &:not(.cell-align-right):after {
-            right: 35px;
+            //right: 35px;
           }
         }
         .sort-up-icon,
         .sort-down-icon {
-          right: 36px;
+          //right: 36px;
         }
       }
     }
 
     .filter-icon {
-      position: absolute;
-      right: 14px;
-      top: 13px;
+      height: 17px;
+      //position: absolute;
+      //right: 14px;
+      //top: 13px;
       //top: 50%;
       //transform: translate(0, -50%);
       cursor: pointer;
@@ -548,17 +584,17 @@
     align-items: center;
 
     .title-tip-icon {
-      //position: relative;
-      //top: 1px;
-      margin: 0 4px;
+      height: 17px;
       color: @gray-6;
     }
 
     &.title-with-tip-right {
+      gap: 4px;
     }
 
     &.title-with-tip-left {
       flex-direction: row-reverse;
+      gap: 4px;
     }
   }
 
