@@ -70,7 +70,7 @@ const defaultOptions = [{
   label: '余杭',
   value: 'yuhang',
 }];
-export default class CascaderDemo extends React.Component {
+class CascaderDemo extends React.Component {
 
   render() {
     const defaultValue = defaultOptions.map(o => o.value);
@@ -80,4 +80,5 @@ export default class CascaderDemo extends React.Component {
 		)
   }
 }
+export default CascaderDemo;
 ```

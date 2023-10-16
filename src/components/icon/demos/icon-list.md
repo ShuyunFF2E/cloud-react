@@ -148,37 +148,35 @@ const componentList = {
 
 const iconStyle = { fontSize: '36px' };
 
-export default class IconDemo extends Component {
-	handleCopy = event => {
+export default function IconDemo() {
+	const handleCopy = event => {
 		const text = event.currentTarget.innerText;
 		ShunyunUtils.copyText(text);
 		Message.success(text + ' 已复制');
 	};
 
-	render() {
-		return (
-			<Tabs defaultActiveKey="basic" type="capsule">
-				{Object.keys(iconList).map(key => {
-					const Component = componentList[key];
-					return (
-						<Tabs.Panel tab={titleList[key]} key={key}>
-							<ul className="icon-list">
-								{iconList[key].map((type, index) => {
-									return (
-										<li key={type} className="icon-card" onClick={this.handleCopy}>
-											<div className="icon-area">
-												<Component type={type} style={iconStyle}/>
-											</div>
-											<div className="text-area">{type}</div>
-										</li>
-									);
-								})}
-							</ul>
-						</Tabs.Panel>
-					);
-				})}
-			</Tabs>
-		);
-	}
+  return (
+    <Tabs defaultActiveKey="basic" type="capsule">
+      {Object.keys(iconList).map(key => {
+        const Component = componentList[key];
+        return (
+          <Tabs.Panel tab={titleList[key]} key={key}>
+            <ul className="icon-list">
+              {iconList[key].map((type, index) => {
+                return (
+                  <li key={type} className="icon-card" onClick={handleCopy}>
+                    <div className="icon-area">
+                      <Component type={type} style={iconStyle}/>
+                    </div>
+                    <div className="text-area">{type}</div>
+                  </li>
+                );
+              })}
+            </ul>
+          </Tabs.Panel>
+        );
+      })}
+    </Tabs>
+  );
 }
 ```

@@ -14,7 +14,7 @@ import { Button, Message } from 'cloud-react';
 
 const blank = '\u00A0';
 
-export default class MessageDemo extends Component {
+class MessageDemo extends Component {
   onSuccessClick() {
     Message.success('操作成功', { showClose: true, duration: 0, onClose: () => {
       console.log('成功信息关闭触发onClose');
@@ -58,4 +58,6 @@ export default class MessageDemo extends Component {
 		);
 	}
 }
+
+export default MessageDemo;
 ```

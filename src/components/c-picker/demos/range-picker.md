@@ -48,7 +48,7 @@ const timeRangePresets = [{
 	]
 }];
 
-export default class RangePickerDemo extends React.Component {
+class RangePickerDemo extends React.Component {
 	field = new Field(this)
 	state = {
 		values: {
@@ -162,4 +162,5 @@ export default class RangePickerDemo extends React.Component {
 		);
 	}
 }
+export default RangePickerDemo;
 ```

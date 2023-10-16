@@ -13,7 +13,7 @@ order: 6
 import React from 'react';
 import { Tips, Button } from 'cloud-react';
 
-export default class TipsDemo extends React.Component {
+class TipsDemo extends React.Component {
   render() {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
@@ -38,4 +38,5 @@ export default class TipsDemo extends React.Component {
     );
   }
 }
+export default TipsDemo;
 ```

@@ -17,7 +17,7 @@ const data = [
   { id: '121407191', name: 'click me5', createTime: '2021/12/13 11:03:05', creator: 'zhenxiao.guo', num: '1000,000' },
 ];
 
-export default class RcTableDemo extends Component {
+class RcTableDemo extends Component {
   ref = createRef();
 
   state = {
@@ -75,4 +75,5 @@ export default class RcTableDemo extends Component {
     );
   }
 }
+export default RcTableDemo;
 ```

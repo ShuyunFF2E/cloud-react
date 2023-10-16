@@ -13,7 +13,7 @@ desc: 按钮三种颜色类型：tips（提示按钮）、danger（危险按钮�
 import React from 'react';
 import { Button, InputNumber } from 'cloud-react';
 
-export default class ButtonDemo extends React.Component {
+class ButtonDemo extends React.Component {
 	render() {
 		return (
 			<ul>
@@ -63,4 +63,5 @@ export default class ButtonDemo extends React.Component {
 		);
 	}
 }
+export default ButtonDemo;
 ```

@@ -19,7 +19,7 @@ const styles = {
     gap: 5,
     marginBottom: 20
   };
-export default class AvatarDemos extends React.Component {
+class AvatarDemos extends React.Component {
     
     render() {
       return (
@@ -38,5 +38,6 @@ export default class AvatarDemos extends React.Component {
       );
 	}
 }
+export default AvatarDemos;
 ```
 

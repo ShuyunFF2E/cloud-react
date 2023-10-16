@@ -13,7 +13,7 @@ desc: 使用createModal方法创建一个弹出框，open方法打开
 import React from 'react';
 import { Button, Modal } from 'cloud-react';
 
-export default class ModalDemo extends React.Component {
+class ModalDemo extends React.Component {
 	// 弹出框
 	openNestModal = () => {
 		Modal.createModal(SecondModal)
@@ -82,4 +82,6 @@ function modalEntity(props) {
 		</Modal>
 	);
 }
+
+export default ModalDemo;
 ```

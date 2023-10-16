@@ -13,7 +13,7 @@ import React, { Component } from 'react';
 import { Button, Message, Modal } from 'cloud-react';
 import './styles/contextContainer.less';
 
-export default class MessageDemo extends Component {
+class MessageDemo extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -64,5 +64,7 @@ export default class MessageDemo extends Component {
 		);
 	}
 }
+
+export default MessageDemo;
 ```
 

@@ -13,7 +13,7 @@ desc: 支持实时搜索，在搜索框输入内容时进行搜索
 import React from 'react';
 import { Transfer } from 'cloud-react';
 
-export default class TransferDemo extends React.Component {
+class TransferDemo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -49,5 +49,7 @@ export default class TransferDemo extends React.Component {
     )
   }
 }
+
+export default TransferDemo;
 ```
 

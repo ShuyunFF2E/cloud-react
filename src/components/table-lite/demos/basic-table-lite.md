@@ -163,7 +163,7 @@ let dataSource = [{
   },
 ]
 
-export default class IconDemo extends Component {
+class IconDemo extends Component {
 	constructor() {
 		super();
 		this.state = {
@@ -176,5 +176,6 @@ export default class IconDemo extends Component {
 		return <TableLite height={300} dataSource={dataSource} columnData={columnData} />;
 	}
 }
+export default IconDemo;
 ```
 
