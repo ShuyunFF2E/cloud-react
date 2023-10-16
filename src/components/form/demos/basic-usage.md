@@ -13,7 +13,7 @@ desc: 默认样式
 import React, { useState } from 'react';
 import { Form, Input, Button, Field } from 'cloud-react';
 
-export default class FormBasicDemo extends React.Component {
+class FormBasicDemo extends React.Component {
 	field = new Field(this);
 
 	onSubmit(evt) {
@@ -112,4 +112,6 @@ export default class FormBasicDemo extends React.Component {
 		);
 	}
 }
+
+export default FormBasicDemo;
 ```

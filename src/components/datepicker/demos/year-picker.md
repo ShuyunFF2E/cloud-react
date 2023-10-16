@@ -13,7 +13,7 @@ desc: 基本用法，年选择器。
 import React from 'react';
 import { Datepicker } from 'cloud-react';
 
-export default class DatepickerDemo extends React.Component {
+class DatepickerDemo extends React.Component {
 	onInpChange = value => console.log(value);
 
 	render() {
@@ -25,4 +25,5 @@ export default class DatepickerDemo extends React.Component {
                 )
 	}
 }
+export default DatepickerDemo;
 ```

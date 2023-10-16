@@ -22,7 +22,7 @@ const commonStyle = {
   top: -6
 };
 
-export default class BadgeDemos extends React.Component {
+class BadgeDemos extends React.Component {
   colorList = ['#FB2D2D', '#FF8000', '#FFBB00', '#13D841', '#28C1E0', '#3380FD', '#FA17F9', '#078DA8', '#0055CC', '#BA25B6'];
 
   onClick = () => {
@@ -98,4 +98,6 @@ export default class BadgeDemos extends React.Component {
     );
   }
 }
+
+export default BadgeDemos;
 ```

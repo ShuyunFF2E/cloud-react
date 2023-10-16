@@ -13,7 +13,7 @@ desc: 在modal中使用其他组件
 import React from 'react';
 import { Button, Modal, Message, Select, Tabs, Table } from 'cloud-react';
 
-export default class ModalDemo extends React.Component {
+class ModalDemo extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -128,4 +128,6 @@ export default class ModalDemo extends React.Component {
 		);
 	}
 }
+
+export default ModalDemo;
 ```

@@ -32,9 +32,10 @@ const resouse = (settings, params) => {
 	// 返回一个promise
 	return fetch('https://www.lovejavascript.com/learnLinkManager/getLearnLinkList').then(res => res.json());
 };
-export default class TableDemo extends Component {
+class TableDemo extends Component {
 	render() {
 		return <Table gridManagerName={gridManagerName} ajaxData={resouse} columnData={columnData} />;
 	}
 }
+export default TableDemo;
 ```

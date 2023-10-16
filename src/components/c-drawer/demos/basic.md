@@ -12,7 +12,7 @@ import React from 'react';
 
 import { Button, CDrawer } from 'cloud-react';
 
-export default class Demo extends React.Component {
+class Demo extends React.Component {
 	 constructor(props) {
         super(props);
 				this.state = {
@@ -51,4 +51,6 @@ export default class Demo extends React.Component {
     );
   }
 }
+
+export default Demo;
 ```

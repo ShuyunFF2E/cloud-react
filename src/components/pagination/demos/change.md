@@ -13,7 +13,7 @@ desc: 改变每页显示条目数
 import React from 'react';
 import { Pagination } from 'cloud-react';
 
-export default class PaginationDemo extends React.Component {
+class PaginationDemo extends React.Component {
 	state = {
 		current: 5,
 		pageSize: 10,
@@ -39,4 +39,6 @@ export default class PaginationDemo extends React.Component {
 		);
 	}
 }
+
+export default PaginationDemo;
 ```

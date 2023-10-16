@@ -11,7 +11,7 @@ order: 6 title: 小标签 desc: 不同的标签大小
 import React, { Component } from 'react';
 import { Tag, Radio } from 'cloud-react';
 
-export default class TagDemo extends Component {
+class TagDemo extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -83,4 +83,5 @@ export default class TagDemo extends Component {
     );
   }
 }
+export default TagDemo;
 ```

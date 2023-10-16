@@ -12,7 +12,7 @@ desc:
 import React from 'react';
 import { Toggle } from 'cloud-react';
 
-export default class ToggleDemo extends React.Component {
+class ToggleDemo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -36,4 +36,5 @@ export default class ToggleDemo extends React.Component {
     );
   }
 }
+export default ToggleDemo;
 ```

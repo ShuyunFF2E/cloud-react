@@ -13,7 +13,7 @@ desc: '通过 Button.Group 容器组件来包装 Button，可以统一设置 siz
 import React from 'react';
 import { Button, Icon } from 'cloud-react';
 
-export default class ButtonDemo extends React.Component {
+class ButtonDemo extends React.Component {
 	render() {
 		return (
 			<ul>
@@ -96,4 +96,5 @@ export default class ButtonDemo extends React.Component {
 		);
 	}
 }
+export default ButtonDemo;
 ```

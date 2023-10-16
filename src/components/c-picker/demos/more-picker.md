@@ -27,7 +27,7 @@ const {
 	QuarterPicker
 } = DatePicker;
 
-export default class DatePickerDemo extends React.Component {
+class DatePickerDemo extends React.Component {
 	field = new Field(this)
 	state = {
 		year: 2021,
@@ -129,4 +129,5 @@ export default class DatePickerDemo extends React.Component {
 		);
 	}
 }
+export default DatePickerDemo;
 ```

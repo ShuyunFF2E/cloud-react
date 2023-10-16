@@ -13,7 +13,7 @@ desc: 给定指定数据显示
 import React from 'react';
 import { InputTag } from 'cloud-react';
 
-export default class InputTagDemo extends React.Component {
+class InputTagDemo extends React.Component {
 	constructor(props) {
 		super(props);
 
@@ -30,4 +30,6 @@ export default class InputTagDemo extends React.Component {
 		return <InputTag data={this.state.data} onChange={this.handleChange} />;
 	}
 }
+
+export default InputTagDemo;
 ```

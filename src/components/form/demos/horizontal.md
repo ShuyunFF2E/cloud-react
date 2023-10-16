@@ -13,7 +13,7 @@ desc: 标签描述和控件在一条水平线上
 import React, { useState } from 'react';
 import { Form, Input, Button } from 'cloud-react';
 
-export default function FormHorizontalDemo() {
+function FormHorizontalDemo() {
 	return (
 		<Form layout="horizontal" labelCol={{ span: 6 }}>
 			<Form.Item label="用户名">
@@ -37,4 +37,6 @@ export default function FormHorizontalDemo() {
 		</Form>
 	);
 }
+
+export default FormHorizontalDemo;
 ```

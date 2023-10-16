@@ -11,7 +11,7 @@ order: 5 title: 颜色标签 desc: 不同的主题色标签
 import React, { Component } from 'react';
 import { Tag } from 'cloud-react';
 
-export default class TagDemo extends Component {
+class TagDemo extends Component {
   render() {
     return (
       <React.Fragment>
@@ -83,4 +83,5 @@ export default class TagDemo extends Component {
     );
   }
 }
+export default TagDemo;
 ```

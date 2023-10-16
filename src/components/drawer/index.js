@@ -101,6 +101,11 @@ function Drawer(
 
   return ReactDOM.createPortal(
     <section>
+      {/* 遮罩层*/}
+      {showMask && visible && (
+        <div className={`${drawerPrefix}-mask`} onClick={onClickMask} />
+      )}
+
       <div
         ref={drawerRef}
         className={`${drawerPrefix} ${placement} ${visible ? 'show' : ''}`}
@@ -135,10 +140,6 @@ function Drawer(
         )}
       </div>
 
-      {/* 遮罩层*/}
-      {showMask && visible && (
-        <div className={`${drawerPrefix}-mask`} onClick={onClickMask} />
-      )}
       {wrapperClosable && !showMask && visible && !visibleTrans && (
         <div
           className={`${drawerPrefix}-transparent`}

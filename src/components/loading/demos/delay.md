@@ -12,7 +12,7 @@ desc: 延迟number(毫秒)显示加载效果，可防止闪烁；当loading状�
 import React from 'react';
 import { Loading, Toggle, Tips } from 'cloud-react';
 
-export default class LoadingDemo extends React.Component {
+class LoadingDemo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -41,4 +41,6 @@ export default class LoadingDemo extends React.Component {
     );
   }
 }
+
+export default LoadingDemo;
 ```

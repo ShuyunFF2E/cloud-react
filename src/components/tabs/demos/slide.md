@@ -16,7 +16,7 @@ const linePrefixTpl = <Icon type="search-file"/>;
 
 const lineSuffixTpl = <Icon type="warning-circle-solid" style={{ color: '#E74949' }}/>;
 
-export default class BasicTabs extends Component {
+class BasicTabs extends Component {
     handleChange = key => {
         console.log('当前激活面板key值为：' + key);
     };
@@ -64,4 +64,6 @@ export default class BasicTabs extends Component {
         );
     }
 }
+
+export default BasicTabs;
 ```

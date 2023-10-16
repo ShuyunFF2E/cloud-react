@@ -12,7 +12,7 @@ desc: 可选值为组件库内所有 Icon 图标对应的类型代码
 import React from 'react';
 import { Button, InputNumber } from 'cloud-react';
 
-export default class ButtonDemo extends React.Component {
+class ButtonDemo extends React.Component {
 	render() {
 		return (
 			<ul>
@@ -44,4 +44,5 @@ export default class ButtonDemo extends React.Component {
 		);
 	}
 }
+export default ButtonDemo;
 ```

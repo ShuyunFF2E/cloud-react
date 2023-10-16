@@ -14,7 +14,7 @@ import React from 'react';
 import { PageHeader, Message } from 'cloud-react';
 
 
-export default class AvatarDemos extends React.Component {
+class AvatarDemos extends React.Component {
     
     onBack = () => {
         Message.success('可以回到上一页了');
@@ -34,5 +34,7 @@ export default class AvatarDemos extends React.Component {
       );
 	}
 }
+
+export default AvatarDemos;
 ```
 

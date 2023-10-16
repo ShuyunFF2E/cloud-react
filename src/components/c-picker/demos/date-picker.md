@@ -42,7 +42,7 @@ const presets = [
 
 const timePresets = [{ label: '中午', value: () => moment().clone().startOf('day').add(12, 'hours') }];
 
-export default class DatePickerDemo extends React.Component {
+class DatePickerDemo extends React.Component {
 	field = new Field(this)
 	state = {
 		value: moment('2021/12/01 16:05:33', 'yyyy/MM/DD HH:mm:ss').toDate(),
@@ -100,4 +100,5 @@ export default class DatePickerDemo extends React.Component {
 		);
 	}
 }
+export default DatePickerDemo;
 ```

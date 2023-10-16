@@ -12,7 +12,7 @@ desc: 一个简单的 loading 状态。
 import React from 'react';
 import { Loading, Toggle } from 'cloud-react';
 
-export default class LoadingDemo extends React.Component {
+class LoadingDemo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -35,4 +35,6 @@ export default class LoadingDemo extends React.Component {
     );
   }
 }
+
+export default LoadingDemo;
 ```

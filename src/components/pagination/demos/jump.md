@@ -13,7 +13,7 @@ desc: 快速跳转到某一页
 import React from 'react';
 import { Pagination } from 'cloud-react';
 
-export default class PaginationDemo extends React.Component {
+class PaginationDemo extends React.Component {
 	state = {
 		current: 1,
 		pageSize: 10
@@ -41,4 +41,6 @@ export default class PaginationDemo extends React.Component {
 		);
 	}
 }
+
+export default PaginationDemo;
 ```
