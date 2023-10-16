@@ -14,7 +14,7 @@ import React from 'react';
 import { BreadCrumbs, Button, Icon } from 'cloud-react';
 import './styles/basic-bread-crumbs.less'
 
-export default class BreadCrumbsDemo extends React.Component {
+class BreadCrumbsDemo extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -85,5 +85,7 @@ export default class BreadCrumbsDemo extends React.Component {
 		);
 	}
 }
+
+export default BreadCrumbsDemo;
 ```
 

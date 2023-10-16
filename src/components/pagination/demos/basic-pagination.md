@@ -32,7 +32,7 @@ class PaginationDemo1 extends React.Component {
   }
 }
 
-export default class PaginationDemo extends React.Component {
+class PaginationDemo extends React.Component {
   state = {
     current: 1,
     pageSize: 10,
@@ -58,4 +58,6 @@ export default class PaginationDemo extends React.Component {
     );
   }
 }
+
+export default PaginationDemo;
 ```

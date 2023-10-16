@@ -13,7 +13,7 @@ desc: 是否需要配置分隔符，按回车的时候以分隔符切割
 import React from 'react';
 import { InputTag, Select } from 'cloud-react';
 
-export default class InputTagDemo extends React.Component {
+class InputTagDemo extends React.Component {
 
 	constructor(props) {
 		super(props);
@@ -33,4 +33,6 @@ export default class InputTagDemo extends React.Component {
 		return <InputTag data={data} max={2} isConfigSeparator onChange={this.handleChange} />;
 	}
 }
+
+export default InputTagDemo;
 ```

@@ -13,7 +13,7 @@ desc: 明密文切换
 import React, { Component } from 'react';
 import { Plaintext } from 'cloud-react';
 
-export default class PlainTextDemo extends Component {
+class PlainTextDemo extends Component {
 
 	constructor(props) {
 		super(props);
@@ -40,4 +40,6 @@ export default class PlainTextDemo extends Component {
 		return <Plaintext text={content} onViewPlainClick={this.handleViewPlainClick} onViewSecretClick={this.handleViewSecretClick} />;
 	}
 }
+
+export default PlainTextDemo;
 ```

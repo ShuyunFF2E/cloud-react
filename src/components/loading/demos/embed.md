@@ -12,7 +12,7 @@ desc: 可以直接把内容内嵌到Loading中，将现有容器变为加载状�
 import React from 'react';
 import { Loading, Toggle, Tips } from 'cloud-react';
 
-export default class LoadingDemo extends React.Component {
+class LoadingDemo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -41,4 +41,6 @@ export default class LoadingDemo extends React.Component {
     );
   }
 }
+
+export default LoadingDemo;
 ```

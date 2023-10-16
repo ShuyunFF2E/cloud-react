@@ -13,7 +13,7 @@ desc: 受控的输入框
 import React, { Component } from 'react';
 import { Button, Input } from 'cloud-react';
 
-export default class InputDemo extends Component {
+class InputDemo extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -63,4 +63,6 @@ export default class InputDemo extends Component {
 		);
 	}
 }
+
+export default InputDemo;
 ```

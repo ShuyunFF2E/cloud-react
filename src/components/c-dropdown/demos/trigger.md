@@ -20,7 +20,7 @@ import {
 
 const { Item } = Menu;
 
-export default class DropdownDemo extends React.Component {
+class DropdownDemo extends React.Component {
 
     state = {
 		current: '1',
@@ -54,4 +54,6 @@ export default class DropdownDemo extends React.Component {
 		);
 	}
 }
+
+export default DropdownDemo;
 ```

@@ -13,7 +13,7 @@ desc: 用带颜色的标签来区分不同的状态展现
 import React, { Component } from 'react';
 import { Tag } from 'cloud-react';
 
-export default class TagDemo extends Component {
+class TagDemo extends Component {
 	render() {
 		return (
 			<React.Fragment>
@@ -26,4 +26,5 @@ export default class TagDemo extends Component {
 		);
 	}
 }
+export default TagDemo;
 ```

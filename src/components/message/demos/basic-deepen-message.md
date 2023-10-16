@@ -14,7 +14,7 @@ import { Button, Message } from 'cloud-react';
 
 const blank = '\u00A0';
 
-export default class MessageDemo extends Component {
+class MessageDemo extends Component {
   onSuccessClick() {
     Message.success('操作成功', { isDeepen: true });
   }
@@ -50,4 +50,6 @@ export default class MessageDemo extends Component {
 		);
 	}
 }
+
+export default MessageDemo;
 ```

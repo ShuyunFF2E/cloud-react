@@ -14,7 +14,7 @@ import React from 'react';
 import { Tips } from 'cloud-react';
 import './styles/basic-tips.less';
 
-export default class TipsDemo extends React.Component {
+class TipsDemo extends React.Component {
   render() {
     const tipsWidth = { maxWidth: '300px' };
     const msgReactNode = (
@@ -45,5 +45,6 @@ export default class TipsDemo extends React.Component {
     );
   }
 }
+export default TipsDemo;
 ```
 

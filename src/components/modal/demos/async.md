@@ -13,7 +13,7 @@ desc: 点击确定按钮后异步关闭对话框，如提交请求场景
 import React from 'react';
 import { Button, Modal } from 'cloud-react';
 
-export default class ModalDemo extends React.Component {
+class ModalDemo extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -72,4 +72,6 @@ export default class ModalDemo extends React.Component {
 		);
 	}
 }
+
+export default ModalDemo;
 ```

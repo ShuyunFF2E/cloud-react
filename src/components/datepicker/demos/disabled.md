@@ -13,7 +13,7 @@ desc: 选择框的不可用状态。
 import React from 'react';
 import { Datepicker } from 'cloud-react';
 
-export default class DatepickerDemo extends React.Component {
+class DatepickerDemo extends React.Component {
 	render() {
 		return (
 			<div>
@@ -39,4 +39,5 @@ export default class DatepickerDemo extends React.Component {
 		);
 	}
 }
+export default DatepickerDemo;
 ```

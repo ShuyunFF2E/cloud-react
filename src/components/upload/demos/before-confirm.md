@@ -12,7 +12,7 @@ desc: 上传前和用户进行确认，可配置具体提示内容。
 import React from 'react';
 import { Message, Upload } from 'cloud-react';
 
-export default class UploadDemo extends React.Component {
+class UploadDemo extends React.Component {
 
   state = {
     fileList: []
@@ -80,4 +80,6 @@ export default class UploadDemo extends React.Component {
     return <Upload {...props} fileList={this.state.fileList} />;
   }
 }
+
+export default UploadDemo;
 ```

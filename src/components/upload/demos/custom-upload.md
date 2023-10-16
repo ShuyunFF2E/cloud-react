@@ -12,7 +12,7 @@ desc: 自定义上传显示。
 import React from 'react';
 import { Message, Upload, Button } from 'cloud-react';
 
-export default class UploadDemo extends React.Component {
+class UploadDemo extends React.Component {
   state = {
     imageUrl: ''
   };
@@ -45,4 +45,6 @@ export default class UploadDemo extends React.Component {
     )
   }
 }
+
+export default UploadDemo;
 ```

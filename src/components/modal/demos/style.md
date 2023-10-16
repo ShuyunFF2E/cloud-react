@@ -13,7 +13,7 @@ desc: 使用style属性自定义modal组件样式，禁用确定按钮
 import React from 'react';
 import { Button, Modal, Message } from 'cloud-react';
 
-export default class ModalDemo extends React.Component {
+class ModalDemo extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -86,4 +86,6 @@ export default class ModalDemo extends React.Component {
 		);
 	}
 }
+
+export default ModalDemo;
 ```

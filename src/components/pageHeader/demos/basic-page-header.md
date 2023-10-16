@@ -14,7 +14,7 @@ import React from 'react';
 import { PageHeader } from 'cloud-react';
 
 
-export default class AvatarDemos extends React.Component {
+class AvatarDemos extends React.Component {
     
     render() {
       return (
@@ -30,5 +30,7 @@ export default class AvatarDemos extends React.Component {
       );
 	}
 }
+
+export default AvatarDemos;
 ```
 

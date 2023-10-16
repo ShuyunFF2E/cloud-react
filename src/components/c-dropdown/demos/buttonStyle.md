@@ -21,7 +21,7 @@ import {
 
 const { Item } = Menu;
 
-export default class DropdownDemo extends React.Component {
+class DropdownDemo extends React.Component {
 
 	handleMenuClick = key => {
         Message.success(`菜单Item onClick ${key}`);
@@ -77,4 +77,6 @@ export default class DropdownDemo extends React.Component {
 		);
 	}
 }
+
+export default DropdownDemo;
 ```

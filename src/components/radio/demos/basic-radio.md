@@ -12,7 +12,7 @@ desc: 单选按钮
 import React from 'react';
 import { Radio } from 'cloud-react';
 
-export default function RadioDemo() {
+function RadioDemo() {
   return (
     <div style={{display: 'flex', justifyContent: 'space-around'}}>
       <Radio value={1} checked={false}>
@@ -30,4 +30,6 @@ export default function RadioDemo() {
     </div>
   );
 }
+
+export default RadioDemo;
 ```

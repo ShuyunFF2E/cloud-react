@@ -17,7 +17,7 @@ bodys.style.setProperty(`--shuyunBlue${i + 1}`,color)
 }
 }
 
-export const version = '1.0.23';
+export const version = '1.0.33';
 
 export { default as Avatar } from './avatar';
 

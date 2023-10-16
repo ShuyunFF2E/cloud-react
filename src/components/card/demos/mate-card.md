@@ -13,7 +13,7 @@ desc: 可切换大小的面包屑
 import React from 'react';
 import { Card, Avatar, Button } from 'cloud-react';
 
-export default class CardDemos extends React.Component {
+class CardDemos extends React.Component {
     
     render() {
       return (
@@ -33,5 +33,6 @@ export default class CardDemos extends React.Component {
       );
 	}
 }
+export default CardDemos;
 ```
 

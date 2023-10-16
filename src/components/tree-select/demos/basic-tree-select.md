@@ -48,7 +48,7 @@ const treeData = [
 	}
 ];
 
-export default class TreeSelectDemo extends React.Component {
+class TreeSelectDemo extends React.Component {
 
 	handleChange = node => {
 		console.log(node);
@@ -77,4 +77,6 @@ export default class TreeSelectDemo extends React.Component {
 		);
 	}
 }
+
+export default TreeSelectDemo;
 ```

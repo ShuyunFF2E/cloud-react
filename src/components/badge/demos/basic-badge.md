@@ -12,7 +12,7 @@ desc: 支持 message、number、dot 三种展示形式
 import React from 'react';
 import { Badge } from 'cloud-react';
 
-export default class BadgeDemos extends React.Component {
+class BadgeDemos extends React.Component {
   onClick = () => {
     console.log('lalala');
   };
@@ -51,4 +51,6 @@ export default class BadgeDemos extends React.Component {
     );
   }
 }
+
+export default BadgeDemos;
 ```

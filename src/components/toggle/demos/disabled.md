@@ -12,7 +12,7 @@ desc: disabled 为 true 时，toggle 不可用
 import React from 'react';
 import { Button, Toggle } from 'cloud-react';
 
-export default class ToggleDisabledDemo extends React.Component {
+class ToggleDisabledDemo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -46,4 +46,5 @@ export default class ToggleDisabledDemo extends React.Component {
     );
   }
 }
+export default ToggleDisabledDemo;
 ```

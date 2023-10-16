@@ -13,7 +13,7 @@ desc: 根据hooks API定制的方法，没有this也可以使用
 import React, { useState } from 'react';
 import { Form, Input, Button, Checkbox, Radio, Select, Toggle, InputNumber, Field } from 'cloud-react';
 
-export default function FormHorizontalDemo() {
+function FormHorizontalDemo() {
 	const field = Field.useField();
 
 	const onValidate = () => {
@@ -130,4 +130,6 @@ export default function FormHorizontalDemo() {
 		</Form>
 	);
 }
+
+export default FormHorizontalDemo;
 ```

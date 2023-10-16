@@ -12,7 +12,7 @@ desc: 包含上传成功 onSuccess、删除已上传 onRemove、 重新上传 on
 import React from 'react';
 import { Message, Upload } from 'cloud-react';
 
-export default class UploadDemo extends React.Component {
+class UploadDemo extends React.Component {
   state = {
     fileList: []
   };
@@ -83,4 +83,6 @@ export default class UploadDemo extends React.Component {
     );
   }
 }
+
+export default UploadDemo;
 ```

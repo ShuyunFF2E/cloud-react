@@ -13,7 +13,7 @@ desc: 分页简易模式用法
 import React from 'react';
 import { Pagination, Checkbox } from 'cloud-react';
 
-export default class PaginationDemo extends React.Component {
+class PaginationDemo extends React.Component {
 	state = {
 		current: 5,
 		pageSize: 10,
@@ -56,4 +56,6 @@ export default class PaginationDemo extends React.Component {
 		);
 	}
 }
+
+export default PaginationDemo;
 ```

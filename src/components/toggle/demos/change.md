@@ -12,7 +12,7 @@ desc: onBeforeChange 函数使用
 import React from 'react';
 import { Modal, Toggle } from 'cloud-react';
 
-export default class ToggleDemo extends React.Component {
+class ToggleDemo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -39,4 +39,5 @@ export default class ToggleDemo extends React.Component {
     return <Toggle checked={checked} onBeforeChange={this.handleBeforeChange} />
   }
 }
+export default ToggleDemo;
 ```

@@ -13,7 +13,7 @@ desc: 在外部触发修改回显数据，组件内部跟随变化
 import React from 'react';
 import { Tree, Button } from 'cloud-react';
 
-export default class TreeDemo extends React.Component {
+class TreeDemo extends React.Component {
 	constructor(props) {
 		super(props);
 
@@ -213,4 +213,6 @@ export default class TreeDemo extends React.Component {
 		);
 	}
 }
+
+export default TreeDemo;
 ```

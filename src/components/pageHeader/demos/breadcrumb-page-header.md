@@ -13,7 +13,7 @@ import React from 'react';
 import { PageHeader, BreadCrumbs } from 'cloud-react';
 
 
-export default class AvatarDemos extends React.Component {
+class AvatarDemos extends React.Component {
     list = [
         {
             key: 'home',
@@ -57,5 +57,7 @@ export default class AvatarDemos extends React.Component {
       );
 	}
 }
+
+export default AvatarDemos;
 ```
 

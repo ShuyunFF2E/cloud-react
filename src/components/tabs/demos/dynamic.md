@@ -12,7 +12,7 @@ desc: 动态添加/删除Tabs
 import React, { Component } from 'react';
 import { Button, Tabs } from 'cloud-react';
 
-export default class DynamicTabsDemo extends Component {
+class DynamicTabsDemo extends Component {
 	state = {
 		tabList: [{ title: '选项卡', content: '动态选项卡', key: '0' }],
 		activeKey: ''
@@ -76,4 +76,6 @@ export default class DynamicTabsDemo extends Component {
 		);
 	}
 }
+
+export default DynamicTabsDemo;
 ```

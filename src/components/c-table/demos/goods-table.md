@@ -35,7 +35,7 @@ const data = new Array(30).fill(1).map((item, index) => (
   }
 ))
 
-export default class CTableDemo extends Component {
+class CTableDemo extends Component {
   tableRef = createRef();
 
   constructor(props) {
@@ -296,4 +296,5 @@ export default class CTableDemo extends Component {
     );
   }
 }
+export default CTableDemo;
 ```

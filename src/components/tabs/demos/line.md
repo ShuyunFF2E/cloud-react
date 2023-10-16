@@ -51,7 +51,7 @@ class BasicTabs extends Component {
     }
 }
 
-export default class BasicTabsDemo extends Component {
+class BasicTabsDemo extends Component {
 	render() {
 		return (
             <div>
@@ -98,4 +98,6 @@ export default class BasicTabsDemo extends Component {
 		);
 	}
 }
+
+export default BasicTabsDemo;
 ```

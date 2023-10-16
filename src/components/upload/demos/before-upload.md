@@ -12,7 +12,7 @@ desc: 通过返回的boolean值来决定是否继续上传。
 import React from 'react';
 import { Message, Upload } from 'cloud-react';
 
-export default class UploadDemo extends React.Component {
+class UploadDemo extends React.Component {
 
   state = {
     fileList: []
@@ -78,4 +78,6 @@ export default class UploadDemo extends React.Component {
     return <Upload {...props} fileList={this.state.fileList} />;
   }
 }
+
+export default UploadDemo;
 ```

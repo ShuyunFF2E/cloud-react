@@ -15,7 +15,7 @@ import { Button, Modal } from 'cloud-react';
 
 const blank = '\u00A0';
 
-export default class ModalDemo extends React.Component {
+class ModalDemo extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -122,4 +122,6 @@ class ConfirmModal extends React.Component {
 		);
 	}
 }
+
+export default ModalDemo;
 ```

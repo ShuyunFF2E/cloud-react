@@ -13,7 +13,7 @@ desc: 常用控件的校验方式
 import React, { useState } from 'react';
 import { Form, Input, Button, Checkbox, Radio, Select, Toggle, Field, InputNumber, Datepicker } from 'cloud-react';
 
-export default class FormHorizontalDemo extends React.Component {
+class FormHorizontalDemo extends React.Component {
 	field = new Field(this, {
 		onChange: (field, value, values) => {
 			console.log(field, value, values);
@@ -215,4 +215,6 @@ function User({ field: { init } }) {
 		</Form.Nexus>
 	);
 }
+
+export default FormHorizontalDemo;
 ```

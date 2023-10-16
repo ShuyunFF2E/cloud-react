@@ -14,7 +14,7 @@ import React from 'react';
 import { Avatar, Icon } from 'cloud-react';
 import './style.less';
 
-export default class AvatarDemos extends React.Component {
+class AvatarDemos extends React.Component {
     
     render() {
       return (
@@ -54,5 +54,7 @@ export default class AvatarDemos extends React.Component {
       );
 	}
 }
+
+export default AvatarDemos;
 ```
 

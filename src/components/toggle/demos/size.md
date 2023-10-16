@@ -12,7 +12,7 @@ desc: size可为 `small`、`default`，默认为 `defalut`
 import React from 'react';
 import { Button, Toggle } from 'cloud-react';
 
-export default class ToggleSizeDemo extends React.Component {
+class ToggleSizeDemo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -46,4 +46,5 @@ export default class ToggleSizeDemo extends React.Component {
     );
   }
 }
+export default ToggleSizeDemo;
 ```
