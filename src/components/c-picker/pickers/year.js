@@ -91,6 +91,7 @@ const YearPicker = ({
 
   const getDisabledDate = useCallback(
     (d) => {
+      if (!d) return false;
       const current = d.clone();
       return (minYear && current.year() < minYear) || (maxYear && current.year() > maxYear);
     },
@@ -100,7 +101,7 @@ const YearPicker = ({
   const handleGetDisabledDate = useCallback(
     (m) => {
       if (_disabledDate) {
-        return _disabledDate(m && m.clone().year(), m.clone());
+        return _disabledDate(m && m.clone().year(), m && m.clone());
       }
       return getDisabledDate(m);
     },

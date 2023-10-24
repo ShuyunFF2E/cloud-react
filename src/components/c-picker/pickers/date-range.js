@@ -77,6 +77,7 @@ const DateRangePicker = ({
 
   const getDisabledDate = useCallback(
     (d) => {
+      if (!d) return false;
       const target = d.clone();
       const min = minDate && (minDate instanceof Date
         ? moment(moment(minDate).format(format), format)
@@ -100,9 +101,9 @@ const DateRangePicker = ({
     (m) => {
       if (_disabledDate) {
         if (_this.formatType === OBJ) {
-          return _disabledDate(m && m.clone().toDate(), m.clone());
+          return _disabledDate(m && m.clone().toDate(), m && m.clone());
         }
-        return _disabledDate(m && m.format(format), m.clone());
+        return _disabledDate(m && m.format(format), m && m.clone());
       }
       return m && getDisabledDate(m);
     },

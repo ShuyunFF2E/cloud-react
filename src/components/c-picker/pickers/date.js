@@ -136,6 +136,7 @@ const DatePicker = ({
 
   const getDisabledDate = useCallback(
     (d) => {
+      if (!d) return false;
       const current = d.clone();
       const min = minDate
         && (minDate instanceof Date ? moment(minDate) : moment(minDate, format));
@@ -155,9 +156,9 @@ const DatePicker = ({
     (m) => {
       if (_disabledDate) {
         if (_this.formatType === OBJ) {
-          return _disabledDate(m && m.clone().toDate(), m.clone());
+          return _disabledDate(m && m.clone().toDate(), m && m.clone());
         }
-        return _disabledDate(m && m.format(format), m.clone());
+        return _disabledDate(m && m.format(format), m && m.clone());
       }
       return getDisabledDate(m);
     },
