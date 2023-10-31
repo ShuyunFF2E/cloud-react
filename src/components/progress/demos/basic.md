@@ -13,7 +13,7 @@ desc: 进度条
 import React from 'react';
 import { Progress, Icon, InputNumber } from 'cloud-react';
 
-export default class ProgressDemo extends React.Component {
+class ProgressDemo extends React.Component {
     state = { percent: 50 };
 
     render() {
@@ -61,4 +61,6 @@ export default class ProgressDemo extends React.Component {
 		);
 	}
 }
+
+export default ProgressDemo;
 ```

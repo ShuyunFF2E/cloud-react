@@ -13,7 +13,7 @@ desc: 设置onOk、onCancel、onClose实现自定义回调函数
 import React from 'react';
 import { Button, Modal } from 'cloud-react';
 
-export default class ModalDemo extends React.Component {
+class ModalDemo extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -66,4 +66,6 @@ export default class ModalDemo extends React.Component {
 		);
 	}
 }
+
+export default ModalDemo;
 ```

@@ -12,7 +12,7 @@ desc: 控制内部Radio是否禁用
 import React, { useState } from 'react';
 import { Button, Radio } from 'cloud-react';
 
-export default function RadioDemo() {
+function RadioDemo() {
   const [disabled, setDisabled] = useState(false);
   const [disRadio, setDisRadio] = useState(false);
 
@@ -48,4 +48,6 @@ export default function RadioDemo() {
     </>
   );
 }
+
+export default RadioDemo;
 ```

@@ -13,7 +13,7 @@ desc: 默认样式
 import React from 'react';
 import { Transfer } from 'cloud-react';
 
-export default class TransferDemo extends React.Component {
+class TransferDemo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -48,5 +48,7 @@ export default class TransferDemo extends React.Component {
     )
   }
 }
+
+export default TransferDemo;
 ```
 

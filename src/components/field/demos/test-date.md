@@ -13,7 +13,7 @@ desc: 测试
 import React, { useState } from 'react';
 import { Form, Input, Button, Checkbox, Radio, Select, Toggle, InputNumber, Field, Datepicker } from 'cloud-react';
 
-export default function FormHorizontalDemo() {
+function FormHorizontalDemo() {
 	const field = Field.useField();
 
 	const onValidate = () => {
@@ -98,4 +98,6 @@ export default function FormHorizontalDemo() {
 
 	);
 }
+
+export default FormHorizontalDemo;
 ```

@@ -12,7 +12,7 @@ desc: 三种大小 `small`、`default`、`large`，默认为 `defalut`
 import React from 'react';
 import { Loading } from 'cloud-react';
 
-export default class LoadingDemo extends React.Component {
+class LoadingDemo extends React.Component {
   render() {
     return (
       <div>
@@ -23,4 +23,6 @@ export default class LoadingDemo extends React.Component {
     );
   }
 }
+
+export default LoadingDemo;
 ```

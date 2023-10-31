@@ -16,7 +16,7 @@ import './styles/basic.less';
 
 const { MenuItem, SubMenu } = Menu;
 
-export default class MenuBasicDemo extends Component {
+class MenuBasicDemo extends Component {
 
 	handleSubMenuToggle = (openKey, path, expanded) => {
 		console.log('激活项目key:', openKey);
@@ -48,5 +48,7 @@ export default class MenuBasicDemo extends Component {
 		);
 	}
 }
+
+export default MenuBasicDemo;
 ```
 

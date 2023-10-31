@@ -1,13 +1,11 @@
 /* eslint-disable */
 
-import React, { Component, cloneElement } from 'react';
+import React, { Component } from 'react';
 import CascaderMenu from 'rc-cascader';
 import Icon from '../icon';
-import Input from '../input';
 import PropTypes from 'prop-types';
-import './index.less';
 import { prefixCls } from '@utils';
-
+import './index.less';
 function highlightKeyword(str, lowerKeyword, prefixCls) {
   const cells = str
     .toLowerCase()
@@ -63,6 +61,22 @@ const defaultSearchRender = (inputValue, path, prefixCls, fieldNames) => {
   });
   return optionList;
 };
+
+const defaultLoadingRender = (prefixCls) => (
+  <span className={`${prefixCls}-loading-spin`} />
+);
+
+function DefaultRenderEmpty({ prefixCls }) {
+  return (
+    <div className={`${prefixCls}-empty`}>
+      <img
+        src="https://brand-guide.shuyun.com/IAM/276d125f58c2.png"
+        alt="缺省"
+      />
+      暂无数据
+    </div>
+  );
+}
 class Cascader extends Component {
   state = {
     inputValue: '',
@@ -84,8 +98,13 @@ class Cascader extends Component {
     });
   };
 
+  mergedNotFoundContent = this.props.notFoundContent || (
+    <DefaultRenderEmpty prefixCls={this.props.prefixCls} />
+  );
+
   render() {
-    const { splitInput, multiple, showSearch, ...props } = this.props;
+    const { splitInput, multiple, showSearch, loadingIcon, ...props } =
+      this.props;
     const iconClasses = this.state.open ? 'open' : 'close';
     const checkable = multiple ? (
       <div className={`${this.props.prefixCls}-checkbox-inner`}></div>
@@ -113,8 +132,10 @@ class Cascader extends Component {
     return (
       <CascaderMenu
         {...props}
+        loadingIcon={loadingIcon || defaultLoadingRender(this.props.prefixCls)}
         className={iconClasses}
         checkable={checkable}
+        notFoundContent={this.mergedNotFoundContent}
         showSearch={mergedShowSearch()}
       />
     );
@@ -128,17 +149,18 @@ Cascader.defaultProps = {
   multiple: false,
   allowClear: false,
   disabled: false,
-  transitionName: '',
+  transitionName: undefined,
   defaultValue: [],
-  inputIcon: <Icon type="down" style={{ fontSize: '14px' }} />,
+  inputIcon: <Icon type="down" style={{ fontSize: '12px' }} />,
   prefixCls: `${prefixCls}-ccascader`,
   popupClassName: '',
-  popupPlacement: 'bottomLeft',
+  placement: 'bottomLeft',
   showArrow: true,
   expandTrigger: 'click',
   fieldNames: { label: 'label', value: 'value', children: 'children' },
   expandIcon: <Icon type="right" style={{ fontSize: '16px' }} />,
   clearIcon: <Icon type="close-fill-1" style={{ fontSize: '14px' }} />,
+  loadingIcon: undefined,
   removeIcon: <Icon type="close" style={{ fontSize: '12px' }} />,
   splitInput: '/',
 };

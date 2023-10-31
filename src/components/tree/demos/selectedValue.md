@@ -13,7 +13,7 @@ desc: 回显已经选择的数据
 import React from 'react';
 import { Tree } from 'cloud-react';
 
-export default class TreeDemo extends React.Component {
+class TreeDemo extends React.Component {
 	constructor(props) {
 		super(props);
 
@@ -109,4 +109,6 @@ export default class TreeDemo extends React.Component {
 		return <Tree treeData={treeData} selectedValue={this.state.selectedValue} onSelectedNode={this.selectedNode} />;
 	}
 }
+
+export default TreeDemo;
 ```

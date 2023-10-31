@@ -13,7 +13,7 @@ desc: 标签描述和控件在一条水平线上
 import React, { useState } from 'react';
 import { Form, Input, Button, Checkbox, Radio, Select, Field } from 'cloud-react';
 
-export default function FormHorizontalDemo() {
+function FormHorizontalDemo() {
 	new Field(this);
 	const [err, setErr] = useState(false);
 	const onClick = () => setErr(true);
@@ -73,4 +73,6 @@ export default function FormHorizontalDemo() {
 		</Form>
 	);
 }
+
+export default FormHorizontalDemo;
 ```

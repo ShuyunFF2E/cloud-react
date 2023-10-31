@@ -98,7 +98,7 @@ const resouse = {
 	totals: 3
 };
 
-export default class TableDemo extends Component {
+class TableDemo extends Component {
 	treeState = false;
 	updateTreeState() {
 		this.treeState = !this.treeState;
@@ -141,5 +141,6 @@ export default class TableDemo extends Component {
 		);
 	}
 }
+export default TableDemo;
 ```
 

@@ -38,7 +38,7 @@ const transform2DateString = (value, type) => {
   `;
 }
 
-export default class RangePickerTypeDemo extends React.Component {
+class RangePickerTypeDemo extends React.Component {
 	field = new Field(this)
 	state = {
 		week: { start: '2023年 第24周', end: '2023年 第30周' },
@@ -167,4 +167,5 @@ export default class RangePickerTypeDemo extends React.Component {
 		);
 	}
 }
+export default RangePickerTypeDemo;
 ```

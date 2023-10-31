@@ -13,7 +13,7 @@ desc: 支持右键菜单、支持多选节点
 import React from 'react';
 import { Tree } from 'cloud-react';
 
-export default class TreeDemo extends React.Component {
+class TreeDemo extends React.Component {
 	constructor(props) {
 		super(props);
 
@@ -137,4 +137,6 @@ export default class TreeDemo extends React.Component {
 		);
 	}
 }
+
+export default TreeDemo;
 ```

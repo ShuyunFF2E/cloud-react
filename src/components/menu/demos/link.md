@@ -16,7 +16,7 @@ import { Menu } from 'cloud-react';
 
 const { MenuItem, SubMenu } = Menu;
 
-export default class MenuBasicDemo extends Component {
+class MenuBasicDemo extends Component {
 
 	handleMenuItemClick = (key, path) => {
 		console.log('激活项目key:', key);
@@ -40,4 +40,6 @@ export default class MenuBasicDemo extends Component {
 		);
 	}
 }
+
+export default MenuBasicDemo;
 ```
