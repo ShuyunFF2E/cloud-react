@@ -29,7 +29,7 @@ import ResizableTitle from './js/resizableTitle';
 import Pagination from '../pagination';
 import Icon from '../icon';
 import Loading from '../loading';
-import emptyImg from './empty.png';
+import emptyImg from '../../assets/images/empty.png';
 import './css/basic.less';
 import './css/business.less';
 import Column from './js/column';

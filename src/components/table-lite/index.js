@@ -1,7 +1,7 @@
 import React, { Component, createRef } from 'react';
 import PropTypes from 'prop-types';
 import Icon from '../icon';
-import emptyImg from '../c-table/empty.png';
+import emptyImg from '../../assets/images/empty.png';
 
 import './index.less';
 

@@ -13,6 +13,7 @@ import Modal from '../modal';
 import Store from './store';
 import Menu from './menu';
 import { copyData } from './const';
+import empty from '../../assets/images/empty.png';
 import './index.less';
 
 // 默认菜单类型，右键打开
@@ -754,7 +755,12 @@ class Tree extends Component {
             </div>
           )}
 
-          {(!treeData || !treeData.length) && <p>暂无结果</p>}
+          {(!treeData || !treeData.length) && (
+            <div className={`${selector}-no-data`}>
+              <img src={empty} alt="暂无数据" />
+              <p>暂无数据</p>
+            </div>
+          )}
 
           {showDialogMenu && (
             <Modal

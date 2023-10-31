@@ -290,9 +290,9 @@ function ToggleFold({ hasChildren, showChildrenItem, toggle }) {
       <Icon
         className="toggle-icon"
         // type={!showChildrenItem ? 'down' : 'up'}
-        type="up"
+        type="down-solid"
         style={{
-          transform: showChildrenItem ? 'rotate(0)' : 'rotate(-180deg)',
+          transform: showChildrenItem ? 'rotate(0)' : 'rotate(-90deg)',
         }}
         onClick={toggle}
       />

@@ -144,7 +144,7 @@
           transition: all 0.1s;
 
           &:hover {
-            color: @gray-6;
+            //color: @gray-6;
           }
         }
 
@@ -349,6 +349,21 @@
         cursor: not-allowed;
         color: @gray-6;
       }
+    }
+  }
+
+  &-no-data {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-weight: 400;
+    color: @gray-6;
+    line-height: 20px;
+    font-size: 14px;
+
+    > img {
+      width: 130px;
+      height: 86px;
     }
   }
 }
