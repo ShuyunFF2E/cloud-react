@@ -19,14 +19,24 @@ function TableDemo({ data, setData }) {
   }
 
   const onAdd = () => {
-    setData([...data, { id: new Date().getTime(), name: '手机号优先继续发送1', createTime: '2021/12/14 10:19:02', creator: 'liyuan.meng', num: '12,222' }])
+    setData([...data, { id: new Date().getTime(), name: '手机号优先继续发送1', createTime: '2021/12/14 10:19:02', creator: 'liyuan.meng', num: 12222 }])
   };
 
   const columns = [
     { title: '活动ID', dataIndex: 'id', width: 130 },
     { title: '活动名称', dataIndex: 'name', width: 140 },
-    { title: '创建时间', dataIndex: 'createTime', width: 140 },
-    { title: '人数', dataIndex: 'num', align: 'right', width: 120 },
+    {
+      title: '创建时间', dataIndex: 'createTime', width: 140, render: val => {
+        return <CTable.TimeTpl value={val} />
+      }
+    },
+    {
+      title: '人数',
+      dataIndex: 'num',
+      align: 'right',
+      width: 120,
+      render: val => <CTable.NumberTpl value={val} precision={0} />
+    },
     { title: '创建人', dataIndex: 'creator', width: 130 },
     {
       title: '操作',
@@ -59,7 +69,7 @@ function TableDemo({ data, setData }) {
 
 export default function CTableDemo() {
   const [data, setData] = useState([
-    { id: '121410327', name: '手机号优先继续发送1', createTime: '2021/12/14 10:19:02', creator: 'liyuan.meng', num: '12,222' },
+    { id: '121410327', name: '手机号优先继续发送1', createTime: '2021/12/14 10:19:02', creator: 'liyuan.meng', num: '12222' },
   ]);
 
   return (

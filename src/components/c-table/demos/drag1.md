@@ -1,7 +1,5 @@
 ---
-order: 1
-title: CTable
-desc: 拖拽
+order: 1 title: CTable desc: 拖拽
 ---
 
 ```jsx
@@ -24,19 +22,23 @@ const data = [
 const columns = [
   { title: '活动ID', dataIndex: 'id' },
   { title: '活动名称', dataIndex: 'name' },
-  { title: '创建时间', dataIndex: 'createTime' },
+  {
+    title: '创建时间', dataIndex: 'createTime', render: val => {
+      return <CTable.TimeTpl value={val} />
+    }
+  },
   { title: '人数', dataIndex: 'num', align: 'right' },
   { title: '创建人', dataIndex: 'creator' }
 ];
 
 export default function CTableDemo() {
-	return (
-        <CTable
-           supportDrag
-           showDragIcon
-           columnData={columns}
-           ajaxData={{ totals: data.length, data }}
-        />
-	);
+  return (
+    <CTable
+      supportDrag
+      showDragIcon
+      columnData={columns}
+      ajaxData={{ totals: data.length, data }}
+    />
+  );
 }
 ```

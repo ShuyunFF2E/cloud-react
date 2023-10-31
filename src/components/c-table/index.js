@@ -16,6 +16,7 @@ import {
   isFirefox,
   debounce,
   hasCustomScroll,
+  getBtnNum, getScrollbarWidth,
 } from './util';
 import {
   DRAG_ICON_SELECTOR,
@@ -162,12 +163,21 @@ class CTable extends Component {
   };
 
   resolveColumn = (columnData) => {
-    return columnData.map((item) => ({
-      render: (val, row) => <ColumnTpl value={val} row={row} {...item} />,
-      ...item,
-      show: true,
-      align: item.type === NUMBER ? 'right' : item.align,
-    }));
+    return columnData.map((item) => {
+      const align = item.type === NUMBER ? 'right' : item.align;
+      const btnNum = getBtnNum(item);
+      const colClassName =
+        align === 'right' && btnNum > 0 ? `padding-${btnNum}` : '';
+      return {
+        render: (val, row) => <ColumnTpl value={val} row={row} {...item} />,
+        ...item,
+        show: true,
+        align,
+        className: item.className
+          ? `${item.className} ${colClassName}`
+          : colClassName,
+      };
+    });
   };
 
   resolveOriginColumn = (columnData) => {
@@ -285,7 +295,7 @@ class CTable extends Component {
         // fixedEles.pop();
         fixedEles.reverse().forEach((ele, index) => {
           if (index === 0) {
-            Object.assign(ele.style, { right: this.hasScroll() ? '10px' : 0 });
+            Object.assign(ele.style, { right: this.hasScroll() ? getScrollbarWidth() : 0 });
           } else {
             const right = fixedColumn.slice(0, index).reduce(
               (sum, item) => {
@@ -293,7 +303,7 @@ class CTable extends Component {
                 sum += item.width;
                 return sum;
               },
-              this.hasScroll() ? 10 : 0,
+              this.hasScroll() ? Number(getScrollbarWidth().replace('px', '')) : 0,
             );
             Object.assign(ele.style, {
               right: `${right}px`,
@@ -809,7 +819,7 @@ class CTable extends Component {
                       <RcTable.Summary.Row>
                         {summaryData.map((item) => (
                           <RcTable.Summary.Cell {...item}>
-                            {item.content || null}
+                            <NumberTpl {...item} value={item.content} />
                           </RcTable.Summary.Cell>
                         ))}
                       </RcTable.Summary.Row>

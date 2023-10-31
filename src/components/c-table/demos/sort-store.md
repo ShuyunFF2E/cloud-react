@@ -14,7 +14,7 @@ import React from 'react';
 import { CTable, Tooltip, Icon } from 'cloud-react';
 
 const data = new Array(50).fill(1).map((item, index) => (
-  { id: 121410327 + index, name: `手机号优先继续发送${index}`, createTime: '2021/12/14 10:19:02', creator: 'liyuan.meng', num: '12,222', orderNum: '33,342' }
+  { id: 121410327 + index, name: `手机号优先继续发送${index}`, createTime: '2021/12/14 10:19:02', creator: 'liyuan.meng', num: 12222, orderNum: '33,342' }
 ))
 
 const columns = [
@@ -35,9 +35,13 @@ const columns = [
     sortable: true,
     width: 300
   },
-  { title: '创建时间', dataIndex: 'createTime', sortable: true, width: 200 },
   {
-    title: '人数',
+    title: '创建时间', dataIndex: 'createTime', width: 200, render: val => {
+      return <CTable.TimeTpl value={val} />
+    }
+  },
+  {
+    title: '金额',
     dataIndex: 'num',
     align: 'right',
     sortable: true,
@@ -45,6 +49,7 @@ const columns = [
     titleTooltipConfig: {
       content: '提示信息'
     },
+    render: val => <CTable.NumberTpl value={val} precision={0} prefix="¥" />
   },
   {
     title: '订单数',

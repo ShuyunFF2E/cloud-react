@@ -28,7 +28,11 @@ export default function CTableDemo() {
   const columns = [
     { title: '活动ID', dataIndex: 'id' },
     { title: '活动名称', dataIndex: 'name' },
-    { title: '创建时间', dataIndex: 'createTime' },
+    {
+      title: '创建时间', dataIndex: 'createTime', render: val => {
+        return <CTable.TimeTpl value={val} />
+      }
+    },
     { title: '创建人', dataIndex: 'creator' },
     {
       title: '操作',

@@ -149,13 +149,15 @@ export const debounce = (callback, delay) => {
   };
 };
 
-export const hasCustomScroll = (useRootWindow) => {
+export const getScrollbarWidth = (useRootWindow) => {
   const _window = useRootWindow ? getRootWindow() : window;
   const bodyEle = document.querySelector('body');
   return _window
     .getComputedStyle(bodyEle, '::-webkit-scrollbar')
-    .width.includes('px');
+    .width;
 };
+
+export const hasCustomScroll = (useRootWindow) => getScrollbarWidth(useRootWindow)?.includes('px');
 
 export const getTrEle = (targetEle) => {
   if (targetEle && !targetEle?.hasAttribute('data-row-key')) {
@@ -196,4 +198,33 @@ export const getTextWidth = (text, fontSize = '14px') => {
   document.body.removeChild(element);
 
   return Math.ceil(parseFloat(width));
+};
+
+export const getBtnNum = (columnItem) => {
+  const paddingConfig = {
+    tooltip:
+      columnItem?.titleTooltipConfig?.content
+      && columnItem?.titleTooltipAlign !== 'left',
+    sort: !!columnItem?.sortable,
+    filter: !!columnItem?.filters?.length,
+  };
+  const btnNum = Object.keys(paddingConfig)?.filter(
+    (key) => paddingConfig[key],
+  )?.length;
+  if (btnNum === 1) {
+    if (paddingConfig.filter) {
+      return 34;
+    }
+    return 32;
+  }
+  if (btnNum === 2) {
+    if (paddingConfig.tooltip && paddingConfig.sort) {
+      return 52;
+    }
+    return 54;
+  }
+  if (btnNum === 3) {
+    return 74;
+  }
+  return 0;
 };
