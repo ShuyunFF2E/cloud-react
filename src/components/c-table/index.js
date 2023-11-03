@@ -168,7 +168,7 @@ class CTable extends Component {
       const btnNum = getBtnNum(item);
       const colClassName =
         align === 'right' && btnNum > 0 ? `padding-${btnNum}` : '';
-      return {
+      const column = {
         render: (val, row) => <ColumnTpl value={val} row={row} {...item} />,
         ...item,
         show: true,
@@ -177,6 +177,10 @@ class CTable extends Component {
           ? `${item.className} ${colClassName}`
           : colClassName,
       };
+      if (!item.dataIndex && !item.render) {
+        Object.assign(column, { render: () => '' });
+      }
+      return column;
     });
   };
 
