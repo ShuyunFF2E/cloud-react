@@ -13,7 +13,7 @@
 .type-mixin(@bg, @border, @close, @action, @hover, @active) {
   background: @bg;
   border: 1px solid @border;
-  border-radius: 2px;
+  border-radius: 6px;
   .close-icon {
     color: @close;
   }
@@ -56,6 +56,14 @@
     display: inline-block;
     background: none;
     border: none
+  }
+
+  &.small-radius {
+    border-radius: 3px;
+  }
+
+  &.large-radius {
+    border-radius: 12px;
   }
 }
 

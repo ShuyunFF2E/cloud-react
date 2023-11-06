@@ -31,6 +31,7 @@ group:
 | option.showIcon         | 是否展示Icon | bool | true |
 | option.isDeepen          | 是否使用重提示UI | bool | false |
 | option.onClose        | 手动关闭后的触发事件 | func | - |
+| option.borderRadiusSize        | 圆角尺寸 `large` `small` `default` |  | `default` |
 
 ### message.method()
 

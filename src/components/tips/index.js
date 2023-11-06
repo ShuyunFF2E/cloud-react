@@ -163,11 +163,15 @@ class Tips extends Component {
   };
 
   render() {
-    const { type, mode, style, className } = this.props;
+    const { type, mode, style, className, borderRadiusSize } = this.props;
     const { visible } = this.state;
     return (
       visible && (
-        <div className={cls(`${prefixCls}-tips`, mode, type, className)} style={style} ref={this.wrapperRef}>
+        <div
+          className={cls(`${prefixCls}-tips`, mode, type, `${borderRadiusSize}-radius`, className)}
+          style={style}
+          ref={this.wrapperRef}
+        >
           <div className={cls(`${prefixCls}-tips-container`, `${mode}-container`)}>
             {mode === 'default' && this.renderDefaultTips()}
             {mode === 'banner' && this.renderBannerTips()}

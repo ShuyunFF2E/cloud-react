@@ -57,7 +57,7 @@ function entity(config) {
   );
 
   const {
-    duration, contextContainer, isDeepen, showClose, showIcon, onClose,
+    duration, contextContainer, isDeepen, showClose, showIcon, onClose, borderRadiusSize,
   } = opts;
 
   const props = {
@@ -69,6 +69,7 @@ function entity(config) {
     showClose,
     showIcon,
     onClose,
+    borderRadiusSize,
   };
 
   wraper = wraperMap.get(contextContainer);
@@ -165,12 +166,15 @@ class MessageEntity extends Component {
 
   render() {
     const {
-      type, msg, showClose, showIcon, isDeepen,
+      type, msg, showClose, showIcon, isDeepen, borderRadiusSize = 'default',
     } = this.props;
     const cls = classNames(
       `${prefixCls}-message-${type}`,
       `${prefixCls}-message-content`,
-      { [`${prefixCls}-message-deepen`]: isDeepen },
+      {
+        [`${prefixCls}-message-deepen`]: isDeepen,
+        [`${prefixCls}-message-${borderRadiusSize}-radius`]: true,
+      },
     );
     return (
       <div className={cls} ref={this.noticeRef}>
@@ -198,6 +202,7 @@ MessageEntity.propTypes = {
   isDeepen: PropTypes.bool,
   className: PropTypes.string,
   onClose: PropTypes.func,
+  borderRadiusSize: PropTypes.string,
 };
 
 const Message = {
