@@ -1,0 +1,23 @@
+@import '../style/index';
+
+.@{prefix}-notification-container {
+    z-index: @z-index-notification;
+    position: fixed;
+    top: 20px;
+
+    .@{prefix}-notification-wrapper {
+        position: absolute;
+        left: -360px;
+        width: 360px;
+        margin-bottom: 20px;
+        transition: all 300ms;
+
+        &.fade-in {
+            left: 20px;
+        }
+
+        &.fade-out {
+            opacity: 0;
+        }
+    }
+}

@@ -1,0 +1,75 @@
+@import '../../style/index';
+
+.@{prefix}-notification {
+    display: flex;
+    align-items: baseline;
+    gap: 9px;
+    padding: 20px;
+    background: #FFFFFF;
+    box-shadow: 0 4px 12px 0 rgba(0,0,0,0.1), 0 0 1px 0 rgba(0,0,0,0.3);
+    border-radius: 6px;
+
+    &-content {
+        flex: 1;
+    }
+
+    .info-icon {
+        position: relative;
+        top: 2px;
+        font-size: 20px;
+
+        &.info {
+            color: #496BF5;
+        }
+
+        &.success {
+            color: #21BA45;
+        }
+
+        &.fail {
+            color: #E74949;
+        }
+
+        &.warn {
+            color: #FD830A;
+        }
+    }
+
+    header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 24px;
+        line-height: 24px;
+        font-size: 16px;
+        font-weight: 500;
+        color: @gray-9;
+        margin-bottom: 8px;
+
+        i.close-icon {
+            font-size: 16px;
+            color: #D8D8D8;
+            cursor: pointer;
+        }
+    }
+
+    main {
+        line-height: 20px;
+        font-size: 14px;
+        font-weight: 400;
+        color: @gray-8;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+    }
+
+    footer {
+        display: flex;
+        align-items: center;
+        flex-direction: row-reverse;
+        gap: 16px;
+        margin-top: 20px;
+    }
+}
