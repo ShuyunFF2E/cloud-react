@@ -7,7 +7,29 @@
     padding: 20px;
     background: #FFFFFF;
     box-shadow: 0 4px 12px 0 rgba(0,0,0,0.1), 0 0 1px 0 rgba(0,0,0,0.3);
-    border-radius: 6px;
+    border-radius: 12px;
+
+    &.small {
+        border-radius: 3px;
+    }
+
+    &.middle {
+        border-radius: 6px;
+    }
+
+    &.light-theme {
+        color: white;
+
+        .info-icon {
+            color: white!important;
+        }
+
+        header,
+        main,
+        header i.close-icon {
+            color: white;
+        }
+    }
 
     &-content {
         flex: 1;

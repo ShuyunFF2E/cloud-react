@@ -32,7 +32,7 @@ group:
 | className |  自定义类名  |  string  |   -  | |
 | borderRadiusSize       | 圆角大小： `small`: 3px；`default`: 6px；`large`: 12px；         | string | `default`     |
 | showIcon       | 是否展示图标         |  bool | false     |
-| IconType       | 图标类型 `info` `success` `warn` `fail`       |  string | `info`  |  
+| iconType       | 图标类型 `info` `success` `warn` `fail`       |  string | `info`  |  
 | icon       | 自定义图标        |  ReactNode |  - |  
 | showCancelBtn       | 是否展示取消按钮        |  bool |  false |  
 | showConfirmBtn       | 是否展示确定按钮        |  bool |  false |  
@@ -48,6 +48,13 @@ group:
 ### 代码演示
 
 ### 基础用法
-
 <embed src="@components/notification/demos/basic.md" />
+
+### 带图标
+<embed src="@components/notification/demos/type.md" />
+
+### 从各个方向打开
 <embed src="@components/notification/demos/placement.md" />
+
+### 自定义样式
+<embed src="@components/notification/demos/custom.md" />

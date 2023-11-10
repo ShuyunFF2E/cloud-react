@@ -1,23 +1,96 @@
 @import '../style/index';
 
+@width: 360px;
+@height: 114px;
+
 .@{prefix}-notification-container {
     z-index: @z-index-notification;
     position: fixed;
-    top: 20px;
 
     .@{prefix}-notification-wrapper {
         position: absolute;
-        left: -360px;
-        width: 360px;
-        margin-bottom: 20px;
+        width: @width;
         transition: all 300ms;
-
-        &.fade-in {
-            left: 20px;
-        }
+        margin-bottom: 20px;
 
         &.fade-out {
             opacity: 0;
+        }
+    }
+
+    &.top-left {
+        top: 20px;
+
+        .@{prefix}-notification-wrapper {
+            left: -@width;
+
+            &.fade-in {
+                left: 20px;
+            }
+        }
+    }
+
+    &.top-right {
+        top: 20px;
+        right: 0;
+
+        .@{prefix}-notification-wrapper {
+            right: -@width;
+
+            &.fade-in {
+                right: 20px;
+            }
+        }
+    }
+
+    &.bottom-left {
+        bottom: @height; // todo
+
+        .@{prefix}-notification-wrapper {
+            left: -@width;
+
+            &.fade-in {
+                left: 20px;
+            }
+        }
+    }
+
+    &.bottom-right {
+        bottom: @height; // todo
+        right: 20px;
+
+        .@{prefix}-notification-wrapper {
+            right: -@width;
+
+            &.fade-in {
+                right: 0;
+            }
+        }
+    }
+
+    &.top {
+        top: 20px;
+        left: calc(50% - @width / 2);
+
+        .@{prefix}-notification-wrapper {
+            top: -@height; // todo
+
+            &.fade-in {
+                top: 0!important;;
+            }
+        }
+    }
+
+    &.bottom {
+        bottom: 0;
+        left: calc(50% - @width / 2);
+
+        .@{prefix}-notification-wrapper {
+            bottom: -@height; // todo
+
+            &.fade-in {
+                bottom: 0!important;
+            }
         }
     }
 }

@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { Icon, Button } from 'cloud-react';
 import { prefixCls } from '../../../utils';
-import { DEFAULT_BODY_PROPS, NOTIFICATION_BODY_PROPS } from '../constant';
 import './index.less';
 
 const notificationPrefix = `${prefixCls}-notification`;
@@ -18,7 +17,7 @@ export default function NotificationBody({
   content,
   duration,
   showIcon,
-  IconType,
+  iconType,
   icon,
   showCancelBtn,
   showConfirmBtn,
@@ -28,71 +27,75 @@ export default function NotificationBody({
   detailBtnText,
   close,
   dataSetId,
+  placement,
+  borderRadiusSize,
   onConfirm = () => {},
   onClose = () => {},
   onDetailClick = () => {},
+  style,
+  className,
+  isLightTheme,
 }) {
   let timer = null;
   useEffect(() => {
     if (dataSetId && duration) {
       timer = setTimeout(() => {
-        close(dataSetId);
+        close(dataSetId, placement);
         clearTimeout(timer);
       }, duration);
     }
   }, [dataSetId, duration]);
 
   return (
-    <section className={notificationPrefix}>
+    <section className={`${notificationPrefix} ${borderRadiusSize} ${className} ${isLightTheme && 'light-theme'}`} style={style}>
       {icon || (
-        showIcon && <Icon className={`info-icon ${IconType}`} type={ICON_TYPE_MAP[IconType]} />
+        showIcon && <Icon className={`info-icon ${iconType}`} type={ICON_TYPE_MAP[iconType]} />
       )}
       <div className={`${notificationPrefix}-content`}>
         <header>
           <p>{title}</p>
-          <Icon className="close-icon" type="close" onClick={() => close(dataSetId)} />
+          <Icon className="close-icon" type="close" onClick={() => close(dataSetId, placement)} />
         </header>
         <main>{content}</main>
-        <footer>
-          {showDetailBtn && (
-            <Button
-              type="primary"
-              onClick={() => {
-                onDetailClick(dataSetId);
-              }}
-            >
-              {detailBtnText || '查看详情'}
-            </Button>
-          )}
-          {showConfirmBtn && (
-            <Button
-              type="primary"
-              onClick={() => {
-                onConfirm(dataSetId);
-              }}
-            >
-              {confirmBtnText || '确定'}
-            </Button>
-          )}
-          {showCancelBtn && (
-            <Button
-              type="normal"
-              onClick={() => {
-                close(dataSetId);
-                onClose();
-                if (timer) {
-                  clearTimeout(timer);
-                }
-              }}
-            >
-              {cancelBtnText || '取消'}
-            </Button>
-          )}
-        </footer>
+        {(showDetailBtn || showConfirmBtn || showCancelBtn) && (
+          <footer>
+            {showDetailBtn && (
+              <Button
+                type="primary"
+                onClick={() => {
+                  onDetailClick(dataSetId);
+                }}
+              >
+                {detailBtnText || '查看详情'}
+              </Button>
+            )}
+            {showConfirmBtn && (
+              <Button
+                type="primary"
+                onClick={() => {
+                  onConfirm(dataSetId);
+                }}
+              >
+                {confirmBtnText || '确定'}
+              </Button>
+            )}
+            {showCancelBtn && (
+              <Button
+                type="normal"
+                onClick={() => {
+                  close(dataSetId, placement);
+                  onClose();
+                  if (timer) {
+                    clearTimeout(timer);
+                  }
+                }}
+              >
+                {cancelBtnText || '取消'}
+              </Button>
+            )}
+          </footer>
+        )}
       </div>
     </section>
   );
 }
-
-NotificationBody.propTypes = NOTIFICATION_BODY_PROPS;
-NotificationBody.defaultProps = DEFAULT_BODY_PROPS;
