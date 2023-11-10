@@ -405,7 +405,7 @@ class Pagination extends Component {
       }
 
       inputPage = parseInt(inputPage, 10);
-      if ((inputPage < 1 && this.totalPage > 1) || inputPage > this.totalPage) {
+      if (inputPage < 1 || inputPage > this.totalPage) {
         this.setState({
           pageNum: current,
         });
