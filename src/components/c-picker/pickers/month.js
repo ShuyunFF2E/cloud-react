@@ -97,6 +97,7 @@ const MonthPicker = ({
 
   const getDisabledDate = useCallback(
     (d) => {
+      if (!d) return false;
       const current = d.clone();
       const min = minDate
         && (minDate instanceof Date ? moment(minDate) : moment(minDate, format));
@@ -117,7 +118,7 @@ const MonthPicker = ({
   const handleGetDisabledDate = useCallback(
     (m) => {
       if (_disabledDate) {
-        return _disabledDate(m && m.clone().format(format), m.clone());
+        return _disabledDate(m && m.clone().format(format), m && m.clone());
       }
       return getDisabledDate(m);
     },
