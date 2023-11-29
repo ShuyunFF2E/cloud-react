@@ -37,6 +37,8 @@ group:
 | open              | 下拉菜单展开状态，当使用此属性时组件本身 open 行为失效                                                                                               | boolean                                 | false             |
 | placeholder       | 选择框默认文案                                                                                                                                       | string                                  | -              |
 | searchable        | 使下拉框带搜索                                                                                                                                       | boolean                                 | false          |
+| searchInBox        | 搜索框在外侧                                                                                                                                      | boolean                                 | false          |
+| maxTagCount        | 多选下拉最多显示多少个tag                                                                                                                                      | boolean                                 | false          |
 | searchPlaceholder | 搜索框默认文案                                                                                                                                       | string                                  | -              |
 | emptyRender       | 数据为空时下拉框显示内容                                                                                                                             | string \| node                             | '暂无数据'+缺省图 |
 | defaultValue      | 默认选中的项                                                                                                                                         | string \| number \| array                     | -              |
@@ -111,3 +113,6 @@ group:
 
 ### 多选下拉支持不限
 <embed src="@components/select/demos/unlimited.md" />
+
+### 弹出位置
+<embed src="@components/select/demos/position.md" />

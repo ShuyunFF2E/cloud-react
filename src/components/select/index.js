@@ -327,7 +327,12 @@ class Select extends Component {
       const { onSelectClose, open: propOpen, hasConfirmButton } = this.props;
       onSelectClose();
       if (hasConfirmButton) this.onMultiOptionChange(prevValue);
-      if (propOpen === null) this.setState({ open: false });
+      if (propOpen === null) {
+        this.optionsNode.current.classList.remove('show');
+        setTimeout(() => {
+          this.setState({ open: false });
+        }, 100);
+      }
     }
   };
 
@@ -341,10 +346,25 @@ class Select extends Component {
       onSelectOpen();
     }
 
-    if (propOpen === null) this.setState({ open: !open });
+    if (propOpen === null) {
+      if (!open) {
+        this.setState({ open: !open });
+        setTimeout(() => {
+          this.optionsNode.current.classList.add('show');
+        });
+      } else {
+        this.optionsNode.current.classList.remove('show');
+        setTimeout(() => {
+          this.setState({ open: !open });
+        }, 100);
+      }
+    }
   };
 
   onClickSelected = () => {
+    if (this.props.searchable && this.props.searchInBox && this.selectedNode.current.getSearchValue()) {
+      return;
+    }
     this.onSearchValueChange('');
     const { disabled } = this.props;
     if (disabled) return;
@@ -481,6 +501,7 @@ class Select extends Component {
           onChange={this.onMultiSelectValueChange}
           onSearchValueChange={this.onSearchValueChange}
           handleSelect={this.handleSelect}
+          searchValue={this.state.searchValue}
         />
       );
     }
@@ -502,6 +523,7 @@ class Select extends Component {
         value={value}
         dataSource={this.children}
         onChange={this.onSimpleOptionChange}
+        searchValue={this.state.searchValue}
         onSearchValueChange={this.onSearchValueChange}
       />
     );
@@ -528,7 +550,7 @@ class Select extends Component {
       className,
     );
 
-    const optionContainer = (
+    const optionContainer = open ? (
       <div
         className={`${selector}-option-container`}
         ref={this.optionsNode}
@@ -536,7 +558,7 @@ class Select extends Component {
       >
         {this.renderOptions()}
       </div>
-    );
+    ) : null;
 
     return (
       <div className={`${classNames}`} style={style} ref={this.node}>
@@ -555,11 +577,14 @@ class Select extends Component {
           size={size}
           isSupportTitle={isSupportTitle}
           supportUnlimited={supportUnlimited}
+          onSearchValueChange={this.onSearchValueChange}
+          onMultiChange={this.onMultiSelectValueChange}
+          positionPop={this.positionPop}
         />
 
         {isAppendToBody
-          ? open && ReactDOM.createPortal(optionContainer, this.portal)
-          : open && optionContainer}
+          ? ReactDOM.createPortal(optionContainer, this.portal)
+          : optionContainer}
       </div>
     );
   }
@@ -578,6 +603,7 @@ Select.propTypes = {
   valueKey: PropTypes.string,
   width: PropTypes.oneOfType([ PropTypes.string, PropTypes.number ]),
   searchable: PropTypes.bool,
+  searchInBox: PropTypes.bool,
   emptyRender: PropTypes.oneOfType([ PropTypes.string, PropTypes.node ]),
   defaultValue: PropTypes.oneOfType([
     PropTypes.string,
@@ -608,6 +634,7 @@ Select.propTypes = {
   lightTextColor: PropTypes.string,
   supportUnlimited: PropTypes.bool,
   unlimitedLabel: PropTypes.string,
+  maxTagCount: PropTypes.number,
 };
 
 Select.defaultProps = {
@@ -624,6 +651,7 @@ Select.defaultProps = {
   valueKey: 'value',
   width: 'auto',
   searchable: false,
+  searchInBox: false,
   emptyRender: '',
   defaultValue: null,
   value: null,
@@ -645,6 +673,7 @@ Select.defaultProps = {
   lightTextColor: undefined,
   supportUnlimited: false,
   unlimitedLabel: '不限',
+  maxTagCount: undefined,
 };
 
 export default Select;

@@ -1,0 +1,89 @@
+---
+order: 5
+title: 模糊搜索
+desc: 可对选项进行搜索
+---
+
+```jsx
+/**
+ * title: 模糊搜索
+ * desc: 可对选项进行搜索
+ */
+import React from 'react';
+import { Select } from 'cloud-react';
+
+const Option = Select.Option;
+
+const dataList = [
+  {
+    label: 'React',
+    value: 'React',
+  },
+  {
+    label: 'Vue',
+    value: 'Vue',
+  },
+  {
+    label: 'Angular',
+    value: 'Angular',
+  },
+  {
+    label: '数云',
+    value: 'sy',
+  },
+  {
+    label: '选中项1',
+    value: '1',
+  },
+  {
+    label: '选中项2',
+    value: '2',
+  },
+  {
+    label: '选中项3选中项3选中项3选中项3选中项3选中项3选中项3选中项3选中项3选中项3选中项3选中项3选中项3',
+    value: '3',
+  },
+  {
+    label: '选中项4',
+    value: '4',
+  },
+  {
+    label: '选中项5',
+    value: '5',
+  },
+  {
+    label: '选中项6',
+    value: '6',
+  },
+];
+
+export default function SelectDemo() {
+  const handleChange = (value) => {
+    console.log('select --- ' + value);
+  };
+
+  const handleSearch = (value) => {
+    console.log(value);
+  };
+
+  return (
+    <div style={{ display: 'flex', gap: 20, flexDirection: 'column' }}>
+      <div>
+        <h5>上</h5>
+        <Select
+          searchable
+          allowClear
+          supportLightText
+          placeholder="带搜索的下拉单选"
+          onSearch={handleSearch}
+          onChange={handleChange}
+          style={{width: 200}}
+          dataSource={dataList}
+          position="auto"
+          // size="large"
+        />
+      </div>
+    </div>
+  );
+}
+```

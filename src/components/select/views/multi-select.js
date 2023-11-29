@@ -53,12 +53,13 @@ export default function MultiSelect(props) {
     onCancel,
     confirmTemplate,
     className,
-    onSearchValueChange,
+    searchValue,
+    searchInBox,
+    onSearchValueChange: setSearchValue,
     supportUnlimited,
     handleSelect,
   } = props;
   const [ options, setOptions ] = useState(dataSource);
-  const [ searchValue, setSearchValue ] = useState('');
   const [ values, setValues ] = useState(value);
   const [ groupValue ] = useState(() => {
     const result = Children.map(dataSource, (child) => {
@@ -121,12 +122,10 @@ export default function MultiSelect(props) {
     const { value: search } = e.target;
     setSearchValue(search);
     onSearch(search);
-    onSearchValueChange(search);
   };
 
   const clearSearch = () => {
     setSearchValue('');
-    onSearchValueChange('');
   };
 
   useEffect(() => {
@@ -149,7 +148,7 @@ export default function MultiSelect(props) {
   return (
     <div className={classNames}>
       <div>
-        {searchable && (
+        {searchable && !searchInBox && (
           <OptionsSearch
             searchValue={searchValue}
             placeholder={searchPlaceholder}
@@ -165,7 +164,7 @@ export default function MultiSelect(props) {
                 checked={checkAll}
                 indeterminate={indeterminate}
                 onChange={handleCheckAll}
-                className={`${selector}-option`}
+                className={`${selector}-option ${selector}-option-select-all`}
               >
                 全选
               </Checkbox>

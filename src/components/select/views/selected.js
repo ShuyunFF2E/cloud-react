@@ -6,6 +6,9 @@ import { noop } from '@utils';
 import Icon from '../../icon';
 import { selector } from './common';
 
+import SingleSearch from './single-search';
+import MultiSearch from './multi-search';
+
 import '../index.less';
 
 const getLables = (props) => {
@@ -58,8 +61,11 @@ export default class Selected extends React.Component {
     const labels = getLables(props);
     this.state = {
       selected: labels || '',
+      selectedList: [],
       clear: false,
       prevProps: this.props,
+      searchValue: '',
+      isSearch: false,
     };
   }
 
@@ -69,6 +75,7 @@ export default class Selected extends React.Component {
       const labels = getLables(props);
       return {
         selected: labels || '',
+        selectedList: props.dataSource,
         prevProps: props,
       };
     }
@@ -104,6 +111,18 @@ export default class Selected extends React.Component {
     });
   };
 
+  onSearchValueChange = search => {
+    this.setState({ searchValue: search });
+    this.props.onSearchValueChange(search);
+  };
+
+  getSearchValue = () => this.state.searchValue;
+
+  setSearchStatus = isSearch => {
+    // eslint-disable-next-line react/no-unused-state
+    this.setState({ isSearch });
+  };
+
   render() {
     const {
       props: {
@@ -117,8 +136,16 @@ export default class Selected extends React.Component {
         onClear,
         size,
         supportUnlimited,
+        searchable,
+        searchInBox,
+        multiple,
+        onMultiChange,
+        positionPop,
+        labelKey,
+        valueKey,
+        maxTagCount,
       },
-      state: { selected, clear },
+      state: { selected, clear, isSearch },
       onMouseEnter,
       onMouseLeave,
     } = this;
@@ -126,12 +153,14 @@ export default class Selected extends React.Component {
       disabled,
       empty: supportUnlimited ? false : !dataSource.length,
       hidden: !showSelectStyle,
+      'search-in-box': searchInBox,
+      'multi-search-in-box': searchable && searchInBox && multiple,
       [`${size}`]: true,
     });
     const iconClasses = classnames(`${selector}-select-icon`, {
       open,
       close: !open,
-      hidden: clear && selected.length,
+      hidden: clear && selected.length || isSearch,
     });
     const clearClasses = classnames(
       `${selector}-select-icon ${selector}-clear-icon`,
@@ -139,11 +168,25 @@ export default class Selected extends React.Component {
         show: clear && selected.length,
       },
     );
+    const searchClasses = classnames(
+      `${selector}-search-icon`,
+      {
+        show: isSearch && (!clear || !selected.length),
+      },
+    );
     let title = '';
     if (isSupportTitle) {
       title = Array.isArray(selected)
         ? selected.filter((item) => typeof item === 'string').join('')
         : selected;
+    }
+
+    let SearchCom = null;
+    if (searchable && searchInBox && !multiple) {
+      SearchCom = SingleSearch;
+    }
+    if (searchable && searchInBox && multiple) {
+      SearchCom = MultiSearch;
     }
 
     return (
@@ -154,11 +197,32 @@ export default class Selected extends React.Component {
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
       >
-        <span className={`${selector}-selected`} title={title}>
-          {selected.length ? selected : placeholder}
-        </span>
+        {!searchInBox && (
+          <span className={`${selector}-selected`} title={title}>
+            {selected.length ? selected : placeholder}
+          </span>
+        )}
+        {SearchCom && (
+          <SearchCom
+            placeholder={placeholder}
+            selected={this.state.selected}
+            selectedList={this.state.selectedList}
+            onSearch={this.props.onSearch}
+            open={open}
+            searchValue={this.state.searchValue}
+            onSearchValueChange={this.onSearchValueChange}
+            onMultiChange={onMultiChange}
+            positionPop={positionPop}
+            labelKey={labelKey}
+            valueKey={valueKey}
+            maxTagCount={maxTagCount}
+            setSearchStatus={this.setSearchStatus}
+          />
+        )}
         <Icon type="close-fill-1" className={clearClasses} onClick={onClear} />
+        <Icon type="search" className={searchClasses} />
         {showArrow && <Icon type="down" className={iconClasses} />}
+        {isSearch}
       </div>
     );
   }
@@ -175,6 +239,7 @@ Selected.propTypes = {
   trigger: PropTypes.string,
   onClick: PropTypes.func,
   onClear: PropTypes.func,
+  onMultiChange: PropTypes.func,
 };
 
 Selected.defaultProps = {
@@ -188,4 +253,5 @@ Selected.defaultProps = {
   trigger: 'click',
   onClick: noop,
   onClear: noop,
+  onMultiChange: noop,
 };

@@ -23,7 +23,7 @@
 @large-padding: 10px;
 @item-padding: 6px 12px;
 
-@dropdown-icon-size: @font-size;
+@dropdown-icon-size: 16px;
 
 @box-sizing: border-box;
 
@@ -130,6 +130,111 @@
       }
     }
 
+    &.search-in-box {
+      padding: 6px 0 6px 12px;
+
+      .@{select-prefix-cls}-search {
+        width: 100%;
+        position: relative;
+
+        .@{select-prefix-cls}-search-input {
+          width: 100%;
+          height: 30px;
+          border: none;
+          padding: 0;
+          outline: none;
+          z-index: 1;
+          background: transparent;
+          .text-overflow-ellipsis();
+        }
+
+        .@{select-prefix-cls}-search-icon {
+          color: @sign-color;
+          position: absolute;
+          right: @default-padding * 3;
+          top: @default-padding * 2 - 2px;
+          display: block;
+        }
+      }
+    }
+
+    &.multi-search-in-box {
+      height: auto;
+      min-height: 32px;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      gap: 4px;
+      padding: 4px 24px 4px 8px;
+      font-size: @font-size;
+      color: @color-gray4;
+
+      &.large {
+        min-height: 36px;
+
+        .@{select-prefix-cls}-multiple-search-item {
+          height: 26px;
+        }
+      }
+
+      &.small {
+        min-height: 28px;
+
+        .@{select-prefix-cls}-multiple-search-item {
+          height: 20px;
+        }
+      }
+
+      &.empty {
+        padding: 4px 24px 4px 12px;
+      }
+
+      .@{select-prefix-cls}-multi-search-placeholder {
+        position: absolute;
+        color: rgba(0, 0, 0, 0.25);
+      }
+
+      .@{select-prefix-cls}-multiple-search-item {
+        height: 22px;
+        display: flex;
+        gap: 4px;
+        align-items: center;
+        background: #F5F5F5;
+        border: 1px solid #f5f5f5;
+        border-radius: 2px;
+        color: @gray-9;
+        font-size: 12px;
+        padding: 0 6px;
+        max-width: 60%;
+
+        &-text {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        i {
+          font-size: 12px;
+          color: #D8D8D8;
+        }
+      }
+
+      &.search-in-box {
+        .@{select-prefix-cls}-search {
+          width: 4px;
+        }
+
+        .@{select-prefix-cls}-search-input {
+          width: 100%;
+          height: 20px;
+        }
+
+        .@{select-prefix-cls}-select-icon {
+          position: absolute;
+          right: 0;
+        }
+      }
+    }
+
     .@{select-prefix-cls}-selected {
       flex: 1 0;
       padding: @item-padding;
@@ -138,6 +243,15 @@
       border: none;
       .text-overflow-ellipsis();
       cursor: pointer;
+    }
+
+    .@{select-prefix-cls}-single-select-selected {
+      width: calc(100% - 36px);
+      position: absolute;
+      z-index: 1;
+      font-size: @font-size;
+      color: @color-gray4;
+      .text-overflow-ellipsis();
     }
 
     .@{select-prefix-cls}-select-icon {
@@ -170,6 +284,20 @@
         display: block;
       }
     }
+
+    .@{select-prefix-cls}-search-icon {
+      display: none;
+      position: absolute;
+      right: 0;
+      font-size: @dropdown-icon-size;
+      color: @dropdown-icon-color;
+      margin-right: 10px;
+      transition: transform 0.3s;
+
+      &.show {
+        display: block;
+      }
+    }
   }
 }
 
@@ -188,6 +316,7 @@
 }
 
 .@{select-prefix-cls}-option-container {
+  opacity: 0;
   z-index: @z-index-dropdown;
   width: 100%;
   position: absolute;
@@ -195,6 +324,12 @@
   border-radius: 2px;
   padding: 8px 0;
   background: @color-white;
+  transition: opacity 0.2s;
+
+  &.show {
+    opacity: 1;
+  }
+
   .divider {
     height: 1px;
     background: @gray-4;
@@ -208,10 +343,12 @@
     color: rgba(0, 0, 0, 0.45);
     font-size: 12px;
     margin-left: 12px;
-    margin-bottom: 8px;
-    &:not(:first-child) {
-      margin-top: 8px;
-    }
+    height: 32px;
+    line-height: 32px;
+    //margin-bottom: 8px;
+    //&:not(:first-child) {
+    //  margin-top: 8px;
+    //}
   }
 }
 
@@ -268,6 +405,10 @@
     padding: @item-padding;
     .text-overflow-ellipsis();
 
+    &.@{select-prefix-cls}-option-select-all {
+      height: auto;
+    }
+
     &:hover {
       background: @option-hover-background;
     }
@@ -295,6 +436,10 @@
       min-height: 20px;
       display: flex;
       align-items: center;
+
+      > span {
+        .text-overflow-ellipsis();
+      }
     }
   }
 
@@ -309,10 +454,10 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    font-size: @font-size;
-    color: @gray-7;
+    font-size: 12px;
+    color: @gray-6;
     > img {
-      width: 70%;
+      width: 48%;
       height: auto;
       margin-bottom: 8px;
     }

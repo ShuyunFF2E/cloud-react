@@ -25,16 +25,17 @@ export default function SingleSelect(props) {
   const {
     dataSource,
     searchable,
+    searchInBox,
     value,
     emptyRender,
     onChange,
     onSearch,
     searchPlaceholder,
     className,
-    onSearchValueChange,
+    searchValue = '',
+    onSearchValueChange: setSearchValue,
   } = props;
   const [ options, setOptions ] = useState(dataSource);
-  const [ searchValue, setSearchValue ] = useState('');
   const classNames = classnames(`${selector}-select-options`, className);
   let selectIndex = 0;
 
@@ -62,12 +63,10 @@ export default function SingleSelect(props) {
     const { value: search } = e.target;
     setSearchValue(search);
     onSearch(search);
-    onSearchValueChange(search);
   };
 
   const clearSearch = () => {
     setSearchValue('');
-    onSearchValueChange('');
   };
 
   useEffect(() => {
@@ -78,7 +77,7 @@ export default function SingleSelect(props) {
   return (
     <div className={classNames}>
       <div className={`${selector}-single-options`}>
-        {searchable && (
+        {searchable && !searchInBox && (
           <OptionsSearch
             searchValue={searchValue}
             placeholder={searchPlaceholder}
