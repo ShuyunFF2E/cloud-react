@@ -55,6 +55,7 @@ export default function MultiSearch({
   };
 
   const onItemClose = (evt, item) => {
+    evt.stopPropagation();
     const index = selectList.findIndex(item1 => item1.value === item.value);
     if (index > -1) {
       selectList.splice(index, 1);
