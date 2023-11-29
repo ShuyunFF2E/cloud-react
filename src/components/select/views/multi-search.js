@@ -28,12 +28,18 @@ export default function MultiSearch({
     searchRef.current.style.width = `${width || 4}px`;
   };
 
+  const clearSearchValue = () => {
+    onSearch('');
+    onSearchValueChange('');
+  };
+
   useEffect(() => {
     if (open) {
       searchRef.current.querySelector('input').focus();
       setSearchStatus(true);
     } else {
       setSearchStatus(false);
+      clearSearchValue();
     }
   }, [open, selectedList]);
 

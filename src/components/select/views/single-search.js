@@ -37,9 +37,7 @@ export default function SingleSearch({
   }, [selected]);
 
   useEffect(() => {
-    if (open) {
-      clearSearchValue();
-    }
+    clearSearchValue();
   }, [open]);
 
   useEffect(() => {

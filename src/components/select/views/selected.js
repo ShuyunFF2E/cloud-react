@@ -65,7 +65,6 @@ export default class Selected extends React.Component {
       clear: false,
       prevProps: this.props,
       searchValue: '',
-      isSearch: false,
     };
   }
 
@@ -118,11 +117,6 @@ export default class Selected extends React.Component {
 
   getSearchValue = () => this.state.searchValue;
 
-  setSearchStatus = isSearch => {
-    // eslint-disable-next-line react/no-unused-state
-    this.setState({ isSearch });
-  };
-
   render() {
     const {
       props: {
@@ -144,8 +138,10 @@ export default class Selected extends React.Component {
         labelKey,
         valueKey,
         maxTagCount,
+        isSearch,
+        setSearchStatus,
       },
-      state: { selected, clear, isSearch },
+      state: { selected, clear },
       onMouseEnter,
       onMouseLeave,
     } = this;
@@ -216,13 +212,12 @@ export default class Selected extends React.Component {
             labelKey={labelKey}
             valueKey={valueKey}
             maxTagCount={maxTagCount}
-            setSearchStatus={this.setSearchStatus}
+            setSearchStatus={setSearchStatus}
           />
         )}
         <Icon type="close-fill-1" className={clearClasses} onClick={onClear} />
         <Icon type="search" className={searchClasses} />
         {showArrow && <Icon type="down" className={iconClasses} />}
-        {isSearch}
       </div>
     );
   }

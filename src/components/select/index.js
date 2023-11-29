@@ -83,6 +83,7 @@ class Select extends Component {
       prevProps: props,
       style: {},
       searchValue: '',
+      isSearch: false,
     };
     this.node = React.createRef();
     this.optionsNode = React.createRef();
@@ -204,6 +205,11 @@ class Select extends Component {
     this.document.removeEventListener('click', this.handleClick);
     this.node.current.removeEventListener('mouseleave', this.handleMouseLeave);
   }
+
+  setSearchStatus = isSearch => {
+    // eslint-disable-next-line react/no-unused-state
+    this.setState({ isSearch });
+  };
 
   get document() {
     return this.context.rootDocument;
@@ -338,7 +344,7 @@ class Select extends Component {
 
   handleSelect = () => {
     const { open } = this.state;
-    const { onSelectOpen, onSelectClose, open: propOpen } = this.props;
+    const { onSelectOpen, onSelectClose, open: propOpen, searchInBox, multiple } = this.props;
 
     if (open) {
       onSelectClose();
@@ -352,7 +358,7 @@ class Select extends Component {
         setTimeout(() => {
           this.optionsNode.current.classList.add('show');
         });
-      } else {
+      } else if (!searchInBox || searchInBox && multiple || searchInBox && !multiple && !this.state.isSearch) {
         this.optionsNode.current.classList.remove('show');
         setTimeout(() => {
           this.setState({ open: !open });
@@ -582,6 +588,8 @@ class Select extends Component {
           onSearchValueChange={this.onSearchValueChange}
           onMultiChange={this.onMultiSelectValueChange}
           positionPop={this.positionPop}
+          isSearch={this.state.isSearch}
+          setSearchStatus={this.setSearchStatus}
         />
 
         {isAppendToBody
