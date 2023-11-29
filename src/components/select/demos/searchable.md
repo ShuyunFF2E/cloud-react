@@ -5,10 +5,6 @@ desc: 可对选项进行搜索
 ---
 
 ```jsx
-/**
- * title: 模糊搜索
- * desc: 可对选项进行搜索
- */
 import React from 'react';
 import { Select } from 'cloud-react';
 
@@ -77,7 +73,7 @@ export default function SelectDemo() {
           placeholder="带搜索的下拉单选"
           onSearch={handleSearch}
           onChange={handleChange}
-          style={{width: 200}}
+          style={{width: 260}}
           dataSource={dataList}
           position="auto"
           // size="large"
@@ -94,7 +90,7 @@ export default function SelectDemo() {
           placeholder="带搜索的下拉单选"
           onSearch={handleSearch}
           onChange={handleChange}
-          style={{width: 200}}
+          style={{width: 260}}
           dataSource={dataList}
           // size="large"
         />
@@ -109,7 +105,7 @@ export default function SelectDemo() {
           placeholder="带搜索的下拉单选"
           onSearch={handleSearch}
           onChange={handleChange}
-          style={{width: 200}}
+          style={{width: 260}}
           dataSource={dataList}
           // size="large"
         />
@@ -126,7 +122,7 @@ export default function SelectDemo() {
           placeholder="带搜索的下拉多选"
           onSearch={handleSearch}
           onChange={handleChange}
-          style={{width: 200}}
+          style={{width: 260}}
           dataSource={dataList}
         />
       </div>
@@ -142,7 +138,7 @@ export default function SelectDemo() {
           placeholder="带搜索的下拉多选"
           onSearch={handleSearch}
           onChange={handleChange}
-          style={{width: 200}}
+          style={{width: 260}}
           dataSource={dataList}
           maxTagCount={1}
         />

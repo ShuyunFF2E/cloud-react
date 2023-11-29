@@ -289,7 +289,7 @@ class Select extends Component {
       optionsNodeStyle: { height: optionsHeight },
     } = this;
     const isBottomDistanceEnough = bottom + optionsHeight < this.document.documentElement.clientHeight;
-    const isLocationTop = optionsHeight < top && !isBottomDistanceEnough && position === 'auto';
+    const isLocationTop = position === 'top' || optionsHeight < top && !isBottomDistanceEnough && position === 'auto';
     if (isAppendToBody) {
       this.setState({
         style: {
@@ -536,6 +536,8 @@ class Select extends Component {
       allowClear,
       style,
       className,
+      dropdownStyle,
+      dropdownClassName,
       isAppendToBody,
       isSupportTitle,
       size,
@@ -552,9 +554,9 @@ class Select extends Component {
 
     const optionContainer = open ? (
       <div
-        className={`${selector}-option-container`}
+        className={`${selector}-option-container ${dropdownClassName}`}
         ref={this.optionsNode}
-        style={{ ...popupStyle, width: `${width}px` }}
+        style={{ ...popupStyle, width: `${width}px`, ...dropdownStyle }}
       >
         {this.renderOptions()}
       </div>
@@ -635,6 +637,9 @@ Select.propTypes = {
   supportUnlimited: PropTypes.bool,
   unlimitedLabel: PropTypes.string,
   maxTagCount: PropTypes.number,
+  dropdownStyle: PropTypes.object,
+  dropdownClassName: PropTypes.string,
+  position: PropTypes.oneOf(['top', 'bottom', 'auto']),
 };
 
 Select.defaultProps = {
@@ -674,6 +679,9 @@ Select.defaultProps = {
   supportUnlimited: false,
   unlimitedLabel: '不限',
   maxTagCount: undefined,
+  dropdownStyle: {},
+  dropdownClassName: '',
+  position: 'bottom',
 };
 
 export default Select;

@@ -5,10 +5,6 @@ desc: 可对选项进行搜索
 ---
 
 ```jsx
-/**
- * title: 模糊搜索
- * desc: 可对选项进行搜索
- */
 import React from 'react';
 import { Select } from 'cloud-react';
 
@@ -26,35 +22,7 @@ const dataList = [
   {
     label: 'Angular',
     value: 'Angular',
-  },
-  {
-    label: '数云',
-    value: 'sy',
-  },
-  {
-    label: '选中项1',
-    value: '1',
-  },
-  {
-    label: '选中项2',
-    value: '2',
-  },
-  {
-    label: '选中项3选中项3选中项3选中项3选中项3选中项3选中项3选中项3选中项3选中项3选中项3选中项3选中项3',
-    value: '3',
-  },
-  {
-    label: '选中项4',
-    value: '4',
-  },
-  {
-    label: '选中项5',
-    value: '5',
-  },
-  {
-    label: '选中项6',
-    value: '6',
-  },
+  }
 ];
 
 export default function SelectDemo() {
@@ -69,18 +37,51 @@ export default function SelectDemo() {
   return (
     <div style={{ display: 'flex', gap: 20, flexDirection: 'column' }}>
       <div>
-        <h5>上</h5>
+        <h5>上左</h5>
         <Select
-          searchable
           allowClear
-          supportLightText
-          placeholder="带搜索的下拉单选"
           onSearch={handleSearch}
           onChange={handleChange}
-          style={{width: 200}}
+          style={{width: 260}}
           dataSource={dataList}
-          position="auto"
-          // size="large"
+          position="top"
+          dropdownStyle={{ width: 200 }}
+        />
+      </div>
+      <div>
+        <h5>上右</h5>
+        <Select
+          allowClear
+          onSearch={handleSearch}
+          onChange={handleChange}
+          style={{width: 260}}
+          dataSource={dataList}
+          position="top"
+          dropdownStyle={{ width: 200, right: 0 }}
+        />
+      </div>
+      <div>
+        <h5>下左</h5>
+        <Select
+          allowClear
+          onSearch={handleSearch}
+          onChange={handleChange}
+          style={{width: 260}}
+          dataSource={dataList}
+          position="bottom"
+          dropdownStyle={{ width: 200 }}
+        />
+      </div>
+      <div>
+        <h5>下右</h5>
+        <Select
+          allowClear
+          onSearch={handleSearch}
+          onChange={handleChange}
+          style={{width: 260}}
+          dataSource={dataList}
+          position="bottom"
+          dropdownStyle={{ width: 200, right: 0 }}
         />
       </div>
     </div>

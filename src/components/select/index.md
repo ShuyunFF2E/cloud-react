@@ -55,7 +55,7 @@ group:
 | showArrow         | 下拉 icon 是否显示                                                                                                                                   | boolean                                 | true           |
 | showSelectStyle   | 选择器样式是否显示                                                                                                                                   | boolean                                 | true           |
 | isAppendToBody    | 下拉框是否渲染在 body 上                                                                                                                             | boolean                                 | false          |     |
-| position          | 下拉框是否启用自动定位，如需使用可设置为`auto`                                                                                                       | string                                  | -              |
+| position          | 下拉框定位：`top` `bottom` `auto`（是否启用自动定位，如需使用可设置为`auto`）                                                                                                       | string                                  | `bottom`              |
 | onChange          | 选中 option 变化时回调此函数，普通单选树回调包含第三个参数返回当前点击选项的原始数据，如不使用 dataSource 生成组件，则需手动指定 option 的 item 属性 | function(value, oldValue)               | -              |
 | onOk              | 多选时确认操作回调函数                                                                                                                               | function(value: array, oldValue: array) | -              |
 | onCancel          | 多选时取消操作回调函数                                                                                                                               | function                                | -              |
@@ -68,6 +68,8 @@ group:
 | lightTextColor   | 高亮关键字颜色                                                                                                         |  string          | #0055CC   |
 | supportUnlimited   | 多选下拉是否支持不限                                                                                                         |   boolean          | false   |
 | unlimitedLabel   | 修改"不限"文本                                                                                                         |  string          | 不限   |
+| dropdownClassName   | 下拉框类名                                                                                                         |  string          | -   |
+| dropdownStyle   | 下拉框样式                                                                                                       |  object          | {}   |
 
 ### Option Props
 
