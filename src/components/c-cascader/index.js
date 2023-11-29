@@ -103,7 +103,7 @@ class Cascader extends Component {
   );
 
   render() {
-    const { splitInput, multiple, showSearch, loadingIcon, ...props } =
+    const { splitInput, multiple, showSearch, loadingIcon, popupClassName, borderRadiusSize, ...props } =
       this.props;
     const iconClasses = this.state.open ? 'open' : 'close';
     const checkable = multiple ? (
@@ -132,6 +132,7 @@ class Cascader extends Component {
     return (
       <CascaderMenu
         {...props}
+        popupClassName={`${popupClassName} ${borderRadiusSize}`}
         loadingIcon={loadingIcon || defaultLoadingRender(this.props.prefixCls)}
         className={iconClasses}
         checkable={checkable}
@@ -163,11 +164,13 @@ Cascader.defaultProps = {
   loadingIcon: undefined,
   removeIcon: <Icon type="close" style={{ fontSize: '12px' }} />,
   splitInput: '/',
+  borderRadiusSize: 'default',
 };
 
 Cascader.propTypes = {
   defaultValue: PropTypes.array,
   options: PropTypes.array.isRequired,
+  borderRadiusSize: PropTypes.oneOf([ 'small', 'default', 'large' ]),
 };
 
 export default Cascader;

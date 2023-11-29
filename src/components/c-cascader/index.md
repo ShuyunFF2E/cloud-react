@@ -33,6 +33,7 @@ group:
 | notFoundContent | 下拉列表为空时显示的内容 | string \| ReactNode | -- |
 | showSearch     | 搜索配置               | object   | -- |
 | fieldNames     | 标签、值和子项的自定义字段名称  | object | { label: 'label', value: 'value', children: 'children' } |
+| borderRadiusSize       | 圆角大小： `small`: 3px；`default`: 6px；`large`: 12px；         | string | `default`     |
 
 
  ## 代码演示 
@@ -69,3 +70,6 @@ group:
 
 ### 动画 
 <embed src="@components/c-cascader/demos/transition.md" />
+
+### 设置下拉框圆角
+<embed src="@components/c-cascader/demos/borderRadius.md" />
