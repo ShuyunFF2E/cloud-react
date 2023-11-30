@@ -149,33 +149,30 @@ class TreeSelect extends Component {
   }
 
   positionPop = () => {
-    const {
-      props: { isAppendToBody, position },
-      selectedContainerStyle: { left, top, bottom, height },
-      optionsNodeStyle: { height: optionsHeight },
-    } = this;
-    const isBottomDistanceEnough =
-      bottom + optionsHeight < this.document.documentElement.clientHeight;
-    const isLocationTop =
-      optionsHeight < top && !isBottomDistanceEnough && position === 'auto';
-    const borderTop = isLocationTop ? '1px solid #d9d9d9' : null;
-    if (isAppendToBody) {
-      this.setState({
-        style: {
-          position: 'fixed',
-          left: `${left}px`,
-          top: isLocationTop ? `${top - optionsHeight}px` : `${bottom}px`,
-          borderTop,
-        },
-      });
-    } else {
-      this.setState({
-        style: {
-          top: isLocationTop ? `${-optionsHeight - 4}px` : `${height + 4}px`,
-          borderTop,
-        },
-      });
-    }
+    setTimeout(() => {
+      const {
+        props: { isAppendToBody, position },
+        selectedContainerStyle: { left, top, bottom, height },
+        optionsNodeStyle: { height: optionsHeight },
+      } = this;
+      const isBottomDistanceEnough = bottom + optionsHeight < this.document.documentElement.clientHeight;
+      const isLocationTop = position === 'top' || optionsHeight < top && !isBottomDistanceEnough && position === 'auto';
+      if (isAppendToBody) {
+        this.setState({
+          style: {
+            position: 'fixed',
+            left: `${left}px`,
+            top: isLocationTop ? `${top - optionsHeight}px` : `${bottom + 4}px`,
+          },
+        });
+      } else {
+        this.setState({
+          style: {
+            top: isLocationTop ? `${-optionsHeight - 4}px` : `${height + 4}px`,
+          },
+        });
+      }
+    });
   };
 
   handleClick = (e) => {
@@ -345,6 +342,8 @@ class TreeSelect extends Component {
       allowClear,
       style,
       className,
+      dropdownStyle,
+      dropdownClassName,
       isAppendToBody,
       searchable,
     } = this.props;
@@ -358,9 +357,9 @@ class TreeSelect extends Component {
     );
     const treeOptionsContainer = open ? (
       <div
-        className={`${selector}-container`}
+        className={`${selector}-container ${dropdownClassName}`}
         ref={this.optionsNode}
-        style={{ ...popupStyle, minWidth: width }}
+        style={{ ...popupStyle, minWidth: width, ...dropdownStyle }}
       >
         {this.renderTreeNode()}
       </div>
@@ -423,6 +422,9 @@ TreeSelect.propTypes = {
   onReset: PropTypes.func,
   searchInBox: PropTypes.bool,
   maxTagCount: PropTypes.number,
+  dropdownStyle: PropTypes.object,
+  dropdownClassName: PropTypes.string,
+  position: PropTypes.oneOf(['top', 'bottom', 'auto']),
 };
 
 TreeSelect.defaultProps = {
@@ -450,6 +452,9 @@ TreeSelect.defaultProps = {
   onReset: noop,
   searchInBox: false,
   maxTagCount: undefined,
+  dropdownStyle: {},
+  dropdownClassName: '',
+  position: 'bottom',
 };
 
 export default TreeSelect;

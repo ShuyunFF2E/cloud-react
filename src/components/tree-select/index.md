@@ -39,6 +39,9 @@ group:
 | onSelectClose     | 下拉选择框关闭的时候回调此函数                         | function                       | -                |
 | searchInBox     | 搜索框在外侧                         | boolean                       | false                |
 | maxTagCount        | 多选下拉最多显示多少个tag        | number                                 | -          |
+| position          | 下拉框定位：`top` `bottom` `auto`（是否启用自动定位，如需使用可设置为`auto`）                                                                                                       | string                                  | `bottom`              |
+| dropdownClassName   | 下拉框类名                                                                                                         |  string          | -   |
+| dropdownStyle   | 下拉框样式                                                                                                       |  object          | {}   |
 
 #### `single = true`，单选下拉树时候支持的配置
 | 属性              | 说明                                                   | 类型                           | 默认值           |
@@ -61,7 +64,6 @@ group:
 | onReset           | 重置回调                                | function                       | -                |
 | containParentNode | 结果是否包含各个父节点                           | boolean                        | false            |
 
-
 树的更多属性配置可参考 **Tree** 组件
 
  ### 代码演示 
@@ -73,5 +75,8 @@ group:
 <embed src="@components/tree-select/demos/searchable.md" /> 
 
 ### 不与Tree结合的树下拉
-<embed src="@components/tree-select/demos/basic-tree-select.md" /> 
+<embed src="@components/tree-select/demos/basic-tree-select.md" />
+
+### 弹出位置
+<embed src="@components/tree-select/demos/position.md" /> 
 
