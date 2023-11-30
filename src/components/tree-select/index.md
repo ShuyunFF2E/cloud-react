@@ -37,6 +37,8 @@ group:
 | onSearch          | 搜索文本框变化时回调此函数                             | function(value: string, nodes) | -                |
 | onSelectOpen      | 下拉选择框弹开的时候回调此函数                         | function                       | -                |
 | onSelectClose     | 下拉选择框关闭的时候回调此函数                         | function                       | -                |
+| searchInBox     | 搜索框在外侧                         | boolean                       | false                |
+| maxTagCount        | 多选下拉最多显示多少个tag        | number                                 | -          |
 
 #### `single = true`，单选下拉树时候支持的配置
 | 属性              | 说明                                                   | 类型                           | 默认值           |
@@ -64,6 +66,12 @@ group:
 
  ### 代码演示 
 
+### 与Tree结合的树下拉
+<embed src="@components/tree-select/demos/multiple.md" /> 
+
+### 可搜索
+<embed src="@components/tree-select/demos/searchable.md" /> 
+
+### 不与Tree结合的树下拉
 <embed src="@components/tree-select/demos/basic-tree-select.md" /> 
 
-<embed src="@components/tree-select/demos/multiple.md" /> 

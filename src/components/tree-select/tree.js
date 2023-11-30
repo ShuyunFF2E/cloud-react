@@ -55,6 +55,7 @@ class TreeContainer extends React.Component {
 			dropdownStyle,
 			style,
 			emptyRender,
+			searchInBox,
 			...otherProps
 		} = this.props;
 		const classNames = cls(`${selector}-options`, dropdownClassName, {
@@ -65,7 +66,8 @@ class TreeContainer extends React.Component {
 				{dataSource.length > 0 && (
 					<Tree
 						{...otherProps}
-						supportSearch={searchable}
+						ref={this.props.treeRef}
+						supportSearch={!searchInBox && searchable}
 						selectedValue={value}
 						onSelectedNode={this.selectNode}
 						treeData={dataSource}
@@ -91,7 +93,8 @@ TreeContainer.propTypes = {
 	dropdownClassName: PropTypes.string,
 	dropdownStyle: PropTypes.object,
 	onOk: PropTypes.func,
-	onCancel: PropTypes.func
+	onCancel: PropTypes.func,
+	setTreeRef: PropTypes.func,
 };
 
 TreeContainer.defaultProps = {
@@ -106,7 +109,8 @@ TreeContainer.defaultProps = {
 	dropdownClassName: '',
 	dropdownStyle: {},
 	onOk: noop,
-	onCancel: noop
+	onCancel: noop,
+	setTreeRef: noop,
 };
 
 export default TreeContainer;

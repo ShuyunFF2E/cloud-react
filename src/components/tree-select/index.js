@@ -32,10 +32,13 @@ class TreeSelect extends Component {
       prevValue: values,
       prevProps: props,
       style: {},
+      isSearch: false,
     };
     this.node = React.createRef();
     this.selectedNode = React.createRef();
     this.optionsNode = React.createRef();
+    this.treeRef = React.createRef();
+    // this.singleTreeRef = React.createRef();
 
     if (single || multiple) {
       console.warn(
@@ -106,6 +109,12 @@ class TreeSelect extends Component {
     this.document.removeEventListener('click', this.handleClick);
   }
 
+  setSearchStatus = isSearch => {
+    // eslint-disable-next-line react/no-unused-state
+    this.setState({ isSearch });
+    this.forceUpdate();
+  };
+
   get document() {
     return this.context.rootDocument;
   }
@@ -130,13 +139,13 @@ class TreeSelect extends Component {
   get selectedContainerStyle() {
     const selectNode = this.selectedNode.current;
     if (selectNode) {
-      return selectNode.ref.current.getBoundingClientRect();
+      return selectNode.ref.current?.getBoundingClientRect() || {};
     }
     return {};
   }
 
   get optionsNodeStyle() {
-    return this.optionsNode.current.getBoundingClientRect();
+    return this.optionsNode.current?.getBoundingClientRect() || {};
   }
 
   positionPop = () => {
@@ -162,7 +171,7 @@ class TreeSelect extends Component {
     } else {
       this.setState({
         style: {
-          top: isLocationTop ? `${-optionsHeight}px` : `${height}px`,
+          top: isLocationTop ? `${-optionsHeight - 4}px` : `${height + 4}px`,
           borderTop,
         },
       });
@@ -178,19 +187,36 @@ class TreeSelect extends Component {
       const { onSelectClose, open: propOpen, hasConfirmButton } = this.props;
       onSelectClose();
       if (hasConfirmButton) this.onTreeOptionChange({}, prevValue);
-      if (propOpen === null) this.setState({ open: false });
+      if (propOpen === null) {
+        this.optionsNode.current.classList.remove('show');
+        setTimeout(() => {
+          this.setState({ open: false });
+        }, 100);
+      }
     }
   };
 
   handleSelect = () => {
     const { open } = this.state;
-    const { onSelectOpen, onSelectClose, open: propOpen } = this.props;
+    const { onSelectOpen, onSelectClose, open: propOpen, searchInBox, type } = this.props;
     if (open) {
       onSelectClose();
     } else {
       onSelectOpen();
     }
-    if (propOpen === null) this.setState({ open: !open });
+    if (propOpen === null) {
+      if (!open) {
+        this.setState({ open: !open });
+        setTimeout(() => {
+          this.optionsNode.current.classList.add('show');
+        });
+      } else if (!searchInBox || searchInBox && type === MULTIPLE || searchInBox && type !== MULTIPLE && !this.state.isSearch) {
+        this.optionsNode.current.classList.remove('show');
+        setTimeout(() => {
+          this.setState({ open: !open });
+        }, 100);
+      }
+    }
   };
 
   onClickSelected = () => {
@@ -287,16 +313,20 @@ class TreeSelect extends Component {
       return (
         <SingleTree
           {...this.props}
+          // ref={this.singleTreeRef}
           value={this.state.value}
           onChange={this.onValueChange}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
+          open={this.state.open}
+          setSearchStatus={this.setSearchStatus}
         />
       );
     }
     return (
       <Tree
         {...this.props}
+        treeRef={this.treeRef}
         type={this.type}
         value={this.state.value}
         supportTooltip={false}
@@ -316,6 +346,7 @@ class TreeSelect extends Component {
       style,
       className,
       isAppendToBody,
+      searchable,
     } = this.props;
     const { value, open, style: popupStyle } = this.state;
     const { width } = this.selectedContainerStyle;
@@ -325,7 +356,7 @@ class TreeSelect extends Component {
       { [`${selector}-open`]: open },
       className,
     );
-    const treeOptionsContainer = (
+    const treeOptionsContainer = open ? (
       <div
         className={`${selector}-container`}
         ref={this.optionsNode}
@@ -333,7 +364,7 @@ class TreeSelect extends Component {
       >
         {this.renderTreeNode()}
       </div>
-    );
+    ) : null;
 
     return (
       <div className={`${classNames}`} style={style} ref={this.node}>
@@ -346,10 +377,22 @@ class TreeSelect extends Component {
           placeholder={placeholder}
           dataSource={value}
           disabled={disabled}
+          searchable={searchable}
+          searchInBox={this.props.searchInBox}
+          treeRef={this.treeRef}
+          setSearchStatus={this.setSearchStatus}
+          type={this.props.type}
+          onMultiChange={this.onValueChange}
+          positionPop={this.positionPop}
+          maxTagCount={this.props.maxTagCount}
+          selectedList={this.state.value}
+          isSearch={this.state.isSearch}
+          // singleTreeRef={this.singleTreeRef}
+          // singleTreeValue={this.state.value}
         />
         {isAppendToBody
-          ? open && ReactDOM.createPortal(treeOptionsContainer, this.portal)
-          : open && treeOptionsContainer}
+          ? ReactDOM.createPortal(treeOptionsContainer, this.portal)
+          : treeOptionsContainer}
       </div>
     );
   }
@@ -378,6 +421,8 @@ TreeSelect.propTypes = {
   onOk: PropTypes.func,
   onCancel: PropTypes.func,
   onReset: PropTypes.func,
+  searchInBox: PropTypes.bool,
+  maxTagCount: PropTypes.number,
 };
 
 TreeSelect.defaultProps = {
@@ -403,6 +448,8 @@ TreeSelect.defaultProps = {
   onOk: noop,
   onCancel: noop,
   onReset: noop,
+  searchInBox: false,
+  maxTagCount: undefined,
 };
 
 export default TreeSelect;
