@@ -10,6 +10,7 @@ export default function SingleSearch({
   onSearchValueChange,
   onSearch,
   setSearchStatus,
+  disabled,
 }) {
   const [isFocusSearchInput, setIsFocusSearchInput] = useState(false);
 
@@ -54,6 +55,8 @@ export default function SingleSearch({
       )}
       <div className={`${selector}-search`}>
         <Input
+          disabled={disabled}
+          // useComposition
           value={searchValue}
           placeholder={searchPlaceholder}
           onChange={onOptionsSearch}

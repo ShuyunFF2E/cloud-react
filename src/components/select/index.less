@@ -109,6 +109,14 @@
       .@{select-prefix-cls}-select-icon {
         color: @dropdown-icon-color;
       }
+
+      .@{select-prefix-cls}-single-select-selected {
+        color: @gray-7;
+      }
+
+      .@{select-prefix-cls}-select-icon:hover {
+        color: @gray-6;
+      }
     }
 
     &.empty {
@@ -215,6 +223,11 @@
         i {
           font-size: 12px;
           color: #D8D8D8;
+        }
+
+        &.disabled {
+          color: @gray-7;
+          border: 1px solid #E8E8E8;
         }
       }
 
@@ -460,7 +473,7 @@
     font-size: 12px;
     color: @gray-6;
     > img {
-      width: 48%;
+      width:104px;
       height: auto;
       margin-bottom: 8px;
     }

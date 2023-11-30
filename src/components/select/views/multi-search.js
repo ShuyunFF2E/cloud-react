@@ -17,6 +17,7 @@ export default function MultiSearch({
   valueKey,
   maxTagCount,
   setSearchStatus,
+  disabled,
 }) {
   const searchRef = useRef();
   const [selectList, setSelectList] = useState([]);
@@ -76,19 +77,21 @@ export default function MultiSearch({
   return (
     <>
       {showSelectList.map(item => (
-        <span key={item[valueKey]} className={`${selector}-multiple-search-item`}>
+        <span key={item[valueKey]} className={`${selector}-multiple-search-item ${disabled && 'disabled'}`}>
           <span className={`${selector}-multiple-search-item-text`} title={item[labelKey]}>{item[labelKey]}</span>
-          <Icon type="close" onClick={evt => onItemClose(evt, item)} />
+          {!disabled && <Icon type="close" onClick={evt => onItemClose(evt, item)} />}
         </span>
       ))}
       {hideSelectList.length ? (
-        <span className={`${selector}-multiple-search-item`}>
+        <span className={`${selector}-multiple-search-item ${disabled && 'disabled'}`}>
           +
           {hideSelectList.length}
         </span>
       ) : null}
       <div ref={searchRef} className={`${selector}-search`}>
         <Input
+          disabled={disabled}
+          // useComposition
           value={searchValue}
           placeholder=""
           onChange={onOptionsSearch}

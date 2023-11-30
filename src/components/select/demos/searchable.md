@@ -5,8 +5,8 @@ desc: 可对选项进行搜索
 ---
 
 ```jsx
-import React from 'react';
-import { Select } from 'cloud-react';
+import React, { useState } from 'react';
+import { Select, Checkbox } from 'cloud-react';
 
 const Option = Select.Option;
 
@@ -54,6 +54,8 @@ const dataList = [
 ];
 
 export default function SelectDemo() {
+  const [disabled, setDisabled] = useState(false);
+
   const handleChange = (value) => {
     console.log('select --- ' + value);
   };
@@ -64,11 +66,15 @@ export default function SelectDemo() {
 
   return (
     <div style={{ display: 'flex', gap: 20, flexDirection: 'column' }}>
+      <Checkbox checked={disabled} onChange={checked => {
+        setDisabled(checked)
+      }}>禁用</Checkbox>
       <div>
         <h5>搜索框在下拉框内（单选）</h5>
         <Select
           searchable
           allowClear
+          disabled={disabled}
           supportLightText
           placeholder="带搜索的下拉单选"
           onSearch={handleSearch}
@@ -86,6 +92,7 @@ export default function SelectDemo() {
           multiple
           searchable
           allowClear
+          disabled={disabled}
           supportLightText
           placeholder="带搜索的下拉单选"
           onSearch={handleSearch}
@@ -101,6 +108,7 @@ export default function SelectDemo() {
           searchable
           searchInBox
           allowClear
+          disabled={disabled}
           supportLightText
           placeholder="带搜索的下拉单选"
           onSearch={handleSearch}
@@ -117,6 +125,7 @@ export default function SelectDemo() {
           searchable
           searchInBox
           allowClear
+          disabled={disabled}
           multiple
           supportLightText
           placeholder="带搜索的下拉多选"
@@ -133,6 +142,7 @@ export default function SelectDemo() {
           searchable
           searchInBox
           allowClear
+          disabled={disabled}
           multiple
           supportLightText
           placeholder="带搜索的下拉多选"

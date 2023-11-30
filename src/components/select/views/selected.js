@@ -213,6 +213,7 @@ export default class Selected extends React.Component {
             valueKey={valueKey}
             maxTagCount={maxTagCount}
             setSearchStatus={setSearchStatus}
+            disabled={disabled}
           />
         )}
         <Icon type="close-fill-1" className={clearClasses} onClick={onClear} />
