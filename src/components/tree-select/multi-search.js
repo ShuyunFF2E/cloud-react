@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { selector } from './const';
+import { findTreeNode, selector } from './const';
 import Icon from '../icon';
 import Input from '../input';
 import { getTextWidth } from '../c-table/util';
@@ -15,6 +15,8 @@ export default function MultiSearch({
   maxTagCount,
   setSearchStatus,
   disabled,
+  treeData,
+  showPath,
 }) {
   const searchRef = useRef();
   const [selectList, setSelectList] = useState([]);
@@ -40,7 +42,7 @@ export default function MultiSearch({
   }, [open, selectList.length]);
 
   useEffect(() => {
-    setSelectList([...selectedList]);
+    setSelectList([...selectedList].map(item => findTreeNode(item, treeData)));
     setTimeout(() => {
       positionPop();
     });
@@ -72,12 +74,15 @@ export default function MultiSearch({
 
   return (
     <>
-      {showSelectList.map(item => (
-        <span key={item.id} className={`${selector}-multiple-search-item ${disabled && 'disabled'}`}>
-          <span className={`${selector}-multiple-search-item-text`} title={item.name}>{item.name}</span>
-          {!disabled && <Icon type="close" onClick={evt => onItemClose(evt, item)} />}
-        </span>
-      ))}
+      {showSelectList.map(item => {
+        const name = showPath ? item?.path?.join('/') : item.name;
+        return (
+          <span key={item.id} className={`${selector}-multiple-search-item ${disabled && 'disabled'}`}>
+            <span className={`${selector}-multiple-search-item-text`} title={name}>{name}</span>
+            {!disabled && <Icon type="close" onClick={evt => onItemClose(evt, item)} />}
+          </span>
+        );
+      })}
       {hideSelectList.length ? (
         <span className={`${selector}-multiple-search-item ${disabled && 'disabled'}`}>
           +

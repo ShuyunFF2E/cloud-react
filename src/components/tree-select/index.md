@@ -42,6 +42,7 @@ group:
 | position          | 下拉框定位：`top` `bottom` `auto`（是否启用自动定位，如需使用可设置为`auto`）                                                                                                       | string                                  | `bottom`              |
 | dropdownClassName   | 下拉框类名                                                                                                         |  string          | -   |
 | dropdownStyle   | 下拉框样式                                                                                                       |  object          | {}   |
+| showPath   | 展示路径                                                                                                       |   bool          | false   |
 
 #### `single = true`，单选下拉树时候支持的配置
 | 属性              | 说明                                                   | 类型                           | 默认值           |
@@ -79,4 +80,7 @@ group:
 
 ### 弹出位置
 <embed src="@components/tree-select/demos/position.md" /> 
+
+### 已选展示完整路径
+<embed src="@components/tree-select/demos/path.md" />
 

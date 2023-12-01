@@ -9,7 +9,7 @@ import { noop } from '@utils';
 import Tree from './tree';
 import Selected from './selected';
 import SingleTree from './single-tree';
-import { selector, SINGLE, MULTIPLE } from './const';
+import { selector, SINGLE, MULTIPLE, getNodePath } from './const';
 
 import './index.less';
 
@@ -19,7 +19,7 @@ class TreeSelect extends Component {
   constructor(props) {
     super(props);
 
-    const { open, defaultOpen, value, defaultValue, single, multiple } = props;
+    const { open, defaultOpen, value, defaultValue, single, multiple, dataSource } = props;
     let values;
     if (this.isTree) {
       values = value || defaultValue || [];
@@ -33,6 +33,7 @@ class TreeSelect extends Component {
       prevProps: props,
       style: {},
       isSearch: false,
+      treeData: getNodePath(dataSource),
     };
     this.node = React.createRef();
     this.selectedNode = React.createRef();
@@ -100,9 +101,13 @@ class TreeSelect extends Component {
     );
   }
 
-  componentDidUpdate(_, prevState) {
-    if (this.state.open !== prevState.open && this.state.open)
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.open !== prevState.open && this.state.open) {
       this.positionPop();
+    }
+    if (this.props.dataSource !== prevProps.dataSource) {
+      this.setState({ treeData: getNodePath(this.props.dataSource) });
+    }
   }
 
   componentWillUnmount() {
@@ -375,6 +380,7 @@ class TreeSelect extends Component {
           allowClear={allowClear}
           placeholder={placeholder}
           dataSource={value}
+          treeData={this.state.treeData}
           disabled={disabled}
           searchable={searchable}
           searchInBox={this.props.searchInBox}
@@ -386,6 +392,7 @@ class TreeSelect extends Component {
           maxTagCount={this.props.maxTagCount}
           selectedList={this.state.value}
           isSearch={this.state.isSearch}
+          showPath={this.props.showPath}
           // singleTreeRef={this.singleTreeRef}
           // singleTreeValue={this.state.value}
         />

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { noop } from '@utils';
 
 import Icon from '../icon';
-import { MULTIPLE, selector, SINGLE } from './const';
+import { MULTIPLE, selector, SINGLE, findTreeNode } from './const';
 import SingleSearch from './single-search';
 import MultiSearch from './multi-search';
 
@@ -15,12 +15,20 @@ const getLables = dataSource => {
   return source.map(item => item.name || item.label).join(',');
 };
 
+const getPath = (nodeList = [], treeData = []) => nodeList.reduce((arr, item) => {
+  const treeNode = findTreeNode(item, treeData);
+  if (treeNode?.path?.length) {
+    arr.push(treeNode?.path?.join('/'));
+  }
+  return arr;
+}, []).join(',');
+
 export default class Selected extends React.Component {
   constructor(props) {
     super(props);
     this.ref = React.createRef();
 
-    const labels = getLables(props.dataSource);
+    const labels = props.showPath ? getPath(props.dataSource, props.treeData) : getLables(props.dataSource);
     this.state = {
       selectStr: labels || '',
       clear: false,
@@ -32,7 +40,7 @@ export default class Selected extends React.Component {
   static getDerivedStateFromProps(props, prevState) {
     const { prevProps } = prevState;
     if (props.dataSource !== prevProps.dataSource) {
-      const labels = getLables(props.dataSource);
+      const labels = props.showPath ? getPath(props.dataSource, props.treeData) : getLables(props.dataSource);
       return {
         selectStr: labels || '',
         prevProps: props,
@@ -78,6 +86,8 @@ export default class Selected extends React.Component {
         maxTagCount,
         selectedList,
         isSearch,
+        treeData,
+        showPath,
         // singleTreeRef,
         // singleTreeValue,
       },
@@ -114,6 +124,7 @@ export default class Selected extends React.Component {
     if (searchable && searchInBox && type === MULTIPLE) {
       SearchCom = MultiSearch;
     }
+
     return (
       <div
         ref={this.ref}
@@ -136,6 +147,8 @@ export default class Selected extends React.Component {
             selectedList={selectedList}
             maxTagCount={maxTagCount}
             disabled={disabled}
+            treeData={treeData}
+            showPath={showPath}
           />
         )}
         {/* {searchable && searchInBox && type === DEFAULT && (*/}
