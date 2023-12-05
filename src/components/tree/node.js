@@ -172,6 +172,7 @@ class Node extends Component {
       removeNode,
       addNode,
       customNodeTpl,
+      isDynamicLoad,
     } = this.context;
     const { setInputValue, onSaveClick, onClickCancel } = this;
     // 将三个方法传递出去可以供外部调用
@@ -184,7 +185,7 @@ class Node extends Component {
         <div
           className={classNames(
             `${prefixCls}-list-node-area ${
-              data.children && !data.children.length ? 'child-style' : null
+              (data.children && !data.children.length && (isDynamicLoad && data.isLeaf || !isDynamicLoad)) ? 'child-style' : null
             }`,
           )}
         >
@@ -204,8 +205,9 @@ class Node extends Component {
 
             {/* 折叠展开icon */}
             <ToggleFold
-              hasChildren={data?.children.length > 0}
-              showChildrenItem={data.isUnfold}
+              isLoading={data.isLoading}
+              hasChildren={data?.children.length > 0 || isDynamicLoad && !data.isLeaf}
+              showChildrenItem={data.isUnfold && data?.children.length}
               toggle={(e) => this.toggle(e, data)}
             />
             <div
@@ -288,19 +290,23 @@ class Node extends Component {
  * @returns {null|*}
  * @constructor
  */
-function ToggleFold({ hasChildren, showChildrenItem, toggle }) {
+function ToggleFold({ hasChildren, showChildrenItem, toggle, isLoading }) {
   return (
-    hasChildren && (
-      <Icon
-        className="toggle-icon"
-        // type={!showChildrenItem ? 'down' : 'up'}
-        type="down-solid"
-        style={{
-          transform: showChildrenItem ? 'rotate(0)' : 'rotate(-90deg)',
-        }}
-        onClick={toggle}
-      />
-    )
+    <>
+      {isLoading && <span className="loading-spin" />}
+      {hasChildren && (
+        <Icon
+          className="toggle-icon"
+          type="down-solid"
+          style={{
+            zIndex: isLoading ? -100 : undefined,
+            position: isLoading ? 'absolute' : undefined,
+            transform: showChildrenItem ? 'rotate(0)' : 'rotate(-90deg)',
+          }}
+          onClick={toggle}
+        />
+      )}
+    </>
   );
 }
 

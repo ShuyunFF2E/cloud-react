@@ -134,6 +134,33 @@
           }
         }
 
+        &.support-checkbox {
+          .loading-spin {
+            top: 0;
+          }
+        }
+
+        .loading-spin {
+          position: relative;
+          top: 3px;
+          display: inline-block;
+          width: 12px;
+          height: 12px;
+          margin: 0 9px;
+          border-radius: 50%;
+          animation: load 1.5s infinite linear;
+          border: 1px solid @blue-4;
+          border-right: 1px solid transparent;
+          @keyframes load {
+            from {
+              transform: rotate(0deg);
+            }
+            to {
+              transform: rotate(360deg);
+            }
+          }
+        }
+
         .toggle-icon {
           cursor: pointer;
           font-size: 16px;

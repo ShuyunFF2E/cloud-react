@@ -73,6 +73,8 @@ class Tree extends Component {
     onDragMoving: noop,
     onDragBefore: noop,
     onDragAfter: noop,
+    customNodeTpl: noop,
+    onLoadData: noop,
   };
 
   static propsTypes = {
@@ -109,6 +111,8 @@ class Tree extends Component {
     onDragMoving: PropTypes.func,
     onDragBefore: PropTypes.func,
     onDragAfter: PropTypes.func,
+    customNodeTpl: PropTypes.func,
+    onLoadData: PropTypes.func,
   };
 
   constructor(props) {
@@ -245,7 +249,7 @@ class Tree extends Component {
           treeData: [...backTree],
           maxLevel: null,
           selectedValue: [...allSelectedLowest],
-          isUnfold,
+          isUnfold: searchText ? true : undefined,
           disabled,
         }),
         preSelectedList: allSelectedLowest,
@@ -344,10 +348,41 @@ class Tree extends Component {
    * @param node
    */
   onFoldNodeAction = (data, node) => {
-    const backData = store.onFoldNode(data, node);
-    this.setState({
-      treeData: [...backData],
-    });
+    if (this.props.isDynamicLoad && !node?.children?.length) {
+      node.isLoading = true;
+      this.setState({
+        treeData: [...this.state.treeData],
+      }, () => {
+        this.props.onLoadData(data, node).then(res => {
+          node.isLoading = false
+          const backData = store.onFoldNode(res, node);
+
+          // 如果点击的节点被选中，则其子节点也被选中，更新选中节点状态
+          if (this.props.supportCheckbox && node.checked) {
+            const selectedResult = store.getSelectedLowestNodeList(
+              this.state.selectedValue,
+              this.getSelectedMoreList(backData, node),
+              node,
+            ).filter(item => item.id !== node.id);
+            this.props.onSelectedNode(node, selectedResult);
+          }
+
+          // 更新 allTreeData（用作筛选）
+          const currentNode = store.findNodeById(this.state.allTreeData, node.id);
+          Object.assign(currentNode, node);
+
+          this.setState({
+            allTreeData: this.state.allTreeData,
+            treeData: [...backData],
+          });
+        })
+      });
+    } else {
+      const backData = store.onFoldNode(data, node);
+      this.setState({
+        treeData: [...backData],
+      });
+    }
   };
 
   /**
@@ -679,6 +714,7 @@ class Tree extends Component {
       onDragMoving,
       onDragAfter,
       customNodeTpl,
+      isDynamicLoad,
     } = this.props;
 
     const {
@@ -732,6 +768,7 @@ class Tree extends Component {
           customNodeTpl,
           removeNode,
           addNode,
+          isDynamicLoad,
         }}
       >
         <div className={`${selector} ${className}`} style={style}>

@@ -52,6 +52,8 @@ group:
 | onDragAfter              | 拖拽后调用	        | Function	| -	|
 | supportTooltip           | 是否启用tooltip，为true时将根据文本长度自动增加tooltip。如数据超大，建议设置为false以节省性能 | Boolean	| true	|
 | customNodeTpl           | 自定义节点内容 | Function	| -	|
+| onLoadData           | 动态加载数据 | Function	| -	|
+| isDynamicLoad           | 动态加载数据 | bool	| false	|
  
 ### 数据属性
 
@@ -183,3 +185,6 @@ group:
 
 ### 自定义节点
 <embed src="@components/tree/demos/custom-node.md" /> 
+
+### 动态加载节点
+<embed src="@components/tree/demos/dynamicLoad.md" /> 
