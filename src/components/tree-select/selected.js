@@ -12,7 +12,7 @@ import './index.less';
 
 const getLables = dataSource => {
   const source = Array.isArray(dataSource) ? dataSource : [dataSource];
-  return source.map(item => item.name || item.label).join(',');
+  return source.map(item => item?.name || item?.label).join(',');
 };
 
 const getPath = (nodeList = [], treeData = []) => nodeList.reduce((arr, item) => {

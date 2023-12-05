@@ -73,7 +73,7 @@ export const getNodePath = tree => {
     if (!node.path) {
       Object.assign(node, { path: [] });
     }
-    node.path.push(node.name);
+    node.path.push(node?.name);
 
     if (node?.children?.length) {
       node.children.forEach(cNode => {
@@ -81,7 +81,7 @@ export const getNodePath = tree => {
           Object.assign(cNode, { path: [] });
         }
         cNode.path.push(...[...parentNodePath, node.name]);
-        fn(cNode, node.path);
+        fn(cNode, node?.path);
       });
     }
   };
@@ -95,7 +95,7 @@ export const findTreeNode = (treeNode, treeData = []) => {
     if (targetNode) {
       return;
     }
-    if (node.id === treeNode.id) {
+    if (node?.id === treeNode?.id) {
       targetNode = node;
     }
     if (node?.children?.length) {

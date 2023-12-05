@@ -380,7 +380,7 @@ class TreeSelect extends Component {
           allowClear={allowClear}
           placeholder={placeholder}
           dataSource={value}
-          treeData={this.state.treeData}
+          treeData={this.props.isDynamicLoad ? this.props.dataSource : this.state.treeData}
           disabled={disabled}
           searchable={searchable}
           searchInBox={this.props.searchInBox}

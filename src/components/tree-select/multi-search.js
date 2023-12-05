@@ -75,9 +75,9 @@ export default function MultiSearch({
   return (
     <>
       {showSelectList.map(item => {
-        const name = showPath ? item?.path?.join('/') : item.name;
+        const name = showPath ? item?.path?.join('/') : item?.name;
         return (
-          <span key={item.id} className={`${selector}-multiple-search-item ${disabled && 'disabled'}`}>
+          <span key={item?.id} className={`${selector}-multiple-search-item ${disabled && 'disabled'}`}>
             <span className={`${selector}-multiple-search-item-text`} title={name}>{name}</span>
             {!disabled && <Icon type="close" onClick={evt => onItemClose(evt, item)} />}
           </span>
