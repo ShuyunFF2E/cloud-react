@@ -176,14 +176,22 @@
         }
       }
 
-      .node-item-container:not(.support-checkbox):hover {
+      //.node-item-container:not(.support-checkbox):hover {
+      //  background: #F5F5F5;
+      //}
+
+      .node-item-container:hover {
         background: #F5F5F5;
       }
 
       .node-children {
         &-visible .node-item-container {
-          height: 32px;
           opacity: 1;
+          height: 32px;
+
+          &.add {
+            height: auto;
+          }
         }
 
         &-hidden {

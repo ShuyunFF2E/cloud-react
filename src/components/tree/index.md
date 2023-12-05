@@ -51,6 +51,7 @@ group:
 | onDragMoving             | 拖动过程中调用	    | Function	| -	|
 | onDragAfter              | 拖拽后调用	        | Function	| -	|
 | supportTooltip           | 是否启用tooltip，为true时将根据文本长度自动增加tooltip。如数据超大，建议设置为false以节省性能 | Boolean	| true	|
+| customNodeTpl           | 自定义节点内容 | Function	| -	|
  
 ### 数据属性
 
@@ -83,7 +84,7 @@ group:
 					{
 						"id": 111,
 						"name": "22323",
-						"title": <span>22323</span>,
+						"title": "222",
 						"pId": 11,
 						"categoryType": 0
 					}
@@ -144,26 +145,41 @@ group:
 
  ### 代码演示 
 
+### 基础用法
 <embed src="@components/tree/demos/basicSelector.md" /> 
 
+### 动态修改回显数据
 <embed src="@components/tree/demos/changeSelectedValue.md" /> 
 
+### 自定义节点icon
 <embed src="@components/tree/demos/defineIcon.md" /> 
 
+### 自定义配置样式
 <embed src="@components/tree/demos/defineStyle.md" /> 
 
+### 拖拽用法
 <embed src="@components/tree/demos/drag.md" /> 
 
+### 支持实时搜索
 <embed src="@components/tree/demos/immediatelySearch.md" /> 
 
+### 弹框菜单
 <embed src="@components/tree/demos/menuDialog.md" /> 
 
+### 多选、无右键菜单、无搜索
 <embed src="@components/tree/demos/multipleSelect.md" /> 
 
+### 多选、支持右键菜单
 <embed src="@components/tree/demos/multiple_menu.md" /> 
 
+### 单选、支持右键菜单
 <embed src="@components/tree/demos/radio_search_menu.md" /> 
 
+### 数据回显（单选）
 <embed src="@components/tree/demos/selectedValue.md" /> 
 
+### 是否显示节点icon
 <embed src="@components/tree/demos/showIcon.md" /> 
+
+### 自定义节点
+<embed src="@components/tree/demos/custom-node.md" /> 

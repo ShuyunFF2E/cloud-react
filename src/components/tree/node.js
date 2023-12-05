@@ -169,6 +169,9 @@ class Node extends Component {
       nodeNameMaxLength,
       onDoubleClick,
       supportTooltip,
+      removeNode,
+      addNode,
+      customNodeTpl,
     } = this.context;
     const { setInputValue, onSaveClick, onClickCancel } = this;
     // 将三个方法传递出去可以供外部调用
@@ -190,7 +193,7 @@ class Node extends Component {
             style={{ minWidth: `calc(100% - ${paddingLeft}px)`, paddingLeft }}
             className={`node-item-container ${
               data.isActive ? 'is-active' : null
-            } ${supportCheckbox ? 'support-checkbox' : ''}`}
+            } ${supportCheckbox ? 'support-checkbox' : ''} ${data.isAdd ? 'add' : null}`}
           >
             {/* 拖拽icon: 根节点不支持拖拽 */}
             {supportDrag && (data.pId || data.pId === 0) && !disabled && (
@@ -250,6 +253,7 @@ class Node extends Component {
                   ...
                 </span>
               )}
+              {customNodeTpl && customNodeTpl({ node: data, addNode, removeNode })}
             </div>
 
             <ShowInput

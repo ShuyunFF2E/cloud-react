@@ -442,6 +442,28 @@ class Tree extends Component {
    * 删除节点
    * @param node
    */
+  removeNode = node => {
+    const { treeData } = this.state;
+    store.removeChildNode(treeData, node);
+    this.setState({
+      treeData,
+      allTreeData: copyData(treeData),
+    });
+  };
+
+  /**
+   * 新增节点
+   * @param node
+   */
+  addNode = node => {
+    this.onReRenderNode({ currentNode: node, isEdit: false, isAdd: true });
+    this.setState({ treeData: this.state.treeData });
+  };
+
+  /**
+   * 删除节点
+   * @param node
+   */
   onRemoveAction = (node) => {
     const { onRemoveNode } = this.props;
     this.onHideMenu();
@@ -457,12 +479,7 @@ class Tree extends Component {
         }
         onRemoveNode(node.id, node)
           .then(() => {
-            store.removeChildNode(treeData, node);
-            // const allTreeData = store.removeChildNode(this.state.allTreeData, node);
-            this.setState({
-              treeData,
-              allTreeData: copyData(treeData),
-            });
+            this.removeNode(node)
           })
           .catch((err) => {
             if (this.props.showErrMsg) {
@@ -661,6 +678,7 @@ class Tree extends Component {
       onDragBefore,
       onDragMoving,
       onDragAfter,
+      customNodeTpl,
     } = this.props;
 
     const {
@@ -672,6 +690,8 @@ class Tree extends Component {
       onCheckRepeatNameAction,
       onShowMenu,
       onReRenderNode,
+      removeNode,
+      addNode,
     } = this;
     const { id, name, disableAdd, disableRename, disableRemove } = nodeData;
 
@@ -709,6 +729,9 @@ class Tree extends Component {
           onDragBefore,
           onDragMoving,
           onDragAfter,
+          customNodeTpl,
+          removeNode,
+          addNode,
         }}
       >
         <div className={`${selector} ${className}`} style={style}>
