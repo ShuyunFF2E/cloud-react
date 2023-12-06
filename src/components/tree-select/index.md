@@ -45,6 +45,8 @@ group:
 | showPath   | 展示路径（和 动态加载数据 isDynamicLoad 无法同时使用）                                                                                                       |   bool          | false   |
 | onLoadData           | 动态加载数据 | Function	| -	|
 | isDynamicLoad           | 动态加载数据 | bool	| false	|
+| showLine           | 线性样式 | bool	| false	|
+| lineType           | 线性样式 `default` `dashed` | string	| `default`	|
 
 #### `single = true`，单选下拉树时候支持的配置
 | 属性              | 说明                                                   | 类型                           | 默认值           |
@@ -88,3 +90,6 @@ group:
 
 ### 动态加载节点
 <embed src="@components/tree-select/demos/dynamicLoad.md" />
+
+### 线性样式
+<embed src="@components/tree-select/demos/line.md" />

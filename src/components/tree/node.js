@@ -173,6 +173,8 @@ class Node extends Component {
       addNode,
       customNodeTpl,
       isDynamicLoad,
+      showLine,
+      lineType,
     } = this.context;
     const { setInputValue, onSaveClick, onClickCancel } = this;
     // 将三个方法传递出去可以供外部调用
@@ -189,6 +191,26 @@ class Node extends Component {
             }`,
           )}
         >
+          {showLine && (
+            <>
+              {data?.level > 1 && <div className={`v-line ${lineType}`} style={{ left: paddingLeft - 2 }} />}
+              {data?.children?.length && data.isUnfold ? (
+                <span
+                  className={`line ${lineType}`}
+                  style={{ paddingLeft: lineType === 'dashed' ? paddingLeft - 1 : paddingLeft }}
+                />
+              ) : null}
+              {data?.level > 1 ? (
+                <span
+                  className={`h-line ${lineType}`}
+                  style={{
+                    marginLeft: 18 * (data.level - 2),
+                    width: data?.children?.length ? 8 : 26,
+                  }}
+                />
+              ) : null}
+            </>
+          )}
           <div
             onContextMenu={(e) => supportMenu && this.onHandleShowMenu(e, RIGHT_MENU, data, options)}
             style={{ minWidth: `calc(100% - ${paddingLeft}px)`, paddingLeft }}

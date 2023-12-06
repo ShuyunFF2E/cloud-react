@@ -9,7 +9,8 @@ class Store {
    * @param maxLevel
    * @param selectedValue
    * @param isUnfold
-   * @returns {*}
+   * @param disabled
+   * @returns {{length}|*|*[]}
    */
   initData = ({ treeData, maxLevel, selectedValue, isUnfold, disabled }) => {
     // 数据不存在或无数据使时
@@ -78,6 +79,44 @@ class Store {
       // 无父节点则为根节点，默认展开
       if (!pNode && isUnfold !== undefined) {
         tmp.isUnfold = true;
+      }
+
+      if (pNode) {
+        // 同级第一个节点
+        tmp.isFirstChild = pNode.children[0].id === tmp.id;
+        // 同级最后一个节点
+        tmp.isLastChild = pNode.children[pNode.children?.length - 1].id === tmp.id;
+
+        const index = pNode.children.findIndex(item => item.id === tmp.id);
+        if (index > -1 && index <= pNode?.children?.length - 2) {
+          // 弟弟节点是否有儿子
+          tmp.isSiblingHasChild = pNode?.children?.[index + 1]?.children?.length;
+        }
+        // 哥哥节点是否有儿子
+        if (index > 0) {
+          tmp.isPreSilbingHasChild = pNode?.children?.[index - 1]?.children?.length;
+        }
+
+        const ppNode = this.findNodeById(cloneData, pNode.pId);
+        if (ppNode) {
+          // 父结点是否是最后一个节点
+          tmp.isParentLastChild = ppNode?.children?.[ppNode.children?.length - 1]?.id === pNode?.id;
+
+          const index1 = ppNode.children.findIndex(item => item.id === pNode.id);
+          if (index1 > -1) {
+            // 父结点的弟弟节点是否有儿子
+            tmp.isParentSiblingHasChild = ppNode?.children?.[index1 + 1]?.children?.length;
+
+            const pppNode = this.findNodeById(cloneData, ppNode.pId);
+            if (pppNode) {
+              const index2 = pppNode.children.findIndex(item => item.id === ppNode.id);
+              if (index2 > -1) {
+                // 父结点的父结点的弟弟节点是否有儿子
+                tmp.isGrandParentSiblingHasChild = pppNode?.children?.[index1 + 1]?.children?.length;
+              }
+            }
+          }
+        }
       }
 
       // 存在已选中节点，则根节点半选

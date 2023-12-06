@@ -17,6 +17,9 @@
   @overTowLine();
 };
 
+@line: 1px solid #E8E8E8;
+@dashedLine: 1px dashed #E8E8E8;
+
 .@{selector} {
   position: relative;
   user-select: none;
@@ -31,8 +34,6 @@
 
   li {
     list-style: none;
-    border-bottom: 1px solid transparent;
-    border-top: 1px solid transparent;
   }
 
   .move-bottom-style {
@@ -351,6 +352,60 @@
 
     .hide-node {
       display: none;
+    }
+
+    // 一下是线性样式
+    .@{selector}-list-node-area {
+      position: relative;
+
+      .v-line {
+        position: absolute;
+        height: calc(100% + 17px);
+        border-left: @line;
+        z-index: 10;
+
+        &.dashed {
+          border-left: @dashedLine;
+        }
+      }
+
+      .@{selector}-list li:last-child > .@{selector}-list-node-area > .v-line {
+        display: none;
+      }
+
+      .@{selector}-list li:first-child > .@{selector}-list-node-area > .v-line {
+        display: block;
+      }
+
+      .@{selector}-list li:first-child:last-child > .@{selector}-list-node-area > .v-line {
+        height: 17px!important;
+      }
+
+      .line {
+        position: absolute;
+        top: 28px;
+        left: 16px;
+        border-right: @line;
+        height: 5px;
+        z-index: 10;
+
+        &.dashed {
+          border-left: @dashedLine;
+        }
+      }
+
+      .h-line {
+        position: absolute;
+        top: 16px;
+        left: 16px;
+        border-bottom: @line;
+        width: 8px;
+        z-index: 10;
+
+        &.dashed {
+          border-bottom: @dashedLine;
+        }
+      }
     }
   }
 

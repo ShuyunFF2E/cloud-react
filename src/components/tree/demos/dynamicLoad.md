@@ -5,11 +5,6 @@ desc: 支持搜索节点、右键菜单、最大层级为4、节点名称最大�
 ---
 
 ```jsx
-
-/**
- * title: 基础用法
- * desc: 支持搜索节点、右键菜单、最大层级为4、节点名称最大长度20、可搜索关键字长度最大为20个字符、新增节点加到当前节点的子节点末尾，展开全部节点
- */
 import React from 'react';
 import { Tree, Modal } from 'cloud-react';
 

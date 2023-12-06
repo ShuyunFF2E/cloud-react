@@ -75,6 +75,8 @@ class Tree extends Component {
     onDragAfter: noop,
     customNodeTpl: noop,
     onLoadData: noop,
+    showLine: false,
+    lineType: 'default',
   };
 
   static propsTypes = {
@@ -113,6 +115,8 @@ class Tree extends Component {
     onDragAfter: PropTypes.func,
     customNodeTpl: PropTypes.func,
     onLoadData: PropTypes.func,
+    showLine: PropTypes.bool,
+    lineType: PropTypes.oneOf(['default', 'dashed']),
   };
 
   constructor(props) {
@@ -715,6 +719,8 @@ class Tree extends Component {
       onDragAfter,
       customNodeTpl,
       isDynamicLoad,
+      showLine,
+      lineType,
     } = this.props;
 
     const {
@@ -769,6 +775,8 @@ class Tree extends Component {
           removeNode,
           addNode,
           isDynamicLoad,
+          showLine,
+          lineType,
         }}
       >
         <div className={`${selector} ${className}`} style={style}>

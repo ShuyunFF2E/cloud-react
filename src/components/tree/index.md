@@ -54,6 +54,8 @@ group:
 | customNodeTpl           | 自定义节点内容 | Function	| -	|
 | onLoadData           | 动态加载数据 | Function	| -	|
 | isDynamicLoad           | 动态加载数据 | bool	| false	|
+| showLine           | 线性样式 | bool	| false	|
+| lineType           | 线性样式 `default` `dashed` | string	| `default`	|
  
 ### 数据属性
 
@@ -188,3 +190,6 @@ group:
 
 ### 动态加载节点
 <embed src="@components/tree/demos/dynamicLoad.md" /> 
+
+### 线性样式
+<embed src="@components/tree/demos/line.md" /> 
