@@ -15,6 +15,7 @@ const typeEnum = {
   DEFAULT: 'default',
   DANGER: 'danger',
   PRIMARY: 'primary',
+  LINK: 'link',
 };
 
 const sizeEnum = {
@@ -31,6 +32,7 @@ export default class Tag extends Component {
       typeEnum.DEFAULT,
       typeEnum.DANGER,
       typeEnum.PRIMARY,
+      typeEnum.LINK,
     ]),
     size: PropTypes.oneOf([ sizeEnum.SMALL, sizeEnum.NORMAL ]),
     color: PropTypes.string,

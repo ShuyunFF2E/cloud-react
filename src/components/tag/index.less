@@ -3,9 +3,15 @@
 @tag-prefix-cls: ~'@{prefix}-tag';
 
 .disabled() {
-  color: @gray-7;
+  color: @gray-6;
   background: @gray-3;
   border: 1px solid @gray-3;
+
+  &:hover {
+    color: @gray-6;
+    background: @gray-3;
+    border: 1px solid @gray-3;
+  }
 }
 
 .theme-style(@backgourdColor, @color) {
@@ -15,6 +21,8 @@
 
   &:hover {
     color: @color;
+    background-color: @backgourdColor;
+    border-color: @backgourdColor;
     cursor: default;
   }
 }
@@ -78,7 +86,7 @@
     }
     .tag-close-icon {
       color: @gray-6;
-      font-size: 7px;
+      font-size: 12px;
       cursor: pointer;
     }
   }
@@ -89,7 +97,7 @@
     .tag-icon {
       position: absolute;
       left: 8px;
-      font-size: 8px;
+      font-size: 12px;
     }
   }
 
@@ -133,6 +141,8 @@
 
     &:hover {
       color: @blue-4;
+      border-color: @blue-4;
+      background: @blue-1;
     }
 
     &.checked {
@@ -144,15 +154,18 @@
         color: @gray-1;
       }
     }
+
+    &.disabled {
+      cursor: not-allowed;
+    }
   }
 
   // 不同状态、不同颜色
   &.disabled {
     .disabled();
-    // &:hover {
-    //   .disabled();
-    // }
+
     &.checked {
+      color: white;
       background: @blue-2;
       border-color: @blue-2;
     }
@@ -216,6 +229,27 @@
     }
     .tag-close-icon {
       .close-style(@gray-6, @gray-7, @gray-8);
+    }
+  }
+
+  &.link {
+    .theme-style(#E8E8E8, @blue-4);
+
+    &:hover {
+      cursor: pointer;
+      border-color: #E8E8E8;
+    }
+
+    &.disabled {
+      color: @gray-6;
+      background: @gray-3;
+      border: 1px solid #E8E8E8;
+
+      &:hover {
+        cursor: not-allowed;
+        color: @gray-6;
+        border: 1px solid #E8E8E8;
+      }
     }
   }
 }

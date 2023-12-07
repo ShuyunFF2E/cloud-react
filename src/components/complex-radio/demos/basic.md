@@ -27,7 +27,7 @@ export default function ComplexRadioDemo() {
         <div style={{display: 'flex', justifyContent: 'space-around', flexWrap: "wrap"}}>
             <div>
               <h4>基础+头像</h4>
-              <Radio.Group  vertical value={value} defaultValue={"A"} onChange={onChange}>
+              <Radio.Group  vertical value={value} defaultValue={"E"} onChange={onChange}>
                 {radioList.map((item, index) => (
                   <ComplexRadio
                     title={item.label}
@@ -40,7 +40,7 @@ export default function ComplexRadioDemo() {
             </div>
             <div>
               <h4>标题</h4>
-              <Radio.Group  vertical value={value} defaultValue={"A"} onChange={onChange}>
+              <Radio.Group  vertical value={value} defaultValue={"E"} onChange={onChange}>
                 {radioList.map((item, index) => (
                   <ComplexRadio
                     title={item.label}
@@ -53,7 +53,7 @@ export default function ComplexRadioDemo() {
             </div>
             <div>
               <h4>标题+头像</h4>
-              <Radio.Group  vertical value={value} defaultValue={"A"} onChange={onChange}>
+              <Radio.Group  vertical value={value} defaultValue={"E"} onChange={onChange}>
                 {radioList.map((item, index) => (
                   <ComplexRadio
                     title={item.label}
@@ -67,7 +67,7 @@ export default function ComplexRadioDemo() {
             </div>
             <div>
               <h4>基础卡片</h4>
-              <Radio.Group value={value} defaultValue={"A"} onChange={onChange} style={{ display: 'flex', flexWrap: 'wrap', gap: 24 }}>
+              <Radio.Group value={value} defaultValue={"E"} onChange={onChange} style={{ display: 'flex', flexWrap: 'wrap', gap: 24 }}>
                 {radioList.map((item, index) => (
                   <ComplexRadio
                     title={item.label}
@@ -80,7 +80,7 @@ export default function ComplexRadioDemo() {
             </div>
             <div>
               <h4>基础卡片 + 说明</h4>
-              <Radio.Group value={value} defaultValue={"A"} onChange={onChange} style={{ display: 'flex', flexWrap: 'wrap', gap: 24 }}>
+              <Radio.Group value={value} defaultValue={"E"} onChange={onChange} style={{ display: 'flex', flexWrap: 'wrap', gap: 24 }}>
                 {radioList.map((item, index) => (
                   <ComplexRadio
                     title={item.label}

@@ -35,7 +35,7 @@ const dateRangePresets = [
 		value: () => [moment().clone().subtract(1, 'months').toDate(), moment().clone().toDate()]
 	},
 	{
-		label: '近一年以来',
+		label: '近一年',
 		value: () => [moment().clone().subtract(1, 'years'), moment().clone()]
 	}
 ];

@@ -16,49 +16,89 @@
   background: #d9d9d9;
   font-size: 18px;
   color: #ffffff;
-  .@{breadcrumbs-prefix-cls}-icon {
-    font-size: 18px;
-    // transform: scale(0.5);
-  }
-  &.@{breadcrumbs-prefix-cls}-@{s-16} .@{breadcrumbs-prefix-cls}-icon {
-    font-size: 12px;
-    transform: scale(0.75);
-  }
-  &.@{breadcrumbs-prefix-cls}-@{s-24} .@{breadcrumbs-prefix-cls}-icon {
-    font-size: 12px;
-  }
-  &.@{breadcrumbs-prefix-cls}-@{s-32} .@{breadcrumbs-prefix-cls}-icon {
+  overflow: hidden;
+
+  i {
     font-size: 16px;
+    position: relative;
+    color: @gray-6;
   }
-  &.@{breadcrumbs-prefix-cls}-@{s-40} .@{breadcrumbs-prefix-cls}-icon {
-    font-size: 18px;
+  &.@{breadcrumbs-prefix-cls}-@{s-16} {
+    font-size: 14px;
+
+    i {
+      top: 3px;
+      font-size: 12px;
+    }
   }
-  &.@{breadcrumbs-prefix-cls}-@{s-48} .@{breadcrumbs-prefix-cls}-icon {
-    font-size: 24px;
+  &.@{breadcrumbs-prefix-cls}-@{s-24} {
+    font-size: 16px;
+
+    i {
+      top: 4px;
+      font-size: 20px;
+    }
   }
-  &.@{breadcrumbs-prefix-cls}-@{s-60} .@{breadcrumbs-prefix-cls}-icon {
-    font-size: 30px;
+  &.@{breadcrumbs-prefix-cls}-@{s-32} {
+    font-size: 20px;
+
+    i {
+      top: 4px;
+      font-size: 28px;
+    }
+  }
+  &.@{breadcrumbs-prefix-cls}-@{s-40} {
+    font-size: 22px;
+
+    i {
+      top: 4px;
+      font-size: 36px;
+    }
+  }
+  &.@{breadcrumbs-prefix-cls}-@{s-48} {
+    font-size: 26px;
+
+    i {
+      top: 5px;
+      font-size: 44px;
+    }
+  }
+  &.@{breadcrumbs-prefix-cls}-@{s-60} {
+    font-size: 32px;
+
+    i {
+      top: 6px;
+      font-size: 56px;
+    }
   }
   &.@{breadcrumbs-prefix-cls}-default {
     width: 24px;
     height: 24px;
+    font-size: 16px;
+
     .@{breadcrumbs-prefix-cls}-icon {
-      font-size: 12px;
+      top: 3px;
+      font-size: 20px;
     }
   }
   &.@{breadcrumbs-prefix-cls}-small {
     width: 16px;
     height: 16px;
+    font-size: 14px;
+
     .@{breadcrumbs-prefix-cls}-icon {
-      font-size: 12px;
-      transform: scale(0.75);
+      top: 2px;
+      font-size: 16px;
     }
   }
   &.@{breadcrumbs-prefix-cls}-large {
     width: 40px;
     height: 40px;
+    font-size: 22px;
+
     .@{breadcrumbs-prefix-cls}-icon {
-      font-size: 18px;
+      top: 4px;
+      font-size: 36px;
     }
   }
   &.@{breadcrumbs-prefix-cls}-circle,

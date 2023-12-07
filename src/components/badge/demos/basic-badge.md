@@ -19,7 +19,7 @@ function TextBox() {
 const commonStyle = {
   position: 'absolute',
   right: -22,
-  top: -6
+  top: -9
 };
 
 class BadgeDemos extends React.Component {
@@ -76,6 +76,10 @@ class BadgeDemos extends React.Component {
           <div style={{ position: 'relative' }}>
             <TextBox/>
             <Badge mode="number" type="fail" isSquare number="NEW" style={commonStyle} />
+          </div>
+          <div style={{ position: 'relative' }}>
+            <TextBox/>
+            <Badge mode="number" type="fail" number="99+" style={commonStyle} />
           </div>
         </div>
 

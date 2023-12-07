@@ -77,7 +77,7 @@ export default function generateSinglePicker(generateConfig) {
                 <Icon type="calendar" />
               )
             }
-            clearIcon={<Icon type="close-fill" />}
+            clearIcon={<Icon type="close-fill-1" />}
             prevIcon={<Icon type="left" />}
             nextIcon={<Icon type="right" />}
             superPrevIcon={<Icon type="double-left" />}

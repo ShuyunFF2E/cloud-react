@@ -19,9 +19,11 @@ class TagDemo extends Component {
 			<React.Fragment>
 				<Tag>Tag Demo</Tag>
 				<Tag>超级超级长的tag超级超级长的tag超级超级长的tag超级超级长的tag超级超级长的tag超级超级长的tag超级超级长的tag超级超级长的tag超级超级长的tag</Tag>
-				<Tag>
-					<a href="http://www.baidu.com">Link Tag</a>
-				</Tag>
+				<Tag type="link" onClick={() => {
+                    window.open('http://www.baidu.com')
+                }}>Link Tag</Tag>
+
+              <Tag type="link" disabled>disabled Link</Tag>
 			</React.Fragment>
 		);
 	}

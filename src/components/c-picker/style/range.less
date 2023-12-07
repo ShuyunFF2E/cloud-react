@@ -50,7 +50,8 @@
     .@{prefix-cls}-input,
     .@{prefix-cls}-range-separator,
     .@{prefix-cls}-suffix {
-      border-color: #bfbfbf; // 太细的 alpha 通道颜色会偶现展示粗细不均的情况，这里用等效的 @gray-6
+      //border-color: #bfbfbf; // 太细的 alpha 通道颜色会偶现展示粗细不均的情况，这里用等效的 @gray-6
+      border-color: @blue-4;
     }
   }
 
@@ -71,7 +72,7 @@
     border-bottom: 1px solid @gray-4;
     transition: border-color 0.3s;
     .@{prefix-cls}-separator {
-      color: @gray-6;
+      color: @gray-8;
       padding: 0 4px;
     }
   }
@@ -195,7 +196,7 @@
               left: 18px;
             }
           }
-        
+
           &.@{prefix-cls}-cell-range-end,
           &.@{prefix-cls}-cell-range-hover-end {
             &:not(.@{prefix-cls}-cell-in-range):not(.@{prefix-cls}-cell-range-end-near-hover)::before {

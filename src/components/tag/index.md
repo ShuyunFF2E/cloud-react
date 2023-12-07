@@ -18,7 +18,7 @@ group:
 
 | 属性     | 说明                                                   | 类型     | 默认值 |
 | -------- | ------------------------------------------------------ | -------- | ------ |
-| type     | 标签状态,可选状态值：success、warning、default、danger | string   | -      |
+| type     | 标签状态,可选状态值：success、warning、default、danger、link | string   | -      |
 | size     | 标签大小,可选状态值：normal、small、large                     | string   | normal      |
 | rounded     | 圆形标签                  | bool   | false      |
 | maxWidth  | 标签最大宽度，超过则显示省略号及Tooltip                    | number   | 200  |
@@ -42,5 +42,3 @@ group:
 <embed src="@components/tag/demos/state.md" /> 
 
 <embed src="@components/tag/demos/color.md" /> 
-
-<embed src="@components/tag/demos/size.md" /> 

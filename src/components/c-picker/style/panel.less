@@ -72,9 +72,8 @@
     overflow: hidden;
     vertical-align: top;
     background: #fff;
-    border-radius: 2px;
-    box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.1),
-      0px 2px 8px 0px rgba(0, 0, 0, 0.04);
+    border-radius: 6px;
+    box-shadow: 0px 4px 12px 0px rgba(0,0,0,0.1), 0px 0px 1px 0px rgba(0,0,0,0.3);
     transition: margin 0.3s;
 
     .@{prefix-cls}-panel {
@@ -469,7 +468,7 @@
     &:hover:not(&-in-view):not(&-week) &-inner,
     &:hover:not(&-selected):not(&-week):not(&-range-start):not(&-range-end):not(&-range-hover-start):not(&-range-hover-end)
       &-inner {
-      background-color: @blue-1;
+      background-color: #F5F5F5;
     }
 
     &-selected:not(&-in-range)&-in-view &-inner,
@@ -634,6 +633,14 @@
     .@{prefix-cls}-cell-selected:not(.@{prefix-cls}-cell-range-start):not(.@{prefix-cls}-cell-range-end) .@{prefix-cls}-cell-inner {
       color: @gray-9;
       background: unset;
+    }
+  }
+
+  .icon-close-fill-1 {
+    color: @gray-6;
+
+    &:hover {
+      color: @gray-7;
     }
   }
 }
