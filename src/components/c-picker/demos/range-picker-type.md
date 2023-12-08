@@ -41,7 +41,7 @@ const transform2DateString = (value, type) => {
 class RangePickerTypeDemo extends React.Component {
 	field = new Field(this)
 	state = {
-		week: { start: '2023年 第24周', end: '2023年 第30周' },
+		// week: { start: '2023年 第24周', end: '2023年 第30周' },
 		month: { start: '2023/04', end: '2023/07' },
 		quarter: { start: '2022年 Q3', end: '2023年 Q2' },
 		year: { start: '2022年', end: '2023年' },
@@ -75,12 +75,13 @@ class RangePickerTypeDemo extends React.Component {
 
 				<Form.Item label="周范围选择器">
                   <RangePicker
+                    allowClear
                     style={{ width: 284 }}
                     type="week"
                     format={pickerFormatMap.week}
                     value={week}
                     onChange={this.onWeekChange}
-                    disabledDate={(_, m) => m.clone().startOf('day').isSameOrAfter(moment().startOf('week'))}
+                    // disabledDate={(_, m) => m.clone().startOf('day').isSameOrAfter(moment().startOf('week'))}
                     presets={[
                       {
                         label: '前三周',
