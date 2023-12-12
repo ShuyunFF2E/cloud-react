@@ -16,13 +16,13 @@ class ButtonDemo extends React.Component {
 	render() {
 		return (
 			<ul>
+              <li style={{ marginBottom: 10 }}>
+                <h5>主要：</h5>
+                <Button type="primary" icon="plus-solid">添加</Button>
+              </li>
 				<li style={{ marginBottom: 10 }}>
-					<h5>普通：</h5>
+					<h5>描边：</h5>
 					<Button icon="plus-solid">添加</Button>
-				</li>
-				<li style={{ marginBottom: 10 }}>
-					<h5>主要：</h5>
-					<Button type="primary" icon="plus-solid">添加</Button>
 				</li>
 				<li style={{ marginBottom: 10 }}>
 					<h5>次要：</h5>

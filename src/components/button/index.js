@@ -34,6 +34,7 @@ class Button extends React.PureComponent {
     target: PropTypes.string,
     htmlType: PropTypes.string,
     className: PropTypes.string,
+    borderRadiusSize: PropTypes.oneOf(['default', 'medium', 'large', 'circle']),
   };
 
   static defaultProps = {
@@ -47,6 +48,7 @@ class Button extends React.PureComponent {
     target: '',
     className: '',
     htmlType: 'button',
+    borderRadiusSize: 'default',
   };
 
   static Group = ButtonGroup;
@@ -89,6 +91,7 @@ class Button extends React.PureComponent {
       children,
       className,
       htmlType,
+      borderRadiusSize,
       ...others
     } = this.props;
     const { loading } = this.state;
@@ -102,6 +105,7 @@ class Button extends React.PureComponent {
         [colorType]: true,
         block,
         loading: loading || _loading,
+        [`border-radius-${borderRadiusSize}`]: true,
       },
       className,
     );

@@ -18,17 +18,6 @@ class ButtonDemo extends React.Component {
 		return (
 			<ul>
 				<li style={{ marginBottom: 10 }}>
-					<h5>普通：</h5>
-					<Button.Group>
-						<Button disabled icon="left">上一页</Button>
-						<Button>第 1 页</Button>
-						<Button>
-							下一页
-							<Icon style={{ marginLeft: 6 }} type="right" />
-						</Button>
-					</Button.Group>
-				</li>
-				<li style={{ marginBottom: 10 }}>
 					<h5>主要：</h5>
 					<Button.Group type="primary">
 						<Button disabled icon="left">上一页</Button>
@@ -39,6 +28,17 @@ class ButtonDemo extends React.Component {
 						</Button>
 					</Button.Group>
 				</li>
+              <li style={{ marginBottom: 10 }}>
+                <h5>描边：</h5>
+                <Button.Group>
+                  <Button disabled icon="left">上一页</Button>
+                  <Button>第 1 页</Button>
+                  <Button>
+                    下一页
+                    <Icon style={{ marginLeft: 6 }} type="right" />
+                  </Button>
+                </Button.Group>
+              </li>
 				<li style={{ marginBottom: 10 }}>
 					<h5>次要：</h5>
 					<Button.Group type="secondary">

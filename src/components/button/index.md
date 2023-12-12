@@ -27,6 +27,7 @@ group:
 | icon     | 按钮文字前添加图标，可选值为组件库内所有Icon图标对应的字符（例如：remark）， 或者不设     | string          | -  |
 | block    | 将按钮宽度调整为其父宽度的选项                                     | boolean         | `false`   |
 | onClick  | 点击触发的回调（支持 async 回调函数，组件自行组织 loading 状态）          | (event) => void \| Promise | -         |
+| borderRadiusSize  | 边框圆角 `default` `medium` `large` `circle`       | string | `default`         |
 
 ### Button.Group
 
