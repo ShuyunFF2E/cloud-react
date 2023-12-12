@@ -13,8 +13,6 @@ export default function MultiSearch({
   onMultiChange,
   positionPop,
   selectedList,
-  labelKey,
-  valueKey,
   maxTagCount,
   setSearchStatus,
   disabled,
@@ -60,6 +58,7 @@ export default function MultiSearch({
       positionPop();
     }
   };
+  console.log(selectList);
 
   const onItemClose = (evt, item) => {
     evt.stopPropagation();
@@ -77,8 +76,8 @@ export default function MultiSearch({
   return (
     <>
       {showSelectList.map(item => (
-        <span key={item[valueKey]} className={`${selector}-multiple-search-item ${disabled && 'disabled'}`}>
-          <span className={`${selector}-multiple-search-item-text`} title={item[labelKey]}>{item[labelKey]}</span>
+        <span key={item.value} className={`${selector}-multiple-search-item ${disabled && 'disabled'}`}>
+          <span className={`${selector}-multiple-search-item-text`} title={item.label}>{item.label}</span>
           {!disabled && <Icon type="close" onClick={evt => onItemClose(evt, item)} />}
         </span>
       ))}

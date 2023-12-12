@@ -132,7 +132,12 @@ export default function SelectDemo() {
           onSearch={handleSearch}
           onChange={handleChange}
           style={{width: 260}}
-          dataSource={dataList}
+          labelKey="name"
+          valueKey="userId"
+          dataSource={dataList.map(item => ({
+            name: item.label,
+            userId: item.value
+          }))}
         />
       </div>
       <div>
