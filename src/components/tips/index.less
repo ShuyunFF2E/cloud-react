@@ -15,12 +15,17 @@
   border: 1px solid @border;
   border-radius: 6px;
   .close-icon {
-    color: @close;
+    color: @gray-6;
+
+    &:hover,
+    &:active {
+      color: @gray-7;
+    }
   }
   .action-icon, .tip-icon {
     color: @action;
   }
-  .close-icon, .action-icon {
+  .action-icon {
     &:hover {
       color: @hover;
     }
@@ -50,6 +55,8 @@
   &.banner {
     overflow: hidden;
     transition: height 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    border: none;
+    border-radius: 0;
   }
 
   &.inline {
@@ -100,6 +107,10 @@
       display: flex;
       gap: 8px;
     }
+  }
+
+  .msg.hasDesc {
+    font-weight: 500;
   }
 
   .collapsible{

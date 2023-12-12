@@ -539,7 +539,7 @@ function ModalFooter({
   return (
     <footer style={style} className={footerClass}>
       <Button
-        type="normal"
+        type="secondary"
         size="large"
         disabled={showConfirmLoading}
         onClick={cancel}
