@@ -67,7 +67,7 @@ export default function ComplexRadioDemo() {
             </div>
             <div>
               <h4>基础卡片</h4>
-              <Radio.Group value={value} defaultValue={"E"} onChange={onChange} style={{ display: 'flex', flexWrap: 'wrap', gap: 24 }}>
+              <Radio.Group value={value} defaultValue={"E"} onChange={onChange}>
                 {radioList.map((item, index) => (
                   <ComplexRadio
                     title={item.label}
@@ -80,7 +80,7 @@ export default function ComplexRadioDemo() {
             </div>
             <div>
               <h4>基础卡片 + 说明</h4>
-              <Radio.Group value={value} defaultValue={"E"} onChange={onChange} style={{ display: 'flex', flexWrap: 'wrap', gap: 24 }}>
+              <Radio.Group value={value} defaultValue={"E"} onChange={onChange} vertical>
                 {radioList.map((item, index) => (
                   <ComplexRadio
                     title={item.label}

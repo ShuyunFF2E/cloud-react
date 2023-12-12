@@ -14,7 +14,7 @@ import { Radio } from 'cloud-react';
 
 function RadioDemo() {
   return (
-    <div style={{display: 'flex', gap: 20}}>
+    <div style={{display: 'flex'}}>
       <Radio value={1} checked={false}>
         未选中
       </Radio>

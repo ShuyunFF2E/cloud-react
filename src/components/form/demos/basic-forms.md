@@ -24,6 +24,8 @@ import {
 
 const { RangePicker, TimeRangePicker } = DatePicker;
 
+const wrapperStyle = { position: 'relative', top: 2 };
+
 export default function FormHorizontalDemo() {
   const field = Field.useField();
   const [size, setSize] = useState('default');
@@ -48,23 +50,23 @@ export default function FormHorizontalDemo() {
           labelAlign={labelAlign}
           layout={layout}
           labelCol={{ span: 6 }} style={{ width: 494, margin: '0 auto' }}>
-      <Form.Item label="设置禁用状态">
+      <Form.Item label="设置禁用状态" wrapperStyle={wrapperStyle}>
         <Checkbox value={disabled} checked={disabled} onChange={setDisabled}>禁用表单</Checkbox>
       </Form.Item>
-      <Form.Item label="设置表单尺寸">
+      <Form.Item label="设置表单尺寸" wrapperStyle={wrapperStyle}>
         <Radio.Group value={size} onChange={setSize}>
           <Radio value="large">large</Radio>
           <Radio value="default">default</Radio>
           <Radio value="small">small</Radio>
         </Radio.Group>
       </Form.Item>
-      <Form.Item label="设置对齐方式">
+      <Form.Item label="设置对齐方式" wrapperStyle={wrapperStyle}>
         <Radio.Group value={labelAlign} onChange={setLabelAlign}>
           <Radio value="right">right</Radio>
           <Radio value="left">left</Radio>
         </Radio.Group>
       </Form.Item>
-      <Form.Item label="设置布局方式">
+      <Form.Item label="设置布局方式" wrapperStyle={wrapperStyle}>
         <Radio.Group value={layout} onChange={setLayout}>
           <Radio value="horizontal">horizontal</Radio>
           <Radio value="vertical">vertical</Radio>
@@ -105,7 +107,7 @@ export default function FormHorizontalDemo() {
         />
       </Form.Item>
 
-      <Form.Item label="订单筛选类型" required>
+      <Form.Item label="订单筛选类型" required wrapperStyle={wrapperStyle}>
         <Radio.Group
           disabled={disabled}
           {...field.init('type', {
@@ -117,7 +119,7 @@ export default function FormHorizontalDemo() {
         </Radio.Group>
       </Form.Item>
 
-      <Form.Item label="执行频率" required>
+      <Form.Item label="执行频率" required wrapperStyle={wrapperStyle}>
         <Radio.Group
           disabled={disabled}
           vertical
@@ -136,7 +138,7 @@ export default function FormHorizontalDemo() {
         </Radio.Group>
       </Form.Item>
 
-      <Form.Item label="客户添加渠道" required>
+      <Form.Item label="客户添加渠道" required wrapperStyle={wrapperStyle}>
         <Checkbox.Group
           disabled={disabled}
           {...field.init('channel', {

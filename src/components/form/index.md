@@ -49,6 +49,7 @@ group:
 | className  | Form.Item 的 className 属性                                           | string  | -         |
 | name  | 字段名                                           | string  | -         |
 | preserve  | 当Form.Item卸载时保留字段值                                           | boolean  | -         |
+| wrapperStyle  |          表单项样式，和 wrapperCol.style 作用一致                                | object  | {}         |
 
 ### Form.Nexus
 

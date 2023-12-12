@@ -5,6 +5,8 @@
 @radio-disabled-inner-color: @gray-6;
 
 @radio-size: 14px;
+@rightGap: 20px;
+@bottomGap: 16px;
 
 .root-cloud-radio-position {
   position: absolute;
@@ -19,18 +21,31 @@
   display: inline-flex;
   align-items: center;
   margin-right: 20px;
+  margin-bottom: 16px;
   cursor: pointer;
   color: @gray-5;
   font-size: 14px;
 
   &-group {
     display: inline-flex;
+    flex-wrap: wrap;
+
+    &.vertical,
+    &.horizontal {
+      .@{raido-prefix-cls} {
+        margin-right: 0;
+        margin-bottom: 0;
+      }
+    }
+
     &.vertical {
       flex-direction: column;
-      gap: 16px;
+      gap: @bottomGap;
     }
+
     &.horizontal {
       flex-direction: row;
+      gap: @bottomGap @rightGap;
     }
   }
 

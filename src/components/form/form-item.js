@@ -144,7 +144,7 @@ export default class FormItem extends Component {
   renderWrapper() {
     const { labelColSpan } = this;
     const { wrapperCol: formWrapperCol, layout } = this.context;
-    const { children, help, wrapperCol = formWrapperCol } = this.props;
+    const { children, help, wrapperCol = formWrapperCol, wrapperStyle } = this.props;
     const {
       span = labelColSpan !== undefined ? MAX_COL - labelColSpan : undefined,
       offset,
@@ -156,7 +156,7 @@ export default class FormItem extends Component {
         [`col-${span}`]: span !== undefined && layout !== LAYOUT_TYPES.VERTICAL,
         [`col-offset-${offset}`]: offset !== undefined,
       }),
-      style: style || {},
+      style: { ...(style || {}), ...(wrapperStyle || {}) },
     };
 
     return (
@@ -181,7 +181,7 @@ export default class FormItem extends Component {
           layout === LAYOUT_TYPES.HORIZONTAL ? labelAlign : undefined,
           className,
         )}
-        style={{ marginBottom: gap }}
+        style={gap !== undefined ? { marginBottom: gap } : {}}
       >
         {this.renderLabel()}
         {this.renderWrapper()}
@@ -209,6 +209,7 @@ FormItem.propTypes = {
     style: PropTypes.object,
   }),
   children: PropTypes.any,
+  wrapperStyle: PropTypes.object,
 };
 
 FormItem.defaultProps = {
@@ -220,4 +221,5 @@ FormItem.defaultProps = {
   labelCol: undefined,
   wrapperCol: undefined,
   children: null,
+  wrapperStyle: {},
 };

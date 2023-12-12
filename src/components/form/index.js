@@ -144,5 +144,5 @@ Form.defaultProps = {
   children: null,
   scrollToFirstError: false,
   fixedError: false,
-  gap: 20,
+  gap: undefined,
 };
