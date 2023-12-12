@@ -149,7 +149,7 @@ export default class Selected extends React.Component {
       disabled,
       empty: supportUnlimited ? false : !dataSource.length,
       hidden: !showSelectStyle,
-      'search-in-box': searchInBox,
+      'search-in-box': searchable && searchInBox,
       'multi-search-in-box': searchable && searchInBox && multiple,
       [`${size}`]: true,
     });
@@ -193,7 +193,7 @@ export default class Selected extends React.Component {
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
       >
-        {!searchInBox && (
+        {(!searchable || searchable && !searchInBox) && (
           <span className={`${selector}-selected`} title={title}>
             {selected.length ? selected : placeholder}
           </span>

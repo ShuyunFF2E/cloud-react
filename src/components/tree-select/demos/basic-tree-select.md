@@ -61,6 +61,7 @@ class TreeSelectDemo extends React.Component {
                 {/*<h5>单选搜索框在下拉框内</h5>*/}
                 <TreeSelect
                   searchable
+                  searchInBox={false}
                   allowClear
                   onSearch={this.handleSearch}
                   value={{

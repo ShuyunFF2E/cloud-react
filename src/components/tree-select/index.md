@@ -37,7 +37,7 @@ group:
 | onSearch          | 搜索文本框变化时回调此函数                             | function(value: string, nodes) | -                |
 | onSelectOpen      | 下拉选择框弹开的时候回调此函数                         | function                       | -                |
 | onSelectClose     | 下拉选择框关闭的时候回调此函数                         | function                       | -                |
-| searchInBox     | 搜索框在外侧                         | boolean                       | false                |
+| searchInBox     | 搜索框在输入框内                         | boolean                       |  true                |
 | maxTagCount        | 多选下拉最多显示多少个tag        | number                                 | -          |
 | position          | 下拉框定位：`top` `bottom` `auto`（是否启用自动定位，如需使用可设置为`auto`）                                                                                                       | string                                  | `bottom`              |
 | dropdownClassName   | 下拉框类名                                                                                                         |  string          | -   |
@@ -79,8 +79,9 @@ group:
 ### 可搜索
 <embed src="@components/tree-select/demos/searchable.md" /> 
 
-### 不与Tree结合的树下拉
-<embed src="@components/tree-select/demos/basic-tree-select.md" />
+[comment]: <> (### 不与Tree结合的树下拉)
+
+[comment]: <> (<embed src="@components/tree-select/demos/basic-tree-select.md" />)
 
 ### 弹出位置
 <embed src="@components/tree-select/demos/position.md" /> 

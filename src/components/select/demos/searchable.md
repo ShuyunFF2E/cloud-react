@@ -73,6 +73,7 @@ export default function SelectDemo() {
         <h5>搜索框在下拉框内（单选）</h5>
         <Select
           searchable
+          searchInBox={false}
           allowClear
           disabled={disabled}
           supportLightText
@@ -91,6 +92,7 @@ export default function SelectDemo() {
           hasSelectAll
           multiple
           searchable
+          searchInBox={false}
           allowClear
           disabled={disabled}
           supportLightText
@@ -103,10 +105,9 @@ export default function SelectDemo() {
         />
       </div>
       <div>
-        <h5>搜索框在下拉框外（单选）</h5>
+        <h5>搜索框在下拉框外（单选-新）</h5>
         <Select
           searchable
-          searchInBox
           allowClear
           disabled={disabled}
           supportLightText
@@ -119,11 +120,10 @@ export default function SelectDemo() {
         />
       </div>
       <div>
-        <h5>搜索框在下拉框外（多选）</h5>
+        <h5>搜索框在下拉框外（多选-新）</h5>
         <Select
           hasSelectAll
           searchable
-          searchInBox
           allowClear
           disabled={disabled}
           multiple
@@ -136,11 +136,10 @@ export default function SelectDemo() {
         />
       </div>
       <div>
-        <h5>搜索框在下拉框外（多选限制标签数量）</h5>
+        <h5>搜索框在下拉框外（多选限制标签数量-新）</h5>
         <Select
           hasSelectAll
           searchable
-          searchInBox
           allowClear
           disabled={disabled}
           multiple

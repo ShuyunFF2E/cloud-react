@@ -27,12 +27,12 @@ class TreeContainer extends React.Component {
 				</Button>
 			),
 			cancel: (
-				<Button size="small" className="btn" key="cancel" onClick={onCancel}>
+				<Button type="secondary" size="small" className="btn" key="cancel" onClick={onCancel}>
 					{cancelBtnText}
 				</Button>
 			),
 			reset: (
-				<Button size="small" className="btn" key="reset" onClick={onReset}>
+				<Button type="secondary" size="small" className="btn" key="reset" onClick={onReset}>
 					{resetBtnText}
 				</Button>
 			)

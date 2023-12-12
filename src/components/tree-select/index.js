@@ -457,7 +457,7 @@ TreeSelect.defaultProps = {
   onOk: noop,
   onCancel: noop,
   onReset: noop,
-  searchInBox: false,
+  searchInBox: true,
   maxTagCount: undefined,
   dropdownStyle: {},
   dropdownClassName: '',

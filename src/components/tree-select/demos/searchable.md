@@ -97,6 +97,7 @@ class TreeSelectDemo extends React.Component {
                 <h5>单选搜索框在下拉框内</h5>
                 <TreeSelect
                   searchable
+                  searchInBox={false}
                   allowClear
                   disabled={this.state.disabled}
                   type="single"
@@ -113,6 +114,7 @@ class TreeSelectDemo extends React.Component {
                 <h5>多选搜索框在下拉框内</h5>
                 <TreeSelect
                   searchable
+                  searchInBox={false}
                   allowClear
                   disabled={this.state.disabled}
                   type="multiple"
@@ -129,7 +131,6 @@ class TreeSelectDemo extends React.Component {
                 <h5>单选搜索框在下拉框外（新）</h5>
                 <TreeSelect
                   searchable
-                  searchInBox
                   allowClear
                   disabled={this.state.disabled}
                   type="single"
@@ -146,7 +147,6 @@ class TreeSelectDemo extends React.Component {
                 <h5>多选搜索框在下拉框外（新）</h5>
                 <TreeSelect
                   searchable
-                  searchInBox
                   allowClear
                   disabled={this.state.disabled}
                   type="multiple"
@@ -163,7 +163,6 @@ class TreeSelectDemo extends React.Component {
                 <h5>多选限制标签数量（新）</h5>
                 <TreeSelect
                   searchable
-                  searchInBox
                   maxTagCount={1}
                   allowClear
                   disabled={this.state.disabled}

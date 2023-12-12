@@ -83,11 +83,11 @@ class TreeSelectDemo extends React.Component {
               }
 			]
 		};
-        setTimeout(() => {
-           this.setState({
-              confirmNodes: [this.treeData[0]]
-           });
-        }, 1000);
+        // setTimeout(() => {
+        //    this.setState({
+        //       confirmNodes: [this.treeData[0]]
+        //    });
+        // }, 1000);
 
 	}
 

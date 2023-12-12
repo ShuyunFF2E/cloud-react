@@ -664,7 +664,7 @@ Select.defaultProps = {
   valueKey: 'value',
   width: 'auto',
   searchable: false,
-  searchInBox: false,
+  searchInBox: true,
   emptyRender: '',
   defaultValue: null,
   value: null,

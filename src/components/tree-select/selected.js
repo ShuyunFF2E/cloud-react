@@ -99,7 +99,7 @@ export default class Selected extends React.Component {
     const classNames = classnames(`${selector}-wrapper`, {
       disabled,
       empty: !selectStr,
-      'search-in-box': searchInBox,
+      'search-in-box': searchable && searchInBox,
       'multi-search-in-box': searchable && searchInBox && type === MULTIPLE,
     });
     const iconClasses = classnames(`${selector}-select-icon`, {
@@ -133,7 +133,7 @@ export default class Selected extends React.Component {
         onMouseEnter={allowClear ? onMouseEnter : noop}
         onMouseLeave={allowClear ? onMouseLeave : noop}
       >
-        {!searchInBox && <span className={`${selector}-selected`}>{selectStr || placeholder}</span>}
+        {(!searchable || searchable && !searchInBox) && <span className={`${selector}-selected`}>{selectStr || placeholder}</span>}
         {SearchCom && (
           <SearchCom
             selected={this.state.selectStr}
