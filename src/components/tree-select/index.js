@@ -393,6 +393,7 @@ class TreeSelect extends Component {
           selectedList={this.state.value}
           isSearch={this.state.isSearch}
           showPath={this.props.showPath}
+          showTag={this.props.showTag}
           // singleTreeRef={this.singleTreeRef}
           // singleTreeValue={this.state.value}
         />
@@ -428,6 +429,7 @@ TreeSelect.propTypes = {
   onCancel: PropTypes.func,
   onReset: PropTypes.func,
   searchInBox: PropTypes.bool,
+  showTag: PropTypes.bool,
   maxTagCount: PropTypes.number,
   dropdownStyle: PropTypes.object,
   dropdownClassName: PropTypes.string,
@@ -458,6 +460,7 @@ TreeSelect.defaultProps = {
   onCancel: noop,
   onReset: noop,
   searchInBox: true,
+  showTag: true,
   maxTagCount: undefined,
   dropdownStyle: {},
   dropdownClassName: '',

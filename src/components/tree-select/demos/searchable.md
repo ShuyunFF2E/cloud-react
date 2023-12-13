@@ -94,40 +94,6 @@ class TreeSelectDemo extends React.Component {
                 this.setState({ disabled: checked })
               }}>禁用</Checkbox>
               <div>
-                <h5>单选搜索框在下拉框内</h5>
-                <TreeSelect
-                  searchable
-                  searchInBox={false}
-                  allowClear
-                  disabled={this.state.disabled}
-                  type="single"
-                  isUnfold
-                  containParentNode
-                  placeholder="选择一个选项"
-                  style={{ width: 328 }}
-                  dataSource={this.treeData}
-                  value={this.state.singleNodes}
-                  onChange={this.onChangeSingle}
-                />
-              </div>
-              <div>
-                <h5>多选搜索框在下拉框内</h5>
-                <TreeSelect
-                  searchable
-                  searchInBox={false}
-                  allowClear
-                  disabled={this.state.disabled}
-                  type="multiple"
-                  isUnfold
-                  containParentNode
-                  placeholder="选择一个选项"
-                  style={{ width: 328 }}
-                  dataSource={this.treeData}
-                  value={this.state.selectedNodes}
-                  onChange={this.handleChange}
-                />
-              </div>
-              <div>
                 <h5>单选搜索框在下拉框外（新）</h5>
                 <TreeSelect
                   searchable
@@ -164,6 +130,40 @@ class TreeSelectDemo extends React.Component {
                 <TreeSelect
                   searchable
                   maxTagCount={1}
+                  allowClear
+                  disabled={this.state.disabled}
+                  type="multiple"
+                  isUnfold
+                  containParentNode
+                  placeholder="选择一个选项"
+                  style={{ width: 328 }}
+                  dataSource={this.treeData}
+                  value={this.state.selectedNodes}
+                  onChange={this.handleChange}
+                />
+              </div>
+              <div>
+                <h5 style={{ color: 'rgba(0,0,0,0.45)', fontWeight: 400 }}>单选搜索框在下拉框内（旧）</h5>
+                <TreeSelect
+                  searchable
+                  searchInBox={false}
+                  allowClear
+                  disabled={this.state.disabled}
+                  type="single"
+                  isUnfold
+                  containParentNode
+                  placeholder="选择一个选项"
+                  style={{ width: 328 }}
+                  dataSource={this.treeData}
+                  value={this.state.singleNodes}
+                  onChange={this.onChangeSingle}
+                />
+              </div>
+              <div>
+                <h5 style={{ color: 'rgba(0,0,0,0.45)', fontWeight: 400 }}>多选搜索框在下拉框内（旧）</h5>
+                <TreeSelect
+                  searchable
+                  searchInBox={false}
                   allowClear
                   disabled={this.state.disabled}
                   type="multiple"

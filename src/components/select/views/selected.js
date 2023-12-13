@@ -140,6 +140,7 @@ export default class Selected extends React.Component {
         maxTagCount,
         isSearch,
         setSearchStatus,
+        showTag,
       },
       state: { selected, clear },
       onMouseEnter,
@@ -149,8 +150,8 @@ export default class Selected extends React.Component {
       disabled,
       empty: supportUnlimited ? false : !dataSource.length,
       hidden: !showSelectStyle,
-      'search-in-box': searchable && searchInBox,
-      'multi-search-in-box': searchable && searchInBox && multiple,
+      'search-in-box': searchable && searchInBox || multiple && showTag,
+      'multi-search-in-box': multiple && (searchable && searchInBox || showTag),
       [`${size}`]: true,
     });
     const iconClasses = classnames(`${selector}-select-icon`, {
@@ -181,7 +182,7 @@ export default class Selected extends React.Component {
     if (searchable && searchInBox && !multiple) {
       SearchCom = SingleSearch;
     }
-    if (searchable && searchInBox && multiple) {
+    if ((searchable && searchInBox || showTag) && multiple) {
       SearchCom = MultiSearch;
     }
 
@@ -193,12 +194,7 @@ export default class Selected extends React.Component {
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
       >
-        {(!searchable || searchable && !searchInBox) && (
-          <span className={`${selector}-selected`} title={title}>
-            {selected.length ? selected : placeholder}
-          </span>
-        )}
-        {SearchCom && (
+        {SearchCom ? (
           <SearchCom
             placeholder={placeholder}
             selected={this.state.selected}
@@ -214,7 +210,12 @@ export default class Selected extends React.Component {
             maxTagCount={maxTagCount}
             setSearchStatus={setSearchStatus}
             disabled={disabled}
+            searchable={searchable && searchInBox}
           />
+        ) : (
+          <span className={`${selector}-selected`} title={title}>
+            {selected.length ? selected : placeholder}
+          </span>
         )}
         <Icon type="close-fill-1" className={clearClasses} onClick={onClear} />
         <Icon type="search" className={searchClasses} />

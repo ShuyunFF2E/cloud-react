@@ -69,94 +69,84 @@ export default function SelectDemo() {
       <Checkbox checked={disabled} onChange={checked => {
         setDisabled(checked)
       }}>禁用</Checkbox>
-      <div>
-        <h5>搜索框在下拉框内（单选）</h5>
-        <Select
-          searchable
-          searchInBox={false}
-          allowClear
-          disabled={disabled}
-          supportLightText
-          placeholder="带搜索的下拉单选"
-          onSearch={handleSearch}
-          onChange={handleChange}
-          style={{width: 260}}
-          dataSource={dataList}
-          position="auto"
-          // size="large"
-        />
-      </div>
-      <div>
-        <h5>搜索框在下拉框内（多选）</h5>
-        <Select
-          hasSelectAll
-          multiple
-          searchable
-          searchInBox={false}
-          allowClear
-          disabled={disabled}
-          supportLightText
-          placeholder="带搜索的下拉单选"
-          onSearch={handleSearch}
-          onChange={handleChange}
-          style={{width: 260}}
-          dataSource={dataList}
-          // size="large"
-        />
-      </div>
-      <div>
-        <h5>搜索框在下拉框外（单选-新）</h5>
-        <Select
-          searchable
-          allowClear
-          disabled={disabled}
-          supportLightText
-          placeholder="带搜索的下拉单选"
-          onSearch={handleSearch}
-          onChange={handleChange}
-          style={{width: 260}}
-          dataSource={dataList}
-          // size="large"
-        />
-      </div>
-      <div>
-        <h5>搜索框在下拉框外（多选-新）</h5>
-        <Select
-          hasSelectAll
-          searchable
-          allowClear
-          disabled={disabled}
-          multiple
-          supportLightText
-          placeholder="带搜索的下拉多选"
-          onSearch={handleSearch}
-          onChange={handleChange}
-          style={{width: 260}}
-          labelKey="name"
-          valueKey="userId"
-          dataSource={dataList.map(item => ({
-            name: item.label,
-            userId: item.value
-          }))}
-        />
-      </div>
-      <div>
-        <h5>搜索框在下拉框外（多选限制标签数量-新）</h5>
-        <Select
-          hasSelectAll
-          searchable
-          allowClear
-          disabled={disabled}
-          multiple
-          supportLightText
-          placeholder="带搜索的下拉多选"
-          onSearch={handleSearch}
-          onChange={handleChange}
-          style={{width: 260}}
-          dataSource={dataList}
-          maxTagCount={1}
-        />
-      </div>
+      <h5>搜索框在下拉框外（单选-新）</h5>
+      <Select
+        searchable
+        allowClear
+        disabled={disabled}
+        supportLightText
+        placeholder="带搜索的下拉单选"
+        onSearch={handleSearch}
+        onChange={handleChange}
+        style={{width: 260}}
+        dataSource={dataList}
+        // size="large"
+      />
+      <h5>搜索框在下拉框外（多选-新）</h5>
+      <Select
+        hasSelectAll
+        searchable
+        allowClear
+        disabled={disabled}
+        multiple
+        supportLightText
+        placeholder="带搜索的下拉多选"
+        onSearch={handleSearch}
+        onChange={handleChange}
+        style={{width: 260}}
+        labelKey="name"
+        valueKey="userId"
+        dataSource={dataList.map(item => ({
+          name: item.label,
+          userId: item.value
+        }))}
+      />
+      <h5>搜索框在下拉框外（多选限制标签数量-新）</h5>
+      <Select
+        hasSelectAll
+        searchable
+        allowClear
+        disabled={disabled}
+        multiple
+        supportLightText
+        placeholder="带搜索的下拉多选"
+        onSearch={handleSearch}
+        onChange={handleChange}
+        style={{width: 260}}
+        dataSource={dataList}
+        maxTagCount={1}
+      />
+      <h5 style={{ color: 'rgba(0,0,0,0.45)', fontWeight: 400 }}>搜索框在下拉框内（单选-旧）</h5>
+      <Select
+        searchable
+        searchInBox={false}
+        allowClear
+        disabled={disabled}
+        supportLightText
+        placeholder="带搜索的下拉单选"
+        onSearch={handleSearch}
+        onChange={handleChange}
+        style={{width: 260}}
+        dataSource={dataList}
+        position="auto"
+        // size="large"
+      />
+      <h5 style={{ color: 'rgba(0,0,0,0.45)', fontWeight: 400 }}>搜索框在下拉框内（多选-旧）</h5>
+      <Select
+        hasSelectAll
+        multiple
+        searchable
+        searchInBox={false}
+        allowClear
+        disabled={disabled}
+        supportLightText
+        placeholder="带搜索的下拉单选"
+        onSearch={handleSearch}
+        onChange={handleChange}
+        style={{width: 260}}
+        dataSource={dataList}
+        // size="large"
+      />
     </div>
   );
 }

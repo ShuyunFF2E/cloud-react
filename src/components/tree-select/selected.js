@@ -88,6 +88,7 @@ export default class Selected extends React.Component {
         isSearch,
         treeData,
         showPath,
+        showTag,
         // singleTreeRef,
         // singleTreeValue,
       },
@@ -99,8 +100,8 @@ export default class Selected extends React.Component {
     const classNames = classnames(`${selector}-wrapper`, {
       disabled,
       empty: !selectStr,
-      'search-in-box': searchable && searchInBox,
-      'multi-search-in-box': searchable && searchInBox && type === MULTIPLE,
+      'search-in-box': searchable && searchInBox || type === MULTIPLE && showTag,
+      'multi-search-in-box': type === MULTIPLE && (searchable && searchInBox || showTag),
     });
     const iconClasses = classnames(`${selector}-select-icon`, {
       open,
@@ -121,7 +122,7 @@ export default class Selected extends React.Component {
     if (searchable && searchInBox && type === SINGLE) {
       SearchCom = SingleSearch;
     }
-    if (searchable && searchInBox && type === MULTIPLE) {
+    if ((searchable && searchInBox || showTag) && type === MULTIPLE) {
       SearchCom = MultiSearch;
     }
 
@@ -133,8 +134,7 @@ export default class Selected extends React.Component {
         onMouseEnter={allowClear ? onMouseEnter : noop}
         onMouseLeave={allowClear ? onMouseLeave : noop}
       >
-        {(!searchable || searchable && !searchInBox) && <span className={`${selector}-selected`}>{selectStr || placeholder}</span>}
-        {SearchCom && (
+        {SearchCom ? (
           <SearchCom
             selected={this.state.selectStr}
             placeholder={placeholder}
@@ -149,8 +149,9 @@ export default class Selected extends React.Component {
             disabled={disabled}
             treeData={treeData}
             showPath={showPath}
+            searchable={searchable && searchInBox}
           />
-        )}
+        ) : <span className={`${selector}-selected`}>{selectStr || placeholder}</span>}
         {/* {searchable && searchInBox && type === DEFAULT && (*/}
         {/*  <SingleSearch*/}
         {/*    selected={singleTreeValue?.value || ''}*/}

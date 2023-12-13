@@ -17,6 +17,7 @@ export default function MultiSearch({
   disabled,
   treeData,
   showPath,
+  searchable,
 }) {
   const searchRef = useRef();
   const [selectList, setSelectList] = useState([]);
@@ -32,14 +33,16 @@ export default function MultiSearch({
   };
 
   useEffect(() => {
-    if (open) {
-      searchRef.current.querySelector('input').focus();
-      setSearchStatus(true);
-    } else {
-      setSearchStatus(false);
-      clearSearchValue();
+    if (searchable) {
+      if (open) {
+        searchRef.current.querySelector('input').focus();
+        setSearchStatus(true);
+      } else {
+        setSearchStatus(false);
+        clearSearchValue();
+      }
     }
-  }, [open, selectList.length]);
+  }, [open, selectList.length, searchable]);
 
   useEffect(() => {
     setSelectList([...selectedList].map(item => findTreeNode(item, treeData)));
@@ -89,17 +92,19 @@ export default function MultiSearch({
           {hideSelectList.length}
         </span>
       ) : null}
-      <div ref={searchRef} className={`${selector}-search`}>
-        <Input
-          disabled={disabled}
-          // useComposition
-          value={searchValue}
-          placeholder=""
-          onChange={onOptionsSearch}
-          className={`${selector}-search-input`}
-          onKeyDown={onKeyDown}
-        />
-      </div>
+      {searchable && (
+        <div ref={searchRef} className={`${selector}-search`}>
+          <Input
+            disabled={disabled}
+            // useComposition
+            value={searchValue}
+            placeholder=""
+            onChange={onOptionsSearch}
+            className={`${selector}-search-input`}
+            onKeyDown={onKeyDown}
+          />
+        </div>
+      )}
       <p className={`${selector}-multi-search-placeholder`}>{selectList.length || searchValue ? '' : placeholder}</p>
     </>
   );

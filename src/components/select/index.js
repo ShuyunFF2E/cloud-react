@@ -519,6 +519,8 @@ class Select extends Component {
           value={value}
           dataSource={this.children}
           onChange={this.onSimpleOptionChange}
+          searchValue={this.state.searchValue}
+          onSearchValueChange={this.onSearchValueChange}
         />
       );
     }
@@ -644,6 +646,7 @@ Select.propTypes = {
   lightTextColor: PropTypes.string,
   supportUnlimited: PropTypes.bool,
   unlimitedLabel: PropTypes.string,
+  showTag: PropTypes.bool,
   maxTagCount: PropTypes.number,
   dropdownStyle: PropTypes.object,
   dropdownClassName: PropTypes.string,
@@ -686,6 +689,7 @@ Select.defaultProps = {
   lightTextColor: undefined,
   supportUnlimited: false,
   unlimitedLabel: '不限',
+  showTag: true,
   maxTagCount: undefined,
   dropdownStyle: {},
   dropdownClassName: '',

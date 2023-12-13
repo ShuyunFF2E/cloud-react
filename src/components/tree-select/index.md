@@ -38,6 +38,7 @@ group:
 | onSelectOpen      | 下拉选择框弹开的时候回调此函数                         | function                       | -                |
 | onSelectClose     | 下拉选择框关闭的时候回调此函数                         | function                       | -                |
 | searchInBox     | 搜索框在输入框内                         | boolean                       |  true                |
+| showTag           | 多选下拉已选项为tag形式                                                                                                                      |  boolean                                 | true          |
 | maxTagCount        | 多选下拉最多显示多少个tag        | number                                 | -          |
 | position          | 下拉框定位：`top` `bottom` `auto`（是否启用自动定位，如需使用可设置为`auto`）                                                                                                       | string                                  | `bottom`              |
 | dropdownClassName   | 下拉框类名                                                                                                         |  string          | -   |

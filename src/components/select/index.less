@@ -146,6 +146,9 @@
         position: relative;
 
         .@{select-prefix-cls}-search-input {
+          position: absolute;
+          top: 50%;
+          transform: translate(0, -50%);
           width: 100%;
           height: 30px;
           border: none;
@@ -213,6 +216,7 @@
         font-size: 12px;
         padding: 0 6px;
         max-width: 49%;
+        min-width: 38px;
 
         &-text {
           white-space: nowrap;

@@ -38,6 +38,7 @@ group:
 | placeholder       | 选择框默认文案                                                                                                                                       | string                                  | -              |
 | searchable        | 使下拉框带搜索                                                                                                                                       | boolean                                 | false          |
 | searchInBox        | 搜索框在输入框内                                                                                                                                      | boolean                                 | true          |
+| showTag           | 多选下拉已选项为tag形式                                                                                                                      |  boolean                                 | true          |
 | maxTagCount        | 多选下拉最多显示多少个tag                                                                                                                      | number                                 | -          |
 | searchPlaceholder | 搜索框默认文案                                                                                                                                       | string                                  | -              |
 | emptyRender       | 数据为空时下拉框显示内容                                                                                                                             | string \| node                             | '暂无数据'+缺省图 |
@@ -89,9 +90,6 @@ group:
 ### 大小
 <embed src="@components/select/demos/sizeSelect.md" />
 
-### 可搜索
-<embed src="@components/select/demos/searchable.md" />
-
 ### 定制化选项
 <embed src="@components/select/demos/customItem.md" />
 
@@ -112,6 +110,9 @@ group:
 
 ### 分组可搜索
 <embed src="@components/select/demos/groupSearch.md" />
+
+### 可搜索
+<embed src="@components/select/demos/searchable.md" />
 
 ### 多选下拉支持不限
 <embed src="@components/select/demos/unlimited.md" />
