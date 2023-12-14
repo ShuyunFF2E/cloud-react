@@ -19,12 +19,65 @@ import {
   InputNumber,
   CPicker as DatePicker,
   ComplexRadio,
-  Field
+  Field,
+  TreeSelect
 } from 'cloud-react';
 
 const { RangePicker, TimeRangePicker } = DatePicker;
 
 const wrapperStyle = { position: 'relative', top: 2 };
+
+const treeData = [
+  {
+    id: 11,
+    name: '禁止删除节点',
+    pId: 1,
+    disableRemove: true,
+    children: [
+      {
+        id: 113,
+        name: '删除三个',
+        pId: 11,
+        children: [
+          {
+            id: 1131,
+            name: '禁止删除节点31',
+            pId: 113,
+            children: []
+          },
+          {
+            id: 1132,
+            name: '禁止删除节点32',
+            pId: 113,
+            children: [
+              {
+                id: 11321,
+                name: '禁止删除节点321',
+                pId: 1132,
+                children: []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: 114,
+        name: '禁止删除节点4',
+        pId: 11,
+        children: []
+      }
+    ]
+  },
+  {
+    id: 14,
+    name: '未分类',
+    pId: 1,
+    disableRemove: true,
+    disableAdd: true,
+    disableRename: true,
+    children: []
+  }
+];
 
 export default function FormHorizontalDemo() {
   const field = Field.useField();
@@ -32,6 +85,8 @@ export default function FormHorizontalDemo() {
   const [labelAlign, setLabelAlign] = useState('right');
   const [layout, setLayout] = useState('horizontal');  
   const [disabled, setDisabled] = useState(false);
+  const [singleNodes, setSingleNodes] = useState([]);
+  const [selectedNodes, setSelectedNodes] = useState([]);
 
   const [value, setValue] = useState();
   const radioList = [
@@ -54,20 +109,20 @@ export default function FormHorizontalDemo() {
         <Checkbox value={disabled} checked={disabled} onChange={setDisabled}>禁用表单</Checkbox>
       </Form.Item>
       <Form.Item label="设置表单尺寸" wrapperStyle={wrapperStyle}>
-        <Radio.Group value={size} onChange={setSize}>
+        <Radio.Group value={size} onChange={setSize} horizontal>
           <Radio value="large">large</Radio>
           <Radio value="default">default</Radio>
           <Radio value="small">small</Radio>
         </Radio.Group>
       </Form.Item>
       <Form.Item label="设置对齐方式" wrapperStyle={wrapperStyle}>
-        <Radio.Group value={labelAlign} onChange={setLabelAlign}>
+        <Radio.Group value={labelAlign} onChange={setLabelAlign} horizontal>
           <Radio value="right">right</Radio>
           <Radio value="left">left</Radio>
         </Radio.Group>
       </Form.Item>
       <Form.Item label="设置布局方式" wrapperStyle={wrapperStyle}>
-        <Radio.Group value={layout} onChange={setLayout}>
+        <Radio.Group value={layout} onChange={setLayout} horizontal>
           <Radio value="horizontal">horizontal</Radio>
           <Radio value="vertical">vertical</Radio>
         </Radio.Group>
@@ -109,6 +164,7 @@ export default function FormHorizontalDemo() {
 
       <Form.Item label="订单筛选类型" required wrapperStyle={wrapperStyle}>
         <Radio.Group
+          horizontal
           disabled={disabled}
           {...field.init('type', {
             rules: [{ required: true, message: '请选择订单筛选类型' }]
@@ -164,8 +220,10 @@ export default function FormHorizontalDemo() {
         />
       </Form.Item>
 
-      <Form.Item label="所在国家" required>
+      <Form.Item label="所在国家-单选" required>
         <Select
+          allowClear
+          searchable
           disabled={disabled}
           {...field.init('country', {
             rules: [{ required: true, message: '请选择所在国家' }]
@@ -174,6 +232,52 @@ export default function FormHorizontalDemo() {
           <Select.Option value={2}>美国</Select.Option>
           <Select.Option value={3}>日本</Select.Option>
         </Select>
+      </Form.Item>
+
+      <Form.Item label="多选" required>
+        <Select
+          allowClear
+          maxTagCount={1}
+          // searchable
+          multiple
+          disabled={disabled}
+          {...field.init('country1', {
+            rules: [{ required: true, message: '请选择' }]
+          })}>
+          <Select.Option value={1}>A</Select.Option>
+          <Select.Option value={2}>B</Select.Option>
+          <Select.Option value={3}>C</Select.Option>
+        </Select>
+      </Form.Item>
+
+      <Form.Item label="树下拉单选" required>
+        <TreeSelect
+          searchable
+          allowClear
+          type="single"
+          isUnfold
+          containParentNode
+          placeholder="选择一个选项"
+          style={{ width: 328 }}
+          dataSource={treeData}
+          value={singleNodes}
+          onChange={(_, selectedNodes) => setSingleNodes(selectedNodes)}
+        />
+      </Form.Item>
+
+      <Form.Item label="树下拉多选" required>
+        <TreeSelect
+          searchable
+          allowClear
+          type="multiple"
+          isUnfold
+          containParentNode
+          placeholder="选择一个选项"
+          style={{ width: 328 }}
+          dataSource={treeData}
+          value={selectedNodes}
+          onChange={(_, selectedNodes) => setSelectedNodes(selectedNodes)}
+        />
       </Form.Item>
 
       <Form.Item wrapperCol={{ offset: 6 }}>
