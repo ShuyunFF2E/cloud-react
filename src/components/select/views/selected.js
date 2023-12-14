@@ -150,7 +150,7 @@ export default class Selected extends React.Component {
       disabled,
       empty: supportUnlimited ? false : !dataSource.length,
       hidden: !showSelectStyle,
-      'search-in-box': searchable && searchInBox || multiple && showTag,
+      'search-in-box': !multiple && searchable && searchInBox,
       'multi-search-in-box': multiple && (searchable && searchInBox || showTag),
       [`${size}`]: true,
     });

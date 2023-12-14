@@ -100,7 +100,7 @@ export default class Selected extends React.Component {
     const classNames = classnames(`${selector}-wrapper`, {
       disabled,
       empty: !selectStr,
-      'search-in-box': searchable && searchInBox || type === MULTIPLE && showTag,
+      'search-in-box': type === SINGLE && searchable && searchInBox,
       'multi-search-in-box': type === MULTIPLE && (searchable && searchInBox || showTag),
     });
     const iconClasses = classnames(`${selector}-select-icon`, {

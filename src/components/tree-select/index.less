@@ -117,7 +117,7 @@
 		}
 
 		.@{select-prefix-cls}-search-icon {
-			color: #dbdbdb;
+			color: @gray-6;
 			position: absolute;
 			right: @default-padding * 2;
 			display: none;
@@ -127,47 +127,62 @@
 			}
 		}
 
-		.@{select-prefix-cls}-single-select-selected {
-			width: calc(100% - 36px);
-			position: absolute;
-			z-index: 1;
-			font-size: 14px;
-			color: @color-gray4;
-			.text-overflow-ellipsis();
-		}
+		// 单选-新-搜索框在输入框内
+		&.search-in-box {
+			padding: 6px 0 6px 12px;
 
-		.@{select-prefix-cls}-search {
-			width: 100%;
-			position: relative;
+			.@{select-prefix-cls}-single-search-container {
+				display: flex;
+				align-items: center;
+				width: calc(100% - 28px);
+			}
 
-			.@{select-prefix-cls}-search-input {
-				width: calc(100% - 24px);
-				height: 30px;
-				border: none;
-				padding: 0;
-				outline: none;
-				z-index: 1;
-				background: transparent;
+			.@{select-prefix-cls}-single-select-selected {
+				width: calc(100% - 42px);
+				font-size: 14px;
+				color: @color-gray4;
 				.text-overflow-ellipsis();
+			}
+
+			.@{select-prefix-cls}-search {
+				width: 0;
+				flex: 1;
+
+				.@{select-prefix-cls}-search-input {
+					width: 100%;
+					height: 30px;
+					border: none;
+					padding: 0;
+					outline: none;
+					z-index: 1;
+					background: transparent;
+					.text-overflow-ellipsis();
+				}
 			}
 		}
 
-		&.search-in-box {
-			padding-left: 12px;
-		}
-
+		// 多选-新-搜索框在输入框内
 		&.multi-search-in-box {
 			height: auto;
 			min-height: 32px;
 			flex-wrap: wrap;
 			justify-content: flex-start;
 			gap: 4px;
-			padding: 4px 24px 4px 8px;
+			padding: 4px 0 4px 8px;
 			font-size: 14px;
 			color: @color-gray4;
 
+			.@{select-prefix-cls}-multi-search-container {
+				display: flex;
+				align-items: center;
+				flex: 1;
+				flex-wrap: wrap;
+				gap: 4px;
+				width: calc(100% - 30px);
+			}
+
 			&.empty {
-				padding: 4px 24px 4px 12px;
+				padding: 4px 0 4px 12px;
 			}
 
 			&.large {
@@ -186,6 +201,26 @@
 				}
 			}
 
+			.@{select-prefix-cls}-search {
+				position: relative;
+				width: 4px;
+
+				.@{select-prefix-cls}-search-input {
+					width: 100%;
+					height: 20px;
+					border: none;
+					padding: 0;
+					outline: none;
+					z-index: 1;
+					background: transparent;
+					.text-overflow-ellipsis();
+				}
+
+				.@{select-prefix-cls}-search-icon {
+					color: @gray-6;
+				}
+			}
+
 			.@{select-prefix-cls}-multi-search-placeholder {
 				position: absolute;
 				color: rgba(0, 0, 0, 0.25);
@@ -193,21 +228,29 @@
 
 			.@{select-prefix-cls}-multiple-search-item {
 				height: 22px;
-				display: flex;
-				gap: 4px;
+				line-height: 22px;
+				display: inline-flex;
 				align-items: center;
+				gap: 4px;
 				background: #F5F5F5;
 				border: 1px solid #f5f5f5;
 				border-radius: 2px;
 				color: @gray-9;
-				font-size: 12px;
 				padding: 0 6px;
-				max-width: 49%;
+				max-width: 100%;
+				//min-width: 38px;
 
 				&-text {
 					white-space: nowrap;
 					overflow: hidden;
 					text-overflow: ellipsis;
+				}
+
+				&-text,
+				&-count {
+					// 直接设置 font-size 为 12 px，选择后会出现闪动的问题
+					font-size: 14px;
+					transform: scale(0.85);
 				}
 
 				i {
@@ -216,19 +259,8 @@
 				}
 
 				&.disabled {
-					border: 1px solid #E8E8E8;
 					color: @gray-7;
-				}
-			}
-
-			&.search-in-box {
-				.@{select-prefix-cls}-search {
-					width: 4px;
-				}
-
-				.@{select-prefix-cls}-search-input {
-					width: 100%;
-					height: 20px;
+					border: 1px solid #E8E8E8;
 				}
 			}
 		}

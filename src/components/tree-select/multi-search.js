@@ -76,22 +76,32 @@ export default function MultiSearch({
   const hideSelectList = maxTagCount ? selectList.slice(maxTagCount) : [];
 
   return (
-    <>
-      {showSelectList.map(item => {
-        const name = showPath ? item?.path?.join('/') : item?.name;
-        return (
-          <span key={item?.id} className={`${selector}-multiple-search-item ${disabled && 'disabled'}`}>
-            <span className={`${selector}-multiple-search-item-text`} title={name}>{name}</span>
-            {!disabled && <Icon type="close" onClick={evt => onItemClose(evt, item)} />}
-          </span>
-        );
-      })}
-      {hideSelectList.length ? (
-        <span className={`${selector}-multiple-search-item ${disabled && 'disabled'}`}>
-          +
-          {hideSelectList.length}
-        </span>
-      ) : null}
+    <div className={`${selector}-multi-search-container`}>
+      {selectList?.length ? (
+        <>
+          {showSelectList.map(item => {
+            const name = showPath ? item?.path?.join('/') : item?.name;
+            return (
+              (
+                <span key={item.id} className={`${selector}-multiple-search-item ${disabled && 'disabled'}`}>
+                  <span className={`${selector}-multiple-search-item-text`} title={name}>{name}</span>
+                  {!disabled && <Icon type="close" onClick={evt => onItemClose(evt, item)} />}
+                </span>
+              )
+            );
+          })}
+          {hideSelectList.length ? (
+            <span className={`${selector}-multiple-search-item ${disabled && 'disabled'}`}>
+              <span className={`${selector}-multiple-search-item-count`}>
+                +
+                {hideSelectList.length}
+              </span>
+            </span>
+          ) : null}
+        </>
+      ) : (
+        <span style={{ visibility: 'hidden', width: 0, marginLeft: -4 }}>-</span>
+      )}
       {searchable && (
         <div ref={searchRef} className={`${selector}-search`}>
           <Input
@@ -105,7 +115,7 @@ export default function MultiSearch({
           />
         </div>
       )}
-      <p className={`${selector}-multi-search-placeholder`}>{selectList.length || searchValue ? '' : placeholder}</p>
-    </>
+      {selectList.length || searchValue ? '' : <p className={`${selector}-multi-search-placeholder`}>{placeholder}</p>}
+    </div>
   );
 }
