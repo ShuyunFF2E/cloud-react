@@ -155,18 +155,18 @@
     // 表单校验样式
     .has-error {
       &,
-      > .@{prefix}-select,
+      > .@{prefix}-select > .@{prefix}-select-wrapper,
+      > .@{prefix}-select > .@{prefix}-select-open .@{prefix}-select-wrapper,
+      > .@{prefix}-input-number:not(.cloud-input-number-disabled),
+      > .@{prefix}-input-textarea-wrapper > textarea,
+      > .@{prefix}-tree-select .@{prefix}-tree-select-wrapper,
+      > .@{prefix}-input,
+      > .@{prefix}-input-affix,
       .@{prefix}-datepicker-inp-block,
       .@{prefix}-datepicker-container {
-        > .@{prefix}-select-wrapper,
-        > .@{prefix}-input-number,
-        > .@{prefix}-input-textarea,
-        > .@{prefix}-input,
-        > .@{prefix}-input-affix {
-          &,
-          &:hover {
-            border-color: @red-4;
-          }
+        &,
+        &:hover {
+          border-color: @red-4!important;
         }
       }
     }

@@ -85,8 +85,8 @@ export default function FormHorizontalDemo() {
   const [labelAlign, setLabelAlign] = useState('right');
   const [layout, setLayout] = useState('horizontal');  
   const [disabled, setDisabled] = useState(false);
-  const [singleNodes, setSingleNodes] = useState([]);
-  const [selectedNodes, setSelectedNodes] = useState([]);
+  // const [singleNodes, setSingleNodes] = useState([]);
+  // const [selectedNodes, setSelectedNodes] = useState([]);
 
   const [value, setValue] = useState();
   const radioList = [
@@ -204,9 +204,9 @@ export default function FormHorizontalDemo() {
           <Checkbox value={2}>京东</Checkbox>
           <Checkbox value={3}>苏宁</Checkbox>
           <Checkbox value={4}>蘑菇街</Checkbox>
-          <Checkbox value={4}>拼多多</Checkbox>
-          <Checkbox value={4}>线下</Checkbox>
-          <Checkbox value={4}>有赞</Checkbox>
+          <Checkbox value={5}>拼多多</Checkbox>
+          <Checkbox value={6}>线下</Checkbox>
+          <Checkbox value={7}>有赞</Checkbox>
         </Checkbox.Group>
       </Form.Item>
 
@@ -250,35 +250,44 @@ export default function FormHorizontalDemo() {
         </Select>
       </Form.Item>
 
-      <Form.Item label="树下拉单选" required>
-        <TreeSelect
-          searchable
-          allowClear
-          type="single"
-          isUnfold
-          containParentNode
-          placeholder="选择一个选项"
-          style={{ width: 328 }}
-          dataSource={treeData}
-          value={singleNodes}
-          onChange={(_, selectedNodes) => setSingleNodes(selectedNodes)}
-        />
-      </Form.Item>
-
-      <Form.Item label="树下拉多选" required>
-        <TreeSelect
-          searchable
-          allowClear
-          type="multiple"
-          isUnfold
-          containParentNode
-          placeholder="选择一个选项"
-          style={{ width: 328 }}
-          dataSource={treeData}
-          value={selectedNodes}
-          onChange={(_, selectedNodes) => setSelectedNodes(selectedNodes)}
-        />
-      </Form.Item>
+      {/*<Form.Item label="树下拉单选" required>*/}
+      {/*  <TreeSelect*/}
+      {/*    searchable*/}
+      {/*    allowClear*/}
+      {/*    type="single"*/}
+      {/*    isUnfold*/}
+      {/*    containParentNode*/}
+      {/*    placeholder="选择一个选项"*/}
+      {/*    style={{ width: 328 }}*/}
+      {/*    dataSource={treeData}*/}
+      {/*    {...field.init('tree1', {*/}
+      {/*      rules: [{*/}
+      {/*        validator: (name, value, callback) => {*/}
+      {/*          console.log(value, '-----')*/}
+      {/*          callback(value ? '' : '请选择');*/}
+      {/*        } */}
+      {/*      }]*/}
+      {/*    })}*/}
+      {/*  />*/}
+      {/*</Form.Item>*/}
+      
+      {/*<Form.Item label="树下拉多选" required>*/}
+      {/*  <TreeSelect*/}
+      {/*    searchable*/}
+      {/*    allowClear*/}
+      {/*    type="multiple"*/}
+      {/*    isUnfold*/}
+      {/*    containParentNode*/}
+      {/*    placeholder="选择一个选项"*/}
+      {/*    style={{ width: 328 }}*/}
+      {/*    dataSource={treeData}*/}
+      {/*    {...field.init('tree2', {*/}
+      {/*      rules: [{ required: true, message: '请选择' }]*/}
+      {/*    })}*/}
+      {/*    value={selectedNodes}*/}
+      {/*    onChange={(_, selectedNodes) => setSelectedNodes(selectedNodes)}*/}
+      {/*  />*/}
+      {/*</Form.Item>*/}
 
       <Form.Item wrapperCol={{ offset: 6 }}>
         <Button disabled={disabled} type="primary" style={{ marginRight: 10 }} onClick={() => {

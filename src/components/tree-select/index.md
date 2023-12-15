@@ -22,6 +22,7 @@ group:
 | ~~multiple~~      | ~~是否为多选下拉树~~                                      | ~~boolean~~                        | ~~false~~            |
 | ~~single~~        | ~~是否为单选下拉树~~                                     | ~~boolean~~                        | ~~false~~            |
 | disabled          | 下拉禁用状态                                           | boolean                        | false            |
+| size              | 输入框大小，可选值为 `large` `default` `small`              | string            | `default` |
 | dataSource        | 需要展示的数据，与下拉树类型相关                                     | array                          | []               |
 | defaultOpen       | 默认下拉菜单展开状态                                   | boolean                        | false            |
 | open              | 下拉菜单展开状态，当使用此属性时组件本身 open 行为失效 | boolean                        | -                |

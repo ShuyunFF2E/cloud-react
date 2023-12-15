@@ -351,7 +351,9 @@ class TreeSelect extends Component {
       dropdownClassName,
       isAppendToBody,
       searchable,
-      maxHeight,
+      size,
+      formSize,
+      ...otherProps
     } = this.props;
     const { value, open, style: popupStyle } = this.state;
     const { width } = this.selectedContainerStyle;
@@ -374,6 +376,7 @@ class TreeSelect extends Component {
     return (
       <div className={`${classNames}`} style={style} ref={this.node}>
         <Selected
+          {...otherProps}
           ref={this.selectedNode}
           onClick={this.onClickSelected}
           onClear={this.onClearSelected}
@@ -387,15 +390,10 @@ class TreeSelect extends Component {
           searchInBox={this.props.searchInBox}
           treeRef={this.treeRef}
           setSearchStatus={this.setSearchStatus}
-          type={this.props.type}
           onMultiChange={this.onValueChange}
           positionPop={this.positionPop}
-          maxTagCount={this.props.maxTagCount}
           selectedList={this.state.value}
-          isSearch={this.state.isSearch}
-          showPath={this.props.showPath}
-          showTag={this.props.showTag}
-          maxHeight={maxHeight}
+          size={formSize || size || 'default'}
           // singleTreeRef={this.singleTreeRef}
           // singleTreeValue={this.state.value}
         />
@@ -437,6 +435,7 @@ TreeSelect.propTypes = {
   dropdownClassName: PropTypes.string,
   position: PropTypes.oneOf(['top', 'bottom', 'auto']),
   maxHeight: PropTypes.number,
+  size: PropTypes.oneOf(['small', 'default', 'large']),
 };
 
 TreeSelect.defaultProps = {
@@ -469,6 +468,7 @@ TreeSelect.defaultProps = {
   dropdownClassName: '',
   position: 'bottom',
   maxHeight: undefined,
+  size: 'default',
 };
 
 export default TreeSelect;

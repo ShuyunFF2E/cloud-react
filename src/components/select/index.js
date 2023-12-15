@@ -550,6 +550,7 @@ class Select extends Component {
       isSupportTitle,
       size,
       supportUnlimited,
+      formSize,
       ...otherProps
     } = this.props;
     const { selected, open, style: popupStyle } = this.state;
@@ -584,7 +585,7 @@ class Select extends Component {
           dataSource={selected}
           metaData={this.children}
           disabled={disabled}
-          size={size}
+          size={formSize || size || 'default'}
           isSupportTitle={isSupportTitle}
           supportUnlimited={supportUnlimited}
           onSearchValueChange={this.onSearchValueChange}

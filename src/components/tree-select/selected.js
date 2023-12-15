@@ -90,6 +90,7 @@ export default class Selected extends React.Component {
         showPath,
         showTag,
         maxHeight,
+        size,
         // singleTreeRef,
         // singleTreeValue,
       },
@@ -103,6 +104,7 @@ export default class Selected extends React.Component {
       empty: !selectStr,
       'search-in-box': type === SINGLE && searchable && searchInBox,
       'multi-search-in-box': type === MULTIPLE && (searchable && searchInBox || showTag),
+      [size]: true,
     });
     const iconClasses = classnames(`${selector}-select-icon`, {
       open,
