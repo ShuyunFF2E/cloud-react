@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import { Icon, Button } from 'cloud-react';
+import Icon from '../../icon';
+import Button from '../../button';
 import { prefixCls } from '../../../utils';
 import './index.less';
 
