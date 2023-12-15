@@ -89,6 +89,7 @@ export default class Selected extends React.Component {
         treeData,
         showPath,
         showTag,
+        maxHeight,
         // singleTreeRef,
         // singleTreeValue,
       },
@@ -133,6 +134,7 @@ export default class Selected extends React.Component {
         onClick={onClick}
         onMouseEnter={allowClear ? onMouseEnter : noop}
         onMouseLeave={allowClear ? onMouseLeave : noop}
+        style={maxHeight ? { maxHeight, overflow: 'auto' } : {}}
       >
         {SearchCom ? (
           <SearchCom

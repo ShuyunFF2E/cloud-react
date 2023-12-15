@@ -79,6 +79,7 @@ export default function MultiSearch({
     <div className={`${selector}-multi-search-container`}>
       {selectList?.length ? (
         <>
+          <span style={{ width: 0, zIndex: -1, padding: 0, marginLeft: -4 }}>-</span>
           {showSelectList.map(item => {
             const name = showPath ? item?.path?.join('/') : item?.name;
             return (

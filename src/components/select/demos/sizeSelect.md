@@ -39,8 +39,8 @@ export default function SelectDemo() {
   const [size, setSize ] = useState('default');
 
   return (
-    <div>
-      <div>
+    <div className="demo">
+      <div style={{ marginBottom: 15 }}>
         <Button size="large" onClick={() => setSize('large')}>大尺寸</Button>
         {blank}
         <Button size="default" onClick={() => setSize('default')}>默认</Button>

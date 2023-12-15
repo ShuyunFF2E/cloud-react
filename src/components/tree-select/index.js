@@ -351,6 +351,7 @@ class TreeSelect extends Component {
       dropdownClassName,
       isAppendToBody,
       searchable,
+      maxHeight,
     } = this.props;
     const { value, open, style: popupStyle } = this.state;
     const { width } = this.selectedContainerStyle;
@@ -394,6 +395,7 @@ class TreeSelect extends Component {
           isSearch={this.state.isSearch}
           showPath={this.props.showPath}
           showTag={this.props.showTag}
+          maxHeight={maxHeight}
           // singleTreeRef={this.singleTreeRef}
           // singleTreeValue={this.state.value}
         />
@@ -434,6 +436,7 @@ TreeSelect.propTypes = {
   dropdownStyle: PropTypes.object,
   dropdownClassName: PropTypes.string,
   position: PropTypes.oneOf(['top', 'bottom', 'auto']),
+  maxHeight: PropTypes.number,
 };
 
 TreeSelect.defaultProps = {
@@ -465,6 +468,7 @@ TreeSelect.defaultProps = {
   dropdownStyle: {},
   dropdownClassName: '',
   position: 'bottom',
+  maxHeight: undefined,
 };
 
 export default TreeSelect;

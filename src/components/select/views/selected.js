@@ -141,6 +141,7 @@ export default class Selected extends React.Component {
         isSearch,
         setSearchStatus,
         showTag,
+        maxHeight,
       },
       state: { selected, clear },
       onMouseEnter,
@@ -193,6 +194,7 @@ export default class Selected extends React.Component {
         onClick={this.onWrapperClick}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
+        style={maxHeight ? { maxHeight, overflow: 'auto' } : {}}
       >
         {SearchCom ? (
           <SearchCom

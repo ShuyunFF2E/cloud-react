@@ -651,6 +651,7 @@ Select.propTypes = {
   dropdownStyle: PropTypes.object,
   dropdownClassName: PropTypes.string,
   position: PropTypes.oneOf(['top', 'bottom', 'auto']),
+  maxHeight: PropTypes.number,
 };
 
 Select.defaultProps = {
@@ -694,6 +695,7 @@ Select.defaultProps = {
   dropdownStyle: {},
   dropdownClassName: '',
   position: 'bottom',
+  maxHeight: undefined,
 };
 
 export default Select;

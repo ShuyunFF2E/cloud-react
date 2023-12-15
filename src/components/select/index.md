@@ -40,6 +40,7 @@ group:
 | searchInBox        | 搜索框在输入框内                                                                                                                                      | boolean                                 | true          |
 | showTag           | 多选下拉已选项为tag形式                                                                                                                      |  boolean                                 | true          |
 | maxTagCount        | 多选下拉最多显示多少个tag                                                                                                                      | number                                 | -          |
+| maxHeight        | 多选下拉框最大高度        | number                                 | -          |
 | searchPlaceholder | 搜索框默认文案                                                                                                                                       | string                                  | -              |
 | emptyRender       | 数据为空时下拉框显示内容                                                                                                                             | string \| node                             | '暂无数据'+缺省图 |
 | defaultValue      | 默认选中的项                                                                                                                                         | string \| number \| array                     | -              |

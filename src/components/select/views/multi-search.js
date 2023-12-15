@@ -79,6 +79,7 @@ export default function MultiSearch({
     <div className={`${selector}-multi-search-container`}>
       {selectList?.length ? (
         <>
+          <span style={{ width: 0, zIndex: -1, padding: 0, marginLeft: -4, fontSize: 14 }}>-</span>
           {showSelectList.map(item => (
             <span key={item.value} className={`${selector}-multiple-search-item ${disabled && 'disabled'}`}>
               <span className={`${selector}-multiple-search-item-text`} title={item.label}>{item.label}</span>
