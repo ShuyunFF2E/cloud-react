@@ -43,7 +43,7 @@ export default class Tabs extends PureComponent {
     const { defaultActiveKey, activeKey, children } = props;
 
     const childList = Array.isArray(children) ? children : [ children ];
-    const activedKey = activeKey || defaultActiveKey || childList[0].key;
+    const activedKey = activeKey || defaultActiveKey || childList?.[0]?.key;
     const childCount = React.Children.count(children);
 
     this.state = {
@@ -271,7 +271,7 @@ export default class Tabs extends PureComponent {
 
   keyFilter = (key) => {
     // 使用form key会变为 0.$XXXX
-    const [ k1 = '', k2 = '' ] = key.split('.$');
+    const [ k1 = '', k2 = '' ] = `${key}`?.split('.$') || [];
     return k2 || k1;
   };
 
@@ -311,7 +311,7 @@ export default class Tabs extends PureComponent {
       linePrefixTpl,
     } = child.props;
     const { width } = tabBarStyle;
-    const { key } = child;
+    const key = child?.key;
 
     // class & style
     const className = cls(`${prefixCls}-tabs-item-${type}`, {
@@ -416,7 +416,7 @@ export default class Tabs extends PureComponent {
     Children.forEach(children, (child) => {
       if (!isValidElement(child)) return;
 
-      const isActived = this.keyFilter(child.key) === this.keyFilter(activedKey);
+      const isActived = this.keyFilter(child?.key) === this.keyFilter(activedKey);
       headers.push(this.renderTabHeader(child, isActived));
 
       if (type === 'card' && child.props.fixed) {
