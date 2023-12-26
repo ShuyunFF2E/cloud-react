@@ -54,9 +54,11 @@ class RowTooltip extends Component {
       );
 
       if (tooltipEle) {
+        const checkboxEle = targetRow.querySelector(`.${prefixCls}-checkbox-disabled`);
+        const radioEle = targetRow.querySelector(`.${prefixCls}-radio-input[disabled]`);
         const tooltipStyle = getTooltipPositionInBody(
           tooltipEle,
-          targetRow.querySelector(`.${prefixCls}-checkbox-disabled`),
+          checkboxEle || radioEle,
           'top-left',
         );
 
