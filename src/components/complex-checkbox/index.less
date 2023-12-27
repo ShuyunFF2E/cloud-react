@@ -32,18 +32,18 @@
     min-width: 120px;
     &:hover {
       //background: @gray-2;
-      border: 1px solid #496bf5;
+      border: 1px solid @blue-4;
     }
-    &-checked {
-      background-color: #f5f7ff;
-      border: 1px solid @color-blue5;
+    &.@{prefix}-checkbox-checked {
+      background-color: @blue-1;
+      border: 1px solid @blue-4;
       &:hover {
-        background: #f5f8ff;
+        background: @blue-1;
       }
     }
     &-disabled {
       background: #fff;
-      &.@{complex-checkbox-prefix-cls}-card-checked {
+      &.@{prefix}-checkbox-checked {
         background: #f5f5f5 !important;
         border: 1px solid #e8e8e8;
       }

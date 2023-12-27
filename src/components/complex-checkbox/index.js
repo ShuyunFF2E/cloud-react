@@ -31,8 +31,6 @@ export default function ComplexCheckbox(props) {
         [`${classSelector}-overflow-ellipsis`]: textOverflowEllipsis,
         [`${classSelector}-card`]: type === 'card',
         [`${classSelector}-card-disabled`]: type === 'card' && props.disabled,
-        [`${classSelector}-card-checked`]:
-          type === 'card' && (props.checked || props.defaultChecked),
       })}
       {...otherProps}
     >
