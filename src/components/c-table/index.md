@@ -358,8 +358,10 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 
 <embed src="@components/c-table/demos/goods-table.md" />
 
-<embed src="@components/c-table/demos/front-table.md" />
+<embed src="@components/c-table/demos/front-table2.md" />
 
-<embed src="@components/c-table/demos/front-table1.md" />
+[comment]: <> (<embed src="@components/c-table/demos/front-table.md" />)
+
+[comment]: <> (<embed src="@components/c-table/demos/front-table1.md" />)
 
 <embed src="@components/c-table/demos/table-in-tab.md" />

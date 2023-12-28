@@ -2,20 +2,30 @@
 
 /**
  * title: 纯前端表格带增删操作
- * desc: 此例子用来解决：纯前端表格，对表格进行增删操作时，表格数据源异常的问题（主要思想是在删除之后，通过改变 key 值让表格重新初始化，这种写法也有弊端，就是每次删除之后，表格滚动条无法维持位置，不过可以通过 scrollIntoView 来解决。如果有更好的解决方案欢迎戳我，我来更新文档！！！）
+ * desc: 此例子用来解决：纯前端表格，对表格进行增删操作时，render 内部拿不到完整表格数据源的问题
  */
 import React, { useState, useEffect, createRef } from 'react';
 import { CTable, Button } from 'cloud-react';
 
-function TableDemo({ data, setData }) {
+function TableDemo() {
   const tableRef = createRef();
+  const [data, setData] = useState([
+    { id: '121410327', name: '手机号优先继续发送1', createTime: '2021/12/14 10:19:02', creator: 'liyuan.meng', num: '12222' },
+  ]);
+  const [currentDeleteRow, setCurrentDeleteRow] = useState(null);
+
+  useEffect(() => {
+    if (currentDeleteRow) {
+      const targetIndex = data.findIndex(item => item.id === currentDeleteRow.id);
+      if (targetIndex > -1) {
+        data.splice(targetIndex, 1);
+      }
+      setData([...data]);
+    }
+  }, [currentDeleteRow])
 
   const onDelete = row => {
-    const targetIndex = data.findIndex(item => item.id === row.id);
-    if (targetIndex > -1) {
-      data.splice(targetIndex, 1);
-    }
-    setData([...data]);
+    setCurrentDeleteRow(row);
   }
 
   const onAdd = () => {
@@ -63,15 +73,5 @@ function TableDemo({ data, setData }) {
   );
 }
 
-export default function CTableDemo() {
-  const [data, setData] = useState([
-    { id: '121410327', name: '手机号优先继续发送1', createTime: '2021/12/14 10:19:02', creator: 'liyuan.meng', num: '12222' },
-  ]);
-
-  return (
-    <div>
-      <TableDemo key={`${data?.map(item => item.id).join(',')}`} data={data} setData={setData}/>
-    </div>
-  );
-}
+export default TableDemo;
 ```
