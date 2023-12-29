@@ -110,6 +110,14 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 | sortWidthOriginStatus | 表格排序状态分为升序和降序，配置该参数为 true，排序状态可以恢复原始状态 | 	boolean   |   false   | |
 | sortMultiColumns | 是否支持多个列同时排序 | 	boolean   |   false   | |
 
+### CTable 表格配置列的显示和隐藏
+| 属性           | 说明                    | 类型              | 默认值
+| -------------- | ---------------------- | ----------------- | ------ |
+| supportConfigColumn | 是否支持列的显示和隐藏 | 	boolean   |   false   | |
+| defaultShowColumns | 默认展示的列 | 	Array   |   []   | |
+| disabledConfigColumns | 不可进行编辑的列 | 	Array   |   []   | |
+| hideConfigColumns | 不展示在编辑区域的列 | 	Array   |   []   | |
+
 ### CTable 自定义模板配置
 | 属性           | 说明                    | 类型              | 默认值
 | -------------- | ---------------------- | ----------------- | ------ |

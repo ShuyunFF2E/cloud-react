@@ -371,17 +371,27 @@
 }
 
 .@{tablePrefixCls}-tooltip {
-  max-width: 300px;
+  min-width: 236px;
+  max-height: 466px;
+  padding: 16px;
 
   &-content {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 12px;
 
     > li {
       width: 114px;
-      padding: 4px 10px;
       .text-overflow-ellipsis;
+
+      .@{prefix}-checkbox-text {
+        font-size: 14px;
+      }
     }
+  }
+
+  &::after {
+    display: none;
   }
 }
 

@@ -370,6 +370,23 @@
 
   .@{tablePrefixCls}-config-column {
     min-width: auto;
+    padding-right: 0;
+  }
+
+  //tr:not(.@{tablePrefixCls}-expanded-row):hover {
+  //  background: #fafafa;
+  //
+  //  td.@{tablePrefixCls}-config-column {
+  //    background: none;
+  //  }
+  //}
+
+  td.@{tablePrefixCls}-config-column {
+    //background: transparent;
+
+    &::after {
+      display: none;
+    }
   }
 
   .@{tablePrefixCls}-checkbox-column {

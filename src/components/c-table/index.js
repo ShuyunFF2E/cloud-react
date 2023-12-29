@@ -163,6 +163,7 @@ class CTable extends Component {
   };
 
   resolveColumn = (columnData) => {
+    const { defaultShowColumns, hideConfigColumns } = this.props;
     return columnData.map((item) => {
       const align = item.type === NUMBER ? 'right' : item.align;
       const btnNum = getBtnNum(item);
@@ -171,7 +172,7 @@ class CTable extends Component {
       return {
         render: (val, row) => <ColumnTpl value={val} row={row} {...item} />,
         ...item,
-        show: true,
+        show: defaultShowColumns?.includes(item.dataIndex) || !defaultShowColumns?.length || hideConfigColumns?.includes(item.dataIndex),
         align,
         className: item.className
           ? `${item.className} ${colClassName}`
