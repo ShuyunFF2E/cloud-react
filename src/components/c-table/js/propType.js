@@ -73,6 +73,7 @@ export const propTypes = {
   sortWidthOriginStatus: PropTypes.bool,
   sortMultiColumns: PropTypes.bool,
   showCheckedAll: PropTypes.bool,
+  virtual: PropTypes.bool,
 };
 
 export const defaultProps = {
@@ -145,4 +146,5 @@ export const defaultProps = {
   sortWidthOriginStatus: false,
   sortMultiColumns: false,
   showCheckedAll: true,
+  virtual: false,
 };

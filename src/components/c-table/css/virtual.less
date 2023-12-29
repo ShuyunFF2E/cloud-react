@@ -1,0 +1,39 @@
+@import '../../style/index';
+@import './var';
+
+.@{tablePrefixCls}-tbody-virtual {
+    * {
+        box-sizing: border-box;
+    }
+
+    @border: 1px solid @border-color;
+
+    &.@{tablePrefixCls}-tbody,
+    .cloud-table-body {
+        overflow: hidden!important;
+    }
+
+    .@{tablePrefixCls}-row {
+        display: flex;
+        box-sizing: border-box;
+        width: 100%;
+    }
+
+    .@{tablePrefixCls}-row-extra {
+        .@{tablePrefixCls}-cell {
+            background: rgba(200, 200, 255) !important;
+        }
+    }
+
+    .@{tablePrefixCls}-cell {
+        display: inline-flex;
+        align-items: center;
+        flex: 0 0 var(--virtual-width);
+        width: var(--virtual-width);
+        padding: 12px 12px;
+        border-bottom: @border;
+        font-size: 14px;
+        line-height: 19px;
+        background: white;
+    }
+}

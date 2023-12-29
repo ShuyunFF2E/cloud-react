@@ -1,6 +1,6 @@
 /* eslint-disable */
 import React, { Component, createRef } from 'react';
-import RcTable from 'rc-table';
+import RcTable, { VirtualTable } from 'rc-table';
 import classnames from 'classnames';
 import ReactDragListView from 'react-drag-listview';
 import { noop } from '@utils';
@@ -32,6 +32,7 @@ import Loading from '../loading';
 import emptyImg from './empty.png';
 import './css/basic.less';
 import './css/business.less';
+import './css/virtual.less';
 import Column from './js/column';
 import RowTooltip from './js/rowTooltip';
 import { defaultProps, propTypes } from './js/propType';
@@ -732,6 +733,8 @@ class CTable extends Component {
       hideEmptyFooter,
       sticky,
       stickyFooter,
+      virtual,
+      scroll,
     } = this.props;
     const {
       data,
@@ -743,6 +746,8 @@ class CTable extends Component {
       isLoading,
     } = this.state;
     const { pageNum, pageSize, totals } = pageOpts;
+
+    const Table = virtual ? VirtualTable : RcTable;
 
     return (
       <div className={`${tablePrefixCls}-container`} style={style} ref={ref}>
@@ -778,14 +783,14 @@ class CTable extends Component {
             }px)`,
           }}
         >
-          <RcTable
+          <Table
             ref={tableRef}
             prefixCls={tablePrefixCls}
             columns={columnData}
             data={data}
             expandIconColumnIndex={expandIconColumnIndex}
             sticky={sticky}
-            scroll={{ x: '100%', y: maxHeight || '100%' }}
+            scroll={scroll || { x: '100%', y: maxHeight || '100%' }}
             expandable={getExpandableConfig({ ...this.props })}
             emptyText={emptyTpl()}
             rowKey={rowKey}
