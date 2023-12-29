@@ -131,14 +131,15 @@ export default class Column {
             className={`${tablePrefixCls}-tooltip`}
             content={this.renderConfig()}
           >
-            <Icon style={{ cursor: 'pointer', float: 'right' }} type="config" />
+            <Icon style={{ cursor: 'pointer', float: 'right', width: 40 }} type="config" />
           </Tooltip>
         ),
         dataIndex: 'cTableConfig',
         className: `${tablePrefixCls}-config-column`,
         render: () => '',
         width: 40,
-        fixed: isLastColumnFixed,
+        // fixed: isLastColumnFixed,
+        fixed: 'right',
       });
     }
 
@@ -308,14 +309,15 @@ export default class Column {
   renderConfig = () => {
     const { _this } = this;
     const { originColumnData } = _this.state;
-    const { disabled } = _this.props;
+    const { disabled, disabledConfigColumns, hideConfigColumns } = _this.props;
     return (
       <ul className={`${tablePrefixCls}-tooltip-content`}>
-        {originColumnData.map((item) => (
+        {originColumnData.filter(c => !hideConfigColumns.includes(c.dataIndex)).map((item) => (
           <li>
             <Checkbox
               disabled={
                 disabled
+                || disabledConfigColumns.includes(item.dataIndex)
                 || (item.show
                   && originColumnData.filter((i) => i.show).length === 1)
               }

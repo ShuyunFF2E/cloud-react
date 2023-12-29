@@ -148,10 +148,54 @@ class CTableDemo extends Component {
       width: 200,
     },
     {
+      title: '商品商家编码',
+      dataIndex: 'outerId',
+      align: 'left',
+      width: 200,
+      render: () => '商品商家编码',
+      show: false,
+    },
+    {
+      title: '商家时间',
+      dataIndex: 'time',
+      align: 'left',
+      width: 200,
+      render: () => '商家时间',
+    },
+    {
+      title: '上架平台',
+      dataIndex: 'plat',
+      align: 'left',
+      width: 200,
+      render: () => '上架平台',
+    },
+    {
+      title: '上架店铺',
+      dataIndex: 'shop',
+      align: 'left',
+      width: 200,
+      render: () => '上架店铺',
+    },
+    {
+      title: '标准类目',
+      dataIndex: 'category',
+      align: 'left',
+      width: 200,
+      render: () => '标准类目',
+    },
+    {
+      title: '自定义类目',
+      dataIndex: 'customCategory',
+      align: 'left',
+      width: 200,
+      render: () => '自定义类目',
+    },
+    {
       title: '操作',
       dataIndex: 'operate',
       align: 'left',
       width: 140,
+      fixed: 'right',
       render: (_, row) => {
         return row.skus && row.skus.length ? (
           <Button
@@ -241,6 +285,10 @@ class CTableDemo extends Component {
       <div className="cloud-table-goods">
         <Button style={{ marginBottom: 20 }} onClick={this.onExpandAll}>{this.state.isExpandAll ? '展开全部' : '收起全部'}</Button>
         <CTable
+          supportConfigColumn
+          defaultShowColumns={this.columns.slice(0, 4).map(item => item.dataIndex)}
+          disabledConfigColumns={this.columns.slice(0, 2).map(item => item.dataIndex)}
+          hideConfigColumns={['operate']}
           ref={this.tableRef}
           style={{ width: '100%', height: 400 }}
           supportExpend
