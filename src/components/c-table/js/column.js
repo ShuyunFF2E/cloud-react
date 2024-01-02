@@ -327,7 +327,7 @@ export default class Column {
                 if (_this.props.supportMemory) {
                   setConfig(_this.state.originColumnData, _this.props.tableId);
                 }
-                onColumnChange({ columnData: { ..._this.state.originColumnData } });
+                onColumnChange({ columnData: [ ..._this.state.originColumnData ] });
                 this.setColumnData();
                 _this.setHeaderStyle();
                 _this.setFixedStyle();
