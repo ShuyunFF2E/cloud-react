@@ -339,6 +339,10 @@ class CTableDemo extends Component {
               resolve({ totals: data.length, data: res });
             })
           }}
+          onColumnChange={({ columnData }) => {
+            console.log('column changed')
+            console.table(columnData);
+          }}
         />
       </div>
     );

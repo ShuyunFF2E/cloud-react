@@ -309,7 +309,7 @@ export default class Column {
   renderConfig = () => {
     const { _this } = this;
     const { originColumnData } = _this.state;
-    const { disabled, disabledConfigColumns, hideConfigColumns } = _this.props;
+    const { disabled, disabledConfigColumns, hideConfigColumns, onColumnChange } = _this.props;
     return (
       <ul className={`${tablePrefixCls}-tooltip-content`}>
         {originColumnData.filter(c => !hideConfigColumns.includes(c.dataIndex)).map((item) => (
@@ -327,6 +327,7 @@ export default class Column {
                 if (_this.props.supportMemory) {
                   setConfig(_this.state.originColumnData, _this.props.tableId);
                 }
+                onColumnChange({ columnData: { ..._this.state.originColumnData } });
                 this.setColumnData();
                 _this.setHeaderStyle();
                 _this.setFixedStyle();
