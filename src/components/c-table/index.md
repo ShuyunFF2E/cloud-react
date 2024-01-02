@@ -117,6 +117,7 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 | defaultShowColumns | 默认展示的列 | 	Array   |   []   | |
 | disabledConfigColumns | 不可进行编辑的列 | 	Array   |   []   | |
 | hideConfigColumns | 不展示在编辑区域的列 | 	Array   |   []   | |
+| onColumnChange | 改变列后的回调函数 | 	function   |   -   | |
 
 ### CTable 自定义模板配置
 | 属性           | 说明                    | 类型              | 默认值
