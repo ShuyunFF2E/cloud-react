@@ -46,8 +46,13 @@ class CTableDemo extends Component {
       checkedGoodsData: [],
       checkedSkusData: [],
       expandedRowKeys: [],
+      defaultShowColumns: [],
     };
     this.updateBtnText();
+    
+    setTimeout(() => {
+      this.setState({ defaultShowColumns: this.columns.slice(0, 4).map(item => item.dataIndex) });
+    }, 500);
   }
 
   updateBtnText = () => {
@@ -193,9 +198,9 @@ class CTableDemo extends Component {
     {
       title: '操作',
       dataIndex: 'operate',
-      align: 'left',
+      align: 'right',
       width: 140,
-      fixed: 'right',
+      // fixed: 'right',
       render: (_, row) => {
         return row.skus && row.skus.length ? (
           <Button
@@ -286,7 +291,7 @@ class CTableDemo extends Component {
         <Button style={{ marginBottom: 20 }} onClick={this.onExpandAll}>{this.state.isExpandAll ? '展开全部' : '收起全部'}</Button>
         <CTable
           supportConfigColumn
-          defaultShowColumns={this.columns.slice(0, 4).map(item => item.dataIndex)}
+          defaultShowColumns={this.state.defaultShowColumns}
           disabledConfigColumns={this.columns.slice(0, 2).map(item => item.dataIndex)}
           hideConfigColumns={['operate']}
           ref={this.tableRef}
@@ -342,6 +347,7 @@ class CTableDemo extends Component {
           onColumnChange={({ columnData }) => {
             console.log('column changed')
             console.table(columnData);
+            this.setState({ defaultShowColumns: columnData.filter(item => item.show).map(item => item.dataIndex) });
           }}
         />
       </div>

@@ -5,7 +5,7 @@ import Tooltip from '../../tooltip';
 import Checkbox from '../../checkbox';
 import Radio from '../../radio';
 import Popover from '../../popover';
-import { isEveryChecked, isSomeChecked, setConfig } from '../util';
+import { isEveryChecked, isSomeChecked } from '../util';
 import { tablePrefixCls } from '../constant';
 
 export default class Column {
@@ -58,7 +58,7 @@ export default class Column {
     const { _this } = this;
     const { originColumnData } = _this.state;
     const { supportCheckbox, supportRadio, isExpendAloneColumn, showDragIcon } = _this.props;
-    const isLastColumnFixed = originColumnData[originColumnData.length - 1].fixed;
+    // const isLastColumnFixed = originColumnData[originColumnData.length - 1].fixed;
     const isFirstColumnFixed = originColumnData[0].fixed;
     const thArr = currentThArr
       || _this.ref.current?.querySelectorAll(`th.${tablePrefixCls}-cell`)
@@ -121,27 +121,15 @@ export default class Column {
     }
 
     // 支持配置列的显示和隐藏
-    if (_this.props.supportConfigColumn) {
-      resolvedColumnData.push({
-        title: (
-          <Tooltip
-            trigger="click"
-            theme="light"
-            placement="bottom-right"
-            className={`${tablePrefixCls}-tooltip`}
-            content={this.renderConfig()}
-          >
-            <Icon style={{ cursor: 'pointer', float: 'right', width: 40 }} type="config" />
-          </Tooltip>
-        ),
-        dataIndex: 'cTableConfig',
-        className: `${tablePrefixCls}-config-column`,
-        render: () => '',
-        width: 40,
-        // fixed: isLastColumnFixed,
-        fixed: 'right',
-      });
-    }
+    // if (_this.props.supportConfigColumn) {
+    //   resolvedColumnData.push({
+    //     title: '',
+    //     dataIndex: 'configEmptyColumn',
+    //     render: () => '',
+    //     width: 40,
+    //     fixed: 'right',
+    //   });
+    // }
 
     // 支持配置表格列拉伸
     if (_this.props.supportResizeColumn) {
@@ -300,45 +288,6 @@ export default class Column {
       return 150;
     }
     return '';
-  };
-
-  /**
-   * 配置按钮
-   * @returns {JSX.Element}
-   */
-  renderConfig = () => {
-    const { _this } = this;
-    const { originColumnData } = _this.state;
-    const { disabled, disabledConfigColumns, hideConfigColumns, onColumnChange } = _this.props;
-    return (
-      <ul className={`${tablePrefixCls}-tooltip-content`}>
-        {originColumnData.filter(c => !hideConfigColumns.includes(c.dataIndex)).map((item) => (
-          <li>
-            <Checkbox
-              disabled={
-                disabled
-                || disabledConfigColumns.includes(item.dataIndex)
-                || (item.show
-                  && originColumnData.filter((i) => i.show).length === 1)
-              }
-              checked={item.show}
-              onChange={(checked) => {
-                Object.assign(item, { show: !!checked });
-                if (_this.props.supportMemory) {
-                  setConfig(_this.state.originColumnData, _this.props.tableId);
-                }
-                onColumnChange({ columnData: [ ..._this.state.originColumnData ] });
-                this.setColumnData();
-                _this.setHeaderStyle();
-                _this.setFixedStyle();
-              }}
-            >
-              {typeof item.title === 'function' ? item.title(item) : item.title}
-            </Checkbox>
-          </li>
-        ))}
-      </ul>
-    );
   };
 
   /**

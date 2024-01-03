@@ -16,7 +16,7 @@ import {
   isFirefox,
   debounce,
   hasCustomScroll,
-  getBtnNum, getScrollbarWidth,
+  getBtnNum, getScrollbarWidth, setConfig,
 } from './util';
 import {
   DRAG_ICON_SELECTOR,
@@ -44,6 +44,8 @@ import MultiTextTpl from './columnTpl/multiText';
 import LinkTpl from './columnTpl/link';
 import MultiLinkTpl from './columnTpl/multiLink';
 import TagTpl from './columnTpl/tag';
+import Tooltip from '../tooltip';
+import Checkbox from '../checkbox';
 
 class CTable extends Component {
   ref = createRef();
@@ -141,6 +143,9 @@ class CTable extends Component {
       this.props.watchColumnData &&
       this.props.columnData !== prevProps.columnData
     ) {
+      this.setColumn(this.props.columnData);
+    }
+    if (this.props.defaultShowColumns !== prevProps.defaultShowColumns) {
       this.setColumn(this.props.columnData);
     }
   }
@@ -687,6 +692,40 @@ class CTable extends Component {
     );
   };
 
+  renderConfig = () => {
+    const { originColumnData } = this.state;
+    const { disabled, disabledConfigColumns, hideConfigColumns, onColumnChange } = this.props;
+    return (
+      <ul className={`${tablePrefixCls}-tooltip-content`}>
+        {originColumnData.filter(c => !hideConfigColumns.includes(c.dataIndex)).map((item) => (
+          <li>
+            <Checkbox
+              disabled={
+                disabled
+                || disabledConfigColumns.includes(item.dataIndex)
+                || (item.show
+                  && originColumnData.filter((i) => i.show).length === 1)
+              }
+              checked={item.show}
+              onChange={(checked) => {
+                Object.assign(item, { show: !!checked });
+                if (this.props.supportMemory) {
+                  setConfig(this.state.originColumnData, this.props.tableId);
+                }
+                onColumnChange({ columnData: [ ...this.state.originColumnData ] });
+                this.column.setColumnData();
+                this.setHeaderStyle();
+                this.setFixedStyle();
+              }}
+            >
+              {typeof item.title === 'function' ? item.title(item) : item.title}
+            </Checkbox>
+          </li>
+        ))}
+      </ul>
+    );
+  };
+
   renderTable() {
     const {
       ref,
@@ -733,6 +772,7 @@ class CTable extends Component {
       hideEmptyFooter,
       sticky,
       stickyFooter,
+      supportConfigColumn,
     } = this.props;
     const {
       data,
@@ -770,6 +810,7 @@ class CTable extends Component {
               [`${tablePrefixCls}-support-drag`]: supportDrag && !showDragIcon, // 拖拽行
               [`${tablePrefixCls}-support-resize`]: supportResizeColumn, // 表格列拉伸
               [`${tablePrefixCls}-full-column`]: supportFullColumn, // 表格通栏
+              [`${tablePrefixCls}-config-column`]: supportConfigColumn, // 表格通栏
             },
             className,
           )}
@@ -886,6 +927,20 @@ class CTable extends Component {
             useRootWindow={this.props.useRootWindow}
           />
         ) : null}
+        {/* 支持配置列的显示和隐藏 */}
+        {supportConfigColumn && (
+          <Tooltip
+            trigger="click"
+            theme="light"
+            placement="bottom-right"
+            className={`${tablePrefixCls}-tooltip`}
+            content={this.renderConfig()}
+          >
+            <span className={`${tablePrefixCls}-config-icon`}>
+              <Icon type="config" />
+            </span>
+          </Tooltip>
+        )}
       </div>
     );
   }
