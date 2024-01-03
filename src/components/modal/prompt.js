@@ -24,6 +24,8 @@ class Prompt extends React.Component {
     cancelText: '取消',
     onOk: noop,
     onCancel: noop,
+    hasFooter: true,
+    className: '',
   };
 
   static propTypes = {
@@ -37,6 +39,8 @@ class Prompt extends React.Component {
     okText: PropTypes.string,
     cancelText: PropTypes.string,
     onCancel: PropTypes.func,
+    hasFooter: PropTypes.bool,
+    className: PropTypes.string,
   };
 
   constructor(props) {
@@ -181,6 +185,8 @@ class Prompt extends React.Component {
           bodyStyle={promptBodyStyle}
           modalStyle={promptStyle}
           showConfirmLoading={this.state.showConfirmLoading}
+          hasFooter={this.props.hasFooter}
+          className={this.props.className}
         >
           <div>
             <header className="info-area">
@@ -232,6 +238,8 @@ function prompt({
   okBtnOpts,
   cancelBtnOpts,
   title,
+  hasFooter,
+  className,
 }) {
   // 创建一个关联id
   const rootDocument = getRootWindow().document;
@@ -251,6 +259,8 @@ function prompt({
       style={style}
       iconStyle={iconStyle}
       isShowIcon={isShowIcon}
+      hasFooter={hasFooter}
+      className={className}
       okText={okText}
       cancelText={cancelText}
       okBtnOpts={okBtnOpts}
