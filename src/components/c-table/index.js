@@ -3,7 +3,7 @@ import React, { Component, createRef } from 'react';
 import RcTable from 'rc-table';
 import classnames from 'classnames';
 import ReactDragListView from 'react-drag-listview';
-import { noop } from '@utils';
+import { noop, prefixCls } from '@utils';
 import 'react-resizable/css/styles.css';
 import {
   getDataSource,
@@ -81,6 +81,7 @@ class CTable extends Component {
       isLoading: false,
       filterValue: [],
       sortParams: {},
+      columnConfigStyle: {},
     };
     this.column = new Column(this);
   }
@@ -111,6 +112,8 @@ class CTable extends Component {
     ) {
       window.addEventListener('resize', this.onResize());
     }
+
+    // this.setColumnConfigStyle();
   }
 
   componentDidUpdate(prevProps) {
@@ -145,7 +148,11 @@ class CTable extends Component {
     ) {
       this.setColumn(this.props.columnData);
     }
-    if (this.props.defaultShowColumns !== prevProps.defaultShowColumns) {
+    if (
+      this.props.defaultShowColumns !== prevProps.defaultShowColumns ||
+      this.props.disabledConfigColumns !== prevProps.disabledConfigColumns ||
+      this.props.hideConfigColumns !== prevProps.hideConfigColumns
+    ) {
       this.setColumn(this.props.columnData);
     }
   }
@@ -319,6 +326,29 @@ class CTable extends Component {
       }
     });
   };
+
+  setColumnConfigStyle = () => {
+    setTimeout(() => {
+      if (this.props.supportConfigColumn) {
+        const modalEles = document.querySelectorAll(`.${prefixCls}-modal-body`);
+        if (modalEles?.length) {
+          const currentModalEle = modalEles[modalEles.length - 1];
+          const { bottom: modalBottom } = currentModalEle.getClientRects()[0];
+
+          const { bottom: tableConfigBtnBottom } = this.ref.current?.querySelector(`.${prefixCls}-table-config-icon`)?.getClientRects()?.[0];
+
+          console.log(modalBottom, tableConfigBtnBottom);
+          if (modalBottom && tableConfigBtnBottom && modalBottom -  tableConfigBtnBottom > 0) {
+            this.setState({
+              columnConfigStyle: {
+                maxHeight: modalBottom -  tableConfigBtnBottom
+              }
+            })
+          }
+        }
+      }
+    }, 1000)
+  }
 
   /**
    * 表格翻页后，滚动到顶部
@@ -697,6 +727,7 @@ class CTable extends Component {
     const { disabled, disabledConfigColumns, hideConfigColumns, onColumnChange } = this.props;
     return (
       <ul className={`${tablePrefixCls}-tooltip-content`}>
+        <p className="config-title">配置列的显示状态</p>
         {originColumnData.filter(c => !hideConfigColumns.includes(c.dataIndex)).map((item) => (
           <li>
             <Checkbox
@@ -782,6 +813,7 @@ class CTable extends Component {
       pageOpts,
       selectedNodeList,
       isLoading,
+      columnConfigStyle,
     } = this.state;
     const { pageNum, pageSize, totals } = pageOpts;
 
@@ -935,6 +967,7 @@ class CTable extends Component {
             placement="bottom-right"
             className={`${tablePrefixCls}-tooltip`}
             content={this.renderConfig()}
+            overlayStyle={columnConfigStyle}
           >
             <span className={`${tablePrefixCls}-config-icon`}>
               <Icon type="config" />
