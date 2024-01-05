@@ -113,7 +113,7 @@ class CTable extends Component {
       window.addEventListener('resize', this.onResize());
     }
 
-    // this.setColumnConfigStyle();
+    this.setColumnConfigStyle();
   }
 
   componentDidUpdate(prevProps) {
@@ -969,7 +969,7 @@ class CTable extends Component {
             content={this.renderConfig()}
             overlayStyle={columnConfigStyle}
           >
-            <span className={`${tablePrefixCls}-config-icon`}>
+            <span className={`${tablePrefixCls}-config-icon`} style={isLoading ? { zIndex: -1 } : {}}>
               <Icon type="config" />
             </span>
           </Tooltip>
