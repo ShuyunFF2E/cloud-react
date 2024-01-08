@@ -20,7 +20,7 @@ group:
 | -------------- | ---------------------- | ----------------- | ------ |
 | ajaxData | 表格数据源    | function/array   |   -   | |
 | columnData | 表格列描述，具体详见下表 **columnData**   | array   |   -   | |
-| rowKey | 表格数据的唯一标识    | string   |   'id'   | |
+| rowKey | 表格数据的唯一标识    | string/function   |   默认值是 `id`；如果 rowKey 是一个函数, 则 rowKey(record, index) 函数的返回值为唯一标识   | |
 | bordered | 是否展示表格边框   | boolean   |   false   | |
 | headerBordered | 表头带线条   | boolean   |   false   | |
 | size | 表格大小，可选 `default` `small` `large`    | string   |   `default`   | |
