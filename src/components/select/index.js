@@ -18,7 +18,7 @@ import { formatOptionSource, isGroupSelectPicker } from './utils';
 import './index.less';
 
 const getSelected = (data, children, dataSource) => {
-  const options = Array.isArray(data) ? data : [ data ];
+  const options = Array.isArray(data) ? data : [data];
   if (!options.length) return [];
   let selected = [];
   if (isGroupSelectPicker(dataSource)) {
@@ -69,10 +69,10 @@ class Select extends Component {
   constructor(props) {
     super(props);
 
-    const { open, defaultOpen, labelInValue } = props;
+    const { open, defaultOpen, labelInValue, dataSource } = props;
     const { defaultSelectValue, children } = this;
 
-    const selected = getSelected(defaultSelectValue, children);
+    const selected = getSelected(defaultSelectValue, children, dataSource);
 
     this.state = {
       open: open || defaultOpen,
@@ -91,9 +91,7 @@ class Select extends Component {
 
   static getDerivedStateFromProps(props, prevState) {
     const { prevProps } = prevState;
-    const {
-      value, children, dataSource, multiple, open, isSupportTitle,
-    } = props;
+    const { value, children, dataSource, multiple, open, isSupportTitle } = props;
     const {
       value: prevValue,
       children: prevChildren,
@@ -106,9 +104,7 @@ class Select extends Component {
       || Children.count(children) !== Children.count(prevChildren)
       || !ShuyunUtils.equal(dataSource, prevData)
     ) {
-      const {
-        labelKey, valueKey, labelInValue, defaultValue,
-      } = props;
+      const { labelKey, valueKey, labelInValue, defaultValue } = props;
       const displayValue = value !== null ? value : defaultValue;
       const childs = Array.isArray(children)
         ? flat(children, Infinity)
@@ -164,12 +160,8 @@ class Select extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    const {
-      disabled, width, open: propOpen, searchable, size,
-    } = nextProps;
-    const {
-      open, value, selected, style,
-    } = nextState;
+    const { disabled, width, open: propOpen, searchable, size } = nextProps;
+    const { open, value, selected, style } = nextState;
     const {
       disabled: prevDisabled,
       width: prevWidth,
@@ -223,9 +215,7 @@ class Select extends Component {
   }
 
   get children() {
-    const {
-      children, dataSource, labelKey, valueKey, isSupportTitle,
-    } = this.props;
+    const { children, dataSource, labelKey, valueKey, isSupportTitle } = this.props;
     const childs = Array.isArray(children)
       ? flat(children, Infinity)
       : Children.toArray(children);
@@ -261,9 +251,7 @@ class Select extends Component {
   }
 
   getGroupOptions = () => {
-    const {
-      dataSource, labelKey, valueKey, isSupportTitle,
-    } = this.props;
+    const { dataSource, labelKey, valueKey, isSupportTitle } = this.props;
     return dataSource.map((group) => {
       const groupItem = getOptions(
         group.options || [],
@@ -283,9 +271,7 @@ class Select extends Component {
   positionPop = () => {
     const {
       props: { isAppendToBody, position },
-      selectedContainerStyle: {
-        left, top, bottom, height,
-      },
+      selectedContainerStyle: { left, top, bottom, height },
       optionsNodeStyle: { height: optionsHeight },
     } = this;
     const isBottomDistanceEnough = bottom + optionsHeight < this.document.documentElement.clientHeight;
@@ -576,9 +562,9 @@ Select.propTypes = {
   dataSource: PropTypes.array,
   labelKey: PropTypes.string,
   valueKey: PropTypes.string,
-  width: PropTypes.oneOfType([ PropTypes.string, PropTypes.number ]),
+  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   searchable: PropTypes.bool,
-  emptyRender: PropTypes.oneOfType([ PropTypes.string, PropTypes.node ]),
+  emptyRender: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   defaultValue: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
