@@ -77,6 +77,8 @@ export const propTypes = {
   sortMultiColumns: PropTypes.bool,
   showCheckedAll: PropTypes.bool,
   onColumnChange: PropTypes.func,
+  scroll: PropTypes.object,
+  noScroll: PropTypes.bool,
 };
 
 export const defaultProps = {
@@ -153,4 +155,6 @@ export const defaultProps = {
   sortMultiColumns: false,
   showCheckedAll: true,
   onColumnChange: () => {},
+  scroll: undefined,
+  noScroll: false,
 };

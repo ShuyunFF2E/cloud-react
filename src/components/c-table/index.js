@@ -703,6 +703,17 @@ class CTable extends Component {
     }, 500);
   };
 
+  getScroll = () => {
+    const { scroll, maxHeight, noScroll } = this.props;
+    if (scroll) {
+      return scroll;
+    }
+    if (noScroll) {
+      return { x: '100%' };
+    }
+    return { x: '100%', y: maxHeight || '100%' };
+  };
+
   /**
    * 表格数据为空模板
    * @returns {*}
@@ -804,6 +815,7 @@ class CTable extends Component {
       sticky,
       stickyFooter,
       supportConfigColumn,
+      noScroll,
     } = this.props;
     const {
       data,
@@ -816,6 +828,7 @@ class CTable extends Component {
       columnConfigStyle,
     } = this.state;
     const { pageNum, pageSize, totals } = pageOpts;
+    const scroll = this.getScroll();
 
     return (
       <div className={`${tablePrefixCls}-container`} style={style} ref={ref}>
@@ -843,10 +856,11 @@ class CTable extends Component {
               [`${tablePrefixCls}-support-resize`]: supportResizeColumn, // 表格列拉伸
               [`${tablePrefixCls}-full-column`]: supportFullColumn, // 表格通栏
               [`${tablePrefixCls}-config-column`]: supportConfigColumn, // 表格通栏
+              [`${tablePrefixCls}-no-scroll`]: noScroll, // 无纵向滚动条的表格
             },
             className,
           )}
-          style={{
+          style={noScroll ? {} : {
             height: `calc(100% - ${
               hideEmptyFooter && !totals ? 0 : footerHeight
             }px)`,
@@ -859,7 +873,7 @@ class CTable extends Component {
             data={data}
             expandIconColumnIndex={expandIconColumnIndex}
             sticky={sticky}
-            scroll={{ x: '100%', y: maxHeight || '100%' }}
+            scroll={scroll}
             expandable={getExpandableConfig({ ...this.props })}
             emptyText={emptyTpl()}
             rowKey={rowKey}

@@ -302,8 +302,8 @@
 
   // 表格支持配置列的展示和隐藏
   &.@{tablePrefixCls}-config-column {
-    tr td:last-child,
-    tr th:last-child {
+    tbody tr td:last-child,
+    thead tr th:nth-last-of-type(-n+1) {
       padding-right: 40px;
     }
   }
@@ -376,6 +376,13 @@
       }
     }
   }
+
+  // 表格不展示纵向滚动条
+  &.@{tablePrefixCls}-no-scroll {
+    .@{tablePrefixCls}-container {
+      height: auto;
+    }
+  }
 }
 
 .@{tablePrefixCls}-tooltip {
@@ -390,7 +397,7 @@
     gap: 12px;
 
     > li {
-      width: 114px;
+      width: 180px;
       .text-overflow-ellipsis;
 
       .@{prefix}-checkbox-text {
