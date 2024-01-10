@@ -200,7 +200,7 @@ class CTableDemo extends Component {
       dataIndex: 'operate',
       align: 'right',
       width: 140,
-      // fixed: 'right',
+      fixed: 'right',
       render: (_, row) => {
         return row.skus && row.skus.length ? (
           <Button
@@ -287,7 +287,7 @@ class CTableDemo extends Component {
 
   render() {
     return (
-      <div className="cloud-table-goods">
+      <div className="cloud-table-goods" style={{ height: 400, overflow: 'auto' }}>
         <Button style={{ marginBottom: 20 }} onClick={this.onExpandAll}>{this.state.isExpandAll ? '展开全部' : '收起全部'}</Button>
         <CTable
           supportConfigColumn
@@ -295,7 +295,8 @@ class CTableDemo extends Component {
           disabledConfigColumns={this.columns.slice(0, 2).map(item => item.dataIndex)}
           hideConfigColumns={['operate']}
           ref={this.tableRef}
-          style={{ width: '100%', height: 400 }}
+          noScroll
+          // stickyFooter
           supportExpend
           supportTree
           supportCheckbox
