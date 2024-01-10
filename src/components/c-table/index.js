@@ -81,7 +81,7 @@ class CTable extends Component {
       isLoading: false,
       filterValue: [],
       sortParams: {},
-      columnConfigStyle: {},
+      // columnConfigStyle: {},
     };
     this.column = new Column(this);
   }
@@ -113,7 +113,7 @@ class CTable extends Component {
       window.addEventListener('resize', this.onResize());
     }
 
-    this.setColumnConfigStyle();
+    // this.setColumnConfigStyle();
   }
 
   componentDidUpdate(prevProps) {
@@ -327,28 +327,28 @@ class CTable extends Component {
     });
   };
 
-  setColumnConfigStyle = () => {
-    setTimeout(() => {
-      if (this.props.supportConfigColumn) {
-        const modalEles = document.querySelectorAll(`.${prefixCls}-modal-body`);
-        if (modalEles?.length) {
-          const currentModalEle = modalEles[modalEles.length - 1];
-          const { bottom: modalBottom } = currentModalEle.getClientRects()[0];
-
-          const { bottom: tableConfigBtnBottom } = this.ref.current?.querySelector(`.${prefixCls}-table-config-icon`)?.getClientRects()?.[0];
-
-          console.log(modalBottom, tableConfigBtnBottom);
-          if (modalBottom && tableConfigBtnBottom && modalBottom -  tableConfigBtnBottom > 0) {
-            this.setState({
-              columnConfigStyle: {
-                maxHeight: modalBottom -  tableConfigBtnBottom
-              }
-            })
-          }
-        }
-      }
-    }, 1000)
-  }
+  // setColumnConfigStyle = () => {
+  //   setTimeout(() => {
+  //     if (this.props.supportConfigColumn) {
+  //       const modalEles = document.querySelectorAll(`.${prefixCls}-modal-body`);
+  //       if (modalEles?.length) {
+  //         const currentModalEle = modalEles[modalEles.length - 1];
+  //         const { bottom: modalBottom } = currentModalEle.getClientRects()[0];
+  //
+  //         const { bottom: tableConfigBtnBottom } = this.ref.current?.querySelector(`.${prefixCls}-table-config-icon`)?.getClientRects()?.[0];
+  //
+  //         console.log(modalBottom, tableConfigBtnBottom);
+  //         if (modalBottom && tableConfigBtnBottom && modalBottom -  tableConfigBtnBottom > 0) {
+  //           this.setState({
+  //             columnConfigStyle: {
+  //               maxHeight: modalBottom -  tableConfigBtnBottom
+  //             }
+  //           })
+  //         }
+  //       }
+  //     }
+  //   }, 1000)
+  // }
 
   /**
    * 表格翻页后，滚动到顶部
@@ -825,7 +825,7 @@ class CTable extends Component {
       pageOpts,
       selectedNodeList,
       isLoading,
-      columnConfigStyle,
+      // columnConfigStyle,
     } = this.state;
     const { pageNum, pageSize, totals } = pageOpts;
     const scroll = this.getScroll();
@@ -916,7 +916,7 @@ class CTable extends Component {
                 : undefined
             }
           />
-          {loadingTpl(isLoading) || (
+          {loadingTpl(isLoading || loadingOpts.loading) || (
             <Loading
               className={`${tablePrefixCls}-loading-layer`}
               loading={isLoading}
@@ -981,9 +981,15 @@ class CTable extends Component {
             placement="bottom-right"
             className={`${tablePrefixCls}-tooltip`}
             content={this.renderConfig()}
-            overlayStyle={columnConfigStyle}
+            overlayStyle={{
+              maxHeight: 466,
+              top: 40,
+              right: 1,
+              left: 'auto',
+            }}
+            containerEle={this.ref.current}
           >
-            <span className={`${tablePrefixCls}-config-icon`} style={isLoading ? { zIndex: -1 } : {}}>
+            <span className={`${tablePrefixCls}-config-icon`} style={isLoading || loadingOpts.loading ? { zIndex: -1 } : {}}>
               <Icon type="config" />
             </span>
           </Tooltip>
