@@ -338,6 +338,10 @@
     //  }
     //}
 
+    .@{tablePrefixCls}-header colgroup col:not(:last-child) {
+      display: table-column!important;
+    }
+
     // 带边框表格
     &.@{tablePrefixCls}-bordered {
       &.@{tablePrefixCls}-support-resize {
@@ -457,6 +461,10 @@
     //height: 40px;
     //position: relative;
     //top: -40px;
+  }
+
+  &:hover {
+    color: @blue-4;
   }
 }
 

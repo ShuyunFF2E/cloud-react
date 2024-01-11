@@ -855,7 +855,7 @@ class CTable extends Component {
               [`${tablePrefixCls}-support-drag`]: supportDrag && !showDragIcon, // 拖拽行
               [`${tablePrefixCls}-support-resize`]: supportResizeColumn, // 表格列拉伸
               [`${tablePrefixCls}-full-column`]: supportFullColumn, // 表格通栏
-              [`${tablePrefixCls}-config-column`]: supportConfigColumn, // 表格通栏
+              [`${tablePrefixCls}-config-column`]: supportConfigColumn, // 配置列的展示和隐藏
               [`${tablePrefixCls}-no-scroll`]: noScroll, // 无纵向滚动条的表格
             },
             className,
