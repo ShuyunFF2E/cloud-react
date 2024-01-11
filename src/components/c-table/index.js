@@ -181,7 +181,7 @@ class CTable extends Component {
       const btnNum = getBtnNum(item);
       const colClassName =
         align === 'right' && btnNum > 0 ? `padding-${btnNum}` : '';
-      return {
+      const column = {
         render: (val, row) => <ColumnTpl value={val} row={row} {...item} />,
         ...item,
         show: defaultShowColumns?.includes(item.dataIndex) || !defaultShowColumns?.length || hideConfigColumns?.includes(item.dataIndex),
@@ -190,6 +190,10 @@ class CTable extends Component {
           ? `${item.className} ${colClassName}`
           : colClassName,
       };
+      if (!item.dataIndex && !item.render) {
+        Object.assign(column, { render: () => '' });
+      }
+      return column;
     });
   };
 
@@ -502,10 +506,10 @@ class CTable extends Component {
    */
   setCheckedData = () => {
     // 更新叶子节点 leafNodesMap 的选中状态
-    this.props.checkedData.forEach((cNode) => {
+    this.props.checkedData?.forEach((cNode) => {
       const cNodeVal = this.getKeyFieldVal(cNode);
       if (this.leafNodesMap[cNodeVal]) {
-        this.leafNodesMap[cNodeVal].childNodes.forEach((node) => {
+        this.leafNodesMap[cNodeVal]?.childNodes?.forEach((node) => {
           Object.assign(node, { checked: true });
         });
       } else {
@@ -515,7 +519,7 @@ class CTable extends Component {
     });
     const leafNodeKeys = Object.keys(this.leafNodesMap);
     leafNodeKeys.forEach((key) => {
-      const isCheckedNode = !!this.props.checkedData.find(
+      const isCheckedNode = !!this.props?.checkedData.find(
         (node) => String(this.getKeyFieldVal(node)) === String(key),
       );
       // 不是已选节点 && （没有子节点被选中 或者 全部子节点都被选中）
@@ -525,7 +529,7 @@ class CTable extends Component {
           isEveryChecked(this.leafNodesMap[key].childNodes))
       ) {
         if (typeof this.leafNodesMap[key] === 'object') {
-          this.leafNodesMap[key].childNodes.forEach((node) => {
+          this.leafNodesMap[key]?.childNodes?.forEach((node) => {
             Object.assign(node, { checked: false });
           });
         } else {
