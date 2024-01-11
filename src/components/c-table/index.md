@@ -23,7 +23,6 @@ group:
 | rowKey           | 表格数据的唯一标识                                           | string         | 'id'      | |
 | bordered         | 是否展示表格边框                                            | boolean        | false     | |
 | headerBordered   | 表头带线条                                               | boolean        | false     | |
-| noScroll         | 表格不展示滚动条，表格高度由内容高度决定，配置该参数后，无需设置表格高度                | 	boolean       | false     | |
 | size             | 表格大小，可选 `default` `small` `large`                   | string         | `default` | |
 | maxHeight        | tbody最大高度                                           | string/number  | -         |
 | onLoadGridAfter  | 表格刷新后回调，Function(res)                               | function       | () => {}  | |
@@ -31,6 +30,7 @@ group:
 | onRow            | 表格刷新后回调，设置自定义 row 属性，Function(record, index)        | 	function      | () => {}  | |
 | scroll           | 表格是否可以在x/y方向上滚动，x或y可以是表示表体宽度和高度的数字 {x: 500, y: 300} | 	object        | -         | |
 
+[comment]: <> (| noScroll         | 表格不展示滚动条，表格高度由内容高度决定，配置该参数后，无需设置表格高度                | 	boolean       | false     | |)
 
 ### CTable 手动刷新表格
 this.tableRef.current.refreshTable(gotoFirstPage?, params?);
@@ -374,6 +374,6 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 
 <embed src="@components/c-table/demos/front-table1.md" />
 
-<embed src="@components/c-table/demos/front-table2.md" />
+[comment]: <> (<embed src="@components/c-table/demos/front-table2.md" />)
 
 <embed src="@components/c-table/demos/table-in-tab.md" />
