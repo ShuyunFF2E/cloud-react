@@ -3,7 +3,7 @@ import React, { Component, createRef } from 'react';
 import RcTable from 'rc-table';
 import classnames from 'classnames';
 import ReactDragListView from 'react-drag-listview';
-import { noop } from '@utils';
+import { noop, prefixCls } from '@utils';
 import 'react-resizable/css/styles.css';
 import {
   getDataSource,
@@ -16,7 +16,7 @@ import {
   isFirefox,
   debounce,
   hasCustomScroll,
-  getBtnNum, getScrollbarWidth,
+  getBtnNum, getScrollbarWidth, setConfig,
 } from './util';
 import {
   DRAG_ICON_SELECTOR,
@@ -44,6 +44,8 @@ import MultiTextTpl from './columnTpl/multiText';
 import LinkTpl from './columnTpl/link';
 import MultiLinkTpl from './columnTpl/multiLink';
 import TagTpl from './columnTpl/tag';
+import Tooltip from '../tooltip';
+import Checkbox from '../checkbox';
 
 class CTable extends Component {
   ref = createRef();
@@ -79,6 +81,7 @@ class CTable extends Component {
       isLoading: false,
       filterValue: [],
       sortParams: {},
+      // columnConfigStyle: {},
     };
     this.column = new Column(this);
   }
@@ -109,6 +112,8 @@ class CTable extends Component {
     ) {
       window.addEventListener('resize', this.onResize());
     }
+
+    // this.setColumnConfigStyle();
   }
 
   componentDidUpdate(prevProps) {
@@ -143,6 +148,13 @@ class CTable extends Component {
     ) {
       this.setColumn(this.props.columnData);
     }
+    if (
+      this.props.defaultShowColumns !== prevProps.defaultShowColumns ||
+      this.props.disabledConfigColumns !== prevProps.disabledConfigColumns ||
+      this.props.hideConfigColumns !== prevProps.hideConfigColumns
+    ) {
+      this.setColumn(this.props.columnData);
+    }
   }
 
   componentWillUnmount() {
@@ -163,6 +175,7 @@ class CTable extends Component {
   };
 
   resolveColumn = (columnData) => {
+    const { defaultShowColumns, hideConfigColumns } = this.props;
     return columnData.map((item) => {
       const align = item.type === NUMBER ? 'right' : item.align;
       const btnNum = getBtnNum(item);
@@ -171,7 +184,7 @@ class CTable extends Component {
       const column = {
         render: (val, row) => <ColumnTpl value={val} row={row} {...item} />,
         ...item,
-        show: true,
+        show: defaultShowColumns?.includes(item.dataIndex) || !defaultShowColumns?.length || hideConfigColumns?.includes(item.dataIndex),
         align,
         className: item.className
           ? `${item.className} ${colClassName}`
@@ -317,6 +330,29 @@ class CTable extends Component {
       }
     });
   };
+
+  // setColumnConfigStyle = () => {
+  //   setTimeout(() => {
+  //     if (this.props.supportConfigColumn) {
+  //       const modalEles = document.querySelectorAll(`.${prefixCls}-modal-body`);
+  //       if (modalEles?.length) {
+  //         const currentModalEle = modalEles[modalEles.length - 1];
+  //         const { bottom: modalBottom } = currentModalEle.getClientRects()[0];
+  //
+  //         const { bottom: tableConfigBtnBottom } = this.ref.current?.querySelector(`.${prefixCls}-table-config-icon`)?.getClientRects()?.[0];
+  //
+  //         console.log(modalBottom, tableConfigBtnBottom);
+  //         if (modalBottom && tableConfigBtnBottom && modalBottom -  tableConfigBtnBottom > 0) {
+  //           this.setState({
+  //             columnConfigStyle: {
+  //               maxHeight: modalBottom -  tableConfigBtnBottom
+  //             }
+  //           })
+  //         }
+  //       }
+  //     }
+  //   }, 1000)
+  // }
 
   /**
    * 表格翻页后，滚动到顶部
@@ -671,22 +707,68 @@ class CTable extends Component {
     }, 500);
   };
 
+  getScroll = () => {
+    const { scroll, maxHeight, noScroll } = this.props;
+    if (scroll) {
+      return scroll;
+    }
+    if (noScroll) {
+      return { x: '100%' };
+    }
+    return { x: '100%', y: maxHeight || '100%' };
+  };
+
   /**
    * 表格数据为空模板
    * @returns {*}
    */
-  emptyTpl = () => {
+  emptyTpl = className => {
     if (this.props.emptyTpl()) {
       return this.props.emptyTpl();
     }
     return (
       <div
-        className={`${tablePrefixCls}-no-data`}
+        className={className || `${tablePrefixCls}-no-data`}
         style={this.props.emptyStyle}
       >
         <img src={emptyImg} height={90} alt="暂无数据" />
         <p style={{ marginTop: 4 }}>{this.props.emptyText() || '暂无数据'}</p>
       </div>
+    );
+  };
+
+  renderConfig = () => {
+    const { originColumnData } = this.state;
+    const { disabled, disabledConfigColumns, hideConfigColumns, onColumnChange } = this.props;
+    return (
+      <ul className={`${tablePrefixCls}-tooltip-content`}>
+        <p className="config-title">配置列的显示状态</p>
+        {originColumnData.filter(c => !hideConfigColumns.includes(c.dataIndex)).map((item) => (
+          <li>
+            <Checkbox
+              disabled={
+                disabled
+                || disabledConfigColumns.includes(item.dataIndex)
+                || (item.show
+                  && originColumnData.filter((i) => i.show).length === 1)
+              }
+              checked={item.show}
+              onChange={(checked) => {
+                Object.assign(item, { show: !!checked });
+                if (this.props.supportMemory) {
+                  setConfig(this.state.originColumnData, this.props.tableId);
+                }
+                onColumnChange({ columnData: [ ...this.state.originColumnData ] });
+                this.column.setColumnData();
+                this.setHeaderStyle();
+                this.setFixedStyle();
+              }}
+            >
+              {typeof item.title === 'function' ? item.title(item) : item.title}
+            </Checkbox>
+          </li>
+        ))}
+      </ul>
     );
   };
 
@@ -736,6 +818,8 @@ class CTable extends Component {
       hideEmptyFooter,
       sticky,
       stickyFooter,
+      supportConfigColumn,
+      noScroll,
     } = this.props;
     const {
       data,
@@ -745,8 +829,10 @@ class CTable extends Component {
       pageOpts,
       selectedNodeList,
       isLoading,
+      // columnConfigStyle,
     } = this.state;
     const { pageNum, pageSize, totals } = pageOpts;
+    const scroll = this.getScroll();
 
     return (
       <div className={`${tablePrefixCls}-container`} style={style} ref={ref}>
@@ -773,10 +859,12 @@ class CTable extends Component {
               [`${tablePrefixCls}-support-drag`]: supportDrag && !showDragIcon, // 拖拽行
               [`${tablePrefixCls}-support-resize`]: supportResizeColumn, // 表格列拉伸
               [`${tablePrefixCls}-full-column`]: supportFullColumn, // 表格通栏
+              [`${tablePrefixCls}-config-column`]: supportConfigColumn, // 配置列的展示和隐藏
+              [`${tablePrefixCls}-no-scroll`]: noScroll, // 无纵向滚动条的表格
             },
             className,
           )}
-          style={{
+          style={noScroll ? {} : {
             height: `calc(100% - ${
               hideEmptyFooter && !totals ? 0 : footerHeight
             }px)`,
@@ -789,7 +877,7 @@ class CTable extends Component {
             data={data}
             expandIconColumnIndex={expandIconColumnIndex}
             sticky={sticky}
-            scroll={{ x: '100%', y: maxHeight || '100%' }}
+            scroll={scroll}
             expandable={getExpandableConfig({ ...this.props })}
             emptyText={emptyTpl()}
             rowKey={rowKey}
@@ -832,13 +920,14 @@ class CTable extends Component {
                 : undefined
             }
           />
-          {loadingTpl(isLoading) || (
+          {loadingTpl(isLoading || loadingOpts.loading) || (
             <Loading
               className={`${tablePrefixCls}-loading-layer`}
               loading={isLoading}
               {...loadingOpts}
             />
           )}
+          {!totals && noScroll && this.emptyTpl(`${tablePrefixCls}-no-scroll-empty`)}
         </div>
         {supportPage && (!hideEmptyFooter || (hideEmptyFooter && !!totals)) && (
           <div
@@ -889,6 +978,27 @@ class CTable extends Component {
             useRootWindow={this.props.useRootWindow}
           />
         ) : null}
+        {/* 支持配置列的显示和隐藏 */}
+        {supportConfigColumn && (
+          <Tooltip
+            trigger="click"
+            theme="light"
+            placement="bottom-right"
+            className={`${tablePrefixCls}-tooltip`}
+            content={this.renderConfig()}
+            overlayStyle={{
+              maxHeight: 466,
+              top: 40,
+              right: 1,
+              left: 'auto',
+            }}
+            containerEle={this.ref.current}
+          >
+            <span className={`${tablePrefixCls}-config-icon`} style={isLoading || loadingOpts.loading ? { zIndex: -1 } : {}}>
+              <Icon type="config" />
+            </span>
+          </Tooltip>
+        )}
       </div>
     );
   }

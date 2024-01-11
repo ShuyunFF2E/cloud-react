@@ -39,6 +39,9 @@ export const propTypes = {
   onLoadGridBefore: PropTypes.func,
   isCheckboxFixed: PropTypes.bool,
   supportConfigColumn: PropTypes.bool,
+  defaultShowColumns: PropTypes.array,
+  disabledConfigColumns: PropTypes.array,
+  hideConfigColumns: PropTypes.array,
   supportResizeColumn: PropTypes.bool,
   emptyStyle: PropTypes.object,
   maxHeight: PropTypes.oneOfType([ PropTypes.string, PropTypes.number ]),
@@ -73,6 +76,9 @@ export const propTypes = {
   sortWidthOriginStatus: PropTypes.bool,
   sortMultiColumns: PropTypes.bool,
   showCheckedAll: PropTypes.bool,
+  onColumnChange: PropTypes.func,
+  scroll: PropTypes.object,
+  noScroll: PropTypes.bool,
 };
 
 export const defaultProps = {
@@ -111,6 +117,9 @@ export const defaultProps = {
   onLoadGridBefore: () => {},
   isCheckboxFixed: false,
   supportConfigColumn: false,
+  defaultShowColumns: [],
+  disabledConfigColumns: [],
+  hideConfigColumns: [],
   supportResizeColumn: false,
   emptyStyle: {},
   maxHeight: '',
@@ -145,4 +154,7 @@ export const defaultProps = {
   sortWidthOriginStatus: false,
   sortMultiColumns: false,
   showCheckedAll: true,
+  onColumnChange: () => {},
+  scroll: undefined,
+  noScroll: false,
 };

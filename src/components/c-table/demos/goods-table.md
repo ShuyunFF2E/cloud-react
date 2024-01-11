@@ -46,8 +46,13 @@ class CTableDemo extends Component {
       checkedGoodsData: [],
       checkedSkusData: [],
       expandedRowKeys: [],
+      defaultShowColumns: [],
     };
     this.updateBtnText();
+    
+    setTimeout(() => {
+      this.setState({ defaultShowColumns: this.columns.slice(0, 4).map(item => item.dataIndex) });
+    }, 500);
   }
 
   updateBtnText = () => {
@@ -148,10 +153,54 @@ class CTableDemo extends Component {
       width: 200,
     },
     {
+      title: '商品商家编码',
+      dataIndex: 'outerId',
+      align: 'left',
+      width: 200,
+      render: () => '商品商家编码',
+      show: false,
+    },
+    {
+      title: '商家时间',
+      dataIndex: 'time',
+      align: 'left',
+      width: 200,
+      render: () => '商家时间',
+    },
+    {
+      title: '上架平台',
+      dataIndex: 'plat',
+      align: 'left',
+      width: 200,
+      render: () => '上架平台',
+    },
+    {
+      title: '上架店铺',
+      dataIndex: 'shop',
+      align: 'left',
+      width: 200,
+      render: () => '上架店铺',
+    },
+    {
+      title: '标准类目',
+      dataIndex: 'category',
+      align: 'left',
+      width: 200,
+      render: () => '标准类目',
+    },
+    {
+      title: '自定义类目',
+      dataIndex: 'customCategory',
+      align: 'left',
+      width: 200,
+      render: () => '自定义类目',
+    },
+    {
       title: '操作',
       dataIndex: 'operate',
-      align: 'left',
+      align: 'right',
       width: 140,
+      fixed: 'right',
       render: (_, row) => {
         return row.skus && row.skus.length ? (
           <Button
@@ -238,11 +287,16 @@ class CTableDemo extends Component {
 
   render() {
     return (
-      <div className="cloud-table-goods">
+      <div className="cloud-table-goods" style={{ height: 400, overflow: 'auto' }}>
         <Button style={{ marginBottom: 20 }} onClick={this.onExpandAll}>{this.state.isExpandAll ? '展开全部' : '收起全部'}</Button>
         <CTable
+          supportConfigColumn
+          defaultShowColumns={this.state.defaultShowColumns}
+          disabledConfigColumns={this.columns.slice(0, 2).map(item => item.dataIndex)}
+          hideConfigColumns={['operate']}
           ref={this.tableRef}
-          style={{ width: '100%', height: 400 }}
+          noScroll
+          // stickyFooter
           supportExpend
           supportTree
           supportCheckbox
@@ -290,6 +344,11 @@ class CTableDemo extends Component {
               const res = JSON.parse(JSON.stringify(data.slice(params.pageSize * (params.pageNum - 1), params.pageSize * params.pageNum)));
               resolve({ totals: data.length, data: res });
             })
+          }}
+          onColumnChange={({ columnData }) => {
+            console.log('column changed')
+            console.table(columnData);
+            this.setState({ defaultShowColumns: columnData.filter(item => item.show).map(item => item.dataIndex) });
           }}
         />
       </div>
