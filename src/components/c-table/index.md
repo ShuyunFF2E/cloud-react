@@ -374,4 +374,6 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 
 <embed src="@components/c-table/demos/front-table1.md" />
 
+<embed src="@components/c-table/demos/front-table2.md" />
+
 <embed src="@components/c-table/demos/table-in-tab.md" />

@@ -718,13 +718,13 @@ class CTable extends Component {
    * 表格数据为空模板
    * @returns {*}
    */
-  emptyTpl = () => {
+  emptyTpl = className => {
     if (this.props.emptyTpl()) {
       return this.props.emptyTpl();
     }
     return (
       <div
-        className={`${tablePrefixCls}-no-data`}
+        className={className || `${tablePrefixCls}-no-data`}
         style={this.props.emptyStyle}
       >
         <img src={emptyImg} height={90} alt="暂无数据" />
@@ -923,6 +923,7 @@ class CTable extends Component {
               {...loadingOpts}
             />
           )}
+          {!totals && noScroll && this.emptyTpl(`${tablePrefixCls}-no-scroll-empty`)}
         </div>
         {supportPage && (!hideEmptyFooter || (hideEmptyFooter && !!totals)) && (
           <div

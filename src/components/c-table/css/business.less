@@ -382,7 +382,26 @@
     .@{tablePrefixCls}-container {
       height: auto;
     }
+
+    &.@{tablePrefixCls}-empty {
+      .@{tablePrefixCls}-placeholder {
+        visibility: hidden;
+      }
+    }
   }
+}
+
+//表格不展示纵向滚动条时，为空样式
+.@{tablePrefixCls}-no-scroll-empty {
+  position: absolute;
+  top: calc(50% + 20px);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: @gray-7;
 }
 
 .@{tablePrefixCls}-tooltip {
