@@ -22,7 +22,7 @@
   min-width: 72px;
   line-height: 18px;
   padding: 8px 12px;
-  border-radius: 2px;
+  border-radius: 3px;
   box-sizing: border-box;
   z-index: @z-index-tooltip;
   word-break: break-all;
@@ -50,17 +50,17 @@
 
   &.is-dark {
     .theme-style(@gray-9, @color-white);
-    box-shadow: @border-shadow-3;
+    box-shadow: @border-shadow-4;
   }
 
   &.is-light {
     .theme-style(@color-white, @gray-9);
-    box-shadow: @border-shadow-3;
+    box-shadow: @border-shadow-4;
   }
 
   &.is-error {
     .theme-style(@color-red1, @color-gray1);
-    box-shadow: @border-shadow-3;
+    box-shadow: @border-shadow-4;
   }
 
   &.is-remind {
