@@ -15,14 +15,15 @@
   border: 1px solid @border;
   border-radius: 6px;
   .close-icon {
-    color: @gray-6;
+    color: @gray-7;
 
     &:hover,
     &:active {
       color: @gray-7;
     }
   }
-  .action-icon, .tip-icon {
+  .action-icon,
+  .tip-icon {
     color: @action;
   }
   .action-icon {
@@ -35,7 +36,7 @@
   }
 }
 
-.@{tips-prefix-cls}{
+.@{tips-prefix-cls} {
   &.normal {
     .type-mixin(@blue-1, @blue-2, @blue-3, @blue-4, @blue-5, @blue-6);
   }
@@ -62,7 +63,7 @@
   &.inline {
     display: inline-block;
     background: none;
-    border: none
+    border: none;
   }
 
   &.small-radius {
@@ -73,7 +74,6 @@
     border-radius: 12px;
   }
 }
-
 .@{tips-prefix-cls}-container {
   display: flex;
   gap: 8px;
@@ -113,7 +113,7 @@
     font-weight: 500;
   }
 
-  .collapsible{
+  .collapsible {
     .msg,
     .description {
       .text-overflow-ellipsis(4);
