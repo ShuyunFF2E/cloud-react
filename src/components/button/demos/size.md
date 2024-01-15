@@ -37,6 +37,7 @@ class ButtonDemo extends React.Component {
 
 		return (
 			<React.Fragment>
+				<Button type="primary" size={size} borderRadiusSize={borderRadiusSize}>主要</Button>
 				<h4>切换尺寸</h4>
 				<div style={{ marginBottom: 10 }}>
 					<Button onClick={() => this.onChangeSize('large')}>大尺寸</Button>
@@ -77,8 +78,8 @@ class ButtonDemo extends React.Component {
 				</div>
                 <h4>有图标</h4>
 				<div style={{ display: 'flex', alignItems: 'center' }}>
-                  <Button type="primary" icon={size === 'small' ? undefined : "plus-solid"} size={size} borderRadiusSize={borderRadiusSize}>主要</Button>
-                  {blank}
+					<Button type="primary" icon={size === 'small' ? undefined : "plus-solid"} size={size} borderRadiusSize={borderRadiusSize}>主要</Button>
+					{blank}
 					<Button type="normal" icon={size === 'small' ? undefined : "plus-solid"} size={size} borderRadiusSize={borderRadiusSize}>描边</Button>
 					{blank}
 					<Button type="secondary" icon={size === 'small' ? undefined : "plus-solid"} size={size} borderRadiusSize={borderRadiusSize}>次要</Button>
@@ -90,23 +91,23 @@ class ButtonDemo extends React.Component {
 					<Button type="text" icon={size === 'small' ? undefined : "plus-solid"} size={size} borderRadiusSize={borderRadiusSize}>文字</Button>
 				</div>
                   <h4>只有图标：</h4>
-                  <Button type="primary" size={size} borderRadiusSize={borderRadiusSize}>
+                  <Button type="primary" size={size} borderRadiusSize={borderRadiusSize} shape="square">
                     <Icon type="plus-solid" />
                   </Button>
                   {blank}
-                  <Button type="normal" size={size} borderRadiusSize={borderRadiusSize}>
+                  <Button type="normal" size={size} borderRadiusSize={borderRadiusSize} shape="square">
                     <Icon type="plus-solid" />
                   </Button>
                   {blank}
-                  <Button type="secondary" size={size} borderRadiusSize={borderRadiusSize}>
+                  <Button type="secondary" size={size} borderRadiusSize={borderRadiusSize} shape="square">
                     <Icon type="plus-solid" />
                   </Button>
                   {blank}
-                  <Button type="link" size={size} borderRadiusSize={borderRadiusSize}>
+                  <Button type="link" size={size} borderRadiusSize={borderRadiusSize} shape="square">
                     <Icon type="plus-solid" />
                   </Button>
                   {blank}
-                  <Button type="text" size={size} borderRadiusSize={borderRadiusSize}>
+                  <Button type="text" size={size} borderRadiusSize={borderRadiusSize} shape="square">
                     <Icon type="plus-solid" />
                   </Button>
 			</React.Fragment>
