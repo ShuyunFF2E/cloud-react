@@ -302,7 +302,7 @@ export default function FormHorizontalDemo() {
         </Button>
         <Button disabled={disabled} onClick={() => {
           field.reset();
-        }}>重置</Button>
+        }} type="secondary">重置</Button>
       </Form.Item>
     </Form>
   );

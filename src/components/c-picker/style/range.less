@@ -46,7 +46,7 @@
     }
   }
 
-  &:hover {
+  &:not(.@{prefix-cls}-disabled):hover {
     .@{prefix-cls}-input,
     .@{prefix-cls}-range-separator,
     .@{prefix-cls}-suffix {
@@ -167,7 +167,9 @@
         }
       }
 
-      .@{prefix-cls}-date-panel, .@{prefix-cls}-week-panel, .@{prefix-cls}-quarter-panel {
+      .@{prefix-cls}-date-panel,
+      .@{prefix-cls}-week-panel,
+      .@{prefix-cls}-quarter-panel {
         .@{prefix-cls}-body .@{prefix-cls}-cell.@{prefix-cls}-cell-in-view {
           &.@{prefix-cls}-cell-range-start,
           &.@{prefix-cls}-cell-range-hover-start {
@@ -188,18 +190,23 @@
         }
       }
 
-      .@{prefix-cls}-month-panel, .@{prefix-cls}-year-panel {
+      .@{prefix-cls}-month-panel,
+      .@{prefix-cls}-year-panel {
         .@{prefix-cls}-body .@{prefix-cls}-cell.@{prefix-cls}-cell-in-view {
           &.@{prefix-cls}-cell-range-start,
           &.@{prefix-cls}-cell-range-hover-start {
-            &:not(.@{prefix-cls}-cell-in-range):not(.@{prefix-cls}-cell-range-start-near-hover)::before {
+            &:not(.@{prefix-cls}-cell-in-range):not(
+                .@{prefix-cls}-cell-range-start-near-hover
+              )::before {
               left: 18px;
             }
           }
 
           &.@{prefix-cls}-cell-range-end,
           &.@{prefix-cls}-cell-range-hover-end {
-            &:not(.@{prefix-cls}-cell-in-range):not(.@{prefix-cls}-cell-range-end-near-hover)::before {
+            &:not(.@{prefix-cls}-cell-in-range):not(
+                .@{prefix-cls}-cell-range-end-near-hover
+              )::before {
               right: 18px;
             }
           }
