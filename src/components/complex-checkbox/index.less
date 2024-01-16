@@ -12,16 +12,25 @@
     width: 24px;
     margin-right: 8px;
     border-radius: 3px;
+    .@{prefix}-checkbox-wrapper {
+      top: 0px;
+    }
+  }
+
+  &-has-content {
+    .@{prefix}-checkbox-wrapper {
+      top: 3px;
+    }
   }
 
   &-title {
     color: @gray-9;
-    margin-bottom: 4px;
   }
 
   &-content {
     color: @gray-7;
     line-height: 20px;
+    margin-top: 4px;
   }
 
   &-card {

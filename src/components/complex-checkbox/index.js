@@ -31,6 +31,7 @@ export default function ComplexCheckbox(props) {
         [`${classSelector}-overflow-ellipsis`]: textOverflowEllipsis,
         [`${classSelector}-card`]: type === 'card',
         [`${classSelector}-card-disabled`]: type === 'card' && props.disabled,
+        [`${classSelector}-has-content`]: !!content,
       })}
       {...otherProps}
     >
@@ -55,7 +56,7 @@ export default function ComplexCheckbox(props) {
 }
 
 ComplexCheckbox.propTypes = {
-  content: PropTypes.oneOfType([ PropTypes.string, PropTypes.element ]),
+  content: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   imgSrc: PropTypes.string,
   title: PropTypes.string,
   textOverflowEllipsis: PropTypes.bool,
