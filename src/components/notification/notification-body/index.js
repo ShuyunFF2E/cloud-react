@@ -16,6 +16,7 @@ const ICON_TYPE_MAP = {
 export default function NotificationBody({
   title,
   content,
+  img,
   duration,
   showIcon,
   iconType,
@@ -48,16 +49,30 @@ export default function NotificationBody({
   }, [dataSetId, duration]);
 
   return (
-    <section className={`${notificationPrefix} ${borderRadiusSize} ${className} ${isLightTheme && 'light-theme'}`} style={style}>
-      {icon || (
-        showIcon && <Icon className={`info-icon ${iconType}`} type={ICON_TYPE_MAP[iconType]} />
-      )}
+    <section
+      className={`${notificationPrefix} ${borderRadiusSize} ${className} ${
+        isLightTheme && 'light-theme'
+      }`}
+      style={style}
+    >
+      {icon
+        || (showIcon && (
+          <Icon
+            className={`info-icon ${iconType}`}
+            type={ICON_TYPE_MAP[iconType]}
+          />
+        ))}
       <div className={`${notificationPrefix}-content`}>
         <header>
           <p>{title}</p>
-          <Icon className="close-icon" type="close" onClick={() => close(dataSetId, placement)} />
+          <Icon
+            className="close-icon"
+            type="close"
+            onClick={() => close(dataSetId, placement)}
+          />
         </header>
         <main>{content}</main>
+        {!!img && <div className={`${notificationPrefix}-img-area`}>{img}</div>}
         {(showDetailBtn || showConfirmBtn || showCancelBtn) && (
           <footer>
             {showDetailBtn && (
@@ -82,7 +97,7 @@ export default function NotificationBody({
             )}
             {showCancelBtn && (
               <Button
-                type="normal"
+                type="secondary"
                 onClick={() => {
                   close(dataSetId, placement);
                   onClose();
