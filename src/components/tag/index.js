@@ -34,7 +34,7 @@ export default class Tag extends Component {
       typeEnum.PRIMARY,
       typeEnum.LINK,
     ]),
-    size: PropTypes.oneOf([ sizeEnum.SMALL, sizeEnum.NORMAL ]),
+    size: PropTypes.oneOf([sizeEnum.SMALL, sizeEnum.NORMAL]),
     color: PropTypes.string,
     rounded: PropTypes.bool,
     closable: PropTypes.bool,
@@ -51,7 +51,7 @@ export default class Tag extends Component {
     color: '',
     rounded: false,
     closable: false,
-    checkable: true,
+    checkable: false,
     checked: false,
     disabled: false,
     onClick: noop,
@@ -117,9 +117,7 @@ export default class Tag extends Component {
   };
 
   renderContent() {
-    const {
-      closable, disabled, icon, maxWidth, style, ...others
-    } = this.props;
+    const { closable, disabled, icon, maxWidth, style, ...others } = this.props;
 
     const props = omit(others, [
       'type',

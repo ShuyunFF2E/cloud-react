@@ -6,6 +6,7 @@
   color: @gray-6;
   background: @gray-3;
   border: 1px solid @gray-3;
+  cursor: not-allowed !important;
 
   &:hover {
     color: @gray-6;
@@ -60,7 +61,7 @@
   padding: 2px 8px;
   margin-right: 8px;
   cursor: default;
-  background: @gray-1;
+  background: @gray-3;
   border: 1px solid @gray-4;
   border-radius: 3px;
   .text-overflow-ellipsis;
@@ -97,7 +98,9 @@
     .tag-icon {
       position: absolute;
       left: 8px;
+      top: 5px;
       font-size: 12px;
+      line-height: 12px;
     }
   }
 
@@ -108,6 +111,11 @@
       padding-right: 24px;
       .tag-close-wrapper {
         right: 8px;
+      }
+    }
+    &.icon {
+      .tag-icon {
+        top: 7px;
       }
     }
   }
@@ -128,6 +136,7 @@
 
       .tag-icon {
         left: 4px;
+        top: 3px;
       }
     }
 
@@ -138,7 +147,7 @@
 
   &.checkable {
     cursor: pointer;
-
+    background-color: @gray-1;
     &:hover {
       color: @blue-4;
       border-color: @blue-4;
@@ -191,7 +200,9 @@
     }
   }
   &.default {
-    .disabled();
+    .tag-icon {
+      color: @gray-6;
+    }
   }
   &.danger,
   &.red {
@@ -233,23 +244,35 @@
   }
 
   &.link {
-    .theme-style(#E8E8E8, @blue-4);
+    cursor: pointer;
+    .theme-style(@gray-3, @gray-9);
 
     &:hover {
       cursor: pointer;
-      border-color: #E8E8E8;
+      border-color: #e8e8e8;
+      color: @blue-4;
     }
 
     &.disabled {
       color: @gray-6;
       background: @gray-3;
-      border: 1px solid #E8E8E8;
+      border: 1px solid #e8e8e8;
 
       &:hover {
         cursor: not-allowed;
         color: @gray-6;
-        border: 1px solid #E8E8E8;
+        border: 1px solid #e8e8e8;
       }
+    }
+  }
+  &.stroke {
+    color: @gray-9;
+    background-color: @gray-1;
+    &.disabled {
+      .color-disabled(@blue-3, @blue-1);
+    }
+    .tag-close-icon {
+      .close-style(@blue-3, @blue-5, @blue-6);
     }
   }
 }
