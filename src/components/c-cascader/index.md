@@ -21,7 +21,7 @@ group:
 | disabled       | 是否禁用                 | boolean           | false  |
 | defaultValue   | 初始化所选值    | Array           | false  |
 | value          | 所选值         | Array            | --     |
-| change         | 变化时回调函数            | Function(e:Event) | --     | 
+| onChange         | 变化时回调函数            | Function(value, selectedOptions) | --     | 
 | changeOnSelect | 每个选项都触发改变  | boolean            | false  | 
 | displayRender  | 自定义回写格式  | Function(labels:Array)        | --  |
 | expandTrigger  | 展开当前选项的事件点击或者移动，默认是 点击 | string | "click" |
@@ -34,6 +34,8 @@ group:
 | showSearch     | 搜索配置               | object   | -- |
 | fieldNames     | 标签、值和子项的自定义字段名称  | object | { label: 'label', value: 'value', children: 'children' } |
 | borderRadiusSize       | 圆角大小： `small`: 3px；`default`: 6px；`large`: 12px；         | string | `default`     |
+| hasSelectAll   | 是否有全选 | boolean | false |
+| multiple   | 是否为多选 | boolean | false |
 
 
  ## 代码演示 
@@ -73,3 +75,6 @@ group:
 
 ### 设置下拉框圆角
 <embed src="@components/c-cascader/demos/borderRadius.md" />
+
+### 全选
+<embed src="@components/c-cascader/demos/hasSelectAll.md" />
