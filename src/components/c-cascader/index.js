@@ -1,8 +1,5 @@
-/* eslint-disable */
-
 import React, { Component } from 'react';
 import CascaderMenu from 'rc-cascader';
-import Icon from '../icon';
 import PropTypes from 'prop-types';
 import { prefixCls } from '@utils';
 import {
@@ -11,23 +8,27 @@ import {
   DefaultRenderEmpty,
   ALL_VALUE,
 } from './constant.js';
+import Icon from '../icon';
 import './index.less';
 
 class Cascader extends Component {
-  state = {
-    inputValue: '',
-    open: false,
-    options: [],
-    // 组件内容选中内容
-    value: [],
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      // inputValue: '',
+      open: false,
+      options: [],
+      // 组件内容选中内容。
+      value: [],
+    };
+  }
 
   componentDidMount() {
-    this.setState({
-      inputValue: this.props.defaultValue
-        .map((o) => o.label)
-        .join(this.props.splitInput),
-    });
+    // this.setState({
+    //   inputValue: this.props.defaultValue
+    //     .map((o) => o.label)
+    //     .join(this.props.splitInput),
+    // });
     this.setState({ value: this.props.value });
     this.initOptions();
   }
@@ -73,33 +74,36 @@ class Cascader extends Component {
   handleChange = (value, valueObj) => {
     const { value: preValue } = this.state;
     const { hasSelectAll } = this.props;
-    this.props.onChange(value, valueObj);
     if (!hasSelectAll) {
       this.setState({ value });
+      this.props.onChange(value, valueObj);
       return;
     }
 
-    // 选中全部按钮
+    // 包含全选，需要处理选中数据。
+    // 【选中全部按钮】获取最后一次点击的Item，是否和全选值相等，
     if (
       JSON.stringify(value[value.length - 1]) === JSON.stringify([ALL_VALUE])
     ) {
       this.handelAllChange(true);
       return;
     }
-    // 取消全部按钮
+    // 【取消全部按钮】1、上一次代码的value是否包含全选值 2、 本次value是否取消了全选。
     if (
       preValue?.some(
         (x) => JSON.stringify(x) === JSON.stringify([ALL_VALUE]),
-      ) &&
-      value.every((x) => JSON.stringify(x) !== JSON.stringify([ALL_VALUE]))
+      )
+      && value.every((x) => JSON.stringify(x) !== JSON.stringify([ALL_VALUE]))
     ) {
       this.handelAllChange(false);
       return;
     }
-    // // 点击其他多选按钮
+    // 【点击其他项目】
     this.setState({ value: this.getInnerValue(value) });
+    this.props.onChange(value, valueObj);
   };
 
+  // 全选项目是否选中， 选中
   handelAllChange = (checked) => {
     const {
       options,
@@ -116,17 +120,18 @@ class Cascader extends Component {
   };
 
   getInnerValue = (value) => {
-    const { hasSelectAll, options } = this.props;
-    // 不支持全选按钮
-    if (!hasSelectAll) {
-      return value;
-    }
-    // 点击其他多选按钮
+    const { options } = this.props;
+
+    // value数据结构 [['ALL'], ['pId1','pId11'], ['pId2','pId21'], ['pId3']]
+    // 获取除全选以外的选中项
     const removeAllItem = value.filter(
       (item) => JSON.stringify(item) !== JSON.stringify([ALL_VALUE]),
     );
+
+    // 获取选中的一级节点。
     const parentValue = removeAllItem.filter((item) => item.length === 1);
 
+    // 一级节点是否全部选中
     if (parentValue.length === options.length) {
       return [[ALL_VALUE], ...removeAllItem];
     }
@@ -139,7 +144,6 @@ class Cascader extends Component {
 
   render() {
     const {
-      splitInput,
       multiple,
       showSearch,
       loadingIcon,
@@ -149,7 +153,7 @@ class Cascader extends Component {
     } = this.props;
     const iconClasses = this.state.open ? 'open' : 'close';
     const checkable = multiple ? (
-      <div className={`${this.props.prefixCls}-checkbox-inner`}></div>
+      <div className={`${this.props.prefixCls}-checkbox-inner`} />
     ) : (
       false
     );
@@ -189,9 +193,7 @@ class Cascader extends Component {
 }
 Cascader.defaultProps = {
   onChange() {},
-  maxTagPlaceholder: (text) => {
-    return text?.length ? `+ ${text.length}` : '';
-  },
+  maxTagPlaceholder: (text) => (text?.length ? `+ ${text.length}` : ''),
   multiple: false,
   allowClear: false,
   disabled: false,
@@ -218,6 +220,24 @@ Cascader.propTypes = {
   options: PropTypes.array.isRequired,
   borderRadiusSize: PropTypes.oneOf(['small', 'default', 'large']),
   hasSelectAll: PropTypes.bool,
+  onChange: PropTypes.func,
+  maxTagPlaceholder: PropTypes.func,
+  multiple: PropTypes.bool,
+  allowClear: PropTypes.bool,
+  disabled: PropTypes.bool,
+  transitionName: PropTypes.string,
+  inputIcon: PropTypes.element,
+  prefixCls: PropTypes.string,
+  popupClassName: PropTypes.string,
+  placement: PropTypes.string,
+  showArrow: PropTypes.bool,
+  expandTrigger: PropTypes.string,
+  fieldNames: PropTypes.object,
+  expandIcon: PropTypes.element,
+  clearIcon: PropTypes.element,
+  loadingIcon: undefined,
+  removeIcon: PropTypes.element,
+  splitInput: PropTypes.string,
 };
 
 export default Cascader;
