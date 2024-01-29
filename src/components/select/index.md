@@ -110,4 +110,3 @@ group:
 <embed src="@components/select/demos/groupSearch.md" />
 
 ### 多选下拉支持不限
-<embed src="@components/select/demos/unlimited.md" />

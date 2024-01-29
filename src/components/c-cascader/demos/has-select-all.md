@@ -66,6 +66,7 @@ export default function Demo() {
 	const filter = (inputValue, path) => {
 		return path.some(option => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1);
 	}
+
 	return (
 		<div>
 			<div style={{ marginBottom: 24 }}>多选级联组件</div>

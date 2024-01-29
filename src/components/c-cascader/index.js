@@ -71,12 +71,48 @@ class Cascader extends Component {
     });
   };
 
+  getValue = (value) => {
+    const { options } = this.props;
+
+    // value数据结构 [['ALL'], ['pId1','pId11'], ['pId2','pId21'], ['pId3']]
+    // 获取除全选以外的选中项
+    const removeAllItem = value.filter(
+      (item) => JSON.stringify(item) !== JSON.stringify([ALL_VALUE]),
+    );
+
+    // 获取选中的一级节点。
+    const parentValue = removeAllItem.filter((item) => item.length === 1);
+    let result = {
+      isSelectedAll: false,
+      innerValue: removeAllItem,
+      outerValue: removeAllItem,
+    };
+    // 一级节点是否全部选中
+    if (parentValue.length === options.length) {
+      result = {
+        ...result,
+        isSelectedAll: true,
+        innerValue: [[ALL_VALUE], ...removeAllItem],
+      };
+    }
+    return result;
+  };
+
+  changeValue = (
+    innerValue = [],
+    outerValue = [],
+    selectedOptions = [],
+    isSelectedAll = false,
+  ) => {
+    this.setState({ value: innerValue });
+    this.props.onChange(outerValue, selectedOptions, isSelectedAll);
+  };
+
   handleChange = (value, valueObj) => {
     const { value: preValue } = this.state;
     const { hasSelectAll } = this.props;
     if (!hasSelectAll) {
-      this.setState({ value });
-      this.props.onChange(value, valueObj);
+      this.changeValue(value, value, valueObj);
       return;
     }
 
@@ -99,8 +135,8 @@ class Cascader extends Component {
       return;
     }
     // 【点击其他项目】
-    this.setState({ value: this.getInnerValue(value) });
-    this.props.onChange(value, valueObj);
+    const { innerValue, outerValue, isSelectedAll } = this.getValue(value);
+    this.changeValue(innerValue, [...outerValue], valueObj, isSelectedAll);
   };
 
   // 全选项目是否选中， 选中
@@ -111,31 +147,10 @@ class Cascader extends Component {
     } = this.props;
     if (checked) {
       const _value = options?.map((x) => [x[valueKey]]);
-      this.setState({ value: [[ALL_VALUE], ..._value] });
-      this.props.onChange([..._value], options);
+      this.changeValue([[ALL_VALUE], ..._value], [..._value], options, true);
       return;
     }
-    this.setState({ value: [] });
-    this.props.onChange([]);
-  };
-
-  getInnerValue = (value) => {
-    const { options } = this.props;
-
-    // value数据结构 [['ALL'], ['pId1','pId11'], ['pId2','pId21'], ['pId3']]
-    // 获取除全选以外的选中项
-    const removeAllItem = value.filter(
-      (item) => JSON.stringify(item) !== JSON.stringify([ALL_VALUE]),
-    );
-
-    // 获取选中的一级节点。
-    const parentValue = removeAllItem.filter((item) => item.length === 1);
-
-    // 一级节点是否全部选中
-    if (parentValue.length === options.length) {
-      return [[ALL_VALUE], ...removeAllItem];
-    }
-    return removeAllItem;
+    this.changeValue();
   };
 
   mergedNotFoundContent = this.props.notFoundContent || (
@@ -168,9 +183,15 @@ class Cascader extends Component {
 
       return searchConfig;
     };
+
+    // fixed: React does not recognize the `***` prop on a DOM element
+    const divProps = Object.assign({}, props);
+    delete divProps.splitInput;
+    delete divProps.hasSelectAll;
+
     return (
       <CascaderMenu
-        {...props}
+        {...divProps}
         value={this.state.value}
         options={[...this.state.options]}
         onChange={this.handleChange}
@@ -225,7 +246,7 @@ Cascader.propTypes = {
   fieldNames: PropTypes.object,
   expandIcon: PropTypes.element,
   clearIcon: PropTypes.element,
-  loadingIcon: undefined,
+  loadingIcon: PropTypes.oneOfType([PropTypes.func, PropTypes.element]),
   removeIcon: PropTypes.element,
   splitInput: PropTypes.string,
 };
