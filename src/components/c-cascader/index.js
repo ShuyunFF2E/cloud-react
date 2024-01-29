@@ -178,7 +178,7 @@ class Cascader extends Component {
     return (
       <CascaderMenu
         {...props}
-        popupClassName={`${popupClassName} ${borderRadiusSize}`}
+        dropdownClassName={`${popupClassName} ${borderRadiusSize}`}
         value={this.state.value}
         options={[...this.state.options]}
         onChange={this.handleChange}
