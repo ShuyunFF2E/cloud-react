@@ -1,13 +1,13 @@
 ---
 order: 1
 title: 级联选择器
-desc: 全选
+desc: 扩展菜单
 ---
 
 ```jsx
 
 import React, { useState } from 'react';
-import { CCascader, Input } from 'cloud-react';
+import { CCascader, Input, Checkbox } from 'cloud-react';
 const LABEL_ENUM = {
 	fj: '贵州 - 黔西南布依族苗族自治州',
 	fuzhou: '福州',
@@ -63,11 +63,13 @@ const addressOptions = [{
 }];
 
 export default function Demo() {
-	const [ value, setValue ] = useState([['zj']]);
+	const [ checked, setChecked] = useState(false);
+    const [ value, setValue ] = useState([['zj']]);
 	const [ inputValue, setInputValue] =useState('浙江');
 
 	const onChange = (value, selectedOptions, isSelectedAll) => {
 		setValue(value);
+        setChecked(!!isSelectedAll);
 		setInputValue(isSelectedAll ? '全部' : value.map(x => x[x.length - 1]).map(x => LABEL_ENUM[x]).join(','));
 	}
 
@@ -75,18 +77,34 @@ export default function Demo() {
 		return path.some(option => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1);
 	}
 
+    const handleALlChange = value => {
+        setChecked(value);
+        if (value) {
+            setValue([['zj'], ['fj'], ['bj']]);
+            return;
+        }
+        setValue([]);
+    }
 	return (
 		<div>
 			<div style={{ marginBottom: 24 }}>多选级联组件</div>
 			<CCascader
-                hasSelectAll
 				options={addressOptions}
 				onChange={onChange}
 				placeholder="Please select"
 				value={value}
 				multiple
                 allowClear
-				showSearch={{ filter: filter }}>
+				showSearch={{ filter: filter }}
+                dropdownRender={menus => (
+                    <div>
+                        {menus}
+                        <hr />
+                        <Checkbox checked={checked} onChange={handleALlChange} style={{ marginLeft: 12 }}>
+                            全选
+                        </Checkbox>
+                    </div>
+                )}>
                 <Input
                     placeholder={'请选择'}
                     value={inputValue}

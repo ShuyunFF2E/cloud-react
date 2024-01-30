@@ -34,10 +34,16 @@ class Cascader extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (
-      JSON.stringify(prevProps.options) !== JSON.stringify(this.props.options)
-    ) {
+    const { options, hasSelectAll, value } = this.props;
+    if (JSON.stringify(prevProps.options) !== JSON.stringify(options)) {
       this.initOptions();
+    }
+    // hasSelectAll: 全选选项是内部实现提供的。 仅在组件刚挂着的时候赋值，外部取值
+    if (
+      !hasSelectAll
+      && JSON.stringify(prevProps.value) !== JSON.stringify(value)
+    ) {
+      this.setState({ value });
     }
   }
 
