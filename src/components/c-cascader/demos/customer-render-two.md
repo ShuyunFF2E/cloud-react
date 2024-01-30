@@ -7,7 +7,17 @@ desc: 全选
 ```jsx
 
 import React, { useState } from 'react';
-import { CCascader, Input } from 'cloud-react';
+import { CCascader } from 'cloud-react';
+
+const style = {
+  width: '170px',
+  fontSize: '12px',
+  display: 'block',
+  border: '1px solid #e8e8e8',
+  lineHeight: '18px',
+  padding: '6px 12px',
+  cursor: 'pointer'
+};
 const LABEL_ENUM = {
 	fj: '贵州 - 黔西南布依族苗族自治州',
 	fuzhou: '福州',
@@ -89,7 +99,7 @@ export default function Demo() {
 				showSearch={{ filter: filter }}>
                 <span
                     placeholder={'请选择'}
-                    style={{ width: 170, fontSize: '12px' }}
+                    style={{...style}}
                     >{inputValue}</span>
             </CCascader>
 		</div>

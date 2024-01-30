@@ -7,7 +7,18 @@ desc: 扩展菜单
 ```jsx
 
 import React, { useState } from 'react';
-import { CCascader, Input, Checkbox } from 'cloud-react';
+import { CCascader, Checkbox } from 'cloud-react';
+
+const style = {
+  width: '170px',
+  fontSize: '12px',
+  display: 'block',
+  border: '1px solid #e8e8e8',
+  lineHeight: '18px',
+  padding: '6px 12px',
+  cursor: 'pointer'
+};
+
 const LABEL_ENUM = {
 	fj: '贵州 - 黔西南布依族苗族自治州',
 	fuzhou: '福州',
@@ -98,18 +109,16 @@ export default function Demo() {
 				showSearch={{ filter: filter }}
                 dropdownRender={menus => (
                     <div>
-                        {menus}
-                        <hr />
-                        <Checkbox checked={checked} onChange={handleALlChange} style={{ marginLeft: 12 }}>
+                        <Checkbox checked={checked} onChange={handleALlChange} style={{ padding: '8px 12px', width: '90%', borderBottom: '1px solid #e8e8e8' }}>
                             全选
                         </Checkbox>
+                        {menus}
                     </div>
                 )}>
-                <Input
+                  <span
                     placeholder={'请选择'}
-                    value={inputValue}
-                    style={{ width: 170, fontSize: '12px' }}
-                    />
+                    style={{...style}}
+                    >{inputValue}</span>
             </CCascader>
 		</div>
     );
