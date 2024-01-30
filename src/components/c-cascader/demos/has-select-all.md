@@ -5,6 +5,10 @@ desc: 全选
 ---
 
 ```jsx
+/**
+   * title: 多选
+   * desc: 多选 + 全选功能；
+*/
 
 import React, { useState } from 'react';
 import { CCascader } from 'cloud-react';
