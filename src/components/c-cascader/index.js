@@ -77,24 +77,37 @@ class Cascader extends Component {
     });
   };
 
-  getValue = (value) => {
-    const { options } = this.props;
+  isAll = (value) => {
+    const { options, hasSelectAll } = this.props;
+    let parentValue = value.filter((item) => item.length === 1);
+    if (hasSelectAll) {
+      // value数据结构 [['ALL'], ['pId1','pId11'], ['pId2','pId21'], ['pId3']]
+      // 获取除全选以外的选中项
+      const removeAllItem = value.filter(
+        (item) => JSON.stringify(item) !== JSON.stringify([ALL_VALUE]),
+      );
 
+      // 获取选中的一级节点。
+      parentValue = removeAllItem.filter((item) => item.length === 1);
+    }
+
+    return parentValue.length === options.length;
+  };
+
+  getValue = (value) => {
     // value数据结构 [['ALL'], ['pId1','pId11'], ['pId2','pId21'], ['pId3']]
     // 获取除全选以外的选中项
     const removeAllItem = value.filter(
       (item) => JSON.stringify(item) !== JSON.stringify([ALL_VALUE]),
     );
 
-    // 获取选中的一级节点。
-    const parentValue = removeAllItem.filter((item) => item.length === 1);
     let result = {
+      outerValue: removeAllItem,
       isSelectedAll: false,
       innerValue: removeAllItem,
-      outerValue: removeAllItem,
     };
     // 一级节点是否全部选中
-    if (parentValue.length === options.length) {
+    if (this.isAll(value)) {
       result = {
         ...result,
         isSelectedAll: true,
@@ -118,7 +131,7 @@ class Cascader extends Component {
     const { value: preValue } = this.state;
     const { hasSelectAll } = this.props;
     if (!hasSelectAll) {
-      this.changeValue(value, value, valueObj);
+      this.changeValue(value, value, valueObj, this.isAll(value));
       return;
     }
 
