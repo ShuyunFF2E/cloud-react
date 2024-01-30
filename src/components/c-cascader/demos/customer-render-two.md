@@ -87,11 +87,10 @@ export default function Demo() {
 				multiple
                 allowClear
 				showSearch={{ filter: filter }}>
-                <Input
+                <span
                     placeholder={'请选择'}
-                    value={inputValue}
                     style={{ width: 170, fontSize: '12px' }}
-                    />
+                    >{inputValue}</span>
             </CCascader>
 		</div>
     );
