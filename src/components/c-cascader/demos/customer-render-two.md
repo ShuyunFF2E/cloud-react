@@ -16,7 +16,12 @@ const style = {
   border: '1px solid #e8e8e8',
   lineHeight: '18px',
   padding: '6px 12px',
-  cursor: 'pointer'
+  cursor: 'pointer',
+  textOverflow: 'ellipsis',
+  overflow: 'hidden',
+  whiteSpace: 'nowrap',
+  height: '32px',
+  boxSizing: 'border-box',
 };
 const LABEL_ENUM = {
 	fj: '贵州 - 黔西南布依族苗族自治州',

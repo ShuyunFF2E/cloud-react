@@ -16,7 +16,12 @@ const style = {
   border: '1px solid #e8e8e8',
   lineHeight: '18px',
   padding: '6px 12px',
-  cursor: 'pointer'
+  cursor: 'pointer',
+  textOverflow: 'ellipsis',
+  overflow: 'hidden',
+  whiteSpace: 'nowrap',
+  height: '32px',
+  boxSizing: 'border-box'
 };
 
 const LABEL_ENUM = {
@@ -80,8 +85,8 @@ export default function Demo() {
 
 	const onChange = (value, selectedOptions, isSelectedAll) => {
 		setValue(value);
-        setChecked(!!isSelectedAll);
-		setInputValue(isSelectedAll ? '全部' : value.map(x => x[x.length - 1]).map(x => LABEL_ENUM[x]).join(','));
+    setChecked(!!isSelectedAll);
+		setInputValue(value.map(x => x[x.length - 1]).map(x => LABEL_ENUM[x]).join(','));
 	}
 
 	const filter = (inputValue, path) => {
@@ -91,10 +96,13 @@ export default function Demo() {
     const handleALlChange = value => {
         setChecked(value);
         if (value) {
-            setValue([['zj'], ['fj'], ['bj']]);
+            const _v = [['zj'], ['fj'], ['bj']];
+            setValue(_v);
+            setInputValue(_v.flat().map(x => LABEL_ENUM[x]).join(','));
             return;
         }
         setValue([]);
+        setInputValue('');
     }
 	return (
 		<div>
@@ -118,6 +126,7 @@ export default function Demo() {
                   <span
                     placeholder={'请选择'}
                     style={{...style}}
+                    title={inputValue}
                     >{inputValue}</span>
             </CCascader>
 		</div>
