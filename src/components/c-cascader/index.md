@@ -79,8 +79,8 @@ group:
 ### 全选
 <embed src="@components/c-cascader/demos/has-select-all.md" />
 
-<!-- ### 全选 - 自定义回显格式
-<embed src="@components/c-cascader/demos/customer-render-two.md" /> -->
+### 全选 - 自定义回显格式
+<embed src="@components/c-cascader/demos/customer-render-two.md" />
 
 ### 自定义级联Footer
 <embed src="@components/c-cascader/demos/dropdown-render.md" />
