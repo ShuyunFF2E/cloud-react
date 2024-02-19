@@ -3,11 +3,6 @@ order: 5 title: 颜色标签 desc: 不同的主题色标签
 ---
 
 ```jsx
-
-/**
- * title: 多重状态标签
- * desc: 用带颜色的标签来区分不同的状态展现
- */
 import React, { Component } from 'react';
 import { Tag, Radio } from 'cloud-react';
 
@@ -34,40 +29,13 @@ class TagDemo extends Component {
         <div style={{ marginBottom: 15, fontSize: 14 }}>
           <div style={{ marginBottom: 5 }}>一般标签</div>
           <Tag size={this.state.size}> 默认 </Tag>
+          <Tag size={this.state.size} checkable> 可选 </Tag>
           <Tag color="blue" size={this.state.size}> 蓝色 </Tag>
           <Tag color="yellow" size={this.state.size}> 黄色 </Tag>
           <Tag color="orange" disabled size={this.state.size}> 橙色 </Tag>
           <Tag color="red" size={this.state.size}> 红色 </Tag>
           <Tag color="green" size={this.state.size}> 绿色 </Tag>
           <Tag color="gray" size={this.state.size}> 灰色 </Tag>
-        </div>
-
-        <div style={{ marginBottom: 15, fontSize: 14 }}>
-          <div style={{ marginBottom: 5 }}>圆形标签</div>
-          <Tag color="blue" rounded size={this.state.size}> 蓝色 </Tag>
-          <Tag color="yellow" rounded size={this.state.size}> 黄色 </Tag>
-          <Tag color="orange" disabled rounded size={this.state.size}> 橙色 </Tag>
-          <Tag color="red" rounded size={this.state.size}> 红色 </Tag>
-          <Tag color="green" rounded size={this.state.size}> 绿色 </Tag>
-          <Tag color="gray" rounded size={this.state.size}> 灰色 </Tag>
-        </div>
-
-        <div style={{ marginBottom: 15, fontSize: 14 }}>
-          <div style={{ marginBottom: 5 }}>自定义圆角标签</div>
-          <Tag color="blue" style={{ borderRadius: '3px' }} size={this.state.size}> 圆角：3px </Tag>
-          <Tag color="yellow" style={{ borderRadius: '6px' }} size={this.state.size}> 圆角：6px </Tag>
-          <Tag color="orange" style={{ borderRadius: '50%' }} size={this.state.size}> 圆角：50% </Tag>
-        </div>
-
-        <div style={{ marginBottom: 15, fontSize: 14 }}>
-          <div style={{ marginBottom: 5 }}>禁用的标签</div>
-          <Tag checked={false} disabled size={this.state.size}> 默认 </Tag>
-          <Tag color="blue" disabled size={this.state.size}> 蓝色 </Tag>
-          <Tag color="yellow" disabled size={this.state.size}> 黄色 </Tag>
-          <Tag color="orange" disabled size={this.state.size}> 橙色 </Tag>
-          <Tag color="red" disabled size={this.state.size}> 红色 </Tag>
-          <Tag color="green" disabled size={this.state.size}> 绿色 </Tag>
-          <Tag color="gray" disabled size={this.state.size}> 灰色 </Tag>
         </div>
 
         <div style={{ marginBottom: 15, fontSize: 14 }}>

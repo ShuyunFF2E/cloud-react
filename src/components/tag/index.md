@@ -18,7 +18,7 @@ group:
 
 | 属性     | 说明                                                   | 类型     | 默认值 |
 | -------- | ------------------------------------------------------ | -------- | ------ |
-| type     | 标签状态,可选值：success、warning、default、danger、link、 stroke （描边） | string   | -      |
+| type     | 标签状态,可选值：success、warning、default、danger、link、 stroke （描边）、 fill-stroke （填充描边） | string   | -      |
 | size     | 标签大小,可选值：normal、small、large                     | string   | normal      |
 | rounded     | 圆形标签                  | bool   | false      |
 | maxWidth  | 标签最大宽度，超过则显示省略号及Tooltip                    | number   | 200  |
@@ -32,14 +32,23 @@ group:
 
  ## 代码演示 
 
-### 基础使用
-<embed src="@components/tag/demos/basic-tag.md" /> 
+### 基础标签
+<embed src="@components/tag/demos/basic.md" /> 
 
-### 大小
-<embed src="@components/tag/demos/color.md" /> 
-
-### 可删除
+### 可删除标签
 <embed src="@components/tag/demos/closeable.md" />
 
-### 可选择
+### 可选择标签
 <embed src="@components/tag/demos/categories.md" /> 
+
+### 预设状态标签
+<embed src="@components/tag/demos/basic-tag.md" /> 
+
+### 形状标签
+<embed src="@components/tag/demos/round.md" /> 
+
+### 多彩标签
+<embed src="@components/tag/demos/color.md" /> 
+
+### 禁用标签
+<embed src="@components/tag/demos/disabled.md" /> 

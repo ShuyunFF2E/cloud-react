@@ -101,6 +101,7 @@ export default class Tag extends Component {
       [size]: size,
       [color]: !!color,
       [type]: !!type,
+      defaultTag: !type && !color,
     });
   }
 

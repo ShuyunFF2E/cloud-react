@@ -9,7 +9,7 @@ order: 9 title: CTable desc: 表格禁用行
  * desc: 表格禁用行（使用 onRow）
  */
 import React from 'react';
-import { CTable } from 'cloud-react';
+import { CTable, Button } from 'cloud-react';
 import headerImg from './header.jpg';
 
 const data = [
@@ -44,8 +44,7 @@ const columns = [
           opacity: row.id === '121410327' || row.id === '121407191' ? 0.5 : 1
         }}
              src={headerImg} />
-        <a
-          style={{ color: row.id === '121410327' || row.id === '121407191'.includes(row.id) ? 'rgba(0, 0, 0, 0.25)' : '#5280FF' }}>{value}</a>
+        <Button style={{ textAlign: 'left', lineHeight: '20px' }} type="text" disabled={row.id === '121410327' || row.id === '121407191'}>{value}</Button>
       </div>
     )
   },
