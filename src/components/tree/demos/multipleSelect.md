@@ -13,7 +13,7 @@ desc: 无右键菜单、无搜索功能、支持多选节点
 import React from 'react';
 import { Tree } from 'cloud-react';
 
-export default class TreeDemo extends React.Component {
+class TreeDemo extends React.Component {
 	constructor(props) {
 		super(props);
 
@@ -205,4 +205,5 @@ export default class TreeDemo extends React.Component {
 		return <Tree treeData={treeData} supportSearch={this.state.supportSearch} supportCheckbox={this.state.supportCheckbox} onSelectedNode={this.selectedNode}></Tree>;
 	}
 }
+export default TreeDemo
 ```

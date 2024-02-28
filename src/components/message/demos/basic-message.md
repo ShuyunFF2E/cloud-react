@@ -14,7 +14,7 @@ import { Button, Message } from 'cloud-react';
 
 const blank = '\u00A0';
 
-export default class MessageDemo extends Component {
+class MessageDemo extends Component {
 	onSuccessClick() {
 		Message.success(
 			'更改成功内容很多的要全部显示不需要隐藏，内容很多很多内容很多很多内容很多很多内容很多很多内容很多很多内容很多很多内容很多很多内容很多很多内容很多很多内容很多很多内容很多很多内容很多很多',
@@ -39,4 +39,5 @@ export default class MessageDemo extends Component {
 		);
 	}
 }
+export default MessageDemo
 ```

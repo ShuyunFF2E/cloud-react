@@ -13,7 +13,7 @@ desc: 配置是否显示节点icon
 import React from 'react';
 import { Tree } from 'cloud-react';
 
-export default class TreeDemo extends React.Component {
+class TreeDemo extends React.Component {
 	constructor(props) {
 		super(props);
 
@@ -102,4 +102,5 @@ export default class TreeDemo extends React.Component {
 		return <Tree treeData={treeData} showIcon={this.state.showIcon} onSelectedNode={this.selectedNode} />;
 	}
 }
+export default TreeDemo
 ```

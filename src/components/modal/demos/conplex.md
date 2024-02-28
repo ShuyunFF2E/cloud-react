@@ -14,7 +14,7 @@ import React from 'react';
 import { Button, Modal } from 'cloud-react';
 import getQueryString from './query.js';
 
-export default class ModalDemo extends React.Component {
+class ModalDemo extends React.Component {
 	constructor(props) {
 		super(props);
 		this.showType = getQueryString('showType') || 'top';
@@ -87,4 +87,5 @@ class Body extends React.Component {
 		);
 	}
 }
+export default ModalDemo
 ```

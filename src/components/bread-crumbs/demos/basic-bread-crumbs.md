@@ -13,7 +13,7 @@ desc: 可切换大小的面包屑
 import React from 'react';
 import { BreadCrumbs, Button } from 'cloud-react';
 
-export default class BreadCrumbsDemo extends React.Component {
+class BreadCrumbsDemo extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -67,5 +67,6 @@ export default class BreadCrumbsDemo extends React.Component {
 		);
 	}
 }
+export default BreadCrumbsDemo
 ```
 

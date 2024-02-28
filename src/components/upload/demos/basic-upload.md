@@ -13,7 +13,7 @@ desc: 包含上传进度 onProgress 和上传成功 onSuccess。
 import React from 'react';
 import { Message, Upload } from 'cloud-react';
 
-export default class UploadDemo extends React.Component {
+class UploadDemo extends React.Component {
 	state = {
 		fileList: []
 	};
@@ -57,4 +57,5 @@ export default class UploadDemo extends React.Component {
 		return <Upload {...props} fileList={this.state.fileList} />;
 	}
 }
+export default UploadDemo
 ```

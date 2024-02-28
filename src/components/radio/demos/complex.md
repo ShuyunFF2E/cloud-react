@@ -13,7 +13,7 @@ desc: 复杂业务场景嵌套使用
 import React from 'react';
 import { Radio } from 'cloud-react';
 
-export default class NestingRadio extends React.Component {
+class NestingRadio extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -55,4 +55,5 @@ export default class NestingRadio extends React.Component {
 		);
 	}
 }
+export default NestingRadio
 ```

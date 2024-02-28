@@ -13,7 +13,7 @@ desc: 支持拖拽同级节点进行位置互换
 import React from 'react';
 import { Tree } from 'cloud-react';
 
-export default class TreeDemo extends React.Component {
+class TreeDemo extends React.Component {
 	selectedNode = node => {
 		console.info('已选择一个节点，节点信息是：');
 		console.log(node);
@@ -227,4 +227,5 @@ export default class TreeDemo extends React.Component {
 		);
 	}
 }
+export default TreeDemo
 ```

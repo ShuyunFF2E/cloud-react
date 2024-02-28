@@ -13,7 +13,7 @@ desc: 配置容器的样式，单个tag的最大宽度，超过显示省略号
 import React from 'react';
 import { InputTag } from 'cloud-react';
 
-export default class InputTagDemo extends React.Component {
+class InputTagDemo extends React.Component {
 	constructor(props) {
 		super(props);
 
@@ -31,4 +31,5 @@ export default class InputTagDemo extends React.Component {
 		return <InputTag data={data} onChange={this.handleChange} maxWidth={150} style={{ width: '300px', height: '200px' }} />;
 	}
 }
+export default InputTagDemo
 ```

@@ -117,7 +117,7 @@ const getColumnData = (num, testFN) => {
 		}
 	];
 };
-export default class TableDemo extends Component {
+class TableDemo extends Component {
 	constructor() {
 		super();
 		this.state = {
@@ -146,4 +146,5 @@ export default class TableDemo extends Component {
 		);
 	}
 }
+export default TableDemo
 ```

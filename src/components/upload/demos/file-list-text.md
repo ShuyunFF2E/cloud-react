@@ -13,7 +13,7 @@ desc: 使用 fileList 设置已上传的文件列表。
 import React from 'react';
 import { Message, Upload } from 'cloud-react';
 
-export default class UploadDemo extends React.Component {
+class UploadDemo extends React.Component {
 	state = {
 		fileList: [
 			{
@@ -60,5 +60,6 @@ export default class UploadDemo extends React.Component {
 		);
 	}
 }
+export default UploadDemo
 ```
 

@@ -13,7 +13,7 @@ desc: modal弹框里面使用datepicker自适应位置
 import React from 'react';
 import { Button, Datepicker, Modal } from 'cloud-react';
 
-export default class DatePickerDemo extends React.Component {
+class DatePickerDemo extends React.Component {
 	onInpChange = value => console.log(value);
 
 	constructor(props) {
@@ -96,4 +96,5 @@ export default class DatePickerDemo extends React.Component {
 		);
 	}
 }
+export default DatePickerDemo
 ```

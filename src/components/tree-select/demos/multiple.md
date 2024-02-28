@@ -13,7 +13,7 @@ desc: 与Tree结合的树下拉
 import React from 'react';
 import { TreeSelect } from 'cloud-react';
 
-export default class TreeSelectDemo extends React.Component {
+class TreeSelectDemo extends React.Component {
 	treeData = [
 		{
 			id: 11,
@@ -203,4 +203,5 @@ export default class TreeSelectDemo extends React.Component {
 		);
 	}
 }
+export default TreeSelectDemo
 ```

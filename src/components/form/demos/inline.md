@@ -13,7 +13,7 @@ desc: 所有表单项平铺在一起
 import React, { useState } from 'react';
 import { Form, Field, Input, Button } from 'cloud-react';
 
-export default class FormInlineDemo extends React.Component {
+class FormInlineDemo extends React.Component {
 	field = new Field(this);
 
 	onSubmit(evt) {
@@ -64,4 +64,5 @@ export default class FormInlineDemo extends React.Component {
 		);
 	}
 }
+export default FormInlineDemo
 ```

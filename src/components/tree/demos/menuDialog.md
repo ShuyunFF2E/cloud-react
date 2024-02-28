@@ -13,7 +13,7 @@ desc: 支持使用弹框类型打开菜单
 import React from 'react';
 import { Tree } from 'cloud-react';
 
-export default class TreeDemo extends React.Component {
+class TreeDemo extends React.Component {
 	constructor(props) {
 		super(props);
 
@@ -251,4 +251,5 @@ export default class TreeDemo extends React.Component {
 		);
 	}
 }
+export default TreeDemo
 ```

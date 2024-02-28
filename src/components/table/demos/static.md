@@ -170,7 +170,7 @@ const moveRowConfig = {
 		// console.log(list, tableData);
 	}
 };
-export default class TableDemo extends Component {
+class TableDemo extends Component {
 	getCheckedData() {
 		console.log(Table.getCheckedData(gridManagerName));
 		Message.success('操作成功，请在控制面板查看');
@@ -209,5 +209,6 @@ export default class TableDemo extends Component {
 		);
 	}
 }
+export default TableDemo
 ```
 

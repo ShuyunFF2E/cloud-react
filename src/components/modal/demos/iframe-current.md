@@ -16,7 +16,7 @@ const style = {
 	height: '400px',
 	border: '2px solid #bad8e4'
 };
-export default class ModaliFrameDemo extends React.Component {
+class ModaliFrameDemo extends React.Component {
 	iframeRef = React.createRef();
 	get rootWindow() {
 	 return window;
@@ -47,4 +47,5 @@ export default class ModaliFrameDemo extends React.Component {
 		return <iframe ref={this.iframeRef} src="/cloud-react/action/modal?showType=current" style={style} />;
 	}
 }
+export default ModaliFrameDemo
 ```

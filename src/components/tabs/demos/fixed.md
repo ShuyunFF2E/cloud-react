@@ -12,7 +12,7 @@ desc: Tab 在左侧固定
 import React, { Component } from 'react';
 import { Tabs } from 'cloud-react';
 
-export default class BasicTabsDemo extends Component {
+class BasicTabsDemo extends Component {
 	tabList = [
 		{ tab: '固定的tab1', content: '不可以移动', fixed: true },
 		{ tab: '固定的tab2', content: '不可以移动', fixed: true },
@@ -51,4 +51,5 @@ export default class BasicTabsDemo extends Component {
 		);
 	}
 }
+export default BasicTabsDemo
 ```

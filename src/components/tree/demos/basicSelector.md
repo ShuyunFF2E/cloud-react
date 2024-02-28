@@ -13,7 +13,7 @@ desc: 支持搜索节点、右键菜单、最大层级为4、节点名称最大�
 import React from 'react';
 import { Tree, Modal } from 'cloud-react';
 
-export default class TreeDemo extends React.Component {
+class TreeDemo extends React.Component {
 	constructor(props) {
 		super(props);
 
@@ -261,4 +261,5 @@ export default class TreeDemo extends React.Component {
 		);
 	}
 }
+export default TreeDemo
 ```

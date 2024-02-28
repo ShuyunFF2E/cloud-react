@@ -2,11 +2,12 @@
   "name": "cloud-react",
   "version": "1.0.0-17",
   "description": "数据赢家 react 组件",
+	"license": "MIT",
   "scripts": {
     "gen:index": "node ./scripts/generate-index.js",
     "gen:doc": "node ./scripts/generate-doc.js",
     "start": "rimraf dist/* && father-build --dev && dumi dev",
-    "site": "npm run gen:index && npm run build && dumi build",
+    "site": "npm run gen:index && father-build --dev && dumi build",
     "docs:deploy": "gh-pages -d docs-dist",
     "build": "rimraf dist/* && father-build && node ./scripts/pre-publish.js",
     "watch": "rimraf dist/* && father-build --watch",
@@ -18,16 +19,12 @@
     "postversion": "dumi assets",
     "lint": "eslint ./src/components --ext .js,.jsx",
     "umi-lint": "umi-lint --eslint.ext='.js,jsx' ./src/components",
-    "precommit": "umi-lint --staged --eslint --stylelint --prettier --fix",
     "new:component": "cp -r tpls/new-component src/components/new-component",
     "cli-version": "node ./scripts/generate-version.js"
   },
   "dumiAssets": "assets.json",
   "main": "dist/cloud-react.js",
   "source": "src/components/index.js",
-  "gitHooks": {
-    "pre-commit": "lint-staged"
-  },
   "jest": {
     "moduleNameMapper": {
       "^@utils(.*)$": "<rootDir>/src/utils$1",

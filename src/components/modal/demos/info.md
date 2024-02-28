@@ -16,7 +16,7 @@ import getQueryString from './query.js';
 
 const blank = '\u00A0';
 
-export default class ModalDemo extends React.Component {
+class ModalDemo extends React.Component {
 	constructor(props) {
 		super(props);
 		this.showType = getQueryString('showType') || 'top';
@@ -135,4 +135,5 @@ export default class ModalDemo extends React.Component {
 		);
 	}
 }
+export default ModalDemo
 ```

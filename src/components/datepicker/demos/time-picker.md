@@ -13,7 +13,7 @@ desc: 基本用法，时间选择器。
 import React from 'react';
 import { Datepicker, Button } from 'cloud-react';
 
-export default class DatePickerDemo extends React.Component {
+class DatePickerDemo extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -50,4 +50,5 @@ export default class DatePickerDemo extends React.Component {
 		);
 	}
 }
+export default DatePickerDemo
 ```

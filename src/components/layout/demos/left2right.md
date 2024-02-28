@@ -16,7 +16,7 @@ import { Layout } from 'cloud-react';
 
 const { Header, Sider, Content, Footer } = Layout;
 
-export default class LayoutDemo extends Component {
+class LayoutDemo extends Component {
 
 	render() {
 
@@ -32,5 +32,6 @@ export default class LayoutDemo extends Component {
 		);
 	}
 }
+export default LayoutDemo
 ```
 
