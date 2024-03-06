@@ -122,7 +122,7 @@ export default class Tabs extends PureComponent {
   }
 
   get activeEle() {
-    return this.tabsRef.current.getElementsByClassName(
+    return this.tabsRef.current?.getElementsByClassName(
       this.props.activeClassName,
     )[0];
   }
@@ -134,7 +134,7 @@ export default class Tabs extends PureComponent {
     if (this.hasLineBar && this.isVerticalLeft) {
       return 'auto';
     }
-    return this.activeEle.offsetLeft;
+    return this.activeEle?.offsetLeft;
   }
 
   get activeTabsOffsetRight() {
@@ -144,7 +144,7 @@ export default class Tabs extends PureComponent {
     if (this.hasLineBar && this.isVerticalLeft) {
       return -2;
     }
-    return this.activeEle.offsetRight;
+    return this.activeEle?.offsetRight;
   }
 
   get activeTabsOffsetWidth() {
