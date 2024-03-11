@@ -1,8 +1,8 @@
 ```jsx
 
 /**
- * title: 纯前端表格带增删操作
- * desc: 此例子用来解决：纯前端表格，对表格进行增删操作时，表格数据源异常的问题（主要思想是在删除之后，通过改变 key 值让表格重新初始化，这种写法也有弊端，就是每次删除之后，表格滚动条无法维持位置，不过可以通过 scrollIntoView 来解决。如果有更好的解决方案欢迎戳我，我来更新文档！！！）
+ * title: 设置 noScroll，表格不展示纵向滚动条，表格高度由内容撑开
+ * desc: 使用场景：期望一屏能看到更多表格内容，但是不希望表格和表格外侧容器都产生滚动条，设置此参数后，表格不产生滚动条。
  */
 import React, { useState, useEffect, createRef } from 'react';
 import { CTable, Button } from 'cloud-react';
@@ -55,6 +55,7 @@ function TableDemo({ data, setData }) {
       <Button style={{ marginBottom: 20 }} onClick={onAdd}>新增数据</Button>
       <CTable
         ref={tableRef}
+        noScroll
         columnData={columns}
         ajaxData={{ totals: data.length, data }}
         onCell={(row, index) => {
@@ -67,9 +68,7 @@ function TableDemo({ data, setData }) {
 }
 
 export default function CTableDemo() {
-  const [data, setData] = useState([
-    { id: '121410327', name: '手机号优先继续发送1', createTime: '2021/12/14 10:19:02', creator: 'liyuan.meng', num: '12222' },
-  ]);
+  const [data, setData] = useState([]);
 
   return (
     <div>

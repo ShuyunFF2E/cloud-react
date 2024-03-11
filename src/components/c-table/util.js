@@ -131,6 +131,8 @@ export const removeConfig = (tableName) => {
 
 export const isFirefox = () => navigator.userAgent.indexOf('Firefox') > -1;
 
+export const isWindows = () => navigator.userAgent.indexOf('Windows') > -1;
+
 /**
  * 回调函数在 delay 时间段内只执行一次
  * @param callback
