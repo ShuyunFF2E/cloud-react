@@ -122,7 +122,12 @@ class CTable extends Component {
       typeof prevProps.ajaxData === 'object' &&
       this.props.ajaxData !== prevProps.ajaxData
     ) {
-      this.loadData();
+      this.loadData((res) => {
+        if (this.props.useOuterLoading) {
+          this.init();
+          this.props.onLoadGridAfter(res);
+        }
+      });
     }
     if (this.props.checkedData !== prevProps.checkedData) {
       this.init();
@@ -217,8 +222,9 @@ class CTable extends Component {
       totalsKey,
       dataKey,
       childrenKey,
+      useOuterLoading,
     } = this.props;
-    this.setState({ isLoading: true }, async () => {
+    this.setState({ isLoading: !useOuterLoading }, async () => {
       const sortParams = {
         allSortColumns: [...this.state.columnData],
       };
@@ -719,6 +725,21 @@ class CTable extends Component {
     return { x: '100%', y: maxHeight || '100%' };
   };
 
+  getComponents = () => {
+    const { supportResizeColumn, components } = this.props;
+    if (components) {
+      return components;
+    }
+    if (supportResizeColumn) {
+      return {
+        header: {
+          cell: ResizableTitle,
+        },
+      }
+    }
+    return undefined;
+  }
+
   /**
    * 表格数据为空模板
    * @returns {*}
@@ -835,6 +856,7 @@ class CTable extends Component {
     } = this.state;
     const { pageNum, pageSize, totals } = pageOpts;
     const scroll = this.getScroll();
+    const components = this.getComponents();
 
     const Table = virtual ? VirtualTable : RcTable;
 
@@ -899,15 +921,7 @@ class CTable extends Component {
               return `${classNames.join(' ')} ${rowClassName(row)}`;
             }}
             onRow={onRow}
-            components={
-              supportResizeColumn
-                ? {
-                    header: {
-                      cell: ResizableTitle,
-                    },
-                  }
-                : undefined
-            }
+            components={components}
             summary={
               summaryData && summaryData.length
                 ? () => (

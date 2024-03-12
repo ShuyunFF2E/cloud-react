@@ -113,6 +113,12 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 | sortWidthOriginStatus | 表格排序状态分为升序和降序，配置该参数为 true，排序状态可以恢复原始状态 | 	boolean | false | |
 | sortMultiColumns      | 是否支持多个列同时排序                            | 	boolean | false | |
 
+### CTable 懒加载
+| 属性                    | 说明                                     | 类型       | 默认值   |
+|-----------------------|----------------------------------------|----------|-------|
+| components | 使用方法可查看懒加载的例子 | object	 |  - | |
+| useOuterLoading      | 是否由使用方控制 loading                            | 	boolean | false | |
+
 ### CTable 表格配置列的显示和隐藏
 | 属性                    | 说明          | 类型        | 默认值   |
 |-----------------------|-------------|-----------|-------|
@@ -366,6 +372,17 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 
 <embed src="@components/c-table/demos/uniform_tpl.md" />
 
+### 懒加载
+<embed src="@components/c-table/demos/lazy-load.md" />
+
+[comment]: <> (### 虚拟列表)
+
+[comment]: <> (<embed src="@components/c-table/demos/virtual.md" />)
+
+[comment]: <> (<embed src="@components/c-table/demos/virtual-tree.md" />)
+
+[comment]: <> (<embed src="@components/c-table/demos/virtual-tree-hook.md" />)
+
 ### 解决方案
 
 <embed src="@components/c-table/demos/goods-table.md" />
@@ -377,12 +394,4 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 [comment]: <> (<embed src="@components/c-table/demos/front-table2.md" />)
 
 <embed src="@components/c-table/demos/table-in-tab.md" />
-
-### 虚拟列表
-
-<embed src="@components/c-table/demos/virtual.md" />
-
-<embed src="@components/c-table/demos/virtual-tree.md" />
-
-<embed src="@components/c-table/demos/virtual-tree-hook.md" />
 

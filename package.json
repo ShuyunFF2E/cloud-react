@@ -63,7 +63,8 @@
     "rollup-plugin-copy": "3.4.0",
     "rollup-plugin-eslint": "7.0.0",
     "rollup-plugin-generate-package-json": "3.2.0",
-    "shuyun-utils": "0.0.3"
+    "shuyun-utils": "0.0.3",
+    "virtuallist-antd": "0.8.0-beta.1"
   },
   "devDependencies": {
     "@babel/cli": "7.22.5",

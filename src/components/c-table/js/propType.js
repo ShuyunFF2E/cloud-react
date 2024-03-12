@@ -80,6 +80,8 @@ export const propTypes = {
   scroll: PropTypes.object,
   noScroll: PropTypes.bool,
   virtual: PropTypes.bool,
+  components: PropTypes.object,
+  useOuterLoading: PropTypes.bool,
 };
 
 export const defaultProps = {
@@ -159,4 +161,6 @@ export const defaultProps = {
   scroll: undefined,
   noScroll: false,
   virtual: false,
+  components: undefined,
+  useOuterLoading: false,
 };
