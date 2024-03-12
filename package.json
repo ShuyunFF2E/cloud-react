@@ -51,7 +51,7 @@
     "rc-dropdown": "4.0.1",
     "rc-menu": "9.9.2",
     "rc-picker": "3.11.0",
-    "rc-table": "7.28.1",
+    "rc-table": "7.36.0",
     "rc-tooltip": "5.2.2",
     "rc-trigger": "5.3.4",
     "rc-util": "5.25.2",
@@ -63,7 +63,8 @@
     "rollup-plugin-copy": "3.4.0",
     "rollup-plugin-eslint": "7.0.0",
     "rollup-plugin-generate-package-json": "3.2.0",
-    "shuyun-utils": "0.0.3"
+    "shuyun-utils": "0.0.3",
+    "virtuallist-antd": "0.8.0-beta.1"
   },
   "devDependencies": {
     "@babel/cli": "7.22.5",
@@ -118,10 +119,5 @@
     "rollup-plugin-postcss": "4.0.2",
     "umi-lint": "2.0.2",
     "yargs": "17.7.2"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run test"
-    }
   }
 }

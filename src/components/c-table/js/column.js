@@ -450,7 +450,7 @@ export default class Column {
   onNodeCheckedChange = (checked, row) => {
     const { _this } = this;
     // 更新叶子节点 leafNodesMap 的选中状态
-    _this.leafNodesMap[_this.getKeyFieldVal(row)].childNodes.forEach((node) => {
+    _this.leafNodesMap[_this.getKeyFieldVal(row)]?.childNodes.forEach((node) => {
       if (!_this.isRowDisabled(node)) {
         Object.assign(node, { checked });
       }
