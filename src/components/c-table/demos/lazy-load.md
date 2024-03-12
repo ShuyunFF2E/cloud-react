@@ -5,7 +5,6 @@ order: 1 title: CTable desc: 默认表格
 ```jsx
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { CTable, Button, Loading } from 'cloud-react';
-import { VList } from "virtuallist-antd";
 
 const getData = (count) => {
   return new Array(count).fill(1).map((item, index) => (
@@ -60,7 +59,7 @@ export default function CTableDemo() {
   }, []);
 
   const vc = useMemo(() => {
-    return VList({
+    return CTable.VList({
       height: 400,
       onReachEnd: handleReachEnd
     });
@@ -82,8 +81,8 @@ export default function CTableDemo() {
         onCheckedAfter={checkedData => {
           setCheckedData(checkedData);
         }}
+        lazyLoad
         components={vc}
-        useOuterLoading
         loadingTpl={() => {
           return (
             <Loading

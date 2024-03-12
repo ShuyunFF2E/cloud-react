@@ -117,7 +117,7 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 | 属性                    | 说明                                     | 类型       | 默认值   |
 |-----------------------|----------------------------------------|----------|-------|
 | components | 使用方法可查看懒加载的例子 | object	 |  - | |
-| useOuterLoading      | 是否由使用方控制 loading                            | 	boolean | false | |
+| lazyLoad      | 懒加载，由使用方控制 loading，需配置 loadingTpl                            | 	boolean | false | |
 
 ### CTable 表格配置列的显示和隐藏
 | 属性                    | 说明          | 类型        | 默认值   |

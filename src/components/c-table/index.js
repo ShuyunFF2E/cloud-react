@@ -47,6 +47,7 @@ import MultiLinkTpl from './columnTpl/multiLink';
 import TagTpl from './columnTpl/tag';
 import Tooltip from '../tooltip';
 import Checkbox from '../checkbox';
+import { VList } from 'virtuallist-antd';
 
 class CTable extends Component {
   ref = createRef();
@@ -123,7 +124,7 @@ class CTable extends Component {
       this.props.ajaxData !== prevProps.ajaxData
     ) {
       this.loadData((res) => {
-        if (this.props.useOuterLoading) {
+        if (this.props.lazyLoad) {
           this.init();
           this.props.onLoadGridAfter(res);
         }
@@ -222,9 +223,9 @@ class CTable extends Component {
       totalsKey,
       dataKey,
       childrenKey,
-      useOuterLoading,
+      lazyLoad,
     } = this.props;
-    this.setState({ isLoading: !useOuterLoading }, async () => {
+    this.setState({ isLoading: !lazyLoad }, async () => {
       const sortParams = {
         allSortColumns: [...this.state.columnData],
       };
@@ -1053,3 +1054,4 @@ CTable.MultiTextTpl = MultiTextTpl;
 CTable.LinkTpl = LinkTpl;
 CTable.MultiLinkTpl = MultiLinkTpl;
 CTable.TagTpl = TagTpl;
+CTable.VList = VList;

@@ -81,7 +81,7 @@ export const propTypes = {
   noScroll: PropTypes.bool,
   virtual: PropTypes.bool,
   components: PropTypes.object,
-  useOuterLoading: PropTypes.bool,
+  lazyLoad: PropTypes.bool,
 };
 
 export const defaultProps = {
@@ -162,5 +162,5 @@ export const defaultProps = {
   noScroll: false,
   virtual: false,
   components: undefined,
-  useOuterLoading: false,
+  lazyLoad: false,
 };
