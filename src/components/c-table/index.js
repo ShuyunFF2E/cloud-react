@@ -169,7 +169,7 @@ class CTable extends Component {
   hasScroll = () => {
     const bodyEle = this.ref.current.querySelector(`.${tablePrefixCls}-body`);
     const tableEle = this.ref.current.querySelector(
-      `.${tablePrefixCls}-body > table`,
+      `.${tablePrefixCls}-body table`,
     );
     return tableEle?.clientHeight > bodyEle?.clientHeight;
   };
@@ -300,6 +300,7 @@ class CTable extends Component {
       if (isFirefox() || !this.hasCustomScroll) {
         return;
       }
+      console.log(1);
       const fixedColumn = this.state.columnData
         .filter((item) => item.fixed === 'right')
         .reverse();
@@ -320,6 +321,7 @@ class CTable extends Component {
             // } else {
             //   Object.assign(ele.style, { right: 0 });
             // }
+            console.log(this.hasScroll());
             Object.assign(ele.style, { right: this.hasScroll() ? getScrollbarWidth() : 0 });
           } else {
             const right = fixedColumn.slice(0, index).reduce(
