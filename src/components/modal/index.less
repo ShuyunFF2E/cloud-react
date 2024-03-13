@@ -19,12 +19,6 @@
 
 @confirm-loading-border: 1px solid #ddd;
 @confirm-loading-border-top: 1px solid @color-white;
-@supports not (::-webkit-scrollbar) {
-	.@{modal-prefix-cls} {
-		scrollbar-width: thin;
-		scrollbar-color: @scrollbar-thumb @scrollbar-bg;
-	}
-}
 .@{modal-prefix-cls} {
   font-family: Tahoma, 'Microsoft Yahei', sans-serif;
   position: fixed;
