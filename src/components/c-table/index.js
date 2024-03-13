@@ -1,6 +1,6 @@
 /* eslint-disable */
 import React, { Component, createRef } from 'react';
-import RcTable, { VirtualTable } from 'rc-table';
+import RcTable from 'rc-table';
 import classnames from 'classnames';
 import ReactDragListView from 'react-drag-listview';
 import { noop, prefixCls } from '@utils';
@@ -32,7 +32,6 @@ import Loading from '../loading';
 import emptyImg from './empty.png';
 import './css/basic.less';
 import './css/business.less';
-import './css/virtual.less';
 import Column from './js/column';
 import RowTooltip from './js/rowTooltip';
 import { defaultProps, propTypes } from './js/propType';
@@ -47,7 +46,6 @@ import MultiLinkTpl from './columnTpl/multiLink';
 import TagTpl from './columnTpl/tag';
 import Tooltip from '../tooltip';
 import Checkbox from '../checkbox';
-import { VList } from 'virtuallist-antd';
 
 class CTable extends Component {
   ref = createRef();
@@ -123,12 +121,7 @@ class CTable extends Component {
       typeof prevProps.ajaxData === 'object' &&
       this.props.ajaxData !== prevProps.ajaxData
     ) {
-      this.loadData((res) => {
-        if (this.props.lazyLoad) {
-          this.init();
-          this.props.onLoadGridAfter(res);
-        }
-      });
+      this.loadData();
     }
     if (this.props.checkedData !== prevProps.checkedData) {
       this.init();
@@ -223,9 +216,8 @@ class CTable extends Component {
       totalsKey,
       dataKey,
       childrenKey,
-      lazyLoad,
     } = this.props;
-    this.setState({ isLoading: !lazyLoad }, async () => {
+    this.setState({ isLoading: true }, async () => {
       const sortParams = {
         allSortColumns: [...this.state.columnData],
       };
@@ -726,21 +718,6 @@ class CTable extends Component {
     return { x: '100%', y: maxHeight || '100%' };
   };
 
-  getComponents = () => {
-    const { supportResizeColumn, components } = this.props;
-    if (components) {
-      return components;
-    }
-    if (supportResizeColumn) {
-      return {
-        header: {
-          cell: ResizableTitle,
-        },
-      }
-    }
-    return undefined;
-  }
-
   /**
    * 表格数据为空模板
    * @returns {*}
@@ -843,7 +820,6 @@ class CTable extends Component {
       stickyFooter,
       supportConfigColumn,
       noScroll,
-      virtual,
     } = this.props;
     const {
       data,
@@ -857,9 +833,6 @@ class CTable extends Component {
     } = this.state;
     const { pageNum, pageSize, totals } = pageOpts;
     const scroll = this.getScroll();
-    const components = this.getComponents();
-
-    const Table = virtual ? VirtualTable : RcTable;
 
     return (
       <div className={`${tablePrefixCls}-container`} style={style} ref={ref}>
@@ -897,7 +870,7 @@ class CTable extends Component {
             }px)`,
           }}
         >
-          <Table
+          <RcTable
             ref={tableRef}
             prefixCls={tablePrefixCls}
             columns={columnData}
@@ -922,7 +895,15 @@ class CTable extends Component {
               return `${classNames.join(' ')} ${rowClassName(row)}`;
             }}
             onRow={onRow}
-            components={components}
+            components={
+              supportResizeColumn
+                ? {
+                    header: {
+                      cell: ResizableTitle,
+                    },
+                  }
+                : undefined
+            }
             summary={
               summaryData && summaryData.length
                 ? () => (
@@ -1054,4 +1035,3 @@ CTable.MultiTextTpl = MultiTextTpl;
 CTable.LinkTpl = LinkTpl;
 CTable.MultiLinkTpl = MultiLinkTpl;
 CTable.TagTpl = TagTpl;
-CTable.VList = VList;

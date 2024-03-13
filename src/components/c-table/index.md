@@ -23,7 +23,6 @@ group:
 | rowKey           | 表格数据的唯一标识                                           | string         | 'id'      | |
 | bordered         | 是否展示表格边框                                            | boolean        | false     | |
 | headerBordered   | 表头带线条                                               | boolean        | false     | |
-| noScroll         | 表格不展示滚动条，表格高度由内容高度决定，配置该参数后，无需设置表格高度                | 	boolean       | false     | |
 | size             | 表格大小，可选 `default` `small` `large`                   | string         | `default` | |
 | maxHeight        | tbody最大高度                                           | string/number  | -         |
 | onLoadGridAfter  | 表格刷新后回调，Function(res)                               | function       | () => {}  | |
@@ -31,6 +30,7 @@ group:
 | onRow            | 表格刷新后回调，设置自定义 row 属性，Function(record, index)        | 	function      | () => {}  | |
 | scroll           | 表格是否可以在x/y方向上滚动，x或y可以是表示表体宽度和高度的数字 {x: 500, y: 300} | 	object        | -         | |
 
+[comment]: <> (| noScroll         | 表格不展示滚动条，表格高度由内容高度决定，配置该参数后，无需设置表格高度                | 	boolean       | false     | |)
 
 ### CTable 手动刷新表格
 this.tableRef.current.refreshTable(gotoFirstPage?, params?);
@@ -112,12 +112,6 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 |-----------------------|----------------------------------------|----------|-------|
 | sortWidthOriginStatus | 表格排序状态分为升序和降序，配置该参数为 true，排序状态可以恢复原始状态 | 	boolean | false | |
 | sortMultiColumns      | 是否支持多个列同时排序                            | 	boolean | false | |
-
-### CTable 懒加载
-| 属性                    | 说明                                     | 类型       | 默认值   |
-|-----------------------|----------------------------------------|----------|-------|
-| components | 使用方法可查看懒加载的例子 | object	 |  - | |
-| lazyLoad      | 懒加载，由使用方控制 loading，需配置 loadingTpl                            | 	boolean | false | |
 
 ### CTable 表格配置列的显示和隐藏
 | 属性                    | 说明          | 类型        | 默认值   |
@@ -372,17 +366,6 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 
 <embed src="@components/c-table/demos/uniform_tpl.md" />
 
-### 懒加载
-<embed src="@components/c-table/demos/lazy-load.md" />
-
-[comment]: <> (### 虚拟列表)
-
-[comment]: <> (<embed src="@components/c-table/demos/virtual.md" />)
-
-[comment]: <> (<embed src="@components/c-table/demos/virtual-tree.md" />)
-
-[comment]: <> (<embed src="@components/c-table/demos/virtual-tree-hook.md" />)
-
 ### 解决方案
 
 <embed src="@components/c-table/demos/goods-table.md" />
@@ -394,4 +377,3 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 [comment]: <> (<embed src="@components/c-table/demos/front-table2.md" />)
 
 <embed src="@components/c-table/demos/table-in-tab.md" />
-

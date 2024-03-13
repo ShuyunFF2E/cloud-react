@@ -79,9 +79,6 @@ export const propTypes = {
   onColumnChange: PropTypes.func,
   scroll: PropTypes.object,
   noScroll: PropTypes.bool,
-  virtual: PropTypes.bool,
-  components: PropTypes.object,
-  lazyLoad: PropTypes.bool,
 };
 
 export const defaultProps = {
@@ -160,7 +157,4 @@ export const defaultProps = {
   onColumnChange: () => {},
   scroll: undefined,
   noScroll: false,
-  virtual: false,
-  components: undefined,
-  lazyLoad: false,
 };
