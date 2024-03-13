@@ -138,7 +138,10 @@
     overflow: auto;
     box-sizing: border-box;
     font-size: @font-size-base;
-
+		@supports not (::-webkit-scrollbar) {
+			scrollbar-width: thin;
+			scrollbar-color: @scrollbar-thumb @scrollbar-bg;
+		}
 
     &::-webkit-scrollbar {
       width: 8px;
