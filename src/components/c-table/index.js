@@ -312,7 +312,8 @@ class CTable extends Component {
         // fixedEles.pop();
         fixedEles.reverse().forEach((ele, index) => {
           if (index === 0) {
-            Object.assign(ele.style, { right: this.hasScroll() ? getScrollbarWidth() : 0 });
+            // Object.assign(ele.style, { right: this.hasScroll() ? getScrollbarWidth() : 0 });
+            Object.assign(ele.style, { right: 0 });
           } else {
             const right = fixedColumn.slice(0, index).reduce(
               (sum, item) => {
@@ -820,6 +821,7 @@ class CTable extends Component {
       stickyFooter,
       supportConfigColumn,
       noScroll,
+      rcTableConfig,
     } = this.props;
     const {
       data,
@@ -919,6 +921,7 @@ class CTable extends Component {
                   )
                 : undefined
             }
+            {...rcTableConfig}
           />
           {loadingTpl(isLoading || loadingOpts.loading) || (
             <Loading
