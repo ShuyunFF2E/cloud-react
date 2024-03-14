@@ -150,7 +150,7 @@ class Tooltip extends Component {
           closeTips,
         }}
       />,
-      this.portal,
+      this.props.containerEle || this.portal,
     );
   }
 
@@ -214,6 +214,7 @@ Tooltip.propTypes = {
   closeTooltipExec: PropTypes.func,
   onVisibleChange: PropTypes.func,
   alwaysShow: PropTypes.bool,
+  containerEle: PropTypes.any,
   showArrow: PropTypes.bool
 };
 
@@ -230,6 +231,7 @@ Tooltip.defaultProps = {
   closeTooltipExec: () => false,
   onVisibleChange: () => {},
   alwaysShow: false,
+  containerEle: null,
   showArrow: true,
 };
 

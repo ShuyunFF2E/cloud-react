@@ -55,7 +55,6 @@ function TableDemo({ data, setData }) {
       <Button style={{ marginBottom: 20 }} onClick={onAdd}>新增数据</Button>
       <CTable
         ref={tableRef}
-        maxHeight={260}
         columnData={columns}
         ajaxData={{ totals: data.length, data }}
       />

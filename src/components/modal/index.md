@@ -70,6 +70,8 @@ Modal.warning(config)
 | cancelText         | 取消按钮自定义文本                       | string              | `取消`  |
 | onOk       | 确定按钮回调函数，仅`Modal.confirm()`函数支持 | function | `--`   |
 | onClose    | 取消按钮回调函数                              | function | `--`   |
+| className          | 设置弹出框样式名称                       | string              | -       |
+| hasFooter          | 是否显示底部区域                         | boolean             | `true`  |
 
 `Modal.confirm()`函数的`onOk`回调函数支持返回`false`阻止关闭弹框，或者返回一个`promise`延迟关闭，具体使用见示例：确认对话框 Demo
 
