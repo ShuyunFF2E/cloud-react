@@ -67,7 +67,7 @@ export default function ComplexRadioDemo() {
             </div>
             <div>
               <h4>基础卡片</h4>
-              <Radio.Group value={value} defaultValue={"E"} onChange={onChange}>
+              <Radio.Group value={value} defaultValue={"E"} onChange={onChange} horizontal>
                 {radioList.map((item, index) => (
                   <ComplexRadio
                     title={item.label}
