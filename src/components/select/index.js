@@ -678,7 +678,7 @@ Select.defaultProps = {
   supportUnlimited: false,
   unlimitedLabel: '不限',
   showTag: true,
-  maxTagCount: undefined,
+  maxTagCount: 1,
   dropdownStyle: {},
   dropdownClassName: '',
   position: 'bottom',

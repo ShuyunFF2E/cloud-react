@@ -57,8 +57,8 @@ class TreeSelect extends Component {
       open: prevOpen,
     } = prevProps;
     if (
-      !ShuyunUtils.equal(value, prevValue) ||
-      !ShuyunUtils.equal(dataSource, prevData)
+      !ShuyunUtils.equal(value, prevValue)
+      || !ShuyunUtils.equal(dataSource, prevData)
     ) {
       return {
         value,
@@ -91,13 +91,13 @@ class TreeSelect extends Component {
     } = this.props;
     const { open: prevOpen, value: prevValue, style: prevStyle } = this.state;
     return (
-      disabled !== prevDisabled ||
-      width !== prevWidth ||
-      propOpen !== prevPropOpen ||
-      open !== prevOpen ||
-      value !== prevValue ||
-      searchable !== prevSearchable ||
-      style !== prevStyle
+      disabled !== prevDisabled
+      || width !== prevWidth
+      || propOpen !== prevPropOpen
+      || open !== prevOpen
+      || value !== prevValue
+      || searchable !== prevSearchable
+      || style !== prevStyle
     );
   }
 
@@ -182,9 +182,8 @@ class TreeSelect extends Component {
 
   handleClick = (e) => {
     const { open, prevValue } = this.state;
-    const isClickSelect =
-      this.node.current.contains(e.target) ||
-      (this.optionsNode.current && this.optionsNode.current.contains(e.target));
+    const isClickSelect = this.node.current.contains(e.target)
+      || (this.optionsNode.current && this.optionsNode.current.contains(e.target));
     if (!isClickSelect && open) {
       const { onSelectClose, open: propOpen, hasConfirmButton } = this.props;
       onSelectClose();
@@ -463,7 +462,7 @@ TreeSelect.defaultProps = {
   onReset: noop,
   searchInBox: true,
   showTag: true,
-  maxTagCount: undefined,
+  maxTagCount: 1,
   dropdownStyle: {},
   dropdownClassName: '',
   position: 'bottom',

@@ -92,23 +92,23 @@ class ButtonDemo extends React.Component {
 				</div>
                   <h4>只有图标：</h4>
                   <Button type="primary" size={size} borderRadiusSize={borderRadiusSize} shape="square">
-                    <Icon type="plus-solid" />
+                    <Icon style={{ lineHeight: '16px' }} type="plus-solid" />
                   </Button>
                   {blank}
                   <Button type="normal" size={size} borderRadiusSize={borderRadiusSize} shape="square">
-                    <Icon type="plus-solid" />
+                    <Icon style={{ lineHeight: '16px' }} type="plus-solid" />
                   </Button>
                   {blank}
                   <Button type="secondary" size={size} borderRadiusSize={borderRadiusSize} shape="square">
-                    <Icon type="plus-solid" />
+                    <Icon style={{ lineHeight: '16px' }} type="plus-solid" />
                   </Button>
                   {blank}
                   <Button type="link" size={size} borderRadiusSize={borderRadiusSize} shape="square">
-                    <Icon type="plus-solid" />
+                    <Icon style={{ lineHeight: '16px' }} type="plus-solid" />
                   </Button>
                   {blank}
                   <Button type="text" size={size} borderRadiusSize={borderRadiusSize} shape="square">
-                    <Icon type="plus-solid" />
+                    <Icon style={{ lineHeight: '16px' }} type="plus-solid" />
                   </Button>
 			</React.Fragment>
 		);
