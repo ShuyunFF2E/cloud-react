@@ -47,7 +47,7 @@ class TagDemo extends Component {
 		return (
 			<React.Fragment>
 				{tags.map(({ checked, disabled, text }, index) => (
-					<Tag key={index} checkable checked={checked} disabled={disabled} onClick={() => this.handleClick(index)}>
+					<Tag key={index} closable checkable checked={checked} disabled={disabled} onClick={() => this.handleClick(index)}>
 						{text}
 					</Tag>
 				))}
