@@ -55,7 +55,9 @@ export default function SelectDemo() {
         }}
         style={{ width: 200 }}
         multiple
+        allowClear
         supportUnlimited
+        searchable
         unlimitedLabel="不限语言"
         dataSource={multiDataList}
       />
