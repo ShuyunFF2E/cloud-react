@@ -61,7 +61,6 @@ export default class Selected extends React.Component {
     const labels = getLables(props);
     this.state = {
       selected: labels || '',
-      selectedList: [],
       clear: false,
       prevProps: this.props,
       searchValue: '',
@@ -74,7 +73,6 @@ export default class Selected extends React.Component {
       const labels = getLables(props);
       return {
         selected: labels || '',
-        selectedList: props.dataSource,
         prevProps: props,
       };
     }
@@ -200,7 +198,9 @@ export default class Selected extends React.Component {
           <SearchCom
             placeholder={placeholder}
             selected={this.state.selected}
-            selectedList={this.state.selectedList}
+            selectedList={this.props.dataSource}
+            unlimitedLabel={this.props.unlimitedLabel}
+            supportUnlimited={this.props.supportUnlimited}
             onSearch={this.props.onSearch}
             open={open}
             searchValue={this.state.searchValue}

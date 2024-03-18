@@ -9,14 +9,14 @@ desc: 基本使用
  * title: 基本使用
  * desc: 多选下拉带不限
  */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Select } from 'cloud-react';
 
 const Option = Select.Option;
 
 const dataList = [
   {
-    label: '不限',
+    label: '不限语言',
     value: '',
   },
   {
@@ -38,8 +38,14 @@ const dataList = [
 ];
 
 export default function SelectDemo() {
-  const [v, setValue] = useState(['1', '2']);
+  const [v, setValue] = useState([]);
   const [multiDataList, setDataList] = useState(dataList);
+  
+  useEffect(() => {
+    setTimeout(() => {
+      setValue(['1', '2'])
+    }, 1000)
+  }, [])
   return (
     <div className="demo">
       <Select
@@ -47,7 +53,7 @@ export default function SelectDemo() {
         onChange={values => {
           setValue(values);
         }}
-        style={{ width: 120 }}
+        style={{ width: 200 }}
         multiple
         supportUnlimited
         unlimitedLabel="不限语言"

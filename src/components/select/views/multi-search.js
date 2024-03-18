@@ -17,6 +17,8 @@ export default function MultiSearch({
   setSearchStatus,
   disabled,
   searchable,
+  supportUnlimited,
+  unlimitedLabel,
 }) {
   const searchRef = useRef();
   const [selectList, setSelectList] = useState([]);
@@ -111,7 +113,13 @@ export default function MultiSearch({
           />
         </div>
       )}
-      {selectList.length || searchValue ? '' : <p className={`${selector}-multi-search-placeholder`}>{placeholder}</p>}
+      {selectList.length || searchValue ? '' : (
+        <p className={`${selector}-multi-search-placeholder`}>
+          {supportUnlimited ? (
+            <span className="multi-unlimited">{unlimitedLabel || '不限'}</span>
+          ) : placeholder}
+        </p>
+      )}
     </div>
   );
 }
