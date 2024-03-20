@@ -126,13 +126,14 @@ class Prompt extends React.Component {
       });
       result
         .then(() => {
-          this.setState({
-            showConfirmLoading: false,
-          });
           this.handleClose();
         })
         .catch((err) => {
           console.log(err);
+        }).finally(() => {
+          this.setState({
+            showConfirmLoading: false,
+          });
         });
     } else if (result !== false) {
       this.handleClose();
