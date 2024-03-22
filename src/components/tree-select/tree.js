@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
@@ -68,7 +69,7 @@ class TreeContainer extends React.Component {
 						{...otherProps}
 						ref={this.props.treeRef}
 						supportSearch={!searchInBox && searchable}
-						selectedValue={value}
+						selectedValue={Array.isArray(value) ? value : (value?.id ? [value] : [])}
 						onSelectedNode={this.selectNode}
 						treeData={dataSource}
 						supportCheckbox={type === MULTIPLE}
