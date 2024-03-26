@@ -253,7 +253,6 @@ class TreeDemo extends React.Component {
 				supportMenu={this.state.supportMenu}
 				supportSearch={this.state.supportSearch}
 				isAddFront={this.state.isAddFront}
-                supportCheckbox={true}
 				onAddNode={this.addNode}
 				onDoubleClick={this.onDoubleClick}
 				onRenameNode={this.renameNode}

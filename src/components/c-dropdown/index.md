@@ -9,16 +9,16 @@ group:
   path: /nav
 ---
 
-### 何时使用
+## 何时使用
 
 当页面上的操作命令过多时，用此组件可以收纳操作元素。点击或移入触点，会出现一个下拉菜单。可在列表中进行选择，并执行相应的命令。
 
 - 用于收罗一组命令操作。
 - Select 用于选择，而 Dropdown 是命令集合。
 
-### API
+## API
 
-#### DropDown
+### DropDown
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
@@ -31,7 +31,7 @@ group:
 | open | 菜单是否显示 | boolean | - |
 | onOpenChange | 菜单显示状态改变时调用，点击菜单按钮导致的消失不会触发。| (open: boolean) => void | - |
 
-#### Dropdown.Button
+### Dropdown.Button
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
@@ -47,14 +47,14 @@ group:
 | onClick | 点击左侧按钮的回调，和 [Button](/cloud-react/common/button) 一致 | (event) => void | - |
 | onOpenChange | 菜单显示状态改变时调用 | (open: boolean) => void | - |
 
-#### Dropdown.Menu
+### Dropdown.Menu
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | onClick | 菜单类目点击事件 | (event) => void | - |
 
 
-#### Dropdown.Item
+### Dropdown.Item
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
@@ -64,12 +64,25 @@ group:
 | disabled | 类目是否禁用点击 | boolean | '' |
 
 
-### 代码演示 
+## 代码演示 
+
+### 基础使用
 <embed src="@components/c-dropdown/demos/simple.md" />
 
+### 按钮下拉菜单
 <embed src="@components/c-dropdown/demos/buttonStyle.md" />
+
+### 设置icon属性修改右边的图标
 <embed src="@components/c-dropdown/demos/button.md" />
 
+### 触发方式
 <embed src="@components/c-dropdown/demos/trigger.md" />
+
+### 弹出位置
 <embed src="@components/c-dropdown/demos/placement.md" />
+
+### 受控组件
 <embed src="@components/c-dropdown/demos/controllableCom.md" />
+
+### 带箭头
+<embed src="@components/c-dropdown/demos/arrow.md" />

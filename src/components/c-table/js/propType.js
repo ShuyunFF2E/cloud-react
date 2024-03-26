@@ -79,6 +79,7 @@ export const propTypes = {
   onColumnChange: PropTypes.func,
   scroll: PropTypes.object,
   noScroll: PropTypes.bool,
+  rcTableConfig: PropTypes.bool,
 };
 
 export const defaultProps = {
@@ -147,7 +148,7 @@ export const defaultProps = {
   watchColumnData: false,
   useRootWindow: false,
   showFooterSelect: true,
-  hideEmptyFooter: false,
+  hideEmptyFooter: true,
   disabled: false,
   sticky: undefined,
   stickyFooter: false,
@@ -157,4 +158,5 @@ export const defaultProps = {
   onColumnChange: () => {},
   scroll: undefined,
   noScroll: false,
+  rcTableConfig: {},
 };

@@ -72,6 +72,7 @@ class DatePickerDemo extends React.Component {
 				</Form.Item>
 				<Form.Item label="年份选择器">
 					<YearPicker
+                        style={{ width: 160 }}
 						value={year}
 						onChange={this.onYearChange}
 						disabled={disabled}
@@ -84,6 +85,7 @@ class DatePickerDemo extends React.Component {
 				</Form.Item>
 				<Form.Item label="年月选择器">
 					<MonthPicker
+                        style={{ width: 160 }}
 						value={month}
 						onChange={this.onMonthChange}
 						disabled={disabled}
@@ -98,6 +100,7 @@ class DatePickerDemo extends React.Component {
 				</Form.Item>
 				<Form.Item label="周选择器">
 					<WeekPicker
+                        style={{ width: 160 }}
 						value={week}
 						onChange={this.onWeekChange}
 						disabled={disabled}
@@ -109,6 +112,7 @@ class DatePickerDemo extends React.Component {
 				</Form.Item>
 				<Form.Item label="季度选择器">
 					<QuarterPicker
+                        style={{ width: 160 }}
 						value={quarter}
 						onChange={this.onQuarterChange}
 						disabled={disabled}
@@ -119,8 +123,9 @@ class DatePickerDemo extends React.Component {
 				</Form.Item>
 				<Form.Item label="实现【月-日】选择">
 					<DatePicker
+                        style={{ width: 160 }}
 					 	value={monthDay}
-					  format="MM-DD"
+					    format="MM-DD"
 						onChange={this.onMonthDayChange}
 						disabled={disabled}
 					/>

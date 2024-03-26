@@ -65,7 +65,9 @@ export default function SelectDemo() {
           </Option>
         ))}
       </Select>
+      <br/>
       <Select
+        placeholder="多选有tag"
         onChange={values => {
           if (values.length > 1) {
             setDataList(multiDataList.map((item, index) => ({
@@ -79,7 +81,7 @@ export default function SelectDemo() {
             })))
           }
         }}
-        style={{ width: 120 }}
+        style={{ width: 220 }}
         multiple
       >
         {multiDataList.map((item, index) => (
@@ -88,6 +90,19 @@ export default function SelectDemo() {
           </Option>
         ))}
       </Select>
+      <Select
+        placeholder="多选无tag"
+        style={{ width: 220 }}
+        multiple
+        showTag={false}
+      >
+        {multiDataList.map((item, index) => (
+          <Option value={item.value} key={`${index}-${item.disabled}`}>
+            {item.label}
+          </Option>
+        ))}
+      </Select>
+      <br/>
       <Select
         defaultValue={'3'}
         onChange={handleChange}

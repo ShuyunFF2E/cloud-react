@@ -11,7 +11,7 @@ desc: 3种modal尺寸规格，高度会随内容进行自适应
              * desc: 3种modal尺寸规格，高度会随内容进行自适应
              */
 import React from 'react';
-import { Button, Input, Modal, Select, CPicker, Radio, Form, Message } from 'cloud-react';
+import { Button, Input, Modal, Select, CPicker, Radio, Form, Message, Tips } from 'cloud-react';
 
 const { RangePicker } = CPicker;
 
@@ -95,19 +95,19 @@ class ModalDemo extends React.Component {
 		return (
 			<div>
 				<Button type="primary" onClick={this.openSmallModal}>
-					小号弹窗S
+					小号弹窗S（带表单）
 				</Button>
 				{blank}
 				<Button type="primary" onClick={this.openMediumModal}>
-					中号(默认)弹窗M
+					中号(默认)弹窗M（带表单）
 				</Button>
 				{blank}
 				<Button type="primary" onClick={this.openLargeModal}>
-					大号弹窗L
+					大号弹窗L（带表单）
 				</Button>
 				{blank}
 				<Button type="normal" onClick={this.openCustomModal}>
-					自定义尺寸弹窗
+					自定义尺寸弹窗（带表单）
 				</Button>
 				{blank}
 				<Modal
@@ -118,8 +118,8 @@ class ModalDemo extends React.Component {
 					onOk={this.handleOk}
 					onCancel={this.handleCancel}
 					onClose={this.handleClose}>
-					<Form layout="horizontal" labelCol={{ span: 4 }} wrapperCol={{ span: 18 }}>
-						<Form.Item label="你的特长">
+					<Form layout="horizontal" labelCol={{ style: { width: 80 } }} wrapperCol={{ style: { width: 'fit-content' } }}>
+                      <Form.Item label="你的特长">
 							<Select isAppendToBody style={{ width: 200 }}>
 								<Select.Option value={12}>乒乓球</Select.Option>
 								<Select.Option value={13}>足球</Select.Option>
@@ -163,8 +163,9 @@ class ModalDemo extends React.Component {
 					onOk={this.handleOk}
 					onCancel={this.handleCancel}
 					onClose={this.handleClose}>
-					<Form layout="horizontal" labelCol={{ span: 4 }} wrapperCol={{ span: 18 }}>
-						<Form.Item label="下拉选择">
+					<Form layout="horizontal" labelCol={{ style: { width: 72 } }} wrapperCol={{ style: { flex: 1 } }}>
+                        <Tips msg="提示信息" style={{ marginBottom: 20 }} />	
+                        <Form.Item label="下拉选择">
 							<Select isAppendToBody style={{ width: 200 }}>
 								<Select.Option value={12}>选择我没错的</Select.Option>
 							</Select>

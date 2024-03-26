@@ -9,11 +9,11 @@ group:
   path: /data
 ---
 
-### 何时使用
+## 何时使用
 
 需要用户进行输入时。
 
-### API
+## API
 
 ### Input
 
@@ -55,20 +55,30 @@ group:
 
 `Input.Textarea` 其他属性保持跟原生一致
 
- ### 代码演示
-
+## 代码演示
+### 基本输入框
 <embed src="@components/input/demos/basic-input.md" />
 
+### 清除输入框
 <embed src="@components/input/demos/clear.md" />
 
+### 带计数器输入框
 <embed src="@components/input/demos/counter.md" />
 
+### 禁用输入框
 <embed src="@components/input/demos/disabled.md" />
 
+### 复合型输入框
 <embed src="@components/input/demos/mix.md" />
 
+### 受控输入框
 <embed src="@components/input/demos/onChange.md" />
 
+### 输入框大小
 <embed src="@components/input/demos/size.md" />
 
+### 多行纯文本输入框
 <embed src="@components/input/demos/textarea.md" />
+
+### 搜索类输入框
+<embed src="@components/input/demos/search.md" />

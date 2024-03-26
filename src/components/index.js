@@ -75,6 +75,8 @@ export { default as Message } from './message';
 
 export { default as Modal } from './modal';
 
+export { default as Notification } from './notification';
+
 export { default as PageHeader } from './pageHeader';
 
 export { default as Pagination } from './pagination';

@@ -83,6 +83,7 @@ class Select extends Component {
       prevProps: props,
       style: {},
       searchValue: '',
+      isSearch: false,
     };
     this.node = React.createRef();
     this.optionsNode = React.createRef();
@@ -197,6 +198,11 @@ class Select extends Component {
     this.node.current.removeEventListener('mouseleave', this.handleMouseLeave);
   }
 
+  setSearchStatus = isSearch => {
+    // eslint-disable-next-line react/no-unused-state
+    this.setState({ isSearch });
+  };
+
   get document() {
     return this.context.rootDocument;
   }
@@ -275,7 +281,7 @@ class Select extends Component {
       optionsNodeStyle: { height: optionsHeight },
     } = this;
     const isBottomDistanceEnough = bottom + optionsHeight < this.document.documentElement.clientHeight;
-    const isLocationTop = optionsHeight < top && !isBottomDistanceEnough && position === 'auto';
+    const isLocationTop = position === 'top' || optionsHeight < top && !isBottomDistanceEnough && position === 'auto';
     if (isAppendToBody) {
       this.setState({
         style: {
@@ -313,13 +319,18 @@ class Select extends Component {
       const { onSelectClose, open: propOpen, hasConfirmButton } = this.props;
       onSelectClose();
       if (hasConfirmButton) this.onMultiOptionChange(prevValue);
-      if (propOpen === null) this.setState({ open: false });
+      if (propOpen === null) {
+        this.optionsNode.current.classList.remove('show');
+        setTimeout(() => {
+          this.setState({ open: false });
+        }, 100);
+      }
     }
   };
 
   handleSelect = () => {
     const { open } = this.state;
-    const { onSelectOpen, onSelectClose, open: propOpen } = this.props;
+    const { onSelectOpen, onSelectClose, open: propOpen, searchInBox, multiple } = this.props;
 
     if (open) {
       onSelectClose();
@@ -327,10 +338,25 @@ class Select extends Component {
       onSelectOpen();
     }
 
-    if (propOpen === null) this.setState({ open: !open });
+    if (propOpen === null) {
+      if (!open) {
+        this.setState({ open: !open });
+        setTimeout(() => {
+          this.optionsNode.current.classList.add('show');
+        });
+      } else if (!searchInBox || searchInBox && multiple || searchInBox && !multiple && !this.state.isSearch) {
+        this.optionsNode.current.classList.remove('show');
+        setTimeout(() => {
+          this.setState({ open: !open });
+        }, 100);
+      }
+    }
   };
 
   onClickSelected = () => {
+    if (this.props.searchable && this.props.searchInBox && this.selectedNode.current.getSearchValue()) {
+      return;
+    }
     this.onSearchValueChange('');
     const { disabled } = this.props;
     if (disabled) return;
@@ -467,6 +493,7 @@ class Select extends Component {
           onChange={this.onMultiSelectValueChange}
           onSearchValueChange={this.onSearchValueChange}
           handleSelect={this.handleSelect}
+          searchValue={this.state.searchValue}
         />
       );
     }
@@ -478,6 +505,8 @@ class Select extends Component {
           value={value}
           dataSource={this.children}
           onChange={this.onSimpleOptionChange}
+          searchValue={this.state.searchValue}
+          onSearchValueChange={this.onSearchValueChange}
         />
       );
     }
@@ -488,6 +517,7 @@ class Select extends Component {
         value={value}
         dataSource={this.children}
         onChange={this.onSimpleOptionChange}
+        searchValue={this.state.searchValue}
         onSearchValueChange={this.onSearchValueChange}
       />
     );
@@ -500,10 +530,13 @@ class Select extends Component {
       allowClear,
       style,
       className,
+      dropdownStyle,
+      dropdownClassName,
       isAppendToBody,
       isSupportTitle,
       size,
       supportUnlimited,
+      formSize,
       ...otherProps
     } = this.props;
     const { selected, open, style: popupStyle } = this.state;
@@ -514,15 +547,15 @@ class Select extends Component {
       className,
     );
 
-    const optionContainer = (
+    const optionContainer = open ? (
       <div
-        className={`${selector}-option-container`}
+        className={`${selector}-option-container ${dropdownClassName}`}
         ref={this.optionsNode}
-        style={{ ...popupStyle, width: `${width}px` }}
+        style={{ ...popupStyle, width: `${width}px`, ...dropdownStyle }}
       >
         {this.renderOptions()}
       </div>
-    );
+    ) : null;
 
     return (
       <div className={`${classNames}`} style={style} ref={this.node}>
@@ -538,14 +571,19 @@ class Select extends Component {
           dataSource={selected}
           metaData={this.children}
           disabled={disabled}
-          size={size}
+          size={formSize || size || 'default'}
           isSupportTitle={isSupportTitle}
           supportUnlimited={supportUnlimited}
+          onSearchValueChange={this.onSearchValueChange}
+          onMultiChange={this.onMultiSelectValueChange}
+          positionPop={this.positionPop}
+          isSearch={this.state.isSearch}
+          setSearchStatus={this.setSearchStatus}
         />
 
         {isAppendToBody
-          ? open && ReactDOM.createPortal(optionContainer, this.portal)
-          : open && optionContainer}
+          ? ReactDOM.createPortal(optionContainer, this.portal)
+          : optionContainer}
       </div>
     );
   }
@@ -564,7 +602,8 @@ Select.propTypes = {
   valueKey: PropTypes.string,
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   searchable: PropTypes.bool,
-  emptyRender: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+  searchInBox: PropTypes.bool,
+  emptyRender: PropTypes.oneOfType([ PropTypes.string, PropTypes.node ]),
   defaultValue: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
@@ -594,6 +633,12 @@ Select.propTypes = {
   lightTextColor: PropTypes.string,
   supportUnlimited: PropTypes.bool,
   unlimitedLabel: PropTypes.string,
+  showTag: PropTypes.bool,
+  maxTagCount: PropTypes.number,
+  dropdownStyle: PropTypes.object,
+  dropdownClassName: PropTypes.string,
+  position: PropTypes.oneOf(['top', 'bottom', 'auto']),
+  maxHeight: PropTypes.number,
 };
 
 Select.defaultProps = {
@@ -610,6 +655,7 @@ Select.defaultProps = {
   valueKey: 'value',
   width: 'auto',
   searchable: false,
+  searchInBox: true,
   emptyRender: '',
   defaultValue: null,
   value: null,
@@ -631,6 +677,12 @@ Select.defaultProps = {
   lightTextColor: undefined,
   supportUnlimited: false,
   unlimitedLabel: '不限',
+  showTag: true,
+  maxTagCount: 1,
+  dropdownStyle: {},
+  dropdownClassName: '',
+  position: 'bottom',
+  maxHeight: undefined,
 };
 
 export default Select;

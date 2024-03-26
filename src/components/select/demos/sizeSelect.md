@@ -40,7 +40,7 @@ export default function SelectDemo() {
 
   return (
     <div className="demo">
-      <div style={{ marginBottom: 10 }}>
+      <div style={{ marginBottom: 15 }}>
         <Button size="large" onClick={() => setSize('large')}>大尺寸</Button>
         {blank}
         <Button size="default" onClick={() => setSize('default')}>默认</Button>
@@ -59,10 +59,43 @@ export default function SelectDemo() {
         ))}
       </Select>
       <Select
-        defaultValue={'3'}
+        allowClear
+        searchable
+        size={size}
+        style={{ width: 150 }}
+        multiple
+      >
+        {dataList.map((item, index) => (
+          <Option value={item.value} disabled={item.disabled} key={index}>
+            {item.label}
+          </Option>
+        ))}
+      </Select>
+      <Select
         size={size}
         style={{ width: 120 }}
         multiple
+      >
+        {dataList.map((item, index) => (
+          <Option value={item.value} disabled={item.disabled} key={index}>
+            {item.label}
+          </Option>
+        ))}
+      </Select>
+      <Select
+        searchable
+        size={size}
+        style={{ width: 120 }}
+      >
+        {dataList.map((item, index) => (
+          <Option value={item.value} disabled={item.disabled} key={index}>
+            {item.label}
+          </Option>
+        ))}
+      </Select>
+      <Select
+        size={size}
+        style={{ width: 120 }}
       >
         {dataList.map((item, index) => (
           <Option value={item.value} disabled={item.disabled} key={index}>

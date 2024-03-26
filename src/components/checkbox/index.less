@@ -55,14 +55,27 @@
   display: inline-flex;
   align-items: center;
   height: 20px;
+  font-size: 14px;
+  line-height: 20px;
 
-  &:not(.@{checkbox-prefix-cls}-disabled):hover {
-    cursor: pointer;
+  &:not(.@{checkbox-prefix-cls}-disabled) {
+    &:hover {
+      cursor: pointer;
+    }
+
+    .@{checkbox-prefix-cls}-wrapper {
+      &:hover {
+        .@{checkbox-prefix-cls}-inner {
+          border-color: @blue-4;
+        }
+      }
+    }
   }
 
   &-group {
     display: inline-flex;
     flex-wrap: wrap;
+    gap: 8px 20px;
 
     &.vertical {
       flex-direction: column;
@@ -70,10 +83,6 @@
 
     &.horizontal {
       flex-direction: row;
-
-      > *:not(:last-child) {
-        margin-right: 16px;
-      }
     }
   }
 
@@ -139,12 +148,15 @@
     .@{checkbox-prefix-cls}-inner {
       background: @gray-3;
     }
+    .@{checkbox-prefix-cls}-inner:hover {
+      border-color: @gray-5;
+    }
 
     &.@{checkbox-prefix-cls}-checked,
     &.@{checkbox-prefix-cls}-indeterminate {
       .@{checkbox-prefix-cls}-inner {
-        border-color: @blue-2;
-        background: @blue-2;
+        border-color: @color-gray5;
+        background: @color-gray5;
       }
     }
 

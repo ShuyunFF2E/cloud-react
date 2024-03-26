@@ -58,7 +58,7 @@ class FormInlineDemo extends React.Component {
 					<Button htmlType="submit" type="primary" style={{ marginRight: 10 }}>
 						提交
 					</Button>
-					<Button onClick={this.onReset.bind(this)}>重置</Button>
+					<Button onClick={this.onReset.bind(this)} type="secondary">重置</Button>
 				</Form.Item>
 			</Form>
 		);

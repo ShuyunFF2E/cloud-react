@@ -37,6 +37,10 @@ group:
 | open              | 下拉菜单展开状态，当使用此属性时组件本身 open 行为失效                                                                                               | boolean                                 | false             |
 | placeholder       | 选择框默认文案                                                                                                                                       | string                                  | -              |
 | searchable        | 使下拉框带搜索                                                                                                                                       | boolean                                 | false          |
+| searchInBox        | 搜索框在输入框内                                                                                                                                      | boolean                                 | true          |
+| showTag           | 多选下拉已选项为tag形式                                                                                                                      |  boolean                                 | true          |
+| maxTagCount        | 多选下拉最多显示多少个tag                                                                                                                      | number                                 | 1          |
+| maxHeight        | 多选下拉框最大高度        | number                                 | -          |
 | searchPlaceholder | 搜索框默认文案                                                                                                                                       | string                                  | -              |
 | emptyRender       | 数据为空时下拉框显示内容                                                                                                                             | string \| node                             | '暂无数据'+缺省图 |
 | defaultValue      | 默认选中的项                                                                                                                                         | string \| number \| array                     | -              |
@@ -53,7 +57,7 @@ group:
 | showArrow         | 下拉 icon 是否显示                                                                                                                                   | boolean                                 | true           |
 | showSelectStyle   | 选择器样式是否显示                                                                                                                                   | boolean                                 | true           |
 | isAppendToBody    | 下拉框是否渲染在 body 上                                                                                                                             | boolean                                 | false          |     |
-| position          | 下拉框是否启用自动定位，如需使用可设置为`auto`                                                                                                       | string                                  | -              |
+| position          | 下拉框定位：`top` `bottom` `auto`（是否启用自动定位，如需使用可设置为`auto`）                                                                                                       | string                                  | `bottom`              |
 | onChange          | 选中 option 变化时回调此函数，普通单选树回调包含第三个参数返回当前点击选项的原始数据，如不使用 dataSource 生成组件，则需手动指定 option 的 item 属性 | function(value, oldValue)               | -              |
 | onOk              | 多选时确认操作回调函数                                                                                                                               | function(value: array, oldValue: array) | -              |
 | onCancel          | 多选时取消操作回调函数                                                                                                                               | function                                | -              |
@@ -66,6 +70,8 @@ group:
 | lightTextColor   | 高亮关键字颜色                                                                                                         |  string          | #0055CC   |
 | supportUnlimited   | 多选下拉是否支持不限                                                                                                         |   boolean          | false   |
 | unlimitedLabel   | 修改"不限"文本                                                                                                         |  string          | 不限   |
+| dropdownClassName   | 下拉框类名                                                                                                         |  string          | -   |
+| dropdownStyle   | 下拉框样式                                                                                                       |  object          | {}   |
 
 ### Option Props
 
@@ -84,9 +90,6 @@ group:
 
 ### 大小
 <embed src="@components/select/demos/sizeSelect.md" />
-
-### 可搜索
-<embed src="@components/select/demos/searchable.md" />
 
 ### 定制化选项
 <embed src="@components/select/demos/customItem.md" />
@@ -109,5 +112,11 @@ group:
 ### 分组可搜索
 <embed src="@components/select/demos/groupSearch.md" />
 
+### 可搜索
+<embed src="@components/select/demos/searchable.md" />
+
 ### 多选下拉支持不限
 <embed src="@components/select/demos/unlimited.md" />
+
+### 弹出位置
+<embed src="@components/select/demos/position.md" />

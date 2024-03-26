@@ -7,12 +7,12 @@
 
 @input-prefix-cls: ~'@{prefix}-input';
 
-@border-radius: 2px;
+@border-radius: 3px;
 @default-width: 250px;
 
 @placeholder-color: @gray-6;
 
-@hover-border-color: @gray-6;
+@hover-border-color: @blue-4;
 
 @focus-border-color: @blue-4;
 
@@ -48,6 +48,30 @@
     box-sizing: border-box;
     vertical-align: middle;
     border-radius: @border-radius;
+  }
+
+  &-loading-spin {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    animation: load 1.5s infinite linear;
+    border: 1px solid @focus-border-color;
+    border-right: 1px solid transparent;
+    @keyframes load {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  }
+
+  &-group:not(.@{input-prefix-cls}-disabled) {
+    .icon-search:hover {
+      cursor: pointer;
+    }
   }
 
   &,
@@ -157,22 +181,34 @@
     margin-right: 8px;
   }
 
-  &-suffix {
-    // margin-right: 8px;
-  }
+  // &-suffix {
+  // margin-right: 8px;
+
+  // }
 
   &-affix {
     border: 1px solid @gray-4;
     padding: 5px @both-space-size;
     color: @gray-9;
     &:hover {
-      border-color: @gray-6;
+      border-color: @blue-4;
+    }
+
+    .icon-search {
+      color: @gray-6;
+      cursor: pointer;
+      font-size: 16px;
+
+      &:hover {
+        color: @blue-4;
+      }
     }
   }
 
   &-counter {
-    font-size: 12px;
-    color: #c9c9c9;
+    font-size: 14px;
+    line-height: 20px;
+    color: @gray-6;
     word-break: keep-all;
   }
 
@@ -264,6 +300,9 @@
   &-textarea:focus,
   &:focus {
     border-color: @focus-border-color;
+    .icon-search {
+      color: @focus-border-color;
+    }
   }
 
   &-disabled.@{input-prefix-cls}-affix,
@@ -275,6 +314,14 @@
     cursor: not-allowed;
     &:hover {
       border-color: @gray-4;
+    }
+
+    .icon-search {
+      cursor: not-allowed;
+
+      &:hover {
+        color: @gray-6;
+      }
     }
   }
 
@@ -288,14 +335,13 @@
       height: 100%;
       border: 1px solid @gray-4;
       background: @textarea-background;
-      border-radius: 2px;
+      border-radius: @border-radius;
     }
   }
 
   &-textarea {
     font-family: inherit;
     width: 100%;
-    resize: none;
     border: none;
     &.has-counter {
       padding-bottom: 25px;

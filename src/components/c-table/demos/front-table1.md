@@ -57,10 +57,6 @@ function TableDemo({ data, setData }) {
         ref={tableRef}
         columnData={columns}
         ajaxData={{ totals: data.length, data }}
-        onCell={(row, index) => {
-          console.log(data);
-          row.data = data;
-        }}
       />
     </div>
   );

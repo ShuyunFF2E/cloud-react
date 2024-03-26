@@ -16,6 +16,7 @@ export default function ComplexRadio(props) {
     textOverflowEllipsis,
     contentStyle,
     type,
+    borderRadiusSize,
     ...otherProps
   } = props;
 
@@ -32,6 +33,7 @@ export default function ComplexRadio(props) {
         [`${classSelector}-card`]: type === 'card',
         [`${classSelector}-card-disabled`]: type === 'card' && props.disabled,
         [`${classSelector}-card-checked`]: type === 'card' && props.checked,
+        [`${classSelector}-radius-${borderRadiusSize}`]: true,
       })}
       {...otherProps}
     >
@@ -69,6 +71,7 @@ ComplexRadio.propTypes = {
   checked: PropTypes.bool,
   value: PropTypes.node.isRequired,
   onChange: PropTypes.func,
+  borderRadiusSize: PropTypes.oneOf([ 'small', 'default', 'large' ]),
 };
 
 ComplexRadio.defaultProps = {
@@ -82,4 +85,5 @@ ComplexRadio.defaultProps = {
   disabled: false,
   checked: false,
   onChange: () => {},
+  borderRadiusSize: 'default',
 };

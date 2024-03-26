@@ -46,3 +46,5 @@ group:
 <embed src="@components/checkbox/demos/group.md" /> 
 
 <embed src="@components/checkbox/demos/layout.md" /> 
+
+<embed src="@components/checkbox/demos/max.md" /> 

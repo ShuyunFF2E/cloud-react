@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
@@ -27,12 +28,12 @@ class TreeContainer extends React.Component {
 				</Button>
 			),
 			cancel: (
-				<Button size="small" className="btn" key="cancel" onClick={onCancel}>
+				<Button type="secondary" size="small" className="btn" key="cancel" onClick={onCancel}>
 					{cancelBtnText}
 				</Button>
 			),
 			reset: (
-				<Button size="small" className="btn" key="reset" onClick={onReset}>
+				<Button type="secondary" size="small" className="btn" key="reset" onClick={onReset}>
 					{resetBtnText}
 				</Button>
 			)
@@ -55,6 +56,7 @@ class TreeContainer extends React.Component {
 			dropdownStyle,
 			style,
 			emptyRender,
+			searchInBox,
 			...otherProps
 		} = this.props;
 		const classNames = cls(`${selector}-options`, dropdownClassName, {
@@ -65,8 +67,9 @@ class TreeContainer extends React.Component {
 				{dataSource.length > 0 && (
 					<Tree
 						{...otherProps}
-						supportSearch={searchable}
-						selectedValue={value}
+						ref={this.props.treeRef}
+						supportSearch={!searchInBox && searchable}
+						selectedValue={Array.isArray(value) ? value : (value?.id ? [value] : [])}
 						onSelectedNode={this.selectNode}
 						treeData={dataSource}
 						supportCheckbox={type === MULTIPLE}
@@ -91,7 +94,8 @@ TreeContainer.propTypes = {
 	dropdownClassName: PropTypes.string,
 	dropdownStyle: PropTypes.object,
 	onOk: PropTypes.func,
-	onCancel: PropTypes.func
+	onCancel: PropTypes.func,
+	setTreeRef: PropTypes.func,
 };
 
 TreeContainer.defaultProps = {
@@ -106,7 +110,8 @@ TreeContainer.defaultProps = {
 	dropdownClassName: '',
 	dropdownStyle: {},
 	onOk: noop,
-	onCancel: noop
+	onCancel: noop,
+	setTreeRef: noop,
 };
 
 export default TreeContainer;

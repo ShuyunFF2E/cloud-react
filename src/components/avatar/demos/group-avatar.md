@@ -33,6 +33,8 @@ class AvatarDemos extends React.Component {
                   <Avatar style={{ background: '#5280FF', fontSize: 10 }} size="large">
                     <span>User</span>
                   </Avatar>
+                  <Avatar size="large">A</Avatar>
+                  <Avatar size="large" group shape="square">B</Avatar>
                 </div>
               </React.Fragment>
       );

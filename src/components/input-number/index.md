@@ -9,11 +9,11 @@ group:
   path: /data
 ---
 
-### 何时使用
+## 何时使用
 
-当需要获取标准数值时。
+通过鼠标或键盘，输入范围内的数值。
 
-### API
+## API
 
 | 属性         | 说明                                                      | 类型                                  | 默认值      |
 | ------------ | --------------------------------------------------------- | ------------------------------------- | ----------- |
@@ -35,14 +35,19 @@ group:
 | onFocus      | 获取焦点                                                  | Function()                            | -           |
 | onEnter      | 按下键盘回车按键的回调                                      | function(event)                          | -         |
 
- ### 代码演示 
+ ## 代码演示 
 
+### 基础使用
 <embed src="@components/input-number/demos/basic-input-number.md" /> 
 
+### 不可用
 <embed src="@components/input-number/demos/disabled.md" /> 
 
+### 精确度
 <embed src="@components/input-number/demos/precision.md" /> 
 
+### 大小
 <embed src="@components/input-number/demos/size.md" /> 
 
+### 左右布局
 <embed src="@components/input-number/demos/step-type.md" />

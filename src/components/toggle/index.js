@@ -12,6 +12,7 @@ const Toggle = (props) => {
     unCheckedText,
     size,
     disabled,
+    loading,
     onChange,
     onBeforeChange,
   } = props;
@@ -43,13 +44,15 @@ const Toggle = (props) => {
       <span className={`${prefix}-inner`}>
         {checked ? checkedText : unCheckedText}
       </span>
+      {loading && <span className={`${prefix}-loading`} />}
     </button>
   );
 };
 
 Toggle.propTypes = {
-  size: PropTypes.oneOf(['default', 'small']),
+  size: PropTypes.oneOf([ 'default', 'small' ]),
   checked: PropTypes.bool,
+  loading: PropTypes.bool,
   checkedText: PropTypes.string,
   unCheckedText: PropTypes.string,
   disabled: PropTypes.bool,
@@ -60,6 +63,7 @@ Toggle.propTypes = {
 Toggle.defaultProps = {
   size: undefined,
   checked: false,
+  loading: false,
   checkedText: '',
   unCheckedText: '',
   disabled: false,

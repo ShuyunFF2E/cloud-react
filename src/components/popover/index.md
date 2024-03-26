@@ -10,13 +10,13 @@ group:
 ---
 
 
-### 何时使用
+## 何时使用
 
 点击元素，弹出气泡确认框。
 
-### API
+## API
 
-#### Popover
+### Popover
 
 | 属性           | 说明                    | 类型              | 默认值 |
 | -------------- | ----------------------- | ----------------- | ------ |
@@ -36,10 +36,11 @@ group:
 | confirmBtnOpts      | 确认按钮配置项      | object            | {}     |
 | onVisibleChange     | 显示/隐藏回调       | function          | (visible) => {} |
 
- ### 代码演示 
+ ## 代码演示 
 
+### 基础使用
 <embed src="@components/popover/demos/basic.md" /> 
 
-#### 支持配置 Tooltip 参数，详细请参考 Tooltip 说明文档
+### 支持配置 Tooltip 参数，详细请参考 Tooltip 说明文档
 
 

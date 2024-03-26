@@ -19,7 +19,7 @@
   cursor: pointer;
 
   font-size: 14px;
-  font-family: @default-font-family;
+  font-family: PingFangSC-Regular, PingFang SC;
   font-weight: 400;
   line-height: 20px;
 
@@ -27,6 +27,14 @@
   min-width: fit-content !important;
 
   z-index: 100;
+
+  &-menu-area {
+    box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.1),
+      0px 2px 8px 0px rgba(0, 0, 0, 0.04);
+    border-radius: 6px;
+    background: #fff;
+    width: fit-content;
+  }
 
   &:hover,
   &:focus,
@@ -99,7 +107,7 @@
   cursor: pointer;
   .@{dropdown-prefix-cls}-menu-item {
     font-size: 14px;
-    font-family: @default-font-family;
+    font-family: PingFangSC-Regular, PingFang SC;
     font-weight: 400;
     color: rgba(0, 0, 0, 0.85);
     line-height: 20px;

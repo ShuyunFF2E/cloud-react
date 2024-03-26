@@ -20,34 +20,67 @@ class AvatarDemos extends React.Component {
       return (
                 <div className="avatar-basic-demo" >
                   <div>
-                    <span>16px</span>
-                    <span>24px</span>
-                    <span>32px</span>
-                    <span>40px</span>
-                    <span>48px</span>
-                    <span>60px</span>
+                    <h5>24px</h5>
+                    <div>
+                      <Avatar src="https://brand-guide.shuyun.com/IAM/0a06d4f03b56.png" size={24}/>
+                      <Avatar src="https://brand-guide.shuyun.com/IAM/0a06d4f03b56.png" size={24} shape="square"/>
+                      <Avatar size={24} icon={<Icon type="user-fill"/>} />
+                      <Avatar size={24} icon={<Icon type="user-fill"/>} shape="square" />
+                      <Avatar size={24}>A</Avatar>
+                      <Avatar size={24} group shape="square">A</Avatar>
+                    </div>
                   </div>
                   <div>
-                    <div><Avatar size={16}/></div>
-                    <div><Avatar size={24}/></div>
-                    <div><Avatar size={32}/></div>
-                    <div><Avatar size={40}/></div>
-                    <div><Avatar size={48}/></div>
-                    <div><Avatar size={60}/></div>
+                    <h5>32px</h5>
+                    <div>
+                      <Avatar src="https://brand-guide.shuyun.com/IAM/0a06d4f03b56.png" size={32}/>
+                      <Avatar src="https://brand-guide.shuyun.com/IAM/0a06d4f03b56.png" size={32} shape="square"/>
+                      <Avatar size={32} icon={<Icon type="user-fill"/>} />
+                      <Avatar size={32} icon={<Icon type="user-fill"/>} shape="square" />
+                      <Avatar size={32}>A</Avatar>
+                      <Avatar size={32} group shape="square">A</Avatar>
+                    </div>
                   </div>
                   <div>
-                    <div><Avatar size={16} group shape="square"/></div>
-                    <div><Avatar size={24} group shape="square"/></div>
-                    <div><Avatar size={32} group shape="square"/></div>
-                    <div><Avatar size={40} group shape="square"/></div>
-                    <div><Avatar size={48} group shape="square"/></div>
-                    <div><Avatar size={60} group shape="square"/></div>
+                    <h5>40px</h5>
+                    <div>
+                      <Avatar src="https://brand-guide.shuyun.com/IAM/0a06d4f03b56.png" size={40}/>
+                      <Avatar src="https://brand-guide.shuyun.com/IAM/0a06d4f03b56.png" size={40} shape="square"/>
+                      <Avatar size={40} icon={<Icon type="user-fill"/>} />
+                      <Avatar size={40} icon={<Icon type="user-fill"/>} shape="square" />
+                      <Avatar size={40}>A</Avatar>
+                      <Avatar size={40} group shape="square">A</Avatar>
+                    </div>
                   </div>
                   <div>
-                    <div><Avatar size="small" shape="square"/></div>
-                    <div><Avatar size="default" shape="square"/></div>
-                    <div/>
-                    <div><Avatar size="large" shape="square"/></div>
+                    <h5>48px</h5>
+                    <div>
+                      <Avatar src="https://brand-guide.shuyun.com/IAM/0a06d4f03b56.png" size={48}/>
+                      <Avatar src="https://brand-guide.shuyun.com/IAM/0a06d4f03b56.png" size={48} shape="square"/>
+                      <Avatar size={48} icon={<Icon type="user-fill"/>} />
+                      <Avatar size={48} icon={<Icon type="user-fill"/>} shape="square" />
+                      <Avatar size={48}>A</Avatar>
+                      <Avatar size={48} group shape="square">A</Avatar>
+                    </div>
+                  </div>
+                  <div>
+                    <h5>60px</h5>
+                    <div>
+                      <Avatar src="https://brand-guide.shuyun.com/IAM/0a06d4f03b56.png" size={60}/>
+                      <Avatar src="https://brand-guide.shuyun.com/IAM/0a06d4f03b56.png" size={60} shape="square"/>
+                      <Avatar size={60} icon={<Icon type="user-fill"/>} />
+                      <Avatar size={60} icon={<Icon type="user-fill"/>} shape="square" />
+                      <Avatar size={60}>A</Avatar>
+                      <Avatar size={60} group shape="square">A</Avatar>
+                    </div>
+                  </div>
+                  <div>
+                    <h6>size 非数字</h6>
+                    <div>
+                      <Avatar size="small" shape="square"/>
+                      <Avatar size="default" shape="square"/>
+                      <Avatar size="large" shape="square"/>
+                    </div>
                   </div>
                 </div>
       

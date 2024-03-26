@@ -6,6 +6,9 @@ import { noop } from '@utils';
 import Icon from '../../icon';
 import { selector } from './common';
 
+import SingleSearch from './single-search';
+import MultiSearch from './multi-search';
+
 import '../index.less';
 
 const getLables = (props) => {
@@ -60,6 +63,7 @@ export default class Selected extends React.Component {
       selected: labels || '',
       clear: false,
       prevProps: this.props,
+      searchValue: '',
     };
   }
 
@@ -104,6 +108,13 @@ export default class Selected extends React.Component {
     });
   };
 
+  onSearchValueChange = search => {
+    this.setState({ searchValue: search });
+    this.props.onSearchValueChange(search);
+  };
+
+  getSearchValue = () => this.state.searchValue;
+
   render() {
     const {
       props: {
@@ -117,6 +128,18 @@ export default class Selected extends React.Component {
         onClear,
         size,
         supportUnlimited,
+        searchable,
+        searchInBox,
+        multiple,
+        onMultiChange,
+        positionPop,
+        labelKey,
+        valueKey,
+        maxTagCount,
+        isSearch,
+        setSearchStatus,
+        showTag,
+        maxHeight,
       },
       state: { selected, clear },
       onMouseEnter,
@@ -126,17 +149,25 @@ export default class Selected extends React.Component {
       disabled,
       empty: supportUnlimited ? false : !dataSource.length,
       hidden: !showSelectStyle,
+      'search-in-box': !multiple && searchable && searchInBox,
+      'multi-search-in-box': multiple && (searchable && searchInBox || showTag),
       [`${size}`]: true,
     });
     const iconClasses = classnames(`${selector}-select-icon`, {
       open,
       close: !open,
-      hidden: clear && selected.length,
+      hidden: clear && selected.length || isSearch,
     });
     const clearClasses = classnames(
       `${selector}-select-icon ${selector}-clear-icon`,
       {
         show: clear && selected.length,
+      },
+    );
+    const searchClasses = classnames(
+      `${selector}-search-icon`,
+      {
+        show: isSearch && (!clear || !selected.length),
       },
     );
     let title = '';
@@ -146,6 +177,14 @@ export default class Selected extends React.Component {
         : selected;
     }
 
+    let SearchCom = null;
+    if (searchable && searchInBox && !multiple) {
+      SearchCom = SingleSearch;
+    }
+    if ((searchable && searchInBox || showTag) && multiple) {
+      SearchCom = MultiSearch;
+    }
+
     return (
       <div
         ref={this.ref}
@@ -153,11 +192,35 @@ export default class Selected extends React.Component {
         onClick={this.onWrapperClick}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
+        style={maxHeight ? { maxHeight, overflow: 'auto' } : {}}
       >
-        <span className={`${selector}-selected`} title={title}>
-          {selected.length ? selected : placeholder}
-        </span>
+        {SearchCom ? (
+          <SearchCom
+            placeholder={placeholder}
+            selected={this.state.selected}
+            selectedList={this.props.dataSource}
+            unlimitedLabel={this.props.unlimitedLabel}
+            supportUnlimited={this.props.supportUnlimited}
+            onSearch={this.props.onSearch}
+            open={open}
+            searchValue={this.state.searchValue}
+            onSearchValueChange={this.onSearchValueChange}
+            onMultiChange={onMultiChange}
+            positionPop={positionPop}
+            labelKey={labelKey}
+            valueKey={valueKey}
+            maxTagCount={maxTagCount}
+            setSearchStatus={setSearchStatus}
+            disabled={disabled}
+            searchable={searchable && searchInBox}
+          />
+        ) : (
+          <span className={`${selector}-selected`} title={title}>
+            {selected.length ? selected : placeholder}
+          </span>
+        )}
         <Icon type="close-fill-1" className={clearClasses} onClick={onClear} />
+        <Icon type="search" className={searchClasses} />
         {showArrow && <Icon type="down" className={iconClasses} />}
       </div>
     );
@@ -175,6 +238,7 @@ Selected.propTypes = {
   trigger: PropTypes.string,
   onClick: PropTypes.func,
   onClear: PropTypes.func,
+  onMultiChange: PropTypes.func,
 };
 
 Selected.defaultProps = {
@@ -188,4 +252,5 @@ Selected.defaultProps = {
   trigger: 'click',
   onClick: noop,
   onClear: noop,
+  onMultiChange: noop,
 };

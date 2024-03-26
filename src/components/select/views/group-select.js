@@ -31,9 +31,11 @@ export default function GroupSelect(props) {
     onSearch,
     searchPlaceholder,
     className,
+    searchInBox,
+    searchValue,
+    onSearchValueChange: setSearchValue,
   } = props;
   const [ options, setOptions ] = useState(dataSource);
-  const [ searchValue, setSearchValue ] = useState('');
   const classNames = classnames(
     `${selector}-group-select-options ${selector}-select-options`,
     className,
@@ -86,7 +88,7 @@ export default function GroupSelect(props) {
   return (
     <div className={classNames}>
       <div className={`${selector}-single-options`}>
-        {searchable && (
+        {searchable && !searchInBox && (
           <OptionsSearch
             searchValue={searchValue}
             placeholder={searchPlaceholder}
