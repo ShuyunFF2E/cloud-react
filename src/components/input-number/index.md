@@ -30,6 +30,8 @@ group:
 | stepType    |  步数器类型                                               |  string                             | `topBottom/leftRight`   
 | className    | 拓展组件样式的 class                                      | string                                | -           |
 | style        | 拓展组件样式的 style                                      | object                                | -           |
+| addonAfter   | 带标签的 inputNumber，设置后置标签                                | string\|ReactNode | -         |
+| addonBefore  | 带带标签的 inputNumber，设置前置标签                              | string\|ReactNode | -         |
 | onChange     | 输入改变触发                                              | Function(value: number &#124; string) | -           |
 | onBlur       | 移除焦点                                                  | Function(value: number &#124; string) | -           |
 | onFocus      | 获取焦点                                                  | Function()                            | -           |
@@ -51,3 +53,5 @@ group:
 
 ### 左右布局
 <embed src="@components/input-number/demos/step-type.md" />
+
+<embed src="@components/input-number/demos/complex.md" />

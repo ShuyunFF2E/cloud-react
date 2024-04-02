@@ -32,7 +32,7 @@ export default function InputDemo() {
 		<div>
 			<Input.Textarea placeholder="请输入文案，最多10个字符" style={{ width: 400 }} autoSize maxLength={10} hasCounter />
 			<br />
-			<Input.Textarea placeholder="请输入文案，高度最小3行，最大5行" rows={4} />
+			<Input.Textarea placeholder="请输入文案，高度最小3行，最大5行" rows={4} resize />
 			<br />
 			<Input.Textarea placeholder="请输入文案，高度可自适应" minRows={2} resize/>
 			<br />
