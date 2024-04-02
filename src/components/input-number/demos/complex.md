@@ -16,10 +16,10 @@ import { InputNumber } from 'cloud-react';
 export default function InputDemo() {
   return (
     <div>
-      <InputNumber style={{ marginBottom: 20 }} placeholder="请输入" size="small" noStep addonAfter="分" />
-      <InputNumber style={{ marginBottom: 20 }} placeholder="请输入" noStep addonAfter="分" />
-      <InputNumber style={{ marginBottom: 20 }} placeholder="请输入" size="large" noStep addonAfter="分" />
-      <InputNumber placeholder="请输入" addonBefore="¥" />
+      <InputNumber style={{ marginBottom: 20, width: 200 }} placeholder="请输入" size="small" noStep addonAfter="分" />
+      <InputNumber style={{ marginBottom: 20, width: 200 }} placeholder="请输入" noStep addonAfter="分" />
+      <InputNumber style={{ marginBottom: 20, width: 200 }} placeholder="请输入" size="large" noStep addonAfter="分" />
+      <InputNumber style={{ width: 200 }} placeholder="请输入" addonBefore="¥" />
     </div>
   );
 }
