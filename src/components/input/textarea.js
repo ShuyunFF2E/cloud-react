@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createRef } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { noop, omit, prefixCls } from '@utils';
@@ -117,6 +117,8 @@ export default class Textarea extends React.PureComponent {
     resize: false,
   };
 
+  ref = createRef();
+
   static getDerivedStateFromProps({ value }) {
     if (value !== undefined) {
       return { value };
@@ -142,10 +144,25 @@ export default class Textarea extends React.PureComponent {
 
   componentDidMount() {
     this.calcAutoHeight();
+
+    const textArea = this.ref?.current?.querySelector('textarea');
+    // 创建一个观察者对象
+    this.observer = new window.MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+          this.ref.current.style.width = `${textArea.clientWidth}px`;
+        }
+      });
+    });
+    // 观察者的配置（观察属性变化）
+    const config = { attributes: true };
+    // 传入目标节点和观察选项并开始观察
+    this.observer.observe(textArea, config);
   }
 
   componentWillUnmount() {
     destory();
+    this.observer.takeRecords();
   }
 
   onKeyDown = (evt) => {
@@ -206,6 +223,7 @@ export default class Textarea extends React.PureComponent {
 
     return (
       <div
+        ref={this.ref}
         className={`${prefixCls}-input-textarea-wrapper`}
         style={wrapperStyle}
       >
