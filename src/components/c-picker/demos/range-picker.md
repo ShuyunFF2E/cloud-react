@@ -99,19 +99,21 @@ class RangePickerDemo extends React.Component {
 					/>
 				</Form.Item>
 
-				<Form.Item label="日期范围选择器（带时间）">
+				<Form.Item label="日期范围选择器（带时间，固定开始日期）">
 					<RangePicker
 						value={values}
 						onChange={this.onChange}
 						showTimePicker
 						showToday
 						showNow
-						minDate={new Date()}
-						disabled={disabled}
+						minDate="2022/01/01 00:00:00"
+						defaultTime={['08:00:00', '23:00:00']}
+						disabled={[true, false]}
+						allowEmpty={[true, false]}
 					/>
 				</Form.Item>
 
-				<Form.Item label="日期范围选择器（固定开始时间）">
+				<Form.Item label="日期范围选择器（固定结束日期）">
 					<RangePicker
 						value={values}
 						onChange={this.onChange}

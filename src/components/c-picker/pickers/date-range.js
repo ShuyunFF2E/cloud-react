@@ -11,6 +11,8 @@ import generatePicker from '../generator';
 import { dateFormat, dateTimeFormat, timeFormat, pickerDefaultFormatMap } from '../formats';
 import { STR, OBJ, transformString2Moment } from '../utils';
 
+const reversedRangeTypeIndexMap = { start: 1, end: 0 };
+
 const { DateRangePicker: Picker } = generatePicker(momentGenerateConfig);
 
 const DateRangePicker = ({
@@ -57,6 +59,7 @@ const DateRangePicker = ({
   presets,
   type = 'date',
 }) => {
+  const ref = useRef();
   const { current: _this } = useRef({
     formatType: STR,
   });
@@ -170,6 +173,18 @@ const DateRangePicker = ({
     [onPanelChange, format],
   );
 
+  const handleCalendarChange = useCallback(
+    (_, __, { range: val }) => {
+      // 特殊处理：区间单侧时间禁用时，选择另一侧后直接关闭面板
+      if (disabled instanceof Array && disabled[reversedRangeTypeIndexMap[val]]) {
+        setTimeout(() => {
+          ref.current?.blur();
+        }, 10);
+      }
+    },
+    [disabled],
+  );
+
   const handleChange = useCallback(
     (m, str) => {
       const val = m && m.map((x) => (handleGetDisabledDate(x) ? undefined : x));
@@ -223,6 +238,7 @@ const DateRangePicker = ({
 
   return (
     <Picker
+      ref={ref}
       size={size}
       style={{ width, ...style }}
       defaultValue={
@@ -240,6 +256,7 @@ const DateRangePicker = ({
             : false
       }
       onChange={handleChange}
+      onCalendarChange={handleCalendarChange}
       onOk={handleOk}
       onPanelChange={handlePanelChange}
       inputReadOnly={!canEdit}
