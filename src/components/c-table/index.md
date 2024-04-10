@@ -157,6 +157,7 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 | summaryData         | 表格合计（API 同 columnData）       | 	array   | []    | |
 | showFilterBtn       | 过滤下拉是否展示确认取消按钮               | 	boolean | false | |
 | tooltipConfigs      | 表格行展示tooltip，详见**表格禁用行**Demo | 	array   | []    | |
+| rcTableConfig      | rcTable 配置，API 详见 https://table-react-component.vercel.app/ | 	object   | {}    | |
 
 [comment]: <> (| supportConfigColumn | 是否支持配置列的隐藏和展示  | boolean	   |   false   | |)
 
@@ -230,6 +231,10 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 | typeConfig.formatValue            | 格式化 value             | function                 | -                |
 
 
+**注意事项**
+
+列表数据中包含 `disabled` 和 `checked` 关键字，若不启用 禁用行 和 选中行 功能，请勿将该字段传递到表格数据中！
+
 ### 二、代码演示
 
 ### 基础表格
@@ -302,6 +307,9 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 
 <embed src="@components/c-table/demos/light-row.md" /> 
 
+### 点击行高亮
+<embed src="@components/c-table/demos/light-click-row.md" />
+
 ### 表格排序
 
 <embed src="@components/c-table/demos/sort-with-page.md" /> 
@@ -341,6 +349,14 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 ### 表格固定表头和表尾
 
 <embed src="@components/c-table/demos/sticky.md" />
+
+### 表格懒加载
+
+<embed src="@components/c-table/demos/lazyload.md" />
+
+### 分体式表格（灵活）
+
+<embed src="@components/c-table/demos/splitTable.md" />
 
 ### 标准化表格-数值类型
 

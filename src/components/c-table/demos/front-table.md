@@ -62,6 +62,7 @@ export default function CTableDemo() {
       title: '操作',
       dataIndex: 'creator',
       width: 100,
+      fixed: 'right',
       render: (_, row) => {
         return (
           <Button type="text" onClick={() => onDelete(row)}>删除</Button>
