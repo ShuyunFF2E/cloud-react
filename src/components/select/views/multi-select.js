@@ -58,6 +58,7 @@ export default function MultiSelect(props) {
     onSearchValueChange: setSearchValue,
     supportUnlimited,
     handleSelect,
+    selectAllText,
   } = props;
   const [ options, setOptions ] = useState(dataSource);
   const [ values, setValues ] = useState(value);
@@ -166,7 +167,7 @@ export default function MultiSelect(props) {
                 onChange={handleCheckAll}
                 className={`${selector}-option ${selector}-option-select-all`}
               >
-                全选
+                {selectAllText}
               </Checkbox>
             )}
             {views}

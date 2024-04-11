@@ -74,6 +74,7 @@ group:
 | unlimitedLabel   | 修改"不限"文本                                                                                                         |  string          | 不限   |
 | dropdownClassName   | 下拉框类名                                                                                                         |  string          | -   |
 | dropdownStyle   | 下拉框样式                                                                                                       |  object          | {}   |
+| selectAllText   | 全选文案                                                                                                       |   string          | '全选'   |
 
 ### Option Props
 
@@ -125,3 +126,6 @@ group:
 
 ### 带描述
 <embed src="@components/select/demos/desc.md" />
+
+### 全选
+<embed src="@components/select/demos/selectAll.md" />

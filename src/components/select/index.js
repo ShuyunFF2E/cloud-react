@@ -663,6 +663,7 @@ Select.propTypes = {
   position: PropTypes.oneOf(['top', 'bottom', 'auto']),
   maxHeight: PropTypes.number,
   showDesc: PropTypes.string,
+  selectAllText: PropTypes.string,
 };
 
 Select.defaultProps = {
@@ -709,6 +710,7 @@ Select.defaultProps = {
   position: 'bottom',
   maxHeight: undefined,
   showDesc: false,
+  selectAllText: '全选',
 };
 
 export default Select;

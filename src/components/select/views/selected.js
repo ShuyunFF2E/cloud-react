@@ -20,6 +20,7 @@ const getLables = (props) => {
     metaData,
     supportUnlimited,
     unlimitedLabel,
+    selectAllText,
   } = props;
   const dataSource = supportUnlimited
     ? _dataSource.filter((item) => item.value !== '')
@@ -40,7 +41,7 @@ const getLables = (props) => {
       const invalidLength = data.filter(
         (v) => v.props.disabled && !v.isSelected,
       ).length;
-      if (data.length - invalidLength === dataSource.length) return '全选';
+      if (data.length - invalidLength === dataSource.length) return selectAllText;
     }
     return dataSource
       .map((item) => {
@@ -142,6 +143,7 @@ export default class Selected extends React.Component {
         showTag,
         maxHeight,
         showDesc,
+        selectAllText,
       },
       state: { selected, clear },
       onMouseEnter,
@@ -216,6 +218,7 @@ export default class Selected extends React.Component {
             disabled={disabled}
             searchable={searchable && searchInBox}
             showDesc={showDesc}
+            selectAllText={selectAllText}
           />
         ) : (
           <span className={`${selector}-selected`} title={title}>
