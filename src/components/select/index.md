@@ -33,6 +33,8 @@ group:
 | dataSource        | 需要展示的数据，dataSource 和 children 同时存在时以 children 为准                                                                                    | array                                   | []             |
 | labelKey          | 指定使用的 label 键值，仅在使用 dataSource 生成组件时生效                                                                                            | string                                  | 'label'        |
 | valueKey          | 指定使用的 value 键值，仅在使用 dataSource 生成组件时生效                                                                                            | string                                  | 'value'        |
+| descKey          | 指定次要信息的 value 键值，仅在使用 dataSource 生成组件时生效                                                                                            | string                                  | 'value'        |
+| showDesc          | 是否展示描述信息                                                                                         |  boolean                                  | false        |
 | defaultOpen       | 默认下拉菜单展开状态                                                                                                                                 | boolean                                 | false          |
 | open              | 下拉菜单展开状态，当使用此属性时组件本身 open 行为失效                                                                                               | boolean                                 | false             |
 | placeholder       | 选择框默认文案                                                                                                                                       | string                                  | -              |
@@ -120,3 +122,6 @@ group:
 
 ### 弹出位置
 <embed src="@components/select/demos/position.md" />
+
+### 带描述
+<embed src="@components/select/demos/desc.md" />

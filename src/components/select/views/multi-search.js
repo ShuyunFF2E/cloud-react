@@ -19,6 +19,7 @@ export default function MultiSearch({
   searchable,
   supportUnlimited,
   unlimitedLabel,
+  showDesc,
 }) {
   const searchRef = useRef();
   const [selectList, setSelectList] = useState([]);
@@ -84,7 +85,9 @@ export default function MultiSearch({
           <span style={{ width: 0, zIndex: -1, padding: 0, marginLeft: -4, fontSize: 14 }}>-</span>
           {showSelectList.map(item => (
             <span key={item.value} className={`${selector}-multiple-search-item ${disabled && 'disabled'}`}>
-              <span className={`${selector}-multiple-search-item-text`} title={item.label}>{item.label}</span>
+              <span className={`${selector}-multiple-search-item-text`} title={showDesc ? item.label[0] : item.label}>
+                {showDesc ? item.label[0] : item.label}
+              </span>
               {!disabled && <Icon type="close" onClick={evt => onItemClose(evt, item)} />}
             </span>
           ))}

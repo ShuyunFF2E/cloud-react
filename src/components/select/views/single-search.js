@@ -1,9 +1,11 @@
+/* eslint-disable no-nested-ternary */
 import React, { useEffect, useRef, useState } from 'react';
 import { selector } from './common';
 import Input from '../../input';
 
 export default function SingleSearch({
   selected,
+  showDesc,
   placeholder,
   open,
   searchValue,
@@ -17,7 +19,9 @@ export default function SingleSearch({
 
   let searchPlaceholder = placeholder;
   if (isFocusSearchInput) {
-    searchPlaceholder = selected[0] || placeholder;
+    searchPlaceholder = (showDesc
+      ? Array.isArray(selected?.[0]) ? selected?.[0]?.[0] : selected?.[0]
+      : selected?.[0]) || placeholder;
   } else if (selected[0]) { // 有已选 && 未聚焦
     searchPlaceholder = '';
   }
@@ -59,7 +63,9 @@ export default function SingleSearch({
         className={`${selector}-single-search-selected`}
         style={!!selected.length && !isFocusSearchInput ? {} : { visibility: 'hidden', width: 0 }}
       >
-        {selected?.[0] || '-'}
+        {(showDesc
+          ? Array.isArray(selected?.[0]) ? selected?.[0]?.[0] : selected?.[0]
+          : selected?.[0]) || '-'}
       </span>
       <div ref={searchRef} className={`${selector}-search`}>
         <Input

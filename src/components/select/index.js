@@ -42,11 +42,27 @@ const getOptions = (
   dataSource,
   labelKey,
   valueKey,
+  descKey,
+  showDesc,
   isSupportTitle,
   searchValue,
   supportLightText,
   lightTextColor,
-) => dataSource.map((v, index) => (
+) => dataSource.map((v, index) => showDesc ? (
+  <Option
+    item={{ ...v, index }}
+    value={v[valueKey]}
+    disabled={v.disabled}
+    isSupportTitle={isSupportTitle}
+    key={Math.random()}
+    searchValue={searchValue}
+    supportLightText={supportLightText}
+    lightTextColor={lightTextColor}
+  >
+    {v[labelKey]}
+    {v[descKey] ? <span className={`${selector}-desc`}>{v[descKey]}</span> : null}
+  </Option>
+) : (
   <Option
     item={{ ...v, index }}
     value={v[valueKey]}
@@ -105,7 +121,7 @@ class Select extends Component {
       || Children.count(children) !== Children.count(prevChildren)
       || !ShuyunUtils.equal(dataSource, prevData)
     ) {
-      const { labelKey, valueKey, labelInValue, defaultValue } = props;
+      const { labelKey, valueKey, descKey, showDesc, labelInValue, defaultValue } = props;
       const displayValue = value !== null ? value : defaultValue;
       const childs = Array.isArray(children)
         ? flat(children, Infinity)
@@ -116,6 +132,8 @@ class Select extends Component {
           dataSource,
           labelKey,
           valueKey,
+          descKey,
+          showDesc,
           isSupportTitle,
           prevState?.searchValue,
           props.supportLightText,
@@ -221,7 +239,7 @@ class Select extends Component {
   }
 
   get children() {
-    const { children, dataSource, labelKey, valueKey, isSupportTitle } = this.props;
+    const { children, dataSource, labelKey, valueKey, descKey, showDesc, isSupportTitle } = this.props;
     const childs = Array.isArray(children)
       ? flat(children, Infinity)
       : Children.toArray(children);
@@ -235,6 +253,8 @@ class Select extends Component {
       dataSource,
       labelKey,
       valueKey,
+      descKey,
+      showDesc,
       isSupportTitle,
       this.state?.searchValue,
       this.props.supportLightText,
@@ -257,12 +277,14 @@ class Select extends Component {
   }
 
   getGroupOptions = () => {
-    const { dataSource, labelKey, valueKey, isSupportTitle } = this.props;
+    const { dataSource, labelKey, valueKey, descKey, showDesc, isSupportTitle } = this.props;
     return dataSource.map((group) => {
       const groupItem = getOptions(
         group.options || [],
         labelKey,
         valueKey,
+        descKey,
+        showDesc,
         isSupportTitle,
       );
       return (
@@ -600,6 +622,7 @@ Select.propTypes = {
   dataSource: PropTypes.array,
   labelKey: PropTypes.string,
   valueKey: PropTypes.string,
+  descKey: PropTypes.string,
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   searchable: PropTypes.bool,
   searchInBox: PropTypes.bool,
@@ -639,6 +662,7 @@ Select.propTypes = {
   dropdownClassName: PropTypes.string,
   position: PropTypes.oneOf(['top', 'bottom', 'auto']),
   maxHeight: PropTypes.number,
+  showDesc: PropTypes.string,
 };
 
 Select.defaultProps = {
@@ -653,6 +677,7 @@ Select.defaultProps = {
   dataSource: [],
   labelKey: 'label',
   valueKey: 'value',
+  descKey: 'desc',
   width: 'auto',
   searchable: false,
   searchInBox: true,
@@ -683,6 +708,7 @@ Select.defaultProps = {
   dropdownClassName: '',
   position: 'bottom',
   maxHeight: undefined,
+  showDesc: false,
 };
 
 export default Select;

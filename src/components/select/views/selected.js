@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
@@ -140,6 +141,7 @@ export default class Selected extends React.Component {
         setSearchStatus,
         showTag,
         maxHeight,
+        showDesc,
       },
       state: { selected, clear },
       onMouseEnter,
@@ -213,10 +215,17 @@ export default class Selected extends React.Component {
             setSearchStatus={setSearchStatus}
             disabled={disabled}
             searchable={searchable && searchInBox}
+            showDesc={showDesc}
           />
         ) : (
           <span className={`${selector}-selected`} title={title}>
-            {selected.length ? selected : placeholder}
+            {selected.length
+              ? (
+                showDesc
+                  ? (multiple ? selected : Array.isArray(selected[0]) ? selected[0][0] : selected[0])
+                  : selected
+              )
+              : placeholder}
           </span>
         )}
         <Icon type="close-fill-1" className={clearClasses} onClick={onClear} />
@@ -235,6 +244,7 @@ Selected.propTypes = {
   placeholder: PropTypes.string,
   showArrow: PropTypes.bool,
   showSelectStyle: PropTypes.bool,
+  showDesc: PropTypes.bool,
   trigger: PropTypes.string,
   onClick: PropTypes.func,
   onClear: PropTypes.func,
@@ -249,6 +259,7 @@ Selected.defaultProps = {
   placeholder: '',
   showArrow: true,
   showSelectStyle: true,
+  showDesc: false,
   trigger: 'click',
   onClick: noop,
   onClear: noop,
