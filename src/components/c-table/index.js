@@ -300,7 +300,6 @@ class CTable extends Component {
       if (isFirefox() || !this.hasCustomScroll) {
         return;
       }
-      console.log(1);
       const fixedColumn = this.state.columnData
         .filter((item) => item.fixed === 'right')
         .reverse();
@@ -321,7 +320,6 @@ class CTable extends Component {
             // } else {
             //   Object.assign(ele.style, { right: 0 });
             // }
-            console.log(this.hasScroll());
             Object.assign(ele.style, { right: this.hasScroll() ? getScrollbarWidth() : 0 });
           } else {
             const right = fixedColumn.slice(0, index).reduce(
