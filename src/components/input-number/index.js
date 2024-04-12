@@ -20,6 +20,10 @@ import './index.less';
 const selector = `${prefixCls}-input-number`;
 const ENTER_KEY_CODE = 13;
 
+function Addon({ className, children }) {
+  return !children ? null : <div className={`${className} add-on`}>{children}</div>;
+}
+
 class InputNumber extends Component {
   constructor() {
     super();
@@ -310,7 +314,7 @@ class InputNumber extends Component {
 
   render() {
     const {
-      size, disabled, className, style, stepType,
+      size, disabled, className, style, stepType, addonAfter, addonBefore,
     } = this.props;
     const { focused } = this.state;
     const { size: formSize } = this.context;
@@ -321,12 +325,40 @@ class InputNumber extends Component {
       [`${selector}-focused`]: focused,
     });
 
-    return (
-      <div className={compClass} style={style}>
+    const Eles = (
+      <>
         {stepType === 'topBottom' && this.renderStep()}
         {stepType === 'leftRight' && this.renderLeft()}
         {this.renderInput()}
         {stepType === 'leftRight' && this.renderRight()}
+      </>
+    );
+
+    if (addonBefore || addonAfter) {
+      return (
+        <div
+          className={classnames(`${selector}-add-on-container ${mergedSize}`, {
+            [`${selector}-add-before`]: addonBefore,
+            [`${selector}-add-after`]: addonAfter,
+          })}
+          style={style}
+        >
+          {addonBefore && (
+            <Addon>{addonBefore}</Addon>
+          )}
+          <div className={compClass}>
+            {Eles}
+          </div>
+          {addonAfter && (
+            <Addon>{addonAfter}</Addon>
+          )}
+        </div>
+      );
+    }
+
+    return (
+      <div className={compClass} style={style}>
+        {Eles}
       </div>
     );
   }
@@ -351,6 +383,8 @@ InputNumber.propTypes = {
   onFocus: PropTypes.func,
   onEnter: PropTypes.func,
   onKeyDown: PropTypes.func,
+  addonAfter: PropTypes.any,
+  addonBefore: PropTypes.any,
 };
 
 InputNumber.defaultProps = {
@@ -372,6 +406,8 @@ InputNumber.defaultProps = {
   onFocus: noop,
   onEnter: noop,
   onKeyDown: noop,
+  addonAfter: undefined,
+  addonBefore: undefined,
 };
 
 export default InputNumber;
