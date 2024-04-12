@@ -16,7 +16,7 @@ import {
   isFirefox,
   debounce,
   hasCustomScroll,
-  getBtnNum, getScrollbarWidth, setConfig,
+  getBtnNum, getScrollbarWidth, setConfig, isWindows,
 } from './util';
 import {
   DRAG_ICON_SELECTOR,
@@ -169,7 +169,7 @@ class CTable extends Component {
   hasScroll = () => {
     const bodyEle = this.ref.current.querySelector(`.${tablePrefixCls}-body`);
     const tableEle = this.ref.current.querySelector(
-      `.${tablePrefixCls}-body > table`,
+      `.${tablePrefixCls}-body table`,
     );
     return tableEle?.clientHeight > bodyEle?.clientHeight;
   };
@@ -284,6 +284,9 @@ class CTable extends Component {
           bodyEle.parentElement.querySelector(
             `.${tablePrefixCls}-header colgroup col:last-child`,
           ).style.display = this.hasScroll() ? 'table-column' : 'none';
+          // ).style.display = isWindows()
+          //   ? this.hasScroll() ? 'table-column' : 'none'
+          //   : 'none';
         }
       }
     });
@@ -312,6 +315,11 @@ class CTable extends Component {
         // fixedEles.pop();
         fixedEles.reverse().forEach((ele, index) => {
           if (index === 0) {
+            // if (isWindows()) {
+            //   Object.assign(ele.style, { right: this.hasScroll() ? getScrollbarWidth() : 0 });
+            // } else {
+            //   Object.assign(ele.style, { right: 0 });
+            // }
             Object.assign(ele.style, { right: this.hasScroll() ? getScrollbarWidth() : 0 });
           } else {
             const right = fixedColumn.slice(0, index).reduce(
@@ -321,6 +329,9 @@ class CTable extends Component {
                 return sum;
               },
               this.hasScroll() ? Number(getScrollbarWidth().replace('px', '')) : 0,
+              // isWindows()
+              //   ? this.hasScroll() ? Number(getScrollbarWidth().replace('px', '')) : 0
+              //   : 0,
             );
             Object.assign(ele.style, {
               right: `${right}px`,
@@ -820,6 +831,7 @@ class CTable extends Component {
       stickyFooter,
       supportConfigColumn,
       noScroll,
+      rcTableConfig,
     } = this.props;
     const {
       data,
@@ -919,6 +931,7 @@ class CTable extends Component {
                   )
                 : undefined
             }
+            {...rcTableConfig}
           />
           {loadingTpl(isLoading || loadingOpts.loading) || (
             <Loading
