@@ -93,34 +93,3 @@ p {
 li {
 	list-style: none;
 }
-
-/* 自定义滚动条样式 */
-*::-webkit-scrollbar-track {
-	border-radius: 5px;
-	background-color: #f3f3f3;
-}
-
-*::-webkit-scrollbar-track-piece {
-	display: none;
-}
-
-*::-webkit-scrollbar {
-	background: transparent;
-	width: 10px;
-	height: 10px;
-}
-
-*::-webkit-scrollbar-thumb {
-	border-radius: 5px;
-	background-color: #e1e1e1;
-	width: 6px;
-	min-height: 50px;
-	border: 2px solid transparent;
-	background-clip: content-box;
-}
-
-@supports not (*::-webkit-scrollbar) {
-	// 火狐修改滚动条: 以下为firefox特有属性
-	scrollbar-width: thin;
-	scrollbar-color: #e1e1e1 #f3f3f3;
-}
