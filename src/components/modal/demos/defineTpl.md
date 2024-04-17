@@ -16,7 +16,7 @@ import getQueryString from './query.js';
 
 const blank = '\u00A0';
 
-export default class ModalDemo extends React.Component {
+class ModalDemo extends React.Component {
 	constructor(props) {
 		super(props);
 		this.showType = getQueryString('showType') || 'top';
@@ -139,4 +139,5 @@ class Footer extends React.Component {
 		return <div>我是自定义Footer组件</div>;
 	}
 }
+export default ModalDemo
 ```

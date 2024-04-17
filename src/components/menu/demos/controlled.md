@@ -10,7 +10,7 @@ import { Menu } from 'cloud-react';
 
 const { MenuItem, SubMenu } = Menu;
 
-export default class MenuBasicDemo extends Component {
+class MenuBasicDemo extends Component {
 	state = { key: 'animal_monkey_1', openKeys: [] };
 
     // 如果想手动维护openKeys时，启用以下代码，否则组件内部会自动处理openKeys
@@ -64,6 +64,7 @@ export default class MenuBasicDemo extends Component {
 		);
 	}
 }
+export default MenuBasicDemo
 ```
 
 ```less

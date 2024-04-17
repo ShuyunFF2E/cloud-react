@@ -14,7 +14,7 @@ import React from 'react';
 import { Button, Modal } from 'cloud-react';
 import getQueryString from './query.js';
 
-export default class ModalDemo extends React.Component {
+class ModalDemo extends React.Component {
 	// 弹出框
 	openNestModal = () => {
 		Modal.createModal(SecondModal)
@@ -94,4 +94,5 @@ function modalEntity(props) {
 		</Modal>
 	);
 }
+export default ModalDemo
 ```

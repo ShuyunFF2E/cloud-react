@@ -64,7 +64,7 @@ const iconList = [
 	'folder-solid-open',
     'copy'
 ];
-export default class IconDemo extends Component {
+class IconDemo extends Component {
 	render() {
 		const onClickHandler = event => {
 			const text = event.currentTarget.innerText;
@@ -89,5 +89,6 @@ export default class IconDemo extends Component {
 		);
 	}
 }
+export default IconDemo
 ```
 

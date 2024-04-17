@@ -12,7 +12,7 @@ desc: 手动触发tooltip。
 import React from 'react';
 import { Button, Tooltip } from 'cloud-react';
 
-export default class ToolTipDemo extends React.Component {
+class ToolTipDemo extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -40,4 +40,5 @@ export default class ToolTipDemo extends React.Component {
 		);
 	}
 }
+export default ToolTipDemo
 ```

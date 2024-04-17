@@ -13,7 +13,7 @@ desc: 存在级联关系、纯展示
 import React, { Component } from 'react';
 import { Cascade, Button } from 'cloud-react';
 
-export default class CascadeDemo extends Component{
+class CascadeDemo extends Component{
 	constructor(props){
 		super(props);
 		this.state = {
@@ -91,4 +91,5 @@ export default class CascadeDemo extends Component{
 		);
 	}
 }
+export default CascadeDemo
 ```

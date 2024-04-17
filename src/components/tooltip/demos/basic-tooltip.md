@@ -12,7 +12,7 @@ desc: 最简单的用法。
 import React from 'react';
 import { Tooltip, Tag, Icon, Datepicker } from 'cloud-react';
 
-export default class ToolTipDemo extends React.Component {
+class ToolTipDemo extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -56,4 +56,5 @@ export default class ToolTipDemo extends React.Component {
 		);
 	}
 }
+export default ToolTipDemo
 ```

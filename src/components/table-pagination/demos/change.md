@@ -13,7 +13,7 @@ desc: 改变每页显示条目数
 import React from 'react';
 import { TablePagination } from 'cloud-react';
 
-export default class PaginationDemo extends React.Component {
+class PaginationDemo extends React.Component {
 	state = {
 		current: 1,
 		pageSize: 7
@@ -53,4 +53,5 @@ export default class PaginationDemo extends React.Component {
 		);
 	}
 }
+export default PaginationDemo
 ```

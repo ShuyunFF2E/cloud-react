@@ -12,7 +12,7 @@ desc: Tabs组件的基础用法
 import React, { Component } from 'react';
 import { Tabs } from 'cloud-react';
 
-export default class BasicTabsDemo extends Component {
+class BasicTabsDemo extends Component {
 	handleChange = key => {
 		console.log('当前激活面板key值为：' + key);
 	};
@@ -87,4 +87,5 @@ export default class BasicTabsDemo extends Component {
 		);
 	}
 }
+export default BasicTabsDemo
 ```

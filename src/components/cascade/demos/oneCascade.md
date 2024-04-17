@@ -13,7 +13,7 @@ desc: 适用于单层场景
 import React, { Component } from 'react';
 import { Cascade, Button } from 'cloud-react';
 
-export default class CascadeDemo extends Component{
+class CascadeDemo extends Component{
 	constructor(props){
 		super(props);
 		this.state = {
@@ -70,4 +70,5 @@ export default class CascadeDemo extends Component{
 		);
 	}
 }
+export default CascadeDemo
 ```

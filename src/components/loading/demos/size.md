@@ -13,7 +13,7 @@ desc: 'size,默认default，可设置为small、large'
 import React from 'react';
 import { Loading } from 'cloud-react';
 
-export default class LoadingDemo extends React.Component {
+class LoadingDemo extends React.Component {
 	render() {
 		return (
 			<section className="item-size">
@@ -30,5 +30,6 @@ export default class LoadingDemo extends React.Component {
 		);
 	}
 }
+export default LoadingDemo
 ```
 

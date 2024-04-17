@@ -13,7 +13,7 @@ desc: 可以配置disabled属性为只读状态，不支持输入
 import React from 'react';
 import { InputTag } from 'cloud-react';
 
-export default class InputTagDemo extends React.Component {
+class InputTagDemo extends React.Component {
 	constructor(props) {
 		super(props);
 
@@ -30,4 +30,5 @@ export default class InputTagDemo extends React.Component {
 		return <InputTag data={this.state.data} disabled onChange={this.handleChange} />;
 	}
 }
+export default InputTagDemo
 ```

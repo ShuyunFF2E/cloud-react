@@ -13,7 +13,7 @@ desc: 支持实时搜索，在搜索框输入内容时进行搜索
 import React from 'react';
 import { Tree } from 'cloud-react';
 
-export default class TreeDemo extends React.Component {
+class TreeDemo extends React.Component {
 	constructor(props) {
 		super(props);
 
@@ -130,4 +130,5 @@ export default class TreeDemo extends React.Component {
 		);
 	}
 }
+export default TreeDemo
 ```

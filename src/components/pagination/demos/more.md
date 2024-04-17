@@ -13,7 +13,7 @@ desc: 更多分页
 import React from 'react';
 import Pagination from '../index';
 
-export default class PaginationDemo extends React.Component {
+class PaginationDemo extends React.Component {
 	state = {
 		current: 1,
 		pageSize: 10
@@ -35,4 +35,5 @@ export default class PaginationDemo extends React.Component {
 		);
 	}
 }
+export default PaginationDemo
 ```

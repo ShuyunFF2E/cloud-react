@@ -15,7 +15,7 @@ import { Button } from 'cloud-react';
 
 const blank = '\u00A0';
 
-export default class ButtonDemo extends React.Component {
+class ButtonDemo extends React.Component {
 	render() {
 		return (
 			<React.Fragment>
@@ -40,4 +40,5 @@ export default class ButtonDemo extends React.Component {
 		);
 	}
 }
+export default ButtonDemo
 ```

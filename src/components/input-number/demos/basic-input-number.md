@@ -15,9 +15,10 @@ import { Button, InputNumber } from 'cloud-react';
 
 const blank = '\u00A0';
 
-export default class InputNumberDemo extends React.Component {
+class InputNumberDemo extends React.Component {
 	render() {
 		return <InputNumber defaultValue={1} precision={0} max={365}/>;
 	}
 }
+export default InputNumberDemo
 ```

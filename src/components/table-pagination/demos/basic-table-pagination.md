@@ -13,7 +13,7 @@ desc: 基础分页。
 import React from 'react';
 import { TablePagination } from 'cloud-react';
 
-export default class PaginationDemo extends React.Component {
+class PaginationDemo extends React.Component {
 	state = {
 		current: 1,
 		pageSize: 10
@@ -35,4 +35,5 @@ export default class PaginationDemo extends React.Component {
 		);
 	}
 }
+export default PaginationDemo
 ```

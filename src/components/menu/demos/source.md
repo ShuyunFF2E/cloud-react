@@ -47,7 +47,7 @@ const menuSource = [
 	}
 ];
 
-export default class MenuBasicDemo extends Component {
+class MenuBasicDemo extends Component {
 	handleSubMenuToggle = (key, path, expanded) => {
 		console.log('激活项目key:', key);
 		console.log('激活项目定位路径:', path);
@@ -69,4 +69,5 @@ export default class MenuBasicDemo extends Component {
 		);
 	}
 }
+export default MenuBasicDemo
 ```

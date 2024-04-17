@@ -13,7 +13,7 @@ desc: 根据自身业务需求，传相应FormData。
 import React from 'react';
 import { Message, Upload } from 'cloud-react';
 
-export default class UploadDemo extends React.Component {
+class UploadDemo extends React.Component {
 	render() {
 		const props = {
 			size: 2,
@@ -33,4 +33,5 @@ export default class UploadDemo extends React.Component {
 		return <Upload {...props} />;
 	}
 }
+export default UploadDemo
 ```

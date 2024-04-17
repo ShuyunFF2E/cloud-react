@@ -13,7 +13,7 @@ desc: onClose使用
 import React, { Component } from 'react';
 import { Tag } from 'cloud-react';
 
-export default class TagDemo extends Component {
+class TagDemo extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -62,4 +62,5 @@ export default class TagDemo extends Component {
 		);
 	}
 }
+export default TagDemo
 ```

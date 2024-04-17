@@ -13,7 +13,7 @@ desc: 在状态改变前调用
 import React from 'react';
 import { Modal, Toggle } from 'cloud-react';
 
-export default class ToggleDemo extends React.Component {
+class ToggleDemo extends React.Component {
 	constructor(props) {
 		super(props);
 
@@ -37,4 +37,5 @@ export default class ToggleDemo extends React.Component {
 		return <Toggle checkedText="on" unCheckedText="off" checked={checked} onBeforeChange={this.handleBeforeChange} />;
 	}
 }
+export default ToggleDemo
 ```

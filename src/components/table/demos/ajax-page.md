@@ -32,7 +32,7 @@ const columnData = [
 		text: '简介'
 	}
 ];
-export default class TableDemo extends Component {
+class TableDemo extends Component {
 	render() {
 		return (
 			<Table
@@ -47,4 +47,5 @@ export default class TableDemo extends Component {
 		);
 	}
 }
+export default TableDemo
 ```

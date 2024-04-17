@@ -12,7 +12,7 @@ desc: Tooltip 组件提供了三个不同的主题：dark light error。默认da
 import React from 'react';
 import { Button, Tooltip } from 'cloud-react';
 
-export default class ToolTipDemo extends React.Component {
+class ToolTipDemo extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -42,4 +42,5 @@ export default class ToolTipDemo extends React.Component {
 		);
 	}
 }
+export default ToolTipDemo
 ```
