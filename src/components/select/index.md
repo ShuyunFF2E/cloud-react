@@ -129,3 +129,6 @@ group:
 
 ### 全选
 <embed src="@components/select/demos/selectAll.md" />
+
+### 超长的两种展示方式
+<embed src="@components/select/demos/ellipsis.md" />
