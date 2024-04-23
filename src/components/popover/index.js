@@ -104,6 +104,7 @@ function Popover(props) {
             <Button
               onClick={handleCancelClick}
               size="small"
+              type="secondary"
               className={cancelBtnClass}
               {...cancelBtnOpts}
             >
@@ -149,7 +150,7 @@ function Popover(props) {
           title || showCancelBtn || showConfirmBtn,
       })}
       overlayStyle={{
-        width, maxWidth: width, maxHeight: 280, padding: 12,
+        width, maxWidth: width, maxHeight: 280, padding: 12, borderRadius: 6,
       }}
       {...otherProps}
     >

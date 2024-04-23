@@ -9,7 +9,7 @@ import React, { useState, useEffect } from 'react';
 import { Button, Popover, Message, Checkbox } from 'cloud-react';
 
 export default function PopoverDemo() {
-	const [isClick, setIsClick] = useState(false);
+	const [isClick, setIsClick] = useState(true);
   const [trigger, setTrigger] = useState('hover');
 
   useEffect(() => {
@@ -28,7 +28,7 @@ export default function PopoverDemo() {
           trigger={trigger}
           placement="right"
           content="这是一段文字描述">
-          <Button size="small" type="secondary">纯文字</Button>
+          <Button>纯文字</Button>
         </Popover>
         {split}
         <Popover
@@ -38,14 +38,14 @@ export default function PopoverDemo() {
           content="这是一段文字描述"
           showCancelBtn
           showConfirmBtn >
-          <Button size="small" type="secondary">文字 + btn</Button>
+          <Button>文字 + btn</Button>
         </Popover>
         {split}
         <Popover
           trigger={trigger}
           content="这是一段文字描述"
           showIcon >
-          <Button size="small" type="secondary">文字 + Icon</Button>
+          <Button>文字 + Icon</Button>
         </Popover>
         {split}
         <Popover
@@ -55,7 +55,7 @@ export default function PopoverDemo() {
           showIcon
           showCancelBtn
           showConfirmBtn>
-          <Button size="small" type="secondary">文字 + Icon + btn</Button>
+          <Button>文字 + Icon + btn</Button>
         </Popover>
         {split}
         <Popover
@@ -63,7 +63,7 @@ export default function PopoverDemo() {
           size="small"
           title="标题"
           content="这是一段文字描述">
-          <Button size="small" type="secondary">标题</Button>
+          <Button>标题</Button>
         </Popover>
         {split}
         <Popover
@@ -72,7 +72,7 @@ export default function PopoverDemo() {
           title="标题"
           content="这是一段文字描述"
           showIcon>
-          <Button size="small" type="secondary">标题 + Icon</Button>
+          <Button>标题 + Icon</Button>
         </Popover>
         {split}
         <Popover
@@ -88,7 +88,7 @@ export default function PopoverDemo() {
           onConfirmClick={() => {
             console.log('confirmBtn is clicked');
           }}>
-          <Button size="small" type="secondary">标题 + btn</Button>
+          <Button>标题 + btn</Button>
         </Popover>
         {split}
         <Popover
@@ -109,7 +109,7 @@ export default function PopoverDemo() {
             Message.error('校验不合法，无法关闭弹窗')
             return a >= 2000;
           }}>
-          <Button size="small" type="secondary">标题 + Icon + btn（click 触发）</Button>
+          <Button>标题 + Icon + btn（click 触发）</Button>
         </Popover>
         {split}
         <Popover
@@ -119,14 +119,14 @@ export default function PopoverDemo() {
           showIcon
           showCancelBtn
           showConfirmBtn>
-          <Button size="small" type="secondary">超长</Button>
+          <Button>超长</Button>
         </Popover>
         {split}
         <Popover
           type="remind"
           trigger={trigger}
           content="正文内容正内容正文内容正文内容正文内容正文内容正文内容正内容正文内容正文内容正文内容正文内容">
-          <Button size="small" type="secondary">新功能提醒</Button>
+          <Button>新功能提醒</Button>
         </Popover>
       </div>
 	);
