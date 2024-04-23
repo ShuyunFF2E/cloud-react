@@ -15,6 +15,8 @@ export default function NotificationDemo() {
       content: '消息通知内容消息通知内容消息',
       showCancelBtn: true,
       showConfirmBtn: true,
+      duration: 0,
+      showCloseIcon: true,
       img: <img alt="img" src="https://brand-guide.shuyun.com/IAM/9677a408554b.png"/>
     //   img: <img alt="img" src="https://brand-guide.shuyun.com/IAM/3791de5591a7.jpg"/>
     

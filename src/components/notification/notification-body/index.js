@@ -31,10 +31,13 @@ export default function NotificationBody({
   dataSetId,
   placement,
   borderRadiusSize,
+  showCloseIcon,
   onConfirm = () => {},
   onClose = () => {},
   onDetailClick = () => {},
-  style,
+  style = {},
+  titleStyle = {},
+  contentStyle = {},
   className,
   isLightTheme,
 }) {
@@ -64,14 +67,16 @@ export default function NotificationBody({
         ))}
       <div className={`${notificationPrefix}-content`}>
         <header>
-          <p>{title}</p>
-          <Icon
-            className="close-icon"
-            type="close"
-            onClick={() => close(dataSetId, placement)}
-          />
+          <p style={titleStyle}>{title}</p>
+          {showCloseIcon && (
+            <Icon
+              className="close-icon"
+              type="close"
+              onClick={() => close(dataSetId, placement)}
+            />
+          )}
         </header>
-        <main>{content}</main>
+        <main style={contentStyle}>{content}</main>
         {!!img && <div className={`${notificationPrefix}-img-area`}>{img}</div>}
         {(showDetailBtn || showConfirmBtn || showCancelBtn) && (
           <footer>
