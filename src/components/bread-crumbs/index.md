@@ -22,6 +22,7 @@ group:
 | size     | 设置按钮大小，可选值为 `large` `default` `small` 或者不设          | string          | `default` |
 | styles      | 样式             | object | `{}`          |
 | split      | 分隔符             | string | /          |
+| splitIcon      | 自定义分隔符图标             |   string | -          |
 
 #### list
 | 属性 | 说明 | 类型 | 默认值 |
@@ -33,4 +34,8 @@ group:
 
  ### 代码演示 
 
+### 基础用法
 <embed src="@components/bread-crumbs/demos/basic-bread-crumbs.md" /> 
+
+### 自定义分隔符
+<embed src="@components/bread-crumbs/demos/custom.md" /> 

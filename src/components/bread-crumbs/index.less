@@ -9,30 +9,47 @@
 	align-items: center;
 
 	&-default {
-		font-size: 16px;
-
-		.title > i {
-			font-size: 16px;
-		}
-	}
-
-	&-large {
-		font-size: 20px;
-
-		.title > i {
-			font-size: 20px;
-		}
-	}
-
-	&-small {
 		font-size: 14px;
 
 		.title > i {
 			font-size: 14px;
 		}
+
+		.more {
+			position: relative;
+			top: -3px;
+		}
+	}
+
+	&-large {
+		font-size: 16px;
+
+		.title > i {
+			font-size: 16px;
+		}
+
+		.more {
+			position: relative;
+			top: -3px;
+		}
+	}
+
+	&-small {
+		font-size: 12px;
+
+		.title > i {
+			font-size: 12px;
+		}
+
+		.more {
+			position: relative;
+			top: -2px;
+		}
 	}
 
 	li {
+		display: flex;
+		align-items: center;
 		color: @gray-7;
 
 		.title:hover,
@@ -42,7 +59,7 @@
 		}
 
 		.title > i {
-			margin-right: 8px;
+			margin-right: 4px;
 		}
 
 		&:last-child {
@@ -52,9 +69,21 @@
 		}
 
 		.split {
-			color: @gray-7;
-			margin-left: 8px;
-			margin-right: 8px;
+			display: inline-block;
+			text-align: center;
+			width: 16px;
+			height: 16px;
+			margin-left: 4px;
+			margin-right: 4px;
+			color: @gray-6;
+			cursor: default;
 		}
+	}
+
+	&-split-icon {
+		width: 16px;
+		height: 16px;
+		margin: 0 4px;
+		color: @gray-6;
 	}
 }

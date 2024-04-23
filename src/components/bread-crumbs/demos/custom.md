@@ -79,7 +79,12 @@ class BreadCrumbsDemo extends React.Component {
                     </Button>
                 </div>
                 <div style={{ marginTop: 20 }}>
-                    <BreadCrumbs list={this.state.list} size={size} onClick={onClickBreadCrumbs.bind(this)}/>
+                    <BreadCrumbs
+                      splitIcon="right"
+                      list={this.state.list}
+                      size={size}
+                      onClick={onClickBreadCrumbs.bind(this)}
+                    />
                 </div>
             </React.Fragment>
 		);
