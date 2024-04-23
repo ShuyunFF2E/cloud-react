@@ -26,6 +26,8 @@ group:
 | content        | 内容     | string           | ''     |
 | showIcon       | 是否展示图标           | boolean           | false  |
 | iconTpl  | 自定义图标 | Element           | ''  |
+| iconType  | 自定义图标，可直接传入组件库的图标类型 | string           | ''  |
+| iconStyle  | 图标样式，配置 iconTpl 时，该值无效 | object           | {}  |
 | showCancelBtn          | 是否展示取消按钮     | boolean           | false     |
 | showConfirmBtn  | 是否展示确认按钮               | boolean            | false     |
 | cancelBtnText      | 取消按钮自定义文本      | string            | '取消'     |
@@ -40,6 +42,9 @@ group:
 
 ### 基础使用
 <embed src="@components/popover/demos/basic.md" /> 
+
+### 自定义图标
+<embed src="@components/popover/demos/customIcon.md" /> 
 
 ### 支持配置 Tooltip 参数，详细请参考 Tooltip 说明文档
 

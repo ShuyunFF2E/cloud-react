@@ -50,6 +50,14 @@ export default function PopoverDemo() {
         {split}
         <Popover
           trigger={trigger}
+          content="这是一段文字描述"
+          iconStyle={{ color: '#e74949' }}
+          showIcon >
+          <Button>自定义图标</Button>
+        </Popover>
+        {split}
+        <Popover
+          trigger={trigger}
           size="small"
           content="这是一段文字描述"
           showIcon

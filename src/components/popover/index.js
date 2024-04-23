@@ -19,6 +19,8 @@ function Popover(props) {
     content,
     showIcon,
     iconTpl,
+    iconType,
+    iconStyle,
     showCancelBtn,
     showConfirmBtn,
     cancelBtnText,
@@ -82,7 +84,7 @@ function Popover(props) {
         <section className={`${classSelector}-content`}>
           {showIcon
             && (iconTpl || (
-              <Icon className={`${classSelector}-icon`} type="info_1" />
+              <Icon className={`${classSelector}-icon`} style={iconStyle} type={iconType || 'info_1'} />
             ))}
 
           <div className={`${classSelector}-main-content`}>
@@ -165,6 +167,8 @@ Popover.propTypes = {
   content: PropTypes.any,
   showIcon: PropTypes.bool,
   iconTpl: PropTypes.any,
+  iconType: PropTypes.string,
+  iconStyle: PropTypes.object,
   showCancelBtn: PropTypes.bool,
   showConfirmBtn: PropTypes.bool,
   cancelBtnText: PropTypes.string,
@@ -184,6 +188,8 @@ Popover.defaultProps = {
   content: '',
   showIcon: false,
   iconTpl: '',
+  iconType: '',
+  iconStyle: {},
   showCancelBtn: false,
   showConfirmBtn: false,
   cancelBtnText: '取消',
