@@ -128,7 +128,7 @@ export default function SelectDemo() {
           onChange={handleChange}
           style={{width: 260}}
           dataSource={dataList}
-          maxTagCount={1}
+          maxTagCount={5}
         />
       </div>
       <div>
