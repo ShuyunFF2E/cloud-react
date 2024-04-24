@@ -29,6 +29,7 @@ class Pagination extends Component {
     isAppendToBody: PropTypes.bool,
     className: PropTypes.string,
     disabled: PropTypes.bool,
+    showTotal: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -43,6 +44,7 @@ class Pagination extends Component {
     isAppendToBody: true,
     className: '',
     disabled: false,
+    showTotal: false,
   };
 
   constructor(props) {
@@ -496,6 +498,15 @@ class Pagination extends Component {
 
     return (
       <div className={classes} style={this.props.style}>
+        {this.props.showTotal && (
+          <span style={{ marginRight: 16 }}>
+            共
+            {' '}
+            {this.props.total}
+            {' '}
+            项
+          </span>
+        )}
         <ul
           className={`${
             this.props.disabled && `${prefixCls}-pagination-disabled`
