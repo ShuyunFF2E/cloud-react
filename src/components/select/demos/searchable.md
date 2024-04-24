@@ -6,7 +6,7 @@ desc: 可对选项进行搜索
 
 ```jsx
 import React, { useState } from 'react';
-import { Select, Checkbox } from 'cloud-react';
+import { Select, Checkbox, Radio } from 'cloud-react';
 
 const Option = Select.Option;
 
@@ -55,6 +55,7 @@ const dataList = [
 
 export default function SelectDemo() {
   const [disabled, setDisabled] = useState(false);
+  const [size, setSize] = useState('default');
 
   const handleChange = (value) => {
     console.log('select --- ' + value);
@@ -69,9 +70,15 @@ export default function SelectDemo() {
       <Checkbox checked={disabled} onChange={checked => {
         setDisabled(checked)
       }}>禁用</Checkbox>
+      <Radio.Group value={size} onChange={setSize} horizontal>
+        <Radio value="large">large</Radio>
+        <Radio value="default">default</Radio>
+        <Radio value="small">small</Radio>
+      </Radio.Group>
       <div>
         <h5>搜索框在下拉框外（单选-新）</h5>
         <Select
+          size={size}
           searchable
           allowClear
           disabled={disabled}
@@ -87,6 +94,7 @@ export default function SelectDemo() {
       <div>
         <h5>搜索框在下拉框外（多选-新）</h5>
         <Select
+          size={size}
           hasSelectAll
           searchable
           allowClear
@@ -108,6 +116,7 @@ export default function SelectDemo() {
       <div>
         <h5>搜索框在下拉框外（多选限制标签数量-新）</h5>
         <Select
+          size={size}
           hasSelectAll
           searchable
           allowClear
@@ -125,6 +134,7 @@ export default function SelectDemo() {
       <div>
         <h5 style={{ color: 'rgba(0,0,0,0.45)', fontWeight: 400 }}>搜索框在下拉框内（单选-旧）</h5>
         <Select
+          size={size}
           searchable
           searchInBox={false}
           allowClear
@@ -136,12 +146,12 @@ export default function SelectDemo() {
           style={{width: 260}}
           dataSource={dataList}
           position="auto"
-          // size="large"
         />
       </div>
       <div>
         <h5 style={{ color: 'rgba(0,0,0,0.45)', fontWeight: 400 }}>搜索框在下拉框内（多选-旧）</h5>
         <Select
+          size={size}
           hasSelectAll
           multiple
           searchable
@@ -155,7 +165,6 @@ export default function SelectDemo() {
           onChange={handleChange}
           style={{width: 260}}
           dataSource={dataList}
-          // size="large"
         />
       </div>
     </div>
