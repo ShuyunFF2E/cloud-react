@@ -15,12 +15,13 @@ import {
 	CDropdown as Dropdown,
 	Icon,
 	CMenu as Menu,
-    Button
+    Button,
+  Message
 } from 'cloud-react';
 
 const { Item } = Menu;
 
-export default class DropdownDemo extends React.Component {
+class DropdownDemo extends React.Component {
 
 	 handleMenuClick = key => {
         Message.success(`菜单Item onClick ${key}`);
@@ -46,36 +47,42 @@ export default class DropdownDemo extends React.Component {
                 <p style={{ marginBottom: 10 }}>箭头居中</p>
                 <div style={style}>
                     <Dropdown
+                      trigger={['click']}
                         arrow={{ pointAtCenter: true }}
                         overlay={overlay}
                         placement="bottom">
                         <Button type="normal">向下-箭头居中</Button>
                     </Dropdown>
                     <Dropdown
+                      trigger={['click']}
                         arrow={{ pointAtCenter: true }}
                         overlay={overlay}
                         placement="bottomLeft">
                         <Button type="normal">向左下-箭头居中</Button>
                     </Dropdown>
                     <Dropdown
+                      trigger={['click']}
                         arrow={{ pointAtCenter: true }}
                         overlay={overlay}
                         placement="bottomRight">
                         <Button type="normal">向右下-箭头居中</Button>
                     </Dropdown>
                     <Dropdown
+                      trigger={['click']}
                         arrow={{ pointAtCenter: true }}
                         overlay={overlay}
                         placement="top">
                         <Button type="normal">向上-箭头居中</Button>
                     </Dropdown>
                     <Dropdown
+                      trigger={['click']}
                         arrow={{ pointAtCenter: true }}
                         overlay={overlay}
                         placement="topLeft">
                         <Button type="normal">向左上-箭头居中</Button>
                     </Dropdown>
                     <Dropdown
+                      trigger={['click']}
                         arrow={{ pointAtCenter: true }}
                         overlay={overlay}
                         placement="topRight">
@@ -86,36 +93,42 @@ export default class DropdownDemo extends React.Component {
                 <div style={{ ...style }}>
                     
                     <Dropdown
+                      trigger={['click']}
                         arrow
                         overlay={overlay}
                         placement="bottom">
                         <Button type="normal">向下-箭头不居中</Button>
                     </Dropdown>
                     <Dropdown
+                      trigger={['click']}
                         arrow
                         overlay={overlay}
                         placement="bottomLeft">
                         <Button type="normal">向左下-箭头不居中</Button>
                     </Dropdown>
                     <Dropdown
+                      trigger={['click']}
                         arrow
                         overlay={overlay}
                         placement="bottomRight">
                         <Button type="normal">向右下-箭头不居中</Button>
                     </Dropdown>
                     <Dropdown
+                      trigger={['click']}
                         arrow
                         overlay={overlay}
                         placement="top">
                         <Button type="normal">向上-箭头不居中</Button>
                     </Dropdown>
                     <Dropdown
+                      trigger={['click']}
                         arrow
                         overlay={overlay}
                         placement="topLeft">
                         <Button type="normal">向左上-箭头不居中</Button>
                     </Dropdown>
                     <Dropdown
+                      trigger={['click']}
                         arrow
                         overlay={overlay}
                         placement="topRight">
@@ -126,4 +139,5 @@ export default class DropdownDemo extends React.Component {
 		);
 	}
 }
+export default DropdownDemo;
 ```
