@@ -29,6 +29,7 @@ group:
 | placement | 菜单弹出位置：`bottom` `bottomLeft` `bottomRight` `top` `topLeft` `topRight` | string | `bottomLeft` |
 | trigger | 触发下拉的行为, 移动端不支持 hover | Array&lt;`click`\|`hover`\|`contextMenu`> | \[`hover`] |
 | open | 菜单是否显示 | boolean | - |
+| arrow | 是否展示剪头 | boolean | false |
 | onOpenChange | 菜单显示状态改变时调用，点击菜单按钮导致的消失不会触发。| (open: boolean) => void | - |
 
 ### Dropdown.Button

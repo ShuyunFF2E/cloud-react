@@ -43,99 +43,44 @@ class DropdownDemo extends React.Component {
             </Dropdown.Menu>
         );
 		return (
-            <div>
-                <p style={{ marginBottom: 10 }}>箭头居中</p>
-                <div style={style}>
-                    <Dropdown
-                      trigger={['click']}
-                        arrow={{ pointAtCenter: true }}
-                        overlay={overlay}
-                        placement="bottom">
-                        <Button type="normal">向下-箭头居中</Button>
-                    </Dropdown>
-                    <Dropdown
-                      trigger={['click']}
-                        arrow={{ pointAtCenter: true }}
-                        overlay={overlay}
-                        placement="bottomLeft">
-                        <Button type="normal">向左下-箭头居中</Button>
-                    </Dropdown>
-                    <Dropdown
-                      trigger={['click']}
-                        arrow={{ pointAtCenter: true }}
-                        overlay={overlay}
-                        placement="bottomRight">
-                        <Button type="normal">向右下-箭头居中</Button>
-                    </Dropdown>
-                    <Dropdown
-                      trigger={['click']}
-                        arrow={{ pointAtCenter: true }}
-                        overlay={overlay}
-                        placement="top">
-                        <Button type="normal">向上-箭头居中</Button>
-                    </Dropdown>
-                    <Dropdown
-                      trigger={['click']}
-                        arrow={{ pointAtCenter: true }}
-                        overlay={overlay}
-                        placement="topLeft">
-                        <Button type="normal">向左上-箭头居中</Button>
-                    </Dropdown>
-                    <Dropdown
-                      trigger={['click']}
-                        arrow={{ pointAtCenter: true }}
-                        overlay={overlay}
-                        placement="topRight">
-                        <Button type="normal">向右上-箭头居中</Button>
-                    </Dropdown>
-                </div>
-                <p style={{ marginTop: 24, marginBottom: 10 }}>箭头不居中</p>
-                <div style={{ ...style }}>
-                    
-                    <Dropdown
-                      trigger={['click']}
-                        arrow
-                        overlay={overlay}
-                        placement="bottom">
-                        <Button type="normal">向下-箭头不居中</Button>
-                    </Dropdown>
-                    <Dropdown
-                      trigger={['click']}
-                        arrow
-                        overlay={overlay}
-                        placement="bottomLeft">
-                        <Button type="normal">向左下-箭头不居中</Button>
-                    </Dropdown>
-                    <Dropdown
-                      trigger={['click']}
-                        arrow
-                        overlay={overlay}
-                        placement="bottomRight">
-                        <Button type="normal">向右下-箭头不居中</Button>
-                    </Dropdown>
-                    <Dropdown
-                      trigger={['click']}
-                        arrow
-                        overlay={overlay}
-                        placement="top">
-                        <Button type="normal">向上-箭头不居中</Button>
-                    </Dropdown>
-                    <Dropdown
-                      trigger={['click']}
-                        arrow
-                        overlay={overlay}
-                        placement="topLeft">
-                        <Button type="normal">向左上-箭头不居中</Button>
-                    </Dropdown>
-                    <Dropdown
-                      trigger={['click']}
-                        arrow
-                        overlay={overlay}
-                        placement="topRight">
-                        <Button type="normal">向右上-箭头不居中</Button>
-                    </Dropdown>
-                </div>
-            </div>
+          <div style={style}>
+            <Dropdown
+              arrow
+              overlay={overlay}
+              placement="bottom">
+              <Button type="normal">向下</Button>
+            </Dropdown>
+            <Dropdown
+              arrow
+              overlay={overlay}
+              placement="bottomLeft">
+              <Button type="normal">向左下</Button>
+            </Dropdown>
+            <Dropdown
+              arrow
+              overlay={overlay}
+              placement="bottomRight">
+              <Button type="normal">向右下</Button>
+            </Dropdown>
+            <Dropdown
+              arrow
+              overlay={overlay}
+              placement="top">
+              <Button type="normal">向上</Button>
+            </Dropdown>
+            <Dropdown
+              arrow
+              overlay={overlay}
+              placement="topLeft">
+              <Button type="normal">向左上</Button>
+            </Dropdown>
+            <Dropdown
+              arrow
+              overlay={overlay}
+              placement="topRight">
+              <Button type="normal">向右上</Button>
+            </Dropdown>
+          </div>
 		);
 	}
 }
