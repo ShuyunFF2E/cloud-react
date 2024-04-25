@@ -130,7 +130,6 @@ class TreeSelectDemo extends React.Component {
                 <h5>单选</h5>
                 <TreeSelect
                   searchable
-                  searchInBox
                   showPath
                   allowClear
                   type="single"
@@ -148,7 +147,6 @@ class TreeSelectDemo extends React.Component {
                 <h5>多选</h5>
                 <TreeSelect
                   searchable
-                  searchInBox
                   allowClear
                   showPath
                   type="multiple"

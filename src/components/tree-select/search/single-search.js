@@ -1,16 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { selector } from './const';
-import Input from '../input';
-import { noop } from '../../utils';
+import { selector } from '../const';
+import Input from '../../input';
+import { noop } from '../../../utils';
 
 export default function SingleSearch({
   selected,
   placeholder,
   open,
   searchValue,
+  searchable,
   onSearchValueChange = noop,
   setSearchStatus,
   disabled,
+  scrollSelected,
 }) {
   const searchRef = useRef();
   const [isFocusSearchInput, setIsFocusSearchInput] = useState(false);
@@ -37,43 +39,49 @@ export default function SingleSearch({
   }, [selected]);
 
   useEffect(() => {
-    if (open) {
-      setIsFocusSearchInput(true);
-      searchRef.current.querySelector('input').focus();
-    } else {
-      setIsFocusSearchInput(false);
+    if (searchable) {
+      if (open) {
+        setIsFocusSearchInput(true);
+        searchRef.current.querySelector('input').focus();
+      } else {
+        setIsFocusSearchInput(false);
+      }
     }
     clearSearchValue();
-  }, [open]);
+  }, [open, searchable]);
 
   useEffect(() => {
     setSearchStatus(isFocusSearchInput);
   }, [isFocusSearchInput]);
 
   return (
-    <div className={`${selector}-single-search-container`}>
+    <div className={`${selector}-search-container`}>
       {/* 有已选 && 未聚焦：展示黑色*/}
       <span
-        className={`${selector}-single-select-selected`}
+        className={`${selector}-select-selected ${scrollSelected ? 'scroll-selected' : 'overflow-ellipsis'}`}
         style={!!selected.length && !isFocusSearchInput ? {} : { visibility: 'hidden', width: 0 }}
       >
         {selected || '-'}
       </span>
       <div ref={searchRef} className={`${selector}-search`}>
-        <Input
-          disabled={disabled}
-          // useComposition
-          value={searchValue}
-          placeholder={searchPlaceholder}
-          onChange={onOptionsSearch}
-          className={`${selector}-search-input`}
-          onFocus={() => {
-            setIsFocusSearchInput(true);
-          }}
-          onBlur={() => {
-            setIsFocusSearchInput(false);
-          }}
-        />
+        {searchable ? (
+          <Input
+            disabled={disabled}
+            // useComposition
+            value={searchValue}
+            placeholder={searchPlaceholder}
+            onChange={onOptionsSearch}
+            className={`${selector}-search-input`}
+            onFocus={() => {
+              setIsFocusSearchInput(true);
+            }}
+            onBlur={() => {
+              setIsFocusSearchInput(false);
+            }}
+          />
+        ) : (
+          <span className="search-placeholder">{searchPlaceholder}</span>
+        )}
       </div>
     </div>
   );

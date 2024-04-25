@@ -4,11 +4,11 @@ import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { noop } from '@utils';
 
-import Tree from '../tree';
-import Button from '../button';
-import { selector, MULTIPLE } from './const';
+import Tree from '../../tree';
+import Button from '../../button';
+import { selector, MULTIPLE } from '../const';
 
-import './index.less';
+import '../index.less';
 
 const OptionsEmpty = ({ emptyRender, ...props }) => {
 	return (
@@ -56,7 +56,6 @@ class TreeContainer extends React.Component {
 			dropdownStyle,
 			style,
 			emptyRender,
-			searchInBox,
 			...otherProps
 		} = this.props;
 		const classNames = cls(`${selector}-options`, dropdownClassName, {
@@ -68,7 +67,7 @@ class TreeContainer extends React.Component {
 					<Tree
 						{...otherProps}
 						ref={this.props.treeRef}
-						supportSearch={!searchInBox && searchable}
+						supportSearch={false}
 						selectedValue={Array.isArray(value) ? value : (value?.id ? [value] : [])}
 						onSelectedNode={this.selectNode}
 						treeData={dataSource}

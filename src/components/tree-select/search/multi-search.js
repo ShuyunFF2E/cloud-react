@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { findTreeNode, selector } from './const';
-import Icon from '../icon';
-import Input from '../input';
-import { getTextWidth } from '../c-table/util';
+import { findTreeNode, selector } from '../const';
+import Icon from '../../icon';
+import Input from '../../input';
+import { getTextWidth } from '../../c-table/util';
 
 export default function MultiSearch({
   placeholder,
@@ -38,6 +38,7 @@ export default function MultiSearch({
         searchRef.current.querySelector('input').focus();
         setSearchStatus(true);
       } else {
+        searchRef.current.querySelector('input').blur();
         setSearchStatus(false);
         clearSearchValue();
       }

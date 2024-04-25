@@ -132,7 +132,6 @@ class TreeSelectDemo extends React.Component {
                   showLine
                   lineType="dashed"
                   searchable
-                  searchInBox
                   allowClear
                   type="single"
                   isUnfold
@@ -150,7 +149,6 @@ class TreeSelectDemo extends React.Component {
                 <TreeSelect
                   showLine
                   searchable
-                  searchInBox
                   allowClear
                   type="multiple"
                   isUnfold

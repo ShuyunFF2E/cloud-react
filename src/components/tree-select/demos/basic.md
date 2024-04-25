@@ -163,7 +163,7 @@ class TreeSelectDemo extends React.Component {
                     allowClear
                     placeholder="选择一个选项"
                     style={{ width: 328 }}
-                    footerTypes={['ok', 'reset']}
+                    footerTypes={['ok', 'cancel']}
                     dataSource={this.treeData}
                     showIcon={false}
                     value={this.state.confirmNodes}

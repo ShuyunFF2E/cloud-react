@@ -5,8 +5,9 @@ import { noop } from '@utils';
 
 import Icon from '../icon';
 import { MULTIPLE, selector, SINGLE, findTreeNode } from './const';
-import SingleSearch from './single-search';
-import MultiSearch from './multi-search';
+import SingleSearch from './search/single-search';
+import MultiSearch from './search/multi-search';
+import MultiCommaSearch from './search/multi-comma-search.js';
 
 import './index.less';
 
@@ -79,7 +80,6 @@ export default class Selected extends React.Component {
         onClick,
         searchable,
         setSearchStatus,
-        searchInBox,
         type,
         onMultiChange,
         positionPop,
@@ -91,6 +91,8 @@ export default class Selected extends React.Component {
         showTag,
         maxHeight,
         size,
+        borderRadiusSize,
+        scrollSelected,
         // singleTreeRef,
         // singleTreeValue,
       },
@@ -102,14 +104,16 @@ export default class Selected extends React.Component {
     const classNames = classnames(`${selector}-wrapper`, {
       disabled,
       empty: !selectStr,
-      'search-in-box': type === SINGLE && searchable && searchInBox,
-      'multi-search-in-box': type === MULTIPLE && (searchable && searchInBox || showTag),
+      'single-search-in-box': type === SINGLE,
+      'multi-search-in-box': type === MULTIPLE && showTag,
+      'comma-search-in-box': type === MULTIPLE && !showTag,
       [size]: true,
+      [`border-radius-${borderRadiusSize}`]: true,
     });
     const iconClasses = classnames(`${selector}-select-icon`, {
       open,
       close: !open,
-      hidden: searchInBox && isSearch || clear && selectStr && !disabled,
+      hidden: isSearch || clear && selectStr && !disabled,
     });
     const clearClasses = classnames(`${selector}-select-icon ${selector}-clear-icon`, {
       show: clear && selectStr && !disabled,
@@ -117,16 +121,16 @@ export default class Selected extends React.Component {
     const searchClasses = classnames(
       `${selector}-search-icon`,
       {
-        show: searchInBox && isSearch && (!clear || !selectStr) && !disabled,
+        show: isSearch && (!clear || !selectStr) && !disabled,
       },
     );
 
     let SearchCom = null;
-    if (searchable && searchInBox && type === SINGLE) {
+    if (type === SINGLE) {
       SearchCom = SingleSearch;
     }
-    if ((searchable && searchInBox || showTag) && type === MULTIPLE) {
-      SearchCom = MultiSearch;
+    if (type === MULTIPLE) {
+      SearchCom = showTag ? MultiSearch : MultiCommaSearch;
     }
 
     return (
@@ -153,20 +157,14 @@ export default class Selected extends React.Component {
             disabled={disabled}
             treeData={treeData}
             showPath={showPath}
-            searchable={searchable && searchInBox}
+            searchable={searchable}
+            scrollSelected={scrollSelected}
           />
-        ) : <span className={`${selector}-selected`}>{selectStr || placeholder}</span>}
-        {/* {searchable && searchInBox && type === DEFAULT && (*/}
-        {/*  <SingleSearch*/}
-        {/*    selected={singleTreeValue?.value || ''}*/}
-        {/*    placeholder={placeholder}*/}
-        {/*    open={open}*/}
-        {/*    searchValue={singleTreeRef?.current?.state?.searchValue || ''}*/}
-        {/*    onSearchValueChange={v => singleTreeRef?.current?.onOptionsSearch({ target: v })}*/}
-        {/*    setSearchStatus={setSearchStatus}*/}
-        {/*    disabled={disabled}*/}
-        {/*  />*/}
-        {/* )}*/}
+        ) : (
+          <span className={`${selector}-selected ${scrollSelected ? 'scroll-selected' : 'overflow-ellipsis'}`}>
+            {selectStr || placeholder}
+          </span>
+        )}
         <Icon type="close-fill-1" className={clearClasses} onClick={onClear} />
         <Icon type="search" className={searchClasses} />
         <Icon type="down" className={iconClasses} />

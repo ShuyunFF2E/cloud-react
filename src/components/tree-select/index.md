@@ -38,8 +38,8 @@ group:
 | onSearch          | 搜索文本框变化时回调此函数                             | function(value: string, nodes) | -                |
 | onSelectOpen      | 下拉选择框弹开的时候回调此函数                         | function                       | -                |
 | onSelectClose     | 下拉选择框关闭的时候回调此函数                         | function                       | -                |
-| searchInBox     | 搜索框在输入框内                         | boolean                       |  true                |
 | showTag           | 多选下拉已选项为tag形式                                                                                                                      |  boolean                                 | true          |
+| scrollSelected    | 设置 `scrollSelected` 为 `true`，则已选项超长可滚动                                                                                                                      |  boolean                                 | false          |
 | maxTagCount        | 多选下拉最多显示多少个tag        | number                                 | 1          |
 | maxHeight        | 多选下拉框最大高度        | number                                 | -          |
 | position          | 下拉框定位：`top` `bottom` `auto`（是否启用自动定位，如需使用可设置为`auto`）                                                                                                       | string                                  | `bottom`              |
@@ -50,6 +50,7 @@ group:
 | isDynamicLoad           | 动态加载数据 | bool	| false	|
 | showLine           | 线性样式 | bool	| false	|
 | lineType           | 线性样式 `default` `dashed` | string	| `default`	|
+| borderRadiusSize  | 边框圆角 `default` `medium` `large`     | string | `default`         |
 
 #### `single = true`，单选下拉树时候支持的配置
 | 属性              | 说明                                                   | 类型                           | 默认值           |
@@ -66,7 +67,7 @@ group:
 | okBtnText         | 确认按钮文案                                 | string                         | '确认'           |
 | cancelBtnText     | 取消按钮文案                                 | string                         | '取消'           |
 | resetBtnText      | 重置按钮文案                                 | string                         | '重置'           |
-| footerTypes       | 操作按钮类型，可选'ok', 'cancel', 'reset'        | array                          | ['ok', 'cancel'] |
+| footerTypes       | 操作按钮类型，可选`ok`, `cancel`, `reset`        | array                          | ['ok', 'cancel'] |
 | onOk              | 确认回调                                | function(node, selectedNodes)  | -                |
 | onCancel          | 取消回调                                | function                       | -                |
 | onReset           | 重置回调                                | function                       | -                |
@@ -76,8 +77,8 @@ group:
 
  ### 代码演示 
 
-### 与Tree结合的树下拉
-<embed src="@components/tree-select/demos/multiple.md" /> 
+### 基础用法
+<embed src="@components/tree-select/demos/basic.md" /> 
 
 ### 可搜索
 <embed src="@components/tree-select/demos/searchable.md" /> 

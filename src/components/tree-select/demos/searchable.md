@@ -47,12 +47,39 @@ class TreeSelectDemo extends React.Component {
 					name: '禁止删除节点4',
 					pId: 11,
 					children: []
-				}
+				},
+              {
+                id: 115,
+                name: '禁止删除节点5',
+                pId: 11,
+                children: []
+              },
+              {
+                id: 116,
+                name: '禁止删除节点6',
+                pId: 11,
+                children: []
+              },
+              {
+                id: 117,
+                name: '禁止删除节点7',
+                pId: 11,
+                children: []
+              }
 			]
 		},
 		{
 			id: 14,
 			name: '未分类',
+			pId: 1,
+			disableRemove: true,
+			disableAdd: true,
+			disableRename: true,
+			children: []
+		},
+		{
+			id: 15,
+			name: '超长超长超长超长超长超长超长超长超长超长超长超长超长超长超长超长超长超长超长超长超长超长超长超长超长超长超长超长超长超长超长超长',
 			pId: 1,
 			disableRemove: true,
 			disableAdd: true,
@@ -94,7 +121,7 @@ class TreeSelectDemo extends React.Component {
                 this.setState({ disabled: checked })
               }}>禁用</Checkbox>
               <div>
-                <h5>单选搜索框在下拉框外（新）</h5>
+                <h5>单选</h5>
                 <TreeSelect
                   searchable
                   allowClear
@@ -110,43 +137,10 @@ class TreeSelectDemo extends React.Component {
                 />
               </div>
               <div>
-                <h5>多选搜索框在下拉框外（新）</h5>
+                <h5>单选-已选数据超长可滚动</h5>
                 <TreeSelect
                   searchable
-                  allowClear
-                  disabled={this.state.disabled}
-                  type="multiple"
-                  isUnfold
-                  containParentNode
-                  placeholder="选择一个选项"
-                  style={{ width: 328 }}
-                  dataSource={this.treeData}
-                  value={this.state.selectedNodes}
-                  onChange={this.handleChange}
-                />
-              </div>
-              <div>
-                <h5>多选限制标签数量（新）</h5>
-                <TreeSelect
-                  searchable
-                  maxTagCount={1}
-                  allowClear
-                  disabled={this.state.disabled}
-                  type="multiple"
-                  isUnfold
-                  containParentNode
-                  placeholder="选择一个选项"
-                  style={{ width: 328 }}
-                  dataSource={this.treeData}
-                  value={this.state.selectedNodes}
-                  onChange={this.handleChange}
-                />
-              </div>
-              <div>
-                <h5 style={{ color: 'rgba(0,0,0,0.45)', fontWeight: 400 }}>单选搜索框在下拉框内（旧）</h5>
-                <TreeSelect
-                  searchable
-                  searchInBox={false}
+                  scrollSelected
                   allowClear
                   disabled={this.state.disabled}
                   type="single"
@@ -160,10 +154,98 @@ class TreeSelectDemo extends React.Component {
                 />
               </div>
               <div>
-                <h5 style={{ color: 'rgba(0,0,0,0.45)', fontWeight: 400 }}>多选搜索框在下拉框内（旧）</h5>
+                <h5>多选</h5>
                 <TreeSelect
                   searchable
-                  searchInBox={false}
+                  allowClear
+                  disabled={this.state.disabled}
+                  type="multiple"
+                  isUnfold
+                  containParentNode
+                  placeholder="选择一个选项"
+                  style={{ width: 328 }}
+                  dataSource={this.treeData}
+                  value={this.state.selectedNodes}
+                  onChange={this.handleChange}
+                />
+              </div>
+              <div>
+                <h5>多选-限制标签展示数量</h5>
+                <TreeSelect
+                  searchable
+                  maxTagCount={5}
+                  allowClear
+                  disabled={this.state.disabled}
+                  type="multiple"
+                  isUnfold
+                  containParentNode
+                  placeholder="选择一个选项"
+                  style={{ width: 328 }}
+                  dataSource={this.treeData}
+                  value={this.state.selectedNodes}
+                  onChange={this.handleChange}
+                />
+              </div>
+              <div>
+                <h5>多选-不限制标签展示数量</h5>
+                <TreeSelect
+                  searchable
+                  maxTagCount={0}
+                  allowClear
+                  disabled={this.state.disabled}
+                  type="multiple"
+                  isUnfold
+                  containParentNode
+                  placeholder="选择一个选项"
+                  style={{ width: 328 }}
+                  dataSource={this.treeData}
+                  value={this.state.selectedNodes}
+                  onChange={this.handleChange}
+                />
+              </div>
+              <div>
+                <h5>多选-不限制标签展示数量且展示滚动条</h5>
+                <TreeSelect
+                  searchable
+                  maxTagCount={0}
+                  maxHeight={58}
+                  allowClear
+                  disabled={this.state.disabled}
+                  type="multiple"
+                  isUnfold
+                  containParentNode
+                  placeholder="选择一个选项"
+                  style={{ width: 328 }}
+                  dataSource={this.treeData}
+                  value={this.state.selectedNodes}
+                  onChange={this.handleChange}
+                />
+              </div>
+              <div>
+                <h5>多选-已选数据逗号分隔且超长展示省略号</h5>
+                <TreeSelect
+                  searchable
+                  maxTagCount={0}
+                  showTag={false}
+                  allowClear
+                  disabled={this.state.disabled}
+                  type="multiple"
+                  isUnfold
+                  containParentNode
+                  placeholder="选择一个选项"
+                  style={{ width: 328 }}
+                  dataSource={this.treeData}
+                  value={this.state.selectedNodes}
+                  onChange={this.handleChange}
+                />
+              </div>
+              <div>
+                <h5>多选-已选数据逗号分隔且超长可滚动</h5>
+                <TreeSelect
+                  searchable
+                  maxTagCount={0}
+                  showTag={false}
+                  scrollSelected
                   allowClear
                   disabled={this.state.disabled}
                   type="multiple"

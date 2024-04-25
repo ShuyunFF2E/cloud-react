@@ -6,9 +6,9 @@ import ShuyunUtils from 'shuyun-utils';
 import ContextProvider from '@contexts/context-provider';
 import { noop } from '@utils';
 
-import Tree from './tree';
+import Tree from './tree/tree';
 import Selected from './selected';
-import SingleTree from './single-tree';
+import SingleTree from './tree/single-tree';
 import { selector, SINGLE, MULTIPLE, getNodePath } from './const';
 
 import './index.less';
@@ -197,9 +197,9 @@ class TreeSelect extends Component {
     }
   };
 
-  handleSelect = () => {
+  handleSelect = ({ isClose = false } = {}) => {
     const { open } = this.state;
-    const { onSelectOpen, onSelectClose, open: propOpen, searchInBox, type } = this.props;
+    const { onSelectOpen, onSelectClose, open: propOpen, type } = this.props;
     if (open) {
       onSelectClose();
     } else {
@@ -211,7 +211,7 @@ class TreeSelect extends Component {
         setTimeout(() => {
           this.optionsNode.current.classList.add('show');
         });
-      } else if (!searchInBox || searchInBox && type === MULTIPLE || searchInBox && type !== MULTIPLE && !this.state.isSearch) {
+      } else if (type !== MULTIPLE && !this.state.isSearch || isClose) {
         this.optionsNode.current.classList.remove('show');
         setTimeout(() => {
           this.setState({ open: !open });
@@ -290,7 +290,7 @@ class TreeSelect extends Component {
       prevValue: selectedNodes,
     });
     this.props.onOk(node, selectedNodes);
-    this.handleSelect();
+    this.handleSelect({ isClose: true });
   };
 
   handleCancel = () => {
@@ -299,7 +299,7 @@ class TreeSelect extends Component {
       value: prevValue,
     });
     this.props.onCancel();
-    this.handleSelect();
+    this.handleSelect({ isClose: true });
   };
 
   handleReset = () => {
@@ -386,7 +386,6 @@ class TreeSelect extends Component {
           treeData={this.props.isDynamicLoad ? this.props.dataSource : this.state.treeData}
           disabled={disabled}
           searchable={searchable}
-          searchInBox={this.props.searchInBox}
           treeRef={this.treeRef}
           setSearchStatus={this.setSearchStatus}
           onMultiChange={this.onValueChange}
@@ -427,14 +426,15 @@ TreeSelect.propTypes = {
   onOk: PropTypes.func,
   onCancel: PropTypes.func,
   onReset: PropTypes.func,
-  searchInBox: PropTypes.bool,
   showTag: PropTypes.bool,
   maxTagCount: PropTypes.number,
+  scrollSelected: PropTypes.bool,
   dropdownStyle: PropTypes.object,
   dropdownClassName: PropTypes.string,
   position: PropTypes.oneOf(['top', 'bottom', 'auto']),
   maxHeight: PropTypes.number,
   size: PropTypes.oneOf(['small', 'default', 'large']),
+  borderRadiusSize: PropTypes.oneOf(['default', 'medium', 'large', 'circle']),
 };
 
 TreeSelect.defaultProps = {
@@ -460,14 +460,15 @@ TreeSelect.defaultProps = {
   onOk: noop,
   onCancel: noop,
   onReset: noop,
-  searchInBox: true,
   showTag: true,
   maxTagCount: 1,
+  scrollSelected: false,
   dropdownStyle: {},
   dropdownClassName: '',
   position: 'bottom',
   maxHeight: undefined,
   size: 'default',
+  borderRadiusSize: 'default',
 };
 
 export default TreeSelect;
