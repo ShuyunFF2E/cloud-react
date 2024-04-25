@@ -28,7 +28,7 @@ const dataList = [
     value: '4',
   },
   {
-    label: '超长超长超长超长超长超长',
+    label: '超长超长超长超长超长超长超长124414123超长超长',
     value: '5',
   },
 ];
@@ -41,35 +41,56 @@ export default function SelectDemo() {
 
   return (
     <div className="demo">
-      <div style={{ marginBottom: 15 }}>超长展示...，鼠标放上去，通过 title 标签的形式展示全部</div>
+      <h5>超长展示...，鼠标放上去，通过 title 标签的形式展示全部</h5>
       <Select
         isSupportTitle
-        defaultValue={'3'}
+        defaultValue={'5'}
         onChange={handleChange}
-        style={{ width: 120 }}
+        style={{ width: 328 }}
         dataSource={dataList}
       />
       <Select
         multiple
+        defaultValue={'5'}
         isSupportTitle
         onChange={handleChange}
-        style={{ width: 120 }}
+        style={{ width: 328 }}
         dataSource={dataList}
       />
-      <div style={{ marginBottom: 15, marginTop: 15 }}>下拉面板自适应宽度</div>
+      <h5>下拉面板自适应宽度</h5>
       <Select
-        defaultValue={'3'}
+        defaultValue={'5'}
         onChange={handleChange}
-        style={{ width: 120 }}
+        style={{ width: 328 }}
         dataSource={dataList}
         dropdownStyle={{ width: 'fit-content' }}
       />
       <Select
         multiple
+        defaultValue={'5'}
         onChange={handleChange}
-        style={{ width: 120 }}
+        style={{ width: 328 }}
         dataSource={dataList}
         dropdownStyle={{ width: 'fit-content' }}
+      />
+      <h5>超长可滚动</h5>
+      <Select
+        defaultValue={'5'}
+        onChange={handleChange}
+        style={{ width: 328 }}
+        dataSource={dataList}
+        scrollItem
+        scrollSelected
+      />
+      <Select
+        multiple
+        defaultValue={'5'}
+        onChange={handleChange}
+        style={{ width: 328 }}
+        dataSource={dataList}
+        showTag={false}
+        scrollItem
+        scrollSelected
       />
     </div>
   );

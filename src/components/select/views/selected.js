@@ -7,8 +7,9 @@ import { noop } from '@utils';
 import Icon from '../../icon';
 import { selector } from './common';
 
-import SingleSearch from './single-search';
-import MultiSearch from './multi-search';
+import SingleSearch from './search/single-search';
+import MultiSearch from './search/multi-search';
+import MultiCommaSearch from './search/multi-comma-search.js';
 
 import '../index.less';
 
@@ -131,7 +132,6 @@ export default class Selected extends React.Component {
         size,
         supportUnlimited,
         searchable,
-        searchInBox,
         multiple,
         onMultiChange,
         positionPop,
@@ -144,6 +144,8 @@ export default class Selected extends React.Component {
         maxHeight,
         showDesc,
         selectAllText,
+        borderRadiusSize,
+        scrollSelected,
       },
       state: { selected, clear },
       onMouseEnter,
@@ -153,9 +155,11 @@ export default class Selected extends React.Component {
       disabled,
       empty: supportUnlimited ? false : !dataSource.length,
       hidden: !showSelectStyle,
-      'search-in-box': !multiple && searchable && searchInBox,
-      'multi-search-in-box': multiple && (searchable && searchInBox || showTag),
+      'single-search-in-box': !multiple,
+      'multi-search-in-box': multiple && showTag,
+      'comma-search-in-box': multiple && !showTag,
       [`${size}`]: true,
+      [`border-radius-${borderRadiusSize}`]: true,
     });
     const iconClasses = classnames(`${selector}-select-icon`, {
       open,
@@ -182,11 +186,11 @@ export default class Selected extends React.Component {
     }
 
     let SearchCom = null;
-    if (searchable && searchInBox && !multiple) {
+    if (!multiple) {
       SearchCom = SingleSearch;
     }
-    if ((searchable && searchInBox || showTag) && multiple) {
-      SearchCom = MultiSearch;
+    if (multiple) {
+      SearchCom = showTag ? MultiSearch : MultiCommaSearch;
     }
 
     return (
@@ -216,12 +220,13 @@ export default class Selected extends React.Component {
             maxTagCount={maxTagCount}
             setSearchStatus={setSearchStatus}
             disabled={disabled}
-            searchable={searchable && searchInBox}
+            searchable={searchable}
             showDesc={showDesc}
             selectAllText={selectAllText}
+            scrollSelected={scrollSelected}
           />
         ) : (
-          <span className={`${selector}-selected`} title={title}>
+          <span className={`${selector}-selected ${scrollSelected ? 'scroll-selected' : 'overflow-ellipsis'}`} title={title}>
             {selected.length
               ? (
                 showDesc

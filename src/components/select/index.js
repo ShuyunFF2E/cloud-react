@@ -6,9 +6,9 @@ import ShuyunUtils from 'shuyun-utils';
 
 import { flat, noop } from '@utils';
 import ContextProvider from '@contexts/context-provider';
-import SingleSelect from './views/single-select';
-import MultiSelect from './views/multi-select';
-import GroupSelect from './views/group-select';
+import SingleSelect from './views/select/single-select';
+import MultiSelect from './views/select/multi-select';
+import GroupSelect from './views/select/group-select';
 import Selected from './views/selected';
 import Option from './views/option';
 import { selector } from './views/common';
@@ -48,6 +48,7 @@ const getOptions = (
   searchValue,
   supportLightText,
   lightTextColor,
+  scrollItem,
 ) => dataSource.map((v, index) => showDesc ? (
   <Option
     item={{ ...v, index }}
@@ -58,6 +59,7 @@ const getOptions = (
     searchValue={searchValue}
     supportLightText={supportLightText}
     lightTextColor={lightTextColor}
+    scrollItem={scrollItem}
   >
     {v[labelKey]}
     {v[descKey] ? <span className={`${selector}-desc`}>{v[descKey]}</span> : null}
@@ -72,6 +74,7 @@ const getOptions = (
     searchValue={searchValue}
     supportLightText={supportLightText}
     lightTextColor={lightTextColor}
+    scrollItem={scrollItem}
   >
     {v[labelKey]}
   </Option>
@@ -138,6 +141,7 @@ class Select extends Component {
           prevState?.searchValue,
           props.supportLightText,
           props.lightTextColor,
+          props.scrollItem,
         );
       const selected = getSelected(displayValue, source, dataSource);
       const emptyValue = multiple ? [] : '';
@@ -259,6 +263,7 @@ class Select extends Component {
       this.state?.searchValue,
       this.props.supportLightText,
       this.props.lightTextColor,
+      this.props.scrollItem,
     );
   }
 
@@ -286,6 +291,7 @@ class Select extends Component {
         descKey,
         showDesc,
         isSupportTitle,
+        this.props.scrollItem,
       );
       return (
         <div>
@@ -352,7 +358,7 @@ class Select extends Component {
 
   handleSelect = () => {
     const { open } = this.state;
-    const { onSelectOpen, onSelectClose, open: propOpen, searchInBox, multiple } = this.props;
+    const { onSelectOpen, onSelectClose, open: propOpen, multiple } = this.props;
 
     if (open) {
       onSelectClose();
@@ -366,7 +372,7 @@ class Select extends Component {
         setTimeout(() => {
           this.optionsNode.current.classList.add('show');
         });
-      } else if (!searchInBox || searchInBox && multiple || searchInBox && !multiple && !this.state.isSearch) {
+      } else if (!multiple && !this.state.isSearch || multiple && this.props.supportUnlimited) {
         this.optionsNode.current.classList.remove('show');
         setTimeout(() => {
           this.setState({ open: !open });
@@ -376,7 +382,7 @@ class Select extends Component {
   };
 
   onClickSelected = () => {
-    if (this.props.searchable && this.props.searchInBox && this.selectedNode.current.getSearchValue()) {
+    if (this.props.searchable && this.selectedNode.current.getSearchValue()) {
       return;
     }
     this.onSearchValueChange('');
@@ -625,7 +631,6 @@ Select.propTypes = {
   descKey: PropTypes.string,
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   searchable: PropTypes.bool,
-  searchInBox: PropTypes.bool,
   emptyRender: PropTypes.oneOfType([ PropTypes.string, PropTypes.node ]),
   defaultValue: PropTypes.oneOfType([
     PropTypes.string,
@@ -658,12 +663,15 @@ Select.propTypes = {
   unlimitedLabel: PropTypes.string,
   showTag: PropTypes.bool,
   maxTagCount: PropTypes.number,
+  scrollSelected: PropTypes.bool,
+  scrollItem: PropTypes.bool,
   dropdownStyle: PropTypes.object,
   dropdownClassName: PropTypes.string,
   position: PropTypes.oneOf(['top', 'bottom', 'auto']),
   maxHeight: PropTypes.number,
   showDesc: PropTypes.string,
   selectAllText: PropTypes.string,
+  borderRadiusSize: PropTypes.oneOf(['default', 'medium', 'large', 'circle']),
 };
 
 Select.defaultProps = {
@@ -681,7 +689,6 @@ Select.defaultProps = {
   descKey: 'desc',
   width: 'auto',
   searchable: false,
-  searchInBox: true,
   emptyRender: '',
   defaultValue: null,
   value: null,
@@ -705,12 +712,15 @@ Select.defaultProps = {
   unlimitedLabel: '不限',
   showTag: true,
   maxTagCount: 1,
+  scrollSelected: false,
+  scrollItem: false,
   dropdownStyle: {},
   dropdownClassName: '',
   position: 'bottom',
   maxHeight: undefined,
   showDesc: false,
   selectAllText: '全选',
+  borderRadiusSize: 'default',
 };
 
 export default Select;

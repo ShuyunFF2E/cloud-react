@@ -86,7 +86,7 @@ export default function SelectDemo() {
         searchable
         defaultValue={'3'}
         onChange={handleChange}
-        style={{ width: 300 }}
+        style={{ width: 328 }}
         dataSource={dataList}
       />
       <Select
@@ -95,36 +95,32 @@ export default function SelectDemo() {
         multiple
         defaultValue={['3', '4']}
         onChange={handleChange}
-        style={{ width: 300 }}
+        style={{ width: 328 }}
         dataSource={dataList}
       />
       <Select
         onChange={handleChange}
-        style={{ width: 300 }}
+        style={{ width: 328 }}
         showDesc
         searchable
         dataSource={groupList}
       />
-      <Select
-        showDesc
-        searchable
-        searchInBox={false}
-        defaultValue={'3'}
-        onChange={handleChange}
-        style={{ width: 300 }}
-        dataSource={dataList}
-      />
-      <Select
-        showDesc
-        searchable
-        multiple
-        searchInBox={false}
-        showTag={false}
-        defaultValue={['3', '4']}
-        onChange={handleChange}
-        style={{ width: 300 }}
-        dataSource={dataList}
-      />
+      {/*<Select*/}
+      {/*  showDesc*/}
+      {/*  searchable*/}
+      {/*  multiple*/}
+      {/*  showTag={false}*/}
+      {/*  defaultValue={['3', '4']}*/}
+      {/*  onChange={handleChange}*/}
+      {/*  style={{ width: 328 }}*/}
+      {/*>*/}
+      {/*  {dataList.map((item, index) => (*/}
+      {/*    <Option value={item.value} disabled={item.disabled} key={index}>*/}
+      {/*      <span>{item.label}</span>*/}
+      {/*      <p>232323</p>*/}
+      {/*    </Option>*/}
+      {/*  ))}*/}
+      {/*</Select>*/}
     </div>
   );
 }

@@ -19,7 +19,7 @@
 
 @default-padding: 6px;
 @default-margin: 5px;
-@default-border-radius: 2px;
+@default-border-radius: 3px;
 @large-padding: 10px;
 @item-padding: 6px 12px;
 
@@ -35,7 +35,7 @@
 @select-disabled-border: 1px solid @gray-4;
 @select-disabled-color: @gray-7;
 @dropdown-icon-color: @gray-6;
-@option-hover-background: @blue-1;
+@option-hover-background: @gray-3;
 @option-disabled-background: @color-white;
 @search-border: 1px solid @gray-4;
 @sign-color: @gray-6;
@@ -74,6 +74,7 @@
     justify-content: space-between;
     border-radius: @default-border-radius;
     cursor: pointer;
+    padding-right: 28px;
     &.default {
       height: @height;
     }
@@ -111,7 +112,8 @@
       }
 
       .@{select-prefix-cls}-single-select-selected,
-      &.search-in-box .@{select-prefix-cls}-single-search-selected {
+      &.single-search-in-box .@{select-prefix-cls}-search-selected,
+      &.comma-search-in-box .@{select-prefix-cls}-search-selected {
         color: @gray-7;
       }
 
@@ -140,21 +142,37 @@
     }
 
     // 单选-新-搜索框在输入框内
-    &.search-in-box {
-      padding: 6px 0 6px 12px;
+    &.single-search-in-box,
+    //多选-新-搜索框在输入框内
+    &.comma-search-in-box {
+      padding: 6px 28px 6px 12px;
 
-      .@{select-prefix-cls}-single-select-container {
+      .@{select-prefix-cls}-select-container {
         display: flex;
         align-items: center;
         flex: 1;
         width: calc(100% - 40px);
       }
 
-      .@{select-prefix-cls}-single-search-selected {
+      .@{select-prefix-cls}-search-selected {
         width: 100%;
         font-size: @font-size;
         color: @color-gray4;
-        .text-overflow-ellipsis();
+
+        &.overflow-ellipsis {
+          .text-overflow-ellipsis();
+        }
+
+        &.scroll-selected {
+          white-space: nowrap;
+          overflow: auto;
+
+          &::-webkit-scrollbar {
+            background: transparent;
+            width: 0;
+            height: 0;
+          }
+        }
       }
 
       .@{select-prefix-cls}-search {
@@ -179,6 +197,11 @@
           display: block;
         }
       }
+
+      .search-placeholder {
+        color: @gray-6;
+        font-size: 14px;
+      }
     }
 
     // 多选-新-搜索框在输入框内
@@ -188,7 +211,9 @@
       flex-wrap: wrap;
       justify-content: flex-start;
       gap: 4px;
-      padding: 4px 0 4px 8px;
+      padding-top: 4px;
+      padding-bottom: 4px;
+      padding-left: 8px;
       font-size: @font-size;
       color: @color-gray4;
 
@@ -199,10 +224,6 @@
         flex-wrap: wrap;
         gap: 4px;
         width: calc(100% - 30px);
-      }
-
-      &.empty {
-        padding: 4px 0 4px 12px;
       }
 
       &.large {
@@ -243,7 +264,7 @@
 
       .@{select-prefix-cls}-multi-search-placeholder {
         position: absolute;
-        color: rgba(0, 0, 0, 0.25);
+        color: @gray-6;
 
         .multi-unlimited {
           color: @gray-9;
@@ -273,7 +294,7 @@
 
         i {
           font-size: 12px;
-          color: #D8D8D8;
+          color: @gray-6;
         }
 
         &.disabled {
@@ -283,17 +304,41 @@
       }
     }
 
+    &.border-radius-medium {
+      border-radius: 6px;
+    }
+
+    &.border-radius-large {
+      border-radius: 12px;
+    }
+
     .@{select-prefix-cls}-selected {
       flex: 1 0;
-      padding: 0 12px;
+      padding: 0 6px;
       font-size: @font-size;
       color: @color-gray4;
       border: none;
-      .text-overflow-ellipsis();
       cursor: pointer;
+
+      &.overflow-ellipsis {
+        .text-overflow-ellipsis();
+      }
+
+      &.scroll-selected {
+        white-space: nowrap;
+        overflow: auto;
+
+        &::-webkit-scrollbar {
+          background: transparent;
+          width: 0;
+          height: 0;
+        }
+      }
     }
 
     .@{select-prefix-cls}-select-icon {
+      position: absolute;
+      right: 0;
       font-size: @dropdown-icon-size;
       color: @dropdown-icon-color;
       margin-right: 10px;
@@ -325,6 +370,8 @@
     }
 
     .@{select-prefix-cls}-search-icon {
+      position: absolute;
+      right: 0;
       display: none;
       background: white;
       z-index: 1;
@@ -365,7 +412,7 @@
   width: 100%;
   position: absolute;
   box-shadow: @border-shadow-4;
-  border-radius: 2px;
+  border-radius: 6px;
   padding: 8px 0;
   background: @color-white;
   transition: opacity 0.2s;
@@ -447,7 +494,43 @@
     width: 100%;
     line-height: @height - @default-padding * 2;
     padding: @item-padding;
-    .text-overflow-ellipsis();
+    white-space: nowrap;
+    display: flex;
+    cursor: pointer;
+
+    .option-content {
+      flex: 1;
+    }
+
+    &.overflow-ellipsis {
+      .option-content {
+        .text-overflow-ellipsis();
+      }
+    }
+
+    &.scroll-item {
+      .option-content {
+        overflow: auto;
+
+        &::-webkit-scrollbar {
+          background: transparent;
+          width: 0;
+          height: 0;
+        }
+      }
+
+      &.@{select-prefix-cls}-multi-option {
+        .option-content {
+          overflow: auto;
+
+          &::-webkit-scrollbar {
+            background: transparent;
+            width: 0;
+            height: 0;
+          }
+        }
+      }
+    }
 
     &.@{select-prefix-cls}-option-select-all {
       height: auto;
@@ -466,24 +549,6 @@
 
     &.selected {
       background: @blue-2;
-    }
-  }
-
-  .@{select-prefix-cls}-multi-option {
-    display: flex;
-    cursor: pointer;
-
-    > span {
-      flex: 1;
-      .text-overflow-ellipsis();
-      text-align: left;
-      min-height: 20px;
-      //display: flex;
-      //align-items: center;
-
-      > span {
-        .text-overflow-ellipsis();
-      }
     }
   }
 

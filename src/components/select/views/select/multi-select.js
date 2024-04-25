@@ -9,12 +9,12 @@ import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import { noop } from '@utils';
 
-import Checkbox from '../../checkbox';
-import Button from '../../button';
-import { OptionsEmpty, OptionsSearch, selector } from './common';
-import { filterOptions } from '../utils';
+import Checkbox from '../../../checkbox';
+import Button from '../../../button';
+import { OptionsEmpty, selector } from '../common';
+import { filterOptions } from '../../utils';
 
-import '../index.less';
+import '../../index.less';
 
 const ConfirmBtn = ({
   onOk,
@@ -39,23 +39,18 @@ const ConfirmBtn = ({
 export default function MultiSelect(props) {
   const {
     dataSource,
-    searchable,
     hasSelectAll,
     hasConfirmButton,
     okBtnText,
     cancelBtnText,
-    searchPlaceholder,
     value,
     emptyRender,
     onChange,
-    onSearch,
     onOk,
     onCancel,
     confirmTemplate,
     className,
     searchValue,
-    searchInBox,
-    onSearchValueChange: setSearchValue,
     supportUnlimited,
     handleSelect,
     selectAllText,
@@ -119,16 +114,6 @@ export default function MultiSelect(props) {
     [ options, values ],
   );
 
-  const onOptionsSearch = (e) => {
-    const { value: search } = e.target;
-    setSearchValue(search);
-    onSearch(search);
-  };
-
-  const clearSearch = () => {
-    setSearchValue('');
-  };
-
   useEffect(() => {
     const result = filterOptions(dataSource, searchValue);
     setOptions(result);
@@ -149,14 +134,6 @@ export default function MultiSelect(props) {
   return (
     <div className={classNames}>
       <div>
-        {searchable && !searchInBox && (
-          <OptionsSearch
-            searchValue={searchValue}
-            placeholder={searchPlaceholder}
-            onOptionsSearch={onOptionsSearch}
-            clearSearch={clearSearch}
-          />
-        )}
         {!views.length && <OptionsEmpty emptyRender={emptyRender} />}
         <div className={`${selector}-multiple-options`}>
           <div className={`${selector}-option-list`}>
@@ -189,15 +166,12 @@ export default function MultiSelect(props) {
 
 MultiSelect.propTypes = {
   dataSource: PropTypes.array,
-  searchable: PropTypes.bool,
-  searchPlaceholder: PropTypes.string,
   value: PropTypes.array,
   hasConfirmButton: PropTypes.bool,
   okBtnText: PropTypes.string,
   cancelBtnText: PropTypes.string,
   className: PropTypes.string,
   onChange: PropTypes.func,
-  onSearch: PropTypes.func,
   onOk: PropTypes.func,
   onCancel: PropTypes.func,
   supportUnlimited: PropTypes.bool,
@@ -205,15 +179,12 @@ MultiSelect.propTypes = {
 
 MultiSelect.defaultProps = {
   dataSource: [],
-  searchable: false,
-  searchPlaceholder: '',
   value: [],
   hasConfirmButton: false,
   okBtnText: '',
   cancelBtnText: '',
   className: '',
   onChange: noop,
-  onSearch: noop,
   onOk: noop,
   onCancel: noop,
   supportUnlimited: false,

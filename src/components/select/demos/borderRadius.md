@@ -5,6 +5,10 @@ desc: 基本使用
 ---
 
 ```jsx
+/**
+ * title: 自定义圆角
+ * desc: 自定义圆角
+ */
 import React, { useState } from 'react';
 import { Select } from 'cloud-react';
 
@@ -30,24 +34,30 @@ const dataList = [
 ];
 
 export default function SelectDemo() {
-  const [multiDataList, setDataList] = useState(dataList);
+  const handleChange = (value, prevValue) => {
+    console.log('select --- ' + value);
+    console.log('prevSelect --- ' + prevValue);
+  };
 
   return (
     <div className="demo">
       <Select
-        placeholder="多选支持全选"
-        hasSelectAll
+        onChange={handleChange}
         style={{ width: 328 }}
-        multiple
-        dataSource={multiDataList}
+        dataSource={dataList}
+        borderRadiusSize="default"
       />
       <Select
-        placeholder="多选自定义全选文案"
-        hasSelectAll
-        selectAllText="全选全部"
+        onChange={handleChange}
         style={{ width: 328 }}
-        multiple
-        dataSource={multiDataList}
+        dataSource={dataList}
+        borderRadiusSize="medium"
+      />
+      <Select
+        onChange={handleChange}
+        style={{ width: 328 }}
+        dataSource={dataList}
+        borderRadiusSize="large"
       />
     </div>
   );

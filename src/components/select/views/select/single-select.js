@@ -9,10 +9,10 @@ import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import { noop } from '@utils';
 
-import { OptionsEmpty, OptionsSearch, selector } from './common';
-import { filterOptions } from '../utils';
+import { OptionsEmpty, selector } from '../common';
+import { filterOptions } from '../../utils';
 
-import '../index.less';
+import '../../index.less';
 
 const scrollIntoView = (index) => {
   const els = document.getElementsByClassName(`${selector}-single-options`)[0];
@@ -24,16 +24,11 @@ const scrollIntoView = (index) => {
 export default function SingleSelect(props) {
   const {
     dataSource,
-    searchable,
-    searchInBox,
     value,
     emptyRender,
     onChange,
-    onSearch,
-    searchPlaceholder,
     className,
     searchValue = '',
-    onSearchValueChange: setSearchValue,
   } = props;
   const [ options, setOptions ] = useState(dataSource);
   const classNames = classnames(`${selector}-select-options`, className);
@@ -59,16 +54,6 @@ export default function SingleSelect(props) {
     [ options, value ],
   );
 
-  const onOptionsSearch = (e) => {
-    const { value: search } = e.target;
-    setSearchValue(search);
-    onSearch(search);
-  };
-
-  const clearSearch = () => {
-    setSearchValue('');
-  };
-
   useEffect(() => {
     const result = filterOptions(dataSource, searchValue);
     setOptions(result);
@@ -77,14 +62,6 @@ export default function SingleSelect(props) {
   return (
     <div className={classNames}>
       <div className={`${selector}-single-options`}>
-        {searchable && !searchInBox && (
-          <OptionsSearch
-            searchValue={searchValue}
-            placeholder={searchPlaceholder}
-            onOptionsSearch={onOptionsSearch}
-            clearSearch={clearSearch}
-          />
-        )}
         {views}
         {!views.length && <OptionsEmpty emptyRender={emptyRender} />}
       </div>
@@ -94,20 +71,14 @@ export default function SingleSelect(props) {
 
 SingleSelect.propTypes = {
   dataSource: PropTypes.oneOfType([ PropTypes.object, PropTypes.array ]),
-  searchable: PropTypes.bool,
-  searchPlaceholder: PropTypes.string,
   value: PropTypes.oneOfType([ PropTypes.string, PropTypes.number ]),
   className: PropTypes.string,
   onChange: PropTypes.func,
-  onSearch: PropTypes.func,
 };
 
 SingleSelect.defaultProps = {
   dataSource: [],
-  searchable: false,
-  searchPlaceholder: '',
   value: '',
   className: '',
   onChange: noop,
-  onSearch: noop,
 };

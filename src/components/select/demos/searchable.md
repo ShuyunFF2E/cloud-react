@@ -76,7 +76,7 @@ export default function SelectDemo() {
         <Radio value="small">small</Radio>
       </Radio.Group>
       <div>
-        <h5>搜索框在下拉框外（单选-新）</h5>
+        <h5>单选</h5>
         <Select
           size={size}
           searchable
@@ -86,13 +86,28 @@ export default function SelectDemo() {
           placeholder="带搜索的下拉单选"
           onSearch={handleSearch}
           onChange={handleChange}
-          style={{width: 260}}
+          style={{width: 328}}
           dataSource={dataList}
-          // size="large"
         />
       </div>
       <div>
-        <h5>搜索框在下拉框外（多选-新）</h5>
+        <h5>单选-已选数据超长可滚动</h5>
+        <Select
+          size={size}
+          searchable
+          allowClear
+          disabled={disabled}
+          supportLightText
+          placeholder="带搜索的下拉单选"
+          onSearch={handleSearch}
+          onChange={handleChange}
+          style={{width: 328}}
+          dataSource={dataList}
+          scrollSelected
+        />
+      </div>
+      <div>
+        <h5>多选</h5>
         <Select
           size={size}
           hasSelectAll
@@ -104,7 +119,7 @@ export default function SelectDemo() {
           placeholder="带搜索的下拉多选"
           onSearch={handleSearch}
           onChange={handleChange}
-          style={{width: 260}}
+          style={{width: 328}}
           labelKey="name"
           valueKey="userId"
           dataSource={dataList.map(item => ({
@@ -114,7 +129,7 @@ export default function SelectDemo() {
         />
       </div>
       <div>
-        <h5>搜索框在下拉框外（多选限制标签数量-新）</h5>
+        <h5>多选-限制标签展示数量</h5>
         <Select
           size={size}
           hasSelectAll
@@ -126,45 +141,85 @@ export default function SelectDemo() {
           placeholder="带搜索的下拉多选"
           onSearch={handleSearch}
           onChange={handleChange}
-          style={{width: 260}}
+          style={{width: 328}}
           dataSource={dataList}
           maxTagCount={5}
         />
       </div>
       <div>
-        <h5 style={{ color: 'rgba(0,0,0,0.45)', fontWeight: 400 }}>搜索框在下拉框内（单选-旧）</h5>
-        <Select
-          size={size}
-          searchable
-          searchInBox={false}
-          allowClear
-          disabled={disabled}
-          supportLightText
-          placeholder="带搜索的下拉单选"
-          onSearch={handleSearch}
-          onChange={handleChange}
-          style={{width: 260}}
-          dataSource={dataList}
-          position="auto"
-        />
-      </div>
-      <div>
-        <h5 style={{ color: 'rgba(0,0,0,0.45)', fontWeight: 400 }}>搜索框在下拉框内（多选-旧）</h5>
+        <h5>多选-不限制标签展示数量</h5>
         <Select
           size={size}
           hasSelectAll
-          multiple
           searchable
-          searchInBox={false}
-          showTag={false}
           allowClear
           disabled={disabled}
+          multiple
           supportLightText
-          placeholder="带搜索的下拉单选"
+          placeholder="带搜索的下拉多选"
           onSearch={handleSearch}
           onChange={handleChange}
-          style={{width: 260}}
+          style={{width: 328}}
           dataSource={dataList}
+          maxTagCount={0}
+        />
+      </div>
+      <div>
+        <h5>多选-不限制标签展示数量且展示滚动条</h5>
+        <Select
+          size={size}
+          hasSelectAll
+          searchable
+          allowClear
+          disabled={disabled}
+          multiple
+          supportLightText
+          placeholder="带搜索的下拉多选"
+          onSearch={handleSearch}
+          onChange={handleChange}
+          style={{width: 328}}
+          dataSource={dataList}
+          maxTagCount={0}
+          maxHeight={80}
+        />
+      </div>
+      <div>
+        <h5>多选-已选数据逗号分隔且超长展示省略号</h5>
+        <Select
+          size={size}
+          hasSelectAll
+          searchable
+          allowClear
+          disabled={disabled}
+          multiple
+          supportLightText
+          placeholder="带搜索的下拉多选"
+          onSearch={handleSearch}
+          onChange={handleChange}
+          style={{width: 328}}
+          dataSource={dataList}
+          maxTagCount={0}
+          showTag={false}
+        />
+      </div>
+      <div>
+        <h5>多选-已选数据逗号分隔且超长可滚动</h5>
+        <Select
+          size={size}
+          hasSelectAll
+          searchable
+          allowClear
+          disabled={disabled}
+          multiple
+          supportLightText
+          placeholder="带搜索的下拉多选"
+          onSearch={handleSearch}
+          onChange={handleChange}
+          style={{width: 328}}
+          dataSource={dataList}
+          maxTagCount={0}
+          showTag={false}
+          scrollSelected
         />
       </div>
     </div>

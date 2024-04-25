@@ -34,7 +34,6 @@ const dataList = [
 ];
 
 export default function SelectDemo() {
-  const [multiDataList, setDataList] = useState(dataList);
   const handleChange = (value, prevValue) => {
     console.log('select --- ' + value);
     console.log('prevSelect --- ' + prevValue);
@@ -42,80 +41,27 @@ export default function SelectDemo() {
 
   return (
     <div className="demo">
-      <Select
-        defaultValue={'3'}
-        onChange={handleChange}
-        style={{ width: 120 }}
-      >
-        {dataList.map((item, index) => (
-          <Option value={item.value} disabled={item.disabled} key={index}>
-            {item.label}
-          </Option>
-        ))}
-      </Select>
-      <Select
-        defaultValue={'3'}
-        disabled
-        onChange={handleChange}
-        style={{ width: 120 }}
-      >
-        {dataList.map((item, index) => (
-          <Option value={item.value} disabled={item.disabled} key={index}>
-            {item.label}
-          </Option>
-        ))}
-      </Select>
-      <br/>
-      <Select
-        placeholder="多选有tag"
-        onChange={values => {
-          if (values.length > 1) {
-            setDataList(multiDataList.map((item, index) => ({
-              ...item,
-              disabled: !values.includes(item.value)
-            })))
-          } else {
-            setDataList(multiDataList.map((item, index) => ({
-              ...item,
-              disabled: false
-            })))
-          }
-        }}
-        style={{ width: 220 }}
-        multiple
-      >
-        {multiDataList.map((item, index) => (
-          <Option value={item.value} disabled={item.disabled} key={`${index}-${item.disabled}`}>
-            {item.label}
-          </Option>
-        ))}
-      </Select>
-      <Select
-        placeholder="多选无tag"
-        style={{ width: 220 }}
-        multiple
-        showTag={false}
-      >
-        {multiDataList.map((item, index) => (
-          <Option value={item.value} key={`${index}-${item.disabled}`}>
-            {item.label}
-          </Option>
-        ))}
-      </Select>
-      <br/>
-      <Select
-        defaultValue={'3'}
-        onChange={handleChange}
-        style={{ width: 120 }}
-        allowClear
-      >
-        {dataList.map((item, index) => (
-          <Option value={item.value} disabled={item.disabled} key={index}>
-            {item.label}
-          </Option>
-        ))}
-      </Select>
-      <Select dataSource={[]} style={{ width: 220 }}></Select>
+      <div style={{ display: 'flex', gap: 30 }}>
+        <div>
+          <h5>单选</h5>
+          <Select
+            style={{ width: 328 }}
+            allowClear
+            onChange={handleChange}
+            dataSource={dataList}
+          />
+        </div>
+        <div>
+          <h5>多选</h5>
+          <Select
+            style={{ width: 328 }}
+            multiple
+            allowClear
+            onChange={handleChange}
+            dataSource={dataList}
+          />
+        </div>
+      </div>
     </div>
   );
 }

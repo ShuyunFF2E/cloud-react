@@ -38,9 +38,10 @@ group:
 | defaultOpen       | 默认下拉菜单展开状态                                                                                                                                 | boolean                                 | false          |
 | open              | 下拉菜单展开状态，当使用此属性时组件本身 open 行为失效                                                                                               | boolean                                 | false             |
 | placeholder       | 选择框默认文案                                                                                                                                       | string                                  | -              |
-| searchable        | 使下拉框带搜索                                                                                                                                       | boolean                                 | false          |
-| searchInBox        | 搜索框在输入框内                                                                                                                                      | boolean                                 | true          |
-| showTag           | 多选下拉已选项为tag形式                                                                                                                      |  boolean                                 | true          |
+| searchable        | 支持搜索                                                                                                                                       | boolean                                 | false          |
+| showTag           | 多选下拉已选项为tag形式，如果设置成 `false`，则已选项为逗号分隔的形式，超长展示省略号                                                                                                                      |  boolean                                 | true          |
+| scrollSelected    | 设置 `scrollSelected` 为 `true`，则已选项超长可滚动                                                                                                                      |  boolean                                 | false          |
+| scrollItem    | 设置 `scrollItem` 为 `true`，则下拉选项超长可滚动                                                                                                                      |  boolean                                 | false          |
 | maxTagCount        | 多选下拉最多显示多少个tag                                                                                                                      | number                                 | 1          |
 | maxHeight        | 多选下拉框最大高度        | number                                 | -          |
 | searchPlaceholder | 搜索框默认文案                                                                                                                                       | string                                  | -              |
@@ -75,6 +76,7 @@ group:
 | dropdownClassName   | 下拉框类名                                                                                                         |  string          | -   |
 | dropdownStyle   | 下拉框样式                                                                                                       |  object          | {}   |
 | selectAllText   | 全选文案                                                                                                       |   string          | '全选'   |
+| borderRadiusSize  | 边框圆角 `default` `medium` `large`     | string | `default`         |
 
 ### Option Props
 
@@ -94,17 +96,8 @@ group:
 ### 大小
 <embed src="@components/select/demos/sizeSelect.md" />
 
-### 定制化选项
-<embed src="@components/select/demos/customItem.md" />
-
-### 不可用
-<embed src="@components/select/demos/disabled.md" />
-
-### 指定使用的键值
-<embed src="@components/select/demos/key.md" />
-
-### 触发方式
-<embed src="@components/select/demos/trigger.md" />
+### 可搜索
+<embed src="@components/select/demos/searchable.md" />
 
 ### 分组
 <embed src="@components/select/demos/group.md" />
@@ -115,20 +108,32 @@ group:
 ### 分组可搜索
 <embed src="@components/select/demos/groupSearch.md" />
 
-### 可搜索
-<embed src="@components/select/demos/searchable.md" />
+### 带描述
+<embed src="@components/select/demos/desc.md" />
 
-### 多选下拉支持不限
-<embed src="@components/select/demos/unlimited.md" />
+[comment]: <> (### 带确认按钮)
+[comment]: <> (<embed src="@components/select/demos/customConfirmBtn.md" />)
 
 ### 弹出位置
 <embed src="@components/select/demos/position.md" />
 
-### 带描述
-<embed src="@components/select/demos/desc.md" />
-
 ### 全选
 <embed src="@components/select/demos/selectAll.md" />
 
-### 超长的两种展示方式
+### 圆角
+<embed src="@components/select/demos/borderRadius.md" />
+
+### 定制化选项
+<embed src="@components/select/demos/customItem.md" />
+
+### 多选下拉支持不限
+<embed src="@components/select/demos/unlimited.md" />
+
+### 指定使用的键值
+<embed src="@components/select/demos/key.md" />
+
+### 超长
 <embed src="@components/select/demos/ellipsis.md" />
+
+### 触发方式
+<embed src="@components/select/demos/trigger.md" />

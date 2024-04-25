@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 import React, { useEffect, useRef, useState } from 'react';
-import { selector } from './common';
-import Input from '../../input';
+import { selector } from '../common';
+import Input from '../../../input';
 
 export default function SingleSearch({
   selected,
@@ -9,10 +9,12 @@ export default function SingleSearch({
   placeholder,
   open,
   searchValue,
+  searchable,
   onSearchValueChange,
   onSearch,
   setSearchStatus,
   disabled,
+  scrollSelected,
 }) {
   const searchRef = useRef();
   const [isFocusSearchInput, setIsFocusSearchInput] = useState(false);
@@ -43,24 +45,26 @@ export default function SingleSearch({
   }, [selected]);
 
   useEffect(() => {
-    if (open) {
-      setIsFocusSearchInput(true);
-      searchRef.current.querySelector('input').focus();
-    } else {
-      setIsFocusSearchInput(false);
+    if (searchable) {
+      if (open) {
+        setIsFocusSearchInput(true);
+        searchRef.current.querySelector('input').focus();
+      } else {
+        setIsFocusSearchInput(false);
+      }
+      clearSearchValue();
     }
-    clearSearchValue();
-  }, [open]);
+  }, [open, searchable]);
 
   useEffect(() => {
     setSearchStatus(isFocusSearchInput);
   }, [isFocusSearchInput]);
 
   return (
-    <div className={`${selector}-single-select-container`}>
+    <div className={`${selector}-select-container`}>
       {/* 有已选 && 未聚焦：展示黑色*/}
       <span
-        className={`${selector}-single-search-selected`}
+        className={`${selector}-search-selected ${scrollSelected ? 'scroll-selected' : 'overflow-ellipsis'}`}
         style={!!selected.length && !isFocusSearchInput ? {} : { visibility: 'hidden', width: 0 }}
       >
         {(showDesc
@@ -68,20 +72,24 @@ export default function SingleSearch({
           : selected?.[0]) || '-'}
       </span>
       <div ref={searchRef} className={`${selector}-search`}>
-        <Input
-          disabled={disabled}
-          // useComposition
-          value={searchValue}
-          placeholder={searchPlaceholder}
-          onChange={onOptionsSearch}
-          className={`${selector}-search-input`}
-          onFocus={() => {
-            setIsFocusSearchInput(true);
-          }}
-          onBlur={() => {
-            setIsFocusSearchInput(false);
-          }}
-        />
+        {searchable ? (
+          <Input
+            disabled={disabled}
+            // useComposition
+            value={searchValue}
+            placeholder={searchPlaceholder}
+            onChange={onOptionsSearch}
+            className={`${selector}-search-input`}
+            onFocus={() => {
+              setIsFocusSearchInput(true);
+            }}
+            onBlur={() => {
+              setIsFocusSearchInput(false);
+            }}
+          />
+        ) : (
+          <span className="search-placeholder">{searchPlaceholder}</span>
+        )}
       </div>
     </div>
   );

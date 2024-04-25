@@ -42,7 +42,7 @@ export default function SelectDemo() {
           allowClear
           onSearch={handleSearch}
           onChange={handleChange}
-          style={{width: 260}}
+          style={{ width: 328 }}
           dataSource={dataList}
           position="top"
           dropdownStyle={{ width: 200 }}
@@ -54,7 +54,7 @@ export default function SelectDemo() {
           allowClear
           onSearch={handleSearch}
           onChange={handleChange}
-          style={{width: 260}}
+          style={{ width: 328 }}
           dataSource={dataList}
           position="top"
           dropdownStyle={{ width: 200, right: 0 }}
@@ -66,7 +66,7 @@ export default function SelectDemo() {
           allowClear
           onSearch={handleSearch}
           onChange={handleChange}
-          style={{width: 260}}
+          style={{ width: 328 }}
           dataSource={dataList}
           position="bottom"
           dropdownStyle={{ width: 200 }}
@@ -78,7 +78,7 @@ export default function SelectDemo() {
           allowClear
           onSearch={handleSearch}
           onChange={handleChange}
-          style={{width: 260}}
+          style={{ width: 328 }}
           dataSource={dataList}
           position="bottom"
           dropdownStyle={{ width: 200, right: 0 }}

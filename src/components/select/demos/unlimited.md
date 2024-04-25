@@ -53,9 +53,8 @@ export default function SelectDemo() {
         onChange={values => {
           setValue(values);
         }}
-        style={{ width: 200 }}
+        style={{ width: 328 }}
         multiple
-        allowClear
         supportUnlimited
         searchable
         unlimitedLabel="不限语言"

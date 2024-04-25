@@ -23,6 +23,7 @@ export default function Option(props) {
     lightTextColor,
     hideCheckbox,
     onUnlimitedChange,
+    scrollItem,
     ...otherProps
   } = props;
 
@@ -55,7 +56,7 @@ export default function Option(props) {
     onChange(props);
   };
   const classNames = classnames(
-    `${selector}-option`,
+    `${selector}-option ${scrollItem ? 'scroll-item' : 'overflow-ellipsis'}`,
     { disabled, selected: isSelected },
     className,
   );
@@ -68,7 +69,7 @@ export default function Option(props) {
         className={classnames(classNames, `${selector}-multi-option`)}
         onClick={onUnlimitedChange}
       >
-        <span title={getTitle(children)}>{getLabel(children)}</span>
+        <span className="option-content" title={getTitle(children)}>{getLabel(children)}</span>
       </label>
     ) : (
       <label className={classnames(classNames, `${selector}-multi-option`)}>
@@ -78,7 +79,7 @@ export default function Option(props) {
           value={value}
           onChange={onChange}
         />
-        <span title={getTitle(children)}>{getLabel(children)}</span>
+        <span className="option-content" title={getTitle(children)}>{getLabel(children)}</span>
       </label>
     );
   }
@@ -94,9 +95,9 @@ export default function Option(props) {
       <div
         {...others}
         onClick={onOptionClick}
-        className={classnames(classNames, `${selector}-multi-option`)}
+        className={classNames}
       >
-        <span title={getTitle(children)}>{getLabel(children)}</span>
+        <span className="option-content" title={getTitle(children)}>{getLabel(children)}</span>
         {isSelected && (
           <Icon
             type="finish"
