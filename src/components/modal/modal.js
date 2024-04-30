@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import {
-  prefixCls, getCssText, noop, sandboxSelector,
-} from '@utils';
+import { prefixCls, getCssText, noop, sandboxSelector } from '@utils';
 import ContextProvider from '@contexts/context-provider';
 import { CSSTransition } from 'react-transition-group';
 
@@ -312,6 +310,7 @@ class Notification extends Component {
       onOk,
       onClose,
       onCancel,
+      infoText,
     } = this.props;
 
     if (!visible && !this.state.preVisible) {
@@ -401,6 +400,7 @@ class Notification extends Component {
                 cancelText={cancelText}
                 disabledOk={disabledOk}
                 showConfirmLoading={showConfirmLoading}
+                infoText={infoText}
               />
             </div>
           </CSSTransition>
@@ -480,6 +480,7 @@ function ModalFooter({
   footer,
   okText,
   cancelText,
+  infoText,
   okBtnOpts,
   cancelBtnOpts,
   hasFooter,
@@ -516,7 +517,7 @@ function ModalFooter({
     return (
       <footer style={style} className={footerClass}>
         <Button type="primary" size="large" onClick={cancel}>
-          知道了
+          {infoText || '知道了'}
         </Button>
       </footer>
     );

@@ -15,11 +15,19 @@ import { InputNumber } from 'cloud-react';
 
 export default function InputDemo() {
   return (
-    <div>
-      <InputNumber style={{ marginBottom: 20, width: 200 }} placeholder="请输入" size="small" noStep addonAfter="分" />
-      <InputNumber style={{ marginBottom: 20, width: 200 }} placeholder="请输入" noStep addonAfter="分" />
-      <InputNumber style={{ marginBottom: 20, width: 200 }} placeholder="请输入" size="large" noStep addonAfter="分" />
-      <InputNumber style={{ width: 200 }} placeholder="请输入" addonBefore="¥" />
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 10, flexWrap: 'wrap' }}>
+      <h5>后置</h5>
+      <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+        <InputNumber style={{ width: 200 }} placeholder="请输入" size="large" noStep addonAfter="分" />
+        <InputNumber style={{ width: 200 }} placeholder="请输入" noStep addonAfter="次" />
+        <InputNumber style={{ width: 200 }} placeholder="请输入" size="small" noStep addonAfter="份" />
+      </div>
+      <h5>前置</h5>
+      <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+        <InputNumber style={{ width: 200 }} placeholder="请输入" size="large" addonBefore="¥" />
+        <InputNumber style={{ width: 200 }} placeholder="请输入" addonBefore="$" />
+        <InputNumber style={{ width: 200 }} placeholder="请输入" size="small" addonBefore="¥" />
+      </div>
     </div>
   );
 }
