@@ -66,6 +66,7 @@ Modal.warning(config)
 | body       | 提示信息内容, 支持 jsx 语法直接传入 dom 节点  | any      | `--`   |
 | okText             | 确定按钮自定义文本                       | string              | `确定`  |
 | cancelText         | 取消按钮自定义文本                       | string              | `取消`  |
+| infoText         | 使用 `Modal.info` `Modal.success` `Modal.error` `Modal.warning` 时按钮自定义文本                       | string              | `知道了`  |
 | onOk       | 确定按钮回调函数，仅`Modal.confirm()`函数支持 | function | `--`   |
 | onClose    | 取消按钮回调函数                              | function | `--`   |
 | className          | 设置弹出框样式名称                       | string              | -       |
