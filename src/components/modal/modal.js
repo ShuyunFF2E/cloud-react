@@ -319,6 +319,7 @@ class Notification extends Component {
       onCancel,
       supportDrag,
       borderRadiusSize,
+      infoText,
     } = this.props;
 
     if (!visible && !this.state.preVisible) {
@@ -410,6 +411,7 @@ class Notification extends Component {
                 cancelText={cancelText}
                 disabledOk={disabledOk}
                 showConfirmLoading={showConfirmLoading}
+                infoText={infoText}
               />
             </div>
           </CSSTransition>
@@ -494,6 +496,7 @@ function ModalFooter({
   footer,
   okText,
   cancelText,
+  infoText,
   okBtnOpts,
   cancelBtnOpts,
   hasFooter,
@@ -530,7 +533,7 @@ function ModalFooter({
     return (
       <footer style={style} className={footerClass}>
         <Button type="primary" size="large" onClick={cancel}>
-          知道了
+          {infoText || '知道了'}
         </Button>
       </footer>
     );
