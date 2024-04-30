@@ -51,7 +51,7 @@ export default function SelectDemo() {
       />
       <Select
         multiple
-        defaultValue={'5'}
+        defaultValue={['5']}
         isSupportTitle
         onChange={handleChange}
         style={{ width: 328 }}
@@ -67,7 +67,7 @@ export default function SelectDemo() {
       />
       <Select
         multiple
-        defaultValue={'5'}
+        defaultValue={['5']}
         onChange={handleChange}
         style={{ width: 328 }}
         dataSource={dataList}
@@ -84,7 +84,7 @@ export default function SelectDemo() {
       />
       <Select
         multiple
-        defaultValue={'5'}
+        defaultValue={['5']}
         onChange={handleChange}
         style={{ width: 328 }}
         dataSource={dataList}

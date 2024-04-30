@@ -6,7 +6,6 @@ import Icon from '../icon';
 import './index.less';
 
 function CDrawer(props) {
-  console.log('props', props);
   const {
     drawerStyle,
     children,

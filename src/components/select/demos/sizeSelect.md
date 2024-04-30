@@ -66,6 +66,17 @@ export default function SelectDemo() {
           </Option>
         ))}
       </Select>
+      <Select
+        style={{ width: 65 }}
+        allowClear
+        size={size}
+        placeholder=""
+        defaultValue="1"
+        dataSource={[
+          { label: '且', value: '1' },
+          { label: '或', value: '2' },
+        ]}
+      />
     </div>
   );
 }

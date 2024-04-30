@@ -41,7 +41,7 @@ export default function SelectDemo() {
 
   return (
     <div className="demo">
-      <div style={{ display: 'flex', gap: 30 }}>
+      <div style={{ display: 'flex', gap: 30, flexWrap: 'wrap' }}>
         <div>
           <h5>单选</h5>
           <Select
