@@ -10,8 +10,8 @@ export default function TimeRangeTpl({
   startValue,
   endValue,
 }) {
-  const start = startValue || row[startKey];
-  const end = endValue || row[endKey];
+  const start = startValue || row?.[startKey];
+  const end = endValue || row?.[endKey];
   if (!start && !end) {
     return '-';
   }
