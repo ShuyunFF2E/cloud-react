@@ -27,8 +27,8 @@ export default function LinkTpl({ value, row, linkKey, link }) {
         ref={ref}
         className={`${prefixCls}-table-column-tpl-link`}
         onClick={() => {
-          if (link || row[linkKey]) {
-            window.open(link || row[linkKey]);
+          if (link || row?.[linkKey]) {
+            window.open(link || row?.[linkKey]);
           }
         }}
       >

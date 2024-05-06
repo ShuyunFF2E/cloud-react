@@ -27,8 +27,8 @@ export default function MultiLinkTpl({ value, row, linkKey }) {
         ref={ref}
         className={`${prefixCls}-table-column-tpl-multi-link`}
         onClick={() => {
-          if (row[linkKey]) {
-            window.open(row[linkKey]);
+          if (row?.[linkKey]) {
+            window.open(row?.[linkKey]);
           }
         }}
       >
