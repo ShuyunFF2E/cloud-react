@@ -62,6 +62,13 @@ const data = [
       { label: '标签4', value: 4 }
     ]
   },
+  {
+    number: null,
+    startTime: '',
+    endTime: '',
+    name: '',
+    tagInfo: []
+  },
 ];
 
 const columns = [
@@ -86,7 +93,7 @@ const columns = [
     dataIndex: 'startTime',
     width: 160,
     render: (val, row) => {
-      return <CTable.TimeRangeTpl value={val} format="YYYY-MM-DD" startValue={row.startTime} endValue={row.endTime} />
+      return <CTable.TimeRangeTpl format="YYYY-MM-DD" startValue={row.startTime} endValue={row.endTime} />
     }
   },
   {

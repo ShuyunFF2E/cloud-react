@@ -50,6 +50,10 @@ const data = [
       { label: '标签4标签4标签4标签4标签4标签4标签4标签4', value: 4 }
     ]
   },
+  {
+    tag: [],
+    tagInfo: []
+  },
 ];
 
 const columns = [
