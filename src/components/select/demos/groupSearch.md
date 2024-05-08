@@ -61,6 +61,7 @@ export default function SelectDemo() {
         style={{ width: 328 }}
         dataSource={dataList}
         searchable
+        supportLightText
         allowClear
       />
     </div>

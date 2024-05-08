@@ -38,6 +38,8 @@ export default function SelectDemo() {
     <>
       指定特定的键值key：
       <Select
+        searchable
+        supportLightText
         style={{ width: 328 }}
         labelKey="title"
         valueKey="name"

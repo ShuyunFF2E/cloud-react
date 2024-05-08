@@ -82,7 +82,7 @@ export default function SelectDemo() {
   return (
     <div className="demo">
       <Select
-        showDesc
+        allowClear
         searchable
         defaultValue={'3'}
         onChange={handleChange}
@@ -90,7 +90,24 @@ export default function SelectDemo() {
         dataSource={dataList}
       />
       <Select
-        showDesc
+        mode="imageText"
+        allowClear
+        searchable
+        defaultValue={'3'}
+        onChange={handleChange}
+        style={{ width: 328 }}
+        dataSource={dataList}
+        optionRender={(item, index) => {
+          return (
+            <div>
+              <p>{item.label}</p>
+              <p>{item.value}</p>
+            </div>
+          )
+        }}
+      />
+      <Select
+        allowClear
         searchable
         multiple
         defaultValue={['3', '4']}
@@ -99,14 +116,54 @@ export default function SelectDemo() {
         dataSource={dataList}
       />
       <Select
+        mode="imageText"
+        allowClear
+        searchable
+        multiple
+        defaultValue={['3', '4']}
         onChange={handleChange}
         style={{ width: 328 }}
-        showDesc
+        dataSource={dataList}
+      />
+      <Select
+        allowClear
+        searchable
+        multiple
+        showTag={false}
+        scrollSelected
+        defaultValue={['3', '4']}
+        onChange={handleChange}
+        style={{ width: 328 }}
+        dataSource={dataList}
+      />
+      <Select
+        mode="imageText"
+        allowClear
+        searchable
+        multiple
+        showTag={false}
+        scrollSelected
+        defaultValue={['3', '4']}
+        onChange={handleChange}
+        style={{ width: 328 }}
+        dataSource={dataList}
+      />
+      <Select
+        allowClear
+        onChange={handleChange}
+        style={{ width: 328 }}
+        searchable
+        dataSource={groupList}
+      />
+      <Select
+        mode="imageText"
+        allowClear
+        onChange={handleChange}
+        style={{ width: 328 }}
         searchable
         dataSource={groupList}
       />
       {/*<Select*/}
-      {/*  showDesc*/}
       {/*  searchable*/}
       {/*  multiple*/}
       {/*  showTag={false}*/}

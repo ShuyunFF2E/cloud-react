@@ -4,8 +4,9 @@ import { selector } from '../common';
 import Input from '../../../input';
 
 export default function SingleSearch({
-  selected,
-  showDesc,
+  selectedList,
+  dataSource,
+  optionRender,
   placeholder,
   open,
   searchValue,
@@ -15,16 +16,39 @@ export default function SingleSearch({
   setSearchStatus,
   disabled,
   scrollSelected,
+  valueKey,
+  labelKey,
 }) {
   const searchRef = useRef();
   const [isFocusSearchInput, setIsFocusSearchInput] = useState(false);
 
+  const getSelectedLabel = () => {
+    if (optionRender) {
+      const list = dataSource.find(item => !!item?.options?.length)
+        ? dataSource
+          .reduce((arr, item) => {
+            arr.push(...(item.options || []));
+            return arr;
+          }, [])
+        : dataSource;
+      return list.filter(item => selectedList.map(item1 => item1.value).includes(item[valueKey]))
+        .map(item => item[labelKey])
+        .join(',');
+    }
+
+    return selectedList?.map((item) => {
+      // 此处是处理带图标的场景（可查看 demo）
+      if (Array.isArray(item.label)) {
+        return item.label.find((v) => typeof v === 'string');
+      }
+      return item.label;
+    })?.[0];
+  };
+
   let searchPlaceholder = placeholder;
   if (isFocusSearchInput) {
-    searchPlaceholder = (showDesc
-      ? Array.isArray(selected?.[0]) ? selected?.[0]?.[0] : selected?.[0]
-      : selected?.[0]) || placeholder;
-  } else if (selected[0]) { // 有已选 && 未聚焦
+    searchPlaceholder = getSelectedLabel() || placeholder;
+  } else if (selectedList?.length) { // 有已选 && 未聚焦
     searchPlaceholder = '';
   }
 
@@ -39,10 +63,10 @@ export default function SingleSearch({
   };
 
   useEffect(() => {
-    if (selected.length) {
+    if (selectedList.length) {
       clearSearchValue();
     }
-  }, [selected]);
+  }, [selectedList]);
 
   useEffect(() => {
     if (searchable) {
@@ -65,11 +89,9 @@ export default function SingleSearch({
       {/* 有已选 && 未聚焦：展示黑色*/}
       <span
         className={`${selector}-search-selected ${scrollSelected ? 'scroll-selected' : 'overflow-ellipsis'}`}
-        style={!!selected.length && !isFocusSearchInput ? {} : { visibility: 'hidden', width: 0 }}
+        style={!!selectedList.length && !isFocusSearchInput ? {} : { visibility: 'hidden', width: 0, height: 10 }}
       >
-        {(showDesc
-          ? Array.isArray(selected?.[0]) ? selected?.[0]?.[0] : selected?.[0]
-          : selected?.[0]) || '-'}
+        {getSelectedLabel()}
       </span>
       <div ref={searchRef} className={`${selector}-search`}>
         {searchable ? (

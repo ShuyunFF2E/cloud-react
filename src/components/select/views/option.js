@@ -24,6 +24,8 @@ export default function Option(props) {
     hideCheckbox,
     onUnlimitedChange,
     scrollItem,
+    searchable,
+    optionRender,
     ...otherProps
   } = props;
 
@@ -38,7 +40,7 @@ export default function Option(props) {
   };
 
   const getLabel = (originLabel) => {
-    if (supportLightText) {
+    if (searchable && supportLightText && !optionRender) {
       return (
         <LightText
           keyWords={searchValue || ''}
@@ -62,7 +64,7 @@ export default function Option(props) {
   );
 
   if (multiple) {
-    const { value, children } = otherProps;
+    const { value, children, checkboxStyle } = otherProps;
     return hideCheckbox ? (
       // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
       <label
@@ -74,6 +76,7 @@ export default function Option(props) {
     ) : (
       <label className={classnames(classNames, `${selector}-multi-option`)}>
         <Checkbox
+          style={checkboxStyle || {}}
           checked={isSelected}
           disabled={disabled}
           value={value}

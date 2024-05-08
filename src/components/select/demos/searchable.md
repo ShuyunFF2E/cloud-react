@@ -53,6 +53,11 @@ const dataList = [
   },
 ];
 
+const dataList1 = dataList.map(item => ({
+  label1: item.label,
+  value1: item.value,
+}))
+
 export default function SelectDemo() {
   const [disabled, setDisabled] = useState(false);
   const [size, setSize] = useState('default');
@@ -87,7 +92,9 @@ export default function SelectDemo() {
           onSearch={handleSearch}
           onChange={handleChange}
           style={{width: 328}}
-          dataSource={dataList}
+          dataSource={dataList1}
+          labelKey="label1"
+          valueKey="value1"
         />
       </div>
       <div>

@@ -29,6 +29,7 @@ export default function SingleSelect(props) {
     onChange,
     className,
     searchValue = '',
+    labelKey,
   } = props;
   const [ options, setOptions ] = useState(dataSource);
   const classNames = classnames(`${selector}-select-options`, className);
@@ -55,7 +56,7 @@ export default function SingleSelect(props) {
   );
 
   useEffect(() => {
-    const result = filterOptions(dataSource, searchValue);
+    const result = filterOptions(dataSource, searchValue, labelKey);
     setOptions(result);
   }, [ searchValue ]);
 

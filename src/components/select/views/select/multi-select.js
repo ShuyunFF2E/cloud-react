@@ -54,6 +54,7 @@ export default function MultiSelect(props) {
     supportUnlimited,
     handleSelect,
     selectAllText,
+    labelKey,
   } = props;
   const [ options, setOptions ] = useState(dataSource);
   const [ values, setValues ] = useState(value);
@@ -115,7 +116,7 @@ export default function MultiSelect(props) {
   );
 
   useEffect(() => {
-    const result = filterOptions(dataSource, searchValue);
+    const result = filterOptions(dataSource, searchValue, labelKey);
     setOptions(result);
   }, [ searchValue ]);
 

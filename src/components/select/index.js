@@ -11,6 +11,7 @@ import MultiSelect from './views/select/multi-select';
 import GroupSelect from './views/select/group-select';
 import Selected from './views/selected';
 import Option from './views/option';
+import ImageText from './views/image-text';
 import { selector } from './views/common';
 
 import { formatOptionSource, isGroupSelectPicker } from './utils';
@@ -43,13 +44,15 @@ const getOptions = (
   labelKey,
   valueKey,
   descKey,
-  showDesc,
+  optionRender,
   isSupportTitle,
   searchValue,
   supportLightText,
   lightTextColor,
   scrollItem,
-) => dataSource.map((v, index) => showDesc ? (
+  checkboxStyle,
+  searchable,
+) => dataSource.map((v, index) => (
   <Option
     item={{ ...v, index }}
     value={v[valueKey]}
@@ -60,28 +63,17 @@ const getOptions = (
     supportLightText={supportLightText}
     lightTextColor={lightTextColor}
     scrollItem={scrollItem}
+    checkboxStyle={checkboxStyle}
+    searchable={searchable}
+    optionRender={optionRender}
   >
-    {v[labelKey]}
-    {v[descKey] ? <span className={`${selector}-desc`}>{v[descKey]}</span> : null}
-  </Option>
-) : (
-  <Option
-    item={{ ...v, index }}
-    value={v[valueKey]}
-    disabled={v.disabled}
-    isSupportTitle={isSupportTitle}
-    key={Math.random()}
-    searchValue={searchValue}
-    supportLightText={supportLightText}
-    lightTextColor={lightTextColor}
-    scrollItem={scrollItem}
-  >
-    {v[labelKey]}
+    {optionRender ? optionRender(v, index, { searchable, searchValue, supportLightText, lightTextColor }) : v[labelKey]}
   </Option>
 ));
 
 class Select extends Component {
   static Option = Option;
+  static ImageText = ImageText;
 
   static contextType = ContextProvider;
 
@@ -124,7 +116,7 @@ class Select extends Component {
       || Children.count(children) !== Children.count(prevChildren)
       || !ShuyunUtils.equal(dataSource, prevData)
     ) {
-      const { labelKey, valueKey, descKey, showDesc, labelInValue, defaultValue } = props;
+      const { labelKey, valueKey, descKey, optionRender, labelInValue, defaultValue } = props;
       const displayValue = value !== null ? value : defaultValue;
       const childs = Array.isArray(children)
         ? flat(children, Infinity)
@@ -136,12 +128,14 @@ class Select extends Component {
           labelKey,
           valueKey,
           descKey,
-          showDesc,
+          optionRender,
           isSupportTitle,
           prevState?.searchValue,
           props.supportLightText,
           props.lightTextColor,
           props.scrollItem,
+          props.checkboxStyle,
+          props.searchable,
         );
       const selected = getSelected(displayValue, source, dataSource);
       const emptyValue = multiple ? [] : '';
@@ -243,7 +237,7 @@ class Select extends Component {
   }
 
   get children() {
-    const { children, dataSource, labelKey, valueKey, descKey, showDesc, isSupportTitle } = this.props;
+    const { children, dataSource, labelKey, valueKey, descKey, optionRender, isSupportTitle } = this.props;
     const childs = Array.isArray(children)
       ? flat(children, Infinity)
       : Children.toArray(children);
@@ -258,12 +252,14 @@ class Select extends Component {
       labelKey,
       valueKey,
       descKey,
-      showDesc,
+      optionRender,
       isSupportTitle,
       this.state?.searchValue,
       this.props.supportLightText,
       this.props.lightTextColor,
       this.props.scrollItem,
+      this.props.checkboxStyle,
+      this.props.searchable,
     );
   }
 
@@ -282,16 +278,21 @@ class Select extends Component {
   }
 
   getGroupOptions = () => {
-    const { dataSource, labelKey, valueKey, descKey, showDesc, isSupportTitle } = this.props;
+    const { dataSource, labelKey, valueKey, descKey, optionRender, isSupportTitle } = this.props;
     return dataSource.map((group) => {
       const groupItem = getOptions(
         group.options || [],
         labelKey,
         valueKey,
         descKey,
-        showDesc,
+        optionRender,
         isSupportTitle,
+        this.state?.searchValue,
+        this.props.supportLightText,
+        this.props.lightTextColor,
         this.props.scrollItem,
+        this.props.checkboxStyle,
+        this.props.searchable,
       );
       return (
         <div>
@@ -565,6 +566,7 @@ class Select extends Component {
       size,
       supportUnlimited,
       formSize,
+      dataSource,
       ...otherProps
     } = this.props;
     const { selected, open, style: popupStyle } = this.state;
@@ -596,7 +598,8 @@ class Select extends Component {
           open={open}
           allowClear={allowClear}
           placeholder={placeholder}
-          dataSource={selected}
+          selectedList={selected}
+          dataSource={dataSource}
           metaData={this.children}
           disabled={disabled}
           size={formSize || size || 'default'}
@@ -669,9 +672,10 @@ Select.propTypes = {
   dropdownClassName: PropTypes.string,
   position: PropTypes.oneOf(['top', 'bottom', 'auto']),
   maxHeight: PropTypes.number,
-  showDesc: PropTypes.string,
+  optionRender: PropTypes.func,
   selectAllText: PropTypes.string,
   borderRadiusSize: PropTypes.oneOf(['default', 'medium', 'large', 'circle']),
+  checkboxStyle: PropTypes.object,
 };
 
 Select.defaultProps = {
@@ -718,9 +722,10 @@ Select.defaultProps = {
   dropdownClassName: '',
   position: 'bottom',
   maxHeight: undefined,
-  showDesc: false,
+  optionRender: undefined,
   selectAllText: '全选',
   borderRadiusSize: 'default',
+  checkboxStyle: {},
 };
 
 export default Select;

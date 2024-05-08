@@ -1,0 +1,50 @@
+@import '../../../style/index';
+
+@image-text-prefix-cls: ~'@{prefix}-image-text';
+
+.@{image-text-prefix-cls} {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    &.disabled {
+        .@{image-text-prefix-cls}-title {
+            color: @gray-7;
+        }
+
+        .@{image-text-prefix-cls}-desc {
+            color: @gray-6;
+        }
+
+        .@{image-text-prefix-cls}-img {
+            opacity: 0.5;
+        }
+    }
+
+    &-content {
+        display: flex;
+        flex-direction: column;
+        width: 0;
+        flex: 1;
+        gap: 4px;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+    }
+
+    &-img {
+        width: 48px;
+        height: 48px;
+    }
+
+    &-title {
+        color: @gray-9;
+        .text-overflow-ellipsis()
+    }
+
+    &-desc {
+        color: @gray-7;
+        .text-overflow-ellipsis()
+    }
+}

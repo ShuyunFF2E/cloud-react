@@ -57,6 +57,7 @@ export default function SelectDemo() {
         multiple
         supportUnlimited
         searchable
+        supportLightText
         unlimitedLabel="不限语言"
         dataSource={multiDataList}
       />

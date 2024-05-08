@@ -222,6 +222,7 @@ export default function FormHorizontalDemo() {
 
       <Form.Item label="所在国家-单选" required>
         <Select
+          style={{ width: 148 }}
           allowClear
           searchable
           disabled={disabled}
@@ -236,6 +237,7 @@ export default function FormHorizontalDemo() {
 
       <Form.Item label="多选" required>
         <Select
+          style={{ width: 148 }}
           allowClear
           maxTagCount={1}
           // searchable

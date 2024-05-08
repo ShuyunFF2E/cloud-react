@@ -34,7 +34,6 @@ group:
 | labelKey          | 指定使用的 label 键值，仅在使用 dataSource 生成组件时生效                                                                                            | string                                  | 'label'        |
 | valueKey          | 指定使用的 value 键值，仅在使用 dataSource 生成组件时生效                                                                                            | string                                  | 'value'        |
 | descKey          | 指定次要信息的 value 键值，仅在使用 dataSource 生成组件时生效                                                                                            | string                                  | 'value'        |
-| showDesc          | 是否展示描述信息                                                                                         |  boolean                                  | false        |
 | defaultOpen       | 默认下拉菜单展开状态                                                                                                                                 | boolean                                 | false          |
 | open              | 下拉菜单展开状态，当使用此属性时组件本身 open 行为失效                                                                                               | boolean                                 | false             |
 | placeholder       | 选择框默认文案                                                                                                                                       | string                                  | -              |
@@ -50,7 +49,6 @@ group:
 | value             | 选中的项                                                                                                                                             | string \| number \| array                     | -              |
 | labelInValue      | 是否把每个选项的 label 包装到 value 中                                                                                                               | boolean                                 | false          |
 | hasSelectAll      | 多选时是否有全选                                                                                                                                     | boolean                                 | false          |
-| showSelectAll     | 全选时是否显示为“全选”                                                                                                                               | boolean                                 | false          |
 | hasConfirmButton  | 多选时是否有确认按钮                                                                                                                                 | boolean                                 | false          |
 | isSupportTitle    | 鼠标 hover 选项是否显示完整内容                                                                                                                      | boolean                                 | false          |
 | okBtnText         | 多选时确认操作按钮文案                                                                                                                               | string                                  | '确认'         |
@@ -77,6 +75,8 @@ group:
 | dropdownStyle   | 下拉框样式                                                                                                       |  object          | {}   |
 | selectAllText   | 全选文案                                                                                                       |   string          | '全选'   |
 | borderRadiusSize  | 边框圆角 `default` `medium` `large`     | string | `default`         |
+| optionRender  | 自定义下拉回填选项     | function | -        |
+| checkboxStyle  | 多选框样式     | object | {}        |
 
 ### Option Props
 
@@ -87,6 +87,17 @@ group:
 | item      | 当前选项的原始属性，包含 index 值                | object        | -      |
 | className | 该项 option 的类名                             | string        | -      |
 | type | type枚举类型： `divider`  表示分割线 | String | '' |
+
+### ImageText Props
+
+| 属性      | 说明                                         | 类型          | 默认值 |
+| --------- | -------------------------------------------- | ------------- | ------ |
+| imgSrc  | 图片地址                                   | string|ReactDom       | -  |
+| imgStyle     | 图片样式       | object | {}      |
+| label      | 下拉标题                | string        | -      |
+| desc | 下拉描述                         | string        | -      |
+| disabled | 下拉禁用状态 |  boolean | false |
+| icon | 图标模板 |  ReactDom | - |
 
 ## 代码演示
 
@@ -108,8 +119,9 @@ group:
 ### 分组可搜索
 <embed src="@components/select/demos/groupSearch.md" />
 
-### 带描述
-<embed src="@components/select/demos/desc.md" />
+### 自定义下拉选项
+<embed src="@components/select/demos/imageText.md" />
+<embed src="@components/select/demos/icon.md" />
 
 [comment]: <> (### 带确认按钮)
 [comment]: <> (<embed src="@components/select/demos/customConfirmBtn.md" />)
