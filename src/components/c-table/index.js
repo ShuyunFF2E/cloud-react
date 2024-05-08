@@ -82,6 +82,7 @@ class CTable extends Component {
       filterValue: [],
       sortParams: {},
       // columnConfigStyle: {},
+      lineHeightFilter: false,
     };
     this.column = new Column(this);
   }

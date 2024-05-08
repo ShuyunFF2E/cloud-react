@@ -219,7 +219,7 @@ export default class Column {
               size="mini"
               showCancelBtn={showFilterBtn}
               showConfirmBtn={showFilterBtn}
-              cancelBtnText="重置"
+              cancelBtnText="取消"
               confirmText="确定"
               width={170}
               placement="bottom-left"
@@ -248,11 +248,18 @@ export default class Column {
               }
               onCancelClick={this.onFilterReset}
               onConfirmClick={this.onFilterConfirm}
+              onVisibleChange={visible => {
+                _this.setState({ lineHeightFilter: visible }, () => {
+                    this.setColumnData();
+                })
+              }}
             >
               <Icon
                 className={`filter-icon ${
-                  _this.state.filterValue.length && 'has-filter-value'
-                }`}
+                  (_this.state.filterValue.length || _this.state.lineHeightFilter) && 'has-filter-value'
+                }
+                `
+              }
                 type="filter"
               />
             </Popover>
