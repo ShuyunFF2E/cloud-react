@@ -37,9 +37,9 @@
   &-inner {
     display: block;
     color: @color-white;
-    font-size: 12px;
-    padding-left: 16px;
+    font-size: 0.75em;
     padding-right: 0;
+    margin-left: 12px;
   }
 
   &::after {
@@ -102,8 +102,9 @@
   }
 
   &-checked &-inner {
+    margin-left: -4px;
     padding-left: 0;
-    padding-right: 16px;
+    padding-right: 10px;
   }
 
   // 禁选状态
@@ -145,14 +146,13 @@
     }
 
     .@{prefix}-toggle-inner {
-      padding-left: 12px;
       padding-right: 0;
     }
 
     &.@{prefix}-toggle-checked {
       .@{prefix}-toggle-inner {
         padding-left: 0;
-        padding-right: 12px;
+        margin-left: -12px;
       }
       .@{toggle-prefix-cls}-loading {
         left: calc(100% - 12px);
