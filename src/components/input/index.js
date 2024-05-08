@@ -34,6 +34,7 @@ class Input extends React.Component {
     onKeyDown: PropTypes.func,
     onEnter: PropTypes.func,
     loading: PropTypes.bool,
+    borderRadiusSize: PropTypes.oneOf(['default', 'medium', 'large']),
   };
 
   static defaultProps = {
@@ -55,6 +56,7 @@ class Input extends React.Component {
     onKeyDown: noop,
     onEnter: noop,
     loading: false,
+    borderRadiusSize: 'default',
   };
 
   static Textarea = Textarea;
@@ -284,6 +286,7 @@ class Input extends React.Component {
       addonAfter,
       addonBefore,
       prefix,
+      borderRadiusSize,
       ...others
     } = this.props;
     const { size: formSize } = this.context;
@@ -330,6 +333,7 @@ class Input extends React.Component {
 
     // merge clearIcon & suffix
     const _suffix = this.renderSuffix();
+    console.log(borderRadiusSize, 'borderRadiusSize');
 
     // has addon content
     return (
@@ -342,6 +346,7 @@ class Input extends React.Component {
         className={classnames(className, mergedSize, {
           [`${_className}-focus`]: focused,
           [`${_className}-disabled`]: props.disabled,
+          [`border-radius-${borderRadiusSize}`]: true,
         })}
       >
         <input
@@ -409,11 +414,11 @@ function InputWrapper(props) {
         style={style}
       >
         <InputWrapper>
-          <Addon className={classnames(`${prefixCls}-input-addon`)}>
+          <Addon className={classnames(`${prefixCls}-input-addon ${prefixCls}-input-prefix`)}>
             {addonBefore}
           </Addon>
           {children}
-          <Addon className={classnames(`${prefixCls}-input-addon`)}>
+          <Addon className={classnames(`${prefixCls}-input-addon ${prefixCls}-input-suffix`)}>
             {addonAfter}
           </Addon>
         </InputWrapper>

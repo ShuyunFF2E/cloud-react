@@ -8,6 +8,8 @@
 @input-prefix-cls: ~'@{prefix}-input';
 
 @border-radius: 3px;
+@border-medium-radius: 6px;
+@border-large-radius: 12px;
 @default-width: 250px;
 
 @placeholder-color: @gray-6;
@@ -48,6 +50,16 @@
     box-sizing: border-box;
     vertical-align: middle;
     border-radius: @border-radius;
+  }
+
+  &-prefix {
+    border-top-left-radius: @border-radius;
+    border-bottom-left-radius: @border-radius;
+  }
+
+  &-suffix {
+    border-top-right-radius: @border-radius;
+    border-bottom-right-radius: @border-radius;
   }
 
   &-loading-spin {
@@ -104,6 +116,38 @@
         > .@{input-prefix-cls}-group {
           padding: 2.5px 12px;
         }
+      }
+    }
+
+    &.border-radius-medium {
+      .@{input-prefix-cls}-group {
+        border-radius: @border-medium-radius;
+      }
+
+      .@{input-prefix-cls}-prefix {
+        border-top-left-radius: @border-medium-radius;
+        border-bottom-left-radius: @border-medium-radius;
+      }
+
+      .@{input-prefix-cls}-suffix {
+        border-top-right-radius: @border-medium-radius;
+        border-bottom-right-radius: @border-medium-radius;
+      }
+    }
+
+    &.border-radius-large {
+      .@{input-prefix-cls}-group {
+        border-radius: @border-large-radius;
+      }
+
+      .@{input-prefix-cls}-prefix {
+        border-top-left-radius: @border-large-radius;
+        border-bottom-left-radius: @border-large-radius;
+      }
+
+      .@{input-prefix-cls}-suffix {
+        border-top-right-radius: @border-large-radius;
+        border-bottom-right-radius: @border-large-radius;
       }
     }
   }
@@ -167,6 +211,14 @@
         border-top-right-radius: 0px;
         border-bottom-right-radius: 0px;
       }
+    }
+
+    &.border-radius-medium {
+      border-radius: @border-medium-radius;
+    }
+
+    &.border-radius-large {
+      border-radius: @border-large-radius;
     }
   }
 
@@ -336,6 +388,22 @@
       border: 1px solid @gray-4;
       background: @textarea-background;
       border-radius: @border-radius;
+    }
+
+    &.border-radius-medium {
+      border-radius: @border-medium-radius;
+
+      > textarea {
+        border-radius: @border-medium-radius;
+      }
+    }
+
+    &.border-radius-large {
+      border-radius: @border-large-radius;
+
+      > textarea {
+        border-radius: @border-large-radius;
+      }
     }
   }
 

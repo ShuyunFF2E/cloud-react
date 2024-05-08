@@ -674,7 +674,7 @@ Select.propTypes = {
   maxHeight: PropTypes.number,
   optionRender: PropTypes.func,
   selectAllText: PropTypes.string,
-  borderRadiusSize: PropTypes.oneOf(['default', 'medium', 'large', 'circle']),
+  borderRadiusSize: PropTypes.oneOf(['default', 'medium', 'large']),
   checkboxStyle: PropTypes.object,
 };
 

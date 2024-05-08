@@ -10,7 +10,7 @@ desc: 基本使用
  * desc: 自定义圆角
  */
 import React, { useState } from 'react';
-import { Select } from 'cloud-react';
+import { Select, Radio } from 'cloud-react';
 
 const Option = Select.Option;
 
@@ -34,6 +34,7 @@ const dataList = [
 ];
 
 export default function SelectDemo() {
+  const [borderRadiusSize, setBorderRadiusSize] = useState('default');
   const handleChange = (value, prevValue) => {
     console.log('select --- ' + value);
     console.log('prevSelect --- ' + prevValue);
@@ -41,23 +42,16 @@ export default function SelectDemo() {
 
   return (
     <div className="demo">
+      <Radio.Group value={borderRadiusSize} onChange={setBorderRadiusSize} style={{ marginBottom: 20 }}>
+        <Radio value="default">圆角：default</Radio>
+        <Radio value="medium">圆角：medium</Radio>
+        <Radio value="large">圆角：large</Radio>
+      </Radio.Group>
       <Select
         onChange={handleChange}
         style={{ width: 328 }}
         dataSource={dataList}
-        borderRadiusSize="default"
-      />
-      <Select
-        onChange={handleChange}
-        style={{ width: 328 }}
-        dataSource={dataList}
-        borderRadiusSize="medium"
-      />
-      <Select
-        onChange={handleChange}
-        style={{ width: 328 }}
-        dataSource={dataList}
-        borderRadiusSize="large"
+        borderRadiusSize={borderRadiusSize}
       />
     </div>
   );
