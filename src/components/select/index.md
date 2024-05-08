@@ -123,8 +123,8 @@ group:
 <embed src="@components/select/demos/imageText.md" />
 <embed src="@components/select/demos/icon.md" />
 
-[comment]: <> (### 带确认按钮)
-[comment]: <> (<embed src="@components/select/demos/customConfirmBtn.md" />)
+### 带确认按钮
+<embed src="@components/select/demos/customConfirmBtn.md" />
 
 ### 弹出位置
 <embed src="@components/select/demos/position.md" />

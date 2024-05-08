@@ -357,7 +357,7 @@ class Select extends Component {
     }
   };
 
-  handleSelect = () => {
+  handleSelect = ({ isClose = false } = {}) => {
     const { open } = this.state;
     const { onSelectOpen, onSelectClose, open: propOpen, multiple } = this.props;
 
@@ -373,7 +373,7 @@ class Select extends Component {
         setTimeout(() => {
           this.optionsNode.current.classList.add('show');
         });
-      } else if (!multiple && !this.state.isSearch || multiple && this.props.supportUnlimited) {
+      } else if (!multiple && !this.state.isSearch || multiple && this.props.supportUnlimited || isClose) {
         this.optionsNode.current.classList.remove('show');
         setTimeout(() => {
           this.setState({ open: !open });
@@ -486,7 +486,7 @@ class Select extends Component {
     });
 
     onOk(result, prevResult);
-    handleSelect();
+    handleSelect({ isClose: true });
   };
 
   handleCancel = () => {
@@ -499,7 +499,7 @@ class Select extends Component {
 
     onMultiOptionChange(prevValue);
     onCancel();
-    handleSelect();
+    handleSelect({ isClose: true });
   };
 
   onSearchValueChange = (v) => {
@@ -700,7 +700,7 @@ Select.defaultProps = {
   hasSelectAll: false,
   hasConfirmButton: false,
   isSupportTitle: false,
-  okBtnText: '确认',
+  okBtnText: '确定',
   cancelBtnText: '取消',
   className: '',
   children: [],

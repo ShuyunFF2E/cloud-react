@@ -76,6 +76,7 @@ export default function SelectDemo() {
   const [searchable, setSearchable] = useState(false);
 
   const handleChange = (value, prevValue) => {
+    console.log(value, prevValue)
   };
 
   return (

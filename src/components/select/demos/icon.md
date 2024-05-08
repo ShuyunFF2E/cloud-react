@@ -58,7 +58,7 @@ export default function SelectDemo() {
           optionRender={(item, index, searchProps) => {
             return (
               <Select.ImageText
-                icon={<Icon type="config" style={{ fontSize: 12, marginRight: 5 }} />}
+                icon={<Icon type="config" style={{ fontSize: 12 }} />}
                 label={item.label}
                 disabled={item.disabled}
                 {...searchProps}
@@ -77,7 +77,7 @@ export default function SelectDemo() {
           optionRender={(item, index, searchProps) => {
             return (
               <Select.ImageText
-                icon={<Icon type="config" style={{ fontSize: 12, marginRight: 5 }} />}
+                icon={<Icon type="config" style={{ fontSize: 12 }} />}
                 label={item.label}
                 disabled={item.disabled}
                 {...searchProps}

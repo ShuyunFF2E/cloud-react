@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { selector } from '../common';
 import Input from '../../../input';
 
-export default function SingleSearch({
+export default function MultiCommaSearch({
   selectedList,
   dataSource,
   optionRender,
@@ -17,6 +17,7 @@ export default function SingleSearch({
   scrollSelected,
   labelKey,
   valueKey,
+  searchable,
 }) {
   const searchRef = useRef();
   const [isFocusSearchInput, setIsFocusSearchInput] = useState(false);
@@ -61,14 +62,16 @@ export default function SingleSearch({
   }, [selectedList]);
 
   useEffect(() => {
-    if (open) {
-      setIsFocusSearchInput(true);
-      searchRef.current.querySelector('input').focus();
-    } else {
-      setIsFocusSearchInput(false);
+    if (searchable) {
+      if (open) {
+        setIsFocusSearchInput(true);
+        searchRef.current.querySelector('input').focus();
+      } else {
+        setIsFocusSearchInput(false);
+      }
+      clearSearchValue();
     }
-    clearSearchValue();
-  }, [open]);
+  }, [open, searchable]);
 
   useEffect(() => {
     setSearchStatus(isFocusSearchInput);

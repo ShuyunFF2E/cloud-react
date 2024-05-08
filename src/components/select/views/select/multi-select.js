@@ -26,11 +26,11 @@ const ConfirmBtn = ({
   if (confirmTemplate) return confirmTemplate({ onOk, onCancel });
   return (
     <div className={`${selector}-operate-btn`}>
-      <Button type="primary" size="small" className="btn" onClick={onOk}>
-        {okBtnText}
-      </Button>
       <Button size="small" className="btn" onClick={onCancel}>
         {cancelBtnText}
+      </Button>
+      <Button type="primary" size="small" className="btn" onClick={onOk}>
+        {okBtnText}
       </Button>
     </div>
   );
