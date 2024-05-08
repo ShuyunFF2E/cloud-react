@@ -23,7 +23,7 @@ const Toggle = (props) => {
 
   const wrapper = classNames(prefix, mergedSize, {
     [`${prefix}-checked`]: checked,
-    [`${prefix}-disabled`]: disabled,
+    [`${prefix}-disabled`]: disabled || loading,
   });
 
   const handleClick = (event) => {
