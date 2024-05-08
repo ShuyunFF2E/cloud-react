@@ -22,9 +22,9 @@ class TagDemo extends Component {
 				<div style={{ marginBottom: 15, fontSize: 14 }}>
 					<Tag type="success" icon="success-fill">成功</Tag>
 					<Tag type="danger" icon="close-fill-1">失败</Tag>
-					<Tag type="warning" icon="checkbox-indeterminate">未开始</Tag>
+					<Tag type="warning" icon="no-start">未开始</Tag>
 					<Tag type="default" icon="success-fill">已完成</Tag>
-					<Tag color="blue" icon="time">进行中</Tag>
+					<Tag color="blue" icon="a-21">进行中</Tag>
 				</div>
 				
 			</React.Fragment>
