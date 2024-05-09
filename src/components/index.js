@@ -73,6 +73,8 @@ export { default as Menu } from './menu';
 
 export { default as Message } from './message';
 
+export { default as Mixin } from './mixin';
+
 export { default as Modal } from './modal';
 
 export { default as Notification } from './notification';

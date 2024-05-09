@@ -326,6 +326,7 @@ class Input extends React.Component {
           style={isPure ? style : {}}
           className={classnames(_className, className, mergedSize, {
             [`${_className}-disabled`]: props.disabled,
+            [`border-radius-${borderRadiusSize}`]: true,
           })}
         />
       );
@@ -333,7 +334,6 @@ class Input extends React.Component {
 
     // merge clearIcon & suffix
     const _suffix = this.renderSuffix();
-    console.log(borderRadiusSize, 'borderRadiusSize');
 
     // has addon content
     return (

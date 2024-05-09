@@ -1,0 +1,29 @@
+@import '../../style/index';
+
+@input-input-prefix-cls: ~'@{prefix}-input-input';
+
+.@{input-input-prefix-cls} {
+    display: flex;
+
+    .@{prefix}-input.first-input {
+        &:hover {
+            z-index: 1;
+        }
+    }
+
+    .@{prefix}-input.second-input {
+        margin-left: -1px;
+    }
+
+    .@{prefix}-input.first-input,
+    .@{prefix}-input-group.first-input {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    .@{prefix}-input.second-input,
+    .@{prefix}-input-group.second-input {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+}

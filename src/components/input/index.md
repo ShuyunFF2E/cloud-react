@@ -86,3 +86,6 @@ group:
 
 ### 圆角
 <embed src="@components/input/demos/borderRadius.md" />
+
+### 组合式输入框
+<embed src="@components/input/demos/mixin.md" />
