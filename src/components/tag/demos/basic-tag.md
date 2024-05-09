@@ -24,7 +24,7 @@ class TagDemo extends Component {
 					<Tag type="danger" icon="close-fill-1">失败</Tag>
 					<Tag type="warning" icon="no-start">未开始</Tag>
 					<Tag type="default" icon="success-fill">已完成</Tag>
-					<Tag color="blue" icon="a-21">进行中</Tag>
+					<Tag color="blue" icon="underway">进行中</Tag>
 				</div>
 				
 			</React.Fragment>
