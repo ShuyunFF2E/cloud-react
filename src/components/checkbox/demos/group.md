@@ -39,7 +39,7 @@ export default function RadioDemo() {
 
   return (
     <div>
-      <h3>纵向布局-最多可选两项</h3>
+      <h5>纵向布局-最多可选两项</h5>
       <div style={{ display: 'inline-flex', flexDirection: 'column', gap: 16 }}>
         <Checkbox checked={checked} indeterminate={indeterminate} onChange={handleCheckAll}>
           check all
@@ -51,7 +51,7 @@ export default function RadioDemo() {
         </Checkbox.Group>
       </div>
 
-      <h3>横向布局</h3>
+      <h5>横向布局</h5>
       <div style={{ display: 'inline-flex', gap: 16 }}>
         <Checkbox checked={checked} indeterminate={indeterminate} onChange={handleCheckAll}>
           check all

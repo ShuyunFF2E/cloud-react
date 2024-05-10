@@ -19,7 +19,7 @@ export default function ComplexCheckboxDemo() {
     );
 	return (
         <div>
-            <div style={{ marginBottom: 24 }}>基础+说明</div>
+            <h5>基础+说明</h5>
             <Checkbox.Group layout="h" style={{ rowGap: 20 }}>
                 <ComplexCheckbox
                     title="标题"
@@ -42,7 +42,7 @@ export default function ComplexCheckboxDemo() {
                     disabled
                 />
             </Checkbox.Group>
-            <div style={{ marginBottom: 24, marginTop: 40 }}>基础+头像</div>
+          <h5>基础+头像</h5>
             <Checkbox.Group layout="h" style={{ rowGap: 20 }}>
                 <ComplexCheckbox
                     title="标题"
@@ -65,7 +65,7 @@ export default function ComplexCheckboxDemo() {
                     disabled
                 />
             </Checkbox.Group>
-            <div style={{ marginBottom: 24, marginTop: 40 }}>基础+头像+说明</div>
+          <h5>基础+头像+说明</h5>
             <Checkbox.Group layout="h" style={{ rowGap: 20 }}>
                 <ComplexCheckbox
                     title="标题"
@@ -90,56 +90,6 @@ export default function ComplexCheckboxDemo() {
                     imgSrc={imgSrc}
                     disabled
                     defaultChecked
-                />
-            </Checkbox.Group>
-            <div style={{ marginBottom: 24, marginTop: 40 }}>基础卡片</div>
-            <Checkbox.Group layout="h" style={{ rowGap: 20 }}>
-                <ComplexCheckbox
-                    title="标题"
-                    type="card"
-                />
-                <ComplexCheckbox
-                    title="标题"
-                    defaultChecked
-                    type="card"
-                />
-                <ComplexCheckbox
-                    title="标题"
-                    disabled
-                    type="card"
-                />
-                <ComplexCheckbox
-                    title="标题"
-                    type="card"
-                    defaultChecked
-                    disabled
-                />
-            </Checkbox.Group>
-            <div style={{ marginBottom: 24, marginTop: 40 }}>基础卡片+说明</div>
-            <Checkbox.Group layout="h" style={{ rowGap: 20 }}>
-                <ComplexCheckbox
-                    title="标题"
-                    type="card"
-                    content={checkCon}
-                />
-                <ComplexCheckbox
-                    title="标题"
-                    type="card"
-                    content={checkCon}
-                    defaultChecked
-                />
-                <ComplexCheckbox
-                    title="标题"
-                    type="card"
-                    content={checkCon}
-                    disabled
-                />
-                <ComplexCheckbox
-                    title="标题"
-                    type="card"
-                    content={checkCon}
-                    defaultChecked
-                    disabled
                 />
             </Checkbox.Group>
         </div>

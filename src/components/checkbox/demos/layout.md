@@ -25,7 +25,7 @@ export default function RadioDemo() {
     ];
 	return (
 		<div>
-			<h3>纵向布局</h3>
+			<h5>纵向布局</h5>
 			<Checkbox.Group layout={'v'} style={{ gap: 16 }}>
 				<Checkbox value={1} defaultChecked={true}>
 					item 1
@@ -36,7 +36,7 @@ export default function RadioDemo() {
 				</Checkbox>
 				<Checkbox value={4}>item 4</Checkbox>
 			</Checkbox.Group>
-			<h3>横向布局</h3>
+			<h5>横向布局</h5>
 			<Checkbox.Group layout={'h'}>
                 {list.map(item => (
                     <Checkbox key={item.value} {...item}>
