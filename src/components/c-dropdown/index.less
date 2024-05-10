@@ -72,13 +72,15 @@
   padding-bottom: 8px;
   cursor: pointer;
   .@{dropdown-prefix-cls}-menu-item {
+    display: flex;
+    align-items: center;
     font-size: 14px;
     font-family: PingFangSC-Regular, PingFang SC;
     font-weight: 400;
     color: rgba(0, 0, 0, 0.85);
     line-height: 20px;
     padding: 6px 12px;
-    min-width: 106px;
+    min-width: 60px;
     &.disabled {
       color: @gray-6;
       cursor: not-allowed;
@@ -92,6 +94,16 @@
       line-height: normal;
       color: @color-gray3;
       margin-right: 8px;
+    }
+    &.menu-item-checked:not(.disabled) {
+      background-color: @blue-2;
+    }
+
+    .menu-item-checked-icon {
+      font-size: 14px;
+      color: @blue-4;
+      margin-left: auto;
+      margin-right: 0;
     }
   }
   .divider {
@@ -121,7 +133,7 @@
   .@{dropdown-prefix-cls}-arrow {
     top: -5px;
   }
-  &:after {
+  &.@{dropdown-prefix-cls}-show-arrow:after {
     content: '';
     position: absolute;
     z-index: 1;
@@ -139,7 +151,7 @@
     bottom: -5px;
     border-top-color: #fff;
   }
-  &:after {
+  &.@{dropdown-prefix-cls}-show-arrow:after {
     content: '';
     position: absolute;
     z-index: 1;

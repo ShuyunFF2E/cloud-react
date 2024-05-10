@@ -56,9 +56,10 @@ export default function SelectDemo() {
         onChange={handleChange}
         style={{ width: 80 }}
         defaultValue="apple"
-        trigger="hover"
+        // trigger="hover"
         showArrow={false}
         showSelectStyle={false}
+        dropdownStyle={{ marginTop: -4 }}
       >
         {dataList.map((item, index) => (
           <Option value={item.value} key={index}>

@@ -87,3 +87,6 @@ group:
 
 ### 带箭头
 <embed src="@components/c-dropdown/demos/arrow.md" />
+
+### 可选择
+<embed src="@components/c-dropdown/demos/selected.md" />
