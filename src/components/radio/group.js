@@ -21,6 +21,7 @@ export default function Group(props) {
     horizontal,
     vertical,
     style,
+    supportUnSelect,
   } = props;
   const [ currentValue, setCurrentValue ] = useState(defaultValue);
 
@@ -39,6 +40,7 @@ export default function Group(props) {
         return cloneElement(child, {
           disabled: disabled || child.props.disabled,
           checked: child.props.value === currentValue,
+          supportUnSelect,
           onChange(val, evt) {
             setCurrentValue(val);
             onChange(val, evt);
@@ -77,6 +79,7 @@ Group.propTypes = {
   onChange: PropTypes.func,
   disabled: PropTypes.bool,
   style: PropTypes.object,
+  supportUnSelect: PropTypes.bool,
 };
 
 Group.defaultProps = {
@@ -85,4 +88,5 @@ Group.defaultProps = {
   onChange: noop,
   disabled: false,
   style: {},
+  supportUnSelect: false,
 };

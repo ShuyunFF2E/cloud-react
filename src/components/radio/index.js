@@ -15,6 +15,7 @@ class Radio extends React.Component {
     checked: PropTypes.bool,
     radioStyle: PropTypes.object,
     textStyle: PropTypes.object,
+    supportUnSelect: PropTypes.bool,
     desc: PropTypes.oneOfType([ PropTypes.node, PropTypes.string ]),
   };
 
@@ -22,6 +23,7 @@ class Radio extends React.Component {
     checked: false,
     radioStyle: {},
     textStyle: {},
+    supportUnSelect: false,
     desc: null,
   };
 
@@ -43,6 +45,7 @@ class Radio extends React.Component {
       radioStyle,
       textStyle,
       desc,
+      supportUnSelect,
       ...otherProps
     } = this.props;
     return (
@@ -56,6 +59,7 @@ class Radio extends React.Component {
               disabled={disabled}
               className={`${classSelector}-input ${checked ? 'checked' : ''}`}
               onChange={this.onChangeAction.bind(this)}
+              onClick={supportUnSelect ? this.onChangeAction.bind(this) : () => {}}
             />
             <span className={`${classSelector}-inner`} />
           </span>

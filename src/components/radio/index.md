@@ -25,6 +25,7 @@ group:
 | vertical     | 定义 radio 竖向布局     | boolean                    | false  |
 | textStyle      | 复选框后面的内容样式      | object            | {}     |
 | onChange       | 变化时回调函数          | Function(e:Event) | --     |
+| supportUnSelect       | 变化时回调函数          | Function(e:Event) | --     |
 
 ### API Radio
 
@@ -34,6 +35,7 @@ group:
 | checked  | 指定当前 radio 是否选中 | boolean | false  |
 | disabled | 是否禁用                | boolean | false  |
 | desc       | 单选提示         | string 或 React.node  | null    |
+| supportUnSelect       | 是否支持反选         |  boolean  | false   |
 
 ### API ComplexRadio
 
@@ -50,6 +52,7 @@ group:
 | contentStyle        | content 样式，设置 textOverflowEllipsis 为 true 的时候，需要设置 content 的宽度    | object           | {}     |
 | titleStyle        | title 样式    | object           | {}     |
 | borderRadiusSize       | 圆角大小： `small`: 3px；`default`: 6px；`large`: 12px；         | string | `default`     |
+| supportUnSelect       | 是否支持反选         |  boolean  | false   |
 
 
 ### 代码演示
@@ -66,6 +69,9 @@ group:
 
 ### 布局
 <embed src="@components/radio/demos/layout.md" />
+
+### 反选
+<embed src="@components/radio/demos/unSelect.md" />
 
 ### 复杂 Radio
 <embed src="@components/radio/complexDemos/basic.md" />
