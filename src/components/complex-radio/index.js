@@ -15,6 +15,7 @@ export default function ComplexRadio(props) {
     content,
     textOverflowEllipsis,
     contentStyle,
+    titleStyle,
     type,
     borderRadiusSize,
     ...otherProps
@@ -39,7 +40,7 @@ export default function ComplexRadio(props) {
     >
       {imgSrc && <img alt="header" src={imgSrc} />}
       <div>
-        {title && <p className={`${classSelector}-title`}>{title}</p>}
+        {title && <p className={`${classSelector}-title`} style={titleStyle}>{title}</p>}
         {content
           && (textOverflowEllipsis ? (
             <Tooltip content={content}>
@@ -66,6 +67,7 @@ ComplexRadio.propTypes = {
   title: PropTypes.string,
   textOverflowEllipsis: PropTypes.bool,
   contentStyle: PropTypes.object,
+  titleStyle: PropTypes.object,
   type: PropTypes.string,
   disabled: PropTypes.bool,
   checked: PropTypes.bool,
@@ -81,6 +83,7 @@ ComplexRadio.defaultProps = {
   title: '',
   textOverflowEllipsis: false,
   contentStyle: {},
+  titleStyle: {},
   type: 'default',
   disabled: false,
   checked: false,
