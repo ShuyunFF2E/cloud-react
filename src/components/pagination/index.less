@@ -225,9 +225,12 @@
 
   &.@{pagination-prefix-cls}-mini-page {
     .current-page {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       height: 32px;
       line-height: 32px;
-      min-width: 48px;
+      min-width: 48px!important;
       text-align: center;
       color: @blue-4;
       cursor: pointer;
@@ -284,40 +287,13 @@
   }
 }
 
-.@{pagination-prefix-cls}-mini-container {
-  padding: 0!important;
+.@{pagination-prefix-cls}-min-list {
+  max-height: 190px;
+  overflow: auto;
 
-  .mini-page-list {
-    width: 72px;
-
-    .mini-page-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      cursor: pointer;
-      height: 31px;
-      padding-left: 12px;
-      padding-right: 14px;
-
-      &:hover {
-        background: @indigo-1;
-      }
-
-      &.active {
-        background: @indigo-2;
-      }
-
-      .icon-finish {
-        color: @blue-4;
-      }
-    }
-  }
-
-  &.@{prefix}-tooltip.is-light {
-    box-shadow: @border-shadow-3;
-  }
-
-  &.@{prefix}-tooltip.bottom-center.is-light:after {
-    display: none;
+  &::-webkit-scrollbar {
+    background: transparent;
+    width: 0;
+    height: 0;
   }
 }

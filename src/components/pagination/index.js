@@ -6,7 +6,7 @@ import { noop, prefixCls } from '@utils';
 import Icon from '../icon';
 import Input from '../input';
 import Select from '../select';
-import Popover from '../popover';
+import Dropdown from '../c-dropdown';
 
 import './index.less';
 
@@ -435,37 +435,29 @@ class Pagination extends Component {
         {this.totalPage}
       </span>
     ) : (
-      <Popover
-        trigger="click"
-        placement="bottom-center"
-        className={`${prefixCls}-pagination-mini-container`}
-        content={(
-          <div className="mini-page-list">
-            {pageList.map((page) => (
-              <span
-                key={page}
-                className={`mini-page-item ${prefixCls}-popover-cancel ${
-                  `${page}` === `${this.state.current}` ? 'active' : ''
-                }`}
-                onClick={() => {
-                  this.goPage(page);
-                }}
-              >
-                <span>{page}</span>
-                {`${page}` === `${this.state.current}` && (
-                  <Icon type="finish" />
-                )}
-              </span>
+      <Dropdown
+        placement="bottom"
+        overlay={(
+          <Dropdown.Menu
+            checkedId={this.state.current}
+            className={`${prefixCls}-pagination-min-list`}
+            onClick={page => {
+              this.goPage(page);
+            }}
+          >
+            {pageList.map(page => (
+              <Dropdown.Item key={page} id={page}>{page}</Dropdown.Item>
             ))}
-          </div>
+          </Dropdown.Menu>
         )}
+        trigger={['click']}
       >
         <span className="current-page">
           {this.state.current}
           /
           {this.totalPage}
         </span>
-      </Popover>
+      </Dropdown>
     );
   };
 
