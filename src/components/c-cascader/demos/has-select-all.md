@@ -75,7 +75,8 @@ export default function Demo() {
 		<div>
 			<div style={{ marginBottom: 24 }}>多选级联组件</div>
 			<CCascader
-                hasSelectAll
+        style={{ width: 328 }}
+        hasSelectAll
 				options={addressOptions}
 				onChange={onChange}
 				placeholder="Please select"

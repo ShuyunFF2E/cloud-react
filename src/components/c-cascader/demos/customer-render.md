@@ -66,6 +66,7 @@ export default function Demo() {
 				onChange={onChange}
 				placeholder="Please select"
 				displayRender={displayRender}
+        style={{ width: 328 }}
 				showSearch={{ filter: filter }}/>
 		);
 }

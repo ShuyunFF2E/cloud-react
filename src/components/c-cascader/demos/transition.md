@@ -50,10 +50,11 @@ export default function Demo() {
 
 	return (
 		<CCascader
-            options={addressOptions}
-            placeholder="Please select"
-            transitionName="slide-up"
-          />
+      style={{ width: 328 }}
+      options={addressOptions}
+      placeholder="Please select"
+      transitionName="slide-up"
+    />
 		);
 }
 ```
