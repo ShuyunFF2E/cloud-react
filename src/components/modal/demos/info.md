@@ -25,6 +25,7 @@ class ModalDemo extends React.Component {
 		Modal.info({
 			title: '提醒类弹窗',
 			body: '正文文案',
+            infoText: '去配置',
 			onCancel: () => {}
 		});
 	};

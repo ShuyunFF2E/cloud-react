@@ -153,6 +153,7 @@ class Prompt extends React.Component {
       okBtnOpts,
       cancelBtnOpts,
       title,
+      infoText,
     } = this.props;
     const promptStyle = {
       ...style,
@@ -188,6 +189,7 @@ class Prompt extends React.Component {
           showConfirmLoading={this.state.showConfirmLoading}
           hasFooter={this.props.hasFooter}
           className={this.props.className}
+          infoText={infoText}
         >
           <div>
             <header className="info-area">
@@ -241,6 +243,7 @@ function prompt({
   title,
   hasFooter,
   className,
+  infoText,
 }) {
   // 创建一个关联id
   const rootDocument = getRootWindow().document;
@@ -264,6 +267,7 @@ function prompt({
       className={className}
       okText={okText}
       cancelText={cancelText}
+      infoText={infoText}
       okBtnOpts={okBtnOpts}
       cancelBtnOpts={cancelBtnOpts}
       onOk={onOk}
