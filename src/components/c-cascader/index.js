@@ -79,7 +79,7 @@ class Cascader extends Component {
 
   isAll = (value) => {
     const { options, hasSelectAll } = this.props;
-    let parentValue = value.filter((item) => item.length === 1);
+    let parentValue = value?.filter((item) => item.length === 1);
     if (hasSelectAll) {
       // value数据结构 [['ALL'], ['pId1','pId11'], ['pId2','pId21'], ['pId3']]
       // 获取除全选以外的选中项
@@ -91,7 +91,7 @@ class Cascader extends Component {
       parentValue = removeAllItem.filter((item) => item.length === 1);
     }
 
-    return parentValue.length === options.length;
+    return parentValue?.length === options.length;
   };
 
   getValue = (value) => {
@@ -218,12 +218,12 @@ class Cascader extends Component {
     return (
       <CascaderMenu
         {...divProps}
-        dropdownClassName={`${popupClassName} ${borderRadiusSize}`}
+        dropdownClassName={popupClassName}
         value={this.state.value}
         options={[...this.state.options]}
         onChange={this.handleChange}
         loadingIcon={loadingIcon || defaultLoadingRender(this.props.prefixCls)}
-        className={iconClasses}
+        className={`${iconClasses} ${borderRadiusSize}`}
         checkable={checkable}
         notFoundContent={this.mergedNotFoundContent}
         showSearch={mergedShowSearch()}

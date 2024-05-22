@@ -81,6 +81,7 @@ export default function Demo() {
 		<div>
 			<div style={{ marginBottom: 24 }}>多选级联组件</div>
 			<CCascader
+        style={{ width: 328 }}
 				options={addressOptions}
 				onChange={onChange}
 				placeholder="Please select"
@@ -90,6 +91,7 @@ export default function Demo() {
 				maxTagCount={1}/>
 			<div style={{ marginBottom: 24, marginTop: 40 }}>多选级联组件不可用</div>
 			<CCascader
+        style={{ width: 328 }}
 				options={addressOptions}
 				placeholder="Please select"
 				value={value}
@@ -98,6 +100,7 @@ export default function Demo() {
 				maxTagCount={1}/>
       <div style={{ marginBottom: 24, marginTop: 40 }}>多选级联组件，全部展开</div>
 			<CCascader
+        style={{ width: 328 }}
 				options={addressOptions}
 				onChange={onChange}
 				placeholder="Please select"

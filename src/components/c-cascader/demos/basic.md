@@ -123,6 +123,7 @@ export default function Demo() {
 					options={addressOptions}
 					onChange={onChange}
 					placeholder="Please select"
+          style={{ width: 328 }}
           />
 				<div style={{ marginBottom: 24, marginTop: 40 }}>任意选项支持选择</div>
 				<CCascader
@@ -130,6 +131,7 @@ export default function Demo() {
 					onChange={onChange}
 					placeholder="Please select"
 					showSearch={{ filter: filter }}
+          style={{ width: 328 }}
 					changeOnSelect/>
         <div style={{ marginBottom: 24, marginTop: 40 }}>用级联组件展示地址</div>
         {
@@ -138,6 +140,7 @@ export default function Demo() {
 					onChange={onChange}
           fieldNames={{ label: 'name', value: 'id', children: 'children' }}
 					placeholder="Please select"
+          style={{ width: 328 }}
           changeOnSelect
           />
         }

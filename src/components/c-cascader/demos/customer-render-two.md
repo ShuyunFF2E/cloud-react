@@ -15,7 +15,7 @@ import React, { useState } from 'react';
 import { CCascader } from 'cloud-react';
 
 const style = {
-  width: '170px',
+  width: '328px',
   fontSize: '12px',
   display: 'block',
   border: '1px solid #e8e8e8',
@@ -99,19 +99,19 @@ export default function Demo() {
 		<div>
 			<div style={{ marginBottom: 24 }}>多选级联组件</div>
 			<CCascader
-                hasSelectAll
-				options={addressOptions}
-				onChange={onChange}
-				placeholder="Please select"
-				value={value}
-				multiple
-                allowClear
-				showSearch={{ filter: filter }}>
-                <span
-                    placeholder={'请选择'}
-                    style={{...style}}
-                    >{inputValue}</span>
-            </CCascader>
+            hasSelectAll
+            options={addressOptions}
+            onChange={onChange}
+            placeholder="Please select"
+            value={value}
+            multiple
+            allowClear
+            showSearch={{ filter: filter }}>
+            <span
+                placeholder={'请选择'}
+                style={{...style}}
+                >{inputValue}</span>
+        </CCascader>
 		</div>
     );
 }

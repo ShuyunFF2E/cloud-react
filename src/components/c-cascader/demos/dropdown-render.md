@@ -15,7 +15,7 @@ import React, { useState } from 'react';
 import { CCascader, Checkbox } from 'cloud-react';
 
 const style = {
-  width: '170px',
+  width: '328px',
   fontSize: '12px',
   display: 'block',
   border: '1px solid #e8e8e8',
@@ -118,7 +118,7 @@ export default function Demo() {
 				placeholder="Please select"
 				value={value}
 				multiple
-                allowClear
+        allowClear
 				showSearch={{ filter: filter }}
                 dropdownRender={menus => (
                     <div>

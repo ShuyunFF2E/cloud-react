@@ -33,9 +33,10 @@ group:
 | notFoundContent | 下拉列表为空时显示的内容 | string \| ReactNode | -- |
 | showSearch     | 搜索配置               | object   | -- |
 | fieldNames     | 标签、值和子项的自定义字段名称  | object | { label: 'label', value: 'value', children: 'children' } |
-| borderRadiusSize       | 圆角大小： `small`: 3px；`default`: 6px；`large`: 12px；         | string | `default`     |
+| borderRadiusSize       | 圆角大小： `default`: 3px；`medium`: 6px；`large`: 12px；         | string | `default`     |
 | hasSelectAll   | 是否有全选 | boolean | false |
 | multiple   | 是否为多选 | boolean | false |
+| dropdownMenuColumnStyle   | 单个选项样式 | object | {} |
 
 
  ## 代码演示 
@@ -64,7 +65,7 @@ group:
 ### 不可用
 <embed src="@components/c-cascader/demos/disabled.md" /> 
 
-### 尺寸
+### 宽度
 <embed src="@components/c-cascader/demos/size.md" /> 
 
 ### 下拉项目没数据

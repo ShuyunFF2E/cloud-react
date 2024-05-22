@@ -61,8 +61,8 @@ export default function Demo() {
                 onChange={v => {
                   setBorderRadiusSize(v);
                 }}>
-                <Radio value="small">圆角：3px</Radio>
-                <Radio value="default">圆角：6px</Radio>
+                <Radio value="default">圆角：3px</Radio>
+                <Radio value="medium">圆角：6px</Radio>
                 <Radio value="large">圆角：12px</Radio>
               </Radio.Group>
               <br/>
@@ -71,6 +71,7 @@ export default function Demo() {
                 options={addressOptions}
                 onChange={onChange}
                 placeholder="Please select"
+                style={{ width: 328 }}
               />
 			</div>
 		);

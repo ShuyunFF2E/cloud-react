@@ -74,6 +74,7 @@ export default function Demo() {
 					placeholder="Please select"
 					showSearch={{ filter: filter }}
 					loadData={loadData}
+					style={{ width: 328 }}
 				/>
 				<div style={{ marginBottom: 24, marginTop: 40 }}>异步加载，修改加载图标</div>
 				<CCascader
@@ -82,6 +83,7 @@ export default function Demo() {
 					placeholder="Please select"
 					showSearch={{ filter: filter }}
 					loadData={loadData}
+					style={{ width: 328 }}
 					loadingIcon={<Icon type='refresh' />}
 				/>
 			</div>

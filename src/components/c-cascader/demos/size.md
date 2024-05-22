@@ -24,6 +24,10 @@ const addressOptions =  [
           {
             value: 'xiasha',
             label: 'Xia Sha',
+            children: [{
+              value: 'xiasha1',
+              label: 'Xia Sha1Xia Sha1Xia Sha1Xia Sha1Xia Sha1Xia Sha1Xia Sha1',
+            }]
           },
         ],
       },
@@ -49,10 +53,35 @@ const addressOptions =  [
 export default function Demo() {
 
 	return (
-		<CCascader
-            options={addressOptions}
-            placeholder="Please select"
-          />
+    <div style={{ display: 'flex', gap: 30, flexWrap: 'wrap' }}>
+      <div>
+        <p style={{ marginBottom: 24 }}>单一选项最大宽度</p>
+        <CCascader
+          style={{ width: 328 }}
+          options={addressOptions}
+          placeholder="Please select"
+        />
+      </div>
+      <div>
+        <p style={{ marginBottom: 24 }}>多选选项最大宽度</p>
+        <CCascader
+          multiple
+          style={{ width: 328 }}
+          options={addressOptions}
+          placeholder="Please select"
+        />
+      </div>
+            <div>
+            <p style={{ marginBottom: 24 }}>修改单项宽度</p>
+            <CCascader
+              multiple
+              style={{ width: 328 }}
+              dropdownMenuColumnStyle={{ width: 120, minWidth: 120 }}  
+              options={addressOptions}
+              placeholder="Please select"
+            />
+          </div>
+    </div>
 		);
 }
 ```
