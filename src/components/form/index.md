@@ -111,6 +111,7 @@ function UseNexus() {
 
  ### 代码演示
 
+### 基础表单用法
 <embed src="@components/form/demos/basic-forms.md" />
 
 <embed src="@components/form/demos/basic-usage.md" />
@@ -118,3 +119,8 @@ function UseNexus() {
 <embed src="@components/form/demos/horizontal.md" />
 
 <embed src="@components/form/demos/inline.md" />
+
+### Radio 和表单混合使用
+<embed src="@components/form/demos/radio-form1.md" />
+
+<embed src="@components/form/demos/radio-form.md" />
