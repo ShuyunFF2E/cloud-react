@@ -32,6 +32,7 @@ class Notification extends Component {
 
     this.ref = React.createRef();
     this.maskRef = React.createRef();
+    this.resizeObserver = null;
 
     this.state = {
       pageX: '',
@@ -101,6 +102,7 @@ class Notification extends Component {
   componentDidMount() {
     if (this.props.visible) {
       this.insertRootDocumentStyleRule();
+      this.observeModalHeight();
     }
 
     this.screenChange();
@@ -122,6 +124,7 @@ class Notification extends Component {
     if (prevVisible !== visible && visible) {
       this.screenChange();
       this.insertRootDocumentStyleRule();
+      this.observeModalHeight();
     }
 
     if (this.modalRef) {
@@ -132,6 +135,10 @@ class Notification extends Component {
   componentWillUnmount() {
     this.window.removeEventListener('resize', this.screenChange);
     this.onScrollRemove();
+
+    if (this.resizeObserver) {
+      this.resizeObserver.disconnect();
+    }
   }
 
   get window() {
@@ -160,6 +167,15 @@ class Notification extends Component {
 
   get mask() {
     return this.maskRef.current;
+  }
+
+  observeModalHeight = () => {
+    if (this.ref.current) {
+      this.resizeObserver = new ResizeObserver((entries) =>
+        this.screenChange()
+      )
+      this.resizeObserver.observe(this.ref.current);
+    }
   }
 
   // 高度变化

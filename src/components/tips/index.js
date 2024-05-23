@@ -76,8 +76,8 @@ class Tips extends Component {
     const descriptionHeight = this.descriptionRef.current?.clientHeight;
     this.setState({
       showArrow: false,
-    })
-    if(this.props.description) {
+    });
+    if (this.props.description) {
       this.setState({
         showArrow: descriptionHeight > 80 || msgHeight > 20,
       });
@@ -206,6 +206,7 @@ Tips.propTypes = {
   closeIcon: PropTypes.string,
   onClose: PropTypes.func,
   collapsible: PropTypes.bool,
+  borderRadiusSize: PropTypes.oneOf(['default', 'medium', 'large', 'circle']),
 };
 
 Tips.defaultProps = {
@@ -222,6 +223,7 @@ Tips.defaultProps = {
   closeIcon: '',
   onClose: () => {},
   collapsible: false,
+  borderRadiusSize: 'default',
 };
 
 export default Tips;

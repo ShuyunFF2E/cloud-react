@@ -78,28 +78,44 @@ Modal.warning(config)
 
  ### 代码演示 
 
+### 信息提示
 <embed src="@components/modal/demos/info.md" /> 
 
+### 确认对话框
 <embed src="@components/modal/demos/confirm.md" /> 
 
 <!-- <embed src="@components/modal/demos/defineInfoStyle.md" />  -->
 
+### 异步关闭对话框
 <embed src="@components/modal/demos/async.md" /> 
 
+### 尺寸
 <embed src="@components/modal/demos/basic-size-modal.md" /> 
 
+### 基本对话框
 <embed src="@components/modal/demos/basic-modal.md" /> 
 
+### 自定义回调函数
 <embed src="@components/modal/demos/callback.md" /> 
 
+### 内部使用其他组件
 <embed src="@components/modal/demos/component.md" /> 
 
+### 自定义模板
 <embed src="@components/modal/demos/defineTpl.md" /> 
 
 <!-- <embed src="@components/modal/demos/iframe.md" />  -->
 
+### 函数形式打开弹框
 <embed src="@components/modal/demos/methodModal.md" /> 
 
+### 嵌套弹窗
 <embed src="@components/modal/demos/nest.md" /> 
 
+### 自定义样式
 <embed src="@components/modal/demos/style.md" /> 
+
+### 异步加载数据
+<embed src="@components/modal/demos/calculatePosition1.md" /> 
+
+<embed src="@components/modal/demos/calculatePosition.md" /> 
