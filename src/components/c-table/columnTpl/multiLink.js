@@ -1,17 +1,17 @@
 import React, { useRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { prefixCls } from '@utils';
-import { getTextWidth, isVoid } from '../util';
+import { isVoid } from '../util';
 import Tooltip from '../../tooltip';
 import './index.less';
 
-export default function MultiLinkTpl({ value, row, linkKey }) {
+export default function MultiLinkTpl({ value, row, linkKey, onClick }) {
   const ref = useRef();
   const [tooltipContent, setTooltipContent] = useState('');
 
   useEffect(() => {
     if (!isVoid(value)) {
-      if (ref.current.clientWidth * 2 <= getTextWidth(value)) {
+      if (ref.current.scrollHeight > ref.current.clientHeight) {
         setTooltipContent(value);
       }
     }
@@ -27,6 +27,10 @@ export default function MultiLinkTpl({ value, row, linkKey }) {
         ref={ref}
         className={`${prefixCls}-table-column-tpl-multi-link`}
         onClick={() => {
+          if (onClick) {
+            onClick();
+            return;
+          }
           if (row?.[linkKey]) {
             window.open(row?.[linkKey]);
           }
