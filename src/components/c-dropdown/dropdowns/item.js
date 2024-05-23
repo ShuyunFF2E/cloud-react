@@ -2,6 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { prefixCls } from '@utils';
 import 'rc-dropdown/assets/index.css';
+import Icon from '../../icon';
 
 function DropdownItem(props) {
   const {
@@ -12,6 +13,7 @@ function DropdownItem(props) {
     className,
     type,
     id,
+    checkedId,
     ...restProps
   } = props;
 
@@ -30,12 +32,19 @@ function DropdownItem(props) {
         [`${prefixCls}-dropdowns-menu-item`]: true,
         [className]: className || '',
         disabled: !!disabled,
+        'menu-item-checked': checkedId && props.id === checkedId,
       })}
       onClick={() => handleClickItem(id)}
       {...restProps}
     >
       {icon && icon}
       {children}
+      {checkedId && props.id === checkedId && (
+        <Icon
+          type="finish"
+          className="menu-item-checked-icon"
+        />
+      )}
     </div>
   );
 

@@ -15,7 +15,8 @@ import {
 	CDropdown as Dropdown,
 	Icon,
 	CMenu as Menu,
-    Button
+    Button,
+  Message
 } from 'cloud-react';
 
 const { Item } = Menu;
