@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { prefixCls } from '@utils';
-import { getTextWidth, isVoid } from '../util';
+import { isVoid } from '../util';
 import Tooltip from '../../tooltip';
 import './index.less';
 
@@ -11,7 +11,7 @@ export default function MultiTextTpl({ value }) {
 
   useEffect(() => {
     if (!isVoid(value)) {
-      if (ref.current.clientWidth * 2 <= getTextWidth(value)) {
+      if (ref.current.scrollHeight > ref.current.clientHeight) {
         setTooltipContent(value);
       }
     }
