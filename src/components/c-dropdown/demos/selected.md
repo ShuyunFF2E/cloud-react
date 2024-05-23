@@ -25,17 +25,8 @@ const dataList = [
 class DropdownDemo extends React.Component {
 
     state = {
-      current: '1',
       checkedId: '1',
 	};
-
-	handleMenuClick = key => {
-        Message.success(`菜单Item onClick ${key}`);
-    }
-    onOpenChange = e => {
-        console.log('收缩、展开', e)
-		Message.success(`收缩、展开 ${e}`);
-    }
 
 	render() {
 		const overlay = (

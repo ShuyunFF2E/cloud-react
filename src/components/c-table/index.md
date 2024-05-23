@@ -220,8 +220,9 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 | 属性                | 说明                                         | 类型                        | 默认值           |
 | ------------------- | -------------------------------------------- | --------------------------- | ---------------- |
 | value            | 展示值，使用组件的形式必传，使用 typeConfig 忽略次字段             | string                 | -                |
-| typeConfig.linkKey            | 链接 key             | string                 | ''                |
+| typeConfig.linkKey            | 链接 key（取自 row 中的字段）             | string                 | ''                |
 | typeConfig.link            | 链接值             | string                 | ''                |
+| typeConfig.onClick            | 点击链接的回调函数             | func                 | -                |
 
 **（5）type 为 标签类型-`TAG`**
 （_可根据下表配置 typeConfig，查看 [Demo](https://cloud-react.shuyun.com/v1/cloud-react/data/c-table#标准化表格-标签类型)；也可以使用组件形式 <Table.TagTpl/>，查看 [Demo](https://cloud-react.shuyun.com/v1/cloud-react/data/c-table#标准化表格-使用列模板形式)_）

@@ -32,14 +32,14 @@ function DropdownItem(props) {
         [`${prefixCls}-dropdowns-menu-item`]: true,
         [className]: className || '',
         disabled: !!disabled,
-        'menu-item-checked': props.id === checkedId,
+        'menu-item-checked': checkedId && props.id === checkedId,
       })}
       onClick={() => handleClickItem(id)}
       {...restProps}
     >
       {icon && icon}
       {children}
-      {props.id === checkedId && (
+      {checkedId && props.id === checkedId && (
         <Icon
           type="finish"
           className="menu-item-checked-icon"
