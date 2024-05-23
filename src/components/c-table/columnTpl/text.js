@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { prefixCls } from '@utils';
-import { isVoid } from '../util';
+import { getTextWidth, isVoid } from '../util';
 import Tooltip from '../../tooltip';
 import './index.less';
 
@@ -11,7 +11,10 @@ export default function TextTpl({ value }) {
 
   useEffect(() => {
     if (!isVoid(value)) {
-      if (ref.current.scrollWidth > ref.current.clientWidth) {
+      if (
+        ref.current.scrollWidth > ref.current.clientWidth
+        || ref.current.scrollWidth === ref.current.clientWidth && getTextWidth(value) > ref.current.clientWidth
+      ) {
         setTooltipContent(value);
       }
     }
