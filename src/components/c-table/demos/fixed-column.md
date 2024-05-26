@@ -90,14 +90,14 @@ const data = [
 ];
 
 const columns = [
-  { title: '活动ID', dataIndex: 'id', align: 'left', width: 200, fixed: 'left' },
-  { title: '活动名称', dataIndex: 'name', align: 'left', width: 200 },
+  { title: '活动ID', dataIndex: 'id', align: 'left', width: 150, fixed: 'left' },
+  { title: '活动名称', dataIndex: 'name', align: 'left', width: 200, fixed: 'left' },
+  { title: '创建人', dataIndex: 'creator', fixed: 'left', align: 'left', width: 140 },
   {
     title: '创建时间', dataIndex: 'createTime', width: 200, render: val => {
       return <CTable.TimeTpl value={val} />
     }
   },
-  { title: '创建人', dataIndex: 'creator', align: 'left', width: 200 },
   { title: '审批人', dataIndex: 'approver', align: 'left', width: 270 },
   { title: '活动状态', dataIndex: 'status', align: 'left' },
   {
@@ -113,7 +113,6 @@ const columns = [
       </div>
     ),
     width: 300,
-    fixed: 'right'
   }
 ];
 
@@ -122,6 +121,7 @@ export default function CTableDemo() {
   const [size, setSize] = useState('default');
   const [valid, setValid] = useState(false);
   const [isReloadGrid, setIsReloadGrid] = useState(true);
+  const [supportResizeColumn, setSupportResizeColumn] = useState(false);
 
   return (
     <div>
@@ -142,13 +142,19 @@ export default function CTableDemo() {
         tableRef.current.setColumn(columnData, isReloadGrid);
         setValid(true);
       }}>{valid ? '重置表格列' : '删除最后一列'}</Button>
-      <Checkbox checked={isReloadGrid} onChange={checked => {
+      <Checkbox style={{ marginRight: 20 }} checked={isReloadGrid} onChange={checked => {
         setIsReloadGrid(checked);
       }}>设置列后，是否需要刷新表格</Checkbox>
+      <Checkbox checked={supportResizeColumn} onChange={checked => {
+        setSupportResizeColumn(checked);
+      }}>列拉伸</Checkbox>
       <CTable
+        key={supportResizeColumn}
         style={{ height: 500, marginTop: 20 }}
         ref={tableRef}
         size={size}
+        supportResizeColumn={supportResizeColumn}
+        headerBordered={supportResizeColumn}
         supportPage
         supportCheckbox
         columnData={columns}
