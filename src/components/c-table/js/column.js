@@ -134,19 +134,17 @@ export default class Column {
     // 支持配置表格列拉伸
     if (_this.props.supportResizeColumn) {
       resolvedColumnData.forEach((item, index) => {
-        if (!item.fixed) {
-          Object.assign(item, {
-            onHeaderCell: (column) => {
-              const resizableThArr = _this.ref.current.querySelectorAll('th.react-resizable');
-              return {
-                width:
-                  column.width
-                  || resizableThArr[index]?.getBoundingClientRect().width,
-                onResize: this.handleResize(index),
-              };
-            },
-          });
-        }
+        Object.assign(item, {
+          onHeaderCell: (column) => {
+            const resizableThArr = _this.ref.current.querySelectorAll('th.react-resizable');
+            return {
+              width:
+                column.width
+                || resizableThArr[index]?.getBoundingClientRect().width,
+              onResize: this.handleResize(index),
+            };
+          },
+        });
       });
     }
 
