@@ -20,6 +20,8 @@ const data = [
   { id: '121408294', name: '文本文本超长超长超长超长超长超长超长超长超长超长超长超长超长超长超长超长', url: 'https://www.taobao.com', createTime: '2021/12/13 11:14:40', creator: 'xiaotong.fan' },
   { id: '121407191', name: '文本文本文本文本文本3', url: 'https://www.taobao.com', createTime: '2021/12/13 11:03:05', creator: 'zhenxiao.guo' },
   { id: '121407192', name: '文本文本4', url: '', createTime: '2021/12/13 11:03:07', creator: 'han.wu' },
+  { id: '12140719222', name: 'hbsequence500testerhxh', url: '', createTime: '2021/12/13 11:03:07', creator: 'han.wu' },
+  { id: '121407199', name: 'koookoooko-20240520000-20240520000', url: '', createTime: '2021/12/13 11:03:07', creator: 'han.wu' },
   { id: '', name: '', url: '', createTime: '', creator: '' },
 ];
 
@@ -27,8 +29,9 @@ const columns = [
   {
     title: '单行文本',
     dataIndex: 'name',
-    width: 120,
-    type: 'TEXT'
+    width: 190,
+    type: 'TEXT',
+    fixed: 'left',
   },
   {
     title: '单行链接',
@@ -42,7 +45,7 @@ const columns = [
   {
     title: '多行文本',
     dataIndex: 'name',
-    width: 200,
+    width: 100,
     type: 'MULTI_TEXT'
   },
   {

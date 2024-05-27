@@ -11,7 +11,10 @@ export default function TextTpl({ value }) {
 
   useEffect(() => {
     if (!isVoid(value)) {
-      if (ref.current.clientWidth <= getTextWidth(value)) {
+      if (
+        ref.current.scrollWidth > ref.current.clientWidth
+        || ref.current.scrollWidth === ref.current.clientWidth && getTextWidth(value) > ref.current.clientWidth
+      ) {
         setTooltipContent(value);
       }
     }
