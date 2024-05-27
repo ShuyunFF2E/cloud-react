@@ -82,11 +82,9 @@ class Tooltip extends Component {
       )
       || this.props.closeTooltipExec(path)
     ) {
-      if (this.state.visible) {
-        this.setState({ visible: false }, () => {
-          this.props.onVisibleChange(this.state.visible);
-        });
-      }
+      this.setState({ visible: false }, () => {
+        this.props.onVisibleChange(this.state.visible);
+      });
     }
   };
 
@@ -217,6 +215,7 @@ Tooltip.propTypes = {
   onVisibleChange: PropTypes.func,
   alwaysShow: PropTypes.bool,
   containerEle: PropTypes.any,
+  showArrow: PropTypes.bool
 };
 
 Tooltip.defaultProps = {
@@ -233,6 +232,7 @@ Tooltip.defaultProps = {
   onVisibleChange: () => {},
   alwaysShow: false,
   containerEle: null,
+  showArrow: true,
 };
 
 export default Tooltip;

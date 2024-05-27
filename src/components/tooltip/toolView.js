@@ -162,12 +162,12 @@ export default class ToolView extends Component {
 
 	render() {
 		const { style, show, dir } = this.state;
-		const { content, theme, className, overlayStyle } = this.props;
+		const { content, theme, className, overlayStyle, showArrow } = this.props;
 
 		const props = {
 			ref: this.tipRef,
 			style: { ...style, ...overlayStyle },
-			className: classNames(`${prefixCls}-tooltip`, `is-${theme}`, dir, { show }, className),
+			className: classNames(`${prefixCls}-tooltip`, `is-${theme}`, { 'no-arrow': !showArrow }, dir, { show }, className),
 			onMouseLeave: this.closeTips
 		};
 
