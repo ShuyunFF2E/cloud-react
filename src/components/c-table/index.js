@@ -810,7 +810,6 @@ class CTable extends Component {
       className,
       onRow,
       supportResizeColumn,
-      maxHeight,
       isExpendAloneColumn,
       supportExpend,
       supportTree,
@@ -873,6 +872,7 @@ class CTable extends Component {
               [`${tablePrefixCls}-full-column`]: supportFullColumn, // 表格通栏
               [`${tablePrefixCls}-config-column`]: supportConfigColumn, // 配置列的展示和隐藏
               [`${tablePrefixCls}-no-scroll`]: noScroll, // 无纵向滚动条的表格
+              [`${tablePrefixCls}-support-checkbox`]: supportCheckbox,
             },
             className,
           )}

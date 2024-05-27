@@ -109,7 +109,12 @@ const columns = [
     dataIndex: 'name',
     width: 120,
     render: (val, row) => {
-      return <CTable.LinkTpl value={val} link="https://www.taobao.com" />
+      return <CTable.LinkTpl
+        value={val}
+        onClick={() => {
+          window.open("https://www.taobao.com")
+        }}
+      />
     }
   },
   {
@@ -125,7 +130,12 @@ const columns = [
     dataIndex: 'name',
     width: 120,
     render: (val, row) => {
-      return <CTable.MultiLinkTpl value={val} link="https://www.taobao.com" />
+      return <CTable.MultiLinkTpl
+        value={val}
+        onClick={() => {
+          window.open("https://www.taobao.com")
+        }}
+      />
     }
   },
   {
