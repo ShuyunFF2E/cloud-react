@@ -215,7 +215,7 @@ Tooltip.propTypes = {
   onVisibleChange: PropTypes.func,
   alwaysShow: PropTypes.bool,
   containerEle: PropTypes.any,
-  showArrow: PropTypes.bool
+  showArrow: PropTypes.bool,
 };
 
 Tooltip.defaultProps = {
