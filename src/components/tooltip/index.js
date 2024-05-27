@@ -82,9 +82,11 @@ class Tooltip extends Component {
       )
       || this.props.closeTooltipExec(path)
     ) {
-      this.setState({ visible: false }, () => {
-        this.props.onVisibleChange(this.state.visible);
-      });
+      if (this.state.visible) {
+        this.setState({ visible: false }, () => {
+          this.props.onVisibleChange(this.state.visible);
+        });
+      }
     }
   };
 
