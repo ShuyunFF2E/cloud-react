@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import classNames from 'classnames';
 import { prefixCls } from '@utils';
@@ -162,20 +163,30 @@ export default class ToolView extends Component {
 
 	render() {
 		const { style, show, dir } = this.state;
-		const { content, theme, className, overlayStyle } = this.props;
+		const { content, theme, className, overlayStyle, showArrow } = this.props;
 
 		const props = {
 			ref: this.tipRef,
 			style: { ...style, ...overlayStyle },
-			className: classNames(`${prefixCls}-tooltip`, `is-${theme}`, dir, { show }, className),
+			className: classNames(`${prefixCls}-tooltip`, `is-${theme}`, { 'no-arrow': !showArrow }, dir, { show }, className),
 			onMouseLeave: this.closeTips
 		};
 
 		// 检测到非React节点时，使用html到方式插入
 		if (typeof content !== 'object') {
-			return <div {...props} dangerouslySetInnerHTML={{ __html: content }} />;
+			return (
+				<div {...props}>
+					<div dangerouslySetInnerHTML={{ __html: content }}/>
+					<div className="extra-mask-element" />
+				</div>
+			);
 		}
 
-		return <div {...props}>{content}</div>;
+		return (
+			<div {...props}>
+				<div>{content}</div>
+				<div className="extra-mask-element" />
+			</div>
+		);
 	}
 }
