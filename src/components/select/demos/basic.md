@@ -61,6 +61,14 @@ export default function SelectDemo() {
             dataSource={dataList}
           />
         </div>
+        <div>
+          <h5>暂无数据</h5>
+          <Select
+            style={{ width: 328 }}
+            allowClear
+            dataSource={[]}
+          />
+        </div>
       </div>
     </div>
   );
