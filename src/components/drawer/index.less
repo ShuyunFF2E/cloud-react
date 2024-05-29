@@ -8,6 +8,7 @@
 
   &.show {
     box-shadow: @border-shadow-3;
+    z-index: @z-index-drawer-show;
   }
 
   &.top {
@@ -45,8 +46,8 @@
     box-shadow: inset 0px -1px 0px 0px #f5f5f5;
     color: @gray-9;
 
-    .@{prefix}-icon.icon-close {
-      font-size: 16px;
+    .@{prefix}-drawer1-close-icon {
+      font-size: 24px;
       cursor: pointer;
       color: @gray-7;
       margin-right: 20px;
@@ -55,17 +56,18 @@
 
   &-title {
     margin-left: 16px;
+    font-weight: 500;
+    color: @gray-9;
   }
 
   &-content {
-    padding: 16px;
-    width: calc(100% - 32px);
     height: calc(100% - 56px);
     overflow: auto;
   }
 
   &-container {
-    padding-bottom: 32px;
+    height: 100%;
+    padding-bottom: 0;
   }
 
   &-mask {
