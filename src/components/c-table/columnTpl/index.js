@@ -25,9 +25,9 @@ const components = {
   [TIME]: TimeTpl,
   [TIME_RANGE]: TimeRangeTpl,
   [TEXT]: TextTpl,
-  [MULTI_TEXT]: MultiTextTpl,
+  [MULTI_TEXT]: MultiTextTpl, // 废弃
   [LINK]: LinkTpl,
-  [MULTI_LINK]: MultiLinkTpl,
+  [MULTI_LINK]: MultiLinkTpl, // 废弃
   [TAG]: TagTpl,
 };
 

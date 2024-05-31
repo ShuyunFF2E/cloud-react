@@ -184,14 +184,14 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 | minWidth           | 列最小宽度（**该属性效果不流畅，可以给 columnData 中的每一项都设置 width 属性，可达到同样效果**）                                                                             | number                 | -       |
 | filters            | 配置表格列筛选项 [{ text: '男', value: 'male' }, { text: '女', value: 'female' }]                                                                  | array                  | []      |
 | className          | 给列设置类名                                                                                                                                   | string                 | ''      |
-| type               | 列模板类型，可传值：数字类型-`NUMBER`、时间类型-`TIME`、时间范围类型-`TIME_RANGE`、单行文本类型-`TEXT`、多行文本类型-`MULTI_TEXT`、单行文本带链接-`LINK`、多行文本带链接-`MULTI_LINK`、标签类型-`TAG` | string                 | -       |
+| type               | 列模板类型，可传值：数字类型-`NUMBER`、时间类型-`TIME`、时间范围类型-`TIME_RANGE`、文本类型-`TEXT`、链接类型-`LINK`、标签类型-`TAG` | string                 | -       |
 | typeConfig         | 搭配 type 使用，支持参数详见下表 ⬇️                                                                                                                   | object                 | {}      |
 
 **（1）type 为 数字类型-`NUMBER`**
 （_可根据下表配置 typeConfig，查看 [Demo](https://cloud-react.shuyun.com/v1/cloud-react/data/c-table#标准化表格-数值类型)；也可以使用组件形式 <Table.NumberTpl/>，查看 [Demo](https://cloud-react.shuyun.com/v1/cloud-react/data/c-table#标准化表格-使用列模板形式)_）
 | 属性                | 说明                                         | 类型                        | 默认值           |
 | ------------------- | -------------------------------------------- | --------------------------- | ---------------- |
-| value            | 展示值，使用组件的形式必传，使用 typeConfig 忽略次字段             | number                 | -                |
+| value            | 展示值，使用组件的形式必传，使用 typeConfig 忽略此字段             | number                 | -                |
 | typeConfig.precision            | 数值保留的小数位数              | number                 | 0                |
 | typeConfig.isThousands            | 是否使用千分位格式              | bool                 | true                |
 | typeConfig.prefix            | 前缀              |  string                 | ''                |
@@ -201,34 +201,42 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 （_可根据下表配置 typeConfig，查看 [Demo](https://cloud-react.shuyun.com/v1/cloud-react/data/c-table#标准化表格-时间类型)；也可以使用组件形式 <Table.TimeTpl/>，查看 [Demo](https://cloud-react.shuyun.com/v1/cloud-react/data/c-table#标准化表格-使用列模板形式)_）
 | 属性                | 说明                                         | 类型                        | 默认值           |
 | ------------------- | -------------------------------------------- | --------------------------- | ---------------- |
-| value            | 展示值，使用组件的形式必传，使用 typeConfig 忽略次字段             | string                 | -                |
+| value            | 展示值，使用组件的形式必传，使用 typeConfig 忽略此字段             | string                 | -                |
 | typeConfig.format            | 格式化日期，和 moment.js format 支持参数一致，例如：YYY-MM-DD HH:MM:SS              | string                 | -                |
 
 **（3）type 为 时间范围类型-`TIME_RANGE`**
 （_可根据下表配置 typeConfig，查看 [Demo](https://cloud-react.shuyun.com/v1/cloud-react/data/c-table#标准化表格-时间范围类型)；也可以使用组件形式 <Table.TimeRangeTpl/>，查看 [Demo](https://cloud-react.shuyun.com/v1/cloud-react/data/c-table#标准化表格-使用列模板形式)_）
 | 属性                | 说明                                         | 类型                        | 默认值           |
 | ------------------- | -------------------------------------------- | --------------------------- | ---------------- |
-| value            | 展示值，使用组件的形式必传，使用 typeConfig 忽略次字段             | string                 | -                |
+| value            | 展示值，使用组件的形式必传，使用 typeConfig 忽略此字段             | string                 | -                |
 | typeConfig.format            | 格式化日期，和 moment.js format 支持参数一致，例如：YYY-MM-DD HH:MM:SS              | string                 |  -               |
 | typeConfig.startKey            | 开始时间的 key 值             | string                 | -                |
 | typeConfig.endKey            | 结束时间的 key 值             | string                 | -                |
 | typeConfig.startValue            | 开始时间值             | string                 | -                |
 | typeConfig.endValue            | 结束时间值             | string                 | -                |
 
-**（4）type 为 单行链接类型-`LINK`、多行链接类型-`MULTI_LINK`**
+**（4）type 为 文本类型-`TEXT`**
 （_可根据下表配置 typeConfig，查看 [Demo](https://cloud-react.shuyun.com/v1/cloud-react/data/c-table#标准化表格-文本类型)；也可以使用组件形式 <Table.LinkTpl/>，查看 [Demo](https://cloud-react.shuyun.com/v1/cloud-react/data/c-table#标准化表格-使用列模板形式)_）
 | 属性                | 说明                                         | 类型                        | 默认值           |
 | ------------------- | -------------------------------------------- | --------------------------- | ---------------- |
-| value            | 展示值，使用组件的形式必传，使用 typeConfig 忽略次字段             | string                 | -                |
+| value            | 展示值，使用组件的形式必传，使用 typeConfig 忽略此字段             | string                 | -                |
+| typeConfig.line            | 展示行数            | number                 | 1                |
+
+**（5）type 为 链接类型-`LINK`**
+（_可根据下表配置 typeConfig，查看 [Demo](https://cloud-react.shuyun.com/v1/cloud-react/data/c-table#标准化表格-文本类型)；也可以使用组件形式 <Table.LinkTpl/>，查看 [Demo](https://cloud-react.shuyun.com/v1/cloud-react/data/c-table#标准化表格-使用列模板形式)_）
+| 属性                | 说明                                         | 类型                        | 默认值           |
+| ------------------- | -------------------------------------------- | --------------------------- | ---------------- |
+| value            | 展示值，使用组件的形式必传，使用 typeConfig 忽略此字段             | string                 | -                |
+| typeConfig.line            | 展示行数            | number                 | 1                |
 | typeConfig.linkKey            | 链接 key（取自 row 中的字段）             | string                 | ''                |
 | typeConfig.link            | 链接值             | string                 | ''                |
 | typeConfig.onClick            | 点击链接的回调函数             | func                 | -                |
 
-**（5）type 为 标签类型-`TAG`**
+**（6）type 为 标签类型-`TAG`**
 （_可根据下表配置 typeConfig，查看 [Demo](https://cloud-react.shuyun.com/v1/cloud-react/data/c-table#标准化表格-标签类型)；也可以使用组件形式 <Table.TagTpl/>，查看 [Demo](https://cloud-react.shuyun.com/v1/cloud-react/data/c-table#标准化表格-使用列模板形式)_）
 | 属性                | 说明                                         | 类型                        | 默认值           |
 | ------------------- | -------------------------------------------- | --------------------------- | ---------------- |
-| value            | 展示值，使用组件的形式必传，使用 typeConfig 忽略次字段             | string                 | -                |
+| value            | 展示值，使用组件的形式必传，使用 typeConfig 忽略此字段             | string                 | -                |
 | typeConfig.formatValue            | 格式化 value             | function                 | -                |
 
 
