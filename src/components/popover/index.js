@@ -148,11 +148,12 @@ function Popover(props) {
       theme={tooltipTheme}
       onVisibleChange={onVisibleChange}
       className={classnames(className, {
+        [`${classSelector}-tooltip`]: true,
         [`${classSelector}-tooltip-${size}`]:
           title || showCancelBtn || showConfirmBtn,
       })}
       overlayStyle={{
-        width, maxWidth: width, maxHeight: 280, padding: 12, borderRadius: 6,
+        width, maxWidth: width, ...(otherProps.overlayStyle || {}),
       }}
       {...otherProps}
     >

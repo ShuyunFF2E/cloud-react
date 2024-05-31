@@ -38,14 +38,14 @@ group:
 | confirmBtnOpts      | 确认按钮配置项      | object            | {}     |
 | onVisibleChange     | 显示/隐藏回调       | function          | (visible) => {} |
 
+**继承自 Tooltip，支持配置 Tooltip 相关参数，详细请参考 [Tooltip API](https://cloud-react.shuyun.com/v1/cloud-react/common/tooltip#api)**
+
  ## 代码演示 
 
 ### 基础使用
 <embed src="@components/popover/demos/basic.md" /> 
 
 ### 自定义图标
-<embed src="@components/popover/demos/customIcon.md" /> 
-
-### 支持配置 Tooltip 参数，详细请参考 Tooltip 说明文档
+<embed src="@components/popover/demos/customIcon.md" />
 
 
