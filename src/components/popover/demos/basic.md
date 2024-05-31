@@ -6,10 +6,10 @@ desc: 默认样式
 
 ```jsx
 import React, { useState, useEffect } from 'react';
-import { Button, Popover, Message, Checkbox } from 'cloud-react';
+import { Button, Popover, Message, Checkbox, Input } from 'cloud-react';
 
 export default function PopoverDemo() {
-	const [isClick, setIsClick] = useState(false);
+	const [isClick, setIsClick] = useState(true);
   const [trigger, setTrigger] = useState('hover');
 
   useEffect(() => {
@@ -33,6 +33,16 @@ export default function PopoverDemo() {
         {split}
         <Popover
           trigger={trigger}
+          showCancelBtn
+          showConfirmBtn
+          content={(
+            <Input placeholder="请输入" style={{ width: 200 }}/>
+          )}>
+          <Button>带输入框</Button>
+        </Popover>
+        {split}
+        <Popover
+          trigger={trigger}
           size="small"
           placement="right"
           content="这是一段文字描述"
@@ -46,6 +56,14 @@ export default function PopoverDemo() {
           content="这是一段文字描述"
           showIcon >
           <Button>文字 + Icon</Button>
+        </Popover>
+        {split}
+        <Popover
+          trigger={trigger}
+          content="这是一段文字描述"
+          iconStyle={{ color: '#e74949' }}
+          showIcon >
+          <Button>自定义图标</Button>
         </Popover>
         {split}
         <Popover

@@ -7,27 +7,34 @@
 @tableTagCls: ~'@{prefix}-table-column-tpl-tag';
 @tableTagTooltipCls: ~'@{prefix}-table-column-tpl-tag-tooltip';
 
-.@{tableTextCls} {
-  width: 100%;
-  .text-overflow-ellipsis;
+.@{tableTextCls},
+.@{tableLinkCls} {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  white-space: pre-wrap;
 }
 
-.@{tableMultiTextCls} {
+.@{tableTextCls} {
   width: 100%;
-  .multi-text-overflow-ellipsis(2);
 }
 
 .@{tableLinkCls} {
   width: 100%;
   cursor: pointer;
   color: @blue-4;
-  .text-overflow-ellipsis;
 }
 
 .@{tableMultiLinkCls} {
   width: 100%;
   cursor: pointer;
   color: @blue-4;
+  .multi-text-overflow-ellipsis(2);
+}
+
+.@{tableMultiTextCls} {
+  width: 100%;
   .multi-text-overflow-ellipsis(2);
 }
 

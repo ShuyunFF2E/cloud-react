@@ -1,8 +1,8 @@
 @import '../style/index';
 
 @tooltip-prefix-cls: ~'@{prefix}-tooltip';
-@left-space-size: 11px;
-@top-space-size: 11px;
+@left-space-size: 12px;
+@top-space-size: 12px;
 @offset-size: -4px;
 @light-offset-size: -3px;
 
@@ -21,30 +21,30 @@
 
 .top-before-style() {
   width: calc(100% - 8px);
-  height: 10px;
+  height: 8px;
   bottom: 0;
-  left: 4px;
+  left: 5px;
 }
 
 .right-before-style() {
-  width: 10px;
+  width: 8px;
   height: calc(100% - 8px);
   left: 0;
-  top: 4px;
+  top: 5px;
 }
 
 .left-before-style() {
-  width: 10px;
+  width: 8px;
   height: calc(100% - 8px);
   right: 0;
-  top: 4px;
+  top: 5px;
 }
 
 .bottom-before-style() {
   width: calc(100% - 8px);
-  height: 10px;
+  height: 8px;
   top: 0;
-  left: 4px;
+  left: 5px;
 }
 
 .@{tooltip-prefix-cls} {
@@ -77,7 +77,7 @@
     position: absolute;
     width: 10px;
     height: 10px;
-    box-shadow: @border-shadow-4;
+    box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.3);
     transform: rotate(45deg);
   }
 

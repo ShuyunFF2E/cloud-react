@@ -8,7 +8,7 @@ desc: 默认表格
 
 /**
  * title: 使用列模板
- * desc: 使用列模板组件：CTable.NumberTpl、CTable.TimeTpl、CTable.TimeRangeTpl、CTable.TextTpl、CTable.LinkTpl、CTable.MultiTextTpl、CTable.MultiLinkTpl、CTable.TagTpl
+ * desc: 使用列模板组件：CTable.NumberTpl、CTable.TimeTpl、CTable.TimeRangeTpl、CTable.TextTpl、CTable.LinkTpl、CTable.TagTpl
  */
 import React from 'react';
 import { CTable } from 'cloud-react';
@@ -122,7 +122,7 @@ const columns = [
     dataIndex: 'name',
     width: 120,
     render: val => {
-      return <CTable.MultiTextTpl value={val} />
+      return <CTable.TextTpl value={val} line={2} />
     }
   },
   {
@@ -130,8 +130,9 @@ const columns = [
     dataIndex: 'name',
     width: 120,
     render: (val, row) => {
-      return <CTable.MultiLinkTpl
+      return <CTable.LinkTpl
         value={val}
+        line={2}
         onClick={() => {
           window.open("https://www.taobao.com")
         }}

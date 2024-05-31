@@ -19,6 +19,8 @@ function Popover(props) {
     content,
     showIcon,
     iconTpl,
+    iconType,
+    iconStyle,
     showCancelBtn,
     showConfirmBtn,
     cancelBtnText,
@@ -36,13 +38,13 @@ function Popover(props) {
 
   const ref = createRef();
 
-  const closeTooltipExec = (evtPath) => evtPath.find((ele) => (
-    ele.classList
+  const closeTooltipExec = (evtPath) => evtPath.find(
+    (ele) => ele.classList
         && ele.classList.contains
         && (ele.classList.contains(cancelBtnClass)
           || ele.classList.contains(confirmBtnClass)
-          || ele.classList.contains(closeIconClass))
-  ));
+          || ele.classList.contains(closeIconClass)),
+  );
 
   const handleCancelClick = () => {
     props.onCancelClick();
@@ -61,7 +63,13 @@ function Popover(props) {
   const handleConfirmClick = async () => {
     const isInvalidate = props.onConfirmClick();
     if (isInvalidate && isInvalidate.then) {
-      isInvalidate.then((res) => { removeClass(res); }).catch(() => { removeClass(true); });
+      isInvalidate
+        .then((res) => {
+          removeClass(res);
+        })
+        .catch(() => {
+          removeClass(true);
+        });
       return;
     }
     removeClass(isInvalidate);
@@ -74,13 +82,17 @@ function Popover(props) {
     popoverContent = (
       <div className={classSelector}>
         <section className={`${classSelector}-content`}>
-          {showIcon && (iconTpl || <Icon className={`${classSelector}-icon`} type="info_1" />)}
+          {showIcon
+            && (iconTpl || (
+              <Icon className={`${classSelector}-icon`} style={iconStyle} type={iconType || 'info_1'} />
+            ))}
 
           <div className={`${classSelector}-main-content`}>
             {title && <p className={`${classSelector}-title`}>{title}</p>}
             {content && (
               <p
-                className={`${classSelector}-desc ${title ? `${classSelector}-has-title` : ''
+                className={`${classSelector}-desc ${
+                  title ? `${classSelector}-has-title` : ''
                 }`}
               >
                 {content}
@@ -91,7 +103,13 @@ function Popover(props) {
 
         <section className={`${classSelector}-btn`} ref={ref}>
           {showCancelBtn && (
-            <Button onClick={handleCancelClick} size="small" className={cancelBtnClass} {...cancelBtnOpts}>
+            <Button
+              onClick={handleCancelClick}
+              size="small"
+              type="secondary"
+              className={cancelBtnClass}
+              {...cancelBtnOpts}
+            >
               {cancelBtnText}
             </Button>
           )}
@@ -130,10 +148,13 @@ function Popover(props) {
       theme={tooltipTheme}
       onVisibleChange={onVisibleChange}
       className={classnames(className, {
+        [`${classSelector}-tooltip`]: true,
         [`${classSelector}-tooltip-${size}`]:
-        title || showCancelBtn || showConfirmBtn,
+          title || showCancelBtn || showConfirmBtn,
       })}
-      overlayStyle={{ width, maxWidth: width }}
+      overlayStyle={{
+        width, maxWidth: width, ...(otherProps.overlayStyle || {}),
+      }}
       {...otherProps}
     >
       {children}
@@ -147,6 +168,8 @@ Popover.propTypes = {
   content: PropTypes.any,
   showIcon: PropTypes.bool,
   iconTpl: PropTypes.any,
+  iconType: PropTypes.string,
+  iconStyle: PropTypes.object,
   showCancelBtn: PropTypes.bool,
   showConfirmBtn: PropTypes.bool,
   cancelBtnText: PropTypes.string,
@@ -166,10 +189,12 @@ Popover.defaultProps = {
   content: '',
   showIcon: false,
   iconTpl: '',
+  iconType: '',
+  iconStyle: {},
   showCancelBtn: false,
   showConfirmBtn: false,
   cancelBtnText: '取消',
-  confirmText: '确认',
+  confirmText: '确定',
   size: 'default',
   type: 'default',
   onCancelClick: noop,

@@ -46,15 +46,19 @@ const columns = [
     title: '多行文本',
     dataIndex: 'name',
     width: 100,
-    type: 'MULTI_TEXT'
+    type: 'TEXT',
+    typeConfig: {
+      line: 2
+    }
   },
   {
     title: '多行链接',
     dataIndex: 'name',
     width: 200,
-    type: 'MULTI_LINK',
+    type: 'LINK',
     typeConfig: {
-      linkKey: 'url'
+      linkKey: 'url',
+      line: 2
     }
   },
 ];
