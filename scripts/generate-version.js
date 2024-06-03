@@ -31,8 +31,8 @@
 
  const buffer = execSync(cmdStr);
 
- // 新版本取1开头的版本号
- const versions = eval(buffer.toString()).filter(f => f[0] === '1').slice(-10);
+ // 新版本取2开头的版本号
+ const versions = eval(buffer.toString()).filter(f => f[0] === '2').slice(-10);
  const sortVersions = versions.sort((a, b) => {
    const [ a1, a2, a3 ] = a.split('.');
    const [ b1, b2, b3 ] = b.split('.');
@@ -44,7 +44,7 @@
    if (+a3_2 > +b3_2) return 1;
    return -1;
  });
- const currVersion = sortVersions[sortVersions.length - 1];
+ const currVersion = sortVersions[sortVersions.length - 1] || '2.0.0';
 
  console.log(`目前npm上cloud-react版本(旧版本)为 ${currVersion}`);
 
