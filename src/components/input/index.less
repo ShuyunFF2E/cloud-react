@@ -2,7 +2,7 @@
 
 /*
  * 请不要删除 样式中的 !important
- * 样式文件中所有 !important 都是为了覆盖 ccms-components 组件库的流氓样式而写
+ * !important 是为了覆盖 ccms-components 组件库的流氓样式而写
 **/
 
 @input-prefix-cls: ~'@{prefix}-input';
@@ -88,7 +88,7 @@
 
   &,
   &-textarea {
-    border: 1px solid @gray-4;
+    border: 1px solid @gray-4!important;
     border-radius: @border-radius;
     outline: none;
     width: @default-width;
@@ -251,7 +251,7 @@
     padding: 5px @both-space-size;
     color: @gray-9;
     &:hover {
-      border-color: @blue-4;
+      border-color: @blue-4!important;
     }
 
     .icon-search {
@@ -351,29 +351,21 @@
   }
 
   &-textarea:hover,
-  &:hover {
-    border-color: @hover-border-color;
+  &:hover,
+  &-textarea:focus,
+  &:focus {
+    border-color: @hover-border-color!important;
   }
-
-  //&-focus.@{input-prefix-cls}-affix,
-  //&-focus &-affix,
-  //&-textarea:focus,
-  //&:focus {
-  //  border-color: @focus-border-color;
-  //  .icon-search {
-  //    color: @focus-border-color;
-  //  }
-  //}
 
   &-disabled.@{input-prefix-cls}-affix,
   &-disabled &-affix,
   &-textarea:disabled,
   &:disabled {
     color: @gray-7;
-    background: @gray-3;
+    background: @gray-3!important;
     cursor: not-allowed;
     &:hover {
-      border-color: @gray-4;
+      border-color: @gray-4!important;
     }
 
     .icon-search {
