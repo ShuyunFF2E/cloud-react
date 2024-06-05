@@ -10,7 +10,7 @@ desc: 基本使用
  * desc: 多选下拉带不限
  */
 import React, { useState, useEffect } from 'react';
-import { Select } from 'cloud-react';
+import { Select, Checkbox } from 'cloud-react';
 
 const Option = Select.Option;
 
@@ -39,6 +39,7 @@ const dataList = [
 
 export default function SelectDemo() {
   const [v, setValue] = useState([]);
+  const [showTag, setShowTag] = useState(false);
   const [multiDataList, setDataList] = useState(dataList);
   
   useEffect(() => {
@@ -48,6 +49,9 @@ export default function SelectDemo() {
   }, [])
   return (
     <div className="demo">
+      <div style={{ marginBottom: 20 }}>
+        <Checkbox checked={showTag} onChange={setShowTag}>多选已选展示标签</Checkbox>
+      </div>
       <Select
         value={v}
         onChange={values => {
@@ -60,6 +64,9 @@ export default function SelectDemo() {
         supportLightText
         unlimitedLabel="不限语言"
         dataSource={multiDataList}
+        showTag={showTag}
+        scrollItem={showTag}
+        scrollSelected={showTag}
       />
     </div>
   );

@@ -18,11 +18,16 @@ export default function MultiCommaSearch({
   labelKey,
   valueKey,
   searchable,
+  supportUnlimited,
+  unlimitedLabel,
 }) {
   const searchRef = useRef();
   const [isFocusSearchInput, setIsFocusSearchInput] = useState(false);
 
   const getSelectedLabel = () => {
+    if (!selectedList.length && supportUnlimited) {
+      return unlimitedLabel || '不限';
+    }
     if (optionRender) {
       return dataSource
         .filter(item => selectedList.map(item1 => item1.value).includes(item[valueKey]))
@@ -82,7 +87,9 @@ export default function MultiCommaSearch({
       {/* 有已选 && 未聚焦：展示黑色*/}
       <span
         className={`${selector}-search-selected ${scrollSelected ? 'scroll-selected' : 'overflow-ellipsis'}`}
-        style={!!selectedList.length && !isFocusSearchInput ? {} : { visibility: 'hidden', width: 0, height: 10 }}
+        style={!!selectedList.length && !isFocusSearchInput || !selectedList.length && supportUnlimited
+          ? {}
+          : { visibility: 'hidden', width: 0, height: 10 }}
       >
         {getSelectedLabel()}
       </span>
