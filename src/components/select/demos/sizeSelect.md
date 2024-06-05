@@ -67,7 +67,7 @@ export default function SelectDemo() {
         ))}
       </Select>
       <Select
-        style={{ width: 65 }}
+        style={{ width: 65, minWidth: 65 }}
         allowClear
         size={size}
         placeholder=""
