@@ -20,6 +20,8 @@ export default function Badge(props) {
     onClick,
   } = props;
 
+  const isOneUnit = mode === 'number' && `${number}`.length === 1;
+
   const handleBadgeClick = () => {
     onClick();
   };
@@ -38,7 +40,7 @@ export default function Badge(props) {
       {mode === 'message' && <Icon type="remark" className="remark" />}
       {mode === 'number' && (
         <span
-          className={`number-container ${isSquare && 'square'}`}
+          className={`number-container ${isSquare && 'square'} ${isOneUnit && 'one-unit'}`}
           style={color ? { background: color } : {}}
         >
           {number}
