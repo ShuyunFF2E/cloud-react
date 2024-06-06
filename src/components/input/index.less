@@ -81,6 +81,7 @@
   }
 
   &-group:not(.@{input-prefix-cls}-disabled) {
+    .@{prefix}-icon-search:hover,
     .icon-search:hover {
       cursor: pointer;
     }
@@ -254,6 +255,7 @@
       border-color: @blue-4!important;
     }
 
+    .@{prefix}-icon-search,
     .icon-search {
       color: @gray-6;
       cursor: pointer;
@@ -350,10 +352,13 @@
     height: 28px;
   }
 
-  &-textarea:hover,
-  &:hover,
   &-textarea:focus,
   &:focus {
+    border-color: @gray-4!important;
+  }
+
+  &-textarea:hover,
+  &:hover {
     border-color: @hover-border-color!important;
   }
 
@@ -368,6 +373,7 @@
       border-color: @gray-4!important;
     }
 
+    .@{prefix}-icon-search,
     .icon-search {
       cursor: not-allowed;
 
