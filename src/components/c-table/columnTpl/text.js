@@ -11,7 +11,7 @@ export default function TextTpl({ value, line = 1 }) {
 
   useEffect(() => {
     if (!isVoid(value)) {
-      if (ref.current.scrollHeight > ref.current.clientHeight) {
+      if (ref.current.scrollHeight > ref.current.clientHeight + 4) {
         setTooltipContent(value);
       }
     }
@@ -35,6 +35,9 @@ export default function TextTpl({ value, line = 1 }) {
 
 TextTpl.propTypes = {
   value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+  line: PropTypes.number,
 };
 
-TextTpl.defaultProps = {};
+TextTpl.defaultProps = {
+  line: 1,
+};
