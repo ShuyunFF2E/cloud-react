@@ -19,7 +19,7 @@ export default function InputDemo() {
       <h5>后置</h5>
       <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
         <InputNumber style={{ width: 200 }} placeholder="请输入" size="large" noStep addonAfter="分" />
-        <InputNumber style={{ width: 200 }} placeholder="请输入" noStep addonAfter="次" />
+        <InputNumber style={{ width: 200 }} placeholder="请输入" noStep addonAfter="积分/次" />
         <InputNumber style={{ width: 200 }} placeholder="请输入" size="small" noStep addonAfter="份" />
       </div>
       <h5>前置</h5>
