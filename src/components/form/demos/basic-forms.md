@@ -219,6 +219,16 @@ export default function FormHorizontalDemo() {
           })}
         />
       </Form.Item>
+      <Form.Item label="中奖次数">
+        <InputNumber
+          disabled={disabled}
+          placeholder="请输入金额"
+          {...field.init('payment', {
+            rules: [{ required: true, message: '请输入金额' }]
+          })}
+          addonAfter="次"
+        />
+      </Form.Item>
 
       <Form.Item label="所在国家-单选" required>
         <Select
