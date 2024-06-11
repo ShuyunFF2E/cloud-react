@@ -11,7 +11,7 @@ export default function LinkTpl({ value, row, linkKey, link, onClick, line = 1 }
 
   useEffect(() => {
     if (!isVoid(value)) {
-      if (ref.current.scrollHeight > ref.current.clientHeight) {
+      if (ref.current.scrollHeight > ref.current.clientHeight + 4) {
         setTooltipContent(value);
       }
     }
@@ -46,9 +46,15 @@ export default function LinkTpl({ value, row, linkKey, link, onClick, line = 1 }
 LinkTpl.propTypes = {
   value: PropTypes.string.isRequired,
   linkKey: PropTypes.string.isRequired,
+  row: PropTypes.object,
   link: PropTypes.string,
+  onClick: PropTypes.func,
+  line: PropTypes.number,
 };
 
 LinkTpl.defaultProps = {
   link: '',
+  row: {},
+  onClick: undefined,
+  line: 1,
 };
