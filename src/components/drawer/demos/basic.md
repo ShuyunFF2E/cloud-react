@@ -73,6 +73,7 @@ export default function CTableDemo() {
       
       <div>
         <Drawer
+          style={{ padding: 16 }}
           ref={drawerRef}
           placement={placement}
           title="这里是标题"

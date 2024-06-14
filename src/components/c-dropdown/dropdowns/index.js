@@ -61,7 +61,7 @@ function Dropdown(props) {
   };
 
   const dropdownTrigger = cloneElement(children, {
-    className: classNames(`${prefixCls}-dropdowns`, className),
+    className: classNames(`${prefixCls}-dropdowns`, className, children?.props?.className),
     disabled,
   });
 

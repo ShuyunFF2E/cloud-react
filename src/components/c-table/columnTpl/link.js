@@ -1,20 +1,17 @@
 import React, { useRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { prefixCls } from '@utils';
-import { getTextWidth, isVoid } from '../util';
+import { isVoid } from '../util';
 import Tooltip from '../../tooltip';
 import './index.less';
 
-export default function LinkTpl({ value, row, linkKey, link, onClick }) {
+export default function LinkTpl({ value, row, linkKey, link, onClick, line = 1 }) {
   const ref = useRef();
   const [tooltipContent, setTooltipContent] = useState('');
 
   useEffect(() => {
     if (!isVoid(value)) {
-      if (
-        ref.current.scrollWidth > ref.current.clientWidth
-        || ref.current.scrollWidth === ref.current.clientWidth && getTextWidth(value) > ref.current.clientWidth
-      ) {
+      if (ref.current.scrollHeight > ref.current.clientHeight + 4) {
         setTooltipContent(value);
       }
     }
@@ -29,6 +26,7 @@ export default function LinkTpl({ value, row, linkKey, link, onClick }) {
       <p
         ref={ref}
         className={`${prefixCls}-table-column-tpl-link`}
+        style={{ '-webkit-line-clamp': `${line}` }}
         onClick={() => {
           if (onClick) {
             onClick();
@@ -48,9 +46,15 @@ export default function LinkTpl({ value, row, linkKey, link, onClick }) {
 LinkTpl.propTypes = {
   value: PropTypes.string.isRequired,
   linkKey: PropTypes.string.isRequired,
+  row: PropTypes.object,
   link: PropTypes.string,
+  onClick: PropTypes.func,
+  line: PropTypes.number,
 };
 
 LinkTpl.defaultProps = {
   link: '',
+  row: {},
+  onClick: undefined,
+  line: 1,
 };

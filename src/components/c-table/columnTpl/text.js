@@ -1,20 +1,17 @@
 import React, { useRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { prefixCls } from '@utils';
-import { getTextWidth, isVoid } from '../util';
+import { isVoid } from '../util';
 import Tooltip from '../../tooltip';
 import './index.less';
 
-export default function TextTpl({ value }) {
+export default function TextTpl({ value, line = 1 }) {
   const ref = useRef();
   const [tooltipContent, setTooltipContent] = useState('');
 
   useEffect(() => {
     if (!isVoid(value)) {
-      if (
-        ref.current.scrollWidth > ref.current.clientWidth
-        || ref.current.scrollWidth === ref.current.clientWidth && getTextWidth(value) > ref.current.clientWidth
-      ) {
+      if (ref.current.scrollHeight > ref.current.clientHeight + 4) {
         setTooltipContent(value);
       }
     }
@@ -25,7 +22,11 @@ export default function TextTpl({ value }) {
   }
   return (
     <Tooltip content={tooltipContent} theme="light">
-      <p ref={ref} className={`${prefixCls}-table-column-tpl-text`}>
+      <p
+        ref={ref}
+        className={`${prefixCls}-table-column-tpl-text`}
+        style={{ '-webkit-line-clamp': `${line}` }}
+      >
         {value}
       </p>
     </Tooltip>
@@ -34,6 +35,9 @@ export default function TextTpl({ value }) {
 
 TextTpl.propTypes = {
   value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+  line: PropTypes.number,
 };
 
-TextTpl.defaultProps = {};
+TextTpl.defaultProps = {
+  line: 1,
+};

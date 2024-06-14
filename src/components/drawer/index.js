@@ -120,6 +120,7 @@ function Drawer(
             />
             <Icon
               id={`${drawerPrefix}-close`}
+              className={`${drawerPrefix}-close-icon`}
               type="close"
               onClick={(evt) => {
                 evt.stopPropagation();
