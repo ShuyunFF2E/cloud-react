@@ -32,6 +32,7 @@ class Notification extends Component {
 
     this.ref = React.createRef();
     this.maskRef = React.createRef();
+    this.resizeObserver = null;
 
     this.state = {
       pageX: '',
@@ -67,6 +68,8 @@ class Notification extends Component {
     onOk: noop,
     onCancel: noop,
     onClose: noop,
+    supportDrag: true,
+    borderRadiusSize: 'large',
   };
 
   static propTypes = {
@@ -91,12 +94,15 @@ class Notification extends Component {
     showMask: PropTypes.bool,
     showConfirmLoading: PropTypes.bool,
     clickMaskCanClose: PropTypes.bool,
+    supportDrag: PropTypes.bool,
+    borderRadiusSize: PropTypes.string,
   };
 
   // 组件装在完毕监听屏幕大小切换事件
   componentDidMount() {
     if (this.props.visible) {
       this.insertRootDocumentStyleRule();
+      this.observeModalHeight();
     }
 
     this.screenChange();
@@ -118,6 +124,7 @@ class Notification extends Component {
     if (prevVisible !== visible && visible) {
       this.screenChange();
       this.insertRootDocumentStyleRule();
+      this.observeModalHeight();
     }
 
     if (this.modalRef) {
@@ -128,6 +135,10 @@ class Notification extends Component {
   componentWillUnmount() {
     this.window.removeEventListener('resize', this.screenChange);
     this.onScrollRemove();
+
+    if (this.resizeObserver) {
+      this.resizeObserver.disconnect();
+    }
   }
 
   get window() {
@@ -156,6 +167,15 @@ class Notification extends Component {
 
   get mask() {
     return this.maskRef.current;
+  }
+
+  observeModalHeight = () => {
+    if (this.ref.current) {
+      this.resizeObserver = new ResizeObserver((entries) =>
+        this.screenChange()
+      )
+      this.resizeObserver.observe(this.ref.current);
+    }
   }
 
   // 高度变化
@@ -213,6 +233,9 @@ class Notification extends Component {
    * 计算鼠标按下时，指针所在位置与modal位置以及两者的差值
    * */
   onMouseDown = (evt) => {
+    if (!this.props.supportDrag) {
+      return;
+    }
     const { diffX, diffY } = this.getPosition(evt);
 
     this.document.addEventListener('mousemove', this.onMouseMove);
@@ -310,6 +333,8 @@ class Notification extends Component {
       onOk,
       onClose,
       onCancel,
+      supportDrag,
+      borderRadiusSize,
       infoText,
     } = this.props;
 
@@ -337,6 +362,7 @@ class Notification extends Component {
           ref={this.maskRef}
           className={classnames(`${prefixCls}-modal`, {
             'other-area-can-click': !showMask,
+            [`${prefixCls}-modal-${borderRadiusSize}`]: borderRadiusSize,
           })}
         >
           {/* 遮罩层 */}
@@ -375,6 +401,7 @@ class Notification extends Component {
                 onMouseDown={this.onMouseDown}
                 onClose={onClose}
                 title={title}
+                supportDrag={supportDrag}
               />
 
               <ModalBody
@@ -425,7 +452,7 @@ function ModalMask({ onReset, showMask, onClose, clickMaskCanClose }) {
   );
 }
 
-function ModalHeader({ type, title, onClose, onReset, ...props }) {
+function ModalHeader({ type, title, onClose, onReset, supportDrag, ...props }) {
   const close = () => {
     onReset();
     onClose();
@@ -435,7 +462,12 @@ function ModalHeader({ type, title, onClose, onReset, ...props }) {
   };
   return (
     type === 'modal' && (
-      <header {...props} className={classnames(`${prefixCls}-modal-header`)}>
+      <header
+        {...props}
+        className={classnames(`${prefixCls}-modal-header`, {
+          [`${prefixCls}-modal-header-drag`]: supportDrag,
+        })}
+      >
         <span
           className={classnames(`${prefixCls}-modal-title`)}
           onMouseDown={(event) => selected(event)}
@@ -526,7 +558,7 @@ function ModalFooter({
   return (
     <footer style={style} className={footerClass}>
       <Button
-        type="normal"
+        type="secondary"
         size="large"
         disabled={showConfirmLoading}
         onClick={cancel}

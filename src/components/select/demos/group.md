@@ -59,7 +59,7 @@ export default function SelectDemo() {
       <Select
         value={value}
         onChange={handleChange}
-        style={{ width: 120 }}
+        style={{ width: 328 }}
         dataSource={dataList}
       />
     </div>

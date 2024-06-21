@@ -23,6 +23,9 @@ export default function Option(props) {
     lightTextColor,
     hideCheckbox,
     onUnlimitedChange,
+    scrollItem,
+    searchable,
+    optionRender,
     ...otherProps
   } = props;
 
@@ -37,7 +40,7 @@ export default function Option(props) {
   };
 
   const getLabel = (originLabel) => {
-    if (supportLightText) {
+    if (searchable && supportLightText && !optionRender) {
       return (
         <LightText
           keyWords={searchValue || ''}
@@ -55,30 +58,31 @@ export default function Option(props) {
     onChange(props);
   };
   const classNames = classnames(
-    `${selector}-option`,
+    `${selector}-option ${scrollItem ? 'scroll-item' : 'overflow-ellipsis'}`,
     { disabled, selected: isSelected },
     className,
   );
 
   if (multiple) {
-    const { value, children } = otherProps;
+    const { value, children, checkboxStyle } = otherProps;
     return hideCheckbox ? (
       // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
       <label
         className={classnames(classNames, `${selector}-multi-option`)}
         onClick={onUnlimitedChange}
       >
-        <span title={getTitle(children)}>{getLabel(children)}</span>
+        <span className="option-content" title={getTitle(children)}>{getLabel(children)}</span>
       </label>
     ) : (
       <label className={classnames(classNames, `${selector}-multi-option`)}>
         <Checkbox
+          style={checkboxStyle || {}}
           checked={isSelected}
           disabled={disabled}
           value={value}
           onChange={onChange}
         />
-        <span title={getTitle(children)}>{getLabel(children)}</span>
+        <span className="option-content" title={getTitle(children)}>{getLabel(children)}</span>
       </label>
     );
   }
@@ -94,9 +98,9 @@ export default function Option(props) {
       <div
         {...others}
         onClick={onOptionClick}
-        className={classnames(classNames, `${selector}-multi-option`)}
+        className={classNames}
       >
-        <span title={getTitle(children)}>{getLabel(children)}</span>
+        <span className="option-content" title={getTitle(children)}>{getLabel(children)}</span>
         {isSelected && (
           <Icon
             type="finish"

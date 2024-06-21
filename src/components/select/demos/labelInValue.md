@@ -33,6 +33,7 @@ export default function SelectDemo() {
 
   return (
     <Select
+      style={{ width: 328 }}
       labelInValue
       placeholder="请选择..."
       defaultValue="strawberry"

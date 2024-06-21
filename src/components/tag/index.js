@@ -15,6 +15,7 @@ const typeEnum = {
   DEFAULT: 'default',
   DANGER: 'danger',
   PRIMARY: 'primary',
+  LINK: 'link',
 };
 
 const sizeEnum = {
@@ -31,8 +32,9 @@ export default class Tag extends Component {
       typeEnum.DEFAULT,
       typeEnum.DANGER,
       typeEnum.PRIMARY,
+      typeEnum.LINK,
     ]),
-    size: PropTypes.oneOf([ sizeEnum.SMALL, sizeEnum.NORMAL ]),
+    size: PropTypes.oneOf([sizeEnum.SMALL, sizeEnum.NORMAL]),
     color: PropTypes.string,
     rounded: PropTypes.bool,
     closable: PropTypes.bool,
@@ -49,7 +51,7 @@ export default class Tag extends Component {
     color: '',
     rounded: false,
     closable: false,
-    checkable: true,
+    checkable: false,
     checked: false,
     disabled: false,
     onClick: noop,
@@ -99,6 +101,7 @@ export default class Tag extends Component {
       [size]: size,
       [color]: !!color,
       [type]: !!type,
+      defaultTag: !type && !color,
     });
   }
 
@@ -115,9 +118,7 @@ export default class Tag extends Component {
   };
 
   renderContent() {
-    const {
-      closable, disabled, icon, maxWidth, ...others
-    } = this.props;
+    const { closable, disabled, icon, maxWidth, style, ...others } = this.props;
 
     const props = omit(others, [
       'type',
@@ -134,7 +135,7 @@ export default class Tag extends Component {
     return (
       <span
         className={this.classes}
-        style={{ maxWidth: maxWidth || 200 }}
+        style={{ maxWidth: maxWidth || 200, ...style }}
         onClick={this.handleClick}
         ref={this.ref}
         {...props}

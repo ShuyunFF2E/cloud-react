@@ -13,15 +13,16 @@ export const formatOptionSource = (data) => {
   return result;
 };
 
-export const filterOptions = (options, filter) => options.reduce((acc, child) => {
-  const { children, type } = child.props;
+export const filterOptions = (options, filter, labelKey) => options.reduce((acc, child) => {
+  const { children, type, item } = child.props;
   const label = Array.isArray(children)
     ? children.find((v) => typeof v === 'string' || typeof v === 'number')
     : children;
   if (label && String(label).indexOf(filter) > -1) {
     acc.push(child);
-  }
-  if (type && type === 'divider') {
+  } else if (type && type === 'divider') {
+    acc.push(child);
+  } else if (item?.[labelKey] && String(item?.[labelKey]).indexOf(filter) > -1) {
     acc.push(child);
   }
   return acc;

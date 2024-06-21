@@ -64,6 +64,7 @@ export default function Demo() {
 				onChange={onChange}
 				placeholder="Please select"
 				showSearch={{ filter: filter }}
+        style={{ width: 328 }}
         allowClear/>
 		);
 }

@@ -34,19 +34,6 @@ export default function RadioDemo() {
           <Radio value={6}>D</Radio>
         </WrapComp>
       </Radio.Group>
-      <br />
-      <br />
-      <Radio.Group value={value} defaultValue={1} onChange={onChange}>
-        <ComplexRadio
-            title="A1"
-            value={4}
-            style={{ width: 'auto' }}
-        />
-        <ComplexRadio
-            title="B1"
-            value={5}
-        />
-      </Radio.Group>
     </>
 
   );

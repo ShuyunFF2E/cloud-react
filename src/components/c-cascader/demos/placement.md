@@ -55,22 +55,49 @@ export default function Demo() {
 		console.log(value);
 	}
 	return (
-    	<div>
-			<Button.Group>
-				<Button onClick={() => setPlacement('bottomLeft')}>左下</Button>
-				<Button onClick={() => setPlacement('topLeft')}>左上</Button>
-				<Button onClick={() => setPlacement('bottomRight')}>右下</Button>
-				<Button onClick={() => setPlacement('topRight')}>右上</Button>
-			</Button.Group>
-			<div style={{ marginTop: 24 }}>
-				<CCascader
+    <div style={{ display: 'flex', gap: 20, flexDirection: 'column' }}>
+      <div>
+        <h5>上左</h5>
+        <CCascader
+          style={{ width: 328 }}
 					options={addressOptions}
 					onChange={onChange}
 					placeholder="Please select"
-					placement={placement}
+					placement="topLeft"
 				/>
-			</div>
-		</div>
+      </div>
+      <div>
+        <h5>上右</h5>
+        <CCascader
+          style={{ width: 328 }}
+					options={addressOptions}
+					onChange={onChange}
+					placeholder="Please select"
+					placement="topRight"
+				/>
+      </div>
+      <div>
+        <h5>下左</h5>
+        <CCascader
+          style={{ width: 328 }}
+					options={addressOptions}
+					onChange={onChange}
+					placeholder="Please select"
+					placement="bottomLeft"
+				/>
+      </div>
+      <div>
+        <h5>下右</h5>
+          <CCascader
+            style={{ width: 328 }}
+            options={addressOptions}
+            onChange={onChange}
+            placeholder="Please select"
+            placement="bottomRight"
+          />
+      </div>
+    </div>
+
 		);
 }
 ```

@@ -76,8 +76,8 @@ class Tips extends Component {
     const descriptionHeight = this.descriptionRef.current?.clientHeight;
     this.setState({
       showArrow: false,
-    })
-    if(this.props.description) {
+    });
+    if (this.props.description) {
       this.setState({
         showArrow: descriptionHeight > 80 || msgHeight > 20,
       });
@@ -163,11 +163,15 @@ class Tips extends Component {
   };
 
   render() {
-    const { type, mode, style, className } = this.props;
+    const { type, mode, style, className, borderRadiusSize } = this.props;
     const { visible } = this.state;
     return (
       visible && (
-        <div className={cls(`${prefixCls}-tips`, mode, type, className)} style={style} ref={this.wrapperRef}>
+        <div
+          className={cls(`${prefixCls}-tips`, mode, type, `${borderRadiusSize}-radius`, className)}
+          style={style}
+          ref={this.wrapperRef}
+        >
           <div className={cls(`${prefixCls}-tips-container`, `${mode}-container`)}>
             {mode === 'default' && this.renderDefaultTips()}
             {mode === 'banner' && this.renderBannerTips()}
@@ -202,6 +206,7 @@ Tips.propTypes = {
   closeIcon: PropTypes.string,
   onClose: PropTypes.func,
   collapsible: PropTypes.bool,
+  borderRadiusSize: PropTypes.oneOf(['default', 'medium', 'large', 'circle']),
 };
 
 Tips.defaultProps = {
@@ -218,6 +223,7 @@ Tips.defaultProps = {
   closeIcon: '',
   onClose: () => {},
   collapsible: false,
+  borderRadiusSize: 'default',
 };
 
 export default Tips;

@@ -63,6 +63,7 @@ export default function Demo() {
     <div>
 				<div style={{ marginBottom: 24 }}>鼠标点击展示子项</div>
 				<CCascader
+          style={{ width: 328 }}
           options={addressOptions}
           onChange={onChange}
           placeholder="Please select"
@@ -70,6 +71,7 @@ export default function Demo() {
           />
 				<div style={{ marginBottom: 24, marginTop: 40 }}>鼠标移动展示子项</div>
 				<CCascader
+          style={{ width: 328 }}
           options={addressOptions}
           onChange={onChange}
           placeholder="Please select"

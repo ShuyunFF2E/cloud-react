@@ -19,8 +19,8 @@
         right: -3px;
         display: block;
         content: '';
-        width: 8px;
-        height: 8px;
+        width: 6px;
+        height: 6px;
         border-radius: 100%;
       }
     }
@@ -29,34 +29,46 @@
   &.@{breadcrumbs-prefix-cls}-number {
     .number-container {
       display: inline-block;
-      height: 8px;
       min-width: 8px;
-      padding: 4px;
+      height: 20px;
+      line-height: 20px;
+      padding: 0 6px;
       width: fit-content;
-      line-height: 8px;
-      border-radius: 8px;
+      border-radius: 10px;
       color: @color-white;
       text-align: center;
       font-size: 12px;
-      box-sizing: content-box;
+
+      &.square {
+        border-radius: 3px;
+      }
+
+      &.one-unit {
+        width: 20px;
+        padding: 0;
+      }
     }
   }
 
-  &.@{breadcrumbs-prefix-cls}-dot {
+  &.@{breadcrumbs-prefix-cls}-dot,
+  &.@{breadcrumbs-prefix-cls}-custom-dot {
     cursor: auto;
-    .text {
-      font-size: 14px;
 
-      &:before {
-        content: '';
-        display: inline-block;
-        position: relative;
-        top: -1px;
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        margin-right: 7px;
-      }
+    .text,
+    .custom-dot-text {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+    }
+
+    .text:before,
+    .custom-dot {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      margin-right: 8px;
     }
   }
 

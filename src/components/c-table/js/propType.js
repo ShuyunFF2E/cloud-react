@@ -148,7 +148,7 @@ export const defaultProps = {
   watchColumnData: false,
   useRootWindow: false,
   showFooterSelect: true,
-  hideEmptyFooter: false,
+  hideEmptyFooter: true,
   disabled: false,
   sticky: undefined,
   stickyFooter: false,

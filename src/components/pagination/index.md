@@ -31,6 +31,7 @@ group:
 | isAppendToBody      | 分页下拉框是否渲染在 body 上	          | boolean                      | true                |
 | disabled      | 禁用分页	          | boolean                      | false                |
 | type      | 分页类型 `default` `simple` `small` `mini-page` `mini-no-page`         | string                      | default                |
+| showTotal      | 展示数据总量        | boolean                      | false                |
 
  ### 代码演示 
 
@@ -38,7 +39,9 @@ group:
 
 <embed src="@components/pagination/demos/change.md" /> 
 
-<embed src="@components/pagination/demos/jump.md" /> 
+<embed src="@components/pagination/demos/jump.md" />
+
+<embed src="@components/pagination/demos/total.md" /> 
 
 <embed src="@components/pagination/demos/disabled.md" /> 
 

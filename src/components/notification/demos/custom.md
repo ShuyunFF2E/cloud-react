@@ -15,6 +15,7 @@ export default function NotificationDemo() {
       content: '消息通知内容消息通知内容消息',
       showIcon: true,
       duration: 0,
+      showCloseIcon: true,
       ...props
     });
   }
@@ -29,7 +30,18 @@ export default function NotificationDemo() {
         })}>
         自定义边框
       </Button>
-      <Button onClick={() => open({ isLightTheme: true, style: { background: '#496BF5' } })}>自定义背景</Button>
+      <Button onClick={() => open({
+        isLightTheme: true,
+        style: {
+          background: '#496BF5'
+        },
+        titleStyle: {
+          color: 'white'
+        },
+        contentStyle: {
+          color: 'white'
+        }
+      })}>自定义背景</Button>
     </div>
   );
 }

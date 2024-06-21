@@ -125,7 +125,7 @@ class Tooltip extends Component {
     if (
       (event
         && event.relatedTarget
-        && event.relatedTarget.className?.includes('cloud-tooltip'))
+        && event.relatedTarget.className?.includes(`${prefixCls}-tooltip`))
       || trigger === 'click'
     ) {
       return;

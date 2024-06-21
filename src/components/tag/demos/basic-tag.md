@@ -5,11 +5,6 @@ desc: 普通标签、link标签
 ---
 
 ```jsx
-
-            /**
-             * title: 基本使用
-             * desc: 普通标签、link标签
-             */
 import React, { Component } from 'react';
 import { Tag } from 'cloud-react';
 
@@ -17,11 +12,21 @@ class TagDemo extends Component {
 	render() {
 		return (
 			<React.Fragment>
-				<Tag>Tag Demo</Tag>
-				<Tag>超级超级长的tag超级超级长的tag超级超级长的tag超级超级长的tag超级超级长的tag超级超级长的tag超级超级长的tag超级超级长的tag超级超级长的tag</Tag>
-				<Tag>
-					<a href="http://www.baidu.com">Link Tag</a>
-				</Tag>
+				<div style={{ marginBottom: 15, fontSize: 14 }}>
+					<Tag type="success">成功</Tag>
+					<Tag type="danger">失败</Tag>
+					<Tag type="warning">未开始</Tag>
+					<Tag type="default">已完成</Tag>
+					<Tag color="blue">进行中</Tag>
+				</div>
+				<div style={{ marginBottom: 15, fontSize: 14 }}>
+					<Tag type="success" icon="success-fill">成功</Tag>
+					<Tag type="danger" icon="close-fill-1">失败</Tag>
+					<Tag type="warning" icon="no-start">未开始</Tag>
+					<Tag type="default" icon="success-fill">已完成</Tag>
+					<Tag color="blue" icon="underway">进行中</Tag>
+				</div>
+				
 			</React.Fragment>
 		);
 	}

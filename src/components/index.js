@@ -17,7 +17,7 @@ bodys.style.setProperty(`--shuyunBlue${i + 1}`,color)
 }
 }
 
-export const version = '1.0.33';
+export const version = '2.0.2';
 
 export { default as Avatar } from './avatar';
 
@@ -72,6 +72,8 @@ export { default as Loading } from './loading';
 export { default as Menu } from './menu';
 
 export { default as Message } from './message';
+
+export { default as Mixin } from './mixin';
 
 export { default as Modal } from './modal';
 

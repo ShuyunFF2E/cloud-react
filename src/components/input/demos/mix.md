@@ -15,18 +15,17 @@ import { Input, Icon } from 'cloud-react';
 import './styles/mix.less'
 
 export default function InputDemo() {
-	return (
-		<div className="input-demo-mix-box">
-			<div className="input-demo-box">
-				<Input size="large" hasClear addonBefore={<span>http://</span>} addonAfter=".com" placeholder="请输入" />
-				<Input hasClear size="default" addonBefore={<span>http://</span>} addonAfter=".com" placeholder="请输入" />
-			</div>
-
-			<div className="input-demo-box">
-				<Input suffix={<Icon className='input-prefix-icon' type="search" />} placeholder="请输入" /><br />
-				<Input prefix={<Icon className='input-prefix-icon' type="people" />} placeholder="请输入" suffix="RMB" />
-			</div>
-		</div>
-	);
+  return (
+    <div className="input-demo-mix-box">
+      <div className="input-demo-box">
+        <Input hasClear addonBefore={<span>http://</span>} placeholder="请输入" />
+        <Input hasClear addonAfter=".com" placeholder="请输入" />
+        <Input hasClear addonBefore={<span>http://</span>} addonAfter=".com"
+               placeholder="请输入" />
+        <Input prefix={<Icon className='input-prefix-icon' type="people" style={{ color: 'rgba(0,0,0,0.25)' }} />}
+               placeholder="请输入" suffix="RMB" />
+      </div>
+    </div>
+  );
 }
 ```

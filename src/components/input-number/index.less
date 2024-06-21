@@ -23,7 +23,7 @@
   width: 150px;
   color: @gray-9;
   border: 1px solid @gray-4;
-  border-radius: 2px;
+  border-radius: 3px;
   background-color: @gray-1;
   transition: border-color 0.3s;
 
@@ -32,7 +32,7 @@
   }
 
   &:not(&-focused):not(&-disabled):hover {
-    border-color: @gray-6;
+    border-color: @blue-4;
   }
 
   &-focused {
@@ -92,6 +92,9 @@
     &:hover {
       color: @blue-4;
     }
+    &:active {
+      color: @gray-7;
+    }
   }
 
   &.large {
@@ -104,6 +107,10 @@
     .@{input-number-prefix-cls}-handle {
       width: calc(@line-height-extra-large - 2px);
     }
+    .@{input-number-prefix-cls}-handler-input-left-right
+      .@{input-number-prefix-cls}-input {
+      width: calc(100% - 34px);
+    }
   }
 
   &.default {
@@ -115,6 +122,10 @@
     }
     .@{input-number-prefix-cls}-handle {
       width: calc(@line-height-large - 2px);
+    }
+    .@{input-number-prefix-cls}-handler-input-left-right
+      .@{input-number-prefix-cls}-input {
+      width: calc(100% - 30px);
     }
   }
 
@@ -132,22 +143,27 @@
     .@{input-number-prefix-cls}-handle {
       width: calc(@small-height - 2px);
     }
+    .@{input-number-prefix-cls}-handler-input-left-right
+      .@{input-number-prefix-cls}-input {
+      width: calc(100% - 26px);
+    }
   }
 
   &-handler-wrap {
     position: absolute;
     top: 0;
     right: 0;
-    width: 22px;
+    width: 30px;
     height: 100%;
     background: @gray-1;
     border-left: 1px solid @gray-4;
     border-radius: 0 4px 4px 0;
     opacity: 0;
-    transition: opacity .24s linear .1s;
+    transition: opacity 0.24s linear 0.1s;
   }
 
-  &:hover, &:focus {
+  &:hover,
+  &:focus {
     .@{input-number-prefix-cls}-handler-wrap {
       opacity: 1;
     }
@@ -163,7 +179,6 @@
     align-items: center;
     overflow: hidden;
     color: @gray-6;
-    font-weight: bold;
     transition: all 0.1s linear;
   }
 
@@ -178,6 +193,10 @@
       cursor: pointer;
       color: @blue-4;
     }
+
+    &:active {
+      color: @gray-7;
+    }
   }
 
   &-handler-disabled {
@@ -188,24 +207,13 @@
     }
   }
 
-  &-handler-down-icon,
-  &-handler-up-icon {
-    // font-size: 8px;
-
-    // PC上主流浏览器只能识别最小为12px的字体
-    font-size: 12px;
-    transform: scale(0.7);
-  }
+  // &-handler-down-icon,
+  // &-handler-up-icon {
+  //   transform: scale(0.7);
+  // }
 
   &-handler-input {
     height: 100%;
-  }
-
-  &-handler-input-left-right {
-    height: 100%;
-    position: absolute;
-    left: 30px;
-    display: inline-block;
   }
 
   .@{input-number-prefix-cls}-input {
@@ -215,7 +223,8 @@
     vertical-align: top;
     text-align: left;
     color: @gray-9;
-    background-color: transparent;
+    // !important 是为了覆盖 ccms-components 组件库的流氓样式而写
+    background-color: transparent!important;
     border: 0;
     outline: 0;
 
@@ -228,6 +237,16 @@
 
     &::placeholder {
       color: @gray-6;
+    }
+  }
+
+  &-handler-input-left-right {
+    height: 100%;
+    position: absolute;
+    left: 30px;
+    display: inline-block;
+    .@{input-number-prefix-cls}-input {
+      text-align: center;
     }
   }
 
@@ -254,24 +273,24 @@
     &.@{input-number-prefix-cls}-add-before {
       .add-on {
         border-right: none;
-        border-radius: 2px 0 0 2px;
+        border-radius: 3px 0 0 3px;
       }
 
       .@{input-number-prefix-cls} {
         flex: 1;
-        border-radius: 0 2px 2px 0;
+        border-radius: 0 3px 3px 0;
       }
     }
 
     &.@{input-number-prefix-cls}-add-after {
       .add-on {
         border-left: none;
-        border-radius: 0 2px 2px 0;
+        border-radius: 0 3px 3px 0;
       }
 
       .@{input-number-prefix-cls} {
         flex: 1;
-        border-radius: 2px 0 0 2px;
+        border-radius: 3px 0 0 3px;
       }
     }
 

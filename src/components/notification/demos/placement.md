@@ -16,6 +16,7 @@ export default function NotificationDemo() {
       showIcon: true,
       placement,
       duration: 0,
+      showCloseIcon: true,
     });
   }
   return (

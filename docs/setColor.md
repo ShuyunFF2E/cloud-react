@@ -197,7 +197,7 @@ const active = (themes, colors) => {
 };
 const blank = '\u00A0';
 
-export default class ButtonDemo extends React.Component {
+class ButtonDemo extends React.Component {
   state = {
     colors: getColors(),
   };
@@ -300,4 +300,5 @@ export default class ButtonDemo extends React.Component {
     );
   }
 }
+export default ButtonDemo
 ```

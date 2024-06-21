@@ -18,7 +18,7 @@ class BreadCrumbsDemo extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            size: 'small',
+            size: 'default',
           list: [
             {
               key: 'home',

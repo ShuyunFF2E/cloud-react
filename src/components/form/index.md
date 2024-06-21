@@ -30,6 +30,8 @@ group:
 | labelWrap  | 配合`label`属性使用，表示`label`是否在超宽时换行                    | boolean             | `false`     |
 | className  | Form 的 className 属性                                                | string              | -          |
 | scrollToFirstError | 提交失败自动滚动到第一个错误字段，`field`字段不存在时无效			| boolean              | `false`     |
+| fixedError | 展示报错提示时表单项位置是否发生变化			| boolean              | `false`     |
+| gap | 各个表单项的间距			|  number              | 20     |
 
 如果 Form 和 Form.Item 相同的属性，Form.Item 的优先级更高，如果 Form 上设置了就不用每一个 Form.Item 上都进行设置，更加方便
 
@@ -42,11 +44,12 @@ group:
 | help       | 提示信息，如不设置，则会根据校验规则自动生成                          | string  | ReactNode | - |
 | htmlFor    | 设置子元素 `label` `htmlFor` 属性                                     | string  | -         |
 | required   | 是否必填，如不设置，则会根据校验规则自动生成                          | boolean | `false`   |
-| labelCol   | `label` 标签布局，设置 `span` `offset` 值，如 `{span: 3, offset: 12}` | string  | -         |
+| labelCol   | `label` 标签布局，设置 `span` `offset` `style` 值，如 `{span: 3, offset: 12}` 或 { style: { width: 80 } } | string  | -         |
 | wrapperCol | 需要为输入控件设置布局样式时，使用该属性，用法同 `labelCol`           | string  | -         |
 | className  | Form.Item 的 className 属性                                           | string  | -         |
 | name  | 字段名                                           | string  | -         |
 | preserve  | 当Form.Item卸载时保留字段值                                           | boolean  | -         |
+| wrapperStyle  |          表单项样式，和 wrapperCol.style 作用一致                                | object  | {}         |
 
 ### Form.Nexus
 
@@ -108,6 +111,7 @@ function UseNexus() {
 
  ### 代码演示
 
+### 基础表单用法
 <embed src="@components/form/demos/basic-forms.md" />
 
 <embed src="@components/form/demos/basic-usage.md" />
@@ -115,3 +119,8 @@ function UseNexus() {
 <embed src="@components/form/demos/horizontal.md" />
 
 <embed src="@components/form/demos/inline.md" />
+
+### Radio 和表单混合使用
+<embed src="@components/form/demos/radio-form1.md" />
+
+<embed src="@components/form/demos/radio-form.md" />

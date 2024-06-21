@@ -29,7 +29,7 @@ import ResizableTitle from './js/resizableTitle';
 import Pagination from '../pagination';
 import Icon from '../icon';
 import Loading from '../loading';
-import emptyImg from './empty.png';
+import emptyImg from '../../assets/images/empty.png';
 import './css/basic.less';
 import './css/business.less';
 import Column from './js/column';
@@ -82,6 +82,7 @@ class CTable extends Component {
       filterValue: [],
       sortParams: {},
       // columnConfigStyle: {},
+      lineHeightFilter: false,
     };
     this.column = new Column(this);
   }
@@ -973,6 +974,7 @@ class CTable extends Component {
                 </span>
               )}
               <Pagination
+                type="simple"
                 {...pageOpts}
                 current={pageNum}
                 pageSize={pageSize}
