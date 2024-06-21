@@ -38,8 +38,6 @@
     }
   },
   "dependencies": {
-    "@commitlint/cli": "^19.3.0",
-    "@commitlint/config-conventional": "^19.2.2",
     "classnames": "2.3.2",
     "gray-matter": "4.0.3",
     "gridmanager-react": "1.10.2-0",
@@ -83,6 +81,8 @@
     "@babel/preset-env": "7.22.5",
     "@babel/preset-react": "7.22.5",
     "@babel/runtime": "7.22.5",
+    "@commitlint/cli": "19.3.0",
+    "@commitlint/config-conventional": "19.2.2",
     "@rollup/plugin-alias": "3.1.9",
     "@rollup/plugin-url": "6.1.0",
     "@types/react-is": "17.0.4",
