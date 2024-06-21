@@ -1,6 +1,6 @@
 {
   "name": "cloud-react",
-  "version": "1.0.33",
+  "version": "2.0.2",
   "description": "数据赢家 react 组件",
   "scripts": {
     "gen:index": "node ./scripts/generate-index.js",
@@ -21,7 +21,7 @@
     "new:component": "cp -r tpls/new-component src/components/new-component",
     "cli-version": "node ./scripts/generate-version.js",
     "postinstall": "patch-package",
-    "changelog": "auto-changelog"
+    "changelog": "auto-changelog -p"
   },
   "auto-changelog": {
     "output": "docs/log.md"
