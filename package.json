@@ -84,6 +84,8 @@
     "@babel/preset-env": "7.22.5",
     "@babel/preset-react": "7.22.5",
     "@babel/runtime": "7.22.5",
+    "@commitlint/cli": "19.3.0",
+    "@commitlint/config-conventional": "19.2.2",
     "@rollup/plugin-alias": "3.1.9",
     "@rollup/plugin-url": "6.1.0",
     "@types/react-is": "17.0.4",
@@ -122,5 +124,10 @@
     "rollup-plugin-postcss": "4.0.2",
     "umi-lint": "2.0.2",
     "yargs": "17.7.2"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
   }
 }
