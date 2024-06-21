@@ -38,6 +38,8 @@
     }
   },
   "dependencies": {
+    "@commitlint/cli": "^19.3.0",
+    "@commitlint/config-conventional": "^19.2.2",
     "classnames": "2.3.2",
     "gray-matter": "4.0.3",
     "gridmanager-react": "1.10.2-0",
@@ -119,5 +121,10 @@
     "rollup-plugin-postcss": "4.0.2",
     "umi-lint": "2.0.2",
     "yargs": "17.7.2"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
   }
 }
