@@ -8,6 +8,7 @@
   background: #fff;
   width: fit-content;
   margin-top: -4px;
+  font-family: @default-font-family;
 }
 .@{dropdown-prefix-cls}-placement-top,
 .@{dropdown-prefix-cls}-placement-topLeft,
@@ -27,7 +28,7 @@
   gap: 8px;
   cursor: pointer;
   font-size: 14px;
-  font-family: PingFangSC-Regular, PingFang SC;
+  font-family: @default-font-family;
   font-weight: 400;
   line-height: 20px;
 
@@ -71,11 +72,12 @@
   padding-top: 8px;
   padding-bottom: 8px;
   cursor: pointer;
+
   .@{dropdown-prefix-cls}-menu-item {
     display: flex;
     align-items: center;
     font-size: 14px;
-    font-family: PingFangSC-Regular, PingFang SC;
+    font-family: @default-font-family;
     font-weight: 400;
     color: rgba(0, 0, 0, 0.85);
     line-height: 20px;

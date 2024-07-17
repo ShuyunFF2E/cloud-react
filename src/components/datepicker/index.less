@@ -21,6 +21,7 @@
   position: relative;
   cursor: pointer;
   display: inline-block;
+  font-family: @default-font-family;
 }
 
 .@{prefix}-input-group > .@{selector}-inp,
@@ -54,6 +55,7 @@
 .@{selector}-popup {
   position: absolute;
   line-height: initial;
+  font-family: @default-font-family;
 
   &,
   * {
@@ -323,6 +325,7 @@
   box-sizing: border-box;
   text-align: center;
   .flex-center();
+  font-family: @default-font-family;
 
   &-disabled {
     cursor: not-allowed;

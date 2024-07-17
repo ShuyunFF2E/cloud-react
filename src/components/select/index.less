@@ -50,6 +50,7 @@
   min-width: @min-width;
   max-width: @max-width;
   position: relative;
+  font-family: @default-font-family;
 
   & * {
     box-sizing: @box-sizing;
@@ -75,6 +76,7 @@
     border-radius: @default-border-radius;
     cursor: pointer;
     padding-right: 28px;
+    font-family: @default-font-family;
     &.default {
       height: @height;
     }
@@ -519,6 +521,7 @@
     &.overflow-ellipsis {
       .option-content {
         .text-overflow-ellipsis();
+        font-family: @default-font-family;
       }
     }
 

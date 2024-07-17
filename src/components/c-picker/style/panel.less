@@ -2,6 +2,8 @@
 @import './const.less';
 
 .@{prefix-cls} {
+  font-family: @default-font-family;
+
   &-dropdown {
     position: absolute;
     box-sizing: border-box;
@@ -14,6 +16,7 @@
     list-style: none;
     font-feature-settings: 'tnum';
     z-index: 9999;
+    font-family: @default-font-family;
 
     &-hidden {
       display: none;
@@ -105,6 +108,8 @@
         cursor: pointer;
         transition: background-color .3s;
         .text-overflow-ellipsis;
+        font-family: @default-font-family;
+
 
         &:hover {
           background: #F5F5F5;
@@ -206,6 +211,7 @@
       text-align: left;
       list-style: none;
       transition: background-color 0.3s;
+      font-family: @default-font-family;
 
       &::after {
         display: block;
@@ -335,6 +341,7 @@
       font-weight: 500;
       line-height: 40px;
       color: @gray-9;
+      font-family: @default-font-family;
 
       > button {
         color: inherit;
@@ -342,6 +349,7 @@
         font-weight: inherit;
         .headerButton();
         color: @gray-9;
+        font-family: @default-font-family;
 
         &:not(:first-child) {
           margin-left: 8px;
@@ -382,6 +390,7 @@
     width: 100%;
     table-layout: fixed;
     border-collapse: collapse;
+    font-family: @default-font-family;
 
     th,
     td {
