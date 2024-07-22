@@ -444,43 +444,24 @@ class Store {
    * @param searchText
    */
   searchNode = (data, searchText) => {
-    const cloneData = [...data];
-    if (!searchText) {
-      return cloneData;
-    }
-
-    const search = (node) => {
-      return node.filter((item) => {
-        // 当前节点匹配
-        if (item.name.indexOf(searchText) !== -1) {
-          if (
-            item.children &&
-            Array.isArray(item.children) &&
-            item.children.length
-          ) {
-            const children = search(item.children);
-            if (children.length) {
-              Object.assign(item, { children, isUnfold: true });
-            } else {
-              Object.assign(item, { isUnfold: false });
-            }
-          }
+    const regx = RegExp(searchText);
+    return data?.filter(node => {
+      if (regx.test(node?.name)) {
+        node.isUnfold = true;
+        return node;
+      } else if (node?.children?.length) {
+        const filteredChildren = this.searchNode(node.children, searchText);
+        if (filteredChildren?.length) {
+          node.children = filteredChildren;
+          node.isUnfold = true;
           return true;
         }
-
-        // 当前节点未匹配: 对子项进行匹配
-        if (Array.isArray(item.children) && item.children.length) {
-          Object.assign(item, {
-            children: search(item.children),
-            isUnfold: true,
-          });
-          return item.children.length > 0;
-        }
         return false;
-      });
-    };
-    return search(cloneData);
-  };
+      } else {
+        return false;
+      }
+    });
+  }
 }
 
 export default Store;

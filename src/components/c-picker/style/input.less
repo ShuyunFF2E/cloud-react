@@ -80,13 +80,13 @@
       color: @gray-9;
       font-size: 14px;
       line-height: 1.5715;
-      background-color: #fff;
       flex: auto;
       min-width: 1px;
       height: auto;
       padding: 0;
-      background: transparent;
-      border: 0;
+      // !important 是为了覆盖 ccms-components 组件库的流氓样式而写
+      background: transparent!important;
+      border: 0!important;
 
       &:focus {
         outline: none;
