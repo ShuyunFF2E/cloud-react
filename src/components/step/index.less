@@ -45,7 +45,6 @@
 .@{step-prefix-cls} {
 	display: flex;
 	width: 100%;
-  font-family: @default-font-family;
 
 	// 子选择器
 	@item-selector: @{step-prefix-cls}-item;
@@ -258,6 +257,7 @@
 		position: relative;
 		flex: 1;
 		font-size: 14px;
+    font-family: @default-font-family;
 
 		&:not(:last-child)::before {
 			content: '';
