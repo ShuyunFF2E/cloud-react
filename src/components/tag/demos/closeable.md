@@ -20,7 +20,8 @@ class TagDemo extends Component {
 			tagList: [
 				{ text: '红色', checked: true, color: "red" },
 				{ text: '蓝色', checked: false, color: "blue" },
-				{ text: '黄色', checked: false, color: "yellow" }
+				{ text: '黄色', checked: false, color: "yellow" },
+				{ text: '默认', checked: false }
 			]
 		};
 	}

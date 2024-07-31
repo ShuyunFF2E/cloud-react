@@ -1,101 +1,175 @@
-/* eslint-disable */
-
 import React, { Component } from 'react';
 import CascaderMenu from 'rc-cascader';
-import Icon from '../icon';
 import PropTypes from 'prop-types';
 import { prefixCls } from '@utils';
+import {
+  defaultSearchRender,
+  defaultLoadingRender,
+  DefaultRenderEmpty,
+  ALL_VALUE,
+} from './constant.js';
+import Icon from '../icon';
 import './index.less';
-function highlightKeyword(str, lowerKeyword, prefixCls) {
-  const cells = str
-    .toLowerCase()
-    .split(lowerKeyword)
-    .reduce(
-      (list, cur, index) =>
-        index === 0 ? [cur] : [...list, lowerKeyword, cur],
-      [],
-    );
-  const fillCells = [];
-  let start = 0;
 
-  cells.forEach((cell, index) => {
-    const end = start + cell.length;
-    let originWorld = str.slice(start, end);
-    start = end;
-
-    if (index % 2 === 1) {
-      originWorld = (
-        // eslint-disable-next-line react/no-array-index-key
-        <span
-          className={`${prefixCls}-menu-item-keyword`}
-          key={`seperator-${index}`}
-        >
-          {originWorld}
-        </span>
-      );
-    }
-
-    fillCells.push(originWorld);
-  });
-
-  return fillCells;
-}
-const defaultSearchRender = (inputValue, path, prefixCls, fieldNames) => {
-  const optionList = [];
-
-  // We do lower here to save perf
-  const lower = inputValue.toLowerCase();
-
-  path.forEach((node, index) => {
-    if (index !== 0) {
-      optionList.push(' / ');
-    }
-
-    let label = node[fieldNames.label];
-    const type = typeof label;
-    if (type === 'string' || type === 'number') {
-      label = highlightKeyword(String(label), lower, prefixCls);
-    }
-
-    optionList.push(label);
-  });
-  return optionList;
-};
-
-const defaultLoadingRender = (prefixCls) => (
-  <span className={`${prefixCls}-loading-spin`} />
-);
-
-function DefaultRenderEmpty({ prefixCls }) {
-  return (
-    <div className={`${prefixCls}-empty`}>
-      <img
-        src="https://brand-guide.shuyun.com/IAM/276d125f58c2.png"
-        alt="缺省"
-      />
-      暂无数据
-    </div>
-  );
-}
 class Cascader extends Component {
-  state = {
-    inputValue: '',
-    open: false,
-  };
   constructor(props) {
     super(props);
+    this.state = {
+      // inputValue: '',
+      open: false,
+      options: [],
+      // 组件内容选中内容。
+      value: [],
+    };
   }
+
   componentDidMount() {
-    this.setState({
-      inputValue: this.props.defaultValue
-        .map((o) => o.label)
-        .join(this.props.splitInput),
-    });
+    // this.setState({
+    //   inputValue: this.props.defaultValue
+    //     .map((o) => o.label)
+    //     .join(this.props.splitInput),
+    // });
+    this.setState({ value: this.props.value });
+    this.initOptions();
   }
+
+  componentDidUpdate(prevProps) {
+    const { options, hasSelectAll, value } = this.props;
+    if (JSON.stringify(prevProps.options) !== JSON.stringify(options)) {
+      this.initOptions();
+    }
+    // hasSelectAll: 全选选项是内部实现提供的。 仅在组件刚挂着的时候赋值，外部取值
+    if (
+      !hasSelectAll
+      && JSON.stringify(prevProps.value) !== JSON.stringify(value)
+    ) {
+      this.setState({ value });
+    }
+  }
+
+  // 适配下拉数据
+  initOptions = () => {
+    const {
+      multiple,
+      hasSelectAll,
+      options,
+      fieldNames: { label, value },
+    } = this.props;
+    let result = [...options];
+
+    if (multiple && hasSelectAll) {
+      result = [
+        {
+          [label]: '全选',
+          [value]: ALL_VALUE,
+        },
+        ...options,
+      ];
+    }
+    this.setState({
+      options: result,
+    });
+  };
+
   onPopupVisibleChange = (visible) => {
     this.setState({
       open: visible,
     });
+  };
+
+  isAll = (value) => {
+    const { options, hasSelectAll } = this.props;
+    let parentValue = value?.filter((item) => item.length === 1);
+    if (hasSelectAll) {
+      // value数据结构 [['ALL'], ['pId1','pId11'], ['pId2','pId21'], ['pId3']]
+      // 获取除全选以外的选中项
+      const removeAllItem = value.filter(
+        (item) => JSON.stringify(item) !== JSON.stringify([ALL_VALUE]),
+      );
+
+      // 获取选中的一级节点。
+      parentValue = removeAllItem.filter((item) => item.length === 1);
+    }
+
+    return parentValue?.length === options.length;
+  };
+
+  getValue = (value) => {
+    // value数据结构 [['ALL'], ['pId1','pId11'], ['pId2','pId21'], ['pId3']]
+    // 获取除全选以外的选中项
+    const removeAllItem = value.filter(
+      (item) => JSON.stringify(item) !== JSON.stringify([ALL_VALUE]),
+    );
+
+    let result = {
+      outerValue: removeAllItem,
+      isSelectedAll: false,
+      innerValue: removeAllItem,
+    };
+    // 一级节点是否全部选中
+    if (this.isAll(value)) {
+      result = {
+        ...result,
+        isSelectedAll: true,
+        innerValue: [[ALL_VALUE], ...removeAllItem],
+      };
+    }
+    return result;
+  };
+
+  changeValue = (
+    innerValue = [],
+    outerValue = [],
+    selectedOptions = [],
+    isSelectedAll = false,
+  ) => {
+    this.setState({ value: innerValue });
+    this.props.onChange(outerValue, selectedOptions, isSelectedAll);
+  };
+
+  handleChange = (value, valueObj) => {
+    const { value: preValue } = this.state;
+    const { hasSelectAll } = this.props;
+    if (!hasSelectAll) {
+      this.changeValue(value, value, valueObj, this.isAll(value));
+      return;
+    }
+
+    // 包含全选，需要处理选中数据。
+    // 【选中全部按钮】获取最后一次点击的Item，是否和全选值相等，
+    if (
+      JSON.stringify(value[value.length - 1]) === JSON.stringify([ALL_VALUE])
+    ) {
+      this.handelAllChange(true);
+      return;
+    }
+    // 【取消全部按钮】1、上一次代码的value是否包含全选值 2、 本次value是否取消了全选。
+    if (
+      preValue?.some(
+        (x) => JSON.stringify(x) === JSON.stringify([ALL_VALUE]),
+      )
+      && value.every((x) => JSON.stringify(x) !== JSON.stringify([ALL_VALUE]))
+    ) {
+      this.handelAllChange(false);
+      return;
+    }
+    // 【点击其他项目】
+    const { innerValue, outerValue, isSelectedAll } = this.getValue(value);
+    this.changeValue(innerValue, [...outerValue], valueObj, isSelectedAll);
+  };
+
+  // 全选项目是否选中， 选中
+  handelAllChange = (checked) => {
+    const {
+      options,
+      fieldNames: { value: valueKey },
+    } = this.props;
+    if (checked) {
+      const _value = options?.map((x) => [x[valueKey]]);
+      this.changeValue([[ALL_VALUE], ..._value], [..._value], options, true);
+      return;
+    }
+    this.changeValue();
   };
 
   mergedNotFoundContent = this.props.notFoundContent || (
@@ -103,11 +177,17 @@ class Cascader extends Component {
   );
 
   render() {
-    const { splitInput, multiple, showSearch, loadingIcon, ...props } =
-      this.props;
+    const {
+      multiple,
+      showSearch,
+      loadingIcon,
+      popupClassName,
+      borderRadiusSize,
+      ...props
+    } = this.props;
     const iconClasses = this.state.open ? 'open' : 'close';
     const checkable = multiple ? (
-      <div className={`${this.props.prefixCls}-checkbox-inner`}></div>
+      <div className={`${this.props.prefixCls}-checkbox-inner`} />
     ) : (
       false
     );
@@ -129,11 +209,21 @@ class Cascader extends Component {
 
       return searchConfig;
     };
+
+    // fixed: React does not recognize the `***` prop on a DOM element
+    const divProps = Object.assign({}, props);
+    delete divProps.splitInput;
+    delete divProps.hasSelectAll;
+
     return (
       <CascaderMenu
-        {...props}
+        {...divProps}
+        dropdownClassName={popupClassName}
+        value={this.state.value}
+        options={[...this.state.options]}
+        onChange={this.handleChange}
         loadingIcon={loadingIcon || defaultLoadingRender(this.props.prefixCls)}
-        className={iconClasses}
+        className={`${iconClasses} ${borderRadiusSize}`}
         checkable={checkable}
         notFoundContent={this.mergedNotFoundContent}
         showSearch={mergedShowSearch()}
@@ -143,9 +233,7 @@ class Cascader extends Component {
 }
 Cascader.defaultProps = {
   onChange() {},
-  maxTagPlaceholder: (text) => {
-    return text?.length ? `+ ${text.length}` : '';
-  },
+  maxTagPlaceholder: (text) => (text?.length ? `+ ${text.length}` : ''),
   multiple: false,
   allowClear: false,
   disabled: false,
@@ -163,11 +251,33 @@ Cascader.defaultProps = {
   loadingIcon: undefined,
   removeIcon: <Icon type="close" style={{ fontSize: '12px' }} />,
   splitInput: '/',
+  borderRadiusSize: 'default',
+  hasSelectAll: false,
 };
 
 Cascader.propTypes = {
   defaultValue: PropTypes.array,
   options: PropTypes.array.isRequired,
+  borderRadiusSize: PropTypes.oneOf(['small', 'default', 'large']),
+  hasSelectAll: PropTypes.bool,
+  onChange: PropTypes.func,
+  maxTagPlaceholder: PropTypes.func,
+  multiple: PropTypes.bool,
+  allowClear: PropTypes.bool,
+  disabled: PropTypes.bool,
+  transitionName: PropTypes.string,
+  inputIcon: PropTypes.element,
+  prefixCls: PropTypes.string,
+  popupClassName: PropTypes.string,
+  placement: PropTypes.string,
+  showArrow: PropTypes.bool,
+  expandTrigger: PropTypes.string,
+  fieldNames: PropTypes.object,
+  expandIcon: PropTypes.element,
+  clearIcon: PropTypes.element,
+  loadingIcon: PropTypes.oneOfType([PropTypes.func, PropTypes.element]),
+  removeIcon: PropTypes.element,
+  splitInput: PropTypes.string,
 };
 
 export default Cascader;

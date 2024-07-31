@@ -15,7 +15,9 @@ export default function ComplexRadio(props) {
     content,
     textOverflowEllipsis,
     contentStyle,
+    titleStyle,
     type,
+    borderRadiusSize,
     ...otherProps
   } = props;
 
@@ -32,12 +34,13 @@ export default function ComplexRadio(props) {
         [`${classSelector}-card`]: type === 'card',
         [`${classSelector}-card-disabled`]: type === 'card' && props.disabled,
         [`${classSelector}-card-checked`]: type === 'card' && props.checked,
+        [`${classSelector}-radius-${borderRadiusSize}`]: true,
       })}
       {...otherProps}
     >
       {imgSrc && <img alt="header" src={imgSrc} />}
       <div>
-        {title && <p className={`${classSelector}-title`}>{title}</p>}
+        {title && <p className={`${classSelector}-title`} style={titleStyle}>{title}</p>}
         {content
           && (textOverflowEllipsis ? (
             <Tooltip content={content}>
@@ -64,11 +67,13 @@ ComplexRadio.propTypes = {
   title: PropTypes.string,
   textOverflowEllipsis: PropTypes.bool,
   contentStyle: PropTypes.object,
+  titleStyle: PropTypes.object,
   type: PropTypes.string,
   disabled: PropTypes.bool,
   checked: PropTypes.bool,
   value: PropTypes.node.isRequired,
   onChange: PropTypes.func,
+  borderRadiusSize: PropTypes.oneOf([ 'small', 'default', 'large' ]),
 };
 
 ComplexRadio.defaultProps = {
@@ -78,8 +83,10 @@ ComplexRadio.defaultProps = {
   title: '',
   textOverflowEllipsis: false,
   contentStyle: {},
+  titleStyle: {},
   type: 'default',
   disabled: false,
   checked: false,
   onChange: () => {},
+  borderRadiusSize: 'default',
 };

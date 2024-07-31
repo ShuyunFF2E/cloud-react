@@ -46,7 +46,7 @@ export default function SelectDemo() {
 
 
   return (
-      <Select style={{width: 200 }} defaultValue={1}>
+      <Select style={{ width: 328 }} defaultValue={1}>
         {dataList.map((item, index) => (
           <Option value={item.value} disabled={item.disabled} key={index}>
             <div style={{display: 'flex', alignItem: 'center', lineHeight: '24px'}}>

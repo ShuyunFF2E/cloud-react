@@ -63,10 +63,12 @@ export default function Demo() {
 			<div style={{ marginBottom: 24 }}>下拉列表没有数据，默认为空内容</div>
 			<CCascader
 				options={[]}
+        style={{ width: 328 }}
 				placeholder="Please select"/>
 			<div style={{ marginBottom: 24, marginTop: 40 }}>自定义下拉列表没有数据展示内容</div>
 			<CCascader
 				options={addressOptions}
+        style={{ width: 328 }}
 				onChange={onChange}
 				placeholder="Please select"
 				showSearch={{filter:filter }}

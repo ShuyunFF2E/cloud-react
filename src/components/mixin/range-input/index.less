@@ -1,0 +1,50 @@
+@import '../../style/index';
+
+@range-input-prefix-cls: ~'@{prefix}-range-input';
+@border-medium-radius: 6px;
+@border-large-radius: 12px;
+
+.@{range-input-prefix-cls} {
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-radius: 3px;
+    border: 1px solid #E8E8E8;
+    background-color: white;
+
+    &.border-radius-medium {
+        border-radius: @border-medium-radius;
+    }
+
+    &.border-radius-large {
+        border-radius: @border-large-radius;
+    }
+
+    &:not(.disabled) {
+        &:hover {
+            border-color: @blue-4;
+        }
+    }
+
+    &.disabled {
+        background-color: #f5f5f5;
+        cursor: not-allowed;
+    }
+
+    .split {
+        width: 8px;
+        height: 1px;
+        border-bottom: 1px solid rgba(0,0,0,0.65);
+    }
+
+    .@{prefix}-input.first-input,
+    .@{prefix}-input-group.first-input {
+        border: none;
+    }
+
+    .@{prefix}-input.second-input,
+    .@{prefix}-input-group.second-input {
+        border: none;
+    }
+}

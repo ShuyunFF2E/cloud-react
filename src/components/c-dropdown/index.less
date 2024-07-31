@@ -34,7 +34,7 @@
   width: fit-content;
   min-width: fit-content !important;
 
-  z-index: @z-index-dropdown;
+  z-index: 1;
 
   &-menu-area {
     border-radius: 6px;
@@ -187,4 +187,13 @@
 }
 .@{dropdown-prefix-cls}-slide-up-enter {
   opacity: 1;
+}
+
+.@{dropdown-prefix-cls}-placement-top,
+.@{dropdown-prefix-cls}-placement-topLeft,
+.@{dropdown-prefix-cls}-placement-topRight,
+.@{dropdown-prefix-cls}-placement-bottom,
+.@{dropdown-prefix-cls}-placement-bottomLeft,
+.@{dropdown-prefix-cls}-placement-bottomRight {
+  z-index: @z-index-dropdown;
 }

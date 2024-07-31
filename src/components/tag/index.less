@@ -3,18 +3,25 @@
 @tag-prefix-cls: ~'@{prefix}-tag';
 
 .disabled() {
-  color: @gray-7;
+  color: @gray-6;
   background: @gray-3;
-  border: 1px solid @gray-3;
+  cursor: not-allowed !important;
+
+  &:hover {
+    color: @gray-6;
+    background: @gray-3;
+  }
 }
 
 .theme-style(@backgourdColor, @color) {
   color: @color;
   background-color: @backgourdColor;
-  border-color: @backgourdColor;
+  border: none;
 
   &:hover {
     color: @color;
+    background-color: @backgourdColor;
+    border-color: @backgourdColor;
     cursor: default;
   }
 }
@@ -33,7 +40,6 @@
 
 .color-disabled(@color, @bgColor) {
   color: @color;
-  border-color: @bgColor;
 
   &:hover {
     background: @bgColor;
@@ -52,9 +58,8 @@
   padding: 2px 8px;
   margin-right: 8px;
   cursor: default;
-  background: @gray-1;
-  border: 1px solid @gray-4;
-  border-radius: 2px;
+  background: @gray-3;
+  border-radius: 3px;
   .text-overflow-ellipsis;
 
   a {
@@ -68,6 +73,11 @@
 
   &.closable {
     padding-right: 24px;
+
+    &.checkable {
+      padding-right: 24px;
+    }
+
     .tag-close-wrapper {
       display: flex;
       align-items: center;
@@ -76,29 +86,58 @@
       right: 8px;
       top: 0;
     }
+
     .tag-close-icon {
-      color: @gray-6;
-      font-size: 7px;
+      font-size: 12px;
       cursor: pointer;
+      .close-style(@gray-6, @gray-7, @gray-8);
     }
   }
 
   &.icon {
     padding-left: 24px;
 
+    &.checkable {
+      padding-left: 24px;
+    }
+
     .tag-icon {
       position: absolute;
       left: 8px;
-      font-size: 8px;
+      top: 50%;
+      transform: translate(0, -50%);
+      font-size: 12px;
+      line-height: 12px;
+    }
+  }
+
+  &.large {
+    line-height: 24px;
+
+    &.closable {
+      padding-right: 24px;
+
+      &.checkable {
+        padding-right: 24px;
+      }
+
+      .tag-close-wrapper {
+        right: 8px;
+      }
     }
   }
 
   &.small {
-    padding: 1px 4px;
-    line-height: 18px;
+    padding: 2px 4px;
+    line-height: 16px;
 
     &.closable {
       padding-right: 20px;
+
+      &.checkable {
+        padding-right: 20px;
+      }
+
       .tag-close-wrapper {
         right: 4px;
       }
@@ -106,10 +145,6 @@
 
     &.icon {
       padding-left: 20px;
-
-      .tag-icon {
-        left: 4px;
-      }
     }
 
     .rounded {
@@ -119,9 +154,14 @@
 
   &.checkable {
     cursor: pointer;
+    background-color: @gray-1;
+    border: 1px solid @gray-4;
+    padding: 1px 7px;
 
     &:hover {
       color: @blue-4;
+      border-color: @blue-4;
+      background: @blue-1;
     }
 
     &.checked {
@@ -133,78 +173,168 @@
         color: @gray-1;
       }
     }
+
+    &.disabled {
+      cursor: not-allowed;
+
+      &:hover {
+        border: 1px solid #E8E8E8;
+      }
+    }
   }
 
   // 不同状态、不同颜色
   &.disabled {
     .disabled();
-    // &:hover {
-    //   .disabled();
-    // }
+    border: 1px solid #E8E8E8;
+
+    &.defaultTag,
+    &.link {
+      padding: 1px 7px;
+    }
+
     &.checked {
+      color: white;
       background: @blue-2;
       border-color: @blue-2;
     }
   }
+
   &.success,
   &.green {
     .theme-style(@green-1, @green-5);
+
     &.disabled {
       .color-disabled(@green-3, @green-1);
     }
+
     .tag-close-icon {
       .close-style(@green-3, @green-5, @green-6);
     }
   }
+
   &.warning,
   &.orange {
     .theme-style(@orange-1, @orange-5);
+
     &.disabled {
       .color-disabled(@orange-3, @orange-1);
     }
+
     .tag-close-icon {
       .close-style(@orange-3, @orange-5, @orange-6);
     }
   }
+
   &.default {
-    .disabled();
+    .tag-icon {
+      color: @gray-6;
+    }
   }
+
   &.danger,
   &.red {
     .theme-style(@red-1, @red-5);
+
     &.disabled {
       .color-disabled(@red-3, @red-1);
     }
+
     .tag-close-icon {
       .close-style(@red-3, @red-5, @red-6);
     }
   }
+
   &.primary,
   &.blue {
     .theme-style(@blue-1, @blue-5);
+
     &.disabled {
       .color-disabled(@blue-3, @blue-1);
     }
+
     .tag-close-icon {
       .close-style(@blue-3, @blue-5, @blue-6);
     }
   }
+
   &.yellow {
     .theme-style(@yellow-1, @yellow-5);
+
     &.disabled {
       .color-disabled(@yellow-3, @yellow-1);
     }
+
     .tag-close-icon {
       .close-style(@yellow-3, @yellow-5, @yellow-6);
     }
   }
+
   &.gray {
     .theme-style(@gray-3, @gray-8);
+
     &.disabled {
       .color-disabled(@gray-7, @gray-3);
     }
+
     .tag-close-icon {
       .close-style(@gray-6, @gray-7, @gray-8);
+    }
+  }
+
+  &.link {
+    cursor: pointer;
+    .theme-style(@gray-3, @gray-9);
+
+    &:hover {
+      cursor: pointer;
+      // border-color: #e8e8e8;
+      color: @blue-4;
+      background: #E8E8E8;
+    }
+
+    &:active {
+      color: @blue-5;
+    }
+
+    &.disabled {
+      .disabled();
+      border: 1px solid #E8E8E8;
+      padding: 1px 7px;
+    }
+  }
+
+  &.stroke {
+    color: @gray-9;
+    background-color: @gray-1;
+    border: 1px solid #E8E8E8;
+    line-height: 18px;
+
+    &.disabled {
+      .disabled();
+      border: 1px solid #E8E8E8;
+      padding: 2px 8px;
+    }
+
+    .tag-close-icon {
+      .close-style(@blue-3, @blue-5, @blue-6);
+    }
+  }
+
+  &.fill-stroke {
+    color: @gray-9;
+    background-color: #f5f5f5;
+    border: 1px solid #E8E8E8;
+    line-height: 18px;
+
+    &.disabled {
+      .disabled();
+      border: 1px solid #E8E8E8;
+      padding: 2px 8px;
+    }
+
+    .tag-close-icon {
+      .close-style(@blue-3, @blue-5, @blue-6);
     }
   }
 }

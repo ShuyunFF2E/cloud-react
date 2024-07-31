@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { prefixCls , noop } from '@utils';
+import { prefixCls, noop } from '@utils';
 import Icon from '../icon';
 import './index.less';
 
@@ -9,7 +9,7 @@ const classSelector = `${prefixCls}-breadcrumbs`;
 const SHOW_MORE_NUM = 5;
 
 export default function BreadCrumbs(props) {
-  const { className, styles, list, onClick, size, split } = props;
+  const { className, styles, list, onClick, size, split, splitIcon } = props;
 
   const [actualList, setActualList] = useState(list);
   const [showMore, setShowMore] = useState(false);
@@ -30,7 +30,9 @@ export default function BreadCrumbs(props) {
     setActualList(list);
   };
 
-  const splitWrap = <span className="split">{split}</span>;
+  const splitWrap = splitIcon
+    ? <Icon type={splitIcon} className={`${classSelector}-split-icon`} />
+    : <span className="split">{split}</span>;
 
   return (
     <ul
@@ -64,6 +66,7 @@ export default function BreadCrumbs(props) {
 }
 BreadCrumbs.propTypes = {
   split: PropTypes.string,
+  splitIcon: PropTypes.any,
   list: PropTypes.array,
   onClick: PropTypes.func,
   size: PropTypes.oneOf(['small', 'default', 'large']),
@@ -71,6 +74,7 @@ BreadCrumbs.propTypes = {
 };
 BreadCrumbs.defaultProps = {
   split: '/',
+  splitIcon: '',
   list: [],
   onClick: noop,
   size: 'default',

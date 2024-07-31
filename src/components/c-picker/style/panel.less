@@ -72,9 +72,8 @@
     overflow: hidden;
     vertical-align: top;
     background: #fff;
-    border-radius: 2px;
-    box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.1),
-      0px 2px 8px 0px rgba(0, 0, 0, 0.04);
+    border-radius: 6px;
+    box-shadow: @border-shadow-4;
     transition: margin 0.3s;
 
     .@{prefix-cls}-panel {
@@ -466,11 +465,11 @@
       transition: background-color 0.3s, border 0.3s;
     }
 
-    &:hover:not(&-in-view):not(&-week) &-inner,
-    &:hover:not(&-selected):not(&-week):not(&-range-start):not(&-range-end):not(&-range-hover-start):not(&-range-hover-end)
-      &-inner {
-      background-color: @blue-1;
-    }
+    //&:hover:not(&-in-view):not(&-week) &-inner,
+    //&:hover:not(&-selected):not(&-week):not(&-range-start):not(&-range-end):not(&-range-hover-start):not(&-range-hover-end)
+    //  &-inner {
+    //  background-color: #F5F5F5;
+    //}
 
     &-selected:not(&-in-range)&-in-view &-inner,
     &-range-start&-in-view &-inner,
@@ -532,9 +531,21 @@
 
   &-week-panel {
     &-row {
-      &:hover .@{prefix-cls}-cell:not(.@{prefix-cls}-cell-week)::before,
-      &-range-hover .@{prefix-cls}-cell:not(.@{prefix-cls}-cell-week)::before {
-        background: @blue-1;
+      &:not(.@{prefix-cls}-week-panel-row-range-start):not(.@{prefix-cls}-week-panel-row-range-end):hover {
+        .@{prefix-cls}-cell:not(.@{prefix-cls}-cell-week):not(.@{prefix-cls}-cell-disabled) {
+          .@{prefix-cls}-cell-inner {
+            color: @gray-8!important;
+          }
+          &::before {
+            background: #F5F5F5;
+          }
+        }
+      }
+
+      &-range-hover .@{prefix-cls}-cell:not(.@{prefix-cls}-cell-week) {
+        &::before {
+          background: @blue-1;
+        }
       }
 
       .@{prefix-cls}-cell:not(.@{prefix-cls}-cell-week) {
@@ -542,7 +553,7 @@
           border-top-left-radius: 2px;
           border-bottom-left-radius: 2px;
         }
-  
+
         &:last-of-type::before {
           border-top-right-radius: 2px;
           border-bottom-right-radius: 2px;
@@ -579,34 +590,15 @@
             border-bottom-left-radius: 0;
           }
 
-          &:nth-child(2), &:last-of-type {
-            &.@{prefix-cls}-cell-in-view .@{prefix-cls}-cell-inner {
-              background: @blue-4 !important;
-            }
-          }
+        }
+
+        &:not(&-range-hover) .@{prefix-cls}-cell:not(.@{prefix-cls}-cell-week) {
+          color: #ffffff;
         }
 
         .@{prefix-cls}-cell:not(.@{prefix-cls}-cell-week) {
           &::before {
-            background: @blue-2;
-          }
-
-          &:nth-child(2),
-          &:last-of-type {
-            // &::before {
-            //   background: @blue-4;
-            // }
-
-            .@{prefix-cls}-cell-inner {
-              color: #fff;
-              background: @blue-4 !important;
-            }
-          }
-          &:nth-child(2)::before {
-            left: 8px;
-          }
-          &:last-of-type::before {
-            right: 8px;
+            background: @blue-4;
           }
         }
       }
@@ -631,9 +623,29 @@
       color: #fff;
     }
 
-    .@{prefix-cls}-cell-selected:not(.@{prefix-cls}-cell-range-start):not(.@{prefix-cls}-cell-range-end) .@{prefix-cls}-cell-inner {
+    .@{prefix-cls}-cell-selected:not(.@{prefix-cls}-cell-range-start):not(.@{prefix-cls}-cell-range-end):not(.@{prefix-cls}-cell-in-view) .@{prefix-cls}-cell-inner {
       color: @gray-9;
       background: unset;
+    }
+  }
+
+
+  .icon-close-fill-1 {
+    color: @gray-6;
+
+    &:hover {
+      color: @gray-7;
+    }
+  }
+}
+
+.@{prefix-cls}-content {
+  tr:not(.@{prefix-cls}-week-panel-row) {
+    .@{prefix-cls}-cell {
+      &:hover:not(.@{prefix-cls}-cell-in-view):not(.@{prefix-cls}-cell-week) .@{prefix-cls}-cell-inner,
+      &:hover:not(.@{prefix-cls}-cell-selected):not(.@{prefix-cls}-cell-week):not(.@{prefix-cls}-cell-range-start):not(.@{prefix-cls}-cell-range-end):not(.@{prefix-cls}-cell-range-hover-start):not(.@{prefix-cls}-cell-range-hover-end) .@{prefix-cls}-cell-inner {
+        background-color: #F5F5F5;
+      }
     }
   }
 }

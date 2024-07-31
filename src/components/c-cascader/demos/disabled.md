@@ -58,17 +58,19 @@ export default function Demo() {
         <div>
 			<div style={{ marginBottom: 24 }}>未填写场景</div>
 			<CCascader
-                disabled
-				options={addressOptions}
-				onChange={onChange}
-				placeholder="Please select"
-                allowClear/>
+        disabled
+        options={addressOptions}
+        onChange={onChange}
+        placeholder="Please select"
+        style={{ width: 328 }}
+        allowClear/>
 			<div style={{ marginBottom: 24, marginTop: 40 }}>已填写场景</div>
 			<CCascader
 				disabled
 				options={addressOptions}
 				value={["jiangsu"]}
 				placeholder="Please select"
+        style={{ width: 328 }}
 				changeOnSelect/>
 		</div>
 			

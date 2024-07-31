@@ -14,7 +14,7 @@ const DEFAULT_BODY_PROPS = {
   placement: 'top-right',
   container: null,
   duration: 4500,
-  showCloseIcon: null,
+  showCloseIcon: false,
   btn: null,
   className: '',
   borderRadiusSize: 'default',
@@ -27,7 +27,7 @@ const DEFAULT_BODY_PROPS = {
   onConfirm: () => {},
   style: {},
   isLightTheme: false,
-}
+};
 
 /**
  * 更新各条信息提示的样式
@@ -114,7 +114,7 @@ function openNotification(props) {
   setTimeout(() => {
     wrapper.classList.add('fade-in');
     updateNotifyStyle(_props.placement);
-  })
+  });
 
   ReactDOM.render(
     <NotificationBody {..._props} dataSetId={wrapper.dataset.id} close={closeNotification} />,
@@ -127,7 +127,7 @@ function openNotification(props) {
 
 const Notification = {
   open: openNotification,
-  close: (dataSetId, placement) => closeNotification(dataSetId, placement)
+  close: (dataSetId, placement) => closeNotification(dataSetId, placement),
 };
 
 export default Notification;
@@ -150,6 +150,8 @@ Notification.propTypes = {
   placement: PropTypes.oneOf(PLACEMENT_LIST),
   container: PropTypes.any,
   style: PropTypes.object,
+  titleStyle: PropTypes.object,
+  contentStyle: PropTypes.object,
   isLightTheme: PropTypes.bool,
 };
 Notification.defaultProps = DEFAULT_BODY_PROPS;
