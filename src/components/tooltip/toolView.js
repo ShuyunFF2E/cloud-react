@@ -14,7 +14,7 @@ function getAbsPosition(ele) {
 		left: ele.offsetLeft,
 		top: ele.offsetTop,
 		width: ele.offsetWidth,
-		height: ele.offsetHeight
+		height: ele.offsetHeight,
 	};
 
 	let _ele = ele.offsetParent;
@@ -28,15 +28,19 @@ function getAbsPosition(ele) {
 	return {
 		...rect,
 		right: rect.left + rect.width,
-		bottom: rect.top + rect.height
+		bottom: rect.top + rect.height,
 	};
 }
 
 // 获取累计滚动位移（排除BODY）
-function getScrollOffset(ele, type) {
+function getScrollOffset(ele, scrollContainer = document.body, type) {
 	let scrollOffset = 0;
 	let _ele = ele.parentNode;
-	while (_ele && !Number.isNaN(Number(type ? _ele.scrollTop : _ele.scrollLeft)) && _ele.tagName !== 'BODY') {
+	while (
+		_ele &&
+		!Number.isNaN(Number(type ? _ele.scrollTop : _ele.scrollLeft)) &&
+		_ele !== scrollContainer
+	) {
 		scrollOffset += type ? _ele.scrollTop : _ele.scrollLeft;
 		_ele = _ele.parentNode;
 	}
@@ -69,7 +73,12 @@ function getDirection(tooltip, target, placement) {
 }
 
 // 计算tooltip位置
-export function getTooltipPositionInBody(tooltip, target, placement) {
+export function getTooltipPositionInBody(
+	tooltip,
+	target,
+	placement,
+	scrollContainer,
+) {
 	const { offsetWidth, offsetHeight } = tooltip;
 	const { left, top, right, bottom, width, height } = getAbsPosition(target);
 
@@ -118,8 +127,8 @@ export function getTooltipPositionInBody(tooltip, target, placement) {
 
 	return {
 		...style,
-		top: style.top - getScrollOffset(target, 'top'),
-		left: style.left - getScrollOffset(target)
+		top: style.top - getScrollOffset(target, scrollContainer, 'top'),
+		left: style.left - getScrollOffset(target, scrollContainer),
 	};
 }
 
@@ -127,7 +136,7 @@ export default class ToolView extends Component {
 	state = {
 		dir: '',
 		style: {},
-		show: false
+		show: false,
 	};
 
 	tipRef = React.createRef();
@@ -135,16 +144,21 @@ export default class ToolView extends Component {
 	timer = null;
 
 	componentDidMount() {
-		const { placement, target } = this.props;
+		const { placement, target, scrollContainer } = this.props;
 		const tooltip = this.tipRef.current;
 
 		setTimeout(() => {
 			this.setState(
 				{
-					style: getTooltipPositionInBody(tooltip, target, placement),
-					dir: getDirection(tooltip, target, placement).join('-')
+					style: getTooltipPositionInBody(
+						tooltip,
+						target,
+						placement,
+						scrollContainer,
+					),
+					dir: getDirection(tooltip, target, placement).join('-'),
 				},
-				() => this.setState({ show: true })
+				() => this.setState({ show: true }),
 			);
 		}, 0);
 	}
@@ -168,15 +182,22 @@ export default class ToolView extends Component {
 		const props = {
 			ref: this.tipRef,
 			style: { ...style, ...overlayStyle },
-			className: classNames(`${prefixCls}-tooltip`, `is-${theme}`, { 'no-arrow': !showArrow }, dir, { show }, className),
-			onMouseLeave: this.closeTips
+			className: classNames(
+				`${prefixCls}-tooltip`,
+				`is-${theme}`,
+				{ 'no-arrow': !showArrow },
+				dir,
+				{ show },
+				className,
+			),
+			onMouseLeave: this.closeTips,
 		};
 
 		// 检测到非React节点时，使用html到方式插入
 		if (typeof content !== 'object') {
 			return (
 				<div {...props}>
-					<div dangerouslySetInnerHTML={{ __html: content }}/>
+					<div dangerouslySetInnerHTML={{ __html: content }} />
 					<div className="extra-mask-element" />
 				</div>
 			);

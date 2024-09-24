@@ -32,6 +32,7 @@ group:
 | overlayStyle    | 自定义卡片样式                                                                                                                                               | object   | {}            |
 | alwaysShow      | 设置 visible 为 true 后，点击其他位置，tooltip 不消失                                                                                                                | bool   | false            |
 | showArrow       | 配置箭头的显隐，默认为true                                                                                                                                       | bool   | false            |
+| scrollContainer | 设置滚动根节点， 代码根据此根节点计算提示语的偏移量 | DOM | document.body |
 
  ### 代码演示 
 
