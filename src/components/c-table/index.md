@@ -121,6 +121,7 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 | disabledConfigColumns | 不可进行编辑的列    | 	Array    | []    | |
 | hideConfigColumns     | 不展示在编辑区域的列  | 	Array    | []    | |
 | onColumnChange        | 改变列后的回调函数   | 	function | -     | |
+| configColumnType        | 类型：`default` `complex`   | 	string | default     | |
 
 ### CTable 自定义模板配置
 | 属性              | 说明                                                                                           | 类型                   | 默认值       |
@@ -317,6 +318,7 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 <embed src="@components/c-table/demos/light-row.md" /> 
 
 ### 点击行高亮
+
 <embed src="@components/c-table/demos/light-click-row.md" />
 
 ### 表格排序
@@ -362,6 +364,11 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 ### 表格懒加载
 
 <embed src="@components/c-table/demos/lazyload.md" />
+
+### 列设置
+<embed src="@components/c-table/demos/config-column-basic.md" />
+<embed src="@components/c-table/demos/config-column.md" />
+
 
 ### 分体式表格（灵活）
 
