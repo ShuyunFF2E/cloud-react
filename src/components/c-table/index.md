@@ -374,28 +374,25 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 
 <embed src="@components/c-table/demos/splitTable.md" />
 
-### 标准化表格-数值类型
+### 标准化列表格
 
+#### 数值类型
 <embed src="@components/c-table/demos/uniform_number.md" />
 
-### 标准化表格-时间类型
-
+#### 时间类型
 <embed src="@components/c-table/demos/uniform_time.md" />
 
-### 标准化表格-时间范围类型
-
+#### 时间范围类型
 <embed src="@components/c-table/demos/uniform_time_range.md" />
 
-### 标准化表格-文本类型
+#### 文本类型
 
 <embed src="@components/c-table/demos/uniform_text.md" />
 
-### 标准化表格-标签类型
-
+#### 标签类型
 <embed src="@components/c-table/demos/uniform_tag.md" />
 
-### 标准化表格-使用列模板形式
-
+#### 使用列模板形式
 <embed src="@components/c-table/demos/uniform_tpl.md" />
 
 ### 解决方案

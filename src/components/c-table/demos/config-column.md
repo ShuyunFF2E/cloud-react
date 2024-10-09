@@ -132,7 +132,6 @@ export default function CTableDemo() {
         style={{ height: 500, marginTop: 20 }}
         ref={tableRef}
         supportPage
-        supportCheckbox
         columnData={columns}
         supportConfigColumn
         defaultShowColumns={columns.slice(0, 4).map(item => item.dataIndex)}

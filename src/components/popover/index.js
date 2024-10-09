@@ -46,7 +46,7 @@ function Popover(props) {
         && (ele.classList.contains(cancelBtnClass)
           || ele.classList.contains(confirmBtnClass)
           || ele.classList.contains(closeIconClass)
-          || ignoreClassList.find(c => ele.classList.contains(c))),
+          || ignoreClassList?.find(c => ele.classList.contains(c))),
   );
 
   const handleCancelClick = () => {

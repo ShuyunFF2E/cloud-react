@@ -87,7 +87,7 @@ class ColumnConfig extends Component {
     return (
       <section className={`${tablePrefixCls}-tooltip-complex`}>
         <p className={`${tablePrefixCls}-tooltip-complex-title`}>配置列的显示状态</p>
-        <div style={{ maxHeight: columnConfigPanelHeight - 92 - 24, overflow: 'auto' }}>
+        <div style={{ maxHeight: columnConfigPanelHeight - 128, overflow: 'auto' }}>
           <ReactDragListView
             onDragEnd={this.onDragEnd}
             handleSelector={`.${dragSelector}`}
