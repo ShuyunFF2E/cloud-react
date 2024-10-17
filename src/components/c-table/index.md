@@ -117,11 +117,13 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 | 属性                    | 说明          | 类型        | 默认值   |
 |-----------------------|-------------|-----------|-------|
 | supportConfigColumn   | 是否支持列的显示和隐藏 | 	boolean  | false | |
+| configColumnType        | 类型：`default` `complex`   | 	string | default     | |
 | defaultShowColumns    | 默认展示的列      | 	Array    | []    | |
 | disabledConfigColumns | 不可进行编辑的列    | 	Array    | []    | |
 | hideConfigColumns     | 不展示在编辑区域的列  | 	Array    | []    | |
+| defaultConfigColumns  | 默认列（恢复默认操作使用，type 为 `complex` 时可用）  | 	Array    | []    | |
+| disabledSortColumns | 不可移动顺序的列（只允许设置在列首，type 为 `complex` 时可用）    | 	Array    | []    | |
 | onColumnChange        | 改变列后的回调函数   | 	function | -     | |
-| configColumnType        | 类型：`default` `complex`   | 	string | default     | |
 
 ### CTable 自定义模板配置
 | 属性              | 说明                                                                                           | 类型                   | 默认值       |

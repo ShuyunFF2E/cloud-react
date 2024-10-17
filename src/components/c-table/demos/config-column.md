@@ -134,7 +134,9 @@ export default function CTableDemo() {
         supportPage
         columnData={columns}
         supportConfigColumn
-        defaultShowColumns={columns.slice(0, 4).map(item => item.dataIndex)}
+        defaultShowColumns={[]}
+        // defaultConfigColumns={['id', 'name', 'creator']}
+        disabledSortColumns={['id']}
         hideConfigColumns={['operator']}
         disabledConfigColumns={['id']}
         configColumnType="complex"

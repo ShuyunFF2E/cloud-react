@@ -64,6 +64,7 @@ class CTable extends Component {
   getDataSource = this.props.isDelay ? getDataSourceWithDelay : getDataSource;
 
   constructor(props) {
+    console.log('这是测试包11--')
     super(props);
     this.state = {
       data: [],
@@ -94,9 +95,9 @@ class CTable extends Component {
     ) {
       console.warn('使用展开行功能或者树状表格功能请指定 rowKey');
     }
-    if (this.props.supportMemory && !this.props.tableId) {
-      console.warn('请设置 tableId');
-    }
+    // if (this.props.supportMemory && !this.props.tableId) {
+    //   console.warn('请设置 tableId');
+    // }
     if (this.props.footerTpl() && this.props.footerHeight === undefined) {
       console.warn('请设置 footerHeight');
     }
@@ -200,10 +201,11 @@ class CTable extends Component {
   };
 
   resolveOriginColumn = (columnData) => {
-    return (
-      (this.props.supportMemory && getConfig(this.props.tableId)) ||
-      this.resolveColumn(columnData)
-    );
+    // return (
+    //   (this.props.supportMemory && getConfig(this.props.tableId)) ||
+    //   this.resolveColumn(columnData)
+    // );
+    return this.resolveColumn(columnData);
   };
 
   /**

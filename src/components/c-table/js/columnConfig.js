@@ -6,31 +6,40 @@ import Icon from '../../icon';
 import Popover from '../../popover';
 import Checkbox from '../../checkbox';
 import Button from '../../button';
-import { setConfig } from '../util';
+// import { setConfig } from '../util';
 
 const columnConfigPanelHeight = 466;
 const popoverIgnoreClass = `${tablePrefixCls}-config-column-button`;
 
 class ColumnConfig extends Component {
   onDragEnd = (fromIndex, toIndex) => {
-    const { hideConfigColumns, originColumnData, setOriginColumnData } = this.props;
+    const { hideConfigColumns, originColumnData, disabledSortColumns, setOriginColumnData } = this.props;
+    // 禁止拖拽和排序的列（只能在首部）
+    const disabledSortColumnData = originColumnData.filter(item1 => disabledSortColumns.includes(item1.dataIndex));
+    // 其余列
+    const restColumnData = originColumnData.filter(item1 => !disabledSortColumns.includes(item1.dataIndex));
+
     const _fromIndex = fromIndex;
     const _toIndex = toIndex;
 
     const hideColumnIndexList = hideConfigColumns.map(item => (
-      originColumnData.findIndex(item1 => item1.dataIndex === item)
+      restColumnData.findIndex(item1 => item1.dataIndex === item)
     ));
 
-    const dataCopy = [...originColumnData].filter(item => !hideConfigColumns.includes(item.dataIndex));
+    const dataCopy = [...restColumnData].filter(item => !hideConfigColumns.includes(item.dataIndex));
     const item = dataCopy.splice(_fromIndex, 1)[0];
     dataCopy.splice(_toIndex, 0, item);
 
-    setOriginColumnData(originColumnData.map((hItem, index) => {
-      if (hideColumnIndexList.includes(index)) {
-        return hItem;
-      }
-      return dataCopy[index];
-    }));
+    setOriginColumnData([
+      ...disabledSortColumnData,
+      ...restColumnData
+        .map((hItem, index) => {
+          if (hideColumnIndexList.includes(index)) {
+            return hItem;
+          }
+          return dataCopy[index];
+        }),
+    ]);
   }
 
   renderConfig = () => {
@@ -39,8 +48,8 @@ class ColumnConfig extends Component {
       disabled,
       disabledConfigColumns,
       hideConfigColumns,
-      supportMemory,
-      tableId,
+      // supportMemory,
+      // tableId,
       refreshColumn,
     } = this.props;
     return (
@@ -58,9 +67,9 @@ class ColumnConfig extends Component {
               checked={item.show}
               onChange={(checked) => {
                 Object.assign(item, { show: !!checked });
-                if (supportMemory) {
-                  setConfig(originColumnData, tableId);
-                }
+                // if (supportMemory) {
+                //   setConfig(originColumnData, tableId);
+                // }
                 refreshColumn();
               }}
             >
@@ -72,15 +81,33 @@ class ColumnConfig extends Component {
     );
   };
 
+  renderItem = ({ item, disabled, disabledConfigColumns, originColumnData, setOriginColumnData }) => (
+    <Checkbox
+      disabled={disabled || disabledConfigColumns.includes(item.dataIndex)}
+      checked={item.columnChecked}
+      onChange={(checked) => {
+        const target = originColumnData.find(item1 => item1.dataIndex === item.dataIndex);
+        if (target) {
+          Object.assign(target, { columnChecked: !!checked });
+          setOriginColumnData([...originColumnData]);
+        }
+      }}
+    >
+      {typeof item.title === 'function' ? item.title(item) : item.title}
+    </Checkbox>
+  )
+
   renderComplexConfig = () => {
     const {
       originColumnData,
       disabled,
       disabledConfigColumns,
+      defaultConfigColumns,
       hideConfigColumns,
       originConfigColumnData,
       setOriginColumnData,
       refreshColumn,
+      disabledSortColumns,
     } = this.props;
     const dragSelector = `${tablePrefixCls}-config-drag-icon`;
     const itemSelector = `${tablePrefixCls}-tooltip-complex-content-item`;
@@ -88,6 +115,15 @@ class ColumnConfig extends Component {
       <section className={`${tablePrefixCls}-tooltip-complex`}>
         <p className={`${tablePrefixCls}-tooltip-complex-title`}>配置列的显示状态</p>
         <div style={{ maxHeight: columnConfigPanelHeight - 128, overflow: 'auto' }}>
+          {disabledSortColumns?.length && (
+            <ul className={`${tablePrefixCls}-tooltip-complex-content`} style={{ marginBottom: 12 }}>
+              {originColumnData.filter(c => disabledSortColumns?.includes(c.dataIndex)).map(item => (
+                <li className={itemSelector}>
+                  {this.renderItem({ item, disabled, disabledConfigColumns, originColumnData, setOriginColumnData })}
+                </li>
+              ))}
+            </ul>
+          )}
           <ReactDragListView
             onDragEnd={this.onDragEnd}
             handleSelector={`.${dragSelector}`}
@@ -95,27 +131,17 @@ class ColumnConfig extends Component {
             lineClassName={`${tablePrefixCls}-drag-line`}
           >
             <ul className={`${tablePrefixCls}-tooltip-complex-content`}>
-              {originColumnData.filter(c => !hideConfigColumns.includes(c.dataIndex)).map((item, index) => (
+              {originColumnData.filter(c => ![...hideConfigColumns, ...disabledSortColumns].includes(c.dataIndex)).map((item, index) => (
                 <li className={itemSelector}>
-                  <Checkbox
-                    disabled={disabled || disabledConfigColumns.includes(item.dataIndex)}
-                    checked={item.columnChecked}
-                    onChange={(checked) => {
-                      const target = originColumnData.find(item1 => item1.dataIndex === item.dataIndex);
-                      if (target) {
-                        Object.assign(target, { columnChecked: !!checked });
-                        setOriginColumnData([...originColumnData]);
-                      }
-                    }}
-                  >
-                    {typeof item.title === 'function' ? item.title(item) : item.title}
-                  </Checkbox>
+                  {this.renderItem({ item, disabled, disabledConfigColumns, originColumnData, setOriginColumnData })}
                   <span className={`${tablePrefixCls}-tooltip-complex-operate-icon`}>
                     <Icon
                       type="down"
                       style={{
                         lineHeight: '20px',
-                        visibility: index < originColumnData.length - hideConfigColumns.length - 1 ? 'visible' : 'hidden',
+                        visibility: index < originColumnData.length - hideConfigColumns.length - disabledSortColumns.length - 1
+                          ? 'visible'
+                          : 'hidden',
                       }}
                       onClick={() => this.onDragEnd(index, index + 1)}
                     />
@@ -136,7 +162,19 @@ class ColumnConfig extends Component {
             size="small"
             type="link"
             onClick={() => {
-              setOriginColumnData([...originConfigColumnData], refreshColumn);
+              if (!defaultConfigColumns?.length) {
+                setOriginColumnData(originConfigColumnData.map(item => ({
+                  ...item,
+                  show: true,
+                  columnChecked: true,
+                })), refreshColumn);
+              } else {
+                setOriginColumnData(originConfigColumnData.map(item => ({
+                  ...item,
+                  show: defaultConfigColumns.includes(item.dataIndex),
+                  columnChecked: defaultConfigColumns.includes(item.dataIndex),
+                })), refreshColumn);
+              }
             }}
             className={popoverIgnoreClass}
           >
@@ -160,10 +198,13 @@ class ColumnConfig extends Component {
             size="small"
             type="normal"
             onClick={() => {
-              setOriginColumnData(originConfigColumnData.map(item => ({
-                ...originColumnData.find(item1 => item1.dataIndex === item.dataIndex),
-                columnChecked: item.show,
-              })), refreshColumn);
+              setOriginColumnData(originConfigColumnData.map(item => {
+                const targetColumn = originColumnData.find(item1 => item1.dataIndex === item.dataIndex) || {};
+                return {
+                  ...targetColumn,
+                  columnChecked: targetColumn.show,
+                };
+              }), refreshColumn);
             }}
             className={popoverIgnoreClass}
           >
