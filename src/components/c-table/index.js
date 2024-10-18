@@ -64,7 +64,6 @@ class CTable extends Component {
   getDataSource = this.props.isDelay ? getDataSourceWithDelay : getDataSource;
 
   constructor(props) {
-    console.log('这是测试包11--')
     super(props);
     this.state = {
       data: [],
