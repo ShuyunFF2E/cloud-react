@@ -37,6 +37,8 @@ group:
 | cancelBtnOpts      | 取消按钮配置项      | object            | {}     |
 | confirmBtnOpts      | 确认按钮配置项      | object            | {}     |
 | onVisibleChange     | 显示/隐藏回调       | function          | (visible) => {} |
+| ignoreClassList     | 气泡内，点击会关闭气泡的元素累名       | array          | [] |
+| contentStyle     | 内容区自定义样式，类名 cloud-popover-desc       | object          | {} |
 
 **继承自 Tooltip，支持配置 Tooltip 相关参数，详细请参考 [Tooltip API](https://cloud-react.shuyun.com/v1/cloud-react/common/tooltip#api)**
 

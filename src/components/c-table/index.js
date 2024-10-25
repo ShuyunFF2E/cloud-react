@@ -44,8 +44,7 @@ import MultiTextTpl from './columnTpl/multiText';
 import LinkTpl from './columnTpl/link';
 import MultiLinkTpl from './columnTpl/multiLink';
 import TagTpl from './columnTpl/tag';
-import Tooltip from '../tooltip';
-import Checkbox from '../checkbox';
+import ColumnConfig from './js/columnConfig';
 
 class CTable extends Component {
   ref = createRef();
@@ -70,6 +69,7 @@ class CTable extends Component {
       data: [],
       columnData: this.resolveColumn(this.props.columnData),
       originColumnData: this.resolveOriginColumn(this.props.columnData),
+      originConfigColumnData: this.resolveOriginColumn(this.props.columnData),
       footerHeight: this.props.footerHeight || 0,
       expandIconColumnIndex: this.props.expandIconColumnIndex,
       pageOpts: {
@@ -95,9 +95,9 @@ class CTable extends Component {
     ) {
       console.warn('使用展开行功能或者树状表格功能请指定 rowKey');
     }
-    if (this.props.supportMemory && !this.props.tableId) {
-      console.warn('请设置 tableId');
-    }
+    // if (this.props.supportMemory && !this.props.tableId) {
+    //   console.warn('请设置 tableId');
+    // }
     if (this.props.footerTpl() && this.props.footerHeight === undefined) {
       console.warn('请设置 footerHeight');
     }
@@ -182,10 +182,12 @@ class CTable extends Component {
       const btnNum = getBtnNum(item);
       const colClassName =
         align === 'right' && btnNum > 0 ? `padding-${btnNum}` : '';
+      const show = defaultShowColumns?.includes(item.dataIndex) || !defaultShowColumns?.length || hideConfigColumns?.includes(item.dataIndex);
       const column = {
         render: (val, row) => <ColumnTpl value={val} row={row} {...item} />,
         ...item,
-        show: defaultShowColumns?.includes(item.dataIndex) || !defaultShowColumns?.length || hideConfigColumns?.includes(item.dataIndex),
+        show,
+        columnChecked: show,
         align,
         className: item.className
           ? `${item.className} ${colClassName}`
@@ -199,10 +201,11 @@ class CTable extends Component {
   };
 
   resolveOriginColumn = (columnData) => {
-    return (
-      (this.props.supportMemory && getConfig(this.props.tableId)) ||
-      this.resolveColumn(columnData)
-    );
+    // return (
+    //   (this.props.supportMemory && getConfig(this.props.tableId)) ||
+    //   this.resolveColumn(columnData)
+    // );
+    return this.resolveColumn(columnData);
   };
 
   /**
@@ -749,40 +752,12 @@ class CTable extends Component {
     );
   };
 
-  renderConfig = () => {
-    const { originColumnData } = this.state;
-    const { disabled, disabledConfigColumns, hideConfigColumns, onColumnChange } = this.props;
-    return (
-      <ul className={`${tablePrefixCls}-tooltip-content`}>
-        <p className="config-title">配置列的显示状态</p>
-        {originColumnData.filter(c => !hideConfigColumns.includes(c.dataIndex)).map((item) => (
-          <li>
-            <Checkbox
-              disabled={
-                disabled
-                || disabledConfigColumns.includes(item.dataIndex)
-                || (item.show
-                  && originColumnData.filter((i) => i.show).length === 1)
-              }
-              checked={item.show}
-              onChange={(checked) => {
-                Object.assign(item, { show: !!checked });
-                if (this.props.supportMemory) {
-                  setConfig(this.state.originColumnData, this.props.tableId);
-                }
-                onColumnChange({ columnData: [ ...this.state.originColumnData ] });
-                this.column.setColumnData();
-                this.setHeaderStyle();
-                this.setFixedStyle();
-              }}
-            >
-              {typeof item.title === 'function' ? item.title(item) : item.title}
-            </Checkbox>
-          </li>
-        ))}
-      </ul>
-    );
-  };
+  refreshColumn = () => {
+    this.props.onColumnChange({ columnData: [ ...this.state.originColumnData ] });
+    this.column.setColumnData();
+    this.setHeaderStyle();
+    this.setFixedStyle();
+  }
 
   renderTable() {
     const {
@@ -995,24 +970,17 @@ class CTable extends Component {
         ) : null}
         {/* 支持配置列的显示和隐藏 */}
         {supportConfigColumn && (
-          <Tooltip
-            trigger="click"
-            theme="light"
-            placement="bottom-right"
-            className={`${tablePrefixCls}-tooltip`}
-            content={this.renderConfig()}
-            overlayStyle={{
-              maxHeight: 466,
-              top: 40,
-              right: 1,
-              left: 'auto',
+          <ColumnConfig
+            {...this.props}
+            isLoading={isLoading}
+            tableRef={this.ref}
+            originConfigColumnData={this.state.originConfigColumnData}
+            originColumnData={this.state.originColumnData}
+            setOriginColumnData={(data, cb = noop) => {
+              this.setState({ originColumnData: data }, cb);
             }}
-            containerEle={this.ref.current}
-          >
-            <span className={`${tablePrefixCls}-config-icon`} style={isLoading || loadingOpts.loading ? { zIndex: -1 } : {}}>
-              <Icon type="config" />
-            </span>
-          </Tooltip>
+            refreshColumn={this.refreshColumn}
+          />
         )}
       </div>
     );
