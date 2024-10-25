@@ -1,6 +1,6 @@
 {
   "name": "cloud-react",
-  "version": "1.0.33",
+  "version": "2.0.2",
   "description": "数据赢家 react 组件",
   "scripts": {
     "gen:index": "node ./scripts/generate-index.js",
@@ -21,7 +21,8 @@
     "new:component": "cp -r tpls/new-component src/components/new-component",
     "cli-version": "node ./scripts/generate-version.js",
     "postinstall": "patch-package",
-    "changelog": "auto-changelog"
+    "changelog": "conventional-changelog -p angular -i docs/log.md -s && git add docs/log.md",
+    "changelog-all": "conventional-changelog --config -i docs/log1.md -s"
   },
   "auto-changelog": {
     "output": "docs/log.md"
@@ -45,7 +46,7 @@
     "moment": "2.29.4",
     "patch-package": "6.5.1",
     "prop-types": "15.8.1",
-    "rc-cascader": "3.4.2",
+    "rc-cascader": "3.28.1",
     "rc-color-picker": "1.2.6",
     "rc-drawer": "6.2.0",
     "rc-dropdown": "4.0.1",
@@ -90,6 +91,8 @@
     "auto-changelog": "*",
     "babel-eslint": "10.1.0",
     "babel-plugin-transform-react-remove-prop-types": "0.4.24",
+    "conventional-changelog": "^6.0.0",
+    "conventional-changelog-cli": "^5.0.0",
     "cross-env": "7.0.3",
     "dumi": "1.1.50",
     "enzyme": "3.11.0",

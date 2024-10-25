@@ -5,7 +5,7 @@
   // width: @width;
   height: 32px;
   background: #ffffff;
-  border-radius: 2px;
+  border-radius: 3px;
   border: 1px solid @gray-4;
   box-sizing: border-box;
   margin: 0;
@@ -17,14 +17,15 @@
   list-style: none;
   padding: 6px 12px;
   position: relative;
-  display: inline-flex;
   align-items: center;
-  background: #fff;
-  border-radius: 2px;
   transition: border 0.3s, box-shadow 0.3s;
 
   &:hover {
-    border-color: @gray-6;
+    border-color: @blue-4;
+
+    .@{prefix}-picker-suffix {
+      border-color: @blue-4;
+    }
   }
 
   &-focused {
@@ -43,6 +44,9 @@
 
     &:hover {
       border-color: @gray-4;
+      .@{prefix}-picker-suffix {
+        border-color: @gray-4;
+      }
     }
 
     &,

@@ -32,7 +32,7 @@ function FormHorizontalDemo() {
 				<Button type="primary" style={{ marginRight: 10 }}>
 					提交
 				</Button>
-				<Button>重置</Button>
+				<Button type="secondary">重置</Button>
 			</Form.Item>
 		</Form>
 	);

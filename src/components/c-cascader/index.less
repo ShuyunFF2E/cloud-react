@@ -48,13 +48,15 @@ input::-webkit-search-cancel-button {
   }
 
   &-selection-item {
-    color: @gray-8;
+    color: @gray-9;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
     padding-right: 12px;
   }
-
+  &.@{cascader-prefix-cls}-open .@{cascader-prefix-cls}-arrow {
+    transform: rotateX(180deg);
+  }
   &-arrow {
     display: inline-block;
     color: inherit;
@@ -70,13 +72,16 @@ input::-webkit-search-cancel-button {
     right: 11px;
     display: flex;
     align-items: center;
-    height: @font-size-small;
-    margin-top: -6px;
+    height: @font-size-medium;
+    margin-top: -7px;
     color: @gray-6;
-    font-size: @font-size-small;
+    font-size: @font-size-medium;
     line-height: 1;
     text-align: center;
     pointer-events: none;
+    i {
+      font-size:  @font-size-medium!important;
+    }
   }
 
   &-dropdown {
@@ -89,32 +94,16 @@ input::-webkit-search-cancel-button {
     left: -9999px;
     z-index: 1050;
     box-sizing: border-box;
-    // overflow: hidden;
     font-size: @font-size-base;
     font-variant: initial;
-    background-color: @gray-1;
     outline: none;
-    box-shadow: @border-shadow-4;
-    border-radius: 6px;
     padding: 0;
+    &.small {
+      border-radius: 3px;
+    }
 
-    max-width: 500px;
-    overflow-x: auto;
-
-    ::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
-    }
-    ::-webkit-scrollbar-thumb {
-      background-color: rgba(0, 0, 0, 0.25);
-      border-radius: 8px;
-      border: 0px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background-color: rgba(0, 0, 0, 0.45);
-    }
-    ::-webkit-scrollbar-track {
-      background-color: transparent;
+    &.large {
+      border-radius: 12px;
     }
   }
 
@@ -180,10 +169,14 @@ input::-webkit-search-cancel-button {
     appearance: none;
     height: 30px;
     cursor: pointer;
+    caret-color:  @gray-9;
     &:read-only {
-      caret-color: rgba(0, 0, 0, 0);
+      caret-color:  @gray-9;
     }
-
+    
+    &:focus {
+      color: @gray-6;
+    }
     // width: 100%;
   }
 
@@ -191,7 +184,7 @@ input::-webkit-search-cancel-button {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    padding: 0 12px 0 8px;
+    padding: 0 12px 0 4px;
     max-height: 350px;
     overflow: auto;
     font-size: 12px;
@@ -330,8 +323,17 @@ input::-webkit-search-cancel-button {
     position: relative;
     background-color: @gray-1;
     border: 1px solid @gray-4;
-    border-radius: 2px;
+    border-radius: 3px;
     transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  }
+  &.default  &-selector {
+    border-radius: 3px;
+  }
+  &.medium  &-selector {
+    border-radius: 6px;
+  }
+  &.large  &-selector {
+    border-radius: 12px;
   }
 
   &-single &-selector {
@@ -348,6 +350,14 @@ input::-webkit-search-cancel-button {
     display: flex;
     flex-wrap: nowrap;
     align-items: flex-start;
+    // width: fit-content;
+    max-width: 700px;
+    overflow-x: auto;
+    background-color: @gray-1;
+    box-shadow: @border-shadow-4;
+    border-radius: 6px;
+    width: fit-content;
+
     &.@{cascader-prefix-cls}-menu-empty {
       .@{cascader-prefix-cls}-menu {
         width: 100%;
@@ -358,6 +368,7 @@ input::-webkit-search-cancel-button {
 
   &-menu {
     height: 180px;
+    flex-shrink: 0;
     margin: 0;
     padding: 8px 0;
     vertical-align: top;
@@ -368,7 +379,7 @@ input::-webkit-search-cancel-button {
     overflow-x: hidden;
 
     &-item {
-      min-width: 100px;
+      min-width: 200px;
       display: flex;
       flex-wrap: nowrap;
       align-items: center;
@@ -424,6 +435,7 @@ input::-webkit-search-cancel-button {
       &-loading-icon {
         font-size: 16px;
         color: @gray-7;
+        margin-left: 8px;
 
         .@{cascader-prefix-cls}-menu-item-disabled& {
           // color: @disabled-color;
@@ -462,7 +474,7 @@ input::-webkit-search-cancel-button {
     flex-direction: column;
     align-items: center;
     gap: 5px;
-    font-size: 11px;
+    font-size: 14px;
     font-weight: 400;
     color: rgba(0, 0, 0, 0.25);
     line-height: 16px;

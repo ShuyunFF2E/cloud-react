@@ -417,12 +417,17 @@
   color: @gray-7;
 }
 
+// 配置列的显示和隐藏
 .@{tablePrefixCls}-tooltip {
   min-width: 236px;
   overflow: auto;
   padding: 16px;
   box-shadow: 0 4px 12px 0 rgba(0,0,0,0.1), 0 0 1px 0 rgba(0,0,0,0.3) !important;
   border-radius: 3px;
+
+  &::after {
+    display: none;
+  }
 
   &-content {
     display: flex;
@@ -443,8 +448,61 @@
     }
   }
 
-  &::after {
-    display: none;
+  &-complex {
+    &-title {
+      color: #666666;
+      border-bottom: 1px solid #E8E8E8;
+      padding-bottom: 12px;
+      margin-bottom: 12px;
+    }
+
+    &-content {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+
+      &-item {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .text-overflow-ellipsis;
+
+        .@{prefix}-checkbox-text {
+          font-size: 14px;
+        }
+      }
+    }
+
+    &-operate-icon {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-left: 4px;
+
+      i {
+        color: @gray-6;
+        cursor: pointer;
+
+        &:hover {
+          color: @blue-4;
+        }
+      }
+
+      .@{tablePrefixCls}-config-drag-icon {
+        cursor: move;
+      }
+    }
+
+    &-button-area {
+      display: flex;
+      justify-content: end;
+      align-items: center;
+      gap: 8px;
+      padding-top: 12px;
+      border-top: 1px solid #E8E8E8;
+      margin-top: 12px;
+    }
   }
 }
 

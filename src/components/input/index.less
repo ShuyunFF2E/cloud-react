@@ -2,17 +2,19 @@
 
 /*
  * 请不要删除 样式中的 !important
- * 样式文件中所有 !important 都是为了覆盖 ccms-components 组件库的流氓样式而写
+ * !important 是为了覆盖 ccms-components 组件库的流氓样式而写
 **/
 
 @input-prefix-cls: ~'@{prefix}-input';
 
-@border-radius: 2px;
+@border-radius: 3px;
+@border-medium-radius: 6px;
+@border-large-radius: 12px;
 @default-width: 250px;
 
 @placeholder-color: @gray-6;
 
-@hover-border-color: @gray-6;
+@hover-border-color: @blue-4;
 
 @focus-border-color: @blue-4;
 
@@ -50,9 +52,44 @@
     border-radius: @border-radius;
   }
 
+  &-prefix {
+    border-top-left-radius: @border-radius;
+    border-bottom-left-radius: @border-radius;
+  }
+
+  &-suffix {
+    border-top-right-radius: @border-radius;
+    border-bottom-right-radius: @border-radius;
+  }
+
+  &-loading-spin {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    animation: load 1.5s infinite linear;
+    border: 1px solid @focus-border-color;
+    border-right: 1px solid transparent;
+    @keyframes load {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  }
+
+  &-group:not(.@{input-prefix-cls}-disabled) {
+    .@{prefix}-icon-search:hover,
+    .icon-search:hover {
+      cursor: pointer;
+    }
+  }
+
   &,
   &-textarea {
-    border: 1px solid @gray-4;
+    border: 1px solid @gray-4!important;
     border-radius: @border-radius;
     outline: none;
     width: @default-width;
@@ -82,6 +119,46 @@
         }
       }
     }
+
+    &.border-radius-medium {
+      .@{input-prefix-cls}-group {
+        border-radius: @border-medium-radius;
+      }
+
+      .@{input-prefix-cls}-prefix {
+        border-top-left-radius: @border-medium-radius;
+        border-bottom-left-radius: @border-medium-radius;
+      }
+
+      .@{input-prefix-cls}-suffix {
+        border-top-right-radius: @border-medium-radius;
+        border-bottom-right-radius: @border-medium-radius;
+      }
+    }
+
+    &.border-radius-large {
+      .@{input-prefix-cls}-group {
+        border-radius: @border-large-radius;
+      }
+
+      .@{input-prefix-cls}-prefix {
+        border-top-left-radius: @border-large-radius;
+        border-bottom-left-radius: @border-large-radius;
+      }
+
+      .@{input-prefix-cls}-suffix {
+        border-top-right-radius: @border-large-radius;
+        border-bottom-right-radius: @border-large-radius;
+      }
+    }
+  }
+
+  &.border-radius-medium {
+    border-radius: @border-medium-radius;
+  }
+
+  &.border-radius-large {
+    border-radius: @border-large-radius;
   }
 
   /* group */
@@ -144,6 +221,14 @@
         border-bottom-right-radius: 0px;
       }
     }
+
+    &.border-radius-medium {
+      border-radius: @border-medium-radius;
+    }
+
+    &.border-radius-large {
+      border-radius: @border-large-radius;
+    }
   }
 
   &-prefix,
@@ -157,22 +242,35 @@
     margin-right: 8px;
   }
 
-  &-suffix {
-    // margin-right: 8px;
-  }
+  // &-suffix {
+  // margin-right: 8px;
+
+  // }
 
   &-affix {
     border: 1px solid @gray-4;
     padding: 5px @both-space-size;
     color: @gray-9;
     &:hover {
-      border-color: @gray-6;
+      border-color: @blue-4!important;
+    }
+
+    .@{prefix}-icon-search,
+    .icon-search {
+      color: @gray-6;
+      cursor: pointer;
+      font-size: 16px;
+
+      &:hover {
+        color: @blue-4;
+      }
     }
   }
 
   &-counter {
-    font-size: 12px;
-    color: #c9c9c9;
+    font-size: 14px;
+    line-height: 20px;
+    color: @gray-6;
     word-break: keep-all;
   }
 
@@ -254,16 +352,14 @@
     height: 28px;
   }
 
-  &-textarea:hover,
-  &:hover {
-    border-color: @hover-border-color;
-  }
-
-  &-focus.@{input-prefix-cls}-affix,
-  &-focus &-affix,
   &-textarea:focus,
   &:focus {
-    border-color: @focus-border-color;
+    border-color: @gray-4!important;
+  }
+
+  &-textarea:hover,
+  &:hover {
+    border-color: @hover-border-color!important;
   }
 
   &-disabled.@{input-prefix-cls}-affix,
@@ -271,10 +367,19 @@
   &-textarea:disabled,
   &:disabled {
     color: @gray-7;
-    background: @gray-3;
+    background: @gray-3!important;
     cursor: not-allowed;
     &:hover {
-      border-color: @gray-4;
+      border-color: @gray-4!important;
+    }
+
+    .@{prefix}-icon-search,
+    .icon-search {
+      cursor: not-allowed;
+
+      &:hover {
+        color: @gray-6;
+      }
     }
   }
 
@@ -288,14 +393,29 @@
       height: 100%;
       border: 1px solid @gray-4;
       background: @textarea-background;
-      border-radius: 2px;
+      border-radius: @border-radius;
+    }
+
+    &.border-radius-medium {
+      border-radius: @border-medium-radius;
+
+      > textarea {
+        border-radius: @border-medium-radius;
+      }
+    }
+
+    &.border-radius-large {
+      border-radius: @border-large-radius;
+
+      > textarea {
+        border-radius: @border-large-radius;
+      }
     }
   }
 
   &-textarea {
     font-family: inherit;
     width: 100%;
-    resize: none;
     border: none;
     &.has-counter {
       padding-bottom: 25px;

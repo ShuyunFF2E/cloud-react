@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
@@ -6,69 +7,30 @@ import { noop } from '@utils';
 import Icon from '../../icon';
 import { selector } from './common';
 
-import '../index.less';
+import SingleSearch from './search/single-search';
+import MultiSearch from './search/multi-search';
+import MultiCommaSearch from './search/multi-comma-search.js';
 
-const getLables = (props) => {
-  const {
-    dataSource: _dataSource,
-    multiple,
-    showSelectAll,
-    metaData,
-    supportUnlimited,
-    unlimitedLabel,
-  } = props;
-  const dataSource = supportUnlimited
-    ? _dataSource.filter((item) => item.value !== '')
-    : _dataSource;
-  if (multiple) {
-    if (supportUnlimited && !dataSource?.length) {
-      return unlimitedLabel || '不限';
-    }
-    if (showSelectAll) {
-      const data = metaData.reduce((acc, v) => {
-        acc.push({
-          ...v,
-          isSelected:
-            dataSource.findIndex((i) => i.value === v.props.value) > -1,
-        });
-        return acc;
-      }, []);
-      const invalidLength = data.filter(
-        (v) => v.props.disabled && !v.isSelected,
-      ).length;
-      if (data.length - invalidLength === dataSource.length) return '全选';
-    }
-    return dataSource
-      .map((item) => {
-        if (Array.isArray(item.label)) {
-          return item.label.find((v) => typeof v === 'string');
-        }
-        return item.label;
-      })
-      .join(',');
-  }
-  return dataSource.map((item) => item.label);
-};
+import '../index.less';
 
 export default class Selected extends React.Component {
   constructor(props) {
     super(props);
     this.ref = React.createRef();
 
-    const labels = getLables(props);
     this.state = {
-      selected: labels || '',
+      selectedList: props.selectedList || [],
       clear: false,
       prevProps: this.props,
+      searchValue: '',
     };
   }
 
   static getDerivedStateFromProps(props, prevState) {
     const { prevProps } = prevState;
-    if (props.dataSource !== prevProps.dataSource) {
-      const labels = getLables(props);
+    if (props.selectedList !== prevProps.selectedList) {
       return {
-        selected: labels || '',
+        selectedList: props.selectedList || [],
         prevProps: props,
       };
     }
@@ -104,12 +66,17 @@ export default class Selected extends React.Component {
     });
   };
 
+  onSearchValueChange = search => {
+    this.setState({ searchValue: search });
+    this.props.onSearchValueChange(search);
+  };
+
+  getSearchValue = () => this.state.searchValue;
+
   render() {
     const {
       props: {
-        dataSource,
         disabled,
-        isSupportTitle,
         placeholder,
         open,
         showArrow,
@@ -117,33 +84,60 @@ export default class Selected extends React.Component {
         onClear,
         size,
         supportUnlimited,
+        searchable,
+        multiple,
+        onMultiChange,
+        positionPop,
+        labelKey,
+        valueKey,
+        maxTagCount,
+        isSearch,
+        setSearchStatus,
+        showTag,
+        maxHeight,
+        optionRender,
+        selectAllText,
+        borderRadiusSize,
+        scrollSelected,
       },
-      state: { selected, clear },
+      state: { selectedList, clear },
       onMouseEnter,
       onMouseLeave,
     } = this;
     const classNames = classnames(`${selector}-wrapper`, {
       disabled,
-      empty: supportUnlimited ? false : !dataSource.length,
+      empty: supportUnlimited ? false : !selectedList.length,
       hidden: !showSelectStyle,
+      'single-search-in-box': !multiple,
+      'multi-search-in-box': multiple && showTag,
+      'comma-search-in-box': multiple && !showTag,
       [`${size}`]: true,
+      [`border-radius-${borderRadiusSize}`]: true,
     });
     const iconClasses = classnames(`${selector}-select-icon`, {
       open,
       close: !open,
-      hidden: clear && selected.length,
+      hidden: clear && selectedList.length || isSearch,
     });
     const clearClasses = classnames(
       `${selector}-select-icon ${selector}-clear-icon`,
       {
-        show: clear && selected.length,
+        show: clear && selectedList.length,
       },
     );
-    let title = '';
-    if (isSupportTitle) {
-      title = Array.isArray(selected)
-        ? selected.filter((item) => typeof item === 'string').join('')
-        : selected;
+    const searchClasses = classnames(
+      `${selector}-search-icon`,
+      {
+        show: isSearch && (!clear || !selectedList.length),
+      },
+    );
+
+    let SearchCom = null;
+    if (!multiple) {
+      SearchCom = SingleSearch;
+    }
+    if (multiple) {
+      SearchCom = showTag ? MultiSearch : MultiCommaSearch;
     }
 
     return (
@@ -153,11 +147,32 @@ export default class Selected extends React.Component {
         onClick={this.onWrapperClick}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
+        style={maxHeight ? { maxHeight, overflow: 'auto' } : {}}
       >
-        <span className={`${selector}-selected`} title={title}>
-          {selected.length ? selected : placeholder}
-        </span>
+        <SearchCom
+          placeholder={placeholder}
+          selectedList={selectedList}
+          dataSource={this.props.dataSource}
+          unlimitedLabel={this.props.unlimitedLabel}
+          supportUnlimited={this.props.supportUnlimited}
+          onSearch={this.props.onSearch}
+          open={open}
+          searchValue={this.state.searchValue}
+          onSearchValueChange={this.onSearchValueChange}
+          onMultiChange={onMultiChange}
+          positionPop={positionPop}
+          labelKey={labelKey}
+          valueKey={valueKey}
+          maxTagCount={maxTagCount}
+          setSearchStatus={setSearchStatus}
+          disabled={disabled}
+          searchable={searchable}
+          optionRender={optionRender}
+          selectAllText={selectAllText}
+          scrollSelected={scrollSelected}
+        />
         <Icon type="close-fill-1" className={clearClasses} onClick={onClear} />
+        <Icon type="search" className={searchClasses} />
         {showArrow && <Icon type="down" className={iconClasses} />}
       </div>
     );
@@ -165,22 +180,26 @@ export default class Selected extends React.Component {
 }
 
 Selected.propTypes = {
+  optionRender: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
   allowClear: PropTypes.bool,
   open: PropTypes.bool,
-  dataSource: PropTypes.oneOfType([ PropTypes.object, PropTypes.array ]),
+  selectedList: PropTypes.oneOfType([ PropTypes.object, PropTypes.array ]),
+  dataSource: PropTypes.array,
   placeholder: PropTypes.string,
   showArrow: PropTypes.bool,
   showSelectStyle: PropTypes.bool,
   trigger: PropTypes.string,
   onClick: PropTypes.func,
   onClear: PropTypes.func,
+  onMultiChange: PropTypes.func,
 };
 
 Selected.defaultProps = {
   disabled: false,
   allowClear: false,
   open: false,
+  selectedList: [],
   dataSource: [],
   placeholder: '',
   showArrow: true,
@@ -188,4 +207,5 @@ Selected.defaultProps = {
   trigger: 'click',
   onClick: noop,
   onClear: noop,
+  onMultiChange: noop,
 };

@@ -1,17 +1,15 @@
 .avatar-basic-demo {
+  display: flex;
+  flex-direction: column;
+
   > div {
     display: flex;
-    align-items: center;
-    margin-bottom: 20px;
+    flex-direction: column;
+
     > div {
-      width: 100px;
-      text-align: center;
-    }
-  }
-  > div:first-child {
-    > span {
-      width: 100px;
-      text-align: center;
+      display: flex;
+      align-items: center;
+      gap: 40px;
     }
   }
 }

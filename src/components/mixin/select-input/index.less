@@ -1,0 +1,29 @@
+@import '../../style/index';
+
+@search-input-prefix-cls: ~'@{prefix}-search-input';
+
+.@{search-input-prefix-cls} {
+    display: flex;
+
+    .@{prefix}-select {
+        .@{prefix}-select-wrapper {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        &:hover {
+            z-index: 1;
+        }
+    }
+
+    .@{prefix}-input,
+    .@{prefix}-input-group {
+        margin-left: -1px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+
+        &:hover {
+            z-index: 1;
+        }
+    }
+}

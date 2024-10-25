@@ -31,6 +31,7 @@ group:
 | closeIcon   | 自定义关闭按钮 icon，默认 closable 为 true                                                            | string                   | ''        |
 | onClose     | 关闭提示后触发回调                                                                                    | function                 | () => {}  |
 | collapsible | 提示是否可收起展开。收起状态下：无描述时 msg 展示 4 行；有描述时 msg 展示 1 行、description 展示 4 行 | boolean                  | `false`   |
+| borderRadiusSize        | 圆角尺寸 `large` `small` `default` |  | `default` |
 
 ### 代码演示
 

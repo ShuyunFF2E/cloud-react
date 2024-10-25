@@ -169,6 +169,12 @@ class Node extends Component {
       nodeNameMaxLength,
       onDoubleClick,
       supportTooltip,
+      removeNode,
+      addNode,
+      customNodeTpl,
+      isDynamicLoad,
+      showLine,
+      lineType,
     } = this.context;
     const { setInputValue, onSaveClick, onClickCancel } = this;
     // 将三个方法传递出去可以供外部调用
@@ -181,16 +187,36 @@ class Node extends Component {
         <div
           className={classNames(
             `${prefixCls}-list-node-area ${
-              data.children && !data.children.length ? 'child-style' : null
+              (data.children && !data.children.length && (isDynamicLoad && data.isLeaf || !isDynamicLoad)) ? 'child-style' : null
             }`,
           )}
         >
+          {showLine && (
+            <>
+              {data?.level > 1 && <div className={`v-line ${lineType}`} style={{ left: paddingLeft - 2 }} />}
+              {data?.children?.length && data.isUnfold ? (
+                <span
+                  className={`line ${lineType}`}
+                  style={{ paddingLeft: lineType === 'dashed' ? paddingLeft - 1 : paddingLeft }}
+                />
+              ) : null}
+              {data?.level > 1 ? (
+                <span
+                  className={`h-line ${lineType}`}
+                  style={{
+                    marginLeft: 18 * (data.level - 2),
+                    width: data?.children?.length ? 8 : 26,
+                  }}
+                />
+              ) : null}
+            </>
+          )}
           <div
             onContextMenu={(e) => supportMenu && this.onHandleShowMenu(e, RIGHT_MENU, data, options)}
             style={{ minWidth: `calc(100% - ${paddingLeft}px)`, paddingLeft }}
             className={`node-item-container ${
               data.isActive ? 'is-active' : null
-            } ${supportCheckbox ? 'support-checkbox' : ''}`}
+            } ${supportCheckbox ? 'support-checkbox' : ''} ${data.isAdd ? 'add' : null}`}
           >
             {/* 拖拽icon: 根节点不支持拖拽 */}
             {supportDrag && (data.pId || data.pId === 0) && !disabled && (
@@ -201,8 +227,9 @@ class Node extends Component {
 
             {/* 折叠展开icon */}
             <ToggleFold
-              hasChildren={data?.children.length > 0}
-              showChildrenItem={data.isUnfold}
+              isLoading={data.isLoading}
+              hasChildren={data?.children.length > 0 || isDynamicLoad && !data.isLeaf}
+              showChildrenItem={data.isUnfold && data?.children.length}
               toggle={(e) => this.toggle(e, data)}
             />
             <div
@@ -250,6 +277,7 @@ class Node extends Component {
                   ...
                 </span>
               )}
+              {customNodeTpl && customNodeTpl({ node: data, addNode, removeNode })}
             </div>
 
             <ShowInput
@@ -284,19 +312,23 @@ class Node extends Component {
  * @returns {null|*}
  * @constructor
  */
-function ToggleFold({ hasChildren, showChildrenItem, toggle }) {
+function ToggleFold({ hasChildren, showChildrenItem, toggle, isLoading }) {
   return (
-    hasChildren && (
-      <Icon
-        className="toggle-icon"
-        // type={!showChildrenItem ? 'down' : 'up'}
-        type="up"
-        style={{
-          transform: showChildrenItem ? 'rotate(0)' : 'rotate(-180deg)',
-        }}
-        onClick={toggle}
-      />
-    )
+    <>
+      {isLoading && <span className="loading-spin" />}
+      {hasChildren && (
+        <Icon
+          className="toggle-icon"
+          type="down-solid"
+          style={{
+            zIndex: isLoading ? -100 : undefined,
+            position: isLoading ? 'absolute' : undefined,
+            transform: showChildrenItem ? 'rotate(0)' : 'rotate(-90deg)',
+          }}
+          onClick={toggle}
+        />
+      )}
+    </>
   );
 }
 

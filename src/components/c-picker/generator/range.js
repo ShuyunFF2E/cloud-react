@@ -64,7 +64,7 @@ export default function generateRangePicker(generateConfig) {
           <RCRangePicker
             separator={
               <span aria-label="to" className={`${prefixCls}-separator`}>
-                ~
+                至
               </span>
             }
             ref={this.pickerRef}

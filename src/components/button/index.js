@@ -34,6 +34,8 @@ class Button extends React.PureComponent {
     target: PropTypes.string,
     htmlType: PropTypes.string,
     className: PropTypes.string,
+    borderRadiusSize: PropTypes.oneOf(['default', 'medium', 'large', 'circle']),
+    shape: PropTypes.oneOf(['default', 'square']),
   };
 
   static defaultProps = {
@@ -47,6 +49,8 @@ class Button extends React.PureComponent {
     target: '',
     className: '',
     htmlType: 'button',
+    borderRadiusSize: 'default',
+    shape: 'default',
   };
 
   static Group = ButtonGroup;
@@ -58,7 +62,7 @@ class Button extends React.PureComponent {
     };
   }
 
-  handleClick = e => {
+  handleClick = (e) => {
     const { onClick } = this.props;
     if (onClick) {
       const res = onClick(e);
@@ -69,7 +73,7 @@ class Button extends React.PureComponent {
         });
       }
     }
-  }
+  };
 
   render() {
     const { size: formSize } = this.context;
@@ -89,6 +93,8 @@ class Button extends React.PureComponent {
       children,
       className,
       htmlType,
+      borderRadiusSize,
+      shape,
       ...others
     } = this.props;
     const { loading } = this.state;
@@ -100,19 +106,20 @@ class Button extends React.PureComponent {
         [type]: true,
         [size || formSize || 'default']: true,
         [colorType]: true,
+        [`shape-${shape}`]: true,
         block,
         loading: loading || _loading,
+        [`border-radius-${borderRadiusSize}`]: true,
       },
       className,
     );
-
     // 针对单按钮情况
     let content = type !== 'link'
       && type !== 'text'
       && !icon
       && typeof children === 'string'
       && children.length === 2
-      ? children.split('').join(' ')
+      ? children.split('').join('')
       : children;
 
     // 针对按钮组情况

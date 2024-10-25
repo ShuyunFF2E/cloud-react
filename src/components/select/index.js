@@ -6,11 +6,12 @@ import ShuyunUtils from 'shuyun-utils';
 
 import { flat, noop } from '@utils';
 import ContextProvider from '@contexts/context-provider';
-import SingleSelect from './views/single-select';
-import MultiSelect from './views/multi-select';
-import GroupSelect from './views/group-select';
+import SingleSelect from './views/select/single-select';
+import MultiSelect from './views/select/multi-select';
+import GroupSelect from './views/select/group-select';
 import Selected from './views/selected';
 import Option from './views/option';
+import ImageText from './views/image-text';
 import { selector } from './views/common';
 
 import { formatOptionSource, isGroupSelectPicker } from './utils';
@@ -42,10 +43,15 @@ const getOptions = (
   dataSource,
   labelKey,
   valueKey,
+  descKey,
+  optionRender,
   isSupportTitle,
   searchValue,
   supportLightText,
   lightTextColor,
+  scrollItem,
+  checkboxStyle,
+  searchable,
 ) => dataSource.map((v, index) => (
   <Option
     item={{ ...v, index }}
@@ -56,13 +62,18 @@ const getOptions = (
     searchValue={searchValue}
     supportLightText={supportLightText}
     lightTextColor={lightTextColor}
+    scrollItem={scrollItem}
+    checkboxStyle={checkboxStyle}
+    searchable={searchable}
+    optionRender={optionRender}
   >
-    {v[labelKey]}
+    {optionRender ? optionRender(v, index, { searchable, searchValue, supportLightText, lightTextColor }) : v[labelKey]}
   </Option>
 ));
 
 class Select extends Component {
   static Option = Option;
+  static ImageText = ImageText;
 
   static contextType = ContextProvider;
 
@@ -83,6 +94,7 @@ class Select extends Component {
       prevProps: props,
       style: {},
       searchValue: '',
+      isSearch: false,
     };
     this.node = React.createRef();
     this.optionsNode = React.createRef();
@@ -104,7 +116,7 @@ class Select extends Component {
       || Children.count(children) !== Children.count(prevChildren)
       || !ShuyunUtils.equal(dataSource, prevData)
     ) {
-      const { labelKey, valueKey, labelInValue, defaultValue } = props;
+      const { labelKey, valueKey, descKey, optionRender, labelInValue, defaultValue } = props;
       const displayValue = value !== null ? value : defaultValue;
       const childs = Array.isArray(children)
         ? flat(children, Infinity)
@@ -115,10 +127,15 @@ class Select extends Component {
           dataSource,
           labelKey,
           valueKey,
+          descKey,
+          optionRender,
           isSupportTitle,
           prevState?.searchValue,
           props.supportLightText,
           props.lightTextColor,
+          props.scrollItem,
+          props.checkboxStyle,
+          props.searchable,
         );
       const selected = getSelected(displayValue, source, dataSource);
       const emptyValue = multiple ? [] : '';
@@ -197,6 +214,11 @@ class Select extends Component {
     this.node.current.removeEventListener('mouseleave', this.handleMouseLeave);
   }
 
+  setSearchStatus = isSearch => {
+    // eslint-disable-next-line react/no-unused-state
+    this.setState({ isSearch });
+  };
+
   get document() {
     return this.context.rootDocument;
   }
@@ -215,7 +237,7 @@ class Select extends Component {
   }
 
   get children() {
-    const { children, dataSource, labelKey, valueKey, isSupportTitle } = this.props;
+    const { children, dataSource, labelKey, valueKey, descKey, optionRender, isSupportTitle } = this.props;
     const childs = Array.isArray(children)
       ? flat(children, Infinity)
       : Children.toArray(children);
@@ -229,10 +251,15 @@ class Select extends Component {
       dataSource,
       labelKey,
       valueKey,
+      descKey,
+      optionRender,
       isSupportTitle,
       this.state?.searchValue,
       this.props.supportLightText,
       this.props.lightTextColor,
+      this.props.scrollItem,
+      this.props.checkboxStyle,
+      this.props.searchable,
     );
   }
 
@@ -251,13 +278,21 @@ class Select extends Component {
   }
 
   getGroupOptions = () => {
-    const { dataSource, labelKey, valueKey, isSupportTitle } = this.props;
+    const { dataSource, labelKey, valueKey, descKey, optionRender, isSupportTitle } = this.props;
     return dataSource.map((group) => {
       const groupItem = getOptions(
         group.options || [],
         labelKey,
         valueKey,
+        descKey,
+        optionRender,
         isSupportTitle,
+        this.state?.searchValue,
+        this.props.supportLightText,
+        this.props.lightTextColor,
+        this.props.scrollItem,
+        this.props.checkboxStyle,
+        this.props.searchable,
       );
       return (
         <div>
@@ -275,7 +310,7 @@ class Select extends Component {
       optionsNodeStyle: { height: optionsHeight },
     } = this;
     const isBottomDistanceEnough = bottom + optionsHeight < this.document.documentElement.clientHeight;
-    const isLocationTop = optionsHeight < top && !isBottomDistanceEnough && position === 'auto';
+    const isLocationTop = position === 'top' || optionsHeight < top && !isBottomDistanceEnough && position === 'auto';
     if (isAppendToBody) {
       this.setState({
         style: {
@@ -313,13 +348,18 @@ class Select extends Component {
       const { onSelectClose, open: propOpen, hasConfirmButton } = this.props;
       onSelectClose();
       if (hasConfirmButton) this.onMultiOptionChange(prevValue);
-      if (propOpen === null) this.setState({ open: false });
+      if (propOpen === null) {
+        this.optionsNode.current.classList.remove('show');
+        setTimeout(() => {
+          this.setState({ open: false });
+        }, 100);
+      }
     }
   };
 
-  handleSelect = () => {
+  handleSelect = ({ isClose = false } = {}) => {
     const { open } = this.state;
-    const { onSelectOpen, onSelectClose, open: propOpen } = this.props;
+    const { onSelectOpen, onSelectClose, open: propOpen, multiple } = this.props;
 
     if (open) {
       onSelectClose();
@@ -327,10 +367,25 @@ class Select extends Component {
       onSelectOpen();
     }
 
-    if (propOpen === null) this.setState({ open: !open });
+    if (propOpen === null) {
+      if (!open) {
+        this.setState({ open: !open });
+        setTimeout(() => {
+          this.optionsNode.current.classList.add('show');
+        });
+      } else if (!multiple && !this.state.isSearch || multiple && this.props.supportUnlimited || isClose) {
+        this.optionsNode.current.classList.remove('show');
+        setTimeout(() => {
+          this.setState({ open: !open });
+        }, 100);
+      }
+    }
   };
 
   onClickSelected = () => {
+    if (this.props.searchable && this.selectedNode.current.getSearchValue()) {
+      return;
+    }
     this.onSearchValueChange('');
     const { disabled } = this.props;
     if (disabled) return;
@@ -431,7 +486,7 @@ class Select extends Component {
     });
 
     onOk(result, prevResult);
-    handleSelect();
+    handleSelect({ isClose: true });
   };
 
   handleCancel = () => {
@@ -444,7 +499,7 @@ class Select extends Component {
 
     onMultiOptionChange(prevValue);
     onCancel();
-    handleSelect();
+    handleSelect({ isClose: true });
   };
 
   onSearchValueChange = (v) => {
@@ -467,6 +522,7 @@ class Select extends Component {
           onChange={this.onMultiSelectValueChange}
           onSearchValueChange={this.onSearchValueChange}
           handleSelect={this.handleSelect}
+          searchValue={this.state.searchValue}
         />
       );
     }
@@ -478,6 +534,8 @@ class Select extends Component {
           value={value}
           dataSource={this.children}
           onChange={this.onSimpleOptionChange}
+          searchValue={this.state.searchValue}
+          onSearchValueChange={this.onSearchValueChange}
         />
       );
     }
@@ -488,6 +546,7 @@ class Select extends Component {
         value={value}
         dataSource={this.children}
         onChange={this.onSimpleOptionChange}
+        searchValue={this.state.searchValue}
         onSearchValueChange={this.onSearchValueChange}
       />
     );
@@ -500,10 +559,14 @@ class Select extends Component {
       allowClear,
       style,
       className,
+      dropdownStyle,
+      dropdownClassName,
       isAppendToBody,
       isSupportTitle,
       size,
       supportUnlimited,
+      formSize,
+      dataSource,
       ...otherProps
     } = this.props;
     const { selected, open, style: popupStyle } = this.state;
@@ -514,15 +577,15 @@ class Select extends Component {
       className,
     );
 
-    const optionContainer = (
+    const optionContainer = open ? (
       <div
-        className={`${selector}-option-container`}
+        className={`${selector}-option-container ${dropdownClassName}`}
         ref={this.optionsNode}
-        style={{ ...popupStyle, width: `${width}px` }}
+        style={{ ...popupStyle, width: `${width}px`, ...dropdownStyle }}
       >
         {this.renderOptions()}
       </div>
-    );
+    ) : null;
 
     return (
       <div className={`${classNames}`} style={style} ref={this.node}>
@@ -535,17 +598,23 @@ class Select extends Component {
           open={open}
           allowClear={allowClear}
           placeholder={placeholder}
-          dataSource={selected}
+          selectedList={selected}
+          dataSource={dataSource}
           metaData={this.children}
           disabled={disabled}
-          size={size}
+          size={formSize || size || 'default'}
           isSupportTitle={isSupportTitle}
           supportUnlimited={supportUnlimited}
+          onSearchValueChange={this.onSearchValueChange}
+          onMultiChange={this.onMultiSelectValueChange}
+          positionPop={this.positionPop}
+          isSearch={this.state.isSearch}
+          setSearchStatus={this.setSearchStatus}
         />
 
         {isAppendToBody
-          ? open && ReactDOM.createPortal(optionContainer, this.portal)
-          : open && optionContainer}
+          ? ReactDOM.createPortal(optionContainer, this.portal)
+          : optionContainer}
       </div>
     );
   }
@@ -562,9 +631,10 @@ Select.propTypes = {
   dataSource: PropTypes.array,
   labelKey: PropTypes.string,
   valueKey: PropTypes.string,
+  descKey: PropTypes.string,
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   searchable: PropTypes.bool,
-  emptyRender: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+  emptyRender: PropTypes.oneOfType([ PropTypes.string, PropTypes.node ]),
   defaultValue: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
@@ -594,6 +664,18 @@ Select.propTypes = {
   lightTextColor: PropTypes.string,
   supportUnlimited: PropTypes.bool,
   unlimitedLabel: PropTypes.string,
+  showTag: PropTypes.bool,
+  maxTagCount: PropTypes.number,
+  scrollSelected: PropTypes.bool,
+  scrollItem: PropTypes.bool,
+  dropdownStyle: PropTypes.object,
+  dropdownClassName: PropTypes.string,
+  position: PropTypes.oneOf(['top', 'bottom', 'auto']),
+  maxHeight: PropTypes.number,
+  optionRender: PropTypes.func,
+  selectAllText: PropTypes.string,
+  borderRadiusSize: PropTypes.oneOf(['default', 'medium', 'large']),
+  checkboxStyle: PropTypes.object,
 };
 
 Select.defaultProps = {
@@ -608,6 +690,7 @@ Select.defaultProps = {
   dataSource: [],
   labelKey: 'label',
   valueKey: 'value',
+  descKey: 'desc',
   width: 'auto',
   searchable: false,
   emptyRender: '',
@@ -617,7 +700,7 @@ Select.defaultProps = {
   hasSelectAll: false,
   hasConfirmButton: false,
   isSupportTitle: false,
-  okBtnText: '确认',
+  okBtnText: '确定',
   cancelBtnText: '取消',
   className: '',
   children: [],
@@ -631,6 +714,18 @@ Select.defaultProps = {
   lightTextColor: undefined,
   supportUnlimited: false,
   unlimitedLabel: '不限',
+  showTag: true,
+  maxTagCount: 1,
+  scrollSelected: false,
+  scrollItem: false,
+  dropdownStyle: {},
+  dropdownClassName: '',
+  position: 'bottom',
+  maxHeight: undefined,
+  optionRender: undefined,
+  selectAllText: '全选',
+  borderRadiusSize: 'default',
+  checkboxStyle: {},
 };
 
 export default Select;

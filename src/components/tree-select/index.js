@@ -6,10 +6,10 @@ import ShuyunUtils from 'shuyun-utils';
 import ContextProvider from '@contexts/context-provider';
 import { noop } from '@utils';
 
-import Tree from './tree';
+import Tree from './tree/tree';
 import Selected from './selected';
-import SingleTree from './single-tree';
-import { selector, SINGLE, MULTIPLE } from './const';
+import SingleTree from './tree/single-tree';
+import { selector, SINGLE, MULTIPLE, getNodePath } from './const';
 
 import './index.less';
 
@@ -19,7 +19,7 @@ class TreeSelect extends Component {
   constructor(props) {
     super(props);
 
-    const { open, defaultOpen, value, defaultValue, single, multiple } = props;
+    const { open, defaultOpen, value, defaultValue, single, multiple, dataSource } = props;
     let values;
     if (this.isTree) {
       values = value || defaultValue || [];
@@ -32,10 +32,14 @@ class TreeSelect extends Component {
       prevValue: values,
       prevProps: props,
       style: {},
+      isSearch: false,
+      treeData: getNodePath(dataSource),
     };
     this.node = React.createRef();
     this.selectedNode = React.createRef();
     this.optionsNode = React.createRef();
+    this.treeRef = React.createRef();
+    // this.singleTreeRef = React.createRef();
 
     if (single || multiple) {
       console.warn(
@@ -53,8 +57,8 @@ class TreeSelect extends Component {
       open: prevOpen,
     } = prevProps;
     if (
-      !ShuyunUtils.equal(value, prevValue) ||
-      !ShuyunUtils.equal(dataSource, prevData)
+      !ShuyunUtils.equal(value, prevValue)
+      || !ShuyunUtils.equal(dataSource, prevData)
     ) {
       return {
         value,
@@ -87,24 +91,34 @@ class TreeSelect extends Component {
     } = this.props;
     const { open: prevOpen, value: prevValue, style: prevStyle } = this.state;
     return (
-      disabled !== prevDisabled ||
-      width !== prevWidth ||
-      propOpen !== prevPropOpen ||
-      open !== prevOpen ||
-      value !== prevValue ||
-      searchable !== prevSearchable ||
-      style !== prevStyle
+      disabled !== prevDisabled
+      || width !== prevWidth
+      || propOpen !== prevPropOpen
+      || open !== prevOpen
+      || value !== prevValue
+      || searchable !== prevSearchable
+      || style !== prevStyle
     );
   }
 
-  componentDidUpdate(_, prevState) {
-    if (this.state.open !== prevState.open && this.state.open)
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.open !== prevState.open && this.state.open) {
       this.positionPop();
+    }
+    if (this.props.dataSource !== prevProps.dataSource) {
+      this.setState({ treeData: getNodePath(this.props.dataSource) });
+    }
   }
 
   componentWillUnmount() {
     this.document.removeEventListener('click', this.handleClick);
   }
+
+  setSearchStatus = isSearch => {
+    // eslint-disable-next-line react/no-unused-state
+    this.setState({ isSearch });
+    this.forceUpdate();
+  };
 
   get document() {
     return this.context.rootDocument;
@@ -130,67 +144,80 @@ class TreeSelect extends Component {
   get selectedContainerStyle() {
     const selectNode = this.selectedNode.current;
     if (selectNode) {
-      return selectNode.ref.current.getBoundingClientRect();
+      return selectNode.ref.current?.getBoundingClientRect() || {};
     }
     return {};
   }
 
   get optionsNodeStyle() {
-    return this.optionsNode.current.getBoundingClientRect();
+    return this.optionsNode.current?.getBoundingClientRect() || {};
   }
 
   positionPop = () => {
-    const {
-      props: { isAppendToBody, position },
-      selectedContainerStyle: { left, top, bottom, height },
-      optionsNodeStyle: { height: optionsHeight },
-    } = this;
-    const isBottomDistanceEnough =
-      bottom + optionsHeight < this.document.documentElement.clientHeight;
-    const isLocationTop =
-      optionsHeight < top && !isBottomDistanceEnough && position === 'auto';
-    const borderTop = isLocationTop ? '1px solid #d9d9d9' : null;
-    if (isAppendToBody) {
-      this.setState({
-        style: {
-          position: 'fixed',
-          left: `${left}px`,
-          top: isLocationTop ? `${top - optionsHeight}px` : `${bottom}px`,
-          borderTop,
-        },
-      });
-    } else {
-      this.setState({
-        style: {
-          top: isLocationTop ? `${-optionsHeight}px` : `${height}px`,
-          borderTop,
-        },
-      });
-    }
+    setTimeout(() => {
+      const {
+        props: { isAppendToBody, position },
+        selectedContainerStyle: { left, top, bottom, height },
+        optionsNodeStyle: { height: optionsHeight },
+      } = this;
+      const isBottomDistanceEnough = bottom + optionsHeight < this.document.documentElement.clientHeight;
+      const isLocationTop = position === 'top' || optionsHeight < top && !isBottomDistanceEnough && position === 'auto';
+      if (isAppendToBody) {
+        this.setState({
+          style: {
+            position: 'fixed',
+            left: `${left}px`,
+            top: isLocationTop ? `${top - optionsHeight}px` : `${bottom + 4}px`,
+          },
+        });
+      } else {
+        this.setState({
+          style: {
+            top: isLocationTop ? `${-optionsHeight - 4}px` : `${height + 4}px`,
+          },
+        });
+      }
+    });
   };
 
   handleClick = (e) => {
     const { open, prevValue } = this.state;
-    const isClickSelect =
-      this.node.current.contains(e.target) ||
-      (this.optionsNode.current && this.optionsNode.current.contains(e.target));
+    const isClickSelect = this.node.current.contains(e.target)
+      || (this.optionsNode.current && this.optionsNode.current.contains(e.target));
     if (!isClickSelect && open) {
       const { onSelectClose, open: propOpen, hasConfirmButton } = this.props;
       onSelectClose();
       if (hasConfirmButton) this.onTreeOptionChange({}, prevValue);
-      if (propOpen === null) this.setState({ open: false });
+      if (propOpen === null) {
+        this.optionsNode.current.classList.remove('show');
+        setTimeout(() => {
+          this.setState({ open: false });
+        }, 100);
+      }
     }
   };
 
-  handleSelect = () => {
+  handleSelect = ({ isClose = false } = {}) => {
     const { open } = this.state;
-    const { onSelectOpen, onSelectClose, open: propOpen } = this.props;
+    const { onSelectOpen, onSelectClose, open: propOpen, type } = this.props;
     if (open) {
       onSelectClose();
     } else {
       onSelectOpen();
     }
-    if (propOpen === null) this.setState({ open: !open });
+    if (propOpen === null) {
+      if (!open) {
+        this.setState({ open: !open });
+        setTimeout(() => {
+          this.optionsNode.current.classList.add('show');
+        });
+      } else if (type !== MULTIPLE && !this.state.isSearch || isClose) {
+        this.optionsNode.current.classList.remove('show');
+        setTimeout(() => {
+          this.setState({ open: !open });
+        }, 100);
+      }
+    }
   };
 
   onClickSelected = () => {
@@ -263,7 +290,7 @@ class TreeSelect extends Component {
       prevValue: selectedNodes,
     });
     this.props.onOk(node, selectedNodes);
-    this.handleSelect();
+    this.handleSelect({ isClose: true });
   };
 
   handleCancel = () => {
@@ -272,7 +299,7 @@ class TreeSelect extends Component {
       value: prevValue,
     });
     this.props.onCancel();
-    this.handleSelect();
+    this.handleSelect({ isClose: true });
   };
 
   handleReset = () => {
@@ -287,16 +314,20 @@ class TreeSelect extends Component {
       return (
         <SingleTree
           {...this.props}
+          // ref={this.singleTreeRef}
           value={this.state.value}
           onChange={this.onValueChange}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
+          open={this.state.open}
+          setSearchStatus={this.setSearchStatus}
         />
       );
     }
     return (
       <Tree
         {...this.props}
+        treeRef={this.treeRef}
         type={this.type}
         value={this.state.value}
         supportTooltip={false}
@@ -315,7 +346,13 @@ class TreeSelect extends Component {
       allowClear,
       style,
       className,
+      dropdownStyle,
+      dropdownClassName,
       isAppendToBody,
+      searchable,
+      size,
+      formSize,
+      ...otherProps
     } = this.props;
     const { value, open, style: popupStyle } = this.state;
     const { width } = this.selectedContainerStyle;
@@ -325,19 +362,20 @@ class TreeSelect extends Component {
       { [`${selector}-open`]: open },
       className,
     );
-    const treeOptionsContainer = (
+    const treeOptionsContainer = open ? (
       <div
-        className={`${selector}-container`}
+        className={`${selector}-container ${dropdownClassName}`}
         ref={this.optionsNode}
-        style={{ ...popupStyle, minWidth: width }}
+        style={{ ...popupStyle, minWidth: width, ...dropdownStyle }}
       >
         {this.renderTreeNode()}
       </div>
-    );
+    ) : null;
 
     return (
       <div className={`${classNames}`} style={style} ref={this.node}>
         <Selected
+          {...otherProps}
           ref={this.selectedNode}
           onClick={this.onClickSelected}
           onClear={this.onClearSelected}
@@ -345,11 +383,21 @@ class TreeSelect extends Component {
           allowClear={allowClear}
           placeholder={placeholder}
           dataSource={value}
+          treeData={this.props.isDynamicLoad ? this.props.dataSource : this.state.treeData}
           disabled={disabled}
+          searchable={searchable}
+          treeRef={this.treeRef}
+          setSearchStatus={this.setSearchStatus}
+          onMultiChange={this.onValueChange}
+          positionPop={this.positionPop}
+          selectedList={this.state.value}
+          size={formSize || size || 'default'}
+          // singleTreeRef={this.singleTreeRef}
+          // singleTreeValue={this.state.value}
         />
         {isAppendToBody
-          ? open && ReactDOM.createPortal(treeOptionsContainer, this.portal)
-          : open && treeOptionsContainer}
+          ? ReactDOM.createPortal(treeOptionsContainer, this.portal)
+          : treeOptionsContainer}
       </div>
     );
   }
@@ -378,6 +426,15 @@ TreeSelect.propTypes = {
   onOk: PropTypes.func,
   onCancel: PropTypes.func,
   onReset: PropTypes.func,
+  showTag: PropTypes.bool,
+  maxTagCount: PropTypes.number,
+  scrollSelected: PropTypes.bool,
+  dropdownStyle: PropTypes.object,
+  dropdownClassName: PropTypes.string,
+  position: PropTypes.oneOf(['top', 'bottom', 'auto']),
+  maxHeight: PropTypes.number,
+  size: PropTypes.oneOf(['small', 'default', 'large']),
+  borderRadiusSize: PropTypes.oneOf(['default', 'medium', 'large', 'circle']),
 };
 
 TreeSelect.defaultProps = {
@@ -403,6 +460,15 @@ TreeSelect.defaultProps = {
   onOk: noop,
   onCancel: noop,
   onReset: noop,
+  showTag: true,
+  maxTagCount: 1,
+  scrollSelected: false,
+  dropdownStyle: {},
+  dropdownClassName: '',
+  position: 'bottom',
+  maxHeight: undefined,
+  size: 'default',
+  borderRadiusSize: 'default',
 };
 
 export default TreeSelect;

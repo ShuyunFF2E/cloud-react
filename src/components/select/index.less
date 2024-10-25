@@ -19,23 +19,23 @@
 
 @default-padding: 6px;
 @default-margin: 5px;
-@default-border-radius: 2px;
+@default-border-radius: 3px;
 @large-padding: 10px;
 @item-padding: 6px 12px;
 
-@dropdown-icon-size: @font-size;
+@dropdown-icon-size: 16px;
 
 @box-sizing: border-box;
 
-@select-empty-color: @gray-7;
+@select-empty-color: @gray-6;
 @select-normal-border: 1px solid @gray-4;
 @select-hover-color: @gray-6;
-@select-hover-border: 1px solid @select-hover-color;
+@select-hover-border: 1px solid @blue-4;
 @select-active-border: 1px solid @blue-4;
-@select-disabled-border: 1px solid @color-gray5;
-@select-disabled-color: @gray-6;
+@select-disabled-border: 1px solid @gray-4;
+@select-disabled-color: @gray-7;
 @dropdown-icon-color: @gray-6;
-@option-hover-background: @blue-1;
+@option-hover-background: @gray-3;
 @option-disabled-background: @color-white;
 @search-border: 1px solid @gray-4;
 @sign-color: @gray-6;
@@ -74,6 +74,7 @@
     justify-content: space-between;
     border-radius: @default-border-radius;
     cursor: pointer;
+    padding-right: 28px;
     &.default {
       height: @height;
     }
@@ -93,7 +94,7 @@
 
     &.disabled {
       border: @select-disabled-border;
-      background: @color-gray7;
+      background: #f5f5f5;
       cursor: not-allowed;
 
       &:hover {
@@ -102,12 +103,22 @@
 
       .@{select-prefix-cls}-selected {
         color: @select-disabled-color;
-        background: @color-gray7;
+        background: #f5f5f5;
         cursor: not-allowed;
       }
 
       .@{select-prefix-cls}-select-icon {
         color: @dropdown-icon-color;
+      }
+
+      .@{select-prefix-cls}-single-select-selected,
+      &.single-search-in-box .@{select-prefix-cls}-search-selected,
+      &.comma-search-in-box .@{select-prefix-cls}-search-selected {
+        color: @gray-7;
+      }
+
+      .@{select-prefix-cls}-select-icon:hover {
+        color: @gray-6;
       }
     }
 
@@ -125,22 +136,223 @@
         border: none;
       }
 
+      //&.@{select-prefix-cls}-wrapper {
+      //  padding: 6px 12px;
+      //
+      //  .@{select-prefix-cls}-search-selected {
+      //    display: flex;
+      //    align-items: center;
+      //    justify-content: center;
+      //  }
+      //}
+
       .@{select-prefix-cls}-selected {
         background: transparent;
       }
     }
 
+    // 单选-新-搜索框在输入框内
+    &.single-search-in-box,
+    //多选-新-搜索框在输入框内
+    &.comma-search-in-box {
+      padding: 6px 28px 6px 12px;
+
+      .@{select-prefix-cls}-select-container {
+        display: flex;
+        align-items: center;
+        flex: 1;
+        width: calc(100% - 40px);
+      }
+
+      .@{select-prefix-cls}-search-selected {
+        width: 100%;
+        font-size: @font-size;
+        color: @color-gray4;
+
+        &.overflow-ellipsis {
+          .text-overflow-ellipsis();
+        }
+
+        &.scroll-selected {
+          white-space: nowrap;
+          overflow: auto;
+
+          &::-webkit-scrollbar {
+            background: transparent;
+            width: 0;
+            height: 0;
+          }
+        }
+      }
+
+      .@{select-prefix-cls}-search {
+        width: 0;
+        flex: 1;
+
+        .@{select-prefix-cls}-search-input {
+          width: 100%;
+          height: 30px;
+          // !important 是为了覆盖 ccms-components 组件库的流氓样式而写
+          border: none!important;
+          padding: 0;
+          outline: none;
+          z-index: 1;
+          background: transparent;
+          .text-overflow-ellipsis();
+        }
+
+        .@{select-prefix-cls}-search-icon {
+          color: @sign-color;
+          right: @default-padding * 3;
+          top: @default-padding * 2 - 2px;
+          display: block;
+        }
+      }
+
+      .search-placeholder {
+        display: block;
+        .text-overflow-ellipsis();
+        color: @gray-6;
+        font-size: 14px;
+      }
+    }
+
+    // 多选-新-搜索框在输入框内
+    &.multi-search-in-box {
+      height: auto;
+      min-height: 32px;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      gap: 4px;
+      padding-top: 4px;
+      padding-bottom: 4px;
+      padding-left: 8px;
+      font-size: @font-size;
+      color: @color-gray4;
+
+      .@{select-prefix-cls}-multi-search-container {
+        display: flex;
+        align-items: center;
+        flex: 1;
+        flex-wrap: wrap;
+        gap: 4px;
+        width: calc(100% - 30px);
+      }
+
+      &.large {
+        min-height: 36px;
+
+        .@{select-prefix-cls}-multiple-search-item {
+          height: 26px;
+        }
+      }
+
+      &.small {
+        min-height: 28px;
+
+        .@{select-prefix-cls}-multiple-search-item {
+          height: 20px;
+        }
+      }
+
+      .@{select-prefix-cls}-search {
+        position: relative;
+        width: 4px;
+
+        .@{select-prefix-cls}-search-input {
+          width: 100%;
+          height: 20px;
+          // !important 是为了覆盖 ccms-components 组件库的流氓样式而写
+          border: none!important;
+          padding: 0;
+          outline: none;
+          z-index: 1;
+          background: transparent;
+          .text-overflow-ellipsis();
+        }
+
+        .@{select-prefix-cls}-search-icon {
+          color: @sign-color;
+        }
+      }
+
+      .@{select-prefix-cls}-multi-search-placeholder {
+        position: absolute;
+        color: @gray-6;
+
+        .multi-unlimited {
+          color: @gray-9;
+        }
+      }
+
+      .@{select-prefix-cls}-multiple-search-item {
+        height: 22px;
+        line-height: 22px;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        background: #F5F5F5;
+        border: 1px solid #f5f5f5;
+        border-radius: 2px;
+        color: @gray-9;
+        padding: 0 6px;
+        max-width: 82%;
+        font-size: 12px;
+        //min-width: 38px;
+
+        &-text {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        i {
+          font-size: 12px;
+          color: @gray-6;
+        }
+
+        &.disabled {
+          color: @gray-7;
+          border: 1px solid #E8E8E8;
+        }
+      }
+    }
+
+    &.border-radius-medium {
+      border-radius: 6px;
+    }
+
+    &.border-radius-large {
+      border-radius: 12px;
+    }
+
     .@{select-prefix-cls}-selected {
       flex: 1 0;
-      padding: @item-padding;
+      padding: 0 6px;
       font-size: @font-size;
       color: @color-gray4;
       border: none;
-      .text-overflow-ellipsis();
       cursor: pointer;
+
+      &.overflow-ellipsis {
+        .text-overflow-ellipsis();
+      }
+
+      &.scroll-selected {
+        white-space: nowrap;
+        overflow: auto;
+
+        &::-webkit-scrollbar {
+          background: transparent;
+          width: 0;
+          height: 0;
+        }
+      }
     }
 
     .@{select-prefix-cls}-select-icon {
+      position: absolute;
+      right: 0;
       font-size: @dropdown-icon-size;
       color: @dropdown-icon-color;
       margin-right: 10px;
@@ -157,10 +369,31 @@
       &.hidden {
         display: none;
       }
+
+      &:hover {
+        color: @gray-7;
+      }
     }
 
     .@{select-prefix-cls}-clear-icon {
       display: none;
+
+      &.show {
+        display: block;
+      }
+    }
+
+    .@{select-prefix-cls}-search-icon {
+      position: absolute;
+      right: 0;
+      display: none;
+      background: white;
+      z-index: 1;
+      margin-right: 1px;
+      width: 25px;
+      font-size: @dropdown-icon-size;
+      color: @dropdown-icon-color;
+      transition: transform 0.3s;
 
       &.show {
         display: block;
@@ -181,16 +414,27 @@
       color: @select-hover-color;
     }
   }
+
+  &.@{select-prefix-cls} .@{select-prefix-cls}-wrapper.multi-search-in-box .@{select-prefix-cls}-multi-search-placeholder .multi-unlimited {
+    color: @gray-6;
+  }
 }
 
 .@{select-prefix-cls}-option-container {
+  opacity: 0;
   z-index: @z-index-dropdown;
   width: 100%;
   position: absolute;
-  box-shadow: @border-shadow-3;
-  border-radius: 2px;
+  box-shadow: @border-shadow-4;
+  border-radius: 6px;
   padding: 8px 0;
   background: @color-white;
+  transition: opacity 0.2s;
+
+  &.show {
+    opacity: 1;
+  }
+
   .divider {
     height: 1px;
     background: @gray-4;
@@ -204,10 +448,12 @@
     color: rgba(0, 0, 0, 0.45);
     font-size: 12px;
     margin-left: 12px;
-    margin-bottom: 8px;
-    &:not(:first-child) {
-      margin-top: 8px;
-    }
+    height: 32px;
+    line-height: 32px;
+    //margin-bottom: 8px;
+    //&:not(:first-child) {
+    //  margin-top: 8px;
+    //}
   }
 }
 
@@ -215,7 +461,6 @@
   box-sizing: @box-sizing;
   padding: 0;
   margin: 0;
-  min-width: @min-width;
   width: 100%;
   cursor: pointer;
 
@@ -262,7 +507,48 @@
     width: 100%;
     line-height: @height - @default-padding * 2;
     padding: @item-padding;
-    .text-overflow-ellipsis();
+    white-space: nowrap;
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+
+    .option-content {
+      flex: 1;
+    }
+
+    &.overflow-ellipsis {
+      .option-content {
+        .text-overflow-ellipsis();
+      }
+    }
+
+    &.scroll-item {
+      .option-content {
+        overflow: auto;
+
+        &::-webkit-scrollbar {
+          background: transparent;
+          width: 0;
+          height: 0;
+        }
+      }
+
+      &.@{select-prefix-cls}-multi-option {
+        .option-content {
+          overflow: auto;
+
+          &::-webkit-scrollbar {
+            background: transparent;
+            width: 0;
+            height: 0;
+          }
+        }
+      }
+    }
+
+    &.@{select-prefix-cls}-option-select-all {
+      height: auto;
+    }
 
     &:hover {
       background: @option-hover-background;
@@ -280,20 +566,6 @@
     }
   }
 
-  .@{select-prefix-cls}-multi-option {
-    display: flex;
-    cursor: pointer;
-
-    > span {
-      flex: 1;
-      .text-overflow-ellipsis();
-      text-align: left;
-      min-height: 20px;
-      display: flex;
-      align-items: center;
-    }
-  }
-
   .@{select-prefix-cls}-single-selected-icon {
     color: @blue-4;
   }
@@ -305,10 +577,10 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    font-size: @font-size;
-    color: @gray-7;
+    font-size: 12px;
+    color: @gray-6;
     > img {
-      width: 70%;
+      width:104px;
       height: auto;
       margin-bottom: 8px;
     }
@@ -337,15 +609,21 @@
   .@{select-prefix-cls}-operate-btn {
     display: flex;
     justify-content: flex-end;
-    padding: @large-padding;
-    border-top: 1px solid @sign-color;
+    padding: 14px 12px 6px 12px;
+    border-top: 1px solid #E8E8E8;
+    margin-top: 8px;
 
     .btn {
       width: @min-width;
 
       &:not(:last-child) {
-        margin-right: 10px;
+        margin-right: 8px;
       }
     }
+  }
+  .@{select-prefix-cls}-desc {
+    color: @gray-7;
+    margin-left: 8px;
+    font-size: 12px;
   }
 }

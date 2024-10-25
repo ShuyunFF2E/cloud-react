@@ -19,12 +19,12 @@ class ButtonDemo extends React.Component {
 		return (
 			<React.Fragment>
 				<div>
+                  <Button block type="primary">
+                    主要
+                  </Button>
+                  {blank}
 					<Button block type="normal">
-						普通
-					</Button>
-					{blank}
-					<Button block type="primary">
-						主要
+						描边
 					</Button>
 					{blank}
 					<Button block type="secondary">

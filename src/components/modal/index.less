@@ -4,7 +4,9 @@
 
 @header-background: #ededed;
 
-@body-border-radius: 4px;
+@body-border-radius: 12px;
+@body-border-small-radius: 4px;
+@body-border-middle-radius: 8px;
 
 @border-color: 1px solid @gray-3;
 
@@ -20,7 +22,6 @@
 @confirm-loading-border: 1px solid #ddd;
 @confirm-loading-border-top: 1px solid @color-white;
 .@{modal-prefix-cls} {
-  font-family: Tahoma, 'Microsoft Yahei', sans-serif;
   position: fixed;
   top: 0;
   right: 0;
@@ -95,7 +96,7 @@
     align-items: center;
     justify-content: space-between;
     height: 56px;
-    border-radius: 4px 4px 0 0;
+    border-radius: @body-border-radius @body-border-radius 0 0;
     padding: 0 16px;
     color: @gray-0;
     font-size: @font-size-medium;
@@ -104,8 +105,10 @@
     line-height: @line-height-medium;
     border-bottom: @border-color;
 
-    &:active {
-      cursor: move;
+    &&-drag {
+      &:active {
+        cursor: move;
+      }
     }
 
     .close-icon {
@@ -133,7 +136,7 @@
     max-height: calc(100vh - 200px);
     color: @color-gray4;
     background-color: white;
-    padding: 16px;
+    padding: 20px;
     overflow: auto;
     box-sizing: border-box;
     font-size: @font-size-base;
@@ -145,7 +148,7 @@
     &::-webkit-scrollbar-thumb {
       /*滚动条里面小方块*/
       background: @scrollbar-thumb;
-      border-radius: 4px;
+      border-radius: @body-border-radius;
       &:hover {
         background: @gray-7;
       }
@@ -180,7 +183,7 @@
     padding: 12px 16px;
     background: @gray-1;
     text-align: right;
-    border-radius: 0 0 4px 4px;
+    border-radius: 0 0 @body-border-radius @body-border-radius;
     border-top: @border-color;
 
     &-default {
@@ -196,6 +199,45 @@
   &-border {
     padding: 16px 24px 24px 24px;
     border-top: none;
+  }
+
+  &&-small {
+    .@{modal-prefix-cls}-header {
+      border-radius: @body-border-small-radius @body-border-small-radius 0 0;
+    }
+
+    .@{modal-prefix-cls}-body {
+      &::-webkit-scrollbar-thumb {
+        border-radius: @body-border-small-radius;
+      }
+    }
+
+    .@{modal-prefix-cls}-footer {
+      border-radius: 0 0 @body-border-small-radius @body-border-small-radius;
+    }
+
+    .@{modal-prefix-cls}-confirm-size {
+      border-radius: @body-border-small-radius;
+    }
+  }
+  &&-middle {
+    .@{modal-prefix-cls}-header {
+      border-radius: @body-border-middle-radius @body-border-middle-radius 0 0;
+    }
+
+    .@{modal-prefix-cls}-body {
+      &::-webkit-scrollbar-thumb {
+        border-radius: @body-border-middle-radius;
+      }
+    }
+
+    .@{modal-prefix-cls}-footer {
+      border-radius: 0 0 @body-border-middle-radius @body-border-middle-radius;
+    }
+
+    .@{modal-prefix-cls}-confirm-size {
+      border-radius: @body-border-middle-radius;
+    }
   }
 }
 
@@ -234,11 +276,11 @@
   }
 
   .icon-style {
-    font-size: @font-size-large;
+    font-size: 24px;
+    line-height: 24px;
     vertical-align: text-top;
     margin-right: 8px;
-    position: relative;
-    top: -1px;
+    padding: 0!important;
   }
 
   .confirm-style {

@@ -7,12 +7,12 @@ import './index.less';
 const classSelector = `${prefixCls}-avatar`;
 
 export default function Avatar(props) {
-  const [ isImgExist, setIsImgExist ] = React.useState(true);
+  const [isImgExist, setIsImgExist] = React.useState(true);
   const hasImageElement = React.isValidElement(src);
 
   React.useEffect(() => {
     setIsImgExist(true);
-	}, [ props.src ]);
+  }, [props.src]);
 
   const {
     className, size, shape, icon, src, srcSet, group, children,
@@ -28,9 +28,9 @@ export default function Avatar(props) {
     const { onError } = props;
     const errorFlag = onError ? onError() : undefined;
     if (errorFlag !== false) {
-		  setIsImgExist(false);
+      setIsImgExist(false);
     }
-	};
+  };
 
   let renderChildren;
   if (typeof src === 'string' && isImgExist) {
@@ -41,7 +41,7 @@ export default function Avatar(props) {
         onError={handleImgLoadError}
         alt={alt}
       />
-		);
+    );
   } else if (hasImageElement) {
     renderChildren = src;
   } else if (icon) {
@@ -67,9 +67,9 @@ export default function Avatar(props) {
 Avatar.propTypes = {
   alt: PropTypes.string,
   group: PropTypes.bool,
-  icon: PropTypes.oneOfType([ PropTypes.element, PropTypes.string ]),
-  shape: PropTypes.oneOf([ 'circle', 'square' ]),
-  size: PropTypes.oneOfType([ PropTypes.string, PropTypes.number, PropTypes.oneOf([ 'large', 'small', 'default' ]) ]),
+  icon: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
+  shape: PropTypes.oneOf(['circle', 'square']),
+  size: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.oneOf(['large', 'small', 'default'])]),
   src: PropTypes.string,
   srcSet: PropTypes.string,
 };

@@ -25,7 +25,7 @@ export default function Group2() {
       <Select
         defaultValue={'3'}
         onChange={handleChange}
-        style={{ width: 120 }}
+        style={{ width: 328 }}
       >
         <Option value="1">单选文字1</Option>
         <Option value="2">单选文字2</Option>

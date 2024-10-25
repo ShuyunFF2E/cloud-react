@@ -34,7 +34,7 @@ export default function InputDemo() {
 			<br />
 			<Input.Textarea placeholder="请输入文案，高度最小3行，最大5行" rows={4} resize hasCounter maxLength={10}/>
 			<br />
-			<Input.Textarea placeholder="请输入文案，高度可自适应" autoSize minRows={2} />
+			<Input.Textarea placeholder="请输入文案，高度可自适应" minRows={2} resize/>
 			<br />
       <div className="row-flex-center">
         <Input.Textarea value={value} onChange={onChange} placeholder="请输入文案" autoSize />

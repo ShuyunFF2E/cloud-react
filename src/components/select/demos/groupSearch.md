@@ -58,9 +58,10 @@ export default function SelectDemo() {
       <Select
         defaultValue={'3'}
         onChange={handleChange}
-        style={{ width: 120 }}
+        style={{ width: 328 }}
         dataSource={dataList}
         searchable
+        supportLightText
         allowClear
       />
     </div>

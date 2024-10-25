@@ -42,7 +42,7 @@ export default class FormItem extends Component {
     const { field } = this;
     const { name = '', preserve } = this.props;
 
-    const _names = preserve ? names.filter(n => n !== name) : names;
+    const _names = preserve ? names.filter((n) => n !== name) : names;
 
     // 如果设置了校验规则，则重置并删除
     if (field && field.remove && _names && _names.length) {
@@ -108,7 +108,7 @@ export default class FormItem extends Component {
     const { labelColSpan, required } = this;
     const { colon, layout, labelCol: formLabelCol, labelWrap } = this.context;
     const { label, htmlFor, labelCol = formLabelCol, description } = this.props;
-    const { offset } = labelCol;
+    const { offset, style } = labelCol;
 
     const labelAttrs = {
       htmlFor,
@@ -117,32 +117,38 @@ export default class FormItem extends Component {
         'has-colon': colon,
         'label-wrap': labelWrap,
         [`col-${labelColSpan}`]:
-          labelColSpan !== undefined && [ LAYOUT_TYPES.HORIZONTAL, LAYOUT_TYPES.INLINE ].includes(layout),
+          labelColSpan !== undefined &&
+          [LAYOUT_TYPES.HORIZONTAL, LAYOUT_TYPES.INLINE].includes(layout),
         [`col-offset-${offset}`]: offset !== undefined,
       }),
+      style: style || {},
     };
 
-    return label && (
-      <label {...labelAttrs}>
-        {label}
-        {
-          description && (
+    return (
+      label && (
+        <label {...labelAttrs}>
+          {label}
+          {description && (
             <Tooltip content={description} placement="top">
-              <Icon type="question-circle" className={`${prefixCls}-form-item-description`} />
+              <Icon
+                type="question-circle"
+                className={`${prefixCls}-form-item-description`}
+              />
             </Tooltip>
-          )
-        }
-      </label>
+          )}
+        </label>
+      )
     );
   }
 
   renderWrapper() {
     const { labelColSpan } = this;
     const { wrapperCol: formWrapperCol, layout } = this.context;
-    const { children, help, wrapperCol = formWrapperCol } = this.props;
+    const { children, help, wrapperCol = formWrapperCol, wrapperStyle } = this.props;
     const {
       span = labelColSpan !== undefined ? MAX_COL - labelColSpan : undefined,
       offset,
+      style,
     } = wrapperCol;
 
     const wrapperAttrs = {
@@ -150,6 +156,7 @@ export default class FormItem extends Component {
         [`col-${span}`]: span !== undefined && layout !== LAYOUT_TYPES.VERTICAL,
         [`col-offset-${offset}`]: offset !== undefined,
       }),
+      style: { ...(style || {}), ...(wrapperStyle || {}) },
     };
 
     return (
@@ -161,18 +168,20 @@ export default class FormItem extends Component {
   }
 
   render() {
-    const { layout, labelAlign, size } = this.context;
+    const { layout, labelAlign, size, fixedError, gap } = this.context;
     const { className } = this.props;
 
     return (
       <div
         className={classnames(
           `${prefixCls}-form-item`,
+          fixedError ? 'fixedError' : '',
           layout,
           size,
           layout === LAYOUT_TYPES.HORIZONTAL ? labelAlign : undefined,
           className,
         )}
+        style={gap !== undefined ? { marginBottom: gap } : {}}
       >
         {this.renderLabel()}
         {this.renderWrapper()}
@@ -192,12 +201,15 @@ FormItem.propTypes = {
   labelCol: PropTypes.shape({
     span: PropTypes.number,
     offset: PropTypes.number,
+    style: PropTypes.object,
   }),
   wrapperCol: PropTypes.shape({
     span: PropTypes.number,
     offset: PropTypes.number,
+    style: PropTypes.object,
   }),
   children: PropTypes.any,
+  wrapperStyle: PropTypes.object,
 };
 
 FormItem.defaultProps = {
@@ -209,4 +221,5 @@ FormItem.defaultProps = {
   labelCol: undefined,
   wrapperCol: undefined,
   children: null,
+  wrapperStyle: {},
 };

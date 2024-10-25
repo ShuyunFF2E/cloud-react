@@ -97,6 +97,8 @@ export default class Textarea extends React.PureComponent {
     onEnter: PropTypes.func,
     onChange: PropTypes.func,
     onKeyDown: PropTypes.func,
+    resize: PropTypes.bool,
+    borderRadiusSize: PropTypes.oneOf(['default', 'medium', 'large']),
   };
 
   static defaultProps = {
@@ -113,6 +115,8 @@ export default class Textarea extends React.PureComponent {
     onEnter: noop,
     onChange: noop,
     onKeyDown: noop,
+    resize: false,
+    borderRadiusSize: 'default',
   };
 
   ref = createRef();
@@ -199,7 +203,7 @@ export default class Textarea extends React.PureComponent {
   render() {
     const { value, autoSizeStyle } = this.state;
     const {
-      className, style, hasCounter, maxLength, resize, ...others
+      className, style, hasCounter, maxLength, resize, borderRadiusSize, ...others
     } = this.props;
 
     const classNames = classnames(`${prefixCls}-input-textarea`, className, {
@@ -222,7 +226,7 @@ export default class Textarea extends React.PureComponent {
     return (
       <div
         ref={this.ref}
-        className={`${prefixCls}-input-textarea-wrapper`}
+        className={`${prefixCls}-input-textarea-wrapper border-radius-${borderRadiusSize}`}
         style={wrapperStyle}
       >
         <textarea

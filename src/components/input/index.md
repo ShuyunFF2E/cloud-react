@@ -9,11 +9,11 @@ group:
   path: /data
 ---
 
-### 何时使用
+## 何时使用
 
 需要用户进行输入时。
 
-### API
+## API
 
 ### Input
 
@@ -34,6 +34,7 @@ group:
 | hasClear     | 可以点击清除图标删除内容                                    | boolean           | `false`   |
 | onChange     | 输入框内容变化时的回调                                      | function(event)   | -         |
 | onEnter      | 按下键盘回车按键的回调                                      | function(event)   | -         |
+| borderRadiusSize  | 边框圆角 `default` `medium` `large`     | string | `default`         |
 
 `Input` 其他属性保持跟原生一致
 
@@ -55,20 +56,36 @@ group:
 
 `Input.Textarea` 其他属性保持跟原生一致
 
- ### 代码演示
-
+## 代码演示
+### 基本输入框
 <embed src="@components/input/demos/basic-input.md" />
 
+### 清除输入框
 <embed src="@components/input/demos/clear.md" />
 
+### 带计数器输入框
 <embed src="@components/input/demos/counter.md" />
 
+### 禁用输入框
 <embed src="@components/input/demos/disabled.md" />
 
+### 复合型输入框
 <embed src="@components/input/demos/mix.md" />
 
+### 受控输入框
 <embed src="@components/input/demos/onChange.md" />
 
+### 输入框大小
 <embed src="@components/input/demos/size.md" />
 
+### 多行纯文本输入框
 <embed src="@components/input/demos/textarea.md" />
+
+### 搜索类输入框
+<embed src="@components/input/demos/search.md" />
+
+### 圆角
+<embed src="@components/input/demos/borderRadius.md" />
+
+### 组合式输入框
+<embed src="@components/input/demos/mixin.md" />

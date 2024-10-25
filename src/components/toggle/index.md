@@ -9,11 +9,11 @@ group:
   path: /common
 ---
 
-### 何时使用
+## 何时使用
 
-标记了一个（或封装一组）操作命令，响应用户点击行为，触发相应的业务逻辑。
+互斥性的操作控件，用户可打开或关闭某个功
 
-### API
+## API
 
 | 属性           | 说明                              | 类型                                     | 默认值    |
 | -------------- | --------------------------------- | ---------------------------------------- | --------- |
@@ -25,10 +25,22 @@ group:
 | onChange       | 切换状态时候的回调                | Function(checked: boolean, event: Event) | -         |
 | onBeforeChange | 切换状态前的二次确认              | Function()                               | -         |
 
-### 代码演示
+## 代码演示
 
+### 基础类型
 <embed src="@components/toggle/demos/basic-toggle.md" />
-<embed src="@components/toggle/demos/change.md" />
-<embed src="@components/toggle/demos/disabled.md" />
-<embed src="@components/toggle/demos/size.md" />
+
+### 带文字开关
 <embed src="@components/toggle/demos/text.md" />
+
+### 受控组件
+<embed src="@components/toggle/demos/change.md" />
+
+### 不可用
+<embed src="@components/toggle/demos/disabled.md" />
+
+### 大小
+<embed src="@components/toggle/demos/size.md" />
+
+### 加载状态
+<embed src="@components/toggle/demos/loading.md" />

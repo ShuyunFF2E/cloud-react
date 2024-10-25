@@ -33,6 +33,8 @@ function Popover(props) {
     cancelBtnOpts,
     confirmBtnOpts,
     onVisibleChange,
+    ignoreClassList,
+    contentStyle,
     ...otherProps
   } = props;
 
@@ -43,7 +45,8 @@ function Popover(props) {
         && ele.classList.contains
         && (ele.classList.contains(cancelBtnClass)
           || ele.classList.contains(confirmBtnClass)
-          || ele.classList.contains(closeIconClass)),
+          || ele.classList.contains(closeIconClass)
+          || ignoreClassList?.find(c => ele.classList.contains(c))),
   );
 
   const handleCancelClick = () => {
@@ -91,6 +94,7 @@ function Popover(props) {
             {title && <p className={`${classSelector}-title`}>{title}</p>}
             {content && (
               <p
+                style={contentStyle || {}}
                 className={`${classSelector}-desc ${
                   title ? `${classSelector}-has-title` : ''
                 }`}
@@ -181,6 +185,8 @@ Popover.propTypes = {
   cancelBtnOpts: PropTypes.object,
   confirmBtnOpts: PropTypes.object,
   onVisibleChange: PropTypes.func,
+  ignoreClassList: PropTypes.array,
+  contentStyle: PropTypes.object,
 };
 
 Popover.defaultProps = {
@@ -202,6 +208,8 @@ Popover.defaultProps = {
   cancelBtnOpts: {},
   confirmBtnOpts: {},
   onVisibleChange: () => {},
+  ignoreClassList: [],
+  contentStyle: {},
 };
 
 export default Popover;

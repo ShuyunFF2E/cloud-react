@@ -13,14 +13,20 @@
 .type-mixin(@bg, @border, @close, @action, @hover, @active) {
   background: @bg;
   border: 1px solid @border;
-  border-radius: 2px;
+  border-radius: 6px;
   .close-icon {
-    color: @close;
+    color: @gray-7;
+
+    &:hover,
+    &:active {
+      color: @gray-7;
+    }
   }
-  .action-icon, .tip-icon {
+  .action-icon,
+  .tip-icon {
     color: @action;
   }
-  .close-icon, .action-icon {
+  .action-icon {
     &:hover {
       color: @hover;
     }
@@ -30,7 +36,7 @@
   }
 }
 
-.@{tips-prefix-cls}{
+.@{tips-prefix-cls} {
   &.normal {
     .type-mixin(@blue-1, @blue-2, @blue-3, @blue-4, @blue-5, @blue-6);
   }
@@ -50,15 +56,24 @@
   &.banner {
     overflow: hidden;
     transition: height 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    border: none;
+    border-radius: 0;
   }
 
   &.inline {
     display: inline-block;
     background: none;
-    border: none
+    border: none;
+  }
+
+  &.small-radius {
+    border-radius: 3px;
+  }
+
+  &.large-radius {
+    border-radius: 12px;
   }
 }
-
 .@{tips-prefix-cls}-container {
   display: flex;
   gap: 8px;
@@ -94,7 +109,11 @@
     }
   }
 
-  .collapsible{
+  .msg.hasDesc {
+    font-weight: 500;
+  }
+
+  .collapsible {
     .msg,
     .description {
       .text-overflow-ellipsis(4);

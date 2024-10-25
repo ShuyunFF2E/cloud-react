@@ -47,7 +47,7 @@ export default class RenderChildren extends Component {
 							'has-error': state === 'error',
 							'has-success': state === 'success'
 						})}>
-						{cloneElement(child, child.props)}
+						{cloneElement(child, { ...(child.props || {}), formSize: this.context.size })}
 						{error ? <Explain className="error">{error}</Explain> : null}
 					</div>
 				);
@@ -59,7 +59,7 @@ export default class RenderChildren extends Component {
 				items = this.renderChildren(props.children);
 			}
 
-			return cloneElement(child, { key, ...child.props, children: items });
+			return cloneElement(child, { key, ...child.props, children: items, formSize: this.context.size });
 		});
 	}
 

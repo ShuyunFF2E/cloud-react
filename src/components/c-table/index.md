@@ -117,9 +117,12 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 | 属性                    | 说明          | 类型        | 默认值   |
 |-----------------------|-------------|-----------|-------|
 | supportConfigColumn   | 是否支持列的显示和隐藏 | 	boolean  | false | |
+| configColumnType        | 类型：`default` `complex`   | 	string | default     | |
 | defaultShowColumns    | 默认展示的列      | 	Array    | []    | |
 | disabledConfigColumns | 不可进行编辑的列    | 	Array    | []    | |
 | hideConfigColumns     | 不展示在编辑区域的列  | 	Array    | []    | |
+| defaultConfigColumns  | 默认列（恢复默认操作使用，type 为 `complex` 时可用）  | 	Array    | []    | |
+| disabledSortColumns | 不可移动顺序的列（只允许设置在列首，type 为 `complex` 时可用）    | 	Array    | []    | |
 | onColumnChange        | 改变列后的回调函数   | 	function | -     | |
 
 ### CTable 自定义模板配置
@@ -317,6 +320,7 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 <embed src="@components/c-table/demos/light-row.md" /> 
 
 ### 点击行高亮
+
 <embed src="@components/c-table/demos/light-click-row.md" />
 
 ### 表格排序
@@ -363,41 +367,45 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 
 <embed src="@components/c-table/demos/lazyload.md" />
 
+### 列设置
+<embed src="@components/c-table/demos/config-column-basic.md" />
+<embed src="@components/c-table/demos/config-column.md" />
+
+
 ### 分体式表格（灵活）
 
 <embed src="@components/c-table/demos/splitTable.md" />
 
-### 标准化表格-数值类型
+### 标准化列表格
 
+#### 数值类型
 <embed src="@components/c-table/demos/uniform_number.md" />
 
-### 标准化表格-时间类型
-
+#### 时间类型
 <embed src="@components/c-table/demos/uniform_time.md" />
 
-### 标准化表格-时间范围类型
-
+#### 时间范围类型
 <embed src="@components/c-table/demos/uniform_time_range.md" />
 
-### 标准化表格-文本类型
+#### 文本类型
 
 <embed src="@components/c-table/demos/uniform_text.md" />
 
-### 标准化表格-标签类型
-
+#### 标签类型
 <embed src="@components/c-table/demos/uniform_tag.md" />
 
-### 标准化表格-使用列模板形式
-
+#### 使用列模板形式
 <embed src="@components/c-table/demos/uniform_tpl.md" />
 
 ### 解决方案
 
 <embed src="@components/c-table/demos/goods-table.md" />
 
-<embed src="@components/c-table/demos/front-table.md" />
+<embed src="@components/c-table/demos/front-table2.md" />
 
-<embed src="@components/c-table/demos/front-table1.md" />
+[comment]: <> (<embed src="@components/c-table/demos/front-table.md" />)
+
+[comment]: <> (<embed src="@components/c-table/demos/front-table1.md" />)
 
 [comment]: <> (<embed src="@components/c-table/demos/front-table2.md" />)
 

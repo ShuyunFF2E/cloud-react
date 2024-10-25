@@ -22,7 +22,7 @@ class TagDemo extends Component {
 				{ text: '游泳', checked: true },
 				{ text: '冲浪', checked: true },
 				{ text: '潜水', checked: false },
-				{ text: '攀岩', checked: false, disabled: true },
+				{ text: '攀岩', checked: false, disabled: true, closable: true },
 				{ text: '空中瑜伽', checked: true, disabled: true }
 			]
 		};
@@ -46,9 +46,8 @@ class TagDemo extends Component {
 
 		return (
 			<React.Fragment>
-				<label>时尚的运动：</label>
 				{tags.map(({ checked, disabled, text }, index) => (
-					<Tag key={index} checked={checked} disabled={disabled} onClick={() => this.handleClick(index)}>
+					<Tag key={index} closable checkable checked={checked} disabled={disabled} onClick={() => this.handleClick(index)}>
 						{text}
 					</Tag>
 				))}

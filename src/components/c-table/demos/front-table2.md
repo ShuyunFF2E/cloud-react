@@ -1,21 +1,31 @@
 ```jsx
 
 /**
- * title: 设置 noScroll，表格不展示纵向滚动条，表格高度由内容撑开
- * desc: 使用场景：期望一屏能看到更多表格内容，但是不希望表格和表格外侧容器都产生滚动条，设置此参数后，表格不产生滚动条。
+ * title: 纯前端表格带增删操作
+ * desc: 此例子用来解决：纯前端表格，对表格进行增删操作时，render 内部拿不到完整表格数据源的问题
  */
 import React, { useState, useEffect, createRef } from 'react';
 import { CTable, Button } from 'cloud-react';
 
-function TableDemo({ data, setData }) {
+function TableDemo() {
   const tableRef = createRef();
+  const [data, setData] = useState([
+    { id: '121410327', name: '手机号优先继续发送1', createTime: '2021/12/14 10:19:02', creator: 'liyuan.meng', num: '12222' },
+  ]);
+  const [currentDeleteRow, setCurrentDeleteRow] = useState(null);
+
+  useEffect(() => {
+    if (currentDeleteRow) {
+      const targetIndex = data.findIndex(item => item.id === currentDeleteRow.id);
+      if (targetIndex > -1) {
+        data.splice(targetIndex, 1);
+      }
+      setData([...data]);
+    }
+  }, [currentDeleteRow])
 
   const onDelete = row => {
-    const targetIndex = data.findIndex(item => item.id === row.id);
-    if (targetIndex > -1) {
-      data.splice(targetIndex, 1);
-    }
-    setData([...data]);
+    setCurrentDeleteRow(row);
   }
 
   const onAdd = () => {
@@ -55,25 +65,13 @@ function TableDemo({ data, setData }) {
       <Button style={{ marginBottom: 20 }} onClick={onAdd}>新增数据</Button>
       <CTable
         ref={tableRef}
-        noScroll
+        maxHeight={260}
         columnData={columns}
         ajaxData={{ totals: data.length, data }}
-        onCell={(row, index) => {
-          console.log(data);
-          row.data = data;
-        }}
       />
     </div>
   );
 }
 
-export default function CTableDemo() {
-  const [data, setData] = useState([]);
-
-  return (
-    <div>
-      <TableDemo key={`${data?.map(item => item.id).join(',')}`} data={data} setData={setData}/>
-    </div>
-  );
-}
+export default TableDemo;
 ```

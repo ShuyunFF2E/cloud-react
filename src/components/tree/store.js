@@ -9,7 +9,8 @@ class Store {
    * @param maxLevel
    * @param selectedValue
    * @param isUnfold
-   * @returns {*}
+   * @param disabled
+   * @returns {{length}|*|*[]}
    */
   initData = ({ treeData, maxLevel, selectedValue, isUnfold, disabled }) => {
     // 数据不存在或无数据使时

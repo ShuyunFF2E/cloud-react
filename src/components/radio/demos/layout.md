@@ -16,13 +16,13 @@ export default function RadioDemo() {
 
   return (
     <React.Fragment>
-      <h3>横向分布</h3>
+      <h5>横向分布</h5>
       <Radio.Group defaultValue={1} horizontal>
         <Radio value={1}>选项A</Radio>
         <Radio value={2}>选项B</Radio>
         <Radio value={3}>选项C</Radio>
       </Radio.Group>
-      <h3>纵向分布</h3>
+      <h5>纵向分布</h5>
       <Radio.Group defaultValue={1} vertical>
         <Radio value={1}>
           选项A

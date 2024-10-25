@@ -66,3 +66,43 @@ export const getChildValues = node => {
 export const DEFAULT = 'default';
 export const SINGLE = 'single';
 export const MULTIPLE = 'multiple';
+
+export const getNodePath = tree => {
+  const _tree = JSON.parse(JSON.stringify(tree));
+  const fn = (node, parentNodePath) => {
+    if (!node.path) {
+      Object.assign(node, { path: [] });
+    }
+    node.path.push(node?.name);
+
+    if (node?.children?.length) {
+      node.children.forEach(cNode => {
+        if (!cNode.path) {
+          Object.assign(cNode, { path: [] });
+        }
+        cNode.path.push(...[...parentNodePath, node.name]);
+        fn(cNode, node?.path);
+      });
+    }
+  };
+  _tree.forEach(node => fn(node, []));
+  return _tree;
+};
+
+export const findTreeNode = (treeNode, treeData = []) => {
+  let targetNode = null;
+  const fn = node => {
+    if (targetNode) {
+      return;
+    }
+    if (node?.id === treeNode?.id) {
+      targetNode = node;
+    }
+    if (node?.children?.length) {
+      node?.children.forEach(fn);
+    }
+  };
+
+  treeData.forEach(fn);
+  return targetNode;
+};

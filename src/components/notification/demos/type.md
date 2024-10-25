@@ -17,6 +17,8 @@ export default function NotificationDemo() {
       showIcon: true,
       showCancelBtn: true,
       showConfirmBtn: true,
+      duration: 0,
+      showCloseIcon: true,
       iconType,
       icon,
       borderRadiusSize,

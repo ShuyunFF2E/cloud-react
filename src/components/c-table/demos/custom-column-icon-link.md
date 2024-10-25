@@ -4,7 +4,7 @@ order: 5 title: CTable desc: 自定义列模板
 
 ```jsx
 import React from 'react';
-import { CTable } from 'cloud-react';
+import { CTable, Button } from 'cloud-react';
 import headerImg from './header.jpg';
 
 const data = [
@@ -23,7 +23,7 @@ const columns = [
     render: (value) => (
       <div style={{ display: 'flex', cursor: 'pointer' }}>
         <img style={{ width: 40, height: 40, marginRight: 8 }} src={headerImg} />
-        <a style={{ color: '#5280FF' }}>{value}</a>
+        <Button style={{ textAlign: 'left'}} type="text">{value}</Button>
       </div>
     )
   },

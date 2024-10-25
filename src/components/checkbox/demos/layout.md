@@ -22,19 +22,11 @@ export default function RadioDemo() {
         { value: 5, label: 'item5' },
         { value: 6, label: 'item6' },
         { value: 7, label: 'item7' },
-        { value: 8, label: 'item8' },
-        { value: 9, label: 'item9' },
-        { value: 10, label: 'item10' },
-        { value: 11, label: 'item11' },
-        { value: 12, label: 'item12' },
-        { value: 13, label: 'item13' },
-        { value: 14, label: 'item14' },
-        { value: 15, label: 'item15' },
     ];
 	return (
 		<div>
-			<h3>纵向布局</h3>
-			<Checkbox.Group layout={'v'}>
+			<h5>纵向布局</h5>
+			<Checkbox.Group layout={'v'} style={{ gap: 16 }}>
 				<Checkbox value={1} defaultChecked={true}>
 					item 1
 				</Checkbox>
@@ -44,10 +36,10 @@ export default function RadioDemo() {
 				</Checkbox>
 				<Checkbox value={4}>item 4</Checkbox>
 			</Checkbox.Group>
-			<h3>横向布局</h3>
+			<h5>横向布局</h5>
 			<Checkbox.Group layout={'h'}>
                 {list.map(item => (
-                    <Checkbox style={{ width: 80 }} key={item.value} {...item}>
+                    <Checkbox key={item.value} {...item}>
                         {item.label}
                     </Checkbox>
                 ))}

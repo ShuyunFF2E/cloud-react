@@ -4,7 +4,8 @@
 
 @content-line-height: 32px;
 @content-line-height-small: 24px;
-@content-line-height-large: 36px;
+@content-line-height-large: 35px;
+@content-height-large: 36px;
 
 .@{form-prefix-cls} {
   line-height: 1.3;
@@ -12,7 +13,7 @@
   /* .form-item */
   &-item {
     display: flex;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
 
     &-label,
     &-wrapper {
@@ -37,10 +38,10 @@
     }
     &.large &-label,
     &.large &-wrapper {
-      min-height: @content-line-height-large;
+      min-height: @content-height-large;
       line-height: @content-line-height-large;
       &.has-colon::after {
-        height: @content-line-height-large;
+        height: @content-height-large;
         line-height: @content-line-height-large;
       }
     }
@@ -106,10 +107,21 @@
       }
     }
 
+    &.fixedError {
+      .has-error + .@{prefix}-form-item-explain {
+        position: relative;
+        top: 20px;
+      }
+
+      .@{prefix}-form-item-explain {
+        position: absolute;
+      }
+    }
+
     &-explain {
-      margin-top: 4px;
+      margin-top: 0;
+      line-height: 20px;
       font-size: 12px;
-      line-height: 12px;
       color: @color-gray2;
       &.error {
         color: @red-4;
@@ -136,25 +148,26 @@
       }
       .@{prefix}-picker,
       .@{prefix}-picker-range {
-        height: @content-line-height-large;
+        height: @content-height-large;
       }
     }
 
     // 表单校验样式
     .has-error {
       &,
-      > .@{prefix}-select,
+      > .@{prefix}-select > .@{prefix}-select-wrapper,
+      > .@{prefix}-select > .@{prefix}-select-open .@{prefix}-select-wrapper,
+      > .@{prefix}-input-number-add-on-container .@{prefix}-input-number,
+      > .@{prefix}-input-number:not(.@{prefix}-input-number-disabled),
+      > .@{prefix}-input-textarea-wrapper > textarea,
+      > .@{prefix}-tree-select .@{prefix}-tree-select-wrapper,
+      > .@{prefix}-input,
+      > .@{prefix}-input-affix,
       .@{prefix}-datepicker-inp-block,
       .@{prefix}-datepicker-container {
-        > .@{prefix}-select-wrapper,
-        > .@{prefix}-input-number,
-        > .@{prefix}-input-textarea,
-        > .@{prefix}-input,
-        > .@{prefix}-input-affix {
-          &,
-          &:hover {
-            border-color: @red-4;
-          }
+        &,
+        &:hover {
+          border-color: @red-4!important;
         }
       }
     }

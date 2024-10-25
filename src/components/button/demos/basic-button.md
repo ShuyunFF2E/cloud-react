@@ -20,17 +20,17 @@ class ButtonDemo extends React.Component {
 		return (
 			<React.Fragment>
 				<div>
-					<Button type="normal">普通</Button>
+                    <Button type="primary">主要按钮</Button>
+                    {blank}
+					<Button type="normal">描边按钮</Button>
 					{blank}
-					<Button type="primary">主要</Button>
+					<Button type="secondary">次要按钮</Button>
 					{blank}
-					<Button type="secondary">次要</Button>
+					<Button type="dashed">幽灵按钮</Button>
 					{blank}
-					<Button type="dashed">幽灵</Button>
+					<Button href="https://www.baidu.com/" target="_blank" title="百度一下，你就知道" type="link">链接按钮</Button>
 					{blank}
-					<Button href="https://www.baidu.com/" target="_blank" title="百度一下，你就知道" type="link">链接</Button>
-					{blank}
-					<Button type="text">文字</Button>
+					<Button type="text">文本按钮</Button>
 				</div>
 			</React.Fragment>
 		);

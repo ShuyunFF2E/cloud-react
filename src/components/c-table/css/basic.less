@@ -425,6 +425,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    font-size: 14px;
 
     &-statistics {
       display: flex;
@@ -651,7 +652,7 @@
 
 // 筛选
 .@{tablePrefixCls}-filter-content {
-  padding: 8px 0;
+  padding: 8px 0 !important;
 
   &:after {
     display: none;
@@ -659,6 +660,10 @@
 
   &.@{prefix}-tooltip.is-light {
     box-shadow: @border-shadow-3;
+  }
+
+  &::before {
+    width: 0 !important;
   }
 
   &.show-filter-btn {
