@@ -9,6 +9,31 @@ group:
   order: 3
 ---
 
+# [2.1.0](https://github.com/ShuyunFF2E/cloud-react/compare/v2.0.2...v2.1.0) (2024-10-25)
+
+
+### Bug Fixes
+
+* [Tree] 解决搜索节点，若匹配到的节点有多级，应全部展示，实际上只展示了匹配到节点的下一级的问题 ([58ad498](https://github.com/ShuyunFF2E/cloud-react/commit/58ad498e5bd6cffee4c049b5294826bd11af0929))
+* 【级联选择器】1、升级rc-cascader版本，修复搜索结果异常问题 2、输入状态下，输入框预置的文字色值改为gray-6 ([9b837aa](https://github.com/ShuyunFF2E/cloud-react/commit/9b837aa))
+
+
+### Features
+
+* [CTable] 修改表格样式 ([0a3d685](https://github.com/ShuyunFF2E/cloud-react/commit/0a3d68523386380da86f4ae238ce248b9b465ae0))
+* [CTable] 删除测试代码 ([3ad94e8](https://github.com/ShuyunFF2E/cloud-react/commit/3ad94e82cbafb86f00c267a8e572ef448fcc48f0))
+* [CTable] 表格配置列添加参数：defaultConfigColumns 和 disabledSortColumns ([6c3eb12](https://github.com/ShuyunFF2E/cloud-react/commit/6c3eb123d5183170851d27d1097682d09259171a))
+* 修改依赖包 ([61cea7a](https://github.com/ShuyunFF2E/cloud-react/commit/61cea7a062bc2baa7fc49f80bc27c40d5dc3d45c))
+* 修改依赖包 ([a8d08cb](https://github.com/ShuyunFF2E/cloud-react/commit/a8d08cb4012e0e01d40a2bd195cadabbeaa68191))
+* 添加代码提交前校验 ([850cc7a](https://github.com/ShuyunFF2E/cloud-react/commit/850cc7ae8596269d2e95e61283195381d40324bf))
+* 添加代码提交前校验，便于生成日志 ([5edc635](https://github.com/ShuyunFF2E/cloud-react/commit/5edc6350a5dec986c80ec9cbf33ddd541976bbdb))
+* 表格支持配置列的展示和隐藏（复杂模式，支持拖拽和重置） ([675dff7](https://github.com/ShuyunFF2E/cloud-react/commit/675dff70355af669225bf8119108807b5f6705e0))
+* 表格支持配置列的展示和隐藏（复杂模式，支持拖拽和重置） ([ec35eb2](https://github.com/ShuyunFF2E/cloud-react/commit/ec35eb23741d5ab8922a5be183f48f25c03679e8))
+* [tooltip]设置滚动根节点 ([a5cf0a6](https://github.com/ShuyunFF2E/cloud-react/commit/a5cf0a6))
+
+
+
+
 ### Changelog
 
 ### [v2.0.2](https://github.com/ShuyunFF2E/cloud-react/compare/v1.0.33...v2.0.2)
