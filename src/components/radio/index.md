@@ -26,6 +26,7 @@ group:
 | textStyle      | 复选框后面的内容样式      | object            | {}     |
 | onChange       | 变化时回调函数          | Function(e:Event) | --     |
 | supportUnSelect       | 变化时回调函数          | Function(e:Event) | --     |
+| className       | RadioGroup 类名          | string | --     |
 
 ### API Radio
 
@@ -39,6 +40,8 @@ group:
 | radioClassName       | Radio 和 ComplexRadio 类名       |  string  | --   |
 
 ### API ComplexRadio
+
+*ComplexRadio 支持 Radio 的基础属性*
 
 | 属性           | 说明                    | 类型              | 默认值 |
 | -------------- | ----------------------- | ----------------- | ------ |
