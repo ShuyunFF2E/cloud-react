@@ -33,7 +33,7 @@ export default function ComplexRadioDemo() {
               title={item.label}
               value={item.value}
               type="card"
-              disabled={index > 3}
+              disabled={index > 2}
             />
           ))}
         </Radio.Group>
@@ -47,7 +47,7 @@ export default function ComplexRadioDemo() {
               content={item.content}
               value={item.value}
               type="card"
-              disabled={index > 3}
+              disabled={index > 2}
             />
           ))}
         </Radio.Group>
