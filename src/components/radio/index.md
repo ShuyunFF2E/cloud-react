@@ -36,6 +36,7 @@ group:
 | disabled | 是否禁用                | boolean | false  |
 | desc       | 单选提示         | string 或 React.node  | null    |
 | supportUnSelect       | 是否支持反选         |  boolean  | false   |
+| radioClassName       | Radio 和 ComplexRadio 类名       |  string  | --   |
 
 ### API ComplexRadio
 

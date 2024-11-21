@@ -53,7 +53,7 @@ class NestingRadio extends React.Component {
           onChange={this.onChildChange}
           vertical
         >
-          <Radio value={1}>mysql</Radio>
+          <Radio value={1} radioClassName="test1" className="test2">mysql</Radio>
           <Radio value={2}>mogondb</Radio>
         </Radio.Group>
       </Radio.Group>
