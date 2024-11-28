@@ -267,17 +267,17 @@ export default class InputTag extends Component {
           )}
         </div>
         <div className={`${selector}-operate`}>
-          <span style={{ color: 'red' }}>
+          <span className={`${selector}-text`}>
             {this.count}
             /
             {max}
           </span>
           <Tooltip content="一键复制，以指定分隔符拼接，默认为英文分号">
-            <Icon type="remark" onClick={this.handleCopy} />
+            <Icon type="copy" onClick={this.handleCopy} />
           </Tooltip>
           {!disabled && (
             <Tooltip content="一键清空所有内容">
-              <Icon type="close-circle-solid" onClick={this.handleClear} />
+              <Icon type="close-line" onClick={this.handleClear} />
             </Tooltip>
           )}
         </div>
