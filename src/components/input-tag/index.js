@@ -182,7 +182,7 @@ export default class InputTag extends Component {
                 </span>
               </Tooltip>
               {!disabled && (
-                <Icon type="close" onClick={() => this.handleRemove(index)} />
+                <Icon type="close" onClick={() => this.handleRemove(index)} className="closed" />
               )}
             </span>
           ))
