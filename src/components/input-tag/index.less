@@ -13,7 +13,8 @@
   height: auto;
   padding: 7px 10px;
   overflow: auto;
-  border: 1px solid #e8e8e8;
+  border: 1px solid @gray-4;
+  border-radius: 3px;
 
   &-config {
     height: 30px;
@@ -32,8 +33,10 @@
       min-width: 100px;
       height: 24px;
       outline: none;
+      color: @gray-9;
+
       &::placeholder {
-        color: #c9c9c9;
+        color: @gray-6;
         font-size: 12px;
       }
     }
@@ -49,9 +52,9 @@
     height: 24px;
     font-size: 12px;
     box-sizing: border-box;
-    background: #eff7ff;
-    border: 1px solid #ccdceb;
-    border-radius: 2px;
+    color: @gray-8;
+    background: @gray-3;
+    border-radius: 3px;
 
     .text {
       .text-overflow-ellipsis();
@@ -59,8 +62,13 @@
   }
 
   .icon-close {
-    font-size: 8px;
+    font-size: 12px;
     cursor: pointer;
+    color: @gray-6;
+
+    &:hover {
+      color: @gray-7;
+    }
   }
 
   &-operate {
@@ -68,12 +76,16 @@
     justify-content: flex-end;
     align-items: center;
     gap: 5px;
-    color: #666;
+    color: @color-gray2;
     font-size: 12px;
 
     i {
-      color: #00aaf1;
+      color: @gray-7;
       cursor: pointer;
     }
+  }
+
+  &-text {
+    color: @gray-7;
   }
 }
