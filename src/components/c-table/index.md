@@ -399,9 +399,11 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 
 ### 解决方案
 
-<embed src="@components/c-table/demos/goods-table.md" />
+<embed src="@components/c-table/demos/setColumn.md" />
 
 <embed src="@components/c-table/demos/front-table2.md" />
+
+<embed src="@components/c-table/demos/goods-table.md" />
 
 [comment]: <> (<embed src="@components/c-table/demos/front-table.md" />)
 
