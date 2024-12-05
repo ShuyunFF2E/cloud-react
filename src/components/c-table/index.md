@@ -367,6 +367,10 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 
 <embed src="@components/c-table/demos/lazyload.md" />
 
+### 虚拟列表
+
+<embed src="@components/c-table/demos/virtual-list.md" />
+
 ### 列设置
 <embed src="@components/c-table/demos/config-column-basic.md" />
 <embed src="@components/c-table/demos/config-column.md" />
