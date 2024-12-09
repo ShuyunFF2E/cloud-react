@@ -35,7 +35,7 @@ class ToolTipDemo extends React.Component {
 					config {showArrow ? 'no arrow' : 'has arrow'} tooltip
 				</Button>
 				<Tooltip content={content} placement="top" visible={show} showArrow={showArrow} alwaysShow>
-					<span>Click button to config {showArrow ? 'has' : 'no'} arrow toolTip.</span>
+					<span>Click button to config {showArrow ? 'no' : 'has'} arrow toolTip.</span>
 				</Tooltip>
 			</div>
 		);
