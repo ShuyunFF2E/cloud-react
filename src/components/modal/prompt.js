@@ -26,6 +26,7 @@ class Prompt extends React.Component {
     onCancel: noop,
     hasFooter: true,
     className: '',
+    footerStyle: {}
   };
 
   static propTypes = {
@@ -41,6 +42,7 @@ class Prompt extends React.Component {
     onCancel: PropTypes.func,
     hasFooter: PropTypes.bool,
     className: PropTypes.string,
+    footerStyle: PropTypes.object,
   };
 
   constructor(props) {
@@ -154,6 +156,7 @@ class Prompt extends React.Component {
       cancelBtnOpts,
       title,
       infoText,
+      footerStyle
     } = this.props;
     const promptStyle = {
       ...style,
@@ -176,7 +179,10 @@ class Prompt extends React.Component {
         <Notification
           ref={this.ref}
           visible
-          footerStyle={{ padding: '0 24px 24px' }}
+          footerStyle={{
+            ...footerStyle,
+            padding: '0 24px 24px'
+          }}
           type={type}
           okText={okText}
           cancelText={cancelText}
@@ -216,7 +222,6 @@ class Prompt extends React.Component {
                     />
                   )}
                 </div>
-
                 <section className="more-info">{body}</section>
               </div>
             </header>
@@ -244,6 +249,7 @@ function prompt({
   hasFooter,
   className,
   infoText,
+  footerStyle,
 }) {
   // 创建一个关联id
   const rootDocument = getRootWindow().document;
@@ -264,6 +270,7 @@ function prompt({
       iconStyle={iconStyle}
       isShowIcon={isShowIcon}
       hasFooter={hasFooter}
+      footerStyle={footerStyle}
       className={className}
       okText={okText}
       cancelText={cancelText}
