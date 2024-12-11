@@ -12,6 +12,13 @@ const columnConfigPanelHeight = 466;
 const popoverIgnoreClass = `${tablePrefixCls}-config-column-button`;
 
 class ColumnConfig extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      visible: false,
+    };
+  }
+
   onDragEnd = (fromIndex, toIndex) => {
     const { hideConfigColumns, originColumnData, disabledSortColumns, setOriginColumnData } = this.props;
     // 禁止拖拽和排序的列（只能在首部）
@@ -189,6 +196,7 @@ class ColumnConfig extends Component {
                 ...item,
                 show: item.columnChecked,
               })), refreshColumn);
+              this.setState({ visible: false });
             }}
             className={popoverIgnoreClass}
           >
@@ -205,6 +213,7 @@ class ColumnConfig extends Component {
                   columnChecked: targetColumn.show,
                 };
               }), refreshColumn);
+              this.setState({ visible: false });
             }}
             className={popoverIgnoreClass}
           >
@@ -240,9 +249,18 @@ class ColumnConfig extends Component {
         contentStyle={{ maxHeight: columnConfigPanelHeight - 24 }}
         containerEle={tableRef.current}
         ignoreClassList={isComplexConfig ? [popoverIgnoreClass] : []}
+        control
+        visible={this.state.visible}
       >
         <Tooltip content="列设置" theme="light" overlayStyle={{ minWidth: 50 }}>
-          <span className={`${tablePrefixCls}-config-icon`} style={isLoading || loadingOpts.loading ? { zIndex: -1 } : {}}>
+          <span
+            className={`${tablePrefixCls}-config-icon`}
+            style={isLoading || loadingOpts.loading ? { zIndex: -1 } : {}}
+            onClick={() => {
+              const { visible } = this.state;
+              this.setState({ visible: !visible });
+            }}
+          >
             <Icon type="config" />
           </span>
         </Tooltip>
