@@ -25,6 +25,8 @@ class Prompt extends React.Component {
     onOk: noop,
     onCancel: noop,
     hasFooter: true,
+    outerClassName: '',
+    isReverseBtn: false,
     className: '',
   };
 
@@ -41,6 +43,8 @@ class Prompt extends React.Component {
     onCancel: PropTypes.func,
     hasFooter: PropTypes.bool,
     className: PropTypes.string,
+    outerClassName: PropTypes.string,
+    isReverseBtn: PropTypes.bool,
   };
 
   constructor(props) {
@@ -189,6 +193,8 @@ class Prompt extends React.Component {
           showConfirmLoading={this.state.showConfirmLoading}
           hasFooter={this.props.hasFooter}
           className={this.props.className}
+          outerClassName={this.props.outerClassName}
+          isReverseBtn={this.props.isReverseBtn}
           infoText={infoText}
         >
           <div>
@@ -243,6 +249,8 @@ function prompt({
   title,
   hasFooter,
   className,
+  outerClassName,
+  isReverseBtn,
   infoText,
 }) {
   // 创建一个关联id
@@ -264,6 +272,8 @@ function prompt({
       iconStyle={iconStyle}
       isShowIcon={isShowIcon}
       hasFooter={hasFooter}
+      outerClassName={outerClassName}
+      isReverseBtn={isReverseBtn}
       className={className}
       okText={okText}
       cancelText={cancelText}
