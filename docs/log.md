@@ -1,16 +1,13 @@
----
-title: 组件(v1版)更新日志
-nav:
-  title: 指南
-  path: /guide
-group:
-  title: 组件(v1版)更新日志
-  path: /log
-  order: 3
----
+## 2.0.5 (2024-12-09)
 
-# [2.1.0](https://github.com/ShuyunFF2E/cloud-react/compare/v2.0.2...v2.1.0) (2024-10-25)
+### Features
 
+* [inputTag] 修改icon样式 ([2e1116a](https://github.com/ShuyunFF2E/cloud-react/commit/2e1116a7234a8aba2a604925cacd50b6285a6e31))
+* [inputTag] 修改样式及替换icon ([eacdc70](https://github.com/ShuyunFF2E/cloud-react/commit/eacdc703b14cda146ae2a26f42498b3e19041bd2))
+* [Modal] confirm添加外部footer样式属性 ([d8263a4](https://github.com/ShuyunFF2E/cloud-react/commit/d8263a4326dad2b4a866f865e7b1e55851bab44b))
+
+
+## 2.0.4(2024-10-25)
 
 ### Bug Fixes
 
@@ -32,11 +29,7 @@ group:
 * [tooltip]设置滚动根节点 ([a5cf0a6](https://github.com/ShuyunFF2E/cloud-react/commit/a5cf0a6))
 
 
-
-
-### Changelog
-
-### [v2.0.2](https://github.com/ShuyunFF2E/cloud-react/compare/v1.0.33...v2.0.2)
+## [v2.0.2](https://github.com/ShuyunFF2E/cloud-react/compare/v1.0.33...v2.0.2)
 * :bug: [CTable] 使用标题 tooltip 功能无需配置前置条件 ([6f5734c](https://github.com/ShuyunFF2E/cloud-react/commit/6f5734c))
 * :bug: [CTable] 修复表格配置 align 失效的问题 ([103f935](https://github.com/ShuyunFF2E/cloud-react/commit/103f935))
 * :bug: [CTable] 解决表格禁用行配置 tooltip 内容为空，tooltip 仍然展示的问题 (#721) ([b8bc203](https://github.com/ShuyunFF2E/cloud-react/commit/b8bc203)), closes [#721](https://github.com/ShuyunFF2E/cloud-react/issues/721)

@@ -28,6 +28,7 @@ class Prompt extends React.Component {
     outerClassName: '',
     isReverseBtn: false,
     className: '',
+    footerStyle: {}
   };
 
   static propTypes = {
@@ -45,6 +46,7 @@ class Prompt extends React.Component {
     className: PropTypes.string,
     outerClassName: PropTypes.string,
     isReverseBtn: PropTypes.bool,
+    footerStyle: PropTypes.object,
   };
 
   constructor(props) {
@@ -158,6 +160,7 @@ class Prompt extends React.Component {
       cancelBtnOpts,
       title,
       infoText,
+      footerStyle
     } = this.props;
     const promptStyle = {
       ...style,
@@ -180,7 +183,10 @@ class Prompt extends React.Component {
         <Notification
           ref={this.ref}
           visible
-          footerStyle={{ padding: '0 24px 24px' }}
+          footerStyle={{
+            ...footerStyle,
+            padding: '0 24px 24px'
+          }}
           type={type}
           okText={okText}
           cancelText={cancelText}
@@ -222,7 +228,6 @@ class Prompt extends React.Component {
                     />
                   )}
                 </div>
-
                 <section className="more-info">{body}</section>
               </div>
             </header>
@@ -252,6 +257,7 @@ function prompt({
   outerClassName,
   isReverseBtn,
   infoText,
+  footerStyle,
 }) {
   // 创建一个关联id
   const rootDocument = getRootWindow().document;
@@ -274,6 +280,7 @@ function prompt({
       hasFooter={hasFooter}
       outerClassName={outerClassName}
       isReverseBtn={isReverseBtn}
+      footerStyle={footerStyle}
       className={className}
       okText={okText}
       cancelText={cancelText}
