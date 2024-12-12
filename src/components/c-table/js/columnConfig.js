@@ -174,6 +174,7 @@ class ColumnConfig extends Component {
                 title: '确定恢复为系统默认设置吗？',
                 body: '确定后，已编辑内容将不会被保存',
                 outerClassName: `${tablePrefixCls}-modal-outer`,
+                isReverseBtn: true,
                 onOk: () => {
                   if (!defaultConfigColumns?.length) {
                     setOriginColumnData(originConfigColumnData.map(item => ({
