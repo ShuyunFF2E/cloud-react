@@ -6,6 +6,7 @@ import Icon from '../../icon';
 import Popover from '../../popover';
 import Checkbox from '../../checkbox';
 import Button from '../../button';
+import Modal from '../../modal';
 // import { setConfig } from '../util';
 
 const columnConfigPanelHeight = 466;
