@@ -280,7 +280,10 @@ class CTable extends Component {
         );
         if (bodyEle) {
           const { scrollWidth, clientWidth, scrollLeft } = bodyEle;
-          const rootDom = this.ref.current.querySelector(`.${tablePrefixCls}`);
+            const rootDom = this.ref.current.querySelector(`.${tablePrefixCls}`);
+            if (!rootDom) { 
+                return;
+            }
           if (scrollLeft < scrollWidth - clientWidth) {
             rootDom.classList.add(`${tablePrefixCls}-ping-right`);
           } else {
