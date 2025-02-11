@@ -37,12 +37,20 @@ group:
 
  ### 代码演示 
 
-<embed src="@components/tooltip/demos/control.md" /> 
-
+### 位置
 <embed src="@components/tooltip/demos/placement.md" /> 
 
+### 受控
+<embed src="@components/tooltip/demos/control.md" />
+
+### 主题
 <embed src="@components/tooltip/demos/theme.md" /> 
 
+### 触发方式
 <embed src="@components/tooltip/demos/tigger.md" />
 
+### 配置箭头显隐
 <embed src="@components/tooltip/demos/showArrow.md" />
+
+### 解决方案
+<embed src="@components/tooltip/demos/select.md" />

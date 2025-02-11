@@ -18,12 +18,13 @@ function createGuid() {
   return guid.replace(/^\d+/, '');
 }
 
-const data = new Array(30).fill(1).map((item, index) => (
+const data = new Array(100).fill(1).map((item, index) => (
   {
     productId: 121410327 + index,
     productName: '数云牌铂金戒指' + index,
     details: '详情详情详情详情' + index,
     level: 0,
+    picUrl: 'https://brand-guide.shuyun.com/IAM/77c28a6547cd.png',
     skus: index === 0 ? [] : new Array(3).fill(1).map((item, index1) => {
       return {
         productId: createGuid(),
@@ -43,7 +44,7 @@ class CTableDemo extends Component {
     this.state = {
       isExpandAll: true,
       currentData: [],
-      checkedGoodsData: [],
+      checkedGoodsData: [data[0]],
       checkedSkusData: [],
       expandedRowKeys: [],
       defaultShowColumns: [],
@@ -51,6 +52,7 @@ class CTableDemo extends Component {
     this.updateBtnText();
     
     setTimeout(() => {
+      this.tableRef.current.init(this.state.checkedGoodsData);
       this.setState({ defaultShowColumns: this.columns.slice(0, 4).map(item => item.dataIndex) });
     }, 500);
   }
@@ -312,7 +314,7 @@ class CTableDemo extends Component {
             expandedRowKeys: this.state.expandedRowKeys,
             onExpand: this.onExpand
           }}
-          checkedData={this.state.checkedGoodsData.map(item => ({ productId: item.productId }))}
+          // checkedData={this.state.checkedGoodsData.map(item => ({ productId: item.productId }))}
           columnData={this.columns}
           onCheckedAfter={checkedList => {
             this.setState({

@@ -122,7 +122,12 @@ class CTable extends Component {
       typeof prevProps.ajaxData === 'object' &&
       this.props.ajaxData !== prevProps.ajaxData
     ) {
-      this.loadData();
+      this.loadData((res) => {
+        if (!Object.keys(this.leafNodesMap || {}).length) {
+          this.init();
+          this.props.onLoadGridAfter(res);
+        }
+      });
     }
     if (this.props.checkedData !== prevProps.checkedData) {
       this.init();
@@ -259,10 +264,10 @@ class CTable extends Component {
   /**
    * 初始化已选数据、高度等
    */
-  init = () => {
+  init = (checkedData) => {
     this.leafNodesMap = this.getLeafNodesMap(this.state.data);
-    this.setCheckedData();
-    this.updateSelectedNodes();
+    this.setCheckedData(checkedData);
+    this.updateSelectedNodes(() => {}, checkedData);
 
     this.column.setColumnData();
 
@@ -490,7 +495,7 @@ class CTable extends Component {
    * 更新已选数据列表
    * @param onCheckedAfter
    */
-  updateSelectedNodes = (onCheckedAfter = () => {}) => {
+  updateSelectedNodes = (onCheckedAfter = () => {}, _checkedData) => {
     const selectedNodeList = [];
     const { leafNodesMap } = this;
     Object.keys(leafNodesMap).forEach((key) => {
@@ -498,14 +503,14 @@ class CTable extends Component {
         const parentKey = this.getKeyFieldVal(leafNodesMap[key].parentNode);
         // 如果节点的所有子节点选中 并且 节点的父节点的所有子节点没有全部选中
         if (
-          isEveryChecked(leafNodesMap[key].childNodes) &&
-          (!parentKey || !isEveryChecked(leafNodesMap[parentKey].childNodes))
+          isEveryChecked(leafNodesMap[key]?.childNodes) &&
+          (!parentKey || !isEveryChecked(leafNodesMap[parentKey]?.childNodes))
         ) {
           selectedNodeList.push(leafNodesMap[key].node);
         }
       } else {
         // 叶子节点无法获取到的情况（可能已选节点不在当前页）
-        const checkedData = this.props.checkedData.find(
+        const checkedData = (_checkedData || this.props.checkedData).find(
           (node) => this.getKeyFieldVal(node) === leafNodesMap[key],
         );
         if (checkedData) {
@@ -519,9 +524,9 @@ class CTable extends Component {
   /**
    * 已选数据回显
    */
-  setCheckedData = () => {
+  setCheckedData = (checkedData) => {
     // 更新叶子节点 leafNodesMap 的选中状态
-    this.props.checkedData?.forEach((cNode) => {
+    (checkedData || this.props.checkedData)?.forEach((cNode) => {
       const cNodeVal = this.getKeyFieldVal(cNode);
       if (this.leafNodesMap[cNodeVal]) {
         this.leafNodesMap[cNodeVal]?.childNodes?.forEach((node) => {
@@ -534,14 +539,14 @@ class CTable extends Component {
     });
     const leafNodeKeys = Object.keys(this.leafNodesMap);
     leafNodeKeys.forEach((key) => {
-      const isCheckedNode = !!this.props?.checkedData.find(
+      const isCheckedNode = !!(checkedData || this.props?.checkedData).find(
         (node) => String(this.getKeyFieldVal(node)) === String(key),
       );
       // 不是已选节点 && （没有子节点被选中 或者 全部子节点都被选中）
       if (
         !isCheckedNode &&
-        (!isSomeChecked(this.leafNodesMap[key].childNodes) ||
-          isEveryChecked(this.leafNodesMap[key].childNodes))
+        (!isSomeChecked(this.leafNodesMap[key]?.childNodes) ||
+          isEveryChecked(this.leafNodesMap[key]?.childNodes))
       ) {
         if (typeof this.leafNodesMap[key] === 'object') {
           this.leafNodesMap[key]?.childNodes?.forEach((node) => {
@@ -606,7 +611,7 @@ class CTable extends Component {
       Object.keys(currentLeafNodesMap).forEach((key) => {
         if (this.leafNodesMap[key]) {
           if (typeof this.leafNodesMap[key] !== 'object') {
-            currentLeafNodesMap[key].childNodes.forEach((item) => {
+            currentLeafNodesMap[key]?.childNodes.forEach((item) => {
               Object.assign(item, { checked: true });
             });
             this.leafNodesMap[key] = currentLeafNodesMap[key];
@@ -877,7 +882,7 @@ class CTable extends Component {
               if (this.isRowDisabled(row)) {
                 classNames.push(`${tablePrefixCls}-row-disabled`);
               }
-              if (lightCheckedRow && isEveryChecked(targetNode.childNodes)) {
+              if (lightCheckedRow && isEveryChecked(targetNode?.childNodes)) {
                 classNames.push(`${tablePrefixCls}-row-select`);
               }
               return `${classNames.join(' ')} ${rowClassName(row)}`;
