@@ -264,10 +264,10 @@ class CTable extends Component {
   /**
    * 初始化已选数据、高度等
    */
-  init = () => {
+  init = (checkedData) => {
     this.leafNodesMap = this.getLeafNodesMap(this.state.data);
-    this.setCheckedData();
-    this.updateSelectedNodes();
+    this.setCheckedData(checkedData);
+    this.updateSelectedNodes(() => {}, checkedData);
 
     this.column.setColumnData();
 
@@ -495,7 +495,7 @@ class CTable extends Component {
    * 更新已选数据列表
    * @param onCheckedAfter
    */
-  updateSelectedNodes = (onCheckedAfter = () => {}) => {
+  updateSelectedNodes = (onCheckedAfter = () => {}, _checkedData) => {
     const selectedNodeList = [];
     const { leafNodesMap } = this;
     Object.keys(leafNodesMap).forEach((key) => {
@@ -510,7 +510,7 @@ class CTable extends Component {
         }
       } else {
         // 叶子节点无法获取到的情况（可能已选节点不在当前页）
-        const checkedData = this.props.checkedData.find(
+        const checkedData = (_checkedData || this.props.checkedData).find(
           (node) => this.getKeyFieldVal(node) === leafNodesMap[key],
         );
         if (checkedData) {
@@ -524,9 +524,9 @@ class CTable extends Component {
   /**
    * 已选数据回显
    */
-  setCheckedData = () => {
+  setCheckedData = (checkedData) => {
     // 更新叶子节点 leafNodesMap 的选中状态
-    this.props.checkedData?.forEach((cNode) => {
+    (checkedData || this.props.checkedData)?.forEach((cNode) => {
       const cNodeVal = this.getKeyFieldVal(cNode);
       if (this.leafNodesMap[cNodeVal]) {
         this.leafNodesMap[cNodeVal]?.childNodes?.forEach((node) => {
@@ -539,7 +539,7 @@ class CTable extends Component {
     });
     const leafNodeKeys = Object.keys(this.leafNodesMap);
     leafNodeKeys.forEach((key) => {
-      const isCheckedNode = !!this.props?.checkedData.find(
+      const isCheckedNode = !!(checkedData || this.props?.checkedData).find(
         (node) => String(this.getKeyFieldVal(node)) === String(key),
       );
       // 不是已选节点 && （没有子节点被选中 或者 全部子节点都被选中）
