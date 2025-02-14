@@ -18,8 +18,8 @@ const { ColorIcon } = Icon;
 
 const iconList = {
 	basic: [
-    'underway',
-    'no-start',
+		'underway',
+		'no-start',
 		'guanbi',
 		'group-fill1',
 		'shop-fill',
@@ -108,10 +108,25 @@ const iconList = {
 		'checkbox',
 		'checkbox-indeterminate',
 		'checkbox-blank',
-        'arrange-3',
-        'arrange-2',  
-        'edit-2',  
-        'warn'
+		'arrange-3',
+		'arrange-2',
+		'edit-2',
+		'warn',
+		'link',
+		'logout',
+		'loader',
+		'message',
+		'phone',
+		'list-solid',
+		'list-line',
+		'list-icon',
+		'warn-circle',
+		'plus-money',
+		'plus-fill',
+		'plus-batch',
+		'plus-line',
+		'sub-line',
+		'service',
 	],
 	color: [
 		'mr',
@@ -157,28 +172,28 @@ export default function IconDemo() {
 		Message.success(text + ' 已复制');
 	};
 
-  return (
-    <Tabs defaultActiveKey="basic" type="capsule">
-      {Object.keys(iconList).map(key => {
-        const Component = componentList[key];
-        return (
-          <Tabs.Panel tab={titleList[key]} key={key}>
-            <ul className="icon-list">
-              {iconList[key].map((type, index) => {
-                return (
-                  <li key={type} className="icon-card" onClick={handleCopy}>
-                    <div className="icon-area">
-                      <Component type={type} style={iconStyle}/>
-                    </div>
-                    <div className="text-area">{type}</div>
-                  </li>
-                );
-              })}
-            </ul>
-          </Tabs.Panel>
-        );
-      })}
-    </Tabs>
-  );
+	return (
+		<Tabs defaultActiveKey="basic" type="capsule">
+			{Object.keys(iconList).map(key => {
+				const Component = componentList[key];
+				return (
+					<Tabs.Panel tab={titleList[key]} key={key}>
+						<ul className="icon-list">
+							{iconList[key].map((type, index) => {
+								return (
+									<li key={type} className="icon-card" onClick={handleCopy}>
+										<div className="icon-area">
+											<Component type={type} style={iconStyle}/>
+										</div>
+										<div className="text-area">{type}</div>
+									</li>
+								);
+							})}
+						</ul>
+					</Tabs.Panel>
+				);
+			})}
+		</Tabs>
+	);
 }
 ```
