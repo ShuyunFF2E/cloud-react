@@ -33,8 +33,13 @@ export default class InputTag extends Component {
     }
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
     this.computedInputWidth();
+    if(prevProps?.data !== this.props?.data) {
+      this.setState(() => ({
+        data: this.props.data || [],
+      }));
+    }
   }
 
   handleKeyUp = (event) => {
