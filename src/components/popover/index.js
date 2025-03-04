@@ -21,6 +21,7 @@ function Popover(props) {
     iconTpl,
     iconType,
     iconStyle,
+    isReverseBtn,
     showCancelBtn,
     showConfirmBtn,
     cancelBtnText,
@@ -105,7 +106,7 @@ function Popover(props) {
           </div>
         </section>
 
-        <section className={`${classSelector}-btn`} ref={ref}>
+        <section className={classnames(`${classSelector}-btn`, {[`${classSelector}-reverse-btn`]: isReverseBtn})} ref={ref}>
           {showCancelBtn && (
             <Button
               onClick={handleCancelClick}
@@ -176,6 +177,7 @@ Popover.propTypes = {
   iconStyle: PropTypes.object,
   showCancelBtn: PropTypes.bool,
   showConfirmBtn: PropTypes.bool,
+  isReverseBtn: PropTypes.bool,
   cancelBtnText: PropTypes.string,
   confirmText: PropTypes.string,
   size: PropTypes.oneOf([ 'mini', 'small', 'default', 'large' ]),
@@ -197,6 +199,7 @@ Popover.defaultProps = {
   iconTpl: '',
   iconType: '',
   iconStyle: {},
+  isReverseBtn: false,
   showCancelBtn: false,
   showConfirmBtn: false,
   cancelBtnText: '取消',

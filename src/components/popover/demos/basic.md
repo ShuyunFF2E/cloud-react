@@ -71,6 +71,7 @@ export default function PopoverDemo() {
           size="small"
           content="这是一段文字描述"
           showIcon
+          isReverseBtn
           showCancelBtn
           showConfirmBtn>
           <Button>文字 + Icon + btn</Button>
