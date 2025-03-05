@@ -21,6 +21,7 @@
       color: @orange-5;
     }
   }
+
   &-icon {
     color: #fd830a;
     margin-right: 8px;
@@ -49,6 +50,7 @@
     line-height: 18px;
     max-height: 190px;
     overflow-y: auto;
+
     &::-webkit-scrollbar {
       width: 4px;
     }
@@ -63,11 +65,17 @@
     display: flex;
     justify-content: end;
 
-    > button {
+    >button {
       margin-top: 16px;
       margin-left: 8px;
       margin-bottom: 4px;
     }
+  }
+
+  &-reverse-btn {
+    display: flex;
+    justify-content: right;
+    flex-direction: row-reverse;
   }
 }
 
