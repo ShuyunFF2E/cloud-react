@@ -192,7 +192,7 @@ class ColumnConfig extends Component {
                   }
                   this.setState({visible: false});
                   Message.success('恢复默认成功');
-                  console.log('test');
+                  console.log('test1');
                 },
                 onClose: () => {
                   this.setState({visible: true});
