@@ -161,6 +161,7 @@ class CTable extends Component {
       this.props.hideConfigColumns !== prevProps.hideConfigColumns
     ) {
       this.setColumn(this.props.columnData);
+      console.log('test', this.props.columnData);
       this.setState({ cancelOriginColumnData: this.resolveOriginColumn(this.props.columnData) });
     }
   }
