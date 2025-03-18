@@ -70,6 +70,7 @@ class CTable extends Component {
       columnData: this.resolveColumn(this.props.columnData),
       originColumnData: this.resolveOriginColumn(this.props.columnData),
       originConfigColumnData: this.resolveOriginColumn(this.props.columnData),
+      cancelOriginColumnData: this.resolveOriginColumn(this.props.columnData),
       footerHeight: this.props.footerHeight || 0,
       expandIconColumnIndex: this.props.expandIconColumnIndex,
       pageOpts: {
@@ -160,6 +161,7 @@ class CTable extends Component {
       this.props.hideConfigColumns !== prevProps.hideConfigColumns
     ) {
       this.setColumn(this.props.columnData);
+      this.setState({ cancelOriginColumnData: this.resolveOriginColumn(this.props.columnData) });
     }
   }
 
@@ -980,6 +982,10 @@ class CTable extends Component {
             isLoading={isLoading}
             tableRef={this.ref}
             originConfigColumnData={this.state.originConfigColumnData}
+            cancelOriginColumnData={this.state.cancelOriginColumnData}
+            setCancelOriginColumnData={(data, cb = noop) => {
+              this.setState({ cancelOriginColumnData: data }, cb);
+            }}
             originColumnData={this.state.originColumnData}
             setOriginColumnData={(data, cb = noop) => {
               this.setState({ originColumnData: data }, cb);
