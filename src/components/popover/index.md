@@ -28,6 +28,7 @@ group:
 | iconTpl  | 自定义图标 | Element           | ''  |
 | iconType  | 自定义图标，可直接传入组件库的图标类型 | string           | ''  |
 | iconStyle  | 图标样式，配置 iconTpl 时，该值无效 | object           | {}  |
+| isReverseBtn       | 是否反转确定和取消的位置                   | boolean             | `false`  |
 | showCancelBtn          | 是否展示取消按钮     | boolean           | false     |
 | showConfirmBtn  | 是否展示确认按钮               | boolean            | false     |
 | cancelBtnText      | 取消按钮自定义文本      | string            | '取消'     |

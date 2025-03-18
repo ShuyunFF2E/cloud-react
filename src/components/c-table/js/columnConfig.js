@@ -7,6 +7,7 @@ import Popover from '../../popover';
 import Checkbox from '../../checkbox';
 import Button from '../../button';
 import Modal from '../../modal';
+import Message from '../../message';
 // import { setConfig } from '../util';
 
 const columnConfigPanelHeight = 466;
@@ -189,6 +190,8 @@ class ColumnConfig extends Component {
                       columnChecked: defaultConfigColumns.includes(item.dataIndex),
                     })), refreshColumn);
                   }
+                  this.setState({visible: false});
+                  Message.success('恢复默认成功');
                 },
                 onClose: () => {
                   this.setState({visible: true});
