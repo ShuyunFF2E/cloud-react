@@ -267,6 +267,7 @@ class CTable extends Component {
    * 初始化已选数据、高度等
    */
   init = (checkedData) => {
+    console.log('init====checkedData===');
     this.leafNodesMap = this.getLeafNodesMap(this.state.data);
     this.setCheckedData(checkedData);
     this.updateSelectedNodes(() => {}, checkedData);
