@@ -127,6 +127,7 @@ const iconList = {
 		'plus-line',
 		'sub-line',
 		'service',
+        'baocun'
 	],
 	ai: [
 		'ai-music-filled',
