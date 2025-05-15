@@ -196,11 +196,13 @@ const iconList = {
 
 const titleList = {
 	basic: '基础图标',
+	ai: 'AI 主题图标',
 	color: '彩色图标',
 }
 
 const componentList = {
 	basic: Icon,
+	ai: Icon,
 	color: ColorIcon,
 }
 
