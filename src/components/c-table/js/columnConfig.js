@@ -7,6 +7,7 @@ import Popover from '../../popover';
 import Checkbox from '../../checkbox';
 import Button from '../../button';
 import Modal from '../../modal';
+import Message from '../../message';
 // import { setConfig } from '../util';
 
 const columnConfigPanelHeight = 466;
@@ -116,6 +117,8 @@ class ColumnConfig extends Component {
       setOriginColumnData,
       refreshColumn,
       disabledSortColumns,
+      cancelOriginColumnData,
+      setCancelOriginColumnData,
     } = this.props;
     const dragSelector = `${tablePrefixCls}-config-drag-icon`;
     const itemSelector = `${tablePrefixCls}-tooltip-complex-content-item`;
@@ -189,6 +192,9 @@ class ColumnConfig extends Component {
                       columnChecked: defaultConfigColumns.includes(item.dataIndex),
                     })), refreshColumn);
                   }
+                  this.setState({visible: false});
+                  Message.success('恢复默认成功');
+                  console.log('test1');
                 },
                 onClose: () => {
                   this.setState({visible: true});
@@ -207,10 +213,12 @@ class ColumnConfig extends Component {
             size="small"
             type="primary"
             onClick={() => {
-              setOriginColumnData(originColumnData.map(item => ({
+              const saveData = originColumnData.map(item => ({
                 ...item,
                 show: item.columnChecked,
-              })), refreshColumn);
+              }))
+              setCancelOriginColumnData(saveData);
+              setOriginColumnData(saveData, refreshColumn);
               this.setState({ visible: false });
             }}
             className={popoverIgnoreClass}
@@ -221,7 +229,7 @@ class ColumnConfig extends Component {
             size="small"
             type="normal"
             onClick={() => {
-              setOriginColumnData(originConfigColumnData.map(item => {
+              setOriginColumnData(cancelOriginColumnData.map(item => {
                 const targetColumn = originColumnData.find(item1 => item1.dataIndex === item.dataIndex) || {};
                 return {
                   ...targetColumn,

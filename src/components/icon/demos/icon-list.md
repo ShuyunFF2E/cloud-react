@@ -127,6 +127,47 @@ const iconList = {
 		'plus-line',
 		'sub-line',
 		'service',
+        'baocun'
+	],
+	ai: [
+		'ai-music-filled',
+		'ai-music-outline',
+		'ai-microphone-filled',
+		'ai-microphone-outline',
+		'ai-voice',
+		'ai-voice-chat-filled',
+		'ai-voice-chat-outline',
+		'ai-voice-file-filled',
+		'ai-voice-file-outline',
+		'ai-read-aloud-filled',
+		'ai-read-aloud-outline',
+		'ai-camera-filled',
+		'ai-camera-outline',
+		'ai-camcorder-filled',
+		'ai-camcorder-outline',
+		'ai-video-filled',
+		'ai-video-outline',
+		'ai-brush-filled',
+		'ai-brush-outline',
+		'ai-pen-filled',
+		'ai-pen-outline',
+		'ai-color-filled',
+		'ai-color-outline',
+		'ai-chat-filled',
+		'ai-chat-outline',
+		'ai-email-filled',
+		'ai-email-outline',
+		'ai-double-star-filled',
+		'ai-double-star-outline',
+		'ai-tri-star-filled',
+		'ai-tri-star-outline',
+		'ai-code',
+		'ai-generate',
+		'ai-image-filled',
+		'ai-image-outline',
+		'ai-text',
+		'ai-toggle-case',
+		'ai-translate',
 	],
 	color: [
 		'mr',
@@ -155,11 +196,13 @@ const iconList = {
 
 const titleList = {
 	basic: '基础图标',
+	ai: 'AI 主题图标',
 	color: '彩色图标',
 }
 
 const componentList = {
 	basic: Icon,
+	ai: Icon,
 	color: ColorIcon,
 }
 

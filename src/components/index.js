@@ -17,7 +17,7 @@ bodys.style.setProperty(`--shuyunBlue${i + 1}`,color)
 }
 }
 
-export const version = '2.1.0';
+export const version = '2.0.5';
 
 export { default as Avatar } from './avatar';
 
@@ -92,6 +92,8 @@ export { default as Progress } from './progress';
 export { default as Radio } from './radio';
 
 export { default as Select } from './select';
+
+export { default as Slider } from './slider';
 
 export { default as Step } from './step';
 
