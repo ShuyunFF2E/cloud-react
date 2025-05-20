@@ -129,7 +129,7 @@ const iconList = {
 		'service',
         'baocun'
 	],
-	ai: [
+    ai: [
 		'ai-music-filled',
 		'ai-music-outline',
 		'ai-microphone-filled',
