@@ -22,6 +22,10 @@ export default function CTableDemo() {
   const [showMask, setShowMask] = useState(false);
   const [wrapperClosable, setWrapperClosable] = useState(false);
   const [size, setSize] = useState(400);
+  const [supportFullScreen, setSupportFullScreen] = useState(true);
+
+  // 使用全屏的时候，不想记忆全屏状态，定义变量记录抽屉打开关闭状态
+  const [hasClosed, setHasClosed] = useState(false);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 15 }}>
@@ -37,6 +41,10 @@ export default function CTableDemo() {
       <div style={{ display: 'flex', gap: 15 }}>
         <Checkbox checked={showMask} onChange={setShowMask}>展示遮罩层</Checkbox>
         <Checkbox checked={wrapperClosable} onChange={setWrapperClosable}>点击外 部区域/遮罩层 关闭抽屉</Checkbox>
+      </div>
+      
+      <div style={{ display: 'flex', gap: 15 }}>
+        <Checkbox checked={supportFullScreen} onChange={setSupportFullScreen}>支持全屏展示</Checkbox>
       </div>
 
       <div style={{ display: 'flex', alignItems: 'center', gap: 15 }}>
@@ -63,6 +71,11 @@ export default function CTableDemo() {
 
       <div>
         <Button type="primary" onClick={() => {
+          // 使用全屏的时候，不想记忆全屏状态，可以添加以下代码
+          // setHasClosed(false);
+          // setTimeout(() => {
+          //   drawerRef.current.open();
+          // })
           drawerRef.current.open();
         }}>点我打开</Button>
 
@@ -72,6 +85,7 @@ export default function CTableDemo() {
       </div>
       
       <div>
+        {/*{!hasClosed*/}
         <Drawer
           style={{ padding: 16 }}
           ref={drawerRef}
@@ -81,14 +95,18 @@ export default function CTableDemo() {
           size={unit === '%' ? `${size}%` : `${size}px`}
           showMask={showMask}
           wrapperClosable={wrapperClosable}
+          supportFullScreen={supportFullScreen}
           onCloseAfter={() => {
             console.log('关闭了');
+            // 使用全屏的时候，不想记忆全屏状态，可以添加以下代码
+            // setHasClosed(true);
           }}>
           <div>
             <p style={{ height: 2000 }}>这里是内容</p>
             <p>结尾</p>
           </div>
         </Drawer>
+        {/*}*/}
       </div>
     </div>
   );

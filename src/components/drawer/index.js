@@ -9,7 +9,10 @@ import PropTypes from 'prop-types';
 import { prefixCls } from '../../utils';
 import './index.less';
 import Icon from '../icon';
+import Tooltip from '../tooltip';
 import { getCoordinate, isInsideRect } from './util';
+import fullScreenImg from '../../assets/images/fullScreen.svg';
+import foldScreenImg from '../../assets/images/foldScreen.svg';
 
 const drawerPrefix = `${prefixCls}-drawer1`;
 
@@ -26,13 +29,16 @@ function Drawer(
     showMask = false,
     onCloseAfter = () => {},
     excludeClassList = [],
+    supportFullScreen = false,
   },
   ref,
 ) {
-  const sizeStyle = {
+  const defaultSizeStyle = {
     width: [ 'top', 'bottom' ].includes(placement) ? '100%' : size,
     height: [ 'left', 'right' ].includes(placement) ? '100%' : size,
   };
+  const [sizeStyle, setSizeStyle] = useState(defaultSizeStyle);
+  const [isFullScreen, setIsFullScreen] = useState(false);
 
   const [ visible, setVisible ] = useState(false);
   const [ visibleTrans, setVisibleTrans ] = useState(false);
@@ -109,7 +115,7 @@ function Drawer(
       <div
         ref={drawerRef}
         className={`${drawerPrefix} ${placement} ${visible ? 'show' : ''}`}
-        style={{ ...sizeStyle, [placement]: visible ? 0 : `-${size}` }}
+        style={{ ...sizeStyle, [placement]: visible ? 0 : `-${(supportFullScreen && isFullScreen ? '100%' : size)}` }}
       >
         {/* 标题区域*/}
         {showHeader && (
@@ -118,15 +124,50 @@ function Drawer(
               className={`${drawerPrefix}-title`}
               dangerouslySetInnerHTML={{ __html: title }}
             />
-            <Icon
-              id={`${drawerPrefix}-close`}
-              className={`${drawerPrefix}-close-icon`}
-              type="close"
-              onClick={(evt) => {
-                evt.stopPropagation();
-                onClose();
-              }}
-            />
+            <div className={`${drawerPrefix}-header-btn`}>
+              {supportFullScreen && (
+                <>
+                  {isFullScreen ? (
+                    <Tooltip content="收起" theme="light" overlayStyle={{ minWidth: 40 }}>
+                      {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
+                      <img
+                        src={foldScreenImg}
+                        alt="收起"
+                        onClick={() => {
+                          setSizeStyle(defaultSizeStyle);
+                          setIsFullScreen(false);
+                        }}
+                      />
+                    </Tooltip>
+                  ) : (
+                    <Tooltip content="全屏" theme="light" overlayStyle={{ minWidth: 40 }}>
+                      {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
+                      <img
+                        src={fullScreenImg}
+                        alt="全屏"
+                        onClick={() => {
+                          setSizeStyle({
+                            width: '100%',
+                            height: '100%',
+                            transition: 'top 500ms, right 500ms, bottom 500ms, left 500ms',
+                          });
+                          setIsFullScreen(true);
+                        }}
+                      />
+                    </Tooltip>
+                  )}
+                </>
+              )}
+              <Icon
+                id={`${drawerPrefix}-close`}
+                className={`${drawerPrefix}-close-icon`}
+                type="close"
+                onClick={(evt) => {
+                  evt.stopPropagation();
+                  onClose();
+                }}
+              />
+            </div>
           </header>
         )}
 
