@@ -230,3 +230,8 @@ export const getBtnNum = (columnItem) => {
   }
   return 0;
 };
+
+export const isObjectStructure = (arr) => {
+  if (arr.length === 0) return false;
+  return typeof arr[0] === 'object' && arr[0] !== null;
+};

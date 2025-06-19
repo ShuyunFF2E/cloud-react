@@ -119,13 +119,14 @@ class ColumnConfig extends Component {
       disabledSortColumns,
       cancelOriginColumnData,
       setCancelOriginColumnData,
+      configPanelMaxHeight,
     } = this.props;
     const dragSelector = `${tablePrefixCls}-config-drag-icon`;
     const itemSelector = `${tablePrefixCls}-tooltip-complex-content-item`;
     return (
       <section className={`${tablePrefixCls}-tooltip-complex`}>
         <p className={`${tablePrefixCls}-tooltip-complex-title`}>配置列的显示状态</p>
-        <div style={{ maxHeight: columnConfigPanelHeight - 128, overflow: 'auto' }}>
+        <div style={{ maxHeight: (configPanelMaxHeight || columnConfigPanelHeight) - 128, overflow: 'auto' }}>
           {disabledSortColumns?.length ? (
             <ul className={`${tablePrefixCls}-tooltip-complex-content`} style={{ marginBottom: 12 }}>
               {originColumnData.filter(c => disabledSortColumns?.includes(c.dataIndex)).map(item => (
@@ -192,16 +193,16 @@ class ColumnConfig extends Component {
                       columnChecked: defaultConfigColumns.includes(item.dataIndex),
                     })), refreshColumn);
                   }
-                  this.setState({visible: false});
+                  this.setState({ visible: false });
                   Message.success('恢复默认成功');
                   console.log('test1');
                 },
                 onClose: () => {
-                  this.setState({visible: true});
+                  this.setState({ visible: true });
                 },
                 onCancel: () => {
-                  this.setState({visible: true});
-                }
+                  this.setState({ visible: true });
+                },
               });
             }}
             className={popoverIgnoreClass}
@@ -216,7 +217,7 @@ class ColumnConfig extends Component {
               const saveData = originColumnData.map(item => ({
                 ...item,
                 show: item.columnChecked,
-              }))
+              }));
               setCancelOriginColumnData(saveData);
               setOriginColumnData(saveData, refreshColumn);
               this.setState({ visible: false });
@@ -253,6 +254,7 @@ class ColumnConfig extends Component {
       tableRef,
       loadingOpts,
       configColumnType,
+      configPanelMaxHeight,
     } = this.props;
 
     const isComplexConfig = configColumnType === 'complex';
@@ -264,12 +266,12 @@ class ColumnConfig extends Component {
         className={`${tablePrefixCls}-tooltip`}
         content={configColumnType === 'complex' ? this.renderComplexConfig() : this.renderConfig()}
         overlayStyle={{
-          maxHeight: columnConfigPanelHeight,
+          maxHeight: configPanelMaxHeight || columnConfigPanelHeight,
           top: 40,
           right: 1,
           left: 'auto',
         }}
-        contentStyle={{ maxHeight: columnConfigPanelHeight - 24 }}
+        contentStyle={{ maxHeight: (configPanelMaxHeight || columnConfigPanelHeight) - 24 }}
         containerEle={tableRef.current}
         ignoreClassList={isComplexConfig ? [popoverIgnoreClass] : []}
         control
