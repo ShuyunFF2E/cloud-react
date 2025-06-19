@@ -124,6 +124,7 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 | defaultConfigColumns  | 默认列（恢复默认操作使用，type 为 `complex` 时可用）  | 	Array    | []    | |
 | disabledSortColumns | 不可移动顺序的列（只允许设置在列首，type 为 `complex` 时可用）    | 	Array    | []    | |
 | onColumnChange        | 改变列后的回调函数   | 	function | -     | |
+| configPanelMaxHeight        | 面板最大高度   | number	 | -     | |
 
 ### CTable 自定义模板配置
 | 属性              | 说明                                                                                           | 类型                   | 默认值       |

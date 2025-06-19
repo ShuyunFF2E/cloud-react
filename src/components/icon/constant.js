@@ -60,6 +60,13 @@ export const PLAT_MAP = {
   custom3: 'zidingyi011',
   custom4: 'a-021',
 
+  // 自定义1
+  // zdy11: 'a-1haodian03', // 灰色
+  // zdy12: 'a-1haodian02', // 灰色框，留白
+  zdy13: 'zidingyi01', // 填充彩色
+  // zdy14: '', // 彩色框，留白
+  // zdy15: '', // 填充彩色，圆的
+
   // 天猫
   tianmao1: 'tanmao03', // 灰色
   tianmao2: 'tanmao02', // 灰色框，留白
@@ -73,13 +80,6 @@ export const PLAT_MAP = {
   ygd3: 'a-1haodian01', // 填充彩色
   // ygd4: '', // 彩色框，留白
   // ygd5: '', // 填充彩色，圆的
-
-  // 自定义1
-  zdy11: 'a-1haodian03', // 灰色
-  zdy12: 'a-1haodian02', // 灰色框，留白
-  zdy13: 'zidingyi01', // 填充彩色
-  // zdy14: '', // 彩色框，留白
-  // zdy15: '', // 填充彩色，圆的
 
   // 拼多多
   pdd1: 'pinduoduo03', // 灰色
