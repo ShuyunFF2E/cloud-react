@@ -16,7 +16,7 @@ import {
   isFirefox,
   debounce,
   hasCustomScroll,
-  getBtnNum, getScrollbarWidth, setConfig, isWindows,
+  getBtnNum, getScrollbarWidth, setConfig, isWindows, isObjectStructure,
 } from './util';
 import {
   DRAG_ICON_SELECTOR,
@@ -184,12 +184,18 @@ class CTable extends Component {
 
   resolveColumn = (columnData) => {
     const { defaultShowColumns, hideConfigColumns } = this.props;
-    return columnData.map((item) => {
+
+    const isObject = isObjectStructure(defaultShowColumns);
+    const _defaultShowColumns = isObject
+      ? defaultShowColumns.filter(item => item.show).map(item => item.dataIndex)
+      : defaultShowColumns;
+
+    const resolveData = columnData.map((item) => {
       const align = item.type === NUMBER ? 'right' : item.align;
       const btnNum = getBtnNum(item);
       const colClassName =
         align === 'right' && btnNum > 0 ? `padding-${btnNum}` : '';
-      const show = defaultShowColumns?.includes(item.dataIndex) || !defaultShowColumns?.length || hideConfigColumns?.includes(item.dataIndex);
+      const show = _defaultShowColumns?.includes(item.dataIndex) || !_defaultShowColumns?.length || hideConfigColumns?.includes(item.dataIndex);
       const column = {
         render: (val, row) => <ColumnTpl value={val} row={row} {...item} />,
         ...item,
@@ -205,6 +211,16 @@ class CTable extends Component {
       }
       return column;
     });
+    if (isObject) {
+      return defaultShowColumns.reduce((arr, item) => {
+        const target = resolveData.find(item1 => item1.dataIndex === item.dataIndex);
+        if (target) {
+          arr.push(target);
+        }
+        return arr;
+      }, [])
+    }
+    return resolveData;
   };
 
   resolveOriginColumn = (columnData) => {
@@ -288,7 +304,7 @@ class CTable extends Component {
         if (bodyEle) {
           const { scrollWidth, clientWidth, scrollLeft } = bodyEle;
             const rootDom = this.ref.current.querySelector(`.${tablePrefixCls}`);
-            if (!rootDom) { 
+            if (!rootDom) {
                 return;
             }
           if (scrollLeft < scrollWidth - clientWidth) {
