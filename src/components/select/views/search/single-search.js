@@ -2,6 +2,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { selector } from '../common';
 import Input from '../../../input';
+import Icon from '../../../icon';
+import Tooltip from '../../../tooltip';
 
 export default function SingleSearch({
   selectedList,
@@ -18,6 +20,7 @@ export default function SingleSearch({
   scrollSelected,
   valueKey,
   labelKey,
+  selectInfoKey,
 }) {
   const searchRef = useRef();
   const [isFocusSearchInput, setIsFocusSearchInput] = useState(false);
@@ -84,15 +87,26 @@ export default function SingleSearch({
     setSearchStatus(isFocusSearchInput);
   }, [isFocusSearchInput]);
 
+  const currentSelectItem = dataSource?.find(item => item[valueKey] === selectedList?.[0]?.[valueKey]);
+
   return (
     <div className={`${selector}-select-container`}>
       {/* 有已选 && 未聚焦：展示黑色*/}
       <span
         className={`${selector}-search-selected ${scrollSelected ? 'scroll-selected' : 'overflow-ellipsis'}`}
-        style={!!selectedList.length && !isFocusSearchInput ? {} : { visibility: 'hidden', width: 0, height: 10 }}
+        style={
+          currentSelectItem?.[selectInfoKey]
+            ? { width: 'fit-content' }
+            : !!selectedList.length && !isFocusSearchInput ? {} : { visibility: 'hidden', width: 0, height: 10 }
+        }
       >
         {getSelectedLabel()}
       </span>
+      {currentSelectItem?.[selectInfoKey] && (
+        <Tooltip theme="light" content={currentSelectItem?.[selectInfoKey]}>
+          <Icon type="question-circle-solid" style={{ color: 'rgba(0, 0, 0, 0.25)', marginLeft: 4 }} />
+        </Tooltip>
+      )}
       <div ref={searchRef} className={`${selector}-search`}>
         {searchable ? (
           <Input
