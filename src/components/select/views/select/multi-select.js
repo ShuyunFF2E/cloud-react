@@ -58,6 +58,7 @@ export default function MultiSelect(props) {
     onHoverChange = noop,
     dropdownConfig,
     selectInfoKey,
+    open,
   } = props;
   const [ options, setOptions ] = useState(dataSource);
   const [hoveredOption, setHoveredOption] = useState(null);
@@ -92,14 +93,14 @@ export default function MultiSelect(props) {
     handleSelect();
   };
 
+  useEffect(() => {
+    setHoveredOption(null);
+    onHoverChange(null);
+  }, [open]);
+
   const handleOptionHover = (item) => {
     setHoveredOption(item);
     onHoverChange(item);
-  };
-
-  const handleOptionLeave = () => {
-    setHoveredOption(null);
-    onHoverChange(null);
   };
 
   const handleCheckAll = (checked) => {
@@ -121,7 +122,7 @@ export default function MultiSelect(props) {
       multiple: true,
       isSelected: values.includes(child.props.value),
       onChange: onOptionChange,
-      onHover: (item) => item ? handleOptionHover(item, index) : handleOptionLeave(),
+      onHover: (item) => item && handleOptionHover(item, index),
       onUnlimitedChange: () => onUnlimitedChange({
         ...child.props,
         ...(dataSource?.[index]?.props || {}),

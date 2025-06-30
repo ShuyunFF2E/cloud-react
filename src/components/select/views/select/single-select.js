@@ -33,6 +33,7 @@ export default function SingleSelect(props) {
     onHoverChange = noop,
     dropdownConfig,
     selectInfoKey,
+    open,
   } = props;
   const [ options, setOptions ] = useState(dataSource);
   const [hoveredOption, setHoveredOption] = useState(null);
@@ -43,14 +44,14 @@ export default function SingleSelect(props) {
     scrollIntoView(selectIndex);
   }, []);
 
+  useEffect(() => {
+    setHoveredOption(null);
+    onHoverChange(null);
+  }, [open]);
+
   const handleOptionHover = (item) => {
     setHoveredOption(item);
     onHoverChange(item);
-  };
-
-  const handleOptionLeave = () => {
-    setHoveredOption(null);
-    onHoverChange(null);
   };
 
   const views = useMemo(
@@ -64,7 +65,7 @@ export default function SingleSelect(props) {
         ...child.props,
         isSelected: value === childValue,
         onChange,
-        onHover: (item) => item ? handleOptionHover(item, index) : handleOptionLeave(),
+        onHover: (item) => item && handleOptionHover(item, index),
         item: child.props.item,
       });
     }),

@@ -529,6 +529,7 @@ class Select extends Component {
           handleSelect={this.handleSelect}
           searchValue={this.state.searchValue}
           onHoverChange={this.onHoverChange}
+          open={this.state.open}
         />
       );
     }
@@ -555,6 +556,7 @@ class Select extends Component {
         searchValue={this.state.searchValue}
         onSearchValueChange={this.onSearchValueChange}
         onHoverChange={this.onHoverChange}
+        open={this.state.open}
       />
     );
   }
