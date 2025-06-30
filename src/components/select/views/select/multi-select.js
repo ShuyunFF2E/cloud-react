@@ -163,7 +163,7 @@ export default function MultiSelect(props) {
         <div
           style={
             dropdownConfig?.width
-              ? { width: dropdownConfig.leftWidth, minWidth: dropdownConfig.leftWidth }
+              ? { width: dropdownConfig?.leftWidth, minWidth: dropdownConfig?.leftWidth }
               : {}
           }
         >
@@ -172,7 +172,7 @@ export default function MultiSelect(props) {
             className={`${selector}-multiple-options`}
             style={
               dropdownConfig?.width
-                ? { width: dropdownConfig.leftWidth, minWidth: dropdownConfig.leftWidth }
+                ? { width: dropdownConfig?.leftWidth, minWidth: dropdownConfig?.leftWidth }
                 : {}
             }
           >
@@ -192,10 +192,7 @@ export default function MultiSelect(props) {
           </div>
         </div>
         {hoveredOption?.[selectInfoKey] && (
-          <div
-            className={`${selector}-info-panel`}
-            style={{ top: 0 }}
-          >
+          <div className={`${selector}-info-panel`}>
             <div className={`${selector}-info-panel-title`}>{hoveredOption.label || hoveredOption.value}</div>
             <div className={`${selector}-info-panel-content`}>{hoveredOption?.[selectInfoKey]}</div>
           </div>

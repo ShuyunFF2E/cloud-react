@@ -594,8 +594,8 @@ class Select extends Component {
         style={{
           ...popupStyle,
           width: hoveredOption?.[this.props.selectInfoKey]
-            ? dropdownConfig.width
-            : dropdownConfig.leftWidth || dropdownStyle?.width || `${width}px`,
+            ? dropdownConfig?.width
+            : dropdownConfig?.leftWidth || dropdownStyle?.width || `${width}px`,
           ...dropdownStyle,
         }}
       >
