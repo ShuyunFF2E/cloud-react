@@ -21,7 +21,7 @@
     "new:component": "cp -r tpls/new-component src/components/new-component",
     "cli-version": "node ./scripts/generate-version.js",
     "postinstall": "patch-package",
-    "changelog": "conventional-changelog -p angular -i docs/log.md -s && git add docs/log.md",
+    "changelog": "npm version patch && conventional-changelog -p angular -i docs/log.md -s && git add docs/log.md",
     "changelog-all": "conventional-changelog --config -i docs/log1.md -s"
   },
   "auto-changelog": {
