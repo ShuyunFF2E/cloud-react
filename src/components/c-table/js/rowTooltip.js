@@ -60,6 +60,8 @@ class RowTooltip extends Component {
           tooltipEle,
           checkboxEle || radioEle,
           'top-left',
+          undefined,
+          'top',
         );
 
         const isInModal = document.querySelector(`.${prefixCls}-modal-mask`);

@@ -103,7 +103,7 @@ export default function SingleSearch({
         {getSelectedLabel()}
       </span>
       {currentSelectItem?.[selectInfoKey] && (
-        <Tooltip theme="light" content={currentSelectItem?.[selectInfoKey]}>
+        <Tooltip theme="light" content={currentSelectItem?.[selectInfoKey]} placement="auto" defaultPlacement="right">
           <Icon type="question-circle-solid" style={{ color: 'rgba(0, 0, 0, 0.25)', marginLeft: 4 }} />
         </Tooltip>
       )}
