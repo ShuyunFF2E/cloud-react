@@ -1,0 +1,78 @@
+@import '../style/index';
+
+@searchPrefixCls: ~'@{prefix}-search-box';
+
+.@{searchPrefixCls} {
+  .fadeIn;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 28px;
+  background: #FAFAFA;
+  border-radius: 3px;
+  padding: 24px;
+
+  &.@{prefix}-form {
+    margin-bottom: 0;
+  }
+
+  .@{prefix}-form-item {
+    margin-right: 0;
+    margin-bottom: 0;
+
+    label.col-3 {
+      width: 70px;
+      text-align: right;
+    }
+    .col-21 {
+      width: fit-content;
+    }
+  }
+
+  &-operate {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &-btn {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  &-more-search {
+    padding: 0;
+    position: relative;
+    right: -4px;
+
+    &-btn {
+      margin-left: 4px;
+      transition: all 100ms;
+
+      &.@{searchPrefixCls}-shore-more {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  &-hide-form-item {
+    position: absolute;
+    opacity: 0;
+    z-index: -10;
+  }
+}
+
+.fadeIn {
+  animation: fadeIn 500ms ease-out;
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+}

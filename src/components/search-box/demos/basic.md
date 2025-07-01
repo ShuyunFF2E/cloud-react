@@ -1,0 +1,84 @@
+---
+order: 2
+title: 基本使用
+desc: 基本使用
+---
+
+```jsx
+/**
+ * title: 基本使用
+ * desc: 基本使用
+ */
+import React, { useState } from 'react';
+import { SearchBox, Input, Field } from 'cloud-react';
+
+export default function Demo() {
+  const field = Field.useField();
+  const searchList = [
+    {
+      label: '计划名称',
+      content: (
+        <Input
+          style={{ width: 250 }}
+          placeholder="请输入计划名称"
+          {...field.init('name')}
+        />
+      )
+    },
+    {
+      label: '计划ID',
+      content: (
+        <Input
+          style={{ width: 250 }}
+          placeholder="请输入计划ID"
+          {...field.init('id')}
+        />
+      )
+    },
+    {
+      label: '场景名称',
+      content: (
+        <Input
+          style={{ width: 250 }}
+          placeholder="请输入场景名称"
+          {...field.init('sceneName')}
+        />
+      )
+    },
+    {
+      label: '状态',
+      content: (
+        <Input
+          style={{ width: 250 }}
+          placeholder="请输入状态"
+          {...field.init('status')}
+        />
+      )
+    },
+    {
+      label: '触发类型',
+      content: (
+        <Input
+          style={{ width: 250 }}
+          placeholder="请输入触发类型"
+          {...field.init('trigger')}
+        />
+      )
+    }
+  ]
+  return (
+    <SearchBox
+      field={field}
+      searchList={searchList}
+      defaultLine={3}
+      onSearch={() => {
+        console.log(field.getValues());
+      }}
+      onReset={() => {
+        field.reset();
+        console.log(field.getValues());
+      }}
+    />
+  );
+}
+```
