@@ -4,9 +4,9 @@ nav:
   title: Tooltip 文字提示
   path: /cloud-react
 group:
-  order: 1
-  title: 通用
-  path: /common
+  order: 3
+  title: 数据
+  path: /data
 ---
 
 ### 何时使用

@@ -4,9 +4,9 @@ nav:
   title: Popover 气泡
   path: /cloud-react
 group:
-  order: 21
-  title: 通用
-  path: /common
+  order: 3
+  title: 数据
+  path: /data
 ---
 
 
