@@ -1,3 +1,61 @@
+---
+title: 组件(v1版)更新日志
+nav:
+  title: 指南
+  path: /guide
+group:
+  title: 组件(v1版)更新日志
+  path: /log
+  order: 3
+---
+
+## 2.0.11
+
+### Features
+* feat: [slider]增加滑动选择 ([6bcc7f2](https://github.com/ShuyunFF2E/cloud-react/commit/6bcc7f2))
+* feat: [icon]添加 AI 主题图标 ([61ae9e7](https://github.com/ShuyunFF2E/cloud-react/commit/61ae9e7))
+
+
+## 2.0.10
+
+### Bug Fixes
+* fix: 解决列固定阴影，偶发性不展示，滚动列才展示 ([642d9cb](https://github.com/ShuyunFF2E/cloud-react/commit/642d9cb))
+
+## 2.0.9
+
+### Features
+* feat: [CTable]添加设置列弹窗 ([1f3f0fa](https://github.com/ShuyunFF2E/cloud-react/commit/1f3f0fa))
+* feat: [CTable]设置列弹窗添加按钮反转配置 ([ebb0ca7](https://github.com/ShuyunFF2E/cloud-react/commit/ebb0ca7))
+* feat: [Modal]添加新配置outerClassName和isReverseBtn ([0cc30b8](https://github.com/ShuyunFF2E/cloud-react/commit/0cc30b8))
+* feat: [Popover] 添加新配isReverseBtn ([258f2ba](https://github.com/ShuyunFF2E/cloud-react/commit/258f2ba))
+
+
+## 2.0.7
+
+### Features
+* feat: [inputTag] 修复赋值 ([29808d5](https://github.com/ShuyunFF2E/cloud-react/commit/29808d5))
+* feat: [inputTag] 修改样式及替换icon ([eacdc70](https://github.com/ShuyunFF2E/cloud-react/commit/eacdc70))
+* feat: [CTable] 多选表格，支持外部调用函数回显已选数据 this.tableRef.current.init(this.state.checkedGoodsData) ([b81e91f](https://github.com/ShuyunFF2E/cloud-react/commit/b81e91f))
+
+### Bug Fixes
+* fix: [Tree] 解决搜索节点，若匹配到的节点有多级，应全部展示，实际上只展示了匹配到节点的下一级的问题 ([58ad498](https://github.com/ShuyunFF2E/cloud-react/commit/58ad498))
+* fix: [TreeSelect] 解决树下拉样式异常的问题 ([b90efd7](https://github.com/ShuyunFF2E/cloud-react/commit/b90efd7))
+* fix: [TreeSelect][Select] 多选TreeSelect 和 多选 Select下拉，多次点击输入框区域，输入框失焦 ([61a114f](https://github.com/ShuyunFF2E/cloud-react/commit/61a114f))
+
+## 2.0.6
+
+### Features
+* feat: [Tooltip]新增control参数，结合visible使用，实现手动控制浮层显隐 ([83fbd34](https://github.com/ShuyunFF2E/cloud-react/commit/83fbd34))
+* feat: [CTable]表格支持配置列的展示和隐藏（复杂模式，支持拖拽和重置） ([675dff7](https://github.com/ShuyunFF2E/cloud-react/commit/675dff7))
+* feat: [Radio] 给Radio添加radioClassName参数,设置自定义类 ([c823a7a](https://github.com/ShuyunFF2E/cloud-react/commit/c823a7a))
+
+### Bug Fixes
+* docs: [CTable] 添加 DEMO，解决 columnData 中 render 闭包问题 ([b55532d](https://github.com/ShuyunFF2E/cloud-react/commit/b55532d))
+* fix: [Radio] 解决给 ComplexRadio 设置 className 后，所有类被覆盖的问题 ([2dfc096](https://github.com/ShuyunFF2E/cloud-react/commit/2dfc096))
+* fix: [Radio] 解决卡片式radio，设置定高后，radio按钮和文案不对齐的问题 ([054dbd1](https://github.com/ShuyunFF2E/cloud-react/commit/054dbd1))
+* fix: [Radio] 解决卡片式radio，设置定宽后，radio按钮被右侧文本挤压的问题 ([86381c2](https://github.com/ShuyunFF2E/cloud-react/commit/86381c2))
+
+
 ## 2.0.5 (2024-12-09)
 
 ### Features
