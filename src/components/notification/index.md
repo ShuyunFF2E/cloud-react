@@ -4,8 +4,8 @@ nav:
     title: Notification 消息通知
     path: /cloud-react
 group:
-    order: 14
-    title: 数据
+    order: 5
+    title: 反馈
     path: /action
 ---
 

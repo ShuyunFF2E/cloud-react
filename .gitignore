@@ -25,3 +25,4 @@
 
 # jest
 /coverage
+/src/components/index.js
