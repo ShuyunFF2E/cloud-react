@@ -31,7 +31,7 @@ export const PLAT_MAP = {
   // 小红书
   redbook1: 'xiaohongsh03', // 灰色
   redbook2: 'xiaohongshu02', // 灰色框，留白
-  // redbook3: '', // 填充彩色
+  redbook3: 'xiaohongshu01', // 填充彩色
   // redbook4: '', // 彩色框，留白
 
   // 快手达人
