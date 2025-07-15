@@ -3,6 +3,7 @@ import React, {
   forwardRef,
   useImperativeHandle,
   useRef,
+  useEffect,
 } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
@@ -33,11 +34,12 @@ function Drawer(
   },
   ref,
 ) {
-  const defaultSizeStyle = {
-    width: [ 'top', 'bottom' ].includes(placement) ? '100%' : size,
-    height: [ 'left', 'right' ].includes(placement) ? '100%' : size,
-  };
-  const [sizeStyle, setSizeStyle] = useState(defaultSizeStyle);
+  const getSizeStyle = _placement => ({
+    width: [ 'top', 'bottom' ].includes(_placement) ? '100%' : size,
+    height: [ 'left', 'right' ].includes(_placement) ? '100%' : size,
+  });
+
+  const [sizeStyle, setSizeStyle] = useState(getSizeStyle(placement));
   const [isFullScreen, setIsFullScreen] = useState(false);
 
   const [ visible, setVisible ] = useState(false);
@@ -48,6 +50,10 @@ function Drawer(
     setVisible(false);
     onCloseAfter();
   };
+
+  useEffect(() => {
+    setSizeStyle(getSizeStyle(placement));
+  }, [placement]);
 
   useImperativeHandle(ref, () => ({
     open: () => {
@@ -105,6 +111,8 @@ function Drawer(
     }
   };
 
+  console.log(sizeStyle, 'drawer----size----');
+
   return ReactDOM.createPortal(
     <section>
       {/* 遮罩层*/}
@@ -134,7 +142,7 @@ function Drawer(
                         src={foldScreenImg}
                         alt="收起"
                         onClick={() => {
-                          setSizeStyle(defaultSizeStyle);
+                          setSizeStyle(getSizeStyle(placement));
                           setIsFullScreen(false);
                         }}
                       />
@@ -149,7 +157,6 @@ function Drawer(
                           setSizeStyle({
                             width: '100%',
                             height: '100%',
-                            transition: 'top 500ms, right 500ms, bottom 500ms, left 500ms',
                           });
                           setIsFullScreen(true);
                         }}
