@@ -111,8 +111,6 @@ function Drawer(
     }
   };
 
-  console.log(sizeStyle, 'drawer----size----');
-
   return ReactDOM.createPortal(
     <section>
       {/* 遮罩层*/}
