@@ -34,12 +34,12 @@ function Drawer(
   },
   ref,
 ) {
-  const getSizeStyle = _placement => ({
-    width: [ 'top', 'bottom' ].includes(_placement) ? '100%' : size,
-    height: [ 'left', 'right' ].includes(_placement) ? '100%' : size,
+  const getSizeStyle = (_placement, _size) => ({
+    width: [ 'top', 'bottom' ].includes(_placement) ? '100%' : _size,
+    height: [ 'left', 'right' ].includes(_placement) ? '100%' : _size,
   });
 
-  const [sizeStyle, setSizeStyle] = useState(getSizeStyle(placement));
+  const [sizeStyle, setSizeStyle] = useState(getSizeStyle(placement, size));
   const [isFullScreen, setIsFullScreen] = useState(false);
 
   const [ visible, setVisible ] = useState(false);
@@ -52,7 +52,7 @@ function Drawer(
   };
 
   useEffect(() => {
-    setSizeStyle(getSizeStyle(placement));
+    setSizeStyle(getSizeStyle(placement, size));
   }, [placement]);
 
   useImperativeHandle(ref, () => ({
@@ -142,7 +142,7 @@ function Drawer(
                         src={foldScreenImg}
                         alt="收起"
                         onClick={() => {
-                          setSizeStyle(getSizeStyle(placement));
+                          setSizeStyle(getSizeStyle(placement, size));
                           setIsFullScreen(false);
                         }}
                       />
