@@ -310,11 +310,11 @@ const theme = [
       },
       {
         name: 'grey-8',
-        text: ' rgba(0, 0, 0, 0.65)',
+        text: ' rgba(0, 0, 0, 0.60)',
       },
       {
         name: 'grey-9',
-        text: ' rgba(0, 0, 0, 0.85)',
+        text: ' rgba(0, 0, 0, 0.88)',
       },
       {
         name: 'grey-0',
@@ -348,7 +348,7 @@ class ButtonDemo extends React.Component {
                           background: item.text,
                           color:
                             index < 3
-                              ? 'rgba(0, 0, 0, 0.85)'
+                              ? 'rgba(0, 0, 0, 0.88)'
                               : 'rgb(255, 255, 255)',
                         }}
                         onClick={() => onClickHandler(item.text)}
