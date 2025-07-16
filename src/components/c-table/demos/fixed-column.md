@@ -209,8 +209,6 @@ export default function CTableDemo() {
         headerBordered={supportResizeColumn}
         supportPage
         supportCheckbox
-        supportConfigColumn
-        defaultShowColumns={columns.map((item) => item.dataIndex)}
         columnData={columns}
         ajaxData={(params) => {
           return new Promise((resolve) => {

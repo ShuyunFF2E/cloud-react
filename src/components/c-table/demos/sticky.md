@@ -43,8 +43,6 @@ export default function CTableDemo() {
       }}
       stickyFooter
       supportPage
-      supportConfigColumn
-      defaultShowColumns={columns.map((item) => item.dataIndex)}
       columnData={columns}
       ajaxData={{ totals: data.length, data }}
     />

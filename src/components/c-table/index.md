@@ -262,7 +262,7 @@ _setColumn 参数：_
 
 ### 二、代码演示
 
-<!-- ### 基础表格
+### 基础表格
 
 <embed src="@components/c-table/demos/basic.md" />
 
@@ -370,7 +370,7 @@ _setColumn 参数：_
 
 <embed src="@components/c-table/demos/resize.md" />
 
-<embed src="@components/c-table/demos/resize1.md" /> -->
+<embed src="@components/c-table/demos/resize1.md" />
 
 ### 表格固定表头和表尾
 
@@ -384,10 +384,10 @@ _setColumn 参数：_
 
 <embed src="@components/c-table/demos/virtual-list.md" />
 
-<!-- ### 列设置
+### 列设置
+
 <embed src="@components/c-table/demos/config-column-basic.md" />
 <embed src="@components/c-table/demos/config-column.md" />
-
 
 ### 分体式表格（灵活）
 
@@ -396,12 +396,15 @@ _setColumn 参数：_
 ### 标准化列表格
 
 #### 数值类型
+
 <embed src="@components/c-table/demos/uniform_number.md" />
 
 #### 时间类型
+
 <embed src="@components/c-table/demos/uniform_time.md" />
 
 #### 时间范围类型
+
 <embed src="@components/c-table/demos/uniform_time_range.md" />
 
 #### 文本类型
@@ -409,9 +412,11 @@ _setColumn 参数：_
 <embed src="@components/c-table/demos/uniform_text.md" />
 
 #### 标签类型
+
 <embed src="@components/c-table/demos/uniform_tag.md" />
 
 #### 使用列模板形式
+
 <embed src="@components/c-table/demos/uniform_tpl.md" />
 
 ### 解决方案
@@ -428,4 +433,4 @@ _setColumn 参数：_
 
 [comment]: <> (<embed src="@components/c-table/demos/front-table2.md" />)
 
-<embed src="@components/c-table/demos/table-in-tab.md" /> -->
+<embed src="@components/c-table/demos/table-in-tab.md" />

@@ -93,7 +93,7 @@ const columns = [
         },
         'default-tag': {
           background: 'rgba(245, 245, 245, 1)',
-          color: 'rgba(0, 0, 0, 0.60)',
+          color: 'rgba(0, 0, 0, 0.65)',
         },
         'success-tag': {
           background: 'rgba(229, 249, 231, 1)',
