@@ -4,8 +4,8 @@ nav:
   title: Card 卡片
   path: /cloud-react
 group:
-  order: 4
-  title: 导航
+  order: 3
+  title: 数据
   path: /data
 ---
 

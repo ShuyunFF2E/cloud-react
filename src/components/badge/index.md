@@ -4,9 +4,9 @@ nav:
   title: Badge 徽标
   path: /cloud-react
 group:
-  order: 4
-  title: 导航
-  path: /nav
+  order: 3
+  title: 数据
+  path: /data
 ---
 
 ### 何时使用
