@@ -4,7 +4,7 @@ nav:
   title: CTable 新表格
   path: /cloud-react
 group:
-  order: 14
+  order: 3
   title: 数据
   path: /data
 ---
