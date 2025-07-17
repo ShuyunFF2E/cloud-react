@@ -1,6 +1,6 @@
 {
   "name": "cloud-react",
-  "version": "2.0.5",
+  "version": "2.0.12-3",
   "description": "数据赢家 react 组件",
   "scripts": {
     "gen:index": "node ./scripts/generate-index.js",
@@ -21,7 +21,7 @@
     "new:component": "cp -r tpls/new-component src/components/new-component",
     "cli-version": "node ./scripts/generate-version.js",
     "postinstall": "patch-package",
-    "changelog": "conventional-changelog -p angular -i docs/log.md -s && git add docs/log.md",
+    "changelog": "npm version patch && conventional-changelog -p angular -i docs/log.md -s && git add docs/log.md",
     "changelog-all": "conventional-changelog --config -i docs/log1.md -s"
   },
   "auto-changelog": {
@@ -114,9 +114,6 @@
     "glob": "7.2.3",
     "husky": "4",
     "identity-obj-proxy": "3.0.0",
-    "jest": "27.5.1",
-    "jest-environment-jsdom": "27.5.1",
-    "jest-transform-css": "2.0.0",
     "lint-staged": "10.5.4",
     "markdown-it": "12.3.2",
     "postcss-font-base64": "1.0.5",
