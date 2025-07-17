@@ -17,7 +17,7 @@ group:
 
 ### CTable 基础配置项
 
-| 属性             | 说明                                                                                  | 类型           | 默认值    |
+| 属性             | 说明                                                                                  | 类型           | 默认值    | |
 | ---------------- | ------------------------------------------------------------------------------------- | -------------- | --------- | --- |
 | ajaxData         | 表格数据源                                                                            | function/array | -         |     |
 | columnData       | 表格列描述，具体详见下表 **columnData**                                               | array          | -         |     |
@@ -39,7 +39,7 @@ this.tableRef.current.refreshTable(gotoFirstPage?, params?);
 
 _refreshTable 参数：_
 
-| 属性          | 说明                                           | 类型    | 默认值 |
+| 属性          | 说明                                           | 类型    | 默认值 | |
 | ------------- | ---------------------------------------------- | ------- | ------ | --- |
 | gotoFirstPage | 表格刷新后，是否跳转到第一页                   | boolean | true   |     |
 | params        | 分页等表格查询参数（暂不支持传入额外查询参数） | object  | {}     |     |
@@ -50,14 +50,14 @@ this.tableRef.current.setColumn(columnData, isReloadGrid?);
 
 _setColumn 参数：_
 
-| 属性         | 说明                               | 类型    | 默认值 |
+| 属性         | 说明                               | 类型    | 默认值 | |
 | ------------ | ---------------------------------- | ------- | ------ | --- |
 | columnData   | 表格列数组                         | array   | []     |     |
 | isReloadGrid | 重新设置表格列后，是否需要刷新表格 | boolean | false  |     |
 
 ### CTable 字段映射
 
-| 属性        | 说明              | 类型   | 默认值     |
+| 属性        | 说明              | 类型   | 默认值     | |
 | ----------- | ----------------- | ------ | ---------- | --- |
 | totalsKey   | total 映射字段    | string | 'totals'   |     |
 | dataKey     | data 映射字段     | string | 'data'     |     |
@@ -65,7 +65,7 @@ _setColumn 参数：_
 
 ### CTable 分页相关配置
 
-| 属性        | 说明                                                                                           | 类型    | 默认值 |
+| 属性        | 说明                                                                                           | 类型    | 默认值 | |
 | ----------- | ---------------------------------------------------------------------------------------------- | ------- | ------ | --- |
 | supportPage | 是否支持分页                                                                                   | boolean | false  |     |
 | pageOpts    | 分页信息，详见**Pagination**组件：https://cloud-react.shuyun.com/v1/cloud-react/nav/pagination | object  | -      |     |
@@ -74,7 +74,7 @@ _setColumn 参数：_
 
 ### CTable 多级表格配置（树、展开行）
 
-| 属性                  | 说明                                                                       | 类型     | 默认值 |
+| 属性                  | 说明                                                                       | 类型     | 默认值 | |
 | --------------------- | -------------------------------------------------------------------------- | -------- | ------ | --- |
 | supportTree           | 是否支持树状表格                                                           | boolean  | false  |     |
 | supportExpend         | 是否支持展开                                                               | boolean  | false  |     |
@@ -88,7 +88,7 @@ _setColumn 参数：_
 
 ### CTable 多选/单选配置
 
-| 属性              | 说明                                                                                            | 类型     | 默认值 |
+| 属性              | 说明                                                                                            | 类型     | 默认值 | |
 | ----------------- | ----------------------------------------------------------------------------------------------- | -------- | ------ | --- |
 | supportCheckbox   | 是否支持多选                                                                                    | boolean  | false  |     |
 | checkedData       | 已选数据，支持两种写法。在 "多选表格（checkbox.md）" demo 中查看说明                            | array    | []     |     |
@@ -101,7 +101,7 @@ _setColumn 参数：_
 
 ### CTable 表格拖拽配置
 
-| 属性         | 说明                 | 类型     | 默认值 |
+| 属性         | 说明                 | 类型     | 默认值 | |
 | ------------ | -------------------- | -------- | ------ | --- |
 | supportDrag  | 是否支持表格拖拽行   | bool     | false  |     |
 | showDragIcon | 是否展示拖拽手柄     | bool     | false  |     |
@@ -110,21 +110,21 @@ _setColumn 参数：_
 
 ### CTable 表格固定表头
 
-| 属性         | 说明               | 类型                                                                        | 默认值 |
+| 属性         | 说明               | 类型                                                                        | 默认值 | | 
 | ------------ | ------------------ | --------------------------------------------------------------------------- | ------ | --- |
 | sticky       | 表头固定           | object { offsetHeader?: number, getContainer?: () => Window / HTMLElement } | {}     |     |
 | stickyFooter | 表尾固定在页面底部 | bool                                                                        | false  |     |
 
 ### CTable 表格排序（此处是全局配置，配置每列的排序详看 columnData 配置）
 
-| 属性                  | 说明                                                                    | 类型    | 默认值 |
+| 属性                  | 说明                                                                    | 类型    | 默认值 | |
 | --------------------- | ----------------------------------------------------------------------- | ------- | ------ | --- |
 | sortWidthOriginStatus | 表格排序状态分为升序和降序，配置该参数为 true，排序状态可以恢复原始状态 | boolean | false  |     |
 | sortMultiColumns      | 是否支持多个列同时排序                                                  | boolean | false  |     |
 
 ### CTable 表格配置列的显示和隐藏
 
-| 属性                  | 说明                                                           | 类型     | 默认值  |
+| 属性                  | 说明                                                           | 类型     | 默认值  | |
 | --------------------- | -------------------------------------------------------------- | -------- | ------- | --- |
 | supportConfigColumn   | 是否支持列的显示和隐藏                                         | boolean  | false   |     |
 | configColumnType      | 类型：`default` `complex`                                      | string   | default |     |
@@ -134,10 +134,11 @@ _setColumn 参数：_
 | defaultConfigColumns  | 默认列（恢复默认操作使用，type 为 `complex` 时可用）           | Array    | []      |     |
 | disabledSortColumns   | 不可移动顺序的列（只允许设置在列首，type 为 `complex` 时可用） | Array    | []      |     |
 | onColumnChange        | 改变列后的回调函数                                             | function | -       |     |
+| configPanelMaxHeight  | 面板最大高度                                                   | number   | -       |     |
 
 ### CTable 自定义模板配置
 
-| 属性            | 说明                                                                                                         | 类型                 | 默认值    |
+| 属性            | 说明                                                                                                         | 类型                 | 默认值    | |
 | --------------- | ------------------------------------------------------------------------------------------------------------ | -------------------- | --------- | --- |
 | footerTpl       | 自定义 footer                                                                                                | function             | -         |     |
 | footerHeight    | 分页部分高度，设置 footerTpl，需要设置 footerHeight                                                          | number               | undefined |     |
@@ -153,7 +154,7 @@ _setColumn 参数：_
 
 ### CTable 业务相关配置
 
-| 属性                 | 说明                                                       | 类型    | 默认值 |
+| 属性                 | 说明                                                       | 类型    | 默认值 | |
 | -------------------- | ---------------------------------------------------------- | ------- | ------ | --- |
 | isDelay              | 刷新表格时，是否延迟 loading，一般在纯前端表格中使用       | boolean | false  |     |
 | isCheckboxFixed      | 是否固定多选框列或单选框列                                 | boolean | false  |     |
@@ -167,7 +168,7 @@ _setColumn 参数：_
 
 ### CTable 其他功能配置
 
-| 属性                | 说明                                                             | 类型    | 默认值 |
+| 属性                | 说明                                                             | 类型    | 默认值 | |
 | ------------------- | ---------------------------------------------------------------- | ------- | ------ | --- |
 | supportResizeColumn | 是否支持配置列的拉伸                                             | boolean | false  |     |
 | summaryData         | 表格合计（API 同 columnData）                                    | array   | []     |     |
@@ -238,6 +239,7 @@ _setColumn 参数：_
 | ------------------- | -------------------------------------------- | --------------------------- | ---------------- |
 | value | 展示值，使用组件的形式必传，使用 typeConfig 忽略此字段 | string | - |
 | typeConfig.line | 展示行数 | number | 1 |
+| typeConfig.tooltipValue | 如果不想让 tooltip 展示 value 的值，可以单独配置 tooltipValue | string | - |
 
 **（5）type 为 链接类型-`LINK`**
 （_可根据下表配置 typeConfig，查看 [Demo](https://cloud-react.shuyun.com/v1/cloud-react/data/c-table#标准化表格-文本类型)；也可以使用组件形式 <Table.LinkTpl/>，查看 [Demo](https://cloud-react.shuyun.com/v1/cloud-react/data/c-table#标准化表格-使用列模板形式)_）
@@ -248,6 +250,7 @@ _setColumn 参数：_
 | typeConfig.linkKey | 链接 key（取自 row 中的字段） | string | '' |
 | typeConfig.link | 链接值 | string | '' |
 | typeConfig.onClick | 点击链接的回调函数 | func | - |
+| typeConfig.tooltipValue | 如果不想让 tooltip 展示 value 的值，可以单独配置 tooltipValue | string | - |
 
 **（6）type 为 标签类型-`TAG`**
 （_可根据下表配置 typeConfig，查看 [Demo](https://cloud-react.shuyun.com/v1/cloud-react/data/c-table#标准化表格-标签类型)；也可以使用组件形式 <Table.TagTpl/>，查看 [Demo](https://cloud-react.shuyun.com/v1/cloud-react/data/c-table#标准化表格-使用列模板形式)_）

@@ -12,6 +12,7 @@ desc: 将 type 值复制进行使用
 import React, { Component } from 'react';
 import ShunyunUtils from 'shuyun-utils';
 import { Icon, Message, Tabs } from 'cloud-react';
+import { PLAT_MAP } from '../constant';
 import './styles/index.less';
 
 const { ColorIcon } = Icon;
@@ -191,19 +192,22 @@ const iconList = {
 		'PDF',
 		'video',
 		'CSV',
-	]
+	],
+    plat: Object.keys(PLAT_MAP)
 }
 
 const titleList = {
 	basic: '基础图标',
 	ai: 'AI 主题图标',
 	color: '彩色图标',
+    plat: '平台图标',
 }
 
 const componentList = {
 	basic: Icon,
 	ai: Icon,
 	color: ColorIcon,
+    plat: ColorIcon,
 }
 
 const iconStyle = { fontSize: '36px' };

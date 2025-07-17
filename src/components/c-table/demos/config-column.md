@@ -125,6 +125,7 @@ export default function CTableDemo() {
   const [valid, setValid] = useState(false);
   const [isReloadGrid, setIsReloadGrid] = useState(true);
   const [supportResizeColumn, setSupportResizeColumn] = useState(false);
+  const [defaultShowColumns, setDefaultShowColumns] = useState([]);
 
   return (
     <div>
@@ -134,14 +135,19 @@ export default function CTableDemo() {
         supportPage
         columnData={columns}
         supportConfigColumn
-        defaultShowColumns={[]}
+        // 这里的值可以是：
+        // 1、['id', 'name'] 这种数组形式 或者
+        // 2、onColumnChange中透出的 columnData 这种对象数组形式，对象数组中的对象需要包含 show 和 dataIndex 属性
+        // 如果使用第一种数组形式，在 onColumnChange 中不要执行 setDefaultShowColumns 给 defaultShowColumns 赋值，否则列排序会失效
+        defaultShowColumns={defaultShowColumns}
         // defaultConfigColumns={['id', 'name', 'creator']}
         disabledSortColumns={['id']}
         hideConfigColumns={['operator']}
         disabledConfigColumns={['id']}
         configColumnType="complex"
+        // configPanelMaxHeight={150}
         onColumnChange={({ columnData }) => {
-          console.log(columnData);
+          setDefaultShowColumns(columnData)
         }}
         ajaxData={(params) => {
           return new Promise(resolve => {

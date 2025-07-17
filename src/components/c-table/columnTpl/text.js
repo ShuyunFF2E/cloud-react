@@ -5,17 +5,19 @@ import { isVoid } from '../util';
 import Tooltip from '../../tooltip';
 import './index.less';
 
-export default function TextTpl({ value, line = 1 }) {
+export default function TextTpl({ value, line = 1, tooltipValue }) {
   const ref = useRef();
   const [tooltipContent, setTooltipContent] = useState('');
 
   useEffect(() => {
-    if (!isVoid(value)) {
+    if (tooltipValue) {
+      setTooltipContent(tooltipValue);
+    } else if (!isVoid(value)) {
       if (ref.current.scrollHeight > ref.current.clientHeight + 4) {
         setTooltipContent(value);
       }
     }
-  }, []);
+  }, [tooltipValue]);
 
   if (isVoid(value)) {
     return '-';

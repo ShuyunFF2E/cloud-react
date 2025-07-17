@@ -3,7 +3,7 @@
 .@{prefix}-drawer1 {
   position: fixed;
   background: white;
-  transition: top 500ms, right 500ms, bottom 500ms, left 500ms;
+  transition: top 500ms, right 500ms, bottom 500ms, left 500ms, width 500ms, height 500ms;
   z-index: @z-index-drawer;
 
   &.show {
@@ -51,6 +51,15 @@
       cursor: pointer;
       color: @gray-7;
       margin-right: 20px;
+    }
+  }
+
+  &-header-btn {
+    display: flex;
+    gap: 20px;
+
+    img {
+      cursor: pointer;
     }
   }
 
