@@ -268,7 +268,7 @@ class Node extends Component {
                 supportCheckbox={supportCheckbox}
                 supportTooltip={supportTooltip}
                 onDoubleClick={() => onDoubleClick(data)}
-                renderItem={renderItem ? tmp => renderItem(tmp, data) : null}
+                renderItem={tmp => renderItem?.(data, tmp)}
               />
               {/* 点击菜单 */}
               {supportMenu && menuType !== RIGHT_MENU && !disabled && (
@@ -489,7 +489,7 @@ function ShowSelection({
     }
   }
 
-  tmp = renderItem ? renderItem(tmp) : tmp;
+  tmp = renderItem?.(tmp) || tmp;
 
   const labelWidth = {
     width:
