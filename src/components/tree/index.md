@@ -51,7 +51,8 @@ group:
 | onDragMoving             | 拖动过程中调用	    | Function	| -	|
 | onDragAfter              | 拖拽后调用	        | Function	| -	|
 | supportTooltip           | 是否启用tooltip，为true时将根据文本长度自动增加tooltip。如数据超大，建议设置为false以节省性能 | Boolean	| true	|
-| customNodeTpl           | 自定义节点内容 | Function	| -	|
+| customNodeTpl           | 添加自定义节点内容 | Function	| -	|
+| renderItem           | 自定义节点内容 | Function	| -	|
 | onLoadData           | 动态加载数据 | Function	| -	|
 | isDynamicLoad           | 动态加载数据 | bool	| false	|
 | showLine           | 线性样式 | bool	| false	|
