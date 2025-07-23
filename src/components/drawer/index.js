@@ -53,7 +53,7 @@ function Drawer(
 
   useEffect(() => {
     setSizeStyle(getSizeStyle(placement, size));
-  }, [placement]);
+  }, [placement, size]);
 
   useImperativeHandle(ref, () => ({
     open: () => {
