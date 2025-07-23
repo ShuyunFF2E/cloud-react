@@ -9,6 +9,16 @@ group:
   order: 3
 ---
 
+## 2.0.14 (2025-07-23)
+
+### Features
+
+- feat: [Tree] 新增 renderItem 属性 ([84164b9](https://github.com/ShuyunFF2E/cloud-react/commit/84164b9))
+
+### Bug Fixes
+
+- fix: [Drawer]解决抽屉更改 size 后，组件没有更新的问题 ([33899ef](https://github.com/ShuyunFF2E/cloud-react/commit/33899ef))
+
 ## 2.0.13 (2025-07-17)
 
 ### Features
