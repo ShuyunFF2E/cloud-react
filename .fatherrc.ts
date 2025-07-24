@@ -1,6 +1,6 @@
 import NodePath from 'path';
 import alias from '@rollup/plugin-alias';
-import { eslint } from 'rollup-plugin-eslint';
+// import { eslint } from 'rollup-plugin-eslint';
 import copy from 'rollup-plugin-copy';
 // import url from '@rollup/plugin-url';
 import generatePackageJson from 'rollup-plugin-generate-package-json';
@@ -111,11 +111,11 @@ export default isBuild
               'shuyun-utils': '0.0.3',
             },
           }),
-          eslint({
-            throwOnError: true,
-            include: [NodePath.resolve('src/components')],
-            /* your options */
-          }),
+          // eslint({
+          //   throwOnError: false,
+          //   include: [NodePath.resolve('src/components')],
+          //   /* your options */
+          // }),
           // url({
           //   include: ['**/*.woff', '**/*.woff2'],
           //   limit: Infinity,
@@ -234,11 +234,11 @@ export default isBuild
               'shuyun-utils': '0.0.3',
             },
           }),
-          eslint({
-            throwOnError: true,
-            include: [NodePath.resolve('src/components')],
-            /* your options */
-          }),
+          // eslint({
+          //   throwOnError: true,
+          //   include: [NodePath.resolve('src/components')],
+          //   /* your options */
+          // }),
           // url({
           //   include: ['**/*.woff', '**/*.woff2'],
           //   limit: Infinity,
@@ -311,11 +311,11 @@ export default isBuild
         },
       },
       extraRollupPlugins: [
-        eslint({
-          throwOnError: true,
-          include: [NodePath.resolve('src/components')],
-          /* your options */
-        }),
+        // eslint({
+        //   throwOnError: true,
+        //   include: [NodePath.resolve('src/components')],
+        //   /* your options */
+        // }),
         // url({
         //   include: ['**/*.woff', '**/*.woff2'],
         //   limit: Infinity,

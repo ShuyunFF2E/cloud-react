@@ -81,9 +81,8 @@ npm install
 ### 开发调试
 
 ```bash
-# 启动开发服务器，;并且在另一个控制台启动 watch 命令
-npm start
-npm run watch
+# 启动开发服务器
+npm run dev
 ```
 
 ### 构建
