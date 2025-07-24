@@ -14,32 +14,37 @@ function Group(props) {
 
   let checkedValue = value ? [ ...value ] : value;
 
-  const group = Children.map(children, (child) => cloneElement(child, {
-    disabled: disabled === undefined ? child.props.disabled : disabled,
+  const group = Children.map(children, (child) => {
+    if (child && child.type && [ 'Checkbox', 'ComplexCheckbox' ].includes(child.type.displayName)) {
+      return cloneElement(child, {
+        disabled: disabled === undefined ? child.props.disabled : disabled,
 
-    checked:
-        checkedValue === undefined
-          ? undefined
-          : checkedValue.indexOf(child.props.value) > -1,
+        checked:
+            checkedValue === undefined
+              ? undefined
+              : checkedValue.indexOf(child.props.value) > -1,
 
-    onChange(checked, val) {
-      if (checkedValue === undefined) {
-        checkedValue = [];
-      }
+        onChange(checked, val) {
+          if (checkedValue === undefined) {
+            checkedValue = [];
+          }
 
-      const index = checkedValue.indexOf(val);
+          const index = checkedValue.indexOf(val);
 
-      if (index > -1 && !checked) {
-        checkedValue.splice(index, 1);
-      }
+          if (index > -1 && !checked) {
+            checkedValue.splice(index, 1);
+          }
 
-      if (index === -1 && checked) {
-        checkedValue.push(val);
-      }
+          if (index === -1 && checked) {
+            checkedValue.push(val);
+          }
 
-      onChange(checkedValue);
-    },
-  }));
+          onChange(checkedValue);
+        },
+      });
+    }
+    return child;
+  });
 
   const classes = classNames(`${classSelector}-group`, {
     vertical: layout === 'v',
@@ -158,5 +163,7 @@ class Checkbox extends React.Component {
     );
   }
 }
+
+Checkbox.displayName = 'Checkbox';
 
 export default Checkbox;
