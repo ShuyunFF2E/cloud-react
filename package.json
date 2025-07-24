@@ -11,18 +11,18 @@
     "watch": "rimraf dist/* && father-build --watch",
     "deploy": "npm run docs:build && npm run docs:deploy",
     "release": "npm run build && npm publish dist",
-    "prettier": "prettier --write \"**/*.{js,jsx,tsx,ts,less,md,json}\"",
     "test": "umi-test",
     "test:coverage": "umi-test --coverage",
     "postversion": "dumi assets",
-    "lint": "eslint ./src/components --ext .js,.jsx",
-    "umi-lint": "umi-lint --eslint.ext='.js,jsx' ./src/components",
-    "precommit": "umi-lint --staged --eslint --prettier --fix",
     "new:component": "cp -r tpls/new-component src/components/new-component",
     "cli-version": "node ./scripts/generate-version.js",
     "postinstall": "patch-package",
     "changelog": "conventional-changelog -p angular -i docs/log.md -s && git add docs/log.md",
-    "changelog-all": "conventional-changelog --config -i docs/log1.md -s"
+    "changelog-all": "conventional-changelog --config -i docs/log1.md -s",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint:fix": "eslint --ext .js,.jsx,.ts,.tsx --fix",
+    "prettier": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,less,md}\"",
+    "prettier:check": "prettier --check \"**/*.{js,jsx,ts,tsx,json,css,less,md}\""
   },
   "auto-changelog": {
     "output": "docs/log.md"

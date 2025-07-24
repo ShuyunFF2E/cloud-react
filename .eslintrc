@@ -47,7 +47,10 @@
     "semi": ["error", "always"],
     "spaced-comment": ["error", "always"],
     "no-multi-spaces": "error",
-    "no-unused-expressions": ["error", { "allowShortCircuit": true, "allowTernary": true }],
+    "no-unused-expressions": [
+      "error",
+      { "allowShortCircuit": true, "allowTernary": true }
+    ],
     "no-param-reassign": ["error", { "props": true }],
     "no-return-assign": "error",
     "max-len": ["error", { "code": 140, "comments": 140 }],
@@ -59,20 +62,27 @@
     "object-curly-spacing": ["error", "always", { "arraysInObjects": true }],
     "comma-spacing": ["error", { "before": false, "after": true }],
     "arrow-spacing": ["error", { "before": true, "after": true }],
-		"lines-between-class-members": ["error", "always", { "exceptAfterSingleLine": true }],
-		"template-curly-spacing": ["error", "never"],
-		"space-infix-ops": ["error"],
-		"arrow-body-style": ["error", "as-needed"],
-		"no-undef": "error",
-		"no-multi-assign": "error",
-		"no-nested-ternary": "error",
-		"no-lonely-if": "error",
-		"no-unneeded-ternary": "error",
-		"no-case-declarations": "error",
-		"object-curly-newline": "off",
-		"array-bracket-spacing": "off",
-		"space-before-function-paren": "error",
-    "space-before-blocks": ["error", { "functions": "always", "keywords": "always", "classes": "always" }],
+    "lines-between-class-members": [
+      "error",
+      "always",
+      { "exceptAfterSingleLine": true }
+    ],
+    "template-curly-spacing": ["error", "never"],
+    "space-infix-ops": ["error"],
+    "arrow-body-style": ["error", "as-needed"],
+    "no-undef": "error",
+    "no-multi-assign": "error",
+    "no-nested-ternary": "error",
+    "no-lonely-if": "error",
+    "no-unneeded-ternary": "error",
+    "no-case-declarations": "error",
+    "object-curly-newline": "off",
+    "array-bracket-spacing": "off",
+    "space-before-function-paren": "error",
+    "space-before-blocks": [
+      "error",
+      { "functions": "always", "keywords": "always", "classes": "always" }
+    ],
     "no-underscore-dangle": "off",
     "global-require": "off",
     "jsx-a11y/no-static-element-interactions": "off",
@@ -87,11 +97,14 @@
     "import/extensions": "off",
 
     // react (eslint-plugin-react required)
-    "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }],
+    "react/jsx-filename-extension": [
+      "error",
+      { "extensions": [".js", ".jsx"] }
+    ],
     "react/jsx-no-duplicate-props": ["error"],
     "react/jsx-indent-props": ["error", 2],
     "react/jsx-indent": ["error", 2],
-    "react/jsx-first-prop-new-line": [ "error", "multiline" ],
+    "react/jsx-first-prop-new-line": ["error", "multiline"],
     "react/prop-types": "off",
     "react/no-children-prop": "off",
 
