@@ -89,15 +89,7 @@ group:
 | type | type枚举类型： `divider`  表示分割线 | String | '' |
 
 ### ImageText Props
-
-| 属性      | 说明                                         | 类型          | 默认值 |
-| --------- | -------------------------------------------- | ------------- | ------ |
-| imgSrc  | 图片地址                                   | string|ReactDom       | -  |
-| imgStyle     | 图片样式       | object | {}      |
-| label      | 下拉标题                | string        | -      |
-| desc | 下拉描述                         | string        | -      |
-| disabled | 下拉禁用状态 |  boolean | false |
-| icon | 图标模板 |  ReactDom | - |
+https://cloud-react.shuyun.com/v1/cloud-react/data/image-text
 
 ## 代码演示
 

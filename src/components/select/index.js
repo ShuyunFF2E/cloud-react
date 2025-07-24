@@ -11,7 +11,7 @@ import MultiSelect from './views/select/multi-select';
 import GroupSelect from './views/select/group-select';
 import Selected from './views/selected';
 import Option from './views/option';
-import ImageText from './views/image-text';
+import ImageText from '../image-text';
 import { selector } from './views/common';
 
 import { formatOptionSource, isGroupSelectPicker } from './utils';
