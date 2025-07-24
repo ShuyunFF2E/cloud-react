@@ -17,7 +17,7 @@ bodys.style.setProperty(`--shuyunBlue${i + 1}`,color)
 }
 }
 
-export const version = '2.0.12-3';
+export const version = '2.0.14';
 
 export { default as Avatar } from './avatar';
 
@@ -57,7 +57,11 @@ export { default as Field } from './field';
 
 export { default as Form } from './form';
 
+export { default as Format } from './format';
+
 export { default as Icon } from './icon';
+
+export { default as ImageText } from './image-text';
 
 export { default as Input } from './input';
 
@@ -66,6 +70,8 @@ export { default as InputNumber } from './input-number';
 export { default as InputTag } from './input-tag';
 
 export { default as Layout } from './layout';
+
+export { default as LightText } from './light-text';
 
 export { default as Loading } from './loading';
 

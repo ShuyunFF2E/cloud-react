@@ -92,6 +92,7 @@ export default defineConfig({
     .__dumi-default-layout-hero img { margin-top: -50px }
     .__dumi-default-layout-hero h1 { color: white !important }
     .__dumi-default-layout-hero .markdown { color: white !important }
+    .markdown .icon.icon-link { display: none }
     `,
   ],
 });
