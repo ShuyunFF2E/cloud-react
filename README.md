@@ -66,70 +66,6 @@ import Button from 'cloud-react/lib/button';
 import 'cloud-react/lib/button/style';
 ``` -->
 
-## 🎨 组件总览
-
-### 基础组件
-
-- **Button** - 按钮
-- **Icon** - 图标
-- **Avatar** - 头像
-- **Badge** - 徽标
-- **Tag** - 标签
-
-### 表单组件
-
-- **Input** - 输入框
-- **InputNumber** - 数字输入框
-- **InputTag** - 标签输入框
-- **Select** - 选择器
-- **Checkbox** - 复选框
-- **Radio** - 单选框
-- **Datepicker** - 日期选择器
-- **Cascader** - 级联选择器
-- **Slider** - 滑块
-- **Switch** - 开关
-- **Form** - 表单
-- **Field** - 表单项
-
-### 数据展示
-
-- **Table** - 表格
-- **CTable** - 增强表格
-- **Pagination** - 分页
-- **Tree** - 树形控件
-- **Transfer** - 穿梭框
-- **Progress** - 进度条
-- **Loading** - 加载中
-
-### 反馈组件
-
-- **Modal** - 对话框
-- **Drawer** - 抽屉
-- **Message** - 全局提示
-- **Notification** - 通知提醒框
-- **Popover** - 气泡卡片
-- **Tooltip** - 文字提示
-
-### 导航组件
-
-- **Menu** - 导航菜单
-- **BreadCrumbs** - 面包屑
-- **Tabs** - 标签页
-- **Step** - 步骤条
-- **Pagination** - 分页
-
-### 布局组件
-
-- **Layout** - 布局
-- **Card** - 卡片
-- **PageHeader** - 页头
-
-### 其他组件
-
-- **Upload** - 上传
-- **SearchBox** - 搜索框
-- **Format** - 数据格式化
-
 ## 🛠 开发
 
 ### 环境要求
@@ -161,6 +97,8 @@ npm run docs:build
 ```
 
 ### 提交代码格式
+
+> https://gitmoji.dev/
 
 ```bash
 git commit -m "feat: [组件名称]提交内容"
