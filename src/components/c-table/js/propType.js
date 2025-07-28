@@ -83,6 +83,7 @@ export const propTypes = {
   noScroll: PropTypes.bool,
   rcTableConfig: PropTypes.bool,
   configColumnType: PropTypes.oneOf(['default', 'complex']),
+  configPanelMaxHeight: PropTypes.number,
   // unControlledCheck: PropTypes.bool,
 };
 
@@ -166,5 +167,6 @@ export const defaultProps = {
   noScroll: false,
   rcTableConfig: {},
   configColumnType: 'default',
+  configPanelMaxHeight: undefined,
   // unControlledCheck: false,
 };

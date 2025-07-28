@@ -2,3 +2,11 @@ dist/
 docs/
 loader/
 *.min.js
+cloud-react-site/
+src/**/test/
+src/**/__test__/
+src/components/icon/libs/
+src/components/index.js
+scripts/
+*.config.js
+tests/

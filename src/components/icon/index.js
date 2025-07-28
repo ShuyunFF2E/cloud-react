@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { prefixCls, loadScript } from '@utils';
+import './libs/platIconfont';
+import { PLAT_MAP } from './constant';
 import './index.less';
 
 loadScript(
@@ -31,7 +33,7 @@ const ColorIcon = ({
     style={style}
     {...restProps}
   >
-    <use xlinkHref={`#icon-${type}`} />
+    <use xlinkHref={`#icon-${PLAT_MAP[type] || type}`} />
   </svg>
 );
 

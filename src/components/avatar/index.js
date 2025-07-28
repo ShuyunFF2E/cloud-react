@@ -53,10 +53,12 @@ export default function Avatar(props) {
   }
   return (
     <span
-      className={classnames(`${classSelector}`,
+      className={classnames(
+        `${classSelector}`,
         `${classSelector}-${shape}`,
         `${classSelector}-${size}`,
-        className)}
+        className,
+      )}
       style={style}
     >
       {renderChildren}

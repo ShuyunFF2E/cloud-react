@@ -122,10 +122,9 @@ class Picker extends Component {
    */
   handleValueChange = (output = '', isPop = false, isClickBtn = false) => {
     const { checkFlag } = this.state;
-    const value =
-      (output && checkFlag) || isClickBtn
-        ? this.props.formatValue(output)
-        : output || '';
+    const value = (output && checkFlag) || isClickBtn
+      ? this.props.formatValue(output)
+      : output || '';
     this.setState({
       currentValue: value ? value.toString().replace(/-/g, '/') : '',
     });
@@ -150,10 +149,9 @@ class Picker extends Component {
 
     const checkFlag = checkFormat(currentValue, tempMode, showTimePicker);
 
-    const checkValue =
-      checkFlag && currentValue
-        ? formatValue(displayNow(new Date(currentValue)), this.format)
-        : '';
+    const checkValue = checkFlag && currentValue
+      ? formatValue(displayNow(new Date(currentValue)), this.format)
+      : '';
 
     if (tempMode === enumObj.YEAR_MODEL) {
       return (
@@ -207,9 +205,8 @@ class Picker extends Component {
 
   // 关闭时 校验输入的是否正确
   handleClick = (e) => {
-    const isClickPicker =
-      this.containerRef.current.contains(e.target) ||
-      (this.popupRef.current && this.popupRef.current.contains(e.target));
+    const isClickPicker = this.containerRef.current.contains(e.target)
+      || (this.popupRef.current && this.popupRef.current.contains(e.target));
     const { checkFlag, visible, currentValue } = this.state;
     const { tempMode, formatValue } = this.props;
 
@@ -228,15 +225,14 @@ class Picker extends Component {
 
     // 校验通过，正常值
     if (!isClickPicker && currentValue && visible) {
-      const currentValueTemp =
-        tempMode === enumObj.YEAR_MODEL
-          ? { year: currentValue }
-          : transformObj(
-              formatValue(
-                displayNow(new Date(this.checkTimePicker())),
-                this.format,
-              ),
-            );
+      const currentValueTemp = tempMode === enumObj.YEAR_MODEL
+        ? { year: currentValue }
+        : transformObj(
+          formatValue(
+            displayNow(new Date(this.checkTimePicker())),
+            this.format,
+          ),
+        );
       this.onPopChange(currentValueTemp, false);
     }
   };
@@ -280,8 +276,8 @@ class Picker extends Component {
           const containerHeight = containerElement.getClientRects()[0].bottom;
 
           if (
-            containerRef.current.getClientRects()[0].bottom + height >
-            containerHeight
+            containerRef.current.getClientRects()[0].bottom + height
+            > containerHeight
           ) {
             wrapperElement.scrollIntoView({ behavior: 'smooth', block: 'end' });
           }
@@ -298,20 +294,15 @@ class Picker extends Component {
   };
 
   positionPop = () => {
-    const { left, top, bottom, width, height } =
-      this.containerRef.current.getBoundingClientRect();
+    const { left, top, bottom, width, height } = this.containerRef.current.getBoundingClientRect();
     const { isAppendToBody, position, height: popupHeight } = this.props;
-    const isBottomDistanceEnough =
-      bottom + popupHeight < this.document.documentElement.clientHeight;
-    const isRightDistanceEnough =
-      left + POPUP_WIDTH < this.document.documentElement.clientWidth;
-    const isLocationTop =
-      popupHeight < top && !isBottomDistanceEnough && position === 'auto';
-    const isLocationAlignRight =
-      left > POPUP_WIDTH &&
-      width < POPUP_WIDTH &&
-      !isRightDistanceEnough &&
-      position === 'auto';
+    const isBottomDistanceEnough = bottom + popupHeight < this.document.documentElement.clientHeight;
+    const isRightDistanceEnough = left + POPUP_WIDTH < this.document.documentElement.clientWidth;
+    const isLocationTop = popupHeight < top && !isBottomDistanceEnough && position === 'auto';
+    const isLocationAlignRight = left > POPUP_WIDTH
+      && width < POPUP_WIDTH
+      && !isRightDistanceEnough
+      && position === 'auto';
     const marginTop = isLocationTop ? '1px' : '-1px';
     if (isAppendToBody) {
       return {
@@ -356,15 +347,13 @@ class Picker extends Component {
       const { currentValue } = this.state;
 
       // 可输入长度 可输入斜杠数
-      const { replaceRule, lenRule, backslashRule } =
-        enumCheck[showTimePicker ? 'DATE_TIME_MODEL' : tempMode];
+      const { replaceRule, lenRule, backslashRule } = enumCheck[showTimePicker ? 'DATE_TIME_MODEL' : tempMode];
 
       const currentValueTemp = evt.target.value?.replace(replaceRule, ''); // 根据正则过滤掉符合的输入内容
-      const currentValueFinal =
-        currentValueTemp.length > lenRule ||
-        currentValueTemp.split('/').length > backslashRule + 1
-          ? currentValue.toString()
-          : currentValueTemp;
+      const currentValueFinal = currentValueTemp.length > lenRule
+        || currentValueTemp.split('/').length > backslashRule + 1
+        ? currentValue.toString()
+        : currentValueTemp;
 
       this.setState({
         currentValue: currentValueFinal,
@@ -400,11 +389,11 @@ class Picker extends Component {
             afterV
               ? dealData
               : {
-                  ...dealData,
-                  hour: 'other',
-                  minute: 'other',
-                  second: 'other',
-                },
+                ...dealData,
+                hour: 'other',
+                minute: 'other',
+                second: 'other',
+              },
           );
           // this.dateChild.changeCheckValue( afterV ? dealData : { ...dealData, hour: null, minute: null, second: null } );
         }
@@ -424,15 +413,14 @@ class Picker extends Component {
     }
 
     // 校验通过 数值抛出去
-    const currentValueTemp =
-      tempMode === enumObj.YEAR_MODEL
-        ? { year: currentValue }
-        : transformObj(
-            formatValue(
-              displayNow(new Date(this.checkTimePicker())),
-              this.format,
-            ),
-          );
+    const currentValueTemp = tempMode === enumObj.YEAR_MODEL
+      ? { year: currentValue }
+      : transformObj(
+        formatValue(
+          displayNow(new Date(this.checkTimePicker())),
+          this.format,
+        ),
+      );
     this.onPopChange(currentValueTemp, false);
   };
 
@@ -524,9 +512,9 @@ class Picker extends Component {
           />
         </div>
 
-        {visible &&
-          isAppendToBody &&
-          ReactDOM.createPortal(
+        {visible
+          && isAppendToBody
+          && ReactDOM.createPortal(
             <div
               className={`${selectorClass}-popup ${className}`}
               ref={this.popupRef}

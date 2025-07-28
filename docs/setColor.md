@@ -209,7 +209,7 @@ class ButtonDemo extends React.Component {
                   style={{
                     background: item,
                     color:
-                      index < 4 ? 'rgba(0, 0, 0, 0.85)' : 'rgb(255, 255, 255)',
+                      index < 4 ? 'rgba(0, 0, 0, 0.88)' : 'rgb(255, 255, 255)',
                   }}
                   onClick={() => onClickHandler(item)}
                 >
@@ -247,7 +247,7 @@ class ButtonDemo extends React.Component {
                           background: item.text,
                           color:
                             index < 3
-                              ? 'rgba(0, 0, 0, 0.85)'
+                              ? 'rgba(0, 0, 0, 0.88)'
                               : 'rgb(255, 255, 255)',
                         }}
                         onClick={(evt) => onClickHandler(evt, item.text)}
@@ -270,5 +270,5 @@ class ButtonDemo extends React.Component {
     );
   }
 }
-export default ButtonDemo
+export default ButtonDemo;
 ```

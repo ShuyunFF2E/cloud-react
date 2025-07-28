@@ -172,6 +172,7 @@ class Node extends Component {
       removeNode,
       addNode,
       customNodeTpl,
+      renderItem,
       isDynamicLoad,
       showLine,
       lineType,
@@ -267,6 +268,7 @@ class Node extends Component {
                 supportCheckbox={supportCheckbox}
                 supportTooltip={supportTooltip}
                 onDoubleClick={() => onDoubleClick(data)}
+                renderItem={tmp => renderItem?.(data, tmp)}
               />
               {/* 点击菜单 */}
               {supportMenu && menuType !== RIGHT_MENU && !disabled && (
@@ -407,6 +409,7 @@ function ShowSelection({
   onDoubleClick,
   onHandleSelect,
   supportTooltip,
+  renderItem,
 }) {
   // 显示形式，有弹框菜单的与没有弹框菜单的，是否需要tooltip的，单选与多选的
   let nodeClassName = 'node-name';
@@ -485,6 +488,9 @@ function ShowSelection({
       );
     }
   }
+
+  tmp = renderItem?.(tmp) || tmp;
+
   const labelWidth = {
     width:
       supportMenu && menuType === DIALOG_MENU

@@ -51,24 +51,24 @@ export default class Header extends Component {
       const { year: maxYear, month: maxMonth } = max;
       const { year: minYear, month: minMonth } = min;
       return (
-        _year * 12 + _currentMonth > maxYear * 12 + maxMonth ||
-        _year * 12 + _currentMonth < minYear * 12 + minMonth
+        _year * 12 + _currentMonth > maxYear * 12 + maxMonth
+        || _year * 12 + _currentMonth < minYear * 12 + minMonth
       );
     }
 
     if (max && !min) {
       const { year: maxYear, month: maxMonth } = max;
       return (
-        _year * 12 + _currentMonth > maxYear * 12 + maxMonth ||
-        _year < this.props.minYear
+        _year * 12 + _currentMonth > maxYear * 12 + maxMonth
+        || _year < this.props.minYear
       );
     }
 
     if (!max && min) {
       const { year: minYear, month: minMonth } = min;
       return (
-        _year * 12 + _currentMonth < minYear * 12 + minMonth ||
-        _year > this.props.maxYear
+        _year * 12 + _currentMonth < minYear * 12 + minMonth
+        || _year > this.props.maxYear
       );
     }
 

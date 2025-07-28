@@ -4,8 +4,8 @@ nav:
     title: Drawer 抽屉
     path: /cloud-react
 group:
-    order: 14
-    title: 数据
+    order: 5
+    title: 反馈
     path: /action
 ---
 
@@ -26,6 +26,7 @@ group:
 | wrapperClosable |  点击 外部区域/遮罩区域 是否可以关闭 Drawer	  |  boolean  |   false  | |
 | onCloseAfter |  关闭抽屉后的回调函数	  |  func  |   () => {}  | |
 | excludeClassList |  设置 wrapperClosable 为 true 后，配置元素类名，点击拥有该类名的元素，不会关闭抽屉	  |  array  |   []  | |
+| supportFullScreen |  是否支持全屏	  |  boolean  |   false  | |
 
 #### 打开抽屉
 ```js

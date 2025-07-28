@@ -4,9 +4,9 @@ nav:
     title: Progress 进度条
     path: /cloud-react
 group:
-    order: 1
-    title: 通用
-    path: /common
+    order: 5
+    title: 反馈
+    path: /action
 ---
 
 ### 何时使用
