@@ -1,8 +1,8 @@
 import { createContext } from 'react';
 
 const FormContext = createContext({
-	labelCol: {},
-	wrapperCol: {}
+  labelCol: {},
+  wrapperCol: {},
 });
 
 export default FormContext;

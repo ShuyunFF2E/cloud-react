@@ -82,8 +82,8 @@ class MonthGrid extends Component {
     }
     if (selectedYear === currentYear) {
       if (
-        (current < minYearMonth && currentYear === minYear) ||
-        (current > maxYearMonth && currentYear === maxYear)
+        (current < minYearMonth && currentYear === minYear)
+        || (current > maxYearMonth && currentYear === maxYear)
       ) {
         return ` ${disClass} `;
       }

@@ -8,51 +8,51 @@ import './index.less';
 const selector = `${prefixCls}-plaintext`;
 
 export default class Plaintext extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			status: props.isPlain
-		};
-	}
+  constructor(props) {
+    super(props);
+    this.state = {
+      status: props.isPlain,
+    };
+  }
 
-	handleViewPlainClick = () => {
-		this.setState({
-			status: true
-		});
-		this.props.onViewPlainClick();
-	};
+  handleViewPlainClick = () => {
+    this.setState({
+      status: true,
+    });
+    this.props.onViewPlainClick();
+  };
 
-	handleViewSecretClick = () => {
-		this.setState({
-			status: false
-		});
-		this.props.onViewSecretClick();
-	};
+  handleViewSecretClick = () => {
+    this.setState({
+      status: false,
+    });
+    this.props.onViewSecretClick();
+  };
 
-	render() {
-		const { text } = this.props;
-		const { status } = this.state;
+  render() {
+    const { text } = this.props;
+    const { status } = this.state;
 
-		return (
-			<div className={selector}>
-				{status && <Icon type="hide" onClick={this.handleViewSecretClick} />}
-				{!status && <Icon type="view" onClick={this.handleViewPlainClick} />}
-				<span>{text}</span>
-			</div>
-		);
-	}
+    return (
+      <div className={selector}>
+        {status && <Icon type="hide" onClick={this.handleViewSecretClick} />}
+        {!status && <Icon type="view" onClick={this.handleViewPlainClick} />}
+        <span>{text}</span>
+      </div>
+    );
+  }
 }
 
 Plaintext.propTypes = {
-	text: PropTypes.string,
-	isPlain: PropTypes.bool,
-	onViewPlainClick: PropTypes.func,
-	onViewSecretClick: PropTypes.func
+  text: PropTypes.string,
+  isPlain: PropTypes.bool,
+  onViewPlainClick: PropTypes.func,
+  onViewSecretClick: PropTypes.func,
 };
 
 Plaintext.defaultProps = {
-	text: '',
-	isPlain: false,
-	onViewPlainClick: noop,
-	onViewSecretClick: noop
+  text: '',
+  isPlain: false,
+  onViewPlainClick: noop,
+  onViewSecretClick: noop,
 };

@@ -16,10 +16,10 @@ function SubMenu(props) {
   let titleNode;
   if (!icon) {
     if (
-      inlineCollapsed &&
-      !parentPath.length &&
-      title &&
-      typeof title === 'string'
+      inlineCollapsed
+      && !parentPath.length
+      && title
+      && typeof title === 'string'
     ) {
       titleNode = <span>{title[0]}</span>;
     } else {

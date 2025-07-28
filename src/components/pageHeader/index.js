@@ -15,9 +15,11 @@ export default function PageHeader(props) {
     <div>
       {hasBreadCrumbElement && breadcrumb}
       <div
-        className={classnames(`${classSelector}`,
+        className={classnames(
+          `${classSelector}`,
           `${classSelector}-${size}`,
-          className)}
+          className,
+        )}
         style={style}
       >
         {onBack && <i className={classnames(`${classSelector}-icon`, 'cloud-icon icon-left')} onClick={onBack} />}

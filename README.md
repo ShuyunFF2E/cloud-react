@@ -97,19 +97,18 @@ npm run docs:build
 
 ### 提交代码格式
 
-> https://gitmoji.dev/
-
 ```bash
 git commit -m "feat: [组件名称]提交内容"
 git commit -m "fix: [组件名称]提交内容"
 ```
 
+**项目配置了代码保存前进行eslint格式化和代码提交前进行eslint校验，如果提交有问题，请联系管理员**
+
 ## 🎯 浏览器支持
 
-| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Edge >= 79                                                                                                                                                                                                      | >= 59                                                                                                                                                                                                             | >= 56                                                                                                                                                                                                         | >= 12                                                                                                                                                                                                         |
-
+| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| >= 59                                                                                                                                                                                                             | >= 56                                                                                                                                                                                                         |
 ## 🔗 相关链接
 
 - [在线文档](https://cloud-react.shuyun.com/v1/cloud-react/common/button)

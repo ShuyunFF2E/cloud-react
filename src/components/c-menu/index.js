@@ -53,10 +53,10 @@ class InternalMenu extends React.Component {
       >
         <div
           className={classNames(`${prefixCls}-menu`, className, {
-          [`${prefixCls}-menu-collapsed`]: this.props.inlineCollapsed,
-          [`${prefixCls}-menu-horizontal-header`]:this.props.mode === 'horizontal',
-          [`${prefixCls}-menu-vertical-header`]: (this.props.mode === 'vertical' || this.props.mode === 'inline') && header && !this.state.collapsed,
-        }, `${prefixCls}-menu-${theme}`)}
+            [`${prefixCls}-menu-collapsed`]: this.props.inlineCollapsed,
+            [`${prefixCls}-menu-horizontal-header`]: this.props.mode === 'horizontal',
+            [`${prefixCls}-menu-vertical-header`]: (this.props.mode === 'vertical' || this.props.mode === 'inline') && header && !this.state.collapsed,
+          }, `${prefixCls}-menu-${theme}`)}
         >
           {header && !this.state.collapsed && (
             <span className={`${prefixCls}-menu-header`}>{header}</span>

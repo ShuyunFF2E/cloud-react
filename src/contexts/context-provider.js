@@ -11,9 +11,9 @@ import { sandboxSelector } from '@utils';
  * getContext	：获取 body 或者隔离容器，只有在iframe场景且你的组件在Modal组件中使用时才会获取到隔离容器，不满足其中之一获取到的就是 rootDocument.body
  */
 export default createContext({
-	rootWindow: window,
-	rootDocument: document,
-	getContext() {
-		return document.querySelector(`.${sandboxSelector}`) || document.body;
-	}
+  rootWindow: window,
+  rootDocument: document,
+  getContext() {
+    return document.querySelector(`.${sandboxSelector}`) || document.body;
+  },
 });

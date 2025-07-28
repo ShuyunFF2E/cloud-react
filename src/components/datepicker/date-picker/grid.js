@@ -20,14 +20,14 @@ class Grid extends Component {
     this.state = {
       tempDay: day,
       tempHour:
-        (!showTimePicker && openTime.hour) ||
-        (checkValue ? checkValue.hour : _defaultTimes[0]),
+        (!showTimePicker && openTime.hour)
+        || (checkValue ? checkValue.hour : _defaultTimes[0]),
       tempMinute:
-        (!showTimePicker && openTime.minute) ||
-        (checkValue ? checkValue.minute : _defaultTimes[1]),
+        (!showTimePicker && openTime.minute)
+        || (checkValue ? checkValue.minute : _defaultTimes[1]),
       tempSecond:
-        (!showTimePicker && openTime.second) ||
-        (checkValue ? checkValue.second : _defaultTimes[2]),
+        (!showTimePicker && openTime.second)
+        || (checkValue ? checkValue.second : _defaultTimes[2]),
     };
   }
 
@@ -101,14 +101,12 @@ class Grid extends Component {
     const { year: minYear, month: minMonth, day: minDay } = displayNow(minDate);
     const { year: maxYear, month: maxMonth, day: maxDay } = displayNow(maxDate);
 
-    const min =
-      showTimePicker || !minDate
-        ? minDate
-        : new Date(`${minYear}/${minMonth}/${minDay} 00:00:00`);
-    const max =
-      showTimePicker || !maxDate
-        ? maxDate
-        : new Date(`${maxYear}/${maxMonth}/${maxDay} 23:59:59`);
+    const min = showTimePicker || !minDate
+      ? minDate
+      : new Date(`${minYear}/${minMonth}/${minDay} 00:00:00`);
+    const max = showTimePicker || !maxDate
+      ? maxDate
+      : new Date(`${maxYear}/${maxMonth}/${maxDay} 23:59:59`);
     const currentTime = new Date(
       `${year}/${month}/${tempDay} ${tempHour}:${tempMinute}:${tempSecond}`,
     ).getTime();
@@ -144,8 +142,7 @@ class Grid extends Component {
   };
 
   render() {
-    const { year, month, minDate, maxDate, showTimePicker, style, onPickDate } =
-      this.props;
+    const { year, month, minDate, maxDate, showTimePicker, style, onPickDate } = this.props;
     const { tempDay, tempHour, tempMinute, tempSecond } = this.state;
 
     const days = refreshDays(year, month);

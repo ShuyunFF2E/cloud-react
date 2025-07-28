@@ -38,10 +38,10 @@ class Grid extends Component {
     const { minMonth, maxMonth, minMonthDay, maxMonthDay } = this.getMonthDay();
     const { day: currentDay, month: currentMonth } = displayNow();
     if (
-      (minMonth && currentMonth < minMonth) ||
-      (maxMonth && currentMonth > maxMonth) ||
-      (currentMonth === minMonth && currentDay < minMonthDay) ||
-      (currentMonth === maxMonth && currentDay > maxMonthDay)
+      (minMonth && currentMonth < minMonth)
+      || (maxMonth && currentMonth > maxMonth)
+      || (currentMonth === minMonth && currentDay < minMonthDay)
+      || (currentMonth === maxMonth && currentDay > maxMonthDay)
     ) {
       return true;
     }
@@ -56,8 +56,8 @@ class Grid extends Component {
     const { month: selectedMonth } = this.props;
     const { minMonth, maxMonth, minMonthDay, maxMonthDay } = this.getMonthDay();
     if (
-      (minMonth && selectedMonth < minMonth) ||
-      (maxMonth && selectedMonth > maxMonth)
+      (minMonth && selectedMonth < minMonth)
+      || (maxMonth && selectedMonth > maxMonth)
     ) {
       return true;
     }
