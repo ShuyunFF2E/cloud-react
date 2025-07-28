@@ -49,7 +49,7 @@ class ColumnConfig extends Component {
           return dataCopy[index];
         }),
     ]);
-  }
+  };
 
   renderConfig = () => {
     const {
@@ -104,7 +104,7 @@ class ColumnConfig extends Component {
     >
       {typeof item.title === 'function' ? item.title(item) : item.title}
     </Checkbox>
-  )
+  );
 
   renderComplexConfig = () => {
     const {
@@ -245,7 +245,7 @@ class ColumnConfig extends Component {
         </div>
       </section>
     );
-  }
+  };
 
   render() {
     const {

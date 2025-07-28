@@ -59,24 +59,24 @@ class SingleTree extends React.Component {
     return null;
   }
 
-	onOptionsSearch = e => {
+  onOptionsSearch = e => {
 	  const { value } = e.target;
 	  this.setState({
 	    searchValue: value,
 	  });
 	  this.props.onSearch(value);
 	  this.onFilterDataSource(value);
-	};
+  };
 
-	clearSearch = () => {
+  clearSearch = () => {
 	  this.setState({
 	    searchValue: '',
 	  });
 	  this.props.onSearch('');
 	  this.onFilterDataSource('');
-	};
+  };
 
-	onFilterDataSource = searchText => {
+  onFilterDataSource = searchText => {
 	  const dataSource = ShuyunUtils.clone(this.props.dataSource);
 	  const openKeys = [];
 	  const search = node => node.filter(item => {
@@ -92,9 +92,9 @@ class SingleTree extends React.Component {
 	    return (!item.children || !item.children.length) && item.label.indexOf(String(searchText)) !== -1;
 	  });
 	  this.setState({ dataSource: search(dataSource), openKeys });
-	};
+  };
 
-	onClickOption = data => {
+  onClickOption = data => {
 	  if (data.children && data.children.length) {
 	    const { openKeys } = this.state;
 	    if (openKeys.includes(data.value)) {
@@ -114,17 +114,17 @@ class SingleTree extends React.Component {
 	  } else {
 	    this.props.onChange(data);
 	  }
-	};
+  };
 
-	getLabel = (label, searchText) => {
+  getLabel = (label, searchText) => {
 	  if (!searchText) {
 	    return label;
 	  }
 	  const regx = new RegExp(searchText, 'g');
 	  return label.replace(regx, `<span class="search-text">${searchText}</span>`);
-	};
+  };
 
-	renderChildren(dataSource) {
+  renderChildren(dataSource) {
 	  const child = ({ node, parentNode = {}, isRoot = false }) => {
 	    const { openKeys, selected, searchValue } = this.state;
 	    const isShow = isRoot || openKeys.includes(parentNode.value);
@@ -140,33 +140,33 @@ class SingleTree extends React.Component {
 	    });
 	    const label = this.getLabel(node.label, searchValue);
 	    return (
-  <div key={node.value} className={`${selector}-option-list`}>
-  <div className={classNames} style={{ paddingLeft: node.level * 20 }} onClick={this.onClickOption.bind(this, node)}>
-  <span dangerouslySetInnerHTML={{ __html: label }} title={node.label} />
-  {node.children && node.children.length ? <Icon type="right" className={iconClassNames} /> : null}
+        <div key={node.value} className={`${selector}-option-list`}>
+          <div className={classNames} style={{ paddingLeft: node.level * 20 }} onClick={this.onClickOption.bind(this, node)}>
+            <span dangerouslySetInnerHTML={{ __html: label }} title={node.label} />
+            {node.children && node.children.length ? <Icon type="right" className={iconClassNames} /> : null}
 	        </div>
-  {node.children && node.children.length ? node.children.map(cNode => child({ node: cNode, parentNode: node })) : null}
+          {node.children && node.children.length ? node.children.map(cNode => child({ node: cNode, parentNode: node })) : null}
 	      </div>
 	    );
 	  };
 	  return dataSource.map(node => child({ node, isRoot: true }));
-	}
+  }
 
-	render() {
+  render() {
 	  const { props, state, clearSearch, onOptionsSearch } = this;
 	  const { searchable, searchPlaceholder, dropdownClassName, dropdownStyle, emptyRender } = props;
 	  const { dataSource, searchValue } = state;
 	  const classNames = classnames(`${selector}-options`, dropdownClassName, `${selector}-single-options`);
 	  return (
-  <div className={classNames} style={dropdownStyle}>
-  {searchable && (
+      <div className={classNames} style={dropdownStyle}>
+        {searchable && (
 	        <OptionsSearch searchValue={searchValue} onOptionsSearch={onOptionsSearch} placeholder={searchPlaceholder} clearSearch={clearSearch} />
 	      )}
-  {this.renderChildren(dataSource)}
-  {!dataSource.length && <OptionsEmpty emptyRender={emptyRender} />}
+        {this.renderChildren(dataSource)}
+        {!dataSource.length && <OptionsEmpty emptyRender={emptyRender} />}
 	    </div>
 	  );
-	}
+  }
 }
 
 SingleTree.propTypes = {

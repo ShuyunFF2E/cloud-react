@@ -14,6 +14,7 @@
     }
   },
   "rules": {
+    "prefer-regex-literals": "off",
     "prefer-object-spread": 0,
     "react/jsx-props-no-spreading": 0,
     "react/destructuring-assignment": 0,
@@ -38,7 +39,6 @@
     "react/forbid-elements": [1, { "forbid": [] }],
 
     //// -----
-    "no-unused-vars": ["error", { "vars": "all" }],
     "indent": ["error", 2, { "SwitchCase": 1 }],
 
     "react/jsx-no-target-blank": "error",
@@ -51,9 +51,8 @@
       "error",
       { "allowShortCircuit": true, "allowTernary": true }
     ],
-    "no-param-reassign": ["error", { "props": true }],
     "no-return-assign": "error",
-    "max-len": ["error", { "code": 140, "comments": 140 }],
+    "max-len": ["error", { "code": 200, "comments": 200 }],
     "quote-props": ["error", "as-needed"],
     "eqeqeq": "error",
     "new-cap": "error",
@@ -69,7 +68,7 @@
     ],
     "template-curly-spacing": ["error", "never"],
     "space-infix-ops": ["error"],
-    "arrow-body-style": ["error", "as-needed"],
+    "arrow-body-style": "off",
     "no-undef": "error",
     "no-multi-assign": "error",
     "no-nested-ternary": "error",
@@ -102,18 +101,51 @@
       { "extensions": [".js", ".jsx"] }
     ],
     "react/jsx-no-duplicate-props": ["error"],
-    "react/jsx-indent-props": ["error", 2],
-    "react/jsx-indent": ["error", 2],
+    "react/jsx-indent-props": "off",
+    "react/jsx-indent": "off",
+    "no-promise-executor-return": "off",
+    "no-param-reassign": "off",
+    "class-methods-use-this": "off",
     "react/jsx-first-prop-new-line": ["error", "multiline"],
     "react/prop-types": "off",
     "react/no-children-prop": "off",
 
     "react/no-string-refs": "off", // close temporally
-    "react/no-array-index-key": "error",
+    "react/no-array-index-key": "warn",
     "react/jsx-boolean-value": "error",
     "react/no-deprecated": "warn",
     "react/require-default-props": "off",
-    "react/jsx-wrap-multilines": "off"
+    "react/jsx-wrap-multilines": "off",
+    "no-mixed-spaces-and-tabs": "off",
+    "no-tabs": "off",
+    "react/no-danger": "off",
+    "react/no-unknown-property": "off",
+    "react/no-unused-class-component-methods": "off",
+    "no-unused-vars": "warn",
+    "max-classes-per-file": "off",
+    "react/jsx-no-useless-fragment": "off",
+    "react/jsx-no-constructed-context-values": "off",
+    "brace-style": "off",
+    "default-param-last": "off",
+    "no-use-before-define": "off",
+    "prefer-const": "warn",
+    "react/jsx-closing-tag-location": "off",
+    "react/state-in-constructor": "warn",
+
+    // 函数组件配置
+    "react/function-component-definition": [
+      "warn",
+      {
+        "namedComponents": [
+          "function-declaration",
+          "arrow-function",
+          "function-expression"
+        ],
+        "unnamedComponents": ["arrow-function", "function-expression"]
+      }
+    ],
+    "react/prefer-stateless-function": "off",
+    "react/jsx-one-expression-per-line": "off"
   },
   "globals": {
     "window": true,

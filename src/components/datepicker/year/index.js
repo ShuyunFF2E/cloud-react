@@ -12,10 +12,9 @@ export default class YearPicker extends Component {
   render() {
     const { value, defaultValue } = this.props;
     const time = value && typeof value === 'number' ? String(value) : value;
-    const defaultTime =
-      defaultValue && typeof defaultValue === 'number'
-        ? String(defaultValue)
-        : defaultValue;
+    const defaultTime = defaultValue && typeof defaultValue === 'number'
+      ? String(defaultValue)
+      : defaultValue;
     return (
       <Picker
         {...this.props}

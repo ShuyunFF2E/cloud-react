@@ -35,7 +35,7 @@ export default class InputTag extends Component {
 
   componentDidUpdate(prevProps) {
     this.computedInputWidth();
-    if(prevProps?.data !== this.props?.data) {
+    if (prevProps?.data !== this.props?.data) {
       this.setState(() => ({
         data: this.props.data || [],
       }));

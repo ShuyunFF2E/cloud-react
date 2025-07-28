@@ -5,6 +5,7 @@
   "scripts": {
     "gen:index": "node ./scripts/generate-index.js",
     "gen:doc": "node ./scripts/generate-doc.js",
+    "dev": "concurrently \"npm run start\" \"npm run watch\"",
     "start": "npm run gen:index && dumi dev",
     "site": "npm run gen:index && father-build --dev && dumi build",
     "build": "rimraf dist/* && father-build --no-clean && node ./scripts/pre-publish.js",
@@ -19,10 +20,9 @@
     "postinstall": "patch-package",
     "changelog": "conventional-changelog -p angular -i docs/log.md -s && git add docs/log.md",
     "changelog-all": "conventional-changelog --config -i docs/log1.md -s",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "lint:fix": "eslint --ext .js,.jsx,.ts,.tsx --fix",
-    "prettier": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,less,md}\"",
-    "prettier:check": "prettier --check \"**/*.{js,jsx,ts,tsx,json,css,less,md}\""
+    "lint": "eslint . --ext .js,.jsx",
+    "lint:fix": "eslint --ext .js,.jsx --fix .",
+    "format": "npm run lint:fix"
   },
   "auto-changelog": {
     "output": "docs/log.md"
@@ -88,10 +88,13 @@
     "@rollup/plugin-alias": "3.1.9",
     "@rollup/plugin-url": "6.1.0",
     "@types/react-is": "17.0.4",
+    "@typescript-eslint/eslint-plugin": "^5.62.0",
+    "@typescript-eslint/parser": "^5.62.0",
     "@umijs/test": "3.5.41",
     "auto-changelog": "*",
     "babel-eslint": "10.1.0",
     "babel-plugin-transform-react-remove-prop-types": "0.4.24",
+    "concurrently": "^9.2.0",
     "conventional-changelog": "^6.0.0",
     "conventional-changelog-cli": "^5.0.0",
     "cross-env": "7.0.3",
@@ -99,12 +102,12 @@
     "enzyme": "3.11.0",
     "enzyme-adapter-react-16": "1.15.7",
     "enzyme-to-json": "3.6.2",
-    "eslint": "7.32.0",
-    "eslint-config-airbnb": "18.2.1",
+    "eslint": "^8.57.1",
+    "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "8.8.0",
     "eslint-import-resolver-alias": "1.1.2",
     "eslint-plugin-import": "2.27.5",
-    "eslint-plugin-jest": "24.7.0",
+    "eslint-plugin-jest": "^27.9.0",
     "eslint-plugin-jsx-a11y": "6.7.1",
     "eslint-plugin-prettier": "3.4.1",
     "eslint-plugin-react": "7.32.2",
@@ -126,7 +129,14 @@
   },
   "husky": {
     "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "lint-staged"
     }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx}": [
+      "eslint --ext .js,.jsx --fix .",
+      "git add"
+    ]
   }
 }

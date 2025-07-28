@@ -205,8 +205,8 @@ export default class Field {
         } else if (typeof fieldMeta.value === 'string') {
           value = '';
         } else if (
-          typeof fieldMeta.value === 'object' &&
-          Array.isArray(fieldMeta.value)
+          typeof fieldMeta.value === 'object'
+          && Array.isArray(fieldMeta.value)
         ) {
           value = [];
         }
@@ -236,13 +236,13 @@ export default class Field {
         if (typeof fieldMeta.value === 'boolean') {
           value = false;
         } else if (
-          typeof fieldMeta.value === 'string' ||
-          typeof fieldMeta.value === 'number'
+          typeof fieldMeta.value === 'string'
+          || typeof fieldMeta.value === 'number'
         ) {
           value = '';
         } else if (
-          typeof fieldMeta.value === 'object' &&
-          Array.isArray(fieldMeta.value)
+          typeof fieldMeta.value === 'object'
+          && Array.isArray(fieldMeta.value)
         ) {
           value = [];
         }
@@ -273,10 +273,9 @@ export default class Field {
 
   validate = (names, callback) => {
     const notFields = typeof names === 'function';
-    const _names =
-      notFields || names.length === 0
-        ? Object.keys(this.fieldsMeta)
-        : [...names];
+    const _names = notFields || names.length === 0
+      ? Object.keys(this.fieldsMeta)
+      : [...names];
     const _callback = notFields ? names : callback;
 
     const errorPromises = [];
@@ -333,10 +332,9 @@ export default class Field {
 
   __onChange__ = (name, evt, ...others) => {
     const fieldMeta = this.fieldsMeta[name];
-    fieldMeta.value =
-      evt !== null && typeof evt === 'object' && 'target' in evt
-        ? evt.target[fieldMeta.valueName]
-        : evt;
+    fieldMeta.value = evt !== null && typeof evt === 'object' && 'target' in evt
+      ? evt.target[fieldMeta.valueName]
+      : evt;
 
     fieldMeta.change(evt, ...others);
     this.validate([name]);

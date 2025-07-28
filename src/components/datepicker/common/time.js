@@ -197,14 +197,13 @@ class Time extends Component {
     const { type, disabled, className, style } = this.props;
     const { hour, minute, second } = this.state;
 
-    const classes =
-      type === 'alone'
-        ? classnames({
-            [timeSelectorClass]: true,
-            [`${timeSelectorClass}-disabled`]: disabled,
-            [className]: true,
-          })
-        : `inner-${timeSelectorClass}`;
+    const classes = type === 'alone'
+      ? classnames({
+        [timeSelectorClass]: true,
+        [`${timeSelectorClass}-disabled`]: disabled,
+        [className]: true,
+      })
+      : `inner-${timeSelectorClass}`;
 
     return (
       <div className={classes} onBlur={this.handleInpputBlur} style={style}>
