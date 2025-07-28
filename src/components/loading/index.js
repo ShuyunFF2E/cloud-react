@@ -125,7 +125,7 @@ Loading.propTypes = {
   tip: PropTypes.string,
   delay: PropTypes.number,
   className: PropTypes.string,
-  style: PropTypes.object
+  style: PropTypes.object,
 };
 
 Loading.defaultProps = {
@@ -135,7 +135,7 @@ Loading.defaultProps = {
   tip: '',
   delay: 0,
   className: '',
-  style: {}
+  style: {},
 };
 
 export default Loading;

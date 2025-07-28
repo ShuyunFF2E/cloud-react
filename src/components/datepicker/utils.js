@@ -83,15 +83,15 @@ function getMonthData(year, month) {
 
   const prevRange = getMonthSize(_year, prevMonth);
 
-  for (let i = 0; i < dayBefore; ) {
+  for (let i = 0; i < dayBefore;) {
     prevMonthDays.push(prevRange - i);
     i += 1;
   }
-  for (let j = 1; j <= dayAfter; ) {
+  for (let j = 1; j <= dayAfter;) {
     nextMonthDays.push(j);
     j += 1;
   }
-  for (let k = 0; k < monthSize; ) {
+  for (let k = 0; k < monthSize;) {
     curMonthDays.push(k + 1);
     k += 1;
   }
@@ -100,7 +100,7 @@ function getMonthData(year, month) {
   if (days.length < 42) {
     const lastDay = days[days.length - 1];
     const startNextDay = lastDay === monthSize ? 0 : lastDay;
-    for (let l = 0; l < 7; ) {
+    for (let l = 0; l < 7;) {
       nextMonthDays.push(startNextDay + l + 1);
       l += 1;
     }
@@ -191,24 +191,24 @@ export function checkFormat(value = '', tempMode, showTimePicker) {
   if (tempMode === enumObj.YEAR_MONTH_MODEL) {
     const [year, month] = splitAry;
     return (
-      splitAry.length === 2 &&
-      regularYear.test(year) &&
-      regularMonthDay.test(month) &&
-      month > 0 &&
-      month < 13
+      splitAry.length === 2
+      && regularYear.test(year)
+      && regularMonthDay.test(month)
+      && month > 0
+      && month < 13
     );
   }
 
   if (tempMode === enumObj.MONTH_DAY_MODEL) {
     const [month, day] = splitAry;
     return (
-      splitAry.length === 2 &&
-      regularMonthDay.test(month) &&
-      regularMonthDay.test(day) &&
-      month > 0 &&
-      month < 13 &&
-      day > 0 &&
-      day < getMonthMaxDay('', month) + 1
+      splitAry.length === 2
+      && regularMonthDay.test(month)
+      && regularMonthDay.test(day)
+      && month > 0
+      && month < 13
+      && day > 0
+      && day < getMonthMaxDay('', month) + 1
     );
   }
 
@@ -218,16 +218,15 @@ export function checkFormat(value = '', tempMode, showTimePicker) {
     const [year, month, day] = beforeValue;
 
     // 校验年月日
-    flag =
-      beforeValue.length === 3 &&
-      regularYear.test(year) &&
-      regularMonthDay.test(month) &&
-      regularMonthDay.test(day);
+    flag = beforeValue.length === 3
+      && regularYear.test(year)
+      && regularMonthDay.test(month)
+      && regularMonthDay.test(day);
 
     // 校验正确，判断月份 和 日期是否正确
     if (
-      flag &&
-      (month < 1 || month > 12 || day < 1 || day > getMonthMaxDay(year, month))
+      flag
+      && (month < 1 || month > 12 || day < 1 || day > getMonthMaxDay(year, month))
     ) {
       return false;
     }
@@ -246,16 +245,16 @@ export function checkFormat(value = '', tempMode, showTimePicker) {
       const afterValue = values[1].split(':');
       const [hour, minute, second] = afterValue;
       if (
-        afterValue.length !== 3 ||
-        !hour ||
-        !minute ||
-        !second ||
-        hour < 0 ||
-        hour > 23 ||
-        minute < 0 ||
-        minute > 59 ||
-        second < 0 ||
-        second > 59
+        afterValue.length !== 3
+        || !hour
+        || !minute
+        || !second
+        || hour < 0
+        || hour > 23
+        || minute < 0
+        || minute > 59
+        || second < 0
+        || second > 59
       ) {
         return false;
       }

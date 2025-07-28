@@ -29,8 +29,8 @@ class Week extends Component {
 
     if (minDate && currentTimeStamp.getTime() <= minDateStamp.getTime()) {
       if (
-        currentMonth === minDateStamp.getMonth() &&
-        currentDate === minDateStamp.getDate()
+        currentMonth === minDateStamp.getMonth()
+        && currentDate === minDateStamp.getDate()
       ) {
         return false;
       }
@@ -39,8 +39,8 @@ class Week extends Component {
 
     if (maxDate && currentTimeStamp.getTime() >= maxDateStamp.getTime()) {
       if (
-        currentMonth === maxDateStamp.getMonth() &&
-        currentDate === maxDateStamp.getDate()
+        currentMonth === maxDateStamp.getMonth()
+        && currentDate === maxDateStamp.getDate()
       ) {
         return false;
       }

@@ -102,7 +102,7 @@ class Upload extends Component {
       selectPic: item,
       isShowPreview: !!item.url,
     });
-  }
+  };
 
   handleChange = () => {
     // 已选择文件数量校验，如果没有选择文件的时候不允许点击上传按钮
@@ -137,7 +137,7 @@ class Upload extends Component {
     });
 
     this.onClick();
-  }
+  };
 
   handleRemove = (file) => {
     const { onRemove } = this.props;
@@ -172,7 +172,7 @@ class Upload extends Component {
       return item;
     });
     return newFile[0];
-  }
+  };
 
   handleSuccess = (response, file) => {
     try {
@@ -228,7 +228,7 @@ class Upload extends Component {
    */
   async handleBeforeUpload(file) {
     const {
-      size, unit, accept, onBeforeUpload, acceptErrorTip
+      size, unit, accept, onBeforeUpload, acceptErrorTip,
     } = this.props;
 
     let isSizeInvalidate;
@@ -251,7 +251,7 @@ class Upload extends Component {
       const fileNames = file.name.split('.') || [];
       const fileType = `.${fileNames[fileNames.length - 1]}`;
       if (!accept.includes(file.type) && !accept.includes(fileType)) {
-        Message.error(acceptErrorTip ? acceptErrorTip : `仅支持上传${accept}格式的文件`);
+        Message.error(acceptErrorTip || `仅支持上传${accept}格式的文件`);
         this.ref.current.value = '';
         return false;
       }
@@ -315,7 +315,7 @@ class Upload extends Component {
       },
     };
     this.requests[id] = request(option);
-  }
+  };
 
   abort() {
     Object.keys(this.requests).forEach((id) => {
