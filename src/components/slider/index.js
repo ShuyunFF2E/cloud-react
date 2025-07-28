@@ -11,6 +11,6 @@ const Slider = ({
   ...props
 }) => {
   return <RCSlider prefixCls={`${prefixCls}-slider`} {...props} />;
-}
+};
 
 export default Slider;

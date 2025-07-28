@@ -20,10 +20,10 @@ export default class MenuItem extends React.Component {
     }
     if (!icon || (isValidElement(children) && children.type === 'span')) {
       if (
-        inlineCollapsed &&
-        firstLevel &&
-        children &&
-        typeof children === 'string'
+        inlineCollapsed
+        && firstLevel
+        && children
+        && typeof children === 'string'
       ) {
         return <span>{children.charAt(0)}</span>;
       }
@@ -36,18 +36,18 @@ export default class MenuItem extends React.Component {
     return (
       isValidElement(icon) ? <span className={`${prefixCls}-menu-title-icon`}>
         { cloneElement(icon, {
-        className: classNames(icon.props?.className),
-      })}
+          className: classNames(icon.props?.className),
+        })}
       </span>
         : ''
-    )
+    );
   }
 
   transformLink(children) {
     if ((children.type === 'a' || children.type?.displayName === 'Link') && this.context.firstLevel) {
-      return children.props.children
+      return children.props.children;
     }
-      return children;
+    return children;
   }
 
   render() {
@@ -57,7 +57,8 @@ export default class MenuItem extends React.Component {
     return (
       <Item
         {...rest}
-        className={classNames({ [`${prefixCls}-menu-title`]: firstLevel && !this.props.disabled }, className)}>
+        className={classNames({ [`${prefixCls}-menu-title`]: firstLevel && !this.props.disabled }, className)}
+      >
         {inlineCollapsed && firstLevel ? (
           <Tooltip placement="right" content={this.transformLink(children)}>
             {this.renderIcon()}
@@ -65,8 +66,8 @@ export default class MenuItem extends React.Component {
           </Tooltip>
         ) : (
           <>
-              {this.renderIcon()}
-              {this.renderItemChildren()}
+            {this.renderIcon()}
+            {this.renderItemChildren()}
           </>
         )}
       </Item>

@@ -106,7 +106,7 @@ function Popover(props) {
           </div>
         </section>
 
-        <section className={classnames(`${classSelector}-btn`, {[`${classSelector}-reverse-btn`]: isReverseBtn})} ref={ref}>
+        <section className={classnames(`${classSelector}-btn`, { [`${classSelector}-reverse-btn`]: isReverseBtn })} ref={ref}>
           {showCancelBtn && (
             <Button
               onClick={handleCancelClick}

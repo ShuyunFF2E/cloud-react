@@ -28,7 +28,7 @@ class Prompt extends React.Component {
     outerClassName: '',
     isReverseBtn: false,
     className: '',
-    footerStyle: {}
+    footerStyle: {},
   };
 
   static propTypes = {
@@ -160,7 +160,7 @@ class Prompt extends React.Component {
       cancelBtnOpts,
       title,
       infoText,
-      footerStyle
+      footerStyle,
     } = this.props;
     const promptStyle = {
       ...style,
@@ -185,7 +185,7 @@ class Prompt extends React.Component {
           visible
           footerStyle={{
             ...footerStyle,
-            padding: '0 24px 24px'
+            padding: '0 24px 24px',
           }}
           type={type}
           okText={okText}

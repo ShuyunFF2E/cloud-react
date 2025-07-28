@@ -5,40 +5,40 @@ import { prefixCls } from '@utils';
 import './index.less';
 
 function generator({ suffixCls, tagName }) {
-	return BasicComponent => {
-		return class extends Component {
-			render() {
-				const classes = `${prefixCls}-${suffixCls}`;
-				return <BasicComponent prefixClass={classes} tagName={tagName} {...this.props} />;
-			}
-		};
-	};
+  return BasicComponent => {
+    return class extends Component {
+      render() {
+        const classes = `${prefixCls}-${suffixCls}`;
+        return <BasicComponent prefixClass={classes} tagName={tagName} {...this.props} />;
+      }
+    };
+  };
 }
 
 const Basic = props => {
-	const { prefixClass, className, children, tagName, ...rest } = props;
-	const classes = classNames(prefixClass, className);
-	return React.createElement(tagName, { className: classes, ...rest }, children);
+  const { prefixClass, className, children, tagName, ...rest } = props;
+  const classes = classNames(prefixClass, className);
+  return React.createElement(tagName, { className: classes, ...rest }, children);
 };
 
 class BasicLayout extends Component {
-	render() {
-		const { prefixClass, className, children, hasSider, tagName: Tag, ...others } = this.props;
+  render() {
+    const { prefixClass, className, children, hasSider, tagName: Tag, ...others } = this.props;
 
-		const classString = classNames(
-			prefixClass,
-			{
-				[`${prefixClass}-has-sider`]: hasSider
-			},
-			className
-		);
+    const classString = classNames(
+      prefixClass,
+      {
+        [`${prefixClass}-has-sider`]: hasSider,
+      },
+      className,
+    );
 
-		return (
-			<Tag className={classString} {...others}>
-				{children}
-			</Tag>
-		);
-	}
+    return (
+      <Tag className={classString} {...others}>
+        {children}
+      </Tag>
+    );
+  }
 }
 
 const Layout = generator({ suffixCls: 'layout', tagName: 'section' })(BasicLayout);
