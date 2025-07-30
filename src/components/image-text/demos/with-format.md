@@ -1,13 +1,13 @@
 ---
 order: 2
-title: 带描述文本
-desc: 展示图片、标题和描述信息
+title: 结合 Format 组件使用
+desc: 结合 Format 组件使用
 ---
 
 ```jsx
 /**
- * title: 带描述文本
- * desc: 展示图片、标题和描述信息
+ * title: 结合 Format 组件使用
+ * desc: 结合 Format 组件使用，超长展示 Tooltip 气泡
  */
 import React from "react";
 import { ImageText, Format } from "cloud-react";
@@ -26,8 +26,12 @@ class WithDescDemo extends React.Component {
         <br />
         <ImageText
           imgSrc="https://avatars.githubusercontent.com/u/34151318?v=4"
-          label="用户信息"
-          desc="用户角色：管理员"
+          label={
+            <Format.TextTpl
+              value="这是产品的详细描述信息，可以包含多个字符，这是产品的详细描述信息，可以包含多个字符"
+              line={2}
+            />
+          }
         />
       </div>
     );

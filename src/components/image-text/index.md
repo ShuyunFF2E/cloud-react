@@ -38,6 +38,10 @@ group:
 
 <embed src="@components/image-text/demos/with-desc.md" />
 
+### 结合 Format 组件使用
+
+<embed src="@components/image-text/demos/with-format.md" />
+
 ### 禁用状态
 
 <embed src="@components/image-text/demos/disabled.md" />
