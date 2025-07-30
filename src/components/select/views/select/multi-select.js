@@ -55,8 +55,13 @@ export default function MultiSelect(props) {
     handleSelect,
     selectAllText,
     labelKey,
+    onHoverChange = noop,
+    dropdownConfig,
+    selectInfoKey,
+    open,
   } = props;
   const [ options, setOptions ] = useState(dataSource);
+  const [hoveredOption, setHoveredOption] = useState(null);
   const [ values, setValues ] = useState(value);
   const [ groupValue ] = useState(() => {
     const result = Children.map(dataSource, (child) => {
@@ -88,6 +93,16 @@ export default function MultiSelect(props) {
     handleSelect();
   };
 
+  useEffect(() => {
+    setHoveredOption(null);
+    onHoverChange(null);
+  }, [open]);
+
+  const handleOptionHover = (item) => {
+    setHoveredOption(item);
+    onHoverChange(item);
+  };
+
   const handleCheckAll = (checked) => {
     const result = Children.map(dataSource, (child) => {
       const { value: childValue, disabled } = child.props;
@@ -107,6 +122,7 @@ export default function MultiSelect(props) {
       multiple: true,
       isSelected: values.includes(child.props.value),
       onChange: onOptionChange,
+      onHover: (item) => item && handleOptionHover(item, index),
       onUnlimitedChange: () => onUnlimitedChange({
         ...child.props,
         ...(dataSource?.[index]?.props || {}),
@@ -133,34 +149,64 @@ export default function MultiSelect(props) {
   }, [ values ]);
 
   return (
-    <div className={classNames}>
-      <div>
-        {!views.length && <OptionsEmpty emptyRender={emptyRender} />}
-        <div className={`${selector}-multiple-options`}>
-          <div className={`${selector}-option-list`}>
-            {hasSelectAll && !!views.length && (
-              <Checkbox
-                checked={checkAll}
-                indeterminate={indeterminate}
-                onChange={handleCheckAll}
-                className={`${selector}-option ${selector}-option-select-all`}
-              >
-                {selectAllText}
-              </Checkbox>
-            )}
-            {views}
+    <div
+      className={`${selector}-select-panel-container`}
+    >
+      <div
+        className={classNames}
+        style={
+          hoveredOption?.[selectInfoKey]
+            ? { display: 'flex', flex: 1, position: 'relative' }
+            : {}
+        }
+      >
+        <div
+          style={
+            dropdownConfig?.width
+              ? { width: dropdownConfig?.leftWidth, minWidth: dropdownConfig?.leftWidth }
+              : {}
+          }
+        >
+          {!views.length && <OptionsEmpty emptyRender={emptyRender} />}
+          <div
+            className={`${selector}-multiple-options`}
+            style={
+              dropdownConfig?.width
+                ? { width: dropdownConfig?.leftWidth, minWidth: dropdownConfig?.leftWidth }
+                : {}
+            }
+          >
+            <div className={`${selector}-option-list`}>
+              {hasSelectAll && !!views.length && (
+                <Checkbox
+                  checked={checkAll}
+                  indeterminate={indeterminate}
+                  onChange={handleCheckAll}
+                  className={`${selector}-option ${selector}-option-select-all`}
+                >
+                  {selectAllText}
+                </Checkbox>
+              )}
+              {views}
+            </div>
           </div>
         </div>
+        {hoveredOption?.[selectInfoKey] && (
+          <div className={`${selector}-info-panel`}>
+            <div className={`${selector}-info-panel-title`}>{hoveredOption.label || hoveredOption.value}</div>
+            <div className={`${selector}-info-panel-content`}>{hoveredOption?.[selectInfoKey]}</div>
+          </div>
+        )}
+        {hasConfirmButton && (
+          <ConfirmBtn
+            onOk={onOk}
+            onCancel={onCancel}
+            okBtnText={okBtnText}
+            cancelBtnText={cancelBtnText}
+            confirmTemplate={confirmTemplate}
+          />
+        )}
       </div>
-      {hasConfirmButton && (
-        <ConfirmBtn
-          onOk={onOk}
-          onCancel={onCancel}
-          okBtnText={okBtnText}
-          cancelBtnText={cancelBtnText}
-          confirmTemplate={confirmTemplate}
-        />
-      )}
     </div>
   );
 }

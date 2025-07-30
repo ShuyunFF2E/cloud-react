@@ -99,6 +99,7 @@ export default class Selected extends React.Component {
         selectAllText,
         borderRadiusSize,
         scrollSelected,
+        selectInfoKey,
       },
       state: { selectedList, clear },
       onMouseEnter,
@@ -170,6 +171,7 @@ export default class Selected extends React.Component {
           optionRender={optionRender}
           selectAllText={selectAllText}
           scrollSelected={scrollSelected}
+          selectInfoKey={selectInfoKey}
         />
         <Icon type="close-fill-1" className={clearClasses} onClick={onClear} />
         <Icon type="search" className={searchClasses} />

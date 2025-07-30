@@ -49,12 +49,14 @@ function getScrollOffset(ele, scrollContainer = document.body, type) {
 }
 
 // 获取方向
-function getDirection(tooltip, target, placement) {
+function getDirection(tooltip, target, placement, defaultPlacement = CONFIG_PLACE.top) {
 	const { top, left } = getAbsPosition(target);
 	const targetRect = target.getBoundingClientRect();
 
-	let main = 'top';
-	let vice = 'center';
+  const [p1, p2] = defaultPlacement?.split('-')
+
+	let main = p1 || 'top';
+	let vice = p2 || 'center';
 
 	if (placement === 'auto') {
 		if (top - tooltip.offsetHeight < top - targetRect.top) {
@@ -78,12 +80,13 @@ export function getTooltipPositionInBody(
 	target,
 	placement,
 	scrollContainer,
+  defaultPlacement = CONFIG_PLACE.top,
 ) {
 	const { offsetWidth, offsetHeight } = tooltip;
 	const { left, top, right, bottom, width, height } = getAbsPosition(target);
 
 	const style = {};
-	const [main, vice] = getDirection(tooltip, target, placement);
+	const [main, vice] = getDirection(tooltip, target, placement, defaultPlacement);
 
 	switch (main) {
 		case CONFIG_PLACE.top:
@@ -144,7 +147,7 @@ export default class ToolView extends Component {
 	timer = null;
 
 	componentDidMount() {
-		const { placement, target, scrollContainer } = this.props;
+		const { placement, defaultPlacement, target, scrollContainer } = this.props;
 		const tooltip = this.tipRef.current;
 
 		setTimeout(() => {
@@ -155,8 +158,9 @@ export default class ToolView extends Component {
 						target,
 						placement,
 						scrollContainer,
+            defaultPlacement,
 					),
-					dir: getDirection(tooltip, target, placement).join('-'),
+					dir: getDirection(tooltip, target, placement, defaultPlacement).join('-'),
 				},
 				() => this.setState({ show: true }),
 			);
