@@ -5,17 +5,16 @@ desc: 默认样式
 ---
 
 ```jsx
-
 /**
  * title: 基础用法
  * desc: 不可用效果
  */
-import React, { useState, useMemo } from 'react';
-import { Transfer } from 'cloud-react';
+import React, { useState, useMemo } from "react";
+import { Transfer } from "cloud-react";
 
-const titles = ['标题1', '标题2'];
+const titles = ["标题1", "标题2"];
 export default function TransferDemo() {
-	const [ value, setValue ] = useState([1, 5]);
+  const [value, setValue] = useState([1, 5]);
 
   const data = useMemo(() => {
     const data = [];
@@ -23,51 +22,50 @@ export default function TransferDemo() {
       data.push({
         key: i,
         label: `内容${i}`,
-        disabled: false
+        disabled: false,
       });
     }
     return data;
   }, []);
 
- const handleChange = (value, a, currentValue) => {
-    console.log(value, a, currentValue, '----');
+  const handleChange = (value, a, currentValue) => {
+    console.log(value, a, currentValue, "----");
 
-	  setValue(value);
-  }
+    setValue(value);
+  };
 
   return (
-		<>
+    <>
       <p style={{ marginBottom: 24 }}>基础类型</p>
       <Transfer
-              disabled
-              filterable
-              data={data}
-              titles={titles}
-              value={value}
-              onChange={handleChange}
-        />
-        <p style={{ marginBottom: 24, marginTop: 40 }}>单项穿梭框</p>
-        <Transfer
-            disabled
-            filterable
-            data={data}
-            titles={titles}
-            value={value}
-            onChange={handleChange}
-            oneWay
-			 />
-       <p style={{ marginBottom: 24, marginTop: 40 }}>极简模式</p>
-       <Transfer
-            disabled
-            filterable
-            data={data}
-            titles={titles}
-            value={value}
-            onChange={handleChange}
-            simple
-			 />
+        disabled
+        filterable
+        data={data}
+        titles={titles}
+        value={value}
+        onChange={handleChange}
+      />
+      <p style={{ marginBottom: 24, marginTop: 40 }}>单项穿梭框</p>
+      <Transfer
+        disabled
+        filterable
+        data={data}
+        titles={titles}
+        value={value}
+        onChange={handleChange}
+        oneWay
+      />
+      <p style={{ marginBottom: 24, marginTop: 40 }}>极简模式</p>
+      <Transfer
+        disabled
+        filterable
+        data={data}
+        titles={titles}
+        value={value}
+        onChange={handleChange}
+        simple
+      />
     </>
-    )
+  );
 }
 ```
-

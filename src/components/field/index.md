@@ -79,25 +79,25 @@ function Form() {
 
 ```javascript
 [
-	{ required: true, message: '内容不允许为空' },
-	{ len: 20, message: '最长只能输入20个字符' }
+  { required: true, message: "内容不允许为空" },
+  { len: 20, message: "最长只能输入20个字符" },
 ];
 ```
 
-| 属性      | 说明                                                                 | 类型                            | 默认值    |
-| --------- | -------------------------------------------------------------------- | ------------------------------- | --------- |
-| required  | 是否必选（如`Form.Item`组件的`required`不设置则会调用此字段的值）    | boolean                         | false     |
-| pattern   | 正则表达式校验，不会自动加上前后规则`^|$`，如有需要自行添加          | RegExp                          | -         |
-| len       | 字段长度                                                             | number                          | -         |
-| min       | 最小长度                                                             | number                          | -         |
-| max       | 最大长度                                                             | number                          | -         |
-| message   | 校验文案                                                             | string                          | ReactNode | - |
-| validator | 自定义校验，必须调用`callback`，参数是错误信息，没有错误则什么也不传 | function(name, value, callback) | -         |
+| 属性      | 说明                                                                 | 类型                            | 默认值 |
+| --------- | -------------------------------------------------------------------- | ------------------------------- | ------ |
+| required  | 是否必选（如`Form.Item`组件的`required`不设置则会调用此字段的值）    | boolean                         | false  |
+| pattern   | 正则表达式校验，不会自动加上前后规则`^                               | $`，如有需要自行添加/RegExp     | -      |
+| len       | 字段长度                                                             | number                          | -      |
+| min       | 最小长度                                                             | number                          | -      |
+| max       | 最大长度                                                             | number                          | -      |
+| message   | 校验文案                                                             | string/ReactNode                | -      |
+| validator | 自定义校验，必须调用`callback`，参数是错误信息，没有错误则什么也不传 | function(name, value, callback) | -      |
 
- ### 代码演示 
+### 代码演示
 
-<embed src="@components/field/demos/basic-forms.md" /> 
+<embed src="@components/field/demos/basic-forms.md" />
 
-<embed src="@components/field/demos/test-date.md" /> 
+<embed src="@components/field/demos/test-date.md" />
 
-<embed src="@components/field/demos/use.md" /> 
+<embed src="@components/field/demos/use.md" />

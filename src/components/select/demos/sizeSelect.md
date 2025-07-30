@@ -9,34 +9,33 @@ desc: 三种大小的选择框，当 size 分别为 large 和 small 时，输入
  * title: 三种大小
  * desc: 三种大小的选择框，当 size 分别为 large 和 small 时，输入框高度为 36px 和 28px ，默认高度为 32px。
  */
-import React, { useState } from 'react';
-import { Select, Button, Radio } from 'cloud-react';
+import React, { useState } from "react";
+import { Select, Button, Radio } from "cloud-react";
 
 const Option = Select.Option;
 
 const dataList = [
   {
-    label: 'JQuery',
-    value: '1',
+    label: "JQuery",
+    value: "1",
   },
   {
-    label: 'Vue',
-    value: '2',
+    label: "Vue",
+    value: "2",
   },
   {
-    label: 'React',
-    value: '3',
+    label: "React",
+    value: "3",
   },
   {
-    label: 'Angular',
-    value: '4',
+    label: "Angular",
+    value: "4",
   },
 ];
 
 export default function SelectDemo() {
-
-  const blank = '\u00A0';
-  const [size, setSize ] = useState('default');
+  const blank = "\u00A0";
+  const [size, setSize] = useState("default");
 
   return (
     <div className="demo">
@@ -47,19 +46,14 @@ export default function SelectDemo() {
           <Radio value="small">small</Radio>
         </Radio.Group>
       </div>
-      <Select defaultValue={'3'} size={size} style={{ width: 328 }}>
+      <Select defaultValue={"3"} size={size} style={{ width: 328 }}>
         {dataList.map((item, index) => (
           <Option value={item.value} disabled={item.disabled} key={index}>
             {item.label}
           </Option>
         ))}
       </Select>
-      <Select
-        allowClear
-        size={size}
-        style={{ width: 328 }}
-        multiple
-      >
+      <Select allowClear size={size} style={{ width: 328 }} multiple>
         {dataList.map((item, index) => (
           <Option value={item.value} disabled={item.disabled} key={index}>
             {item.label}
@@ -73,8 +67,8 @@ export default function SelectDemo() {
         placeholder=""
         defaultValue="1"
         dataSource={[
-          { label: '且', value: '1' },
-          { label: '或', value: '2' },
+          { label: "且", value: "1" },
+          { label: "或", value: "2" },
         ]}
       />
     </div>

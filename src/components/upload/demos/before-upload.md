@@ -9,23 +9,22 @@ desc: 通过返回的boolean值来决定是否继续上传。
  * title: 选中文件之后，上传前执行，可以控制是否继续上传。
  * desc: 通过返回的boolean值来决定是否继续上传。
  */
-import React from 'react';
-import { Message, Upload } from 'cloud-react';
+import React from "react";
+import { Message, Upload } from "cloud-react";
 
 class UploadDemo extends React.Component {
-
   state = {
-    fileList: []
+    fileList: [],
   };
 
-  handleProgress = info => {
+  handleProgress = (info) => {
     // TODO 上传进度条...
     // Message.success(info.file.name + '文件上传进度为:' + info.file.percent + '%');
   };
 
   handleSuccess = ({ file, fileList, response }) => {
     console.log(file, fileList, response);
-    Message.success(file.name + '文件上传成功！');
+    Message.success(file.name + "文件上传成功！");
 
     file.url = response.data;
 
@@ -33,22 +32,22 @@ class UploadDemo extends React.Component {
     this.setState({ fileList });
   };
 
-  handleRemove = info => {
+  handleRemove = (info) => {
     const id = info.file.id;
 
     // 这里可能需要调用后端接口，删除已经上传的文件
-    let restFileList = info.fileList.filter(file => id !== file.id);
+    let restFileList = info.fileList.filter((file) => id !== file.id);
 
     this.setState({
-      fileList: restFileList
+      fileList: restFileList,
     });
 
-    Message.success(info.file.name + ' 删除成功！');
+    Message.success(info.file.name + " 删除成功！");
   };
 
   handleReUpload = ({ file, fileList, response }) => {
     console.log(file, fileList, response);
-    Message.success(file.name + '文件上传成功！');
+    Message.success(file.name + "文件上传成功！");
 
     file.url = response.data;
 
@@ -61,18 +60,18 @@ class UploadDemo extends React.Component {
       size: 2,
       multiple: true,
       isShowIcon: true,
-      params: {test: 1},
-      labelText: '点击上传',
+      params: { test: 1 },
+      labelText: "点击上传",
       headers: {},
-      action: '/upload',
+      action: "/upload",
       onBeforeUpload: () => {
-        Message.error('操作失败');
+        Message.error("操作失败");
         return false;
       },
       onProgress: this.handleProgress,
       onSuccess: this.handleSuccess,
       onRemove: this.handleRemove,
-      onReUpload: this.handleReUpload
+      onReUpload: this.handleReUpload,
     };
 
     return <Upload {...props} fileList={this.state.fileList} />;

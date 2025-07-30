@@ -9,15 +9,15 @@ desc: size可为 `small`、`default`，默认为 `defalut`
  * title: 两种大小
  * desc: size可为 `small`、`default`，默认为 `defalut`
  */
-import React from 'react';
-import { Button, Toggle } from 'cloud-react';
+import React from "react";
+import { Button, Toggle } from "cloud-react";
 
 class ToggleSizeDemo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       checked: true,
-      size: 'default',
+      size: "default",
       isSmall: false,
     };
   }
@@ -33,12 +33,13 @@ class ToggleSizeDemo extends React.Component {
 
   render() {
     const { size, checked, isSmall } = this.state;
-    const switchSize = isSmall ? 'default' : 'small';
+    const switchSize = isSmall ? "default" : "small";
     return (
       <div>
         当前size为{size}：
         <Toggle size={size} checked={checked} onChange={this.handleChange} />
-        <br /><br />
+        <br />
+        <br />
         <Button onClick={() => this.handleSize(switchSize)}>
           切换为{switchSize}
         </Button>

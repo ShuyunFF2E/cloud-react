@@ -9,8 +9,8 @@ desc:
  * title: 自定义描述文案
  * desc:
  */
-import React from 'react';
-import { Loading } from 'cloud-react';
+import React from "react";
+import { Loading } from "cloud-react";
 
 class LoadingDemo extends React.Component {
   render() {

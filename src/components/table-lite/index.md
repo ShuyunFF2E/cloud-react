@@ -25,25 +25,25 @@ group:
 
 #### columnData
 
-| 属性 | 说明 | 类型 | 默认值 |
-| ----------- | -------------------- | ---------------- | ---------- |
-| text | th 文本 | [string, jsx] | - |
-| template | td 模板 | function | - |
-| width | 列宽 | [string, number] | 'auto' |
-| align | 文本方向 | string | 'left' |
+| 属性     | 说明     | 类型             | 默认值 |
+| -------- | -------- | ---------------- | ------ |
+| text     | th 文本  | [string, jsx]    | -      |
+| template | td 模板  | function         | -      |
+| width    | 列宽     | [string, number] | 'auto' |
+| align    | 文本方向 | string           | 'left' |
 
 #### dataSource
 
 > dataSource 中每一条数据必须包含 id 字段，如 expandable===true，则子数据需存放在 childrenKey 指定的字段下并通过 rowExpandable 对展开状态进行控制。
 
-| 属性 | 说明 | 类型 | 默认值 |
-| ----------- | -------------------- | ---------------- | ---------- |
-| id | 数据唯一 key, 必需存在 | [string, number] | - |
-| children | expandable===true 时，通过该字段显示子数据 | array | - |
-| rowExpandable | expandable===true 时，通过该字段控制展开状态 | boolean | - |
+| 属性          | 说明                                         | 类型             | 默认值 |
+| ------------- | -------------------------------------------- | ---------------- | ------ |
+| id            | 数据唯一 key, 必需存在                       | [string, number] | -      |
+| children      | expandable===true 时，通过该字段显示子数据   | array            | -      |
+| rowExpandable | expandable===true 时，通过该字段控制展开状态 | boolean          | -      |
 
- ### 代码演示 
+### 代码演示
 
-<embed src="@components/table-lite/demos/basic-table-lite.md" /> 
+<embed src="@components/table-lite/demos/basic-table-lite.md" />
 
-<embed src="@components/table-lite/demos/tree.md" /> 
+<embed src="@components/table-lite/demos/tree.md" />

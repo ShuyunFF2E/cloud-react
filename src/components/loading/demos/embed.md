@@ -9,8 +9,8 @@ desc: 可以直接把内容内嵌到Loading中，将现有容器变为加载状�
  * title: 卡片加载中及背景
  * desc: 可以直接把内容内嵌到Loading中，将现有容器变为加载状态；默认无背景，`layer` 为true时有白色透明背景。
  */
-import React from 'react';
-import { Loading, Toggle, Tips } from 'cloud-react';
+import React from "react";
+import { Loading, Toggle, Tips } from "cloud-react";
 
 class LoadingDemo extends React.Component {
   constructor(props) {

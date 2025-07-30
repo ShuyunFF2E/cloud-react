@@ -30,12 +30,12 @@ group:
 | total               | 数据总数                                     | number                      | 0                |
 | onChange            | 页码改变的回调，参数是改变后的页码及每页条数 | Function(current, pageSize) | noop             |
 
- ### 代码演示 
+### 代码演示
 
-<embed src="@components/table-pagination/demos/basic-table-pagination.md" /> 
+<embed src="@components/table-pagination/demos/basic-table-pagination.md" />
 
-<embed src="@components/table-pagination/demos/change.md" /> 
+<embed src="@components/table-pagination/demos/change.md" />
 
-<embed src="@components/table-pagination/demos/more.md" /> 
+<embed src="@components/table-pagination/demos/more.md" />
 
-<embed src="@components/table-pagination/demos/refresh.md" /> 
+<embed src="@components/table-pagination/demos/refresh.md" />

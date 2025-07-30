@@ -5,25 +5,24 @@ desc: 禁用状态
 ---
 
 ```jsx
-
 /**
  * title: 禁用状态
  * desc: 禁用状态
  */
-import React from 'react';
-import { Pagination } from 'cloud-react';
+import React from "react";
+import { Pagination } from "cloud-react";
 
 class PaginationDemo extends React.Component {
   state = {
     current: 5,
-    pageSize: 10
+    pageSize: 10,
   };
 
   onChange = (current, pageSize) => {
-    console.log('current: %d,pageSize: %s', current, pageSize);
+    console.log("current: %d,pageSize: %s", current, pageSize);
     this.setState({
       current,
-      pageSize
+      pageSize,
     });
   };
 

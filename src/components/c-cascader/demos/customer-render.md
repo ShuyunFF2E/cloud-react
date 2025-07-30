@@ -5,43 +5,41 @@ desc: 支持选择子选项，选中后，仅展示最后一级
 ---
 
 ```jsx
-
-import React from 'react';
-import { CCascader } from 'cloud-react';
-const addressOptions =  [
+import React from "react";
+import { CCascader } from "cloud-react";
+const addressOptions = [
   {
-    value: 'zhejiang',
-    label: 'Zhejiang',
-		           
+    value: "zhejiang",
+    label: "Zhejiang",
 
     children: [
       {
-        value: 'hangzhou',
-        label: 'Hangzhou',
+        value: "hangzhou",
+        label: "Hangzhou",
         children: [
           {
-            value: 'xihu',
-            label: 'West Lake',
+            value: "xihu",
+            label: "West Lake",
           },
           {
-            value: 'xiasha',
-            label: 'Xia Sha',
+            value: "xiasha",
+            label: "Xia Sha",
           },
         ],
       },
     ],
   },
   {
-    value: 'jiangsu',
-    label: 'Jiangsu',
+    value: "jiangsu",
+    label: "Jiangsu",
     children: [
       {
-        value: 'nanjing',
-        label: 'Nanjing',
+        value: "nanjing",
+        label: "Nanjing",
         children: [
           {
-            value: 'zhonghuamen',
-            label: 'Zhong Hua men',
+            value: "zhonghuamen",
+            label: "Zhong Hua men",
           },
         ],
       },
@@ -50,24 +48,28 @@ const addressOptions =  [
 ];
 
 export default function Demo() {
-	const onChange = value => {
-		console.log(value);
-	}
+  const onChange = (value) => {
+    console.log(value);
+  };
 
-	const filter = (inputValue, path) => {
-		return path.some(option => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1);
-	}
+  const filter = (inputValue, path) => {
+    return path.some(
+      (option) =>
+        option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1
+    );
+  };
 
-	const displayRender = labels => labels[labels.length - 1];
+  const displayRender = (labels) => labels[labels.length - 1];
 
-	return (
-			<CCascader
-				options={addressOptions}
-				onChange={onChange}
-				placeholder="Please select"
-				displayRender={displayRender}
-        style={{ width: 328 }}
-				showSearch={{ filter: filter }}/>
-		);
+  return (
+    <CCascader
+      options={addressOptions}
+      onChange={onChange}
+      placeholder="Please select"
+      displayRender={displayRender}
+      style={{ width: 328 }}
+      showSearch={{ filter: filter }}
+    />
+  );
 }
 ```

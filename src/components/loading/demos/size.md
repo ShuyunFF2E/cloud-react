@@ -9,8 +9,8 @@ desc: 三种大小 `small`、`default`、`large`，默认为 `defalut`
  * title: 各种大小
  * desc: 三种大小 `small`、`default`、`large`，默认为 `defalut`
  */
-import React from 'react';
-import { Loading } from 'cloud-react';
+import React from "react";
+import { Loading } from "cloud-react";
 
 class LoadingDemo extends React.Component {
   render() {
