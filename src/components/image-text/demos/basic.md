@@ -9,8 +9,8 @@ desc: 最简单的用法，展示图片和标题
  * title: 基础使用
  * desc: 最简单的用法，展示图片和标题
  */
-import React from 'react';
-import { ImageText } from 'cloud-react';
+import React from "react";
+import { ImageText } from "cloud-react";
 
 class BasicDemo extends React.Component {
   render() {

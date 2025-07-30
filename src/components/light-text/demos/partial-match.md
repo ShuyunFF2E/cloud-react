@@ -9,8 +9,8 @@ desc: 默认的部分匹配模式，会高亮所有匹配的字符
  * title: 部分匹配
  * desc: 默认的部分匹配模式，会高亮所有匹配的字符
  */
-import React from 'react';
-import { LightText } from 'cloud-react';
+import React from "react";
+import { LightText } from "cloud-react";
 
 class PartialMatchDemo extends React.Component {
   render() {
@@ -26,7 +26,7 @@ class PartialMatchDemo extends React.Component {
             />
           </p>
         </div>
-        
+
         <div style={{ marginBottom: 20 }}>
           <h5>高亮单个字符 "系"：</h5>
           <p>
@@ -36,7 +36,7 @@ class PartialMatchDemo extends React.Component {
             />
           </p>
         </div>
-        
+
         <div style={{ marginBottom: 20 }}>
           <h5>高亮多个字符 "系统"：</h5>
           <p>
@@ -46,7 +46,7 @@ class PartialMatchDemo extends React.Component {
             />
           </p>
         </div>
-        
+
         <div>
           <h5>高亮不存在的关键词：</h5>
           <p>
@@ -62,4 +62,4 @@ class PartialMatchDemo extends React.Component {
 }
 
 export default PartialMatchDemo;
-``` 
+```

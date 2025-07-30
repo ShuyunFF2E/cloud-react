@@ -9,8 +9,8 @@ desc: 自定义高亮文本的颜色
  * title: 自定义颜色
  * desc: 自定义高亮文本的颜色
  */
-import React from 'react';
-import { LightText } from 'cloud-react';
+import React from "react";
+import { LightText } from "cloud-react";
 
 class CustomColorDemo extends React.Component {
   render() {
@@ -25,7 +25,7 @@ class CustomColorDemo extends React.Component {
             />
           </p>
         </div>
-        
+
         <div style={{ marginBottom: 20 }}>
           <h5>红色高亮：</h5>
           <p>
@@ -36,7 +36,7 @@ class CustomColorDemo extends React.Component {
             />
           </p>
         </div>
-        
+
         <div style={{ marginBottom: 20 }}>
           <h5>绿色高亮：</h5>
           <p>
@@ -47,7 +47,7 @@ class CustomColorDemo extends React.Component {
             />
           </p>
         </div>
-        
+
         <div style={{ marginBottom: 20 }}>
           <h5>橙色高亮：</h5>
           <p>
@@ -58,7 +58,7 @@ class CustomColorDemo extends React.Component {
             />
           </p>
         </div>
-        
+
         <div>
           <h5>紫色高亮：</h5>
           <p>
@@ -75,4 +75,4 @@ class CustomColorDemo extends React.Component {
 }
 
 export default CustomColorDemo;
-``` 
+```

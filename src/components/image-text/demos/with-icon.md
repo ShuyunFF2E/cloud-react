@@ -9,8 +9,8 @@ desc: 使用图标替代图片
  * title: 使用图标
  * desc: 使用图标替代图片
  */
-import React from 'react';
-import { ImageText, Icon } from 'cloud-react';
+import React from "react";
+import { ImageText, Icon } from "cloud-react";
 
 class WithIconDemo extends React.Component {
   render() {
@@ -21,7 +21,7 @@ class WithIconDemo extends React.Component {
             icon={
               <Icon
                 type="user-fill"
-                style={{ fontSize: 48, color: '#1890ff' }}
+                style={{ fontSize: 48, color: "#1890ff" }}
               />
             }
             label="用户管理"
@@ -34,7 +34,7 @@ class WithIconDemo extends React.Component {
             icon={
               <Icon
                 type="setting-fill"
-                style={{ fontSize: 48, color: '#52c41a' }}
+                style={{ fontSize: 48, color: "#52c41a" }}
               />
             }
             label="系统设置"
@@ -47,7 +47,7 @@ class WithIconDemo extends React.Component {
             icon={
               <Icon
                 type="file-text-fill"
-                style={{ fontSize: 48, color: '#faad14' }}
+                style={{ fontSize: 48, color: "#faad14" }}
               />
             }
             label="文档管理"
@@ -60,7 +60,7 @@ class WithIconDemo extends React.Component {
             icon={
               <Icon
                 type="mail-fill"
-                style={{ fontSize: 48, color: '#f5222d' }}
+                style={{ fontSize: 48, color: "#f5222d" }}
               />
             }
             label="消息中心"

@@ -9,8 +9,8 @@ desc: 组件会自动转义特殊字符，支持正则表达式中的特殊字�
  * title: 特殊字符处理
  * desc: 组件会自动转义特殊字符，支持正则表达式中的特殊字符
  */
-import React from 'react';
-import { LightText } from 'cloud-react';
+import React from "react";
+import { LightText } from "cloud-react";
 
 class SpecialCharsDemo extends React.Component {
   render() {
@@ -25,7 +25,7 @@ class SpecialCharsDemo extends React.Component {
             />
           </p>
         </div>
-        
+
         <div style={{ marginBottom: 20 }}>
           <h5>包含括号的文本：</h5>
           <p>
@@ -35,17 +35,14 @@ class SpecialCharsDemo extends React.Component {
             />
           </p>
         </div>
-        
+
         <div style={{ marginBottom: 20 }}>
           <h5>包含加号的文本：</h5>
           <p>
-            <LightText
-              originText="1+1=2, 2+2=4"
-              keyWords="+1"
-            />
+            <LightText originText="1+1=2, 2+2=4" keyWords="+1" />
           </p>
         </div>
-        
+
         <div style={{ marginBottom: 20 }}>
           <h5>包含方括号的文本：</h5>
           <p>
@@ -55,17 +52,14 @@ class SpecialCharsDemo extends React.Component {
             />
           </p>
         </div>
-        
+
         <div style={{ marginBottom: 20 }}>
           <h5>包含点的文本：</h5>
           <p>
-            <LightText
-              originText="版本号 1.2.3 和 4.5.6"
-              keyWords="1.2"
-            />
+            <LightText originText="版本号 1.2.3 和 4.5.6" keyWords="1.2" />
           </p>
         </div>
-        
+
         <div>
           <h5>包含反斜杠的文本：</h5>
           <p>
@@ -81,4 +75,4 @@ class SpecialCharsDemo extends React.Component {
 }
 
 export default SpecialCharsDemo;
-``` 
+```

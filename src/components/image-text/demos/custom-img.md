@@ -9,8 +9,8 @@ desc: 自定义图片的大小和样式
  * title: 自定义图片样式
  * desc: 自定义图片的大小和样式
  */
-import React from 'react';
-import { ImageText } from 'cloud-react';
+import React from "react";
+import { ImageText } from "cloud-react";
 
 class CustomImgDemo extends React.Component {
   render() {

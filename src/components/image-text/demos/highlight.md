@@ -9,12 +9,12 @@ desc: 支持搜索关键词高亮显示
  * title: 搜索高亮
  * desc: 支持搜索关键词高亮显示
  */
-import React from 'react';
-import { ImageText, Input } from 'cloud-react';
+import React from "react";
+import { ImageText, Input } from "cloud-react";
 
 class HighlightDemo extends React.Component {
   state = {
-    searchValue: '产品',
+    searchValue: "产品",
   };
 
   handleSearch = (e) => {

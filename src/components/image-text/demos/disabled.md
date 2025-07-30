@@ -9,8 +9,8 @@ desc: 禁用状态下的图文组合展示
  * title: 禁用状态
  * desc: 禁用状态下的图文组合展示
  */
-import React from 'react';
-import { ImageText } from 'cloud-react';
+import React from "react";
+import { ImageText } from "cloud-react";
 
 class DisabledDemo extends React.Component {
   render() {

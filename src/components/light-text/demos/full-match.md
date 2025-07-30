@@ -9,8 +9,8 @@ desc: 完全匹配模式，只有文本完全等于关键词时才会高亮
  * title: 完全匹配
  * desc: 完全匹配模式，只有文本完全等于关键词时才会高亮
  */
-import React from 'react';
-import { LightText } from 'cloud-react';
+import React from "react";
+import { LightText } from "cloud-react";
 
 class FullMatchDemo extends React.Component {
   render() {
@@ -26,7 +26,7 @@ class FullMatchDemo extends React.Component {
             />
           </p>
         </div>
-        
+
         <div style={{ marginBottom: 20 }}>
           <h5>部分匹配（对比）：</h5>
           <p>
@@ -37,7 +37,7 @@ class FullMatchDemo extends React.Component {
             />
           </p>
         </div>
-        
+
         <div style={{ marginBottom: 20 }}>
           <h5>完全匹配单个词：</h5>
           <p>
@@ -48,7 +48,7 @@ class FullMatchDemo extends React.Component {
             />
           </p>
         </div>
-        
+
         <div>
           <h5>完全匹配不存在的词：</h5>
           <p>
@@ -65,4 +65,4 @@ class FullMatchDemo extends React.Component {
 }
 
 export default FullMatchDemo;
-``` 
+```
