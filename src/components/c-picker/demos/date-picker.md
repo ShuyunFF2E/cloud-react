@@ -12,10 +12,30 @@ desc: 基本用法，日期选择器。
 import React from "react";
 import moment from "moment";
 import { CPicker as DatePicker, Form, Field, Toggle } from "cloud-react";
+import React from "react";
+import moment from "moment";
+import { CPicker as DatePicker, Form, Field, Toggle } from "cloud-react";
 
 const { TimePicker } = DatePicker;
 
 const presets = [
+  {
+    label: "三天前",
+    value: () => moment().clone().subtract(2, "days"),
+  },
+  {
+    label: "一周前",
+    value: () => moment().clone().subtract(6, "days"),
+  },
+  {
+    label: "一月前",
+    value: () => moment().clone().subtract(1, "months").toDate(),
+  },
+  {
+    label: "一年前",
+    value: () =>
+      moment().clone().subtract(1, "years").format("yyyy/MM/DD HH:mm:ss"),
+  },
   {
     label: "三天前",
     value: () => moment().clone().subtract(2, "days"),
@@ -41,6 +61,12 @@ const timePresets = [
     value: () => moment().clone().startOf("day").add(12, "hours"),
   },
 ];
+const timePresets = [
+  {
+    label: "中午",
+    value: () => moment().clone().startOf("day").add(12, "hours"),
+  },
+];
 
 class DatePickerDemo extends React.Component {
   field = new Field(this);
@@ -55,6 +81,10 @@ class DatePickerDemo extends React.Component {
     this.setState({ value });
   };
 
+  onTimeChange = (time) => {
+    console.log("time:", time);
+    this.setState({ time });
+  };
   onTimeChange = (time) => {
     console.log("time:", time);
     this.setState({ time });

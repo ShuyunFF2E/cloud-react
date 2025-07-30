@@ -10,13 +10,13 @@ order: 5
  * desc: 自定义操作项
  */
 
-import React from 'react';
-import { Tips, Button } from 'cloud-react';
+import React from "react";
+import { Tips, Button } from "cloud-react";
 
 class TipsDemo extends React.Component {
   render() {
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
         <Tips msg="action String" action="操作按钮" />
 
         <Tips

@@ -9,29 +9,29 @@ desc: 指定使用的键值
  * title: 指定使用的键值
  * desc: 指定使用的键值
  */
-import React, { useState } from 'react';
-import { Select, Modal, Button, Tabs } from 'cloud-react';
+import React, { useState } from "react";
+import { Select, Modal, Button, Tabs } from "cloud-react";
 
 const Option = Select.Option;
 
 const dataList = [
   {
-    title: 'React',
-    name: 'React',
+    title: "React",
+    name: "React",
   },
   {
-    title: 'Vue',
-    name: 'Vue',
+    title: "Vue",
+    name: "Vue",
   },
   {
-    title: 'Angular',
-    name: 'Angular',
+    title: "Angular",
+    name: "Angular",
   },
 ];
 
 export default function SelectDemo() {
   const handleChange = (value) => {
-    console.log('select --- ' + value);
+    console.log("select --- " + value);
   };
 
   return (

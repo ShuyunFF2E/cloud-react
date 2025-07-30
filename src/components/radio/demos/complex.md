@@ -9,8 +9,8 @@ desc: 复杂业务场景嵌套使用
  * title: Radio.Group
  * desc: 复杂业务场景嵌套使用
  */
-import React from 'react';
-import { Radio } from 'cloud-react';
+import React from "react";
+import { Radio } from "cloud-react";
 
 class NestingRadio extends React.Component {
   constructor(props) {
@@ -25,14 +25,14 @@ class NestingRadio extends React.Component {
     this.setState({
       parentValue: value,
     });
-    console.log(value, 'parentValue');
+    console.log(value, "parentValue");
   };
 
   onChildChange = (value) => {
     this.setState({
       childValue: value,
     });
-    console.log(value, 'childValue');
+    console.log(value, "childValue");
   };
 
   render() {
@@ -56,7 +56,9 @@ class NestingRadio extends React.Component {
           onChange={this.onChildChange}
           vertical
         >
-          <Radio value={1} radioClassName="test1" className="test2">mysql</Radio>
+          <Radio value={1} radioClassName="test1" className="test2">
+            mysql
+          </Radio>
           <Radio value={2}>mogondb</Radio>
         </Radio.Group>
       </>

@@ -10,19 +10,19 @@ desc: >-
  * title: 获取选项的文本
  * desc: 默认情况下onChange只能拿到value，添加labelInValue属性后onChange等函数中拿到的value会变成由label、value组成的对象
  */
-import React from 'react';
-import { Select } from 'cloud-react';
+import React from "react";
+import { Select } from "cloud-react";
 
 const Option = Select.Option;
 
 const dataList = [
   {
-    label: '苹果',
-    value: 'apple',
+    label: "苹果",
+    value: "apple",
   },
   {
-    label: '草莓',
-    value: 'strawberry',
+    label: "草莓",
+    value: "strawberry",
   },
 ];
 

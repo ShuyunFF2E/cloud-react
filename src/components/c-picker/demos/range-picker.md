@@ -128,20 +128,6 @@ class RangePickerDemo extends React.Component {
           />
         </Form.Item>
 
-        <Form.Item label="日期范围选择器（时间不显示秒）">
-          <RangePicker
-            value={values}
-            onChange={this.onChange}
-            showToday
-            showNow
-            showTimePicker={{
-              showSecond: false,
-              format: "HH:mm",
-            }}
-            format="YYYY-MM-DD HH:mm"
-          />
-        </Form.Item>
-
         <Form.Item label="日期范围选择器（固定结束日期）">
           <RangePicker
             value={values}

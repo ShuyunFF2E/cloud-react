@@ -22,6 +22,6 @@ group:
 
 `Icon.ColorIcon` API 与 `Icon` 一致
 
- ### 图标列表 
+### 图标列表
 
 <embed src="@components/icon/demos/icon-list.md" />

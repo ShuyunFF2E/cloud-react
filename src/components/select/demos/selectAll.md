@@ -5,27 +5,27 @@ desc: 基本使用
 ---
 
 ```jsx
-import React, { useState } from 'react';
-import { Select } from 'cloud-react';
+import React, { useState } from "react";
+import { Select } from "cloud-react";
 
 const Option = Select.Option;
 
 const dataList = [
   {
-    label: 'JQuery',
-    value: '1',
+    label: "JQuery",
+    value: "1",
   },
   {
-    label: 'Vue',
-    value: '2',
+    label: "Vue",
+    value: "2",
   },
   {
-    label: 'React',
-    value: '3',
+    label: "React",
+    value: "3",
   },
   {
-    label: 'Angular',
-    value: '4',
+    label: "Angular",
+    value: "4",
   },
 ];
 

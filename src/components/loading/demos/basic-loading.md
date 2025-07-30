@@ -9,8 +9,8 @@ desc: 一个简单的 loading 状态。
  * title: 基本用法
  * desc: 一个简单的 loading 状态。
  */
-import React from 'react';
-import { Loading, Toggle } from 'cloud-react';
+import React from "react";
+import { Loading, Toggle } from "cloud-react";
 
 class LoadingDemo extends React.Component {
   constructor(props) {

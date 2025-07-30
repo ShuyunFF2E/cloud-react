@@ -22,8 +22,8 @@ group:
 | onClick   | 点击徽标回调事件                                              | function      | () => {}  |
 | style     | 设置最外层样式                                                | CSSProperties | {}        |
 | className | 设置最外层类样式                                              | string        | ''        |
-| isSquare | 文本样式是否是方形（默认圆角为 8px；方形圆角为 3px）                                              | bool        | false        |
-| color |  徽标颜色                                             | string        | ''        |
+| isSquare  | 文本样式是否是方形（默认圆角为 8px；方形圆角为 3px）          | bool          | false     |
+| color     | 徽标颜色                                                      | string        | ''        |
 
 ### 代码演示
 

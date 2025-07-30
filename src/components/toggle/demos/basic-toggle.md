@@ -9,8 +9,8 @@ desc:
  * title: 基础用法
  * desc:
  */
-import React from 'react';
-import { Toggle } from 'cloud-react';
+import React from "react";
+import { Toggle } from "cloud-react";
 
 class ToggleDemo extends React.Component {
   constructor(props) {
@@ -27,7 +27,7 @@ class ToggleDemo extends React.Component {
   render() {
     const { checked } = this.state;
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
         <div>
           不添加checked状态：
           <Toggle />

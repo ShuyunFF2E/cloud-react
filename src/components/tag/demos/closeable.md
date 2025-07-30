@@ -5,62 +5,67 @@ desc: onClose使用
 ---
 
 ```jsx
-
-            /**
-             * title: 可删除的标签
-             * desc: onClose使用
-             */
-import React, { Component } from 'react';
-import { Tag } from 'cloud-react';
+/**
+ * title: 可删除的标签
+ * desc: onClose使用
+ */
+import React, { Component } from "react";
+import { Tag } from "cloud-react";
 
 class TagDemo extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			tagList: [
-				{ text: '红色', checked: true, color: "red" },
-				{ text: '蓝色', checked: false, color: "blue" },
-				{ text: '黄色', checked: false, color: "yellow" },
-				{ text: '默认', checked: false }
-			]
-		};
-	}
+  constructor(props) {
+    super(props);
+    this.state = {
+      tagList: [
+        { text: "红色", checked: true, color: "red" },
+        { text: "蓝色", checked: false, color: "blue" },
+        { text: "黄色", checked: false, color: "yellow" },
+        { text: "默认", checked: false },
+      ],
+    };
+  }
 
-	handleRemove = index => {
-		const tags = this.state.tagList;
-		tags.splice(index, 1);
+  handleRemove = (index) => {
+    const tags = this.state.tagList;
+    tags.splice(index, 1);
 
-		this.setState({
-			tagList: tags
-		});
-	};
+    this.setState({
+      tagList: tags,
+    });
+  };
 
-	handleClick = index => {
-		const tags = this.state.tagList.map((item, _index) => {
-			return {
-				...item,
-				checked: index === _index ? !item.checked : item.checked
-			};
-		});
+  handleClick = (index) => {
+    const tags = this.state.tagList.map((item, _index) => {
+      return {
+        ...item,
+        checked: index === _index ? !item.checked : item.checked,
+      };
+    });
 
-		this.setState({
-			tagList: tags
-		});
-	};
+    this.setState({
+      tagList: tags,
+    });
+  };
 
-	render() {
-		const { tagList } = this.state;
+  render() {
+    const { tagList } = this.state;
 
-		return (
-			<React.Fragment>
-				{tagList.map((item, index) => (
-					<Tag key={index} closable color={item.color} onClose={() => this.handleRemove(index)} onClick={() => this.handleClick(index)}>
-						{item.text}
-					</Tag>
-				))}
-			</React.Fragment>
-		);
-	}
+    return (
+      <React.Fragment>
+        {tagList.map((item, index) => (
+          <Tag
+            key={index}
+            closable
+            color={item.color}
+            onClose={() => this.handleRemove(index)}
+            onClick={() => this.handleClick(index)}
+          >
+            {item.text}
+          </Tag>
+        ))}
+      </React.Fragment>
+    );
+  }
 }
 export default TagDemo;
 ```
