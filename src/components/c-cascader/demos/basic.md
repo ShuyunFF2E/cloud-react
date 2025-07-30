@@ -5,21 +5,19 @@ desc: 默认样式
 ---
 
 ```jsx
-
-import React, { useState, useEffect } from 'react';
-import { CCascader, Tooltip, Icon } from 'cloud-react';
-const addressOptions =  [
+import React, { useState, useEffect } from "react";
+import { CCascader, Tooltip, Icon } from "cloud-react";
+const addressOptions = [
   {
-    value: 'zhejiang',
-    label: 'Zhejiang',
-    info: '说明',
-
+    value: "zhejiang",
+    label: "Zhejiang",
+    info: "说明",
 
     children: [
       {
-        value: 'hangzhou',
-        label: 'Hangzhou',
-        info: '说明',
+        value: "hangzhou",
+        label: "Hangzhou",
+        info: "说明",
         children: [
           {
             value: "xihu",
@@ -124,42 +122,48 @@ export default function Demo() {
     );
   };
 
-	return (
-			<div>
-				<div style={{ marginBottom: 24 }}>仅叶子选项支持选择</div>
-				<CCascader
-					options={addressOptions}
-					onChange={onChange}
-					placeholder="Please select"
-          style={{ width: 328 }}
-          optionRender={option => {
-            return (
-              <label title={option.title} style={{ display: 'flex', gap: 4 }}>
-                {option.label}
-                {option.info && (
-                  <Tooltip content={option.info} theme="light" placement="right" overlayStyle={{ zIndex: 10000 }}>
-                    <Icon type="question-circle" />
-                  </Tooltip>
-                )}
-              </label>
-            );
-          }}
-          />
-				<div style={{ marginBottom: 24, marginTop: 40 }}>任意选项支持选择</div>
-				<CCascader
-					options={addressOptions}
-					onChange={onChange}
-					placeholder="Please select"
-					showSearch={{ filter: filter }}
-          style={{ width: 328 }}
-					changeOnSelect/>
-        <div style={{ marginBottom: 24, marginTop: 40 }}>用级联组件展示地址</div>
-        {
-          !loading && <CCascader
-					options={data}
-					onChange={onChange}
-          fieldNames={{ label: 'name', value: 'id', children: 'children' }}
-					placeholder="Please select"
+  return (
+    <div>
+      <div style={{ marginBottom: 24 }}>仅叶子选项支持选择</div>
+      <CCascader
+        options={addressOptions}
+        onChange={onChange}
+        placeholder="Please select"
+        style={{ width: 328 }}
+        optionRender={(option) => {
+          return (
+            <label title={option.title} style={{ display: "flex", gap: 4 }}>
+              {option.label}
+              {option.info && (
+                <Tooltip
+                  content={option.info}
+                  theme="light"
+                  placement="right"
+                  overlayStyle={{ zIndex: 10000 }}
+                >
+                  <Icon type="question-circle" />
+                </Tooltip>
+              )}
+            </label>
+          );
+        }}
+      />
+      <div style={{ marginBottom: 24, marginTop: 40 }}>任意选项支持选择</div>
+      <CCascader
+        options={addressOptions}
+        onChange={onChange}
+        placeholder="Please select"
+        showSearch={{ filter: filter }}
+        style={{ width: 328 }}
+        changeOnSelect
+      />
+      <div style={{ marginBottom: 24, marginTop: 40 }}>用级联组件展示地址</div>
+      {!loading && (
+        <CCascader
+          options={data}
+          onChange={onChange}
+          fieldNames={{ label: "name", value: "id", children: "children" }}
+          placeholder="Please select"
           style={{ width: 328 }}
           changeOnSelect
         />
