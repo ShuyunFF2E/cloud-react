@@ -55,6 +55,8 @@ export default function ComplexCheckbox(props) {
   );
 }
 
+ComplexCheckbox.displayName = 'ComplexCheckbox';
+
 ComplexCheckbox.propTypes = {
   content: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   imgSrc: PropTypes.string,
