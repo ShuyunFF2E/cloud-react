@@ -20,7 +20,6 @@
 .env.local
 
 # ide
-/.vscode
 /.idea
 
 # jest
