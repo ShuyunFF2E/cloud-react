@@ -10,13 +10,13 @@ order: 6
  * desc: 超过高度限制后可收起或展开
  */
 
-import React from 'react';
-import { Tips, Button } from 'cloud-react';
+import React from "react";
+import { Tips, Button } from "cloud-react";
 
 class TipsDemo extends React.Component {
   render() {
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
         <Tips
           collapsible
           closable

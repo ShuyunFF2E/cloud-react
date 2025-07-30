@@ -5,20 +5,19 @@ desc: 默认样式
 ---
 
 ```jsx
-
 /**
  * title: 基础用法
  * desc: 数据穿梭选择
  */
-import React from 'react';
-import { Transfer } from 'cloud-react';
+import React from "react";
+import { Transfer } from "cloud-react";
 
 class TransferDemo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        value: []
-    }
+      value: [],
+    };
     this._handleChange = this.handleChange.bind(this);
   }
 
@@ -28,27 +27,28 @@ class TransferDemo extends React.Component {
       data.push({
         key: i,
         label: `内容${i}`,
-        disabled: false
+        disabled: false,
       });
     }
     return data;
   }
 
   handleChange(value, a, currentValue) {
-    this.setState({ value })
+    this.setState({ value });
   }
 
   render() {
-    const titles = ['标题1', '标题2'];
+    const titles = ["标题1", "标题2"];
     return (
-        <Transfer data={this.data}
-                  titles={titles}
-                  value={this.state.value}
-                  onChange={this._handleChange} />
-    )
+      <Transfer
+        data={this.data}
+        titles={titles}
+        value={this.state.value}
+        onChange={this._handleChange}
+      />
+    );
   }
 }
 
 export default TransferDemo;
 ```
-

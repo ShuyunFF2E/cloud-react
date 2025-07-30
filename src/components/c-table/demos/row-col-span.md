@@ -5,24 +5,24 @@ desc: 合并列 & 合并行
 ---
 
 ```jsx
-import React from 'react';
-import { CTable, Button } from 'cloud-react';
+import React from "react";
+import { CTable, Button } from "cloud-react";
 
 const data = [
-  { a: '13812340987', b: '0571-12345678', c: '张三', d: '贞观路', e: '男' },
-  { a: '13812340986', b: '0571-98787658', c: '张夫人', d: '长安路', e: '女' },
-  { a: '13812988888', b: '0571-099877', c: '李四', d: '丈八东路', e: '男' },
-  { a: '1381200008888', b: '0571-099877', c: '王五', d: '高新三路', e: '男' },
-  { a: '0571-88888110', c: '李警官', d: '高新四路', e: '男' },
-  { a: '资料统计完毕于2022年3月3日' },
+  { a: "13812340987", b: "0571-12345678", c: "张三", d: "贞观路", e: "男" },
+  { a: "13812340986", b: "0571-98787658", c: "张夫人", d: "长安路", e: "女" },
+  { a: "13812988888", b: "0571-099877", c: "李四", d: "丈八东路", e: "男" },
+  { a: "1381200008888", b: "0571-099877", c: "王五", d: "高新三路", e: "男" },
+  { a: "0571-88888110", c: "李警官", d: "高新四路", e: "男" },
+  { a: "资料统计完毕于2022年3月3日" },
 ];
 
 const columns = [
   {
-    title: '手机号',
-    dataIndex: 'a',
+    title: "手机号",
+    dataIndex: "a",
     colSpan: 2,
-    key: 'a',
+    key: "a",
     onCell: (_, index) => {
       const props = {};
 
@@ -40,10 +40,10 @@ const columns = [
     },
   },
   {
-    title: '电话',
-    dataIndex: 'b',
+    title: "电话",
+    dataIndex: "b",
     colSpan: 0,
-    key: 'b',
+    key: "b",
     onCell(_, index) {
       // 非表头的第5行和第6行：合并掉的列设置colSpan=0，代表这两列不会去渲染
       if (index === 4 || index === 5) {
@@ -53,9 +53,9 @@ const columns = [
     },
   },
   {
-    title: '姓名',
-    dataIndex: 'c',
-    key: 'c',
+    title: "姓名",
+    dataIndex: "c",
+    key: "c",
     onCell(_, index) {
       // 非表头的第6行：合并掉的列设置colSpan=0，代表这一列不会去渲染
       if (index === 5) {
@@ -65,9 +65,9 @@ const columns = [
     },
   },
   {
-    title: '地址',
-    dataIndex: 'd',
-    key: 'd',
+    title: "地址",
+    dataIndex: "d",
+    key: "d",
     onCell(_, index) {
       const props = {};
       // 设置 index === 0 的 rowSpan = 3：代表非表头的第一行，该列合并三行
@@ -86,9 +86,9 @@ const columns = [
     },
   },
   {
-    title: '性别',
-    dataIndex: 'e',
-    key: 'e',
+    title: "性别",
+    dataIndex: "e",
+    key: "e",
     onCell(_, index) {
       // 非表头的第6行：合并掉的列设置colSpan=0，代表这一列不会去渲染
       if (index === 5) {
@@ -98,11 +98,15 @@ const columns = [
     },
   },
   {
-    title: '操作',
-    dataIndex: '',
-    key: 'f',
+    title: "操作",
+    dataIndex: "",
+    key: "f",
     render() {
-      return <Button type="link" size="small" style={{ padding: '0 6px 0 0' }}>查看详情</Button>;
+      return (
+        <Button type="link" size="small" style={{ padding: "0 6px 0 0" }}>
+          查看详情
+        </Button>
+      );
     },
     onCell(_, index) {
       if (index === 5) {
@@ -116,12 +120,12 @@ const columns = [
 ];
 
 export default function CTableDemo() {
-	return (
-        <CTable
-            bordered
-            columnData={columns}
-            ajaxData={{ totals: data.length, data }}
-        />
-	);
+  return (
+    <CTable
+      bordered
+      columnData={columns}
+      ajaxData={{ totals: data.length, data }}
+    />
+  );
 }
 ```

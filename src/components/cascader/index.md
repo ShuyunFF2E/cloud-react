@@ -8,6 +8,7 @@ group:
   title: 数据
   path: /data
 ---
+
 ### 何时使用
 
 定义一个或者一组 Cascader
@@ -16,17 +17,16 @@ group:
 
 #### Cascader
 
-| 属性           | 说明                    | 类型              | 默认值 |
-| -------------- | ----------------------- | ----------------- | ------ |
-| options        | 可选项数据源              | array             | --     |
-| splitInput     | input显示的分隔符     		 |      string      | /   |
-| disabled       | 是否禁用                 | boolean           | false  |
-| defaultValue   | 初始化 selected value    | Array           | false  |
-| value          | selected value          | Array            | --     |
-| change         | 变化时回调函数            | Function(e:Event) | --     |
+| 属性         | 说明                  | 类型              | 默认值 |
+| ------------ | --------------------- | ----------------- | ------ |
+| options      | 可选项数据源          | array             | --     |
+| splitInput   | input 显示的分隔符    | string            | /      |
+| disabled     | 是否禁用              | boolean           | false  |
+| defaultValue | 初始化 selected value | Array             | false  |
+| value        | selected value        | Array             | --     |
+| change       | 变化时回调函数        | Function(e:Event) | --     |
 
-
- ### 代码演示 
+### 代码演示
 
 <embed src="@components/cascader/demos/basic.md" /> 
-<embed src="@components/cascader/demos/disable.md" /> 
+<embed src="@components/cascader/demos/disable.md" />

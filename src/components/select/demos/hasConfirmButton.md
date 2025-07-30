@@ -9,42 +9,42 @@ desc: 带确认取消的多选
  * title: 带确认取消的多选
  * desc: 带确认取消的多选
  */
-import React from 'react';
-import { Select } from 'cloud-react';
+import React from "react";
+import { Select } from "cloud-react";
 
 const Option = Select.Option;
 
 const dataList = [
   {
-    label: '苹果',
+    label: "苹果",
     value: 1,
   },
   {
-    label: '草莓',
+    label: "草莓",
     value: 2,
   },
   {
-    label: '荔枝',
+    label: "荔枝",
     value: 3,
   },
   {
-    label: '核桃',
+    label: "核桃",
     value: 4,
   },
 ];
 
 export default function SelectDemo() {
   const onOk = (value, prevValue) => {
-    console.log('select --- ' + value);
-    console.log('prevSelect --- ' + prevValue);
+    console.log("select --- " + value);
+    console.log("prevSelect --- " + prevValue);
   };
 
   const onCancel = () => {
-    console.log('cancel');
+    console.log("cancel");
   };
 
-  const handleOpen = () => console.log('open');
-  const handleClose = () => console.log('close');
+  const handleOpen = () => console.log("open");
+  const handleClose = () => console.log("close");
 
   const values = [1, 2, 3, 4];
   const values2 = [2, 3];

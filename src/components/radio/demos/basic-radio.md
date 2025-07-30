@@ -9,12 +9,12 @@ desc: 单选按钮
  * title: Radio
  * desc: 单选按钮
  */
-import React from 'react';
-import { Radio } from 'cloud-react';
+import React from "react";
+import { Radio } from "cloud-react";
 
 function RadioDemo() {
   return (
-    <div style={{display: 'flex'}}>
+    <div style={{ display: "flex" }}>
       <Radio value={1} checked={false}>
         未选中
       </Radio>

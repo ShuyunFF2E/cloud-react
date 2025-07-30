@@ -9,11 +9,10 @@ desc: 布局（horizontal|vertical）
  * title: Radio.Group
  * desc: 布局（horizontal|vertical）
  */
-import React from 'react';
-import { Radio } from 'cloud-react';
+import React from "react";
+import { Radio } from "cloud-react";
 
 export default function RadioDemo() {
-
   return (
     <React.Fragment>
       <h5>横向分布</h5>
@@ -24,15 +23,9 @@ export default function RadioDemo() {
       </Radio.Group>
       <h5>纵向分布</h5>
       <Radio.Group defaultValue={1} vertical>
-        <Radio value={1}>
-          选项A
-        </Radio>
-        <Radio value={2}>
-          选项B
-        </Radio>
-        <Radio value={3}>
-          选项C
-        </Radio>
+        <Radio value={1}>选项A</Radio>
+        <Radio value={2}>选项B</Radio>
+        <Radio value={3}>选项C</Radio>
       </Radio.Group>
     </React.Fragment>
   );

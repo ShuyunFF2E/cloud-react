@@ -4,243 +4,242 @@ title: 单色图标
 desc: 将 type 值复制进行使用
 ---
 
-
 ```jsx
 /**
  * inline: true
  */
-import React, { Component } from 'react';
-import ShunyunUtils from 'shuyun-utils';
-import { Icon, Message, Tabs } from 'cloud-react';
-import { PLAT_MAP } from '../constant';
-import './styles/index.less';
+import React, { Component } from "react";
+import ShunyunUtils from "shuyun-utils";
+import { Icon, Message, Tabs } from "cloud-react";
+import { PLAT_MAP } from "../constant";
+import "./styles/index.less";
 
 const { ColorIcon } = Icon;
 
 const iconList = {
-	basic: [
-		'underway',
-		'no-start',
-		'guanbi',
-		'group-fill1',
-		'shop-fill',
-		'shop-line',
-		'thumb-up-fill',
-		'thumb-up-line',
-		'pause',
-		'begin',
-		'lock',
-		'user-fill',
-		'group-fill',
-		'close-fill',
-		'close-line',
-		'close-fill-1',
-		'info-circle1',
-		'info_1',
-		'success-line',
-		'success-fill',
-		'info_2',
-		'flag-solid',
-		'folder-solid',
-		'folder-solid-open',
-		'swap',
-		'search-file',
-		'bottom-solid',
-		'top-solid',
-		'move-down-solid',
-		'move-up-solid',
-		'last-solid',
-		'first-solid',
-		'rmb',
-		'mail',
-		'question-circle',
-		'question-circle-solid',
-		'people',
-		'people-solid',
-		'group',
-		'group_add',
-		'people-add',
-		'more',
-		'move',
-		'calendar',
-		'sent',
-		'book',
-		'list-2',
-		'time',
-		'list-1',
-		'task',
-		'tag',
-		'remark',
-		'pie-chart',
-		'vip',
-		'table',
-		'config',
-		'delete',
-		'export',
-		'upload',
-		'view-board',
-		'view',
-		'hide',
-		'menu',
-		'filter',
-		'search',
-		'edit',
-		'copy',
-		'refresh',
-		'plus',
-		'subtract',
-		'left-solid',
-		'up-solid',
-		'right-solid',
-		'down-solid',
-		'sort',
-		'sub-solid',
-		'plus-solid',
-		'radio',
-		'radio-button',
-		'double-left',
-		'double-right',
-		'right',
-		'left',
-		'down',
-		'up',
-		'finish',
-		'close',
-		'checkbox',
-		'checkbox-indeterminate',
-		'checkbox-blank',
-		'arrange-3',
-		'arrange-2',
-		'edit-2',
-		'warn',
-		'link',
-		'logout',
-		'loader',
-		'message',
-		'phone',
-		'list-solid',
-		'list-line',
-		'list-icon',
-		'warn-circle',
-		'plus-money',
-		'plus-fill',
-		'plus-batch',
-		'plus-line',
-		'sub-line',
-		'service',
-        'baocun'
-	],
-    ai: [
-		'ai-music-filled',
-		'ai-music-outline',
-		'ai-microphone-filled',
-		'ai-microphone-outline',
-		'ai-voice',
-		'ai-voice-chat-filled',
-		'ai-voice-chat-outline',
-		'ai-voice-file-filled',
-		'ai-voice-file-outline',
-		'ai-read-aloud-filled',
-		'ai-read-aloud-outline',
-		'ai-camera-filled',
-		'ai-camera-outline',
-		'ai-camcorder-filled',
-		'ai-camcorder-outline',
-		'ai-video-filled',
-		'ai-video-outline',
-		'ai-brush-filled',
-		'ai-brush-outline',
-		'ai-pen-filled',
-		'ai-pen-outline',
-		'ai-color-filled',
-		'ai-color-outline',
-		'ai-chat-filled',
-		'ai-chat-outline',
-		'ai-email-filled',
-		'ai-email-outline',
-		'ai-double-star-filled',
-		'ai-double-star-outline',
-		'ai-tri-star-filled',
-		'ai-tri-star-outline',
-		'ai-code',
-		'ai-generate',
-		'ai-image-filled',
-		'ai-image-outline',
-		'ai-text',
-		'ai-toggle-case',
-		'ai-translate',
-	],
-	color: [
-		'mr',
-		'P12',
-		'a-compass-line',
-		'people-line',
-		'gift-line',
-		'exchange-box-line',
-		'risk-line',
-		'message-line',
-		'tiktok-line',
-		'bar-chart-line',
-		'chart-line',
-		'home-line',
-		'group-line',
-		'XLS',
-		'ZIP',
-		'DOC',
-		'TXT',
-		'PPT',
-		'PDF',
-		'video',
-		'CSV',
-	],
-    plat: Object.keys(PLAT_MAP)
-}
+  basic: [
+    "underway",
+    "no-start",
+    "guanbi",
+    "group-fill1",
+    "shop-fill",
+    "shop-line",
+    "thumb-up-fill",
+    "thumb-up-line",
+    "pause",
+    "begin",
+    "lock",
+    "user-fill",
+    "group-fill",
+    "close-fill",
+    "close-line",
+    "close-fill-1",
+    "info-circle1",
+    "info_1",
+    "success-line",
+    "success-fill",
+    "info_2",
+    "flag-solid",
+    "folder-solid",
+    "folder-solid-open",
+    "swap",
+    "search-file",
+    "bottom-solid",
+    "top-solid",
+    "move-down-solid",
+    "move-up-solid",
+    "last-solid",
+    "first-solid",
+    "rmb",
+    "mail",
+    "question-circle",
+    "question-circle-solid",
+    "people",
+    "people-solid",
+    "group",
+    "group_add",
+    "people-add",
+    "more",
+    "move",
+    "calendar",
+    "sent",
+    "book",
+    "list-2",
+    "time",
+    "list-1",
+    "task",
+    "tag",
+    "remark",
+    "pie-chart",
+    "vip",
+    "table",
+    "config",
+    "delete",
+    "export",
+    "upload",
+    "view-board",
+    "view",
+    "hide",
+    "menu",
+    "filter",
+    "search",
+    "edit",
+    "copy",
+    "refresh",
+    "plus",
+    "subtract",
+    "left-solid",
+    "up-solid",
+    "right-solid",
+    "down-solid",
+    "sort",
+    "sub-solid",
+    "plus-solid",
+    "radio",
+    "radio-button",
+    "double-left",
+    "double-right",
+    "right",
+    "left",
+    "down",
+    "up",
+    "finish",
+    "close",
+    "checkbox",
+    "checkbox-indeterminate",
+    "checkbox-blank",
+    "arrange-3",
+    "arrange-2",
+    "edit-2",
+    "warn",
+    "link",
+    "logout",
+    "loader",
+    "message",
+    "phone",
+    "list-solid",
+    "list-line",
+    "list-icon",
+    "warn-circle",
+    "plus-money",
+    "plus-fill",
+    "plus-batch",
+    "plus-line",
+    "sub-line",
+    "service",
+    "baocun",
+  ],
+  ai: [
+    "ai-music-filled",
+    "ai-music-outline",
+    "ai-microphone-filled",
+    "ai-microphone-outline",
+    "ai-voice",
+    "ai-voice-chat-filled",
+    "ai-voice-chat-outline",
+    "ai-voice-file-filled",
+    "ai-voice-file-outline",
+    "ai-read-aloud-filled",
+    "ai-read-aloud-outline",
+    "ai-camera-filled",
+    "ai-camera-outline",
+    "ai-camcorder-filled",
+    "ai-camcorder-outline",
+    "ai-video-filled",
+    "ai-video-outline",
+    "ai-brush-filled",
+    "ai-brush-outline",
+    "ai-pen-filled",
+    "ai-pen-outline",
+    "ai-color-filled",
+    "ai-color-outline",
+    "ai-chat-filled",
+    "ai-chat-outline",
+    "ai-email-filled",
+    "ai-email-outline",
+    "ai-double-star-filled",
+    "ai-double-star-outline",
+    "ai-tri-star-filled",
+    "ai-tri-star-outline",
+    "ai-code",
+    "ai-generate",
+    "ai-image-filled",
+    "ai-image-outline",
+    "ai-text",
+    "ai-toggle-case",
+    "ai-translate",
+  ],
+  color: [
+    "mr",
+    "P12",
+    "a-compass-line",
+    "people-line",
+    "gift-line",
+    "exchange-box-line",
+    "risk-line",
+    "message-line",
+    "tiktok-line",
+    "bar-chart-line",
+    "chart-line",
+    "home-line",
+    "group-line",
+    "XLS",
+    "ZIP",
+    "DOC",
+    "TXT",
+    "PPT",
+    "PDF",
+    "video",
+    "CSV",
+  ],
+  plat: Object.keys(PLAT_MAP),
+};
 
 const titleList = {
-	basic: '基础图标',
-	ai: 'AI 主题图标',
-	color: '彩色图标',
-    plat: '平台图标',
-}
+  basic: "基础图标",
+  ai: "AI 主题图标",
+  color: "彩色图标",
+  plat: "平台图标",
+};
 
 const componentList = {
-	basic: Icon,
-	ai: Icon,
-	color: ColorIcon,
-    plat: ColorIcon,
-}
+  basic: Icon,
+  ai: Icon,
+  color: ColorIcon,
+  plat: ColorIcon,
+};
 
-const iconStyle = { fontSize: '36px' };
+const iconStyle = { fontSize: "36px" };
 
 export default function IconDemo() {
-	const handleCopy = event => {
-		const text = event.currentTarget.innerText;
-		ShunyunUtils.copyText(text);
-		Message.success(text + ' 已复制');
-	};
+  const handleCopy = (event) => {
+    const text = event.currentTarget.innerText;
+    ShunyunUtils.copyText(text);
+    Message.success(text + " 已复制");
+  };
 
-	return (
-		<Tabs defaultActiveKey="basic" type="capsule">
-			{Object.keys(iconList).map(key => {
-				const Component = componentList[key];
-				return (
-					<Tabs.Panel tab={titleList[key]} key={key}>
-						<ul className="icon-list">
-							{iconList[key].map((type, index) => {
-								return (
-									<li key={type} className="icon-card" onClick={handleCopy}>
-										<div className="icon-area">
-											<Component type={type} style={iconStyle}/>
-										</div>
-										<div className="text-area">{type}</div>
-									</li>
-								);
-							})}
-						</ul>
-					</Tabs.Panel>
-				);
-			})}
-		</Tabs>
-	);
+  return (
+    <Tabs defaultActiveKey="basic" type="capsule">
+      {Object.keys(iconList).map((key) => {
+        const Component = componentList[key];
+        return (
+          <Tabs.Panel tab={titleList[key]} key={key}>
+            <ul className="icon-list">
+              {iconList[key].map((type, index) => {
+                return (
+                  <li key={type} className="icon-card" onClick={handleCopy}>
+                    <div className="icon-area">
+                      <Component type={type} style={iconStyle} />
+                    </div>
+                    <div className="text-area">{type}</div>
+                  </li>
+                );
+              })}
+            </ul>
+          </Tabs.Panel>
+        );
+      })}
+    </Tabs>
+  );
 }
 ```

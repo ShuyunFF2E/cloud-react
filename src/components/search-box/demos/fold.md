@@ -9,63 +9,63 @@ desc: 展开收起表单项
  * title: 展开收起表单项
  * desc: 展开收起表单项
  */
-import React, { useState } from 'react';
-import { SearchBox, Input, Field } from 'cloud-react';
+import React, { useState } from "react";
+import { SearchBox, Input, Field } from "cloud-react";
 
 export default function Demo() {
   const field = Field.useField();
   const searchList = [
     {
-      label: '计划名称',
+      label: "计划名称",
       content: (
         <Input
           style={{ width: 250 }}
           placeholder="请输入计划名称"
-          {...field.init('name')}
+          {...field.init("name")}
         />
-      )
+      ),
     },
     {
-      label: '计划ID',
+      label: "计划ID",
       content: (
         <Input
           style={{ width: 250 }}
           placeholder="请输入计划ID"
-          {...field.init('id')}
+          {...field.init("id")}
         />
-      )
+      ),
     },
     {
-      label: '场景名称',
+      label: "场景名称",
       content: (
         <Input
           style={{ width: 250 }}
           placeholder="请输入场景名称"
-          {...field.init('sceneName')}
+          {...field.init("sceneName")}
         />
-      )
+      ),
     },
     {
-      label: '状态',
+      label: "状态",
       content: (
         <Input
           style={{ width: 250 }}
           placeholder="请输入状态"
-          {...field.init('status')}
+          {...field.init("status")}
         />
-      )
+      ),
     },
     {
-      label: '触发类型',
+      label: "触发类型",
       content: (
         <Input
           style={{ width: 250 }}
           placeholder="请输入触发类型"
-          {...field.init('trigger')}
+          {...field.init("trigger")}
         />
-      )
-    }
-  ]
+      ),
+    },
+  ];
   return (
     <SearchBox
       field={field}

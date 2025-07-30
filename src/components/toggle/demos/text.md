@@ -9,8 +9,8 @@ desc:
  * title: 设置文案显示
  * desc:
  */
-import React from 'react';
-import { Toggle } from 'cloud-react';
+import React from "react";
+import { Toggle } from "cloud-react";
 
 class ToggleDemo extends React.Component {
   constructor(props) {
