@@ -9,8 +9,8 @@ desc: 控制内部Radio是否禁用
  * title: Radio.Group
  * desc: 控制内部Radio是否禁用
  */
-import React, { useState } from 'react';
-import { Button, Radio } from 'cloud-react';
+import React, { useState } from "react";
+import { Button, Radio } from "cloud-react";
 
 function RadioDemo() {
   const [disabled, setDisabled] = useState(false);
@@ -32,17 +32,13 @@ function RadioDemo() {
           选项B
         </Radio>
       </Radio.Group>
-      <br/>
-      <br/>
-      <Button size={'small'} type="primary" onClick={onClick}>
+      <br />
+      <br />
+      <Button size={"small"} type="primary" onClick={onClick}>
         全部禁用
       </Button>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <Button
-        size={'small'}
-        type="primary"
-        onClick={onExchangeRadio}
-      >
+      <Button size={"small"} type="primary" onClick={onExchangeRadio}>
         禁用选项B
       </Button>
     </>

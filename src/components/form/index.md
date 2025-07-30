@@ -17,39 +17,39 @@ group:
 
 ### Form
 
-| 属性       | 说明                                                                  | 类型                | 默认值     |
-| ---------- | --------------------------------------------------------------------- | ------------------- | ---------- |
-| field      | `new Field(this)`之后的实例，用到表单校验则时此项必填                 | object              | -          |
-| size       | 表单的尺寸，可设置`small` `default` `large`，设置此项后表单内的数据获取类组件的尺寸会自动联动  | string     | `default` |
-| layout     | 表单展示方向，可设置`horizontal` `vertical` `inline`                  | string              | `vertical` |
-| labelAlign | 标签的对齐位置，可设置`left` `right`                                  | string              | `right`    |
-| labelCol   | `label` 标签布局，设置 `span` `offset` 值，如 `{span: 3, offset: 12}` | string              | -          |
-| wrapperCol | 需要为输入控件设置布局样式时，使用该属性，用法同 `labelCol`           | string              | -          |
-| onSubmit   | form 内有`htmlType="submit"`的元素的时候会触发                        | Function(evt:Event) | -          |
-| colon      | 配合`label`属性使用，表示是否显示`label`后面的冒号                    | boolean             | `true`     |
-| labelWrap  | 配合`label`属性使用，表示`label`是否在超宽时换行                    | boolean             | `false`     |
-| className  | Form 的 className 属性                                                | string              | -          |
-| scrollToFirstError | 提交失败自动滚动到第一个错误字段，`field`字段不存在时无效			| boolean              | `false`     |
-| fixedError | 展示报错提示时表单项位置是否发生变化			| boolean              | `false`     |
-| gap | 各个表单项的间距			|  number              | 20     |
+| 属性               | 说明                                                                                          | 类型                | 默认值     |
+| ------------------ | --------------------------------------------------------------------------------------------- | ------------------- | ---------- |
+| field              | `new Field(this)`之后的实例，用到表单校验则时此项必填                                         | object              | -          |
+| size               | 表单的尺寸，可设置`small` `default` `large`，设置此项后表单内的数据获取类组件的尺寸会自动联动 | string              | `default`  |
+| layout             | 表单展示方向，可设置`horizontal` `vertical` `inline`                                          | string              | `vertical` |
+| labelAlign         | 标签的对齐位置，可设置`left` `right`                                                          | string              | `right`    |
+| labelCol           | `label` 标签布局，设置 `span` `offset` 值，如 `{span: 3, offset: 12}`                         | string              | -          |
+| wrapperCol         | 需要为输入控件设置布局样式时，使用该属性，用法同 `labelCol`                                   | string              | -          |
+| onSubmit           | form 内有`htmlType="submit"`的元素的时候会触发                                                | Function(evt:Event) | -          |
+| colon              | 配合`label`属性使用，表示是否显示`label`后面的冒号                                            | boolean             | `true`     |
+| labelWrap          | 配合`label`属性使用，表示`label`是否在超宽时换行                                              | boolean             | `false`    |
+| className          | Form 的 className 属性                                                                        | string              | -          |
+| scrollToFirstError | 提交失败自动滚动到第一个错误字段，`field`字段不存在时无效                                     | boolean             | `false`    |
+| fixedError         | 展示报错提示时表单项位置是否发生变化                                                          | boolean             | `false`    |
+| gap                | 各个表单项的间距                                                                              | number              | 20         |
 
 如果 Form 和 Form.Item 相同的属性，Form.Item 的优先级更高，如果 Form 上设置了就不用每一个 Form.Item 上都进行设置，更加方便
 
 ### Form.Item
 
-| 属性       | 说明                                                                  | 类型    | 默认值    |
-| ---------- | --------------------------------------------------------------------- | ------- | --------- |
-| label      | `label` 标签的文本                                                    | string  | ReactNode | - |
-| description      | `label` 标签的解释                                                  | string  | - | - |
-| help       | 提示信息，如不设置，则会根据校验规则自动生成                          | string  | ReactNode | - |
-| htmlFor    | 设置子元素 `label` `htmlFor` 属性                                     | string  | -         |
-| required   | 是否必填，如不设置，则会根据校验规则自动生成                          | boolean | `false`   |
-| labelCol   | `label` 标签布局，设置 `span` `offset` `style` 值，如 `{span: 3, offset: 12}` 或 { style: { width: 80 } } | string  | -         |
-| wrapperCol | 需要为输入控件设置布局样式时，使用该属性，用法同 `labelCol`           | string  | -         |
-| className  | Form.Item 的 className 属性                                           | string  | -         |
-| name  | 字段名                                           | string  | -         |
-| preserve  | 当Form.Item卸载时保留字段值                                           | boolean  | -         |
-| wrapperStyle  |          表单项样式，和 wrapperCol.style 作用一致                                | object  | {}         |
+| 属性         | 说明                                                                                                      | 类型             | 默认值  |
+| ------------ | --------------------------------------------------------------------------------------------------------- | ---------------- | ------- |
+| label        | `label` 标签的文本                                                                                        | string/ReactNode | -       |
+| description  | `label` 标签的解释                                                                                        | string           | -       |
+| help         | 提示信息，如不设置，则会根据校验规则自动生成                                                              | string/ReactNode | -       |
+| htmlFor      | 设置子元素 `label` `htmlFor` 属性                                                                         | string           | -       |
+| required     | 是否必填，如不设置，则会根据校验规则自动生成                                                              | boolean          | `false` |
+| labelCol     | `label` 标签布局，设置 `span` `offset` `style` 值，如 `{span: 3, offset: 12}` 或 { style: { width: 80 } } | string           | -       |
+| wrapperCol   | 需要为输入控件设置布局样式时，使用该属性，用法同 `labelCol`                                               | string           | -       |
+| className    | Form.Item 的 className 属性                                                                               | string           | -       |
+| name         | 字段名                                                                                                    | string           | -       |
+| preserve     | 当 Form.Item 卸载时保留字段值                                                                             | boolean          | -       |
+| wrapperStyle | 表单项样式，和 wrapperCol.style 作用一致                                                                  | object           | {}      |
 
 ### Form.Nexus
 
@@ -109,9 +109,10 @@ function UseNexus() {
 }
 ``` -->
 
- ### 代码演示
+### 代码演示
 
 ### 基础表单用法
+
 <embed src="@components/form/demos/basic-forms.md" />
 
 <embed src="@components/form/demos/basic-usage.md" />
@@ -121,6 +122,7 @@ function UseNexus() {
 <embed src="@components/form/demos/inline.md" />
 
 ### Radio 和表单混合使用
+
 <embed src="@components/form/demos/radio-form1.md" />
 
 <embed src="@components/form/demos/radio-form.md" />

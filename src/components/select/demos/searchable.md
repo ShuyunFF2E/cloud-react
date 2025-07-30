@@ -5,65 +5,66 @@ desc: 可对选项进行搜索
 ---
 
 ```jsx
-import React, { useState } from 'react';
-import { Select, Checkbox, Radio } from 'cloud-react';
+import React, { useState } from "react";
+import { Select, Checkbox, Radio } from "cloud-react";
 
 const Option = Select.Option;
 
 const dataList = [
   {
-    label: 'React',
-    value: 'React',
+    label: "React",
+    value: "React",
   },
   {
-    label: 'Vue',
-    value: 'Vue',
+    label: "Vue",
+    value: "Vue",
   },
   {
-    label: 'Angular',
-    value: 'Angular',
+    label: "Angular",
+    value: "Angular",
   },
   {
-    label: '数云',
-    value: 'sy',
+    label: "数云",
+    value: "sy",
   },
   {
-    label: '选中项1',
-    value: '1',
+    label: "选中项1",
+    value: "1",
   },
   {
-    label: '选中项2',
-    value: '2',
+    label: "选中项2",
+    value: "2",
   },
   {
-    label: '选中项3选中项3选中项3选中项3选中项3选中项3选中项3选中项3选中项3选中项3选中项3选中项3选中项3',
-    value: '3',
+    label:
+      "选中项3选中项3选中项3选中项3选中项3选中项3选中项3选中项3选中项3选中项3选中项3选中项3选中项3",
+    value: "3",
   },
   {
-    label: '选中项4',
-    value: '4',
+    label: "选中项4",
+    value: "4",
   },
   {
-    label: '选中项5',
-    value: '5',
+    label: "选中项5",
+    value: "5",
   },
   {
-    label: '选中项6',
-    value: '6',
+    label: "选中项6",
+    value: "6",
   },
 ];
 
-const dataList1 = dataList.map(item => ({
+const dataList1 = dataList.map((item) => ({
   label1: item.label,
   value1: item.value,
-}))
+}));
 
 export default function SelectDemo() {
   const [disabled, setDisabled] = useState(false);
-  const [size, setSize] = useState('default');
+  const [size, setSize] = useState("default");
 
   const handleChange = (value) => {
-    console.log('select --- ' + value);
+    console.log("select --- " + value);
   };
 
   const handleSearch = (value) => {
@@ -71,10 +72,15 @@ export default function SelectDemo() {
   };
 
   return (
-    <div style={{ display: 'flex', gap: 20, flexDirection: 'column' }}>
-      <Checkbox checked={disabled} onChange={checked => {
-        setDisabled(checked)
-      }}>禁用</Checkbox>
+    <div style={{ display: "flex", gap: 20, flexDirection: "column" }}>
+      <Checkbox
+        checked={disabled}
+        onChange={(checked) => {
+          setDisabled(checked);
+        }}
+      >
+        禁用
+      </Checkbox>
       <Radio.Group value={size} onChange={setSize} horizontal>
         <Radio value="large">large</Radio>
         <Radio value="default">default</Radio>
@@ -91,7 +97,7 @@ export default function SelectDemo() {
           placeholder="带搜索的下拉单选"
           onSearch={handleSearch}
           onChange={handleChange}
-          style={{width: 328}}
+          style={{ width: 328 }}
           dataSource={dataList1}
           labelKey="label1"
           valueKey="value1"
@@ -108,7 +114,7 @@ export default function SelectDemo() {
           placeholder="带搜索的下拉单选"
           onSearch={handleSearch}
           onChange={handleChange}
-          style={{width: 328}}
+          style={{ width: 328 }}
           dataSource={dataList}
           scrollSelected
         />
@@ -126,12 +132,12 @@ export default function SelectDemo() {
           placeholder="带搜索的下拉多选"
           onSearch={handleSearch}
           onChange={handleChange}
-          style={{width: 328}}
+          style={{ width: 328 }}
           labelKey="name"
           valueKey="userId"
-          dataSource={dataList.map(item => ({
+          dataSource={dataList.map((item) => ({
             name: item.label,
-            userId: item.value
+            userId: item.value,
           }))}
         />
       </div>
@@ -148,7 +154,7 @@ export default function SelectDemo() {
           placeholder="带搜索的下拉多选"
           onSearch={handleSearch}
           onChange={handleChange}
-          style={{width: 328}}
+          style={{ width: 328 }}
           dataSource={dataList}
           maxTagCount={5}
         />
@@ -166,7 +172,7 @@ export default function SelectDemo() {
           placeholder="带搜索的下拉多选"
           onSearch={handleSearch}
           onChange={handleChange}
-          style={{width: 328}}
+          style={{ width: 328 }}
           dataSource={dataList}
           maxTagCount={0}
         />
@@ -184,7 +190,7 @@ export default function SelectDemo() {
           placeholder="带搜索的下拉多选"
           onSearch={handleSearch}
           onChange={handleChange}
-          style={{width: 328}}
+          style={{ width: 328 }}
           dataSource={dataList}
           maxTagCount={0}
           maxHeight={80}
@@ -203,7 +209,7 @@ export default function SelectDemo() {
           placeholder="带搜索的下拉多选"
           onSearch={handleSearch}
           onChange={handleChange}
-          style={{width: 328}}
+          style={{ width: 328 }}
           dataSource={dataList}
           maxTagCount={0}
           showTag={false}
@@ -222,7 +228,7 @@ export default function SelectDemo() {
           placeholder="带搜索的下拉多选"
           onSearch={handleSearch}
           onChange={handleChange}
-          style={{width: 328}}
+          style={{ width: 328 }}
           dataSource={dataList}
           maxTagCount={0}
           showTag={false}

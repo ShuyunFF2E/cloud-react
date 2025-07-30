@@ -49,20 +49,20 @@ group:
 
 更多 API 请参考: [GridManager API](http://gridmanager.lovejavascript.com/api/index.html)
 
- ### 代码演示 
+### 代码演示
 
-<embed src="@components/table/demos/ajax-page.md" /> 
+<embed src="@components/table/demos/ajax-page.md" />
 
-<embed src="@components/table/demos/basic-table.md" /> 
+<embed src="@components/table/demos/basic-table.md" />
 
-<embed src="@components/table/demos/col-fixed.md" /> 
+<embed src="@components/table/demos/col-fixed.md" />
 
-<embed src="@components/table/demos/customize.md" /> 
+<embed src="@components/table/demos/customize.md" />
 
-<embed src="@components/table/demos/sort.md" /> 
+<embed src="@components/table/demos/sort.md" />
 
-<embed src="@components/table/demos/static.md" /> 
+<embed src="@components/table/demos/static.md" />
 
-<embed src="@components/table/demos/top-full.md" /> 
+<embed src="@components/table/demos/top-full.md" />
 
-<embed src="@components/table/demos/tree.md" /> 
+<embed src="@components/table/demos/tree.md" />

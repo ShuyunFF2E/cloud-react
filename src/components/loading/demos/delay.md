@@ -9,8 +9,8 @@ desc: 延迟number(毫秒)显示加载效果，可防止闪烁；当loading状�
  * title: 延迟加载
  * desc: 延迟number(毫秒)显示加载效果，可防止闪烁；当loading状态在 `delay` 时间内结束，则不显示loading状态。
  */
-import React from 'react';
-import { Loading, Toggle, Tips } from 'cloud-react';
+import React from "react";
+import { Loading, Toggle, Tips } from "cloud-react";
 
 class LoadingDemo extends React.Component {
   constructor(props) {

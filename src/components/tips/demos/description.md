@@ -10,13 +10,13 @@ order: 4
  * desc:
  */
 
-import React from 'react';
-import { Tips } from 'cloud-react';
+import React from "react";
+import { Tips } from "cloud-react";
 
 class TipsDemo extends React.Component {
   render() {
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
         <Tips
           msg="带描述的提示"
           description="这里是描述性文字 这里是描述性文字 这里是描述性文字"
@@ -33,11 +33,11 @@ class TipsDemo extends React.Component {
         <Tips
           type="major"
           isShowIcon
-          msg={<div style={{ color: 'red' }}>传个数组试试</div>}
+          msg={<div style={{ color: "red" }}>传个数组试试</div>}
           description={[
-            '1.这里是描述性文字',
-            '2.这里是描述性文字',
-            '3.这里是描述性文字',
+            "1.这里是描述性文字",
+            "2.这里是描述性文字",
+            "3.这里是描述性文字",
           ]}
           closeIcon="close-line"
         />

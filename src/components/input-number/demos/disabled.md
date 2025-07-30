@@ -5,39 +5,38 @@ desc: 添加 disabled 属性即可让按钮处于不可用状态，同时按钮�
 ---
 
 ```jsx
-
 /**
  * title: 禁用数字输入框
  * desc: 添加 disabled 属性即可让按钮处于不可用状态，同时按钮样式也会改变。
  */
-import React from 'react';
-import { Button, InputNumber } from 'cloud-react';
+import React from "react";
+import { Button, InputNumber } from "cloud-react";
 
-const blank = '\u00A0';
+const blank = "\u00A0";
 
 class InputNumberDemo extends React.Component {
-	state = {
-		disabled: false
-	};
-	toggle = () => {
-		this.setState({
-			disabled: !this.state.disabled
-		});
-	};
-	render() {
-		return (
-			<React.Fragment>
-				<div>
-					<InputNumber disabled={this.state.disabled} />
-					<br />
-					<br />
-					<Button type="primary" onClick={this.toggle}>
-						{this.state.disabled ? '启用' : '禁用'}
-					</Button>
-				</div>
-			</React.Fragment>
-		);
-	}
+  state = {
+    disabled: false,
+  };
+  toggle = () => {
+    this.setState({
+      disabled: !this.state.disabled,
+    });
+  };
+  render() {
+    return (
+      <React.Fragment>
+        <div>
+          <InputNumber disabled={this.state.disabled} />
+          <br />
+          <br />
+          <Button type="primary" onClick={this.toggle}>
+            {this.state.disabled ? "启用" : "禁用"}
+          </Button>
+        </div>
+      </React.Fragment>
+    );
+  }
 }
 
 export default InputNumberDemo;

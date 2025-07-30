@@ -10,17 +10,14 @@ order: 7
  * desc: 文字居中，可关闭，伴随展开效果出现
  */
 
-import React from 'react';
-import { Tips } from 'cloud-react';
+import React from "react";
+import { Tips } from "cloud-react";
 
 class TipsDemo extends React.Component {
   render() {
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-        <Tips
-          mode="banner"
-          msg="提示文字 提示文字 提示文字 提示文字"
-        />
+      <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+        <Tips mode="banner" msg="提示文字 提示文字 提示文字 提示文字" />
 
         <Tips
           type="warning"

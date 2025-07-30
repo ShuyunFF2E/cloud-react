@@ -9,23 +9,22 @@ desc: 上传前和用户进行确认，可配置具体提示内容。
  * title: 上传前显示确认对话框。
  * desc: 上传前和用户进行确认，可配置具体提示内容。
  */
-import React from 'react';
-import { Message, Upload } from 'cloud-react';
+import React from "react";
+import { Message, Upload } from "cloud-react";
 
 class UploadDemo extends React.Component {
-
   state = {
-    fileList: []
+    fileList: [],
   };
 
-  handleProgress = info => {
+  handleProgress = (info) => {
     // TODO 上传进度条...
     // Message.success(info.file.name + '文件上传进度为:' + info.file.percent + '%');
   };
 
   handleSuccess = ({ file, fileList, response }) => {
     console.log(file, fileList, response);
-    Message.success(file.name + '文件上传成功！');
+    Message.success(file.name + "文件上传成功！");
 
     file.url = response.data;
 
@@ -33,22 +32,22 @@ class UploadDemo extends React.Component {
     this.setState({ fileList });
   };
 
-  handleRemove = info => {
+  handleRemove = (info) => {
     const id = info.file.id;
 
     // 这里可能需要调用后端接口，删除已经上传的文件
-    let restFileList = info.fileList.filter(file => id !== file.id);
+    let restFileList = info.fileList.filter((file) => id !== file.id);
 
     this.setState({
-      fileList: restFileList
+      fileList: restFileList,
     });
 
-    Message.success(info.file.name + ' 删除成功！');
+    Message.success(info.file.name + " 删除成功！");
   };
 
   handleReUpload = ({ file, fileList, response }) => {
     console.log(file, fileList, response);
-    Message.success(file.name + '文件上传成功！');
+    Message.success(file.name + "文件上传成功！");
 
     file.url = response.data;
 
@@ -61,20 +60,20 @@ class UploadDemo extends React.Component {
       size: 2,
       multiple: true,
       isShowIcon: true,
-      params: {test: 1},
-      labelText: '点击上传',
+      params: { test: 1 },
+      labelText: "点击上传",
       headers: {},
-      action: '/upload',
+      action: "/upload",
       showBeforeConfirm: true,
       beforeConfirmBody: <span>确认需要上传吗？</span>,
       beforeConfirmConfig: {
-        title: '确定要上传文件吗？',
-        body: '这里是上传后响应状态的描述'
+        title: "确定要上传文件吗？",
+        body: "这里是上传后响应状态的描述",
       },
       onProgress: this.handleProgress,
       onSuccess: this.handleSuccess,
       onRemove: this.handleRemove,
-      onReUpload: this.handleReUpload
+      onReUpload: this.handleReUpload,
     };
 
     return <Upload {...props} fileList={this.state.fileList} />;

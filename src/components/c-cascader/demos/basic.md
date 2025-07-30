@@ -13,7 +13,7 @@ const addressOptions =  [
     value: 'zhejiang',
     label: 'Zhejiang',
     info: '说明',
-		           
+
 
     children: [
       {
@@ -22,28 +22,28 @@ const addressOptions =  [
         info: '说明',
         children: [
           {
-            value: 'xihu',
-            label: 'West Lake',
+            value: "xihu",
+            label: "West Lake",
           },
           {
-            value: 'xiasha',
-            label: 'Xia Sha',
+            value: "xiasha",
+            label: "Xia Sha",
           },
         ],
       },
     ],
   },
   {
-    value: 'jiangsu',
-    label: 'Jiangsu',
+    value: "jiangsu",
+    label: "Jiangsu",
     children: [
       {
-        value: 'nanjing',
-        label: 'Nanjing',
+        value: "nanjing",
+        label: "Nanjing",
         children: [
           {
-            value: 'zhonghuamen',
-            label: 'Zhong Hua men',
+            value: "zhonghuamen",
+            label: "Zhong Hua men",
           },
         ],
       },
@@ -51,72 +51,78 @@ const addressOptions =  [
   },
 ];
 
-const key = 'tmp_area_data';
+const key = "tmp_area_data";
 export default function Demo() {
   const [data, setData] = useState([]);
-	const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
 
-  const getStorageData = ()  =>{
+  const getStorageData = () => {
     try {
-        const resultStr = localStorage.getItem(key);
-        return JSON.parse(resultStr);
+      const resultStr = localStorage.getItem(key);
+      return JSON.parse(resultStr);
     } catch (error) {
-        return null; // 异常时需要重新获取数据
+      return null; // 异常时需要重新获取数据
     }
-}
+  };
 
-/**
- * 保存数据到缓存
- */
+  /**
+   * 保存数据到缓存
+   */
   const setStorageData = (data) => {
-    localStorage.setItem(key, JSON.stringify(data));    
-}
-
+    localStorage.setItem(key, JSON.stringify(data));
+  };
 
   useEffect(() => {
+    // fetcher
+    async function fetchData(url) {
+      const res = await window.fetch(url, {
+        credentials: "include",
+        method: "GET",
+        mode: "cors",
+      });
 
-		// fetcher
-		async function fetchData(url) {
-			const res = await window.fetch(url, {
-				credentials: 'include',
-				method: 'GET',
-				mode: 'cors'
-			});
+      if (!res.ok) {
+        return null;
+      }
+      const resData = await res.json();
+      if (!Array.isArray(resData)) {
+        return null;
+      }
 
-			if (!res.ok) { return null; }
-			const resData = await res.json();
-			if (!Array.isArray(resData)) { return null; }
+      return resData;
+    }
 
-			return resData;
-		}
+    setLoading(true);
+    const platform = "unification";
+    const server = "https://qa-ual.shuyun.com/shuyun-searchapi/1.0/area";
+    // 使用全渠道的数据后面要增加showall参数
+    const unificationInterface =
+      platform === "unification" ? "&showall=true" : "";
+    const url = `${server}?platform=${platform}${unificationInterface}`;
+    const dataSource = getStorageData();
+    if (dataSource) {
+      setData(dataSource);
+      setLoading(false);
+    } else {
+      fetchData(url).then((res) => {
+        if (!res) return;
+        setData(res);
+        setLoading(false);
+        setStorageData(res);
+      });
+    }
+  }, []);
 
-		setLoading(true);
-    const platform = 'unification';
-    const server = 'https://qa-ual.shuyun.com/shuyun-searchapi/1.0/area';
-		// 使用全渠道的数据后面要增加showall参数
-		const unificationInterface = platform === 'unification' ?  '&showall=true' : '';
-		const url = `${server}?platform=${platform}${unificationInterface}`;
-		const dataSource = getStorageData();
-		if (dataSource) {
-			setData(dataSource);
-			setLoading(false);
-		} else {
-			fetchData(url).then(res => {
-				if (!res) return;
-				setData(res);
-				setLoading(false);
-				setStorageData(res);
-			});
-		}
-	}, []);
-  
-	const onChange = (value) => {
-		console.log(value);
-	}
+  const onChange = (value) => {
+    console.log(value);
+  };
 
-	const filter = (inputValue, path) => {
-		return path.some(option => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1);
-	}
+  const filter = (inputValue, path) => {
+    return path.some(
+      (option) =>
+        option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1
+    );
+  };
 
 	return (
 			<div>
@@ -156,9 +162,9 @@ export default function Demo() {
 					placeholder="Please select"
           style={{ width: 328 }}
           changeOnSelect
-          />
-        }
-			</div>
-		);
+        />
+      )}
+    </div>
+  );
 }
 ```

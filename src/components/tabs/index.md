@@ -17,22 +17,22 @@ group:
 
 ### Tabs
 
-| 属性             | 说明                                                     | 类型              | 默认值           |
-| ---------------- | -------------------------------------------------------- | ----------------- | ---------------- |
-| defaultActiveKey | 初始化选中面板的 key                                     | string            | -                |
-| activeKey        | 当前激活 tab 面板的 key                                  | string            | ''               |
-| activeClassName  | 可自定义选项卡被选中时的样式                             | string            | 'active'         |
-| mode             | 当前 tabpanel 的渲染模式                                 | `reset`、`remain` | `reset`          |
-| onChange         | 切换面板时触发事件                                       | Function          | (key)=>{}        |
-| onClose          | 关闭面板时触发事件                                       | Function          | (key)=>{}        |
-| type             | 页签的基本样式，可选 `line` `card` `capsule` `empty-capsule` `slide`                      | string            | card             |
-| step             | 当超过当前行的宽度出现滚动，点击箭头时一次可以滑动的距离 | number            | tab 列表宽度 / 3 |
-| className        | 设置类样式                                               | string            | ''               |
-| style            | 设置行内样式                                             | object            | {}               |
-| lineSuffixTpl    | 设置选项卡后置模板（仅适用于 type === `line`）         | -            | ''              |
-| linePrefixTpl    | 设置选项卡前置模板（仅适用于 type === `line`）         | -            | ''              |
-| linePlacement    | 设置选项卡排列方向（仅适用于 type === `line`），可选 `left` `top` `right`         | string            |    `top`           |
-| lineBgMode   | 设置选项卡通过背景变化展示样式（仅适用于 type === `line` && linePlacement === `left`/`right`）      | boolean            |    false           |
+| 属性             | 说明                                                                                           | 类型              | 默认值           |
+| ---------------- | ---------------------------------------------------------------------------------------------- | ----------------- | ---------------- |
+| defaultActiveKey | 初始化选中面板的 key                                                                           | string            | -                |
+| activeKey        | 当前激活 tab 面板的 key                                                                        | string            | ''               |
+| activeClassName  | 可自定义选项卡被选中时的样式                                                                   | string            | 'active'         |
+| mode             | 当前 tabpanel 的渲染模式                                                                       | `reset`、`remain` | `reset`          |
+| onChange         | 切换面板时触发事件                                                                             | Function          | (key)=>{}        |
+| onClose          | 关闭面板时触发事件                                                                             | Function          | (key)=>{}        |
+| type             | 页签的基本样式，可选 `line` `card` `capsule` `empty-capsule` `slide`                           | string            | card             |
+| step             | 当超过当前行的宽度出现滚动，点击箭头时一次可以滑动的距离                                       | number            | tab 列表宽度 / 3 |
+| className        | 设置类样式                                                                                     | string            | ''               |
+| style            | 设置行内样式                                                                                   | object            | {}               |
+| lineSuffixTpl    | 设置选项卡后置模板（仅适用于 type === `line`）                                                 | -                 | ''               |
+| linePrefixTpl    | 设置选项卡前置模板（仅适用于 type === `line`）                                                 | -                 | ''               |
+| linePlacement    | 设置选项卡排列方向（仅适用于 type === `line`），可选 `left` `top` `right`                      | string            | `top`            |
+| lineBgMode       | 设置选项卡通过背景变化展示样式（仅适用于 type === `line` && linePlacement === `left`/`right`） | boolean           | false            |
 
 ### Tabs.Panel
 
@@ -47,18 +47,18 @@ group:
 | style       | 设置行内样式                                | object            | {}     |
 | tabBarStyle | 设置 tab 的 header                          | object            | {}     |
 
- ### 代码演示 
+### 代码演示
 
-<embed src="@components/tabs/demos/basic-tabs.md" /> 
+<embed src="@components/tabs/demos/basic-tabs.md" />
 
-<embed src="@components/tabs/demos/dynamic.md" /> 
+<embed src="@components/tabs/demos/dynamic.md" />
 
-<embed src="@components/tabs/demos/fixed.md" /> 
+<embed src="@components/tabs/demos/fixed.md" />
 
-<embed src="@components/tabs/demos/line.md" /> 
+<embed src="@components/tabs/demos/line.md" />
 
-<embed src="@components/tabs/demos/capsule.md" /> 
+<embed src="@components/tabs/demos/capsule.md" />
 
-<embed src="@components/tabs/demos/slide.md" /> 
+<embed src="@components/tabs/demos/slide.md" />
 
-<embed src="@components/tabs/demos/async.md" /> 
+<embed src="@components/tabs/demos/async.md" />
