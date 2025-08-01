@@ -17,7 +17,7 @@ export default function TextTpl({ value, line = 1, tooltipValue }) {
         setTooltipContent(value);
       }
     }
-  }, [tooltipValue]);
+  }, [value, tooltipValue]);
 
   if (isVoid(value)) {
     return '-';

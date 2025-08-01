@@ -17,7 +17,7 @@ export default function LinkTpl({ value, row, linkKey, link, onClick, line = 1, 
         setTooltipContent(value);
       }
     }
-  }, [tooltipValue]);
+  }, [value, tooltipValue]);
 
   if (isVoid(value)) {
     return '-';

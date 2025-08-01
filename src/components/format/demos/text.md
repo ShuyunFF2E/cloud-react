@@ -7,7 +7,7 @@ desc: 文本格式化模板，支持多行显示、Tooltip提示
 ```jsx
 /**
  * title: 文本格式化
- * desc: 文本格式化模板，支持多行显示、Tooltip提示
+ * desc: 文本格式化模板，支持多行显示、文本超长展示Tooltip，不超长不展示Tooltip
  */
 import React from "react";
 import { Format } from "cloud-react";

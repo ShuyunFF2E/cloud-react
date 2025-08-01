@@ -7,7 +7,7 @@ desc: 链接格式化模板，支持点击跳转、自定义点击事件
 ```jsx
 /**
  * title: 链接格式化
- * desc: 链接格式化模板，支持点击跳转、自定义点击事件
+ * desc: 链接格式化模板，支持点击跳转、自定义点击事件、文本超长展示Tooltip，不超长不展示Tooltip
  */
 import React from "react";
 import { Format } from "cloud-react";
