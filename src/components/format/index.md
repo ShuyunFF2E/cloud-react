@@ -75,13 +75,13 @@ group:
 
 ## 代码演示
 
-### 数字格式化
-
-<embed src="@components/format/demos/number.md" />
-
 ### 文本格式化
 
 <embed src="@components/format/demos/text.md" />
+
+### 链接格式化
+
+<embed src="@components/format/demos/link.md" />
 
 ### 时间格式化
 
@@ -91,6 +91,6 @@ group:
 
 <embed src="@components/format/demos/time-range.md" />
 
-### 链接格式化
+### 数字格式化
 
-<embed src="@components/format/demos/link.md" />
+<embed src="@components/format/demos/number.md" />
