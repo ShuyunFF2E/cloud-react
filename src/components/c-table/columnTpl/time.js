@@ -1,15 +1,22 @@
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { isVoid } from '../util';
 
 export default function TimeTpl({ value, format }) {
-  if (isVoid(value)) {
-    return '-';
-  }
-  if (format) {
-    return moment(value).format(format);
-  }
-  return `${value}`.replaceAll('/', '-');
+  const [time, setTime] = useState(value);
+
+  useEffect(() => {
+    if (isVoid(value)) {
+      setTime('');
+    } else if (format) {
+      setTime(moment(value).format(format));
+    } else {
+      setTime(`${value}`.replaceAll('/', '-'));
+    }
+  }, [value, format]);
+
+  return time || '-';
 }
 
 TimeTpl.propTypes = {
