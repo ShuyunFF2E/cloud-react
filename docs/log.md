@@ -9,6 +9,26 @@ group:
   order: 3
 ---
 
+## 2.0.15 (2025-08-18)
+
+### Features
+* feat: 使用 volta 锁定 node 版本
+* feat: [Cascader] 级联菜单支持 tips 提示 ([1c69765](https://github.com/ShuyunFF2E/cloud-react/commit/1c69765))
+* feat: [Select] 支持下拉选项释义 ([34632db](https://github.com/ShuyunFF2E/cloud-react/commit/34632db))
+* feat: [Tooltip] 添加 defaultPlacement 属性，在 placement为auto时，配置默认位置 ([358d42e](https://github.com/ShuyunFF2E/cloud-react/commit/358d42e))
+* feat: 配置保存时自动格式化 ([b8441b5](https://github.com/ShuyunFF2E/cloud-react/commit/b8441b5))
+* feat: 添加 npm run dev 命令，一条命令启动项目 ([9f900d8](https://github.com/ShuyunFF2E/cloud-react/commit/9f900d8))
+* feat: 新增 Format 组件 ([4c9e42b](https://github.com/ShuyunFF2E/cloud-react/commit/4c9e42b))
+* feat: 新增 ImageText 组件 ([d1849a1](https://github.com/ShuyunFF2E/cloud-react/commit/d1849a1))
+* feat: 新增 LightText 组件 ([99de03f](https://github.com/ShuyunFF2E/cloud-react/commit/99de03f))
+* feat: 修改 eslint 配置 ([161013d](https://github.com/ShuyunFF2E/cloud-react/commit/161013d))
+* feat: 修改主题灰色色值 ([0583bcd](https://github.com/ShuyunFF2E/cloud-react/commit/0583bcd))
+
+### Bug Fixes
+* fix: [Checkbox] 解决Checkbox.Group 嵌套 Select 后，Select 的 onChange 事件被 Checkbox 接管的问题 ([d27c472](https://github.com/ShuyunFF2E/cloud-react/commit/d27c472))
+* fix: [CMenu] 解决菜单默认展示纵向滚动条的问题 ([fb47b07](https://github.com/ShuyunFF2E/cloud-react/commit/fb47b07))
+
+
 ## 2.0.14 (2025-07-23)
 
 ### Features

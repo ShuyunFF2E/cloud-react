@@ -1,6 +1,6 @@
 {
   "name": "cloud-react",
-  "version": "2.0.14",
+  "version": "2.0.15",
   "description": "数据赢家 react 组件",
   "scripts": {
     "gen:index": "node ./scripts/generate-index.js",
@@ -139,5 +139,8 @@
       "eslint --ext .js,.jsx --fix .",
       "git add"
     ]
+  },
+  "volta": {
+    "node": "16.14.2"
   }
 }
