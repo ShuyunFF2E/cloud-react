@@ -7,7 +7,7 @@ order: 4 title: 基本的表单 desc: 标签描述和控件在一条水平线上
  * title: 基本的表单
  * desc: 标签描述和控件在一条水平线上
  */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Form,
   Input,
@@ -20,6 +20,7 @@ import {
   ComplexRadio,
   Field,
   TreeSelect,
+  Format,
 } from "cloud-react";
 
 const { RangePicker, TimeRangePicker } = DatePicker;
@@ -84,8 +85,13 @@ export default function FormHorizontalDemo() {
   const [labelAlign, setLabelAlign] = useState("right");
   const [layout, setLayout] = useState("horizontal");
   const [disabled, setDisabled] = useState(false);
-  // const [singleNodes, setSingleNodes] = useState([]);
-  // const [selectedNodes, setSelectedNodes] = useState([]);
+  
+    useEffect(() => {
+        field.setValue('test', '122')
+        field.setValue('test1', '文案')
+        field.setValue('test2', '链接')
+        field.setValue('test3', '2023-12-12')
+    }, [])
 
   const [value, setValue] = useState();
   const radioList = [
@@ -106,7 +112,7 @@ export default function FormHorizontalDemo() {
     console.log("AAAA", value);
     setValue(value);
   };
-
+  
   return (
     <Form
       fixedError
@@ -280,6 +286,13 @@ export default function FormHorizontalDemo() {
           <Select.Option value={2}>B</Select.Option>
           <Select.Option value={3}>C</Select.Option>
         </Select>
+      </Form.Item>
+
+      <Form.Item label="文本信息" wrapperStyle={wrapperStyle}>
+        <Format.NumberTpl {...field.init('test')} />
+        <Format.TextTpl {...field.init('test1')} />
+        <Format.LinkTpl {...field.init('test2')} />
+        <Format.TimeTpl {...field.init('test3')} />
       </Form.Item>
 
       {/*<Form.Item label="树下拉单选" required>*/}

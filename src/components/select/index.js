@@ -11,7 +11,7 @@ import MultiSelect from './views/select/multi-select';
 import GroupSelect from './views/select/group-select';
 import Selected from './views/selected';
 import Option from './views/option';
-import ImageText from './views/image-text';
+import ImageText from '../image-text';
 import { selector } from './views/common';
 
 import { formatOptionSource, isGroupSelectPicker } from './utils';
@@ -95,6 +95,7 @@ class Select extends Component {
       style: {},
       searchValue: '',
       isSearch: false,
+      hoveredOption: null,
     };
     this.node = React.createRef();
     this.optionsNode = React.createRef();
@@ -506,6 +507,10 @@ class Select extends Component {
     this.setState({ searchValue: v });
   };
 
+  onHoverChange = (item) => {
+    this.setState({ hoveredOption: item });
+  };
+
   renderOptions() {
     const { multiple, confirmTemplate, dataSource } = this.props;
     const { value } = this.state;
@@ -523,6 +528,8 @@ class Select extends Component {
           onSearchValueChange={this.onSearchValueChange}
           handleSelect={this.handleSelect}
           searchValue={this.state.searchValue}
+          onHoverChange={this.onHoverChange}
+          open={this.state.open}
         />
       );
     }
@@ -548,6 +555,8 @@ class Select extends Component {
         onChange={this.onSimpleOptionChange}
         searchValue={this.state.searchValue}
         onSearchValueChange={this.onSearchValueChange}
+        onHoverChange={this.onHoverChange}
+        open={this.state.open}
       />
     );
   }
@@ -567,9 +576,10 @@ class Select extends Component {
       supportUnlimited,
       formSize,
       dataSource,
+      dropdownConfig,
       ...otherProps
     } = this.props;
-    const { selected, open, style: popupStyle } = this.state;
+    const { selected, open, style: popupStyle, hoveredOption } = this.state;
     const { width } = this.selectedContainerStyle;
     const classNames = classnames(
       `${selector}`,
@@ -581,7 +591,13 @@ class Select extends Component {
       <div
         className={`${selector}-option-container ${dropdownClassName}`}
         ref={this.optionsNode}
-        style={{ ...popupStyle, width: `${width}px`, ...dropdownStyle }}
+        style={{
+          ...popupStyle,
+          width: hoveredOption?.[this.props.selectInfoKey]
+            ? dropdownConfig?.width
+            : dropdownConfig?.leftWidth || dropdownStyle?.width || `${width}px`,
+          ...dropdownStyle,
+        }}
       >
         {this.renderOptions()}
       </div>
@@ -676,6 +692,8 @@ Select.propTypes = {
   selectAllText: PropTypes.string,
   borderRadiusSize: PropTypes.oneOf(['default', 'medium', 'large']),
   checkboxStyle: PropTypes.object,
+  dropdownConfig: PropTypes.object,
+  selectInfoKey: PropTypes.string,
 };
 
 Select.defaultProps = {
@@ -726,6 +744,7 @@ Select.defaultProps = {
   selectAllText: '全选',
   borderRadiusSize: 'default',
   checkboxStyle: {},
+  selectInfoKey: 'selectInfo',
 };
 
 export default Select;

@@ -12,7 +12,6 @@ desc: 基本用法，日期选择器。
 import React from "react";
 import moment from "moment";
 import { CPicker as DatePicker, Form, Field, Toggle } from "cloud-react";
-
 const { TimePicker } = DatePicker;
 
 const presets = [
@@ -47,6 +46,7 @@ class DatePickerDemo extends React.Component {
   state = {
     value: moment("2021/12/01 16:05:33", "yyyy/MM/DD HH:mm:ss").toDate(),
     time: "17:58:58",
+    value1: moment("2021/12/01 16:05", "yyyy/MM/DD HH:mm").toDate(),
   };
 
   onChange = (value) => {
@@ -60,7 +60,7 @@ class DatePickerDemo extends React.Component {
   };
 
   render() {
-    const { value, time, disabled } = this.state;
+    const { value, value1, time, disabled } = this.state;
     const { init } = this.field;
     return (
       <Form
@@ -114,6 +114,20 @@ class DatePickerDemo extends React.Component {
             onChange={this.onChange}
             showToday
             showTimePicker
+            disabled={disabled}
+            presets={presets}
+          />
+        </Form.Item>
+        <Form.Item label="日期选择器（不显示秒）">
+          <DatePicker
+            value={value}
+            onChange={this.onChange}
+            showToday
+            showTimePicker={{
+              showSecond: false,
+              format: "HH:mm",
+            }}
+            format="YYYY-MM-DD HH:mm"
             disabled={disabled}
             presets={presets}
           />

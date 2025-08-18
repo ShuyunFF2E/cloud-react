@@ -62,6 +62,7 @@ group:
 | isAppendToBody    | 下拉框是否渲染在 body 上                                                                                                                             | boolean                   | false             |
 | position          | 下拉框定位：`top` `bottom` `auto`（是否启用自动定位，如需使用可设置为`auto`）                                                                        | string                    | `bottom`          |
 | onChange          | 选中 option 变化时回调此函数，普通单选树回调包含第三个参数返回当前点击选项的原始数据，如不使用 dataSource 生成组件，则需手动指定 option 的 item 属性 | function(value, oldValue) | -                 |
+| selectInfoKey     | 下拉释义字段 key                                                                                                                                     | string                    | `selectInfo`      |
 
 ### Option Props
 
@@ -75,14 +76,7 @@ group:
 
 ### ImageText Props
 
-| 属性     | 说明         | 类型              | 默认值 |
-| -------- | ------------ | ----------------- | ------ |
-| imgSrc   | 图片地址     | string / ReactDom | -      |
-| imgStyle | 图片样式     | object            | {}     |
-| label    | 下拉标题     | string            | -      |
-| desc     | 下拉描述     | string            | -      |
-| disabled | 下拉禁用状态 | boolean           | false  |
-| icon     | 图标模板     | ReactDom          | -      |
+https://cloud-react.shuyun.com/v1/cloud-react/data/image-text
 
 ## 代码演示
 
@@ -109,6 +103,10 @@ group:
 ### 分组可搜索
 
 <embed src="@components/select/demos/groupSearch.md" />
+
+### 下拉选项释义
+
+<embed src="@components/select/demos/info.md" />
 
 ### 自定义下拉选项
 

@@ -1,7 +1,7 @@
 import React from 'react';
-import './index.less';
-import { prefixCls } from '../../../../utils';
+import { prefixCls } from '@utils';
 import LightText from '../light-text';
+import './index.less';
 
 const cls = `${prefixCls}-image-text`;
 

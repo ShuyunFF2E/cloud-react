@@ -26,6 +26,8 @@ export default function Option(props) {
     scrollItem,
     searchable,
     optionRender,
+    onHover = noop,
+    item,
     ...otherProps
   } = props;
 
@@ -56,6 +58,7 @@ export default function Option(props) {
     if (disabled) return;
 
     onChange(props);
+    onHover(null);
   };
   const classNames = classnames(
     `${selector}-option ${scrollItem ? 'scroll-item' : 'overflow-ellipsis'}`,
@@ -63,18 +66,34 @@ export default function Option(props) {
     className,
   );
 
+  const handleMouseEnter = () => {
+    if (onHover && item) {
+      onHover(item);
+    }
+  };
+  const handleMouseLeave = () => {
+    if (onHover) {
+      onHover(null);
+    }
+  };
+
   if (multiple) {
     const { value, children, checkboxStyle } = otherProps;
     return hideCheckbox ? (
-      // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
       <label
         className={classnames(classNames, `${selector}-multi-option`)}
         onClick={onUnlimitedChange}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
       >
         <span className="option-content" title={getTitle(children)}>{getLabel(children)}</span>
       </label>
     ) : (
-      <label className={classnames(classNames, `${selector}-multi-option`)}>
+      <label
+        className={classnames(classNames, `${selector}-multi-option`)}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
         <Checkbox
           style={checkboxStyle || {}}
           checked={isSelected}
@@ -99,6 +118,8 @@ export default function Option(props) {
         {...others}
         onClick={onOptionClick}
         className={classNames}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
       >
         <span className="option-content" title={getTitle(children)}>{getLabel(children)}</span>
         {isSelected && (

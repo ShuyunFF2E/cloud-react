@@ -627,3 +627,33 @@
     font-size: 12px;
   }
 }
+
+
+.@{select-prefix-cls}-select-panel-container {
+  display: flex;
+  position: relative;
+
+  .@{select-prefix-cls}-info-panel {
+    position: relative;
+    left: -2px;
+    padding: 0 12px 14px 12px;
+    color: #222;
+    font-size: 14px;
+    line-height: 22px;
+    z-index: 10;
+    border-left: 1px solid #E8E8E8;
+
+    &-title {
+      font-weight: 600;
+      font-size: 16px;
+      margin-bottom: 8px;
+      word-break: break-all;
+    }
+
+    &-content {
+      color: #666;
+      white-space: pre-line;
+      word-break: break-all;
+    }
+  }
+}
