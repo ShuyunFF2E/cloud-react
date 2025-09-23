@@ -24,13 +24,11 @@ class Picker extends Component {
 
 		this.state = {
 			currentValue: value ? formatValue(displayNow(new Date(value)), this.format) : defaultTime,
-			id: Math.random()
-				.toString()
-				.replace('.', ''),
+			id: Math.random().toString().replace('.', ''),
 			visible: open,
 			style: {},
 			prevProps: props,
-			checkFlag: true // 校验输入的日期格式是否正确
+			checkFlag: true, // 校验输入的日期格式是否正确
 		};
 
 		this.inpRef = createRef();
@@ -38,32 +36,46 @@ class Picker extends Component {
 
 		this.containerRef = createRef();
 
-		this.setYearChild = ref => {
+		this.setYearChild = (ref) => {
 			this.yearChild = ref;
 		};
-		this.setYearMonthChild = ref => {
+		this.setYearMonthChild = (ref) => {
 			this.yearMonthChild = ref;
 		};
-		this.setMonthDayChild = ref => {
+		this.setMonthDayChild = (ref) => {
 			this.monthDayChild = ref;
 		};
-		this.setDateChild = ref => {
+		this.setDateChild = (ref) => {
 			this.dateChild = ref;
 		};
 	}
 
 	static getDerivedStateFromProps(props, prevState) {
 		const { prevProps } = prevState;
+
+		// 如果是初始化状态（没有 prevProps）
+		if (!prevProps) {
+			return {
+				visible: props.open || false,
+				prevProps: props,
+			};
+		}
+
 		const { open } = props;
 		const { open: prevOpen } = prevProps;
 
+		// 只有当 open 属性真正发生变化时才更新状态
 		if (open !== prevOpen) {
 			return {
 				visible: open,
-				prevProps: props
+				prevProps: props,
 			};
 		}
-		return null;
+
+		// 更新 prevProps 但不改变 visible 状态
+		return {
+			prevProps: props,
+		};
 	}
 
 	componentDidMount() {
@@ -76,12 +88,14 @@ class Picker extends Component {
 	componentDidUpdate(prevProps) {
 		const { value: prevValue, open: prevOpen } = prevProps;
 		const { value, open } = this.props;
-		const { checkFlag } = this.state;
+		const { checkFlag, visible } = this.state;
 		if (prevValue !== value) {
 			const date = checkFlag && value ? displayNow(new Date(value)) : value;
 			this.handleValueChange(date, false);
 		}
-		if (prevOpen !== open) {
+
+		// 只有当 open 属性发生变化且与当前 visible 状态不一致时才调用 changeVisible
+		if (prevOpen !== open && open !== visible) {
 			this.changeVisible(open);
 		}
 	}
@@ -114,7 +128,7 @@ class Picker extends Component {
 		const { checkFlag } = this.state;
 		const value = (output && checkFlag) || isClickBtn ? this.props.formatValue(output) : output || '';
 		this.setState({
-			currentValue: value ? value.toString().replace(/-/g, '/') : ''
+			currentValue: value ? value.toString().replace(/-/g, '/') : '',
 		});
 		if (isPop) {
 			this.props.onChange(value);
@@ -154,7 +168,7 @@ class Picker extends Component {
 		return <DatePicker ref={this.setDateChild} {...this.props} checkValue={transformObj(checkValue)} onChange={this.onPopChange} />;
 	};
 
-	popClick = evt => {
+	popClick = (evt) => {
 		evt.stopPropagation();
 		if (evt.nativeEvent.stopImmediatePropagation) {
 			evt.nativeEvent.stopImmediatePropagation();
@@ -162,7 +176,7 @@ class Picker extends Component {
 	};
 
 	// 关闭时 校验输入的是否正确
-	handleClick = e => {
+	handleClick = (e) => {
 		const isClickPicker = this.containerRef.current.contains(e.target) || (this.popupRef.current && this.popupRef.current.contains(e.target));
 		const { checkFlag, visible, currentValue } = this.state;
 		const { tempMode, formatValue } = this.props;
@@ -188,14 +202,19 @@ class Picker extends Component {
 		}
 	};
 
-	changeVisible = isVisible => {
+	changeVisible = (isVisible) => {
+		// 防止重复设置相同的状态
+		if (this.state.visible === isVisible) {
+			return;
+		}
+
 		const { containerRef } = this;
 		const { id } = this.state;
 		const { containerEleClass, height, isAppendToBody, className } = this.props;
 
 		if (isVisible && id) {
 			this.setState({
-				visible: true
+				visible: true,
 			});
 
 			const style = this.positionPop();
@@ -209,7 +228,7 @@ class Picker extends Component {
 					containerRef.current,
 					<div className={`${selectorClass}-popup ${className}`} ref={this.popupRef} onClick={this.popClick}>
 						{this.renderMainPop()}
-					</div>
+					</div>,
 				);
 			}
 
@@ -229,7 +248,7 @@ class Picker extends Component {
 		}
 
 		this.setState({
-			visible: false
+			visible: false,
 		});
 		this.props.onClose();
 		destroyDOM(id, containerRef.current);
@@ -248,18 +267,18 @@ class Picker extends Component {
 				position: 'fixed',
 				left: isLocationAlignRight ? `${left - (POPUP_WIDTH - width)}px` : `${left}px`,
 				top: isLocationTop ? `${top - popupHeight}px` : `${bottom}px`,
-				marginTop
+				marginTop,
 			};
 		}
 		return {
 			top: isLocationTop ? `${-popupHeight}px` : `${height}px`,
 			left: isLocationAlignRight ? '' : '0px',
 			right: isLocationAlignRight ? '0px' : '',
-			marginTop
+			marginTop,
 		};
 	};
 
-	onClickInput = e => {
+	onClickInput = (e) => {
 		e.stopPropagation();
 		const { disabled } = this.props;
 		const { visible } = this.state;
@@ -291,9 +310,8 @@ class Picker extends Component {
 				currentValueTemp.length > lenRule || currentValueTemp.split('/').length > backslashRule + 1 ? currentValue.toString() : currentValueTemp;
 
 			this.setState({
-				currentValue: currentValueFinal
+				currentValue: currentValueFinal,
 			});
-
 			// 值改变的时候，日历要显示出来
 			if (!this.state.visible && currentValueFinal) {
 				this.changeVisible(true);
@@ -303,7 +321,7 @@ class Picker extends Component {
 			const checkFlag = currentValueFinal ? checkFormat(currentValueFinal.trim(), tempMode, showTimePicker) : true;
 
 			this.setState({
-				checkFlag
+				checkFlag,
 			});
 
 			// 校验通过 并且有值 日历选择联动
@@ -318,7 +336,16 @@ class Picker extends Component {
 					const afterV = currentValueFinal.trim().split(' ')[1]; // 拿到年月日时分秒的数值
 					const dealData = transformObj(currentValueFinal);
 					// hour: 'other', minute: 'other', second: 'other'  方式時分秒重置，具體看date-picker/grid.js配合使用
-					this.dateChild.changeCheckValue(afterV ? dealData : { ...dealData, hour: 'other', minute: 'other', second: 'other' });
+					this.dateChild.changeCheckValue(
+						afterV
+							? dealData
+							: {
+									...dealData,
+									hour: 'other',
+									minute: 'other',
+									second: 'other',
+							  },
+					);
 					// this.dateChild.changeCheckValue( afterV ? dealData : { ...dealData, hour: null, minute: null, second: null } );
 				}
 			}
@@ -354,7 +381,7 @@ class Picker extends Component {
 			// 校验年月日格式是否正确，正确 补全 校验设置为true；不正确 不补全
 			returnValue = this.props.formatValue(transformObj(formatValue(displayNow(new Date(`${currentValue.trim()} ${defaultTime}`)), this.format)));
 			this.setState({
-				currentValue: returnValue
+				currentValue: returnValue,
 			});
 		}
 
@@ -381,7 +408,7 @@ class Picker extends Component {
 			'minDate',
 			'tempMode',
 			'formatValue',
-			'integer'
+			'integer',
 		]);
 
 		return (
@@ -409,7 +436,7 @@ class Picker extends Component {
 						<div className={`${selectorClass}-popup ${className}`} ref={this.popupRef} style={{ ...style }} onClick={this.popClick}>
 							{this.renderMainPop()}
 						</div>,
-						this.portal
+						this.portal,
 					)}
 			</div>
 		);
@@ -427,7 +454,7 @@ Picker.propTypes = {
 	formatValue: PropTypes.func,
 	onChange: PropTypes.func,
 	onClose: PropTypes.func,
-	canEdit: PropTypes.bool
+	canEdit: PropTypes.bool,
 };
 
 Picker.defaultProps = {
@@ -441,7 +468,7 @@ Picker.defaultProps = {
 	formatValue: noop,
 	onChange: noop,
 	onClose: noop,
-	canEdit: false
+	canEdit: false,
 };
 
 export default Picker;
