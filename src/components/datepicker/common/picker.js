@@ -285,9 +285,15 @@ class Picker extends Component {
 
 		if (disabled) return;
 
-		// 如果不可见则显示面板
+		// 修复：无论面板是否可见，都重新激活它以确保正确显示
 		if (!visible) {
 			this.changeVisible(true);
+		} else {
+			// 先关闭再打开，确保面板能正确响应
+			this.changeVisible(false);
+			setTimeout(() => {
+				this.changeVisible(true);
+			}, 10);
 		}
 	};
 
