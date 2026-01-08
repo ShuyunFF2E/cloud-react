@@ -159,6 +159,7 @@ _setColumn 参数：_
 | isDelay              | 刷新表格时，是否延迟 loading，一般在纯前端表格中使用       | boolean | false  |     |
 | isCheckboxFixed      | 是否固定多选框列或单选框列                                 | boolean | false  |     |
 | ~~useCustomScroll~~  | ~~业务中是否使用自定义滚动条~~，无需设置，原设置过的不影响 | boolean | true   |     |
+| disableCalculateScroll | 是否禁用自定义滚动条的计算 | boolean | false   |     |
 | scrollIntoTop        | 翻页后表格自动滚到顶部                                     | boolean | true   |     |
 | reloadAfterSetColumn | 重新设置表格列后，是否需要刷新表格                         | boolean | false  |     |
 | disablePageOnLoad    | 切换分页，数据未返回时，是否需要禁用分页按钮               | boolean | true   |     |

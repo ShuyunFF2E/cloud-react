@@ -89,7 +89,7 @@ class CTable extends Component {
   }
 
   componentDidMount() {
-    this.hasCustomScroll = hasCustomScroll(this.props.useRootWindow);
+    this.hasCustomScroll = this.props.disableCalculateScroll ? false : hasCustomScroll(this.props.useRootWindow);
     if (
       (this.props.supportExpend || this.props.supportTree) &&
       !this.props.rowKey
